@@ -46,6 +46,30 @@
       "revId": "117f6ee8165852bf7f6c980520431b7fa9490757",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_da7ea4af",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-05-23T15:58:03Z",
+      "side": 1,
+      "message": "We overrode oparent so we could get cross-module test results and bump our sonar coverage. We could move it up into the policy/parent pom.xml for all repos to take advantage of. Or leave that to the choice of each repo. Ideally our JUnit tests in all repos were truly only testing the classes, and we add in *IT tests that would count cross coverage. But I would not want to go back and do that for policy/engine. Too much work there.",
+      "parentUuid": "5a93c517_9aba5c70",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "117f6ee8165852bf7f6c980520431b7fa9490757",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
