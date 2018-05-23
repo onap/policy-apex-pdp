@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_5a337462",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-05-23T14:50:42Z",
+      "side": 1,
+      "message": "Should this not be inherited from the parent POM?",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "117f6ee8165852bf7f6c980520431b7fa9490757",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
