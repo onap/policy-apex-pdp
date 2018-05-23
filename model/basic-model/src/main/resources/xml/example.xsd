@@ -1,0 +1,100 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://www.ericsson.com/apex" xmlns="http://www.ericsson.com/apex" xmlns:tns="http://www.ericsson.com/apex" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="apexArtifactKey" type="AxArtifactKey"/>
+
+  <xs:element name="apexKeyInfo" type="AxKeyInfo"/>
+
+  <xs:element name="apexModel" type="AxModel"/>
+
+  <xs:complexType name="AxModel">
+    <xs:complexContent>
+      <xs:extension base="AxConcept">
+        <xs:sequence>
+          <xs:element name="key" form="unqualified" type="AxArtifactKey"/>
+          <xs:element name="keyInformation" type="AxKeyInformation"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AxConcept" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="AxArtifactKey">
+    <xs:complexContent>
+      <xs:extension base="axKey">
+        <xs:sequence>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="version" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="axKey" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="AxConcept">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AxKeyInformation">
+    <xs:complexContent>
+      <xs:extension base="AxConcept">
+        <xs:sequence>
+          <xs:element name="key" form="unqualified" type="AxArtifactKey"/>
+          <xs:element name="keyInfoMap">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="entry" minOccurs="0" maxOccurs="unbounded" form="unqualified">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="key" form="unqualified" minOccurs="0" type="AxArtifactKey"/>
+                      <xs:element name="value" form="unqualified" minOccurs="0" type="AxKeyInfo"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AxKeyInfo">
+    <xs:complexContent>
+      <xs:extension base="AxConcept">
+        <xs:sequence>
+          <xs:element name="key" form="unqualified" type="AxArtifactKey"/>
+          <xs:element name="UUID" type="xs:string"/>
+          <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
+
+
