@@ -22,6 +22,30 @@
       "revId": "117f6ee8165852bf7f6c980520431b7fa9490757",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9aba5c70",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-23T15:47:57Z",
+      "side": 1,
+      "message": "Yes it is defined in pluginManagement of oparent but execution and configuration is overridden in this POM. \n\n@Pam/Jorge: Should this be applied for all policy modules i.e. core, models etc etc , i would move it in integration POM",
+      "parentUuid": "5a93c517_5a337462",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "117f6ee8165852bf7f6c980520431b7fa9490757",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
