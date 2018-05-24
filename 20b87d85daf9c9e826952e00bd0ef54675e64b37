@@ -22,6 +22,30 @@
       "revId": "20b87d85daf9c9e826952e00bd0ef54675e64b37",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_4e77313c",
+        "filename": "model/basic-model/src/test/java/org/onap/apex/model/basicmodel/handling/TestConceptGetter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-24T11:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_ae2a752d",
+      "range": {
+        "startLine": 61,
+        "startChar": 108,
+        "endLine": 61,
+        "endChar": 133
+      },
+      "revId": "20b87d85daf9c9e826952e00bd0ef54675e64b37",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
