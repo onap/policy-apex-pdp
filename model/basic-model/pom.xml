@@ -35,7 +35,7 @@
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.apex.apex-pdp.model</groupId>
-            <artifactId>utiliites</artifactId>
+            <artifactId>utilities</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

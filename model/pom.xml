@@ -34,7 +34,7 @@
     <description>The model for Apex, it comtains definitions of all Apex concepts and also has handling for Apex models.</description>
 
     <modules>
-        <module>utiliites</module>
+        <module>utilities</module>
         <module>basic-model</module>
     </modules>
 </project>
