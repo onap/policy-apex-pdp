@@ -1,0 +1,156 @@
+{
+   "apexContextModel" : {
+      "key" : {
+         "name" : "contextModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "KeyInfoMapKey",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "keyInfoEntry" : [ {
+               "key" : {
+                  "name" : "StringType",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000000",
+               "description" : "axContextType0"
+            }, {
+               "key" : {
+                  "name" : "MapType",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000001",
+               "description" : "axContextType1"
+            }, {
+               "key" : {
+                  "name" : "contextMap0",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000002",
+               "description" : "contextMap0"
+            }, {
+               "key" : {
+                  "name" : "contextMap1",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000003",
+               "description" : "contextMap1"
+            }, {
+               "key" : {
+                  "name" : "context",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000004",
+               "description" : "axContext"
+            }, {
+               "key" : {
+                  "name" : "contextModel",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000005",
+               "description" : "contextModel"
+            }, {
+               "key" : {
+                  "name" : "KeyInfoMapKey",
+                  "version" : "0.0.1"
+               },
+               "UUID" : "00000000-0000-0000-0000-000000000006",
+               "description" : "keyInformation"
+            } ]
+         }
+      },
+      "context" : {
+         "key" : {
+            "name" : "context",
+            "version" : "0.0.1"
+         },
+         "contextMaps" : {
+            "entry" : [ {
+               "key" : "contextMap0",
+               "value" : {
+                  "key" : {
+                     "name" : "contextMap0",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "APPLICATION",
+                  "mapType" : "BAG",
+                  "contextMap" : {
+                     "contextItem" : [ {
+                        "key" : "axContextItem0_0",
+                        "contextType" : {
+                           "key" : {
+                              "name" : "StringType",
+                              "version" : "0.0.1"
+                           },
+                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem000"
+                        },
+                        "isWritable" : true,
+                        "valueString" : ""
+                     }, {
+                        "key" : "axContextItem0_1",
+                        "contextType" : {
+                           "key" : {
+                              "name" : "MapType",
+                              "version" : "0.0.1"
+                           },
+                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem00A"
+                        },
+                        "isWritable" : true,
+                        "valueString" : ""
+                     }, {
+                        "key" : "axContextItem0_2",
+                        "contextType" : {
+                           "key" : {
+                              "name" : "StringType",
+                              "version" : "0.0.1"
+                           },
+                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem000"
+                        },
+                        "isWritable" : true,
+                        "valueString" : ""
+                     }, {
+                        "key" : "axContextItem0_3",
+                        "contextType" : {
+                           "key" : {
+                              "name" : "MapType",
+                              "version" : "0.0.1"
+                           },
+                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem00A"
+                        },
+                        "isWritable" : true,
+                        "valueString" : ""
+                     } ]
+                  }
+               }
+            }, {
+               "key" : "contextMap1",
+               "value" : {
+                  "key" : {
+                     "name" : "contextMap1",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "GLOBAL",
+                  "mapType" : "SAMETYPE",
+                  "templateContextItem" : {
+                     "key" : "axTemplateContextItem",
+                     "contextType" : {
+                        "key" : {
+                           "name" : "MapType",
+                           "version" : "0.0.1"
+                        },
+                        "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem00A"
+                     },
+                     "isWritable" : true
+                  },
+                  "contextMap" : {
+                     "contextItem" : [ ]
+                  }
+               }
+            } ]
+         }
+      }
+   }
+}
