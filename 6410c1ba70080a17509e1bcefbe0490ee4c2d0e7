@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_05b90415",
+        "filename": "model/context-model/src/test/resources/json/ContextModel.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-05-25T15:19:18Z",
+      "side": 1,
+      "message": "These paths are the wrong way round! Should be a.a.policy.apex",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 121,
+        "endChar": 73
+      },
+      "revId": "6410c1ba70080a17509e1bcefbe0490ee4c2d0e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
