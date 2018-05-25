@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -44,32 +44,30 @@ import org.onap.apex.model.basicmodel.dao.converters.CDATAConditioner;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class holds a data schema definition in Apex. A data schema describes the structure of a
- * single atom of data handled by Apex. This atom of data can be a primitive type such as an integer
- * or a string, or it can be a more complex data type such as a Java object or an object described
- * using a data definition language such as Avro. The schema flavour defines the type of schema
- * being defined and the schema itself defines the schema. The schema flavour is used by Apex to
- * look up and load a plugin class that understands and interprets the schema definition and can
+ * This class holds a data schema definition in Apex. A data schema describes the structure of a single atom of data
+ * handled by Apex. This atom of data can be a primitive type such as an integer or a string, or it can be a more
+ * complex data type such as a Java object or an object described using a data definition language such as Avro. The
+ * schema flavour defines the type of schema being defined and the schema itself defines the schema. The schema flavour
+ * is used by Apex to look up and load a plugin class that understands and interprets the schema definition and can
  * create instances of classes for the schema.
  * <p>
- * An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that
- * enter, exit, and are passed internally in Apex. In addition, an Apex {@link AxContextAlbum}
- * instances hold a map of {@link AxContextSchema} instances to represent the context being managed
- * as an {@link AxContextAlbum}. For example, the state of all cells in a mobile network might be
- * represented as an {@link AxContextAlbum} with its {@link AxContextSchema} being defined as @code
- * cell} objects.
+ * An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that enter, exit, and are
+ * passed internally in Apex. In addition, an Apex {@link AxContextAlbum} instances hold a map of
+ * {@link AxContextSchema} instances to represent the context being managed as an {@link AxContextAlbum}. For example,
+ * the state of all cells in a mobile network might be represented as an {@link AxContextAlbum} with its
+ * {@link AxContextSchema} being defined as @code cell} objects.
  * <p>
- * Validation checks that the schema key is not null. It also checks that the schema flavour is
- * defined and matches the regular expression {@link SCHEMA_FLAVOUR_REGEXP}. Finally, validation
- * checks that the defined schema is not a blank or empty string.
+ * Validation checks that the schema key is not null. It also checks that the schema flavour is defined and matches the
+ * regular expression {@link SCHEMA_FLAVOUR_REGEXP}. Finally, validation checks that the defined schema is not a blank
+ * or empty string.
  */
 @Entity
 @Table(name = "AxContextSchema")
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexContextSchema", namespace = "http://www.ericsson.com/apex")
-@XmlType(name = "AxContextSchema", namespace = "http://www.ericsson.com/apex",
-        propOrder = {"key", "schemaFlavour", "schemaDefinition"})
+@XmlRootElement(name = "apexContextSchema", namespace = "http://www.onap.org/policy/apex-pdp")
+@XmlType(name = "AxContextSchema", namespace = "http://www.onap.org/policy/apex-pdp",
+        propOrder = { "key", "schemaFlavour", "schemaDefinition" })
 
 public class AxContextSchema extends AxConcept {
     private static final String SCHEMA_FLAVOUR = "schemaFlavour";
@@ -101,9 +99,8 @@ public class AxContextSchema extends AxConcept {
     private String schemaDefinition;
 
     /**
-     * The default constructor creates a context schema with a null artifact key. The flavour of the
-     * context album is set as {@link SCHEMA_FLAVOUR_UNDEFINED} and the schema itself is defined as
-     * an empty string.
+     * The default constructor creates a context schema with a null artifact key. The flavour of the context album is
+     * set as {@link SCHEMA_FLAVOUR_UNDEFINED} and the schema itself is defined as an empty string.
      */
     public AxContextSchema() {
         this(new AxArtifactKey());
@@ -112,7 +109,7 @@ public class AxContextSchema extends AxConcept {
 
     /**
      * Copy constructor
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxContextSchema(final AxContextSchema copyConcept) {
@@ -120,9 +117,8 @@ public class AxContextSchema extends AxConcept {
     }
 
     /**
-     * The key constructor creates a context schema with the given artifact key. The flavour of the
-     * context album is set as {@link SCHEMA_FLAVOUR_UNDEFINED} and the schema itself is defined as
-     * an empty string.
+     * The key constructor creates a context schema with the given artifact key. The flavour of the context album is set
+     * as {@link SCHEMA_FLAVOUR_UNDEFINED} and the schema itself is defined as an empty string.
      *
      * @param key the key
      */
@@ -151,7 +147,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#getKey()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#getKey()
      */
     @Override
     public AxArtifactKey getKey() {
@@ -161,7 +157,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#getKeys()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#getKeys()
      */
     @Override
     public List<AxKey> getKeys() {
@@ -218,7 +214,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#validate(com.ericsson.apex.model.
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -256,7 +252,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#clean()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#clean()
      */
     @Override
     public void clean() {
@@ -268,7 +264,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#toString()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#toString()
      */
     @Override
     public String toString() {
@@ -288,8 +284,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#copyTo(com.ericsson.apex.model.
-     * basicmodel.concepts.AxConcept)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.apex.model. basicmodel.concepts.AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -309,7 +304,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#hashCode()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#hashCode()
      */
     @Override
     public int hashCode() {
@@ -324,7 +319,7 @@ public class AxContextSchema extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
      */
     @Override
     public boolean equals(final Object obj) {

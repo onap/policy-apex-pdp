@@ -1,19 +1,19 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -24,8 +24,9 @@ import org.onap.apex.model.basicmodel.concepts.AxValidationResult.ValidationResu
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * A validation message is created for each validation observation observed during validation of a concept. The message holds the key and
- * the class of the concept on which the observation was made as well as the type of observation and a message describing the observation.
+ * A validation message is created for each validation observation observed during validation of a concept. The message
+ * holds the key and the class of the concept on which the observation was made as well as the type of observation and a
+ * message describing the observation.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -43,7 +44,8 @@ public class AxValidationMessage {
      * @param validationResult the type of observation made
      * @param message a message describing the observation
      */
-    public AxValidationMessage(final AxKey observedKey, final Class<?> observedClass, final ValidationResult validationResult, final String message) {
+    public AxValidationMessage(final AxKey observedKey, final Class<?> observedClass,
+            final ValidationResult validationResult, final String message) {
         Assertions.argumentNotNull(observedKey, "observedKey may not be null");
         Assertions.argumentNotNull(observedClass, "observedClass may not be null");
         Assertions.argumentNotNull(validationResult, "validationResult may not be null");

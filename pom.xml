@@ -39,6 +39,7 @@
     <properties>
         <encoding>UTF-8</encoding>
         <file.encoding>UTF-8</file.encoding>
+        <version.derby>10.13.1.1</version.derby>
     </properties>
 
     <distributionManagement>

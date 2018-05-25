@@ -44,8 +44,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <appender name="FILE"
-        class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_DIR}/apex.log</file>
         <encoder>
             <pattern>%d %-5relative [procId=${processId}] [%thread] %-5level
@@ -53,8 +52,7 @@
         </encoder>
     </appender>
 
-    <appender name="CTXT_FILE"
-        class="ch.qos.logback.core.FileAppender">
+    <appender name="CTXT_FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_DIR}/apex_ctxt.log</file>
         <encoder>
             <pattern>%d %-5relative [procId=${processId}] [%thread] %-5level
@@ -62,11 +60,11 @@
         </encoder>
     </appender>
 
-    <logger name="com.ericsson.apex.core.context.impl.monitoring" level="TRACE" additivity="false">
+    <logger name="org.onap.apex.core.context.impl.monitoring" level="TRACE" additivity="false">
         <appender-ref ref="CTXT_FILE" />
     </logger>
 
-    <logger name="com.ericsson.apex.core.context" level="INFO" additivity="false">
+    <logger name="org.onap.apex.core.context" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>

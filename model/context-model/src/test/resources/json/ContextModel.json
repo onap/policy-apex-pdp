@@ -85,7 +85,7 @@
                               "name" : "StringType",
                               "version" : "0.0.1"
                            },
-                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem000"
+                           "javaType" : "org.onap.apex.core.contextmodel.concepts.TestContextItem000"
                         },
                         "isWritable" : true,
                         "valueString" : ""
@@ -96,7 +96,7 @@
                               "name" : "MapType",
                               "version" : "0.0.1"
                            },
-                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem00A"
+                           "javaType" : "org.onap.apex.core.contextmodel.concepts.TestContextItem00A"
                         },
                         "isWritable" : true,
                         "valueString" : ""
@@ -107,7 +107,7 @@
                               "name" : "StringType",
                               "version" : "0.0.1"
                            },
-                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem000"
+                           "javaType" : "org.onap.apex.core.contextmodel.concepts.TestContextItem000"
                         },
                         "isWritable" : true,
                         "valueString" : ""
@@ -118,7 +118,7 @@
                               "name" : "MapType",
                               "version" : "0.0.1"
                            },
-                           "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem00A"
+                           "javaType" : "org.onap.apex.core.contextmodel.concepts.TestContextItem00A"
                         },
                         "isWritable" : true,
                         "valueString" : ""
@@ -141,7 +141,7 @@
                            "name" : "MapType",
                            "version" : "0.0.1"
                         },
-                        "javaType" : "com.ericsson.apex.core.contextmodel.concepts.TestContextItem00A"
+                        "javaType" : "org.onap.apex.core.contextmodel.concepts.TestContextItem00A"
                      },
                      "isWritable" : true
                   },

@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -51,22 +51,21 @@ import org.onap.apex.model.basicmodel.concepts.AxValidationResult.ValidationResu
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is a context album container and holds a map of the context albums for an entire Apex
- * model. All Apex models that use context albums must have an {@link AxContextAlbums} field. The
- * {@link AxContextAlbums} class implements the helper methods of the {@link AxConceptGetter}
- * interface to allow {@link AxContextAlbum} instances to be retrieved by calling methods directly
- * on this class without referencing the contained map.
+ * This class is a context album container and holds a map of the context albums for an entire Apex model. All Apex
+ * models that use context albums must have an {@link AxContextAlbums} field. The {@link AxContextAlbums} class
+ * implements the helper methods of the {@link AxConceptGetter} interface to allow {@link AxContextAlbum} instances to
+ * be retrieved by calling methods directly on this class without referencing the contained map.
  * <p>
- * Validation checks that the container key is not null. An observation is issued if no context
- * albums are defined in the container. If context albums do exist, they are checked to ensure that
- * keys and values are not null and that the map key matches the key in the map value for all album
- * entries. Each context album entry is then validated individually.
+ * Validation checks that the container key is not null. An observation is issued if no context albums are defined in
+ * the container. If context albums do exist, they are checked to ensure that keys and values are not null and that the
+ * map key matches the key in the map value for all album entries. Each context album entry is then validated
+ * individually.
  */
 @Entity
 @Table(name = "AxContextAlbums")
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxContextAlbums", namespace = "http://www.ericsson.com/apex", propOrder = {"key", "albums"})
+@XmlType(name = "AxContextAlbums", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "key", "albums" })
 
 public final class AxContextAlbums extends AxConcept implements AxConceptGetter<AxContextAlbum> {
     private static final long serialVersionUID = -4844259809024470975L;
@@ -84,8 +83,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     // @formatter:on
 
     /**
-     * The Default Constructor creates a {@link AxContextAlbums} object with a null artifact key and
-     * creates an empty context album map.
+     * The Default Constructor creates a {@link AxContextAlbums} object with a null artifact key and creates an empty
+     * context album map.
      */
     public AxContextAlbums() {
         this(new AxArtifactKey());
@@ -93,7 +92,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
 
     /**
      * Copy constructor
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxContextAlbums(final AxContextAlbums copyConcept) {
@@ -101,8 +100,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     /**
-     * The Key Constructor creates a {@link AxContextAlbums} object with the given artifact key and
-     * creates an empty context album map.
+     * The Key Constructor creates a {@link AxContextAlbums} object with the given artifact key and creates an empty
+     * context album map.
      *
      * @param key the key of the context album container
      */
@@ -127,10 +126,9 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the context album map is
-     * returned as a raw hash map. This method is called by JAXB after unmarshaling and is used to
-     * convert the hash map to a {@link NavigableMap} so that it will work with the
-     * {@link AxConceptGetter} interface.
+     * When a model is unmarshalled from disk or from the database, the context album map is returned as a raw hash map.
+     * This method is called by JAXB after unmarshaling and is used to convert the hash map to a {@link NavigableMap} so
+     * that it will work with the {@link AxConceptGetter} interface.
      *
      * @param u the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
@@ -146,7 +144,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#getKey()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#getKey()
      */
     @Override
     public AxArtifactKey getKey() {
@@ -156,7 +154,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#getKeys()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#getKeys()
      */
     @Override
     public List<AxKey> getKeys() {
@@ -202,7 +200,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#clean()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#clean()
      */
     @Override
     public void clean() {
@@ -216,7 +214,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#toString()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#toString()
      */
     @Override
     public String toString() {
@@ -236,7 +234,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#validate(com.ericsson.apex.model.
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -281,8 +279,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#copyTo(com.ericsson.apex.model.
-     * basicmodel.concepts.AxConcept)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.apex.model. basicmodel.concepts.AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -306,7 +303,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#hashCode()
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#hashCode()
      */
     @Override
     public int hashCode() {
@@ -320,7 +317,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
      */
     @Override
     public boolean equals(final Object obj) {
@@ -373,7 +370,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConceptGetter#get(com.ericsson.apex.model.
+     * @see org.onap.apex.model.basicmodel.concepts.AxConceptGetter#get(org.onap.apex.model.
      * basicmodel.concepts.AxArtifactKey)
      */
     @Override
@@ -384,7 +381,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
      */
     @Override
     public AxContextAlbum get(final String conceptKeyName) {
@@ -394,8 +391,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String,
-     * java.lang.String)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
      */
     @Override
     public AxContextAlbum get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -406,7 +402,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
      */
     @Override
     public Set<AxContextAlbum> getAll(final String conceptKeyName) {
@@ -416,8 +412,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String,
-     * java.lang.String)
+     * @see org.onap.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
      */
     @Override
     public Set<AxContextAlbum> getAll(final String conceptKeyName, final String conceptKeyVersion) {

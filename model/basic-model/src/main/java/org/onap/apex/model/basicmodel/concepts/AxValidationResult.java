@@ -1,19 +1,19 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -35,12 +35,19 @@ public class AxValidationResult {
     public enum ValidationResult {
         /** No problems or observations were detected during validation. */
         VALID,
-        /** Observations were made on a concept (such as blank descriptions) of a nature that will not affect the use of the concept. */
+        /**
+         * Observations were made on a concept (such as blank descriptions) of a nature that will not affect the use of
+         * the concept.
+         */
         OBSERVATION,
-        /** Warnings were made on a concept (such as defined but unused concepts) of a nature that may affect the use of the concept. */
+        /**
+         * Warnings were made on a concept (such as defined but unused concepts) of a nature that may affect the use of
+         * the concept.
+         */
         WARNING,
         /**
-         * Errors were detected on a concept (such as referenced but undefined concepts) of a nature that will affect the use of the concept.
+         * Errors were detected on a concept (such as referenced but undefined concepts) of a nature that will affect
+         * the use of the concept.
          */
         INVALID
     }
@@ -52,8 +59,8 @@ public class AxValidationResult {
     private final List<AxValidationMessage> messageList = new LinkedList<>();
 
     /**
-     * Check if a validation reported a valid concept, returns true if the model is usable (that is, even if the model has warnings or
-     * observations).
+     * Check if a validation reported a valid concept, returns true if the model is usable (that is, even if the model
+     * has warnings or observations).
      *
      * @return true, if the concept is reported as valid and can be used
      */
@@ -89,8 +96,8 @@ public class AxValidationResult {
     }
 
     /**
-     * Adds a validation message to the validation result, used by validate() implementations on {@link AxConcept} subclasses to report
-     * validaiton observations.
+     * Adds a validation message to the validation result, used by validate() implementations on {@link AxConcept}
+     * subclasses to report validaiton observations.
      *
      * @param validationMessage the validation message
      */
@@ -115,23 +122,23 @@ public class AxValidationResult {
         final StringBuilder builder = new StringBuilder();
 
         switch (validationResult) {
-        case VALID:
+            case VALID:
 
-        builder.append("***validation of model successful***");
-            return builder.toString();
-        case OBSERVATION:
+                builder.append("***validation of model successful***");
+                return builder.toString();
+            case OBSERVATION:
 
-        builder.append("\n***observations noted during validation of model***\n");
-            break;
-        case WARNING:
+                builder.append("\n***observations noted during validation of model***\n");
+                break;
+            case WARNING:
 
-        builder.append("\n***warnings issued during validation of model***\n");
-            break;
-        case INVALID:
-        builder.append("\n***validation of model failed***\n");
-            break;
-        default:
-            break;
+                builder.append("\n***warnings issued during validation of model***\n");
+                break;
+            case INVALID:
+                builder.append("\n***validation of model failed***\n");
+                break;
+            default:
+                break;
         }
 
         for (final AxValidationMessage message : messageList) {
