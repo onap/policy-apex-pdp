@@ -1,19 +1,19 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -42,18 +42,20 @@ import org.onap.apex.model.basicmodel.dao.converters.UUID2String;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * The key information on an {@link AxArtifactKey} key in an Apex policy model. Each {@link AxArtifactKey} must have an {@link AxKeyInfo} object. THe
- * information held is the key's UUID and it's description.
+ * The key information on an {@link AxArtifactKey} key in an Apex policy model. Each {@link AxArtifactKey} must have an
+ * {@link AxKeyInfo} object. THe information held is the key's UUID and it's description.
  * <p>
- * Validation checks that all fields are defined and that the key is valid. It also observes that descriptions are blank and warns if the UUID is a zero UUID.
+ * Validation checks that all fields are defined and that the key is valid. It also observes that descriptions are blank
+ * and warns if the UUID is a zero UUID.
  */
 
 @Entity
 @Table(name = "AxKeyInfo")
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexKeyInfo", namespace = "http://www.ericsson.com/apex")
-@XmlType(name = "AxKeyInfo", namespace = "http://www.ericsson.com/apex", propOrder = { "key", "uuid", "description" })
+@XmlRootElement(name = "apexKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp")
+@XmlType(name = "AxKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp",
+        propOrder = { "key", "uuid", "description" })
 
 public class AxKeyInfo extends AxConcept {
     private static final long serialVersionUID = -4023935924068914308L;
@@ -86,12 +88,13 @@ public class AxKeyInfo extends AxConcept {
 
     /**
      * Copy constructor
+     *
      * @param copyConcept the concept to copy from
      */
     public AxKeyInfo(final AxKeyInfo copyConcept) {
-    		super(copyConcept);
+        super(copyConcept);
     }
-    
+
     /**
      * Constructor to create this concept with the specified key.
      *
@@ -190,24 +193,28 @@ public class AxKeyInfo extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#validate(com. ericsson.apex.model.basicmodel.concepts.AxValidationResult)
+     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#validate(com.
+     * ericsson.apex.model.basicmodel.concepts.AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(
+                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (description.trim().length() == 0) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION, "description is blank"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
+                    "description is blank"));
         }
 
         if (uuid.equals(new UUID(0, 0))) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING, "UUID is a zero UUID: " + new UUID(0, 0)));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
+                    "UUID is a zero UUID: " + new UUID(0, 0)));
         }
 
         return result;
@@ -244,13 +251,14 @@ public class AxKeyInfo extends AxConcept {
         return builder.toString();
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#copyTo(com.ericsson.apex.model.basicmodel.concepts.AxConcept)
-	 */
-	@Override
-	public AxConcept copyTo(final AxConcept target) {
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#copyTo(com.ericsson.apex.model.basicmodel.concepts.
+     * AxConcept)
+     */
+    @Override
+    public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
         final Object copyObject = target;
@@ -345,11 +353,10 @@ public class AxKeyInfo extends AxConcept {
         final Random random;
         if (seed != null && seed.length() > 0) {
             random = new Random(seed.hashCode());
-        }
-        else {
+        } else {
             random = new Random();
         }
-        byte[] array = new byte[UUID_BYTE_LENGTH_16];
+        final byte[] array = new byte[UUID_BYTE_LENGTH_16];
         random.nextBytes(array);
         return UUID.nameUUIDFromBytes(array);
     }
