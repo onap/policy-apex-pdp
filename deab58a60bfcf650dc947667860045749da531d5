@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_c5023c09",
+        "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxConceptGetterImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-05-25T14:30:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_3ac53f3d",
+      "range": {
+        "startLine": 52,
+        "startChar": 71,
+        "endLine": 53,
+        "endChar": 20
+      },
+      "revId": "deab58a60bfcf650dc947667860045749da531d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_dac1bb30",
         "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxKeyInfo.java",
         "patchSetId": 3
@@ -83,6 +107,30 @@
       "writtenOn": "2018-05-25T12:26:14Z",
       "side": 1,
       "message": "Here too, maybe do a find . -name \"*.java\" -exec grep \"com\\.ericsson\\.apex\" {} \\; -print on the directory",
+      "range": {
+        "startLine": 196,
+        "startChar": 71,
+        "endLine": 197,
+        "endChar": 15
+      },
+      "revId": "deab58a60bfcf650dc947667860045749da531d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_850c343d",
+        "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-05-25T14:30:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_dac1bb30",
       "range": {
         "startLine": 196,
         "startChar": 71,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_2511a053",
+        "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxKeyUse.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-05-25T14:30:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_9adb3321",
+      "range": {
+        "startLine": 110,
+        "startChar": 75,
+        "endLine": 111,
+        "endChar": 15
+      },
+      "revId": "deab58a60bfcf650dc947667860045749da531d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_bae06fcd",
         "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxModel.java",
         "patchSetId": 3
@@ -129,6 +201,30 @@
       "writtenOn": "2018-05-25T12:26:14Z",
       "side": 1,
       "message": "Another one....",
+      "range": {
+        "startLine": 191,
+        "startChar": 71,
+        "endLine": 192,
+        "endChar": 15
+      },
+      "revId": "deab58a60bfcf650dc947667860045749da531d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_450e2c34",
+        "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-05-25T14:30:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_bae06fcd",
       "range": {
         "startLine": 191,
         "startChar": 71,
@@ -164,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_e51ad86e",
+        "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxReferenceKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-05-25T14:30:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_7aeae7ad",
+      "range": {
+        "startLine": 374,
+        "startChar": 75,
+        "endLine": 375,
+        "endChar": 15
+      },
+      "revId": "deab58a60bfcf650dc947667860045749da531d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_3acc5f61",
         "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxReferenceKey.java",
         "patchSetId": 3
@@ -175,6 +295,30 @@
       "writtenOn": "2018-05-25T12:26:14Z",
       "side": 1,
       "message": "Another one....",
+      "range": {
+        "startLine": 390,
+        "startChar": 71,
+        "endLine": 391,
+        "endChar": 15
+      },
+      "revId": "deab58a60bfcf650dc947667860045749da531d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_05182474",
+        "filename": "model/basic-model/src/main/java/org/onap/apex/model/basicmodel/concepts/AxReferenceKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-05-25T14:30:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_3acc5f61",
       "range": {
         "startLine": 390,
         "startChar": 71,
