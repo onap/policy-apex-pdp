@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -44,22 +44,21 @@ import org.onap.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * A container class for an Apex context model. This class is a container class that allows an Apex
- * model to be constructed that just contains context and the key information for that context. The
- * model contains schema definitions and the definitions of context albums that use those schemas.
- * In the case where Apex context is being used without policy or independent of policy, an Apex
- * context model is sufficient to get Apex context working.
+ * A container class for an Apex context model. This class is a container class that allows an Apex model to be
+ * constructed that just contains context and the key information for that context. The model contains schema
+ * definitions and the definitions of context albums that use those schemas. In the case where Apex context is being
+ * used without policy or independent of policy, an Apex context model is sufficient to get Apex context working.
  * <p>
- * Validation runs {@link AxModel} validation on the model. In addition, the
- * {@link AxContextSchemas} and {@link AxContextAlbums} validation is run on the context schemas and
- * albums in the model.
+ * Validation runs {@link AxModel} validation on the model. In addition, the {@link AxContextSchemas} and
+ * {@link AxContextAlbums} validation is run on the context schemas and albums in the model.
  */
 @Entity
 @Table(name = "AxContextModel")
 
-@XmlRootElement(name = "apexContextModel", namespace = "http://www.ericsson.com/apex")
+@XmlRootElement(name = "apexContextModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxContextModel", namespace = "http://www.ericsson.com/apex", propOrder = {"schemas", "albums"})
+@XmlType(name = "AxContextModel", namespace = "http://www.onap.org/policy/apex-pdp",
+        propOrder = { "schemas", "albums" })
 
 public class AxContextModel extends AxModel {
     private static final long serialVersionUID = 8800599637708309945L;
@@ -83,16 +82,16 @@ public class AxContextModel extends AxModel {
     // @formatter:on
 
     /**
-     * The Default Constructor creates a {@link AxContextModel} object with a null artifact key and
-     * creates an empty context model.
+     * The Default Constructor creates a {@link AxContextModel} object with a null artifact key and creates an empty
+     * context model.
      */
     public AxContextModel() {
         this(new AxArtifactKey());
     }
 
     /**
-     * The Key Constructor creates a {@link AxContextModel} object with the given artifact key and
-     * creates an empty context model.
+     * The Key Constructor creates a {@link AxContextModel} object with the given artifact key and creates an empty
+     * context model.
      *
      * @param key the key of the context model
      */
@@ -104,7 +103,7 @@ public class AxContextModel extends AxModel {
 
     /**
      * Copy constructor
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxContextModel(final AxContextModel copyConcept) {
@@ -112,8 +111,8 @@ public class AxContextModel extends AxModel {
     }
 
     /**
-     * Constructor that initiates a {@link AxContextModel} with schemas and keys for those schemas.
-     * An empty {@link AxContextAlbums} container is created.
+     * Constructor that initiates a {@link AxContextModel} with schemas and keys for those schemas. An empty
+     * {@link AxContextAlbums} container is created.
      *
      * @param key the key of the context model
      * @param schemas the context schema definitions

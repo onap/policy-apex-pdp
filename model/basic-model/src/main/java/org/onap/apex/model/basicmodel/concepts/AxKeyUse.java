@@ -1,19 +1,19 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -26,9 +26,9 @@ import org.onap.apex.model.basicmodel.concepts.AxValidationResult.ValidationResu
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class records a usage of a key in the system. When the list of keys being used by a concept is built using the getKeys() method of
- * the {@link AxConcept} class, an instance of this class is created for every key occurrence. The list of keys returned by the getKeys()
- * method is a list of {@link AxKeyUse} objects.
+ * This class records a usage of a key in the system. When the list of keys being used by a concept is built using the
+ * getKeys() method of the {@link AxConcept} class, an instance of this class is created for every key occurrence. The
+ * list of keys returned by the getKeys() method is a list of {@link AxKeyUse} objects.
  * <p>
  * Validation checks that each key is valid.
  */
@@ -47,12 +47,13 @@ public class AxKeyUse extends AxKey {
 
     /**
      * Copy constructor
+     * 
      * @param copyConcept the concept to copy from
      */
     public AxKeyUse(final AxKeyUse copyConcept) {
-    		super(copyConcept);
+        super(copyConcept);
     }
-    
+
     /**
      * This constructor creates an instance of this class, and holds a reference to a used key.
      *
@@ -106,7 +107,8 @@ public class AxKeyUse extends AxKey {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxKey#getCompatibility(com. ericsson.apex.model.basicmodel.concepts.AxKey)
+     * @see com.ericsson.apex.model.basicmodel.concepts.AxKey#getCompatibility(com.
+     * ericsson.apex.model.basicmodel.concepts.AxKey)
      */
     @Override
     public AxKey.Compatibility getCompatibility(final AxKey otherKey) {
@@ -116,7 +118,8 @@ public class AxKeyUse extends AxKey {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxKey#isCompatible(com. ericsson.apex.model.basicmodel.concepts.AxKey)
+     * @see com.ericsson.apex.model.basicmodel.concepts.AxKey#isCompatible(com.
+     * ericsson.apex.model.basicmodel.concepts.AxKey)
      */
     @Override
     public boolean isCompatible(final AxKey otherKey) {
@@ -126,13 +129,14 @@ public class AxKeyUse extends AxKey {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#validate(com. ericsson.apex.model.basicmodel.concepts.AxValidationResult)
+     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#validate(com.
+     * ericsson.apex.model.basicmodel.concepts.AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
         if (usedKey.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(usedKey, this.getClass(), ValidationResult.INVALID, "usedKey is a null key"));
+            result.addValidationMessage(new AxValidationMessage(usedKey, this.getClass(), ValidationResult.INVALID,
+                    "usedKey is a null key"));
         }
         return usedKey.validate(result);
     }
@@ -163,13 +167,14 @@ public class AxKeyUse extends AxKey {
         return builder.toString();
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#copyTo(com.ericsson.apex.model.basicmodel.concepts.AxConcept)
-	 */
-	@Override
-	public AxConcept copyTo(final AxConcept target) {
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.ericsson.apex.model.basicmodel.concepts.AxConcept#copyTo(com.ericsson.apex.model.basicmodel.concepts.
+     * AxConcept)
+     */
+    @Override
+    public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
         final Object copyObject = target;
@@ -177,13 +182,12 @@ public class AxKeyUse extends AxKey {
 
         final AxKeyUse copy = ((AxKeyUse) copyObject);
         try {
-			copy.usedKey = usedKey.getClass().newInstance();
-		}
-        catch (Exception e) {
-        	throw new ApexRuntimeException("error copying concept key: " + e.getMessage(), e);
-		}
+            copy.usedKey = usedKey.getClass().newInstance();
+        } catch (final Exception e) {
+            throw new ApexRuntimeException("error copying concept key: " + e.getMessage(), e);
+        }
         usedKey.copyTo(copy.usedKey);
-        
+
         return copy;
     }
 

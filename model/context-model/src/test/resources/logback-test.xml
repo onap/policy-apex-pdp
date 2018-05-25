@@ -40,7 +40,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="com.ericsson.apex.core.contextmodel" level="TRACE" additivity="false">
+    <logger name="org.onap.apex.core.contextmodel" level="TRACE" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
@@ -68,11 +68,11 @@
         </encoder>
     </appender>
 
-    <logger name="com.ericsson.apex.core.context.impl.monitoring" level="TRACE" additivity="false">
+    <logger name="org.onap.apex.core.context.impl.monitoring" level="TRACE" additivity="false">
         <appender-ref ref="CTXT_FILE" />
     </logger>
 
-    <logger name="com.ericsson.apex.core.context" level="INFO" additivity="false">
+    <logger name="org.onap.apex.core.context" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>

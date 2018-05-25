@@ -1,19 +1,19 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -28,13 +28,13 @@ import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is the base class for all Apex concept classes. It enforces implementation of abstract methods and interfaces on all concepts
- * that are sub-classes of this class.
+ * This class is the base class for all Apex concept classes. It enforces implementation of abstract methods and
+ * interfaces on all concepts that are sub-classes of this class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 
-@XmlType(name = "AxConcept", namespace = "http://www.ericsson.com/apex")
+@XmlType(name = "AxConcept", namespace = "http://www.onap.org/policy/apex-pdp")
 
 public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     private static final long serialVersionUID = -7434939557282697490L;
@@ -42,18 +42,18 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     /**
      * Default constructor
      */
-    public AxConcept() {
-    }
-    
+    public AxConcept() {}
+
     /**
      * Copy constructor
+     * 
      * @param copyConcept the concept to copy from
      */
     public AxConcept(final AxConcept copyConcept) {
         Assertions.argumentNotNull(copyConcept, "copy concept may not be null");
-    		copyConcept.copyTo(this);
+        copyConcept.copyTo(this);
     }
-    
+
     /**
      * Gets the key of this concept.
      *
@@ -62,7 +62,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     public abstract AxKey getKey();
 
     /**
-     * Gets a list of all keys for this concept and all concepts that are defined or referenced by this concept and its sub-concepts.
+     * Gets a list of all keys for this concept and all concepts that are defined or referenced by this concept and its
+     * sub-concepts.
      *
      * @return the keys used by this concept and it's contained concepts
      */
@@ -72,7 +73,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      * Validate that this concept is structurally correct.
      *
      * @param result the parameter in which the result of the validation will be returned
-     * @return the validation result that was passed in in the @{link result} field with the result of this validation added
+     * @return the validation result that was passed in in the @{link result} field with the result of this validation
+     *         added
      */
     public abstract AxValidationResult validate(AxValidationResult result);
 
