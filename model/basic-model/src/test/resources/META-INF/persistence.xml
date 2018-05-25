@@ -23,14 +23,14 @@
     <persistence-unit name="DAOTest" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>org.onap.apex.model.basicmodel.dao.converters.CDATAConditioner</class>
-        <class>org.onap.apex.model.basicmodel.dao.converters.UUID2String</class>
-        <class>org.onap.apex.model.basicmodel.concepts.AxArtifactKey</class>
-        <class>org.onap.apex.model.basicmodel.concepts.AxReferenceKey</class>
-        <class>org.onap.apex.model.basicmodel.concepts.AxKeyInfo</class>
-        <class>org.onap.apex.model.basicmodel.concepts.AxKeyInformation</class>
-        <class>org.onap.apex.model.basicmodel.concepts.AxModel</class>
-        <class>org.onap.apex.model.basicmodel.concepts.TestEntity</class>
+        <class>org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner</class>
+        <class>org.onap.policy.apex.model.basicmodel.dao.converters.UUID2String</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.AxModel</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.TestEntity</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:apex_test" />
