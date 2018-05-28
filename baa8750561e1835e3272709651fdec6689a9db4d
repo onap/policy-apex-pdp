@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_cd99fed1",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/ApexModelFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-28T13:43:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_6a07701e",
+      "range": {
+        "startLine": 64,
+        "startChar": 67,
+        "endLine": 64,
+        "endChar": 84
+      },
+      "revId": "baa8750561e1835e3272709651fdec6689a9db4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_0d1b6674",
         "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/TestApexEditorAPIPolicy.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-28T13:33:27Z",
       "side": 1,
       "message": "This comment is not needed any more.",
+      "range": {
+        "startLine": 55,
+        "startChar": 90,
+        "endLine": 60,
+        "endChar": 99
+      },
+      "revId": "baa8750561e1835e3272709651fdec6689a9db4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ed9e3ab8",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/TestApexEditorAPIPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-28T13:43:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_0d1b6674",
       "range": {
         "startLine": 55,
         "startChar": 90,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_8da3f6ff",
+        "filename": "model/policy-model/src/test/java/com/ericsson/apex/model/policymodel/utils/PolicyModelValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-28T13:43:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_6d630ade",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "baa8750561e1835e3272709651fdec6689a9db4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_0d3286f2",
         "filename": "model/policy-model/src/test/java/com/ericsson/apex/model/policymodel/utils/PolicyModelValidator.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-05-28T13:33:27Z",
       "side": 1,
       "message": "This one will probably cause problems in Sonar but let\u0027s let it through. It\u0027s a command line utility to validate policy models. I think it\u0027s superseded by the CLI editor. You can do this in the CLI editor as well.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "baa8750561e1835e3272709651fdec6689a9db4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ada832dc",
+        "filename": "model/policy-model/src/test/java/com/ericsson/apex/model/policymodel/utils/PolicyModelValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-28T13:43:31Z",
+      "side": 1,
+      "message": "Okay",
+      "parentUuid": "5a93c517_0d3286f2",
       "range": {
         "startLine": 32,
         "startChar": 4,
