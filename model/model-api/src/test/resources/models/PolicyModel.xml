@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+
+<apexPolicyModel xmlns="http://www.onap.org/policy/apex-pdp">
+    <key>
+        <name>PolicyModel</name>
+        <version>0.0.1</version>
+    </key>
+    <keyInformation>
+        <key>
+            <name>KeyInfoMapKey</name>
+            <version>0.0.1</version>
+        </key>
+        <keyInfoMap>
+            <entry>
+                <key>
+                    <name>ContextSchemas</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>ContextSchemas</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e000</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "ContextSchemas:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>KeyInfoMapKey</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>KeyInfoMapKey</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e001</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "KeyInfoMapKey:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>MapType</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>MapType</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e002</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "MapType:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>PolicyModel</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>PolicyModel</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e003</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "PolicyModel:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>StringType</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>StringType</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e004</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "StringType:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>context</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>context</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e005</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "context:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>contextAlbum0</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>contextAlbum0</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e006</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "contextAlbum0:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>contextAlbum1</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>contextAlbum1</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e007</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "contextAlbum1:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>eventContextItem0</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>eventContextItem0</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e008</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "eventContextItem0:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>eventContextItem1</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>eventContextItem1</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e009</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "eventContextItem1:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>events</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>events</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e010</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "events:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>inEvent</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>inEvent</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e011</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "inEvent:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>outEvent0</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>outEvent0</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e012</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "outEvent0:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>outEvent1</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>outEvent1</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e013</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "outEvent1:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>policies</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>policies</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e014</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "policies:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>policy</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>policy</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e015</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "policy:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>task</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>task</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e016</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "task:0.0.1"]]></description>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>tasks</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>tasks</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <UUID>0ce9168c-e6df-414f-9646-6da464b6e017</UUID>
+                    <description><![CDATA[Generated description for concept referred to by key "tasks:0.0.1"]]></description>
+                </value>
+            </entry>
+        </keyInfoMap>
+    </keyInformation>
+    <policies>
+        <key>
+            <name>policies</name>
+            <version>0.0.1</version>
+        </key>
+        <policyMap>
+            <entry>
+                <key>
+                    <name>policy</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <policyKey>
+                        <name>policy</name>
+                        <version>0.0.1</version>
+                    </policyKey>
+                    <template>FREEFORM</template>
+                    <state>
+                        <entry>
+                            <key>state</key>
+                            <value>
+                                <stateKey>
+                                    <parentKeyName>policy</parentKeyName>
+                                    <parentKeyVersion>0.0.1</parentKeyVersion>
+                                    <parentLocalName>NULL</parentLocalName>
+                                    <localName>state</localName>
+                                </stateKey>
+                                <trigger>
+                                    <name>inEvent</name>
+                                    <version>0.0.1</version>
+                                </trigger>
+                                <stateOutputs>
+                                    <entry>
+                                        <key>stateOutput0</key>
+                                        <value>
+                                            <key>
+                                                <parentKeyName>policy</parentKeyName>
+                                                <parentKeyVersion>0.0.1</parentKeyVersion>
+                                                <parentLocalName>state</parentLocalName>
+                                                <localName>stateOutput0</localName>
+                                            </key>
+                                            <outgoingEvent>
+                                                <name>outEvent0</name>
+                                                <version>0.0.1</version>
+                                            </outgoingEvent>
+                                            <nextState>
+                                                <parentKeyName>NULL</parentKeyName>
+                                                <parentKeyVersion>0.0.0</parentKeyVersion>
+                                                <parentLocalName>NULL</parentLocalName>
+                                                <localName>NULL</localName>
+                                            </nextState>
+                                        </value>
+                                    </entry>
+                                </stateOutputs>
+                                <contextAlbumReference>
+                                    <name>contextAlbum0</name>
+                                    <version>0.0.1</version>
+                                </contextAlbumReference>
+                                <contextAlbumReference>
+                                    <name>contextAlbum1</name>
+                                    <version>0.0.1</version>
+                                </contextAlbumReference>
+                                <taskSelectionLogic>
+                                    <key>taskSelectionLogic</key>
+                                    <logicFlavour>MVEL</logicFlavour>
+                                    <logic><![CDATA[Some TS logic]]></logic>
+                                </taskSelectionLogic>
+                                <defaultTask>
+                                    <name>task</name>
+                                    <version>0.0.1</version>
+                                </defaultTask>
+                                <taskReferences>
+                                    <entry>
+                                        <key>
+                                            <name>task</name>
+                                            <version>0.0.1</version>
+                                        </key>
+                                        <value>
+                                            <key>
+                                                <parentKeyName>policy</parentKeyName>
+                                                <parentKeyVersion>0.0.1</parentKeyVersion>
+                                                <parentLocalName>state</parentLocalName>
+                                                <localName>task</localName>
+                                            </key>
+                                            <outputType>DIRECT</outputType>
+                                            <output>
+                                                <parentKeyName>policy</parentKeyName>
+                                                <parentKeyVersion>0.0.1</parentKeyVersion>
+                                                <parentLocalName>state</parentLocalName>
+                                                <localName>stateOutput0</localName>
+                                            </output>
+                                        </value>
+                                    </entry>
+                                </taskReferences>
+                            </value>
+                        </entry>
+                    </state>
+                    <firstState>state</firstState>
+                </value>
+            </entry>
+        </policyMap>
+    </policies>
+    <tasks>
+        <key>
+            <name>tasks</name>
+            <version>0.0.1</version>
+        </key>
+        <taskMap>
+            <entry>
+                <key>
+                    <name>task</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>task</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <inputFields>
+                        <entry>
+                            <key>IEPAR0</key>
+                            <value>
+                                <key>IEPAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>IEPAR1</key>
+                            <value>
+                                <key>IEPAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                    </inputFields>
+                    <outputFields>
+                        <entry>
+                            <key>OE0PAR0</key>
+                            <value>
+                                <key>OE0PAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE0PAR1</key>
+                            <value>
+                                <key>OE0PAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE1PAR0</key>
+                            <value>
+                                <key>OE1PAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE1PAR1</key>
+                            <value>
+                                <key>OE1PAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                    </outputFields>
+                    <taskParameters>
+                        <entry>
+                            <key>taskParameter0</key>
+                            <value>
+                                <key>
+                                    <parentKeyName>task</parentKeyName>
+                                    <parentKeyVersion>0.0.1</parentKeyVersion>
+                                    <parentLocalName>NULL</parentLocalName>
+                                    <localName>taskParameter0</localName>
+                                </key>
+                                <defaultValue>Task parameter 0 value</defaultValue>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>taskParameter1</key>
+                            <value>
+                                <key>
+                                    <parentKeyName>task</parentKeyName>
+                                    <parentKeyVersion>0.0.1</parentKeyVersion>
+                                    <parentLocalName>NULL</parentLocalName>
+                                    <localName>taskParameter1</localName>
+                                </key>
+                                <defaultValue>Task parameter 1 value</defaultValue>
+                            </value>
+                        </entry>
+                    </taskParameters>
+                    <contextAlbumReference>
+                        <name>contextAlbum0</name>
+                        <version>0.0.1</version>
+                    </contextAlbumReference>
+                    <contextAlbumReference>
+                        <name>contextAlbum1</name>
+                        <version>0.0.1</version>
+                    </contextAlbumReference>
+                    <taskLogic>
+                        <key>taskLogic</key>
+                        <logicFlavour>MVEL</logicFlavour>
+                        <logic><![CDATA[Some task logic]]></logic>
+                    </taskLogic>
+                </value>
+            </entry>
+        </taskMap>
+    </tasks>
+    <events>
+        <key>
+            <name>events</name>
+            <version>0.0.1</version>
+        </key>
+        <eventMap>
+            <entry>
+                <key>
+                    <name>inEvent</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>inEvent</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <nameSpace>org.onap.policy.apex.model.policymodel.events</nameSpace>
+                    <source>Source</source>
+                    <target>Target</target>
+                    <parameter>
+                        <entry>
+                            <key>IEPAR0</key>
+                            <value>
+                                <key>IEPAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>IEPAR1</key>
+                            <value>
+                                <key>IEPAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                    </parameter>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>outEvent0</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>outEvent0</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <nameSpace>org.onap.policy.apex.model.policymodel.events</nameSpace>
+                    <source>Source</source>
+                    <target>Target</target>
+                    <parameter>
+                        <entry>
+                            <key>OE0PAR0</key>
+                            <value>
+                                <key>OE0PAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE0PAR1</key>
+                            <value>
+                                <key>OE0PAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE1PAR0</key>
+                            <value>
+                                <key>OE1PAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE1PAR1</key>
+                            <value>
+                                <key>OE1PAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                    </parameter>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name>outEvent1</name>
+                    <version>0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name>outEvent1</name>
+                        <version>0.0.1</version>
+                    </key>
+                    <nameSpace>org.onap.policy.apex.model.policymodel.events</nameSpace>
+                    <source>Source</source>
+                    <target>Target</target>
+                    <parameter>
+                        <entry>
+                            <key>OE1PAR0</key>
+                            <value>
+                                <key>OE1PAR0</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem0</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>OE1PAR1</key>
+                            <value>
+                                <key>OE1PAR1</key>
+                                <fieldSchemaKey>
+                                    <name>eventContextItem1</name>
+                                    <version>0.0.1</version>
+                                </fieldSchemaKey>
+                            </value>
+                        </entry>
+                    </parameter>
+                </value>
+            </entry>
+        </eventMap>
+    </events>
+    <albums>
+        <key xmlns="">
+            <name xmlns="http://www.onap.org/policy/apex-pdp">context</name>
+            <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+        </key>
+        <albums xmlns="">
+            <entry>
+                <key>
+                    <name xmlns="http://www.onap.org/policy/apex-pdp">contextAlbum0</name>
+                    <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">contextAlbum0</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </key>
+                    <scope>APPLICATION</scope>
+                    <isWritable>true</isWritable>
+                    <itemSchema>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">MapType</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </itemSchema>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name xmlns="http://www.onap.org/policy/apex-pdp">contextAlbum1</name>
+                    <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">contextAlbum1</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </key>
+                    <scope>GLOBAL</scope>
+                    <isWritable>false</isWritable>
+                    <itemSchema>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">StringType</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </itemSchema>
+                </value>
+            </entry>
+        </albums>
+    </albums>
+    <schemas>
+        <key xmlns="">
+            <name xmlns="http://www.onap.org/policy/apex-pdp">ContextSchemas</name>
+            <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+        </key>
+        <schemas xmlns="">
+            <entry>
+                <key>
+                    <name xmlns="http://www.onap.org/policy/apex-pdp">MapType</name>
+                    <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">MapType</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </key>
+                    <schemaFlavour>Java</schemaFlavour>
+                    <schemaDefinition>org.onap.policy.apex.model.policymodel.concepts.TestContextItem00A</schemaDefinition>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name xmlns="http://www.onap.org/policy/apex-pdp">StringType</name>
+                    <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">StringType</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </key>
+                    <schemaFlavour>Java</schemaFlavour>
+                    <schemaDefinition>org.onap.policy.apex.model.policymodel.concepts.TestContextItem000</schemaDefinition>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name xmlns="http://www.onap.org/policy/apex-pdp">eventContextItem0</name>
+                    <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">eventContextItem0</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </key>
+                    <schemaFlavour>Java</schemaFlavour>
+                    <schemaDefinition>java.lang.String</schemaDefinition>
+                </value>
+            </entry>
+            <entry>
+                <key>
+                    <name xmlns="http://www.onap.org/policy/apex-pdp">eventContextItem1</name>
+                    <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                </key>
+                <value>
+                    <key>
+                        <name xmlns="http://www.onap.org/policy/apex-pdp">eventContextItem1</name>
+                        <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
+                    </key>
+                    <schemaFlavour>Java</schemaFlavour>
+                    <schemaDefinition>java.lang.Long</schemaDefinition>
+                </value>
+            </entry>
+        </schemas>
+    </schemas>
+</apexPolicyModel>

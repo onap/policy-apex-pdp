@@ -1,0 +1,15 @@
+****** policy map differences ******
+*** context schema differences ***
+*** event differences ***
+*** context album differences ***
+*** task differences ***
+*** policy differences ***
+*** key information differences ***
+*** list of keys on left only
+key=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1)
+*** list of keys on right only
+key=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1)
+*** list of differing entries between left and right
+key=AxArtifactKey:(name=inEvent,version=0.0.1)
+***********************************
+
