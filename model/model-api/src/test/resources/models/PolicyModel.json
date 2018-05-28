@@ -1,0 +1,708 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "PolicyModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "KeyInfoMapKey",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "ContextSchemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ContextSchemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e000",
+                  "description" : "Generated description for concept referred to by key \"ContextSchemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "KeyInfoMapKey",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "KeyInfoMapKey",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e001",
+                  "description" : "Generated description for concept referred to by key \"KeyInfoMapKey:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MapType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MapType",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e002",
+                  "description" : "Generated description for concept referred to by key \"MapType:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PolicyModel",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PolicyModel",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e003",
+                  "description" : "Generated description for concept referred to by key \"PolicyModel:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "StringType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "StringType",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e004",
+                  "description" : "Generated description for concept referred to by key \"StringType:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "context",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "context",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e005",
+                  "description" : "Generated description for concept referred to by key \"context:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "contextAlbum0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "contextAlbum0",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e006",
+                  "description" : "Generated description for concept referred to by key \"contextAlbum0:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "contextAlbum1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "contextAlbum1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e007",
+                  "description" : "Generated description for concept referred to by key \"contextAlbum1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "eventContextItem0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "eventContextItem0",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e008",
+                  "description" : "Generated description for concept referred to by key \"eventContextItem0:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "eventContextItem1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "eventContextItem1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e009",
+                  "description" : "Generated description for concept referred to by key \"eventContextItem1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e010",
+                  "description" : "Generated description for concept referred to by key \"events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "inEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "inEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e011",
+                  "description" : "Generated description for concept referred to by key \"inEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "outEvent0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "outEvent0",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e012",
+                  "description" : "Generated description for concept referred to by key \"outEvent0:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "outEvent1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "outEvent1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e013",
+                  "description" : "Generated description for concept referred to by key \"outEvent1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e014",
+                  "description" : "Generated description for concept referred to by key \"policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "policy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "policy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e015",
+                  "description" : "Generated description for concept referred to by key \"policy:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "task",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "task",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e016",
+                  "description" : "Generated description for concept referred to by key \"task:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce9168c-e6df-414f-9646-6da464b6e017",
+                  "description" : "Generated description for concept referred to by key \"tasks:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "policy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "policyKey" : {
+                     "name" : "policy",
+                     "version" : "0.0.1"
+                  },
+                  "template" : "FREEFORM",
+                  "state" : {
+                     "entry" : [ {
+                        "key" : "state",
+                        "value" : {
+                           "stateKey" : {
+                              "parentKeyName" : "policy",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "state"
+                           },
+                           "trigger" : {
+                              "name" : "inEvent",
+                              "version" : "0.0.1"
+                           },
+                           "stateOutputs" : {
+                              "entry" : [ {
+                                 "key" : "stateOutput0",
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "state",
+                                       "localName" : "stateOutput0"
+                                    },
+                                    "outgoingEvent" : {
+                                       "name" : "outEvent0",
+                                       "version" : "0.0.1"
+                                    },
+                                    "nextState" : {
+                                       "parentKeyName" : "NULL",
+                                       "parentKeyVersion" : "0.0.0",
+                                       "parentLocalName" : "NULL",
+                                       "localName" : "NULL"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "contextAlbumReference" : [ {
+                              "name" : "contextAlbum0",
+                              "version" : "0.0.1"
+                           }, {
+                              "name" : "contextAlbum1",
+                              "version" : "0.0.1"
+                           } ],
+                           "taskSelectionLogic" : {
+                              "key" : "taskSelectionLogic",
+                              "logicFlavour" : "MVEL",
+                              "logic" : "Some TS logic"
+                           },
+                           "stateFinalizerLogicMap" : {
+                              "entry" : [ ]
+                           },
+                           "defaultTask" : {
+                              "name" : "task",
+                              "version" : "0.0.1"
+                           },
+                           "taskReferences" : {
+                              "entry" : [ {
+                                 "key" : {
+                                    "name" : "task",
+                                    "version" : "0.0.1"
+                                 },
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "state",
+                                       "localName" : "task"
+                                    },
+                                    "outputType" : "DIRECT",
+                                    "output" : {
+                                       "parentKeyName" : "policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "state",
+                                       "localName" : "stateOutput0"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  },
+                  "firstState" : "state"
+               }
+            } ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "task",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "task",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ {
+                        "key" : "IEPAR0",
+                        "value" : {
+                           "key" : "IEPAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "IEPAR1",
+                        "value" : {
+                           "key" : "IEPAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ {
+                        "key" : "OE0PAR0",
+                        "value" : {
+                           "key" : "OE0PAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE0PAR1",
+                        "value" : {
+                           "key" : "OE0PAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE1PAR0",
+                        "value" : {
+                           "key" : "OE1PAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE1PAR1",
+                        "value" : {
+                           "key" : "OE1PAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ {
+                        "key" : "taskParameter0",
+                        "value" : {
+                           "key" : {
+                              "parentKeyName" : "task",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "taskParameter0"
+                           },
+                           "defaultValue" : "Task parameter 0 value"
+                        }
+                     }, {
+                        "key" : "taskParameter1",
+                        "value" : {
+                           "key" : {
+                              "parentKeyName" : "task",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "taskParameter1"
+                           },
+                           "defaultValue" : "Task parameter 1 value"
+                        }
+                     } ]
+                  },
+                  "contextAlbumReference" : [ {
+                     "name" : "contextAlbum0",
+                     "version" : "0.0.1"
+                  }, {
+                     "name" : "contextAlbum1",
+                     "version" : "0.0.1"
+                  } ],
+                  "taskLogic" : {
+                     "key" : "taskLogic",
+                     "logicFlavour" : "MVEL",
+                     "logic" : "Some task logic"
+                  }
+               }
+            } ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "inEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "inEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.model.policymodel.events",
+                  "source" : "Source",
+                  "target" : "Target",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "IEPAR0",
+                        "value" : {
+                           "key" : "IEPAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "IEPAR1",
+                        "value" : {
+                           "key" : "IEPAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "outEvent0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "outEvent0",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.model.policymodel.events",
+                  "source" : "Source",
+                  "target" : "Target",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "OE0PAR0",
+                        "value" : {
+                           "key" : "OE0PAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE0PAR1",
+                        "value" : {
+                           "key" : "OE0PAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE1PAR0",
+                        "value" : {
+                           "key" : "OE1PAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE1PAR1",
+                        "value" : {
+                           "key" : "OE1PAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "outEvent1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "outEvent1",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.model.policymodel.events",
+                  "source" : "Source",
+                  "target" : "Target",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "OE1PAR0",
+                        "value" : {
+                           "key" : "OE1PAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem0",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OE1PAR1",
+                        "value" : {
+                           "key" : "OE1PAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "eventContextItem1",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            } ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "context",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "contextAlbum0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "contextAlbum0",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "APPLICATION",
+                  "isWritable" : true,
+                  "itemSchema" : {
+                     "name" : "MapType",
+                     "version" : "0.0.1"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "contextAlbum1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "contextAlbum1",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "GLOBAL",
+                  "isWritable" : false,
+                  "itemSchema" : {
+                     "name" : "StringType",
+                     "version" : "0.0.1"
+                  }
+               }
+            } ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "ContextSchemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "MapType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MapType",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "org.onap.policy.apex.model.policymodel.concepts.TestContextItem00A"
+               }
+            }, {
+               "key" : {
+                  "name" : "StringType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "StringType",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "org.onap.policy.apex.model.policymodel.concepts.TestContextItem000"
+               }
+            }, {
+               "key" : {
+                  "name" : "eventContextItem0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "eventContextItem0",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "eventContextItem1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "eventContextItem1",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Long"
+               }
+            } ]
+         }
+      }
+   }
+}
