@@ -1,0 +1,70 @@
+****** policy map differences ******
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** context schema differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=MapType,version=0.0.1),value=AxContextSchema:(key=AxArtifactKey:(name=MapType,version=0.0.1),schemaFlavour=Java,schemaDefinition=org.onap.policy.apex.model.policymodel.concepts.TestContextItem00A)
+key=AxArtifactKey:(name=StringType,version=0.0.1),value=AxContextSchema:(key=AxArtifactKey:(name=StringType,version=0.0.1),schemaFlavour=Java,schemaDefinition=org.onap.policy.apex.model.policymodel.concepts.TestContextItem000)
+key=AxArtifactKey:(name=eventContextItem0,version=0.0.1),value=AxContextSchema:(key=AxArtifactKey:(name=eventContextItem0,version=0.0.1),schemaFlavour=Java,schemaDefinition=java.lang.String)
+key=AxArtifactKey:(name=eventContextItem1,version=0.0.1),value=AxContextSchema:(key=AxArtifactKey:(name=eventContextItem1,version=0.0.1),schemaFlavour=Java,schemaDefinition=java.lang.Long)
+*** event differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=inEvent,version=0.0.1),value=AxEvent:(key=AxArtifactKey:(name=inEvent,version=0.0.1),nameSpace=org.onap.policy.apex.model.policymodel.events,source=Source,target=Target,parameter={IEPAR0=AxField:(key=AxReferenceKey:(parentKeyName=inEvent,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=IEPAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), IEPAR1=AxField:(key=AxReferenceKey:(parentKeyName=inEvent,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=IEPAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false)})
+key=AxArtifactKey:(name=outEvent0,version=0.0.1),value=AxEvent:(key=AxArtifactKey:(name=outEvent0,version=0.0.1),nameSpace=org.onap.policy.apex.model.policymodel.events,source=Source,target=Target,parameter={OE0PAR0=AxField:(key=AxReferenceKey:(parentKeyName=outEvent0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=OE0PAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), OE0PAR1=AxField:(key=AxReferenceKey:(parentKeyName=outEvent0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=OE0PAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false), OE1PAR0=AxField:(key=AxReferenceKey:(parentKeyName=outEvent0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=OE1PAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), OE1PAR1=AxField:(key=AxReferenceKey:(parentKeyName=outEvent0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=OE1PAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false)})
+key=AxArtifactKey:(name=outEvent1,version=0.0.1),value=AxEvent:(key=AxArtifactKey:(name=outEvent1,version=0.0.1),nameSpace=org.onap.policy.apex.model.policymodel.events,source=Source,target=Target,parameter={OE1PAR0=AxField:(key=AxReferenceKey:(parentKeyName=outEvent1,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=OE1PAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), OE1PAR1=AxField:(key=AxReferenceKey:(parentKeyName=outEvent1,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=OE1PAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false)})
+*** context album differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=contextAlbum0,version=0.0.1),value=AxContextAlbum:(key=AxArtifactKey:(name=contextAlbum0,version=0.0.1),scope=APPLICATION,isWritable=true,itemSchema=AxArtifactKey:(name=MapType,version=0.0.1))
+key=AxArtifactKey:(name=contextAlbum1,version=0.0.1),value=AxContextAlbum:(key=AxArtifactKey:(name=contextAlbum1,version=0.0.1),scope=GLOBAL,isWritable=false,itemSchema=AxArtifactKey:(name=StringType,version=0.0.1))
+*** task differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=task,version=0.0.1),value=AxTask:(key=AxArtifactKey:(name=task,version=0.0.1),inputFields={IEPAR0=AxInputField:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=inputFields,localName=IEPAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), IEPAR1=AxInputField:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=inputFields,localName=IEPAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false)},outputFields={OE0PAR0=AxOutputField:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=outputFields,localName=OE0PAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), OE0PAR1=AxOutputField:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=outputFields,localName=OE0PAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false), OE1PAR0=AxOutputField:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=outputFields,localName=OE1PAR0),fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false), OE1PAR1=AxOutputField:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=outputFields,localName=OE1PAR1),fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false)},taskParameters={taskParameter0=AxTaskParameter:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=taskParameter0),defaultValue=Task parameter 0 value), taskParameter1=AxTaskParameter:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=taskParameter1),defaultValue=Task parameter 1 value)},contextAlbumReferenceSet=[AxArtifactKey:(name=contextAlbum0,version=0.0.1), AxArtifactKey:(name=contextAlbum1,version=0.0.1)],taskLogic=AxTaskLogic:(key=AxReferenceKey:(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=taskLogic),logicFlavour=MVEL,logic=Some task logic))
+*** policy differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=policy,version=0.0.1),value=AxPolicy:(key=AxArtifactKey:(name=policy,version=0.0.1),template=FREEFORM,stateMap={state=AxState:(stateKey=AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=state),trigger=AxArtifactKey:(name=inEvent,version=0.0.1),stateOutputs={stateOutput0=AxStateOutput:(stateKey=AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=state,localName=stateOutput0),outgoingEvent=AxArtifactKey:(name=outEvent0,version=0.0.1),nextState=AxReferenceKey:(parentKeyName=NULL,parentKeyVersion=0.0.0,parentLocalName=NULL,localName=NULL))},contextAlbumReferenceSet=[AxArtifactKey:(name=contextAlbum0,version=0.0.1), AxArtifactKey:(name=contextAlbum1,version=0.0.1)],taskSelectionLogic=AxTaskSelectionLogic:(key=AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=state,localName=taskSelectionLogic),logicFlavour=MVEL,logic=Some TS logic),stateFinalizerLogicSet={},defaultTask=AxArtifactKey:(name=task,version=0.0.1),taskReferenceMap={AxArtifactKey:(name=task,version=0.0.1)=AxStateTaskReference:(stateKey=AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=state,localName=task),outputType=DIRECT,output=AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=state,localName=stateOutput0))})},firstState=state)
+*** key information differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** list of keys on left only
+key=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6f000,description=Left only key info)
+*** list of keys on right only
+key=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6f001,description=Right only key info)
+*** list of differing entries between left and right
+key=AxArtifactKey:(name=inEvent,version=0.0.1),values={AxKeyInfo:(artifactId=AxArtifactKey:(name=inEvent,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e011,description=Left InEvent Description)AxKeyInfo:(artifactId=AxArtifactKey:(name=inEvent,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e011,description=Right InEvent Description),}
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=ContextSchemas,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=ContextSchemas,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e000,description=Generated description for concept referred to by key "ContextSchemas:0.0.1")
+key=AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e001,description=Generated description for concept referred to by key "KeyInfoMapKey:0.0.1")
+key=AxArtifactKey:(name=MapType,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=MapType,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e002,description=Generated description for concept referred to by key "MapType:0.0.1")
+key=AxArtifactKey:(name=PolicyModel,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=PolicyModel,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e003,description=Generated description for concept referred to by key "PolicyModel:0.0.1")
+key=AxArtifactKey:(name=StringType,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=StringType,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e004,description=Generated description for concept referred to by key "StringType:0.0.1")
+key=AxArtifactKey:(name=context,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=context,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e005,description=Generated description for concept referred to by key "context:0.0.1")
+key=AxArtifactKey:(name=contextAlbum0,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=contextAlbum0,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e006,description=Generated description for concept referred to by key "contextAlbum0:0.0.1")
+key=AxArtifactKey:(name=contextAlbum1,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=contextAlbum1,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e007,description=Generated description for concept referred to by key "contextAlbum1:0.0.1")
+key=AxArtifactKey:(name=eventContextItem0,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=eventContextItem0,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e008,description=Generated description for concept referred to by key "eventContextItem0:0.0.1")
+key=AxArtifactKey:(name=eventContextItem1,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=eventContextItem1,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e009,description=Generated description for concept referred to by key "eventContextItem1:0.0.1")
+key=AxArtifactKey:(name=events,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=events,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e010,description=Generated description for concept referred to by key "events:0.0.1")
+key=AxArtifactKey:(name=outEvent0,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=outEvent0,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e012,description=Generated description for concept referred to by key "outEvent0:0.0.1")
+key=AxArtifactKey:(name=outEvent1,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=outEvent1,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e013,description=Generated description for concept referred to by key "outEvent1:0.0.1")
+key=AxArtifactKey:(name=policies,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=policies,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e014,description=Generated description for concept referred to by key "policies:0.0.1")
+key=AxArtifactKey:(name=policy,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=policy,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e015,description=Generated description for concept referred to by key "policy:0.0.1")
+key=AxArtifactKey:(name=task,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=task,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e016,description=Generated description for concept referred to by key "task:0.0.1")
+key=AxArtifactKey:(name=tasks,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=tasks,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e017,description=Generated description for concept referred to by key "tasks:0.0.1")
+***********************************

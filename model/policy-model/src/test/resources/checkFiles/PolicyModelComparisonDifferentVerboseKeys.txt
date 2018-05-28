@@ -1,0 +1,71 @@
+****** policy map differences ******
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** context schema differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=MapType,version=0.0.1)
+key=AxArtifactKey:(name=StringType,version=0.0.1)
+key=AxArtifactKey:(name=eventContextItem0,version=0.0.1)
+key=AxArtifactKey:(name=eventContextItem1,version=0.0.1)
+*** event differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=inEvent,version=0.0.1)
+key=AxArtifactKey:(name=outEvent0,version=0.0.1)
+key=AxArtifactKey:(name=outEvent1,version=0.0.1)
+*** context album differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=contextAlbum0,version=0.0.1)
+key=AxArtifactKey:(name=contextAlbum1,version=0.0.1)
+*** task differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=task,version=0.0.1)
+*** policy differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** all left keys in right
+*** all right keys in left
+*** all values in left and right are identical
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=policy,version=0.0.1)
+*** key information differences ***
+left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtifactKey:(name=PolicyModel,version=0.0.1)
+*** list of keys on left only
+key=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1)
+*** list of keys on right only
+key=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1)
+*** list of differing entries between left and right
+key=AxArtifactKey:(name=inEvent,version=0.0.1)
+*** list of identical entries in left and right
+key=AxArtifactKey:(name=ContextSchemas,version=0.0.1)
+key=AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)
+key=AxArtifactKey:(name=MapType,version=0.0.1)
+key=AxArtifactKey:(name=PolicyModel,version=0.0.1)
+key=AxArtifactKey:(name=StringType,version=0.0.1)
+key=AxArtifactKey:(name=context,version=0.0.1)
+key=AxArtifactKey:(name=contextAlbum0,version=0.0.1)
+key=AxArtifactKey:(name=contextAlbum1,version=0.0.1)
+key=AxArtifactKey:(name=eventContextItem0,version=0.0.1)
+key=AxArtifactKey:(name=eventContextItem1,version=0.0.1)
+key=AxArtifactKey:(name=events,version=0.0.1)
+key=AxArtifactKey:(name=outEvent0,version=0.0.1)
+key=AxArtifactKey:(name=outEvent1,version=0.0.1)
+key=AxArtifactKey:(name=policies,version=0.0.1)
+key=AxArtifactKey:(name=policy,version=0.0.1)
+key=AxArtifactKey:(name=task,version=0.0.1)
+key=AxArtifactKey:(name=tasks,version=0.0.1)
+***********************************
+

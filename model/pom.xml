@@ -47,5 +47,7 @@
         <module>basic-model</module>
         <module>context-model</module>
         <module>event-model</module>
+        <module>policy-model</module>
+        <module>engine-model</module>
     </modules>
 </project>

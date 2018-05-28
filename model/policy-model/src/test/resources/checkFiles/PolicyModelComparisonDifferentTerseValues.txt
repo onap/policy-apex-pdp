@@ -1,0 +1,14 @@
+****** policy map differences ******
+*** context schema differences ***
+*** event differences ***
+*** context album differences ***
+*** task differences ***
+*** policy differences ***
+*** key information differences ***
+*** list of keys on left only
+key=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6f000,description=Left only key info)
+*** list of keys on right only
+key=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1),value=AxKeyInfo:(artifactId=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6f001,description=Right only key info)
+*** list of differing entries between left and right
+key=AxArtifactKey:(name=inEvent,version=0.0.1),values={AxKeyInfo:(artifactId=AxArtifactKey:(name=inEvent,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e011,description=Left InEvent Description)AxKeyInfo:(artifactId=AxArtifactKey:(name=inEvent,version=0.0.1),uuid=0ce9168c-e6df-414f-9646-6da464b6e011,description=Right InEvent Description),}
+***********************************
