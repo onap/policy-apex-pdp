@@ -121,5 +121,6 @@
 
     <modules>
         <module>model</module>
+        <module>context</module>
     </modules>
 </project>

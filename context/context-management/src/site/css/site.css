@@ -1,0 +1,424 @@
+/*-
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+@import
+	url(http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css)
+	;
+
+/*************** Table definitions *******************/
+tableblock>.title, .tableblock>caption {
+	line-height: 1.4;
+	color: #7a2518;
+	font-weight: 300;
+	margin-top: 0.2em;
+	margin-bottom: 0.5em;
+}
+
+.tableblock>caption {
+	text-align: left;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: visible;
+	max-width: 0;
+}
+
+table.tableblock {
+	background: white;
+	margin-bottom: 1.25em;
+	border: solid 1px #dddddd;
+}
+
+table.tableblock thead, table.tableblock tfoot {
+	background: whitesmoke;
+	font-weight: bold;
+}
+
+table.tableblock thead tr th, table.tableblock thead tr td, table tfoot tr th,
+	table tfoot tr td {
+	padding: 0.5em 0.625em 0.625em;
+	font-size: inherit;
+	color: #222222;
+	text-align: left;
+}
+
+table.tableblock tr th, table.tableblock tr td {
+	padding: 0.5625em 0.625em;
+	font-size: inherit;
+	color: #222222;
+}
+
+table.tableblock tr.even, table.tableblock tr.alt, table.tableblock tr:nth-of-type(even)
+	{
+	background: #f9f9f9;
+}
+
+table.tableblock thead tr th, table.tableblock tfoot tr th, table.tableblock tbody tr td,
+	table.tableblock tr td, table.tableblock tfoot tr td {
+	display: table-cell;
+	line-height: 1.6;
+}
+
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p {
+	font-size: inherit;
+}
+
+table.tableblock.grid-all {
+	border-collapse: separate;
+	border-spacing: 1px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+}
+
+table.tableblock.frame-topbot, table.tableblock.frame-none {
+	border-left: 0;
+	border-right: 0;
+}
+
+table.tableblock.frame-sides, table.tableblock.frame-none {
+	border-top: 0;
+	border-bottom: 0;
+}
+
+table.tableblock td .paragraph:last-child p, table.tableblock td>p:last-child
+	{
+	margin-bottom: 0;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+	text-align: left;
+}
+
+th.tableblock.halign-right, td.tableblock.halign-right {
+	text-align: right;
+}
+
+th.tableblock.halign-center, td.tableblock.halign-center {
+	text-align: center;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+	vertical-align: top;
+}
+
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+	vertical-align: bottom;
+}
+
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+	vertical-align: middle;
+}
+
+p.tableblock.header {
+	color: #222222;
+	font-weight: bold;
+}
+
+/*************** KBD Macro definitions *******************/
+kbd.keyseq {
+	color: #555555;
+}
+
+kbd
+:not
+ 
+(
+.keyseq
+ 
+)
+{
+display
+:
+ 
+inline-block
+;
+
+	
+color
+:
+ 
+#222222
+;
+
+	
+font-size
+:
+ 
+0
+.75em
+;
+
+	
+line-height
+:
+ 
+1
+.4
+;
+
+	
+background-color
+:
+ 
+#F7F7F7
+;
+
+	
+border
+:
+ 
+1
+px
+ 
+solid
+ 
+#ccc
+;
+
+	
+-webkit-border-radius
+:
+ 
+3
+px
+;
+
+	
+border-radius
+:
+ 
+3
+px
+;
+
+	
+-webkit-box-shadow
+:
+ 
+0
+1
+px
+ 
+0
+rgba
+(0
+,
+0,
+0,
+0
+.2
+)
+,
+0
+0
+0
+2
+px
+ 
+white
+ 
+inset
+;
+
+	
+box-shadow
+:
+ 
+0
+1
+px
+ 
+0
+rgba
+(0
+,
+0,
+0,
+0
+.2
+)
+,
+0
+0
+0
+2
+px
+ 
+white
+ 
+inset
+;
+
+	
+margin
+:
+ 
+-0
+.15em
+ 
+0
+.15em
+ 
+0
+0
+.15em
+;
+
+	
+padding
+:
+ 
+0
+.2em
+ 
+0
+.6em
+ 
+0
+.2em
+ 
+0
+.5em
+;
+
+	
+vertical-align
+:
+ 
+middle
+;
+
+	
+white-space
+:
+ 
+nowrap
+;
+
+
+}
+kbd kbd:first-child {
+	margin-left: 0;
+}
+
+kbd kbd:last-child {
+	margin-right: 0;
+}
+
+/*************** Admontion Blocks definitions *******************/
+.admonitionblock td.content>.title, .exampleblock>.title, .imageblock>.title,
+	.videoblock>.title, .listingblock>.title, .literalblock>.title,
+	.openblock>.title, .paragraph>.title, .quoteblock>.title, .sidebarblock>.title,
+	.tableblock>.title, .verseblock>.title, .dlist>.title, .olist>.title,
+	.ulist>.title, .qlist>.title, .hdlist>.title {
+	text-align: left;
+	font-weight: bold;
+}
+
+.admonitionblock>table {
+	border: 0;
+	background: none;
+	width: 100%;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.admonitionblock>table td.icon {
+	text-align: center;
+	width: 80px;
+}
+
+.admonitionblock>table td.icon img {
+	max-width: none;
+}
+
+.admonitionblock>table td.icon .title {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.admonitionblock>table td.content {
+	padding-left: 1.125em;
+	padding-right: 1.25em;
+	border-left: 1px solid #dddddd;
+	color: #6f6f6f;
+}
+
+.admonitionblock>table td.content>:last-child>:last-child {
+	margin-bottom: 0;
+}
+
+.admonitionblock td.icon [class^="fa icon-"]:before {
+	font-size: 2.5em;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, .5);
+	cursor: default
+}
+
+.admonitionblock td.icon .icon-note:before {
+	content: "\f05a";
+	color: #005498;
+	color: #003f72;
+}
+
+.admonitionblock td.icon .icon-tip:before {
+	content: "\f0eb";
+	text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8);
+	color: #111;
+}
+
+.admonitionblock td.icon .icon-warning:before {
+	content: "\f071";
+	color: #bf6900;
+}
+
+.admonitionblock td.icon .icon-caution:before {
+	content: "\f06d";
+	color: #bf3400;
+}
+
+.admonitionblock td.icon .icon-important:before {
+	content: "\f06a";
+	color: #bf0000;
+}
+
+/*************** Misc definitions *******************/
+*:not(pre)>code {
+	font-size: 0.9375em;
+	padding: 1px 3px 0;
+	white-space: nowrap;
+	background-color: #f2f2f2;
+	border: 1px solid #cccccc;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	text-shadow: none;
+}
+
+pre, pre>code {
+	line-height: 1.4;
+	color: inherit;
+	font-family: Consolas, "Liberation Mono", Courier, monospace;
+	font-weight: normal;
+}
+
+code {
+	font-family: Consolas, "Liberation Mono", Courier, monospace;
+	font-weight: normal;
+	color: #6d180b;
+}
