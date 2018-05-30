@@ -1,4 +1,4 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
@@ -29,7 +29,7 @@ public class ApexRuntimeException extends RuntimeException {
     private static final long serialVersionUID = -8507246953751956974L;
 
     // The object on which the exception was thrown
-    private transient Object object = null;
+    private final transient Object object;
 
     /**
      * Instantiates a new apex runtime exception.
@@ -38,6 +38,7 @@ public class ApexRuntimeException extends RuntimeException {
      */
     public ApexRuntimeException(final String message) {
         super(message);
+        this.object = null;
     }
 
     /**
@@ -59,6 +60,7 @@ public class ApexRuntimeException extends RuntimeException {
      */
     public ApexRuntimeException(final String message, final Exception e) {
         super(message, e);
+        this.object = null;
     }
 
     /**

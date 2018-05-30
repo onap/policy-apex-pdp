@@ -811,22 +811,13 @@ public class TaskFacade {
             final ApexAPIResult result = new ApexAPIResult();
             boolean found = false;
             for (final AxArtifactKey albumKey : task.getContextAlbumReferences()) {
-                if (contextAlbumName == null) {
-                    result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
-                            AxArtifactKey.class, jsonMode));
-                    found = true;
+                if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
+                        || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
                     continue;
                 }
-
-                if (!albumKey.getName().equals(contextAlbumName)) {
-                    continue;
-                }
-
-                if (contextAlbumVersion == null || albumKey.getVersion().equals(contextAlbumVersion)) {
-                    result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
-                            AxArtifactKey.class, jsonMode));
-                    found = true;
-                }
+                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
+                        AxArtifactKey.class, jsonMode));
+                found = true;
             }
             if (!found) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
@@ -861,18 +852,11 @@ public class TaskFacade {
             final Set<AxArtifactKey> deleteSet = new TreeSet<>();
 
             for (final AxArtifactKey albumKey : task.getContextAlbumReferences()) {
-                if (contextAlbumName == null) {
-                    deleteSet.add(albumKey);
+                if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
+                        || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
                     continue;
                 }
-
-                if (!albumKey.getName().equals(contextAlbumName)) {
-                    continue;
-                }
-
-                if (contextAlbumVersion == null || albumKey.getVersion().equals(contextAlbumVersion)) {
-                    deleteSet.add(albumKey);
-                }
+                deleteSet.add(albumKey);
             }
 
             if (deleteSet.isEmpty()) {

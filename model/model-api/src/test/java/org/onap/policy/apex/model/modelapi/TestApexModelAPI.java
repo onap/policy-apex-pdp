@@ -249,7 +249,6 @@ public class TestApexModelAPI {
         assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
 
         result = apexModelImpl.mergeWithString(modelString, true);
-        System.err.println(result);
         assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
 
         assertNotEquals(0, apexModelImpl.hashCode());

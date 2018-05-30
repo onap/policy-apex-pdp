@@ -115,7 +115,7 @@ public class ContextAlbumFacade {
             contextAlbum.setItemSchema(schema.getKey());
 
             if (writable != null
-                    && (writable.trim().equalsIgnoreCase("true") || writable.trim().equalsIgnoreCase("t"))) {
+                    && ("true".equalsIgnoreCase(writable.trim()) || "t".equalsIgnoreCase(writable.trim()))) {
                 contextAlbum.setWritable(true);
             } else {
                 contextAlbum.setWritable(false);

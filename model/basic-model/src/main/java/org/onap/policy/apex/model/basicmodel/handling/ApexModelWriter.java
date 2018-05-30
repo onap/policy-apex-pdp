@@ -1,4 +1,4 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
@@ -33,6 +33,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -55,11 +56,11 @@ import org.w3c.dom.Document;
  * @param <C> the type of Apex concept to write, must be a sub class of {@link AxConcept}
  */
 public class ApexModelWriter<C extends AxConcept> {
-	private static final String CONCEPT_MAY_NOT_BE_NULL = "concept may not be null";
+    private static final String CONCEPT_MAY_NOT_BE_NULL = "concept may not be null";
     private static final String CONCEPT_WRITER_MAY_NOT_BE_NULL = "concept writer may not be null";
-	private static final String CONCEPT_STREAM_MAY_NOT_BE_NULL = "concept stream may not be null";
+    private static final String CONCEPT_STREAM_MAY_NOT_BE_NULL = "concept stream may not be null";
 
-	// Get a reference to the logger
+    // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelWriter.class);
 
     // Writing as JSON or XML
@@ -91,8 +92,7 @@ public class ApexModelWriter<C extends AxConcept> {
             marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
-        }
-        catch (final JAXBException e) {
+        } catch (final JAXBException e) {
             LOGGER.error("JAXB marshaller creation exception", e);
             throw new ApexModelException("JAXB marshaller creation exception", e);
         }
@@ -130,17 +130,14 @@ public class ApexModelWriter<C extends AxConcept> {
             try {
                 marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
                 marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-            }
-            catch (final Exception e) {
+            } catch (final Exception e) {
                 LOGGER.warn("JAXB error setting marshaller for JSON output", e);
                 throw new ApexModelException("JAXB error setting marshaller for JSON output", e);
             }
-        }
-        else {
+        } else {
             try {
                 marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_XML);
-            }
-            catch (final Exception e) {
+            } catch (final Exception e) {
                 LOGGER.warn("JAXB error setting marshaller for XML output", e);
                 throw new ApexModelException("JAXB error setting marshaller for XML output", e);
             }
@@ -157,7 +154,7 @@ public class ApexModelWriter<C extends AxConcept> {
     public void write(final C concept, final OutputStream apexConceptStream) throws ApexModelException {
         Assertions.argumentNotNull(concept, CONCEPT_MAY_NOT_BE_NULL);
         Assertions.argumentNotNull(apexConceptStream, CONCEPT_STREAM_MAY_NOT_BE_NULL);
-        
+
         this.write(concept, new OutputStreamWriter(apexConceptStream));
     }
 
@@ -185,8 +182,7 @@ public class ApexModelWriter<C extends AxConcept> {
 
         if (jsonOutput) {
             writeJSON(concept, apexConceptWriter);
-        }
-        else {
+        } else {
             writeXML(concept, apexConceptWriter);
         }
     }
@@ -204,36 +200,42 @@ public class ApexModelWriter<C extends AxConcept> {
         LOGGER.debug("writing Apex concept XML . . .");
 
         try {
-            // Write the concept into a DOM document, then transform to add CDATA fields and pretty print, then write out the result
+            // Write the concept into a DOM document, then transform to add CDATA fields and pretty
+            // print, then write out the result
             final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
             final Document document = docBuilderFactory.newDocumentBuilder().newDocument();
 
             // Marshal the concept into the empty document.
             marshaller.marshal(concept, document);
 
-            // Transform the DOM to the output stream
-            final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            final Transformer domTransformer = transformerFactory.newTransformer();
-
-            // Pretty print
-            try {
-                domTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                // May fail if not using XALAN XSLT engine. But not in any way vital
-                domTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-            }
-            catch (final Exception ignore) {
-            		// We ignore exceptions here and catch errors below
-            }
+            final Transformer domTransformer = getTransformer();
 
             // Convert the cDataFieldSet into a space delimited string
-            domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, cDataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
+            domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS,
+                    cDataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
             domTransformer.transform(new DOMSource(document), new StreamResult(apexConceptWriter));
-        }
-        catch (JAXBException | TransformerException | ParserConfigurationException e) {
+        } catch (JAXBException | TransformerException | ParserConfigurationException e) {
             LOGGER.warn("Unable to marshal Apex concept XML", e);
             throw new ApexModelException("Unable to marshal Apex concept XML", e);
         }
         LOGGER.debug("wrote Apex concept XML");
+    }
+
+
+    private Transformer getTransformer() throws TransformerConfigurationException {
+        // Transform the DOM to the output stream
+        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        final Transformer domTransformer = transformerFactory.newTransformer();
+
+        // Pretty print
+        try {
+            domTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            // May fail if not using XALAN XSLT engine. But not in any way vital
+            domTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+        } catch (final Exception ignore) {
+            LOGGER.trace("Unable to set indent property...");
+        }
+        return domTransformer;
     }
 
     /**
@@ -250,8 +252,7 @@ public class ApexModelWriter<C extends AxConcept> {
 
         try {
             marshaller.marshal(concept, apexConceptWriter);
-        }
-        catch (final JAXBException e) {
+        } catch (final JAXBException e) {
             LOGGER.warn("Unable to marshal Apex concept JSON", e);
             throw new ApexModelException("Unable to marshal Apex concept JSON", e);
         }
