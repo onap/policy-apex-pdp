@@ -1,4 +1,4 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
@@ -22,15 +22,15 @@ package org.onap.policy.apex.model.utilities;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
- * The Class TextFileUtils is class that provides useful functions for handling text files. Functions to read and wrtie text files to strings and strings are
- * provided.
+ * The Class TextFileUtils is class that provides useful functions for handling text files.
+ * Functions to read and wrtie text files to strings and strings are provided.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -38,9 +38,9 @@ public abstract class TextFileUtils {
     private static final int READER_CHAR_BUFFER_SIZE_4096 = 4096;
 
     private TextFileUtils() {
-    		// This class cannot be initialized
+        // This class cannot be initialized
     }
-    
+
     /**
      * Method to return the contents of a text file as a string.
      *
@@ -49,12 +49,7 @@ public abstract class TextFileUtils {
      * @throws IOException on errors reading text from the file
      */
     public static String getTextFileAsString(final String textFilePath) throws IOException {
-        final File textFile = new File(textFilePath);
-        final FileInputStream textFileInputStream = new FileInputStream(textFile);
-        final byte[] textData = new byte[(int) textFile.length()];
-        textFileInputStream.read(textData);
-        textFileInputStream.close();
-        return new String(textData);
+        return new String(Files.readAllBytes(Paths.get(textFilePath)));
     }
 
     /**
@@ -77,9 +72,7 @@ public abstract class TextFileUtils {
      * @throws IOException on errors reading text from the file
      */
     public static void putStringAsFile(final String outString, final File textFile) throws IOException {
-        final FileOutputStream textFileOutputStream = new FileOutputStream(textFile);
-        textFileOutputStream.write(outString.getBytes());
-        textFileOutputStream.close();
+        Files.write(textFile.toPath(), outString.getBytes());
     }
 
     /**
@@ -110,8 +103,7 @@ public abstract class TextFileUtils {
             if (charsRead > 0) {
                 builder.append(chars, 0, charsRead);
             }
-        }
-        while (charsRead > 0);
+        } while (charsRead > 0);
         return builder.toString();
     }
 }

@@ -1,4 +1,4 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
@@ -27,26 +27,27 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 
 /**
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TextFileUtilsTest {
 
+    private static final String FILE_CONTENT = "This is the contents of a text file";
+
     @Test
     public void test() throws IOException {
-        File tempTextFile = File.createTempFile("Test", "txt");
-        
-        TextFileUtils.putStringAsTextFile("This is the contents of a text file", tempTextFile.getAbsolutePath());
-        
-        String textFileString0 = TextFileUtils.getTextFileAsString(tempTextFile.getAbsolutePath());
-        assertEquals("This is the contents of a text file", textFileString0);
-        
-        FileInputStream fis = new FileInputStream(tempTextFile);
-        String textFileString1 = TextFileUtils.getStreamAsString(fis);
+        final File tempTextFile = File.createTempFile("Test", "txt");
+
+        TextFileUtils.putStringAsTextFile(FILE_CONTENT, tempTextFile.getAbsolutePath());
+
+        final String textFileString0 = TextFileUtils.getTextFileAsString(tempTextFile.getAbsolutePath());
+        assertEquals(FILE_CONTENT, textFileString0);
+
+        final FileInputStream fis = new FileInputStream(tempTextFile);
+        final String textFileString1 = TextFileUtils.getStreamAsString(fis);
         assertEquals(textFileString0, textFileString1);
-        
+
     }
 
 }

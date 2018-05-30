@@ -33,17 +33,12 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class ApexModelImpl implements ApexModel {
-    private static final int HASH_CODE_PRIME_0 = 31;
-    private static final int HASH_CODE_PRIME_1 = 1231;
-    private static final int HASH_CODE_PRIME_2 = 1237;
-
     // The policy model being acted upon
     private AxPolicyModel policyModel = new AxPolicyModel();
 
     // The file name for the loaded file
     private String fileName = null;
 
-    // Facade classes for working towards the real Apex model
     // @formatter:off
     private ModelFacade modelFacade;
     private KeyInformationFacade keyInformationFacade;
@@ -1178,30 +1173,6 @@ public final class ApexModelImpl implements ApexModel {
     @Override
     public ApexAPIResult mergeWithString(final String otherModelString, final boolean keepOriginal) {
         return modelHandlerFacade.mergeWithString(otherModelString, keepOriginal);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_CODE_PRIME_0;
-        int result = 1;
-        result = prime * result + ((apexProperties == null) ? 0 : apexProperties.hashCode());
-        result = prime * result + ((contextAlbumFacade == null) ? 0 : contextAlbumFacade.hashCode());
-        result = prime * result + ((contextSchemaFacade == null) ? 0 : contextSchemaFacade.hashCode());
-        result = prime * result + ((eventFacade == null) ? 0 : eventFacade.hashCode());
-        result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
-        result = prime * result + (jsonMode ? HASH_CODE_PRIME_1 : HASH_CODE_PRIME_2);
-        result = prime * result + ((keyInformationFacade == null) ? 0 : keyInformationFacade.hashCode());
-        result = prime * result + ((modelFacade == null) ? 0 : modelFacade.hashCode());
-        result = prime * result + ((modelHandlerFacade == null) ? 0 : modelHandlerFacade.hashCode());
-        result = prime * result + ((policyFacade == null) ? 0 : policyFacade.hashCode());
-        result = prime * result + ((policyModel == null) ? 0 : policyModel.hashCode());
-        result = prime * result + ((taskFacade == null) ? 0 : taskFacade.hashCode());
-        return result;
     }
 
     /*

@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.model.modelapi.impl;
 
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -1118,29 +1119,20 @@ public class PolicyFacade {
 
             final ApexAPIResult result = new ApexAPIResult();
             boolean found = false;
-            for (final Entry<AxArtifactKey, AxStateTaskReference> taskReferenceEntry : state.getTaskReferences()
-                    .entrySet()) {
-                if (taskName == null) {
-                    result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                            .writeString(taskReferenceEntry.getKey(), AxArtifactKey.class, jsonMode));
-                    result.addMessage(new ApexModelStringWriter<AxStateTaskReference>(false)
-                            .writeString(taskReferenceEntry.getValue(), AxStateTaskReference.class, jsonMode));
-                    found = true;
-                    continue;
-                }
-                if (!taskReferenceEntry.getKey().getName().equals(taskName)) {
-                    continue;
-                }
-
-                if (taskVersion != null && !taskReferenceEntry.getKey().getVersion().equals(taskVersion)) {
+            final Map<AxArtifactKey, AxStateTaskReference> taskReferences = state.getTaskReferences();
+            for (final Entry<AxArtifactKey, AxStateTaskReference> taskReferenceEntry : taskReferences.entrySet()) {
+                final AxArtifactKey key = taskReferenceEntry.getKey();
+                final AxStateTaskReference value = taskReferenceEntry.getValue();
+                if ((taskName != null && !key.getName().equals(taskName))
+                        || (taskVersion != null && !key.getVersion().equals(taskVersion))) {
                     continue;
                 }
 
                 found = true;
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                        .writeString(taskReferenceEntry.getKey(), AxArtifactKey.class, jsonMode));
-                result.addMessage(new ApexModelStringWriter<AxStateTaskReference>(false)
-                        .writeString(taskReferenceEntry.getValue(), AxStateTaskReference.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(key, AxArtifactKey.class,
+                        jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxStateTaskReference>(false).writeString(value,
+                        AxStateTaskReference.class, jsonMode));
             }
             if (found) {
                 return result;
@@ -1183,15 +1175,8 @@ public class PolicyFacade {
             final Set<AxArtifactKey> deleteSet = new TreeSet<>();
 
             for (final AxArtifactKey taskReferenceKey : state.getTaskReferences().keySet()) {
-                if (taskName == null) {
-                    deleteSet.add(taskReferenceKey);
-                    continue;
-                }
-                if (!taskReferenceKey.getName().equals(taskName)) {
-                    continue;
-                }
-
-                if (taskVersion != null && !taskReferenceKey.getVersion().equals(taskVersion)) {
+                if ((taskName != null && !taskReferenceKey.getName().equals(taskName))
+                        || (taskVersion != null && !taskReferenceKey.getVersion().equals(taskVersion))) {
                     continue;
                 }
                 deleteSet.add(taskReferenceKey);
@@ -1292,22 +1277,13 @@ public class PolicyFacade {
             final ApexAPIResult result = new ApexAPIResult();
             boolean found = false;
             for (final AxArtifactKey albumKey : state.getContextAlbumReferences()) {
-                if (contextAlbumName == null) {
-                    result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
-                            AxArtifactKey.class, jsonMode));
-                    found = true;
+                if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
+                        || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
                     continue;
                 }
-
-                if (!albumKey.getName().equals(contextAlbumName)) {
-                    continue;
-                }
-
-                if (contextAlbumVersion == null || albumKey.getVersion().equals(contextAlbumVersion)) {
-                    result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
-                            AxArtifactKey.class, jsonMode));
-                    found = true;
-                }
+                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
+                        AxArtifactKey.class, jsonMode));
+                found = true;
             }
             if (!found) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST, CONCEPT + contextAlbumName + ':'
@@ -1351,18 +1327,13 @@ public class PolicyFacade {
             final Set<AxArtifactKey> deleteSet = new TreeSet<>();
 
             for (final AxArtifactKey albumKey : state.getContextAlbumReferences()) {
-                if (contextAlbumName == null) {
-                    deleteSet.add(albumKey);
+                
+                if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
+                        || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
+
                     continue;
                 }
-
-                if (!albumKey.getName().equals(contextAlbumName)) {
-                    continue;
-                }
-
-                if (contextAlbumVersion == null || albumKey.getVersion().equals(contextAlbumVersion)) {
-                    deleteSet.add(albumKey);
-                }
+                deleteSet.add(albumKey);
             }
             if (deleteSet.isEmpty()) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST, CONCEPT + contextAlbumName + ':'

@@ -225,25 +225,30 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
                     "policyMap may not be empty"));
         } else {
             for (final Entry<AxArtifactKey, AxPolicy> policyEntry : policyMap.entrySet()) {
-                if (policyEntry.getKey().equals(AxArtifactKey.getNullKey())) {
+                final AxArtifactKey entryKey = policyEntry.getKey();
+                if (entryKey.equals(AxArtifactKey.getNullKey())) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key on policy entry " + policyEntry.getKey() + " may not be the null key"));
+                            "key on policy entry " + entryKey + " may not be the null key"));
                 } else if (policyEntry.getValue() == null) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "value on policy entry " + policyEntry.getKey() + " may not be null"));
+                            "value on policy entry " + entryKey + " may not be null"));
                 } else {
-                    if (!policyEntry.getKey().equals(policyEntry.getValue().getKey())) {
-                        result.addValidationMessage(new AxValidationMessage(key, this.getClass(),
-                                ValidationResult.INVALID, "key on policy entry key " + policyEntry.getKey()
-                                        + " does not equal policy value key " + policyEntry.getValue().getKey()));
-                    }
-
+                    validate(result, policyEntry, entryKey);
                     result = policyEntry.getValue().validate(result);
                 }
             }
         }
 
         return result;
+    }
+
+    private void validate(final AxValidationResult result, final Entry<AxArtifactKey, AxPolicy> policyEntry,
+            final AxArtifactKey entryKey) {
+        if (!entryKey.equals(policyEntry.getValue().getKey())) {
+            result.addValidationMessage(
+                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key on policy entry key "
+                            + entryKey + " does not equal policy value key " + policyEntry.getValue().getKey()));
+        }
     }
 
     /*
