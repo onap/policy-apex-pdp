@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_3994648b",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/ApexRuntimeException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-05-30T13:05:50Z",
+      "side": 1,
+      "message": "Okay. That is useful to know. thanks!",
+      "parentUuid": "5a93c517_f9b6fc3d",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "d8ed8d7600118f310d4fb26b5381bec41569e906",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_d977809e",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriter.java",
         "patchSetId": 3
