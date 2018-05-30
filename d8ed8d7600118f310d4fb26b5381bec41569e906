@@ -93,6 +93,30 @@
       "revId": "d8ed8d7600118f310d4fb26b5381bec41569e906",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b9e71446",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-30T13:08:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_d977809e",
+      "range": {
+        "startLine": 236,
+        "startChar": 12,
+        "endLine": 236,
+        "endChar": 63
+      },
+      "revId": "d8ed8d7600118f310d4fb26b5381bec41569e906",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
