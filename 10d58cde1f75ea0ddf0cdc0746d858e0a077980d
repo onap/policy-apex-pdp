@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_617c72b6",
+        "filename": "context/context-test/src/main/java/org/onap/policy/apex/context/test/locking/ConcurrentContextJVMThread.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-05-30T20:29:56Z",
+      "side": 1,
+      "message": "These 2 below will produce sonars - for not printing exception and printing to stdout.",
+      "revId": "10d58cde1f75ea0ddf0cdc0746d858e0a077980d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
