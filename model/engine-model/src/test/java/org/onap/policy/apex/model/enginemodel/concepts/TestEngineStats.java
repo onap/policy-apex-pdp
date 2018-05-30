@@ -104,7 +104,6 @@ public class TestEngineStats {
         }
         stats.executionExit();
         final double avExecutionTime = stats.getAverageExecutionTime();
-        System.err.println(avExecutionTime);
         assertTrue(avExecutionTime >= 2.0 && avExecutionTime < 3.0);
         stats.engineStop();
 
@@ -179,6 +178,8 @@ public class TestEngineStats {
         assertTrue(stats.equals(new AxEngineStats(statsKey)));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
 
+        assertEquals(-1, stats.compareTo(new AxEngineStats(statsKey, 0, 0, 0, 0.0, 0, 1)));
+
         stats.engineStart();
         assertFalse(stats.equals(new AxEngineStats(statsKey)));
         final AxEngineStats newStats = new AxEngineStats(statsKey);
@@ -190,4 +191,5 @@ public class TestEngineStats {
         assertTrue(stats.equals(new AxEngineStats(statsKey)));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
     }
+
 }
