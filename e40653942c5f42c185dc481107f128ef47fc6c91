@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_79974c3b",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextAlbums.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-05-30T14:26:31Z",
+      "side": 1,
+      "message": "extra?",
+      "range": {
+        "startLine": 382,
+        "startChar": 13,
+        "endLine": 382,
+        "endChar": 14
+      },
+      "revId": "e40653942c5f42c185dc481107f128ef47fc6c91",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
