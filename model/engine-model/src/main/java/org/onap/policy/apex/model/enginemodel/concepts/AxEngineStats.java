@@ -530,16 +530,14 @@ public class AxEngineStats extends AxConcept {
         if (lastExecutionTime != other.lastExecutionTime) {
             return (int) (lastExecutionTime - other.lastExecutionTime);
         }
-        if (averageExecutionTime != other.averageExecutionTime) {
-            return (int) (averageExecutionTime - other.averageExecutionTime);
+        final int result = Double.compare(averageExecutionTime, other.averageExecutionTime);
+        if (result != 0) {
+            return result;
         }
         if (upTime != other.upTime) {
             return (int) (upTime - other.upTime);
         }
-        if (getLastStart() != other.getLastStart()) {
-            return (int) (getLastStart() - other.getLastStart());
-        }
 
-        return 0;
+        return Long.compare(lastStart, other.lastStart);
     }
 }
