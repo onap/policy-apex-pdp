@@ -1,4 +1,4 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
@@ -24,10 +24,11 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.TreeMap;
+import java.util.NavigableMap;
 
 /**
- * This class provides utility functions for tree maps. A function to find the nearest match in the tree map to an input string is provided.
+ * This class provides utility functions for tree maps. A function to find the nearest match in the
+ * tree map to an input string is provided.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -36,18 +37,19 @@ public abstract class TreeMapUtils {
     /**
      * This class is a utility class that can't be instantiated.
      */
-    private TreeMapUtils() {
-    }
+    private TreeMapUtils() {}
 
     /**
-     * Find the list of entries that matches a given word, for example "p" will match "put", "policy", and "push".
+     * Find the list of entries that matches a given word, for example "p" will match "put",
+     * "policy", and "push".
      *
      * @param <T> the generic type for the value of the tree map
      * @param searchMap the map that the method operates on
      * @param word the word to search for
      * @return the list of entries in the {@code searchMap} that match the {@code word}
      */
-    public static <T> List<Entry<String, T>> findMatchingEntries(final TreeMap<String, T> searchMap, final String word) {
+    public static <T> List<Entry<String, T>> findMatchingEntries(final NavigableMap<String, T> searchMap,
+            final String word) {
         final List<Entry<String, T>> foundNodes = new ArrayList<>();
 
         // A straight match check
@@ -60,8 +62,7 @@ public abstract class TreeMapUtils {
         String foundKeyword = searchMap.floorKey(word);
         if (foundKeyword == null) {
             foundKeyword = searchMap.firstKey();
-        }
-        else {
+        } else {
             foundKeyword = searchMap.higherKey(foundKeyword);
         }
 
@@ -70,8 +71,7 @@ public abstract class TreeMapUtils {
             if (foundKeyword.startsWith(word)) {
                 foundNodes.add(new SimpleEntry<>(foundKeyword, searchMap.get(foundKeyword)));
                 foundKeyword = searchMap.higherKey(foundKeyword);
-            }
-            else {
+            } else {
                 break;
             }
         }
