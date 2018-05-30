@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_f9b6fc3d",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/ApexRuntimeException.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-05-30T13:04:44Z",
+      "side": 1,
+      "message": "Hi Pam, sonar will not complain about dash, it is used to stop eclipse formatter to stop formating License Header.",
+      "parentUuid": "5a93c517_3966a4ef",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "d8ed8d7600118f310d4fb26b5381bec41569e906",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_d977809e",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriter.java",
         "patchSetId": 3
