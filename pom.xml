@@ -97,6 +97,18 @@
                                     <pluginExecutions>
                                         <pluginExecution>
                                             <pluginExecutionFilter>
+                                                <groupId>org.codehaus.mojo</groupId>
+                                                <artifactId>exec-maven-plugin</artifactId>
+                                                <goals>
+                                                    <goal>java</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <execute />
+                                            </action>
+                                        </pluginExecution>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
                                                 <groupId>org.commonjava.maven.plugins</groupId>
                                                 <artifactId>directory-maven-plugin</artifactId>
                                                 <versionRange>0.2</versionRange>
