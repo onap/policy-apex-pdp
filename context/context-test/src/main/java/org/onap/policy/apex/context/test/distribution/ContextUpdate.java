@@ -143,11 +143,15 @@ public class ContextUpdate {
             assert (e.getMessage().equals("album \"LongContextAlbum:0.0.1\" null keys are illegal on keys for put()"));
         }
 
-        assert (dateContextAlbum.put("date0", tciA) == null);
-        assert (dateContextAlbum.put("date0", tciA).equals(tciA));
+        Object object = dateContextAlbum.put("date0", tciA);
+        assert (object == null);
+        object = dateContextAlbum.put("date0", tciA);
+        assert (object.equals(tciA));
 
-        assert (mapContextAlbum.put("map0", tciC) == null);
-        assert (mapContextAlbum.put("map0", tciC).equals(tciC));
+        object = mapContextAlbum.put("map0", tciC);
+        assert (object == null);
+        object = mapContextAlbum.put("map0", tciC);
+        assert (object.equals(tciC));
 
         contextDistributor.clear();
         // CHECKSTYLE:ON: checkstyle:magicNumber

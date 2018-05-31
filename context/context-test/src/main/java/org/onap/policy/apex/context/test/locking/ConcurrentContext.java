@@ -68,9 +68,9 @@ public class ConcurrentContext {
 
         try {
             concurrentContext.setupAndVerifyContext();
-        } catch (final Exception e) {
-            e.printStackTrace();
-            throw e;
+        } catch (final Exception exception) {
+            LOGGER.error("Error occured while setting up and verifying concurrent context", exception);
+            throw exception;
         }
 
         LOGGER.debug("starting JVMs and threads . . .");
@@ -181,8 +181,8 @@ public class ConcurrentContext {
         try {
             LOGGER.debug("threads finished, end value is {}",
                     ((TestContextItem003) lTypeAlbum.get("testValue")).getLongValue());
-        } catch (final Exception e) {
-            e.printStackTrace();
+        } catch (final Exception exception) {
+            LOGGER.error("Error: ", exception);
         }
         final long total = ((TestContextItem003) lTypeAlbum.get("testValue")).getLongValue();
 

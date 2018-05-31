@@ -491,7 +491,7 @@ public class AxEngineStats extends AxConcept {
         if (lastExecutionTime != other.lastExecutionTime) {
             return false;
         }
-        if (averageExecutionTime != other.averageExecutionTime) {
+        if (Double.compare(averageExecutionTime, other.averageExecutionTime) != 0) {
             return false;
         }
         if (upTime != other.upTime) {

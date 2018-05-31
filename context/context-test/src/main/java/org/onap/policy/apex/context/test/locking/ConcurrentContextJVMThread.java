@@ -114,10 +114,11 @@ public class ConcurrentContextJVMThread implements Runnable {
                 final int exitValue = process.waitFor();
                 LOGGER.info("\n\nJVM " + jvm + " finished, exit value is " + exitValue);
             } catch (final InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.warn("Thread was interrupted");
+                Thread.currentThread().interrupt();
             }
-        } catch (final IOException e1) {
-            e1.printStackTrace();
+        } catch (final IOException ioException) {
+            LOGGER.error("Error occured while writing JVM Output for command ", ioException);
         }
     }
 }

@@ -93,39 +93,18 @@ public class ConcurrentContextThread implements Runnable {
         }
 
         // @formatter:off
-        final AxArtifactKey[] usedArtifactStackArray = {
-                new AxArtifactKey("testC-top", "0.0.1"),
-                new AxArtifactKey("testC-next", "0.0.1"),
-                new AxArtifactKey("testC-bot", "0.0.1")
-                };
+        final AxArtifactKey[] usedArtifactStackArray = {new AxArtifactKey("testC-top", "0.0.1"),
+                new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
         // @formatter:on
 
         lTypeAlbum.setUserArtifactStack(usedArtifactStackArray);
 
-        for (int i = 0; i < threadLoops; i++) {
-            try {
-                lTypeAlbum.lockForWriting("testValue");
-                TestContextItem003 item = (TestContextItem003) lTypeAlbum.get("testValue");
-                if (item != null) {
-                    long value = item.getLongValue();
-                    item.setLongValue(++value);
-                } else {
-                    item = new TestContextItem003(0L);
-                }
-                lTypeAlbum.put("testValue", item);
-            } catch (final Exception e) {
-                LOGGER.error("could not set the value in the test context album", e);
-                LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
-                return;
-            } finally {
-                try {
-                    lTypeAlbum.unlockForWriting("testValue");
-                } catch (final ContextException e) {
-                    LOGGER.error("could not unlock test context album item", e);
-                    LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
-                    return;
-                }
-            }
+        try {
+            updateAlbum(lTypeAlbum);
+        } catch (final Exception exception) {
+            LOGGER.error("could not set the value in the test context album", exception);
+            LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
+            return;
         }
 
         try {
@@ -143,6 +122,30 @@ public class ConcurrentContextThread implements Runnable {
             } catch (final ContextException e) {
                 LOGGER.error("could not unlock test context album item", e);
                 LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
+            }
+        }
+    }
+
+    private void updateAlbum(final ContextAlbum lTypeAlbum) throws Exception {
+        for (int i = 0; i < threadLoops; i++) {
+            try {
+                lTypeAlbum.lockForWriting("testValue");
+                TestContextItem003 item = (TestContextItem003) lTypeAlbum.get("testValue");
+                if (item != null) {
+                    long value = item.getLongValue();
+                    item.setLongValue(++value);
+                } else {
+                    item = new TestContextItem003(0L);
+                }
+                lTypeAlbum.put("testValue", item);
+            } catch (final Exception exception) {
+                throw exception;
+            } finally {
+                try {
+                    lTypeAlbum.unlockForWriting("testValue");
+                } catch (final ContextException contextException) {
+                    throw contextException;
+                }
             }
         }
     }

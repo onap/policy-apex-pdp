@@ -73,8 +73,8 @@ public class SequentialContextInstantiation {
         Distributor contextDistributor = null;
         try {
             contextDistributor = new DistributorFactory().getDistributor(distributorKey);
-        } catch (final Exception e) {
-            e.printStackTrace();
+        } catch (final Exception exception) {
+            LOGGER.error("Error occured while Instantiating Distributor for : {}", distributorKey, exception);
             assert ("Test has failed".equals(""));
             return;
         }
@@ -267,7 +267,8 @@ public class SequentialContextInstantiation {
             assert (aObject.equals(tciA03));
 
             try {
-                assert (dateAlbum.put(null, null) == null);
+                final Object object = dateAlbum.put(null, null);
+                assert (object == null);
             } catch (final Exception e) {
                 assert (e.getMessage()
                         .equals("album \"DateContextAlbum:0.0.1\" null keys are illegal on keys for put()"));
@@ -327,16 +328,16 @@ public class SequentialContextInstantiation {
             assert (dateAlbum.size() == 7);
             assert (dateAlbumCopy.values().containsAll(mapValues));
             // CHECKSTYLE:ON: checkstyle:magicNumber
-        } catch (final Exception e) {
-            e.printStackTrace();
+        } catch (final Exception exception) {
+            LOGGER.error("Error: ", exception);
             contextDistributor.clear();
             assert ("Test has failed".equals(""));
         }
 
         try {
             contextDistributor.clear();
-        } catch (final Exception e) {
-            e.printStackTrace();
+        } catch (final Exception exception) {
+            LOGGER.error("Error occured while clearing context distributor", exception);
             assert ("Test has failed".equals(""));
         }
     }
