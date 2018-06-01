@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_4ae06696",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/BatchDeployer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-01T12:45:13Z",
+      "side": 1,
+      "message": "We probably should remove XML as we support both XML and JSON format files. This message dates from a time when we only supported XML.",
+      "range": {
+        "startLine": 59,
+        "startChar": 86,
+        "endLine": 59,
+        "endChar": 89
+      },
+      "revId": "3e98628f1e91e5722efd363f9c627c9d74a7d01c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
