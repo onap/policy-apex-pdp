@@ -1,0 +1,77 @@
+/root>#-------------------------------------------------------------------------------
+/root># ============LICENSE_START=======================================================
+/root>#  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+/root># ================================================================================
+/root># Licensed under the Apache License, Version 2.0 (the "License");
+/root># you may not use this file except in compliance with the License.
+/root># You may obtain a copy of the License at
+/root># 
+/root>#      http://www.apache.org/licenses/LICENSE-2.0
+/root># 
+/root># Unless required by applicable law or agreed to in writing, software
+/root># distributed under the License is distributed on an "AS IS" BASIS,
+/root># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+/root># See the License for the specific language governing permissions and
+/root># limitations under the License.
+/root># 
+/root># SPDX-License-Identifier: Apache-2.0
+/root># ============LICENSE_END=========================================================
+/root>#-------------------------------------------------------------------------------
+/root>
+/root> model create name=MacroFileTest_PolicyModel
+result: SUCCESS
+
+/root> schema create name=MacroFile_type1 flavour=Java schema=java.lang.String
+result: SUCCESS
+
+/root> macro file name "src/test/resources/macros/MacroFile0.apexmacro" must exist and be quoted with double quotes ""
+/root> macro file name "src/test/resources/macros/MacroFile0.apexmacro" must exist and be quoted with double quotes ""
+/root> macro file name """ must exist and be quoted with double quotes ""
+/root> macro file name ""src/test/resources/macros/MacroFile1.apexmacro" must exist and be quoted with double quotes ""
+/root> schema create name=MacroFile_type2 flavour=Java schema=java.lang.String
+result: SUCCESS
+
+/root> schema create name=MacroFile_type3 flavour=Java schema=java.lang.String                      
+result: SUCCESS
+
+/root> schema create name=MacroFile_type4 flavour=Java schema=java.lang.String                      # This is a comment
+result: SUCCESS
+
+/root> macro file name "" must exist and be quoted with double quotes ""
+/root> macro file name "" must exist and be quoted with double quotes ""
+/root> #MACROFILE
+/root> MACROFILE:
+first command word is not alphanumeric or is not a command: MACROFILE:
+/root> file "src/test/resources/macros/MacroFileNonExistant.ApexMacro" specified in Macro File Tag not found
+/root> schema create schema create name=MacroFile_type5 flavour=Java schema=java.lang.String
+result: SUCCESS
+
+/root> 
+/root> task create name=dummyTask1
+result: SUCCESS
+
+/root> task logic create name=dummyTask1 logicFlavour=JAVASCRIPT logic=LS
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(true);
+
+LE
+result: SUCCESS
+
+/root> 
+/root> task create name=dummyTask2
+result: SUCCESS
+
+/root> task logic create name=dummyTask2 logicFlavour=JAVASCRIPT logic=LS
+x=x+1
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(true);
+
+x=x+1
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(true);
+
+x=x+1
+LE
+result: SUCCESS
+
+/root> 

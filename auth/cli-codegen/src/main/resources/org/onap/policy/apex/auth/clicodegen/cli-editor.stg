@@ -1,0 +1,129 @@
+/*
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+
+/*
+ * Template for creating APEX CLI Editor Commands.
+ *
+ * @package    com.ericsson.apex.apps.pdsls.base
+ * @author     Sven van der Meer &lt;sven.van.der.meer@ericsson.com&gt;
+ */
+
+policyModel(name, version, uuid, description, declarations, definitions) ::= <<
+model create name=<name><if(version)> version=<version><endif><if(uuid)> uuid=<uuid><endif> description=<description; format="doDescription">
+
+<declarations:{decl|<decl>}; separator="\n">
+
+<definitions:{def|<def>}; separator="\n">
+
+>>
+
+schemaDecl(name, version, uuid, description, flavour, schema) ::= <<
+schema create name=<name><if(version)> version=<version><endif><if(uuid)> uuid=<uuid><endif> description=<description; format="doDescription"> flavour=<flavour> schema=<schema>
+
+>>
+
+
+ctxAlbumDecl(name, version, uuid, description, scope, writable, schemaName, schemaVersion) ::= <<
+album create name=<name><if(version)> version=<version><endif><if(uuid)> uuid=<uuid><endif> description=<description; format="doDescription"> scope=<scope> writable=<writable> schemaName=<schemaName><if(schemaVersion)> schemaVersion=<schemaVersion><endif>
+>>
+
+
+eventDecl(name, version, uuid, description, nameSpace, source, target, fields) ::= <<
+event create name=<name><if(version)> version=<version><endif><if(uuid)> uuid=<uuid><endif> description=<description; format="doDescription"><if(nameSpace)> nameSpace=<nameSpace><endif><if(source)> source=<source; format="doQuotes"><endif><if(target)> target=<target; format="doQuotes"><endif>
+<fields:{field|<field>}; separator="\n">
+
+>>
+
+eventDefField(eventName, version, fieldName, fieldSchema, fieldSchemaVersion, optional) ::= <<
+event parameter create name=<eventName><if(version)> version=<version><endif> parName=<fieldName> schemaName=<fieldSchema><if(fieldSchemaVersion)> schemaVersion=<fieldSchemaVersion><endif><if(optional)> optional=<optional><endif>
+>>
+
+
+taskDecl(name, version, uuid, description, infields, outfields, logic, parameters, contextRefs) ::= <<
+task create name=<name><if(version)> version=<version><endif><if(uuid)> uuid=<uuid><endif> description=<description; format="doDescription">
+<infields:{field|<field>}; separator="\n">
+<outfields:{field|<field>}; separator="\n">
+<logic>
+<parameters:{parameter|<parameter>}; separator="\n">
+<contextRefs:{contextRef|<contextRef>}; separator="\n">
+>>
+
+taskDefInputFields(taskName, version, fieldName, fieldSchema, fieldSchemaVersion) ::= <<
+task inputfield create name=<taskName><if(version)> version=<version><endif> fieldName=<fieldName> schemaName=<fieldSchema><if(fieldSchemaVersion)> schemaVersion=<fieldSchemaVersion><endif>
+>>
+
+taskDefOutputFields(taskName, version, fieldName, fieldSchema, fieldSchemaVersion) ::= <<
+task outputfield create name=<taskName><if(version)> version=<version><endif> fieldName=<fieldName> schemaName=<fieldSchema><if(fieldSchemaVersion)> schemaVersion=<fieldSchemaVersion><endif>
+>>
+
+taskDefLogic(taskName, version, flavour, logic) ::= <<
+task logic create name=<taskName><if(version)> version=<version><endif> logicFlavour=<flavour> logic=LS
+<logic>
+LE
+>>
+
+taskDefParameter(name, version, parName, defaultValue) ::= <<
+task parameter create name=<name><if(version)> version=<version><endif> parName=<parName> defaultValue=<defaultValue>
+>>
+
+taskDefCtxRef(name, version, albumName, albumVersion) ::= <<
+task contextref create name=<name><if(version)> version=<version><endif> albumName=<albumName><if(albumVersion)> albumVersion=<albumVersion><endif>
+>>
+
+
+policyDef(name, version, uuid, description, template, firstState, states) ::= <<
+policy create name=<name><if(version)> version=<version><endif><if(uuid)> uuid=<uuid><endif> description=<description; format="doDescription"><if(template)> template=<template><endif> firstState=<firstState>
+<states:{state|<state>}; separator="\n\n">
+
+
+>>
+
+policyStateDef(policyName, version, stateName, triggerName, triggerVersion, defaultTask, defaultTaskVersion, outputs, tasks, tsLogic, finalizerLogics, ctxRefs) ::= <<
+policy state create name=<policyName><if(version)> version=<version><endif> stateName=<stateName> triggerName=<triggerName><if(triggerVersion)> triggerVersion=<triggerVersion><endif> defaultTaskName=<defaultTask><if(defaultTaskVersion)> defaultTaskVersion=<defaultTaskVersion><endif>
+<outputs:{output|<output>}; separator="\n">
+<tasks:{task|<task>}; separator="\n">
+<tsLogic>
+<finalizerLogics:{finalizerLogic|<finalizerLogic>}; separator="\n">
+<ctxRefs:{ctxRef|<ctxRef>}; separator="\n">
+>>
+
+policyStateOutput(policyName, version, stateName, outputName, eventName, eventVersion, nextState) ::= <<
+policy state output create name=<policyName><if(version)> version=<version><endif> stateName=<stateName> outputName=<outputName> eventName=<eventName><if(eventVersion)> eventVersion=<eventVersion><endif><if(nextState)> nextState=<nextState><endif>
+>>
+
+policyStateTaskSelectionLogic(name, version, stateName, logicFlavour, logic) ::= <<
+policy state selecttasklogic create name=<name><if(version)> version=<version><endif> stateName=<stateName><if(logicFlavour)> logicFlavour=<logicFlavour><endif><if(logic)> logic=LS
+<logic>
+LE<endif>
+>>
+
+policyStateTask(policyName, version, stateName, taskLocalName, taskName, taskVersion, outputType, outputName) ::= <<
+policy state taskref create name=<policyName><if(version)> version=<version><endif> stateName=<stateName><if(taskLocalName)> taskLocalName=<taskLocalName><endif> taskName=<taskName><if(taskVersion)> taskVersion=<taskVersion><endif> outputType=<outputType> outputName=<outputName>
+>>
+
+policyStateFinalizerLogic(name, version, stateName, finalizerLogicName, logicFlavour, logic) ::= <<
+policy state finalizerlogic create name=<name><if(version)> version=<version><endif> stateName=<stateName> finalizerLogicName=<finalizerLogicName><if(logicFlavour)> logicFlavour=<logicFlavour><endif><if(logic)> logic=LS
+<logic>
+LE<endif>
+>>
+
+policyStateContextRef(name, version, stateName, albumName, albumVersion) ::= <<
+policy state contextref create name=<name><if(version)> version=<version><endif> stateName=<stateName> albumName=<albumName><if(albumVersion)> albumVersion=<albumVersion><endif>
+>>

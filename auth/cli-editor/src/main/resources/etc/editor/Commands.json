@@ -1,0 +1,2427 @@
+{
+	"commandList": [
+		{
+			"name": "quit",
+			"keywordlist": [
+				"quit"
+			],
+			"argumentList": [],
+			"systemCommand": "true",
+			"description": "quit execution of command handling, this command quits immediately without saving the model"
+		},
+		{
+			"name": "back",
+			"keywordlist": [
+				"back"
+			],
+			"argumentList": [],
+			"systemCommand": "true",
+			"description": "go back one level in editor context hierarchy"
+		},
+		{
+			"name": "help",
+			"keywordlist": [
+				"help"
+			],
+			"argumentList": [],
+			"systemCommand": "true",
+			"description": "output help information appropriate to this point in the editor context hierarchy"
+		},
+		{
+			"name": "load",
+			"keywordlist": [
+				"load"
+			],
+			"argumentList": [
+				{
+					"argumentName": "fileName",
+					"nullable": false,
+					"description": "Name of a file containing an Apex model in JSON or XML format"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.loadFromFile",
+			"description": "Load an Apex model from a file"
+		},
+		{
+			"name": "save",
+			"keywordlist": [
+				"save"
+			],
+			"argumentList": [
+				{
+					"argumentName": "fileName",
+					"nullable": true,
+					"description": "Name of the file to save the model to"
+				},
+				{
+					"argumentName": "xmlFlag",
+					"nullable": true,
+					"description": "Flag indicating that the model should be saved in XML format, model saved in JSON format if flag is false or is not specified"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.saveToFile",
+			"description": "Save an Apex model to a file"
+		},
+		{
+			"name": "analyse",
+			"keywordlist": [
+				"analyse"
+			],
+			"argumentList": [],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.analyse",
+			"description": "Analyse an Apex model to show concept usage"
+		},
+		{
+			"name": "validate",
+			"keywordlist": [
+				"validate"
+			],
+			"argumentList": [],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.validate",
+			"description": "Validate the entire Apex model to ensure it is consistent"
+		},
+		{
+			"name": "compare",
+			"keywordlist": [
+				"compare"
+			],
+			"argumentList": [
+				{
+					"argumentName": "otherModelFileName",
+					"nullable": false,
+					"description": "The file name of the other model"
+				},
+				{
+					"argumentName": "diffsOnly",
+					"nullable": true,
+					"description": "Flag indicating that only differences between the model are returned when set"
+				},
+				{
+					"argumentName": "keysOnly",
+					"nullable": true,
+					"description": "Flag indicating that only keys are printed when set, more terse output"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.compare",
+			"description": "Compare an Apex model with another Apex model"
+		},
+		{
+			"name": "split",
+			"keywordlist": [
+				"split"
+			],
+			"argumentList": [
+				{
+					"argumentName": "targetModelName",
+					"nullable": false,
+					"description": "the file name of the target model in which to store the model split out from the original model"
+				},
+				{
+					"argumentName": "splitOutPolicies",
+					"nullable": "false",
+					"description": "the policies form the original model to include in the split out model, specified as a comma delimited list of policy names"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.split",
+			"description": "Split an Apex model into a separate Apex model with only the specified policies"
+		},
+		{
+			"name": "merge",
+			"keywordlist": [
+				"merge"
+			],
+			"argumentList": [
+				{
+					"argumentName": "mergeInModelName",
+					"nullable": false,
+					"description": "the file name of the model to merge into the current model"
+				},
+				{
+					"argumentName": "keepOriginal",
+					"nullable": "true",
+					"description": "if true, if a concept exists in both models, the original model copy of that concept is kept, if false, the mreged model overwrites"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexModel.merge",
+			"description": "Merge another Apex model into this model"
+		},
+		{
+			"name": "createModel",
+			"keywordlist": [
+				"model",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the model"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the model, omit to use the default version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "model UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "model description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createModel",
+			"description": "Create an Apex model."
+		},
+		{
+			"name": "listModel",
+			"keywordlist": [
+				"model",
+				"list"
+			],
+			"argumentList": [],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listModel",
+			"description": "List an Apex model, list all the concepts in the model"
+		},
+		{
+			"name": "deleteModel",
+			"keywordlist": [
+				"model",
+				"delete"
+			],
+			"argumentList": [],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteModel",
+			"description": "Delete an Apex model, clear all the concepts in the model"
+		},
+		{
+			"name": "createKeyInformation",
+			"keywordlist": [
+				"keyinfo",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the concept for the key information"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the concept for the key information, omit to use the default version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "key information UUID, set to null to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "concept description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createKeyInformation",
+			"description": "Create key information"
+		},
+		{
+			"name": "updateKeyInformation",
+			"keywordlist": [
+				"keyinfo",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the concept for the key information"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the concept for the key information, omit to update the latest version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "key information UUID, omit to not update"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "concept description, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateKeyInformation",
+			"description": "Update key information"
+		},
+		{
+			"name": "listKeyInformation",
+			"keywordlist": [
+				"keyinfo",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the concept for the key information, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the concept for the key information, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.ListKeyInformation",
+			"description": "List key information"
+		},
+		{
+			"name": "deleteKeyInformation",
+			"keywordlist": [
+				"keyinfo",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the concept for the key information"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the concept for the key information, omit to delete all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteKeyInformation",
+			"description": "Delete key information"
+		},
+		{
+			"name": "validateKeyInformation",
+			"keywordlist": [
+				"keyinfo",
+				"validate"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the concept for the key information"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the concept for the key information, omit to validate all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateKeyInformation",
+			"description": "Validate key information"
+		},
+		{
+			"name": "createSchema",
+			"keywordlist": [
+				"schema",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the schema"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the schema, omit to use the default version"
+				},
+				{
+					"argumentName": "flavour",
+					"nullable": true,
+					"description": "the flavour of the technology for this schema, defaults to \"Java\""
+				},
+				{
+					"argumentName": "schema",
+					"nullable": false,
+					"description": "the schema text that describes the item represented by the schema"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "schema UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "schema description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createContextSchema",
+			"description": "Create a schema."
+		},
+		{
+			"name": "updateSchema",
+			"keywordlist": [
+				"schema",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the schema"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the schema, omit to use the default version"
+				},
+				{
+					"argumentName": "flavour",
+					"nullable": true,
+					"description": "the flavour of the technology for this schema, defaults to \"Java\""
+				},
+				{
+					"argumentName": "schema",
+					"nullable": false,
+					"description": "the schema text that describes the item represented by the schema"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "schema UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "schema description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateContextSchema",
+			"description": "Update a schema."
+		},
+		{
+			"name": "listSchemas",
+			"keywordlist": [
+				"schema",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the schema, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the schema, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listContextSchemas",
+			"description": "List schemas."
+		},
+		{
+			"name": "deleteSchema",
+			"keywordlist": [
+				"schema",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the schema"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the schema, omit to delete all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteContextSchema",
+			"description": "Delete a schema."
+		},
+		{
+			"name": "validateSchemas",
+			"keywordlist": [
+				"schema",
+				"validate"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the schema, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the schema, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateContextSchemas",
+			"description": "Validate context schemas."
+		},
+		{
+			"name": "createEvent",
+			"keywordlist": [
+				"event",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the event"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the event, omit to use the default version"
+				},
+				{
+					"argumentName": "nameSpace",
+					"nullable": true,
+					"description": "of the event, omit to use the default value"
+				},
+				{
+					"argumentName": "source",
+					"nullable": true,
+					"description": "of the event, omit to use the default value"
+				},
+				{
+					"argumentName": "target",
+					"nullable": true,
+					"description": "of the event, omit to use the default value"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "event UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "event description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createEvent",
+			"description": "Create an event."
+		},
+		{
+			"name": "updateEvent",
+			"keywordlist": [
+				"event",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the event"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the event, omit to use the latest version"
+				},
+				{
+					"argumentName": "nameSpace",
+					"nullable": true,
+					"description": "of the event, omit to not update"
+				},
+				{
+					"argumentName": "source",
+					"nullable": true,
+					"description": "of the event, omit to not update"
+				},
+				{
+					"argumentName": "target",
+					"nullable": true,
+					"description": "of the event, omit to not update"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "event UUID, omit to not update"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "event description, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateEvent",
+			"description": "Update an event."
+		},
+		{
+			"name": "listEvent",
+			"keywordlist": [
+				"event",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the event, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the event, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listEvent",
+			"description": "List events."
+		},
+		{
+			"name": "deleteEvent",
+			"keywordlist": [
+				"event",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the event"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the event, omit to delete all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteEvent",
+			"description": "Delete an event."
+		},
+		{
+			"name": "validateEvent",
+			"keywordlist": [
+				"event",
+				"validate"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the event, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the event, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateEvent",
+			"description": "Validate events."
+		},
+		{
+			"name": "createEventPar",
+			"keywordlist": [
+				"event",
+				"parameter",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the event"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the event, omit to use the latest version"
+				},
+				{
+					"argumentName": "parName",
+					"nullable": false,
+					"description": "of the parameter"
+				},
+				{
+					"argumentName": "schemaName",
+					"nullable": false,
+					"description": "name of the parameter schema"
+				},
+				{
+					"argumentName": "schemaVersion",
+					"nullable": true,
+					"description": "version of the parameter schema, omit to use the latest version"
+				},
+				{
+					"argumentName": "optional",
+					"nullable": true,
+					"description": "indicates if the parameter is optional, if omitted, the parameter is mandatory"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createEventPar",
+			"description": "Create an event parameter."
+		},
+		{
+			"name": "listEventPar",
+			"keywordlist": [
+				"event",
+				"parameter",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the event"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the event, omit to list latest version"
+				},
+				{
+					"argumentName": "parName",
+					"nullable": true,
+					"description": "name of the parameter, omit to list all parameters of the event"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listEventPar",
+			"description": "List event parameters."
+		},
+		{
+			"name": "deleteEventPar",
+			"keywordlist": [
+				"event",
+				"parameter",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the event"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the event, omit to use the latest version"
+				},
+				{
+					"argumentName": "parName",
+					"nullable": true,
+					"description": "of the parameter, omit to delete all parameters"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteEventPar",
+			"description": "Delete an event parameter."
+		},
+		{
+			"name": "createAlbum",
+			"keywordlist": [
+				"album",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the context album"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the context album, omit to use the default version"
+				},
+				{
+					"argumentName": "scope",
+					"nullable": false,
+					"description": "scope of application of the context album"
+				},
+				{
+					"argumentName": "writable",
+					"nullable": false,
+					"description": "true if the album is writable, false otherwise, album defaults to writable if omitted"
+				},
+				{
+					"argumentName": "schemaName",
+					"nullable": false,
+					"description": "name of the album schema"
+				},
+				{
+					"argumentName": "schemaVersion",
+					"nullable": true,
+					"description": "version of the album schema, omit to use the latest version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "context album UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "album description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createContextAlbum",
+			"description": "Create a context album."
+		},
+		{
+			"name": "updateAlbum",
+			"keywordlist": [
+				"album",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the context album"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the context album, omit to use the latest version"
+				},
+				{
+					"argumentName": "scope",
+					"nullable": false,
+					"description": "scope of application of the context album"
+				},
+				{
+					"argumentName": "writable",
+					"nullable": false,
+					"description": "true if the album is writable, false otherwise, album defaults to writable if omitted"
+				},
+				{
+					"argumentName": "schemaName",
+					"nullable": false,
+					"description": "name of the album schema"
+				},
+				{
+					"argumentName": "schemaVersion",
+					"nullable": true,
+					"description": "version of the album schema, omit to use the latest version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "context album UUID, omit to not update"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "album description, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateContextAlbum",
+			"description": "Update a context album."
+		},
+		{
+			"name": "listAlbum",
+			"keywordlist": [
+				"album",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the context album, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the context album, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listContextAlbum",
+			"description": "List context albums."
+		},
+		{
+			"name": "deleteAlbum",
+			"keywordlist": [
+				"album",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the context album"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the context album, omit to delete versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteContextAlbum",
+			"description": "Delete a context album."
+		},
+		{
+			"name": "validateAlbum",
+			"keywordlist": [
+				"album",
+				"validate"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the context album, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the context album, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateContextAlbum",
+			"description": "Validate context albums."
+		},
+		{
+			"name": "createTask",
+			"keywordlist": [
+				"task",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the default version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "task UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "task description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTask",
+			"description": "Create a task."
+		},
+		{
+			"name": "updateTask",
+			"keywordlist": [
+				"task",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "task UUID, omit to not update"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "task description, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateTask",
+			"description": "Update a task."
+		},
+		{
+			"name": "listTask",
+			"keywordlist": [
+				"task",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the task, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the task, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTask",
+			"description": "List tasks."
+		},
+		{
+			"name": "deleteTask",
+			"keywordlist": [
+				"task",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTask",
+			"description": "Delete a task."
+		},
+		{
+			"name": "validateTask",
+			"keywordlist": [
+				"task",
+				"validate"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the task, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the task, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateTask",
+			"description": "Validate tasks."
+		},
+		{
+			"name": "createTaskLogic",
+			"keywordlist": [
+				"task",
+				"logic",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "logicFlavour",
+					"nullable": true,
+					"description": "the task logic flavour for the task, omit to use the default task logic flavour"
+				},
+				{
+					"argumentName": "logic",
+					"nullable": false,
+					"description": "the source code for the logic of the task"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskLogic",
+			"description": "Create logic for a task."
+		},
+		{
+			"name": "updateTaskLogic",
+			"keywordlist": [
+				"task",
+				"logic",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "logicFlavour",
+					"nullable": true,
+					"description": "the task logic flavour for the task, omit to not update"
+				},
+				{
+					"argumentName": "logic",
+					"nullable": true,
+					"description": "the source code for the logic of the task, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateTaskLogic",
+			"description": "Update logic for a task."
+		},
+		{
+			"name": "listTaskLogic",
+			"keywordlist": [
+				"task",
+				"logic",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to list the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskLogic",
+			"description": "List task logic."
+		},
+		{
+			"name": "deleteTaskLogic",
+			"keywordlist": [
+				"task",
+				"logic",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskLogic",
+			"description": "Delete logic for a task."
+		},
+		{
+			"name": "createTaskInputField",
+			"keywordlist": [
+				"task",
+				"inputfield",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "fieldName",
+					"nullable": false,
+					"description": "of the input field"
+				},
+				{
+					"argumentName": "schemaName",
+					"nullable": false,
+					"description": "name of the input field schema"
+				},
+				{
+					"argumentName": "schemaVersion",
+					"nullable": true,
+					"description": "version of the input field schema, omit to use the latest version"
+				},
+				{
+					"argumentName": "optional",
+					"nullable": true,
+					"description": "indicates if the field is optional, if omitted, the field is mandatory"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskInputField",
+			"description": "Create a task input field."
+		},
+		{
+			"name": "listTaskInputField",
+			"keywordlist": [
+				"task",
+				"inputfield",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "fieldName",
+					"nullable": true,
+					"description": "field name of the input field, omit to list all input fields of the task"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskInputField",
+			"description": "List task input fields."
+		},
+		{
+			"name": "deleteTaskInputField",
+			"keywordlist": [
+				"task",
+				"inputfield",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "fieldName",
+					"nullable": true,
+					"description": "of the input field, omit to delete all input fields"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskInputField",
+			"description": "Delete a task input field."
+		},
+		{
+			"name": "createTaskOutputField",
+			"keywordlist": [
+				"task",
+				"outputfield",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "fieldName",
+					"nullable": false,
+					"description": "of the output field"
+				},
+				{
+					"argumentName": "schemaName",
+					"nullable": false,
+					"description": "name of the output field schema"
+				},
+				{
+					"argumentName": "schemaVersion",
+					"nullable": true,
+					"description": "version of the output field schema, omit to use the latest version"
+				},
+				{
+					"argumentName": "optional",
+					"nullable": true,
+					"description": "indicates if the field is optional, if omitted, the field is mandatory"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskOutputField",
+			"description": "Create a task output field."
+		},
+		{
+			"name": "listTaskOutputField",
+			"keywordlist": [
+				"task",
+				"outputfield",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "fieldName",
+					"nullable": true,
+					"description": "field name of the output field, omit to list all output fields of the task"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskOutputField",
+			"description": "List task output fields."
+		},
+		{
+			"name": "deleteTaskOutputField",
+			"keywordlist": [
+				"task",
+				"outputfield",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "fieldName",
+					"nullable": true,
+					"description": "of the output field, omit to delete all output fields"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskOutputField",
+			"description": "Delete a task output field."
+		},
+		{
+			"name": "createTaskParameter",
+			"keywordlist": [
+				"task",
+				"parameter",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "parName",
+					"nullable": false,
+					"description": "of the parameter"
+				},
+				{
+					"argumentName": "defaultValue",
+					"nullable": false,
+					"description": "of the parameter"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskParameter",
+			"description": "Create a task parameter."
+		},
+		{
+			"name": "listTaskParameter",
+			"keywordlist": [
+				"task",
+				"parameter",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "parName",
+					"nullable": true,
+					"description": "name of the parameter, omit to list all parameters of the task"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskParameter",
+			"description": "List task parameters."
+		},
+		{
+			"name": "deleteTaskParameter",
+			"keywordlist": [
+				"task",
+				"parameter",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "parName",
+					"nullable": true,
+					"description": "of the parameter, omit to delete all task parameters"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskParameter",
+			"description": "Delete a task parameter."
+		},
+		{
+			"name": "createTaskContextRef",
+			"keywordlist": [
+				"task",
+				"contextref",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "albumName",
+					"nullable": false,
+					"description": "name of the context album for the context reference"
+				},
+				{
+					"argumentName": "albumVersion",
+					"nullable": true,
+					"description": "version of the context album for the context reference, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskContextRef",
+			"description": "Create a task context reference."
+		},
+		{
+			"name": "listTaskContextRef",
+			"keywordlist": [
+				"task",
+				"contextref",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "albumName",
+					"nullable": true,
+					"description": "name of the context album for the context reference, omit to list all task context references"
+				},
+				{
+					"argumentName": "albumVersion",
+					"nullable": true,
+					"description": "version of the context album for the context reference, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskContextRef",
+			"description": "List task context references."
+		},
+		{
+			"name": "deleteTaskContextRef",
+			"keywordlist": [
+				"task",
+				"contextref",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "albumName",
+					"nullable": true,
+					"description": "name of the context album for the context reference, omit to delete all task context references"
+				},
+				{
+					"argumentName": "albumVersion",
+					"nullable": true,
+					"description": "version of the context album for the context reference, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskContextRef",
+			"description": "Delete a task context reference."
+		},
+		{
+			"name": "createPolicy",
+			"keywordlist": [
+				"policy",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the default version"
+				},
+				{
+					"argumentName": "template",
+					"nullable": true,
+					"description": "template used to create the policy, omit to use the default template"
+				},
+				{
+					"argumentName": "firstState",
+					"nullable": false,
+					"description": "the first state of the policy"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "policy UUID, omit to generate a UUID"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "policy description, omit to generate a description"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicy",
+			"description": "Create a policy."
+		},
+		{
+			"name": "updatePolicy",
+			"keywordlist": [
+				"policy",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "template",
+					"nullable": true,
+					"description": "template used to create the policy, omit to not update"
+				},
+				{
+					"argumentName": "firstState",
+					"nullable": false,
+					"description": "the first state of the policy"
+				},
+				{
+					"argumentName": "uuid",
+					"nullable": true,
+					"description": "policy UUID, omit to not update"
+				},
+				{
+					"argumentName": "description",
+					"nullable": true,
+					"description": "policy description, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicy",
+			"description": "Update a policy."
+		},
+		{
+			"name": "listPolicy",
+			"keywordlist": [
+				"policy",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the policy, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the policy, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicy",
+			"description": "List policies."
+		},
+		{
+			"name": "deletePolicy",
+			"keywordlist": [
+				"policy",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicy",
+			"description": "Delete a policy."
+		},
+		{
+			"name": "validatePolicy",
+			"keywordlist": [
+				"policy",
+				"validate"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": true,
+					"description": "name of the policy, omit to list all"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "starting version of the policy, omit to list all versions"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validatePolicy",
+			"description": "Validate policies."
+		},
+		{
+			"name": "createPolicyState",
+			"keywordlist": [
+				"policy",
+				"state",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "triggerName",
+					"nullable": false,
+					"description": "name of the trigger event for this state"
+				},
+				{
+					"argumentName": "triggerVersion",
+					"nullable": true,
+					"description": "version of the trigger event for this state, omit to use the latest version"
+				},
+				{
+					"argumentName": "defaultTaskName",
+					"nullable": false,
+					"description": "the default task name"
+				},
+				{
+					"argumentName": "defaultTaskVersion",
+					"nullable": true,
+					"description": "the default task version, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyState",
+			"description": "Create a policy state."
+		},
+		{
+			"name": "updatePolicyState",
+			"keywordlist": [
+				"policy",
+				"state",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "triggerName",
+					"nullable": true,
+					"description": "name of the trigger event for this state, omit to not update"
+				},
+				{
+					"argumentName": "triggerVersion",
+					"nullable": false,
+					"description": "version of the trigger event for this state, set to use latest version of trigger event"
+				},
+				{
+					"argumentName": "defaultTaskName",
+					"nullable": true,
+					"description": "the default task name, omit to not update"
+				},
+				{
+					"argumentName": "defaultTaskVersion",
+					"nullable": false,
+					"description": "the default task version, set to use latest version of default task"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicyState",
+			"description": "Update a policy state."
+		},
+		{
+			"name": "listPolicyState",
+			"keywordlist": [
+				"policy",
+				"state",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": true,
+					"description": "of the state, omit to list all states of the policy"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyState",
+			"description": "List policy states."
+		},
+		{
+			"name": "deletePolicyState",
+			"keywordlist": [
+				"policy",
+				"state",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": true,
+					"description": "of the state, omit to delete all states"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyState",
+			"description": "Delete a policy state."
+		},
+		{
+			"name": "createPolicyStateTaskSelectionLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"selecttasklogic",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "logicFlavour",
+					"nullable": true,
+					"description": "the task selection logic flavour for the state, omit to use the default task logic flavour"
+				},
+				{
+					"argumentName": "logic",
+					"nullable": false,
+					"description": "the source code for the logic of the state"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateTaskSelectionLogic",
+			"description": "Create task selection logic for a state."
+		},
+		{
+			"name": "updatePolicyStateTaskSelectionLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"selecttasklogic",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "logicFlavour",
+					"nullable": true,
+					"description": "the task selection logic flavour for the state, omit to not update"
+				},
+				{
+					"argumentName": "logic",
+					"nullable": true,
+					"description": "the source code for the logic of the state, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicyStateTaskSelectionLogic",
+			"description": "Update task selection logic for a state."
+		},
+		{
+			"name": "listPolicyStateTaskSelectionLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"selecttasklogic",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateTaskSelectionLogic",
+			"description": "List task selection logic for a state."
+		},
+		{
+			"name": "deletePolicyStateTaskSelectionLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"selecttasklogic",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateTaskSelectionLogic",
+			"description": "Delete task selection logic for a state."
+		},
+		{
+			"name": "createPolicyStateOutput",
+			"keywordlist": [
+				"policy",
+				"state",
+				"output",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "outputName",
+					"nullable": false,
+					"description": "of the state output"
+				},
+				{
+					"argumentName": "eventName",
+					"nullable": false,
+					"description": "name of the output event for this state output"
+				},
+				{
+					"argumentName": "eventVersion",
+					"nullable": true,
+					"description": "version of the output event for this state output, omit to use the latest version"
+				},
+				{
+					"argumentName": "nextState",
+					"nullable": true,
+					"description": "for this state to transition to, omit if this is the last state that the policy transitions to on this branch"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateOutput",
+			"description": "Create a policy state output."
+		},
+		{
+			"name": "listPolicyStateOutput",
+			"keywordlist": [
+				"policy",
+				"state",
+				"output",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "outputName",
+					"nullable": true,
+					"description": "of the state output, omit to list all outputs of the state"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateOutput",
+			"description": "List policy state outputs."
+		},
+		{
+			"name": "deletePolicyStateOutput",
+			"keywordlist": [
+				"policy",
+				"state",
+				"output",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "outputName",
+					"nullable": true,
+					"description": "of the state output, omit to delete all state outputs"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateOutput",
+			"description": "Delete a policy state output."
+		},
+		{
+			"name": "createPolicyStateFinalizerLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"finalizerlogic",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "finalizerLogicName",
+					"nullable": false,
+					"description": "name of the state finalizer logic"
+				},
+				{
+					"argumentName": "logicFlavour",
+					"nullable": true,
+					"description": "the policy finalizer logic flavour for the state, omit to use the default task logic flavour"
+				},
+				{
+					"argumentName": "logic",
+					"nullable": false,
+					"description": "the source code for the logic of the state"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateFinalizerLogic",
+			"description": "Create policy finalizer logic for a state."
+		},
+		{
+			"name": "updatePolicyStateFinalizerLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"finalizerlogic",
+				"update"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "finalizerLogicName",
+					"nullable": false,
+					"description": "name of the state finalizer logic"
+				},
+				{
+					"argumentName": "logicFlavour",
+					"nullable": true,
+					"description": "the policy finalizer logic flavour for the state, omit to not update"
+				},
+				{
+					"argumentName": "logic",
+					"nullable": true,
+					"description": "the source code for the logic of the state, omit to not update"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicyStateFinalizerLogic",
+			"description": "Update policy finalizer logic for a state."
+		},
+		{
+			"name": "listPolicyStateFinalizerLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"finalizerlogic",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "finalizerLogicName",
+					"nullable": false,
+					"description": "name of the state finalizer logic"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateFinalizerLogic",
+			"description": "List policy finalizer logic for a state."
+		},
+		{
+			"name": "deletePolicyStateFinalizerLogic",
+			"keywordlist": [
+				"policy",
+				"state",
+				"finalizerlogic",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "finalizerLogicName",
+					"nullable": false,
+					"description": "name of the state finalizer logic"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateFinalizerLogic",
+			"description": "Delete policy finalizer logic for a state."
+		},
+		{
+			"name": "createPolicyStateTaskRef",
+			"keywordlist": [
+				"policy",
+				"state",
+				"taskref",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "taskLocalName",
+					"nullable": true,
+					"description": "local name of the task in the state, omit to use the task name"
+				},
+				{
+					"argumentName": "taskName",
+					"nullable": false,
+					"description": "name of the task"
+				},
+				{
+					"argumentName": "taskVersion",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				},
+				{
+					"argumentName": "outputType",
+					"nullable": false,
+					"description": "Type of output for the task, must be DIRECT for direct output to a state output or LOGIC for output to state finalizer logic"
+				},
+				{
+					"argumentName": "outputName",
+					"nullable": false,
+					"description": "the name of the state output or state state finalizer logic to handle the task output"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateTaskRef",
+			"description": "Create a policy state task reference."
+		},
+		{
+			"name": "listPolicyStateTaskRef",
+			"keywordlist": [
+				"policy",
+				"state",
+				"taskref",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "taskName",
+					"nullable": true,
+					"description": "name of the task, omit to list all task references"
+				},
+				{
+					"argumentName": "taskVersion",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateTaskRef",
+			"description": "List policy state task references."
+		},
+		{
+			"name": "deletePolicyStateTaskRef",
+			"keywordlist": [
+				"policy",
+				"state",
+				"taskref",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "taskName",
+					"nullable": true,
+					"description": "name of the task, omit to delete all task references"
+				},
+				{
+					"argumentName": "taskVersion",
+					"nullable": true,
+					"description": "version of the task, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateTaskRef",
+			"description": "Delete a policy state task reference."
+		},
+		{
+			"name": "createPolicyStateContextRef",
+			"keywordlist": [
+				"policy",
+				"state",
+				"contextref",
+				"create"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "albumName",
+					"nullable": false,
+					"description": "name of the context album for the context reference"
+				},
+				{
+					"argumentName": "albumVersion",
+					"nullable": true,
+					"description": "version of the context album for the context reference, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateContextRef",
+			"description": "Create a policy state context reference."
+		},
+		{
+			"name": "listPolicyStateContextRef",
+			"keywordlist": [
+				"policy",
+				"state",
+				"contextref",
+				"list"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the latest version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "albumName",
+					"nullable": true,
+					"description": "name of the context album for the context reference, omit to list all task context references"
+				},
+				{
+					"argumentName": "albumVersion",
+					"nullable": true,
+					"description": "version of the context album for the context reference, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateContextRef",
+			"description": "List policy state context references."
+		},
+		{
+			"name": "deletePolicyStateContextRef",
+			"keywordlist": [
+				"policy",
+				"state",
+				"contextref",
+				"delete"
+			],
+			"argumentList": [
+				{
+					"argumentName": "name",
+					"nullable": false,
+					"description": "name of the policy"
+				},
+				{
+					"argumentName": "version",
+					"nullable": true,
+					"description": "version of the policy, omit to use the default version"
+				},
+				{
+					"argumentName": "stateName",
+					"nullable": false,
+					"description": "of the state"
+				},
+				{
+					"argumentName": "albumName",
+					"nullable": true,
+					"description": "name of the context album for the context reference, omit to delete all task context references"
+				},
+				{
+					"argumentName": "albumVersion",
+					"nullable": true,
+					"description": "version of the context album for the context reference, omit to use the latest version"
+				}
+			],
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateContextRef",
+			"description": "Delete a policy state context reference."
+		}
+	]
+}

@@ -1,0 +1,2 @@
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(true);

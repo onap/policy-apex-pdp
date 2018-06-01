@@ -1,0 +1,361 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "MacroFileTest_PolicyModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "MacroFileTest_PolicyModel_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ac575ca5-e2f5-3958-8873-f6068cd04440",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a8864eb8-4f01-3b39-aaf8-2170311132e1",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "bd50051c-0761-38b0-940f-27d9d505c263",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "81634b5c-d5d8-3c15-a80b-d9a12bd87760",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "810268e3-6a5a-33c9-b24e-4206646cdace",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f8f180ee-551d-30b7-850b-d707318cf25e",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFileTest_PolicyModel_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFileTest_PolicyModel_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ef8c00a8-3736-3e6d-be31-c07116ba67e4",
+                  "description" : "Generated description for concept referred to by key \"MacroFileTest_PolicyModel_Tasks:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a2841e1e-e6da-3124-ab58-be301457f49c",
+                  "description" : "Generated description for concept referred to by key \"MacroFile_type1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type2",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d4b061be-9c01-3983-951b-8e28bb838a7c",
+                  "description" : "Generated description for concept referred to by key \"MacroFile_type2:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type3",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type3",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "5da3c65c-bc46-3d84-a080-875b67e9a546",
+                  "description" : "Generated description for concept referred to by key \"MacroFile_type3:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type4",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type4",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "19d7bb93-22af-34e3-a8ff-e715fdda265e",
+                  "description" : "Generated description for concept referred to by key \"MacroFile_type4:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type5",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type5",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "15039345-454e-3c11-9524-5e5d149394dc",
+                  "description" : "Generated description for concept referred to by key \"MacroFile_type5:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "dummyTask1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "dummyTask1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "41045520-f99e-3f78-8ac8-ebba16b94a98",
+                  "description" : "Generated description for concept referred to by key \"dummyTask1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "dummyTask2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "dummyTask2",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "e366e97f-b769-394a-b388-4ad65e105ccb",
+                  "description" : "Generated description for concept referred to by key \"dummyTask2:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "MacroFileTest_PolicyModel_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "MacroFileTest_PolicyModel_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "dummyTask1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "dummyTask1",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "JAVASCRIPT",
+                     "logic" : "var returnValueType = Java.type(\"java.lang.Boolean\");\nvar returnValue = new returnValueType(true);"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "dummyTask2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "dummyTask2",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "JAVASCRIPT",
+                     "logic" : "x=x+1\nvar returnValueType = Java.type(\"java.lang.Boolean\");\nvar returnValue = new returnValueType(true);\n\nx=x+1\nvar returnValueType = Java.type(\"java.lang.Boolean\");\nvar returnValue = new returnValueType(true);\n\nx=x+1"
+                  }
+               }
+            } ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "MacroFileTest_PolicyModel_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "MacroFileTest_PolicyModel_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "MacroFileTest_PolicyModel_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "MacroFile_type1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type1",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type2",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type3",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type3",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type4",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type4",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "MacroFile_type5",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "MacroFile_type5",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            } ]
+         }
+      }
+   }
+}

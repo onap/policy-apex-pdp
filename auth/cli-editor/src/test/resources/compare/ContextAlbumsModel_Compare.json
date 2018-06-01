@@ -1,0 +1,1625 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "Adj_CM_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adj_CM_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "079f22b3-ae0f-4021-b3b2-4c30d30a62b2",
+                  "description" : "Generated description for concept referred to by key \"Adj_CM_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "Adj_KPI_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adj_KPI_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b30510dc-980b-4425-8629-d564602245bb",
+                  "description" : "Generated description for concept referred to by key \"Adj_KPI_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "Adjacency_4G_Name_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adjacency_4G_Name_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0e1c57df-6e40-4610-9e47-c481615c2b4b",
+                  "description" : "Generated description for concept referred to by key \"Adjacency_4G_Name_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_CM_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_CM_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "cc342ac1-6e79-420f-afe1-7968fc0dc2b6",
+                  "description" : "Generated description for concept referred to by key \"CellA_CM_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_KPI_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_KPI_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "879f7be0-07ff-4511-9016-2b80021cf10f",
+                  "description" : "Generated description for concept referred to by key \"CellA_KPI_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a06af82c-d298-4531-b1eb-68795573c82a",
+                  "description" : "Generated description for concept referred to by key \"CellA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_CM_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_CM_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b357ec78-e469-43aa-9bc9-29097108c10b",
+                  "description" : "Generated description for concept referred to by key \"CellB_CM_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_KPI_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_KPI_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b89da6a0-1e86-4393-a5e0-7f1a24b34f62",
+                  "description" : "Generated description for concept referred to by key \"CellB_KPI_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "fc1922ed-b8a3-4544-9cd9-4f0400b92af8",
+                  "description" : "Generated description for concept referred to by key \"CellB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ENABLE_CONGESTION_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ENABLE_CONGESTION_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f437e1ad-27d9-4b55-b961-46ca6750288b",
+                  "description" : "Generated description for concept referred to by key \"ENABLE_CONGESTION_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag0",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "938c0553-51ec-4846-bae1-972ed3c4d552",
+                  "description" : "Generated description for concept referred to by key \"ExternalBag0:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a631e868-7da5-4378-9cbd-a3d06dee3c81",
+                  "description" : "Generated description for concept referred to by key \"ExternalBag1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag2",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ee693749-0d79-49ac-9027-19056b44d5ce",
+                  "description" : "Generated description for concept referred to by key \"ExternalBag2:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag3",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag3",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ef711a31-c366-4184-8178-f3fa95f8d2cb",
+                  "description" : "Generated description for concept referred to by key \"ExternalBag3:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "FREQ_REL_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "FREQ_REL_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "300185af-a93a-4e90-ae7d-44d9241d2760",
+                  "description" : "Generated description for concept referred to by key \"FREQ_REL_TYPE_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "FooBar_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "FooBar_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "bc32c94f-d2d0-4dfb-b5bb-6dac8aa19618",
+                  "description" : "Generated description for concept referred to by key \"FooBar_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "3649128f-db51-47fd-9d6c-e78e8ca0f26b",
+                  "description" : "Generated description for concept referred to by key \"HO_EXEC_FAIL_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a089892e-5914-4375-879d-05cdad521c94",
+                  "description" : "Generated description for concept referred to by key \"HO_EXEC_FAIL_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "567f0726-593f-4093-bab4-cf9a0eb4541f",
+                  "description" : "Generated description for concept referred to by key \"LOW_CQI_SAMPLES_RATE_HO_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "75f08508-b4f3-40bd-a171-224da6e6f132",
+                  "description" : "Generated description for concept referred to by key \"LOW_CQI_SAMPLES_RATE_HO_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0a1fef5c-14f3-4357-a128-339e2515bd0a",
+                  "description" : "Generated description for concept referred to by key \"LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "06227743-177e-49fe-9ed7-587e878b57f9",
+                  "description" : "Generated description for concept referred to by key \"LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "5cc28437-d07a-4cd1-a223-38360763ac77",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "cad40903-a798-42a1-94f6-84d290c646de",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0f44b5c9-22a4-4873-aaa1-f1b80de5aa4b",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "5db641cb-d898-4f67-9f64-7dde5ecb12ae",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f12f6531-bf2f-4c70-b4fe-346d945e52f1",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f0e76392-4541-4fdf-910b-bbf4ee19ff2c",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c65233c8-634a-4729-8d74-69061cd62c51",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Tasks:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a6444cc9-b507-4567-981b-c80cf7a4f438",
+                  "description" : "Generated description for concept referred to by key \"OCN_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d7a7d62a-d374-4ec4-a6e5-9a272470b161",
+                  "description" : "Generated description for concept referred to by key \"OCN_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "9ba290d5-c39d-45f0-b18e-0747829eec29",
+                  "description" : "Generated description for concept referred to by key \"PDCCH_CCE_HIGH_LOAD_DELTA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "97f57551-7173-4ac7-9d1a-1582d2fc74a2",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ab468764-2672-4b6c-b25e-3f65ee92871e",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "eb6d0c05-df8c-4b4c-83b3-5807cf7a0a8d",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_HIGH_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "8476c5a3-612a-4dc0-aad1-ed136322eea7",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_HIGH_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "22564698-5c73-442c-8c44-c7bf9a124bbb",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_LOW_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "09c76386-9d9c-42ce-b969-c85d8e60fd6b",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_LOW_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ca221793-e153-49d2-8c14-6fec2c294159",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_AB_IN_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "93d6d2c2-b98e-4c9a-9841-22858ced9ca9",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "9fb35bc3-cf7d-4516-b643-4d90315f4aac",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_BA_IN_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "18975ab6-836c-4901-9ae2-e189e0277343",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "1c28ffda-7661-4af7-a60d-e01a8d8bad4d",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "40bc34bb-9ef0-4763-9f73-1cb915bc316d",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "1603fb66-0c15-4ccb-9c1a-3d4c88fe0501",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_HIGH_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "dbc0cd42-4d58-4a1c-a41f-4b0e3c039fc0",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_HIGH_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f22a8dbc-e6d7-4a9f-8702-a4cbe41f6e54",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_LOW_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "6445553b-73e6-43b5-b29d-b1bdf6df73cc",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_LOW_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "6f374a84-bafa-413f-a3ae-32e446646fe9",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "521fb432-25b7-499f-80ff-1a0b7bad69a2",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "32488185-fc0f-45e4-84e3-adcbfb9adf83",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_HIGH_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "cbdfec23-6f95-4b92-8939-3a32603db654",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_HIGH_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b9089519-42a0-4564-9388-e841ec53033b",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_LOW_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "6e8bc992-2a75-4121-8246-38995e9caf0c",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_LOW_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "RRC_CONGESTION_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RRC_CONGESTION_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "31107997-a363-4a69-a322-82e3e0fd5dd2",
+                  "description" : "Generated description for concept referred to by key \"RRC_CONGESTION_DELTA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "30401bd4-108c-4a99-9446-6c6a4b226de7",
+                  "description" : "Generated description for concept referred to by key \"SB_OCN_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "88647bbf-111b-4a17-8383-e437c7d45af4",
+                  "description" : "Generated description for concept referred to by key \"SB_OCN_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SET_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SET_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0f772d7a-1386-438b-95c0-dbbc05b78183",
+                  "description" : "Generated description for concept referred to by key \"SET_TYPE_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0eb28504-3bcf-44a3-8ceb-2bbea3bfc93c",
+                  "description" : "Generated description for concept referred to by key \"TOO_EARLY_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d940ffd6-c000-4c28-b37b-658e432dbe11",
+                  "description" : "Generated description for concept referred to by key \"TOO_EARLY_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d01604b4-aeb4-49af-bde3-ad8ed9366e62",
+                  "description" : "Generated description for concept referred to by key \"TOO_LATE_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0ce0d4a3-65ce-4b05-8aca-ddae63a2639b",
+                  "description" : "Generated description for concept referred to by key \"TOO_LATE_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TimeStamp_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TimeStamp_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "2fbaea79-62fb-44ce-9810-8bd2d2fd77f9",
+                  "description" : "Generated description for concept referred to by key \"TimeStamp_type:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "ExternalBag0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag0",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "EXTERNAL",
+                  "isWritable" : false,
+                  "itemSchema" : {
+                     "name" : "OCN_AB_type",
+                     "version" : "0.0.1"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag1",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "EXTERNAL",
+                  "isWritable" : false,
+                  "itemSchema" : {
+                     "name" : "CellA_CM_type",
+                     "version" : "0.0.1"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag2",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "EXTERNAL",
+                  "isWritable" : false,
+                  "itemSchema" : {
+                     "name" : "TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "ExternalBag3",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ExternalBag3",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "EXTERNAL",
+                  "isWritable" : false,
+                  "itemSchema" : {
+                     "name" : "FooBar_type",
+                     "version" : "0.0.1"
+                  }
+               }
+            } ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "Adj_CM_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adj_CM_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.util.HashMap<String,String>"
+               }
+            }, {
+               "key" : {
+                  "name" : "Adj_KPI_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adj_KPI_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.util.HashMap<String,String>"
+               }
+            }, {
+               "key" : {
+                  "name" : "Adjacency_4G_Name_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adjacency_4G_Name_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_CM_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_CM_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.util.HashMap<String,String>"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_KPI_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_KPI_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.util.HashMap<String,String>"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_CM_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_CM_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.util.HashMap<String,String>"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_KPI_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_KPI_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.util.HashMap<String,String>"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "ENABLE_CONGESTION_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ENABLE_CONGESTION_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "FREQ_REL_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "FREQ_REL_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "FooBar_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "FooBar_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "org.onap.policy.apex.sample.sampletypes.sampletypes.Foo"
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Double"
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Double"
+               }
+            }, {
+               "key" : {
+                  "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "RRC_CONGESTION_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RRC_CONGESTION_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "SET_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SET_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TimeStamp_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TimeStamp_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Long"
+               }
+            } ]
+         }
+      }
+   }
+}

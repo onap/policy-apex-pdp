@@ -1,0 +1,239 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "AvroSchemaPolicy",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "AvroSchemaPolicy_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "AvroSchemaPolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "9964f7a9-06fb-4a35-96d3-316bf625414b",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "AvroSchemaPolicy_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d67c4a9f-f307-472c-b4a7-21f0d3db1563",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "AvroSchemaPolicy_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b7bf6461-f656-48d8-9f4f-fd252f842021",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "AvroSchemaPolicy_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "3f8c3400-40cd-4450-b0bc-01bcdeacfbe2",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "AvroSchemaPolicy_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f321d8e8-d8d6-43fc-adf3-c22d25668068",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "AvroSchemaPolicy_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "804587e0-ae28-476b-83c1-db1fbd948465",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "AvroSchemaPolicy_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "AvroSchemaPolicy_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d7bc0088-20a0-46dc-b7fd-d1bd06a1115e",
+                  "description" : "Generated description for concept referred to by key \"AvroSchemaPolicy_Tasks:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SchemaLogicTest",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SchemaLogicTest",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a5dd9412-1b95-4a13-91e6-823d7b8806e8",
+                  "description" : "Generated description for concept referred to by key \"SchemaLogicTest:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "Test_InputEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Test_InputEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c2f49864-bd50-42c2-9d20-8af67c59a073",
+                  "description" : "Generated description for concept referred to by key \"Test_InputEvent:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "AvroSchemaPolicy_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "AvroSchemaPolicy_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "AvroSchemaPolicy_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "Test_InputEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Test_InputEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.test",
+                  "source" : "External",
+                  "target" : "Apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "AAA",
+                        "value" : {
+                           "key" : "AAA",
+                           "fieldSchemaKey" : {
+                              "name" : "SchemaLogicTest",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     }, {
+                        "key" : "BBB",
+                        "value" : {
+                           "key" : "BBB",
+                           "fieldSchemaKey" : {
+                              "name" : "SchemaLogicTest",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : true
+                        }
+                     }, {
+                        "key" : "CCC",
+                        "value" : {
+                           "key" : "CCC",
+                           "fieldSchemaKey" : {
+                              "name" : "SchemaLogicTest",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            } ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "AvroSchemaPolicy_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "AvroSchemaPolicy_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "SchemaLogicTest",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SchemaLogicTest",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Avro",
+                  "schemaDefinition" : "{\n  \"type\"      : \"record\",\n  \"name\"      : \"VPNActEvent\",\n  \"namespace\" : \"org.onap.policy.apex.domains.vpn.events\",\n  \"fields\"    : [\n    {\"name\": \"nameSpace\", \"type\": \"string\"},\n    {\"name\": \"name\",      \"type\": \"string\"},\n    {\"name\": \"version\",   \"type\": \"string\"},\n    {\"name\": \"source\",    \"type\": \"string\"},\n    {\"name\": \"target\",    \"type\": \"string\"},\n    {\"name\": \"LinkMap\", \"type\": {\n        \"type\" : \"record\",\n        \"name\" : \"LinkMap\",\n        \"namespace\" : \"org.onap.policy.apex.domains.vpn\",\n        \"fields\" : [ ]\n      }\n    },\n    {\"name\": \"CustomerMap\", \"type\": {\n        \"type\" : \"record\",\n        \"name\" : \"CustomerMap\",\n        \"namespace\" : \"org.onap.policy.apex.domains.vpn\",\n        \"fields\" : [ ]\n      }\n    }\n  ]\n}"
+               }
+            } ]
+         }
+      }
+   }
+}

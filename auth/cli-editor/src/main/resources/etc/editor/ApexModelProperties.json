@@ -1,0 +1,9 @@
+{
+	"defaultConceptVersion"     : "0.0.1",
+	"defaultEventNamespace"     : "org.onap.policy.apex.auth.clieditor",
+	"defaultEventSource"        : "CLIEditorSource",
+	"defaultEventTarget"        : "CLIEditorTarget",
+	"defaultLogicBlockStartTag" : "LS",
+	"defaultLogicBlockEndTag"   : "LE",
+	"defaultMacroFileTag"       : "#MACROFILE:"
+}

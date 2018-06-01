@@ -1,0 +1,374 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "LogicTestPolicy",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "LogicTestPolicy_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "LogicTestPolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "80b09a0f-1106-364a-9516-ba59fff987af",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestPolicy_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0f52b1b6-da8c-3cb4-9c02-3c484a8c1db9",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestPolicy_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "4b9e1be6-375d-3731-9021-876df01fd619",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestPolicy_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "34378780-583d-3588-8206-e57f47645cc7",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestPolicy_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d241ce4b-8fcb-3400-b6b5-7e56bcb79ce2",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestPolicy_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a86c8519-c581-3ef2-9896-7574e5bdf4e3",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestPolicy_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestPolicy_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c0006fa6-7b32-3fde-9217-ee26905d62c0",
+                  "description" : "Generated description for concept referred to by key \"LogicTestPolicy_Tasks:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTask0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTask0",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "17709a99-bbda-3805-a953-581cb9372cff",
+                  "description" : "Generated description for concept referred to by key \"LogicTestTask0:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTask1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTask1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0af914cd-3151-3c1c-a59e-106d12623947",
+                  "description" : "Generated description for concept referred to by key \"LogicTestTask1:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTask2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTask2",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "fbc5002e-ab8e-3953-88d4-af62c0e1d850",
+                  "description" : "Generated description for concept referred to by key \"LogicTestTask2:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTaskA",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTaskA",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "960e874e-cf37-3c2f-982f-c6afcfd3e832",
+                  "description" : "Generated description for concept referred to by key \"LogicTestTaskA:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTaskB",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTaskB",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f4772b19-cb7e-3a8d-98ca-6963d2bf688f",
+                  "description" : "Generated description for concept referred to by key \"LogicTestTaskB:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SchemaLogicTest",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SchemaLogicTest",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "4f9bb262-ccbf-3b2d-9655-c16ba2d37e95",
+                  "description" : "Generated description for concept referred to by key \"SchemaLogicTest:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "LogicTestPolicy_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "LogicTestPolicy_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "LogicTestTask0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTask0",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "MVEL",
+                     "logic" : "{\n\timport java.util.Date;\n\tlogger.debug(\"Running ConsistencyCheck\");\n\n\toutFields.putAll(inFields);\n\toutFields[\"Attribute1PolicyValue\"] = \"POLICY_DEFINED\";\n\tlogger.debug(\"Finished Running ConsistencyCheck\");\n\n\treturn true;\n}"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTask1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTask1",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "MVEL",
+                     "logic" : "import java.util.Date;"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTask2",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTask2",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "MVEL",
+                     "logic" : "{\n\tsystem.out.println(\"{\");\n}"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTaskA",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTaskA",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "NULL",
+                     "logicFlavour" : "UNDEFINED",
+                     "logic" : ""
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LogicTestTaskB",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LogicTestTaskB",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "NULL",
+                     "logicFlavour" : "UNDEFINED",
+                     "logic" : ""
+                  }
+               }
+            } ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "LogicTestPolicy_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "LogicTestPolicy_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "LogicTestPolicy_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "SchemaLogicTest",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SchemaLogicTest",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Exotic",
+                  "schemaDefinition" : "{\nasdmasdm'asda'sdasd\n}"
+               }
+            } ]
+         }
+      }
+   }
+}

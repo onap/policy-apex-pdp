@@ -1,0 +1,1 @@
+schema create name=MacroFile_type2 flavour=Java schema=java.lang.String

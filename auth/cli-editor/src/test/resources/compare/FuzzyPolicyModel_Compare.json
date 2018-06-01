@@ -1,0 +1,3897 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "Adjacency_4G_Name_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adjacency_4G_Name_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "fa58e9cd-488e-4eec-9ccb-e156f6a43a35",
+                  "description" : "Generated description for concept referred to by key \"Adjacency_4G_Name_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c41e1e24-ab71-4dbd-a2b7-7d349bade884",
+                  "description" : "Generated description for concept referred to by key \"CellA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f2d43289-fcf7-4c9c-a186-ecd2d49fafa9",
+                  "description" : "Generated description for concept referred to by key \"CellB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ENABLE_CONGESTION_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ENABLE_CONGESTION_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a2217f20-97fd-457e-8f28-30bf0c02068f",
+                  "description" : "Generated description for concept referred to by key \"ENABLE_CONGESTION_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "FREQ_REL_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "FREQ_REL_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "628be116-99bb-4c8f-a833-94a452f6a582",
+                  "description" : "Generated description for concept referred to by key \"FREQ_REL_TYPE_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "37c742ed-f039-48eb-a20d-2931940f4bf1",
+                  "description" : "Generated description for concept referred to by key \"HO_EXEC_FAIL_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "29c1077f-c382-4520-80b8-9d0ddad7547a",
+                  "description" : "Generated description for concept referred to by key \"HO_EXEC_FAIL_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0de782d4-f6d7-42f1-b3e4-fbc3d917a68b",
+                  "description" : "Generated description for concept referred to by key \"LOW_CQI_SAMPLES_RATE_HO_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d81522cd-b143-4a0c-aedb-271725fc2506",
+                  "description" : "Generated description for concept referred to by key \"LOW_CQI_SAMPLES_RATE_HO_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "828e3584-d194-48d1-8a49-45afb8b0cd5d",
+                  "description" : "Generated description for concept referred to by key \"LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "88d9aaec-c2de-47d1-9264-4318e76ebdee",
+                  "description" : "Generated description for concept referred to by key \"LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f99b46f4-42fa-4873-a3f0-663ef950e917",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_InputEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "90d481b5-d0df-4167-a14b-6c1fd9ee4a4c",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_OutputEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Policy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Policy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "26c27f19-c56f-4ddc-8561-bfa1a89dc9db",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Policy:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "aeb5ab2b-0b60-41ac-889d-787e3b59fd19",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b72eb47e-6b70-419c-ba8d-1ed55a91aa2f",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "952468c2-386e-4984-9f46-8c84208ad9bc",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0e7c3475-8fbc-446d-afbe-d54ae56fc0ee",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c2130341-3a43-41ae-a942-5aeba3f86724",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "09dd200b-9280-4f27-a85a-fab9fa276586",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "4eb61362-ef5b-454e-b540-e1301df8108b",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Tasks:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Task",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Task",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "76e762b7-8fdf-4d02-b4f3-60bf340997fd",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Task:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "3252ff86-02ee-4561-a818-4c7a12546045",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Task_Post:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c4fde272-52f0-4ac0-a37b-a25aa043e122",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Task_Pre:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "54b771b4-11af-43eb-94a2-d97e8b585515",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_fromFuzzy:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "960205cd-3cf1-4e90-a456-a0ac59bb06d5",
+                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_toFuzzy:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0cb3cebd-9f7e-40b6-be2b-83da8a3bb249",
+                  "description" : "Generated description for concept referred to by key \"OCN_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "db41babb-500e-4369-acea-26b312de47c3",
+                  "description" : "Generated description for concept referred to by key \"OCN_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c1374266-f148-4c6e-9aa0-eb4ad4e812a0",
+                  "description" : "Generated description for concept referred to by key \"PDCCH_CCE_HIGH_LOAD_DELTA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "285b0913-0d66-4546-8893-95bf0d267911",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "1e5556fe-bdff-4520-b8ae-606c4275b4b3",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "857cd994-c1ce-43b2-94f0-215e824cab75",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_HIGH_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "6a9fa224-1568-4da7-be8a-5fc897373f57",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_HIGH_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "cec3b03a-7c12-4b37-b60f-79c95a3adb97",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_LOW_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "2e0caf46-5081-4a67-bb64-6a4ff2721b6b",
+                  "description" : "Generated description for concept referred to by key \"REL_HO_EXEC_FAIL_RATE_LOW_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "4b96864a-8922-4698-8dba-ba6d1ecc042c",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_AB_IN_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "670708b1-5bf4-4f0c-b6f1-47affe918580",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "eacfe8b0-dd88-44b0-8f7d-89bd0fc8cd8a",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_BA_IN_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "44129948-e185-4a0d-ac60-2851d84384c4",
+                  "description" : "Generated description for concept referred to by key \"REL_NUM_HO_WITH_EVENTS_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c76dfe42-a395-4977-b3c7-b9777f2873b3",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ec904666-3e58-4d70-badc-aef1212a9b99",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "16f74164-13fe-4964-9ca3-76bf2448d31e",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_HIGH_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "9ee26f19-efc8-4df2-afef-6f0fb5b7fd41",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_HIGH_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "18553ab2-fe2b-4068-97eb-084f22e159b9",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_LOW_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d91c982c-1e31-499f-9c9f-a98407e24ef3",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_EARLY_HO_RATE_LOW_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f27118e0-202f-4405-b5fa-98d429ff8f27",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "11a5c54a-2ce6-4fbc-bc6e-ce4dd7af0a6a",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "43e67457-2c69-48ff-90f6-bc5373e45b8d",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_HIGH_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "66664526-6223-41de-af3d-991f415a84ae",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_HIGH_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b5d23339-ea3a-414a-a981-b6581dfe7503",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_LOW_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a2043cac-1a9b-4e8a-beb9-858eb6fe025f",
+                  "description" : "Generated description for concept referred to by key \"REL_TOO_LATE_HO_RATE_LOW_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "RRC_CONGESTION_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RRC_CONGESTION_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "354b79b0-aebd-4bee-a69b-41f833e71b4d",
+                  "description" : "Generated description for concept referred to by key \"RRC_CONGESTION_DELTA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "e9d87f24-c9ec-4e80-8b22-b598b4db11bb",
+                  "description" : "Generated description for concept referred to by key \"SB_OCN_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c53ff327-62dd-4615-ab9f-bafa5977e0ce",
+                  "description" : "Generated description for concept referred to by key \"SB_OCN_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SET_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SET_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "452d1d58-6290-42c7-b78e-088cc4f2280b",
+                  "description" : "Generated description for concept referred to by key \"SET_TYPE_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "f4ef6fe9-93a6-4558-b16b-006d2280c0e1",
+                  "description" : "Generated description for concept referred to by key \"TOO_EARLY_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0d2b78ee-8e18-4145-9ddb-23b122a7144f",
+                  "description" : "Generated description for concept referred to by key \"TOO_EARLY_HO_RATE_BA_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d672e9e4-7136-4aa8-aa90-1b724e244f3e",
+                  "description" : "Generated description for concept referred to by key \"TOO_LATE_HO_RATE_AB_type:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "58ccdd5c-69c1-4c1d-9075-1953b5f5b39c",
+                  "description" : "Generated description for concept referred to by key \"TOO_LATE_HO_RATE_BA_type:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Policy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "policyKey" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Policy",
+                     "version" : "0.0.1"
+                  },
+                  "template" : "FREEFORM",
+                  "state" : {
+                     "entry" : [ {
+                        "key" : "FuzzyExecute",
+                        "value" : {
+                           "stateKey" : {
+                              "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "FuzzyExecute"
+                           },
+                           "trigger" : {
+                              "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                              "version" : "0.0.1"
+                           },
+                           "stateOutputs" : {
+                              "entry" : [ {
+                                 "key" : "Fuzzy2Post",
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "FuzzyExecute",
+                                       "localName" : "Fuzzy2Post"
+                                    },
+                                    "outgoingEvent" : {
+                                       "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                                       "version" : "0.0.1"
+                                    },
+                                    "nextState" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "NULL",
+                                       "localName" : "PostExecute"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "contextAlbumReference" : [ ],
+                           "taskSelectionLogic" : {
+                              "key" : "NULL",
+                              "logicFlavour" : "UNDEFINED",
+                              "logic" : ""
+                           },
+                           "stateFinalizerLogicMap" : {
+                              "entry" : [ ]
+                           },
+                           "defaultTask" : {
+                              "name" : "LoadBalancingFuzzyPolicy_Task",
+                              "version" : "0.0.1"
+                           },
+                           "taskReferences" : {
+                              "entry" : [ {
+                                 "key" : {
+                                    "name" : "LoadBalancingFuzzyPolicy_Task",
+                                    "version" : "0.0.1"
+                                 },
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "FuzzyExecute",
+                                       "localName" : "LoadBalancingFuzzyPolicy_Policy"
+                                    },
+                                    "outputType" : "DIRECT",
+                                    "output" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "FuzzyExecute",
+                                       "localName" : "Fuzzy2Post"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     }, {
+                        "key" : "PostExecute",
+                        "value" : {
+                           "stateKey" : {
+                              "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "PostExecute"
+                           },
+                           "trigger" : {
+                              "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                              "version" : "0.0.1"
+                           },
+                           "stateOutputs" : {
+                              "entry" : [ {
+                                 "key" : "Post2Out",
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "PostExecute",
+                                       "localName" : "Post2Out"
+                                    },
+                                    "outgoingEvent" : {
+                                       "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                                       "version" : "0.0.1"
+                                    },
+                                    "nextState" : {
+                                       "parentKeyName" : "NULL",
+                                       "parentKeyVersion" : "0.0.0",
+                                       "parentLocalName" : "NULL",
+                                       "localName" : "NULL"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "contextAlbumReference" : [ ],
+                           "taskSelectionLogic" : {
+                              "key" : "NULL",
+                              "logicFlavour" : "UNDEFINED",
+                              "logic" : ""
+                           },
+                           "stateFinalizerLogicMap" : {
+                              "entry" : [ ]
+                           },
+                           "defaultTask" : {
+                              "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                              "version" : "0.0.1"
+                           },
+                           "taskReferences" : {
+                              "entry" : [ {
+                                 "key" : {
+                                    "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                                    "version" : "0.0.1"
+                                 },
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "PostExecute",
+                                       "localName" : "LoadBalancingFuzzyPolicy_Policy"
+                                    },
+                                    "outputType" : "DIRECT",
+                                    "output" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "PostExecute",
+                                       "localName" : "Post2Out"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     }, {
+                        "key" : "PreExecute",
+                        "value" : {
+                           "stateKey" : {
+                              "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "PreExecute"
+                           },
+                           "trigger" : {
+                              "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                              "version" : "0.0.1"
+                           },
+                           "stateOutputs" : {
+                              "entry" : [ {
+                                 "key" : "Pre2Fuzzy",
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "PreExecute",
+                                       "localName" : "Pre2Fuzzy"
+                                    },
+                                    "outgoingEvent" : {
+                                       "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                                       "version" : "0.0.1"
+                                    },
+                                    "nextState" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "NULL",
+                                       "localName" : "FuzzyExecute"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "contextAlbumReference" : [ ],
+                           "taskSelectionLogic" : {
+                              "key" : "NULL",
+                              "logicFlavour" : "UNDEFINED",
+                              "logic" : ""
+                           },
+                           "stateFinalizerLogicMap" : {
+                              "entry" : [ ]
+                           },
+                           "defaultTask" : {
+                              "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                              "version" : "0.0.1"
+                           },
+                           "taskReferences" : {
+                              "entry" : [ {
+                                 "key" : {
+                                    "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                                    "version" : "0.0.1"
+                                 },
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "PreExecute",
+                                       "localName" : "LoadBalancingFuzzyPolicy_Policy"
+                                    },
+                                    "outputType" : "DIRECT",
+                                    "output" : {
+                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "PreExecute",
+                                       "localName" : "Pre2Fuzzy"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  },
+                  "firstState" : "PreExecute"
+               }
+            } ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Task",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Task",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "ENABLE_CONGESTION",
+                        "value" : {
+                           "key" : "ENABLE_CONGESTION",
+                           "fieldSchemaKey" : {
+                              "name" : "ENABLE_CONGESTION_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "FREQ_REL_TYPE",
+                        "value" : {
+                           "key" : "FREQ_REL_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "FREQ_REL_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                        "value" : {
+                           "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "RRC_CONGESTION_DELTA",
+                        "value" : {
+                           "key" : "RRC_CONGESTION_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "RRC_CONGESTION_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SET_TYPE",
+                        "value" : {
+                           "key" : "SET_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "SET_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_AB",
+                        "value" : {
+                           "key" : "OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_BA",
+                        "value" : {
+                           "key" : "OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_AB",
+                        "value" : {
+                           "key" : "SB_OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_BA",
+                        "value" : {
+                           "key" : "SB_OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "FUZZY",
+                     "logic" : "policymodels/fuzzy/SampleLBFuzzyLogic.xml"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_AB",
+                        "value" : {
+                           "key" : "OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_BA",
+                        "value" : {
+                           "key" : "OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_AB",
+                        "value" : {
+                           "key" : "SB_OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_BA",
+                        "value" : {
+                           "key" : "SB_OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_AB",
+                        "value" : {
+                           "key" : "OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_BA",
+                        "value" : {
+                           "key" : "OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_AB",
+                        "value" : {
+                           "key" : "SB_OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_BA",
+                        "value" : {
+                           "key" : "SB_OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "MVEL",
+                     "logic" : "logger.debug(subject.id);logger.debug(inFields);outFields.putAll(inFields);logger.debug(outFields);return true;"
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "ENABLE_CONGESTION",
+                        "value" : {
+                           "key" : "ENABLE_CONGESTION",
+                           "fieldSchemaKey" : {
+                              "name" : "ENABLE_CONGESTION_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "FREQ_REL_TYPE",
+                        "value" : {
+                           "key" : "FREQ_REL_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "FREQ_REL_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                        "value" : {
+                           "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "RRC_CONGESTION_DELTA",
+                        "value" : {
+                           "key" : "RRC_CONGESTION_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "RRC_CONGESTION_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SET_TYPE",
+                        "value" : {
+                           "key" : "SET_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "SET_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "ENABLE_CONGESTION",
+                        "value" : {
+                           "key" : "ENABLE_CONGESTION",
+                           "fieldSchemaKey" : {
+                              "name" : "ENABLE_CONGESTION_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "FREQ_REL_TYPE",
+                        "value" : {
+                           "key" : "FREQ_REL_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "FREQ_REL_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                        "value" : {
+                           "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "RRC_CONGESTION_DELTA",
+                        "value" : {
+                           "key" : "RRC_CONGESTION_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "RRC_CONGESTION_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SET_TYPE",
+                        "value" : {
+                           "key" : "SET_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "SET_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "MVEL",
+                     "logic" : "logger.debug(subject.id);logger.debug(inFields);outFields.putAll(inFields);logger.debug(outFields);return true;"
+                  }
+               }
+            } ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apexaiasonom",
+                  "source" : "external",
+                  "target" : "apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "ENABLE_CONGESTION",
+                        "value" : {
+                           "key" : "ENABLE_CONGESTION",
+                           "fieldSchemaKey" : {
+                              "name" : "ENABLE_CONGESTION_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "FREQ_REL_TYPE",
+                        "value" : {
+                           "key" : "FREQ_REL_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "FREQ_REL_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                        "value" : {
+                           "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "RRC_CONGESTION_DELTA",
+                        "value" : {
+                           "key" : "RRC_CONGESTION_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "RRC_CONGESTION_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SET_TYPE",
+                        "value" : {
+                           "key" : "SET_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "SET_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apexaiasonom",
+                  "source" : "apex",
+                  "target" : "external",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_AB",
+                        "value" : {
+                           "key" : "OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_BA",
+                        "value" : {
+                           "key" : "OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_AB",
+                        "value" : {
+                           "key" : "SB_OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_BA",
+                        "value" : {
+                           "key" : "SB_OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apexaiasonom",
+                  "source" : "fuzzy",
+                  "target" : "apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_AB",
+                        "value" : {
+                           "key" : "OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "OCN_BA",
+                        "value" : {
+                           "key" : "OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_AB",
+                        "value" : {
+                           "key" : "SB_OCN_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SB_OCN_BA",
+                        "value" : {
+                           "key" : "SB_OCN_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "SB_OCN_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apexaiasonom",
+                  "source" : "apex",
+                  "target" : "fuzzy",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "Adjacency_4G_Name",
+                        "value" : {
+                           "key" : "Adjacency_4G_Name",
+                           "fieldSchemaKey" : {
+                              "name" : "Adjacency_4G_Name_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellA",
+                        "value" : {
+                           "key" : "CellA",
+                           "fieldSchemaKey" : {
+                              "name" : "CellA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "CellB",
+                        "value" : {
+                           "key" : "CellB",
+                           "fieldSchemaKey" : {
+                              "name" : "CellB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "ENABLE_CONGESTION",
+                        "value" : {
+                           "key" : "ENABLE_CONGESTION",
+                           "fieldSchemaKey" : {
+                              "name" : "ENABLE_CONGESTION_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "FREQ_REL_TYPE",
+                        "value" : {
+                           "key" : "FREQ_REL_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "FREQ_REL_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_AB",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "HO_EXEC_FAIL_RATE_BA",
+                        "value" : {
+                           "key" : "HO_EXEC_FAIL_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_CQI_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                        "value" : {
+                           "key" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                        "value" : {
+                           "key" : "PDCCH_CCE_HIGH_LOAD_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_HO_EXEC_FAIL_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_AB_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                        "value" : {
+                           "key" : "REL_NUM_HO_WITH_EVENTS_BA_IN",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_EARLY_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_HIGH_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                        "value" : {
+                           "key" : "REL_TOO_LATE_HO_RATE_LOW_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "RRC_CONGESTION_DELTA",
+                        "value" : {
+                           "key" : "RRC_CONGESTION_DELTA",
+                           "fieldSchemaKey" : {
+                              "name" : "RRC_CONGESTION_DELTA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "SET_TYPE",
+                        "value" : {
+                           "key" : "SET_TYPE",
+                           "fieldSchemaKey" : {
+                              "name" : "SET_TYPE_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_EARLY_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_EARLY_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_EARLY_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_AB",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_AB",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_AB_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     }, {
+                        "key" : "TOO_LATE_HO_RATE_BA",
+                        "value" : {
+                           "key" : "TOO_LATE_HO_RATE_BA",
+                           "fieldSchemaKey" : {
+                              "name" : "TOO_LATE_HO_RATE_BA_type",
+                              "version" : "0.0.1"
+                           }
+                        }
+                     } ]
+                  }
+               }
+            } ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "Adjacency_4G_Name_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "Adjacency_4G_Name_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "CellB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "CellB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "ENABLE_CONGESTION_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ENABLE_CONGESTION_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "FREQ_REL_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "FREQ_REL_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_CQI_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "LOW_PUSCH_SINR_SAMPLES_RATE_HO_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Double"
+               }
+            }, {
+               "key" : {
+                  "name" : "OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Double"
+               }
+            }, {
+               "key" : {
+                  "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PDCCH_CCE_HIGH_LOAD_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_HO_EXEC_FAIL_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_IN_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_NUM_HO_WITH_EVENTS_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_EARLY_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Boolean"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_HIGH_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "REL_TOO_LATE_HO_RATE_LOW_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "RRC_CONGESTION_DELTA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RRC_CONGESTION_DELTA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "SB_OCN_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SB_OCN_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "SET_TYPE_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SET_TYPE_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.String"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_EARLY_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_EARLY_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_AB_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_AB_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            }, {
+               "key" : {
+                  "name" : "TOO_LATE_HO_RATE_BA_type",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TOO_LATE_HO_RATE_BA_type",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Float"
+               }
+            } ]
+         }
+      }
+   }
+}
