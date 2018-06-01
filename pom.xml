@@ -135,6 +135,7 @@
     <modules>
         <module>model</module>
         <module>context</module>
+        <module>core</module>
         <module>auth</module>
     </modules>
 </project>
