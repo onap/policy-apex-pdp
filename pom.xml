@@ -137,5 +137,6 @@
         <module>context</module>
         <module>core</module>
         <module>auth</module>
+        <module>plugins</module>
     </modules>
 </project>

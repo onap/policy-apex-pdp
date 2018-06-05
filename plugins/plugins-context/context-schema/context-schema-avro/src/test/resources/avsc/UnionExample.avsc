@@ -1,0 +1,30 @@
+{
+	"namespace": "example.avro",
+	"type": "record",
+	"name": "User",
+	"fields": [
+		{
+			"name": "name",
+			"type": "string"
+		},
+		{
+			"name": "favourite_number",
+			"type": [
+				"null",
+				"int"
+			]
+		},
+		{
+			"name": "favourite_colour",
+			"type": [
+				"null",
+				"string"
+			]
+		},
+		{
+			"name": "favourite_group",
+			"type": ["null", "string"],
+			"default": "null"
+		}
+	]
+}

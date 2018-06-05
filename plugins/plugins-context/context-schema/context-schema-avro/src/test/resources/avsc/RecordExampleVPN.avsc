@@ -1,0 +1,26 @@
+{
+  "type"      : "record",
+  "name"      : "VPNActEvent",
+  "namespace" : "com.ericsson.apex.domains.vpn.events",
+  "fields"    : [
+    {"name": "nameSpace", "type": "string"},
+    {"name": "name",      "type": "string"},
+    {"name": "version",   "type": "string"},
+    {"name": "source",    "type": "string"},
+    {"name": "target",    "type": "string"},
+    {"name": "LinkMap", "type": {
+        "type" : "record",
+        "name" : "LinkMap",
+        "namespace" : "com.ericsson.apex.domains.vpn",
+        "fields" : [ ]
+      }
+    },
+    {"name": "CustomerMap", "type": {
+        "type" : "record",
+        "name" : "CustomerMap",
+        "namespace" : "com.ericsson.apex.domains.vpn",
+        "fields" : [ ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+	"type": "array",
+	"items": {
+		"type": "record",
+		"name": "AAIInventoryResponseItem_Type",
+		"fields": [
+			{
+				"name": "model_DasH_name",
+				"type": "string"
+			},
+			{
+				"name": "extra_DasH_properties",
+				"type": {
+					"type": "record",
+					"name": "AAIInventoryResponseItemExtraProperties_Type",
+					"fields": []
+				}
+			},
+			{
+				"name": "generic_DasH_vnf",
+				"type": {
+					"type": "record",
+					"name": "AAIInventoryResponseItemGenericVNF_Type",
+					"fields": [
+						{
+							"name": "vnf_DasH_id",
+							"type": "string"
+						},
+						{
+							"name": "vnf_DasH_name",
+							"type": "string"
+						},
+						{
+							"name": "vnf_DasH_type",
+							"type": "string"
+						},
+						{
+							"name": "service_DasH_id",
+							"type": "string"
+						},
+						{
+							"name": "orchestration_DasH_status",
+							"type": "string"
+						},
+						{
+							"name": "in_DasH_maint",
+							"type": "boolean"
+						},
+						{
+							"name": "is_DasH_closed_DasH_loop_DasH_disabled",
+							"type": "boolean"
+						},
+						{
+							"name": "resource_DasH_version",
+							"type": "string"
+						},
+						{
+							"name": "model_DasH_invariant_DasH_id",
+							"type": "string"
+						},
+						{
+							"name": "model_DasH_version_DasH_id",
+							"type": "string"
+						}
+					]
+				}
+			}
+		]
+	}
+}
