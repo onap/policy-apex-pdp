@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_b893765b",
+        "filename": "services/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-06T14:22:39Z",
+      "side": 1,
+      "message": "We should remove these profiles now because we will move the apexTests to integration and the apexMetrics to performance testing",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 15
+      },
+      "revId": "817583338979eb11808335b0e157ce3a046d543a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
