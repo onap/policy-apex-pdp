@@ -1,0 +1,31 @@
+{
+	"engineServiceParameters": {
+		"name": "hello there",
+		"version": "PA1",
+		"id": -45,
+		"instanceCount": -345,
+		"deploymentPort": 65536,
+		"policyModelFileName": "/some/file/name.xml"
+	},
+	"eventOutputParameters": {
+		"FirstProducer": {
+			"carrierTechnologyParameters": {
+				"carrierTechnology": "FILE"
+			},
+			"eventProtocolParameters": {
+				"eventProtocol": "JSON"
+			}
+		}
+	},
+	"eventInputParameters": {
+		"TheFileConsumer1": {
+			"carrierTechnologyParameters": {
+				"carrierTechnology": "FILE"
+			},
+			"eventProtocolParameters": {
+				"eventProtocol": "SUPER_TOK_DEL",
+				"parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters"
+			}
+		}
+	}
+}

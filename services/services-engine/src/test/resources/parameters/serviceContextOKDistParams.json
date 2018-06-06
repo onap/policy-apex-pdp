@@ -1,0 +1,48 @@
+{
+	"engineServiceParameters": {
+		"name": "MyApexEngine",
+		"version": "0.0.1",
+		"id": 45,
+		"instanceCount": 345,
+		"deploymentPort": 65522,
+		"policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+		"engineParameters": {
+			"contextParameters": {
+				"parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters",
+				"contextParameters": {
+					"parameterClassName": "org.onap.policy.apex.context.parameters.DistributorParameters"
+				}
+			},
+			"executorParameters": {
+				"MVEL": {
+					"parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters"
+				}
+			}
+		}
+	},
+	"eventOutputParameters": {
+		"FirstProducer": {
+			"carrierTechnologyParameters": {
+				"carrierTechnology": "FILE",
+				"parameters": {
+					"fileName": "/tmp/aaa.json"
+				}
+			},
+			"eventProtocolParameters": {
+				"eventProtocol": "JSON"
+			}
+		}
+	},
+	"eventInputParameters": {
+		"MySuperDooperConsumer1": {
+			"carrierTechnologyParameters": {
+				"carrierTechnology": "SUPER_DOOPER",
+				"parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters"
+			},
+			"eventProtocolParameters": {
+				"eventProtocol": "SUPER_TOK_DEL",
+				"parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters"
+			}
+		}
+	}
+}

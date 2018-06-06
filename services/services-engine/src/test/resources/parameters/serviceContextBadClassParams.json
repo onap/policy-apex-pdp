@@ -1,0 +1,15 @@
+{
+	"engineServiceParameters": {
+		"name": "MyApexEngine",
+		"version": "0.0.1",
+		"id": 45,
+		"instanceCount": 345,
+		"deploymentPort": 65522,
+		"policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+		"engineParameters": {
+			"contextParameters": {
+				"parameterClassName": "java.lang.Integer"
+			}
+		}
+	}
+}
