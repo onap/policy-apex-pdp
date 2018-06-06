@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_c4f69e90",
+        "filename": "services/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:04:57Z",
+      "side": 1,
+      "message": "Please move the APEX Profiles as well (apexDefault, apexTests, apexAll). \nFor now we can have \"\u003cmodule\u003eapex-services.engine\u003c/module\u003e\" part of all profiles. And later when we add new modules, then put in on the correct profile it should go to.",
+      "revId": "fd37aa47669967ba504a6b4a001e5f4f9661aba2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
