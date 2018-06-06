@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_44492e8d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/eventrequestor/EventRequestorConsumer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 155,
+        "startChar": 18,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_644eaa98",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/eventrequestor/EventRequestorConsumer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 166,
+        "startChar": 18,
+        "endLine": 166,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e4595a5c",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/eventrequestor/EventRequestorProducer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_44304e07",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 155,
+        "startChar": 18,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_64354af6",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 166,
+        "startChar": 18,
+        "endLine": 166,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_043a46e7",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/producer/ApexFileEventProducer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 122,
+        "startChar": 18,
+        "endLine": 122,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_243f42d8",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/producer/ApexFileEventProducer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 133,
+        "startChar": 18,
+        "endLine": 133,
+        "endChar": 19
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_842df6aa",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/jsonprotocolplugin/Apex2JSONEventConverter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra space?",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_4417ee54",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/ExecutorParameterTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra tab?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 8
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_24bae26e",
+        "filename": "services/services-engine/src/test/resources/parameters/blankParams.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra tabs?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 8
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_64678a26",
+        "filename": "services/services-engine/src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra tab?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_046c8607",
+        "filename": "services/services-engine/src/test/resources/parameters/serviceExecutorEmptyParams.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra tab?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_247182e0",
+        "filename": "services/services-engine/src/test/resources/parameters/serviceExecutorNoParams.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-06T11:55:40Z",
+      "side": 1,
+      "message": "extra tab?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "937318e14553ce70822e000060d91643d5cebe0d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
