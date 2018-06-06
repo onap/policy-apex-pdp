@@ -1,0 +1,4 @@
+Apex Adaptive Policy Engine
+Version: ${project.version}
+Built (UTC): ${timestamp}
+ONAP https://wiki.onap.org
