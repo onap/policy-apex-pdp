@@ -40,6 +40,7 @@
         <encoding>UTF-8</encoding>
         <file.encoding>UTF-8</file.encoding>
         <version.derby>10.13.1.1</version.derby>
+        <version.commons-cli>1.4</version.commons-cli>
     </properties>
 
     <distributionManagement>
@@ -138,5 +139,6 @@
         <module>core</module>
         <module>auth</module>
         <module>plugins</module>
+        <module>services</module>
     </modules>
 </project>
