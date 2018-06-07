@@ -649,6 +649,8 @@ final class EngineWorker implements EngineService {
                 try {
                     event = eventProcessingQueue.take();
                 } catch (final InterruptedException e) {
+                    // restore the interrupt status
+                    Thread.currentThread().interrupt();
                     LOGGER.debug("Engine {} processing interrupted ", engineWorkerKey);
                     break;
                 }

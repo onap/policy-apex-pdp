@@ -163,6 +163,8 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
         try {
             queue.put(apexEvent);
         } catch (final InterruptedException e) {
+            // restore the interrupt status
+            Thread.currentThread().interrupt();
             LOGGER.warn("Failed to queue the event: " + apexEvent, e);
         }
     }
@@ -191,6 +193,8 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
                     LOGGER.trace("event sent : " + apexEvent.toString());
                 }
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.debug("Thread interrupted, Reason {}", e.getMessage());
                 break;
             } catch (final Exception e) {

@@ -34,7 +34,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is the output of a state, and is used by the engine to decide what the next state for execution is.
+ * This class is the output of a state, and is used by the engine to decide what the next state for
+ * execution is.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -115,15 +116,11 @@ public class StateOutput {
         for (final Entry<String, Object> incomingFieldEntry : eventFieldMap.entrySet()) {
             final String fieldName = incomingFieldEntry.getKey();
             final AxField fieldDef = incomingFieldDefinitionMap.get(fieldName);
-            try {
 
-                // Check if this field is a field in the event
-                if (!outputEventDef.getFields().contains(fieldDef)) {
-                    throw new StateMachineException(
-                            "field \"" + fieldName + "\" does not exist on event \"" + outputEventDef.getID() + "\"");
-                }
-            } catch (final Exception e) {
-                e.printStackTrace();
+            // Check if this field is a field in the event
+            if (!outputEventDef.getFields().contains(fieldDef)) {
+                throw new StateMachineException(
+                        "field \"" + fieldName + "\" does not exist on event \"" + outputEventDef.getID() + "\"");
             }
 
             // Set the value in the output event
@@ -132,8 +129,8 @@ public class StateOutput {
     }
 
     /**
-     * This method copies any fields that exist on the input event that also exist on the output event if they are not
-     * set on the output event.
+     * This method copies any fields that exist on the input event that also exist on the output
+     * event if they are not set on the output event.
      *
      * @param incomingEvent The incoming event to copy from
      */
