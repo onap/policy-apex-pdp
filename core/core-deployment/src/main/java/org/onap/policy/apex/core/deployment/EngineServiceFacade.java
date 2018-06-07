@@ -50,11 +50,12 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class Deployer deploys an Apex model held as an XML file onto an Apex engine. It uses the EngDep protocol to
- * communicate with the engine, with the EngDep protocol being carried on Java web sockets.
+ * The Class Deployer deploys an Apex model held as an XML file onto an Apex engine. It uses the
+ * EngDep protocol to communicate with the engine, with the EngDep protocol being carried on Java
+ * web sockets.
  *
- * This deployer is a simple command line deployer that reads the communication parameters and the location of the XML
- * model file as arguments.
+ * This deployer is a simple command line deployer that reads the communication parameters and the
+ * location of the XML model file as arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -62,7 +63,8 @@ public class EngineServiceFacade {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EngineServiceFacade.class);
 
-    // The default message timeout and timeout increment (the amount of time between polls) in milliseconds
+    // The default message timeout and timeout increment (the amount of time between polls) in
+    // milliseconds
     private static final int CLIENT_START_WAIT_INTERVAL = 100;
     private static final int REPLY_MESSAGE_TIMEOUT_DEFAULT = 10000;
     private static final int REPLY_MESSAGE_TIMEOUT_INCREMENT = 100;
@@ -100,7 +102,8 @@ public class EngineServiceFacade {
         try {
             LOGGER.debug("handshaking with server {}:{} . . .", hostName, port);
 
-            // Use the deployment client to handle the EngDep communication towards the Apex server. It runs a thread to
+            // Use the deployment client to handle the EngDep communication towards the Apex server.
+            // It runs a thread to
             // monitor the session and to send
             // messages
             client = new DeploymentClient(hostName, port);
@@ -184,7 +187,8 @@ public class EngineServiceFacade {
      *
      * @param modelFileName the name of the model file containing the model to deploy
      * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param force true if the model is to be applied even if it is incompatible with the existing
+     *        model
      * @throws ApexException on Apex errors
      * @throws IOException on IO exceptions from the operating system
      */
@@ -215,7 +219,8 @@ public class EngineServiceFacade {
      * @param modelFileName the name of the model file containing the model to deploy
      * @param modelInputStream the stream that holds the Apex model
      * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param force true if the model is to be applied even if it is incompatible with the existing
+     *        model
      * @throws ApexException on model deployment errors
      */
     public void deployModel(final String modelFileName, final InputStream modelInputStream,
@@ -238,7 +243,8 @@ public class EngineServiceFacade {
      *
      * @param apexPolicyModel the name of the model to deploy
      * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param force true if the model is to be applied even if it is incompatible with the existing
+     *        model
      * @throws ApexException on model deployment errors
      */
     public void deployModel(final AxPolicyModel apexPolicyModel, final boolean ignoreConflicts, final boolean force)
@@ -436,6 +442,8 @@ public class EngineServiceFacade {
             try {
                 receivedMessage = client.getReceiveQueue().poll(REPLY_MESSAGE_TIMEOUT_INCREMENT, TimeUnit.MILLISECONDS);
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.warn("reception of response from server interrupted {}:{}", hostName, port, e);
                 throw new ApexDeploymentException(
                         "reception of response from server interrupted " + hostName + ':' + port, e);

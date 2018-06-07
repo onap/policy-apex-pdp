@@ -29,8 +29,8 @@ import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
 /**
- * The Class MessagingClient is the class that wraps web socket handling, message sending, and message reception on the
- * client side of a web socket in Apex.
+ * The Class MessagingClient is the class that wraps web socket handling, message sending, and
+ * message reception on the client side of a web socket in Apex.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  * @param <MESSAGE> the generic type
@@ -39,12 +39,13 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
     // The length of time to wait for a connection to a web socket server before aborting
     private static final int CONNECTION_TIMEOUT_TIME_MS = 3000;
 
-    // The length of time to wait before checking if a connection to a web socket server has worked or not
+    // The length of time to wait before checking if a connection to a web socket server has worked
+    // or not
     private static final int CONNECTION_TRY_INTERVAL_MS = 100;
 
     /**
-     * Constructor of this class, uses its {@link InternalMessageBusClient} superclass to set up the web socket and
-     * handle incoming message forwarding.
+     * Constructor of this class, uses its {@link InternalMessageBusClient} superclass to set up the
+     * web socket and handle incoming message forwarding.
      *
      * @param serverUri The URI of the service
      */
@@ -80,7 +81,11 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
     public void startConnection() {
         // Open the web socket
         final WebSocket connection = super.getConnection();
-        if (connection != null && !connection.isOpen()) {
+
+        if (connection == null) {
+            throw new IllegalStateException("Could not connect to the server");
+        }
+        if (!connection.isOpen()) {
             connect();
         }
 
@@ -129,8 +134,9 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex.core.
-     * infrastructure. messaging.MessageHolder)
+     * @see
+     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex
+     * .core. infrastructure. messaging.MessageHolder)
      */
     @Override
     public void send(final MessageHolder<MESSAGE> commands) {
@@ -142,7 +148,8 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
+     * @see
+     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
      */
     @Override
     public void send(final String messageString) {

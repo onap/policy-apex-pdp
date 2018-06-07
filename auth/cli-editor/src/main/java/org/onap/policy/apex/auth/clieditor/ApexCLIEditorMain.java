@@ -78,7 +78,6 @@ public class ApexCLIEditorMain {
         // Read the command definitions
         try {
             commands = new JSONHandler<CLICommands>().read(CLICommands.class, parameters.getMetadataStream());
-            LOGGER.debug("found " + commands.getCommandSet().size() + " commands");
         } catch (final Exception e) {
             LOGGER.error("start of Apex command line editor failed, error reading command metadata from "
                     + parameters.getMetadataLocation());
@@ -88,18 +87,19 @@ public class ApexCLIEditorMain {
         }
 
         // The JSON processing returns null if there is an empty file
-        if (null == commands) {
+        if (commands == null || commands.getCommandSet().isEmpty()) {
             LOGGER.error("start of Apex command line editor failed, no commands found in "
                     + parameters.getApexPropertiesLocation());
             errorCount++;
             return;
         }
 
+        LOGGER.debug("found " + commands.getCommandSet().size() + " commands");
+
         // Read the Apex properties
         try {
             apexModelProperties = new JSONHandler<ApexModelProperties>().read(ApexModelProperties.class,
                     parameters.getApexPropertiesStream());
-            LOGGER.debug("model properties are: " + apexModelProperties.toString());
         } catch (final Exception e) {
             LOGGER.error("start of Apex command line editor failed, error reading Apex model properties from "
                     + parameters.getApexPropertiesLocation());
@@ -115,6 +115,8 @@ public class ApexCLIEditorMain {
             errorCount++;
             return;
         }
+
+        LOGGER.debug("model properties are: " + apexModelProperties.toString());
 
         // Find the system commands
         final Set<KeywordNode> systemCommandNodes = new TreeSet<>();

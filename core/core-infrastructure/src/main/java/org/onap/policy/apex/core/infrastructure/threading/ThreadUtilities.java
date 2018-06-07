@@ -42,6 +42,8 @@ public final class ThreadUtilities {
         try {
             Thread.sleep(milliseconds);
         } catch (final InterruptedException e) {
+            // restore the interrupt status
+            Thread.currentThread().interrupt();
             return false;
         }
 
