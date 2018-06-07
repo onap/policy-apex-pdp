@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_e210655b",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/ApexCLIEditorMain.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-07T17:20:53Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure we can get null here, the JSONHandler just returns the result of GSON.fromJson() and that returns null if there is no file or the file is empty:\nhttps://google.github.io/gson/apidocs/com/google/gson/Gson.html#fromJson-java.io.Reader-java.lang.reflect.Type-\n\n\nMaybe we could verify it with a junit test.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 49
+      },
+      "revId": "6ba204f1e385f28732d9eadcaaa52e61c0f77568",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
