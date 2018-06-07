@@ -40,7 +40,7 @@ public class AxStateFacade {
     // CHECKSTYLE:OFF: checkstyle:visibilityModifier Logic has access to this field
 
     /** The full definition information for the state. */
-    public AxState state;
+    public final AxState state;
 
     // CHECKSTYLE:ON: checkstyle:visibilityModifier
 

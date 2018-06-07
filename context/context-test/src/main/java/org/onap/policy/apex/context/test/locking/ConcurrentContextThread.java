@@ -138,14 +138,8 @@ public class ConcurrentContextThread implements Runnable {
                     item = new TestContextItem003(0L);
                 }
                 lTypeAlbum.put("testValue", item);
-            } catch (final Exception exception) {
-                throw exception;
             } finally {
-                try {
-                    lTypeAlbum.unlockForWriting("testValue");
-                } catch (final ContextException contextException) {
-                    throw contextException;
-                }
+                lTypeAlbum.unlockForWriting("testValue");
             }
         }
     }

@@ -70,7 +70,7 @@ public class StateFinalizerExecutionContext {
      * fields to determine what state output to select. Once a state finalizer has selected a state output, it must
      * marshal these fields so that they match the fields required for the event defined in the state output.
      */
-    public Map<String, Object> fields;
+    public final Map<String, Object> fields;
 
     // A message specified in the logic
     private String message;

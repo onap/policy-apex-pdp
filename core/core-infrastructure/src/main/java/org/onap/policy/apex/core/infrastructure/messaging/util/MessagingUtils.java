@@ -33,14 +33,19 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class MessagingUtils is a class with static methods used in IPC messaging for finding free ports, translating
- * host names to addresses, serializing objects and flushing object streams.
+ * The Class MessagingUtils is a class with static methods used in IPC messaging for finding free
+ * ports, translating host names to addresses, serializing objects and flushing object streams.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
 public final class MessagingUtils {
     // The port number of the lowest user port, ports 0-1023 are system ports
     private static final int LOWEST_USER_PORT = 1024;
+
+    /**
+     * Port number is an unsigned 16-bit integer, so maximum port is 65535
+     */
+    private static final int MAX_PORT_RANGE = 65535;
 
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(MessagingUtils.class);
@@ -51,8 +56,8 @@ public final class MessagingUtils {
     private MessagingUtils() {}
 
     /**
-     * This method searches the availability of the port, if the requested port not available, this method will throw an
-     * exception.
+     * This method searches the availability of the port, if the requested port not available, this
+     * method will throw an exception.
      *
      * @param port the port to check
      * @return the port verified as being free
@@ -86,8 +91,9 @@ public final class MessagingUtils {
     }
 
     /**
-     * This method searches the availability of the port, if the requested port not available,this method will increment
-     * the port number and check the availability of that port, this process will continue until it find port available.
+     * This method searches the availability of the port, if the requested port not available,this
+     * method will increment the port number and check the availability of that port, this process
+     * will continue until it reaches max port range which is {@link MAX_PORT_RANGE}.
      *
      * @param port the first port to check
      * @return the port that was found
@@ -96,29 +102,31 @@ public final class MessagingUtils {
     public static int findPort(final int port) {
         LOGGER.entry("Checking availability of  port {}", port);
 
-        Socket s = null;
-        try {
-            // Try to connect to the port, if we can connect then the port is occupied
-            s = new Socket("localhost", port);
-            LOGGER.debug("Port {} is not available", port);
+        int availablePort = port;
 
-            // Recurse and try the next port
-            return findPort(port + 1);
-        } catch (final IOException e) {
-            // We found a free port
-            LOGGER.debug("Port {} is available ", port);
-            return port;
-        } finally {
-            // Close the socket used to check if the port was free
-            if (s != null) {
-                try {
-                    s.close();
-                } catch (final IOException e) {
-                    LOGGER.catching(e);
-                    LOGGER.warn("could not allocate requested port " + port, e);
-                    throw new RuntimeException("could not allocate requested port " + port, e);
-                }
+        while (availablePort <= MAX_PORT_RANGE) {
+            if (isPortAvailable(availablePort)) {
+                LOGGER.debug("Port {} is available ", availablePort);
+                return availablePort;
             }
+            LOGGER.debug("Port {} is not available", availablePort);
+            availablePort++;
+        }
+        throw new RuntimeException("could not find free available");
+    }
+
+    /**
+     * Check if port is available or not
+     * 
+     * @param port
+     * @return true if port is available
+     */
+    public static boolean isPortAvailable(final int port) {
+        try (final Socket socket = new Socket("localhost", port)) {
+            return false;
+        } catch (final IOException ignoredException) {
+            LOGGER.trace("Port {} is not available", port, ignoredException);
+            return true;
         }
     }
 
@@ -136,8 +144,9 @@ public final class MessagingUtils {
     }
 
     /**
-     * This method searches the availability of the port, if the requested port not available,this method will increment
-     * the port number and check the availability, this process will continue until it find port available.
+     * This method searches the availability of the port, if the requested port not available,this
+     * method will increment the port number and check the availability, this process will continue
+     * until it find port available.
      *
      * @param port the first port to check
      * @return the port that was found

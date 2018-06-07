@@ -164,6 +164,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                     }
                 }
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.debug("message listener execution has been interrupted");
                 break;
             }

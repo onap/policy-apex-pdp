@@ -46,7 +46,7 @@ public class AxTaskFacade {
      * The full definition of the task we are presenting a facade to, executing logic has full access to the task
      * definition.
      */
-    public AxTask task;
+    public final AxTask task;
 
     // CHECKSTYLE:ON: checkstyle:visibilityModifier
 
