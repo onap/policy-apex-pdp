@@ -22,6 +22,7 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -88,7 +89,7 @@ public class ApexCLIEditorMain {
         }
 
         // The JSON processing returns null if there is an empty file
-        if (null == commands) {
+        if (commands.getCommandSet().isEmpty()) {
             LOGGER.error("start of Apex command line editor failed, no commands found in "
                     + parameters.getApexPropertiesLocation());
             errorCount++;
@@ -108,8 +109,9 @@ public class ApexCLIEditorMain {
             return;
         }
 
+        final Properties properties = apexModelProperties.getProperties();
         // The JSON processing returns null if there is an empty file
-        if (apexModelProperties == null) {
+        if (properties.isEmpty()) {
             LOGGER.error("start of Apex command line editor failed, no Apex model properties found in "
                     + parameters.getApexPropertiesLocation());
             errorCount++;
@@ -134,16 +136,14 @@ public class ApexCLIEditorMain {
         // Create the model we will work towards
         ApexModelHandler modelHandler = null;
         try {
-            modelHandler =
-                    new ApexModelHandler(apexModelProperties.getProperties(), parameters.getInputModelFileName());
+            modelHandler = new ApexModelHandler(properties, parameters.getInputModelFileName());
         } catch (final Exception e) {
             LOGGER.error("execution of Apex command line editor failed: " + e.getMessage());
             errorCount++;
             return;
         }
 
-        final CLIEditorLoop cliEditorLoop =
-                new CLIEditorLoop(apexModelProperties.getProperties(), modelHandler, rootKeywordNode);
+        final CLIEditorLoop cliEditorLoop = new CLIEditorLoop(properties, modelHandler, rootKeywordNode);
         try {
             errorCount =
                     cliEditorLoop.runLoop(parameters.getCommandInputStream(), parameters.getOutputStream(), parameters);

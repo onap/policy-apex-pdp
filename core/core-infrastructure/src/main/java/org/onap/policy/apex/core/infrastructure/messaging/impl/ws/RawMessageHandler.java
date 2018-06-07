@@ -41,8 +41,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class RawMessageHandler handles raw messages being received on a Java web socket and forwards the messages to the
- * DataHandler instance that has subscribed to the RawMessageHandler instance.
+ * The Class RawMessageHandler handles raw messages being received on a Java web socket and forwards
+ * the messages to the DataHandler instance that has subscribed to the RawMessageHandler instance.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  * @param <MESSAGE> the generic type of message being received
@@ -85,7 +85,8 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
             return;
         }
 
-        // Read the messages from the web socket and place them on the message queue for handling by the queue
+        // Read the messages from the web socket and place them on the message queue for handling by
+        // the queue
         // processing thread
         ObjectInputStream ois = null;
         try {
@@ -94,7 +95,7 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
             final MessageHolder<MESSAGE> messageHolder = (MessageHolder<MESSAGE>) ois.readObject();
 
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("message {} recieved from the client {} ", messageHolder.toString(),
+                LOGGER.debug("message {} recieved from the client {} ", messageHolder,
                         messageHolder == null ? "Apex Engine " : messageHolder.getSenderHostAddress());
             }
 
@@ -111,7 +112,8 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     }
 
     /**
-     * This method is called when a string message is received on a web socket and is to be forwarded to a listener.
+     * This method is called when a string message is received on a web socket and is to be
+     * forwarded to a listener.
      *
      * @param messageString the message string
      */
@@ -161,6 +163,8 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
                     dataHandler.post(messageBlock);
                 }
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.debug("raw message listening has been interrupted");
                 break;
             }
@@ -172,6 +176,8 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
                     dataHandler.post(stringMessage);
                 }
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.debug("raw message listening has been interrupted");
                 break;
             }
@@ -180,6 +186,8 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
             try {
                 Thread.sleep(QUEUE_POLL_TIMEOUT);
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.debug("raw message listening has been interrupted");
                 break;
             }
@@ -206,7 +214,8 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     }
 
     /**
-     * This method is called when a message is received on a web socket and is to be forwarded to a listener.
+     * This method is called when a message is received on a web socket and is to be forwarded to a
+     * listener.
      *
      * @param data the message data containing a message
      */
@@ -245,9 +254,6 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     private void stateCheck(final MessageListener<MESSAGE> listener) {
         if (listener == null) {
             throw new IllegalArgumentException("The listener object cannot be null");
-        }
-        if (dataHandler == null) {
-            throw new IllegalStateException("Data handler not initialized");
         }
     }
 }

@@ -98,6 +98,8 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
         } catch (final IOException ioe) {
             LOGGER.catching(ioe);
         } catch (final InterruptedException e) {
+            // restore the interrupt status
+            Thread.currentThread().interrupt();
             // This can happen in normal operation so ignore
         }
         isStarted = false;
@@ -119,8 +121,9 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex.core.
-     * infrastructure. messaging.MessageHolder)
+     * @see
+     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex
+     * .core. infrastructure. messaging.MessageHolder)
      */
     @Override
     public void send(final MessageHolder<MESSAGE> message) {
@@ -134,7 +137,8 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
+     * @see
+     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
      */
     @Override
     public void send(final String messageString) {

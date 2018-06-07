@@ -276,6 +276,8 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 // Pass the event to the activator for forwarding to Apex
                 engineServiceHandler.forwardEvent(apexEvent);
             } catch (final InterruptedException e) {
+                // restore the interrupt status
+                Thread.currentThread().interrupt();
                 LOGGER.warn("BatchProcessor thread interrupted, Reason {}", e.getMessage());
                 break;
             } catch (final Exception e) {

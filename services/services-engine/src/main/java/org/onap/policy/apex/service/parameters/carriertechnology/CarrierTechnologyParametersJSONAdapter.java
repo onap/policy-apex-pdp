@@ -124,9 +124,10 @@ public class CarrierTechnologyParametersJSONAdapter
 
         // Check the carrier technology parameter class
         if (carrierTechnologyParameterClassName == null || carrierTechnologyParameterClassName.length() == 0) {
-            final String errorMessage =
-                    "carrier technology \"" + carrierTechnologyLabel + "\" parameter \"" + PARAMETER_CLASS_NAME
-                            + "\" value \"" + classNameJsonPrimitive.getAsString() + "\" invalid in JSON file";
+            final String errorMessage = "carrier technology \"" + carrierTechnologyLabel + "\" parameter \""
+                    + PARAMETER_CLASS_NAME + "\" value \""
+                    + (classNameJsonPrimitive != null ? classNameJsonPrimitive.getAsString() : "null")
+                    + "\" invalid in JSON file";
             LOGGER.warn(errorMessage);
             throw new ApexParameterRuntimeException(errorMessage);
         }
