@@ -153,7 +153,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
                 objectString = (String) object;
             }
         } catch (final ClassCastException e) {
-            final String returnString = getUserKey().getID() + ": object \"" + object.toString() + "\" of type \""
+            final String returnString = getUserKey().getID() + ": object \"" + object + "\" of type \""
                     + object.getClass().getCanonicalName() + "\" must be assignable to \""
                     + getSchemaClass().getCanonicalName()
                     + "\" or be a Json string representation of it for Avro unmarshalling";

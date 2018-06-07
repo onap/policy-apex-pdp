@@ -105,6 +105,8 @@ public class CuratorLockManager extends AbstractLockManager {
                     lockParameters.getZookeeperConnectSleepTime() * lockParameters.getZookeeperContextRetries(),
                     TimeUnit.MILLISECONDS);
         } catch (final InterruptedException e) {
+            // restore the interrupt status
+            Thread.currentThread().interrupt();
             LOGGER.warn("could not connect to Zookeeper server at \"" + curatorZookeeperAddress
                     + "\", wait for connection timed out");
             throw new ContextException("could not connect to Zookeeper server at \"" + curatorZookeeperAddress

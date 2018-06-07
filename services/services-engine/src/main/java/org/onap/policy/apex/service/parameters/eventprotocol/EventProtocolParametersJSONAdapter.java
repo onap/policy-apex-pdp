@@ -123,7 +123,8 @@ public class EventProtocolParametersJSONAdapter
         if (eventProtocolParameterClassName == null || eventProtocolParameterClassName.length() == 0) {
             final String errorMessage =
                     "event protocol \"" + eventProtocolLabel + "\" parameter \"" + PARAMETER_CLASS_NAME + "\" value \""
-                            + classNameJsonPrimitive.getAsString() + "\" invalid in JSON file";
+                            + (classNameJsonPrimitive != null ? classNameJsonPrimitive.getAsString() : "null")
+                            + "\" invalid in JSON file";
             LOGGER.warn(errorMessage);
             throw new ApexParameterRuntimeException(errorMessage);
         }

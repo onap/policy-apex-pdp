@@ -90,7 +90,7 @@ public class AvroObjectMapperFactory {
             if (Schema.Type.NULL.equals(schema.getType())) {
                 schema = types.get(1);
             }
-            if (Schema.Type.NULL.equals(schema.getType()) || Schema.Type.NULL.equals(schema.getType())) {
+            if (Schema.Type.NULL.equals(schema.getType())) {
                 final String resultSting = userKey.getID()
                         + ": Apex currently only supports UNION schema2 with 2 options, only one can be NULL, and the other cannot be another UNION";
                 LOGGER.warn(resultSting);
