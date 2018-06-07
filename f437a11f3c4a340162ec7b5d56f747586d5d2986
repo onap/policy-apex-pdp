@@ -22,6 +22,30 @@
       "revId": "f437a11f3c4a340162ec7b5d56f747586d5d2986",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_62fa1545",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/messaging/util/MessagingUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-07T16:42:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_821ba1c9",
+      "range": {
+        "startLine": 127,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "f437a11f3c4a340162ec7b5d56f747586d5d2986",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
