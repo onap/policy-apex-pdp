@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_55aa3486",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/TestCLIEditorEventsContext.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-08T11:28:25Z",
+      "side": 1,
+      "message": "This may create problems in windows builds and throw InvalidPathException. Please check.",
+      "range": {
+        "startLine": 42,
+        "startChar": 54,
+        "endLine": 42,
+        "endChar": 57
+      },
+      "revId": "6a9b54b275feff5369419a86997e94d0a95fc48e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
