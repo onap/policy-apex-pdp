@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -26,11 +26,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
- * The Class TextFileUtils is class that provides useful functions for handling text files.
- * Functions to read and wrtie text files to strings and strings are provided.
+ * The Class TextFileUtils is class that provides useful functions for handling text files. Functions to read and wrtie
+ * text files to strings and strings are provided.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -49,7 +48,8 @@ public abstract class TextFileUtils {
      * @throws IOException on errors reading text from the file
      */
     public static String getTextFileAsString(final String textFilePath) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(textFilePath)));
+        final File textFile = new File(textFilePath);
+        return new String(Files.readAllBytes(textFile.toPath()));
     }
 
     /**

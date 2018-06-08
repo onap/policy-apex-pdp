@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+
+<schema targetNamespace="http://www.ericsson.com/apexevent"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:basic="http://jaxb2-commons.dev.java.net/basic"
+	xmlns:copyable="http://jaxb2-commons.dev.java.net/basic/copyable"
+	xmlns:equals="http://jaxb2-commons.dev.java.net/basic/equals"
+	xmlns:hashCode="http://jaxb2-commons.dev.java.net/basic/hashCode"
+	xmlns:mergeable="http://jaxb2-commons.dev.java.net/basic/mergeable"
+	xmlns:toString="http://jaxb2-commons.dev.java.net/basic/toString"
+	jaxb:extensionBindingPrefixes="xjc basic copyable equals hashCode mergeable toString"
+	xmlns:apexev="http://www.ericsson.com/apexevent" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:version="2.0">
+
+	<annotation>
+		<documentation>An event that comes into or is emitted out of an Apex system.
+		</documentation>
+	</annotation>
+
+	<annotation>
+		<appinfo>
+			<jaxb:globalBindings generateIsSetMethod="true">
+				<xjc:serializable uid="1" />
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+	<complexType name="XMLApexEvent">
+        <annotation>
+        	<documentation>An event that comes into or goes out of an Apex system</documentation>
+        </annotation>
+        <sequence>
+        	<element name="name" maxOccurs="1" minOccurs="1">
+        		<simpleType>
+        			<restriction base="string">
+        				<pattern value="[A-Za-z0-9\-_:]+"></pattern>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="version" maxOccurs="1" minOccurs="1">
+        		<simpleType>
+        			<restriction base="string">
+        				<pattern value="[0-9.]+"></pattern>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="nameSpace" maxOccurs="1" minOccurs="1">
+        		<simpleType>
+        			<restriction base="string">
+        				<minLength value="1"></minLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="source" maxOccurs="1" minOccurs="0">
+        		<simpleType>
+        			<restriction base="string">
+        				<minLength value="0"></minLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="target" maxOccurs="1" minOccurs="0">
+        		<simpleType>
+        			<restriction base="string">
+        				<minLength value="0"></minLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="data" type="apexev:XMLApexEventData"
+        		maxOccurs="unbounded" minOccurs="0">
+        	</element>
+        </sequence>
+	</complexType>
+
+	<element name="xmlApexEvent" type="apexev:XMLApexEvent"></element>
+
+	<complexType name="XMLApexEventData">
+		<annotation>
+			<documentation>
+				A single data item of an Apex event.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="key" maxOccurs="1" minOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<pattern value="[A-Za-z0-9\-_:]+"></pattern>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="value" maxOccurs="1" minOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="0"></minLength>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+
+</schema>
