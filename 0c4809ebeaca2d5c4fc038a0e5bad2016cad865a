@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_b5bcd8dc",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/main/java/org/onap/policy/apex/plugins/event/carrier/kafka/ApexKafkaConsumer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 141,
+        "startChar": 18,
+        "endLine": 141,
+        "endChar": 19
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_55b3140a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/main/java/org/onap/policy/apex/plugins/event/carrier/kafka/ApexKafkaProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 89,
+        "startChar": 18,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_15cd8c86",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 230,
+        "startChar": 18,
+        "endLine": 230,
+        "endChar": 19
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_35c8c874",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 138,
+        "startChar": 18,
+        "endLine": 138,
+        "endChar": 19
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d5c64468",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/src/main/resources/xml/apex-event.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "change this",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f5c1004f",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/src/main/resources/xml/apex-event.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_95a0bca6",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/src/main/resources/xml/apex-event.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-08T11:22:37Z",
+      "side": 1,
+      "message": "remove tabs",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "0c4809ebeaca2d5c4fc038a0e5bad2016cad865a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
