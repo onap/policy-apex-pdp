@@ -216,7 +216,7 @@ public class CLIParameters {
             try {
                 theFile.createNewFile();
             } catch (final IOException e) {
-                throw new CLIException("file " + fileName + " cannot be created: " + e.getMessage());
+                throw new CLIException("file " + fileName + " cannot be created: ", e);
             }
         }
     }

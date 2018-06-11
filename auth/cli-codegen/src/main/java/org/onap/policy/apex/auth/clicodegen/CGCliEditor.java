@@ -20,6 +20,60 @@
 
 package org.onap.policy.apex.auth.clicodegen;
 
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.ALBUM_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.ALBUM_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.CONTEXT_REFS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.CTX_REFS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.DECLARATION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.DEFAULT_TASK;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.DEFAULT_TASK_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.DEFAULT_VALUE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.DEFINITIONS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.DESCRIPTION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.EVENT_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.EVENT_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FIELDS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FIELD_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FIELD_SCHEMA;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FIELD_SCHEMA_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FINALIZER_LOGICS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FINALIZER_LOGIC_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FIRST_STATE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.FLAVOUR;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.INFIELDS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.LOGIC;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.LOGIC_FLAVOUR;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.NAME_SPACE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.NEXT_STATE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.OPTIONAL;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.OUTFIELDS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.OUTPUTS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.OUTPUT_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.OUTPUT_TYPE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.PARAMS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.PAR_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.POLICY_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.SCHEMA;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.SCHEMA_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.SCHEMA_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.SCOPE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.SOURCE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.STATES;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.STATE_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TARGET;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TASKS;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TASK_LOCAL_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TASK_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TASK_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TEMPLATE;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TRIGGER_NAME;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TRIGGER_VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.TS_LOGIC;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.UUID;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.VERSION;
+import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.WRITABLE;
+
 import java.util.List;
 
 import org.stringtemplate.v4.ST;
@@ -31,6 +85,7 @@ import org.stringtemplate.v4.STGroupFile;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public class CGCliEditor {
+
     // CHECKSTYLE:OFF: ParameterNumber
 
     /** The name of the STG file for the code generator. */
@@ -70,10 +125,10 @@ public class CGCliEditor {
             throw new IllegalArgumentException("model description should not be blank");
         }
 
-        model.add("name", name);
-        model.add("version", version);
-        model.add("uuid", uuid);
-        model.add("description", description);
+        model.add(NAME, name);
+        model.add(VERSION, version);
+        model.add(UUID, uuid);
+        model.add(DESCRIPTION, description);
     }
 
     /**
@@ -109,13 +164,13 @@ public class CGCliEditor {
     public void addSchemaDeclaration(final String name, final String version, final String uuid,
             final String description, final String flavour, final String schema) {
         final ST st = stg.getInstanceOf("schemaDecl");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("uuid", uuid);
-        st.add("description", description);
-        st.add("flavour", flavour);
-        st.add("schema", schema);
-        model.add("declarations", st);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(UUID, uuid);
+        st.add(DESCRIPTION, description);
+        st.add(FLAVOUR, flavour);
+        st.add(SCHEMA, schema);
+        model.add(DECLARATION, st);
     }
 
     /**
@@ -134,15 +189,15 @@ public class CGCliEditor {
             final String description, final String scope, final boolean writable, final String schemaName,
             final String schemaVersion) {
         final ST st = stg.getInstanceOf("ctxAlbumDecl");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("uuid", uuid);
-        st.add("description", description);
-        st.add("scope", scope);
-        st.add("writable", writable);
-        st.add("schemaName", schemaName);
-        st.add("schemaVersion", schemaVersion);
-        model.add("declarations", st);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(UUID, uuid);
+        st.add(DESCRIPTION, description);
+        st.add(SCOPE, scope);
+        st.add(WRITABLE, writable);
+        st.add(SCHEMA_NAME, schemaName);
+        st.add(SCHEMA_VERSION, schemaVersion);
+        model.add(DECLARATION, st);
     }
 
     /**
@@ -159,12 +214,12 @@ public class CGCliEditor {
     public ST createEventFieldDefinition(final String eventName, final String version, final String fieldName,
             final String fieldSchema, final String fieldSchemaVersion, final boolean optional) {
         final ST st = stg.getInstanceOf("eventDefField");
-        st.add("eventName", eventName);
-        st.add("version", version);
-        st.add("fieldName", fieldName);
-        st.add("fieldSchema", fieldSchema);
-        st.add("fieldSchemaVersion", fieldSchemaVersion);
-        st.add("optional", optional);
+        st.add(EVENT_NAME, eventName);
+        st.add(VERSION, version);
+        st.add(FIELD_NAME, fieldName);
+        st.add(FIELD_SCHEMA, fieldSchema);
+        st.add(FIELD_SCHEMA_VERSION, fieldSchemaVersion);
+        st.add(OPTIONAL, optional);
         return st;
     }
 
@@ -181,10 +236,10 @@ public class CGCliEditor {
     public ST createTaskDefLogic(final String taskName, final String version, final String flavour,
             final String logic) {
         final ST st = stg.getInstanceOf("taskDefLogic");
-        st.add("taskName", taskName);
-        st.add("version", version);
-        st.add("flavour", flavour);
-        st.add("logic", logic);
+        st.add(TASK_NAME, taskName);
+        st.add(VERSION, version);
+        st.add(FLAVOUR, flavour);
+        st.add(LOGIC, logic);
         return st;
     }
 
@@ -204,21 +259,21 @@ public class CGCliEditor {
             final String description, final String nameSpace, final String source, final String target,
             final List<ST> fields) {
         final ST st = stg.getInstanceOf("eventDecl");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("uuid", uuid);
-        st.add("description", description);
-        st.add("source", source);
-        st.add("target", target);
-        st.add("fields", fields);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(UUID, uuid);
+        st.add(DESCRIPTION, description);
+        st.add(SOURCE, source);
+        st.add(TARGET, target);
+        st.add(FIELDS, fields);
 
         if (nameSpace != null) {
-            st.add("nameSpace", nameSpace);
+            st.add(NAME_SPACE, nameSpace);
         } else if (defaultNamespace != null) {
-            st.add("nameSpace", defaultNamespace);
+            st.add(NAME_SPACE, defaultNamespace);
         }
 
-        model.add("declarations", st);
+        model.add(DECLARATION, st);
     }
 
     /**
@@ -238,16 +293,16 @@ public class CGCliEditor {
             final List<ST> infields, final List<ST> outfields, final ST logic, final List<ST> parameters,
             final List<ST> contextRefs) {
         final ST st = stg.getInstanceOf("taskDecl");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("uuid", uuid);
-        st.add("description", description);
-        st.add("infields", infields);
-        st.add("outfields", outfields);
-        st.add("logic", logic);
-        st.add("parameters", parameters);
-        st.add("contextRefs", contextRefs);
-        model.add("declarations", st);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(UUID, uuid);
+        st.add(DESCRIPTION, description);
+        st.add(INFIELDS, infields);
+        st.add(OUTFIELDS, outfields);
+        st.add(LOGIC, logic);
+        st.add(PARAMS, parameters);
+        st.add(CONTEXT_REFS, contextRefs);
+        model.add(DECLARATION, st);
     }
 
     /**
@@ -264,14 +319,14 @@ public class CGCliEditor {
     public void addPolicyDefinition(final String name, final String version, final String uuid,
             final String description, final String template, final String firstState, final List<ST> states) {
         final ST st = stg.getInstanceOf("policyDef");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("uuid", uuid);
-        st.add("description", description);
-        st.add("template", template);
-        st.add("firstState", firstState);
-        st.add("states", states);
-        model.add("definitions", st);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(UUID, uuid);
+        st.add(DESCRIPTION, description);
+        st.add(TEMPLATE, template);
+        st.add(FIRST_STATE, firstState);
+        st.add(STATES, states);
+        model.add(DEFINITIONS, st);
     }
 
     /**
@@ -287,11 +342,11 @@ public class CGCliEditor {
     public ST createTaskDefinitionInfields(final String taskName, final String version, final String fieldName,
             final String fieldSchema, final String fieldSchemaVersion) {
         final ST st = stg.getInstanceOf("taskDefInputFields");
-        st.add("taskName", taskName);
-        st.add("version", version);
-        st.add("fieldName", fieldName);
-        st.add("fieldSchema", fieldSchema);
-        st.add("fieldSchemaVersion", fieldSchemaVersion);
+        st.add(TASK_NAME, taskName);
+        st.add(VERSION, version);
+        st.add(FIELD_NAME, fieldName);
+        st.add(FIELD_SCHEMA, fieldSchema);
+        st.add(FIELD_SCHEMA_VERSION, fieldSchemaVersion);
         return st;
     }
 
@@ -308,11 +363,11 @@ public class CGCliEditor {
     public ST createTaskDefinitionOutfields(final String taskName, final String version, final String fieldName,
             final String fieldSchema, final String fieldSchemaVersion) {
         final ST st = stg.getInstanceOf("taskDefOutputFields");
-        st.add("taskName", taskName);
-        st.add("version", version);
-        st.add("fieldName", fieldName);
-        st.add("fieldSchema", fieldSchema);
-        st.add("fieldSchemaVersion", fieldSchemaVersion);
+        st.add(TASK_NAME, taskName);
+        st.add(VERSION, version);
+        st.add(FIELD_NAME, fieldName);
+        st.add(FIELD_SCHEMA, fieldSchema);
+        st.add(FIELD_SCHEMA_VERSION, fieldSchemaVersion);
         return st;
     }
 
@@ -328,10 +383,10 @@ public class CGCliEditor {
     public ST createTaskDefinitionParameters(final String name, final String version, final String parName,
             final String defaultValue) {
         final ST st = stg.getInstanceOf("taskDefParameter");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("parName", parName);
-        st.add("defaultValue", defaultValue);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(PAR_NAME, parName);
+        st.add(DEFAULT_VALUE, defaultValue);
         return st;
     }
 
@@ -347,10 +402,10 @@ public class CGCliEditor {
     public ST createTaskDefinitionContextRef(final String name, final String version, final String albumName,
             final String albumVersion) {
         final ST st = stg.getInstanceOf("taskDefCtxRef");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("albumName", albumName);
-        st.add("albumVersion", albumVersion);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(ALBUM_NAME, albumName);
+        st.add(ALBUM_VERSION, albumVersion);
         return st;
     }
 
@@ -372,14 +427,14 @@ public class CGCliEditor {
             final String taskLocalName, final String taskName, final String taskVersion, final String outputType,
             final String outputName) {
         final ST st = stg.getInstanceOf("policyStateTask");
-        st.add("policyName", policyName);
-        st.add("version", version);
-        st.add("stateName", stateName);
-        st.add("taskLocalName", taskLocalName);
-        st.add("taskName", taskName);
-        st.add("taskVersion", taskVersion);
-        st.add("outputType", outputType);
-        st.add("outputName", outputName);
+        st.add(POLICY_NAME, policyName);
+        st.add(VERSION, version);
+        st.add(STATE_NAME, stateName);
+        st.add(TASK_LOCAL_NAME, taskLocalName);
+        st.add(TASK_NAME, taskName);
+        st.add(TASK_VERSION, taskVersion);
+        st.add(OUTPUT_TYPE, outputType);
+        st.add(OUTPUT_NAME, outputName);
         return st;
     }
 
@@ -398,13 +453,13 @@ public class CGCliEditor {
     public ST createPolicyStateOutput(final String policyName, final String version, final String stateName,
             final String outputName, final String eventName, final String eventVersion, final String nextState) {
         final ST st = stg.getInstanceOf("policyStateOutput");
-        st.add("policyName", policyName);
-        st.add("version", version);
-        st.add("stateName", stateName);
-        st.add("outputName", outputName);
-        st.add("eventName", eventName);
-        st.add("eventVersion", eventVersion);
-        st.add("nextState", nextState);
+        st.add(POLICY_NAME, policyName);
+        st.add(VERSION, version);
+        st.add(STATE_NAME, stateName);
+        st.add(OUTPUT_NAME, outputName);
+        st.add(EVENT_NAME, eventName);
+        st.add(EVENT_VERSION, eventVersion);
+        st.add(NEXT_STATE, nextState);
         return st;
     }
 
@@ -430,18 +485,18 @@ public class CGCliEditor {
             final String defaultTaskVersion, final List<ST> outputs, final List<ST> tasks, final List<ST> tsLogic,
             final List<ST> finalizerLogics, final List<ST> ctxRefs) {
         final ST st = stg.getInstanceOf("policyStateDef");
-        st.add("policyName", policyName);
-        st.add("version", version);
-        st.add("stateName", stateName);
-        st.add("triggerName", triggerName);
-        st.add("triggerVersion", triggerVersion);
-        st.add("defaultTask", defaultTask);
-        st.add("defaultTaskVersion", defaultTaskVersion);
-        st.add("outputs", outputs);
-        st.add("tasks", tasks);
-        st.add("tsLogic", tsLogic);
-        st.add("finalizerLogics", finalizerLogics);
-        st.add("ctxRefs", ctxRefs);
+        st.add(POLICY_NAME, policyName);
+        st.add(VERSION, version);
+        st.add(STATE_NAME, stateName);
+        st.add(TRIGGER_NAME, triggerName);
+        st.add(TRIGGER_VERSION, triggerVersion);
+        st.add(DEFAULT_TASK, defaultTask);
+        st.add(DEFAULT_TASK_VERSION, defaultTaskVersion);
+        st.add(OUTPUTS, outputs);
+        st.add(TASKS, tasks);
+        st.add(TS_LOGIC, tsLogic);
+        st.add(FINALIZER_LOGICS, finalizerLogics);
+        st.add(CTX_REFS, ctxRefs);
         return st;
     }
 
@@ -459,11 +514,11 @@ public class CGCliEditor {
     public ST createPolicyStateDefTaskSelLogic(final String name, final String version, final String stateName,
             final String logicFlavour, final String logic) {
         final ST st = stg.getInstanceOf("policyStateTaskSelectionLogic");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("stateName", stateName);
-        st.add("logicFlavour", logicFlavour);
-        st.add("logic", logic);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(STATE_NAME, stateName);
+        st.add(LOGIC_FLAVOUR, logicFlavour);
+        st.add(LOGIC, logic);
         return st;
     }
 
@@ -482,12 +537,12 @@ public class CGCliEditor {
     public ST createPolicyStateDefFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName, final String logicFlavour, final String logic) {
         final ST st = stg.getInstanceOf("policyStateFinalizerLogic");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("stateName", stateName);
-        st.add("finalizerLogicName", finalizerLogicName);
-        st.add("logicFlavour", logicFlavour);
-        st.add("logic", logic);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(STATE_NAME, stateName);
+        st.add(FINALIZER_LOGIC_NAME, finalizerLogicName);
+        st.add(LOGIC_FLAVOUR, logicFlavour);
+        st.add(LOGIC, logic);
         return st;
     }
 
@@ -504,11 +559,11 @@ public class CGCliEditor {
     public ST createPolicyStateDefContextRef(final String name, final String version, final String stateName,
             final String albumName, final String albumVersion) {
         final ST st = stg.getInstanceOf("policyStateContextRef");
-        st.add("name", name);
-        st.add("version", version);
-        st.add("stateName", stateName);
-        st.add("albumName", albumName);
-        st.add("albumVersion", albumVersion);
+        st.add(NAME, name);
+        st.add(VERSION, version);
+        st.add(STATE_NAME, stateName);
+        st.add(ALBUM_NAME, albumName);
+        st.add(ALBUM_VERSION, albumVersion);
         return st;
     }
 
