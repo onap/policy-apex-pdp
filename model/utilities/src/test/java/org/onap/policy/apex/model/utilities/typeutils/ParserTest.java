@@ -25,9 +25,9 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Type;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.junit.Test;
@@ -38,7 +38,7 @@ import org.junit.Test;
 public class ParserTest {
     @Test
     public void testParser() {
-        final CharStream stream = new ANTLRInputStream(
+        final CharStream stream = CharStreams.fromString(
                 "java.util.Map<java.util.List<java.lang.Integer>,java.util.Set<java.lang.String>>");
         final TokenStream tokenStream = new CommonTokenStream(new ParametrizedTypeLexer(stream));
 

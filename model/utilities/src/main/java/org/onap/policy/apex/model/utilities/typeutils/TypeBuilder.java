@@ -23,14 +23,14 @@ package org.onap.policy.apex.model.utilities.typeutils;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 
 /**
- * This class .
+ * This class builds a type from a grammar using ANTLR.
  */
 public final class TypeBuilder {
     /**
@@ -51,7 +51,7 @@ public final class TypeBuilder {
         }
 
         try {
-            final CharStream stream = new ANTLRInputStream(type);
+            final CharStream stream = CharStreams.fromString(type);
             final TokenStream tokenStream = new CommonTokenStream(new ParametrizedTypeLexer(stream));
 
             final ParametrizedTypeParser parser = new ParametrizedTypeParser(tokenStream);
