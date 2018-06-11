@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_5bfd836d",
+        "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/CGCliEditor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-11T11:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_9bdc6b1a",
+      "range": {
+        "startLine": 188,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 37
+      },
+      "revId": "585121795f59a56283eb782135fecf0bbc098719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_5be6e3e9",
         "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/CGCliEditor.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-11T11:26:22Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 318,
+        "startChar": 15,
+        "endLine": 321,
+        "endChar": 35
+      },
+      "revId": "585121795f59a56283eb782135fecf0bbc098719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_7b007f66",
+        "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/CGCliEditor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-11T11:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_5be6e3e9",
       "range": {
         "startLine": 318,
         "startChar": 15,
