@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_bbdfe70b",
+        "filename": "plugins/plugins-executor/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-11T11:20:22Z",
+      "side": 1,
+      "message": "profiling could be removed here, same modules are running for all profile",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "a151119482cd1feb48dccbd15f9e8435ebc9e543",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
