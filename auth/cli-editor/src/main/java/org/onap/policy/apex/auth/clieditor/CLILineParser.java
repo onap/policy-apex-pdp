@@ -21,6 +21,7 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class chops a command line up into commands, parameters and arguments.
@@ -43,7 +44,7 @@ public class CLILineParser {
      * @param logicBlock A block of logic code to be taken literally
      * @return the string array list
      */
-    public ArrayList<String> parse(final String line, final String logicBlock) {
+    public List<String> parse(final String line, final String logicBlock) {
         return checkFormat(
                 mergeArguments(mergeEquals(
                         splitOnEquals(stripAndSplitWords(mergeQuotes(splitOnChar(stripComments(line), '\"')))))),
@@ -78,12 +79,12 @@ public class CLILineParser {
         final ArrayList<String> wordsWithQuotesMerged = new ArrayList<>();
 
         for (int i = 0; i < wordsSplitOnQuotes.size();) {
-            if (wordsSplitOnQuotes.get(i).equals("\"")) {
+            if ("\"".equals(wordsSplitOnQuotes.get(i))) {
                 String quotedWord = wordsSplitOnQuotes.get(i++);
 
                 for (; i < wordsSplitOnQuotes.size(); i++) {
                     quotedWord += wordsSplitOnQuotes.get(i);
-                    if (wordsSplitOnQuotes.get(i).equals("\"")) {
+                    if ("\"".equals(wordsSplitOnQuotes.get(i))) {
                         i++;
                         break;
                     }
@@ -147,7 +148,7 @@ public class CLILineParser {
                 continue;
             }
 
-            if (wordsSplitOnEquals.get(i).equals("=")) {
+            if ("=".equals(wordsSplitOnEquals.get(i))) {
                 if (i < wordsSplitOnEquals.size() - 1 && !wordsSplitOnEquals.get(i + 1).startsWith("=")) {
                     wordsWithEqualsMerged.add(wordsSplitOnEquals.get(i) + wordsSplitOnEquals.get(i + 1));
                     i += 2;

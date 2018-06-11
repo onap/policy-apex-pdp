@@ -127,39 +127,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             return object;
         }
 
-        // Check that the incoming object is a string, the incoming object must be a string
-        // containing Json
-        String objectString;
-        try {
-            if (object == null) {
-                objectString = null;
-            }
-            if (object != null && avroSchema.getType().equals(Schema.Type.STRING)) {
-                objectString = object.toString().trim();
-                if (objectString.length() == 0) {
-                    objectString = "\"\"";
-                } else if (objectString.length() == 1) {
-                    objectString = "\"" + objectString + "\"";
-                } else {
-                    // All strings must be quoted for decoding
-                    if (objectString.charAt(0) != '"') {
-                        objectString = '"' + objectString;
-                    }
-                    if (objectString.charAt(objectString.length() - 1) != '"') {
-                        objectString += '"';
-                    }
-                }
-            } else {
-                objectString = (String) object;
-            }
-        } catch (final ClassCastException e) {
-            final String returnString = getUserKey().getID() + ": object \"" + object + "\" of type \""
-                    + object.getClass().getCanonicalName() + "\" must be assignable to \""
-                    + getSchemaClass().getCanonicalName()
-                    + "\" or be a Json string representation of it for Avro unmarshalling";
-            LOGGER.warn(returnString);
-            throw new ContextRuntimeException(returnString);
-        }
+        String objectString = getStringObject(object);
 
         // Translate illegal characters in incoming JSON keys to legal Avro values
         objectString = AvroSchemaKeyTranslationUtilities.translateIllegalKeys(objectString, false);
@@ -180,26 +148,72 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         return avroObjectMapper.mapFromAvro(decodedObject);
     }
 
+    /**
+     * Check that the incoming object is a string, the incoming object must be a string containing
+     * Json
+     * 
+     * @param object incoming object
+     * @return object as String
+     */
+    private String getStringObject(final Object object) {
+        try {
+            if (isObjectString(object)) {
+                String objectString = object.toString().trim();
+                if (objectString.length() == 0) {
+                    return "\"\"";
+                } else if (objectString.length() == 1) {
+                    return "\"" + objectString + "\"";
+                } else {
+                    // All strings must be quoted for decoding
+                    if (objectString.charAt(0) != '"') {
+                        objectString = '"' + objectString;
+                    }
+                    if (objectString.charAt(objectString.length() - 1) != '"') {
+                        objectString += '"';
+                    }
+                }
+                return objectString;
+            } else {
+                return (String) object;
+            }
+        } catch (final ClassCastException e) {
+            final String returnString = getUserKey().getID() + ": object \"" + object + "\" of type \""
+                    + (object != null ? object.getClass().getCanonicalName() : "null") + "\" must be assignable to \""
+                    + getSchemaClass().getCanonicalName()
+                    + "\" or be a Json string representation of it for Avro unmarshalling";
+            LOGGER.warn(returnString);
+            throw new ContextRuntimeException(returnString);
+        }
+    }
+
+    private boolean isObjectString(final Object object) {
+        return object != null && avroSchema.getType().equals(Schema.Type.STRING);
+    }
+
     @Override
     public String marshal2Json(final Object object) {
         // Condition the object for Avro encoding
         final Object conditionedObject = avroObjectMapper.mapToAvro(object);
 
-        final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        try {
+        final String jsonString = getJsonString(object, conditionedObject);
+
+        return AvroSchemaKeyTranslationUtilities.translateIllegalKeys(jsonString, true);
+    }
+
+    private String getJsonString(final Object object, final Object conditionedObject) {
+
+        try (final ByteArrayOutputStream output = new ByteArrayOutputStream();) {
             final DatumWriter<Object> writer = new GenericDatumWriter<>(avroSchema);
             final JsonEncoder jsonEncoder = EncoderFactory.get().jsonEncoder(avroSchema, output, true);
             writer.write(conditionedObject, jsonEncoder);
             jsonEncoder.flush();
-            output.close();
+            return new String(output.toByteArray());
         } catch (final Exception e) {
             final String returnString =
                     getUserKey().getID() + ": object \"" + object + "\" Avro marshalling failed: " + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
         }
-
-        return AvroSchemaKeyTranslationUtilities.translateIllegalKeys(new String(output.toByteArray()), true);
     }
 
     @Override
