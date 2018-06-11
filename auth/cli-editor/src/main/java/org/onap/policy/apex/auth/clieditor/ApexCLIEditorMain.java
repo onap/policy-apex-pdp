@@ -68,8 +68,7 @@ public class ApexCLIEditorMain {
             }
             parameters.validate();
         } catch (final Exception e) {
-            LOGGER.error("start of Apex command line editor failed, " + e.getMessage());
-            errorCount++;
+            LOGGER.error("start of Apex command line editor failed, ", e);
             return;
         }
 
@@ -80,8 +79,7 @@ public class ApexCLIEditorMain {
             commands = new JSONHandler<CLICommands>().read(CLICommands.class, parameters.getMetadataStream());
         } catch (final Exception e) {
             LOGGER.error("start of Apex command line editor failed, error reading command metadata from "
-                    + parameters.getMetadataLocation());
-            LOGGER.error(e.getMessage());
+                    + parameters.getMetadataLocation(), e);
             errorCount++;
             return;
         }
@@ -139,7 +137,7 @@ public class ApexCLIEditorMain {
             modelHandler =
                     new ApexModelHandler(apexModelProperties.getProperties(), parameters.getInputModelFileName());
         } catch (final Exception e) {
-            LOGGER.error("execution of Apex command line editor failed: " + e.getMessage());
+            LOGGER.error("execution of Apex command line editor failed: ", e);
             errorCount++;
             return;
         }

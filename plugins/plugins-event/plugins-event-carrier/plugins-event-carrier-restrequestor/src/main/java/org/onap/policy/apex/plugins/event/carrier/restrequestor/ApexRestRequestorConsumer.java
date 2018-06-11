@@ -38,7 +38,6 @@ import javax.ws.rs.core.Response;
 
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
-import org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters.HTTP_METHOD;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
@@ -50,8 +49,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class implements an Apex event consumer that issues a REST request and returns the REST response to APEX as an
- * event.
+ * This class implements an Apex event consumer that issues a REST request and returns the REST
+ * response to APEX as an event.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -59,7 +58,8 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestRequestorConsumer.class);
 
-    // The amount of time to wait in milliseconds between checks that the consumer thread has stopped
+    // The amount of time to wait in milliseconds between checks that the consumer thread has
+    // stopped
     private static final long REST_REQUESTOR_WAIT_SLEEP_TIME = 50;
 
     // The REST parameters read from the parameter service
@@ -126,14 +126,6 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         if (restConsumerProperties.getHttpMethod() == null) {
             restConsumerProperties
                     .setHttpMethod(RESTRequestorCarrierTechnologyParameters.DEFAULT_REQUESTOR_HTTP_METHOD);
-        }
-
-        if (!(restConsumerProperties.getHttpMethod() instanceof HTTP_METHOD)) {
-            final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
-                    + "\" is invalid, only HTTP methods " + HTTP_METHOD.values()
-                    + " are valid on REST Requestor consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
-            throw new ApexEventException(errorMessage);
         }
 
         // Check if the HTTP URL has been set
@@ -215,8 +207,8 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.policy.apex.service.
-     * parameters.eventhandler.EventHandlerPeeredMode)
+     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.
+     * policy.apex.service. parameters.eventhandler.EventHandlerPeeredMode)
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
@@ -226,8 +218,9 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.policy.apex.service.
-     * parameters.eventhandler.EventHandlerPeeredMode, org.onap.policy.apex.service.engine.event.PeeredReference)
+     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.
+     * policy.apex.service. parameters.eventhandler.EventHandlerPeeredMode,
+     * org.onap.policy.apex.service.engine.event.PeeredReference)
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
@@ -256,7 +249,8 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                 // Set the time stamp of the REST request
                 restRequest.setTimestamp(System.currentTimeMillis());
 
-                // Create a thread to process the REST request and place it on the map of ongoing requests
+                // Create a thread to process the REST request and place it on the map of ongoing
+                // requests
                 final RestRequestRunner restRequestRunner = new RestRequestRunner(restRequest);
                 ongoingRestRequestMap.put(restRequest, restRequestRunner);
 

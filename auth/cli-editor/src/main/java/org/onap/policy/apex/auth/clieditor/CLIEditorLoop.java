@@ -170,7 +170,7 @@ public class CLIEditorLoop {
 
             try {
                 // Parse the line into a list of commands and arguments
-                final ArrayList<String> commandWords = parser.parse(line, logicBlock);
+                final List<String> commandWords = parser.parse(line, logicBlock);
 
                 // Find the command, if the command is null, then we are simply changing position in
                 // the hierarchy
@@ -240,7 +240,7 @@ public class CLIEditorLoop {
      * @return The found command
      */
 
-    private CLICommand findCommand(final ArrayList<String> commandWords) {
+    private CLICommand findCommand(final List<String> commandWords) {
         CLICommand command = null;
 
         final KeywordNode startKeywordNode = keywordNodeDeque.peek();
@@ -259,7 +259,7 @@ public class CLIEditorLoop {
             // than one command matching
             final List<Entry<String, KeywordNode>> foundNodeEntries =
                     TreeMapUtils.findMatchingEntries(searchKeywordNode.getChildren(), commandWords.get(i));
-            if (foundNodeEntries.size() == 0) {
+            if (foundNodeEntries.isEmpty()) {
                 unwindStack(startKeywordNode);
                 throw new CLIException("command not found: " + stringAL2String(commandWords));
             } else if (foundNodeEntries.size() > 1) {
@@ -311,7 +311,7 @@ public class CLIEditorLoop {
      * @return the argument values
      */
     private TreeMap<String, CLIArgumentValue> getArgumentValues(final CLICommand command,
-            final ArrayList<String> commandWords) {
+            final List<String> commandWords) {
         final TreeMap<String, CLIArgumentValue> argumentValues = new TreeMap<>();
         for (final CLIArgument argument : command.getArgumentList()) {
             if (argument != null) {
@@ -338,13 +338,11 @@ public class CLIEditorLoop {
 
         // Now check all mandatory arguments are set
         for (final CLIArgumentValue argumentValue : argumentValues.values()) {
-            if (!argumentValue.isSpecified()) {
-                // Argument values are null by default so if this argument is not nullable it is
-                // mandatory
-                if (!argumentValue.getCliArgument().isNullable()) {
-                    throw new CLIException("command " + stringAL2String(commandWords) + ": " + " mandatory argument \""
-                            + argumentValue.getCliArgument().getArgumentName() + "\" not specified");
-                }
+            // Argument values are null by default so if this argument is not nullable it is
+            // mandatory
+            if (!argumentValue.isSpecified() && !argumentValue.getCliArgument().isNullable()) {
+                throw new CLIException("command " + stringAL2String(commandWords) + ": " + " mandatory argument \""
+                        + argumentValue.getCliArgument().getArgumentName() + "\" not specified");
             }
         }
 
@@ -358,7 +356,7 @@ public class CLIEditorLoop {
      * @param commandWords The command words entered by the user
      * @return the arguments as an entry array list
      */
-    private ArrayList<Entry<String, String>> getCommandArguments(final ArrayList<String> commandWords) {
+    private ArrayList<Entry<String, String>> getCommandArguments(final List<String> commandWords) {
         final ArrayList<Entry<String, String>> arguments = new ArrayList<>();
 
         // Iterate over the command words, arguments are of the format name=value
@@ -398,11 +396,11 @@ public class CLIEditorLoop {
      * @return the result of execution of the command
      */
     private ApexAPIResult exceuteSystemCommand(final CLICommand command, final PrintWriter writer) {
-        if (command.getName().equals("back")) {
+        if ("back".equals(command.getName())) {
             return executeBackCommand();
-        } else if (command.getName().equals("help")) {
+        } else if ("help".equals(command.getName())) {
             return executeHelpCommand(writer);
-        } else if (command.getName().equals("quit")) {
+        } else if ("quit".equals(command.getName())) {
             return executeQuitCommand();
         } else {
             return new ApexAPIResult(RESULT.SUCCESS);

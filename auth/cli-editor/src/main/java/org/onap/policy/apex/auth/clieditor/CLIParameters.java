@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 
 import org.onap.policy.apex.model.utilities.ResourceUtils;
 
@@ -216,7 +217,7 @@ public class CLIParameters {
             try {
                 theFile.createNewFile();
             } catch (final IOException e) {
-                throw new CLIException("file " + fileName + " cannot be created: " + e.getMessage());
+                throw new CLIException("file " + fileName + " cannot be created: ", e);
             }
         }
     }

@@ -22,6 +22,7 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -70,7 +71,7 @@ public class KeywordNode implements Comparable<KeywordNode> {
      * @param incomingCommand the command
      */
     public void processKeywords(final List<String> keywordList, final CLICommand incomingCommand) {
-        if (keywordList.size() <= 0) {
+        if (keywordList.isEmpty()) {
             this.command = incomingCommand;
             return;
         }
@@ -118,7 +119,7 @@ public class KeywordNode implements Comparable<KeywordNode> {
      *
      * @return the children of this keyword node
      */
-    public TreeMap<String, KeywordNode> getChildren() {
+    public NavigableMap<String, KeywordNode> getChildren() {
         return children;
     }
 
