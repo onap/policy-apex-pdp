@@ -20,8 +20,6 @@
 
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws;
 
-import com.google.common.eventbus.Subscribe;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -39,6 +37,8 @@ import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.R
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * The Class RawMessageHandler handles raw messages being received on a Java web socket and forwards
@@ -88,9 +88,9 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
         // Read the messages from the web socket and place them on the message queue for handling by
         // the queue
         // processing thread
-        ObjectInputStream ois = null;
-        try {
-            ois = new ObjectInputStream(new ByteArrayInputStream(dataByteBuffer.array()));
+
+        try (final ByteArrayInputStream stream = new ByteArrayInputStream(dataByteBuffer.array());
+                final ObjectInputStream ois = new ObjectInputStream(stream);) {
             @SuppressWarnings("unchecked")
             final MessageHolder<MESSAGE> messageHolder = (MessageHolder<MESSAGE>) ois.readObject();
 
@@ -99,15 +99,15 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
                         messageHolder == null ? "Apex Engine " : messageHolder.getSenderHostAddress());
             }
 
-            final List<MESSAGE> messages = messageHolder.getMessages();
-            if (messages != null) {
-                messageBlockQueue.add(new MessageBlock<MESSAGE>(messages, incomingData.getConn()));
+            if (messageHolder != null) {
+                final List<MESSAGE> messages = messageHolder.getMessages();
+                if (messages != null) {
+                    messageBlockQueue.add(new MessageBlock<MESSAGE>(messages, incomingData.getConn()));
+                }
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (final IOException | ClassNotFoundException e) {
             LOGGER.error("Failed to process message received");
             LOGGER.catching(e);
-        } finally {
-            closeObjectStream(ois);
         }
     }
 
@@ -127,21 +127,6 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
             LOGGER.debug("message {} recieved from the client {} ", messageString);
         }
         stringMessageQueue.add(messageString);
-    }
-
-    /**
-     * Close the {@link ObjectInputStream} stream.
-     *
-     * @param ois is an instance of {@link ObjectInputStream}
-     */
-    private void closeObjectStream(final ObjectInputStream ois) {
-        if (ois != null) {
-            try {
-                ois.close();
-            } catch (final IOException e) {
-                LOGGER.catching(e);
-            }
-        }
     }
 
     /**
