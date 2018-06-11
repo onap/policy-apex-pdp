@@ -52,6 +52,10 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>plugins-executor-java</module>
+                <module>plugins-executor-javascript</module>
+                <module>plugins-executor-jruby</module>
+                <module>plugins-executor-jython</module>
                 <module>plugins-executor-mvel</module>
             </modules>
         </profile>
@@ -63,6 +67,10 @@
                 </property>
             </activation>
             <modules>
+                <module>plugins-executor-java</module>
+                <module>plugins-executor-javascript</module>
+                <module>plugins-executor-jruby</module>
+                <module>plugins-executor-jython</module>
                 <module>plugins-executor-mvel</module>
             </modules>
         </profile>
@@ -74,6 +82,10 @@
                 </property>
             </activation>
             <modules>
+                <module>plugins-executor-java</module>
+                <module>plugins-executor-javascript</module>
+                <module>plugins-executor-jruby</module>
+                <module>plugins-executor-jython</module>
                 <module>plugins-executor-mvel</module>
             </modules>
         </profile>
