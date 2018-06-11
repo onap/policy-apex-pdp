@@ -72,23 +72,23 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private static final String PROPERTY_VALUE_DESERIALIZER = "value.deserializer";
 
     // superDooper carrier parameters
-    private final String bootstrapServers = DEFAULT_BOOTSTRAP_SERVERS;
-    private final String acks = DEFAULT_ACKS;
-    private final int retries = DEFAULT_RETRIES;
-    private final int batchSize = DEFAULT_BATCH_SIZE;
-    private final int lingerTime = DEFAULT_LINGER_TIME;
-    private final long bufferMemory = DEFAULT_BUFFER_MEMORY;
-    private final String groupId = DEFAULT_GROUP_ID;
-    private final boolean enableAutoCommit = DEFAULT_ENABLE_AUTO_COMMIT;
-    private final int autoCommitTime = DEFAULT_AUTO_COMMIT_TIME;
-    private final int sessionTimeout = DEFAULT_SESSION_TIMEOUT;
-    private final String producerTopic = DEFAULT_PRODUCER_TOPIC;
-    private final int consumerPollTime = DEFAULT_CONSUMER_POLL_TIME;
-    private final String[] consumerTopicList = DEFAULT_CONSUMER_TOPIC_LIST;
-    private final String keySerializer = DEFAULT_KEY_SERIALIZER;
-    private final String valueSerializer = DEFAULT_VALUE_SERIALIZER;
-    private final String keyDeserializer = DEFAULT_KEY_DESERIALIZER;
-    private final String valueDeserializer = DEFAULT_VALUE_DESERIALIZER;
+    private String bootstrapServers = DEFAULT_BOOTSTRAP_SERVERS;
+    private String acks = DEFAULT_ACKS;
+    private int retries = DEFAULT_RETRIES;
+    private int batchSize = DEFAULT_BATCH_SIZE;
+    private int lingerTime = DEFAULT_LINGER_TIME;
+    private long bufferMemory = DEFAULT_BUFFER_MEMORY;
+    private String groupId = DEFAULT_GROUP_ID;
+    private boolean enableAutoCommit = DEFAULT_ENABLE_AUTO_COMMIT;
+    private int autoCommitTime = DEFAULT_AUTO_COMMIT_TIME;
+    private int sessionTimeout = DEFAULT_SESSION_TIMEOUT;
+    private String producerTopic = DEFAULT_PRODUCER_TOPIC;
+    private int consumerPollTime = DEFAULT_CONSUMER_POLL_TIME;
+    private String[] consumerTopicList = DEFAULT_CONSUMER_TOPIC_LIST;
+    private String keySerializer = DEFAULT_KEY_SERIALIZER;
+    private String valueSerializer = DEFAULT_VALUE_SERIALIZER;
+    private String keyDeserializer = DEFAULT_KEY_DESERIALIZER;
+    private String valueDeserializer = DEFAULT_VALUE_DESERIALIZER;
 
     /**
      * Constructor to create a file carrier technology parameters instance and register the instance
@@ -296,6 +296,159 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
      */
     public String getValueDeserializer() {
         return valueDeserializer;
+    }
+
+    /**
+     * Sets the bootstrap servers.
+     *
+     * @param bootstrapServers the new bootstrap servers
+     */
+    public void setBootstrapServers(String bootstrapServers) {
+        this.bootstrapServers = bootstrapServers;
+    }
+
+    /**
+     * Sets the acks.
+     *
+     * @param acks the new acks
+     */
+    public void setAcks(String acks) {
+        this.acks = acks;
+    }
+
+    /**
+     * Sets the retries.
+     *
+     * @param retries the new retries
+     */
+    public void setRetries(int retries) {
+        this.retries = retries;
+    }
+
+    /**
+     * Sets the batch size.
+     *
+     * @param batchSize the new batch size
+     */
+    public void setBatchSize(int batchSize) {
+        this.batchSize = batchSize;
+    }
+
+    /**
+     * Sets the linger time.
+     *
+     * @param lingerTime the new linger time
+     */
+    public void setLingerTime(int lingerTime) {
+        this.lingerTime = lingerTime;
+    }
+
+    /**
+     * Sets the buffer memory.
+     *
+     * @param bufferMemory the new buffer memory
+     */
+    public void setBufferMemory(long bufferMemory) {
+        this.bufferMemory = bufferMemory;
+    }
+
+    /**
+     * Sets the group id.
+     *
+     * @param groupId the new group id
+     */
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    /**
+     * Sets the enable auto commit.
+     *
+     * @param enableAutoCommit the new enable auto commit
+     */
+    public void setEnableAutoCommit(boolean enableAutoCommit) {
+        this.enableAutoCommit = enableAutoCommit;
+    }
+
+    /**
+     * Sets the auto commit time.
+     *
+     * @param autoCommitTime the new auto commit time
+     */
+    public void setAutoCommitTime(int autoCommitTime) {
+        this.autoCommitTime = autoCommitTime;
+    }
+
+    /**
+     * Sets the session timeout.
+     *
+     * @param sessionTimeout the new session timeout
+     */
+    public void setSessionTimeout(int sessionTimeout) {
+        this.sessionTimeout = sessionTimeout;
+    }
+
+    /**
+     * Sets the producer topic.
+     *
+     * @param producerTopic the new producer topic
+     */
+    public void setProducerTopic(String producerTopic) {
+        this.producerTopic = producerTopic;
+    }
+
+    /**
+     * Sets the consumer poll time.
+     *
+     * @param consumerPollTime the new consumer poll time
+     */
+    public void setConsumerPollTime(int consumerPollTime) {
+        this.consumerPollTime = consumerPollTime;
+    }
+
+    /**
+     * Sets the consumer topic list.
+     *
+     * @param consumerTopicList the new consumer topic list
+     */
+    public void setConsumerTopicList(String[] consumerTopicList) {
+        this.consumerTopicList = consumerTopicList;
+    }
+
+    /**
+     * Sets the key serializer.
+     *
+     * @param keySerializer the new key serializer
+     */
+    public void setKeySerializer(String keySerializer) {
+        this.keySerializer = keySerializer;
+    }
+
+    /**
+     * Sets the value serializer.
+     *
+     * @param valueSerializer the new value serializer
+     */
+    public void setValueSerializer(String valueSerializer) {
+        this.valueSerializer = valueSerializer;
+    }
+
+    /**
+     * Sets the key deserializer.
+     *
+     * @param keyDeserializer the new key deserializer
+     */
+    public void setKeyDeserializer(String keyDeserializer) {
+        this.keyDeserializer = keyDeserializer;
+    }
+
+    /**
+     * Sets the value deserializer.
+     *
+     * @param valueDeserializer the new value deserializer
+     */
+    public void setValueDeserializer(String valueDeserializer) {
+        this.valueDeserializer = valueDeserializer;
     }
 
     /*
