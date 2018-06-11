@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_dbd99323",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-11T11:26:22Z",
+      "side": 0,
+      "message": "It looks like it is OK to remove this because the getHttpMethod() returns a HTTP_METHOD object or we\u0027d get a class cast exception in the Properties class. So OK.",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 9
+      },
+      "revId": "d0746b062ca6b85eae756db6eb6c4dead037a35a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
