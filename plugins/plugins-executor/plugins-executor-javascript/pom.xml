@@ -21,35 +21,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.onap.policy.apex-pdp.plugins</groupId>
-        <artifactId>plugins</artifactId>
+        <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
+        <artifactId>plugins-executor</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-    <artifactId>plugins-executor</artifactId>
-    <packaging>pom</packaging>
-
+    <artifactId>plugins-executor-javascript</artifactId>
     <name>${project.artifactId}</name>
-    <description>Plugins for logic execution in Apex</description>
+    <description>[${project.parent.artifactId}] Plugin for execution of Javascript logic in Apex</description>
 
     <properties>
-        <apex-plugins-executor-dir>${project.basedir}/src</apex-plugins-executor-dir>
+        <apex-plugins-executor-javascript-dir>${project.basedir}/src</apex-plugins-executor-javascript-dir>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-engine</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
-    <modules>
-        <module>plugins-executor-java</module>
-        <module>plugins-executor-javascript</module>
-        <module>plugins-executor-jruby</module>
-        <module>plugins-executor-jython</module>
-        <module>plugins-executor-mvel</module>
-    </modules>
 </project>
