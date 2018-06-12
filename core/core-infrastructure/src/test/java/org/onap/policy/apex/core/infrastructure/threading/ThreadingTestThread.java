@@ -37,25 +37,7 @@ public class ThreadingTestThread implements Runnable {
 
     private long counter = -1;
 
-    private Thread thread = null;
-
-    /**
-     * Sets the thread.
-     *
-     * @param thread the new thread
-     */
-    public void setThread(final Thread thread) {
-        this.thread = thread;
-    }
-
-    /**
-     * Gets the thread.
-     *
-     * @return the thread
-     */
-    public Thread getThread() {
-        return thread;
-    }
+    private String threadName;
 
     /*
      * (non-Javadoc)
@@ -64,22 +46,23 @@ public class ThreadingTestThread implements Runnable {
      */
     @Override
     public void run() {
+        this.threadName = Thread.currentThread().getName();
         if (logger.isDebugEnabled()) {
-            logger.debug("starting threading test thread \"" + thread.getName() + "\" . . .");
+            logger.debug("starting threading test thread \"" + threadName + "\" . . .");
         }
 
         while (!interrupted) {
             counter++;
             if (logger.isDebugEnabled()) {
-                logger.debug("in threading test thread \"" + thread.getName() + "\", counter=" + counter + " . . .");
+                logger.debug("in threading test thread \"" + threadName + "\", counter=" + counter + " . . .");
             }
 
-            if (!ThreadUtilities.sleep(100)) {
+            if (!ThreadUtilities.sleep(50)) {
                 interrupted = true;
             }
         }
         if (logger.isDebugEnabled()) {
-            logger.debug("stopped threading test thread \"" + thread.getName() + "\"");
+            logger.debug("stopped threading test thread \"" + threadName + "\"");
         }
     }
 
@@ -89,7 +72,7 @@ public class ThreadingTestThread implements Runnable {
      * @return the name
      */
     public String getName() {
-        return thread.getName();
+        return threadName;
     }
 
     /**
