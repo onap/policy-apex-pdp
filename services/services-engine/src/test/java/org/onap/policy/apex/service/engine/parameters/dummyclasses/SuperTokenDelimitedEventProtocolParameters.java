@@ -46,7 +46,7 @@ public class SuperTokenDelimitedEventProtocolParameters extends EventProtocolTex
         this.setLabel(SUPER_TOKEN_EVENT_PROTOCOL_LABEL);
 
         // Set the starting and ending delimiters for text blocks of JSON events
-        this.setDelimiterToken(SUPER_TOKEN_DELIMITER);
+        this.setStartDelimiterToken(SUPER_TOKEN_DELIMITER);
 
         // Set the event protocol plugin class
         this.setEventProtocolPluginClass(SuperTokenDelimitedEventConverter.class.getCanonicalName());

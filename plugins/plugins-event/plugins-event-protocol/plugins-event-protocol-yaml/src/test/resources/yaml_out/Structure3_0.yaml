@@ -1,0 +1,11 @@
+name: TestEvent8
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''
+hr:
+- Mark McGwire
+- Sammy Sosa
+rbi:
+- Sammy Sosa
+- Ken Griffey

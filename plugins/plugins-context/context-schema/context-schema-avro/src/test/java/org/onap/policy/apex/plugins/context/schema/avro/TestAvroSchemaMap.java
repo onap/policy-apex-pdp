@@ -118,7 +118,7 @@ public class TestAvroSchemaMap {
         final String originalInString = TextFileUtils.getTextFileAsString(fileName);
         final HashMap<?, ?> firstDecodedMap = (HashMap<?, ?>) schemaHelper.unmarshal(originalInString);
 
-        final String outString = schemaHelper.marshal2Json(firstDecodedMap);
+        final String outString = schemaHelper.marshal2String(firstDecodedMap);
 
         final File tempOutFile = File.createTempFile("ApexAvro", ".json");
         TextFileUtils.putStringAsFile(outString, tempOutFile);

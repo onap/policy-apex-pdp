@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -160,7 +161,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * @throws ApexEventException the apex event exception
      */
     private String validKey(final String key) throws ApexEventException {
-        if (key.matches(NAME_REGEXP)) {
+        if (key.matches(AxReferenceKey.LOCAL_NAME_REGEXP)) {
             return key;
         }
         else {

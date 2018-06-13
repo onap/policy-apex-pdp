@@ -1,0 +1,13 @@
+name: TestEvent3
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''
+american:
+- Boston Red Sox
+- Detroit Tigers
+- New York Yankees
+national:
+- New York Mets
+- Chicago Cubs
+- Atlanta Braves

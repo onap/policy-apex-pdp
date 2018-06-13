@@ -23,56 +23,100 @@ package org.onap.policy.apex.service.parameters.eventprotocol;
 import org.onap.policy.apex.service.parameters.ApexParameterValidator;
 
 /**
- * An event protocol parameter class for token delimited textual event protocols that may be
- * specialized by event protocol plugins that require plugin specific parameters.
+ * An event protocol parameter class for token delimited textual event protocols that may be specialized by event
+ * protocol plugins that require plugin specific parameters.
  *
  * <p>
  * The following parameters are defined:
  * <ol>
- * <li>delimiterToken: the token string that delimits text blocks that contain events.
+ * <li>startDelimiterToken: the token string that delimits the start of text blocks that contain events.
+ * <li>endDelimiterToken: the token string that delimits the end of text blocks that contain events, this parameter is
+ * optional and defaults to null.
+ * <li>delimiterAtStart: indicates if the first text block should have a delimiter at the start (true), or whether
+ * processing of the first block should begin at the start of the text (false). The parameter is optional and defaults
+ * to true.
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class EventProtocolTextTokenDelimitedParameters extends EventProtocolParameters
-        implements ApexParameterValidator {
+                implements ApexParameterValidator {
     // The delimiter token for text blocks
-    private String delimiterToken = null;
+    private String startDelimiterToken = null;
+    private String endDelimiterToken = null;
+    private boolean delimiterAtStart = true;
 
     /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of
-     * this class.
+     * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
      *
-     * @param parameterClassName the class name of a sub class of this class
+     * @param parameterClassName
+     *        the class name of a sub class of this class
      */
     public EventProtocolTextTokenDelimitedParameters(final String parameterClassName) {
         super(parameterClassName);
     }
 
     /**
-     * Gets the delimiter token that delimits events in the text.
+     * Gets the start delimiter token that delimits events in the text.
      *
-     * @return the delimiter token
+     * @return the start delimiter token
      */
-    public String getDelimiterToken() {
-        return delimiterToken;
+    public String getStartDelimiterToken() {
+        return startDelimiterToken;
     }
-
 
     /**
-     * Sets the delimiter token that delimits events in the text.
+     * Sets the start delimiter token that delimits events in the text.
      *
-     * @param delimiterToken the delimiter token
+     * @param startDelimiterToken
+     *        delimiterToken the delimiter token
      */
-    public void setDelimiterToken(final String delimiterToken) {
-        this.delimiterToken = delimiterToken;
+    public void setStartDelimiterToken(final String startDelimiterToken) {
+        this.startDelimiterToken = startDelimiterToken;
     }
 
+    /**
+     * Gets the end delimiter token that delimits events in the text.
+     *
+     * @return the end delimiter token
+     */
+    public String getEndDelimiterToken() {
+        return endDelimiterToken;
+    }
+
+    /**
+     * Sets the end delimiter token that delimits events in the text.
+     *
+     * @param endDelimiterToken
+     *        delimiterToken the delimiter token
+     */
+    public void setEndDelimiterToken(final String endDelimiterToken) {
+        this.endDelimiterToken = endDelimiterToken;
+    }
+
+    /**
+     * Does there have to be a delimiter at the start of the first text block?
+     * 
+     * @return true if there must be a delimiter at the start of the text block
+     */
+    public boolean isDelimiterAtStart() {
+        return delimiterAtStart;
+    }
+
+    /**
+     * Sets if there has to be a delimiter at the start of the first text block?
+     * 
+     * @param delimiterAtStart
+     *        true if there must be a delimiter at the start of the text block
+     */
+    public void setDelimiterAtStart(boolean delimiterAtStart) {
+        this.delimiterAtStart = delimiterAtStart;
+    }
 
     @Override
     public String toString() {
-        return "EventProtocolTextCharDelimitedParameters {" + super.toString() + "} [delimiterToken=" + delimiterToken
-                + "]";
+        return "EventProtocolTextTokenDelimitedParameters [startDelimiterToken=" + startDelimiterToken
+                        + ", endDelimiterToken=" + endDelimiterToken + ", delimiterAtStart=" + delimiterAtStart + "]";
     }
 
     /*
@@ -86,8 +130,8 @@ public abstract class EventProtocolTextTokenDelimitedParameters extends EventPro
 
         errorMessageBuilder.append(super.validate());
 
-        if (delimiterToken == null || delimiterToken.length() == 0) {
-            errorMessageBuilder.append("  text delimiter token not specified or is blank\n");
+        if (startDelimiterToken == null || startDelimiterToken.length() == 0) {
+            errorMessageBuilder.append("  text start delimiter token not specified or is blank\n");
         }
 
         return errorMessageBuilder.toString();

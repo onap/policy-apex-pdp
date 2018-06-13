@@ -1,0 +1,5 @@
+name: TestEvent0
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''

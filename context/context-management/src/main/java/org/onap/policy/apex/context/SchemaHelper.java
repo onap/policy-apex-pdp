@@ -20,8 +20,6 @@
 
 package org.onap.policy.apex.context;
 
-import com.google.gson.JsonElement;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 
@@ -86,12 +84,12 @@ public interface SchemaHelper {
     Object createNewInstance(String stringValue);
 
     /**
-     * Create a new instance of the schema class from a GSON JsonElement using whatever schema technology is being used.
+     * Create a new instance of the schema class from an object using whatever schema technology is being used.
      *
-     * @param jsonElement the JSON element that holds the Json representation of the object
+     * @param incomingObject the incoming object that holds the raw representation of the object to be created
      * @return the new instance
      */
-    Object createNewInstance(JsonElement jsonElement);
+    Object createNewInstance(Object incomingObject);
 
     /**
      * Unmarshal an object in schema format into a Java object.
@@ -107,13 +105,13 @@ public interface SchemaHelper {
      * @param schemaObject the object in schema format
      * @return the object as a Json string
      */
-    String marshal2Json(Object schemaObject);
+    String marshal2String(Object schemaObject);
 
     /**
-     * Marshal a Java object into a GSON json element.
+     * Marshal a Java object into an output object of an arbitrary type.
      *
      * @param schemaObject the object in schema format
-     * @return the object as a GSON Json element
+     * @return the object as output object of an arbitrary type
      */
-    JsonElement marshal2JsonElement(Object schemaObject);
+    Object marshal2Object(Object schemaObject);
 }

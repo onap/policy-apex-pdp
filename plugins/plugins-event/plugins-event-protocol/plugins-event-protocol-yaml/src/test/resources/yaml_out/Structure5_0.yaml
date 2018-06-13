@@ -1,0 +1,12 @@
+name: TestEvent10
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''
+yaml_field:
+- item: Super Hoop
+  quantity: 1
+- item: Basketball
+  quantity: 4
+- item: Big Shoes
+  quantity: 1

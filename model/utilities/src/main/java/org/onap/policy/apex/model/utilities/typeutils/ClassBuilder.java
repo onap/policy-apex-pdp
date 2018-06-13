@@ -36,7 +36,6 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
  * <a href="https://github.com/KetothXupack/stackoverflow-answers/tree/master/q39401083">
  * https://github.com/KetothXupack/stackoverflow-answers/tree/master/q39401083</a><br>
  */
-@SuppressWarnings("restriction")
 public class ClassBuilder {
     private final Class<?> clazz;
     private final List<ClassBuilder> parameters = new ArrayList<>();

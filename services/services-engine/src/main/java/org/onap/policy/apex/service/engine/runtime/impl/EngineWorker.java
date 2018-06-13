@@ -589,7 +589,7 @@ final class EngineWorker implements EngineService {
                 runtimeJsonStringBuilder.append("{\"EntryName\":");
                 runtimeJsonStringBuilder.append(gson.toJson(contextEntry.getKey()));
                 runtimeJsonStringBuilder.append(",\"EntryContent\":");
-                runtimeJsonStringBuilder.append(gson.toJson(schemaHelper.marshal2Json(contextEntry.getValue())));
+                runtimeJsonStringBuilder.append(gson.toJson(schemaHelper.marshal2String(contextEntry.getValue())));
 
                 // End of context entry
                 runtimeJsonStringBuilder.append("}");

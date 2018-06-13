@@ -113,11 +113,19 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     }
 
     @Override
-    public Object createNewInstance(final JsonElement jsonElement) {
-        final Gson gson = new GsonBuilder().serializeNulls().create();
-        final String elementJsonString = gson.toJson(jsonElement);
+    public Object createNewInstance(final Object incomingObject) {
+        if (incomingObject instanceof JsonElement) {
+            final Gson gson = new GsonBuilder().serializeNulls().create();
+            final String elementJsonString = gson.toJson((JsonElement) incomingObject);
 
-        return createNewInstance(elementJsonString);
+            return createNewInstance(elementJsonString);
+        }
+        else {
+            final String returnString = getUserKey().getID() + ": the object \"" + incomingObject
+            + "\" is not an instance of JsonObject";
+            LOGGER.warn(returnString);
+            throw new ContextRuntimeException(returnString);
+        }
     }
 
     @Override
@@ -191,7 +199,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     }
 
     @Override
-    public String marshal2Json(final Object object) {
+    public String marshal2String(final Object object) {
         // Condition the object for Avro encoding
         final Object conditionedObject = avroObjectMapper.mapToAvro(object);
 
@@ -217,9 +225,9 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     }
 
     @Override
-    public JsonElement marshal2JsonElement(final Object schemaObject) {
+    public JsonElement marshal2Object(final Object schemaObject) {
         // Get the object as a Json string
-        final String schemaObjectAsString = marshal2Json(schemaObject);
+        final String schemaObjectAsString = marshal2String(schemaObject);
 
         // Get a Gson instance to convert the Json string to an object created by Json
         final Gson gson = new Gson();
