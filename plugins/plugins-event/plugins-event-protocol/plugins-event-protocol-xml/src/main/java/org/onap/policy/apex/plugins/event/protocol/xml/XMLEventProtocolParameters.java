@@ -45,7 +45,7 @@ public class XMLEventProtocolParameters extends EventProtocolTextTokenDelimitedP
         this.setLabel(XML_EVENT_PROTOCOL_LABEL);
 
         // Set the starting and ending delimiters for text blocks of XML events
-        this.setDelimiterToken(XML_TEXT_DELIMITER_TOKEN);
+        this.setStartDelimiterToken(XML_TEXT_DELIMITER_TOKEN);
 
         // Set the event protocol plugin class
         this.setEventProtocolPluginClass(Apex2XMLEventConverter.class.getCanonicalName());

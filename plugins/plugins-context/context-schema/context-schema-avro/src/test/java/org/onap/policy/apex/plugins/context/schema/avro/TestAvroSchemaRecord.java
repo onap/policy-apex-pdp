@@ -124,7 +124,7 @@ public class TestAvroSchemaRecord {
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final GenericRecord decodedObject = (GenericRecord) schemaHelper.unmarshal(inString);
-        final String outString = schemaHelper.marshal2Json(decodedObject);
+        final String outString = schemaHelper.marshal2String(decodedObject);
         assertEquals(inString.replaceAll("\\s+", ""), outString.replaceAll("\\s+", ""));
     }
 }

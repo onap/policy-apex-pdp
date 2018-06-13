@@ -1,0 +1,11 @@
+name: TestEvent9
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''
+AtlantaBraves:
+- 2001-07-02T00:00:00Z
+- 2001-08-12T00:00:00Z
+- 2001-08-14T00:00:00Z
+ChicagoCubs:
+- 2001-07-23T00:00:00Z

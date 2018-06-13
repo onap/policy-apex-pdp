@@ -45,8 +45,16 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
     // The amount of time to wait for input on the text block reader
     private static final long TEXT_BLOCK_DELAY = 250;
 
-    // Tag for the start of a text block
+    // Tag for the start and end of text blocks
     private final String blockStartToken;
+    private final String blockEndToken;
+
+    // Indicates that text block processing starts at the first block of text
+    private final boolean delimiterAtStart;
+    private boolean blockEndTokenUsed = false;
+
+    // The thread used to read the text from the stream
+    Thread textConsumputionThread;
 
     // The input stream for text
     private InputStream inputStream;
@@ -54,37 +62,49 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
     // The lines of input read from the input stream
     private final Queue<String> textLineQueue = new LinkedBlockingQueue<>();
 
-    // The thread used to read text from the input stream
-    private Thread textConsumputionThread;
-
     // True while EOF has not been seen on input
     private boolean eofOnInputStream = false;
 
     /**
-     * Constructor, initialize the text block reader.
+     * Constructor, initialize the text block reader using token delimited event protocol parameters.
      *
-     * @param blockStartToken the block start token for the start of a text block
+     * @param tokenDelimitedParameters
+     *        the token delimited event protocol parameters
      */
-    public HeaderDelimitedTextBlockReader(final String blockStartToken) {
-        this.blockStartToken = blockStartToken;
+    public HeaderDelimitedTextBlockReader(final EventProtocolTextTokenDelimitedParameters tokenDelimitedParameters) {
+        this(tokenDelimitedParameters.getStartDelimiterToken(), tokenDelimitedParameters.getEndDelimiterToken(),
+                        tokenDelimitedParameters.isDelimiterAtStart());
     }
 
     /**
-     * Constructor, initialize the text block reader using token delimited event protocol
-     * parameters.
+     * Constructor, initialize the text block reader.
      *
-     * @param tokenDelimitedParameters the token delimited event protocol parameters
+     * @param blockStartToken
+     *        the block start token for the start of a text block
+     * @param blockEndToken
+     *        the block end token for the end of a text block
+     * @param delimiterAtStart
+     *        indicates that text block processing starts at the first block of text
      */
-    public HeaderDelimitedTextBlockReader(final EventProtocolTextTokenDelimitedParameters tokenDelimitedParameters) {
-        this.blockStartToken = tokenDelimitedParameters.getDelimiterToken();
+    public HeaderDelimitedTextBlockReader(final String blockStartToken, final String blockEndToken,
+                    final boolean delimiterAtStart) {
+        this.blockStartToken = blockStartToken;
+        this.delimiterAtStart = delimiterAtStart;
+
+        if (blockEndToken == null) {
+            this.blockEndToken = blockStartToken;
+            this.blockEndTokenUsed = false;
+        } else {
+            this.blockEndToken = blockEndToken;
+            this.blockEndTokenUsed = true;
+        }
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader#
-     * init( java.io.InputStream)
+     * @see org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader# init(
+     * java.io.InputStream)
      */
     @Override
     public void init(final InputStream incomingInputStream) {
@@ -99,9 +119,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader#
-     * readTextBlock()
+     * @see org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader# readTextBlock()
      */
     @Override
     public TextBlock readTextBlock() throws IOException {
@@ -109,32 +127,42 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
         final StringBuilder textBlockBuilder = new StringBuilder();
 
         // Wait for the timeout period if there is no input
-        if (!eofOnInputStream && textLineQueue.size() == 0) {
+        if (!eofOnInputStream && textLineQueue.isEmpty()) {
             ThreadUtilities.sleep(TEXT_BLOCK_DELAY);
         }
 
         // Scan the lines in the queue
-        while (textLineQueue.size() > 0) {
+        while (!textLineQueue.isEmpty()) {
             // Scroll down in the available lines looking for the start of the text block
-            if (textLineQueue.peek().startsWith(blockStartToken)) {
+            if (!delimiterAtStart || textLineQueue.peek().startsWith(blockStartToken)) {
                 // Process the input line header
                 textBlockBuilder.append(textLineQueue.remove());
                 textBlockBuilder.append('\n');
                 break;
             } else {
-                LOGGER.warn("invalid input on consumer: " + textLineQueue.remove());
+                String consumer = textLineQueue.remove();
+                LOGGER.warn("invalid input on consumer: {}", consumer);
             }
         }
 
         // Get the rest of the text document
-        while (textLineQueue.size() > 0 && !textLineQueue.peek().startsWith(blockStartToken)) {
+        while (!textLineQueue.isEmpty() && !textLineQueue.peek().startsWith(blockEndToken)
+                        && !textLineQueue.peek().startsWith(blockStartToken)) {
+            // We just strip out block end tokens because we use block start tokens to delimit the blocks of text
+            textBlockBuilder.append(textLineQueue.remove());
+            textBlockBuilder.append('\n');
+        }
+
+        // Check if we should add the block end token to the end of the text block
+        if (!textLineQueue.isEmpty() && blockEndTokenUsed && textLineQueue.peek().startsWith(blockEndToken)) {
+            // Process the input line header
             textBlockBuilder.append(textLineQueue.remove());
             textBlockBuilder.append('\n');
         }
 
         // Condition the text block and return it
         final String textBlock = textBlockBuilder.toString().trim();
-        final boolean endOfText = (eofOnInputStream && textLineQueue.size() == 0 ? true : false);
+        final boolean endOfText = (eofOnInputStream && textLineQueue.isEmpty() ? true : false);
 
         if (textBlock.length() > 0) {
             return new TextBlock(endOfText, textBlock);

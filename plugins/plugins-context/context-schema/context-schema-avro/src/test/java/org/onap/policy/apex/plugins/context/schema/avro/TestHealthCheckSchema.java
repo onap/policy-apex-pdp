@@ -106,14 +106,14 @@ public class TestHealthCheckSchema {
         commonHeaderFlagsRecord.put("mode", "EXCLUSIVE");
 
         final String eventString = TextFileUtils.getTextFileAsString("src/test/resources/data/HealthCheckEvent.json");
-        final String outString = schemaHelper.marshal2Json(healthCheckRecord);
+        final String outString = schemaHelper.marshal2String(healthCheckRecord);
         assertEquals(eventString.toString().replaceAll("\\s+", ""), outString.replaceAll("\\s+", ""));
     }
 
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final GenericRecord decodedObject = (GenericRecord) schemaHelper.unmarshal(inString);
-        final String outString = schemaHelper.marshal2Json(decodedObject);
+        final String outString = schemaHelper.marshal2String(decodedObject);
         assertEquals(inString.replaceAll("\\s+", ""), outString.replaceAll("\\s+", ""));
     }
 }

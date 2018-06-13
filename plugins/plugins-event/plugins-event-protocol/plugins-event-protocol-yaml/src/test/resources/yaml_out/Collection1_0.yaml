@@ -1,0 +1,8 @@
+name: TestEvent2
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''
+avg: 0.278
+hr: 65
+rbi: 147

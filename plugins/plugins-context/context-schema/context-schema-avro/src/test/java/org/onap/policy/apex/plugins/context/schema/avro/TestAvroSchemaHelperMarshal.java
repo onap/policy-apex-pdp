@@ -59,9 +59,9 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper0 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroNullSchema.getKey());
 
-        assertEquals("null", schemaHelper0.marshal2Json(null));
-        assertEquals("null", schemaHelper0.marshal2Json(123));
-        assertEquals("null", schemaHelper0.marshal2Json("Everything is marshalled to Null, no matter what it is"));
+        assertEquals("null", schemaHelper0.marshal2String(null));
+        assertEquals("null", schemaHelper0.marshal2String(123));
+        assertEquals("null", schemaHelper0.marshal2String("Everything is marshalled to Null, no matter what it is"));
     }
 
     @Test
@@ -73,10 +73,10 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper1 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroBooleanSchema.getKey());
 
-        assertEquals("true", schemaHelper1.marshal2Json(true));
-        assertEquals("false", schemaHelper1.marshal2Json(false));
+        assertEquals("true", schemaHelper1.marshal2String(true));
+        assertEquals("false", schemaHelper1.marshal2String(false));
         try {
-            schemaHelper1.marshal2Json(0);
+            schemaHelper1.marshal2String(0);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class TestAvroSchemaHelperMarshal {
                     e.getMessage());
         }
         try {
-            schemaHelper1.marshal2Json("0");
+            schemaHelper1.marshal2String("0");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             e.printStackTrace();
@@ -104,22 +104,22 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper2 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroIntSchema.getKey());
 
-        assertEquals("0", schemaHelper2.marshal2Json(0));
-        assertEquals("1", schemaHelper2.marshal2Json(1));
-        assertEquals("-1", schemaHelper2.marshal2Json(-1));
-        assertEquals("1", schemaHelper2.marshal2Json(1.23));
-        assertEquals("-1", schemaHelper2.marshal2Json(-1.23));
-        assertEquals("2147483647", schemaHelper2.marshal2Json(2147483647));
-        assertEquals("-2147483648", schemaHelper2.marshal2Json(-2147483648));
+        assertEquals("0", schemaHelper2.marshal2String(0));
+        assertEquals("1", schemaHelper2.marshal2String(1));
+        assertEquals("-1", schemaHelper2.marshal2String(-1));
+        assertEquals("1", schemaHelper2.marshal2String(1.23));
+        assertEquals("-1", schemaHelper2.marshal2String(-1.23));
+        assertEquals("2147483647", schemaHelper2.marshal2String(2147483647));
+        assertEquals("-2147483648", schemaHelper2.marshal2String(-2147483648));
         try {
-            schemaHelper2.marshal2Json("Hello");
+            schemaHelper2.marshal2String("Hello");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
                     "AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: java.lang.String cannot be cast to java.lang.Number"));
         }
         try {
-            schemaHelper2.marshal2Json(null);
+            schemaHelper2.marshal2String(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
@@ -136,20 +136,20 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper3 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroLongSchema.getKey());
 
-        assertEquals("0", schemaHelper3.marshal2Json(0L));
-        assertEquals("1", schemaHelper3.marshal2Json(1L));
-        assertEquals("-1", schemaHelper3.marshal2Json(-1L));
-        assertEquals("9223372036854775807", schemaHelper3.marshal2Json(9223372036854775807L));
-        assertEquals("-9223372036854775808", schemaHelper3.marshal2Json(-9223372036854775808L));
+        assertEquals("0", schemaHelper3.marshal2String(0L));
+        assertEquals("1", schemaHelper3.marshal2String(1L));
+        assertEquals("-1", schemaHelper3.marshal2String(-1L));
+        assertEquals("9223372036854775807", schemaHelper3.marshal2String(9223372036854775807L));
+        assertEquals("-9223372036854775808", schemaHelper3.marshal2String(-9223372036854775808L));
         try {
-            schemaHelper3.marshal2Json("Hello");
+            schemaHelper3.marshal2String("Hello");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
                     "AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: java.lang.String cannot be cast to java.lang.Long"));
         }
         try {
-            schemaHelper3.marshal2Json(null);
+            schemaHelper3.marshal2String(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
@@ -166,24 +166,24 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper4 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroFloatSchema.getKey());
 
-        assertEquals("0.0", schemaHelper4.marshal2Json(0F));
-        assertEquals("1.0", schemaHelper4.marshal2Json(1F));
-        assertEquals("-1.0", schemaHelper4.marshal2Json(-1F));
-        assertEquals("1.23", schemaHelper4.marshal2Json(1.23F));
-        assertEquals("-1.23", schemaHelper4.marshal2Json(-1.23F));
-        assertEquals("9.223372E18", schemaHelper4.marshal2Json(9.223372E18F));
-        assertEquals("-9.223372E18", schemaHelper4.marshal2Json(-9.223372E18F));
-        assertEquals("9.223372E18", schemaHelper4.marshal2Json(9.223372E18F));
-        assertEquals("-9.223372E18", schemaHelper4.marshal2Json(-9.223372E18F));
+        assertEquals("0.0", schemaHelper4.marshal2String(0F));
+        assertEquals("1.0", schemaHelper4.marshal2String(1F));
+        assertEquals("-1.0", schemaHelper4.marshal2String(-1F));
+        assertEquals("1.23", schemaHelper4.marshal2String(1.23F));
+        assertEquals("-1.23", schemaHelper4.marshal2String(-1.23F));
+        assertEquals("9.223372E18", schemaHelper4.marshal2String(9.223372E18F));
+        assertEquals("-9.223372E18", schemaHelper4.marshal2String(-9.223372E18F));
+        assertEquals("9.223372E18", schemaHelper4.marshal2String(9.223372E18F));
+        assertEquals("-9.223372E18", schemaHelper4.marshal2String(-9.223372E18F));
         try {
-            schemaHelper4.marshal2Json("Hello");
+            schemaHelper4.marshal2String("Hello");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
                     "AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: java.lang.String cannot be cast to java.lang.Float"));
         }
         try {
-            schemaHelper4.marshal2Json(null);
+            schemaHelper4.marshal2String(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
@@ -201,24 +201,24 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper5 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroDoubleSchema.getKey());
 
-        assertEquals("0.0", schemaHelper5.marshal2Json(0D));
-        assertEquals("1.0", schemaHelper5.marshal2Json(1D));
-        assertEquals("-1.0", schemaHelper5.marshal2Json(-1D));
-        assertEquals("1.23", schemaHelper5.marshal2Json(1.23));
-        assertEquals("-1.23", schemaHelper5.marshal2Json(-1.23));
-        assertEquals("9.223372036854776E18", schemaHelper5.marshal2Json(9.223372036854776E18));
-        assertEquals("-9.223372036854776E18", schemaHelper5.marshal2Json(-9.223372036854776E18));
-        assertEquals("9.223372036854776E18", schemaHelper5.marshal2Json(9.223372036854776E18));
-        assertEquals("-9.223372036854776E18", schemaHelper5.marshal2Json(-9.223372036854776E18));
+        assertEquals("0.0", schemaHelper5.marshal2String(0D));
+        assertEquals("1.0", schemaHelper5.marshal2String(1D));
+        assertEquals("-1.0", schemaHelper5.marshal2String(-1D));
+        assertEquals("1.23", schemaHelper5.marshal2String(1.23));
+        assertEquals("-1.23", schemaHelper5.marshal2String(-1.23));
+        assertEquals("9.223372036854776E18", schemaHelper5.marshal2String(9.223372036854776E18));
+        assertEquals("-9.223372036854776E18", schemaHelper5.marshal2String(-9.223372036854776E18));
+        assertEquals("9.223372036854776E18", schemaHelper5.marshal2String(9.223372036854776E18));
+        assertEquals("-9.223372036854776E18", schemaHelper5.marshal2String(-9.223372036854776E18));
         try {
-            schemaHelper5.marshal2Json("Hello");
+            schemaHelper5.marshal2String("Hello");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
                     "AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: java.lang.String cannot be cast to java.lang.Double"));
         }
         try {
-            schemaHelper5.marshal2Json(null);
+            schemaHelper5.marshal2String(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
@@ -235,18 +235,18 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper7 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, avroStringSchema.getKey());
 
-        assertEquals("\"0\"", schemaHelper7.marshal2Json("0"));
-        assertEquals("\"1\"", schemaHelper7.marshal2Json("1"));
-        assertEquals("\"-1\"", schemaHelper7.marshal2Json("-1"));
-        assertEquals("\"1.23\"", schemaHelper7.marshal2Json("1.23"));
-        assertEquals("\"-1.23\"", schemaHelper7.marshal2Json("-1.23"));
-        assertEquals("\"9223372036854775807\"", schemaHelper7.marshal2Json("9223372036854775807"));
-        assertEquals("\"-9223372036854775808\"", schemaHelper7.marshal2Json("-9223372036854775808"));
-        assertEquals("\"9223372036854775808\"", schemaHelper7.marshal2Json("9223372036854775808"));
-        assertEquals("\"-9223372036854775809\"", schemaHelper7.marshal2Json("-9223372036854775809"));
-        assertEquals("\"Hello\"", schemaHelper7.marshal2Json("Hello"));
+        assertEquals("\"0\"", schemaHelper7.marshal2String("0"));
+        assertEquals("\"1\"", schemaHelper7.marshal2String("1"));
+        assertEquals("\"-1\"", schemaHelper7.marshal2String("-1"));
+        assertEquals("\"1.23\"", schemaHelper7.marshal2String("1.23"));
+        assertEquals("\"-1.23\"", schemaHelper7.marshal2String("-1.23"));
+        assertEquals("\"9223372036854775807\"", schemaHelper7.marshal2String("9223372036854775807"));
+        assertEquals("\"-9223372036854775808\"", schemaHelper7.marshal2String("-9223372036854775808"));
+        assertEquals("\"9223372036854775808\"", schemaHelper7.marshal2String("9223372036854775808"));
+        assertEquals("\"-9223372036854775809\"", schemaHelper7.marshal2String("-9223372036854775809"));
+        assertEquals("\"Hello\"", schemaHelper7.marshal2String("Hello"));
         try {
-            schemaHelper7.marshal2Json(null);
+            schemaHelper7.marshal2String(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
@@ -263,11 +263,11 @@ public class TestAvroSchemaHelperMarshal {
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
         final byte[] helloBytes = {104, 101, 108, 108, 111};
-        final String helloOut = schemaHelper.marshal2Json(helloBytes);
+        final String helloOut = schemaHelper.marshal2String(helloBytes);
         assertEquals("\"hello\"", helloOut);
 
         try {
-            schemaHelper.marshal2Json(null);
+            schemaHelper.marshal2String(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()

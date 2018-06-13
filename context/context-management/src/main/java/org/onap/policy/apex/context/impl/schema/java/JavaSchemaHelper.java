@@ -49,7 +49,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     // This map defines the built in types in types in Java
     // @formatter:off
     private static final Map<String, Class<?>> BUILT_IN_MAP = new HashMap<>();
-    {
+    static {
         BUILT_IN_MAP.put("int",    Integer  .TYPE);
         BUILT_IN_MAP.put("long",   Long     .TYPE);
         BUILT_IN_MAP.put("double", Double   .TYPE);
@@ -69,7 +69,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      * concepts. AxKey, org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
      */
     @Override
-    public void init(final AxKey userKey, final AxContextSchema schema) throws ContextRuntimeException {
+    public void init(final AxKey userKey, final AxContextSchema schema) {
         super.init(userKey, schema);
 
         final String javatype = schema.getSchema();
@@ -80,7 +80,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         } catch (final IllegalArgumentException e) {
 
             String resultSting = userKey.getID() + ": class/type " + schema.getSchema() + " for context schema \""
-                    + schema.getID() + "\" not found.";
+                            + schema.getID() + "\" not found.";
             if (JavaSchemaHelper.BUILT_IN_MAP.get(javatype) != null) {
                 resultSting += " Primitive types are not supported. Use the appropriate Java boxing type instead.";
             } else {
@@ -94,13 +94,25 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.context.SchemaHelper#createNewInstance(com.google.gson.JsonElement)
+     * @see org.onap.policy.apex.context.SchemaHelper#createNewInstance(java.lang.Object)
      */
     @Override
-    public Object createNewInstance(final JsonElement jsonElement) {
-        final String elementJsonString = new Gson().toJson(jsonElement);
+    public Object createNewInstance(final Object incomingObject) {
+        if (incomingObject instanceof JsonElement) {
+            final String elementJsonString = new Gson().toJson((JsonElement) incomingObject);
+            return new Gson().fromJson(elementJsonString, this.getSchemaClass());
+        }
 
-        return new Gson().fromJson(elementJsonString, this.getSchemaClass());
+        if (getSchemaClass().isAssignableFrom(incomingObject.getClass())) {
+            return incomingObject;
+        }
+
+        final String returnString = getUserKey().getID() + ": the object \"" + incomingObject + "\" of type \""
+                        + incomingObject.getClass().getCanonicalName()
+                        + "\" is not an instance of JsonObject and is not assignable to \""
+                        + getSchemaClass().getCanonicalName() + "\"";
+        LOGGER.warn(returnString);
+        throw new ContextRuntimeException(returnString);
     }
 
     /*
@@ -137,7 +149,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      * @see org.onap.policy.apex.context.SchemaHelper#schemaObject2Json(java.lang.Object)
      */
     @Override
-    public String marshal2Json(final Object schemaObject) {
+    public String marshal2String(final Object schemaObject) {
         if (schemaObject == null) {
             return "null";
         }
@@ -148,8 +160,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return new Gson().toJson(schemaObject);
         } else {
             final String returnString = getUserKey().getID() + ": object \"" + schemaObject.toString()
-                    + "\" of class \"" + schemaObject.getClass().getCanonicalName() + "\" not compatible with class \""
-                    + getSchemaClass().getCanonicalName() + "\"";
+                            + "\" of class \"" + schemaObject.getClass().getCanonicalName()
+                            + "\" not compatible with class \"" + getSchemaClass().getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -161,7 +173,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      * @see org.onap.policy.apex.context.SchemaHelper#marshal2JsonElement(java.lang.Object)
      */
     @Override
-    public JsonElement marshal2JsonElement(final Object schemaObject) {
+    public Object marshal2Object(final Object schemaObject) {
         // Use Gson to marshal the schema object into a Json element to return
         return new Gson().toJsonTree(schemaObject, getSchemaClass());
     }
@@ -169,7 +181,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     /**
      * Do a numeric conversion between numeric types.
      *
-     * @param object The incoming numeric object
+     * @param object
+     *        The incoming numeric object
      * @return The converted object
      */
     private Object numericConversion(final Object object) {
@@ -195,7 +208,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     /**
      * Do a string conversion to the class type.
      *
-     * @param object The incoming numeric object
+     * @param object
+     *        The incoming numeric object
      * @return The converted object
      */
     private Object stringConversion(final Object object) {
@@ -205,8 +219,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
             final String returnString = getUserKey().getID() + ": object \"" + object.toString() + "\" of class \""
-                    + object.getClass().getCanonicalName() + "\" not compatible with class \""
-                    + getSchemaClass().getCanonicalName() + "\"";
+                            + object.getClass().getCanonicalName() + "\" not compatible with class \""
+                            + getSchemaClass().getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }

@@ -124,7 +124,7 @@ public class TestAvroSchemaFixed {
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final Fixed decodedObject = (Fixed) schemaHelper.unmarshal(inString);
-        final String outString = schemaHelper.marshal2Json(decodedObject);
+        final String outString = schemaHelper.marshal2String(decodedObject);
         assertEquals(inString.replaceAll("[\\r?\\n]+", " "), outString.replaceAll("[\\r?\\n]+", " "));
     }
 }

@@ -101,7 +101,7 @@ public class TestAvroSchemaArray {
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final Array<?> schemaObject = (Array<?>) schemaHelper.unmarshal(inString);
-        final String outString = schemaHelper.marshal2Json(schemaObject);
+        final String outString = schemaHelper.marshal2String(schemaObject);
         assertEquals(inString.replaceAll("\\s+", ""), outString.replaceAll("\\s+", ""));
     }
 }

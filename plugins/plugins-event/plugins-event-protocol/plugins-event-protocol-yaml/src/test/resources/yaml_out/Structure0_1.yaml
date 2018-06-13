@@ -1,0 +1,8 @@
+name: TestEvent1
+version: 0.0.1
+nameSpace: org.onap.policy.apex.plugins.event.protocol.yaml
+source: ''
+target: ''
+yaml_field:
+- Chicago Cubs
+- St Louis Cardinals

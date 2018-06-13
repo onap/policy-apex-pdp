@@ -41,7 +41,7 @@ public class TestXMLTaggedEventConsumer {
     public void testGarbageTextLine() throws IOException {
         final InputStream xmlInputStream = new ByteArrayInputStream("hello there".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -54,7 +54,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream =
                 new ByteArrayInputStream("1469781869268</TestTimestamp></MainTag>".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -67,7 +67,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -80,7 +80,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -92,7 +92,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -104,7 +104,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -117,7 +117,7 @@ public class TestXMLTaggedEventConsumer {
     public void testGarbageTextMultiLine() throws IOException {
         final InputStream xmlInputStream = new ByteArrayInputStream("hello\nthere".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -129,7 +129,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream =
                 new ByteArrayInputStream("1469781869268\n</TestTimestamp>\n</MainTag>".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -141,7 +141,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -155,7 +155,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -170,7 +170,7 @@ public class TestXMLTaggedEventConsumer {
                 "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish\n\n"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -184,7 +184,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -199,7 +199,7 @@ public class TestXMLTaggedEventConsumer {
                 "1469781869268</TestTimestamp></MainTag><?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp>"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -212,7 +212,7 @@ public class TestXMLTaggedEventConsumer {
                 "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag><?xml><MainTag><TestTimestamp>"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -225,7 +225,7 @@ public class TestXMLTaggedEventConsumer {
                 "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish<?xml><MainTag><TestTimestamp>\nRefuse"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -238,7 +238,7 @@ public class TestXMLTaggedEventConsumer {
                 "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish<?xml><MainTag><TestTimestamp>Refuse"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -252,7 +252,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "1469781869268\n</TestTimestamp>\n</MainTag>\n<?xml>\n<MainTag>\n<TestTimestamp>".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -266,7 +266,7 @@ public class TestXMLTaggedEventConsumer {
                 "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -286,7 +286,7 @@ public class TestXMLTaggedEventConsumer {
                 "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -306,7 +306,7 @@ public class TestXMLTaggedEventConsumer {
                 "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRefuse\n"
                         .getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         TextBlock textBlock = xmlTaggedReader.readTextBlock();
@@ -325,7 +325,7 @@ public class TestXMLTaggedEventConsumer {
         final InputStream xmlInputStream = new ByteArrayInputStream(
                 "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish".getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml");
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();

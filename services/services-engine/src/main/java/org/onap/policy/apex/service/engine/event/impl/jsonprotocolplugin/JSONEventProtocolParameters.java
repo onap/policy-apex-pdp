@@ -51,11 +51,11 @@ public class JSONEventProtocolParameters extends EventProtocolTextCharDelimitedP
 
     // Aliases for Apex event header fields
     // @formatter:off
-    private final String nameAlias      = null;
-    private final String versionAlias   = null;
-    private final String nameSpaceAlias = null;
-    private final String sourceAlias    = null;
-    private final String targetAlias    = null;
+    private String nameAlias      = null;
+    private String versionAlias   = null;
+    private String nameSpaceAlias = null;
+    private String sourceAlias    = null;
+    private String targetAlias    = null;
     // @formatter:on
 
     /**
@@ -131,5 +131,49 @@ public class JSONEventProtocolParameters extends EventProtocolTextCharDelimitedP
     public String getTargetAlias() {
         return targetAlias;
     }
+    
+    /**
+     * Sets the name alias.
+     *
+     * @param nameAlias the new name alias
+     */
+    public void setNameAlias(String nameAlias) {
+        this.nameAlias = nameAlias;
+    }
 
+    /**
+     * Sets the version alias.
+     *
+     * @param versionAlias the new version alias
+     */
+    public void setVersionAlias(String versionAlias) {
+        this.versionAlias = versionAlias;
+    }
+
+    /**
+     * Sets the name space alias.
+     *
+     * @param nameSpaceAlias the new name space alias
+     */
+    public void setNameSpaceAlias(String nameSpaceAlias) {
+        this.nameSpaceAlias = nameSpaceAlias;
+    }
+
+    /**
+     * Sets the source alias.
+     *
+     * @param sourceAlias the new source alias
+     */
+    public void setSourceAlias(String sourceAlias) {
+        this.sourceAlias = sourceAlias;
+    }
+
+    /**
+     * Sets the target alias.
+     *
+     * @param targetAlias the new target alias
+     */
+    public void setTargetAlias(String targetAlias) {
+        this.targetAlias = targetAlias;
+    }
 }

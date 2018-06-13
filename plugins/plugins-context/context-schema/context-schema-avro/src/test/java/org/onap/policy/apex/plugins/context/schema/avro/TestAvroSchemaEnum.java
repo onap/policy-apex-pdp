@@ -114,7 +114,7 @@ public class TestAvroSchemaEnum {
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final EnumSymbol decodedObject = (EnumSymbol) schemaHelper.unmarshal(inString);
-        final String outString = schemaHelper.marshal2Json(decodedObject);
+        final String outString = schemaHelper.marshal2String(decodedObject);
         assertEquals(inString.replaceAll("[\\r?\\n]+", " "), outString.replaceAll("[\\r?\\n]+", " "));
     }
 }
