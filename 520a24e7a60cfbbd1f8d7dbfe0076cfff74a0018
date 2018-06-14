@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_48760ada",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-yaml/src/main/java/org/onap/policy/apex/plugins/event/protocol/yaml/Apex2YamlEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-14T09:45:47Z",
+      "side": 1,
+      "message": "Subjective comment: Code might be changed to following in order to remove try-catch\n\nif (!eventObject instanceof String){\n final String errorMessage \u003d \"error converting event \\\"\" + eventObject + \"\\\" to a string\";\n            LOGGER.debug(errorMessage, e);\n            throw new ApexEventException(errorMessage, e);\n}\n\nfinal String yamlEventString \u003d (String) eventObject;",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "520a24e7a60cfbbd1f8d7dbfe0076cfff74a0018",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_687186dd",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-yaml/src/main/java/org/onap/policy/apex/plugins/event/protocol/yaml/Apex2YamlEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-14T09:45:47Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 9
+      },
+      "revId": "520a24e7a60cfbbd1f8d7dbfe0076cfff74a0018",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
