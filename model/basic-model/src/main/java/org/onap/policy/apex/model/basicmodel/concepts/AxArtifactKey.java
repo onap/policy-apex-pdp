@@ -72,7 +72,8 @@ public class AxArtifactKey extends AxKey {
     /**
      * Copy constructor
      *
-     * @param copyConcept the concept to copy from
+     * @param copyConcept
+     *        the concept to copy from
      */
     public AxArtifactKey(final AxArtifactKey copyConcept) {
         super(copyConcept);
@@ -81,8 +82,10 @@ public class AxArtifactKey extends AxKey {
     /**
      * Constructor to create a key with the specified name and version.
      *
-     * @param name the key name
-     * @param version the key version
+     * @param name
+     *        the key name
+     * @param version
+     *        the key version
      */
     public AxArtifactKey(final String name, final String version) {
         super();
@@ -93,7 +96,8 @@ public class AxArtifactKey extends AxKey {
     /**
      * Constructor to create a key using the key and version from the specified key ID.
      *
-     * @param id the key ID in a format that respects the {@link KEY_ID_REGEXP}
+     * @param id
+     *        the key ID in a format that respects the {@link KEY_ID_REGEXP}
      */
     public AxArtifactKey(final String id) {
         Assertions.argumentNotNull(id, "id may not be null");
@@ -164,7 +168,8 @@ public class AxArtifactKey extends AxKey {
     /**
      * Sets the key name.
      *
-     * @param name the key name
+     * @param name
+     *        the key name
      */
     public void setName(final String name) {
         this.name = Assertions.validateStringParameter(NAME_TOKEN, name, NAME_REGEXP);
@@ -182,7 +187,8 @@ public class AxArtifactKey extends AxKey {
     /**
      * Sets the key version.
      *
-     * @param version the key version
+     * @param version
+     *        the key version
      */
     public void setVersion(final String version) {
         this.version = Assertions.validateStringParameter(VERSION_TOKEN, version, VERSION_REGEXP);
@@ -217,7 +223,7 @@ public class AxArtifactKey extends AxKey {
         }
 
         if (thisVersionArray.length >= 2 && otherVersionArray.length >= 2
-                && !thisVersionArray[1].equals(otherVersionArray[1])) {
+                        && !thisVersionArray[1].equals(otherVersionArray[1])) {
             return Compatibility.MINOR;
         }
 
@@ -252,18 +258,18 @@ public class AxArtifactKey extends AxKey {
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
-        try {
-            Assertions.validateStringParameter(NAME_TOKEN, name, NAME_REGEXP);
-        } catch (final IllegalArgumentException e) {
+        final String nameValidationErrorMessage = Assertions.getStringParameterValidationMessage(NAME_TOKEN, name,
+                        NAME_REGEXP);
+        if (nameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
-                    "name invalid-" + e.getMessage()));
+                            "name invalid-" + nameValidationErrorMessage));
         }
 
-        try {
-            Assertions.validateStringParameter(VERSION_TOKEN, version, VERSION_REGEXP);
-        } catch (final IllegalArgumentException e) {
+        final String versionValidationErrorMessage = Assertions.getStringParameterValidationMessage(VERSION_TOKEN, version,
+                        VERSION_REGEXP);
+        if (versionValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
-                    "version invalid-" + e.getMessage()));
+                            "version invalid-" + versionValidationErrorMessage));
         }
 
         return result;

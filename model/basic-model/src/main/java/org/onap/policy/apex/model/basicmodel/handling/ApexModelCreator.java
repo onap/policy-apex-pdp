@@ -28,6 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the type of Apex model to create, must be a sub class of {@link AxModel}
  */
+@FunctionalInterface
 public interface ApexModelCreator<M extends AxModel> {
 
     /**

@@ -37,8 +37,7 @@ public class ApexRuntimeException extends RuntimeException {
      * @param message the message on the exception
      */
     public ApexRuntimeException(final String message) {
-        super(message);
-        this.object = null;
+        this(message, null);
     }
 
     /**
@@ -59,8 +58,7 @@ public class ApexRuntimeException extends RuntimeException {
      * @param e the exception that caused this Apex exception
      */
     public ApexRuntimeException(final String message, final Exception e) {
-        super(message, e);
-        this.object = null;
+        this(message, e, null);
     }
 
     /**
@@ -81,15 +79,7 @@ public class ApexRuntimeException extends RuntimeException {
      * @return the message of this exception and all the exceptions that caused this exception
      */
     public String getCascadedMessage() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getMessage());
-
-        for (Throwable t = this; t != null; t = t.getCause()) {
-            builder.append("\ncaused by: ");
-            builder.append(t.getMessage());
-        }
-
-        return builder.toString();
+        return ApexException.buildCascadedMessage(this);
     }
 
     /**

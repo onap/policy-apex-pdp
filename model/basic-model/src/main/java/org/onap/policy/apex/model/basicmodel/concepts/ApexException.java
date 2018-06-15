@@ -37,8 +37,7 @@ public class ApexException extends Exception {
      * @param message the message on the exception
      */
     public ApexException(final String message) {
-        super(message);
-        this.object = null;
+        this(message, null);
     }
 
     /**
@@ -59,8 +58,7 @@ public class ApexException extends Exception {
      * @param e the exception that caused this Apex exception
      */
     public ApexException(final String message, final Exception e) {
-        super(message, e);
-        this.object = null;
+        this(message, e, null);
     }
 
     /**
@@ -81,10 +79,18 @@ public class ApexException extends Exception {
      * @return the cascaded messages from this exception and the exceptions that caused it
      */
     public String getCascadedMessage() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getMessage());
+        return buildCascadedMessage(this);
+    }
 
-        for (Throwable t = this; t != null; t = t.getCause()) {
+    /**
+     * Build a cascaded message from an exception and all its nested exceptions
+     * @param throwable the top level exception
+     */
+    public static String buildCascadedMessage(Throwable throwable) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(throwable.getMessage());
+
+        for (Throwable t = throwable; t != null; t = t.getCause()) {
             builder.append("\ncaused by: ");
             builder.append(t.getMessage());
         }

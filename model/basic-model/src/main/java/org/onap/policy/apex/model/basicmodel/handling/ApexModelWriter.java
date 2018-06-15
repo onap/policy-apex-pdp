@@ -233,7 +233,7 @@ public class ApexModelWriter<C extends AxConcept> {
             // May fail if not using XALAN XSLT engine. But not in any way vital
             domTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         } catch (final Exception ignore) {
-            LOGGER.trace("Unable to set indent property...");
+            LOGGER.trace("Unable to set indent property", ignore);
         }
         return domTransformer;
     }

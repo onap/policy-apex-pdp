@@ -60,7 +60,7 @@ public abstract class AbstractParameters {
             return (Class<? extends AbstractParameters>) Class.forName(parameterClassName);
         }
         catch (final ClassNotFoundException e) {
-            throw new ApexRuntimeException("class not found for parameter class name \"" + parameterClassName + "\"");
+            throw new ApexRuntimeException("class not found for parameter class name \"" + parameterClassName + "\"", e);
         }
     }
 

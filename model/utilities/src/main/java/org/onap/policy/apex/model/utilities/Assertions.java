@@ -34,6 +34,26 @@ public final class Assertions {
     }
 
     /**
+     * Gets the validation message for a string parameter.
+     *
+     * @param parameterName the string parameter name
+     * @param parameterValue the string parameter value
+     * @param pattern The regular expression
+     * @return null if the parameter is valid, the validation message otherwise
+     */
+    public static String getStringParameterValidationMessage(final String parameterName, final String parameterValue, final String pattern) {
+        try {
+            validateStringParameter(parameterName, parameterValue, pattern);
+        }
+        catch (IllegalArgumentException e) {
+            // This will cause a SONAR error but eliminates all SONAR messages in callers
+            return e.getMessage();
+        }
+        
+        return null;
+    }
+    
+    /**
      * Checks if a string parameter matches a regular expression.
      *
      * @param parameterName the string parameter name
