@@ -140,5 +140,6 @@
         <module>auth</module>
         <module>services</module>
         <module>plugins</module>
+        <module>packages</module>
     </modules>
 </project>
