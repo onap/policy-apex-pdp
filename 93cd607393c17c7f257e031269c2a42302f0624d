@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_8ca3c1b0",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexConfigConverter.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_0906c321",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 82
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_c9ff7b01",
         "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexRESTEditor.bat",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "of course this script won\u0027t work until we bring in the client WAR.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 83
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_2caaad85",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexRESTEditor.bat",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "5a93c517_c9ff7b01",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_4cadb99a",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexRESTEditor.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "5a93c517_6cfe7507",
+      "range": {
+        "startLine": 1,
+        "startChar": 14,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_6c2515ad",
         "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "Did you check to see if this is the correct install location in the ONAP world?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ac9d5d68",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "checked existing PDP container, and it is using /opt/app/policy/\n\npolicy@pdp:~$ ls -l /opt/app/policy/\ntotal 32\ndrwx------ 3 policy policy 4096 May  8 17:31 bin\ndrwx------ 8 policy policy 4096 May  8 17:31 etc\ndrwx------ 6 policy policy 4096 May  8 17:31 install\ndrwxr-xr-x 2 policy policy 4096 May  8 17:31 logs\ndrwx------ 2 policy policy 4096 May  8 17:31 m2\ndrwxr-xr-x 4 policy policy 4096 May  8 17:31 servers\ndrwxr-xr-x 2 policy policy 4096 May  8 17:31 tmp\ndrwxr-xr-x 2 policy policy 4096 May  8 17:31 var",
+      "parentUuid": "5a93c517_6c2515ad",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_4c84d90a",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_8c28a186",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_4c2299a4",
         "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "Ericsson paths!",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ec7a8524",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_4c2299a4",
       "range": {
         "startLine": 50,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_ac747d36",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postrm",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_ec3845d6",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_ac323df0",
         "filename": "packages/apex-pdp-package-full/src/main/package/control/preinst",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "This for sure won\u0027t work with an Ericsson name. The script looks for the full class path of the main APEX method and fails if an APEX JVM is running on the host.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 95
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6c8e7529",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/preinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_ac323df0",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_8c918148",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/prerm",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_8c4f416a",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 95
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_2c562d07",
         "filename": "packages/apex-pdp-package-full/src/main/package/examples/config/AADM/Stdin2StdoutJsonEvent.json",
         "patchSetId": 2
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_2c986d69",
+        "filename": "packages/apex-pdp-package-full/src/main/package/examples/config/AADM/Stdin2StdoutJsonEvent.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Okay",
+      "parentUuid": "5a93c517_2c562d07",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_0c3b31c9",
         "filename": "packages/apex-pdp-package-full/src/main/package/examples/docker/Docker.Readme.txt",
         "patchSetId": 2
@@ -243,6 +483,30 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "You\u0027ll have to rewrite this Readme. It relies on the internal Ericsson docker repository.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_eca12596",
+        "filename": "packages/apex-pdp-package-full/src/main/package/examples/docker/Docker.Readme.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Removed this file for now will do this as part documentation JIRA",
+      "parentUuid": "5a93c517_0c3b31c9",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -289,6 +553,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_acab1d74",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback-default.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_6c9af5c6",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_8c9d01be",
         "filename": "packages/apex-pdp-package-full/src/main/resources/logback-logic.xml",
         "patchSetId": 2
@@ -300,6 +582,24 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_cca6a9ab",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback-logic.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_8c9d01be",
       "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -323,6 +623,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_6cb515cf",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback-server.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_2ca4ed06",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_ecada5eb",
         "filename": "packages/apex-pdp-package-full/src/main/resources/logback.xml",
         "patchSetId": 2
@@ -334,6 +652,24 @@
       "writtenOn": "2018-06-18T13:57:17Z",
       "side": 1,
       "message": "ditto",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_8cb8a1c8",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-18T16:00:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_ecada5eb",
       "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
