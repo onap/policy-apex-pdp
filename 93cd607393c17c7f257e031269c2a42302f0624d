@@ -1,0 +1,342 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_0906c321",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexConfigConverter.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "We don\u0027t need this script in ONAP. It was used for converting an old format of APEX configuration into the current configuration. Those old configurations are all converted now so we can remove this script. Should have told ye earlier.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 82
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_c9ff7b01",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexRESTEditor.bat",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "of course this script won\u0027t work until we bring in the client WAR.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 83
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6cfe7507",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexRESTEditor.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Of course this script won\u0027t work until we bring in the client WAR.",
+      "range": {
+        "startLine": 1,
+        "startChar": 14,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6c2515ad",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Did you check to see if this is the correct install location in the ONAP world?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_8c28a186",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Change to ONAP logging location",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_4c2299a4",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Ericsson paths!",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ec3845d6",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/postrm",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "extra tab not needed, probably should change tabs to spaces....Pedantic I know!",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ac323df0",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/preinst",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "This for sure won\u0027t work with an Ericsson name. The script looks for the full class path of the main APEX method and fails if an APEX JVM is running on the host.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 95
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_8c4f416a",
+        "filename": "packages/apex-pdp-package-full/src/main/package/control/prerm",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Same comment as last one",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 95
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_2c562d07",
+        "filename": "packages/apex-pdp-package-full/src/main/package/examples/config/AADM/Stdin2StdoutJsonEvent.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "This is not a blocking comment.\n\nThese example config files are copies of those used in the integration test. Once we get the integration tests running in ONAP we should ensure that these config files in the package pave passed integration test. I\u0027ll make a note on the Integration test JIRA. It\u0027s POLICY-865.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_0c3b31c9",
+        "filename": "packages/apex-pdp-package-full/src/main/package/examples/docker/Docker.Readme.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "You\u0027ll have to rewrite this Readme. It relies on the internal Ericsson docker repository.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_0c6251d9",
+        "filename": "packages/apex-pdp-package-full/src/main/package/examples/models/JMS/JMSSamplePolicyModel.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "I don\u0027t know why the JMS sample policy model is here and why the other sample policy models referred to in the sample config JSON files are not here. Could you check that please?",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6c9af5c6",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback-default.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Use ONAP log path",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_8c9d01be",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback-logic.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_2ca4ed06",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback-server.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_ecada5eb",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-18T13:57:17Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "93cd607393c17c7f257e031269c2a42302f0624d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
