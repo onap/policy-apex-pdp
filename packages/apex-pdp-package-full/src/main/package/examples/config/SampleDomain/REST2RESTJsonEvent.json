@@ -1,0 +1,45 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.xml",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "FirstConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRest2REST/apex/event/GetEvent"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRest2REST/apex/event/PostEvent"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}
