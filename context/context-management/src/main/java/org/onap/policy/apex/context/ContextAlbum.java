@@ -112,6 +112,13 @@ public interface ContextAlbum extends Map<String, Object> {
     void unlockForWriting(String key) throws ContextException;
 
     /**
+     * Get the stack of artifact keys currently using this context item.
+     *
+     * @return the keys of the artifacts using the context album at the moment
+     */
+    AxConcept[]  getUserArtifactStack();
+
+    /**
      * Set the stack of artifact keys currently using this context item.
      *
      * @param userArtifactStack the keys of the artifacts using the context album at the moment

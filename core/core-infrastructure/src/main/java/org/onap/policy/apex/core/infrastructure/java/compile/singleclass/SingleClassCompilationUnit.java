@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.core.infrastructure.java.compile.singleclass;
+package org.onap.policy.apex.core.infrastructure.java.compile.singleclass;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

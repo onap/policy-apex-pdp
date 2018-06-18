@@ -79,6 +79,10 @@ public final class ContextAlbumImpl implements ContextAlbum {
      */
     public ContextAlbumImpl(final AxContextAlbum albumDefinition, final Distributor distributor,
             final Map<String, Object> albumMap) throws ContextException {
+        Assertions.argumentNotNull(albumDefinition, "Context album definition may not be null");
+        Assertions.argumentNotNull(distributor, "Distributor may not be null");
+        Assertions.argumentNotNull(albumMap, "Album map may not be null");
+
         this.albumDefinition = albumDefinition;
 
         // Use the context distributor passed to us
@@ -188,6 +192,17 @@ public final class ContextAlbumImpl implements ContextAlbum {
         distributor.unlockForWriting(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorWriteUnlock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
                 userArtifactStack);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.context.ContextAlbum#getUserArtifactStack()
+     */
+    @Override
+    public AxConcept[] getUserArtifactStack() {
+        return userArtifactStack;
     }
 
     /*
@@ -440,7 +455,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public Object remove(final Object key) {
         if (!albumDefinition.isWritable()) {
             final String returnString = "album \"" + albumDefinition.getID()
-                    + "\" remove() not allowed on read only albums for key=\"" + key;
+                    + "\" remove() not allowed on read only albums for key=\"" + key + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }

@@ -25,4 +25,4 @@
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 
-package org.onap.policy.core.infrastructure.java.compile.singleclass;
+package org.onap.policy.apex.core.infrastructure.java.compile.singleclass;
