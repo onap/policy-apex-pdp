@@ -1,0 +1,105 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12545,
+        "policyModelFileName": "examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "aConsumer0": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/SampleDomain/EventsInMulti0.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "aProducer0",
+            "synchronousTimeout": 1000
+        },
+        "aConsumer1": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/SampleDomain/EventsInMulti1.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "aProducer1",
+            "synchronousTimeout": 1000
+        },
+        "aConsumer2": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/SampleDomain/EventsInMulti2.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "aProducer2",
+            "synchronousTimeout": 1000
+        }
+    },
+    "eventOutputParameters": {
+        "aProducer0": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/SampleDomain/EventsOutMulti0.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "aConsumer0",
+            "synchronousTimeout": 1000
+        },
+        "aProducer1": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/SampleDomain/EventsOutMulti1.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "aConsumer1",
+            "synchronousTimeout": 1000
+        },
+        "aProducer2": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/SampleDomain/EventsOutMulti2.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "aConsumer2",
+            "synchronousTimeout": 1000
+        }
+    }
+}
