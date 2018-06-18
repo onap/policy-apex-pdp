@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="org.onap.policy.apex.core.model.eclipselink.runtime" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>org.onap.policy.apex.core.basicmodel.dao.converters.UUID2String</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxArtifactKey</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxConcept</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxDataType</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInfo</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInformation</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxModel</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.TestEntity</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItem</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItemTemplate</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextScope</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextMap</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContext</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextModel</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventParameter</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvent</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvents</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventModel</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxLogic</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTaskParameter</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTask</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTasks</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxState</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicy</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicies</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicyModel</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineStats</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineModel</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.ENodeBStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IMSIStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IPAddressStatus</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AnomalyDetection</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AutoLearn</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNCustomer</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNLink</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.target-database" value="PostgreSQL" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/apex" />
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="postgres" />
+
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
+            <property name="eclipselink.logging.level" value="INFO" />
+
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="org.onap.policy.apex.core.model.eclipselink.test" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>org.onap.policy.apex.core.basicmodel.dao.converters.UUID2String</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxArtifactKey</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxConcept</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxDataType</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInfo</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInformation</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxModel</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.TestEntity</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItem</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItemTemplate</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextScope</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextMap</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContext</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextModel</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventParameter</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvent</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvents</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventModel</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxLogic</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTaskParameter</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTask</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTasks</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxState</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicy</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicies</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicyModel</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineStats</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineModel</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.ENodeBStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IMSIStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IPAddressStatus</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AnomalyDetection</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AutoLearn</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNCustomer</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNLink</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.target-database" value="PostgreSQL" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/apex_test" />
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="postgres" />
+
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+            <property name="eclipselink.logging.level" value="INFO" />
+
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="org.onap.policy.apex.core.model.hibernate.runtime">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>org.onap.policy.apex.core.basicmodel.dao.converters.UUID2String</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxArtifactKey</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxConcept</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxDataType</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInfo</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInformation</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxModel</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.TestEntity</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItem</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItemTemplate</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextScope</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextMap</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContext</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextModel</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventParameter</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvent</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvents</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventModel</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxLogic</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTaskParameter</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTask</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTasks</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxState</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicy</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicies</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicyModel</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineStats</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineModel</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.ENodeBStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IMSIStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IPAddressStatus</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AnomalyDetection</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AutoLearn</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNCustomer</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNLink</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
+
+        <properties>
+            <property name="javax.persistence.target-database" value="PostgreSQL" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/apex" />
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="postgres" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+            <property name="hibernate.c3p0.max_size" value="100" />
+            <property name="hibernate.c3p0.min_size" value="0" />
+            <property name="hibernate.c3p0.acquire_increment" value="1" />
+            <property name="hibernate.c3p0.idle_test_period" value="300" />
+            <property name="hibernate.c3p0.max_statements" value="0" />
+            <property name="hibernate.c3p0.timeout" value="100" />
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="org.onap.policy.apex.core.model.hibernate.test">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>org.onap.policy.apex.core.basicmodel.dao.converters.UUID2String</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxArtifactKey</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxConcept</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxDataType</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInfo</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxKeyInformation</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.AxModel</class>
+        <class>org.onap.policy.apex.core.basicmodel.concepts.TestEntity</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItem</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextItemTemplate</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextScope</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextType</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextMap</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContext</class>
+        <class>org.onap.policy.apex.core.contextmodel.concepts.AxContextModel</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventParameter</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvent</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEvents</class>
+        <class>org.onap.policy.apex.core.eventmodel.concepts.AxEventModel</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxLogic</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTaskParameter</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTask</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxTasks</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxState</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicy</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicies</class>
+        <class>org.onap.policy.apex.core.policymodel.concepts.AxPolicyModel</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineStats</class>
+        <class>org.onap.policy.apex.core.enginemodel.concepts.AxEngineModel</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.ENodeBStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IMSIStatus</class>
+        <class>org.onap.policy.apex.domains.aadm.concepts.IPAddressStatus</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AnomalyDetection</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.AutoLearn</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNCustomer</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNLink</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
+
+        <properties>
+            <property name="javax.persistence.target-database" value="PostgreSQL" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/apex_test" />
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="postgres" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+            <property name="hibernate.c3p0.max_size" value="100" />
+            <property name="hibernate.c3p0.min_size" value="0" />
+            <property name="hibernate.c3p0.acquire_increment" value="1" />
+            <property name="hibernate.c3p0.idle_test_period" value="300" />
+            <property name="hibernate.c3p0.max_statements" value="0" />
+            <property name="hibernate.c3p0.timeout" value="100" />
+        </properties>
+    </persistence-unit>
+
+</persistence>

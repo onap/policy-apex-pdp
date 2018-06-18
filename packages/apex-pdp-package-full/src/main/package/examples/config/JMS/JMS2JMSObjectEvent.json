@@ -1,0 +1,58 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12553,
+        "policyModelFileName": "examples/models/JMS/JMSSamplePolicyModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "aProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "JMS",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+                "parameters": {
+                    "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
+                    "connectionFactory": "ConnectionFactory",
+                    "providerURL": "remote://localhost:5445",
+                    "securityPrincipal": "guest",
+                    "securityCredentials": "IAmAGuest",
+                    "producerTopic": "jms/topic/apexOut"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JMSOBJECT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JMSObjectEventProtocolParameters"
+            }
+        }
+    },
+    "eventInputParameters": {
+        "aConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "JMS",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+                "parameters": {
+                    "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
+                    "connectionFactory": "ConnectionFactory",
+                    "providerURL": "remote://localhost:5445",
+                    "securityPrincipal": "guest",
+                    "securityCredentials": "IAmAGuest",
+                    "consumerTopic": "jms/topic/apexIn"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JMSOBJECT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JMSObjectEventProtocolParameters"
+            }
+        }
+    }
+}
+

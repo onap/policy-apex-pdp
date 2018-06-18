@@ -1,0 +1,143 @@
+#-------------------------------------------------------------------------------
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# 
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+#-------------------------------------------------------------------------------
+
+DOCKER ... steps
+
+0: Replace all instances of <version> in this file with the build version, e.g. 0.6.0
+
+1: Copy this entire docker folder into a new folder
+2: Copy the  .deb file (apex-apps.uservice-packages-<version>-full.deb) into the "base" folder 
+3: In that root folder - build and tag the apex/base image:
+	> sudo docker build base   \
+         -t apex/base    \
+         -t apex/base:latest    \
+         -t apex/base:<version>    \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/base:latest    \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/base:<version>    \
+         -f base/base.Dockerfile
+          
+	This builds the apex/base docker image and tags it with all relevant names.
+4: Push the apex/base docker image to the Ericsson Docker repository "armdocker.rnd.ericsson.se" at location: "armdocker.rnd.ericsson.se/proj-apex/apex/"   
+	Log into the repository: 
+	> sudo docker login armdocker.rnd.ericsson.se
+	Push all images tagged with "armdocker.rnd.ericsson.se/proj-apex/apex/base"
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/base
+5: Check that the push happened: https://armdocker.rnd.ericsson.se/artifactory/webapp/#/artifacts/browse/tree/EffectivePermission/docker-v2-global-local/proj-apex/apex/base
+
+6: Build, tag and push the MyFirstPolicy sample docker images: 
+	> sudo docker build MyFirstPolicy/1/   \
+         -t apex/myfirstpolicyfile2stdoutjsonevent:1   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent:1   \
+         -t apex/myfirstpolicyfile2stdoutjsonevent:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent:latest   \
+         -f MyFirstPolicy/1/MyFirstPolicyFile2StdoutJsonEvent.Dockerfile
+	> sudo docker build MyFirstPolicy/2/   \
+         -t apex/myfirstpolicyfile2stdoutjsonevent:2   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent:2   \
+         -t apex/myfirstpolicyfile2stdoutjsonevent:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent:latest   \
+         -f MyFirstPolicy/2/MyFirstPolicyFile2StdoutJsonEvent.Dockerfile
+	> sudo docker build MyFirstPolicy/1/   \
+         -t apex/myfirstpolicystdin2stdoutjsonevent:1   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicystdin2stdoutjsonevent:1   \
+         -t apex/myfirstpolicystdin2stdoutjsonevent:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicystdin2stdoutjsonevent:latest   \
+         -f MyFirstPolicy/1/MyFirstPolicyStdin2StdoutJsonEvent.Dockerfile
+	> sudo docker build MyFirstPolicy/2/   \
+         -t apex/myfirstpolicystdin2stdoutjsonevent:2   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicystdin2stdoutjsonevent:2   \
+         -t apex/myfirstpolicystdin2stdoutjsonevent:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicystdin2stdoutjsonevent:latest   \
+         -f MyFirstPolicy/2/MyFirstPolicyStdin2StdoutJsonEvent.Dockerfile
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicystdin2stdoutjsonevent
+	
+6: Build, tag and push the SampleDomain sample docker images: 
+	> sudo docker build SampleDomain/   \
+         -t apex/sampledomainfile2stdoutjsoneventjavascript:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/file2stdoutjsoneventjavascript:latest   \
+         -f SampleDomain/File2StdoutJsonEventJavascript.Dockerfile
+	> sudo docker build SampleDomain/   \
+         -t apex/sampledomainfile2stdoutjsoneventmvel:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/file2stdoutjsoneventmvel:latest   \
+         -f SampleDomain/File2StdoutJsonEventMvel.Dockerfile
+	> sudo docker build SampleDomain/   \
+         -t apex/sampledomainstdin2stdoutjsoneventjavascript:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/stdin2stdoutjsoneventjavascript:latest   \
+         -f SampleDomain/Stdin2StdoutJsonEventJavascript.Dockerfile
+	> sudo docker build SampleDomain/   \
+         -t apex/sampledomainstdin2stdoutjsoneventmvel:latest   \
+         -t armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/stdin2stdoutjsoneventmvel:latest   \
+         -f SampleDomain/Stdin2StdoutJsonEventMvel.Dockerfile
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/file2stdoutjsoneventjavascript
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/file2stdoutjsoneventmvel
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/stdin2stdoutjsoneventjavascript
+	> sudo docker push armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/stdin2stdoutjsoneventmvel
+	
+7 Try run a couple of the containers: 
+	> sudo docker run -it --name apex --user=apexuser:apexuser --rm -p 12345:12345   \
+         armdocker.rnd.ericsson.se/proj-apex/apex/base   \
+            apexEngine.sh -c examples/config/SampleDomain/Stdin2StdoutJsonEventJavascript.json
+	Paste in event: 
+		{
+		  "nameSpace": "org.onap.policy.apex.sample.events",
+		  "name": "Event0000",
+		  "version": "0.0.1",
+		  "source": "test",
+		  "target": "apex",
+		  "TestSlogan": "Test slogan for External Event0",
+		  "TestMatchCase": 0,
+		  "TestTimestamp": 1469781869269,
+		  "TestTemperature": 9080.866
+		}
+	Expect (similar) event: 
+		{
+		  "name": "Event0004",
+		  "version": "0.0.1",
+		  "nameSpace": "org.onap.policy.apex.sample.events",
+		  "source": "Act",
+		  "target": "Outside",
+		  "TestActCaseSelected": 3,
+		  "TestActStateTime": 1505477376023,
+		  "TestDecideCaseSelected": 1,
+		  "TestDecideStateTime": 1505477376001,
+		  "TestEstablishCaseSelected": 0,
+		  "TestEstablishStateTime": 1505477375980,
+		  "TestMatchCase": 0,
+		  "TestMatchCaseSelected": 2,
+		  "TestMatchStateTime": 1505477375839,
+		  "TestSlogan": "Test slogan for External Event0",
+		  "TestTemperature": 9080.866,
+		  "TestTimestamp": 1469781869269
+		}
+	Control-c to exit
+
+	> sudo docker run -it armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent:1
+	Expect 3 output events to be seen in the console window
+	Control-c to exit
+	
+	> sudo docker run -it  armdocker.rnd.ericsson.se/proj-apex/apex/myfirstpolicy/myfirstpolicyfile2stdoutjsonevent:2
+	Expect logging and 6 output events to be seen in the console window
+	Control-c to exit
+	 
+	> sudo docker run -it armdocker.rnd.ericsson.se/proj-apex/apex/sampledomain/file2stdoutjsoneventmvel
+	Expect lots of output events to be seen in the console window
+	
+	
