@@ -1,0 +1,73 @@
+#! /bin/sh
+
+#-------------------------------------------------------------------------------
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# 
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+#-------------------------------------------------------------------------------
+
+#
+# This script is called after package software is removed
+#
+
+echo  "********************postrm*******************"
+echo "arguments $*"
+echo  "*********************************************"
+
+# Check for debian upgrade case which calls postrm, in which we do nothing
+if [ "$1" = "upgrade" ]
+then
+    exit 0
+fi
+
+# Check if a soft link for apex exists, if so remove it
+if [ -L "/opt/onap/policy/apex-pdp/apex" ]; then
+        rm /opt/onap/policy/apex-pdp/apex
+fi
+
+DIRS_TO_DELETE="
+        /var/log/onap/policy/apex-pdp
+		/opt/onap/policy/apex-pdp
+        "
+
+for DIR in $DIRS_TO_DELETE
+do
+    if [ -e $DIR ]
+    then
+        rm -rf $DIR
+        echo Directory $DIR removed
+    fi
+done
+
+if [ -e "/home/apexuser" ]
+then
+    echo "deleting home directory of user apexuser . . ."
+    rm -fr /home/apexuser
+fi
+
+if getent passwd "apexuser" >/dev/null 2>&1
+then
+    echo "deleting user apexuser . . ."
+    userdel apexuser
+fi
+
+if getent group "apexuser" >/dev/null 2>&1
+then
+    echo "deleting group apexuser . . ."
+    groupdel apexuser
+fi
+
