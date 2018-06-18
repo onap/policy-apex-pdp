@@ -1,0 +1,43 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12345,
+        "policyModelFileName": "examples/models/SampleDomain/SamplePolicyModelJAVA.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVA": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "standardIO": true
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventInputParameters": {
+        "FirstConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "standardIO": true
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}

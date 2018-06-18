@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+<hazelcast xmlns="http://www.hazelcast.com/schema/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <group>
+        <name>HazelcastGroup3.0EVAL</name>
+        <password>password3.0EVAL</password>
+    </group>
+    <network>
+        <port auto-increment="true">5706</port>
+        <join>
+            <multicast enabled="false">
+                <multicast-group>224.2.2.10</multicast-group>
+                <multicast-port>54327</multicast-port>
+            </multicast>
+            <tcp-ip enabled="true">
+                <members>10.0.0.1</members>
+				<!-- members>192.168.219.141</members-->
+            </tcp-ip>
+        </join>
+        <interfaces enabled="false">
+			<!-- This value will allow hazelcast to run locally from the IDE -->
+            <interface>127.0.0.*</interface>
+        </interfaces>
+    </network>
+    <properties>
+        <property name="hazelcast.icmp.enabled">true</property>
+        <property name="hazelcast.logging.type">slf4j</property>
+		<!-- disable the hazelcast shutdown hook - prefer to control the shutdown 
+			in code -->
+        <property name="hazelcast.shutdownhook.enabled">false</property>
+        <property name="hazelcast.graceful.shutdown.max.wait">60</property>
+    </properties>
+    <executor-service>
+        <pool-size>16</pool-size>
+    </executor-service>
+    <queue name="default">
+		<!-- Maximum size of the queue. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>100000</max-size>
+		<!-- Maximum number of seconds for each item to stay in the queue. Items 
+			that are not consumed in <time-to-live-seconds> will automatically get evicted 
+			from the queue. Any integer between 0 and Integer.MAX_VALUE. 0 means infinite. 
+			Default is 0. -->
+    </queue>
+    <map name="default">
+		<!-- Number of backups. If 1 is set as the backup-count for example, then 
+			all entries of the map will be copied to another JVM for fail-safety. Valid 
+			numbers are 0 (no backup), 1, 2, 3. -->
+        <backup-count>1</backup-count>
+		<!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
+			(Least Frequiently Used). NONE is the default. -->
+        <eviction-policy>NONE</eviction-policy>
+		<!-- Maximum size of the map. When max size is reached, map is evicted 
+			based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>0</max-size>
+		<!-- When max. size is reached, specified percentage of the map will be 
+			evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
+			the entries will get evicted. -->
+        <eviction-percentage>25</eviction-percentage>
+    </map>
+
+    <map name="CommonCache">
+
+
+		<!-- Number of async-backups. If 1 is set as the backup-count for example, 
+			then all entries of the map will be copied to another JVM for fail-safety. 
+			Valid numbers are 0 (no backup), 1, 2, 3. -->
+        <async-backup-count>1</async-backup-count>
+
+		<!-- Can we read the local backup entries? Default value is false for strong 
+			consistency. Being able to read backup data will give you greater performance. -->
+        <read-backup-data>true</read-backup-data>
+		<!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
+			(Least Frequiently Used). NONE is the default. -->
+        <eviction-policy>LRU</eviction-policy>
+		<!-- Maximum size of the map. When max size is reached, map is evicted 
+			based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>3000000</max-size>
+		<!-- When max. size is reached, specified percentage of the map will be 
+			evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
+			the entries will get evicted. -->
+        <eviction-percentage>5</eviction-percentage>
+
+		<!-- Maximum number of seconds for each entry to stay in the map. Entries 
+			that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
+			will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means infinite. Default is 0. -->
+        <time-to-live-seconds>7200</time-to-live-seconds>
+
+
+    </map>
+
+    <map name="CommonDataCache">
+
+
+		<!-- Number of async-backups. If 1 is set as the backup-count for example, 
+			then all entries of the map will be copied to another JVM for fail-safety. 
+			Valid numbers are 0 (no backup), 1, 2, 3. -->
+        <async-backup-count>1</async-backup-count>
+
+		<!-- Can we read the local backup entries? Default value is false for strong 
+			consistency. Being able to read backup data will give you greater performance. -->
+        <read-backup-data>true</read-backup-data>
+		<!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
+			(Least Frequiently Used). NONE is the default. -->
+        <eviction-policy>LRU</eviction-policy>
+		<!-- Maximum size of the map. When max size is reached, map is evicted 
+			based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>3000000</max-size>
+		<!-- When max. size is reached, specified percentage of the map will be 
+			evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
+			the entries will get evicted. -->
+        <eviction-percentage>5</eviction-percentage>
+
+		<!-- Maximum number of seconds for each entry to stay in the map. Entries 
+			that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
+			will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means infinite. Default is 0. -->
+        <time-to-live-seconds>7200</time-to-live-seconds>
+
+    </map>
+
+
+    <queue name="raw-distributer-queue">
+		<!-- Maximum size of the queue. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>100000</max-size>
+    </queue>
+    <map name="queue-map">
+
+		<!-- Number of backups. If 1 is set as the backup-count for example, then 
+			all entries of the map will be copied to another JVM for fail-safety. Valid 
+			numbers are 0 (no backup), 1, 2, 3. -->
+        <backup-count>0</backup-count>
+
+    </map>
+
+    <map name="TOPIC-TASK-MAP">
+
+        <async-backup-count>3</async-backup-count>
+
+        <read-backup-data>true</read-backup-data>
+		<!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
+			(Least Frequiently Used). NONE is the default. -->
+        <eviction-policy>NONE</eviction-policy>
+		<!-- Maximum size of the map. When max size is reached, map is evicted 
+			based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>1000</max-size>
+		<!-- When max. size is reached, specified percentage of the map will be 
+			evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
+			the entries will get evicted. -->
+        <eviction-percentage>0</eviction-percentage>
+
+
+
+		<!-- Maximum number of seconds for each entry to stay in the map. Entries 
+			that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
+			will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means infinite. Default is 0. -->
+        <time-to-live-seconds>0</time-to-live-seconds>
+    </map>
+    <map name="TOPIC-REGISTRY">
+
+        <async-backup-count>3</async-backup-count>
+
+        <read-backup-data>true</read-backup-data>
+		<!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
+			(Least Frequiently Used). NONE is the default. -->
+        <eviction-policy>NONE</eviction-policy>
+		<!-- Maximum size of the map. When max size is reached, map is evicted 
+			based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>1000</max-size>
+		<!-- When max. size is reached, specified percentage of the map will be 
+			evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
+			the entries will get evicted. -->
+        <eviction-percentage>0</eviction-percentage>
+
+		<!-- Maximum number of seconds for each entry to stay in the map. Entries 
+			that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
+			will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
+			0 means infinite. Default is 0. -->
+        <time-to-live-seconds>0</time-to-live-seconds>
+    </map>
+    <queue name="Pooled-Topic-Request-Queue">
+		<!-- Maximum size of the queue.Any integer between 0 and Integer.MAX_VALUE. 
+			0 means Integer.MAX_VALUE. Default is 0. -->
+        <max-size>100000</max-size>
+    </queue>
+    <map name="Pooled-Topic-Request-Queue-Backup-map">
+
+		<!-- Number of backups. If 1 is set as the backup-count for example, then 
+			all entries of the map will be copied to another JVM for fail-safety. Valid 
+			numbers are 0 (no backup), 1, 2, 3. -->
+        <backup-count>1</backup-count>
+        <eviction-policy>NONE</eviction-policy>
+        <time-to-live-seconds>0</time-to-live-seconds>
+    </map>
+
+</hazelcast>
