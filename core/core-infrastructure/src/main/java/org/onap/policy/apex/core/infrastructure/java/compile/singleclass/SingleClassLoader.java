@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.core.infrastructure.java.compile.singleclass;
+package org.onap.policy.apex.core.infrastructure.java.compile.singleclass;
 
 /**
  * The Class SingleClassLoader is responsible for class loading the single Java class being held in memory.
