@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_b7eb6aa3",
+        "filename": "packages/apex-pdp-package-full/src/main/package/bin/apexCLIEditor.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-19T12:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_d7f63690",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "869afd6d0fb571f2516e0970d9bc424daa3db03b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_f7f1f296",
         "filename": "packages/apex-pdp-package-full/src/main/resources/hazelcast/hazelcast.xml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-19T11:54:24Z",
       "side": 1,
       "message": "Should this change to onap?\nMultiple occurrence in this file.",
+      "range": {
+        "startLine": 106,
+        "startChar": 30,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "869afd6d0fb571f2516e0970d9bc424daa3db03b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_17349e48",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/hazelcast/hazelcast.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-19T12:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_f7f1f296",
       "range": {
         "startLine": 106,
         "startChar": 30,
