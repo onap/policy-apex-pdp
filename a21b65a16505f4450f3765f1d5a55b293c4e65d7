@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_f2fb4046",
+        "filename": "pom.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-19T21:05:22Z",
+      "side": 1,
+      "message": "Is this not included from the pom at apex-pdp/pom.xml?",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "a21b65a16505f4450f3765f1d5a55b293c4e65d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
