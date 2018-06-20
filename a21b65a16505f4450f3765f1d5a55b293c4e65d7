@@ -22,6 +22,30 @@
       "revId": "a21b65a16505f4450f3765f1d5a55b293c4e65d7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9d8e8d78",
+        "filename": "pom.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-20T08:46:25Z",
+      "side": 1,
+      "message": "Sorry you mean integration pom.xml ??? Only slf4j-api is included ..",
+      "parentUuid": "5a93c517_f2fb4046",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "a21b65a16505f4450f3765f1d5a55b293c4e65d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
