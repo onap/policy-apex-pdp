@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_38b2e7e5",
+        "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-hibernate/src/test/resources/META-INF/persistence.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-20T20:02:13Z",
+      "side": 1,
+      "message": "Please change these tabs to spaces.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 2
+      },
+      "revId": "153c46ca40a57771e5b4afe12840ef246846dc5c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d8c8a358",
+        "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-hibernate/src/test/resources/application-context-test.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-20T20:02:13Z",
+      "side": 1,
+      "message": "remove this commented out code",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 109
+      },
+      "revId": "153c46ca40a57771e5b4afe12840ef246846dc5c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
