@@ -98,8 +98,8 @@ public class HibernateApexDao extends DefaultApexDao {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao#deleteByArtifactKey(java.lang.Class,
-     * java.util.Collection)
+     * @see org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao#deleteByArtifactKey(java.lang.
+     * Class, java.util.Collection)
      */
     @Override
     public <T extends AxConcept> int deleteByArtifactKey(final Class<T> aClass, final Collection<AxArtifactKey> keys) {
@@ -111,8 +111,9 @@ public class HibernateApexDao extends DefaultApexDao {
         try {
             mg.getTransaction().begin();
             for (final AxArtifactKey key : keys) {
-                deletedCount += mg.createQuery(DELETE_FROM + aClass.getSimpleName() + WHERE_KEY_NAME + key.getName()
-                        + AND_KEY_VERSION + key.getVersion() + "'").executeUpdate();
+                final String qlString = DELETE_FROM + aClass.getSimpleName() + WHERE_KEY_NAME + key.getName()
+                        + AND_KEY_VERSION + key.getVersion() + "'";
+                deletedCount += mg.createQuery(qlString).executeUpdate();
             }
             mg.getTransaction().commit();
         } finally {
@@ -124,7 +125,8 @@ public class HibernateApexDao extends DefaultApexDao {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.model.dao.ApexDao#deleteByContextUsageKey(java.lang.Class, java.util.Collection)
+     * @see org.onap.policy.apex.core.model.dao.ApexDao#deleteByContextUsageKey(java.lang.Class,
+     * java.util.Collection)
      */
     @Override
     public <T extends AxConcept> int deleteByReferenceKey(final Class<T> aClass,
