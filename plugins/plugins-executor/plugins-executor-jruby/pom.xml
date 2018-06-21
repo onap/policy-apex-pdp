@@ -37,8 +37,22 @@
     <dependencies>
         <dependency>
             <groupId>org.jruby</groupId>
-            <artifactId>jruby-complete</artifactId>
-            <version>1.7.26</version>
+            <artifactId>jruby</artifactId>
+            <version>9.2.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jruby.extras</groupId>
+                    <artifactId>bytelist</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jruby</groupId>
+                    <artifactId>dirgra</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jruby</groupId>
+                    <artifactId>jruby-stdlib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
