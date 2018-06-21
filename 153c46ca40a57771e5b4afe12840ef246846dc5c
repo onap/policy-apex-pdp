@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_4c1ff45b",
+        "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-hibernate/src/test/resources/application-context-test.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-21T08:51:44Z",
+      "side": 1,
+      "message": "This xml can be removed Yes?",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 108
+      },
+      "revId": "153c46ca40a57771e5b4afe12840ef246846dc5c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_d8c8a358",
         "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-hibernate/src/test/resources/application-context-test.xml",
         "patchSetId": 1
