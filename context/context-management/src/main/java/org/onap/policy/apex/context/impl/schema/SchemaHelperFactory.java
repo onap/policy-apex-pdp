@@ -51,8 +51,7 @@ public class SchemaHelperFactory {
      * @return a lock schema that can handle translation of objects in a particular schema format
      * @throws ContextRuntimeException the context runtime exception
      */
-    public SchemaHelper createSchemaHelper(final AxKey owningEntityKey, final AxArtifactKey schemaKey)
-            throws ContextRuntimeException {
+    public SchemaHelper createSchemaHelper(final AxKey owningEntityKey, final AxArtifactKey schemaKey) {
         LOGGER.entry("schema helper factory, owningEntityKey=" + owningEntityKey);
         Assertions.argumentNotNull(owningEntityKey, ContextRuntimeException.class,
                 "Parameter \"owningEntityKey\" may not be null");
@@ -69,12 +68,6 @@ public class SchemaHelperFactory {
 
         // Get the schema class using the parameter service
         final SchemaParameters schemaParameters = ParameterService.getParameters(SchemaParameters.class);
-        if (schemaParameters == null) {
-            final String resultString = "context schema parameters \"" + SchemaParameters.class.getCanonicalName()
-                    + "\" not found in parameter service";
-            LOGGER.warn(resultString);
-            throw new ContextRuntimeException(resultString);
-        }
 
         // Get the class for the schema helper from the schema parameters
         final SchemaHelperParameters schemaHelperParameters =

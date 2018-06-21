@@ -98,7 +98,18 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      */
     @Override
     public Object createNewInstance(final Object incomingObject) {
-        if (incomingObject instanceof JsonElement) {
+        if (incomingObject == null) {
+            return null;
+        }
+        
+        if (getSchemaClass() == null) {
+            final String returnString =
+                    getUserKey().getID() + ": could not create an instance, schema class for the schema is null";
+            LOGGER.warn(returnString);
+            throw new ContextRuntimeException(returnString);
+        }
+
+       if (incomingObject instanceof JsonElement) {
             final String elementJsonString = new Gson().toJson((JsonElement) incomingObject);
             return new Gson().fromJson(elementJsonString, this.getSchemaClass());
         }
@@ -190,6 +201,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         if (object instanceof Number) {
             if (getSchemaClass().isAssignableFrom(Byte.class)) {
                 return ((Number) object).byteValue();
+            } else if (getSchemaClass().isAssignableFrom(Short.class)) {
+                return ((Number) object).shortValue();
             } else if (getSchemaClass().isAssignableFrom(Integer.class)) {
                 return ((Number) object).intValue();
             } else if (getSchemaClass().isAssignableFrom(Long.class)) {

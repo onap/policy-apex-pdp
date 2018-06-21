@@ -38,7 +38,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @version
  */
-public class TestInstanceCreation {
+public class JavaSchemaHelperInstanceCreationTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
 

@@ -24,6 +24,7 @@ import java.lang.reflect.Constructor;
 
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.utilities.Assertions;
@@ -41,7 +42,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AbstractSchemaHelper.class);
 
     // The key of the user of this schema helper
-    private AxKey userKey = null;
+    private AxKey userKey = AxArtifactKey.getNullKey();
 
     // The schema of this schema helper
     private AxContextSchema schema = null;
