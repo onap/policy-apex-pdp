@@ -30,16 +30,25 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for persistence using Hibernate</description>
 
+    <properties>
+        <hibernate.version>5.3.1.Final</hibernate.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.10.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.10.Final</version>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
