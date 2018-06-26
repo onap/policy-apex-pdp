@@ -133,11 +133,11 @@ public class CLIEditorLoop {
                 writer.println(line);
             }
 
-            String logicBlock = null;
+            StringBuilder logicBlock = new StringBuilder();
+
             if (line.trim().endsWith(logicBlockStartTag)) {
                 line = line.replace(logicBlockStartTag, "").trim();
 
-                logicBlock = "";
                 while (true) {
                     String logicLine = reader.readLine();
                     if (logicLine == null) {
@@ -162,17 +162,17 @@ public class CLIEditorLoop {
                     }
 
                     if (logicLine.trim().endsWith(logicBlockEndTag)) {
-                        logicBlock += logicLine.replace(logicBlockEndTag, "").trim() + "\n";
+                        logicBlock.append(logicLine.replace(logicBlockEndTag, "").trim() + "\n");
                         break;
                     } else {
-                        logicBlock += logicLine + "\n";
+                        logicBlock.append(logicLine + "\n");
                     }
                 }
             }
 
             try {
                 // Parse the line into a list of commands and arguments
-                final List<String> commandWords = parser.parse(line, logicBlock);
+                final List<String> commandWords = parser.parse(line, logicBlock.toString());
 
                 // Find the command, if the command is null, then we are simply changing position in
                 // the hierarchy
@@ -252,7 +252,7 @@ public class CLIEditorLoop {
             final KeywordNode searchKeywordNode = keywordNodeDeque.peek();
 
             // We have got to the arguments, time to stop looking
-            if (commandWords.get(i).indexOf('=') > 0) {
+            if (commandWords.get(i).indexOf('=') >= 0) {
                 unwindStack(startKeywordNode);
                 throw new CLIException("command not found: " + stringAL2String(commandWords));
             }
@@ -325,7 +325,7 @@ public class CLIEditorLoop {
         for (final Entry<String, String> argument : getCommandArguments(commandWords)) {
             final List<Entry<String, CLIArgumentValue>> foundArguments =
                     TreeMapUtils.findMatchingEntries(argumentValues, argument.getKey());
-            if (foundArguments.size() == 0) {
+            if (foundArguments.isEmpty()) {
                 throw new CLIException("command " + stringAL2String(commandWords) + ": " + " argument \""
                         + argument.getKey() + "\" not allowed on command");
             } else if (foundArguments.size() > 1) {
