@@ -35,6 +35,8 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexCLIEditorMain {
+    private static final String EXECUTION_OF_APEX_COMMAND_LINE_EDITOR_FAILED = "execution of Apex command line editor failed: ";
+
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexCLIEditorMain.class);
 
@@ -138,7 +140,7 @@ public class ApexCLIEditorMain {
             modelHandler =
                     new ApexModelHandler(apexModelProperties.getProperties(), parameters.getInputModelFileName());
         } catch (final Exception e) {
-            LOGGER.error("execution of Apex command line editor failed: ", e);
+            LOGGER.error(EXECUTION_OF_APEX_COMMAND_LINE_EDITOR_FAILED, e);
             errorCount++;
             return;
         }
@@ -152,12 +154,11 @@ public class ApexCLIEditorMain {
             if (errorCount == 0) {
                 LOGGER.info("Apex CLI editor completed execution");
             } else {
-                LOGGER.error("execution of Apex command line editor failed: " + errorCount
+                LOGGER.error(EXECUTION_OF_APEX_COMMAND_LINE_EDITOR_FAILED + errorCount
                         + " command execution failure(s) occurred");
             }
         } catch (final IOException e) {
-            LOGGER.error("execution of Apex command line editor failed: " + e.getMessage());
-            return;
+            LOGGER.error(EXECUTION_OF_APEX_COMMAND_LINE_EDITOR_FAILED + e.getMessage());
         }
     }
 
