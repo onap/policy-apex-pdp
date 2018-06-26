@@ -25,6 +25,7 @@ import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.TaskSelectExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.python.core.CompileMode;
 import org.python.core.Py;
 import org.python.core.PyCode;
 import org.python.core.PyException;
@@ -60,7 +61,7 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
         try {
             synchronized (Py.class) {
                 compiled = Py.compile_flags(getSubject().getTaskSelectionLogic().getLogic(),
-                        "<" + getSubject().getKey().toString() + ">", "exec", null);
+                        "<" + getSubject().getKey().toString() + ">", CompileMode.exec, null);
             }
         } catch (final PyException e) {
             LOGGER.warn("failed to compile Jython code for task selection logic in " + getSubject().getKey().getID(),

@@ -25,6 +25,7 @@ import java.util.Map;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
+import org.python.core.CompileMode;
 import org.python.core.Py;
 import org.python.core.PyCode;
 import org.python.core.PyException;
@@ -61,7 +62,7 @@ public class JythonTaskExecutor extends TaskExecutor {
         try {
             synchronized (Py.class) {
                 compiled = Py.compile_flags(getSubject().getTaskLogic().getLogic(),
-                        "<" + getSubject().getKey().toString() + ">", "exec", null);
+                        "<" + getSubject().getKey().toString() + ">", CompileMode.exec, null);
             }
         } catch (final PyException e) {
             LOGGER.warn("failed to compile Jython code for task " + getSubject().getKey().getID(), e);
