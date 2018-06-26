@@ -206,7 +206,16 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
             final String errorMessage = "failed to create a JMS session towards the JMS server for receiving messages";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
-        }
+        } finally {
+            if(jmsSession != null) {
+                try {
+                    jmsSession.close();
+                } catch (Exception e) {
+                    final String errorMessage = "failed to close the JMS session for receiving messages";
+                    LOGGER.warn(errorMessage, e);
+                }                
+            }
+        }     
 
         // Create a message consumer for reception of messages and set this class as a message listener
         try {
@@ -216,6 +225,15 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
             final String errorMessage = "failed to create a JMS message consumer for receiving messages";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
+        } finally {
+            if(messageConsumer != null) {
+                try {
+                    messageConsumer.close();
+                } catch (Exception e) {
+                    final String errorMessage = "failed to close the JMS message consumer for receiving messages";
+                    LOGGER.warn(errorMessage, e);
+                }
+            }
         }
 
         // Everything is now set up
@@ -227,22 +245,6 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
         // The endless loop that receives events over JMS
         while (consumerThread.isAlive() && !stopOrderedFlag) {
             ThreadUtilities.sleep(jmsConsumerProperties.getConsumerWaitTime());
-        }
-
-        // Close the message consumer
-        try {
-            messageConsumer.close();
-        } catch (final Exception e) {
-            final String errorMessage = "failed to close the JMS message consumer for receiving messages";
-            LOGGER.warn(errorMessage, e);
-        }
-
-        // Close the session
-        try {
-            jmsSession.close();
-        } catch (final Exception e) {
-            final String errorMessage = "failed to close the JMS session for receiving messages";
-            LOGGER.warn(errorMessage, e);
         }
     }
 
