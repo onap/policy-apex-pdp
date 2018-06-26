@@ -141,5 +141,6 @@
         <module>services</module>
         <module>plugins</module>
         <module>packages</module>
+        <module>testsuites</module>
     </modules>
 </project>
