@@ -80,17 +80,18 @@ public class CLILineParser {
 
         for (int i = 0; i < wordsSplitOnQuotes.size();) {
             if ("\"".equals(wordsSplitOnQuotes.get(i))) {
-                String quotedWord = wordsSplitOnQuotes.get(i++);
+                StringBuilder quotedWord = new StringBuilder(wordsSplitOnQuotes.get(i++));
 
                 for (; i < wordsSplitOnQuotes.size(); i++) {
-                    quotedWord += wordsSplitOnQuotes.get(i);
+                    quotedWord.append(wordsSplitOnQuotes.get(i));
                     if ("\"".equals(wordsSplitOnQuotes.get(i))) {
                         i++;
                         break;
                     }
                 }
-                if (quotedWord.matches("^\".*\"$")) {
-                    wordsWithQuotesMerged.add(quotedWord);
+                String quotedWordToString = quotedWord.toString();
+                if (quotedWordToString.matches("^\".*\"$")) {
+                    wordsWithQuotesMerged.add(quotedWordToString);
                 } else {
                     throw new CLIException("trailing quote found in input " + wordsSplitOnQuotes);
                 }
@@ -274,7 +275,7 @@ public class CLILineParser {
      */
     private ArrayList<String> checkFormat(final ArrayList<String> commandWords, final String logicBlock) {
         // There should be at least one word
-        if (commandWords.size() == 0) {
+        if (commandWords.isEmpty()) {
             return commandWords;
         }
 
