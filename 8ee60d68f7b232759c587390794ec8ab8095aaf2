@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_f187b5b4",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsIn.jsons",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change this to onap (multiple occurences).",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b1912df3",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsIn.xmlfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap (multiple occurences).",
+      "range": {
+        "startLine": 24,
+        "startChar": 21,
+        "endLine": 24,
+        "endChar": 54
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_118341aa",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsIn.xmlfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap (multiple occurences).",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_71bba575",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti0.jsons",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap (multiple occurences)",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_91be7163",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti1.jsons",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap (multiple occurences)",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_31b51d7e",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti2.jsons",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap (multiple occurences)",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f1aed52e",
+        "filename": "testsuites/integration/integration-common/src/main/resources/org/onap/policy/apex/test/common/model/javascript/EvalTask_Logic.javascript",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f17575cc",
+        "filename": "testsuites/integration/integration-uservice-test/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "Is it duplicate?",
+      "range": {
+        "startLine": 139,
+        "startChar": 7,
+        "endLine": 163,
+        "endChar": 21
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_117101de",
+        "filename": "testsuites/integration/integration-uservice-test/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "the same dependency is in plugins-event-carrier-kafka module, so may be we can move it up or create version property and refer the same.",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 167,
+        "endChar": 39
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_914c319f",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/websocket/WebSocketEventProducerClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "Change to onap.",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_5146a97c",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/websocket/WebSocketEventProducerServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 24
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f15c954e",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/websocket/WebSocketEventSubscriberClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_11582156",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/websocket/WebSocketEventSubscriberServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap",
+      "range": {
+        "startLine": 46,
+        "startChar": 11,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b1560d29",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/engdep/EngineTestServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "change to onap",
+      "range": {
+        "startLine": 198,
+        "startChar": 94,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d1515931",
+        "filename": "testsuites/integration/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T16:18:32Z",
+      "side": 1,
+      "message": "I think we need profiling to be done here so that tests in integration module doesn\u0027t get triggered by default when maven builds are triggered either in dev or jenkins.",
+      "revId": "8ee60d68f7b232759c587390794ec8ab8095aaf2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
