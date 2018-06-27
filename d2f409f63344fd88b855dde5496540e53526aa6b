@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_f9a47b09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-06-27T17:40:50Z",
+      "side": 1,
+      "message": "remove this as it isn\u0027t in the correct place and is duplicated by below.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "d2f409f63344fd88b855dde5496540e53526aa6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_99177745",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/pom.xml",
         "patchSetId": 2
@@ -18,6 +41,29 @@
         "startChar": 3,
         "endLine": 52,
         "endChar": 21
+      },
+      "revId": "d2f409f63344fd88b855dde5496540e53526aa6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_19a847da",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/main/java/org/onap/policy/apex/plugins/event/carrier/jms/ApexJMSConsumer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-06-27T17:40:50Z",
+      "side": 1,
+      "message": "I believe these 2 are suggested to use try-with-resources since they are auto-closeable. I believe you could combine the 2 into one statement and move the code below into the overall try-catch statement. Otherwise, that sonar will not go away.",
+      "range": {
+        "startLine": 210,
+        "startChar": 9,
+        "endLine": 219,
+        "endChar": 14
       },
       "revId": "d2f409f63344fd88b855dde5496540e53526aa6b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
