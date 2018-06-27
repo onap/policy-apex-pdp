@@ -1,0 +1,52 @@
+{
+    "engineServiceParameters": {
+        "name": "SONOM_LoadBalancing_Apex_Engine",
+        "version": "0.0.1",
+        "id": 102,
+        "instanceCount": 1,
+        "deploymentPort": 12549,
+        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMvel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "MVEL": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "aProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "KAFKA",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+                "parameters": {
+                    "bootstrapServers": "localhost:9092",
+                    "acks": "all",
+                    "retries": 0,
+                    "batchSize": 16384,
+                    "lingerTime": 1,
+                    "bufferMemory": 33554432,
+                    "producerTopic": "apex-out",
+                    "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
+                    "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventInputParameters": {
+        "aConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/SampleLBPolicyEventIn.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}

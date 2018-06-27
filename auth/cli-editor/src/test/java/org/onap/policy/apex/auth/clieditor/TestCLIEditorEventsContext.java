@@ -114,8 +114,8 @@ public class TestCLIEditorEventsContext {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(30315, logCharCount);
-        assertEquals(52930, modelCharCount);
+        assertEquals(30366, logCharCount);
+        assertEquals(52981, modelCharCount);
 
     }
 
