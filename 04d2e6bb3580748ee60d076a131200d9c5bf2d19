@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_31b3dd0b",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T14:21:20Z",
+      "side": 1,
+      "message": "As this dependency is in more than 1 pom (basic-model, plugins-event-protocol-xml), we may either move it up to apex-pdp or make version.eclipselink as property in apex-pdp and refer that in the child pom\u0027s.",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "04d2e6bb3580748ee60d076a131200d9c5bf2d19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_71a085a5",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-06-27T14:21:20Z",
+      "side": 1,
+      "message": "Do we need to change this as well?",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "04d2e6bb3580748ee60d076a131200d9c5bf2d19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
