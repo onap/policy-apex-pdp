@@ -1,0 +1,51 @@
+{
+    "engineServiceParameters": {
+        "name": "Context_JavaEventAlbum_Apex_Engine",
+        "version": "0.0.1",
+        "id": 101,
+        "instanceCount": 1,
+        "deploymentPort": 12550,
+        "policyModelFileName": "/dev/null",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            },
+            "contextParameters": {
+                "parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters",
+                "schemaParameters": {
+                    "Avro": {
+                        "parameterClassName": "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+                    }
+                }
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "aProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/Context_AvroEventAlbum_EventOut.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventInputParameters": {
+        "aConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/Context_AvroEventAlbum_EventIn.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}

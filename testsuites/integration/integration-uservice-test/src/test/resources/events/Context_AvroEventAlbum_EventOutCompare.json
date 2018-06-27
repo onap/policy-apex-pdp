@@ -1,0 +1,117 @@
+{
+    "name": "Test_OutputEvent",
+    "version": "0.0.1",
+    "nameSpace": "org.onap.policy.apex.test",
+    "source": "External",
+    "target": "Apex",
+    "AvroArray": [
+        "I",
+        "once",
+        "saw",
+        "a",
+        "cuddly",
+        "bear"
+    ],
+    "AvroBoolean": true,
+    "AvroByte": -127.0,
+    "AvroDouble": 1.2345E67,
+    "AvroFloat": 1.9999999999999998E23,
+    "AvroInteger": 1234568.0,
+    "AvroLong": 1.234567890124E12,
+    "AvroMap": {
+        "address3": "This is the third address",
+        "address2": "This is the second address",
+        "address1": "This is the first address",
+        "address0": "This is the zeroth address"
+    },
+    "AvroShort": 32001.0,
+    "AvroString": "The four green provinces of Ireland added to end of string",
+    "CustomALong": {
+        "longValue": 9.223372036854776E18
+    },
+    "CustomBoolean": {
+        "flag": true
+    },
+    "CustomByte": {
+        "byteValue": 128.0
+    },
+    "CustomDate0": {
+        "time": 1.499424303E9,
+        "year": 1922.0,
+        "month": 12.0,
+        "day": 6.0,
+        "hour": 10.0,
+        "minute": 45.0,
+        "second": 2.0,
+        "milliSecond": 123.0
+    },
+    "CustomDate1": {
+        "dateValue": {
+            "time": 1.499424303E9,
+            "year": 1922.0,
+            "month": 12.0,
+            "day": 6.0,
+            "hour": 10.0,
+            "minute": 45.0,
+            "second": 2.0,
+            "milliSecond": 123.0
+        },
+        "dst": true,
+        "timeZoneString": "Europe/Dublin"
+    },
+    "CustomDate2": {
+        "dateValue": {
+            "time": 1.499424303E9,
+            "year": 1922.0,
+            "month": 12.0,
+            "day": 6.0,
+            "hour": 10.0,
+            "minute": 45.0,
+            "second": 2.0,
+            "milliSecond": 123.0
+        },
+        "dst": true,
+        "timeZoneString": "Europe/Dublin",
+        "utcOffset": 3600000.0,
+        "localeLanguage": "EN",
+        "localeCountry": "IE"
+    },
+    "CustomDouble": {
+        "doubleValue": 6.71000001E8
+    },
+    "CustomFloat": {
+        "floatValue": 3000001.0
+    },
+    "CustomInteger": {
+        "intValue": -9876542.0
+    },
+    "CustomLong": {
+        "longValue": 9.223372036854776E18
+    },
+    "CustomMap": {
+        "mapValue": {
+            "here": "there",
+            "love": "hate",
+            "hello": "goodbye",
+            "good": "bad",
+            "summer": "winter",
+            "now": "then"
+        }
+    },
+    "CustomSet": {
+        "setValue": [
+            "I",
+            "once",
+            "saw",
+            "a",
+            "cuddly",
+            "bear",
+            "with",
+            "a",
+            "beard"
+        ]
+    },
+    "CustomString": {
+        "stringValue": "I Wandered Lonely as a Cloud added to end of string"
+    }
+}

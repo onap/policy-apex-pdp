@@ -96,6 +96,13 @@ public abstract class ModelService {
     public static <M extends AxConcept> boolean existsModel(final Class<M> modelClass) {
         return modelMap.get(modelClass) != null;
     }
+    
+    /**
+     * @return the modelMap
+     */
+    public static Map<Class<?>, AxConcept> getModelMap() {
+        return modelMap;
+    }
 
     /**
      * Clear all models in the model service.

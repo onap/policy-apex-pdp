@@ -397,6 +397,7 @@ final class EngineWorker implements EngineService {
 
         // Stop the engine
         engine.stop();
+        engine.clear();
 
         LOGGER.exit(engineKey);
     }

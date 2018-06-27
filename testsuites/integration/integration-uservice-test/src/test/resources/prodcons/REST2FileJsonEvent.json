@@ -1,0 +1,44 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+        "engineParameters": {
+            "executorParameters": {
+                "MVEL": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "FirstConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRest2File/apex/event/GetEvent"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsOut.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "nameSpace": "org.onap.policy.apex.test",
+    "name": "Test_InputEvent",
+    "version": "0.0.1",
+    "source": "test",
+    "target": "apex",
+    "CustomMap": {
+        "mapValue": {
+            "hello": "goodbye",
+            "here": "there",
+            "now": "then"
+        }
+    },
+    "CustomJLong": {
+        "longValue": 9223372036854775807
+    },
+    "CustomFloat": {
+        "floatValue": 3E6
+    },
+    "CustomString": {
+        "stringValue": "I Wandered Lonely as a Cloud"
+    },
+    "CustomBoolean": {
+        "flag": false
+    },
+    "CustomInteger": {
+        "intValue": -9876543
+    },
+    "CustomSet": {
+        "setValue": [
+            "I",
+            "once",
+            "saw",
+            "a",
+            "cuddly",
+            "bear"
+        ]
+    },
+    "CustomByte": {
+        "byteValue": 127
+    },
+    "CustomDate2": {
+        "dateValue": {
+            "time": 1499424303,
+            "year": 2017,
+            "month": 6,
+            "day": 7,
+            "hour": 10,
+            "minute": 45,
+            "second": 2,
+            "milliSecond": 123
+        },
+        "timeZoneString": "Europe/Dublin",
+        "dst": true,
+        "utcOffset": 3600000,
+        "localeLanguage": "EN",
+        "localeCountry": "IE"
+    },
+    "CustomDate0": {
+        "time": 1499424303,
+        "year": 2017,
+        "month": 6,
+        "day": 7,
+        "hour": 10,
+        "minute": 45,
+        "second": 2,
+        "milliSecond": 123
+    },
+    "CustomDate1": {
+        "dateValue": {
+            "time": 1499424303,
+            "year": 2017,
+            "month": 6,
+            "day": 7,
+            "hour": 10,
+            "minute": 45,
+            "second": 2,
+            "milliSecond": 123
+        },
+        "timeZoneString": "Europe/Dublin",
+        "dst": true
+    },
+    "CustomDouble": {
+        "doubleValue": 6.71E8
+    },
+    "CustomLong": {
+        "longValue": 9223372036854775807
+    },
+    "JavaBoolean": false,
+    "JavaByte": -128,
+    "JavaShort": 32000,
+    "JavaInteger": 1234567,
+    "JavaLong": 1234567890123,
+    "JavaFloat": 2e23,
+    "JavaDouble": 1.2345e67,
+    "JavaString": "The four green provinces of Ireland"
+}
