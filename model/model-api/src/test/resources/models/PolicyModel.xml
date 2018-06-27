@@ -649,11 +649,11 @@
         </eventMap>
     </events>
     <albums>
-        <key xmlns="">
+        <key xmlns="http://www.onap.org/policy/apex-pdp">
             <name xmlns="http://www.onap.org/policy/apex-pdp">context</name>
             <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
         </key>
-        <albums xmlns="">
+        <albums xmlns="http://www.onap.org/policy/apex-pdp">
             <entry>
                 <key>
                     <name xmlns="http://www.onap.org/policy/apex-pdp">contextAlbum0</name>
@@ -693,11 +693,11 @@
         </albums>
     </albums>
     <schemas>
-        <key xmlns="">
+        <key xmlns="http://www.onap.org/policy/apex-pdp">
             <name xmlns="http://www.onap.org/policy/apex-pdp">ContextSchemas</name>
             <version xmlns="http://www.onap.org/policy/apex-pdp">0.0.1</version>
         </key>
-        <schemas xmlns="">
+        <schemas xmlns="http://www.onap.org/policy/apex-pdp">
             <entry>
                 <key>
                     <name xmlns="http://www.onap.org/policy/apex-pdp">MapType</name>

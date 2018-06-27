@@ -139,7 +139,7 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
-            <version>${kafka.version}</version>
+            <version>${version.kafka}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -151,7 +151,7 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
-            <version>${kafka.version}</version>
+            <version>${version.kafka}</version>
             <classifier>test</classifier>
             <scope>test</scope>
             <exclusions>
@@ -164,7 +164,7 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>${kafka.version}</version>
+            <version>${version.kafka}</version>
             <classifier>test</classifier>
             <scope>test</scope>
             <exclusions>

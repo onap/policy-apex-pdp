@@ -41,10 +41,10 @@
         <file.encoding>UTF-8</file.encoding>
         <version.derby>10.13.1.1</version.derby>
         <version.commons-cli>1.4</version.commons-cli>
-
-        <kafka.version>0.10.2.1</kafka.version>
+        <version.kafka>0.10.2.1</version.kafka>
         <version.grizzly2-http>2.27</version.grizzly2-http>
         <version.jersey.core>2.27</version.jersey.core>
+        <version.eclipselink>2.6.5</version.eclipselink>
     </properties>
 
     <distributionManagement>
