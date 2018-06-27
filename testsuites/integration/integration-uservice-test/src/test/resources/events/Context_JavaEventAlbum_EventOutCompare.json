@@ -1,0 +1,102 @@
+{
+    "name": "Test_OutputEvent",
+    "version": "0.0.1",
+    "nameSpace": "org.onap.policy.apex.test",
+    "source": "External",
+    "target": "Apex",
+    "CustomBoolean": {
+        "flag": false
+    },
+    "CustomByte": {
+        "byteValue": -128
+    },
+    "CustomDate0": {
+        "time": 1499868391,
+        "year": 1970,
+        "month": 0,
+        "day": 18,
+        "hour": 8,
+        "minute": 37,
+        "second": 48,
+        "milliSecond": 391
+    },
+    "CustomDate1": {
+        "dateValue": {
+            "time": 1499868391,
+            "year": 1970,
+            "month": 0,
+            "day": 18,
+            "hour": 8,
+            "minute": 37,
+            "second": 48,
+            "milliSecond": 391
+        },
+        "timeZoneString": "Greenwich Mean Time",
+        "dst": true
+    },
+    "CustomDate2": {
+        "dateValue": {
+            "time": 1499868391,
+            "year": 1970,
+            "month": 0,
+            "day": 18,
+            "hour": 8,
+            "minute": 37,
+            "second": 48,
+            "milliSecond": 391
+        },
+        "timeZoneString": "Greenwich Mean Time",
+        "dst": false,
+        "utcOffset": 0,
+        "localeLanguage": "en",
+        "localeCountry": ""
+    },
+    "CustomDouble": {
+        "doubleValue": 6.71000001E8
+    },
+    "CustomFloat": {
+        "floatValue": 3000001.0
+    },
+    "CustomInteger": {
+        "intValue": -9876542
+    },
+    "CustomJLong": {
+        "longValue": 9223372036854775807
+    },
+    "CustomLong": {
+        "longValue": 9223372036854775807
+    },
+    "CustomMap": {
+        "mapValue": {
+            "hello": "goodbye",
+            "here": "there",
+            "now": "then",
+            "love": "hate",
+            "summer": "winter",
+            "good": "bad"
+        }
+    },
+    "CustomSet": {
+        "setValue": [
+            "I",
+            "a",
+            "bear",
+            "beard",
+            "cuddly",
+            "once",
+            "saw",
+            "with"
+        ]
+    },
+    "CustomString": {
+        "stringValue": "I Wandered Lonely as a Cloud added to end of string"
+    },
+    "JavaBoolean": true,
+    "JavaByte": -127,
+    "JavaDouble": 1.2345E67,
+    "JavaFloat": 2.0E23,
+    "JavaInteger": 1234568,
+    "JavaLong": 1234567890124,
+    "JavaShort": 32001,
+    "JavaString": "The four green provinces of Ireland added to end of string"
+}

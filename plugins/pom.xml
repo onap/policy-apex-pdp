@@ -36,8 +36,6 @@
 
     <properties>
         <version.hazelcast>3.8.3</version.hazelcast>
-        <version.jersey.core>2.27</version.jersey.core>
-        <version.grizzly2-http>2.27</version.grizzly2-http>
     </properties>
 
     <modules>
