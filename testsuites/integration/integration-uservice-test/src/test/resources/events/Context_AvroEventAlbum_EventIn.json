@@ -1,0 +1,111 @@
+{
+    "nameSpace": "org.onap.policy.apex.test",
+    "name": "Test_InputEvent",
+    "version": "0.0.1",
+    "source": "test",
+    "target": "apex",
+    "CustomMap": {
+        "mapValue": {
+            "hello": "goodbye",
+            "here": "there",
+            "now": "then"
+        }
+    },
+    "AvroMap": {
+        "address0": "This is the zeroth address",
+        "address1": "This is the first address",
+        "address2": "This is the second address",
+        "address3": "This is the third address"
+    },
+    "CustomDate0": {
+        "time": 1499424303,
+        "year": 2017,
+        "month": 6,
+        "day": 7,
+        "hour": 10,
+        "minute": 45,
+        "second": 2,
+        "milliSecond": 123
+    },
+    "CustomDate2": {
+        "dateValue": {
+            "time": 1499424303,
+            "year": 2017,
+            "month": 6,
+            "day": 7,
+            "hour": 10,
+            "minute": 45,
+            "second": 2,
+            "milliSecond": 123
+        },
+        "timeZoneString": "Europe/Dublin",
+        "dst": true,
+        "utcOffset": 3600000,
+        "localeLanguage": "EN",
+        "localeCountry": "IE"
+    },
+    "CustomDate1": {
+        "dateValue": {
+            "time": 1499424303,
+            "year": 2017,
+            "month": 6,
+            "day": 7,
+            "hour": 10,
+            "minute": 45,
+            "second": 2,
+            "milliSecond": 123
+        },
+        "timeZoneString": "Europe/Dublin",
+        "dst": true
+    },
+    "CustomBoolean": {
+        "flag": false
+    },
+    "CustomDouble": {
+        "doubleValue": 6.71E8
+    },
+    "CustomLong": {
+        "longValue": 9223372036854775807
+    },
+    "CustomString": {
+        "stringValue": "I Wandered Lonely as a Cloud"
+    },
+    "CustomALong": {
+        "longValue": 9223372036854775807
+    },
+    "CustomInteger": {
+        "intValue": -9876543
+    },
+    "CustomFloat": {
+        "floatValue": 3E6
+    },
+    "CustomByte": {
+        "byteValue": 127
+    },
+    "CustomSet": {
+        "setValue": [
+            "I",
+            "once",
+            "saw",
+            "a",
+            "cuddly",
+            "bear"
+        ]
+    },
+    "AvroArray": [
+        "I",
+        "once",
+        "saw",
+        "a",
+        "cuddly",
+        "bear"
+    ],
+    "AvroBoolean": false,
+    "AvroByte": -128,
+    "AvroShort": 32000,
+    "AvroInteger": 1234567,
+    "AvroLong": 1234567890123,
+    "AvroFloat": 2e23,
+    "AvroDouble": 1.2345e67,
+    "AvroString": "The four green provinces of Ireland"
+}
