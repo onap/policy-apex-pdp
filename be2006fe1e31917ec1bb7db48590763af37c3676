@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_f9e6bbe7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-27T22:03:02Z",
+      "side": 1,
+      "message": "Please use a descriptive message here, see the rules at https://wiki.onap.org/display/DW/Commit+Messages",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "be2006fe1e31917ec1bb7db48590763af37c3676",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_19ea87ac",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-27T22:03:02Z",
+      "side": 1,
+      "message": "You have a merge problem here. The \"old\" pom.xml is one that I submitted and was merged last week. Have a chat with Waqas and Ram and see where the merge went wrong.",
+      "range": {
+        "startLine": 48,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "be2006fe1e31917ec1bb7db48590763af37c3676",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b9d033f8",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/main/java/org/onap/policy/apex/plugins/event/carrier/jms/ApexJMSConsumer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-27T22:03:02Z",
+      "side": 1,
+      "message": "Where is JMSException used? I can\u0027t see it in the code. Do you heed this Import?",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "be2006fe1e31917ec1bb7db48590763af37c3676",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
