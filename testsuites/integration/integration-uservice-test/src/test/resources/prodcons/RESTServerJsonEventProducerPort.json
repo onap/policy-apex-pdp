@@ -1,0 +1,53 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+        "engineParameters": {
+            "executorParameters": {
+                "MVEL": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "FirstConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTSERVER",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameters": {
+                    "standalone": true,
+                    "host": "localhost",
+                    "port": 23324
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "FirstProducer",
+            "synchronousTimeout": 500
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTSERVER",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameters": {
+                    "port": 12345
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "synchronousMode": true,
+            "synchronousPeer": "FirstConsumer",
+            "synchronousTimeout": 500
+        }
+    }
+}

@@ -83,7 +83,7 @@ schema create name=CustomBoolean_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem000",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "flag", "type": "boolean"}
   ]
@@ -94,7 +94,7 @@ schema create name=CustomByte_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem001",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "byteValue", "type": "int"}
   ]
@@ -105,7 +105,7 @@ schema create name=CustomInteger_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem002",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "intValue", "type": "int"}
   ]
@@ -116,7 +116,7 @@ schema create name=CustomLong_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem003",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "longValue", "type": "long"}
   ]
@@ -127,7 +127,7 @@ schema create name=CustomFloat_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem004",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "floatValue", "type": "float"}
   ]
@@ -138,7 +138,7 @@ schema create name=CustomDouble_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem005",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "doubleValue", "type": "double"}
   ]
@@ -149,7 +149,7 @@ schema create name=CustomString_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem006",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "stringValue", "type": "string"}
   ]
@@ -160,7 +160,7 @@ schema create name=CustomALong_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem007",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "longValue", "type": "long"}
   ]
@@ -171,7 +171,7 @@ schema create name=CustomDate0_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem008",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
   	{"name": "time"       , "type": "long"},
   	{"name": "year"       , "type": "int"},
@@ -189,12 +189,12 @@ schema create name=CustomDate1_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem009",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "dateValue"     , "type": {
   		"type"      : "record",
  	 	"name"      : "TestContextItem008",
-		"namespace" : "com.ericsson.apex.context.test.avro.concepts",
+		"namespace" : "org.onap.policy.apex.context.test.avro.concepts",
 		"fields"    : [
    			{"name": "time"       , "type": "long"},
   			{"name": "year"       , "type": "int"},
@@ -217,12 +217,12 @@ schema create name=CustomDate2_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem00A",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "dateValue"     , "type": {
   		"type"      : "record",
  	 	"name"      : "TestContextItem008",
-		"namespace" : "com.ericsson.apex.context.test.avro.concepts",
+		"namespace" : "org.onap.policy.apex.context.test.avro.concepts",
 		"fields"    : [
     		{"name": "time"       , "type": "long"},
   			{"name": "year"       , "type": "int"},
@@ -248,7 +248,7 @@ schema create name=CustomSet_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem00B",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "setValue", "type": {
 		"type": "array", "items": "string"
@@ -262,7 +262,7 @@ schema create name=CustomMap_type flavour=Avro schema=LS
 {
   "type"      : "record",
   "name"      : "TestContextItem00C",
-  "namespace" : "com.ericsson.apex.context.test.avro.concepts",
+  "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "mapValue", "type": {
 		"type": "map", "values": "string"
@@ -272,7 +272,7 @@ schema create name=CustomMap_type flavour=Avro schema=LS
 }
 LE
 
-event create name=Test_InputEvent nameSpace=com.ericsson.apex.test source=External target=Apex
+event create name=Test_InputEvent nameSpace=org.onap.policy.apex.test source=External target=Apex
 
 event parameter create name=Test_InputEvent parName=AvroBoolean   schemaName=AvroBoolean_type optional=false
 event parameter create name=Test_InputEvent parName=AvroByte      schemaName=AvroByte_type    optional=false
@@ -298,7 +298,7 @@ event parameter create name=Test_InputEvent parName=CustomDate2   schemaName=Cus
 event parameter create name=Test_InputEvent parName=CustomSet     schemaName=CustomSet_type
 event parameter create name=Test_InputEvent parName=CustomMap     schemaName=CustomMap_type
 
-event create name=Test_OutputEvent nameSpace=com.ericsson.apex.test source=External target=Apex
+event create name=Test_OutputEvent nameSpace=org.onap.policy.apex.test source=External target=Apex
 
 event parameter create name=Test_OutputEvent parName=AvroBoolean   schemaName=AvroBoolean_type
 event parameter create name=Test_OutputEvent parName=AvroByte      schemaName=AvroByte_type
