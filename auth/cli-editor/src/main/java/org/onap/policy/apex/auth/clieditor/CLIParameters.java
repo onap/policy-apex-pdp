@@ -36,6 +36,8 @@ import org.onap.policy.apex.model.utilities.ResourceUtils;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class CLIParameters {
+    private static final String FILE = "file ";
+    private static final String OF_TYPE = " of type ";
     // Default location of the command definition meta data in JSON
     private static final String JSON_COMMAND_METADATA_RESOURCE = "etc/editor/Commands.json";
     private static final String APEX_MODEL_PROPERTIES_RESOURCE = "etc/editor/ApexModelProperties.json";
@@ -159,8 +161,7 @@ public class CLIParameters {
      * @throws IOException the IO exception
      */
     public OutputStream getOutputStream() throws IOException {
-        // Check if log suppression is active, if so, consume all output on a byte array output
-        // stream
+        // Check if log suppression is active, if so, consume all output on a byte array output stream
         if (isSuppressLogSet()) {
             return new ByteArrayOutputStream();
 
@@ -184,13 +185,13 @@ public class CLIParameters {
         }
         final File theFile = new File(fileName);
         if (!theFile.exists()) {
-            throw new CLIException("file " + fileName + " of type " + fileTag + " does not exist");
+            throw new CLIException(FILE + fileName + OF_TYPE + fileTag + " does not exist");
         }
         if (!theFile.isFile()) {
-            throw new CLIException("file " + fileName + " of type " + fileTag + " is not a normal file");
+            throw new CLIException(FILE + fileName + OF_TYPE + fileTag + " is not a normal file");
         }
         if (!theFile.canRead()) {
-            throw new CLIException("file " + fileName + " of type " + fileTag + " is ureadable");
+            throw new CLIException(FILE + fileName + OF_TYPE + fileTag + " is ureadable");
         }
     }
 
@@ -207,16 +208,16 @@ public class CLIParameters {
         final File theFile = new File(fileName);
         if (theFile.exists()) {
             if (!theFile.isFile()) {
-                throw new CLIException("file " + fileName + " of type " + fileTag + " is not a normal file");
+                throw new CLIException(FILE + fileName + OF_TYPE + fileTag + " is not a normal file");
             }
             if (!theFile.canWrite()) {
-                throw new CLIException("file " + fileName + " of type " + fileTag + " cannot be written");
+                throw new CLIException(FILE + fileName + OF_TYPE + fileTag + " cannot be written");
             }
         } else {
             try {
                 theFile.createNewFile();
             } catch (final IOException e) {
-                throw new CLIException("file " + fileName + " cannot be created: ", e);
+                throw new CLIException(FILE + fileName + " cannot be created: ", e);
             }
         }
     }
@@ -235,11 +236,11 @@ public class CLIParameters {
         if (theDirectory.exists()) {
             if (!theDirectory.isDirectory()) {
                 throw new CLIException(
-                        "directory " + directoryName + " of type " + directoryTag + " is not a directory");
+                        "directory " + directoryName + OF_TYPE + directoryTag + " is not a directory");
             }
             if (!theDirectory.canWrite()) {
                 throw new CLIException(
-                        "directory " + directoryName + " of type " + directoryTag + " cannot be written");
+                        "directory " + directoryName + OF_TYPE + directoryTag + " cannot be written");
             }
         }
     }
