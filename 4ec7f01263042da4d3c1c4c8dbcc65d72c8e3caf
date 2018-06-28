@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_fc1f8959",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsIn.jsons",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_79daab18",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_5907af81",
         "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsIn.xmlfile",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-27T22:21:12Z",
       "side": 1,
       "message": "Same comment",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_1c2355a8",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsIn.xmlfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_5907af81",
       "range": {
         "startLine": 27,
         "startChar": 13,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_bc3901da",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti0.jsons",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_f9fd5b6f",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_1901276a",
         "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti1.jsons",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-27T22:21:12Z",
       "side": 1,
       "message": "Same Comment",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_dc340de1",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti1.jsons",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_1901276a",
       "range": {
         "startLine": 2,
         "startChar": 16,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_7c3379f6",
+        "filename": "testsuites/integration/integration-common/src/main/resources/examples/events/SampleDomain/EventsInMulti2.jsons",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_b9f7d38b",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 47
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_392bc3ec",
         "filename": "testsuites/integration/integration-uservice-test/pom.xml",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-27T22:21:12Z",
       "side": 1,
       "message": "We moved to ActiveMQ due to security and licensing issues with HornetQ",
+      "range": {
+        "startLine": 177,
+        "startChar": 1,
+        "endLine": 187,
+        "endChar": 1
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_5c61dda6",
+        "filename": "testsuites/integration/integration-uservice-test/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_392bc3ec",
       "range": {
         "startLine": 177,
         "startChar": 1,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_fc5789c8",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/jms/TestJMS2JMS.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_79f14b94",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 5
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_99ec57bd",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/jms/TestJMS2JMS.java",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2018-06-27T22:21:12Z",
       "side": 1,
       "message": "Again, HornetQ specific code.",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 5
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_1c5b55f7",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/jms/TestJMS2JMS.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_99ec57bd",
       "range": {
         "startLine": 67,
         "startChar": 2,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_bc710179",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/jmsconfig/hornetq-configuration.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_f9347b4b",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 57,
+        "endChar": 16
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_1938473c",
         "filename": "testsuites/integration/integration-uservice-test/src/test/resources/jmsconfig/hornetq-jms.xml",
         "patchSetId": 2
@@ -220,6 +436,30 @@
       "writtenOn": "2018-06-27T22:21:12Z",
       "side": 1,
       "message": "Same comment",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "4ec7f01263042da4d3c1c4c8dbcc65d72c8e3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_dc6c0da0",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/jmsconfig/hornetq-jms.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T13:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_1938473c",
       "range": {
         "startLine": 1,
         "startChar": 1,
