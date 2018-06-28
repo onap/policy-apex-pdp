@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_3ca171a9",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CLIParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-06-28T15:08:00Z",
+      "side": 1,
+      "message": "Compiler uses StringBuilder under cover for most of String concatenation. if you have to use StringBuilder then try not to use concatenation. would suggest to change it to following\n\nfinal String prefixExceptionMessage \u003d new StringBuilder(\"File \").append(fileName).append(\"of type \").append(fileTag).toString();",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 108
+      },
+      "revId": "e3dc4b0c39c8da5dccc5bd9042292c3ee87e954f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
