@@ -56,7 +56,7 @@ public class ApexCLIEditorMain {
      * @param args the command line arguments
      */
     public ApexCLIEditorMain(final String[] args) {
-        LOGGER.info("Starting Apex CLI editor " + Arrays.toString(args) + " . . .");
+        LOGGER.info("Starting Apex CLI editor {} . . .", Arrays.toString(args));
 
         try {
             final CLIParameterParser parser = new CLIParameterParser();
@@ -73,27 +73,27 @@ public class ApexCLIEditorMain {
             return;
         }
 
-        LOGGER.debug("parameters are: " + parameters.toString());
+        LOGGER.debug("parameters are: {}", parameters.toString());
 
         // Read the command definitions
         try {
             commands = new JSONHandler<CLICommands>().read(CLICommands.class, parameters.getMetadataStream());
         } catch (final Exception e) {
-            LOGGER.error("start of Apex command line editor failed, error reading command metadata from "
-                    + parameters.getMetadataLocation(), e);
+            LOGGER.error("start of Apex command line editor failed, error reading command metadata from {}",
+                    parameters.getMetadataLocation(), e);
             errorCount++;
             return;
         }
 
         // The JSON processing returns null if there is an empty file
         if (commands == null || commands.getCommandSet().isEmpty()) {
-            LOGGER.error("start of Apex command line editor failed, no commands found in "
-                    + parameters.getApexPropertiesLocation());
+            LOGGER.error("start of Apex command line editor failed, no commands found in {}",
+                    parameters.getApexPropertiesLocation());
             errorCount++;
             return;
         }
 
-        LOGGER.debug("found " + commands.getCommandSet().size() + " commands");
+        LOGGER.debug("found {} commands", commands.getCommandSet().size());
 
         // Read the Apex properties
         try {
@@ -109,13 +109,13 @@ public class ApexCLIEditorMain {
 
         // The JSON processing returns null if there is an empty file
         if (apexModelProperties == null) {
-            LOGGER.error("start of Apex command line editor failed, no Apex model properties found in "
-                    + parameters.getApexPropertiesLocation());
+            LOGGER.error("start of Apex command line editor failed, no Apex model properties found in {}",
+                    parameters.getApexPropertiesLocation());
             errorCount++;
             return;
         }
 
-        LOGGER.debug("model properties are: " + apexModelProperties.toString());
+        LOGGER.debug("model properties are: {}", apexModelProperties.toString());
 
         // Find the system commands
         final Set<KeywordNode> systemCommandNodes = new TreeSet<>();
@@ -152,12 +152,10 @@ public class ApexCLIEditorMain {
             if (errorCount == 0) {
                 LOGGER.info("Apex CLI editor completed execution");
             } else {
-                LOGGER.error("execution of Apex command line editor failed: " + errorCount
-                        + " command execution failure(s) occurred");
+                LOGGER.error("execution of Apex command line editor failed: {} command execution failure(s) occurred", errorCount);
             }
         } catch (final IOException e) {
             LOGGER.error("execution of Apex command line editor failed: " + e.getMessage());
-            return;
         }
     }
 
