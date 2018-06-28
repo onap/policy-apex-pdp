@@ -22,6 +22,30 @@
       "revId": "e3dc4b0c39c8da5dccc5bd9042292c3ee87e954f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_5c923d4c",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CLIParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-06-28T16:29:38Z",
+      "side": 1,
+      "message": "Thanks Waqas, so I\u0027ll change to:\nfinal String prefixExceptionMessage \u003d \"File \" + fileName + \"of type \" + fileTag;\ninstead.",
+      "parentUuid": "5a93c517_3ca171a9",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 108
+      },
+      "revId": "e3dc4b0c39c8da5dccc5bd9042292c3ee87e954f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
