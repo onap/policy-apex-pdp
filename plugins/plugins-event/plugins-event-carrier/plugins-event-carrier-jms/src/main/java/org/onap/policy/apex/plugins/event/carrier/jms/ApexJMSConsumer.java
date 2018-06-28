@@ -196,53 +196,37 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
     @Override
     public void run() {
         // JMS session and message consumer for receiving messages
-        Session jmsSession = null;
-        MessageConsumer messageConsumer = null;
-
-        // Create a session to the JMS server
-        try {
-            jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        try (Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
+            // Create a message consumer for reception of messages and set this class as a message listener
+            createMessageConsumer(jmsSession);
         } catch (final Exception e) {
             final String errorMessage = "failed to create a JMS session towards the JMS server for receiving messages";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
-
-        // Create a message consumer for reception of messages and set this class as a message listener
-        try {
-            messageConsumer = jmsSession.createConsumer(jmsIncomingTopic);
-            messageConsumer.setMessageListener(this);
-        } catch (final Exception e) {
-            final String errorMessage = "failed to create a JMS message consumer for receiving messages";
-            LOGGER.warn(errorMessage, e);
-            throw new ApexEventRuntimeException(errorMessage, e);
-        }
-
         // Everything is now set up
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("event receiver " + this.getClass().getName() + ":" + this.name + " subscribed to JMS topic: "
                     + jmsConsumerProperties.getConsumerTopic());
         }
-
         // The endless loop that receives events over JMS
         while (consumerThread.isAlive() && !stopOrderedFlag) {
             ThreadUtilities.sleep(jmsConsumerProperties.getConsumerWaitTime());
         }
+    }
 
-        // Close the message consumer
-        try {
-            messageConsumer.close();
+    /**
+     * The helper function to create a message consumer from a given JMS session
+     * 
+     * @param jmsSession a JMS session
+     */
+    private void createMessageConsumer(Session jmsSession) {
+        try (MessageConsumer messageConsumer = jmsSession.createConsumer(jmsIncomingTopic)) {
+            messageConsumer.setMessageListener(this);
         } catch (final Exception e) {
-            final String errorMessage = "failed to close the JMS message consumer for receiving messages";
+            final String errorMessage = "failed to create a JMS message consumer for receiving messages";
             LOGGER.warn(errorMessage, e);
-        }
-
-        // Close the session
-        try {
-            jmsSession.close();
-        } catch (final Exception e) {
-            final String errorMessage = "failed to close the JMS session for receiving messages";
-            LOGGER.warn(errorMessage, e);
+            throw new ApexEventRuntimeException(errorMessage, e);
         }
     }
 

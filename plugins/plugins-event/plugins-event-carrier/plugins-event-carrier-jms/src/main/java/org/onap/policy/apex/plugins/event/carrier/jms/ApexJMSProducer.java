@@ -86,9 +86,9 @@ public class ApexJMSProducer implements ApexEventProducer {
 
         // Check and get the JMS Properties
         if (!(producerParameters.getCarrierTechnologyParameters() instanceof JMSCarrierTechnologyParameters)) {
-            LOGGER.warn("specified producer properties are not applicable to a JMS producer (" + this.name + ")");
-            throw new ApexEventException(
-                    "specified producer properties are not applicable to a JMS producer (" + this.name + ")");
+            final String errorMessage = "specified producer properties are not applicable to a JMS producer (" + this.name + ")";
+            LOGGER.warn(errorMessage);
+            throw new ApexEventException(errorMessage);
         }
         jmsProducerProperties = (JMSCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 

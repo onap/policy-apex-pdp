@@ -159,8 +159,7 @@ public class CLIParameters {
      * @throws IOException the IO exception
      */
     public OutputStream getOutputStream() throws IOException {
-        // Check if log suppression is active, if so, consume all output on a byte array output
-        // stream
+        // Check if log suppression is active, if so, consume all output on a byte array output stream
         if (isSuppressLogSet()) {
             return new ByteArrayOutputStream();
 
@@ -183,14 +182,15 @@ public class CLIParameters {
             return;
         }
         final File theFile = new File(fileName);
+        StringBuilder prefixExceptionMessage = new StringBuilder("File " + fileName + "of type " + fileTag);
         if (!theFile.exists()) {
-            throw new CLIException("file " + fileName + " of type " + fileTag + " does not exist");
+            throw new CLIException(prefixExceptionMessage + " does not exist");
         }
         if (!theFile.isFile()) {
-            throw new CLIException("file " + fileName + " of type " + fileTag + " is not a normal file");
+            throw new CLIException(prefixExceptionMessage + " is not a normal file");
         }
         if (!theFile.canRead()) {
-            throw new CLIException("file " + fileName + " of type " + fileTag + " is ureadable");
+            throw new CLIException(prefixExceptionMessage + " is ureadable");
         }
     }
 
@@ -205,18 +205,19 @@ public class CLIParameters {
             return;
         }
         final File theFile = new File(fileName);
+        StringBuilder prefixExceptionMessage = new StringBuilder("File " + fileName + "of type " + fileTag);
         if (theFile.exists()) {
             if (!theFile.isFile()) {
-                throw new CLIException("file " + fileName + " of type " + fileTag + " is not a normal file");
+                throw new CLIException(prefixExceptionMessage + " is not a normal file");
             }
             if (!theFile.canWrite()) {
-                throw new CLIException("file " + fileName + " of type " + fileTag + " cannot be written");
+                throw new CLIException(prefixExceptionMessage + " cannot be written");
             }
         } else {
             try {
                 theFile.createNewFile();
             } catch (final IOException e) {
-                throw new CLIException("file " + fileName + " cannot be created: ", e);
+                throw new CLIException(prefixExceptionMessage + " cannot be created: ", e);
             }
         }
     }
@@ -232,14 +233,15 @@ public class CLIParameters {
             return;
         }
         final File theDirectory = new File(directoryName);
+        StringBuilder prefixExceptionMessage =
+                new StringBuilder("directory " + directoryName + "of type " + directoryTag);
+
         if (theDirectory.exists()) {
             if (!theDirectory.isDirectory()) {
-                throw new CLIException(
-                        "directory " + directoryName + " of type " + directoryTag + " is not a directory");
+                throw new CLIException(prefixExceptionMessage + " is not a directory");
             }
             if (!theDirectory.canWrite()) {
-                throw new CLIException(
-                        "directory " + directoryName + " of type " + directoryTag + " cannot be written");
+                throw new CLIException(prefixExceptionMessage + " cannot be written");
             }
         }
     }
