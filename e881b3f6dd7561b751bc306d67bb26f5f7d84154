@@ -46,6 +46,30 @@
       "revId": "e881b3f6dd7561b751bc306d67bb26f5f7d84154",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_3cd09152",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CLIParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-06-28T13:01:46Z",
+      "side": 1,
+      "message": "Thanks Ram and Pamela, I\u0027ll try to refactor it, and will commit the better changes soon.",
+      "parentUuid": "5a93c517_bcdca175",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "e881b3f6dd7561b751bc306d67bb26f5f7d84154",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
