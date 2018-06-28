@@ -36,6 +36,8 @@ import org.onap.policy.apex.model.modelapi.ApexModelFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexModelHandler {
+    private static final String FAILED_FOR_COMMAND = "\" failed for command \"";
+    private static final String INVOCATION_OF_SPECIFIED_METHOD = "invocation of specified method \"";
     private ApexModel apexModel = null;
 
     /**
@@ -91,21 +93,21 @@ public class ApexModelHandler {
                 return result;
             } else {
                 throw new CLIException(
-                        "invocation of specified method \"" + command.getApiMethod() + "\" failed for command \""
+                        INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
                                 + command.getName() + "\" the returned object is not an instance of ApexAPIResult");
             }
         } catch (IllegalAccessException | IllegalArgumentException e) {
-            writer.println("invocation of specified method \"" + command.getApiMethod() + "\" failed for command \""
+            writer.println(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
                     + command.getName() + "\"");
             e.printStackTrace(writer);
-            throw new CLIException("invocation of specified method \"" + command.getApiMethod()
-                    + "\" failed for command \"" + command.getName() + "\"", e);
+            throw new CLIException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
+                    + FAILED_FOR_COMMAND + command.getName() + "\"", e);
         } catch (final InvocationTargetException e) {
-            writer.println("invocation of specified method \"" + command.getApiMethod() + "\" failed for command \""
+            writer.println(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
                     + command.getName() + "\"");
             e.getCause().printStackTrace(writer);
-            throw new CLIException("invocation of specified method \"" + command.getApiMethod()
-                    + "\" failed for command \"" + command.getName() + "\"", e);
+            throw new CLIException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
+                    + FAILED_FOR_COMMAND + command.getName() + "\"", e);
         }
     }
 
@@ -153,7 +155,7 @@ public class ApexModelHandler {
                         argumentValues.get(command.getArgumentList().get(i).getArgumentName()).getValue();
 
                 if (parametertype.equals(boolean.class)) {
-                    parameterArray[i] = (boolean) Boolean.valueOf(parameterValue);
+                    parameterArray[i] = Boolean.valueOf(parameterValue);
                 } else {
                     parameterArray[i] = parameterValue;
                 }
