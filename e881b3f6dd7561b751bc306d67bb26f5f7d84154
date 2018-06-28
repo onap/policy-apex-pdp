@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_1c291537",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/ApexCLIEditorMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-06-28T14:06:27Z",
+      "side": 1,
+      "message": "Is this zero needed here?",
+      "range": {
+        "startLine": 84,
+        "startChar": 105,
+        "endLine": 84,
+        "endChar": 107
+      },
+      "revId": "e881b3f6dd7561b751bc306d67bb26f5f7d84154",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_fcf22905",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CLIParameters.java",
         "patchSetId": 1
