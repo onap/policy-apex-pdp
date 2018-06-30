@@ -1,0 +1,2422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+
+<!-- This file contains multiple XML documents containing events, it is used to represent a stream of events as contiguous XML documents-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109829</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5029.0977</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9205.635</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>745.0819</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5303.2686</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>76.91979</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2514.586</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5762.7017</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2932.0693</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4062.569</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7330.253</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4523.48</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4418.4434</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2070.6726</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3211.3796</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9335.347</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7486.7</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7916.7837</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5593.4805</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2392.5393</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3407.845</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8537.924</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109831</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2093.1672</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2938.2634</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9799.69</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3682.167</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8614.255</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5771.5522</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5778.1587</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1829.2201</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8212.186</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>69.31722</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2842.4954</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1680.3956</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2087.8213</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>954.5702</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5469.4463</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2140.287</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8113.5645</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1402.2207</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8310.781</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3253.3342</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8409.392</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8705.976</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5108.107</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3716.3972</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>813.75836</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9086.392</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5549.1143</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>6378.093</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>654.6241</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8923.838</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>450.83167</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1230.132</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1167.3259</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3186.9114</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8806.747</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4241.6426</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9857.053</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7561.059</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109832</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1073.0768</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>6449.4272</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5766.172</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4786.6704</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9645.206</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9275.977</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>985.0705</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8582.512</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>6540.643</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1312.2606</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2310.2642</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7863.311</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9090.517</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>874.7286</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>89.31577</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5384.0977</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3326.373</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7053.2803</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1100.3625</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7318.115</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>7304.7827</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2811.665</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4690.1846</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5624.33</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1051.4647</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2689.3574</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2308.247</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4999.671</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>3138.606</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>0</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>5719.3364</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>445.14835</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9498.781</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>757.5476</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>227.3655</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>4751.002</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0100</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event1</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>2</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>8193.897</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>6397.872</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>6133.35</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>3</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>9280.389</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>1031.0221</value>
+  </data>
+</xmlApexEvent>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+  <name>Event0000</name>
+  <version>0.0.1</version>
+  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <source>test</source>
+  <target>apex</target>
+  <data>
+    <key>TestSlogan</key>
+    <value>Test slogan for External Event0</value>
+  </data>
+  <data>
+    <key>TestMatchCase</key>
+	<value>1</value>
+  </data>
+  <data>
+    <key>TestTimestamp</key>
+    <value>1469787109833</value>
+  </data>
+  <data>
+    <key>TestTemperature</key>
+    <value>2206.1318</value>
+  </data>
+</xmlApexEvent>
