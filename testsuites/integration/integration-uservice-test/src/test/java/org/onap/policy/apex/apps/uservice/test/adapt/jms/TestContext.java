@@ -5,20 +5,26 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.apps.uservice.test.adapt.jms;
+
+import static org.onap.policy.apex.apps.uservice.test.adapt.jms.TestJMS2JMS.HOST;
+import static org.onap.policy.apex.apps.uservice.test.adapt.jms.TestJMS2JMS.JMS_TOPIC_APEX_IN;
+import static org.onap.policy.apex.apps.uservice.test.adapt.jms.TestJMS2JMS.JMS_TOPIC_APEX_OUT;
+import static org.onap.policy.apex.apps.uservice.test.adapt.jms.TestJMS2JMS.PORT;
+import static org.onap.policy.apex.apps.uservice.test.adapt.jms.TestJMS2JMS.connectionFactory;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -48,11 +54,11 @@ public class TestContext implements Context {
             testProperties = new Properties();
 
             final Map<String, Object> params = new HashMap<String, Object>();
-            params.put("host", "localhost");
-            params.put("port", "5445");
-            testProperties.put("ConnectionFactory", TestJMS2JMS.connectionFactory);
-            testProperties.put("jms/topic/apexIn", new ActiveMQTopic("jms/topic/apexIn"));
-            testProperties.put("jms/topic/apexOut", new ActiveMQTopic("jms/topic/apexOut"));
+            params.put("host", HOST);
+            params.put("port", PORT);
+            testProperties.put("ConnectionFactory", connectionFactory);
+            testProperties.put(JMS_TOPIC_APEX_IN, new ActiveMQTopic(JMS_TOPIC_APEX_IN));
+            testProperties.put(JMS_TOPIC_APEX_OUT, new ActiveMQTopic(JMS_TOPIC_APEX_OUT));
         } catch (final Exception e) {
             e.printStackTrace();
             throw new ApexRuntimeException("Context initiation failed", e);

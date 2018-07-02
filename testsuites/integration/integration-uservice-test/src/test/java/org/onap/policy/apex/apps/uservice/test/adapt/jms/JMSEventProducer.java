@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -32,11 +32,15 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.apps.uservice.test.adapt.events.EventGenerator;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JMSEventProducer implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JMSEventProducer.class);
+
     private final String topic;
     private final int eventCount;
     private final boolean sendObjects;
@@ -48,8 +52,9 @@ public class JMSEventProducer implements Runnable {
     private boolean stopFlag = false;
     private final Connection connection;
 
-    public JMSEventProducer(String topic, ConnectionFactory connectionFactory, String username, String password,
-            final int eventCount, final boolean sendObjects, final long eventInterval) throws JMSException {
+    public JMSEventProducer(final String topic, final ConnectionFactory connectionFactory, final String username,
+            final String password, final int eventCount, final boolean sendObjects, final long eventInterval)
+            throws JMSException {
         this.topic = topic;
         this.eventCount = eventCount;
         this.sendObjects = sendObjects;
@@ -63,10 +68,9 @@ public class JMSEventProducer implements Runnable {
 
     @Override
     public void run() {
-        try {
-            final Topic jmsTopic = new ActiveMQTopic(topic);
-            final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic);
+        final Topic jmsTopic = new ActiveMQTopic(topic);
+        try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+                final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic);) {
 
             while (producerThread.isAlive() && !stopFlag) {
                 ThreadUtilities.sleep(50);
@@ -77,8 +81,6 @@ public class JMSEventProducer implements Runnable {
                 }
             }
 
-            jmsProducer.close();
-            jmsSession.close();
         } catch (final Exception e) {
             throw new ApexEventRuntimeException("JMS event consumption failed", e);
         }
@@ -89,12 +91,11 @@ public class JMSEventProducer implements Runnable {
     }
 
     private void sendEventsToTopic(final Session jmsSession, final MessageProducer jmsProducer) throws JMSException {
-        System.out.println(JMSEventProducer.class.getCanonicalName() + ": sending events to JMS server, event count "
-                + eventCount);
+
+        LOGGER.info("{} : sending events to JMS server, event count {}", this.getClass().getCanonicalName(),
+                eventCount);
 
         for (int i = 0; i < eventCount; i++) {
-            System.out.println(JMSEventProducer.class.getCanonicalName() + ": waiting " + eventInterval
-                    + " milliseconds before sending next event");
             ThreadUtilities.sleep(eventInterval);
 
             Message jmsMessage = null;
@@ -105,9 +106,8 @@ public class JMSEventProducer implements Runnable {
             }
             jmsProducer.send(jmsMessage);
             eventsSentCount++;
-            System.out.println(JMSEventProducer.class.getCanonicalName() + ": sent event " + jmsMessage.toString());
         }
-        System.out.println(JMSEventProducer.class.getCanonicalName() + ": completed");
+        LOGGER.info("{} : completed, number of events sent", this.getClass().getCanonicalName(), eventsSentCount);
     }
 
     public long getEventsSentCount() {
@@ -115,15 +115,13 @@ public class JMSEventProducer implements Runnable {
     }
 
     public void shutdown() {
-        System.out.println(JMSEventProducer.class.getCanonicalName() + ": stopping");
-
+        LOGGER.info("{} : stopping", this.getClass().getCanonicalName());
         stopFlag = true;
 
         while (producerThread.isAlive()) {
             ThreadUtilities.sleep(10);
         }
-
-        System.out.println(JMSEventProducer.class.getCanonicalName() + ": stopped");
+        LOGGER.info("{} : stopped", this.getClass().getCanonicalName());
     }
 
 }

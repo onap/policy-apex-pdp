@@ -196,7 +196,7 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
     @Override
     public void run() {
         // JMS session and message consumer for receiving messages
-        try (Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
+        try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
             // Create a message consumer for reception of messages and set this class as a message listener
             createMessageConsumer(jmsSession);
         } catch (final Exception e) {
@@ -209,20 +209,21 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
             LOGGER.debug("event receiver " + this.getClass().getName() + ":" + this.name + " subscribed to JMS topic: "
                     + jmsConsumerProperties.getConsumerTopic());
         }
-        // The endless loop that receives events over JMS
-        while (consumerThread.isAlive() && !stopOrderedFlag) {
-            ThreadUtilities.sleep(jmsConsumerProperties.getConsumerWaitTime());
-        }
     }
 
     /**
      * The helper function to create a message consumer from a given JMS session
-     * 
+     *
      * @param jmsSession a JMS session
      */
-    private void createMessageConsumer(Session jmsSession) {
-        try (MessageConsumer messageConsumer = jmsSession.createConsumer(jmsIncomingTopic)) {
+    private void createMessageConsumer(final Session jmsSession) {
+        try (final MessageConsumer messageConsumer = jmsSession.createConsumer(jmsIncomingTopic)) {
             messageConsumer.setMessageListener(this);
+
+            // The endless loop that receives events over JMS
+            while (consumerThread.isAlive() && !stopOrderedFlag) {
+                ThreadUtilities.sleep(jmsConsumerProperties.getConsumerWaitTime());
+            }
         } catch (final Exception e) {
             final String errorMessage = "failed to create a JMS message consumer for receiving messages";
             LOGGER.warn(errorMessage, e);

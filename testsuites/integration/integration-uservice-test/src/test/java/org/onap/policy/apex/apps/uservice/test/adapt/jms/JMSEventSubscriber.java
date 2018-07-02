@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -34,11 +34,15 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JMSEventSubscriber implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JMSEventSubscriber.class);
+
     private final String topic;
     private long eventsReceivedCount = 0;
 
@@ -58,13 +62,9 @@ public class JMSEventSubscriber implements Runnable {
 
     @Override
     public void run() {
-        try {
-            final Topic jmsTopic = new ActiveMQTopic(topic);
-            final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            final MessageConsumer jmsConsumer = jmsSession.createConsumer(jmsTopic);
-
-            System.out.println(JMSEventSubscriber.class.getCanonicalName()
-                    + ": receiving events from Kafka server on topic " + topic);
+        final Topic jmsTopic = new ActiveMQTopic(topic);
+        try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+                final MessageConsumer jmsConsumer = jmsSession.createConsumer(jmsTopic);) {
 
             while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
                 try {
@@ -75,11 +75,9 @@ public class JMSEventSubscriber implements Runnable {
 
                     if (message instanceof ObjectMessage) {
                         final TestPing testPing = (TestPing) ((ObjectMessage) message).getObject();
-                        System.out.println("Received message: " + testPing.toString());
                         testPing.verify();
                     } else if (message instanceof TextMessage) {
-                        final String textMessage = ((TextMessage) message).getText();
-                        System.out.println("Received message: " + textMessage);
+                        ((TextMessage) message).getText();
                     } else {
                         throw new ApexEventException("unknowm message \"" + message + "\" of type \""
                                 + message.getClass().getCanonicalName() + "\" received");
@@ -90,13 +88,11 @@ public class JMSEventSubscriber implements Runnable {
                 }
             }
 
-            jmsConsumer.close();
-            jmsSession.close();
         } catch (final Exception e) {
             throw new ApexEventRuntimeException("JMS event consumption failed", e);
         }
 
-        System.out.println(JMSEventSubscriber.class.getCanonicalName() + ": event reception completed");
+        LOGGER.info("{} : event reception completed", this.getClass().getCanonicalName());
     }
 
     public long getEventsReceivedCount() {
@@ -111,7 +107,7 @@ public class JMSEventSubscriber implements Runnable {
         }
 
         connection.close();
-        System.out.println(JMSEventSubscriber.class.getCanonicalName() + ": stopped");
+        LOGGER.info("{} : stopped", this.getClass().getCanonicalName());
     }
 
 }

@@ -5,22 +5,22 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.apps.uservice.test.adapt.jms;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -45,13 +45,17 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 public class TestJMS2JMS {
+    public static final String PORT = "5445";
+    public static final String HOST = "localhost";
+    public static final String JMS_TOPIC_APEX_IN = "jms/topic/apexIn";
+    public static final String JMS_TOPIC_APEX_OUT = "jms/topic/apexOut";
+
+    private static final int SLEEP_TIME = 1500;
     private static final String GROUP_ROLE = "guests";
     private static final String PACKAGE_NAME = "org.onap.policy.apex.apps.uservice.test.adapt.jms";
     private static final String USERNAME = "guest";
     private static final String PASSWORD = "IAmAGuest";
-    private static final String JMS_TOPIC_APEX_IN = "jms/topic/apexIn";
-    private static final String JMS_TOPIC_APEX_OUT = "jms/topic/apexOut";
-    private static final String URL = "tcp://localhost:5445";
+    private static final String URL = "tcp://" + HOST + ":" + PORT;
 
     private static final String DATA_PARENT_DIR = Paths.get("target", "activemq-data").toString();
 
@@ -70,9 +74,7 @@ public class TestJMS2JMS {
     public static void setupEmbeddedJMSServer() throws Exception {
         final ArrayList<BrokerPlugin> plugins = new ArrayList<BrokerPlugin>();
         final BrokerPlugin authenticationPlugin = getAuthenticationBrokerPlugin();
-        if (authenticationPlugin != null) {
-            plugins.add(authenticationPlugin);
-        }
+        plugins.add(authenticationPlugin);
 
         broker = new BrokerService();
         broker.setUseJmx(false);
@@ -108,13 +110,13 @@ public class TestJMS2JMS {
 
     @Test
     public void testJMSObjectEvents() throws ApexException, JMSException {
-        final String[] args = {"src/test/resources/prodcons/JMS2JMSObjectEvent.json"};
+        final String[] args = { "src/test/resources/prodcons/JMS2JMSObjectEvent.json" };
         testJMSEvents(args, true);
     }
 
     @Test
     public void testJMSJsonEvents() throws ApexException, JMSException {
-        final String[] args = {"src/test/resources/prodcons/JMS2JMSJsonEvent.json"};
+        final String[] args = { "src/test/resources/prodcons/JMS2JMSJsonEvent.json" };
         testJMSEvents(args, false);
     }
 
@@ -131,20 +133,22 @@ public class TestJMS2JMS {
 
         final long testStartTime = System.currentTimeMillis();
 
-        while (System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH
-                && subscriber.getEventsReceivedCount() < EVENT_COUNT) {
+        while (isTimedOut(testStartTime) && subscriber.getEventsReceivedCount() < EVENT_COUNT) {
             ThreadUtilities.sleep(EVENT_INTERVAL);
         }
 
-        ThreadUtilities.sleep(1000);
-
-        System.out.println("sent event count: " + producer.getEventsSentCount());
-        System.out.println("received event count: " + subscriber.getEventsReceivedCount());
-        assertTrue(subscriber.getEventsReceivedCount() == producer.getEventsSentCount());
-
+        ThreadUtilities.sleep(SLEEP_TIME);
         apexMain.shutdown();
         subscriber.shutdown();
         producer.shutdown();
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(SLEEP_TIME);
+
+        assertEquals(EVENT_COUNT, producer.getEventsSentCount());
+        assertEquals(producer.getEventsSentCount(), subscriber.getEventsReceivedCount());
+
+    }
+
+    private boolean isTimedOut(final long testStartTime) {
+        return System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH;
     }
 }
