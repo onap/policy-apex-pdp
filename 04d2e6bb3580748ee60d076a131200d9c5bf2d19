@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_c288a4c8",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-02T12:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_31b3dd0b",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "04d2e6bb3580748ee60d076a131200d9c5bf2d19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_71a085a5",
         "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/pom.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-27T14:21:20Z",
       "side": 1,
       "message": "Do we need to change this as well?",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "04d2e6bb3580748ee60d076a131200d9c5bf2d19",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_a2f6b85b",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-02T12:41:58Z",
+      "side": 1,
+      "message": "No. Sonar only looks at plugins used in the built system, it does not seem to care what plugins you use to build the software.",
+      "parentUuid": "5a93c517_71a085a5",
       "range": {
         "startLine": 53,
         "startChar": 16,
