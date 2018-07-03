@@ -20,9 +20,8 @@
 
 package org.onap.policy.apex.plugins.event.protocol.jms;
 
+import java.lang.reflect.Method;
 import java.util.List;
-
-import javax.jms.TextMessage;
 
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -33,7 +32,7 @@ import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class Apex2JMSTextEventConverter converts {@link ApexEvent} instances into string instances of
- * {@link javax.jms.TextMessage} message events for JMS. It is a proxy for the built in
+ * text message events for JMS. It is a proxy for the built in
  * {@link org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JSONEventConverter} plugin.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -55,19 +54,22 @@ public final class Apex2JMSTextEventConverter extends Apex2JSONEventConverter {
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
-        // Check if this is an TextMessage from JMS
-        if (!(eventObject instanceof TextMessage)) {
-            final String errorMessage = "message \"" + eventObject + "\" received from JMS is not an instance of \""
-                    + TextMessage.class.getCanonicalName() + "\"";
-            LOGGER.debug(errorMessage);
+        // Look for a "getText()" method on the incoming object, if there is no such method, then we cannot fetch the
+        // text from JMS
+        Method getTextMethod;
+        try {
+            getTextMethod = eventObject.getClass().getMethod("getText", (Class<?>[]) null);
+        } catch (Exception e) {
+            final String errorMessage = "message \"" + eventObject
+                            + "\" received from JMS does not have a \"getText()\" method";
+            LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
-        // Get the string from the object message
-        final TextMessage textMessage = (TextMessage) eventObject;
+
         String jmsString;
         try {
-            jmsString = textMessage.getText();
+            jmsString = (String) getTextMethod.invoke(eventObject, (Object[]) null);
         } catch (final Exception e) {
             final String errorMessage = "object contained in message \"" + eventObject
                     + "\" received from JMS could not be retrieved as a Java String";

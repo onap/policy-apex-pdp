@@ -20,10 +20,9 @@
 
 package org.onap.policy.apex.plugins.event.protocol.jms;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.jms.ObjectMessage;
 
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -35,7 +34,7 @@ import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class Apex2JMSObjectEventConverter converts {@link ApexEvent} instances into string instances of
- * {@link javax.jms.ObjectMessage} message events for JMS.
+ * object message events for JMS.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -48,9 +47,12 @@ public final class Apex2JMSObjectEventConverter implements ApexEventProtocolConv
     /**
      * Constructor to create the Apex to JMS Object converter.
      *
-     * @throws ApexEventException the apex event exception
+     * @throws ApexEventException
+     *         the apex event exception
      */
-    public Apex2JMSObjectEventConverter() throws ApexEventException {}
+    public Apex2JMSObjectEventConverter() throws ApexEventException {
+        // Nothing specific to initiate for this plugin
+    }
 
     @Override
     public void init(final EventProtocolParameters parameters) {
@@ -59,8 +61,8 @@ public final class Apex2JMSObjectEventConverter implements ApexEventProtocolConv
         // on both sides of Apex
         if (!(parameters instanceof JMSObjectEventProtocolParameters)) {
             final String errormessage = "specified Event Protocol Parameters properties of type \""
-                    + parameters.getClass().getCanonicalName() + "\" are not applicable to a "
-                    + Apex2JMSObjectEventConverter.class.getName() + " converter";
+                            + parameters.getClass().getCanonicalName() + "\" are not applicable to a "
+                            + Apex2JMSObjectEventConverter.class.getName() + " converter";
             LOGGER.error(errormessage);
         } else {
             this.eventProtocolParameters = (JMSObjectEventProtocolParameters) parameters;
@@ -75,30 +77,31 @@ public final class Apex2JMSObjectEventConverter implements ApexEventProtocolConv
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
-        // Check if this is an ObjectMessage from JMS
-        if (!(eventObject instanceof ObjectMessage)) {
-            final String errorMessage = "message \"" + eventObject + "\" received from JMS is not an instance of \""
-                    + ObjectMessage.class.getCanonicalName() + "\"";
+        // Look for a "getObject()" method on the incoming object, if there is no such method, then we cannot fetch the
+        // object from JMS
+        Method getObjectMethod;
+        try {
+            getObjectMethod = eventObject.getClass().getMethod("getObject", (Class<?>[]) null);
+        } catch (Exception e) {
+            final String errorMessage = "message \"" + eventObject
+                            + "\" received from JMS does not have a \"getObject()\" method";
             LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
-        // Get the object from the object message
-        final ObjectMessage objectMessage = (ObjectMessage) eventObject;
         Object jmsIncomingObject;
         try {
-            jmsIncomingObject = objectMessage.getObject();
+            jmsIncomingObject = getObjectMethod.invoke(eventObject, (Object[]) null);
         } catch (final Exception e) {
             final String errorMessage = "object contained in message \"" + eventObject
-                    + "\" received from JMS could not be retrieved as a Java object";
+                            + "\" received from JMS could not be retrieved as a Java object";
             LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 
         // Check that the consumer parameters for JMS->Apex messaging have been set
         if (eventProtocolParameters == null) {
-            final String errorMessage =
-                    "consumer parameters for JMS events consumed by Apex are not set in the Apex configuration for this engine";
+            final String errorMessage = "consumer parameters for JMS events consumed by Apex are not set in the Apex configuration for this engine";
             LOGGER.debug(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
@@ -106,18 +109,18 @@ public final class Apex2JMSObjectEventConverter implements ApexEventProtocolConv
         // Create the Apex event
         // @formatter:off
         final ApexEvent apexEvent = new ApexEvent(
-                jmsIncomingObject.getClass().getSimpleName() + eventProtocolParameters.getIncomingEventSuffix(),
-                eventProtocolParameters.getIncomingEventVersion(),
-                jmsIncomingObject.toString().getClass().getPackage().getName(),
-                eventProtocolParameters.getIncomingEventSource(),
-                eventProtocolParameters.getIncomingEventTarget());
+                        jmsIncomingObject.getClass().getSimpleName() + eventProtocolParameters.getIncomingEventSuffix(),
+                        eventProtocolParameters.getIncomingEventVersion(),
+                        jmsIncomingObject.toString().getClass().getPackage().getName(),
+                        eventProtocolParameters.getIncomingEventSource(),
+                        eventProtocolParameters.getIncomingEventTarget());
         // @formattter:on
 
         // Set the data on the apex event as the incoming object
         apexEvent.put(jmsIncomingObject.getClass().getSimpleName(), jmsIncomingObject);
 
         // Return the event in a single element
-        final ArrayList<ApexEvent> eventList = new ArrayList<ApexEvent>();
+        final ArrayList<ApexEvent> eventList = new ArrayList<>();
         eventList.add(apexEvent);
         return eventList;
     }
