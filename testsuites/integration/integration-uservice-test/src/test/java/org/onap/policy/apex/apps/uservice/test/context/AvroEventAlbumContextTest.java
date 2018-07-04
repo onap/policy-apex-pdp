@@ -21,6 +21,7 @@
 package org.onap.policy.apex.apps.uservice.test.context;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,31 +66,41 @@ public class AvroEventAlbumContextTest {
 
         tempCommandFile.delete();
         tempLogFile.delete();
-
         ModelService.clear();
 
         final String[] args = new String[] {"-m", tempModelFile.getAbsolutePath(), "-c",
                 "src/test/resources/prodcons/Context_AvroEventAlbum_file2file.json"};
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(1000);
-        apexMain.shutdown();
         
-        ParameterService.clear();
-        // The output event is in this file
+        // The output event will be in this file
         final File outputEventFile = new File("src/test/resources/events/Context_AvroEventAlbum_EventOut.json");
-        final String outputEventString =
-                TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath()).replaceAll("\\s+", "");
+        int tenthsOfSecondsToWait = 100; // 10 seconds
+        for (; !outputEventFile.exists() || outputEventFile.length() <= 0; tenthsOfSecondsToWait--) {
+            ThreadUtilities.sleep(100);
+        }
 
-        // We compare the output to what we expect to get
-        final String outputEventCompareString = TextFileUtils
-                .getTextFileAsString("src/test/resources/events/Context_AvroEventAlbum_EventOutCompare.json")
-                .replaceAll("\\s+", "");
-
-        // Check what we got is what we expected to get
-        assertEquals(outputEventCompareString, outputEventString);
-
-        
+        // Shut down Apex
+        apexMain.shutdown();
+        ParameterService.clear();
         tempModelFile.delete();
-        outputEventFile.delete();
+        
+        // Check if the test timed out
+        if (tenthsOfSecondsToWait > 0) {
+            final String outputEventString =
+                            TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath()).replaceAll("\\s+", "");
+            outputEventFile.delete();
+
+            // We compare the output to what we expect to get
+            final String outputEventCompareString = TextFileUtils
+                            .getTextFileAsString("src/test/resources/events/Context_AvroEventAlbum_EventOutCompare.json")
+                            .replaceAll("\\s+", "");
+
+            // Check what we got is what we expected to get
+            assertEquals(outputEventCompareString, outputEventString);
+        }
+        else {
+            outputEventFile.delete();
+            fail("Test failed, the output event file was not created");
+        }
     }
 }

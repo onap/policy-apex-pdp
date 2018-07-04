@@ -21,6 +21,7 @@
 package org.onap.policy.apex.apps.uservice.test.context;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,11 +44,11 @@ public class JavaEventAlbumContextTest {
         final File tempModelFile = File.createTempFile("TestPolicyJavaEventContext", ".json");
 
         final String javaEventContextString =
-                ResourceUtils.getResourceAsString("examples/scripts/TestPolicyJavaEventContext.apex");
+                        ResourceUtils.getResourceAsString("examples/scripts/TestPolicyJavaEventContext.apex");
         TextFileUtils.putStringAsFile(javaEventContextString, tempCommandFile);
 
         final String[] cliArgs = new String[] {"-c", tempCommandFile.getCanonicalPath(), "-l",
-                tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
+                        tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
 
         ModelService.clear();
 
@@ -55,29 +56,41 @@ public class JavaEventAlbumContextTest {
 
         tempCommandFile.delete();
         tempLogFile.delete();
-
         ModelService.clear();
 
         final String[] args = new String[] {"-m", tempModelFile.getAbsolutePath(), "-c",
-                "src/test/resources/prodcons/Context_JavaEventAlbum_file2file.json"};
+        "src/test/resources/prodcons/Context_JavaEventAlbum_file2file.json"};
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(1000);
+
+        // The output event will be in this file
+        final File outputEventFile = new File("src/test/resources/events/Context_JavaEventAlbum_EventOut.json");
+        int tenthsOfSecondsToWait = 100; // 10 seconds
+        for (; !outputEventFile.exists() || outputEventFile.length() <= 0; tenthsOfSecondsToWait--) {
+            ThreadUtilities.sleep(100);
+        }
+
+        // Shut down Apex
         apexMain.shutdown();
         ParameterService.clear();
-
-        // The output event is in this file
-        final File outputEventFile = new File("src/test/resources/events/Context_JavaEventAlbum_EventOut.json");
-        final String actualFileContent = TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath());
-        final String outputEventString = actualFileContent.replaceAll("\\s+", "");
-
-        // We compare the output to what we expect to get
-        final String expectedFileContent = TextFileUtils
-                .getTextFileAsString("src/test/resources/events/Context_JavaEventAlbum_EventOutCompare.json");
-        final String outputEventCompareString = expectedFileContent.replaceAll("\\s+", "");
-
-        assertEquals(outputEventCompareString, outputEventString);
-
         tempModelFile.delete();
-        outputEventFile.delete();
+
+        // Check if the test timed out
+        if (tenthsOfSecondsToWait > 0) {
+            // The output event is in this file
+            final String actualFileContent = TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath());
+            final String outputEventString = actualFileContent.replaceAll("\\s+", "");
+            outputEventFile.delete();
+
+            // We compare the output to what we expect to get
+            final String expectedFileContent = TextFileUtils
+                            .getTextFileAsString("src/test/resources/events/Context_JavaEventAlbum_EventOutCompare.json");
+            final String outputEventCompareString = expectedFileContent.replaceAll("\\s+", "");
+
+            assertEquals(outputEventCompareString, outputEventString);
+        }
+        else {
+            outputEventFile.delete();
+            fail("Test failed, the output event file was not created");
+        }
     }
 }
