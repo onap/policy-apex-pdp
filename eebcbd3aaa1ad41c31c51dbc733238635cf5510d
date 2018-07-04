@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_42b9efc9",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/context/AvroEventAlbumContextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-04T09:56:18Z",
+      "side": 1,
+      "message": "Subjective comment: @Rule TemporaryFolder might be used for temp file creation ... @Rule TemporaryFolder will manage and delete it when test is finish\n\nhttps://junit.org/junit4/javadoc/4.12/org/junit/rules/TemporaryFolder.html",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 94
+      },
+      "revId": "eebcbd3aaa1ad41c31c51dbc733238635cf5510d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e2e7dbaa",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/context/AvroEventAlbumContextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-04T09:56:18Z",
+      "side": 1,
+      "message": "In my opinion, the loop will not terminate if apex fail to start. \n\nsuggestion, \n\n for (int tenthsOfSecondsToWait \u003d 0; tenthsOfSecondsToWait \u003c 0; tenthsOfSecondsToWait--) {\n            if (outputEventFile.exists()) {\n                break;\n            }\n            ThreadUtilities.sleep(100);\n\n        }\n\n        assertTrue(\"Test failed, the output event file was not created\", outputEventFile.exists());\n        assertTrue(\"Test failed, the output event file was empty\", outputEventFile.length() \u003e 0);\n\n        final String outputEventString \u003d\n                TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath()).replaceAll(\"\\\\s+\", \"\");\n        outputEventFile.delete();\n\n        // We compare the output to what we expect to get\n        final String outputEventCompareString \u003d TextFileUtils\n                .getTextFileAsString(\"src/test/resources/events/Context_AvroEventAlbum_EventOutCompare.json\")\n                .replaceAll(\"\\\\s+\", \"\");\n\n        // Check what we got is what we expected to get\n        assertEquals(outputEventCompareString, outputEventString);",
+      "range": {
+        "startLine": 77,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 9
+      },
+      "revId": "eebcbd3aaa1ad41c31c51dbc733238635cf5510d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
