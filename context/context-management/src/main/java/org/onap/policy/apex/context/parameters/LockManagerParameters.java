@@ -20,25 +20,29 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
 import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
- * An empty lock manager parameter class that may be specialized by context lock manager plugins that require plugin
- * specific parameters. The class defines the default lock manager plugin as the JVM local lock manager.
+ * An empty lock manager parameter class that may be specialized by context lock manager plugins
+ * that require plugin specific parameters. The class defines the default lock manager plugin as the
+ * JVM local lock manager.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class LockManagerParameters extends AbstractParameters {
-    /** The default lock manager can lock context album instance across all threads in a single JVM. */
-    public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS =
-            "org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager";
+    /**
+     * The default lock manager can lock context album instance across all threads in a single JVM.
+     */
+    public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JVMLocalLockManager.class.getCanonicalName();
 
     // Plugin class names
     private String pluginClass = DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;
 
     /**
-     * Constructor to create a lock manager parameters instance and register the instance with the parameter service.
+     * Constructor to create a lock manager parameters instance and register the instance with the
+     * parameter service.
      */
     public LockManagerParameters() {
         super(LockManagerParameters.class.getCanonicalName());
@@ -46,8 +50,8 @@ public class LockManagerParameters extends AbstractParameters {
     }
 
     /**
-     * Constructor to create a lock manager parameters instance with the name of a sub class of this class and register
-     * the instance with the parameter service.
+     * Constructor to create a lock manager parameters instance with the name of a sub class of this
+     * class and register the instance with the parameter service.
      *
      * @param parameterClassName the class name of a sub class of this class
      */

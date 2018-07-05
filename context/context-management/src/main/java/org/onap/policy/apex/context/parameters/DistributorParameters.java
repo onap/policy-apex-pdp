@@ -20,25 +20,27 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
 import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
- * An empty distributor parameter class that may be specialized by context distributor plugins that require plugin
- * specific parameters. The class defines the default distributor plugin as the JVM local distributor.
+ * An empty distributor parameter class that may be specialized by context distributor plugins that
+ * require plugin specific parameters. The class defines the default distributor plugin as the JVM
+ * local distributor.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class DistributorParameters extends AbstractParameters {
     /** The default distributor makes context albums available to all threads in a single JVM. */
-    public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS =
-            "org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor";
+    public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JVMLocalDistributor.class.getCanonicalName();
 
     // Plugin class names
     private String pluginClass = DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;
 
     /**
-     * Constructor to create a distributor parameters instance and register the instance with the parameter service.
+     * Constructor to create a distributor parameters instance and register the instance with the
+     * parameter service.
      */
     public DistributorParameters() {
         super(DistributorParameters.class.getCanonicalName());
@@ -46,8 +48,8 @@ public class DistributorParameters extends AbstractParameters {
     }
 
     /**
-     * Constructor to create a distributor parameters instance with the name of a sub class of this class and register
-     * the instance with the parameter service.
+     * Constructor to create a distributor parameters instance with the name of a sub class of this
+     * class and register the instance with the parameter service.
      *
      * @param parameterClassName the class name of a sub class of this class
      */

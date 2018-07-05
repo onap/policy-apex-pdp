@@ -35,6 +35,6 @@
 
     <modules>
         <module>context-management</module>
-        <module>context-test</module>
+        <module>context-test-utils</module>
     </modules>
 </project>
