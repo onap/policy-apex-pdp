@@ -82,7 +82,7 @@ LE
 schema create name=CustomBoolean_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem000",
+  "name"      : "TestContextBooleanItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "flag", "type": "boolean"}
@@ -93,7 +93,7 @@ LE
 schema create name=CustomByte_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem001",
+  "name"      : "TestContextByteItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "byteValue", "type": "int"}
@@ -104,7 +104,7 @@ LE
 schema create name=CustomInteger_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem002",
+  "name"      : "TestContextIntItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "intValue", "type": "int"}
@@ -115,7 +115,7 @@ LE
 schema create name=CustomLong_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem003",
+  "name"      : "TestContextLongItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "longValue", "type": "long"}
@@ -126,7 +126,7 @@ LE
 schema create name=CustomFloat_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem004",
+  "name"      : "TestContextFloatItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "floatValue", "type": "float"}
@@ -137,7 +137,7 @@ LE
 schema create name=CustomDouble_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem005",
+  "name"      : "TestContextDoubleItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "doubleValue", "type": "double"}
@@ -148,7 +148,7 @@ LE
 schema create name=CustomString_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem006",
+  "name"      : "TestContextStringItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "stringValue", "type": "string"}
@@ -159,7 +159,7 @@ LE
 schema create name=CustomALong_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem007",
+  "name"      : "TestContextLongObjectItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "longValue", "type": "long"}
@@ -170,7 +170,7 @@ LE
 schema create name=CustomDate0_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem008",
+  "name"      : "TestContextDateItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
   	{"name": "time"       , "type": "long"},
@@ -188,7 +188,7 @@ LE
 schema create name=CustomDate1_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem009",
+  "name"      : "TestContextDateTzItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "dateValue"     , "type": {
@@ -216,12 +216,12 @@ LE
 schema create name=CustomDate2_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem00A",
+  "name"      : "TestContextDateLocaleItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "dateValue"     , "type": {
   		"type"      : "record",
- 	 	"name"      : "TestContextItem008",
+ 	 	"name"      : "TestContextDateItem",
 		"namespace" : "org.onap.policy.apex.context.test.avro.concepts",
 		"fields"    : [
     		{"name": "time"       , "type": "long"},
@@ -247,7 +247,7 @@ LE
 schema create name=CustomSet_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem00B",
+  "name"      : "TestContextTreeSetItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "setValue", "type": {
@@ -261,7 +261,7 @@ LE
 schema create name=CustomMap_type flavour=Avro schema=LS
 {
   "type"      : "record",
-  "name"      : "TestContextItem00C",
+  "name"      : "TestContextTreeMapItem",
   "namespace" : "org.onap.policy.apex.context.test.avro.concepts",
   "fields"    : [
     {"name": "mapValue", "type": {
