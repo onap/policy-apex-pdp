@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.context</groupId>
-            <artifactId>context-test</artifactId>
+            <artifactId>context-test-utils</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

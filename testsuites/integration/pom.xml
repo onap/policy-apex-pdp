@@ -31,8 +31,43 @@
     <artifactId>integration</artifactId>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>integration-common</module>
-        <module>integration-uservice-test</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>apexDefault</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>integration-common</module>
+                <module>integration-uservice-test</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>apexMetrics</id>
+            <activation>
+                <property>
+                    <name>apexMetrics</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integration-common</module>
+                <module>integration-uservice-test</module>
+                <module>integration-context-metrics</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>apexAll</id>
+            <activation>
+                <property>
+                    <name>apexAll</name>
+                </property>
+            </activation>
+            <modules>
+                <module>integration-common</module>
+                <module>integration-uservice-test</module>
+                <module>integration-context-test</module>
+                <module>integration-context-metrics</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>

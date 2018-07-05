@@ -84,8 +84,8 @@ public class TestCLIEditorEventsContext {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(25911, logCharCount);
-        assertEquals(46138, modelCharCount);
+        assertEquals(25962, logCharCount);
+        assertEquals(46189, modelCharCount);
     }
 
     /**
@@ -114,8 +114,8 @@ public class TestCLIEditorEventsContext {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(30366, logCharCount);
-        assertEquals(52981, modelCharCount);
+        assertEquals(30407, logCharCount);
+        assertEquals(53022, modelCharCount);
 
     }
 
