@@ -145,5 +145,6 @@
         <module>plugins</module>
         <module>packages</module>
         <module>testsuites</module>
+        <module>client</module>
     </modules>
 </project>
