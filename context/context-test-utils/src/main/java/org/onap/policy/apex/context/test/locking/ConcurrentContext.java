@@ -21,6 +21,12 @@
 package org.onap.policy.apex.context.test.locking;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
@@ -28,6 +34,7 @@ import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
+import org.onap.policy.apex.context.test.utils.IntegrationThreadFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
@@ -41,8 +48,6 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ConcurrentContext {
-    private static final int TEN_MILLISECONDS = 10;
-
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContext.class);
 
@@ -75,45 +80,49 @@ public class ConcurrentContext {
 
         LOGGER.debug("starting JVMs and threads . . .");
 
-        final Thread[] threadArray = new Thread[threadCount];
+        final String name = getThreadFactoryName(jvmCount, testType);
+        final IntegrationThreadFactory threadFactory = new IntegrationThreadFactory(name);
+        final ExecutorService executorService = Executors.newFixedThreadPool(threadCount, threadFactory);
+
+        final List<Future<?>> tasks = new ArrayList<>(threadCount);
+
 
         // Check if we have a single JVM or multiple JVMs
-        int runningThreadCount = -1;
         if (jvmCount == 1) {
             // Run everything in this JVM
             for (int t = 0; t < threadCount; t++) {
-                threadArray[t] = new Thread(new ConcurrentContextThread(0, t, threadLoops));
-                threadArray[t].setName(testType + ":TestConcurrentContextThread_0_" + t);
-                threadArray[t].start();
+                tasks.add(executorService.submit(new ConcurrentContextThread(0, t, threadLoops)));
             }
 
-            runningThreadCount = threadCount;
         } else {
             // Spawn JVMs to run the tests
             for (int j = 0; j < jvmCount; j++) {
-                threadArray[j] = new Thread(new ConcurrentContextJVMThread(testType, j, threadCount, threadLoops));
-                threadArray[j].setName(testType + ":TestConcurrentContextJVMThread_" + j);
-                threadArray[j].start();
+                final ConcurrentContextJVMThread runnable =
+                        new ConcurrentContextJVMThread(testType, j, threadCount, threadLoops);
+                final Future<?> task = executorService.submit(runnable);
+                tasks.add(task);
+
             }
-            runningThreadCount = jvmCount;
         }
 
-        boolean allFinished;
-        do {
-            allFinished = true;
-            for (int i = 0; i < runningThreadCount; i++) {
-                if (threadArray[i].isAlive()) {
-                    allFinished = false;
-                    try {
-                        Thread.sleep(TEN_MILLISECONDS);
-                    } catch (final Exception e) {
-                    }
-                    break;
-                }
-            }
-        } while (!allFinished);
+
+        try {
+            executorService.shutdown();
+            // wait for threads to finish, if not Timeout
+            executorService.awaitTermination(10, TimeUnit.MINUTES);
+        } catch (final InterruptedException interruptedException) {
+            LOGGER.error("Exception while waiting for threads to finish", interruptedException);
+        }
+
+        LOGGER.info("Shutting down now ... ");
+        executorService.shutdownNow();
 
         return concurrentContext.verifyAndClearContext(jvmCount, threadCount, threadLoops);
+    }
+
+    private String getThreadFactoryName(final int jvmCount, final String testType) {
+        return jvmCount == 1 ? testType + ":TestConcurrentContextThread_0_"
+                : testType + ":TestConcurrentContextJVMThread_";
     }
 
     /**
