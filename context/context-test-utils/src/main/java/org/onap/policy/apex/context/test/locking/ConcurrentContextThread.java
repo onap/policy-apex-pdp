@@ -20,6 +20,9 @@
 
 package org.onap.policy.apex.context.test.locking;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
@@ -38,7 +41,8 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ConcurrentContextThread implements Runnable {
+public class ConcurrentContextThread implements Runnable, Closeable {
+    private static final String VALUE = "testValue";
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextThread.class);
     private final Distributor distributor;
@@ -108,8 +112,8 @@ public class ConcurrentContextThread implements Runnable {
         }
 
         try {
-            lTypeAlbum.lockForWriting("testValue");
-            final TestContextLongItem item = (TestContextLongItem) lTypeAlbum.get("testValue");
+            lTypeAlbum.lockForWriting(VALUE);
+            final TestContextLongItem item = (TestContextLongItem) lTypeAlbum.get(VALUE);
             final long value = item.getLongValue();
             LOGGER.info("completed TestConcurrentContextThread_" + jvm + "_" + instance + ", value=" + value);
         } catch (final Exception e) {
@@ -117,7 +121,7 @@ public class ConcurrentContextThread implements Runnable {
             LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
         } finally {
             try {
-                lTypeAlbum.unlockForWriting("testValue");
+                lTypeAlbum.unlockForWriting(VALUE);
                 distributor.shutdown();
             } catch (final ContextException e) {
                 LOGGER.error("could not unlock test context album item", e);
@@ -129,18 +133,23 @@ public class ConcurrentContextThread implements Runnable {
     private void updateAlbum(final ContextAlbum lTypeAlbum) throws Exception {
         for (int i = 0; i < threadLoops; i++) {
             try {
-                lTypeAlbum.lockForWriting("testValue");
-                TestContextLongItem item = (TestContextLongItem) lTypeAlbum.get("testValue");
+                lTypeAlbum.lockForWriting(VALUE);
+                TestContextLongItem item = (TestContextLongItem) lTypeAlbum.get(VALUE);
                 if (item != null) {
                     long value = item.getLongValue();
                     item.setLongValue(++value);
                 } else {
                     item = new TestContextLongItem(0L);
                 }
-                lTypeAlbum.put("testValue", item);
+                lTypeAlbum.put(VALUE, item);
             } finally {
-                lTypeAlbum.unlockForWriting("testValue");
+                lTypeAlbum.unlockForWriting(VALUE);
             }
         }
+    }
+
+    @Override
+    public void close() throws IOException {
+        LOGGER.info("Shutting down {} thread ...", Thread.currentThread().getName());
     }
 }
