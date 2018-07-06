@@ -28,19 +28,19 @@ schema create name=JavaLong_type      flavour=Java schema=java.lang.Long
 schema create name=JavaFloat_type     flavour=Java schema=java.lang.Float
 schema create name=JavaDouble_type    flavour=Java schema=java.lang.Double
 schema create name=JavaString_type    flavour=Java schema=java.lang.String
-schema create name=CustomBoolean_type flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem000
-schema create name=CustomByte_type    flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem001
-schema create name=CustomInteger_type flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem002
-schema create name=CustomLong_type    flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem003
-schema create name=CustomFloat_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem004
-schema create name=CustomDouble_type  flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem005
-schema create name=CustomString_type  flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem006
-schema create name=CustomJLong_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem007
-schema create name=CustomDate0_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem008
-schema create name=CustomDate1_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem009
-schema create name=CustomDate2_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem00A
-schema create name=CustomSet_type     flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem00B
-schema create name=CustomMap_type     flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextItem00C
+schema create name=CustomBoolean_type flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextBooleanItem
+schema create name=CustomByte_type    flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextByteItem
+schema create name=CustomInteger_type flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextIntItem
+schema create name=CustomLong_type    flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextLongItem
+schema create name=CustomFloat_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextFloatItem
+schema create name=CustomDouble_type  flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextDoubleItem
+schema create name=CustomString_type  flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextStringItem
+schema create name=CustomJLong_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextLongObjectItem
+schema create name=CustomDate0_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextDateItem
+schema create name=CustomDate1_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextDateTzItem
+schema create name=CustomDate2_type   flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem
+schema create name=CustomSet_type     flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextTreeSetItem
+schema create name=CustomMap_type     flavour=Java schema=org.onap.policy.apex.context.test.concepts.TestContextTreeMapItem
 
 event create name=Test_InputEvent nameSpace=org.onap.policy.apex.test source=External target=Apex
 
@@ -247,14 +247,14 @@ customDouble .setDoubleValue(customDouble .getDoubleValue() + 1);
 customString .setStringValue(customString .getStringValue() + " added to end of string");
 customJLong  .setLongValue  (customJLong  .getLongValue()   + 1);
 
-customDate0Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextItem008");
+customDate0Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateItem");
 customDate0 = new customDate0Type(1499868391);
 
-customDate1Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextItem009");
+customDate1Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateTzItem");
 customDate1 = new customDate1Type();
 customDate1.setDateValue(customDate0);
 
-customDate2Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextItem00A");
+customDate2Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem");
 customDate2 = new customDate2Type();
 customDate2.setDateValue(customDate0);
 
