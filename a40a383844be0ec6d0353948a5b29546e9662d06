@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Ram Krishna Verma <ram.krishna.verma@ericsson.com>
+Code-Review+1: Pamela Dragosh <pdragosh@research.att.com>
+Code-Review+1: Waqas Ikram <waqas.ikram@ericsson.com>
+Code-Review+2: Jorge Hernandez <jh1730@att.com>
+Submitted-by: Jorge Hernandez <jh1730@att.com>
+Submitted-at: Fri, 06 Jul 2018 13:37:44 +0000
+Reviewed-on: https://gerrit.onap.org/r/55939
+Project: policy/apex-pdp
+Branch: refs/heads/master
