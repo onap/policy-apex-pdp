@@ -91,9 +91,15 @@ public class TestKafka2Kafka {
 
     @AfterClass
     public static void shutdownDummyKafkaServer() throws IOException {
-        kafkaServer.shutdown();
-        zkClient.close();
-        zkServer.shutdown();
+        if (kafkaServer != null) {
+            kafkaServer.shutdown();
+        }
+        if (zkClient != null) {
+            zkClient.close();
+        }
+        if (zkServer != null) {
+            zkServer.shutdown();
+        }
     }
 
     @Test

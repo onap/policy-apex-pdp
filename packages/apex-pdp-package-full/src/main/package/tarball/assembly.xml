@@ -45,7 +45,7 @@
 	</dependencySets>
 	<fileSets>
 		<fileSet>
-			<directory>${project.basedir}/src/main/package/bin</directory>
+			<directory>${project.basedir}/src/main/package/scripts</directory>
 			<includes>
 				<include>*</include>
 			</includes>

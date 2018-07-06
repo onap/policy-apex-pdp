@@ -308,7 +308,7 @@ public class SequentialContextInstantiation {
         testBadItem001.setByteValue(BYTE_VAL);
         testBadItem002.setIntValue(INT_VAL);
         testBadItem003.setLongValue(LONG_VAL);
-        testBadItem004.setFloatValue(new Float(FLOAT_VAL));
+        testBadItem004.setFloatValue(FLOAT_VAL);
         testBadItem005.setDoubleValue(PI_VAL);
         testBadItem006.setStringValue(STRING_GLOBAL_VAL);
         testBadItem007.setLongValue(testDate.getTime());

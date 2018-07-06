@@ -51,7 +51,7 @@ public class Constants {
     public static final String TEST_POLICY_CONTEXT_ITEM = TestPolicyContextItem.class.getName();
     public static final TimeZone TIME_ZONE = TimeZone.getTimeZone("Europe/Dublin");
 
-    public static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = {new AxArtifactKey("testC-top", VERSION),
+    public static AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = {new AxArtifactKey("testC-top", VERSION),
             new AxArtifactKey("testC-next", VERSION), new AxArtifactKey("testC-bot", VERSION)};
 
     private Constants() {}
