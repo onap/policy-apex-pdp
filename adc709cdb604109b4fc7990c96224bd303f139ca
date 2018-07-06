@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_d645c115",
+        "filename": "client/client-monitoring/src/main/java/org/onap/policy/apex/client/monitoring/rest/ApexMonitoringRest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-06T16:22:39Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_365e65ea",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/ApexAjax.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-06T16:22:39Z",
+      "side": 1,
+      "message": "try not to use tabs",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 2
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b6711579",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/avsc/avsc.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-06T16:22:39Z",
+      "side": 1,
+      "message": "wrong license header",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 44
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d66ce19f",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/d3/LICENSE",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-06T16:22:39Z",
+      "side": 1,
+      "message": "Wrong header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 32
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
