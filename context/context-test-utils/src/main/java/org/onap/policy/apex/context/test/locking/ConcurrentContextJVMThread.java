@@ -77,6 +77,8 @@ public class ConcurrentContextJVMThread implements Runnable {
         final List<String> commandList = new ArrayList<>();
         commandList.add(System.getProperty("java.home") + System.getProperty("file.separator") + "bin"
                 + System.getProperty("file.separator") + "java");
+        commandList.add("-Xms512m");
+        commandList.add("-Xmx512m");
         commandList.add("-cp");
         commandList.add(System.getProperty("java.class.path"));
         commandList.add(ConcurrentContextJVM.class.getCanonicalName());
@@ -84,6 +86,7 @@ public class ConcurrentContextJVMThread implements Runnable {
         commandList.add(new Integer(jvm).toString());
         commandList.add(new Integer(threadCount).toString());
         commandList.add(new Integer(target).toString());
+        commandList.add(System.getProperty("hazelcast.config"));
 
         for (final Entry<Class<?>, AbstractParameters> parameterServiceEntry : ParameterService.getAll()) {
             commandList.add(parameterServiceEntry.getKey().getCanonicalName());
