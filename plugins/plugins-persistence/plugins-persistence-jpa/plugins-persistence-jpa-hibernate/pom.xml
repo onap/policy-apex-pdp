@@ -50,5 +50,10 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.context</groupId>
+            <artifactId>context-test</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

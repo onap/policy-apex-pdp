@@ -29,4 +29,12 @@
     <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for persistence using EclipseLink</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.context</groupId>
+            <artifactId>context-test</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.plugins.persistence.jpa.hibernate;
+package org.onap.policy.apex.context.test.entities;
 
 import java.util.Arrays;
 import java.util.List;
