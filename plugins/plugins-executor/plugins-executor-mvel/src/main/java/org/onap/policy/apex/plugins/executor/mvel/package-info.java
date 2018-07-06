@@ -20,9 +20,9 @@
 
 /**
  * Implements the MVEL executor plugin for APEX, providing extensions of the abstract classes
- * {@link com.ericsson.apex.core.engine.executor.TaskExecutor},
- * {@link com.ericsson.apex.core.engine.executor.TaskSelectExecutor}, and
- * {@link com.ericsson.apex.core.engine.executor.StateFinalizerExecutor}.
+ * {@link org.onap.policy.apex.core.engine.executor.TaskExecutor},
+ * {@link org.onap.policy.apex.core.engine.executor.TaskSelectExecutor}, and
+ * {@link org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor}.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

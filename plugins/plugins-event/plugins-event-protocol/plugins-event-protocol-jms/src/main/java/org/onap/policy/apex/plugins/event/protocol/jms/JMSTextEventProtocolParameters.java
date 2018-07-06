@@ -28,7 +28,7 @@ import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEve
  * Text messages received and sent over JMS in ~Text format are assumed to be in a JSON format that Apex can understand.
  * Therefore this plugin is a subclass of the built in JSON event protocol plugin.
  * <p>
- * On reception of a JMS {@link javax.jms.TextMessage} message, the JMS Text plugin unmarshals the message the JMS text
+ * On reception of a JMS {@code javax.jms.TextMessage} message, the JMS Text plugin unmarshals the message the JMS text
  * message and passes it to its JSON superclass unmarshaling for processing.
  * <p>
  * When sending an Apex event, the plugin uses its underlying JSON superclass to marshal the event to a JSON string and
