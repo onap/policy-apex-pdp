@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_bbc49e41",
+        "filename": "testsuites/integration/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-06T08:01:46Z",
+      "side": 1,
+      "message": "Do we still need the profiles. We introduced the profiles to speed up the build because the context tests are so slow but do we still need them? Should we always run the context multi-JVM tests?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 15
+      },
+      "revId": "578ca6cca204553bca639502cf54a13d30c2d3d3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
