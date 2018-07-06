@@ -20,7 +20,7 @@
 
 /**
  * Contains implementations of Apex event protocol converter plugins for JMS event protocols that are implementations of
- * {@link javax.jms.Message}.
+ * {@code javax.jms.Message}.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

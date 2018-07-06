@@ -26,34 +26,34 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  * Event protocol parameters for JMS Object messages as an event protocol.
  *
  * <p>
- * On reception of an a JMS {@link javax.jms.ObjectMessage}, the JMS Object plugin unmarshals the message as follows:
+ * On reception of an a JMS {@code javax.jms.ObjectMessage}, the JMS Object plugin unmarshals the message as follows:
  * <ol>
- * <li>It extracts the Java object from the {@link javax.jms.ObjectMessage} instance.
- * <li>It creates an {@link org.onap.policy.apex.service.engine.event.ApexEvent} instance to hold the java object.
+ * <li>It extracts the Java object from the {@code javax.jms.ObjectMessage} instance.</li>
+ * <li>It creates an {@link org.onap.policy.apex.service.engine.event.ApexEvent} instance to hold the java object.</li>
  * <li>It sets the name of the Apex event to be the simple class name of the incoming Java object and appends the value
- * of the {@code incomingEventSuffix} parameter to it.
- * <li>It sets the version of the incoming event to the value of the {@code incomingEventVersion} parameter.
+ * of the {@code incomingEventSuffix} parameter to it.</li>
+ * <li>It sets the version of the incoming event to the value of the {@code incomingEventVersion} parameter.</li>
  * <li>It sets the name space of the incoming event to be the value of the package of the class of the incoming Java
- * object.
- * <li>It sets the source of the incoming event to the value of the {@code incomingEventSource} parameter.
- * <li>It sets the target of the incoming event to the value of the {@code incomingEventTarget} parameter.
+ * object.</li>
+ * <li>It sets the source of the incoming event to the value of the {@code incomingEventSource} parameter.</li>
+ * <li>It sets the target of the incoming event to the value of the {@code incomingEventTarget} parameter.</li>
  * <li>It puts a single entry into the Apex event map with the the simple class name of the incoming Java object being
- * the key of the entry and the actual incoming object as the value of the entry.
+ * the key of the entry and the actual incoming object as the value of the entry.</li>
  * </ol>
  * <p>
  * When sending an object to JMS, the plugin expects to receive an Apex event with a single entry. The plugin marshals
- * the value of that entry to an object that can be sent by JMS as a {@link javax.jms.ObjectMessage} instance.
+ * the value of that entry to an object that can be sent by JMS as a {@code javax.jms.ObjectMessage} instance.
  * <p>
  * The parameters for this plugin are:
  * <ol>
  * <li>incomingEventSuffix: The suffix to append to the simple name of incoming Java class instances when they are
- * encapsulated in Apex events. The parameter defaults to the string value {@code IncomingEvent}.
+ * encapsulated in Apex events. The parameter defaults to the string value {@code IncomingEvent}.</li>
  * <li>incomingEventVersion: The event version to use for incoming Java class instances when they are encapsulated in
- * Apex events. The parameter defaults to the string value {@code 1.0.0}.
+ * Apex events. The parameter defaults to the string value {@code 1.0.0}.</li>
  * <li>incomingEventSource: The event source to use for incoming Java class instances when they are encapsulated in Apex
- * events. The parameter defaults to the string value {@code JMS}.
+ * events. The parameter defaults to the string value {@code JMS}.</li>
  * <li>incomingEventTarget: The event target to use for incoming Java class instances when they are encapsulated in Apex
- * events. The parameter defaults to the string value {@code Apex}.
+ * events. The parameter defaults to the string value {@code Apex}.</li>
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)

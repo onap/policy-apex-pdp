@@ -40,5 +40,6 @@
     <modules>
         <module>plugins-event-protocol-jms</module>
         <module>plugins-event-protocol-xml</module>
+        <module>plugins-event-protocol-yaml</module>
     </modules>
 </project>

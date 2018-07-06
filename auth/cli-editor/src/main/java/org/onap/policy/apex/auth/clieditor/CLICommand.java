@@ -27,7 +27,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
  * This class represents a single Apex CLI command that is issued to the Apex Editor Java API
- * {@link com.ericsson.apex.model.modelapi.ApexEditorAPI}.
+ * {@link org.onap.policy.apex.model.modelapi.ApexEditorAPI}.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

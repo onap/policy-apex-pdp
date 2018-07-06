@@ -85,6 +85,7 @@ public class ApexException extends Exception {
     /**
      * Build a cascaded message from an exception and all its nested exceptions
      * @param throwable the top level exception
+     * @return cascaded message string
      */
     public static String buildCascadedMessage(Throwable throwable) {
         final StringBuilder builder = new StringBuilder();

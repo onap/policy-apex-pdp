@@ -100,9 +100,9 @@ public final class MessagingUtils {
     }
 
     /**
-     * Check if port is available or not
+     * Check if port is available or not.
      * 
-     * @param port
+     * @param port the port to test
      * @return true if port is available
      */
     public static boolean isPortAvailable(final int port) {
