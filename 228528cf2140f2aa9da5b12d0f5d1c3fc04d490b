@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_b653556b",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-06T20:49:48Z",
+      "side": 1,
+      "message": "Better to put this in the root .gitignore",
+      "range": {
+        "startLine": 1,
+        "startChar": 3,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "228528cf2140f2aa9da5b12d0f5d1c3fc04d490b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
