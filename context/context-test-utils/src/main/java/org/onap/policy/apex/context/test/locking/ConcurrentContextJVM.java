@@ -20,20 +20,25 @@
 
 package org.onap.policy.apex.context.test.locking;
 
-import com.google.gson.Gson;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
+import org.onap.policy.apex.context.test.utils.IntegrationThreadFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
@@ -41,6 +46,8 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
+import com.google.gson.Gson;
 
 /**
  * The Class ConcurrentContextJVM tests concurrent use of context in a single JVM.
@@ -51,8 +58,15 @@ public final class ConcurrentContextJVM {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJVM.class);
 
-    private static final int TEN_MILLISECONDS = 10;
     private static final int IPV4_ADDRESS_LENGTH = 4;
+
+    private final int jvmNo;
+
+    private final int threadCount;
+
+    private final int threadLoops;
+
+    private final ExecutorService executorService;
 
     /**
      * The Constructor.
@@ -63,9 +77,15 @@ public final class ConcurrentContextJVM {
      * @param threadLoops the thread loops
      * @throws ApexException the apex exception
      */
-    private ConcurrentContextJVM(final String testType, final int jvmNo, final int threadCount, final int threadLoops)
-            throws ApexException {
-        super();
+    private ConcurrentContextJVM(final String testType, final int jvmNo, final int threadCount, final int threadLoops) {
+        this.jvmNo = jvmNo;
+        this.threadCount = threadCount;
+        this.threadLoops = threadLoops;
+        final String name = testType + ":ConcurrentContextThread_" + jvmNo;
+        this.executorService = Executors.newFixedThreadPool(threadCount, new IntegrationThreadFactory(name));
+    }
+
+    public void execute() throws ApexException {
         LOGGER.debug("starting JVMs and threads . . .");
 
         final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor" + jvmNo, "0.0.1");
@@ -87,33 +107,27 @@ public final class ConcurrentContextJVM {
         assert (lTypeAlbum != null);
         lTypeAlbum.setUserArtifactStack(usedArtifactStackArray);
 
-        final Thread[] threadArray = new Thread[threadCount];
+        final List<Future<?>> tasks = new ArrayList<>(threadCount);
 
         for (int t = 0; t < threadCount; t++) {
-            threadArray[t] = new Thread(new ConcurrentContextThread(jvmNo, t, threadLoops));
-            threadArray[t].setName(testType + ":ConcurrentContextThread_" + jvmNo + "_" + t);
-            threadArray[t].start();
-            LOGGER.debug("started thread " + threadArray[t].getName());
+            tasks.add(executorService.submit(new ConcurrentContextThread(jvmNo, t, threadLoops)));
         }
 
-        boolean allFinished;
-        do {
-            allFinished = true;
-            for (int t = 0; t < threadCount; t++) {
-                if (threadArray[t].isAlive()) {
-                    allFinished = false;
-                    try {
-                        Thread.sleep(TEN_MILLISECONDS);
-                    } catch (final Exception e) {
-                    }
-                    break;
-                }
-            }
-        } while (!allFinished);
+        try {
+            executorService.shutdown();
+            // wait for threads to finish, if not Timeout
+            executorService.awaitTermination(10, TimeUnit.MINUTES);
+        } catch (final InterruptedException interruptedException) {
+            LOGGER.error("Exception while waiting for threads to finish", interruptedException);
+        }
 
         LOGGER.debug("threads finished, end value is {}", lTypeAlbum.get("testValue"));
         contextDistributor.clear();
+        LOGGER.info("Shutting down now ... ");
+        executorService.shutdownNow();
     }
+
+
 
     /**
      * The main method.
@@ -129,7 +143,7 @@ public final class ConcurrentContextJVM {
         // CHECKSTYLE:OFF: checkstyle:magicNumber
 
         // An even number of arguments greater than 3
-        if (args.length < 4 || (args.length % 2 != 0)) {
+        if (args.length < 7) {
             LOGGER.error("invalid arguments: " + Arrays.toString(args));
             LOGGER.error(
                     "usage: TestConcurrentContextJVM testType jvmNo threadCount threadLoops [parameterKey parameterJson].... ");
@@ -139,6 +153,7 @@ public final class ConcurrentContextJVM {
         int jvmNo = -1;
         int threadCount = -1;
         int threadLoops = -1;
+        String hazelCastfileLocation = null;
 
         try {
             jvmNo = Integer.parseInt(args[1]);
@@ -161,7 +176,16 @@ public final class ConcurrentContextJVM {
             return;
         }
 
-        for (int p = 4; p < args.length - 1; p += 2) {
+        try {
+            hazelCastfileLocation = args[4].trim();
+        } catch (final Exception e) {
+            LOGGER.error("invalid argument hazelcast file location", e);
+            return;
+        }
+
+        System.setProperty("hazelcast.config", hazelCastfileLocation);
+
+        for (int p = 5; p < args.length - 1; p += 2) {
             @SuppressWarnings("rawtypes")
             final Class parametersClass = Class.forName(args[p]);
             final AbstractParameters parameters =
@@ -175,12 +199,17 @@ public final class ConcurrentContextJVM {
         }
 
         try {
-            new ConcurrentContextJVM(args[0], jvmNo, threadCount, threadLoops);
+            final ConcurrentContextJVM concurrentContextJVM =
+                    new ConcurrentContextJVM(args[0], jvmNo, threadCount, threadLoops);
+            concurrentContextJVM.execute();
+
         } catch (final Exception e) {
             LOGGER.error("error running test in JVM", e);
             return;
         }
         // CHECKSTYLE:ON: checkstyle:magicNumber
+
+
     }
 
     /**
@@ -190,11 +219,11 @@ public final class ConcurrentContextJVM {
      */
     public static void configure() throws Exception {
         System.setProperty("java.net.preferIPv4Stack", "true");
-        System.setProperty("hazelcast.config", "src/test/resources/hazelcast/hazelcast.xml");
-
-        // The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to work. IN order to
+        // The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to
+        // work. IN order to
         // ensure that all
-        // the JVMs in a test pick up the same IP address, this function sets te address to be the first non-loopback
+        // the JVMs in a test pick up the same IP address, this function sets te address to be the
+        // first non-loopback
         // IPv4 address
         // on a host
         final TreeSet<String> ipAddressSet = new TreeSet<String>();
