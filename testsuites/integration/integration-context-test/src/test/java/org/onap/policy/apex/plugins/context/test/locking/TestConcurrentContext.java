@@ -48,6 +48,7 @@ import org.onap.policy.apex.context.test.locking.ConcurrentContext;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanDistributorParameters;
@@ -65,6 +66,11 @@ import com.hazelcast.config.Config;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestConcurrentContext {
+    private static final String HAZELCAST_CONFIG = "hazelcast.config";
+   
+    private static final String JAVA_NET_PREFER_IPV4_STACK = "java.net.preferIPv4Stack";
+    private static final String HAZELCAST_XML_FILE = "src/test/resources/hazelcast/hazelcast.xml";
+
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestConcurrentContext.class);
 
@@ -89,8 +95,9 @@ public class TestConcurrentContext {
 
     @BeforeClass
     public static void configure() throws Exception {
-        System.setProperty("java.net.preferIPv4Stack", "true");
-        System.setProperty("hazelcast.config", "src/test/resources/hazelcast/hazelcast.xml");
+        System.setProperty(JAVA_NET_PREFER_IPV4_STACK, "true");
+        final String hazelCastfileLocation = ResourceUtils.getFilePath4Resource(HAZELCAST_XML_FILE);
+        System.setProperty(HAZELCAST_CONFIG, hazelCastfileLocation);
 
         // The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to
         // work. IN order to ensure that all
