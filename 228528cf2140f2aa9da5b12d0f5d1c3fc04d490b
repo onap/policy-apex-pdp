@@ -22,6 +22,30 @@
       "revId": "228528cf2140f2aa9da5b12d0f5d1c3fc04d490b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b1c91f5c",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-09T09:51:51Z",
+      "side": 1,
+      "message": "can not move it to root because it will ignore bin directory in packages/apex-pdp-package-full/src/main/package/bin package",
+      "parentUuid": "5a93c517_b653556b",
+      "range": {
+        "startLine": 1,
+        "startChar": 3,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "228528cf2140f2aa9da5b12d0f5d1c3fc04d490b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
