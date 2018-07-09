@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_71a95723",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-07-09T12:23:24Z",
+      "side": 1,
+      "message": "Can we use the .gitignore in the root directory instead of adding one here? It gets hard to manage when there are multiple ones spread out through the tree.",
+      "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
