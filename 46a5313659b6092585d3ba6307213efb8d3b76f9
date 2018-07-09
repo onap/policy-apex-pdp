@@ -16,6 +16,24 @@
       "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_117013db",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-09T12:32:54Z",
+      "side": 1,
+      "message": "Hi Pam, packaging module has source bin folder packages/apex-pdp-package-full/src/main/package/bin so, can\u0027t put it in root .gitignore file otherwise it will ignore packages/apex-pdp-package-full/src/main/package/bin.",
+      "parentUuid": "5a93c517_71a95723",
+      "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
