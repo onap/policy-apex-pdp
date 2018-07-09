@@ -70,6 +70,60 @@
       "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f111e75d",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-09T13:15:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_d1586b59",
+      "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_511bfb7f",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-09T13:15:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_51345bfa",
+      "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_11157348",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-09T13:15:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_71a95723",
+      "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
