@@ -187,6 +187,30 @@
       "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f1b5677e",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/d3/LICENSE",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-09T20:34:37Z",
+      "side": 1,
+      "message": "No, this is the right header. Some of the javascript files are actually Javascript libraries brought in from a third party. This d3 stuff is a third party library. There are a few instances of this in there. See\nhttps://d3js.org/",
+      "parentUuid": "5a93c517_d66ce19f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 32
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
