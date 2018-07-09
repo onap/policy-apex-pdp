@@ -34,6 +34,24 @@
       "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d1586b59",
+        "filename": "plugins/plugins-context/.gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-09T12:47:11Z",
+      "side": 1,
+      "message": "It might be an idea to rename the bin directory in the packaging module as sometimes Eclipse creates bin directories and they are normally considered to be junk. I think it might mean a tweak in the assembly XML file for building the APEX package tarball though.",
+      "parentUuid": "5a93c517_117013db",
+      "revId": "46a5313659b6092585d3ba6307213efb8d3b76f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
