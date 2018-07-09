@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_4c9efeb9",
+        "filename": "client/client-monitoring/src/main/java/org/onap/policy/apex/client/monitoring/rest/ApexMonitoringRestResource.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-09T14:33:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_36c74514",
+      "range": {
+        "startLine": 254,
+        "startChar": 5,
+        "endLine": 287,
+        "endChar": 7
+      },
+      "revId": "7e993a3df11c2253b5e3d9ea94ea6552e61f990f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_b6da75e7",
         "filename": "client/client-monitoring/src/main/resources/webapp/js/ApexModelLoading.js",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-06T20:59:03Z",
       "side": 1,
       "message": "Can you check if this JS file is needed in the monitoring client? I think it\u0027s only used in the deployment client. \n\nActually, can you check all the JS files in this client and the deployment client and make sure there are no unused duplicates? Thanks",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "7e993a3df11c2253b5e3d9ea94ea6552e61f990f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_eca4aa09",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/ApexModelLoading.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-09T14:33:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_b6da75e7",
       "range": {
         "startLine": 1,
         "startChar": 1,
