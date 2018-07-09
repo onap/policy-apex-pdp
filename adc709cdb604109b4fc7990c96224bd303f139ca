@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_cca9aede",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/avsc/avsc.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-09T14:42:26Z",
+      "side": 1,
+      "message": "As discussed, we are using a third party library and hence cannot change the license header.",
+      "parentUuid": "5a93c517_b6711579",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 44
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_d66ce19f",
         "filename": "client/client-monitoring/src/main/resources/webapp/js/d3/LICENSE",
         "patchSetId": 2
@@ -130,6 +154,30 @@
       "writtenOn": "2018-07-06T16:22:39Z",
       "side": 1,
       "message": "Wrong header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 32
+      },
+      "revId": "adc709cdb604109b4fc7990c96224bd303f139ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6cb89a2a",
+        "filename": "client/client-monitoring/src/main/resources/webapp/js/d3/LICENSE",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-09T14:42:26Z",
+      "side": 1,
+      "message": "As discussed, we are using a third party library and hence cannot change the license header.",
+      "parentUuid": "5a93c517_d66ce19f",
       "range": {
         "startLine": 1,
         "startChar": 0,
