@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_c734284c",
+        "filename": "docker_build.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-10T16:30:53Z",
+      "side": 1,
+      "message": "Other components like SO are using docker-maven-plugin create and push images. See below\n\nhttps://gerrit.onap.org/r/gitweb?p\u003dso.git;a\u003dblob;f\u003dpackages/docker/pom.xml;h\u003d5303ce366a60451f922fa0916313caf64a811b0d;hb\u003drefs/heads/master\n\nIn my opinion, docker-maven-plugin will remove all these scripts and improve code maintainability",
+      "parentUuid": "5a93c517_8794e044",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "831025ecda4b593bd480e7b2e7413943c41259b8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_c7a4280a",
         "filename": "packages/apex-pdp-docker/pom.xml",
         "patchSetId": 5
