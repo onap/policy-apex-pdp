@@ -113,6 +113,8 @@ public class ConcurrentContext {
             executorService.awaitTermination(10, TimeUnit.MINUTES);
         } catch (final InterruptedException interruptedException) {
             LOGGER.error("Exception while waiting for threads to finish", interruptedException);
+            // restore the interrupt status
+            Thread.currentThread().interrupt();
         }
 
         LOGGER.info("Shutting down now ...");

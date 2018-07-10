@@ -26,6 +26,7 @@ import org.onap.policy.apex.core.engine.executor.TaskSelectExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.python.core.CompileMode;
+import org.python.core.CompilerFlags;
 import org.python.core.Py;
 import org.python.core.PyCode;
 import org.python.core.PyException;
@@ -34,8 +35,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JythonTaskSelectExecutor is the task selection executor for task selection logic written in Jython It is
- * unlikely that this is thread safe.
+ * The Class JythonTaskSelectExecutor is the task selection executor for task selection logic
+ * written in Jython It is unlikely that this is thread safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -60,8 +61,9 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
         super.prepare();
         try {
             synchronized (Py.class) {
-                compiled = Py.compile_flags(getSubject().getTaskSelectionLogic().getLogic(),
-                        "<" + getSubject().getKey().toString() + ">", CompileMode.exec, null);
+                final String logic = getSubject().getTaskSelectionLogic().getLogic();
+                final String filename = "<" + getSubject().getKey().toString() + ">";
+                compiled = Py.compile_flags(logic, filename, CompileMode.exec, new CompilerFlags());
             }
         } catch (final PyException e) {
             LOGGER.warn("failed to compile Jython code for task selection logic in " + getSubject().getKey().getID(),
