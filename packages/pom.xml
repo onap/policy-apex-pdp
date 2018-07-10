@@ -35,5 +35,6 @@
 
     <modules>
         <module>apex-pdp-package-full</module>
+        <module>docker</module>
     </modules>
 </project>
