@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_6780b58b",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T13:04:41Z",
+      "side": 1,
+      "message": "I think you need to change this to ppa:openjdk-r/ppa\nThe current one doesn\u0027t contain openjdk8 packages.\nPlease check.\n\nhttps://launchpad.net/~webupd8team/+archive/ubuntu/java\nhttps://launchpad.net/~openjdk-r/+archive/ubuntu/ppa",
+      "range": {
+        "startLine": 9,
+        "startChar": 27,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "a177f637c0cabf3f720685ea6e09af3b9ef8df84",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
