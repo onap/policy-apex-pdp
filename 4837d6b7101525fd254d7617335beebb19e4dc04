@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_47e019cc",
+        "filename": "docker_build.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-10T12:36:52Z",
+      "side": 1,
+      "message": "The name of the image is onap/policy-apex. This name is chosen to be consistent with the already existing policy docker images (onap/policy-pe, onap/policy-drools).\nUsing onap/policy/apex-pdp would not work as dockerhub only supports 2 path components in the docker image name\nWe could go with onap/policy-apex-pdp if preferred?",
+      "parentUuid": "5a93c517_67751531",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_278f0d25",
         "filename": "docker_merge.sh",
         "patchSetId": 3
@@ -164,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_a73ebd27",
+        "filename": "packages/docker/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-10T12:36:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_e78125fc",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_079c515c",
         "filename": "packages/docker/src/main/docker/Dockerfile",
         "patchSetId": 3
@@ -187,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_a7d0fdf7",
+        "filename": "packages/docker/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-10T12:36:52Z",
+      "side": 1,
+      "message": "Yes, see line 61 in packages/apex-pdp-docker/pom.xml",
+      "parentUuid": "5a93c517_079c515c",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 33
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_c78f492d",
         "filename": "packages/pom.xml",
         "patchSetId": 3
@@ -198,6 +270,30 @@
       "writtenOn": "2018-07-10T11:45:39Z",
       "side": 1,
       "message": "Just a suggestion, naming the module as apex-pdp-docker might help in resolving eclipse duplicate name problems.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_c7cbc948",
+        "filename": "packages/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-10T12:36:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_c78f492d",
       "range": {
         "startLine": 38,
         "startChar": 16,
