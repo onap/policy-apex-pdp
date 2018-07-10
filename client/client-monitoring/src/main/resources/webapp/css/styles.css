@@ -1,0 +1,441 @@
+/*
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+.ebSystemBar-config {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	height: 40px;
+	width: 20px;
+	padding: 0 10px;
+	background: url('../resources/16px/settings_black_16px.svg') no-repeat
+		center center transparent;
+	background-size: 20px;
+	cursor: pointer;
+}
+
+.content {
+	display: none;
+	padding: 10px;
+}
+
+.context {
+	margin-left: 5px;
+}
+
+.wrapper {
+	border: 1px dashed #ddd;
+	box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px
+		10px #eee;
+	padding: 10px;
+	margin: 10px;
+	min-width: 1287px;
+}
+
+.wrapper_borderless {
+	margin-left: 5px;
+	min-width: 1287px;
+}
+
+.engineService {
+	margin-left: 5px;
+	padding-bottom: 10px;
+}
+
+.apexDialogDiv {
+	background-color: white;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 310px;
+	min-height: 140px;
+	resize: both;
+	overflow: auto;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #c0c0c0;
+	border-radius: 3px;
+	box-shadow: 3px 7px 5px #555555;
+}
+
+.apexDialogDiv {
+	background-color: white;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 310px;
+	min-height: 140px;
+	resize: both;
+	overflow: auto;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #c0c0c0;
+	border-radius: 3px;
+	box-shadow: 3px 7px 5px #555555;
+}
+
+.apexErrorDialogDiv {
+	max-width: 80%;
+	max-height: 80%;
+	overflow: hidden;
+}
+
+/* Dialog */
+.apexDialogDiv .headingSpan {
+	width: 100%;
+	height: 30px;
+	display: inline-block;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	padding: 5px 0px 0px 0px;
+	border-bottom: #c0c0c0 solid 1px;
+}
+
+.apexDialogDivBackground {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0px;
+	left: 0px;
+}
+
+.dialogMessage {
+	white-space: pre-wrap;
+	font: 14px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	overflow-y: auto;
+	max-height: 480px;
+	overflow-x: hidden;
+	word-wrap: break-word;
+}
+
+/* Form */
+.resultFormDiv .form-style-1 .field-textarea {
+	height: 480px;
+	font-size: 15px;
+}
+
+.form-style-1 {
+	margin: 10px auto;
+	font: 16px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.form-style-1 li {
+	padding: 0;
+	display: block;
+	list-style: none;
+	margin: 10px 0 0 0;
+}
+
+.form-style-1 label {
+	margin: 0 0 3px 0;
+	padding: 0px;
+	display: block;
+	font-weight: bold;
+}
+
+.form-style-1 input[type=text], .form-style-1 input[type=date],
+	.form-style-1 input[type=datetime], .form-style-1 input[type=number],
+	.form-style-1 input[type=search], .form-style-1 input[type=time],
+	.form-style-1 input[type=url], .form-style-1 input[type=email],
+	textarea, select {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border: 1px solid #BEBEBE;
+	padding: 0px 7px;
+	margin: 0px;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
+}
+
+.form-style-1 input[type=text]:focus, .form-style-1 input[type=date]:focus,
+	.form-style-1 input[type=datetime]:focus, .form-style-1 input[type=number]:focus,
+	.form-style-1 input[type=search]:focus, .form-style-1 input[type=time]:focus,
+	.form-style-1 input[type=url]:focus, .form-style-1 input[type=email]:focus,
+	.form-style-1 textarea:focus, .form-style-1 select:focus {
+	-moz-box-shadow: 0 0 8px #88D5E9;
+	-webkit-box-shadow: 0 0 8px #88D5E9;
+	box-shadow: 0 0 8px #88D5E9;
+	border: 1px solid #88D5E9;
+}
+
+.form-style-1 input:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+.form-style-1 input:focus:-moz-placeholder {
+	color: transparent;
+}
+
+.form-style-1 .field {
+	font-size: 15px;
+}
+
+.form-style-1 .field-divided {
+	width: 49%;
+	font-size: 15px;
+}
+
+.form-style-1 .field-long {
+	width: 100%;
+	font-size: 15px;
+}
+
+.form-style-1 .field-medium {
+	width: 50%;
+	font-size: 15px;
+}
+
+.form-style-1 .field-select {
+	width: 100%;
+	font-size: 15px;
+}
+
+.form-style-1 .field-textarea {
+	height: 100px;
+	font-size: 15px;
+}
+
+.form-style-1 .field-javaType {
+	width: 100%;
+	font-size: 15px;
+}
+
+.form-style-1 .field-schemaFlavour {
+	width: 100%;
+	font-size: 15px;
+}
+
+.form-style-1 .field-taskSelLogic {
+	width: 100%;
+	font-size: 15px;
+	height: 300px;
+}
+
+.form-style-1 .field-taskLogic {
+	width: 100%;
+	font-size: 15px;
+	height: 300px;
+}
+
+.form-style-1 .field-finalizerLogic {
+	width: 100%;
+	font-size: 15px;
+	height: 300px;
+}
+
+.form-style-1 .field-schemaDefinition {
+	width: 100%;
+	font-size: 15px;
+	height: 100px;
+}
+
+.form-style-1 .required {
+	color: red;
+}
+
+.form-style-1 .button {
+	font-size: 15px;
+}
+
+.form-style-1 .delete_ex {
+	height: 30px;
+	width: 30px;
+	opacity: 1;
+	font-size: 30px;
+	line-height: 30px;
+	transition: all 0.8s;
+	border: 1px solid transparent;
+	text-align: center;
+}
+
+.form-style-1 .delete_ex:hover {
+	border-radius: 50%;
+	background: tomato;
+	border: 1px solid black;
+}
+
+.form-style-1 .delete_ex_disabled {
+	width: 0px;
+	opacity: 0;
+}
+
+/* Icons */
+.expandIcon {
+	float: right;
+}
+
+.ignoreConflictsLabel {
+	font-size: 1.4rem;
+	padding-right: 15px;
+}
+
+#engineServicesTable_periodic_events {
+	align-items: center;
+	display: flex;
+	height: 30px;
+}
+
+.modelLoading {
+	margin-left: 5px;
+	display: none;
+}
+
+.layoutWrapper {
+	margin: 0 40px;
+}
+
+.appHeading {
+	color: rgb(51, 51, 51);
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	height: 32px;
+	line-height: 12px;
+	position: relative;
+}
+
+.ebQuickActionBar {
+	margin-top: 1.2rem;
+	font-size: 0;
+	height: 32px;
+	padding: 0.4rem 0;
+	background-color: #e8e8e8;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+	box-sizing: border-box;
+	-webkit-transition: background-color 0.1s ease-in;
+	transition: background-color 0.1s ease-in;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.ebQuickActionBar_context {
+	background-color: #f3f3f3;
+	border-bottom: 2px solid #65cbe5;
+	box-sizing: border-box;
+	height: 32px;
+}
+
+.ebQuickActionBar>* {
+	margin-left: 0.4rem;
+	margin-right: 0.4rem;
+	vertical-align: middle;
+}
+
+.ebQuickActionBar-iconHolder {
+	display: inline-block;
+	vertical-align: middle;
+	height: 1.6rem;
+}
+
+.ebQuickActionBar-separator {
+	display: inline-block;
+	vertical-align: middle;
+	border-left: 1px solid #CCCCCC;
+	margin: 0 8px;
+	height: 2.4rem;
+}
+
+.ebQuickActionBar-Commands, .ebQuickActionBar-commands {
+	display: inline-block;
+	margin: 0;
+	font-size: 0;
+	line-height: 2.4rem;
+}
+
+.ebQuickActionBar-Commands-iconHolder,
+	.ebQuickActionBar-commands-iconHolder {
+	display: inline-block;
+	vertical-align: middle;
+	height: 1.6rem;
+}
+
+.ebQuickActionBar-Commands-separator,
+	.ebQuickActionBar-commands-separator {
+	display: inline-block;
+	vertical-align: middle;
+	border-left: 1px solid #CCCCCC;
+	margin: 0 8px;
+	height: 2.4rem;
+}
+
+.ebQuickActionBar-Commands>*, .ebQuickActionBar-commands>* {
+	margin-left: 0.4rem;
+	margin-right: 0.4rem;
+	vertical-align: middle;
+}
+
+.ebQuickActionBar-Commands-block, .ebQuickActionBar-commands-block,
+	.ebQuickActionBar-CommandsBlock, .ebQuickActionBar-commandsBlock {
+	margin: 0 0.8rem;
+	display: inline-block;
+}
+
+.ebQuickActionBar-Commands-block>*, .ebQuickActionBar-commands-block>*,
+	.ebQuickActionBar-CommandsBlock>*, .ebQuickActionBar-commandsBlock>* {
+	margin-left: 0.4rem;
+	margin-right: 0.4rem;
+	vertical-align: middle;
+}
+
+.ebQuickActionBar-Commands-block :last-child,
+	.ebQuickActionBar-commands-block :last-child,
+	.ebQuickActionBar-CommandsBlock :last-child,
+	.ebQuickActionBar-commandsBlock :last-child {
+	margin-right: 0;
+}
+
+.title {
+	padding: 0px;
+}
+
+.dataTd {
+	max-width: 1000px;
+	word-wrap: break-word;
+	white-space: normal !important;
+}
+
+.dataTd_wordwrap {
+	max-width: 1000px;
+	word-wrap: break-word;
+	white-space: pre-wrap !important;
+}
+
+.engineContextTitle {
+	padding: 1.2rem 0 .7rem 0;
+	font-weight: normal;
+}
+
+.engineContextWrapper {
+	display: inline-block;
+	float: left;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
