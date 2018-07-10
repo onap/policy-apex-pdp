@@ -119,6 +119,8 @@ public final class ConcurrentContextJVM {
             executorService.awaitTermination(10, TimeUnit.MINUTES);
         } catch (final InterruptedException interruptedException) {
             LOGGER.error("Exception while waiting for threads to finish", interruptedException);
+            // restore the interrupt status
+            Thread.currentThread().interrupt();
         }
 
         LOGGER.debug("threads finished, end value is {}", lTypeAlbum.get("testValue"));

@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.context.test.utils;
 
 import java.util.TimeZone;
@@ -51,8 +52,12 @@ public class Constants {
     public static final String TEST_POLICY_CONTEXT_ITEM = TestPolicyContextItem.class.getName();
     public static final TimeZone TIME_ZONE = TimeZone.getTimeZone("Europe/Dublin");
 
-    public static AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = {new AxArtifactKey("testC-top", VERSION),
-            new AxArtifactKey("testC-next", VERSION), new AxArtifactKey("testC-bot", VERSION)};
+    public static final AxArtifactKey KEY = new AxArtifactKey("testC-top", VERSION);
+    public static final AxArtifactKey KEY3 = new AxArtifactKey("testC-bot", VERSION);
+    public static final AxArtifactKey KEY2 = new AxArtifactKey("testC-next", VERSION);
+
+    private static final AxArtifactKey[] AX_ARTIFACT_KEYS = {KEY, KEY2, KEY3};
+    public static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = AX_ARTIFACT_KEYS;
 
     private Constants() {}
 
