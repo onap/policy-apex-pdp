@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_67751531",
+        "filename": "docker_build.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_278f0d25",
+        "filename": "docker_merge.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_4792594c",
+        "filename": "docker_verify.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_07ae9198",
+        "filename": "packages/docker/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 24
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e7aa8584",
+        "filename": "packages/docker/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "we are calling it as policy/apex-pdp everywhere. It will be good if we maintain the same here as well.",
+      "range": {
+        "startLine": 51,
+        "startChar": 72,
+        "endLine": 51,
+        "endChar": 83
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_e78125fc",
+        "filename": "packages/docker/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "I think we use openjdk-8-jdk in ONAP. Please check.",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_079c515c",
+        "filename": "packages/docker/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "The actual tar.gz created by apex-pdp-package-full is named as \"apex-pdp-package-full-2.0.0-SNAPSHOT-tarball.tar.gz\".\nAre you renaming it before copying?",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 33
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_c78f492d",
+        "filename": "packages/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-10T11:45:39Z",
+      "side": 1,
+      "message": "Just a suggestion, naming the module as apex-pdp-docker might help in resolving eclipse duplicate name problems.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
