@@ -140,6 +140,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_2704ed7c",
+        "filename": "packages/docker/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-10T12:09:59Z",
+      "side": 1,
+      "message": "Yes, OpenJDK 8",
+      "parentUuid": "5a93c517_e78125fc",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "4837d6b7101525fd254d7617335beebb19e4dc04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_079c515c",
         "filename": "packages/docker/src/main/docker/Dockerfile",
         "patchSetId": 3
