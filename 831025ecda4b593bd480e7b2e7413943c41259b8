@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_e7436411",
+        "filename": "docker_build.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-10T14:02:59Z",
+      "side": 1,
+      "message": "Why not use docker-maven-plugin to create and push the docker images to DOCKER_REPOSITORY???\n\n\nhttps://github.com/spotify/docker-maven-plugin",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "831025ecda4b593bd480e7b2e7413943c41259b8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_c7a4280a",
         "filename": "packages/apex-pdp-docker/pom.xml",
         "patchSetId": 5
