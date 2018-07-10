@@ -20,9 +20,8 @@
 
 package org.onap.policy.apex.context.test.locking;
 
-import com.google.gson.Gson;
-
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,12 +35,14 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+import com.google.gson.Gson;
+
 /**
  * The Class TestConcurrentContextThread tests concurrent use of context.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ConcurrentContextJVMThread implements Runnable {
+public class ConcurrentContextJVMThread implements Runnable, Closeable {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJVMThread.class);
 
@@ -49,6 +50,7 @@ public class ConcurrentContextJVMThread implements Runnable {
     private final int jvm;
     private final int threadCount;
     private final int target;
+    private Process process = null;
 
     /**
      * The Constructor.
@@ -77,6 +79,8 @@ public class ConcurrentContextJVMThread implements Runnable {
         final List<String> commandList = new ArrayList<>();
         commandList.add(System.getProperty("java.home") + System.getProperty("file.separator") + "bin"
                 + System.getProperty("file.separator") + "java");
+        commandList.add("-Xms512m");
+        commandList.add("-Xmx512m");
         commandList.add("-cp");
         commandList.add(System.getProperty("java.class.path"));
         commandList.add(ConcurrentContextJVM.class.getCanonicalName());
@@ -84,6 +88,7 @@ public class ConcurrentContextJVMThread implements Runnable {
         commandList.add(new Integer(jvm).toString());
         commandList.add(new Integer(threadCount).toString());
         commandList.add(new Integer(target).toString());
+        commandList.add(System.getProperty("hazelcast.config"));
 
         for (final Entry<Class<?>, AbstractParameters> parameterServiceEntry : ParameterService.getAll()) {
             commandList.add(parameterServiceEntry.getKey().getCanonicalName());
@@ -95,7 +100,7 @@ public class ConcurrentContextJVMThread implements Runnable {
         // Run the JVM
         final ProcessBuilder processBuilder = new ProcessBuilder(commandList);
         processBuilder.redirectErrorStream(true);
-        Process process;
+
 
         try {
             process = processBuilder.start();
@@ -119,6 +124,16 @@ public class ConcurrentContextJVMThread implements Runnable {
             }
         } catch (final IOException ioException) {
             LOGGER.error("Error occured while writing JVM Output for command ", ioException);
+        }
+    }
+
+
+    @Override
+    public void close() {
+        LOGGER.info("Shutting down {} thread ...", Thread.currentThread().getName());
+        if (process != null) {
+            LOGGER.info("Destroying process ...");
+            process.destroy();
         }
     }
 }

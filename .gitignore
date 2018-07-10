@@ -7,5 +7,6 @@
 target
 .metadata/
 /bin/
+bin/
 derby.log
 .checkstyle
