@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_474818cc",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-10T16:39:41Z",
+      "side": 1,
+      "message": "@Pam/Liam/Jorge: These packages are common for all modules in policy framework i.e. PDP-X, PDP-D etc, it can be extracted to a common image and extended by all modules in PF",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "ef24b0561786040752bd46ade5859968d57ea031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
