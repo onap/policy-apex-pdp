@@ -39,6 +39,7 @@
             </activation>
             <modules>
                 <module>integration-common</module>
+                <module>integration-executor-test</module>
                 <module>integration-uservice-test</module>
             </modules>
         </profile>
@@ -51,6 +52,7 @@
             </activation>
             <modules>
                 <module>integration-common</module>
+                <module>integration-executor-test</module>
                 <module>integration-uservice-test</module>
                 <module>integration-context-metrics</module>
             </modules>
@@ -64,6 +66,7 @@
             </activation>
             <modules>
                 <module>integration-common</module>
+                <module>integration-executor-test</module>
                 <module>integration-uservice-test</module>
                 <module>integration-context-test</module>
                 <module>integration-context-metrics</module>
