@@ -26,6 +26,7 @@ import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.python.core.CompileMode;
+import org.python.core.CompilerFlags;
 import org.python.core.Py;
 import org.python.core.PyCode;
 import org.python.core.PyException;
@@ -34,8 +35,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JythonTaskExecutor is the task executor for task logic written in Jython It is unlikely that this is thread
- * safe.
+ * The Class JythonTaskExecutor is the task executor for task logic written in Jython It is unlikely
+ * that this is thread safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -61,8 +62,9 @@ public class JythonTaskExecutor extends TaskExecutor {
         super.prepare();
         try {
             synchronized (Py.class) {
-                compiled = Py.compile_flags(getSubject().getTaskLogic().getLogic(),
-                        "<" + getSubject().getKey().toString() + ">", CompileMode.exec, null);
+                final String logic = getSubject().getTaskLogic().getLogic();
+                final String filename = "<" + getSubject().getKey().toString() + ">";
+                compiled = Py.compile_flags(logic, filename, CompileMode.exec, new CompilerFlags());
             }
         } catch (final PyException e) {
             LOGGER.warn("failed to compile Jython code for task " + getSubject().getKey().getID(), e);

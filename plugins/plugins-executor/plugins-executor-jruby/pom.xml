@@ -41,10 +41,6 @@
             <version>9.1.2.0</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.jruby.extras</groupId>
-                    <artifactId>bytelist</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>org.jruby</groupId>
                     <artifactId>dirgra</artifactId>
                 </exclusion>
