@@ -34,5 +34,6 @@
     <description>Web client for managing Apex engines</description>
     <modules>
         <module>client-monitoring</module>
+        <module>client-deployment</module>
     </modules>
 </project>
