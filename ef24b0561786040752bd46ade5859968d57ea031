@@ -46,6 +46,30 @@
       "revId": "ef24b0561786040752bd46ade5859968d57ea031",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_cd9e8707",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-07-11T15:04:18Z",
+      "side": 1,
+      "message": "I\u0027ve seen some efforts on the onap wiki related to commonality across the onap docker images and image sizes.   We should check on their recommendations.",
+      "parentUuid": "5a93c517_27caac1a",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "ef24b0561786040752bd46ade5859968d57ea031",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
