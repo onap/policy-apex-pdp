@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_10600834",
+        "filename": "client/client-deployment/src/main/resources/webapp/js/ApexAjax.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-11T20:13:55Z",
+      "side": 1,
+      "message": "shoud the tabs be spaces?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "9706d3e12f112ae61cfaf13d4b59d2af5ba30f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_3063c442",
+        "filename": "client/client-deployment/src/main/resources/webapp/js/ApexEngineService.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-11T20:13:55Z",
+      "side": 1,
+      "message": "Same comment on tabs",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "9706d3e12f112ae61cfaf13d4b59d2af5ba30f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d059408f",
+        "filename": "client/client-deployment/src/main/resources/webapp/js/ApexModelLoading.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-11T20:13:55Z",
+      "side": 1,
+      "message": "Tabs",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 0
+      },
+      "revId": "9706d3e12f112ae61cfaf13d4b59d2af5ba30f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f05c7c7f",
+        "filename": "client/client-deployment/src/main/resources/webapp/js/ApexServicesMain.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-11T20:13:55Z",
+      "side": 1,
+      "message": "Tabs",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "9706d3e12f112ae61cfaf13d4b59d2af5ba30f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9053b86b",
+        "filename": "client/client-deployment/src/main/resources/webapp/js/ApexTable.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-11T20:13:55Z",
+      "side": 1,
+      "message": "Tabs",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "9706d3e12f112ae61cfaf13d4b59d2af5ba30f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b04ef4c0",
+        "filename": "client/client-deployment/src/main/resources/webapp/js/ApexUtils.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-11T20:13:55Z",
+      "side": 1,
+      "message": "Tabs",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "9706d3e12f112ae61cfaf13d4b59d2af5ba30f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
