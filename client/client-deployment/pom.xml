@@ -26,9 +26,9 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client-monitoring</artifactId>
+    <artifactId>client-deployment</artifactId>
     <name>${project.artifactId}</name>
-    <description>Web client for monitoring Apex engines</description>
+    <description>Web client for deploying models in Apex engine</description>
 
     <dependencies>
         <dependency>
@@ -47,6 +47,11 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
+            <version>${version.jersey}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
             <version>${version.jersey}</version>
         </dependency>
         <dependency>
@@ -75,7 +80,7 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>unpack-client-monitoring-shared-resources</id>
+                        <id>unpack-client-deployment-shared-resources</id>
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
@@ -103,7 +108,7 @@
                 <configuration>
                     <finalName>${project.artifactId}-uber-${project.version}</finalName>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>monitoring</shadedClassifierName>
+                    <shadedClassifierName>deployment</shadedClassifierName>
                     <artifactSet>
                         <includes>
                             <include>*:*</include>
@@ -132,7 +137,7 @@
                         </transformer>
                         <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>org.onap.policy.apex.client.monitoring.rest.ApexMonitoringRestMain</mainClass>
+                            <mainClass>org.onap.policy.apex.client.deployment.rest.ApexDeploymentRestMain</mainClass>
                         </transformer>
                     </transformers>
                 </configuration>

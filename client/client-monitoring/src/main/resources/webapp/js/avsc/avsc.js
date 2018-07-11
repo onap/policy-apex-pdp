@@ -671,9 +671,9 @@ module.exports = {
   Z_TREES:            6,
 
   /*
-	 * Return codes for the compression/decompression functions. Negative values
-	 * are errors, positive values are used for special but normal events.
-	 */
+     * Return codes for the compression/decompression functions. Negative values
+     * are errors, positive values are used for special but normal events.
+     */
   Z_OK:               0,
   Z_STREAM_END:       1,
   Z_NEED_DICT:        2,
@@ -852,14 +852,14 @@ var BUSY_STATE = 113;
 var FINISH_STATE = 666;
 
 var BS_NEED_MORE      = 1; /*
-							 * block not completed, need more input or more
-							 * output
-							 */
+                             * block not completed, need more input or more
+                             * output
+                             */
 var BS_BLOCK_DONE     = 2; /* block flush performed */
 var BS_FINISH_STARTED = 3; /*
-							 * finish started, need only more output at next
-							 * deflate
-							 */
+                             * finish started, need only more output at next
+                             * deflate
+                             */
 var BS_FINISH_DONE    = 4; /* finish done, accept no more input or output */
 
 var OS_CODE = 0x03; // Unix :) . Don't detect, use this default.
@@ -987,18 +987,18 @@ function longest_match(s, cur_match) {
   var prev  = s.prev;
 
   /*
-	 * Stop when cur_match becomes <= limit. To simplify the code, we prevent
-	 * matches with the string of window index 0.
-	 */
+     * Stop when cur_match becomes <= limit. To simplify the code, we prevent
+     * matches with the string of window index 0.
+     */
 
   var strend = s.strstart + MAX_MATCH;
   var scan_end1  = _win[scan + best_len - 1];
   var scan_end   = _win[scan + best_len];
 
   /*
-	 * The code is optimized for HASH_BITS >= 8 and MAX_MATCH-2 multiple of 16.
-	 * It is easy to get rid of this optimization if necessary.
-	 */
+     * The code is optimized for HASH_BITS >= 8 and MAX_MATCH-2 multiple of 16.
+     * It is easy to get rid of this optimization if necessary.
+     */
   // Assert(s->hash_bits >= 8 && MAX_MATCH == 258, "Code too clever");
 
   /* Do not waste too much time if we already have a good match: */
@@ -1006,9 +1006,9 @@ function longest_match(s, cur_match) {
     chain_length >>= 2;
   }
   /*
-	 * Do not look for matches beyond the end of the input. This is necessary to
-	 * make deflate deterministic.
-	 */
+     * Do not look for matches beyond the end of the input. This is necessary to
+     * make deflate deterministic.
+     */
   if (nice_match > s.lookahead) { nice_match = s.lookahead; }
 
   // Assert((ulg)s->strstart <= s->window_size-MIN_LOOKAHEAD, "need
@@ -1019,14 +1019,14 @@ function longest_match(s, cur_match) {
     match = cur_match;
 
     /*
-	 * Skip to next match if the match length cannot increase or if the match
-	 * length is less than 2. Note that the checks below for insufficient
-	 * lookahead only occur occasionally for performance reasons. Therefore
-	 * uninitialized memory will be accessed, and conditional jumps will be made
-	 * that depend on those values. However the length of the match is limited
-	 * to the lookahead, so the output of deflate is not affected by the
-	 * uninitialized values.
-	 */
+     * Skip to next match if the match length cannot increase or if the match
+     * length is less than 2. Note that the checks below for insufficient
+     * lookahead only occur occasionally for performance reasons. Therefore
+     * uninitialized memory will be accessed, and conditional jumps will be made
+     * that depend on those values. However the length of the match is limited
+     * to the lookahead, so the output of deflate is not affected by the
+     * uninitialized values.
+     */
 
     if (_win[match + best_len]     !== scan_end  ||
         _win[match + best_len - 1] !== scan_end1 ||
@@ -1036,19 +1036,19 @@ function longest_match(s, cur_match) {
     }
 
     /*
-	 * The check at best_len-1 can be removed because it will be made again
-	 * later. (This heuristic is not always a win.) It is not necessary to
-	 * compare scan[2] and match[2] since they are always equal when the other
-	 * bytes match, given that the hash keys are equal and that HASH_BITS >= 8.
-	 */
+     * The check at best_len-1 can be removed because it will be made again
+     * later. (This heuristic is not always a win.) It is not necessary to
+     * compare scan[2] and match[2] since they are always equal when the other
+     * bytes match, given that the hash keys are equal and that HASH_BITS >= 8.
+     */
     scan += 2;
     match++;
     // Assert(*scan == *match, "match[2]?");
 
     /*
-	 * We check for insufficient lookahead only every 8th comparison; the 256th
-	 * check will be made at strstart+258.
-	 */
+     * We check for insufficient lookahead only every 8th comparison; the 256th
+     * check will be made at strstart+258.
+     */
     do {
       /* jshint noempty:false */
     } while (_win[++scan] === _win[++match] && _win[++scan] === _win[++match] &&
@@ -1115,9 +1115,9 @@ function fill_window(s) {
 
 
     /*
-	 * If the window is almost full and there is insufficient lookahead, move
-	 * the upper half to the lower one to make room in the upper half.
-	 */
+     * If the window is almost full and there is insufficient lookahead, move
+     * the upper half to the lower one to make room in the upper half.
+     */
     if (s.strstart >= _w_size + (_w_size - MIN_LOOKAHEAD)) {
 
       utils.arraySet(s.window, s.window, _w_size, _w_size, 0);
@@ -1127,12 +1127,12 @@ function fill_window(s) {
       s.block_start -= _w_size;
 
       /*
-		 * Slide the hash table (could be avoided with 32 bit values at the
-		 * expense of memory usage). We slide even when level == 0 to keep the
-		 * hash table consistent if we switch back to level > 0 later. (Using
-		 * level 0 permanently is not an optimal usage of zlib, so we don't care
-		 * about this pathological case.)
-		 */
+         * Slide the hash table (could be avoided with 32 bit values at the
+         * expense of memory usage). We slide even when level == 0 to keep the
+         * hash table consistent if we switch back to level > 0 later. (Using
+         * level 0 permanently is not an optimal usage of zlib, so we don't care
+         * about this pathological case.)
+         */
 
       n = s.hash_size;
       p = n;
@@ -1147,9 +1147,9 @@ function fill_window(s) {
         m = s.prev[--p];
         s.prev[p] = (m >= _w_size ? m - _w_size : 0);
         /*
-		 * If n is not on any hash chain, prev[n] is garbage but its value will
-		 * never be used.
-		 */
+         * If n is not on any hash chain, prev[n] is garbage but its value will
+         * never be used.
+         */
       } while (--n);
 
       more += _w_size;
@@ -1159,15 +1159,15 @@ function fill_window(s) {
     }
 
     /*
-	 * If there was no sliding: strstart <= WSIZE+MAX_DIST-1 && lookahead <=
-	 * MIN_LOOKAHEAD - 1 && more == window_size - lookahead - strstart => more >=
-	 * window_size - (MIN_LOOKAHEAD-1 + WSIZE + MAX_DIST-1) => more >=
-	 * window_size - 2*WSIZE + 2 In the BIG_MEM or MMAP case (not yet
-	 * supported), window_size == input_size + MIN_LOOKAHEAD && strstart +
-	 * s->lookahead <= input_size => more >= MIN_LOOKAHEAD. Otherwise,
-	 * window_size == 2*WSIZE so more >= 2. If there was sliding, more >= WSIZE.
-	 * So in all cases, more >= 2.
-	 */
+     * If there was no sliding: strstart <= WSIZE+MAX_DIST-1 && lookahead <=
+     * MIN_LOOKAHEAD - 1 && more == window_size - lookahead - strstart => more >=
+     * window_size - (MIN_LOOKAHEAD-1 + WSIZE + MAX_DIST-1) => more >=
+     * window_size - 2*WSIZE + 2 In the BIG_MEM or MMAP case (not yet
+     * supported), window_size == input_size + MIN_LOOKAHEAD && strstart +
+     * s->lookahead <= input_size => more >= MIN_LOOKAHEAD. Otherwise,
+     * window_size == 2*WSIZE so more >= 2. If there was sliding, more >= WSIZE.
+     * So in all cases, more >= 2.
+     */
     // Assert(more >= 2, "more < 2");
     n = read_buf(s.strm, s.window, s.strstart + s.lookahead, more);
     s.lookahead += n;
@@ -1196,20 +1196,20 @@ function fill_window(s) {
       }
     }
     /*
-	 * If the whole input has less than MIN_MATCH bytes, ins_h is garbage, but
-	 * this is not important since only literal bytes will be emitted.
-	 */
+     * If the whole input has less than MIN_MATCH bytes, ins_h is garbage, but
+     * this is not important since only literal bytes will be emitted.
+     */
 
   } while (s.lookahead < MIN_LOOKAHEAD && s.strm.avail_in !== 0);
 
   /*
-	 * If the WIN_INIT bytes after the end of the current data have never been
-	 * written, then zero those bytes in order to avoid memory check reports of
-	 * the use of uninitialized (or uninitialised as Julian writes) bytes by the
-	 * longest match routines. Update the high water mark for the next time
-	 * through here. WIN_INIT is set to MAX_MATCH since the longest match
-	 * routines allow scanning to strstart + MAX_MATCH, ignoring lookahead.
-	 */
+     * If the WIN_INIT bytes after the end of the current data have never been
+     * written, then zero those bytes in order to avoid memory check reports of
+     * the use of uninitialized (or uninitialised as Julian writes) bytes by the
+     * longest match routines. Update the high water mark for the next time
+     * through here. WIN_INIT is set to MAX_MATCH since the longest match
+     * routines allow scanning to strstart + MAX_MATCH, ignoring lookahead.
+     */
 // if (s.high_water < s.window_size) {
 // var curr = s.strstart + s.lookahead;
 // var init = 0;
@@ -1251,9 +1251,9 @@ function fill_window(s) {
  */
 function deflate_stored(s, flush) {
   /*
-	 * Stored blocks are limited to 0xffff bytes, pending_buf is limited to
-	 * pending_buf_size, and each stored block has a 5 byte header:
-	 */
+     * Stored blocks are limited to 0xffff bytes, pending_buf is limited to
+     * pending_buf_size, and each stored block has a 5 byte header:
+     */
   var max_block_size = 0xffff;
 
   if (max_block_size > s.pending_buf_size - 5) {
@@ -1305,9 +1305,9 @@ function deflate_stored(s, flush) {
 
     }
     /*
-	 * Flush if we may have to slide, otherwise block_start may become negative
-	 * and the data will be gone:
-	 */
+     * Flush if we may have to slide, otherwise block_start may become negative
+     * and the data will be gone:
+     */
     if (s.strstart - s.block_start >= (s.w_size - MIN_LOOKAHEAD)) {
       /** * FLUSH_BLOCK(s, 0); ** */
       flush_block_only(s, false);
@@ -1355,10 +1355,10 @@ function deflate_fast(s, flush) {
 
   for (;;) {
     /*
-	 * Make sure that we always have enough lookahead, except at the end of the
-	 * input file. We need MAX_MATCH bytes for the next match, plus MIN_MATCH
-	 * bytes to insert the string following the next match.
-	 */
+     * Make sure that we always have enough lookahead, except at the end of the
+     * input file. We need MAX_MATCH bytes for the next match, plus MIN_MATCH
+     * bytes to insert the string following the next match.
+     */
     if (s.lookahead < MIN_LOOKAHEAD) {
       fill_window(s);
       if (s.lookahead < MIN_LOOKAHEAD && flush === Z_NO_FLUSH) {
@@ -1370,9 +1370,9 @@ function deflate_fast(s, flush) {
     }
 
     /*
-	 * Insert the string window[strstart .. strstart+2] in the dictionary, and
-	 * set hash_head to the head of the hash chain:
-	 */
+     * Insert the string window[strstart .. strstart+2] in the dictionary, and
+     * set hash_head to the head of the hash chain:
+     */
     hash_head = 0/* NIL */;
     if (s.lookahead >= MIN_MATCH) {
       /** * INSERT_STRING(s, s.strstart, hash_head); ** */
@@ -1383,15 +1383,15 @@ function deflate_fast(s, flush) {
     }
 
     /*
-	 * Find the longest match, discarding those <= prev_length. At this point we
-	 * have always match_length < MIN_MATCH
-	 */
+     * Find the longest match, discarding those <= prev_length. At this point we
+     * have always match_length < MIN_MATCH
+     */
     if (hash_head !== 0/* NIL */ && ((s.strstart - hash_head) <= (s.w_size - MIN_LOOKAHEAD))) {
       /*
-		 * To simplify the code, we prevent matches with the string of window
-		 * index 0 (in particular we have to avoid a match of the string with
-		 * itself at the start of the input file).
-		 */
+         * To simplify the code, we prevent matches with the string of window
+         * index 0 (in particular we have to avoid a match of the string with
+         * itself at the start of the input file).
+         */
       s.match_length = longest_match(s, hash_head);
       /* longest_match() sets match_start */
     }
@@ -1400,17 +1400,17 @@ function deflate_fast(s, flush) {
 		// debug only
 
       /***********************************************************************
-		 * * _tr_tally_dist(s, s.strstart - s.match_start, s.match_length -
-		 * MIN_MATCH, bflush);
-		 **********************************************************************/
+         * * _tr_tally_dist(s, s.strstart - s.match_start, s.match_length -
+         * MIN_MATCH, bflush);
+         **********************************************************************/
       bflush = trees._tr_tally(s, s.strstart - s.match_start, s.match_length - MIN_MATCH);
 
       s.lookahead -= s.match_length;
 
       /*
-		 * Insert new strings in the hash table only if the match length is not
-		 * too large. This saves time but degrades compression.
-		 */
+         * Insert new strings in the hash table only if the match length is not
+         * too large. This saves time but degrades compression.
+         */
       if (s.match_length <= s.max_lazy_match/* max_insert_length */ && s.lookahead >= MIN_MATCH) {
         s.match_length--; /* string at strstart already in table */
         do {
@@ -1421,9 +1421,9 @@ function deflate_fast(s, flush) {
           s.head[s.ins_h] = s.strstart;
           /***/
           /*
-			 * strstart never exceeds WSIZE-MAX_MATCH, so there are always
-			 * MIN_MATCH bytes ahead.
-			 */
+             * strstart never exceeds WSIZE-MAX_MATCH, so there are always
+             * MIN_MATCH bytes ahead.
+             */
         } while (--s.match_length !== 0);
         s.strstart++;
       } else
@@ -1438,9 +1438,9 @@ function deflate_fast(s, flush) {
 // Call UPDATE_HASH() MIN_MATCH-3 more times
 // #endif
         /*
-		 * If lookahead < MIN_MATCH, ins_h is garbage, but it does not matter
-		 * since it will be recomputed at next deflate call.
-		 */
+         * If lookahead < MIN_MATCH, ins_h is garbage, but it does not matter
+         * since it will be recomputed at next deflate call.
+         */
       }
     } else {
       /* No match, output a literal byte */
@@ -1496,10 +1496,10 @@ function deflate_slow(s, flush) {
   /* Process the input block. */
   for (;;) {
     /*
-	 * Make sure that we always have enough lookahead, except at the end of the
-	 * input file. We need MAX_MATCH bytes for the next match, plus MIN_MATCH
-	 * bytes to insert the string following the next match.
-	 */
+     * Make sure that we always have enough lookahead, except at the end of the
+     * input file. We need MAX_MATCH bytes for the next match, plus MIN_MATCH
+     * bytes to insert the string following the next match.
+     */
     if (s.lookahead < MIN_LOOKAHEAD) {
       fill_window(s);
       if (s.lookahead < MIN_LOOKAHEAD && flush === Z_NO_FLUSH) {
@@ -1509,9 +1509,9 @@ function deflate_slow(s, flush) {
     }
 
     /*
-	 * Insert the string window[strstart .. strstart+2] in the dictionary, and
-	 * set hash_head to the head of the hash chain:
-	 */
+     * Insert the string window[strstart .. strstart+2] in the dictionary, and
+     * set hash_head to the head of the hash chain:
+     */
     hash_head = 0/* NIL */;
     if (s.lookahead >= MIN_MATCH) {
       /** * INSERT_STRING(s, s.strstart, hash_head); ** */
@@ -1522,8 +1522,8 @@ function deflate_slow(s, flush) {
     }
 
     /*
-	 * Find the longest match, discarding those <= prev_length.
-	 */
+     * Find the longest match, discarding those <= prev_length.
+     */
     s.prev_length = s.match_length;
     s.prev_match = s.match_start;
     s.match_length = MIN_MATCH - 1;
@@ -1531,10 +1531,10 @@ function deflate_slow(s, flush) {
     if (hash_head !== 0/* NIL */ && s.prev_length < s.max_lazy_match &&
         s.strstart - hash_head <= (s.w_size - MIN_LOOKAHEAD)/* MAX_DIST(s) */) {
       /*
-		 * To simplify the code, we prevent matches with the string of window
-		 * index 0 (in particular we have to avoid a match of the string with
-		 * itself at the start of the input file).
-		 */
+         * To simplify the code, we prevent matches with the string of window
+         * index 0 (in particular we have to avoid a match of the string with
+         * itself at the start of the input file).
+         */
       s.match_length = longest_match(s, hash_head);
       /* longest_match() sets match_start */
 
@@ -1542,16 +1542,16 @@ function deflate_slow(s, flush) {
          (s.strategy === Z_FILTERED || (s.match_length === MIN_MATCH && s.strstart - s.match_start > 4096/* TOO_FAR */))) {
 
         /*
-		 * If prev_match is also MIN_MATCH, match_start is garbage but we will
-		 * ignore the current match anyway.
-		 */
+         * If prev_match is also MIN_MATCH, match_start is garbage but we will
+         * ignore the current match anyway.
+         */
         s.match_length = MIN_MATCH - 1;
       }
     }
     /*
-	 * If there was a match at the previous step and the current match is not
-	 * better, output the previous match:
-	 */
+     * If there was a match at the previous step and the current match is not
+     * better, output the previous match:
+     */
     if (s.prev_length >= MIN_MATCH && s.match_length <= s.prev_length) {
       max_insert = s.strstart + s.lookahead - MIN_MATCH;
       /* Do not insert strings in hash table beyond this. */
@@ -1559,15 +1559,15 @@ function deflate_slow(s, flush) {
       // check_match(s, s.strstart-1, s.prev_match, s.prev_length);
 
       /***********************************************************************
-		 * *_tr_tally_dist(s, s.strstart - 1 - s.prev_match, s.prev_length -
-		 * MIN_MATCH, bflush);
-		 **********************************************************************/
+         * *_tr_tally_dist(s, s.strstart - 1 - s.prev_match, s.prev_length -
+         * MIN_MATCH, bflush);
+         **********************************************************************/
       bflush = trees._tr_tally(s, s.strstart - 1 - s.prev_match, s.prev_length - MIN_MATCH);
       /*
-		 * Insert in hash table all strings up to the end of the match.
-		 * strstart-1 and strstart are already inserted. If there is not enough
-		 * lookahead, the last two strings are not inserted in the hash table.
-		 */
+         * Insert in hash table all strings up to the end of the match.
+         * strstart-1 and strstart are already inserted. If there is not enough
+         * lookahead, the last two strings are not inserted in the hash table.
+         */
       s.lookahead -= s.prev_length - 1;
       s.prev_length -= 2;
       do {
@@ -1594,10 +1594,10 @@ function deflate_slow(s, flush) {
 
     } else if (s.match_available) {
       /*
-		 * If there was no match at the previous position, output a single
-		 * literal. If there was a match but the current match is longer,
-		 * truncate the previous match to a single literal.
-		 */
+         * If there was no match at the previous position, output a single
+         * literal. If there was a match but the current match is longer,
+         * truncate the previous match to a single literal.
+         */
       // Tracevv((stderr,"%c", s->window[s->strstart-1]));
       /** * _tr_tally_lit(s, s.window[s.strstart-1], bflush); ** */
       bflush = trees._tr_tally(s, 0, s.window[s.strstart - 1]);
@@ -1614,9 +1614,9 @@ function deflate_slow(s, flush) {
       }
     } else {
       /*
-		 * There is no previous match to compare with, wait for the next step to
-		 * decide.
-		 */
+         * There is no previous match to compare with, wait for the next step to
+         * decide.
+         */
       s.match_available = 1;
       s.strstart++;
       s.lookahead--;
@@ -1668,10 +1668,10 @@ function deflate_rle(s, flush) {
 
   for (;;) {
     /*
-	 * Make sure that we always have enough lookahead, except at the end of the
-	 * input file. We need MAX_MATCH bytes for the longest run, plus one for the
-	 * unrolled loop.
-	 */
+     * Make sure that we always have enough lookahead, except at the end of the
+     * input file. We need MAX_MATCH bytes for the longest run, plus one for the
+     * unrolled loop.
+     */
     if (s.lookahead <= MAX_MATCH) {
       fill_window(s);
       if (s.lookahead <= MAX_MATCH && flush === Z_NO_FLUSH) {
@@ -1828,9 +1828,9 @@ configuration_table = [
   /* good lazy nice chain */
   new Config(0, 0, 0, 0, deflate_stored),          /* 0 store only */
   new Config(4, 4, 8, 4, deflate_fast),            /*
-													 * 1 max speed, no lazy
-													 * matches
-													 */
+                                                     * 1 max speed, no lazy
+                                                     * matches
+                                                     */
   new Config(4, 5, 16, 8, deflate_fast),           /* 2 */
   new Config(4, 6, 32, 32, deflate_fast),          /* 3 */
 
@@ -1854,8 +1854,8 @@ function lm_init(s) {
   zero(s.head); // Fill with NIL (= 0);
 
   /*
-	 * Set the default configuration parameters:
-	 */
+     * Set the default configuration parameters:
+     */
   s.max_lazy_match = configuration_table[s.level].max_lazy;
   s.good_match = configuration_table[s.level].good_length;
   s.nice_match = configuration_table[s.level].nice_length;
@@ -1890,25 +1890,25 @@ function DeflateState() {
 
   this.window = null;
   /*
-	 * Sliding window. Input bytes are read into the second half of the window,
-	 * and move to the first half later to keep a dictionary of at least wSize
-	 * bytes. With this organization, matches are limited to a distance of
-	 * wSize-MAX_MATCH bytes, but this ensures that IO is always performed with
-	 * a length multiple of the block size.
-	 */
+     * Sliding window. Input bytes are read into the second half of the window,
+     * and move to the first half later to keep a dictionary of at least wSize
+     * bytes. With this organization, matches are limited to a distance of
+     * wSize-MAX_MATCH bytes, but this ensures that IO is always performed with
+     * a length multiple of the block size.
+     */
 
   this.window_size = 0;
   /*
-	 * Actual size of window: 2*wSize, except when the user input buffer is
-	 * directly used as sliding window.
-	 */
+     * Actual size of window: 2*wSize, except when the user input buffer is
+     * directly used as sliding window.
+     */
 
   this.prev = null;
   /*
-	 * Link to older string with same hash index. To limit the size of this
-	 * array to 64K, this link is maintained only for the last 32K strings. An
-	 * index in this array is thus a window index modulo 32K.
-	 */
+     * Link to older string with same hash index. To limit the size of this
+     * array to 64K, this link is maintained only for the last 32K strings. An
+     * index in this array is thus a window index modulo 32K.
+     */
 
   this.head = null;   /* Heads of the hash chains or NIL. */
 
@@ -1919,16 +1919,16 @@ function DeflateState() {
 
   this.hash_shift = 0;
   /*
-	 * Number of bits by which ins_h must be shifted at each input step. It must
-	 * be such that after MIN_MATCH steps, the oldest byte no longer takes part
-	 * in the hash key, that is: hash_shift * MIN_MATCH >= hash_bits
-	 */
+     * Number of bits by which ins_h must be shifted at each input step. It must
+     * be such that after MIN_MATCH steps, the oldest byte no longer takes part
+     * in the hash key, that is: hash_shift * MIN_MATCH >= hash_bits
+     */
 
   this.block_start = 0;
   /*
-	 * Window position at the beginning of the current output block. Gets
-	 * negative when the window is moved backwards.
-	 */
+     * Window position at the beginning of the current output block. Gets
+     * negative when the window is moved backwards.
+     */
 
   this.match_length = 0;      /* length of best match */
   this.prev_match = 0;        /* previous match */
@@ -1939,29 +1939,29 @@ function DeflateState() {
 
   this.prev_length = 0;
   /*
-	 * Length of the best match at previous step. Matches not greater than this
-	 * are discarded. This is used in the lazy match evaluation.
-	 */
+     * Length of the best match at previous step. Matches not greater than this
+     * are discarded. This is used in the lazy match evaluation.
+     */
 
   this.max_chain_length = 0;
   /*
-	 * To speed up deflation, hash chains are never searched beyond this length.
-	 * A higher limit improves compression ratio but degrades the speed.
-	 */
+     * To speed up deflation, hash chains are never searched beyond this length.
+     * A higher limit improves compression ratio but degrades the speed.
+     */
 
   this.max_lazy_match = 0;
   /*
-	 * Attempt to find a better match only when the current match is strictly
-	 * smaller than this value. This mechanism is used only for compression
-	 * levels >= 4.
-	 */
+     * Attempt to find a better match only when the current match is strictly
+     * smaller than this value. This mechanism is used only for compression
+     * levels >= 4.
+     */
   // That's alias to max_lazy_match, don't use directly
   // this.max_insert_length = 0;
   /*
-	 * Insert new strings in the hash table only if the match length is not
-	 * greater than this length. This saves time but degrades compression.
-	 * max_insert_length is used only for compression levels <= 3.
-	 */
+     * Insert new strings in the hash table only if the match length is not
+     * greater than this length. This saves time but degrades compression.
+     * max_insert_length is used only for compression levels <= 3.
+     */
 
   this.level = 0;     /* compression level (1..9) */
   this.strategy = 0;  /* favor or force Huffman coding */
@@ -1999,52 +1999,52 @@ function DeflateState() {
 
   // int heap[2*L_CODES+1]; /* heap used to build the Huffman trees */
   this.heap = new utils.Buf16(2 * L_CODES + 1);  /*
-													 * heap used to build the
-													 * Huffman trees
-													 */
+                                                     * heap used to build the
+                                                     * Huffman trees
+                                                     */
   zero(this.heap);
 
   this.heap_len = 0;               /* number of elements in the heap */
   this.heap_max = 0;               /* element of largest frequency */
   /*
-	 * The sons of heap[n] are heap[2*n] and heap[2*n+1]. heap[0] is not used.
-	 * The same heap array is used to build all trees.
-	 */
+     * The sons of heap[n] are heap[2*n] and heap[2*n+1]. heap[0] is not used.
+     * The same heap array is used to build all trees.
+     */
 
   this.depth = new utils.Buf16(2 * L_CODES + 1); // uch depth[2*L_CODES+1];
   zero(this.depth);
   /*
-	 * Depth of each subtree used as tie breaker for trees of equal frequency
-	 */
+     * Depth of each subtree used as tie breaker for trees of equal frequency
+     */
 
   this.l_buf = 0;          /* buffer index for literals or lengths */
 
   this.lit_bufsize = 0;
   /*
-	 * Size of match buffer for literals/lengths. There are 4 reasons for
-	 * limiting lit_bufsize to 64K: - frequencies can be kept in 16 bit counters -
-	 * if compression is not successful for the first block, all input data is
-	 * still in the window so we can still emit a stored block even when input
-	 * comes from standard input. (This can also be done for all blocks if
-	 * lit_bufsize is not greater than 32K.) - if compression is not successful
-	 * for a file smaller than 64K, we can even emit a stored file instead of a
-	 * stored block (saving 5 bytes). This is applicable only for zip (not gzip
-	 * or zlib). - creating new Huffman trees less frequently may not provide
-	 * fast adaptation to changes in the input data statistics. (Take for
-	 * example a binary file with poorly compressible code followed by a highly
-	 * compressible string table.) Smaller buffer sizes give fast adaptation but
-	 * have of course the overhead of transmitting trees more frequently. - I
-	 * can't count above 4
-	 */
+     * Size of match buffer for literals/lengths. There are 4 reasons for
+     * limiting lit_bufsize to 64K: - frequencies can be kept in 16 bit counters -
+     * if compression is not successful for the first block, all input data is
+     * still in the window so we can still emit a stored block even when input
+     * comes from standard input. (This can also be done for all blocks if
+     * lit_bufsize is not greater than 32K.) - if compression is not successful
+     * for a file smaller than 64K, we can even emit a stored file instead of a
+     * stored block (saving 5 bytes). This is applicable only for zip (not gzip
+     * or zlib). - creating new Huffman trees less frequently may not provide
+     * fast adaptation to changes in the input data statistics. (Take for
+     * example a binary file with poorly compressible code followed by a highly
+     * compressible string table.) Smaller buffer sizes give fast adaptation but
+     * have of course the overhead of transmitting trees more frequently. - I
+     * can't count above 4
+     */
 
   this.last_lit = 0;      /* running index in l_buf */
 
   this.d_buf = 0;
   /*
-	 * Buffer index for distances. To simplify the code, d_buf and l_buf have
-	 * the same number of elements. To use different lengths, an extra flag
-	 * array would be necessary.
-	 */
+     * Buffer index for distances. To simplify the code, d_buf and l_buf have
+     * the same number of elements. To use different lengths, an extra flag
+     * array would be necessary.
+     */
 
   this.opt_len = 0;       /* bit length of current block with optimal trees */
   this.static_len = 0;    /* bit length of current block with static trees */
@@ -2054,24 +2054,24 @@ function DeflateState() {
 
   this.bi_buf = 0;
   /*
-	 * Output buffer. bits are inserted starting at the bottom (least
-	 * significant bits).
-	 */
+     * Output buffer. bits are inserted starting at the bottom (least
+     * significant bits).
+     */
   this.bi_valid = 0;
   /*
-	 * Number of valid bits in bi_buf. All bits above the last valid bit are
-	 * always zero.
-	 */
+     * Number of valid bits in bi_buf. All bits above the last valid bit are
+     * always zero.
+     */
 
   // Used for window memory init. We safely ignore it for JS. That makes
   // sense only for pointers and memory check tools.
   // this.high_water = 0;
   /*
-	 * High water mark offset in window for initialized bytes -- bytes above
-	 * this are set to zero in order to avoid memory check warnings when longest
-	 * match routines access bytes past the input. This is then updated to the
-	 * new high water mark.
-	 */
+     * High water mark offset in window for initialized bytes -- bytes above
+     * this are set to zero in order to avoid memory check warnings when longest
+     * match routines access bytes past the input. This is then updated to the
+     * new high water mark.
+     */
 }
 
 
@@ -2430,20 +2430,20 @@ function deflate(strm, flush) {
     flush_pending(strm);
     if (strm.avail_out === 0) {
       /*
-		 * Since avail_out is 0, deflate will be called again with more output
-		 * space, but possibly with both pending and avail_in equal to zero.
-		 * There won't be anything to do, but this is not an error situation so
-		 * make sure we return OK instead of BUF_ERROR at next call of deflate:
-		 */
+         * Since avail_out is 0, deflate will be called again with more output
+         * space, but possibly with both pending and avail_in equal to zero.
+         * There won't be anything to do, but this is not an error situation so
+         * make sure we return OK instead of BUF_ERROR at next call of deflate:
+         */
       s.last_flush = -1;
       return Z_OK;
     }
 
     /*
-	 * Make sure there is something to do and avoid duplicate consecutive
-	 * flushes. For repeated and useless calls with Z_FINISH, we keep returning
-	 * Z_STREAM_END instead of Z_BUF_ERROR.
-	 */
+     * Make sure there is something to do and avoid duplicate consecutive
+     * flushes. For repeated and useless calls with Z_FINISH, we keep returning
+     * Z_STREAM_END instead of Z_BUF_ERROR.
+     */
   } else if (strm.avail_in === 0 && rank(flush) <= rank(old_flush) &&
     flush !== Z_FINISH) {
     return err(strm, Z_BUF_ERROR);
@@ -2455,8 +2455,8 @@ function deflate(strm, flush) {
   }
 
   /*
-	 * Start a new block or continue the current one.
-	 */
+     * Start a new block or continue the current one.
+     */
   if (strm.avail_in !== 0 || s.lookahead !== 0 ||
     (flush !== Z_NO_FLUSH && s.status !== FINISH_STATE)) {
     var bstate = (s.strategy === Z_HUFFMAN_ONLY) ? deflate_huff(s, flush) :
@@ -2473,12 +2473,12 @@ function deflate(strm, flush) {
       }
       return Z_OK;
       /*
-		 * If flush != Z_NO_FLUSH && avail_out == 0, the next call of deflate
-		 * should use the same flush parameter to make sure that the flush is
-		 * complete. So we don't have to output an empty block here, this will
-		 * be done at next call. This also ensures that for a very small output
-		 * buffer, we emit at most one empty block.
-		 */
+         * If flush != Z_NO_FLUSH && avail_out == 0, the next call of deflate
+         * should use the same flush parameter to make sure that the flush is
+         * complete. So we don't have to output an empty block here, this will
+         * be done at next call. This also ensures that for a very small output
+         * buffer, we emit at most one empty block.
+         */
     }
     if (bstate === BS_BLOCK_DONE) {
       if (flush === Z_PARTIAL_FLUSH) {
@@ -2488,9 +2488,9 @@ function deflate(strm, flush) {
 
         trees._tr_stored_block(s, 0, 0, false);
         /*
-		 * For a full flush, this empty block will be recognized as a special
-		 * marker by inflate_sync().
-		 */
+         * For a full flush, this empty block will be recognized as a special
+         * marker by inflate_sync().
+         */
         if (flush === Z_FULL_FLUSH) {
           /** * CLEAR_HASH(s); ** */             /* forget history */
           zero(s.head); // Fill with NIL (= 0);
@@ -2534,9 +2534,9 @@ function deflate(strm, flush) {
 
   flush_pending(strm);
   /*
-	 * If avail_out is zero, the application will call deflate again to flush
-	 * the rest.
-	 */
+     * If avail_out is zero, the application will call deflate again to flush
+     * the rest.
+     */
   if (s.wrap > 0) { s.wrap = -s.wrap; }
   /* write the trailer only once! */
   return s.pending !== 0 ? Z_OK : Z_STREAM_END;
@@ -2699,15 +2699,14 @@ var TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
  * reached end of block code, inflate() to interpret next block BAD -- error in
  * block data
  * 
- * Notes:
- *  - The maximum input bits used by a length/distance pair is 15 bits for the
- * length code, 5 bits for the length extra, 15 bits for the distance code, and
- * 13 bits for the distance extra. This totals 48 bits, or six bytes. Therefore
- * if strm.avail_in >= 6, then there is enough input to avoid checking for
- * available input while decoding.
- *  - The maximum bytes that a single length/distance pair can output is 258
- * bytes, which is the maximum length that can be coded. inflate_fast() requires
- * strm.avail_out >= 258 for each loop to avoid checking for output space.
+ * Notes: - The maximum input bits used by a length/distance pair is 15 bits for
+ * the length code, 5 bits for the length extra, 15 bits for the distance code,
+ * and 13 bits for the distance extra. This totals 48 bits, or six bytes.
+ * Therefore if strm.avail_in >= 6, then there is enough input to avoid checking
+ * for available input while decoding. - The maximum bytes that a single
+ * length/distance pair can output is 258 bytes, which is the maximum length
+ * that can be coded. inflate_fast() requires strm.avail_out >= 258 for each
+ * loop to avoid checking for output space.
  */
 module.exports = function inflate_fast(strm, start) {
   var state;
@@ -2768,9 +2767,9 @@ module.exports = function inflate_fast(strm, start) {
 
 
   /*
-	 * decode literals and length/distances until end-of-block or not enough
-	 * input data or output space
-	 */
+     * decode literals and length/distances until end-of-block or not enough
+     * input data or output space
+     */
 
   top:
   do {
@@ -3052,9 +3051,9 @@ var    HEAD = 1;       /* i: waiting for magic header */
 var    FLAGS = 2;      /* i: waiting for method and flags (gzip) */
 var    TIME = 3;       /* i: waiting for modification time (gzip) */
 var    OS = 4;         /*
-						 * i: waiting for extra flags and operating system
-						 * (gzip)
-						 */
+                         * i: waiting for extra flags and operating system
+                         * (gzip)
+                         */
 var    EXLEN = 5;      /* i: waiting for extra length (gzip) */
 var    EXTRA = 6;      /* i: waiting for extra bytes (gzip) */
 var    NAME = 7;       /* i: waiting for end of file name (gzip) */
@@ -3064,24 +3063,24 @@ var    DICTID = 10;    /* i: waiting for dictionary check value */
 var    DICT = 11;      /* waiting for inflateSetDictionary() call */
 var        TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
 var        TYPEDO = 13;    /*
-							 * i: same, but skip check to exit inflate on new
-							 * block
-							 */
+                             * i: same, but skip check to exit inflate on new
+                             * block
+                             */
 var        STORED = 14;    /*
-							 * i: waiting for stored size (length and
-							 * complement)
-							 */
+                             * i: waiting for stored size (length and
+                             * complement)
+                             */
 var        COPY_ = 15;     /* i/o: same as COPY below, but only first time in */
 var        COPY = 16;      /*
-							 * i/o: waiting for input or output to copy stored
-							 * block
-							 */
+                             * i/o: waiting for input or output to copy stored
+                             * block
+                             */
 var        TABLE = 17;     /* i: waiting for dynamic block table lengths */
 var        LENLENS = 18;   /* i: waiting for code length code lengths */
 var        CODELENS = 19;  /*
-							 * i: waiting for length/lit and distance code
-							 * lengths
-							 */
+                             * i: waiting for length/lit and distance code
+                             * lengths
+                             */
 var            LEN_ = 20;      /* i: same as LEN below, but only first time in */
 var            LEN = 21;       /* i: waiting for length/lit/eob code */
 var            LENEXT = 22;    /* i: waiting for length extra bits */
@@ -3094,13 +3093,13 @@ var    LENGTH = 28;    /* i: waiting for 32-bit length (gzip) */
 var    DONE = 29;      /* finished check, done -- remain here until reset */
 var    BAD = 30;       /* got a data error -- remain here until reset */
 var    MEM = 31;       /*
-						 * got an inflate() memory error -- remain here until
-						 * reset
-						 */
+                         * got an inflate() memory error -- remain here until
+                         * reset
+                         */
 var    SYNC = 32;      /*
-						 * looking for synchronization bytes to restart
-						 * inflate()
-						 */
+                         * looking for synchronization bytes to restart
+                         * inflate()
+                         */
 
 /* =========================================================================== */
 
@@ -3170,18 +3169,18 @@ function InflateState() {
   this.work = new utils.Buf16(288); /* work area for code table building */
 
   /*
-	 * because we don't have pointers in js, we use lencode and distcode
-	 * directly as buffers so we don't need codes
-	 */
+     * because we don't have pointers in js, we use lencode and distcode
+     * directly as buffers so we don't need codes
+     */
   // this.codes = new utils.Buf32(ENOUGH); /* space for code tables */
   this.lendyn = null;              /*
-									 * dynamic table for length/literal codes
-									 * (JS specific)
-									 */
+                                     * dynamic table for length/literal codes
+                                     * (JS specific)
+                                     */
   this.distdyn = null;             /*
-									 * dynamic table for distance codes (JS
-									 * specific)
-									 */
+                                     * dynamic table for distance codes (JS
+                                     * specific)
+                                     */
   this.sane = 0;                   /* if false, allow invalid distance too far */
   this.back = 0;                   /* bits back of last unprocessed length/lit */
   this.was = 0;                    /* initial length of match */
@@ -3647,9 +3646,9 @@ function inflate(strm, flush) {
               // - no need for additional size check
               copy,
               /*
-				 * len + copy > state.head.extra_max - len ?
-				 * state.head.extra_max : copy,
-				 */
+                 * len + copy > state.head.extra_max - len ?
+                 * state.head.extra_max : copy,
+                 */
               len
             );
             // zmemcpy(state.head.extra + len, next,
@@ -4075,10 +4074,10 @@ function inflate(strm, flush) {
       }
 
       /*
-		 * build code tables -- note: do not change the lenbits or distbits
-		 * values here (9 and 6) without reading the comments in inftrees.h
-		 * concerning the ENOUGH constants, which depend on those values
-		 */
+         * build code tables -- note: do not change the lenbits or distbits
+         * values here (9 and 6) without reading the comments in inftrees.h
+         * concerning the ENOUGH constants, which depend on those values
+         */
       state.lenbits = 9;
 
       opts = { bits: state.lenbits };
@@ -4168,9 +4167,9 @@ function inflate(strm, flush) {
         for (;;) {
           here = state.lencode[last_val +
                   ((hold & ((1 << (last_bits + last_op)) - 1))/*
-																 * BITS(last.bits +
-																 * last.op)
-																 */ >> last_bits)];
+                                                                 * BITS(last.bits +
+                                                                 * last.op)
+                                                                 */ >> last_bits)];
           here_bits = here >>> 24;
           here_op = (here >>> 16) & 0xff;
           here_val = here & 0xffff;
@@ -4260,9 +4259,9 @@ function inflate(strm, flush) {
         for (;;) {
           here = state.distcode[last_val +
                   ((hold & ((1 << (last_bits + last_op)) - 1))/*
-																 * BITS(last.bits +
-																 * last.op)
-																 */ >> last_bits)];
+                                                                 * BITS(last.bits +
+                                                                 * last.op)
+                                                                 */ >> last_bits)];
           here_bits = here >>> 24;
           here_op = (here >>> 16) & 0xff;
           here_val = here & 0xffff;
@@ -4456,11 +4455,11 @@ function inflate(strm, flush) {
 	// inf_leave"
 
   /*
-	 * Return from inflate(), updating the total counts and the check value. If
-	 * there was no progress during the inflate() call, return a buffer error.
-	 * Call updatewindow() to create and/or update the window state. Note: a
-	 * memory error from inflate() is non-recoverable.
-	 */
+     * Return from inflate(), updating the total counts and the check value. If
+     * there was no progress during the inflate() call, return a buffer error.
+     * Call updatewindow() to create and/or update the window state. Note: a
+     * memory error from inflate() is non-recoverable.
+     */
 
   // --- RESTORE() ---
   strm.next_out = put;
@@ -4485,9 +4484,9 @@ function inflate(strm, flush) {
   state.total += _out;
   if (state.wrap && _out) {
     strm.adler = state.check = /*
-								 * UPDATE(state.check, strm.next_out - _out,
-								 * _out);
-								 */
+                                 * UPDATE(state.check, strm.next_out - _out,
+                                 * _out);
+                                 */
       (state.flags ? crc32(state.check, output, _out, strm.next_out - _out) : adler32(state.check, output, _out, strm.next_out - _out));
   }
   strm.data_type = state.bits + (state.last ? 64 : 0) +
@@ -4552,9 +4551,9 @@ function inflateSetDictionary(strm, dictionary) {
     }
   }
   /*
-	 * copy dictionary to window using updatewindow(), which will amend the
-	 * existing dictionary if appropriate
-	 */
+     * copy dictionary to window using updatewindow(), which will amend the
+     * existing dictionary if appropriate
+     */
   ret = updatewindow(strm, dictionary, dictLength, dictLength);
   if (ret) {
     state.mode = MEM;
@@ -4654,32 +4653,32 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
   var here_bits, here_op, here_val;
 
   /*
-	 * Process a set of code lengths to create a canonical Huffman code. The
-	 * code lengths are lens[0..codes-1]. Each length corresponds to the symbols
-	 * 0..codes-1. The Huffman code is generated by first sorting the symbols by
-	 * length from short to long, and retaining the symbol order for codes with
-	 * equal lengths. Then the code starts with all zero bits for the first code
-	 * of the shortest length, and the codes are integer increments for the same
-	 * length, and zeros are appended as the length increases. For the deflate
-	 * format, these bits are stored backwards from their more natural integer
-	 * increment ordering, and so when the decoding tables are built in the
-	 * large loop below, the integer codes are incremented backwards.
-	 * 
-	 * This routine assumes, but does not check, that all of the entries in
-	 * lens[] are in the range 0..MAXBITS. The caller must assure this.
-	 * 1..MAXBITS is interpreted as that code length. zero means that that
-	 * symbol does not occur in this code.
-	 * 
-	 * The codes are sorted by computing a count of codes for each length,
-	 * creating from that a table of starting indices for each length in the
-	 * sorted table, and then entering the symbols in order in the sorted table.
-	 * The sorted table is work[], with that space being provided by the caller.
-	 * 
-	 * The length counts are used for other purposes as well, i.e. finding the
-	 * minimum and maximum length codes, determining if there are any codes at
-	 * all, checking for a valid set of lengths, and looking ahead at length
-	 * counts to determine sub-table sizes when building the decoding tables.
-	 */
+     * Process a set of code lengths to create a canonical Huffman code. The
+     * code lengths are lens[0..codes-1]. Each length corresponds to the symbols
+     * 0..codes-1. The Huffman code is generated by first sorting the symbols by
+     * length from short to long, and retaining the symbol order for codes with
+     * equal lengths. Then the code starts with all zero bits for the first code
+     * of the shortest length, and the codes are integer increments for the same
+     * length, and zeros are appended as the length increases. For the deflate
+     * format, these bits are stored backwards from their more natural integer
+     * increment ordering, and so when the decoding tables are built in the
+     * large loop below, the integer codes are incremented backwards.
+     * 
+     * This routine assumes, but does not check, that all of the entries in
+     * lens[] are in the range 0..MAXBITS. The caller must assure this.
+     * 1..MAXBITS is interpreted as that code length. zero means that that
+     * symbol does not occur in this code.
+     * 
+     * The codes are sorted by computing a count of codes for each length,
+     * creating from that a table of starting indices for each length in the
+     * sorted table, and then entering the symbols in order in the sorted table.
+     * The sorted table is work[], with that space being provided by the caller.
+     * 
+     * The length counts are used for other purposes as well, i.e. finding the
+     * minimum and maximum length codes, determining if there are any codes at
+     * all, checking for a valid set of lengths, and looking ahead at length
+     * counts to determine sub-table sizes when building the decoding tables.
+     */
 
   /* accumulate lengths for codes (assumes lens[] all in 0..MAXBITS) */
   for (len = 0; len <= MAXBITS; len++) {
@@ -4747,35 +4746,35 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
   }
 
   /*
-	 * Create and fill in decoding tables. In this loop, the table being filled
-	 * is at next and has curr index bits. The code being used is huff with
-	 * length len. That code is converted to an index by dropping drop bits off
-	 * of the bottom. For codes where len is less than drop + curr, those top
-	 * drop + curr - len bits are incremented through all values to fill the
-	 * table with replicated entries.
-	 * 
-	 * root is the number of index bits for the root table. When len exceeds
-	 * root, sub-tables are created pointed to by the root entry with an index
-	 * of the low root bits of huff. This is saved in low to check for when a
-	 * new sub-table should be started. drop is zero when the root table is
-	 * being filled, and drop is root when sub-tables are being filled.
-	 * 
-	 * When a new sub-table is needed, it is necessary to look ahead in the code
-	 * lengths to determine what size sub-table is needed. The length counts are
-	 * used for this, and so count[] is decremented as codes are entered in the
-	 * tables.
-	 * 
-	 * used keeps track of how many table entries have been allocated from the
-	 * provided *table space. It is checked for LENS and DIST tables against the
-	 * constants ENOUGH_LENS and ENOUGH_DISTS to guard against changes in the
-	 * initial root table size constants. See the comments in inftrees.h for
-	 * more information.
-	 * 
-	 * sym increments through all symbols, and the loop terminates when all
-	 * codes of length max, i.e. all codes, have been processed. This routine
-	 * permits incomplete codes, so another loop after this one fills in the
-	 * rest of the decoding tables with invalid code markers.
-	 */
+     * Create and fill in decoding tables. In this loop, the table being filled
+     * is at next and has curr index bits. The code being used is huff with
+     * length len. That code is converted to an index by dropping drop bits off
+     * of the bottom. For codes where len is less than drop + curr, those top
+     * drop + curr - len bits are incremented through all values to fill the
+     * table with replicated entries.
+     * 
+     * root is the number of index bits for the root table. When len exceeds
+     * root, sub-tables are created pointed to by the root entry with an index
+     * of the low root bits of huff. This is saved in low to check for when a
+     * new sub-table should be started. drop is zero when the root table is
+     * being filled, and drop is root when sub-tables are being filled.
+     * 
+     * When a new sub-table is needed, it is necessary to look ahead in the code
+     * lengths to determine what size sub-table is needed. The length counts are
+     * used for this, and so count[] is decremented as codes are entered in the
+     * tables.
+     * 
+     * used keeps track of how many table entries have been allocated from the
+     * provided *table space. It is checked for LENS and DIST tables against the
+     * constants ENOUGH_LENS and ENOUGH_DISTS to guard against changes in the
+     * initial root table size constants. See the comments in inftrees.h for
+     * more information.
+     * 
+     * sym increments through all symbols, and the loop terminates when all
+     * codes of length max, i.e. all codes, have been processed. This routine
+     * permits incomplete codes, so another loop after this one fills in the
+     * rest of the decoding tables with invalid code markers.
+     */
 
   /* set up for code type */
   // poor man optimization - use if-else instead of switch,
@@ -4891,18 +4890,18 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
       /* point entry in root table to sub-table */
       low = huff & mask;
       /*
-		 * table.op[low] = curr; table.bits[low] = root; table.val[low] = next -
-		 * opts.table_index;
-		 */
+         * table.op[low] = curr; table.bits[low] = root; table.val[low] = next -
+         * opts.table_index;
+         */
       table[low] = (root << 24) | (curr << 16) | (next - table_index) |0;
     }
   }
 
   /*
-	 * fill in remaining table entry if code is incomplete (guaranteed to have
-	 * at most one remaining entry, since if the code is incomplete, the maximum
-	 * code length that was allowed to get this far is one bit)
-	 */
+     * fill in remaining table entry if code is incomplete (guaranteed to have
+     * at most one remaining entry, since if the code is incomplete, the maximum
+     * code length that was allowed to get this far is one bit)
+     */
   if (huff !== 0) {
     // table.op[next + huff] = 64; /* invalid code marker */
     // table.bits[next + huff] = len - drop;
@@ -5217,9 +5216,9 @@ function gen_bitlen(s, desc)
   }
 
   /*
-	 * In a first pass, compute the optimal bit lengths (which may overflow in
-	 * the case of the bit length tree).
-	 */
+     * In a first pass, compute the optimal bit lengths (which may overflow in
+     * the case of the bit length tree).
+     */
   tree[s.heap[s.heap_max] * 2 + 1]/* .Len */ = 0; /* root of the heap */
 
   for (h = s.heap_max + 1; h < HEAP_SIZE; h++) {
@@ -5258,18 +5257,18 @@ function gen_bitlen(s, desc)
     s.bl_count[bits + 1] += 2; /* move one overflow item as its brother */
     s.bl_count[max_length]--;
     /*
-	 * The brother of the overflow item also moves one step up, but this does
-	 * not affect bl_count[max_length]
-	 */
+     * The brother of the overflow item also moves one step up, but this does
+     * not affect bl_count[max_length]
+     */
     overflow -= 2;
   } while (overflow > 0);
 
   /*
-	 * Now recompute all bit lengths, scanning in increasing frequency. h is
-	 * still equal to HEAP_SIZE. (It is simpler to reconstruct all lengths
-	 * instead of fixing only the wrong ones. This idea is taken from 'ar'
-	 * written by Haruhiko Okumura.)
-	 */
+     * Now recompute all bit lengths, scanning in increasing frequency. h is
+     * still equal to HEAP_SIZE. (It is simpler to reconstruct all lengths
+     * instead of fixing only the wrong ones. This idea is taken from 'ar'
+     * written by Haruhiko Okumura.)
+     */
   for (bits = max_length; bits !== 0; bits--) {
     n = s.bl_count[bits];
     while (n !== 0) {
@@ -5300,24 +5299,24 @@ function gen_codes(tree, max_code, bl_count)
 // ushf *bl_count; /* number of codes at each bit length */
 {
   var next_code = new Array(MAX_BITS + 1); /*
-											 * next code value for each bit
-											 * length
-											 */
+                                             * next code value for each bit
+                                             * length
+                                             */
   var code = 0;              /* running code value */
   var bits;                  /* bit index */
   var n;                     /* code index */
 
   /*
-	 * The distribution counts are first used to generate the code values
-	 * without bit reversal.
-	 */
+     * The distribution counts are first used to generate the code values
+     * without bit reversal.
+     */
   for (bits = 1; bits <= MAX_BITS; bits++) {
     next_code[bits] = code = (code + bl_count[bits - 1]) << 1;
   }
   /*
-	 * Check that the bit counts in bl_count are consistent. The last code must
-	 * be all ones.
-	 */
+     * Check that the bit counts in bl_count are consistent. The last code must
+     * be all ones.
+     */
   // Assert (code + bl_count[MAX_BITS]-1 == (1<<MAX_BITS)-1,
   // "inconsistent bit counts");
   // Tracev((stderr,"\ngen_codes: max_code %d ", max_code));
@@ -5368,10 +5367,10 @@ function tr_static_init() {
   }
   // Assert (length == 256, "tr_static_init: length != 256");
   /*
-	 * Note that the length 255 (match length 258) can be represented in two
-	 * different ways: code 284 + 5 bits or code 285, so we overwrite
-	 * length_code[255] to use the best encoding:
-	 */
+     * Note that the length 255 (match length 258) can be represented in two
+     * different ways: code 284 + 5 bits or code 285, so we overwrite
+     * length_code[255] to use the best encoding:
+     */
   _length_code[length - 1] = code;
 
   /* Initialize the mapping dist (0..32K) -> dist code (0..29) */
@@ -5419,9 +5418,9 @@ function tr_static_init() {
     bl_count[8]++;
   }
   /*
-	 * Codes 286 and 287 do not exist, but we must include them in the tree
-	 * construction to get a canonical Huffman tree (longest code all ones)
-	 */
+     * Codes 286 and 287 do not exist, but we must include them in the tree
+     * construction to get a canonical Huffman tree (longest code all ones)
+     */
   gen_codes(static_ltree, L_CODES + 1, bl_count);
 
   /* The static distance tree is trivial: */
@@ -5624,10 +5623,10 @@ function build_tree(s, desc)
   var node;          /* new node being created */
 
   /*
-	 * Construct the initial heap, with least frequent element in
-	 * heap[SMALLEST]. The sons of heap[n] are heap[2*n] and heap[2*n+1].
-	 * heap[0] is not used.
-	 */
+     * Construct the initial heap, with least frequent element in
+     * heap[SMALLEST]. The sons of heap[n] are heap[2*n] and heap[2*n+1].
+     * heap[0] is not used.
+     */
   s.heap_len = 0;
   s.heap_max = HEAP_SIZE;
 
@@ -5642,11 +5641,11 @@ function build_tree(s, desc)
   }
 
   /*
-	 * The pkzip format requires that at least one distance code exists, and
-	 * that at least one bit should be sent even if there is only one possible
-	 * code. So to avoid special checks later on we force at least two codes of
-	 * non zero frequency.
-	 */
+     * The pkzip format requires that at least one distance code exists, and
+     * that at least one bit should be sent even if there is only one possible
+     * code. So to avoid special checks later on we force at least two codes of
+     * non zero frequency.
+     */
   while (s.heap_len < 2) {
     node = s.heap[++s.heap_len] = (max_code < 2 ? ++max_code : 0);
     tree[node * 2]/* .Freq */ = 1;
@@ -5661,15 +5660,15 @@ function build_tree(s, desc)
   desc.max_code = max_code;
 
   /*
-	 * The elements heap[heap_len/2+1 .. heap_len] are leaves of the tree,
-	 * establish sub-heaps of increasing lengths:
-	 */
+     * The elements heap[heap_len/2+1 .. heap_len] are leaves of the tree,
+     * establish sub-heaps of increasing lengths:
+     */
   for (n = (s.heap_len >> 1/* int /2 */); n >= 1; n--) { pqdownheap(s, tree, n); }
 
   /*
-	 * Construct the Huffman tree by repeatedly combining the least two frequent
-	 * nodes.
-	 */
+     * Construct the Huffman tree by repeatedly combining the least two frequent
+     * nodes.
+     */
   node = elems;              /* next internal node of the tree */
   do {
     // pqremove(s, tree, n); /* n = node of least frequency */
@@ -5698,9 +5697,9 @@ function build_tree(s, desc)
   s.heap[--s.heap_max] = s.heap[1/* SMALLEST */];
 
   /*
-	 * At this point, the fields freq and dad are set. We can now generate the
-	 * bit lengths.
-	 */
+     * At this point, the fields freq and dad are set. We can now generate the
+     * bit lengths.
+     */
   gen_bitlen(s, desc);
 
   /* The field len is now set, we can generate the bit codes */
@@ -5862,15 +5861,15 @@ function build_bl_tree(s) {
   /* Build the bit length tree: */
   build_tree(s, s.bl_desc);
   /*
-	 * opt_len now includes the length of the tree representations, except the
-	 * lengths of the bit lengths codes and the 5+5+4 bits for the counts.
-	 */
+     * opt_len now includes the length of the tree representations, except the
+     * lengths of the bit lengths codes and the 5+5+4 bits for the counts.
+     */
 
   /*
-	 * Determine the number of bit length codes to send. The pkzip format
-	 * requires that at least 4 bit length codes be sent. (appnote.txt says 3
-	 * but the actual value used is 4.)
-	 */
+     * Determine the number of bit length codes to send. The pkzip format
+     * requires that at least 4 bit length codes be sent. (appnote.txt says 3
+     * but the actual value used is 4.)
+     */
   for (max_blindex = BL_CODES - 1; max_blindex >= 3; max_blindex--) {
     if (s.bl_tree[bl_order[max_blindex] * 2 + 1]/* .Len */ !== 0) {
       break;
@@ -5932,9 +5931,9 @@ function send_all_trees(s, lcodes, dcodes, blcodes)
  */
 function detect_data_type(s) {
   /*
-	 * black_mask is the bit mask of black-listed bytes set bits 0..6, 14..25,
-	 * and 28..31 0xf3ffc07f = binary 11110011111111111100000001111111
-	 */
+     * black_mask is the bit mask of black-listed bytes set bits 0..6, 14..25,
+     * and 28..31 0xf3ffc07f = binary 11110011111111111100000001111111
+     */
   var black_mask = 0xf3ffc07f;
   var n;
 
@@ -5957,9 +5956,9 @@ function detect_data_type(s) {
   }
 
   /*
-	 * There are no "black-listed" or "white-listed" bytes: this stream either
-	 * is empty or has tolerated ("gray-listed") bytes only.
-	 */
+     * There are no "black-listed" or "white-listed" bytes: this stream either
+     * is empty or has tolerated ("gray-listed") bytes only.
+     */
   return Z_BINARY;
 }
 
@@ -6030,9 +6029,9 @@ function _tr_flush_block(s, buf, stored_len, last)
 {
   var opt_lenb, static_lenb;  /* opt_len and static_len in bytes */
   var max_blindex = 0;        /*
-								 * index of last bit length code of non zero
-								 * freq
-								 */
+                                 * index of last bit length code of non zero
+                                 * freq
+                                 */
 
   /* Build the Huffman trees unless a stored block is forced */
   if (s.level > 0) {
@@ -6051,14 +6050,14 @@ function _tr_flush_block(s, buf, stored_len, last)
     // Tracev((stderr, "\ndist data: dyn %ld, stat %ld", s->opt_len,
     // s->static_len));
     /*
-	 * At this point, opt_len and static_len are the total bit lengths of the
-	 * compressed block data, excluding the tree representations.
-	 */
+     * At this point, opt_len and static_len are the total bit lengths of the
+     * compressed block data, excluding the tree representations.
+     */
 
     /*
-	 * Build the bit length tree for the above two trees, and get the index in
-	 * bl_order of the last bit length code to send.
-	 */
+     * Build the bit length tree for the above two trees, and get the index in
+     * bl_order of the last bit length code to send.
+     */
     max_blindex = build_bl_tree(s);
 
     /* Determine the best encoding. Compute the block lengths in bytes. */
@@ -6080,11 +6079,11 @@ function _tr_flush_block(s, buf, stored_len, last)
     /* 4: two words for the lengths */
 
     /*
-	 * The test buf != NULL is only necessary if LIT_BUFSIZE > WSIZE. Otherwise
-	 * we can't have processed more than WSIZE input bytes since the last block
-	 * flush, because compression would have been successful. If LIT_BUFSIZE <=
-	 * WSIZE, it is never too late to transform a block into a stored block.
-	 */
+     * The test buf != NULL is only necessary if LIT_BUFSIZE > WSIZE. Otherwise
+     * we can't have processed more than WSIZE input bytes since the last block
+     * flush, because compression would have been successful. If LIT_BUFSIZE <=
+     * WSIZE, it is never too late to transform a block into a stored block.
+     */
     _tr_stored_block(s, buf, stored_len, last);
 
   } else if (s.strategy === Z_FIXED || static_lenb === opt_lenb) {
@@ -6099,9 +6098,9 @@ function _tr_flush_block(s, buf, stored_len, last)
   }
   // Assert (s->compressed_len == s->bits_sent, "bad compressed size");
   /*
-	 * The above check is made mod 2^32, for files larger than 512 MB and uLong
-	 * implemented on 32 bits.
-	 */
+     * The above check is made mod 2^32, for files larger than 512 MB and uLong
+     * implemented on 32 bits.
+     */
   init_block(s);
 
   if (last) {
@@ -6170,9 +6169,9 @@ function _tr_tally(s, dist, lc)
 
   return (s.last_lit === s.lit_bufsize - 1);
   /*
-	 * We avoid equality with lit_bufsize because of wraparound at 64K on 16 bit
-	 * machines and because stored blocks are restricted to 64K-1 bytes.
-	 */
+     * We avoid equality with lit_bufsize because of wraparound at 64K on 16 bit
+     * machines and because stored blocks are restricted to 64K-1 bytes.
+     */
 }
 
 exports._tr_init  = _tr_init;
@@ -13936,9 +13935,9 @@ RawEncoder.prototype._flush = function (cb) {
  * 
  * @param schema
  * @param opts
- *            {Object}
- *  + `blockSize`, uncompressed. + `codec` + `codecs` + `noCheck` +
- * `omitHeader`, useful to append to an existing block file.
+ *            {Object} + `blockSize`, uncompressed. + `codec` + `codecs` +
+ *            `noCheck` + `omitHeader`, useful to append to an existing block
+ *            file.
  */
 function BlockEncoder(schema, opts) {
   opts = opts || {};
@@ -16805,20 +16804,20 @@ function assembleProtocol(fpath, opts, cb) {
 /**
  * Convenience function to parse multiple inputs into protocols and schemas.
  * 
- * It should cover most basic use-cases but has a few limitations:
- *  + It doesn't allow passing options to the parsing step. + The protocol/type
- * inference logic can be deceived.
+ * It should cover most basic use-cases but has a few limitations: + It doesn't
+ * allow passing options to the parsing step. + The protocol/type inference
+ * logic can be deceived.
  * 
- * The parsing logic is as follows:
- *  + If `str` contains `path.sep` (on windows `\`, otherwise `/`) and is a path
- * to an existing file, it will first be read as JSON, then as an IDL
- * specification if JSON parsing failed. If either succeeds, the result is
- * returned, otherwise the next steps are run using the file's content instead
- * of the input path. + If `str` is a valid JSON string, it is parsed then
- * returned. + If `str` is a valid IDL protocol specification, it is parsed and
- * returned if no imports are present (and an error is thrown if there are any
- * imports). + If `str` is a valid IDL type specification, it is parsed and
- * returned. + If neither of the above cases apply, `str` is returned.
+ * The parsing logic is as follows: + If `str` contains `path.sep` (on windows
+ * `\`, otherwise `/`) and is a path to an existing file, it will first be read
+ * as JSON, then as an IDL specification if JSON parsing failed. If either
+ * succeeds, the result is returned, otherwise the next steps are run using the
+ * file's content instead of the input path. + If `str` is a valid JSON string,
+ * it is parsed then returned. + If `str` is a valid IDL protocol specification,
+ * it is parsed and returned if no imports are present (and an error is thrown
+ * if there are any imports). + If `str` is a valid IDL type specification, it
+ * is parsed and returned. + If neither of the above cases apply, `str` is
+ * returned.
  */
 function read(str) {
   var schema;
@@ -17172,12 +17171,12 @@ Reader.prototype._readImports = function (imports, maybeMessage) {
 /**
  * Simple class to split an input string into tokens.
  * 
- * There are different types of tokens, characterized by their `id`:
- *  + `number` numbers. + `name` references. + `string` double-quoted. +
- * `operator`, anything else, always single character. + `javadoc`, only emitted
- * when `next` is called with `emitJavadoc` set. + `json`, only emitted when
- * `next` is called with `'json'` as `id` (the tokenizer doesn't have enough
- * context to predict these).
+ * There are different types of tokens, characterized by their `id`: + `number`
+ * numbers. + `name` references. + `string` double-quoted. + `operator`,
+ * anything else, always single character. + `javadoc`, only emitted when `next`
+ * is called with `emitJavadoc` set. + `json`, only emitted when `next` is
+ * called with `'json'` as `id` (the tokenizer doesn't have enough context to
+ * predict these).
  */
 function Tokenizer(str) {
   this._str = str;
@@ -17437,9 +17436,9 @@ var LOGICAL_TYPE = null;
  * 
  * This class' constructor will register any named types to support recursive
  * schemas. All type values are represented in memory similarly to their JSON
- * representation, except for:
- *  + `bytes` and `fixed` which are represented as `Buffer`s. + `union`s which
- * will be "unwrapped" unless the `wrapUnions` option is set.
+ * representation, except for: + `bytes` and `fixed` which are represented as
+ * `Buffer`s. + `union`s which will be "unwrapped" unless the `wrapUnions`
+ * option is set.
  * 
  * See individual subclasses for details.
  */
@@ -18576,9 +18575,8 @@ UnionType.prototype.getTypes = function () { return this.types; };
  * number types are in the union).
  * 
  * Currently, this union supports at most one type in each of the categories
- * below:
- *  + `null` + `boolean` + `int`, `long`, `float`, `double` + `string`, `enum` +
- * `bytes`, `fixed` + `array` + `map`, `record`
+ * below: + `null` + `boolean` + `int`, `long`, `float`, `double` + `string`,
+ * `enum` + `bytes`, `fixed` + `array` + `map`, `record`
  */
 function UnwrappedUnionType(schema, opts) {
   UnionType.call(this, schema, opts);
@@ -18763,15 +18761,15 @@ UnwrappedUnionType.prototype.random = function () {
  * contained type).
  * 
  * This is not ideal, but is the most efficient way to unambiguously support all
- * unions. Here are a few reasons why the wrapping object is necessary:
- *  + Unions with multiple number types would have undefined behavior, unless
- * numbers are wrapped (either everywhere, leading to large performance and
- * convenience costs; or only when necessary inside unions, making it hard to
- * understand when numbers are wrapped or not). + Fixed types would have to be
- * wrapped to be distinguished from bytes. + Using record's constructor names
- * would work (after a slight change to use the fully qualified name), but would
- * mean that generic objects could no longer be valid records (making it
- * inconvenient to do simple things like creating new records).
+ * unions. Here are a few reasons why the wrapping object is necessary: + Unions
+ * with multiple number types would have undefined behavior, unless numbers are
+ * wrapped (either everywhere, leading to large performance and convenience
+ * costs; or only when necessary inside unions, making it hard to understand
+ * when numbers are wrapped or not). + Fixed types would have to be wrapped to
+ * be distinguished from bytes. + Using record's constructor names would work
+ * (after a slight change to use the fully qualified name), but would mean that
+ * generic objects could no longer be valid records (making it inconvenient to
+ * do simple things like creating new records).
  */
 function WrappedUnionType(schema, opts) {
   UnionType.call(this, schema, opts);
@@ -20284,9 +20282,9 @@ function readArraySize(tap) {
  * @param n
  *            {Number} The number.
  * 
- * Two things to note:
- *  + We are not using the `Number` constants for compatibility with older
- * browsers. + We must remove one from each bound because of rounding errors.
+ * Two things to note: + We are not using the `Number` constants for
+ * compatibility with older browsers. + We must remove one from each bound
+ * because of rounding errors.
  */
 function isSafeLong(n) {
   return n >= -9007199254740990 && n <= 9007199254740990;

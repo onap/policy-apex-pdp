@@ -125,6 +125,19 @@
                                                 <execute />
                                             </action>
                                         </pluginExecution>
+                                         <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.apache.maven.plugins</groupId>
+                                                <artifactId>maven-dependency-plugin</artifactId>
+                                                <versionRange>[3.0,)</versionRange>
+                                                <goals>
+                                                    <goal>unpack-dependencies</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <execute />
+                                            </action>
+                                        </pluginExecution>
                                     </pluginExecutions>
                                 </lifecycleMappingMetadata>
                             </configuration>
