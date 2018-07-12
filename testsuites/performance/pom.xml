@@ -17,7 +17,6 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -27,15 +26,9 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
-    <artifactId>integration</artifactId>
+    <groupId>org.onap.policy.apex-pdp.testsuites.performance</groupId>
+    <artifactId>performance</artifactId>
     <packaging>pom</packaging>
-
-    <modules>
-        <module>integration-common</module>
-        <module>integration-executor-test</module>
-        <module>integration-uservice-test</module>
-    </modules>
 
     <profiles>
         <profile>
@@ -46,7 +39,8 @@
                 </property>
             </activation>
             <modules>
-                <module>integration-context-test</module>
+                <module>performance-context-metrics</module>
+                <module>performance-benchmark-test</module>
             </modules>
         </profile>
         <profile>
@@ -57,7 +51,8 @@
                 </property>
             </activation>
             <modules>
-                <module>integration-context-test</module>
+                <module>performance-context-metrics</module>
+                <module>performance-benchmark-test</module>
             </modules>
         </profile>
     </profiles>

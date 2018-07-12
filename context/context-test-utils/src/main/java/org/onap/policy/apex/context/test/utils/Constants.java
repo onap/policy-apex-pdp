@@ -56,8 +56,11 @@ public class Constants {
     private static final AxArtifactKey KEY3 = new AxArtifactKey("testC-bot", VERSION);
     private static final AxArtifactKey KEY2 = new AxArtifactKey("testC-next", VERSION);
 
-    private static final AxArtifactKey[] AX_ARTIFACT_KEYS = {KEY, KEY2, KEY3};
-    public static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = AX_ARTIFACT_KEYS;
+    public static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = getAxArtifactKeyArray();
+
+    private static AxArtifactKey[] getAxArtifactKeyArray() {
+        return new AxArtifactKey[] {KEY, KEY2, KEY3};
+    }
 
     private Constants() {}
 
