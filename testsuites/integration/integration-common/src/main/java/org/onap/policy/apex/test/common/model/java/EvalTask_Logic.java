@@ -28,10 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 /**
  * The Class EvalTask_Logic is default evaluation task logic in Java.
  */
-//CHECKSTYLE:OFF: checkstyle:typeNames
 public class EvalTask_Logic {
- // CHECKSTYLE:ON: checkstyle:typeNames
-    private static int stateNo = 0;
 
     /**
      * Gets the event.
@@ -43,13 +40,11 @@ public class EvalTask_Logic {
     public boolean getEvent(final TaskExecutionContext executor) throws ApexException {
         executor.logger.debug(executor.subject.getId());
         executor.logger.debug(executor.inFields.toString());
-        System.err.println(executor.inFields);
         executor.outFields.putAll(executor.inFields);
 
         final Date timeNow = new Date();
-        executor.outFields.put("State" + (stateNo + 1) + "Timestamp", timeNow.getTime());
+        executor.outFields.put("State3Timestamp", timeNow.getTime());
         executor.logger.debug(executor.outFields.toString());
-        stateNo++;
         return true;
     }
 }
