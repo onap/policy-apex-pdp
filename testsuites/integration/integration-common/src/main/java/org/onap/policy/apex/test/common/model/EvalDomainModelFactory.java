@@ -354,7 +354,7 @@ public class EvalDomainModelFactory {
         final AxTask eTask = new AxTask(new AxArtifactKey("Task_Event_0", "0.0.1"));
         eTask.duplicateInputFields(event0000.getParameterMap());
         eTask.duplicateOutputFields(event0001.getParameterMap());
-        final AxTaskLogic eAxLogic = new AxTaskLogic(eTask.getKey(), "TaskLogic", (justOneLang == null ? "JRUBY" : justOneLang), logicReader);
+        final AxTaskLogic eAxLogic = new AxTaskLogic(eTask.getKey(), "TaskLogic", (justOneLang == null ? "JYTHON" : justOneLang), logicReader);
         eAxLogic.setLogic(
                 eAxLogic.getLogic().replaceAll("<STATE_NAME>", "Event").replaceAll("<TASK_NAME>", eTask.getKey().getName()).replaceAll("<STATE_NUMBER>", "1"));
         eTask.setTaskLogic(eAxLogic);
