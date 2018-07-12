@@ -1,0 +1,65 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12545,
+        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+        "engineParameters": {
+            "executorParameters": {
+                "MVEL": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "aConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsInSingle.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "aProducer0": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsOutMulti0.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "aProducer1": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsOutMulti1.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "aProducer2": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsOutMulti2.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}

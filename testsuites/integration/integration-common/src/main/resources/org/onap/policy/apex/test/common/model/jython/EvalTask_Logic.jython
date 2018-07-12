@@ -19,18 +19,14 @@
 #-------------------------------------------------------------------------------
 
 from java.lang import Boolean
-from java.lang import Byte
 from java.lang import Long
 from java.util import Date
 
 executor.logger.debug('id: ' + executor.subject.id)
 
 executor.logger.debug('inFields: ' + executor.inFields.toString())
-
-executor.outFields = executor.createOutgoingEvent(outEvent)
 executor.outFields.putAll(executor.inFields)
 
-timeValue = Long(Date().getTime());
-executor.outFields["State<STATE_NUMBER>Timestamp"] = timeValue
+executor.outFields["State<STATE_NUMBER>Timestamp"] = Long(Date().getTime())
 executor.logger.debug('outFields: ' + executor.outFields.toString())
 returnValue = Boolean.TRUE
