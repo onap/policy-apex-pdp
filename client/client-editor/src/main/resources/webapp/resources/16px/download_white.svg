@@ -1,0 +1,10 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.5 14">
+    <defs>
+        <style>.cls-1{fill:#fff;}</style>
+    </defs>
+    <title>ebIcon_import_white</title>
+    <path class="cls-1" d="M13.79,14.06H1.71a.72.72,0,0,0,0,1.44H13.79a.72.72,0,0,0,0-1.44Z" transform="translate(-1 -1.5)"/>
+    <path class="cls-1"
+          d="M7.25,11.9a.71.71,0,0,0,1,0l5-5.09a.73.73,0,0,0,0-1,.7.7,0,0,0-1,0L8.46,9.65V2.22A.71.71,0,1,0,7,2.22V9.65L3.22,5.79a.7.7,0,0,0-1,0,.73.73,0,0,0,0,1Z"
+          transform="translate(-1 -1.5)"/>
+</svg>
