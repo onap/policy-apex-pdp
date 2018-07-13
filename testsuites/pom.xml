@@ -32,5 +32,6 @@
 
     <modules>
         <module>integration</module>
+        <module>performance</module>
     </modules>
 </project>
