@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="16px" height="15px" viewBox="0 0 16 15" enable-background="new 0 0 16 15" xml:space="preserve">
+<g>
+	<g>
+		<path fill="#1D1D1B" d="M15,4c0,0.55-0.45,1-1,1H2C1.45,5,1,4.55,1,4V3c0-0.55,0.45-1,1-1h12c0.55,0,1,0.45,1,1V4z"/>
+	</g>
+	<g>
+		<path fill="#1D1D1B" d="M15,8c0,0.55-0.45,1-1,1H2C1.45,9,1,8.55,1,8V7c0-0.55,0.45-1,1-1h12c0.55,0,1,0.45,1,1V8z"/>
+	</g>
+	<g>
+		<path fill="#1D1D1B" d="M15,12c0,0.55-0.45,1-1,1H2c-0.55,0-1-0.45-1-1v-1c0-0.55,0.45-1,1-1h12c0.55,0,1,0.45,1,1V12z"/>
+	</g>
+	<rect x="2" y="3" fill="#B0B0AF" width="6" height="1"/>
+	<rect x="2" y="7" fill="#B0B0AF" width="11" height="1"/>
+	<rect x="2" y="11" fill="#B0B0AF" width="3" height="1"/>
+</g>
+</svg>

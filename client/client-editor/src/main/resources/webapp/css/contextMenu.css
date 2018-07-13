@@ -1,0 +1,110 @@
+/*
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+
+.contextmenu_hide {
+    display: none;
+}
+
+.contextmenu_show {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    list-style: none;
+    padding: 0 0 0 5px;
+    margin: 0;
+    background: rgba(255,255,255,.85);
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+    color: 000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    z-index:1000;
+    position: absolute;
+    white-space: nowrap;
+    float: left;
+    width: auto;
+}
+
+.contextmenu_show  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    color: #000;
+    font-weight: 300;
+}
+
+.contextmenu_show > li {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 0;
+}
+
+.contextmenu_show  > li.selected {
+    background: #007bff;
+    color: #fff;
+    font-weight: 400;
+}
+
+.contextmenu_show li {
+    cursor: default;
+    transition: all .1s;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+
+.contextmenu_show ul li {
+    line-height: 1.5em;
+    padding: 0 5px;
+}
+
+.contextmenu_show ul li.disabled {
+    color: #999;
+    pointer-events: none;
+}
+
+.contextmenu_show ul li:hover {
+    background: #007bff;
+    color: #fff;
+    font-weight: 400;
+}
+
+.contextmenu_show ul li ul {
+    border-radius: 5px;
+    position: absolute;
+    margin-top: -70px;
+}
+
+.contextmenu_show ul li type{
+    line-height: 1.5em;
+    padding: 0 5px;
+    font-family: monospace;
+}
+
+.contextmenu_show ul li value{
+    line-height: 1.5em;
+    padding: 0 5px;
+    font-family: monospace;
+}

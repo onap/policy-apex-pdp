@@ -36,5 +36,6 @@
         <module>client-common</module>
         <module>client-monitoring</module>
         <module>client-deployment</module>
+        <module>client-editor</module>
     </modules>
 </project>
