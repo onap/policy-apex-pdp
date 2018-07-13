@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_a1485acd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-13T11:56:47Z",
+      "side": 1,
+      "message": "Just add a comment the edit-area and jquery are libraries and make most of the size of the checkin.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "108da22a603b941caec58db764d526bc1c6c3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_c14566b4",
+        "filename": "client/client-editor/src/main/resources/webapp/js/ApexKeyInformationTab.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-13T11:56:47Z",
+      "side": 1,
+      "message": "Watch for tabs in our own code, don\u0027t bother in the library code.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "108da22a603b941caec58db764d526bc1c6c3caf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
