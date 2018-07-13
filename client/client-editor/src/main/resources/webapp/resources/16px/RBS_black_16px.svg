@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="16px" height="16px" viewBox="8 5.97 16 16" enable-background="new 8 5.97 16 16" xml:space="preserve">
+<defs>
+</defs>
+<rect display="none" fill="#66A19F" width="87" height="2381.97"/>
+<path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M21.5,6.47
+	c0.763,0.883,1.2,1.5,1.2,3c0,1.5-0.437,2.117-1.199,3"/>
+<path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M19.5,7.97
+	c0.314,0.418,0.5,0.937,0.5,1.5s-0.186,1.082-0.5,1.5"/>
+<path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M10.5,6.47
+	c-0.763,0.883-1.2,1.5-1.2,3c0,1.5,0.437,2.117,1.2,3"/>
+<path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.5,7.97
+	C12.186,8.388,12,8.907,12,9.47s0.186,1.082,0.5,1.5"/>
+<path d="M20.541,20.928c-0.003-0.039-0.008-0.077-0.019-0.115c-0.004-0.015-0.002-0.031-0.008-0.046l-3.732-9.739
+	c0.572-0.288,0.969-0.874,0.969-1.558c0-0.967-0.784-1.75-1.75-1.75c-0.969,0-1.75,0.783-1.75,1.75c0,0.675,0.384,1.252,0.943,1.545
+	l-3.738,9.752c-0.112,0.292,0.034,0.62,0.326,0.732c0.033,0.013,0.066,0.011,0.1,0.017c0.021,0.005,0.04,0.007,0.06,0.01
+	c0.037,0.003,0.071,0.004,0.107,0c0.098-0.006,0.196-0.027,0.283-0.086C13.734,20.501,14,19.97,16,19.97s2.266,0.531,3.669,1.471
+	c0.087,0.058,0.184,0.08,0.281,0.086c0.012,0.001,0.022,0.01,0.034,0.01c0.019,0,0.039-0.009,0.058-0.011
+	c0.032-0.003,0.063-0.009,0.095-0.018c0.017-0.005,0.033-0.003,0.05-0.009c0.019-0.007,0.031-0.022,0.049-0.031
+	c0.035-0.018,0.067-0.037,0.098-0.062c0.03-0.024,0.056-0.05,0.08-0.08c0.013-0.015,0.03-0.024,0.042-0.041
+	c0.009-0.014,0.01-0.03,0.018-0.044c0.019-0.034,0.032-0.069,0.044-0.107c0.011-0.034,0.02-0.067,0.023-0.103
+	C20.545,20.998,20.543,20.964,20.541,20.928z M15.984,12.117l1.477,3.853h-2.954L15.984,12.117z M16,18.97
+	c-0.95,0.001-1.902,0.246-2.927,0.744l1.052-2.744h3.72l1.046,2.728C17.879,19.212,16.938,18.971,16,18.97z"/>
+<rect x="8" y="5.97" fill="none" width="16" height="16"/>
+<rect x="8" y="5.97" display="none" opacity="0.2" fill="#E94E47" width="16" height="16"/>
+</svg>

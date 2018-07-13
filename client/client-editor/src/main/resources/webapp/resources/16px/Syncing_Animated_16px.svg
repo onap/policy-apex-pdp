@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0.5 0.5 16 16" enable-background="new 0.5 0.5 16 16" xml:space="preserve">
+<!-- TOP ARROW -->	 
+<rect id="TopArrow_1Block"  x="3.5" y="4.5" fill="#333333" width="1" height="2" fill-opacity="1"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".1s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".5s" dur=".5s" repeatCount="indefinite" />
+</rect>
+	
+<rect id="TopArrow_2Block" x="5.5" y="4.5" fill="#333333" width="1" height="2" fill-opacity=".5"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".2s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".6s" dur=".5s" repeatCount="indefinite" />
+</rect>
+
+
+<rect id="TopArrow_3Block" x="7.5" y="4.5" fill="#333333" width="3" height="2" fill-opacity="1"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".3s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".7s" dur=".5s" repeatCount="indefinite" />
+</rect>
+
+<path id="TopArrow_TriangleButt" fill="#333333" fill-opacity="1" d="M11.986,2.73c-0.25-0.224-0.625-0.292-0.948-0.17C10.713,2.682,10.5,2.967,10.5,3.284v1.172V4.5v2v0.044
+	v1.172c0.001,0.212,0.096,0.411,0.255,0.556c0.078,0.069,0.175,0.127,0.283,0.168c0.323,0.121,0.701,0.055,0.948-0.17L12.5,7.808
+	V3.192L11.986,2.73z"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".4s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".8s" dur=".5s" repeatCount="indefinite" />
+</path>	
+
+<path id="TopArrow_TriangleTip" fill="#333333" fill-opacity="1" d="M14.245,4.763L12.5,3.192v4.615l1.746-1.571C14.586,5.935,14.585,5.069,14.245,4.763z">
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".4s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".8s" dur=".5s" repeatCount="indefinite" />
+</path>
+
+
+<!-- BOTTOM ARROW -->
+
+<rect id="BottomArrow_1Block" x="10.5" y="9.5" fill="#333333" width="1" height="2" fill-opacity="1"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".1s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".5s" dur=".5s" repeatCount="indefinite" />
+</rect>
+
+<rect id="BottomArrow_2Block" x="8.5" y="9.5" fill="#333333" width="1" height="2" fill-opacity="1"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".2s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".6s" dur=".5s" repeatCount="indefinite" />
+</rect>
+
+<rect id="BottomArrow_3Block"  x="4.5" y="9.5" fill="#333333" width="3" height="2" fill-opacity="1"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".3s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".7s" dur=".5s" repeatCount="indefinite" />
+</rect>
+
+<path id="BottomArrow_TriangleButt" fill="#333333" fill-opacity="1" d="M4.247,7.728C4.167,7.658,4.071,7.601,3.962,7.56C3.639,7.438,3.261,7.505,3.014,7.73L2.5,8.192v4.616
+	l0.514,0.462c0.25,0.228,0.625,0.293,0.949,0.17C4.29,13.318,4.5,13.033,4.5,12.717v-1.173V11.5v-2V9.456V8.283
+	C4.5,8.07,4.406,7.872,4.247,7.728z"> 
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".4s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".8s" dur=".5s" repeatCount="indefinite" />
+</path>	
+	
+	
+<path id="BottomArrow_TriangleTip" fill="#333333" fill-opacity="1" d="M0.754,9.762c-0.338,0.304-0.338,1.162,0,1.475L2.5,12.808V8.192L0.754,9.762z">
+	<animate attributeType="XML" attributeName="fill-opacity" from=".3" to="1" begin=".4s" dur=".5s" repeatCount="indefinite" />
+	<animate attributeType="XML" attributeName="fill-opacity" from="1" to=".3" begin=".8s" dur=".5s" repeatCount="indefinite" />
+</path>
+
+
+
+
+
+
+</svg>

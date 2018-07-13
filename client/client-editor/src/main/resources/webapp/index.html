@@ -1,0 +1,239 @@
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Apex Policy Editor</title>
+
+<!-- Apex style -->
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+<!-- fileMenu style -->
+<link rel="stylesheet" type="text/css" href="css/fileMenu.css">
+
+<!-- contextMenu style -->
+<link rel="stylesheet" type="text/css" href="css/contextMenu.css">
+
+<!-- dropdownList style -->
+<link rel="stylesheet" type="text/css" href="css/dropdownList.css">
+
+<!-- showhideTextarea style -->
+<link rel="stylesheet" type="text/css" href="css/showhideTextarea.css">
+
+<!-- interface style -->
+<link rel="stylesheet" type="text/css" href="css/interfaceAssets.css">
+
+<!-- JQuery style -->
+<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css">
+
+<script type="text/javascript" src="js/ApexUtils.js"></script>
+
+</head>
+
+<body>
+    <div class="ebSystemBar">
+        <div class="ebSystemBar-topMenuName">Apex</div>
+    </div>
+
+    <div class="layoutWrapper">
+
+        <div class="ebBreadcrumbs">
+            <div class="ebBreadcrumbs-item">
+                <a href="javascript:getHomepageURL();" class="ebBreadcrumbs-link">Apex</a>
+            </div>
+            <div class="ebBreadcrumbs-item">
+                <a href="" class="ebBreadcrumbs-link">Policy Editor</a>
+            </div>
+        </div>
+
+        <div class="appHeading">
+            <h1 class="title">Apex Policy Editor</h1>
+        </div>
+
+        <div class="headerAreaPlaceholder"></div>
+
+
+        <div class="content" style="display: none;">
+            <div class="headerArea">
+                <div class="menuArea">
+                    <ul id="menu">
+                        <li id="menuFile" class="fileMenuButton">File
+                            <ul>
+                                <li id="menuFileNew">New <kbd>Ctrl+N</kbd></li>
+                                <li id="menuFileOpen">Open... <kbd>Ctrl+O</kbd></li>
+                                <li id="menuFileDownload">Download <kbd>Ctrl+S</kbd></li>
+                                <li id="menuFileClear">Clear<kbd>Ctrl+D</kbd></li>
+                                <li class="divider"></li>
+                                <li id="menuFileNewSession">New Session<kbd>Ctrl+R</kbd></li>
+                                <li id="menuFileClose">Close <kbd>Ctrl+Q</kbd></li>
+                            </ul>
+                        </li>
+                        <li id="menuModel" class="fileMenuButton">Model
+                            <ul>
+                                <li id="menuModelAnalyse">Analyse <kbd>Ctrl+A</kbd></li>
+                                <li id="menuModelValidate">Validate <kbd>Ctrl+V</kbd></li>
+                                <li id="menuModelCompare">Compare...</li>
+                                <li id="menuModelSplit">Split...</li>
+                                <li id="menuModelMerge">Merge...</li>
+                            </ul>
+                        </li>
+                        <li id="menuConcept" class="fileMenuButton">Concepts
+                            <ul>
+                                <li id="menuConceptsContextSchemas">Context Item Schemas</li>
+                                <li id="menuConceptsEvents">Events</li>
+                                <li id="menuConceptsContextAlbums">Context Albums</li>
+                                <li id="menuConceptsTasks">Tasks</li>
+                                <li id="menuConceptsPolicies">Policies</li>
+                                <li id="menuConceptsKeyInformation">Key Information</li>
+                            </ul>
+                        </li>
+                        <li id="menuHelp" class="fileMenuButton">Help
+                            <ul>
+                                <li id="menuHelpAbout">About<kbd>F1</kbd></li>
+                            </ul>
+                        </li>
+                        <div class="fileMenuSeperator"></div>
+                    </ul>
+
+                </div>
+                <div class="modelTagArea">
+                    <table class="modelTag">
+                        <tr>
+                            <td id="modelNameLabel" class="modelNameLabel">Model Name:</td>
+                            <td>&nbsp;</td>
+                            <td id="modelName" class="modelName">N/A</td>
+                            <td>&nbsp;</td>
+                            <td id="modelVersionLabel" class="modelVersionLabel">Version:</td>
+                            <td>&nbsp;</td>
+                            <td id="modelVersion" class="modelVersion">N/A</td>
+                            <td>&nbsp;</td>
+                            <td id="modelFileNameLable" class="modelFileNameLabel">File
+                                Name:</td>
+                            <td>&nbsp;</td>
+                            <td id="modelFileName" class="modelFileName">N/A</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div id="mainArea" class="mainArea">
+                <div id="mainTabs" class="mainTabs">
+                    <ul>
+                        <li><a href="#contextSchemasTab">Context Item Schemas</a></li>
+                        <li><a href="#eventsTab">Events</a></li>
+                        <li><a href="#contextAlbumsTab">Context Albums</a></li>
+                        <li><a href="#tasksTab">Tasks</a></li>
+                        <li><a href="#policiesTab">Policies</a></li>
+                        <li><a href="#keyInformationTab">Key Information</a></li>
+                    </ul>
+
+                    <div id="contextSchemasTab">
+                        <!--  Dynamically created form goes here-->
+                    </div>
+
+                    <div id="eventsTab">
+                        <!--  Dynamically created form goes here-->
+                    </div>
+
+                    <div id="contextAlbumsTab">
+                        <!--  Dynamically created form goes here-->
+                    </div>
+
+                    <div id="tasksTab">
+                        <!--  Dynamically created form goes here-->
+                    </div>
+
+                    <div id="policiesTab">
+                        <!--  Dynamically created form goes here-->
+                    </div>
+
+                    <div id="keyInformationTab">
+                        <!--  Dynamically created form goes here-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="placeholder">
+                <!--  Placeholder for when no policy has been loaded yet -->
+                <img class="onapLogo placeholderLogo" src="images/logo_onap.png"
+                    alt="ONAP"> <img class="apexLogo placeholderLogo"
+                    src="images/Apex.png" alt="Apex">
+            </div>
+
+            <div class="ebInlineMessage">
+                <div class="ebInlineMessage-iconHolder">
+                    <i id="ebInlineMessage-iconHolder-icon" class="ebIcon ebIcon_big"></i>
+                </div>
+                <div class="ebInlineMessage-contentHolder">
+                    <div class="ebInlineMessage-header" id="statusString"></div>
+                    <div class="ebInlineMessage-separator"></div>
+                    <div class="ebInlineMessage-description" id="statusMessageTable"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="jquery/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+
+    <!-- fileMenu JS file -->
+    <script type="text/javascript" src="js/fileMenu.js"></script>
+
+    <!-- contextMenu JS file -->
+    <script type="text/javascript" src="js/contextMenu.js"></script>
+    <!-- dropdownList JS file -->
+    <script type="text/javascript" src="js/dropdownList.js"></script>
+    <!-- showHideTextarea JS file -->
+    <script type="text/javascript" src="js/showhideTextarea.js"></script>
+    <!-- showhideElement JS file -->
+    <script type="text/javascript" src="js/showhideElement.js"></script>
+    <!--  edit area JS file -->
+    <script language="javascript" type="text/javascript"
+        src="js/edit_area/edit_area_full.js"></script>
+
+    <!-- Apex JS files -->
+    <script type="text/javascript" src="js/ApexTable.js"></script>
+    <script type="text/javascript" src="js/ApexContextSchemaTab.js"></script>
+    <script type="text/javascript" src="js/ApexContextSchemaEditForm.js"></script>
+    <script type="text/javascript" src="js/ApexEventTab.js"></script>
+    <script type="text/javascript" src="js/ApexEventEditForm.js"></script>
+    <script type="text/javascript" src="js/ApexContextAlbumTab.js"></script>
+    <script type="text/javascript" src="js/ApexContextAlbumEditForm.js"></script>
+    <script type="text/javascript" src="js/ApexTaskTab.js"></script>
+    <script type="text/javascript" src="js/ApexTaskEditForm.js"></script>
+    <script type="text/javascript" src="js/ApexPolicyTab.js"></script>
+    <script type="text/javascript" src="js/ApexPolicyEditForm_State.js"></script>
+    <script type="text/javascript" src="js/ApexPolicyEditForm.js"></script>
+    <script type="text/javascript" src="js/ApexKeyInformationTab.js"></script>
+    <script type="text/javascript" src="js/ApexAjax.js"></script>
+    <script type="text/javascript" src="js/ApexPageControl.js"></script>
+    <script type="text/javascript" src="js/ApexFiles.js"></script>
+    <script type="text/javascript" src="js/ApexFormUtils.js"></script>
+    <script type="text/javascript" src="js/ApexNewModelForm.js"></script>
+    <script type="text/javascript" src="js/ApexResultForm.js"></script>
+    <script type="text/javascript" src="js/ApexModelHandling.js"></script>
+    <script type="text/javascript" src="js/ApexMain.js"></script>
+
+</body>
+</html>
