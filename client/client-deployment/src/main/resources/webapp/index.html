@@ -22,7 +22,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Apex Monitoring</title>
+<title>Apex Deployment</title>
 
 <!-- interface style -->
 <link rel="stylesheet" type="text/css" href="css/interfaceAssets.css">
@@ -49,53 +49,38 @@
 				<a href="javascript:getHomepageURL();" class="ebBreadcrumbs-link">Apex</a>
 			</div>
 			<div class="ebBreadcrumbs-item">
-				<a href="" class="ebBreadcrumbs-link">Monitoring</a>
+				<a href="" class="ebBreadcrumbs-link">Deployment</a>
 			</div>
 		</div>
 
 		<div class="appHeading">
-			<h1 class="title">Apex Monitoring</h1>
+			<h1 class="title">Apex Deployment</h1>
 		</div>
 
 		<div class="search ebQuickActionBar"></div>
 
 		<!-- Main content div -->
 		<div id="content" class="content">
+
 			<!-- Engine Service -->
 			<h2>Engine Service</h2>
 			<div class="engineService"></div>
 
-			<!-- Apex Engine Summary -->
-			<h2>Apex Engine Service aggregated status</h2>
-			<div class="engineSummary"></div>
+			<!-- Apex Model Loading -->
+			<h2>Apex Model Loading</h2>
+			<div class="modelLoading"></div>
 
-			<!-- Apex Engine Status -->
-			<h2>Apex Engine status per engine</h2>
-			<div class="engineStatus"></div>
-
-			<!-- Apex Context -->
-			<h2>Apex Context</h2>
-			<div class="context"></div>
 		</div>
 	</div>
 
 	<!-- jQuery -->
 	<script src="jquery/jquery-1.12.4.js"></script>
 
-	<!-- D3 -->
-	<script type="text/javascript" src="js/d3/d3.min.js"></script>
-
-	<!-- AVCS -->
-	<script type="text/javascript" src="js/avsc/avsc.js"></script>
-
 	<!-- Apex services client JS files -->
 	<script type="text/javascript" src="js/ApexAjax.js"></script>
 	<script type="text/javascript" src="js/ApexTable.js"></script>
-	<script type="text/javascript" src="js/ApexChart.js"></script>
 	<script type="text/javascript" src="js/ApexEngineService.js"></script>
-	<script type="text/javascript" src="js/ApexEngineSummary.js"></script>
-	<script type="text/javascript" src="js/ApexEngineStatus.js"></script>
-	<script type="text/javascript" src="js/ApexContext.js"></script>
+	<script type="text/javascript" src="js/ApexModelLoading.js"></script>
 	<script type="text/javascript" src="js/ApexServicesMain.js"></script>
 
 </body>
