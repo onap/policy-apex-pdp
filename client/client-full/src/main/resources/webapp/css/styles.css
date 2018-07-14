@@ -1,0 +1,296 @@
+/*
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+.GradientBlock {
+    display: block;
+    height: 150px;
+    border-radius: 4px;
+    vertical-align: top;
+    cursor: pointer;
+    margin-top: 0;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 0;
+    width: 700px;
+}
+
+.GradientBlock-link {
+    font-size: inherit;
+}
+
+.GradientBlock:after {
+    content: "";
+}
+
+.GradientBlock_gradient_green {
+    background-image: linear-gradient(to right bottom, #a2c517 0%, #30ab55 100%);
+}
+
+.GradientBlock_gradient_purple {
+    background-image: linear-gradient(to right bottom, #5f1f70 0%, #db004f 100%);
+}
+
+.GradientBlock_gradient_blue {
+    background-image: linear-gradient(to right bottom, #009f80 0%, #0082b9 100%);
+}
+
+.GradientBlock_gradient_darkblue {
+    background-image: linear-gradient(to right bottom, #246ab3 0%, #5f1f70 100%);
+}
+
+.GradientBlock_flat_darkGreen {
+    background-color: #00625f;
+}
+
+.GradientBlock_flat_paleBlue {
+    background-color: #00a9d4;
+}
+
+.GradientBlock_flat_yellow {
+    background-color: #fabb00;
+}
+
+.GradientBlock_flat_green {
+    background-color: #89ba17;
+}
+
+.GradientBlock_flat_purple {
+    background-color: #7b0663;
+}
+
+.GradientBlock_flat_red {
+    background-color: #e32119;
+}
+
+.GradientBlock-icon {
+    display: inline-block;
+    width: 54px;
+    margin-left: 16px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 30px;
+}
+
+.GradientBlock-icon_icon_camera {
+    background-image: url('help/resources/help/camera.svg');
+}
+
+.GradientBlock-icon_icon_book {
+    background-image: url('help/resources/help/book.svg');
+}
+
+.GradientBlock-icon_icon_screen {
+    background-image: url('/resources/screen.svg');
+}
+
+.GradientBlock-icon_icon_note {
+    background-image: url('../resources/16px/note_white_16px.svg');
+}
+
+.GradientBlock-icon_icon_monitor {
+    background-image: url('../resources/16px/eye_white_16px.svg');
+}
+
+.GradientBlock-icon_icon_deploy {
+    background-image: url('../resources/16px/deploy_white_16px.svg');
+}
+
+.GradientBlock-icon_icon_faq {
+    background-image: url('help/resources/help/faq.svg');
+}
+
+.GradientBlock-icon_icon_page {
+    background-image: url('help/resources/help/page.svg');
+}
+
+.GradientBlock-icon_icon_video {
+    background-image: url('help/resources/help/video.svg');
+}
+
+.GradientBlock-content {
+    display: inline-block;
+    width: calc(100% - 70px);
+    padding: 0 16px 0 12px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    vertical-align: top;
+}
+
+.GradientBlock-title {
+    font-size: 24px;
+    margin-top: 30px;
+    color: white;
+    line-height: 24px;
+}
+
+.GradientBlock-desc {
+    margin-top: 12px;
+    line-height: 12px;
+    font-size: 12px;
+    color: white;
+}
+
+.ebQuickActionBar {
+    margin-top: 1.2rem;
+    font-size: 0;
+    height: 32px;
+    padding: 0.4rem 0;
+    background-color: #e8e8e8;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    box-sizing: border-box;
+    -webkit-transition: background-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.ebQuickActionBar_context {
+    background-color: #f3f3f3;
+    border-bottom: 2px solid #65cbe5;
+    box-sizing: border-box;
+    height: 32px;
+}
+
+.ebQuickActionBar>* {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+.ebQuickActionBar-iconHolder {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.6rem;
+}
+
+.ebQuickActionBar-separator {
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #CCCCCC;
+    margin: 0 8px;
+    height: 2.4rem;
+}
+
+.ebQuickActionBar-Commands, .ebQuickActionBar-commands {
+    display: inline-block;
+    margin: 0;
+    font-size: 0;
+    line-height: 2.4rem;
+}
+
+.ebQuickActionBar-Commands-iconHolder,
+    .ebQuickActionBar-commands-iconHolder {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.6rem;
+}
+
+.ebQuickActionBar-Commands-separator,
+    .ebQuickActionBar-commands-separator {
+    display: inline-block;
+    vertical-align: middle;
+    border-left: 1px solid #CCCCCC;
+    margin: 0 8px;
+    height: 2.4rem;
+}
+
+.ebQuickActionBar-Commands>*, .ebQuickActionBar-commands>* {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+.ebQuickActionBar-Commands-block, .ebQuickActionBar-commands-block,
+    .ebQuickActionBar-CommandsBlock, .ebQuickActionBar-commandsBlock {
+    margin: 0 0.8rem;
+    display: inline-block;
+}
+
+.ebQuickActionBar-Commands-block>*, .ebQuickActionBar-commands-block>*,
+    .ebQuickActionBar-CommandsBlock>*, .ebQuickActionBar-commandsBlock>* {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+.ebQuickActionBar-Commands-block :last-child,
+    .ebQuickActionBar-commands-block :last-child,
+    .ebQuickActionBar-CommandsBlock :last-child,
+    .ebQuickActionBar-commandsBlock :last-child {
+    margin-right: 0;
+}
+
+.layoutWrapper {
+    margin: 0 40px;
+}
+
+.appHeading {
+    color: rgb(51, 51, 51);
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 32px;
+    line-height: 12px;
+    position: relative;
+}
+
+.content {
+    margin-top: 14px;
+}
+
+.banner {
+    opacity: 0;
+    margin-left: -25px;
+}
+
+.title {
+    padding: 0px;
+}
+
+.placeholder {
+    float: left;
+    text-align: center;
+    white-space: nowrap;
+    display: none;
+}
+
+.onapLogo {
+    display: block;
+    height: 225px;
+    width: 325px;
+    padding-bottom: 31px;
+}
+
+.apexLogo {
+    display: block;
+    height: 225px;
+    width: 325px;
+}
+
+.banner_wrapper {
+    margin-left: 400px; //
+    width: calc(100% - 400px);
+}
