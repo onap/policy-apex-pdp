@@ -25,7 +25,6 @@
         <artifactId>plugins-persistence-jpa</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for persistence using EclipseLink</description>

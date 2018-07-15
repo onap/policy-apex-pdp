@@ -44,6 +44,8 @@
         <version.kafka>0.10.2.1</version.kafka>
         <version.jersey>2.26</version.jersey>
         <version.eclipselink>2.6.5</version.eclipselink>
+        <version.hibernate>5.3.1.Final</version.hibernate>
+        <version.dom4j>1.6</version.dom4j>
     </properties>
 
     <distributionManagement>
