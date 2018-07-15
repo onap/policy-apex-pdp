@@ -29,4 +29,22 @@
     <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for persistence using EclipseLink</description>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6</version>
+        </dependency>              
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.context</groupId>
+            <artifactId>context-test-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

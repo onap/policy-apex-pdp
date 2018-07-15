@@ -30,15 +30,11 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for persistence using Hibernate</description>
 
-    <properties>
-        <hibernate.version>5.3.1.Final</hibernate.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
+            <version>${version.hibernate}</version>
             <exclusions>
                 <exclusion>
                     <groupId>dom4j</groupId>
@@ -49,7 +45,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>${hibernate.version}</version>
+            <version>${version.hibernate}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -60,6 +56,11 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.context</groupId>
+            <artifactId>context-test-utils</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
