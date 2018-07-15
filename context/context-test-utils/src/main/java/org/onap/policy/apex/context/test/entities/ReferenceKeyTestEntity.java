@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.plugins.persistence.jpa.hibernate;
+package org.onap.policy.apex.context.test.entities;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,39 +27,42 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
+import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
 @Entity
-@Table(name = "ArtifactKeyTestEntity")
-public class ArtifactKeyTestEntity extends AxConcept {
+@Table(name = "ReferenceKeyTestEntity")
+public class ReferenceKeyTestEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067895L;
 
     @EmbeddedId()
     @XmlElement(name = "key", required = true)
-    protected AxArtifactKey key;
+    @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
+    protected AxReferenceKey key;
 
     private double doubleValue;
 
-    public ArtifactKeyTestEntity() {
-        this.key = new AxArtifactKey();
+    public ReferenceKeyTestEntity() {
+        this.key = new AxReferenceKey();
         this.doubleValue = 0;
     }
 
-    public ArtifactKeyTestEntity(final Double doubleValue) {
-        this.key = new AxArtifactKey();
+    public ReferenceKeyTestEntity(final Double doubleValue) {
+        this.key = new AxReferenceKey();
         this.doubleValue = doubleValue;
     }
 
-    public ArtifactKeyTestEntity(final AxArtifactKey key, final Double doubleValue) {
+    public ReferenceKeyTestEntity(final AxReferenceKey key, final Double doubleValue) {
         this.key = key;
         this.doubleValue = doubleValue;
     }
 
-    public AxArtifactKey getKey() {
+    public AxReferenceKey getKey() {
         return key;
     }
 
@@ -67,7 +70,7 @@ public class ArtifactKeyTestEntity extends AxConcept {
         return Arrays.asList((AxKey) getKey());
     }
 
-    public void setKey(final AxArtifactKey key) {
+    public void setKey(final AxReferenceKey key) {
         this.key = key;
     }
 
@@ -95,16 +98,16 @@ public class ArtifactKeyTestEntity extends AxConcept {
 
     @Override
     public String toString() {
-        return "ArtifactKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
+        return "ReferenceKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
     }
 
     @Override
     public AxConcept copyTo(final AxConcept target) {
-        final Object copyObject = ((target == null) ? new ArtifactKeyTestEntity() : target);
-        if (copyObject instanceof ArtifactKeyTestEntity) {
-            final ArtifactKeyTestEntity copy = ((ArtifactKeyTestEntity) copyObject);
+        final Object copyObject = ((target == null) ? new ReferenceKeyTestEntity() : target);
+        if (copyObject instanceof ReferenceKeyTestEntity) {
+            final ReferenceKeyTestEntity copy = ((ReferenceKeyTestEntity) copyObject);
             if (this.checkSetKey()) {
-                copy.setKey(new AxArtifactKey(key));
+                copy.setKey(new AxReferenceKey(key));
             } else {
                 copy.key = null;
             }
@@ -131,7 +134,7 @@ public class ArtifactKeyTestEntity extends AxConcept {
             return true;
         if (getClass() != obj.getClass())
             return false;
-        final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) obj;
+        final ReferenceKeyTestEntity other = (ReferenceKeyTestEntity) obj;
         if (key == null) {
             if (other.key != null)
                 return false;
@@ -148,7 +151,7 @@ public class ArtifactKeyTestEntity extends AxConcept {
             return -1;
         if (this == otherObj)
             return 0;
-        final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) otherObj;
+        final ReferenceKeyTestEntity other = (ReferenceKeyTestEntity) otherObj;
         if (key == null) {
             if (other.key != null)
                 return 1;

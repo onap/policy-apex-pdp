@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.plugins.persistence.jpa.hibernate;
+package org.onap.policy.apex.plugins.persistence.jpa.eclipselink;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,32 +40,32 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
 
 /**
- * Junit test for class HibernateApexDao
+ * Junit tests for class EclipselinkApexDao
  * 
  * @author Dinh Danh Le (dinh.danh.le@ericsson.com)
  *
  */
 
-public class HibernateApexDaoTest {
+public class EclipselinkApexDaoTest {
 
     private static final List<AxArtifactKey> TEST_ARTIKEYS = Arrays.asList(new AxArtifactKey[] {
             new AxArtifactKey("ABC", "0.0.1"), new AxArtifactKey("DEF", "0.1.1"), new AxArtifactKey("XYZ", "1.1.1")});
 
     private final DAOParameters daoParameters = new DAOParameters();
 
-    private HibernateApexDao hibernateApexDao = null;
+    private EclipselinkApexDao eclipselinkApexDao = null;
 
     @Before
-    public void setupDAO() throws ApexException {
-        daoParameters.setPluginClass(HibernateApexDao.class.getCanonicalName());
+    public void setup() throws ApexException {
+        daoParameters.setPluginClass(EclipselinkApexDao.class.getCanonicalName());
         daoParameters.setPersistenceUnit("DAOTest");
-        hibernateApexDao = new HibernateApexDao();
-        hibernateApexDao.init(daoParameters);
+        eclipselinkApexDao = new EclipselinkApexDao();
+        eclipselinkApexDao.init(daoParameters);
     }
 
     @After
-    public void teardownDAO() {
-        hibernateApexDao.close();
+    public void teardown() {
+        eclipselinkApexDao.close();
     }
 
     @Test
@@ -74,24 +74,24 @@ public class HibernateApexDaoTest {
         final AxArtifactKey nullRefernceKey = null;
         final List<Object> emptyList = Collections.emptyList();
 
-        assertNull(hibernateApexDao.getArtifact(null, nullArtifactKey));
-        assertNull(hibernateApexDao.getArtifact(ArtifactKeyTestEntity.class, nullArtifactKey));
+        assertNull(eclipselinkApexDao.getArtifact(null, nullArtifactKey));
+        assertNull(eclipselinkApexDao.getArtifact(ArtifactKeyTestEntity.class, nullArtifactKey));
 
-        assertNull(hibernateApexDao.getArtifact(null, nullRefernceKey));
-        assertNull(hibernateApexDao.getArtifact(ReferenceKeyTestEntity.class, nullRefernceKey));
+        assertNull(eclipselinkApexDao.getArtifact(null, nullRefernceKey));
+        assertNull(eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class, nullRefernceKey));
 
-        assertNotNull(hibernateApexDao.getAll(null));
-        assertTrue(hibernateApexDao.getAll(null).equals(emptyList));
-        assertNotNull(hibernateApexDao.getAll(ReferenceKeyTestEntity.class));
+        assertNotNull(eclipselinkApexDao.getAll(null));
+        assertTrue(eclipselinkApexDao.getAll(null).equals(emptyList));
+        assertNotNull(eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class));
     }
 
     @Test
     public void test_createObject() throws ApexException {
         // create 3 more entities from testArtiKeys
         for (final AxArtifactKey akey : TEST_ARTIKEYS) {
-            hibernateApexDao.create(new ReferenceKeyTestEntity(new AxReferenceKey(akey), Math.random() + 100.0));
+            eclipselinkApexDao.create(new ReferenceKeyTestEntity(new AxReferenceKey(akey), Math.random()));
         }
-        assertEquals(3, hibernateApexDao.getAll(ReferenceKeyTestEntity.class).size());
+        assertEquals(3, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class).size());
     }
 
     @Test
@@ -102,10 +102,10 @@ public class HibernateApexDaoTest {
         for (int i = 0; i < TEST_ARTIKEYS.size(); i++) {
             final AxArtifactKey akey = TEST_ARTIKEYS.get(i);
             genDoubleVals[i] = Math.random();
-            hibernateApexDao.create(new ReferenceKeyTestEntity(new AxReferenceKey(akey), genDoubleVals[i]));
+            eclipselinkApexDao.create(new ReferenceKeyTestEntity(new AxReferenceKey(akey), genDoubleVals[i]));
         }
 
-        final List<ReferenceKeyTestEntity> ret = hibernateApexDao.getAll(ReferenceKeyTestEntity.class);
+        final List<ReferenceKeyTestEntity> ret = eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class);
         assertEquals(TEST_ARTIKEYS.size(), ret.size());
 
         for (int i = 0; i < TEST_ARTIKEYS.size(); i++) {
@@ -122,19 +122,19 @@ public class HibernateApexDaoTest {
         final AxReferenceKey referenceKey = new AxReferenceKey(artifactKey, "Entity1");
 
         // assert null if Entity Class is null
-        assertNull(hibernateApexDao.getArtifact(null, referenceKey));
+        assertNull(eclipselinkApexDao.getArtifact(null, referenceKey));
 
         // create PersistenceContext with an entity
-        hibernateApexDao.create(new ReferenceKeyTestEntity(referenceKey, 1.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(referenceKey, 1.0));
         // assert null when trying to find an entity with an unknown key
         final AxArtifactKey anotherArtifactKey = new AxArtifactKey("YYY", "0.0.2");
         final AxReferenceKey anotherReferenceKey = new AxReferenceKey(anotherArtifactKey);
 
-        assertNull(hibernateApexDao.getArtifact(ReferenceKeyTestEntity.class, anotherReferenceKey));
+        assertNull(eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class, anotherReferenceKey));
 
         // assert return only one entity when finding an entity with correct key
         final ReferenceKeyTestEntity retEntity =
-                hibernateApexDao.getArtifact(ReferenceKeyTestEntity.class, referenceKey);
+                eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class, referenceKey);
         assertEquals(referenceKey, retEntity.getKey());
     }
 
@@ -143,16 +143,16 @@ public class HibernateApexDaoTest {
     public void test_getArtifactByArtifactKey() {
         final AxArtifactKey artifactKey = new AxArtifactKey("XXX", "0.0.1");
         // assert null if either Entity Class is null
-        assertNull(hibernateApexDao.getArtifact(null, artifactKey));
+        assertNull(eclipselinkApexDao.getArtifact(null, artifactKey));
         // create an entity
-        hibernateApexDao.create(new ArtifactKeyTestEntity(artifactKey, 1.0));
+        eclipselinkApexDao.create(new ArtifactKeyTestEntity(artifactKey, 1.0));
 
         // assert null when trying to find an entity with an unknown key
         final AxArtifactKey otherArtifactKey = new AxArtifactKey("YYY", "0.0.2");
-        assertNull(hibernateApexDao.getArtifact(ArtifactKeyTestEntity.class, otherArtifactKey));
+        assertNull(eclipselinkApexDao.getArtifact(ArtifactKeyTestEntity.class, otherArtifactKey));
 
         // assert return only one entity when finding an entity with correct key
-        final ArtifactKeyTestEntity retEntity = hibernateApexDao.getArtifact(ArtifactKeyTestEntity.class, artifactKey);
+        final ArtifactKeyTestEntity retEntity = eclipselinkApexDao.getArtifact(ArtifactKeyTestEntity.class, artifactKey);
         assertNotNull(retEntity);
         assertEquals(artifactKey, retEntity.getKey());
     }
@@ -162,16 +162,16 @@ public class HibernateApexDaoTest {
     public void test_deleteByArtifactKey() {
         // initialize a list of (3) entities corresponding to the list of testArtiKeys
         for (final AxArtifactKey akey : TEST_ARTIKEYS) {
-            hibernateApexDao.create(new ArtifactKeyTestEntity(akey, Math.random()));
+            eclipselinkApexDao.create(new ArtifactKeyTestEntity(akey, Math.random()));
         }
         // create one more entity
         final ArtifactKeyTestEntity entity = new ArtifactKeyTestEntity(new AxArtifactKey("XYZ", "100.0.0"), 100.0);
-        hibernateApexDao.create(entity);
+        eclipselinkApexDao.create(entity);
 
-        assertEquals(3, hibernateApexDao.deleteByArtifactKey(ArtifactKeyTestEntity.class, TEST_ARTIKEYS));
+        assertEquals(3, eclipselinkApexDao.deleteByArtifactKey(ArtifactKeyTestEntity.class, TEST_ARTIKEYS));
 
         // after deleteByArtifactKey()--> getAll().size() == 1
-        final List<ArtifactKeyTestEntity> remainingEntities = hibernateApexDao.getAll(ArtifactKeyTestEntity.class);
+        final List<ArtifactKeyTestEntity> remainingEntities = eclipselinkApexDao.getAll(ArtifactKeyTestEntity.class);
         assertEquals(1, remainingEntities.size());
         // more details about the remainingEntities
         assertEquals(100.0, remainingEntities.get(0).getDoubleValue(), 0.0);
@@ -193,29 +193,29 @@ public class HibernateApexDaoTest {
         final AxReferenceKey refKey12 = new AxReferenceKey(owner1Key, "Entity12");
 
         // create a list of 5 entities
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey0s.get(0), 101.0));
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey0s.get(1), 102.0));
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey0s.get(2), 103.0));
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey11, 104.0));
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey12, 105.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey0s.get(0), 101.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey0s.get(1), 102.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey0s.get(2), 103.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey11, 104.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey12, 105.0));
 
         // assert 3 entities are deleted by this deletion
-        assertEquals(3, hibernateApexDao.deleteByReferenceKey(ReferenceKeyTestEntity.class, refKey0s));
+        assertEquals(3, eclipselinkApexDao.deleteByReferenceKey(ReferenceKeyTestEntity.class, refKey0s));
         // after deletion, make sure getAll().size() == 2
-        assertEquals(2, hibernateApexDao.getAll(ReferenceKeyTestEntity.class).size());
+        assertEquals(2, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class).size());
     }
 
     @Test
     public void test_deleteAll() {
         // initialize a list of (3) entities and add to the PersistenceContext
         for (final AxArtifactKey akey : TEST_ARTIKEYS) {
-            hibernateApexDao.create(new ReferenceKeyTestEntity(new AxReferenceKey(akey), Math.random()));
+            eclipselinkApexDao.create(new ReferenceKeyTestEntity(new AxReferenceKey(akey), Math.random()));
         }
         // before deleteAll()--> getAll().size() == 3
-        assertEquals(3, hibernateApexDao.getAll(ReferenceKeyTestEntity.class).size());
-        hibernateApexDao.deleteAll(ReferenceKeyTestEntity.class);
+        assertEquals(3, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class).size());
+        eclipselinkApexDao.deleteAll(ReferenceKeyTestEntity.class);
         // after deleteAll()--> getAll().size() == 0
-        assertEquals(0, hibernateApexDao.getAll(ReferenceKeyTestEntity.class).size());
+        assertEquals(0, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class).size());
     }
 
 
@@ -230,17 +230,17 @@ public class HibernateApexDaoTest {
 
 
         // test with null class with known key --> return an empty list
-        assertNotNull(hibernateApexDao.getAll(null, artiKey1));
-        assertTrue(hibernateApexDao.getAll(null, artiKey1).equals(Collections.emptyList()));
+        assertNotNull(eclipselinkApexDao.getAll(null, artiKey1));
+        assertTrue(eclipselinkApexDao.getAll(null, artiKey1).equals(Collections.emptyList()));
 
         // test with (not_null) ArtifactKeyTestEntity class
-        assertEquals(0, hibernateApexDao.getAll(ReferenceKeyTestEntity.class, artiKey0).size());
+        assertEquals(0, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class, artiKey0).size());
         // create 2 entities
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey0, 100.0));
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey0, 200.0));
-        hibernateApexDao.create(new ReferenceKeyTestEntity(refKey1, 100.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey0, 100.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey0, 200.0));
+        eclipselinkApexDao.create(new ReferenceKeyTestEntity(refKey1, 100.0));
 
-        final List<ReferenceKeyTestEntity> ret = hibernateApexDao.getAll(ReferenceKeyTestEntity.class, artiKey0);
+        final List<ReferenceKeyTestEntity> ret = eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class, artiKey0);
         assertEquals(1, ret.size());
         final ReferenceKeyTestEntity retEntity = ret.get(0);
         assertEquals(200.0, retEntity.getDoubleValue(), 0);
