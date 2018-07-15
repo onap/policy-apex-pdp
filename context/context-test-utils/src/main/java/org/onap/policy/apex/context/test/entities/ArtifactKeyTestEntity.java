@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.plugins.persistence.jpa.hibernate;
+package org.onap.policy.apex.context.test.entities;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,42 +27,39 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
 @Entity
-@Table(name = "ReferenceKeyTestEntity")
-public class ReferenceKeyTestEntity extends AxConcept {
-    private static final long serialVersionUID = -2962570563281067894L;
+@Table(name = "ArtifactKeyTestEntity")
+public class ArtifactKeyTestEntity extends AxConcept {
+    private static final long serialVersionUID = -2962570563281067896L;
 
     @EmbeddedId()
     @XmlElement(name = "key", required = true)
-    @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
-    protected AxReferenceKey key;
+    protected AxArtifactKey key;
 
     private double doubleValue;
 
-    public ReferenceKeyTestEntity() {
-        this.key = new AxReferenceKey();
+    public ArtifactKeyTestEntity() {
+        this.key = new AxArtifactKey();
         this.doubleValue = 0;
     }
 
-    public ReferenceKeyTestEntity(final Double doubleValue) {
-        this.key = new AxReferenceKey();
+    public ArtifactKeyTestEntity(final Double doubleValue) {
+        this.key = new AxArtifactKey();
         this.doubleValue = doubleValue;
     }
 
-    public ReferenceKeyTestEntity(final AxReferenceKey key, final Double doubleValue) {
+    public ArtifactKeyTestEntity(final AxArtifactKey key, final Double doubleValue) {
         this.key = key;
         this.doubleValue = doubleValue;
     }
 
-    public AxReferenceKey getKey() {
+    public AxArtifactKey getKey() {
         return key;
     }
 
@@ -70,7 +67,7 @@ public class ReferenceKeyTestEntity extends AxConcept {
         return Arrays.asList((AxKey) getKey());
     }
 
-    public void setKey(final AxReferenceKey key) {
+    public void setKey(final AxArtifactKey key) {
         this.key = key;
     }
 
@@ -98,16 +95,16 @@ public class ReferenceKeyTestEntity extends AxConcept {
 
     @Override
     public String toString() {
-        return "ReferenceKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
+        return "ArtifactKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
     }
 
     @Override
     public AxConcept copyTo(final AxConcept target) {
-        final Object copyObject = ((target == null) ? new ReferenceKeyTestEntity() : target);
-        if (copyObject instanceof ReferenceKeyTestEntity) {
-            final ReferenceKeyTestEntity copy = ((ReferenceKeyTestEntity) copyObject);
+        final Object copyObject = ((target == null) ? new ArtifactKeyTestEntity() : target);
+        if (copyObject instanceof ArtifactKeyTestEntity) {
+            final ArtifactKeyTestEntity copy = ((ArtifactKeyTestEntity) copyObject);
             if (this.checkSetKey()) {
-                copy.setKey(new AxReferenceKey(key));
+                copy.setKey(new AxArtifactKey(key));
             } else {
                 copy.key = null;
             }
@@ -134,7 +131,7 @@ public class ReferenceKeyTestEntity extends AxConcept {
             return true;
         if (getClass() != obj.getClass())
             return false;
-        final ReferenceKeyTestEntity other = (ReferenceKeyTestEntity) obj;
+        final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) obj;
         if (key == null) {
             if (other.key != null)
                 return false;
@@ -151,7 +148,7 @@ public class ReferenceKeyTestEntity extends AxConcept {
             return -1;
         if (this == otherObj)
             return 0;
-        final ReferenceKeyTestEntity other = (ReferenceKeyTestEntity) otherObj;
+        final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) otherObj;
         if (key == null) {
             if (other.key != null)
                 return 1;
