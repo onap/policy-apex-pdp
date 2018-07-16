@@ -46,6 +46,30 @@
       "revId": "773cff1147e756eb9be6d4a56dc5f70537f172fc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_8ae213d4",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-16T10:18:14Z",
+      "side": 1,
+      "message": "Okay Thanks Ram",
+      "parentUuid": "1a9dcd25_8a945338",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 40
+      },
+      "revId": "773cff1147e756eb9be6d4a56dc5f70537f172fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
