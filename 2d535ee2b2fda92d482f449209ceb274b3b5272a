@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_aa758f33",
+        "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-eclipselink/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-07-16T09:10:46Z",
+      "side": 1,
+      "message": "Now that it is used more than once, we may declare a version property in apex-pdp pom and refer the same in the child pom\u0027s. That increases maintainability.",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "2d535ee2b2fda92d482f449209ceb274b3b5272a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
