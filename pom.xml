@@ -159,5 +159,6 @@
         <module>packages</module>
         <module>testsuites</module>
         <module>client</module>
+        <module>tools</module>
     </modules>
 </project>
