@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_ea3e3729",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-07-16T11:00:47Z",
+      "side": 1,
+      "message": "Capitalize per ONAP requirements",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "0dceae67373985bf6c4682d11a5355dd68cc04de",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_0a3cc32e",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/entities/package-info.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-07-16T11:00:47Z",
+      "side": 1,
+      "message": "Just 2018",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "0dceae67373985bf6c4682d11a5355dd68cc04de",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_aa482fcd",
+        "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-eclipselink/src/test/java/org/onap/policy/apex/plugins/persistence/jpa/eclipselink/EclipselinkApexDaoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-07-16T11:00:47Z",
+      "side": 1,
+      "message": "Just 2018",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "0dceae67373985bf6c4682d11a5355dd68cc04de",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_ca457bb4",
+        "filename": "plugins/plugins-persistence/plugins-persistence-jpa/plugins-persistence-jpa-eclipselink/src/test/resources/META-INF/persistence.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-07-16T11:00:47Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 4,
+        "startChar": 17,
+        "endLine": 4,
+        "endChar": 26
+      },
+      "revId": "0dceae67373985bf6c4682d11a5355dd68cc04de",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
