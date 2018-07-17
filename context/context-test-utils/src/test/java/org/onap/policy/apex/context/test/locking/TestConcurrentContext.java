@@ -22,15 +22,21 @@ package org.onap.policy.apex.context.test.locking;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.onap.policy.apex.context.test.lock.modifier.LockType.WRITE_LOCK_SINGLE_VALUE_UPDATE;
+import static org.onap.policy.apex.context.test.utils.Constants.TEST_VALUE;
 
-import java.io.IOException;
+import java.util.Map;
 
 import org.junit.Test;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
 import org.onap.policy.apex.context.parameters.ContextParameters;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
+import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
+import org.onap.policy.apex.context.test.utils.ConfigrationProviderImpl;
+import org.onap.policy.apex.context.test.utils.Constants;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -40,10 +46,12 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestConcurrentContext {
+
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestConcurrentContext.class);
 
     // Test parameters
+    private static final int ALBUM_SIZE = 16;
     private static final int TEST_JVM_COUNT_SINGLE_JVM = 1;
     private static final int TEST_JVM_COUNT_MULTI_JVM = 3;
     private static final int TEST_THREAD_COUNT_SINGLE_JVM = 64;
@@ -51,46 +59,81 @@ public class TestConcurrentContext {
     private static final int TEST_THREAD_LOOPS = 100;
 
     @Test
-    public void testConcurrentContextJVMLocalVarSet() throws ApexModelException, IOException, ApexException {
+    public void testConcurrentContextJVMLocalVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalVarSet test . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
-        final long result = new ConcurrentContext().testConcurrentContext("JVMLocalVarSet", TEST_JVM_COUNT_SINGLE_JVM,
-                TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
 
-        assertEquals(TEST_JVM_COUNT_SINGLE_JVM * TEST_THREAD_COUNT_SINGLE_JVM * TEST_THREAD_LOOPS, result);
+        final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalVarSet",
+                TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
+
+        final ConcurrentContext concurrentContext = new ConcurrentContext(configrationProvider);
+        final Map<String, TestContextLongItem> result = concurrentContext.testConcurrentContext();
+
+        assertFalse(result.isEmpty());
+        final int expected = TEST_JVM_COUNT_SINGLE_JVM * TEST_THREAD_COUNT_SINGLE_JVM * TEST_THREAD_LOOPS;
+        final TestContextLongItem actual = result.get(TEST_VALUE);
+        assertNotNull(actual);
+        assertEquals(expected, actual.getLongValue());
+
 
         logger.debug("Ran testConcurrentContextJVMLocalVarSet test");
     }
 
     @Test
-    public void testConcurrentContextJVMLocalNoVarSet() throws ApexModelException, IOException, ApexException {
+    public void testConcurrentContextJVMLocalNoVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalNoVarSet test . . .");
 
         new ContextParameters();
-        final long result = new ConcurrentContext().testConcurrentContext("JVMLocalNoVarSet", TEST_JVM_COUNT_SINGLE_JVM,
-                TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
+        final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalNoVarSet",
+                TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
 
-        assertEquals(TEST_JVM_COUNT_SINGLE_JVM * TEST_THREAD_COUNT_SINGLE_JVM * TEST_THREAD_LOOPS, result);
+        final ConcurrentContext concurrentContext = new ConcurrentContext(configrationProvider);
+        final Map<String, TestContextLongItem> result = concurrentContext.testConcurrentContext();
+
+        assertFalse(result.isEmpty());
+        final int expected = TEST_JVM_COUNT_SINGLE_JVM * TEST_THREAD_COUNT_SINGLE_JVM * TEST_THREAD_LOOPS;
+        final TestContextLongItem actual = result.get(TEST_VALUE);
+        assertNotNull(actual);
+        assertEquals(expected, actual.getLongValue());
 
         logger.debug("Ran testConcurrentContextJVMLocalNoVarSet test");
     }
 
     @Test
-    public void testConcurrentContextMultiJVMNoLock() throws ApexModelException, IOException, ApexException {
+    public void testConcurrentContextMultiJVMNoLock() throws Exception {
         logger.debug("Running testConcurrentContextMultiJVMNoLock test . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
         contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
 
-        final long result = new ConcurrentContext().testConcurrentContext("testConcurrentContextMultiJVMNoLock",
+        final ConfigrationProvider configrationProvider = getConfigrationProvider("testConcurrentContextMultiJVMNoLock",
                 TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
 
+        final ConcurrentContext concurrentContext = new ConcurrentContext(configrationProvider);
+        final Map<String, TestContextLongItem> result = concurrentContext.testConcurrentContext();
+
         // No concurrent map so result will be zero
-        assertEquals(0, result);
+        assertFalse(result.isEmpty());
+        final TestContextLongItem actual = result.get(TEST_VALUE);
+        assertNotNull(actual);
+        assertEquals(0, actual.getLongValue());
 
         logger.debug("Ran testConcurrentContextMultiJVMNoLock test");
+    }
+
+    private ConfigrationProvider getConfigrationProvider(final String testType, final int jvmCount,
+            final int threadCount, final int threadLoops) {
+        return new ConfigrationProviderImpl(testType, jvmCount, threadCount, threadLoops, ALBUM_SIZE,
+                WRITE_LOCK_SINGLE_VALUE_UPDATE.getValue()) {
+            @Override
+            public Map<String, Object> getContextAlbumInitValues() {
+                final Map<String, Object> initValues = super.getContextAlbumInitValues();
+                initValues.put(Constants.TEST_VALUE, new TestContextLongItem(0l));
+                return initValues;
+            }
+        };
     }
 }

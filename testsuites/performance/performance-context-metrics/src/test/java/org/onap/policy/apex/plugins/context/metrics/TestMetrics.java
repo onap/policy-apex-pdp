@@ -22,36 +22,59 @@ package org.onap.policy.apex.plugins.context.metrics;
 
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.TreeSet;
 
-import org.apache.curator.test.TestingServer;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.onap.policy.apex.context.test.utils.NetworkUtils;
+import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 public class TestMetrics {
-    // Zookeeper test server
-    TestingServer zkTestServer;
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestMetrics.class);
+    private static final String HAZELCAST_CONFIG = "hazelcast.config";
 
-    @Before
-    public void beforeTest() throws Exception {
-        zkTestServer = new TestingServer(62181);
-    }
+    private static final String JAVA_NET_PREFER_IPV4_STACK = "java.net.preferIPv4Stack";
+    private static final String HAZELCAST_XML_FILE = "src/test/resources/hazelcast/hazelcast.xml";
 
-    @After
-    public void afterTest() throws IOException {
-        zkTestServer.stop();
+    @Rule
+    public final TemporaryFolder folder = new TemporaryFolder();
+
+    @BeforeClass
+    public static void configure() throws Exception {
+        System.setProperty(JAVA_NET_PREFER_IPV4_STACK, "true");
+        final String hazelCastfileLocation = ResourceUtils.getFilePath4Resource(HAZELCAST_XML_FILE);
+        System.setProperty(HAZELCAST_CONFIG, hazelCastfileLocation);
+
+        final TreeSet<String> ipAddressSet = NetworkUtils.getIPv4NonLoopAddresses();
+
+        if (ipAddressSet.size() == 0) {
+            throw new Exception("cound not find real IP address for test");
+        }
+        LOGGER.info("For Infinispan, setting jgroups.tcp.address to: {}", ipAddressSet.first());
+        System.setProperty("jgroups.tcp.address", ipAddressSet.first());
+
     }
 
     @Test
-    public void getSingleJVMMetrics() {
-        final String[] args = {"singleJVMTestNL", "1", "32", "1000", "65536", "0", "localhost:62181", "false"};
+    public void getSingleJVMMetrics() throws IOException {
+        final File zookeeperDirectory = folder.newFolder("zookeeperDirectory");
+        final String[] args = {"singleJVMTestNL", "1", "32", "1000", "65536", "0", "localhost", "62181",
+                zookeeperDirectory.getAbsolutePath()};
 
+        LOGGER.info("Starting with args: {}", Arrays.toString(args));
         try {
             ConcurrentContextMetrics.main(args);
-        } catch (final Exception e) {
+        } catch (final Exception exception) {
+            LOGGER.error("Unexpected error", exception);
             fail("Metrics test failed");
-            e.printStackTrace();
         }
     }
 }

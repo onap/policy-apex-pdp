@@ -72,30 +72,33 @@ import org.slf4j.ext.XLoggerFactory;
 /**
  * The class represents the root resource exposed at the base URL<br>
  * The url to access this resource would be in the form {@code <baseURL>/rest/<session>/....} <br>
- * For example: a PUT request to the following URL {@code http://localhost:8080/apex/rest/109/ContextSchema/Update},
- * with a JSON string payload containing the new {@code Schema} in the body, can be explained as:
+ * For example: a PUT request to the following URL
+ * {@code http://localhost:8080/apex/rest/109/ContextSchema/Update}, with a JSON string payload
+ * containing the new {@code Schema} in the body, can be explained as:
  * <ul>
  * <li>The server or servlet is running at the base URL {@code http://localhost:8080/apex}
- * <li>This resource {@code ApexRestEditorResource} is used because the path {@code rest/109} matches the {@code Path}
- * filter specification for this Resource ({@code @Path("rest/{session}")}), where the {@code int} path parameter
- * {@code session} is assigned the {@code int} value {@code 109}
- * <li>The path {@code ContextSchema/Update} redirects this call to the method {@link #updateContextSchema(String)},
- * which should be a {@link javax.ws.rs.PUT}, with a single String in the body/payload which gets mapped to the single
- * String parameter for the method.
- * <li>So, in summary, the REST request updates a {@code ContextSchema} as specified in the payload for {@code session}
- * number {@code 109}
+ * <li>This resource {@code ApexRestEditorResource} is used because the path {@code rest/109}
+ * matches the {@code Path} filter specification for this Resource
+ * ({@code @Path("rest/{session}")}), where the {@code int} path parameter {@code session} is
+ * assigned the {@code int} value {@code 109}
+ * <li>The path {@code ContextSchema/Update} redirects this call to the method
+ * {@link #updateContextSchema(String)}, which should be a {@link javax.ws.rs.PUT}, with a single
+ * String in the body/payload which gets mapped to the single String parameter for the method.
+ * <li>So, in summary, the REST request updates a {@code ContextSchema} as specified in the payload
+ * for {@code session} number {@code 109}
  * </ul>
  *
- * <b>Note:</b> An allocated {@code Session} identifier must be included in (almost) all requests. Models for different
- * {@code Session} identifiers are completely isolated from one another.
+ * <b>Note:</b> An allocated {@code Session} identifier must be included in (almost) all requests.
+ * Models for different {@code Session} identifiers are completely isolated from one another.
  *
- * <b>Note:</b> To create a new {@code Session}, and have a new session ID allocated use {@link javax.ws.rs.GET} request
- * to {@code <baseURL>/rest/-1/Session/Create} (for example: {@code http://localhost:8080/apex/rest/-1/Session/Create} )
+ * <b>Note:</b> To create a new {@code Session}, and have a new session ID allocated use
+ * {@link javax.ws.rs.GET} request to {@code <baseURL>/rest/-1/Session/Create} (for example:
+ * {@code http://localhost:8080/apex/rest/-1/Session/Create} )
  *
  */
 @Path("editor/{session}")
-@Produces({ MediaType.APPLICATION_JSON })
-@Consumes({ MediaType.APPLICATION_JSON })
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 
 public class ApexEditorRestResource {
     // Get a reference to the logger
@@ -115,8 +118,8 @@ public class ApexEditorRestResource {
     private ApexModel sessionApexModel = null;
 
     /**
-     * This method sets the Apex model for the current editor session. Don't forget to call {@link #commitChanges()}
-     * when finished! This makes requests atomic.
+     * This method sets the Apex model for the current editor session. Don't forget to call
+     * {@link #commitChanges()} when finished! This makes requests atomic.
      *
      * @return the result of finding the session Apex model and setting it
      */
@@ -136,7 +139,8 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * This method sets the Apex model for the current editor session. Don't make any changes to the model.
+     * This method sets the Apex model for the current editor session. Don't make any changes to the
+     * model.
      *
      * @return the result of finding the session Apex model and setting it
      */
@@ -156,8 +160,8 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * This method commits changes to the Apex model for the current editor session. This should only be called once, at
-     * the end of a successful change to the model for this session
+     * This method commits changes to the Apex model for the current editor session. This should
+     * only be called once, at the end of a successful change to the model for this session
      *
      * @return the result of committing the session Apex model
      */
@@ -174,12 +178,13 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Creates a new session. Always call this method with sessionID -1, whereby a new sessionID will be allocated. If
-     * successful the new sessionID will be available in the first message in the result.
+     * Creates a new session. Always call this method with sessionID -1, whereby a new sessionID
+     * will be allocated. If successful the new sessionID will be available in the first message in
+     * the result.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}. This includes the session id
-     *         for this session.
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}.
+     *         This includes the session id for this session.
      */
     @GET
     @Path("Session/Create")
@@ -216,10 +221,10 @@ public class ApexEditorRestResource {
     /**
      * Load the model from a JSON string for this session.
      *
-     * @param jsonString the JSON string to be parsed. The returned value(s) will be similar to {@link AxPolicyModel},
-     *        with merged {@linkplain AxKeyInfo} for the root object.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @param jsonString the JSON string to be parsed. The returned value(s) will be similar to
+     *        {@link AxPolicyModel}, with merged {@linkplain AxKeyInfo} for the root object.
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("/Model/Load")
@@ -247,11 +252,11 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Analyse the model and return analysis results. If successful the analysis results will be available in the
-     * messages in the result.
+     * Analyse the model and return analysis results. If successful the analysis results will be
+     * available in the messages in the result.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Model/Analyse")
@@ -276,11 +281,11 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Validate the model and return validation results. If successful the validation results will be available in the
-     * messages in the result.
+     * Validate the model and return validation results. If successful the validation results will
+     * be available in the messages in the result.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Model/Validate")
@@ -309,9 +314,10 @@ public class ApexEditorRestResource {
     /**
      * Creates the new model model for this session.
      *
-     * @param jsonString the JSON string to be parsed containing the new model. See {@linkplain BeanModel}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @param jsonString the JSON string to be parsed containing the new model. See
+     *        {@linkplain BeanModel}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @POST
     @Path("Model/Create")
@@ -347,9 +353,10 @@ public class ApexEditorRestResource {
     /**
      * Update the model for this session.
      *
-     * @param jsonString the JSON string to be parsed containing the updated model. See {@linkplain BeanModel}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @param jsonString the JSON string to be parsed containing the updated model. See
+     *        {@linkplain BeanModel}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("Model/Update")
@@ -379,11 +386,11 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Gets the key for the model for this session. If successful the model key will be available in the first message
-     * in the result. See {@linkplain AxKey}
+     * Gets the key for the model for this session. If successful the model key will be available in
+     * the first message in the result. See {@linkplain AxKey}
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Model/GetKey")
@@ -408,12 +415,12 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Retrieve the model for this session. If successful the model will be available in the first message in the
-     * result. The returned value will be similar to a {@link AxPolicyModel}, with merged {@linkplain AxKeyInfo} for the
-     * root object.
+     * Retrieve the model for this session. If successful the model will be available in the first
+     * message in the result. The returned value will be similar to a {@link AxPolicyModel}, with
+     * merged {@linkplain AxKeyInfo} for the root object.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Model/Get")
@@ -469,7 +476,9 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit(ret.isOK());
+            if (ret != null) {
+                LOGGER.exit(ret.isOK());
+            }
             LOGGER.info("Model/Download" + (ret != null && ret.isOK() ? ": OK" : ": Not OK"));
         }
     }
@@ -477,8 +486,8 @@ public class ApexEditorRestResource {
     /**
      * Delete the model for this session.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @DELETE
     @Path("Model/Delete")
@@ -506,13 +515,13 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * List key information with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. See {@linkplain AxKeyInfo}
+     * List key information with the given key names/versions. If successful the result(s) will be
+     * available in the result messages. See {@linkplain AxKeyInfo}
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("KeyInformation/Get")
@@ -550,8 +559,8 @@ public class ApexEditorRestResource {
      * Creates a context schema with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextSchema}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @POST
     @Path("ContextSchema/Create")
@@ -585,8 +594,8 @@ public class ApexEditorRestResource {
      * Update a context schema with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextSchema}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("ContextSchema/Update")
@@ -618,14 +627,14 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * List context schemas with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. The returned value(s) will be similar to {@link AxContextSchema}, with merged
-     * {@linkplain AxKeyInfo} for the root object.
+     * List context schemas with the given key names/versions. If successful the result(s) will be
+     * available in the result messages. The returned value(s) will be similar to
+     * {@link AxContextSchema}, with merged {@linkplain AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("ContextSchema/Get")
@@ -669,8 +678,8 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @DELETE
     @Path("ContextSchema/Delete")
@@ -708,13 +717,13 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Validate context schemas with the given key names/versions. The result(s) will be available in the result
-     * messages.
+     * Validate context schemas with the given key names/versions. The result(s) will be available
+     * in the result messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Validate/ContextSchema")
@@ -757,8 +766,8 @@ public class ApexEditorRestResource {
      * Creates a context album with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextAlbum}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @POST
     @Path("ContextAlbum/Create")
@@ -793,8 +802,8 @@ public class ApexEditorRestResource {
      * Update a context album with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextAlbum}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("ContextAlbum/Update")
@@ -826,14 +835,14 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * List context albums with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. The returned value(s) will be similar to {@link AxContextAlbum}, with merged
-     * {@linkplain AxKeyInfo} for the root object.
+     * List context albums with the given key names/versions. If successful the result(s) will be
+     * available in the result messages. The returned value(s) will be similar to
+     * {@link AxContextAlbum}, with merged {@linkplain AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("ContextAlbum/Get")
@@ -877,8 +886,8 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @DELETE
     @Path("ContextAlbum/Delete")
@@ -916,13 +925,13 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Validate context albums with the given key names/versions. The result(s) will be available in the result
-     * messages.
+     * Validate context albums with the given key names/versions. The result(s) will be available in
+     * the result messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Validate/ContextAlbum")
@@ -965,8 +974,8 @@ public class ApexEditorRestResource {
      * Creates an event with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanEvent}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @POST
     @Path("Event/Create")
@@ -1023,8 +1032,8 @@ public class ApexEditorRestResource {
      * Update an event with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanEvent}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("Event/Update")
@@ -1066,14 +1075,14 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * List events with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@link AxEvent}, with merged {@linkplain AxKeyInfo} for the
-     * root object.
+     * List events with the given key names/versions. If successful the result(s) will be available
+     * in the result messages. The returned value(s) will be similar to {@link AxEvent}, with merged
+     * {@linkplain AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Event/Get")
@@ -1116,8 +1125,8 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @DELETE
     @Path("Event/Delete")
@@ -1155,12 +1164,13 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Validate events with the given key names/versions. The result(s) will be available in the result messages.
+     * Validate events with the given key names/versions. The result(s) will be available in the
+     * result messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Validate/Event")
@@ -1203,8 +1213,8 @@ public class ApexEditorRestResource {
      * Creates a task with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @POST
     @Path("Task/Create")
@@ -1353,8 +1363,8 @@ public class ApexEditorRestResource {
      * Update a task with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("Task/Update")
@@ -1396,14 +1406,14 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * List tasks with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@link AxTask}, with merged {@linkplain AxKeyInfo} for the
-     * root object.
+     * List tasks with the given key names/versions. If successful the result(s) will be available
+     * in the result messages. The returned value(s) will be similar to {@link AxTask}, with merged
+     * {@linkplain AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Task/Get")
@@ -1446,8 +1456,8 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @DELETE
     @Path("Task/Delete")
@@ -1470,7 +1480,8 @@ public class ApexEditorRestResource {
                 version1 = null;
             }
 
-            // all input/output fields, parameters, logic, context references is "owned"/contained in the task, so
+            // all input/output fields, parameters, logic, context references is "owned"/contained
+            // in the task, so
             // deleting the task removes all of these
             ret = sessionApexModel.deleteTask(name1, version1);
             if (ret.isOK()) {
@@ -1487,12 +1498,13 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * Validate tasks with the given key names/versions. The result(s) will be available in the result messages.
+     * Validate tasks with the given key names/versions. The result(s) will be available in the
+     * result messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Validate/Task")
@@ -1536,8 +1548,8 @@ public class ApexEditorRestResource {
      * Creates a policy with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed See {@linkplain BeanPolicy}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @POST
     @Path("Policy/Create")
@@ -1623,10 +1635,11 @@ public class ApexEditorRestResource {
                 if (contexts != null) {
                     for (final BeanKeyRef c : contexts) {
                         if (c == null) {
-                            ret = new ApexAPIResult(RESULT.FAILED, "Null or invalid context reference \"" + c + "\" for"
-                                    + " state \"" + statename + "\" for policy \"" + policyname + ":" + policyversion
-                                    + "\". The policy was created, but there was an error adding the context reference for the state."
-                                    + " The policy has only been partially defined.");
+                            ret = new ApexAPIResult(RESULT.FAILED,
+                                    "Null or invalid context reference \"" + c + "\" for" + " state \"" + statename
+                                            + "\" for policy \"" + policyname + ":" + policyversion
+                                            + "\". The policy was created, but there was an error adding the context reference for the state."
+                                            + " The policy has only been partially defined.");
                             return ret;
                         }
                         tempres = sessionApexModel.createPolicyStateContextRef(policyname, policyversion, statename,
@@ -1671,21 +1684,22 @@ public class ApexEditorRestResource {
                 }
                 final Map<String, BeanStateOutput> outputs = state.getStateOutputs();
                 if (outputs == null || outputs.isEmpty()) {
-                    ret = new ApexAPIResult(RESULT.FAILED, "No state outputs have been defined in state \"" + statename
-                            + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy and state were created, but there was an error adding state outputs."
-                            + " The policy has only been partially defined.");
+                    ret = new ApexAPIResult(RESULT.FAILED,
+                            "No state outputs have been defined in state \"" + statename + "\" for policy \""
+                                    + policyname + ":" + policyversion
+                                    + "\". The policy and state were created, but there was an error adding state outputs."
+                                    + " The policy has only been partially defined.");
                     return ret;
                 }
                 for (final Map.Entry<String, BeanStateOutput> o : outputs.entrySet()) {
                     final String outputname = o.getKey();
                     final BeanStateOutput output = o.getValue();
                     if (outputname == null || output == null || output.getEvent() == null) {
-                        ret = new ApexAPIResult(RESULT.FAILED, "Null or invalid output information for output named \""
-                                + outputname + "\" in state \"" + statename + "\" for policy \"" + policyname + ":"
-                                + policyversion
-                                + "\". The policy and state were created, but there was an error adding the output."
-                                + " The policy has only been partially defined.");
+                        ret = new ApexAPIResult(RESULT.FAILED,
+                                "Null or invalid output information for output named \"" + outputname + "\" in state \""
+                                        + statename + "\" for policy \"" + policyname + ":" + policyversion
+                                        + "\". The policy and state were created, but there was an error adding the output."
+                                        + " The policy has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createPolicyStateOutput(policyname, policyversion, statename, outputname,
@@ -1713,11 +1727,11 @@ public class ApexEditorRestResource {
                     final String tasklocalname = t.getKey();
                     final BeanStateTaskRef taskref = t.getValue();
                     if (tasklocalname == null || taskref == null || taskref.getTask() == null) {
-                        ret = new ApexAPIResult(RESULT.FAILED, "Null or invalid task information for task named \""
-                                + tasklocalname + "\" in state \"" + statename + "\" for for policy \"" + policyname
-                                + ":" + policyversion
-                                + "\". The policy and state were created, but there was an error adding the task. "
-                                + "The policy has only been partially defined.");
+                        ret = new ApexAPIResult(RESULT.FAILED,
+                                "Null or invalid task information for task named \"" + tasklocalname + "\" in state \""
+                                        + statename + "\" for for policy \"" + policyname + ":" + policyversion
+                                        + "\". The policy and state were created, but there was an error adding the task. "
+                                        + "The policy has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createPolicyStateTaskRef(policyname, policyversion, statename,
@@ -1753,8 +1767,8 @@ public class ApexEditorRestResource {
      *
      * @param firstStatePeriodic indicates if periodic event should be created and added to model
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanPolicy}
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @PUT
     @Path("Policy/Update")
@@ -1807,14 +1821,14 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * List policies with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@link AxPolicy}, with merged {@linkplain AxKey Info} for the
-     * root object.
+     * List policies with the given key names/versions. If successful the result(s) will be
+     * available in the result messages. The returned value(s) will be similar to {@link AxPolicy},
+     * with merged {@linkplain AxKey Info} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @GET
     @Path("Policy/Get")
@@ -1859,8 +1873,8 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return true. Any
-     *         messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexAPIResult#isOK()} will return
+     *         true. Any messages/errors can be retrieved using {@link ApexAPIResult#getMessages()}
      */
     @DELETE
     @Path("Policy/Delete")
@@ -1883,7 +1897,8 @@ public class ApexEditorRestResource {
                 version1 = null;
             }
 
-            // all input/output fields, parameters, logic, context references is "owned"/contained in the task, so
+            // all input/output fields, parameters, logic, context references is "owned"/contained
+            // in the task, so
             // deleting the task removes all of these
             ret = sessionApexModel.deletePolicy(name1, version1);
             if (ret.isOK()) {
@@ -1900,12 +1915,14 @@ public class ApexEditorRestResource {
     }
 
     /**
-     * The json strings representing the objects listed, stored in result.messages[], does not contain the
-     * AxKeyInformation for that object. This utility method retrieves the AxKeyInfo for each object and adds it to the
-     * json for the object.
+     * The json strings representing the objects listed, stored in result.messages[], does not
+     * contain the AxKeyInformation for that object. This utility method retrieves the AxKeyInfo for
+     * each object and adds it to the json for the object.
      *
-     * @param result The list result, containing json representations of objects stored in its "messages" array
-     * @return The list result, containing json augmented representations of objects stored in its "messages" array
+     * @param result The list result, containing json representations of objects stored in its
+     *        "messages" array
+     * @return The list result, containing json augmented representations of objects stored in its
+     *         "messages" array
      */
     private ApexAPIResult addKeyInfo2Messages(final ApexAPIResult result) {
         if (result.isNOK()) {
@@ -2004,8 +2021,8 @@ public class ApexEditorRestResource {
     }
 
     /*
-     * This method is used only for testing and is used to cause an exception on calls from unit test to test exception
-     * handling.
+     * This method is used only for testing and is used to cause an exception on calls from unit
+     * test to test exception handling.
      */
     protected static int createCorruptSession() {
         final ApexEditorRestResource apexEditorRestResource = new ApexEditorRestResource();

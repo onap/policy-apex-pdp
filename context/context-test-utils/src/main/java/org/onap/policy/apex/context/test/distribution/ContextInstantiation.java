@@ -44,7 +44,6 @@ import static org.onap.policy.apex.context.test.utils.Constants.STRING_GLOBAL_VA
 import static org.onap.policy.apex.context.test.utils.Constants.STRING_VAL;
 import static org.onap.policy.apex.context.test.utils.Constants.TEST_POLICY_CONTEXT_ITEM;
 import static org.onap.policy.apex.context.test.utils.Constants.TIME_ZONE;
-import static org.onap.policy.apex.context.test.utils.Constants.USED_ARTIFACT_STACK_ARRAY;
 import static org.onap.policy.apex.context.test.utils.Constants.VERSION;
 
 import java.util.Collection;
@@ -79,6 +78,7 @@ import org.onap.policy.apex.context.test.concepts.TestExternalContextItem;
 import org.onap.policy.apex.context.test.concepts.TestGlobalContextItem;
 import org.onap.policy.apex.context.test.concepts.TestPolicyContextItem;
 import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
+import org.onap.policy.apex.context.test.utils.Constants;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
@@ -129,7 +129,7 @@ public class ContextInstantiation {
                     contextDistributor.createContextAlbum(new AxArtifactKey(POLICY_CONTEXT_ALBUM, VERSION));
 
             assertNotNull(policyContextAlbum);
-            policyContextAlbum.setUserArtifactStack(USED_ARTIFACT_STACK_ARRAY);
+            policyContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
 
             final Date testDate = new Date();
 
@@ -204,7 +204,7 @@ public class ContextInstantiation {
             final AxArtifactKey axContextAlbumKey = new AxArtifactKey(EXTERNAL_CONTEXT_ALBUM, VERSION);
             final ContextAlbum externalContextAlbum = contextDistributor.createContextAlbum(axContextAlbumKey);
             assertNotNull(externalContextAlbum);
-            externalContextAlbum.setUserArtifactStack(USED_ARTIFACT_STACK_ARRAY);
+            externalContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
 
             externalContextAlbum.putAll(valueMap2);
             externalContextAlbum.getAlbumDefinition().setWritable(false);
@@ -363,7 +363,7 @@ public class ContextInstantiation {
         final ContextAlbum globalContextAlbum =
                 contextDistributor.createContextAlbum(new AxArtifactKey(GLOBAL_CONTEXT_ALBUM, VERSION));
         assertNotNull(globalContextAlbum);
-        globalContextAlbum.setUserArtifactStack(USED_ARTIFACT_STACK_ARRAY);
+        globalContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
         return globalContextAlbum;
     }
 
