@@ -32,10 +32,11 @@ RUN chmod a+x /opt/app/policy/apex-pdp/bin/*
 
 # Copy examples to Apex user area
 RUN cp -pr /opt/app/policy/apex-pdp/examples /home/apexuser
-
-ENV PATH /opt/app/policy/apex-pdp/bin:$PATH
-
+ 
 RUN apt-get clean
 
 RUN chown -R apexuser:apexuser /home/apexuser/*
+
+USER apexuser
+ENV PATH /opt/app/policy/apex-pdp/bin:$PATH
 WORKDIR /home/apexuser
