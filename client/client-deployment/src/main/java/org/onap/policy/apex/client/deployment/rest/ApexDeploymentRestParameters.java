@@ -37,8 +37,7 @@ public class ApexDeploymentRestParameters {
     private static final String DEFAULT_STATIC_PATH = "/";
 
     // Package that will field REST requests
-    public static final String[] DEFAULT_PACKAGES =
-            new String[] { "com.ericsson.apex.services.client.deployment.rest" };
+    private static final String[] DEFAULT_PACKAGES = new String[] {"org.onap.policy.apex.client.deployment.rest"};
 
     // The services parameters
     private boolean helpSet = false;

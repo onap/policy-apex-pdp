@@ -22,14 +22,13 @@ package org.onap.policy.apex.context.test.locking;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
 import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.slf4j.ext.XLogger;
@@ -46,27 +45,13 @@ public class ConcurrentContextJVMThread implements Runnable, Closeable {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJVMThread.class);
 
-    private final String testType;
     private final int jvm;
-    private final int threadCount;
-    private final int target;
+    private final ConfigrationProvider configrationProvider;
     private Process process = null;
 
-    /**
-     * The Constructor.
-     *
-     * @param testType the test type
-     * @param jvm the jvm
-     * @param threadCount the thread count
-     * @param target the target
-     * @throws ApexException the apex exception
-     */
-    public ConcurrentContextJVMThread(final String testType, final int jvm, final int threadCount, final int target)
-            throws ApexException {
-        this.testType = testType;
+    public ConcurrentContextJVMThread(final int jvm, final ConfigrationProvider configrationProvider) {
         this.jvm = jvm;
-        this.threadCount = threadCount;
-        this.target = target;
+        this.configrationProvider = configrationProvider;
     }
 
     /*
@@ -84,11 +69,13 @@ public class ConcurrentContextJVMThread implements Runnable, Closeable {
         commandList.add("-cp");
         commandList.add(System.getProperty("java.class.path"));
         commandList.add(ConcurrentContextJVM.class.getCanonicalName());
-        commandList.add(testType);
+        commandList.add(configrationProvider.getTestName());
         commandList.add(new Integer(jvm).toString());
-        commandList.add(new Integer(threadCount).toString());
-        commandList.add(new Integer(target).toString());
-        commandList.add(System.getProperty("hazelcast.config"));
+        commandList.add(new Integer(configrationProvider.getThreadCount()).toString());
+        commandList.add(new Integer(configrationProvider.getLoopSize()).toString());
+        commandList.add(new Integer(configrationProvider.getAlbumSize()).toString());
+        commandList.add(new Integer(configrationProvider.getLockType().getValue()).toString());
+        commandList.add(System.getProperty("hazelcast.config", ""));
 
         for (final Entry<Class<?>, AbstractParameters> parameterServiceEntry : ParameterService.getAll()) {
             commandList.add(parameterServiceEntry.getKey().getCanonicalName());
@@ -100,7 +87,6 @@ public class ConcurrentContextJVMThread implements Runnable, Closeable {
         // Run the JVM
         final ProcessBuilder processBuilder = new ProcessBuilder(commandList);
         processBuilder.redirectErrorStream(true);
-
 
         try {
             process = processBuilder.start();
@@ -122,7 +108,7 @@ public class ConcurrentContextJVMThread implements Runnable, Closeable {
                 LOGGER.warn("Thread was interrupted");
                 Thread.currentThread().interrupt();
             }
-        } catch (final IOException ioException) {
+        } catch (final Exception ioException) {
             LOGGER.error("Error occured while writing JVM Output for command ", ioException);
         }
     }
