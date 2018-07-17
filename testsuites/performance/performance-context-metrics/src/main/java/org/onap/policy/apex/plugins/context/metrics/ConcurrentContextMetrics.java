@@ -20,27 +20,30 @@
 
 package org.onap.policy.apex.plugins.context.metrics;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static org.onap.policy.apex.context.parameters.DistributorParameters.DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;
+import static org.onap.policy.apex.context.parameters.LockManagerParameters.DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;
 
-import org.onap.policy.apex.context.ContextAlbum;
-import org.onap.policy.apex.context.ContextException;
-import org.onap.policy.apex.context.Distributor;
-import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.onap.policy.apex.context.test.locking.ConcurrentContext;
+import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
+import org.onap.policy.apex.context.test.utils.ConfigrationProviderImpl;
+import org.onap.policy.apex.context.test.utils.ZooKeeperServerServiceProvider;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
+import org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor;
+import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanDistributorParameters;
+import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManagerParameters;
+import org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -50,7 +53,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ConcurrentContextMetrics {
-    private static final int NUM_ARGS = 8;
+    private static final int NUM_ARGS = 9;
     private static final int ARG_LABEL = 0;
     private static final int ARG_JVM_COUNT = 1;
     private static final int ARG_THREAD_COUNT = 2;
@@ -58,55 +61,38 @@ public class ConcurrentContextMetrics {
     private static final int ARG_ARRAY_SIZE = 4;
     private static final int ARG_LOCK_TYPE = 5;
     private static final int ARG_ZOOKEEPER_ADDRESS = 6;
-    private static final int ARG_INTERACTIVE = 7;
-
-    private static final int TIME_10_MS = 10;
+    private static final int ARG_ZOOKEEPER_PORT = 7;
+    private static final int ARG_ZOOKEEPER_DIRECTORY = 8;
 
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextMetrics.class);
 
-    // Test parameters
-    private String testLabel = null;
-    private int jvmCount = -1;
-    private int threadCount = -1;
-    private int threadLoops = -1;
-    private int longArraySize = -1;
-    private int lockType = -1;
     private String zookeeperAddress = null;
-    private long total = -1;
-    private boolean interactive = false;
-
-    // The context distributor and map used by each test
-    private Distributor contextDistributor = null;
-    private ContextAlbum lTypeAlbum = null;
-
-    private final DateFormat dateFormat = new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,S");
+    private final ConfigrationProvider configrationProvider;
+    private final File zookeeperDirectory;
+    private final int zookeeperPort;
 
     /**
      * The main method.
      *
      * @param args the args
-     * @throws ApexModelException the apex model exception
-     * @throws IOException the IO exception
-     * @throws ApexException the apex exception
+     * @throws Exception the exception
      */
-    public static void main(final String[] args) throws ApexModelException, IOException, ApexException {
+    public static void main(final String[] args) throws Exception {
         if (args.length != NUM_ARGS) {
+            System.err.println("Args: " + Arrays.toString(args));
             System.err.println(
-                    "usage: ConcurrentContextMetrics testLabel jvmCount threadCount threadLoops longArraySize lockType zookeeperAddress interactive");
+                    "usage: testLabel jvmCount threadCount threadLoops longArraySize lockType zookeeperAddress zookeeperPort zookeeperDirectory");
             return;
         }
-        // @formatter:off
-        final ConcurrentContextMetrics concurrentContextMetrics = new ConcurrentContextMetrics(
-                args[ARG_LABEL],
-                Integer.valueOf(args[ARG_JVM_COUNT]),
-                Integer.valueOf(args[ARG_THREAD_COUNT]),
-                Integer.valueOf(args[ARG_ITERATIONS]),
-                Integer.valueOf(args[ARG_ARRAY_SIZE]),
-                Integer.valueOf(args[ARG_LOCK_TYPE]),
-                args[ARG_ZOOKEEPER_ADDRESS],
-                Boolean.valueOf(args[ARG_INTERACTIVE]));
-        // @formatter:on
+
+        final ConfigrationProvider configrationProvider =
+                new ConfigrationProviderImpl(args[ARG_LABEL], Integer.valueOf(args[ARG_JVM_COUNT]),
+                        Integer.valueOf(args[ARG_THREAD_COUNT]), Integer.valueOf(args[ARG_ITERATIONS]),
+                        Integer.valueOf(args[ARG_ARRAY_SIZE]), Integer.valueOf(args[ARG_LOCK_TYPE]));
+
+        final ConcurrentContextMetrics concurrentContextMetrics = new ConcurrentContextMetrics(configrationProvider,
+                args[ARG_ZOOKEEPER_ADDRESS], Integer.valueOf(args[ARG_ZOOKEEPER_PORT]), args[ARG_ZOOKEEPER_DIRECTORY]);
 
         concurrentContextMetrics.concurrentContextMetricsJVMLocal();
         concurrentContextMetrics.concurrentContextMetricsCurator();
@@ -119,30 +105,18 @@ public class ConcurrentContextMetrics {
 
     /**
      * The Constructor.
-     *
-     * @param testLabel the test label
-     * @param jvmCount the jvm count
-     * @param threadCount the thread count
-     * @param threadLoops the thread loops
-     * @param longArraySize the long array size
-     * @param lockType the lock type
-     * @param zookeeperAddress the zookeeper address
-     * @param interactive the interactive
+     * 
+     * @param configrationProvider
+     * @param zookeeperAddress
+     * @param zookeeperPort
+     * @param zookeeperDirectory
      */
-    // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ConcurrentContextMetrics(final String testLabel, final int jvmCount, final int threadCount,
-            final int threadLoops, final int longArraySize, final int lockType, final String zookeeperAddress,
-            final boolean interactive) {
-        // CHECKSTYLE:ON: checkstyle:parameterNumber
-        super();
-        this.testLabel = testLabel;
-        this.jvmCount = jvmCount;
-        this.threadCount = threadCount;
-        this.threadLoops = threadLoops;
-        this.longArraySize = longArraySize;
-        this.lockType = lockType;
+    public ConcurrentContextMetrics(final ConfigrationProvider configrationProvider, final String zookeeperAddress,
+            final int zookeeperPort, final String zookeeperDirectory) {
+        this.configrationProvider = configrationProvider;
         this.zookeeperAddress = zookeeperAddress;
-        this.interactive = interactive;
+        this.zookeeperPort = zookeeperPort;
+        this.zookeeperDirectory = new File(zookeeperDirectory);
     }
 
     /**
@@ -153,17 +127,15 @@ public class ConcurrentContextMetrics {
      * @throws ApexException the apex exception
      */
     private void concurrentContextMetricsJVMLocal() throws ApexModelException, IOException, ApexException {
-        if (jvmCount != 1) {
+        if (configrationProvider.getJvmCount() != 1) {
             return;
         }
 
         LOGGER.debug("Running concurrentContextMetricsJVMLocalVarSet metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters()
-                .setPluginClass(DistributorParameters.DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
-        contextParameters.getLockManagerParameters()
-                .setPluginClass(LockManagerParameters.DEFAULT_LOCK_MANAGER_PLUGIN_CLASS);
+        contextParameters.getDistributorParameters().setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
+        contextParameters.getLockManagerParameters().setPluginClass(DEFAULT_LOCK_MANAGER_PLUGIN_CLASS);
         runConcurrentContextMetrics("JVMLocal");
 
         LOGGER.debug("Ran concurrentContextMetricsJVMLocalVarSet metrics");
@@ -172,22 +144,19 @@ public class ConcurrentContextMetrics {
     /**
      * Concurrent context metrics hazelcast.
      *
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsHazelcast() throws ApexModelException, IOException, ApexException {
-        if (jvmCount != 1) {
+    private void concurrentContextMetricsHazelcast() throws IOException, ApexException {
+        if (configrationProvider.getJvmCount() != 1) {
             return;
         }
 
         LOGGER.debug("Running concurrentContextMetricsHazelcast metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters()
-                .setPluginClass(DistributorParameters.DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
-        contextParameters.getLockManagerParameters()
-                .setPluginClass("org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager");
+        contextParameters.getDistributorParameters().setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
+        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
         runConcurrentContextMetrics("Hazelcast");
 
         LOGGER.debug("Ran concurrentContextMetricsHazelcast metrics");
@@ -196,23 +165,21 @@ public class ConcurrentContextMetrics {
     /**
      * Concurrent context metrics curator.
      *
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsCurator() throws ApexModelException, IOException, ApexException {
-        if (jvmCount != 1) {
+    private void concurrentContextMetricsCurator() throws IOException, ApexException {
+        if (configrationProvider.getJvmCount() != 1) {
             return;
         }
 
         LOGGER.debug("Running concurrentContextMetricsCurator metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters()
-                .setPluginClass(DistributorParameters.DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
+        contextParameters.getDistributorParameters().setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
 
         final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
-        curatorParameters.setPluginClass("org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager");
+        curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
         contextParameters.setLockManagerParameters(curatorParameters);
         curatorParameters.setZookeeperAddress(zookeeperAddress);
 
@@ -224,19 +191,16 @@ public class ConcurrentContextMetrics {
     /**
      * Concurrent context metrics hazelcast multi JVM hazelcast lock.
      *
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsHazelcastMultiJVMHazelcastLock()
-            throws ApexModelException, IOException, ApexException {
+    private void concurrentContextMetricsHazelcastMultiJVMHazelcastLock() throws IOException, ApexException {
         LOGGER.debug("Running concurrentContextMetricsHazelcastMultiJVMHazelcastLock metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(
-                "org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor");
-        contextParameters.getLockManagerParameters()
-                .setPluginClass("org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager");
+        final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
+        distributorParameters.setPluginClass(HazelcastContextDistributor.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
         runConcurrentContextMetrics("HazelcastMultiJVMHazelcastLock");
 
         LOGGER.debug("Ran concurrentContextMetricsHazelcastMultiJVMHazelcastLock metrics");
@@ -245,19 +209,16 @@ public class ConcurrentContextMetrics {
     /**
      * Concurrent context metrics infinispan multi JVM hazelcastlock.
      *
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsInfinispanMultiJVMHazelcastlock()
-            throws ApexModelException, IOException, ApexException {
+    private void concurrentContextMetricsInfinispanMultiJVMHazelcastlock() throws IOException, ApexException {
         LOGGER.debug("Running concurrentContextMetricsInfinispanMultiJVMHazelcastlock metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(
-                "org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanContextDistributor");
-        contextParameters.getLockManagerParameters()
-                .setPluginClass("org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager");
+        final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
+        distributorParameters.setPluginClass(InfinispanContextDistributor.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
 
         final InfinispanDistributorParameters infinispanParameters = new InfinispanDistributorParameters();
         contextParameters.setDistributorParameters(infinispanParameters);
@@ -270,53 +231,67 @@ public class ConcurrentContextMetrics {
     /**
      * Concurrent context metrics infinispan multi JVM curator lock.
      *
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
+     * @throws InterruptedException
      */
     private void concurrentContextMetricsInfinispanMultiJVMCuratorLock()
-            throws ApexModelException, IOException, ApexException {
+            throws IOException, ApexException, InterruptedException {
+
         LOGGER.debug("Running concurrentContextMetricsInfinispanMultiJVMCuratorLock metrics . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(
-                "org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanContextDistributor");
+        final ZooKeeperServerServiceProvider zooKeeperServerServiceProvider =
+                new ZooKeeperServerServiceProvider(zookeeperDirectory, zookeeperAddress, zookeeperPort);
+        try {
+            zooKeeperServerServiceProvider.startZookeeperServer();
+            final ContextParameters contextParameters = new ContextParameters();
+            final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
+            distributorParameters.setPluginClass(InfinispanContextDistributor.class.getCanonicalName());
 
-        final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
-        curatorParameters.setPluginClass("org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager");
-        contextParameters.setLockManagerParameters(curatorParameters);
-        curatorParameters.setZookeeperAddress(zookeeperAddress);
+            final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
+            curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
+            contextParameters.setLockManagerParameters(curatorParameters);
+            curatorParameters.setZookeeperAddress(zookeeperAddress);
 
-        final InfinispanDistributorParameters infinispanParameters = new InfinispanDistributorParameters();
-        contextParameters.setDistributorParameters(infinispanParameters);
+            final InfinispanDistributorParameters infinispanParameters = new InfinispanDistributorParameters();
+            contextParameters.setDistributorParameters(infinispanParameters);
 
-        runConcurrentContextMetrics("InfinispanMultiJVMCuratorLock");
-
+            runConcurrentContextMetrics("InfinispanMultiJVMCuratorLock");
+        } finally {
+            zooKeeperServerServiceProvider.stopZookeeperServer();
+        }
         LOGGER.debug("Ran concurrentContextMetricsInfinispanMultiJVMCuratorLock metrics");
     }
 
     /**
      * Concurrent context metrics hazelcast multi JVM curator lock.
      *
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
+     * @throws InterruptedException
      */
     private void concurrentContextMetricsHazelcastMultiJVMCuratorLock()
-            throws ApexModelException, IOException, ApexException {
+            throws IOException, ApexException, InterruptedException {
         LOGGER.debug("Running concurrentContextMetricsHazelcastMultiJVMCuratorLock metrics . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(
-                "org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor");
+        final ZooKeeperServerServiceProvider zooKeeperServerServiceProvider =
+                new ZooKeeperServerServiceProvider(zookeeperDirectory, zookeeperAddress, zookeeperPort);
 
-        final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
-        curatorParameters.setPluginClass("org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager");
-        contextParameters.setLockManagerParameters(curatorParameters);
-        curatorParameters.setZookeeperAddress(zookeeperAddress);
+        try {
+            zooKeeperServerServiceProvider.startZookeeperServer();
+            final ContextParameters contextParameters = new ContextParameters();
+            final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
+            distributorParameters.setPluginClass(HazelcastContextDistributor.class.getCanonicalName());
 
-        runConcurrentContextMetrics("HazelcastMultiJVMCuratorLock");
+            final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
+            curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
+            contextParameters.setLockManagerParameters(curatorParameters);
+            curatorParameters.setZookeeperAddress(zookeeperAddress);
 
+            runConcurrentContextMetrics("HazelcastMultiJVMCuratorLock");
+        } finally {
+            zooKeeperServerServiceProvider.stopZookeeperServer();
+        }
         LOGGER.debug("Ran concurrentContextMetricsHazelcastMultiJVMCuratorLock metrics");
     }
 
@@ -324,202 +299,24 @@ public class ConcurrentContextMetrics {
      * Run concurrent context metrics.
      *
      * @param testName the test name
-     * @throws ApexModelException the apex model exception
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void runConcurrentContextMetrics(final String testName)
-            throws ApexModelException, IOException, ApexException {
-        total = -1;
-        outMetricLine(testName, "Init");
+    private void runConcurrentContextMetrics(final String testName) throws IOException, ApexException {
+        final ConcurrentContext concurrentContext = new ConcurrentContext(configrationProvider);
 
-        try {
-            setupContext();
-        } catch (final Exception e) {
-            e.printStackTrace();
-            throw e;
+        LOGGER.info("Running {} ...", testName);
+        final Map<String, TestContextLongItem> result = concurrentContext.testConcurrentContext();
+
+        long total = 0;
+        for (final Entry<String, TestContextLongItem> entry : result.entrySet()) {
+            LOGGER.trace("Album key: {}, value: {}", entry.getKey(), entry.getValue());
+            total += entry.getValue().getLongValue();
         }
+        LOGGER.info("Album total value after execution: {}", total);
 
-        outMetricLine(testName, "Start");
-
-        Thread[] threadArray;
-
-        // Check if we have a single JVM or multiple JVMs
-        int runningThreadCount = -1;
-        if (jvmCount == 1) {
-            threadArray = new Thread[threadCount];
-
-            // Run everything in this JVM
-            for (int t = 0; t < threadCount; t++) {
-                threadArray[t] =
-                        new Thread(new ConcurrentContextMetricsThread(0, t, threadLoops, longArraySize, lockType));
-                threadArray[t].setName(testLabel + "_" + testName + ":concurrentContextMetricsThread_0_" + t);
-                threadArray[t].start();
-            }
-
-            outMetricLine(testName, "Running");
-            runningThreadCount = threadCount;
-        } else {
-            threadArray = new Thread[jvmCount];
-
-            final ConcurrentContextMetricsJVMThread[] jvmArray = new ConcurrentContextMetricsJVMThread[jvmCount];
-            // Spawn JVMs to run the tests
-            for (int j = 0; j < jvmCount; j++) {
-                jvmArray[j] = new ConcurrentContextMetricsJVMThread(testLabel + "_" + testName, j, threadCount,
-                        threadLoops, longArraySize, lockType);
-                threadArray[j] = new Thread(jvmArray[j]);
-                threadArray[j].setName(testLabel + "_" + testName + ":concurrentContextMetricsJVMThread_" + j);
-                threadArray[j].start();
-            }
-
-            boolean allReadyToGo;
-            do {
-                ThreadUtilities.sleep(TIME_10_MS);
-                allReadyToGo = true;
-                for (int j = 0; j < jvmCount; j++) {
-                    if (!jvmArray[j].isReadyToGo()) {
-                        allReadyToGo = false;
-                        break;
-                    }
-                }
-            } while (!allReadyToGo);
-
-            outMetricLine(testName, "Ready");
-            if (interactive) {
-                System.in.read();
-            }
-            outMetricLine(testName, "Running");
-
-            for (int j = 0; j < jvmCount; j++) {
-                jvmArray[j].offYouGo();
-            }
-
-            boolean allFinished;
-            do {
-                ThreadUtilities.sleep(TIME_10_MS);
-                allFinished = true;
-                for (int j = 0; j < jvmCount; j++) {
-                    if (!jvmArray[j].isAllFinished()) {
-                        allFinished = false;
-                        break;
-                    }
-                }
-            } while (!allFinished);
-
-            outMetricLine(testName, "Completed");
-
-            verifyContext(testName);
-
-            for (int j = 0; j < jvmCount; j++) {
-                jvmArray[j].finishItOut();
-            }
-
-            runningThreadCount = jvmCount;
-        }
-
-        boolean allFinished;
-        do {
-            ThreadUtilities.sleep(TIME_10_MS);
-            allFinished = true;
-            for (int i = 0; i < runningThreadCount; i++) {
-                if (threadArray[i].isAlive()) {
-                    allFinished = false;
-                    break;
-                }
-            }
-        } while (!allFinished);
-
-        if (jvmCount == 1) {
-            outMetricLine(testName, "Completed");
-            verifyContext(testName);
-        }
-
-        clearContext(testName);
+        LOGGER.info("Completed {} ...", testName);
     }
 
-    /**
-     * Setup context.
-     *
-     * @throws ContextException the context exception
-     */
-    private void setupContext() throws ContextException {
-        final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor", "0.0.1");
-        contextDistributor = new DistributorFactory().getDistributor(distributorKey);
 
-        final AxArtifactKey[] usedArtifactStackArray = {new AxArtifactKey("testC-top", "0.0.1"),
-                new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
-
-        final AxContextModel albumsModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
-        contextDistributor.registerModel(albumsModel);
-
-        lTypeAlbum = contextDistributor.createContextAlbum(new AxArtifactKey("LTypeContextAlbum", "0.0.1"));
-        assert (lTypeAlbum != null);
-        lTypeAlbum.setUserArtifactStack(usedArtifactStackArray);
-
-        for (int i = 0; i < longArraySize; i++) {
-            final String longKey = Integer.toString(i);
-            final TestContextLongItem longItem = new TestContextLongItem();
-            longItem.setLongValue(0);
-            lTypeAlbum.put(longKey, longItem);
-        }
-    }
-
-    /**
-     * Verify context.
-     *
-     * @param testName the test name
-     * @throws ContextException the context exception
-     */
-    private void verifyContext(final String testName) throws ContextException {
-        total = 0;
-
-        try {
-            for (int i = 0; i < longArraySize; i++) {
-                total += ((TestContextLongItem) lTypeAlbum.get(Integer.toString(i))).getLongValue();
-            }
-
-            outMetricLine(testName, "Totaled");
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-
-        if (lockType == 2) {
-            if (total == jvmCount * threadCount * threadLoops) {
-                outMetricLine(testName, "VerifiedOK");
-            } else {
-                outMetricLine(testName, "VerifiedFail");
-            }
-        } else {
-            if (total == 0) {
-                outMetricLine(testName, "VerifiedOK");
-            } else {
-                outMetricLine(testName, "VerifiedFail");
-            }
-        }
-    }
-
-    /**
-     * Clear context.
-     *
-     * @param testName the test name
-     * @throws ContextException the context exception
-     */
-    private void clearContext(final String testName) throws ContextException {
-        contextDistributor.clear();
-        contextDistributor = null;
-
-        outMetricLine(testName, "Cleared");
-    }
-
-    /**
-     * Out metric line.
-     *
-     * @param testName the test name
-     * @param testPhase the test phase
-     */
-    public void outMetricLine(final String testName, final String testPhase) {
-        System.out.println("ContextMetrics," + dateFormat.format(new Date()) + "," + System.currentTimeMillis() + ","
-                + testLabel + "," + testName + "," + testPhase + "," + jvmCount + "," + threadCount + "," + threadLoops
-                + "," + longArraySize + "," + lockType + "," + total);
-    }
 }

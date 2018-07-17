@@ -52,18 +52,25 @@ public class EndToEndStringMessagingTest {
         assertNotNull(server);
         server.start(new WSStringServerMessageListener());
 
-        client = new WSStringMessageClient("localhost", 44441);
-        assertNotNull(client);
-        client.start(new WSStringClientMessageListener());
+        try {
+            client = new WSStringMessageClient("localhost", 44441);
+            assertNotNull(client);
+            client.start(new WSStringClientMessageListener());
 
-        client.sendString("Hello, client here");
+            client.sendString("Hello, client here");
 
-        while (!finished) {
-            ThreadUtilities.sleep(50);
+            while (!finished) {
+                ThreadUtilities.sleep(50);
+            }
+        } finally {
+            if (client != null) {
+                client.stop();
+            }
+            if (server != null) {
+                server.stop();
+            }
+
         }
-        client.stop();
-
-        server.stop();
         logger.debug("end to end messaging test finished");
     }
 

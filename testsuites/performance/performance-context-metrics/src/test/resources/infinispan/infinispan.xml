@@ -23,7 +23,7 @@
 
 <infinispan xmlns="urn:infinispan:config:8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:infinispan:config:8.0 http://infinispan.org/schemas/infinispan-config-8.0.xsd">
 	<jgroups>
-		<stack-file name="external-file" path="default-configs/default-jgroups-tcp.xml" />
+		<stack-file name="external-file" path="infinispan/default-jgroups-tcp.xml" />
 	</jgroups>
 
 	<cache-container name="ApexCacheContainer" default-cache="TestContext_0.0.1">

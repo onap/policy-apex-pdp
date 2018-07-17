@@ -25,13 +25,10 @@ import java.io.Closeable;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
-import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.parameters.ContextParameters;
-import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.context.test.lock.modifier.AlbumModifier;
+import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -41,33 +38,25 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ConcurrentContextThread implements Runnable, Closeable {
-    private static final String VALUE = "testValue";
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextThread.class);
-    private final Distributor distributor;
     private final int jvm;
     private final int instance;
-    private final int threadLoops;
+    private final ConfigrationProvider configrationProvider;
 
     /**
      * The Constructor.
      *
      * @param jvm the jvm
      * @param instance the instance
-     * @param threadLoops the thread loops
-     * @throws ApexException the apex exception
+     * @param configrationProvider the configuration provider
      */
-    public ConcurrentContextThread(final int jvm, final int instance, final int threadLoops) throws ApexException {
+    public ConcurrentContextThread(final int jvm, final int instance, final ConfigrationProvider configrationProvider) {
         this.jvm = jvm;
         this.instance = instance;
-        this.threadLoops = threadLoops;
-
-        final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor_" + jvm + "_" + instance, "0.0.1");
+        this.configrationProvider = configrationProvider;
 
         new ContextParameters();
-        distributor = new DistributorFactory().getDistributor(distributorKey);
-        final AxContextModel albumsModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
-        distributor.registerModel(albumsModel);
     }
 
     /*
@@ -79,72 +68,30 @@ public class ConcurrentContextThread implements Runnable, Closeable {
     public void run() {
         LOGGER.info("running TestConcurrentContextThread_" + jvm + "_" + instance + " . . .");
 
-        ContextAlbum lTypeAlbum = null;
+
+        final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor_" + jvm + "_" + instance, "0.0.1");
+        final Distributor distributor = configrationProvider.getDistributor(distributorKey);
 
         try {
-            lTypeAlbum = distributor.createContextAlbum(new AxArtifactKey("LTypeContextAlbum", "0.0.1"));
+            final long startTime = System.currentTimeMillis();
+            final ContextAlbum contextAlbum = configrationProvider.getContextAlbum(distributor);
+
+            final AlbumModifier albumModifier = configrationProvider.getAlbumModifier();
+            albumModifier.modifyAlbum(contextAlbum, configrationProvider.getLoopSize(),
+                    configrationProvider.getAlbumSize());
+            LOGGER.info("Took {} ms to modify album", (System.currentTimeMillis() - startTime));
+
         } catch (final Exception e) {
-            LOGGER.error("could not get the test context album", e);
-            LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
-            return;
-        }
-
-        if (lTypeAlbum == null) {
-            LOGGER.error("could not find the test context album");
-            LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
-            return;
-        }
-
-        // @formatter:off
-        final AxArtifactKey[] usedArtifactStackArray = {new AxArtifactKey("testC-top", "0.0.1"),
-                new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
-        // @formatter:on
-
-        lTypeAlbum.setUserArtifactStack(usedArtifactStackArray);
-
-        try {
-            updateAlbum(lTypeAlbum);
-        } catch (final Exception exception) {
-            LOGGER.error("could not set the value in the test context album", exception);
-            LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
-            return;
-        }
-
-        try {
-            lTypeAlbum.lockForWriting(VALUE);
-            final TestContextLongItem item = (TestContextLongItem) lTypeAlbum.get(VALUE);
-            final long value = item.getLongValue();
-            LOGGER.info("completed TestConcurrentContextThread_" + jvm + "_" + instance + ", value=" + value);
-        } catch (final Exception e) {
-            LOGGER.error("could not read the value in the test context album", e);
-            LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
+            LOGGER.error("Unexpected error occured while processing", e);
         } finally {
             try {
-                lTypeAlbum.unlockForWriting(VALUE);
                 distributor.shutdown();
             } catch (final ContextException e) {
-                LOGGER.error("could not unlock test context album item", e);
-                LOGGER.error("failed TestConcurrentContextThread_" + jvm + "_" + instance);
+                LOGGER.error("Unable to shutdown distributor", e);
             }
         }
-    }
+        LOGGER.info("finished TestConcurrentContextThread_" + jvm + "_" + instance + " . . .");
 
-    private void updateAlbum(final ContextAlbum lTypeAlbum) throws Exception {
-        for (int i = 0; i < threadLoops; i++) {
-            try {
-                lTypeAlbum.lockForWriting(VALUE);
-                TestContextLongItem item = (TestContextLongItem) lTypeAlbum.get(VALUE);
-                if (item != null) {
-                    long value = item.getLongValue();
-                    item.setLongValue(++value);
-                } else {
-                    item = new TestContextLongItem(0L);
-                }
-                lTypeAlbum.put(VALUE, item);
-            } finally {
-                lTypeAlbum.unlockForWriting(VALUE);
-            }
-        }
     }
 
     @Override
