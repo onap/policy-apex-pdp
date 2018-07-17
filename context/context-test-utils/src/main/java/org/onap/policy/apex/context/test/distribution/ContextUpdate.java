@@ -31,8 +31,8 @@ import static org.onap.policy.apex.context.test.utils.Constants.EXCEPTION_MESSAG
 import static org.onap.policy.apex.context.test.utils.Constants.LONG_CONTEXT_ALBUM;
 import static org.onap.policy.apex.context.test.utils.Constants.MAP_CONTEXT_ALBUM;
 import static org.onap.policy.apex.context.test.utils.Constants.TIME_ZONE;
-import static org.onap.policy.apex.context.test.utils.Constants.USED_ARTIFACT_STACK_ARRAY;
 import static org.onap.policy.apex.context.test.utils.Constants.VERSION;
+import static org.onap.policy.apex.context.test.utils.Constants.getAxArtifactKeyArray;
 
 import java.io.IOException;
 import java.util.Date;
@@ -160,7 +160,7 @@ public class ContextUpdate {
         final ContextAlbum longContextAlbum =
                 contextDistributor.createContextAlbum(new AxArtifactKey(albumKey, VERSION));
         assertNotNull(longContextAlbum);
-        longContextAlbum.setUserArtifactStack(USED_ARTIFACT_STACK_ARRAY);
+        longContextAlbum.setUserArtifactStack(getAxArtifactKeyArray());
         return longContextAlbum;
     }
 
