@@ -52,14 +52,17 @@ public class Constants {
     public static final String TEST_POLICY_CONTEXT_ITEM = TestPolicyContextItem.class.getName();
     public static final TimeZone TIME_ZONE = TimeZone.getTimeZone("Europe/Dublin");
 
+    public static final AxArtifactKey L_TYPE_CONTEXT_ALBUM = new AxArtifactKey("LTypeContextAlbum", VERSION);
+    public static final String TEST_VALUE = "testValue";
+
     private static final AxArtifactKey KEY = new AxArtifactKey("testC-top", VERSION);
     private static final AxArtifactKey KEY3 = new AxArtifactKey("testC-bot", VERSION);
     private static final AxArtifactKey KEY2 = new AxArtifactKey("testC-next", VERSION);
 
-    public static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = getAxArtifactKeyArray();
+    private static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = new AxArtifactKey[] {KEY, KEY2, KEY3};;
 
-    private static AxArtifactKey[] getAxArtifactKeyArray() {
-        return new AxArtifactKey[] {KEY, KEY2, KEY3};
+    public static final AxArtifactKey[] getAxArtifactKeyArray() {
+        return USED_ARTIFACT_STACK_ARRAY;
     }
 
     private Constants() {}

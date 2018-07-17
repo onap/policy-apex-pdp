@@ -30,20 +30,19 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.Distributor;
-import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
-import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
-import org.onap.policy.apex.context.test.utils.IntegrationThreadFactory;
+import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
+import org.onap.policy.apex.context.test.utils.ConfigrationProviderImpl;
+import org.onap.policy.apex.context.test.utils.Constants;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -62,55 +61,29 @@ public final class ConcurrentContextJVM {
 
     private final int jvmNo;
 
-    private final int threadCount;
-
-    private final int threadLoops;
-
     private final ExecutorService executorService;
 
-    /**
-     * The Constructor.
-     *
-     * @param testType the test type
-     * @param jvmNo the jvm no
-     * @param threadCount the thread count
-     * @param threadLoops the thread loops
-     * @throws ApexException the apex exception
-     */
-    private ConcurrentContextJVM(final String testType, final int jvmNo, final int threadCount, final int threadLoops) {
+    private final ConfigrationProvider configrationProvider;
+
+    private ConcurrentContextJVM(final int jvmNo, final ConfigrationProvider configrationProvider) {
         this.jvmNo = jvmNo;
-        this.threadCount = threadCount;
-        this.threadLoops = threadLoops;
-        final String name = testType + ":ConcurrentContextThread_" + jvmNo;
-        this.executorService = Executors.newFixedThreadPool(threadCount, new IntegrationThreadFactory(name));
+        this.configrationProvider = configrationProvider;
+        final String name = configrationProvider.getTestName() + ":ConcurrentContextThread_" + jvmNo;
+        this.executorService = configrationProvider.getExecutorService(name, configrationProvider.getThreadCount());
     }
 
     public void execute() throws ApexException {
         LOGGER.debug("starting JVMs and threads . . .");
 
         final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor" + jvmNo, "0.0.1");
-        final Distributor contextDistributor = new DistributorFactory().getDistributor(distributorKey);
+        final Distributor distributor = configrationProvider.getDistributor(distributorKey);
+        final ContextAlbum contextAlbum = configrationProvider.getContextAlbum(distributor);
+        assert (contextAlbum != null);
 
-        // @formatter:off
-        final AxArtifactKey[] usedArtifactStackArray = {
-                new AxArtifactKey("testC-top", "0.0.1"),
-                new AxArtifactKey("testC-next", "0.0.1"),
-                new AxArtifactKey("testC-bot", "0.0.1")
-                };
-        // @formatter:on
+        final List<Future<?>> tasks = new ArrayList<>(configrationProvider.getThreadCount());
 
-        final AxContextModel albumsModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
-        contextDistributor.registerModel(albumsModel);
-
-        final ContextAlbum lTypeAlbum =
-                contextDistributor.createContextAlbum(new AxArtifactKey("LTypeContextAlbum", "0.0.1"));
-        assert (lTypeAlbum != null);
-        lTypeAlbum.setUserArtifactStack(usedArtifactStackArray);
-
-        final List<Future<?>> tasks = new ArrayList<>(threadCount);
-
-        for (int t = 0; t < threadCount; t++) {
-            tasks.add(executorService.submit(new ConcurrentContextThread(jvmNo, t, threadLoops)));
+        for (int t = 0; t < configrationProvider.getThreadCount(); t++) {
+            tasks.add(executorService.submit(new ConcurrentContextThread(jvmNo, t, configrationProvider)));
         }
 
         try {
@@ -123,8 +96,8 @@ public final class ConcurrentContextJVM {
             Thread.currentThread().interrupt();
         }
 
-        LOGGER.debug("threads finished, end value is {}", lTypeAlbum.get("testValue"));
-        contextDistributor.clear();
+        LOGGER.debug("threads finished, end value is {}", contextAlbum.get(Constants.TEST_VALUE));
+        distributor.clear();
         LOGGER.info("Shutting down now ... ");
         executorService.shutdownNow();
     }
@@ -145,49 +118,25 @@ public final class ConcurrentContextJVM {
         // CHECKSTYLE:OFF: checkstyle:magicNumber
 
         // An even number of arguments greater than 3
-        if (args.length < 7) {
+        if (args.length < 9) {
             LOGGER.error("invalid arguments: " + Arrays.toString(args));
             LOGGER.error(
-                    "usage: TestConcurrentContextJVM testType jvmNo threadCount threadLoops [parameterKey parameterJson].... ");
+                    "usage: TestConcurrentContextJVM testType jvmNo threadCount threadLoops albumSize lockType [parameterKey parameterJson].... ");
             return;
         }
 
-        int jvmNo = -1;
-        int threadCount = -1;
-        int threadLoops = -1;
-        String hazelCastfileLocation = null;
 
-        try {
-            jvmNo = Integer.parseInt(args[1]);
-        } catch (final Exception e) {
-            LOGGER.error("invalid argument jvmNo", e);
-            return;
-        }
-
-        try {
-            threadCount = Integer.parseInt(args[2]);
-        } catch (final Exception e) {
-            LOGGER.error("invalid argument threadCount", e);
-            return;
-        }
-
-        try {
-            threadLoops = Integer.parseInt(args[3]);
-        } catch (final Exception e) {
-            LOGGER.error("invalid argument threadLoops", e);
-            return;
-        }
-
-        try {
-            hazelCastfileLocation = args[4].trim();
-        } catch (final Exception e) {
-            LOGGER.error("invalid argument hazelcast file location", e);
-            return;
-        }
+        final String testName = getStringValue("testType", args, 0);
+        final int jvmNo = getIntValue("jvmNo", args, 1);
+        final int threadCount = getIntValue("threadCount", args, 2);
+        final int threadLoops = getIntValue("threadLoops", args, 3);
+        final int albumSize = getIntValue("albumSize", args, 4);
+        final int lockType = getIntValue("lockType", args, 5);
+        final String hazelCastfileLocation = getStringValue("hazelcast file location", args, 6);;
 
         System.setProperty("hazelcast.config", hazelCastfileLocation);
 
-        for (int p = 5; p < args.length - 1; p += 2) {
+        for (int p = 7; p < args.length - 1; p += 2) {
             @SuppressWarnings("rawtypes")
             final Class parametersClass = Class.forName(args[p]);
             final AbstractParameters parameters =
@@ -201,8 +150,9 @@ public final class ConcurrentContextJVM {
         }
 
         try {
-            final ConcurrentContextJVM concurrentContextJVM =
-                    new ConcurrentContextJVM(args[0], jvmNo, threadCount, threadLoops);
+            final ConfigrationProvider configrationProvider =
+                    new ConfigrationProviderImpl(testName, 1, threadCount, threadLoops, albumSize, lockType);
+            final ConcurrentContextJVM concurrentContextJVM = new ConcurrentContextJVM(jvmNo, configrationProvider);
             concurrentContextJVM.execute();
 
         } catch (final Exception e) {
@@ -211,8 +161,29 @@ public final class ConcurrentContextJVM {
         }
         // CHECKSTYLE:ON: checkstyle:magicNumber
 
-
     }
+
+    private static String getStringValue(final String key, final String[] args, final int position) {
+        try {
+            return args[position];
+        } catch (final Exception e) {
+            final String msg = "invalid argument " + key;
+            LOGGER.error(msg, e);
+            throw new ApexRuntimeException(msg, e);
+        }
+    }
+
+    private static int getIntValue(final String key, final String[] args, final int position) {
+        final String value = getStringValue(key, args, position);
+        try {
+            return Integer.parseInt(value);
+        } catch (final Exception e) {
+            final String msg = "Expects number found " + value;
+            LOGGER.error(msg, e);
+            throw new ApexRuntimeException(msg, e);
+        }
+    }
+
 
     /**
      * This method setus up any static configuration required by the JVM.

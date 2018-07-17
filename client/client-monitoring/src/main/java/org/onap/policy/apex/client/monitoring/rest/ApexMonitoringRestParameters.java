@@ -37,8 +37,7 @@ public class ApexMonitoringRestParameters {
     private static final String DEFAULT_STATIC_PATH = "/";
 
     // Package that will field REST requests
-    public static final String[] DEFAULT_PACKAGES =
-            new String[] { "org.onap.policy.apex.services.client.monitoring.rest" };
+    private static final String[] DEFAULT_PACKAGES = new String[] {"org.onap.policy.apex.client.monitoring.rest"};
 
     // The services parameters
     private boolean helpSet = false;

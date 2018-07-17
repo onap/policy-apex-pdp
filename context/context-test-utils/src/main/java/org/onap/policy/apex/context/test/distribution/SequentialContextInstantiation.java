@@ -36,7 +36,6 @@ import static org.onap.policy.apex.context.test.utils.Constants.LONG_VAL;
 import static org.onap.policy.apex.context.test.utils.Constants.PI_VAL;
 import static org.onap.policy.apex.context.test.utils.Constants.STRING_GLOBAL_VAL;
 import static org.onap.policy.apex.context.test.utils.Constants.TIME_ZONE;
-import static org.onap.policy.apex.context.test.utils.Constants.USED_ARTIFACT_STACK_ARRAY;
 import static org.onap.policy.apex.context.test.utils.Constants.VERSION;
 
 import java.util.Collection;
@@ -63,6 +62,7 @@ import org.onap.policy.apex.context.test.concepts.TestContextIntItem;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.concepts.TestContextLongObjectItem;
 import org.onap.policy.apex.context.test.concepts.TestContextStringItem;
+import org.onap.policy.apex.context.test.utils.Constants;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -351,7 +351,7 @@ public class SequentialContextInstantiation {
             throws ContextException {
         final ContextAlbum dateAlbum = contextDistributor.createContextAlbum(new AxArtifactKey(albumName, VERSION));
         assertNotNull(dateAlbum);
-        dateAlbum.setUserArtifactStack(USED_ARTIFACT_STACK_ARRAY);
+        dateAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
         return dateAlbum;
     }
 

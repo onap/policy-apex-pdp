@@ -23,22 +23,20 @@ package org.onap.policy.apex.context.test.locking;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
-import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
-import org.onap.policy.apex.context.test.utils.IntegrationThreadFactory;
+import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -55,24 +53,17 @@ public class ConcurrentContext {
     private Distributor contextDistributor = null;
     private ContextAlbum lTypeAlbum = null;
 
-    /**
-     * Test concurrent context.
-     *
-     * @param testType the test type
-     * @param jvmCount the jvm count
-     * @param threadCount the thread count
-     * @param threadLoops the thread loops
-     * @return the long
-     * @throws ApexModelException the apex model exception
-     * @throws IOException the IO exception
-     * @throws ApexException the apex exception
-     */
-    public long testConcurrentContext(final String testType, final int jvmCount, final int threadCount,
-            final int threadLoops) throws ApexModelException, IOException, ApexException {
-        final ConcurrentContext concurrentContext = new ConcurrentContext();
+    private final ConfigrationProvider configrationProvider;
+
+    public ConcurrentContext(final ConfigrationProvider configrationProvider) {
+        this.configrationProvider = configrationProvider;
+    }
+
+    public Map<String, TestContextLongItem> testConcurrentContext()
+            throws ApexModelException, IOException, ApexException {
 
         try {
-            concurrentContext.setupAndVerifyContext();
+            setupAndVerifyContext();
         } catch (final Exception exception) {
             LOGGER.error("Error occured while setting up and verifying concurrent context", exception);
             throw exception;
@@ -80,28 +71,25 @@ public class ConcurrentContext {
 
         LOGGER.debug("starting JVMs and threads . . .");
 
-        final String name = getThreadFactoryName(jvmCount, testType);
-        final IntegrationThreadFactory threadFactory = new IntegrationThreadFactory(name);
-        final ExecutorService executorService = Executors.newFixedThreadPool(threadCount, threadFactory);
+        final ExecutorService executorService = configrationProvider.getExecutorService();
 
-        final List<Closeable> tasks = new ArrayList<>(threadCount);
+        final List<Closeable> tasks = new ArrayList<>(configrationProvider.getThreadCount());
 
         addShutDownHook(tasks);
 
         // Check if we have a single JVM or multiple JVMs
-        if (jvmCount == 1) {
+        if (configrationProvider.getJvmCount() == 1) {
             // Run everything in this JVM
-            for (int t = 0; t < threadCount; t++) {
-                final ConcurrentContextThread task = new ConcurrentContextThread(0, t, threadLoops);
+            for (int t = 0; t < configrationProvider.getThreadCount(); t++) {
+                final ConcurrentContextThread task = new ConcurrentContextThread(0, t, configrationProvider);
                 tasks.add(task);
                 executorService.execute(task);
             }
 
         } else {
             // Spawn JVMs to run the tests
-            for (int j = 0; j < jvmCount; j++) {
-                final ConcurrentContextJVMThread task =
-                        new ConcurrentContextJVMThread(testType, j, threadCount, threadLoops);
+            for (int j = 0; j < configrationProvider.getJvmCount(); j++) {
+                final ConcurrentContextJVMThread task = new ConcurrentContextJVMThread(j, configrationProvider);
                 tasks.add(task);
                 executorService.execute(task);
             }
@@ -120,7 +108,7 @@ public class ConcurrentContext {
         LOGGER.info("Shutting down now ...");
         executorService.shutdownNow();
 
-        return concurrentContext.verifyAndClearContext(jvmCount, threadCount, threadLoops);
+        return verifyAndClearContext();
     }
 
 
@@ -140,85 +128,34 @@ public class ConcurrentContext {
         });
     }
 
-
-    private String getThreadFactoryName(final int jvmCount, final String testType) {
-        return jvmCount == 1 ? testType + ":TestConcurrentContextThread_0_"
-                : testType + ":TestConcurrentContextJVMThread_";
-    }
-
     /**
      * Setup and verify context.
      *
      * @throws ContextException the context exception
      */
     private void setupAndVerifyContext() throws ContextException {
-        final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor", "0.0.1");
-        contextDistributor = new DistributorFactory().getDistributor(distributorKey);
+        contextDistributor = configrationProvider.getDistributor();
+        lTypeAlbum = configrationProvider.getContextAlbum(contextDistributor);
+        final Map<String, Object> initValues = configrationProvider.getContextAlbumInitValues();
 
-        // @formatter:off
-        final AxArtifactKey[] usedArtifactStackArray = {
-                new AxArtifactKey("testC-top", "0.0.1"),
-                new AxArtifactKey("testC-next", "0.0.1"),
-                new AxArtifactKey("testC-bot", "0.0.1")
-                };
-        // @formatter:on
-
-        final AxContextModel albumsModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
-        contextDistributor.registerModel(albumsModel);
-
-        lTypeAlbum = contextDistributor.createContextAlbum(new AxArtifactKey("LTypeContextAlbum", "0.0.1"));
-        assert (lTypeAlbum != null);
-        lTypeAlbum.setUserArtifactStack(usedArtifactStackArray);
-
-        // CHECKSTYLE:OFF: checkstyle:magicNumber
-        lTypeAlbum.put("lTypeValue0", new TestContextLongItem(0xFFFFFFFFFFFFFFFFL));
-        lTypeAlbum.put("lTypeValue1", new TestContextLongItem(0xFFFFFFFFFFFFFFFEL));
-        lTypeAlbum.put("lTypeValue2", new TestContextLongItem(0xFFFFFFFFFFFFFFFDL));
-        lTypeAlbum.put("lTypeValue3", new TestContextLongItem(0xFFFFFFFFFFFFFFFCL));
-        lTypeAlbum.put("lTypeValue4", new TestContextLongItem(0xFFFFFFFFFFFFFFFBL));
-        lTypeAlbum.put("lTypeValue5", new TestContextLongItem(0xFFFFFFFFFFFFFFFAL));
-        lTypeAlbum.put("lTypeValue6", new TestContextLongItem(0xFFFFFFFFFFFFFFF9L));
-        lTypeAlbum.put("lTypeValue7", new TestContextLongItem(0xFFFFFFFFFFFFFFF8L));
-        lTypeAlbum.put("lTypeValue8", new TestContextLongItem(0xFFFFFFFFFFFFFFF7L));
-        lTypeAlbum.put("lTypeValue9", new TestContextLongItem(0xFFFFFFFFFFFFFFF6L));
-        lTypeAlbum.put("lTypeValueA", new TestContextLongItem(0xFFFFFFFFFFFFFFF5L));
-        lTypeAlbum.put("lTypeValueB", new TestContextLongItem(0xFFFFFFFFFFFFFFF4L));
-        lTypeAlbum.put("lTypeValueC", new TestContextLongItem(0xFFFFFFFFFFFFFFF3L));
-        lTypeAlbum.put("lTypeValueD", new TestContextLongItem(0xFFFFFFFFFFFFFFF2L));
-        lTypeAlbum.put("lTypeValueE", new TestContextLongItem(0xFFFFFFFFFFFFFFF1L));
-        lTypeAlbum.put("lTypeValueF", new TestContextLongItem(0xFFFFFFFFFFFFFFF0L));
-        LOGGER.debug(lTypeAlbum.toString());
-        assert (lTypeAlbum.size() >= 16);
-        // CHECKSTYLE:ON: checkstyle:magicNumber
-
-        // The initial value for concurrent testing
-        final TestContextLongItem item = new TestContextLongItem(0L);
-        lTypeAlbum.put("testValue", item);
-
+        for (final Entry<String, Object> entry : initValues.entrySet()) {
+            lTypeAlbum.put(entry.getKey(), entry.getValue());
+        }
     }
 
-    /**
-     * Verify and clear context.
-     *
-     * @param jvmCount the jvm count
-     * @param threadCount the thread count
-     * @param threadLoops the thread loops
-     * @return the long
-     * @throws ContextException the context exception
-     */
-    private long verifyAndClearContext(final int jvmCount, final int threadCount, final int threadLoops)
-            throws ContextException {
+    private Map<String, TestContextLongItem> verifyAndClearContext() throws ContextException {
+        final Map<String, TestContextLongItem> values = new HashMap<>();
         try {
-            LOGGER.debug("threads finished, end value is {}",
-                    ((TestContextLongItem) lTypeAlbum.get("testValue")).getLongValue());
+
+            for (Entry<String, Object> entry : lTypeAlbum.entrySet()) {
+                values.put(entry.getKey(), (TestContextLongItem) entry.getValue());
+            }
         } catch (final Exception exception) {
             LOGGER.error("Error: ", exception);
         }
-        final long total = ((TestContextLongItem) lTypeAlbum.get("testValue")).getLongValue();
-
         contextDistributor.clear();
         contextDistributor = null;
 
-        return total;
+        return values;
     }
 }
