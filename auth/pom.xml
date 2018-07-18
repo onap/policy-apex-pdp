@@ -33,16 +33,8 @@
     <name>${project.artifactId}</name>
     <description>Policy, state, and task authoring for Apex.</description>
 
-    <profiles>
-        <profile>
-            <id>apexDefault</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>cli-editor</module>
-                <module>cli-codegen</module>
-            </modules>
-        </profile>
-    </profiles>
+    <modules>
+        <module>cli-editor</module>
+        <module>cli-codegen</module>
+    </modules>
 </project>

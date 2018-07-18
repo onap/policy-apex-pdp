@@ -42,10 +42,10 @@
     </dependencies>
 
     <modules>
-        <module>context-schema</module>
-        <module>context-distribution</module>
-        <module>context-locking</module>
-        <module>context-persistence</module>
+        <module>plugins-context-schema</module>
+        <module>plugins-context-distribution</module>
+        <module>plugins-context-locking</module>
+        <module>plugins-context-persistence</module>
     </modules>
 
 </project>

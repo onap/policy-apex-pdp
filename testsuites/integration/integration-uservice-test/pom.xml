@@ -53,8 +53,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-schema</groupId>
-            <artifactId>context-schema-avro</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+            <artifactId>plugins-context-schema-avro</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
@@ -71,8 +71,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-distribution</groupId>
-            <artifactId>context-distribution-infinispan</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-infinispan</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

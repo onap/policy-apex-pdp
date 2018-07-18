@@ -21,26 +21,19 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-distribution</groupId>
-        <artifactId>context-distribution</artifactId>
+        <groupId>org.onap.policy.apex-pdp.plugins.plugins-context</groupId>
+        <artifactId>plugins-context</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>context-distribution-hazelcast</artifactId>
+    <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
+    <artifactId>plugins-context-locking</artifactId>
+    <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>[${project.parent.artifactId}] Plugin for distribution using Hazelcast</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast</artifactId>
-            <version>${version.hazelcast}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.context</groupId>
-            <artifactId>context-test-utils</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <description>Plugins for 3pps that lock context</description>
+    <modules>
+        <module>plugins-context-locking-curator</module>
+        <module>plugins-context-locking-hazelcast</module>
+    </modules>
 </project>

@@ -43,23 +43,23 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-distribution</groupId>
-            <artifactId>context-distribution-hazelcast</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-hazelcast</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-distribution</groupId>
-            <artifactId>context-distribution-infinispan</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-infinispan</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-locking</groupId>
-            <artifactId>context-locking-curator</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
+            <artifactId>plugins-context-locking-curator</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-locking</groupId>
-            <artifactId>context-locking-hazelcast</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
+            <artifactId>plugins-context-locking-hazelcast</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
