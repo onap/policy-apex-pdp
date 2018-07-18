@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a9dcd25_184bb42c",
+        "filename": "client/client-deployment/src/main/java/org/onap/policy/apex/client/deployment/rest/ApexDeploymentRestParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-07-18T14:27:32Z",
+      "side": 1,
+      "message": "should this be \"org.onap...\" ?",
+      "revId": "d52fd315fc49496915a262e98c2fdb2bad6785f3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
