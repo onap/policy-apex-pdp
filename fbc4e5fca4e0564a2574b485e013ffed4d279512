@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a9dcd25_1da0868f",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/utils/NetworkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-18T09:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a9dcd25_7dd0aa53",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "fbc4e5fca4e0564a2574b485e013ffed4d279512",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a9dcd25_9dd57645",
         "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/utils/NetworkUtils.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-18T08:28:22Z",
       "side": 1,
       "message": "Can you remove this, It\u0027s probably a hangover from a previous // type comment",
+      "range": {
+        "startLine": 36,
+        "startChar": 75,
+        "endLine": 36,
+        "endChar": 78
+      },
+      "revId": "fbc4e5fca4e0564a2574b485e013ffed4d279512",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a9dcd25_bdacf28d",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/utils/NetworkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-07-18T09:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a9dcd25_9dd57645",
       "range": {
         "startLine": 36,
         "startChar": 75,
