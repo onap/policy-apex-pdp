@@ -162,9 +162,15 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Test Data used by examples -->
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.model</groupId>
-            <artifactId>utilities</artifactId>
+            <groupId>org.onap.policy.apex-pdp.context</groupId>
+            <artifactId>context-test-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
+            <artifactId>integration-common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -187,18 +193,20 @@
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.auth</groupId>
                                     <artifactId>cli-editor</artifactId>
+                                    <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <includes>etc/**/*,examples/**/*</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.model</groupId>
-                                    <artifactId>utilities</artifactId>
+                                    <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
+                                    <artifactId>integration-common</artifactId>
+                                    <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/etc</outputDirectory>
-                                    <includes>/app-version.txt</includes>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>etc/**/*,examples/**/*</includes>
                                 </artifactItem>
                             </artifactItems>
                             <overWriteReleases>true</overWriteReleases>
