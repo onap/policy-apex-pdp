@@ -40,11 +40,5 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.21</version>
         </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-schema</groupId>
-            <artifactId>context-schema-avro</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>

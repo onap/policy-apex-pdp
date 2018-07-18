@@ -47,8 +47,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-schema</groupId>
-            <artifactId>context-schema-avro</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+            <artifactId>plugins-context-schema-avro</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

@@ -26,13 +26,13 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-schema</groupId>
-    <artifactId>context-schema</artifactId>
+    <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+    <artifactId>plugins-context-schema</artifactId>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>Plugins for 3pps that handle context schemas</description>
     <modules>
-        <module>context-schema-avro</module>
+        <module>plugins-context-schema-avro</module>
     </modules>
 </project>

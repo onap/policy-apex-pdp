@@ -17,37 +17,43 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.context-distribution</groupId>
-        <artifactId>context-distribution</artifactId>
+        <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
+        <artifactId>plugins-context-locking</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>context-distribution-infinispan</artifactId>
+    <artifactId>plugins-context-locking-hazelcast</artifactId>
     <name>${project.artifactId}</name>
-    <description>[${project.parent.artifactId}] Plugin for distribution using Infinispan</description>
+    <description>[${project.parent.artifactId}] Plugin for locking using Hazelcast</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <version>9.2.2.Final</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.slf4j</groupId>
-                    <artifactId>slf4j-jboss-logging</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>${version.hazelcast}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.context</groupId>
-            <artifactId>context-test-utils</artifactId>
+            <groupId>org.onap.policy.apex-pdp.core</groupId>
+            <artifactId>core-infrastructure</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-hazelcast</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-infinispan</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
