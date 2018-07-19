@@ -1,0 +1,17 @@
+{
+  "nameSpace" : "com.hyperm",
+  "name" : "SALE_AUTH",
+  "version" : "0.0.1",
+  "source" : "",
+  "target" : "",
+  "sale_ID" : 99999982,
+  "amount" : 2199,
+  "assistant_ID" : 94,
+  "notes" : "Buy 3, get 1 free!!",
+  "quantity" : 12,
+  "branch_ID" : 1003,
+  "item_ID" : 1443,
+  "authorised" : false,
+  "time" : 1482077977000,
+  "message" : "Sale not authorised by policy task MorningBoozeCheckAlt1 for time 17:19:37 CET. Alcohol can not be sold between 00:00:00 CET and 13:00:00 CET or on Sunday"
+}

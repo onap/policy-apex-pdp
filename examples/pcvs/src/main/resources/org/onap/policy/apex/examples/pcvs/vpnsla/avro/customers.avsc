@@ -1,0 +1,16 @@
+{
+    "type" : "record",
+    "name" : "Customer",
+    "fields" : [
+        {"name" : "customerName", "type" : "string"},
+        {"name" : "dtSLA"       , "type" : "int"},
+        {"name" : "dtYTD"       , "type" : "int"},
+        {"name" : "priority"    , "type" : "boolean"},
+        {"name" : "satisfaction", "type" : "int"},
+        {
+            "name": "links",
+            "doc": "Links used by this customer",
+            "type": {"type"  : "array", "items" : "string"}
+        }
+    ]
+}

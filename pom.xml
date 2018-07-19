@@ -159,8 +159,9 @@
         <module>auth</module>
         <module>services</module>
         <module>plugins</module>
-        <module>packages</module>
+        <module>examples</module>
         <module>testsuites</module>
+        <module>packages</module>
         <module>client</module>
         <module>tools</module>
     </modules>

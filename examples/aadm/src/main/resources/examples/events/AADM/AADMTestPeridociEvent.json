@@ -1,0 +1,12 @@
+{
+    "nameSpace": "org.onap.policy.apex.examples.aadm.events",
+    "name": "PeriodicEvent",
+    "version": "0.0.1",
+    "source": "apex",
+    "target": "apex",
+    "PERIODIC_EVENT_COUNT":  100,
+    "PERIODIC_DELAY":        1000,
+    "PERIODIC_FIRST_TIME":   1496828877,
+    "PERIODIC_CURRENT_TIME": 1496828908,
+    "PERIODIC_LAST_TIME":    1496828919
+}

@@ -1,0 +1,200 @@
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 0,
+    "MonitoredValue": 0.04818448765182781
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.016856740089812434,
+    "Iteration": 1
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 2,
+    "MonitoredValue": 0.07283031742656552
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 3,
+    "MonitoredValue": 0.05284674407712258
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.08685406312054446,
+    "Iteration": 4
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.09580382706345814,
+    "Iteration": 5
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 6,
+    "MonitoredValue": 0.07022220893167114
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.05027456879617627,
+    "Iteration": 7
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 8,
+    "MonitoredValue": 0.16867139038930964
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.18383434112759453,
+    "Iteration": 9
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 10,
+    "MonitoredValue": 0.11940188164467769
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 11,
+    "MonitoredValue": 0.18528189685974508
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.19934812597926355,
+    "Iteration": 12
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.2769320946213342,
+    "Iteration": 13
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 14,
+    "MonitoredValue": 0.2573073533232842
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 15,
+    "MonitoredValue": 0.2114736039819203
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.3070179558734792,
+    "Iteration": 16
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.22817748171407137,
+    "Iteration": 17
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "Iteration": 18,
+    "MonitoredValue": 0.3742338965886025
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.adaptive.events",
+    "name": "AnomalyDetectionTriggerEvent",
+    "version": "0.0.1",
+    "source": "CompaA",
+    "target": "apex",
+    "MonitoredValue": 0.33767889848226273,
+    "Iteration": 19
+}
+
