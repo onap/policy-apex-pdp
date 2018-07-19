@@ -108,6 +108,7 @@
                                                 <versionRange>[1.6.0,)</versionRange>
                                                 <goals>
                                                     <goal>java</goal>
+                                                    <goal>exec</goal>
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
