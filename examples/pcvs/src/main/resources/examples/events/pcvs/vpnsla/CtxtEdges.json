@@ -1,0 +1,120 @@
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L01",
+    "start": "A1",
+    "end": "A1CO",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L02",
+    "start": "B1",
+    "end": "B1CO",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L03",
+    "start": "A2",
+    "end": "A2CO",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L04",
+    "start": "B2",
+    "end": "B2CO",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L05",
+    "start": "A1CO",
+    "end": "BBL",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L06",
+    "start": "B1CO",
+    "end": "BBL",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L07",
+    "start": "A2CO",
+    "end": "BBR",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L08",
+    "start": "B2CO",
+    "end": "BBR",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L09",
+    "start": "BBL",
+    "end": "BBR",
+    "status": true
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "EdgeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_EdgeContext",
+    "edgeName": "L10",
+    "start": "BBR",
+    "end": "BBL",
+    "status": true
+}
+

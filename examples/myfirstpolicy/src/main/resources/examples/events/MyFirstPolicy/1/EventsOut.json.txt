@@ -1,0 +1,51 @@
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_AUTH",
+  "version": "0.0.1",
+  "source": "",
+  "target": "",
+  "amount": 1249,
+  "assistant_ID": 12,
+  "authorised": false,
+  "branch_ID": 2,
+  "item_ID": 1012,
+  "message": "Sale not authorised by policy task MorningBoozeCheck for time 08:41:06 GMT. Alcohol can not be sold between 00:00:00 GMT and 11:30:00 GMT",
+  "notes": null,
+  "quantity": 1,
+  "sale_ID": 99999992,
+  "time": 1483346466000
+}
+{
+  "name": "SALE_AUTH",
+  "version": "0.0.1",
+  "nameSpace": "com.hyperm",
+  "source": "",
+  "target": "",
+  "amount": 4799,
+  "assistant_ID": 9,
+  "authorised": true,
+  "branch_ID": 3,
+  "item_ID": 1943,
+  "message": "Sale authorised by policy task MorningBoozeCheck for time 20:17:13 GMT",
+  "notes": null,
+  "quantity": 2,
+  "sale_ID": 99999993,
+  "time": 1482265033000
+}
+{
+  "name": "SALE_AUTH",
+  "version": "0.0.1",
+  "nameSpace": "com.hyperm",
+  "source": "",
+  "target": "",
+  "amount": 299,
+  "assistant_ID": 23,
+  "authorised": true,
+  "branch_ID": 1,
+  "item_ID": 5123,
+  "message": "Sale authorised by policy task MorningBoozeCheck for time 10:13:09 GMT",
+  "notes": "Special Offer!!",
+  "quantity": 1,
+  "sale_ID": 99999991,
+  "time": 1483351989000
+}

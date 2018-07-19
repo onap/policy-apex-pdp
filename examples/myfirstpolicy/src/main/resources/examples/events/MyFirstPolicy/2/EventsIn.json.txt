@@ -1,0 +1,75 @@
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1483346466000,
+  "sale_ID": 99999992,
+  "amount": 1249,
+  "item_ID": 1012,
+  "quantity": 1,
+  "assistant_ID": 12,
+  "branch_ID": 2
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1482265033000,
+  "sale_ID": 99999993,
+  "amount": 4799,
+  "item_ID": 1943,
+  "quantity": 2,
+  "assistant_ID": 9,
+  "branch_ID": 3
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1483351989000,
+  "sale_ID": 99999991,
+  "amount": 299,
+  "item_ID": 5123,
+  "quantity": 1,
+  "assistant_ID": 23,
+  "branch_ID": 1,
+  "notes": "Special Offer!!"
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1482398073000,
+  "sale_ID": 99999981,
+  "amount": 299,
+  "item_ID": 1047,
+  "quantity": 1,
+  "assistant_ID": 1212,
+  "branch_ID": 1002
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1482077977000,
+  "sale_ID": 99999982,
+  "amount": 2199,
+  "item_ID": 1443,
+  "quantity": 12,
+  "assistant_ID": 94,
+  "branch_ID": 1003,
+  "notes": "Buy 3, get 1 free!!"
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1483351989000,
+  "sale_ID": 99999983,
+  "amount": 699,
+  "item_ID": 5321,
+  "quantity": 1,
+  "assistant_ID": 2323,
+  "branch_ID": 1001,
+  "notes": ""
+}

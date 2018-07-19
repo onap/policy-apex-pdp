@@ -1,0 +1,106 @@
+/*
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+import org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus;
+import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+
+logger.debug(subject.id + ":" + subject.taskName + " execution logic");
+logger.debug(inFields);
+
+outFields["ACTTASK"] = "probe";
+outFields["TRIGGER_SPEC"] = "XSTREAM_AADM_ACT_EVENT";
+outFields["MAJ_MIN_MAINT_VERSION"] = "0.0.1";
+outFields["IMSI"] = inFields["IMSI"];
+
+if (inFields["IMSI_IP"] != null) {
+	outFields["IMSI_IP"] = inFields["IMSI_IP"];
+}
+else {
+	outFields["IMSI_IP"] = inFields["UE_IP_ADDRESS"];
+}
+
+if (inFields["NW_IP"] != null) {
+	outFields["NW_IP"] = inFields["NW_IP"];
+}
+else {
+	outFields["NW_IP"] = inFields["SGW_IP_ADDRESS"];
+}
+
+IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
+logger.debug(imsiStatus);
+
+ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID());
+logger.debug(eNodeBStatus);
+
+if (imsiStatus.getENodeBID() != null && !imsiStatus.getENodeBID().equals(inFields["ENODEB_ID"]) || inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] == null) {
+	// if user moved enodeB remove him from previous one
+	if (imsiStatus.getENodeBID() != null) {
+		eNodeBStatus.decrementDOSCount();
+	}
+
+	// if user became non anomalous return action
+	if (inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] == null) {
+		imsiStatus.setAnomalous(false);
+		outFields["ACTTASK"] = "remove_from_probe";
+
+		for (ENodeBStatus enbStatus : getContextAlbum("ENodeBStatusAlbum").values) {
+			if (enbStatus.getBeingProbed()) {
+				outFields["PROBE_ON"] = true;
+				outFields["TCP_ON"] = true;
+				return true;
+			}
+		}
+
+		outFields["PROBE_ON"] = false;
+		outFields["TCP_ON"] = false;
+
+		getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getIMSI(), imsiStatus);
+		getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);
+
+		return true;
+	}
+}
+
+imsiStatus.setAnomalous(true);
+imsiStatus.setAnomolousTime(System.currentTimeMillis());
+imsiStatus.setENodeBID(inFields["ENODEB_ID"]);
+getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getIMSI(), imsiStatus);
+logger.debug(imsiStatus.getENodeBID() + ": enodeb added to imsi ip added " + outFields["IMSI_IP"]);
+
+ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID());
+if (eNodeBStatus == null) {
+	eNodeBStatus = new ENodeBStatus(imsiStatus.getENodeBID());
+	getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);
+	logger.debug("new eNodeB added " + getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID()));
+}
+
+eNodeBStatus.incrementDOSCount();
+getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);
+logger.debug(eNodeBStatus.getENodeB() + ": dosCount incremented to " + eNodeBStatus.getDOSCount());
+
+outFields["PROBE_ON"]     = true;
+outFields["TCP_ON"]       = true;
+outFields["THRESHOLD"]    = 0;
+outFields["PROFILE"]      = "";
+outFields["VERSION"]      = "0.0.1";
+outFields["BLACKLIST_ON"] = false;
+
+logger.debug("out here5");
+
+return true;

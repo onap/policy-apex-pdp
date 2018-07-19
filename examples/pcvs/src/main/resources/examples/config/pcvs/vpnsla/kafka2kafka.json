@@ -1,0 +1,69 @@
+﻿{
+	"engineServiceParameters":{
+		"name"          : "VpnSlaApexEngine",
+		"version"        : "1.0.0",
+		"id"             :  45,
+		"instanceCount"  : 1,
+		"deploymentPort" : 12345,
+		"policyModelFileName" : 'examples/models/pcvs/vpnsla/PCVS-VpnSla.json',
+		"engineParameters"    : {
+			"executorParameters" : {
+				"JAVASCRIPT" : {
+					"parameterClassName" : "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+				}
+			},
+			'contextParameters':{
+				'parameterClassName' : 'org.onap.policy.apex.context.parameters.ContextParameters',
+				'schemaParameters':{
+					'Avro':{
+						'parameterClassName' : 'org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters'
+					}
+				}
+			}
+		}
+	},
+	"eventOutputParameters": {
+		"aProducer": {
+			"carrierTechnologyParameters":{
+				"carrierTechnology" : "KAFKA",
+				"parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+				"parameters" : {
+					'bootstrapServers'  : 'localhost:9092',
+					'acks'              : 'all',
+					'retries'           : 0,
+					'batchSize'         : 16384,
+					'lingerTime'        : 1,
+					'bufferMemory'      : 33554432,
+					'producerTopic'     : 'apex-out',
+					'keySerializer'     : 'org.apache.kafka.common.serialization.StringSerializer',
+					'valueSerializer'   : 'org.apache.kafka.common.serialization.StringSerializer'
+				}
+			},
+			"eventProtocolParameters":{
+				"eventProtocol" : "JSON"
+			}
+		}
+	},
+	"eventInputParameters": {
+		"aConsumer": {
+			"carrierTechnologyParameters":{
+				"carrierTechnology" : "KAFKA",
+				"parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+				"parameters" : {
+					'bootstrapServers'  : 'localhost:9092',
+					'groupId'           : 'apex-group-id',
+					'enableAutoCommit'  : true,
+					'autoCommitTime'    : 1000,
+					'sessionTimeout'    : 30000,
+					'consumerPollTime'  : 100,
+					'consumerTopicList' : ['apex-in-0', 'apex-in-1'],
+					'keyDeserializer'   : 'org.apache.kafka.common.serialization.StringDeserializer',
+					'valueDeserializer' : 'org.apache.kafka.common.serialization.StringDeserializer'
+				}
+			},
+			"eventProtocolParameters":{
+				"eventProtocol" : "JSON"
+			}
+		}
+	}
+}

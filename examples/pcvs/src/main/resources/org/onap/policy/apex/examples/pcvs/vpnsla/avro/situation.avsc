@@ -1,0 +1,8 @@
+{
+	"type" : "record",
+	"name" : "Situation",
+	"fields" : [
+		{"name": "problemID",    "type": "string",                               "doc": "Identifier of the problem for lookup in problemMap"},
+		{"name": "violatedSLAs", "type": {"type" : "array", "items" : "string"}, "doc": "List of customers with SLA violations"}
+	]
+}

@@ -1,0 +1,67 @@
+/*
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus;
+
+logger.debug(subject.id + ":" + subject.stateName + " execution logic");
+logger.debug(inFields);
+
+logger.debug("inFields[SERVICE_REQUEST_COUNT]=" + inFields["SERVICE_REQUEST_COUNT"]);
+
+IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
+
+if (imsiStatus.getBlockingCount() > 1) {
+	subject.getTaskKey("AADMNoActTask").copyTo(selectedTask);
+	logger.debug("user blacklisted permanently");
+	return false;
+}
+
+logger.debug("imsi: " + imsiStatus.getIMSI() + " anamalous " + imsiStatus.getAnomalous());
+
+// check if this is second iteration
+if (inFields["TCP_UE_SIDE_AVG_THROUGHPUT"] != null && inFields["TCP_UE_SIDE_AVG_THROUGHPUT"] > 100 && imsiStatus.getAnomalous()) {
+	subject.getTaskKey("AADMDoSProvenActTask").copyTo(selectedTask);
+	logger.debug("inside TCP_UE_SIDE_AVG_THROUGHPUT");
+	return true;
+}
+
+// Get the status of the ENodeB
+ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get((String)inFields["ENODEB_ID"]);
+
+// check if this is first iteration and DoS
+if (inFields["SERVICE_REQUEST_COUNT"] != null &&
+		inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] != null &&
+		inFields["SERVICE_REQUEST_COUNT"] > inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] &&
+		eNodeBStatus != null && eNodeBStatus.getDOSCount() > 100 &&
+		inFields["NUM_SUBSCRIBERS"] != null && inFields["NUM_SUBSCRIBERS"]  > 100) {
+	logger.debug("inside NUM_SUBSCRIBERS");
+	subject.getTaskKey("AADMDoSProvenActTask").copyTo(selectedTask);
+	return true;
+}
+
+// check if this is first iteration and request probe
+if (inFields["UE_IP_ADDRESS"] != null) {
+	logger.debug("inside UE_IP_ADDRESS");
+	subject.getTaskKey("AADMDoSSuggestionActTask").copyTo(selectedTask);
+	return true;
+}
+
+subject.defaultTaskKey.copyTo(selectedTask);
+return true;

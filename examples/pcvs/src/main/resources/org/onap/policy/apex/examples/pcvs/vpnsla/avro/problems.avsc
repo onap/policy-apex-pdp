@@ -1,0 +1,34 @@
+{
+	"type" : "record",
+	"name" : "Problem",
+	"fields" : [
+		{"name": "edge",       "type": "string"},
+		{"name": "startTime",  "type": "long"},
+		{"name": "lastUpdate", "type": "long"},
+		{"name": "endTime",    "type": "long"},
+		{
+			"name": "status",
+			"doc": "problem status",
+			"type": {
+				"type": "enum",
+				"name": "statusEnum",
+				"symbols" : [
+					"NONE",
+					"STILL",
+					"SOLVED",
+					"NEW"
+				]
+			}
+		},
+		{
+			"name": "edgeUsedBy",
+			"doc": "customers using the edge",
+			"type": {"type" : "array", "items" : "string"}
+		},
+		{
+			"name": "impededLast",
+			"doc": "customers last impeded",
+			"type": {"type" : "array", "items" : "string"}
+		}
+	]
+}

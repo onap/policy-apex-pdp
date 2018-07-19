@@ -1,0 +1,22 @@
+{
+	"type" : "record",
+	"name" : "Situation",
+	"fields" : [
+		{"name": "description", "type": "string", "doc": "Description of the taken decision"},
+		{
+			"name": "decision",
+			"doc": "taken decision",
+			"type": {
+				"type": "enum",
+				"name": "decisionEnum",
+				"symbols" : [
+					"IMPEDE",
+					"REBUILD",
+					"NONE"
+				]
+			}
+		},
+		{"name": "customers", "type": {"type" : "array", "items" : "string"}, "doc": "List of customers affected by the decision"},
+		{"name": "problemID", "type": "string", "doc": "Identifier of the problem for lookup in problemMap"}
+	]
+}

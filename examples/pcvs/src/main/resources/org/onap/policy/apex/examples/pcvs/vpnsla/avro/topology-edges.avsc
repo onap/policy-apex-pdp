@@ -1,0 +1,10 @@
+{
+	"type" : "record",
+	"name" : "TopologyEdges",
+	"fields" : [
+		{"name": "name",   "type": "string",  "doc": "Name of the Edge, typically a link name"},
+		{"name": "start",  "type": "string",  "doc": "Edge endpoint: start - a node name"},
+		{"name": "end",    "type": "string",  "doc": "Edge endpoint: end - a node name"},
+		{"name": "active", "type": "boolean", "doc": "Flag for active/inactive edges, inactive means a link is down"}
+	]
+}

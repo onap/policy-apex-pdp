@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  SPDX-License-Identifier: Apache-2.0
+  ============LICENSE_END=========================================================
+-->
+
+<xmlApexEvent xmlns="http://www.ericsson.com/apexevent">
+	<name>AADMEvent</name>
+	<version>0.0.1</version>
+	<nameSpace>org.onap.policy.apex.examples.aadm.events</nameSpace>
+	<source>CompaA</source>
+	<target>apex</target>
+	<data>
+		<key>IMSI</key>
+		<value>27201872253157</value>
+	</data>
+	<data>
+		<key>ENODEB_ID</key>
+		<value>10000</value>
+	</data>
+	<data>
+		<key>IMSI_IP</key>
+		<value>111.222.333.444</value>
+	</data>
+	<data>
+		<key>NW_IP</key>
+		<value>THIS IS NOT AN IP ADDRESS</value>
+	</data>
+	<data>
+		<key>DoS</key>
+		<value>true</value>
+	</data>
+	<data>
+		<key>PROBE_ON</key>
+		<value>false</value>
+	</data>
+	<data>
+		<key>TCP_ON</key>
+		<value>false</value>
+	</data>
+	<data>
+		<key>SGW_IP_ADDRESS</key>
+		<value>10.0.0.2</value>
+	</data>
+	<data>
+		<key>UE_IP_ADDRESS</key>
+		<value>10.0.0.4</value>
+	</data>
+	<data>
+		<key>NUM_SUBSCRIBERS</key>
+		<value>101</value>
+	</data>
+	<data>
+		<key>ACTTASK</key>
+		<value/>
+	</data>
+	<data>
+		<key>APPLICATION</key>
+		<value/>
+	</data>
+	<data>
+		<key>ATTACH_COUNT</key>
+		<value>0</value>
+	</data>
+	<data>
+		<key>AVG_SUBSCRIBER_ATTACH</key>
+		<value>0</value>
+	</data>
+	<data>
+		<key>SERVICE_REQUEST_COUNT</key>
+		<value>99</value>
+	</data>
+	<data>
+		<key>AVG_SUBSCRIBER_SERVICE_REQUEST</key>
+		<value>101.0</value>
+	</data>
+	<data>
+		<key>TCP_UE_SIDE_AVG_THROUGHPUT</key>
+		<value>0</value>
+	</data>
+	<data>
+		<key>TCP_UE_SIDE_MEDIAN_RTT_TX_TO_RX</key>
+		<value>0</value>
+	</data>
+	<data>
+		<key>http_host_class</key>
+		<value/>
+	</data>
+	<data>
+		<key>protocol_group</key>
+		<value/>
+	</data>
+</xmlApexEvent>

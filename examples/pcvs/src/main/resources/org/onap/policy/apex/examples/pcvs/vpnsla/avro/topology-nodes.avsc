@@ -1,0 +1,8 @@
+{
+	"type" : "record",
+	"name" : "TopologyNodes",
+	"fields" : [
+		{"name" : "name",   "type" : "string", "doc": "The name of the node"},
+		{"name" : "mnname", "type" : "string", "doc": "The name of the node in Mininet"}
+	]
+}
