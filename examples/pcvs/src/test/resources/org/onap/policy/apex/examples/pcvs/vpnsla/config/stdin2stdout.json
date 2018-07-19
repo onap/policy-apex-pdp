@@ -1,0 +1,51 @@
+{
+    "engineServiceParameters":{
+        "name"          : "VpnSlaApexEngine",
+        "version"        : "1.0.0",
+        "id"             :  45,
+        "instanceCount"  : 1,
+        "deploymentPort" : 12345,
+        "policyModelFileName" : "target/policy.json",
+        "engineParameters"    : {
+            "executorParameters" : {
+                "JAVASCRIPT" : {
+                    "parameterClassName" : "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            },
+            "contextParameters":{
+                "parameterClassName" : "org.onap.policy.apex.context.parameters.ContextParameters",
+                "schemaParameters":{
+                    "Avro":{
+                        "parameterClassName" : "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+                    }
+                }
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters" : {
+                "carrierTechnology" : "FILE",
+                "parameters" : {
+                    "standardIO" : true
+                }
+            },
+            "eventProtocolParameters" : {
+                "eventProtocol" : "JSON"
+            }
+        }
+    },
+    "eventInputParameters": {
+        "FirstConsumer": {
+            "carrierTechnologyParameters" : {
+                "carrierTechnology" : "FILE",
+                "parameters" : {
+                    "standardIO" : true
+                }
+            },
+            "eventProtocolParameters" : {
+                "eventProtocol" : "JSON"
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1482398073000,
+  "sale_ID": 99999981,
+  "amount": 299,
+  "item_ID": 1047,
+  "quantity": 1,
+  "assistant_ID": 1212,
+  "branch_ID": 1002
+}

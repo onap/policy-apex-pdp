@@ -1,0 +1,28 @@
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "CustomerContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_CustomerContext",
+    "customerName": "A",
+    "links": "L01 L05 L09 L10",
+    "dtSLA": 180,
+    "dtYTD": 10,
+    "priority": false,
+    "satisfaction": 80
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "CustomerContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_CustomerContext",
+    "customerName": "B",
+    "links": "L02 L07 L09 L10",
+    "dtSLA": 180,
+    "dtYTD": 120,
+    "priority": true,
+    "satisfaction": 99
+}
+

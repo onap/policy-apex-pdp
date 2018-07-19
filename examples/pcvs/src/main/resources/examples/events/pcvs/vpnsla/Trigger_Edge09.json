@@ -1,0 +1,50 @@
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "VpnSlaTrigger",
+    "version": "1.0.0",
+    "source": "ExampleEvents",
+    "target" : "VpnSlaPolicy",
+    "edgeName": "L09",
+    "status": "UP"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "VpnSlaTrigger",
+    "version": "1.0.0",
+    "source": "ExampleEvents",
+    "target" : "VpnSlaPolicy",
+    "edgeName": "L09",
+    "status": "UP"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "VpnSlaTrigger",
+    "version": "1.0.0",
+    "source": "ExampleEvents",
+    "target" : "VpnSlaPolicy",
+    "edgeName": "L09",
+    "status": "DOWN"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "VpnSlaTrigger",
+    "version": "1.0.0",
+    "source": "ExampleEvents",
+    "target" : "VpnSlaPolicy",
+    "edgeName": "L09",
+    "status": "DOWN"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "VpnSlaTrigger",
+    "version": "1.0.0",
+    "source": "ExampleEvents",
+    "target" : "VpnSlaPolicy",
+    "edgeName": "L09",
+    "status": "UP"
+}
+

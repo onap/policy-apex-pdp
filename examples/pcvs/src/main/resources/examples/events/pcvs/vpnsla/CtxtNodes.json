@@ -1,0 +1,101 @@
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "A1",
+    "mininetName": "nn"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "A2",
+    "mininetName": "nn"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "B1",
+    "mininetName": "nn"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "B2",
+    "mininetName": "nn"
+}
+
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "A1CO",
+    "mininetName": "s1"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "A2CO",
+    "mininetName": "s2"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "B1CO",
+    "mininetName": "s3"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "B2CO",
+    "mininetName": "s4"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "BBL",
+    "mininetName": "s5"
+}
+
+{
+    "nameSpace": "org.onap.policy.apex.examples.pcvs.vpnsla",
+    "name": "NodeContextEventIn",
+    "version": "1.0.0",
+    "source": "CtxtManagement",
+    "target" : "VpnSlaPolicy_NodeContext",
+    "nodeName": "BBR",
+    "mininetName": "s6"
+}
+
