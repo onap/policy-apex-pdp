@@ -28,9 +28,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 
 @Entity
@@ -59,10 +59,12 @@ public class ArtifactKeyTestEntity extends AxConcept {
         this.doubleValue = doubleValue;
     }
 
+    @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
+    @Override
     public List<AxKey> getKeys() {
         return Arrays.asList((AxKey) getKey());
     }
@@ -125,38 +127,49 @@ public class ArtifactKeyTestEntity extends AxConcept {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (this == obj)
+        }
+        if (this == obj) {
             return true;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) obj;
         if (key == null) {
-            if (other.key != null)
+            if (other.key != null) {
                 return false;
-        } else if (!key.equals(other.key))
+            }
+        } else if (!key.equals(other.key)) {
             return false;
-        if (doubleValue != other.doubleValue)
+        }
+        if (Double.compare(doubleValue, other.doubleValue) != 0) {
             return false;
+        }
         return true;
     }
 
     @Override
     public int compareTo(final AxConcept otherObj) {
-        if (otherObj == null)
+        if (otherObj == null) {
             return -1;
-        if (this == otherObj)
+        }
+        if (this == otherObj) {
             return 0;
+        }
         final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) otherObj;
         if (key == null) {
-            if (other.key != null)
+            if (other.key != null) {
                 return 1;
-        } else if (!key.equals(other.key))
+            }
+        } else if (!key.equals(other.key)) {
             return key.compareTo(other.key);
-        if (doubleValue != other.doubleValue)
-            return new Double(doubleValue).compareTo(other.doubleValue);
-
+        }
+        final int doubleDiff = Double.compare(doubleValue, other.doubleValue);
+        if (doubleDiff != 0) {
+            return doubleDiff;
+        }
         return 0;
     }
 }
