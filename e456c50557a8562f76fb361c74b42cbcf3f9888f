@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da7095c5_420f03e2",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/entities/ArtifactKeyTestEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-23T10:38:16Z",
+      "side": 1,
+      "message": "4 lines can be replaced by \n\nreturn Double.compare(doubleValue, other.doubleValue) \u003d\u003d 0",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 20
+      },
+      "revId": "e456c50557a8562f76fb361c74b42cbcf3f9888f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_621487f5",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/entities/ArtifactKeyTestEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-23T10:38:16Z",
+      "side": 1,
+      "message": "same here, just return Double.compare(...)",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 17
+      },
+      "revId": "e456c50557a8562f76fb361c74b42cbcf3f9888f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_02f90bc8",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/entities/ReferenceKeyTestEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-23T10:38:16Z",
+      "side": 1,
+      "message": "same comment as other class",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 20
+      },
+      "revId": "e456c50557a8562f76fb361c74b42cbcf3f9888f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_c20233b4",
+        "filename": "context/context-test-utils/src/main/java/org/onap/policy/apex/context/test/entities/ReferenceKeyTestEntity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-23T10:38:16Z",
+      "side": 1,
+      "message": "same comment as other class",
+      "range": {
+        "startLine": 172,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 17
+      },
+      "revId": "e456c50557a8562f76fb361c74b42cbcf3f9888f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
