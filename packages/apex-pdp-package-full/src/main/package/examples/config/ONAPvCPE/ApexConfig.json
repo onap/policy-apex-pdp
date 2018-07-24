@@ -1,0 +1,145 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "policy/ONAPTLGoalPolicyModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            },
+            "contextParameters": {
+                "parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters",
+                "schemaParameters": {
+                    "Avro": {
+                        "parameterClassName": "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+                    }
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "VCPEInitConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "config/VCPEInitiationEvent.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "nameAlias": "closedLoopControlName",
+                    "versionAlias": "version",
+                    "sourceAlias": "from"
+                }
+            }
+        },
+        "GuardRequestorConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://192.168.144.235:54321/AAIAndGuardSim/sim/pdp/api/getDecision",
+                    "httpMethod": "POST",
+                    "restRequestTimeout": 2000
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventName": "GuardResponseEvent",
+            "eventNameFilter": "GuardResponseEvent",
+            "requestorMode": true,
+            "requestorPeer": "GuardRequestorProducer",
+            "requestorTimeout": 500
+        },
+        "DCAEConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://192.168.144.235:3904/events/unauthenticated.DCAE_CL_OUTPUT/APEX/1?timeout=60000"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "nameAlias": "closedLoopControlName",
+                    "versionAlias": "version",
+                    "sourceAlias": "from"
+                }
+            }
+        },
+        "APPCConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://192.168.144.235:3904/events/APPC_LCM_WRITE/APEX/1?timeout=60000"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventName": "APPCRestartVNFResponseEvent",
+            "eventNameFilter": "APPCRestartVNFResponseEvent"
+        }
+    },
+    "eventOutputParameters": {
+        "logProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "/tmp/VCPEEventsOut.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "GuardRequestorProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters"
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "GuardRequestEvent",
+            "requestorMode": true,
+            "requestorPeer": "GuardRequestorConsumer",
+            "requestorTimeout": 500
+        },
+        "APPCProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://192.168.144.235:3904/events/APPC-LCM-READ"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "APPCRestartVNFRequestEvent"
+        },
+        "PolicyLogProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://192.168.144.235:3904/events/POLICY_CL_MGT"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "ControlLoopLogEvent"
+        }
+    }
+}

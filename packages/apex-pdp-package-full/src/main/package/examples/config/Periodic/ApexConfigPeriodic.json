@@ -1,0 +1,58 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "examples/models/Periodic/PeriodicPolicyModel.json",
+        "periodicEventPeriod": 1000,
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "EventRequestorConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "EVENT_REQUESTOR"
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "APEX"
+            },
+            "eventNameFilter": "InputEvent",
+            "requestorMode": true,
+            "requestorPeer": "EventRequestorProducer",
+            "requestorTimeout": 500
+        }
+    },
+    "eventOutputParameters": {
+        "EventRequestorProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "EVENT_REQUESTOR"
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "APEX"
+            },
+            "eventNameFilter": "EventListEvent",
+            "requestorMode": true,
+            "requestorPeer": "EventRequestorConsumer",
+            "requestorTimeout": 500
+        },
+        "logProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "/tmp/PeriodicEventsOut.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "OutputEvent"
+        }
+    }
+}

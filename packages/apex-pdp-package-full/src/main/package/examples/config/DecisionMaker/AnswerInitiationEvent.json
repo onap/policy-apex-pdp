@@ -1,0 +1,14 @@
+{
+  "nameSpace": "org.onap.policy.apex.domains.decisionmaker",
+  "name": "AnswerEvent",
+  "version": "0.0.1",
+  "source": "dcae",
+  "target": "apex",
+  "a0" : "choice 0",
+  "a1" : "choice 1",
+  "a2" : "choice 2",
+  "a3" : "choice 3",
+  "a4" : "choice 4",
+  "a5" : "choice 5",
+  "a6" : "choice 6"
+}
