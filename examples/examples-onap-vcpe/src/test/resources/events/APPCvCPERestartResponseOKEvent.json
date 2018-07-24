@@ -1,0 +1,22 @@
+{
+    "rpc-name": "restart",
+    "version": "0.0.1",
+    "correlation-id": "4a68f8a5-0db9-4070-a132-adede51e3d5c",
+    "type": "response",
+    "body": {
+        "output": {
+            "common-header": {
+                "timestamp": "2018-02-26T10:23:42.97Z",
+                "api-ver": "5.00",
+                "originator-id": "4a68f8a5-0db9-4070-a132-adede51e3d5c",
+                "request-id": "4a68f8a5-0db9-4070-a132-adede51e3d5c",
+                "sub-request-id": "1",
+                "flags": {}
+            },
+            "status": {
+                "code": 200,
+                "message": "Restart Successful"
+            }
+        }
+    }
+}

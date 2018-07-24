@@ -1,0 +1,23 @@
+{
+    "type": "record",
+    "name": "GuardDecisionAttributes_Type",
+    "namespace": "org.onap.policy.apex.onap.vcpe",
+    "fields": [
+        {
+            "name": "actor",
+            "type": "string"
+        },
+        {
+            "name": "recipe",
+            "type": "string"
+        },
+        {
+            "name": "target",
+            "type": "string"
+        },
+        {
+            "name": "clname",
+            "type": "string"
+        }
+    ]
+}

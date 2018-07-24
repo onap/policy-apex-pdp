@@ -39,5 +39,8 @@
         <module>aadm</module>
         <module>adaptive</module>
         <module>pcvs</module>
+        <module>examples-decisionmaker</module>
+        <module>examples-periodic</module>
+        <module>examples-onap-vcpe</module>
     </modules>
 </project>

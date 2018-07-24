@@ -1,0 +1,287 @@
+{
+    "inventory-response-item": [
+        {
+            "model-name": "vFW",
+            "generic-vnf": {
+                "vnf-id": "vFirewall_demo_app",
+                "vnf-name": "vFirewall_demo_app",
+                "vnf-type": "vFW",
+                "service-id": "vFirewall_demo_app",
+                "orchestration-status": "running",
+                "in-maint": false,
+                "is-closed-loop-disabled": false,
+                "resource-version": "1509456799110",
+                "model-invariant-id": "vFirewall",
+                "model-version-id": "vFW"
+            },
+            "extra-properties": {
+            },
+            "inventory-response-items": {
+                "inventory-response-item": [
+                    {
+                        "vserver": {
+                            "vserver-id": "5b06cf36-40a0-4bcb-bde9-849aa4702d67",
+                            "vserver-name": "vFW",
+                            "vserver-name2": "vFW",
+                            "prov-status": "Running",
+                            "vserver-selflink": "http://10.12.25.2:8774/v2.1/466979b815b5415ba14ada713e6e1846/servers/5b06cf36-40a0-4bcb-bde9-849aa4702d67",
+                            "in-maint": false,
+                            "is-closed-loop-disabled": false,
+                            "resource-version": "1509047869791"
+                        },
+                        "extra-properties": {
+                        },
+                        "inventory-response-items": {
+                            "inventory-response-item": [
+                                {
+                                    "vnfc": {
+                                        "vnfc-name": "VNFC_vGMUX_demo_app2",
+                                        "nfc-naming-code": "vGMUXCODE2",
+                                        "nfc-function": "vGMUX",
+                                        "prov-status": "Running",
+                                        "orchestration-status": "Error",
+                                        "in-maint": false,
+                                        "is-closed-loop-disabled": false,
+                                        "resource-version": "1509407048855"
+                                    },
+                                    "extra-properties": {
+                                    }
+                                },
+                                {
+                                    "tenant": {
+                                        "tenant-id": "466979b815b5415ba14ada713e6e1846",
+                                        "tenant-name": "Integration",
+                                        "resource-version": "1508920100541"
+                                    },
+                                    "extra-properties": {
+                                    },
+                                    "inventory-response-items": {
+                                        "inventory-response-item": [
+                                            {
+                                                "cloud-region": {
+                                                    "cloud-owner": "pod25",
+                                                    "cloud-region-id": "RegionOne",
+                                                    "identity-url": "http://10.12.25.2:5000/v3",
+                                                    "sriov-automation": false,
+                                                    "resource-version": "1509048416263"
+                                                },
+                                                "extra-properties": {  
+                                                },
+                                                "inventory-response-items": {
+                                                    "inventory-response-item": [
+                                                        {
+                                                            "esr-system-info": {
+                                                                "esr-system-info-id": "432ac032-e996-41f2-84ed-9c7a1766eb29",
+                                                                "system-name": "example-system-name-val-29070",
+                                                                "type": "example-type-val-85254",
+                                                                "vendor": "example-vendor-val-94515",
+                                                                "version": "example-version-val-71880",
+                                                                "service-url": "http://10.12.25.2:5000/v3",
+                                                                "user-name": "demo",
+                                                                "password": "onapdemo",
+                                                                "system-type": "VIM",
+                                                                "ssl-cacert": "example-ssl-cacert-val-75021",
+                                                                "ssl-insecure": true,
+                                                                "ip-address": "example-ip-address-val-44431",
+                                                                "port": "example-port-val-93234",
+                                                                "cloud-domain": "Default",
+                                                                "default-tenant": "Integration",
+                                                                "resource-version": "1508920101033"
+                                                            },
+                                                            "extra-properties": {      
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "vserver": {
+                            "vserver-id": "0c52905c-f682-42cf-bd52-e7f8953e80e3",
+                            "vserver-name": "vFW",
+                            "vserver-name2": "vFW",
+                            "prov-status": "Running",
+                            "vserver-selflink": "http://10.12.25.2:8774/v2.1/466979b815b5415ba14ada713e6e1846/servers/0c52905c-f682-42cf-bd52-e7f8953e80e3",
+                            "in-maint": false,
+                            "is-closed-loop-disabled": false,
+                            "resource-version": "1509047548567"
+                        },
+                        "extra-properties": {
+                        },
+                        "inventory-response-items": {
+                            "inventory-response-item": [
+                                {
+                                    "vnfc": {
+                                        "vnfc-name": "VNFC_vGMUX_demo_app3",
+                                        "nfc-naming-code": "vGMUXCODE3",
+                                        "nfc-function": "vGMUX",
+                                        "prov-status": "Running",
+                                        "orchestration-status": "Running",
+                                        "in-maint": false,
+                                        "is-closed-loop-disabled": false,
+                                        "resource-version": "1509041912808"
+                                    },
+                                    "extra-properties": {      
+                                    }
+                                },
+                                {
+                                    "tenant": {
+                                        "tenant-id": "466979b815b5415ba14ada713e6e1846",
+                                        "tenant-name": "Integration",
+                                        "resource-version": "1508920100541"
+                                    },
+                                    "extra-properties": {      
+                                    },
+                                    "inventory-response-items": {
+                                        "inventory-response-item": [
+                                            {
+                                                "cloud-region": {
+                                                    "cloud-owner": "pod25",
+                                                    "cloud-region-id": "RegionOne",
+                                                    "identity-url": "http://10.12.25.2:5000/v3",
+                                                    "sriov-automation": false,
+                                                    "resource-version": "1509048416263"
+                                                },
+                                                "extra-properties": {       
+                                                },
+                                                "inventory-response-items": {
+                                                    "inventory-response-item": [
+                                                        {
+                                                            "esr-system-info": {
+                                                                "esr-system-info-id": "432ac032-e996-41f2-84ed-9c7a1766eb29",
+                                                                "system-name": "example-system-name-val-29070",
+                                                                "type": "example-type-val-85254",
+                                                                "vendor": "example-vendor-val-94515",
+                                                                "version": "example-version-val-71880",
+                                                                "service-url": "http://10.12.25.2:5000/v3",
+                                                                "user-name": "demo",
+                                                                "password": "onapdemo",
+                                                                "system-type": "VIM",
+                                                                "ssl-cacert": "example-ssl-cacert-val-75021",
+                                                                "ssl-insecure": true,
+                                                                "ip-address": "example-ip-address-val-44431",
+                                                                "port": "example-port-val-93234",
+                                                                "cloud-domain": "Default",
+                                                                "default-tenant": "Integration",
+                                                                "resource-version": "1508920101033"
+                                                            },
+                                                            "extra-properties": {       
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "vserver": {
+                            "vserver-id": "33e16e02-098a-4f4e-a37f-b4e0307596c0",
+                            "vserver-name": "vFW",
+                            "vserver-name2": "vFW",
+                            "prov-status": "Running",
+                            "vserver-selflink": "http://10.12.25.2:8774/v2.1/466979b815b5415ba14ada713e6e1846/servers/33e16e02-098a-4f4e-a37f-b4e0307596c0",
+                            "in-maint": false,
+                            "is-closed-loop-disabled": false,
+                            "resource-version": "1509047285114"
+                        },
+                        "extra-properties": {
+                        },
+                        "inventory-response-items": {
+                            "inventory-response-item": [
+                                {
+                                    "vnfc": {
+                                        "vnfc-name": "vnfc-related-to-vserver-example",
+                                        "nfc-naming-code": "example-nfc-naming-code-val-78172",
+                                        "nfc-function": "example-nfc-function-val-56352",
+                                        "prov-status": "example-prov-status-val-10699",
+                                        "orchestration-status": "example-orchestration-status-val-68896",
+                                        "ipaddress-v4-oam-vip": "example-ipaddress-v4-oam-vip-val-71483",
+                                        "in-maint": true,
+                                        "is-closed-loop-disabled": true,
+                                        "group-notation": "example-group-notation-val-31912",
+                                        "resource-version": "1508800709772"
+                                    },
+                                    "extra-properties": {
+                                    }
+                                },
+                                {
+                                    "vnfc": {
+                                        "vnfc-name": "VNFC_vGMUX_demo_app",
+                                        "nfc-naming-code": "vGMUXCODE",
+                                        "nfc-function": "vGMUX",
+                                        "prov-status": "Running",
+                                        "orchestration-status": "Running",
+                                        "in-maint": false,
+                                        "is-closed-loop-disabled": false,
+                                        "resource-version": "1509041573965"
+                                    },
+                                    "extra-properties": {
+                                    }
+                                },
+                                {
+                                    "tenant": {
+                                        "tenant-id": "466979b815b5415ba14ada713e6e1846",
+                                        "tenant-name": "Integration",
+                                        "resource-version": "1508920100541"
+                                    },
+                                    "extra-properties": { 
+                                    },
+                                    "inventory-response-items": {
+                                        "inventory-response-item": [
+                                            {
+                                                "cloud-region": {
+                                                    "cloud-owner": "pod25",
+                                                    "cloud-region-id": "RegionOne",
+                                                    "identity-url": "http://10.12.25.2:5000/v3",
+                                                    "sriov-automation": false,
+                                                    "resource-version": "1509048416263"
+                                                },
+                                                "extra-properties": {
+                                                },
+                                                "inventory-response-items": {
+                                                    "inventory-response-item": [
+                                                        {
+                                                            "esr-system-info": {
+                                                                "esr-system-info-id": "432ac032-e996-41f2-84ed-9c7a1766eb29",
+                                                                "system-name": "example-system-name-val-29070",
+                                                                "type": "example-type-val-85254",
+                                                                "vendor": "example-vendor-val-94515",
+                                                                "version": "example-version-val-71880",
+                                                                "service-url": "http://10.12.25.2:5000/v3",
+                                                                "user-name": "demo",
+                                                                "password": "onapdemo",
+                                                                "system-type": "VIM",
+                                                                "ssl-cacert": "example-ssl-cacert-val-75021",
+                                                                "ssl-insecure": true,
+                                                                "ip-address": "example-ip-address-val-44431",
+                                                                "port": "example-port-val-93234",
+                                                                "cloud-domain": "Default",
+                                                                "default-tenant": "Integration",
+                                                                "resource-version": "1508920101033"
+                                                            },
+                                                            "extra-properties": {
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
