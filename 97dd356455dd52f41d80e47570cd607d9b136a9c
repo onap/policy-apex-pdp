@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da7095c5_6c88f6e7",
+        "filename": "examples/onap-vcpe/src/test/resources/config/archetype.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-24T19:46:47Z",
+      "side": 1,
+      "message": "This file was copied from drools-applications, it\u0027s not needed here. Please delete it.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "97dd356455dd52f41d80e47570cd607d9b136a9c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_0c6dba32",
+        "filename": "examples/onap-vcpe/src/test/resources/config/vCPE.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-24T19:46:47Z",
+      "side": 1,
+      "message": "This file was copied from drools-applications, it\u0027s not needed here. Please delete it.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "97dd356455dd52f41d80e47570cd607d9b136a9c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
