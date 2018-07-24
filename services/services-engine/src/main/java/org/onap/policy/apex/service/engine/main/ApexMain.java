@@ -45,7 +45,7 @@ public class ApexMain {
     private ApexParameters parameters;
 
     /**
-     * Instantiates the Apex Apex service.
+     * Instantiates the Apex service.
      *
      * @param args the commaind line arguments
      */
@@ -138,8 +138,6 @@ public class ApexMain {
     /**
      * The Class ApexMainShutdownHookClass terminates the Apex engine for the Apex service when its
      * run method is called.
-     *
-     * @author Liam Fallon (liam.fallon@ericsson.com)
      */
     private class ApexMainShutdownHookClass extends Thread {
         /*

@@ -161,8 +161,8 @@
         <module>plugins</module>
         <module>examples</module>
         <module>testsuites</module>
-        <module>packages</module>
         <module>client</module>
         <module>tools</module>
+        <module>packages</module>
     </modules>
 </project>

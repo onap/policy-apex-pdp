@@ -91,7 +91,7 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
         // Stop the web socket server
         try {
             // Close all connections on this web socket server
-            for (final WebSocket connection : connections()) {
+            for (final WebSocket connection : getConnections()) {
                 connection.closeConnection(0, "");
             }
             stop();
@@ -128,7 +128,7 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
     @Override
     public void send(final MessageHolder<MESSAGE> message) {
         // Send the incoming message to all clients connected to this web socket
-        final Collection<WebSocket> connections = connections();
+        final Collection<WebSocket> connections = getConnections();
         for (final WebSocket webSocket : connections) {
             webSocket.send(MessagingUtils.serializeObject(message));
         }
@@ -142,7 +142,7 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
      */
     @Override
     public void send(final String messageString) {
-        final Collection<WebSocket> connections = connections();
+        final Collection<WebSocket> connections = getConnections();
         for (final WebSocket webSocket : connections) {
             webSocket.send(messageString);
         }

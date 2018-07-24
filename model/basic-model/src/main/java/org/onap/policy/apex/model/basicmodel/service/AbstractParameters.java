@@ -32,7 +32,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  */
 public abstract class AbstractParameters {
     // The name of the parameter subclass
-    private String parameterClassName = this.getClass().getCanonicalName();
+    private final String parameterClassName;
 
     /**
      * Constructor, creates a parameter class that must be a subclass of {@link AbstractParameters}.
@@ -47,6 +47,8 @@ public abstract class AbstractParameters {
             throw new ApexRuntimeException(
                     "class \"" + parameterClassName + "\" not found or not an instance of \"" + this.getClass().getCanonicalName() + "\"", e);
         }
+        
+        this.parameterClassName = parameterClassName;
     }
 
     /**
