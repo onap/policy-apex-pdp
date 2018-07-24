@@ -195,6 +195,21 @@
             <artifactId>pcvs</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.examples</groupId>
+            <artifactId>decisionmaker</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.examples</groupId>
+            <artifactId>periodic</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.examples</groupId>
+            <artifactId>onap-vcpe</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -265,6 +280,33 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <includes>etc/**/*,examples/**/*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>decisionmaker</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/examples/models/DecisionMaker</outputDirectory>
+                                    <includes>/DecisionMakerPolicyModel.json</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>periodic</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/examples/models/Periodic</outputDirectory>
+                                    <includes>/PeriodicPolicyModel.json</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>onap-vcpe</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/examples/models/ONAPvCPE</outputDirectory>
+                                    <includes>/ONAPvCPEPolicyModel.json</includes>
                                 </artifactItem>
                             </artifactItems>
                             <overWriteReleases>true</overWriteReleases>

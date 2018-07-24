@@ -1,0 +1,152 @@
+{
+    "type": "record",
+    "name": "VCPEClosedLoopStatus",
+    "fields": [
+        {
+            "name": "AAI",
+            "type": {
+                "type": "record",
+                "name": "VCPE_AAI_Type",
+                "namespace": "org.onap.policy.apex.onap.vcpe",
+                "fields": [
+                    {
+                        "name": "generic_DasH_vnf_DoT_resource_DasH_version",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_vnf_DasH_name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_prov_DasH_status",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_is_DasH_closed_DasH_loop_DasH_disabled",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_orchestration_DasH_status",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_vnf_DasH_type",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_in_DasH_maint",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_service_DasH_id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "generic_DasH_vnf_DoT_vnf_DasH_id",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "closedLoopAlarmStart",
+            "type": "long"
+        },
+        {
+            "name": "closedLoopControlName",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "name": "requestID",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopEventClient",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopEventStatus",
+            "type": "string"
+        },
+        {
+            "name": "target_type",
+            "type": "string"
+        },
+        {
+            "name": "target",
+            "type": "string"
+        },
+        {
+            "name": "from",
+            "type": "string"
+        },
+        {
+            "name": "policyScope",
+            "type": "string"
+        },
+        {
+            "name": "policyName",
+            "type": "string"
+        },
+        {
+            "name": "policyVersion",
+            "type": "string"
+        },
+        {
+            "name": "notification",
+            "type": "string"
+        },
+        {
+            "name": "history",
+            "type": [
+                {
+                    "type": "record",
+                    "name": "VCPE_History_Type",
+                    "namespace": "org.onap.policy.apex.onap.vcpe",
+                    "fields": [
+                        {
+                            "name": "generic_DasH_vnf_DoT_resource_DasH_version",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_vnf_DasH_name",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_prov_DasH_status",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_is_DasH_closed_DasH_loop_DasH_disabled",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_orchestration_DasH_status",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_vnf_DasH_type",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_in_DasH_maint",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_service_DasH_id",
+                            "type": "string"
+                        },
+                        {
+                            "name": "generic_DasH_vnf_DoT_vnf_DasH_id",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

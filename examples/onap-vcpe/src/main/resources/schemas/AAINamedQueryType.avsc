@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "name": "AAINamedQuery_Type",
+    "namespace": "org.onap.policy.apex.onap.vcpe",
+    "fields": [
+        {
+            "name": "named_DasH_query_DasH_uuid",
+            "type": "string"
+        }
+    ]
+}
