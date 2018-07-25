@@ -26,13 +26,9 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>pcvs</artifactId>
+    <artifactId>examples-adaptive</artifactId>
     <name>${project.artifactId}</name>
-    <description>Example for Policy-controlled Video Streaming</description>
-
-    <properties>
-        <apex-domains-pcvs-dir>${project.basedir}/src</apex-domains-pcvs-dir>
-    </properties>
+    <description>Specific code for the Apex Adaptive Example</description>
 
     <dependencies>
         <dependency>
@@ -44,17 +40,12 @@
             <groupId>org.onap.policy.apex-pdp.core</groupId>
             <artifactId>core-engine</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
             <artifactId>core-infrastructure</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.auth</groupId>
-            <artifactId>cli-editor</artifactId>
-            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
@@ -64,9 +55,14 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-javascript</artifactId>
+            <artifactId>plugins-executor-java</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -92,10 +88,10 @@
                             <executable>java</executable>
                             <arguments>
                                 <argument>-classpath</argument>
+                                <!-- automatically creates the classpath using all project dependencies, also adding the project build directory -->
                                 <classpath />
-                                <argument>org.onap.policy.apex.examples.pcvs.model.PCVSDomainModelSaver</argument>
-                                <argument>${project.basedir}</argument>
-                                <argument>${project.build.directory}/classes/examples/models/pcvs/</argument>
+                                <argument>org.onap.policy.apex.examples.adaptive.model.AdaptiveDomainModelSaver</argument>
+                                <argument>${project.build.directory}/classes/examples/models/Adaptive</argument>
                             </arguments>
                         </configuration>
                     </execution>

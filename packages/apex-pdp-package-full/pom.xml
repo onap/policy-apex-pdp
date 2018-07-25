@@ -177,22 +177,22 @@
         <!-- Sample Examples -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.examples</groupId>
-            <artifactId>aadm</artifactId>
+            <artifactId>examples-aadm</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.examples</groupId>
-            <artifactId>adaptive</artifactId>
+            <artifactId>examples-adaptive</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.examples</groupId>
-            <artifactId>myfirstpolicy</artifactId>
+            <artifactId>examples-myfirstpolicy</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.examples</groupId>
-            <artifactId>pcvs</artifactId>
+            <artifactId>examples-pcvs</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -247,7 +247,7 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
-                                    <artifactId>aadm</artifactId>
+                                    <artifactId>examples-aadm</artifactId>
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
@@ -256,7 +256,7 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
-                                    <artifactId>adaptive</artifactId>
+                                    <artifactId>examples-adaptive</artifactId>
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
@@ -265,7 +265,7 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
-                                    <artifactId>myfirstpolicy</artifactId>
+                                    <artifactId>examples-myfirstpolicy</artifactId>
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
@@ -274,7 +274,7 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
-                                    <artifactId>pcvs</artifactId>
+                                    <artifactId>examples-pcvs</artifactId>
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>

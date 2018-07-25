@@ -35,10 +35,10 @@
 
 
     <modules>
-        <module>myfirstpolicy</module>
-        <module>aadm</module>
-        <module>adaptive</module>
-        <module>pcvs</module>
+        <module>examples-myfirstpolicy</module>
+        <module>examples-aadm</module>
+        <module>examples-adaptive</module>
+        <module>examples-pcvs</module>
         <module>examples-decisionmaker</module>
         <module>examples-periodic</module>
         <module>examples-onap-vcpe</module>
