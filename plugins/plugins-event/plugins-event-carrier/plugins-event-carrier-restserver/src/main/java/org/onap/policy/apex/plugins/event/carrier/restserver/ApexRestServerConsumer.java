@@ -135,7 +135,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
                     restConsumerProperties.getPort());
 
             // Instantiate the standalone server
-            final ResourceConfig rc = new ResourceConfig(RestServerEndpoint.class);
+            final ResourceConfig rc = new ResourceConfig(RestServerEndpoint.class, AccessControlFilter.class);
             server = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseURI), rc);
 
             while (!server.isStarted()) {

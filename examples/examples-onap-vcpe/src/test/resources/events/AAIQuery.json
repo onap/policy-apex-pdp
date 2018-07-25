@@ -1,0 +1,16 @@
+{
+    "query-parameters": {
+        "named-query": {
+            "named-query-uuid": "a93ac487-409c-4e8c-9e5f-334ae8f99087"
+        }
+    },
+    "instance-filters": {
+        "instance-filter": [
+            {
+                "generic-vnf": {
+                    "vnf-id": "de7cc3ab-0212-47df-9e64-da1c79234deb"
+                }
+            }
+        ]
+    }
+}
