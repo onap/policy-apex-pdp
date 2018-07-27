@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da7095c5_04ad8588",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-27T18:49:46Z",
+      "side": 1,
+      "message": "Should we not get 20 responses to these 20 requests? Where are you receiving the responses?",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 121,
+        "endChar": 3
+      },
+      "revId": "988dc128356477d3c8950528782c2d5e1d4efeca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_24aa0971",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-27T18:49:46Z",
+      "side": 1,
+      "message": "This is a 21st request.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 44
+      },
+      "revId": "988dc128356477d3c8950528782c2d5e1d4efeca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_64a00191",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-27T18:49:46Z",
+      "side": 1,
+      "message": "Remove this, an also any other System.out and System.err statements in the code. Sonar will complain about them",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 43
+      },
+      "revId": "988dc128356477d3c8950528782c2d5e1d4efeca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
