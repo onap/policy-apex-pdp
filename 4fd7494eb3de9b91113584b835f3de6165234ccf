@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da7095c5_84dd1545",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-07-27T17:18:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da7095c5_c4054dc3",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 12
+      },
+      "revId": "4fd7494eb3de9b91113584b835f3de6165234ccf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da7095c5_e463b1af",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-27T17:02:08Z",
       "side": 1,
       "message": "Is this needed? \nPlease try running the test without sleep. I think it will pass. If so, please remove the sleep.",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 35
+      },
+      "revId": "4fd7494eb3de9b91113584b835f3de6165234ccf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_a4e29901",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-07-27T17:18:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da7095c5_e463b1af",
       "range": {
         "startLine": 125,
         "startChar": 8,
