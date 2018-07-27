@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da7095c5_7fddec41",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-07-27T21:45:09Z",
+      "side": 1,
+      "message": "The purpose of this test case is to test GetStatus, so I just trigger some POST/PUT requests, and finally a get STATUS to see if the RESTServer returns the correct total requests. So we don\u0027t need to get reponses from PUT/POST requests then.",
+      "parentUuid": "da7095c5_04ad8588",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 121,
+        "endChar": 3
+      },
+      "revId": "988dc128356477d3c8950528782c2d5e1d4efeca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da7095c5_24aa0971",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da7095c5_9fe24002",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-07-27T21:45:09Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "da7095c5_24aa0971",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 44
+      },
+      "revId": "988dc128356477d3c8950528782c2d5e1d4efeca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da7095c5_64a00191",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-07-27T18:49:46Z",
       "side": 1,
       "message": "Remove this, an also any other System.out and System.err statements in the code. Sonar will complain about them",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 43
+      },
+      "revId": "988dc128356477d3c8950528782c2d5e1d4efeca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_3fe77414",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-07-27T21:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da7095c5_64a00191",
       "range": {
         "startLine": 132,
         "startChar": 0,
