@@ -230,7 +230,7 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
         while (pValue < significanceLevel) { // takes approx 20% of method time
             // the score value as the anomaly probability
             final double score = (significanceLevel - pValue) / significanceLevel;
-            if (v == currentV) {
+            if (Double.compare(v, currentV) == 0) {
                 return score;
             }
             // do the critical check again for the left values
@@ -326,7 +326,7 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
      */
     private static Double[] removevalue(final Double[] lValues, final double v) {
         for (int i = 0; i < lValues.length; i++) {
-            if (lValues[i] == v) {
+            if (Double.compare(lValues[i], v) == 0) {
                 final Double[] ret = new Double[lValues.length - 1];
                 System.arraycopy(lValues, 0, ret, 0, i);
                 System.arraycopy(lValues, i + 1, ret, i, lValues.length - i - 1);
@@ -389,7 +389,7 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
     private static boolean isAllEqual(final List<Double> lValues) {
         final double first = lValues.get(0);
         for (final Double d : lValues) {
-            if (d != first) {
+            if (Double.compare(d, first) != 0) {
                 return false;
             }
         }
@@ -405,7 +405,7 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
     private static boolean isAllEqual(final Double[] lValues) {
         final double first = lValues[0];
         for (final Double d : lValues) {
-            if (d != first) {
+            if (Double.compare(d, first) != 0) {
                 return false;
             }
         }
