@@ -105,6 +105,42 @@ public class TestRESTServer {
     }
 
     @Test
+    public void testRESTServerGetStatus() throws MessagingException, ApexException, IOException {
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEvent.json"};
+        final ApexMain apexMain = new ApexMain(args);
+
+        final Client client = ClientBuilder.newClient();
+
+        // trigger 10 POST & PUT events
+        for (int i = 0; i < 10; i++) {
+            ThreadUtilities.sleep(100);
+            client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                    .post(Entity.json(getEvent()));
+            client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                    .put(Entity.json(getEvent()));
+        }
+
+        // one more PUT
+        client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                .put(Entity.json(getEvent()));
+
+        final Response response =
+                client.target("http://localhost:23324/apex/FirstConsumer/Status").request("application/json").get();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        final String responseString = response.readEntity(String.class);
+        System.out.println(responseString);
+        @SuppressWarnings("unchecked")
+        final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+        assertEquals("[FirstConsumer]", jsonMap.get("INPUTS"));
+        assertEquals(1.0, jsonMap.get("STAT"));
+        assertEquals(10.0, jsonMap.get("POST"));
+        assertEquals(11.0, jsonMap.get("PUT"));
+
+        apexMain.shutdown();
+    }
+
+    @Test
     public void testRESTServerMultiInputs() throws MessagingException, ApexException, IOException {
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventMultiIn.json"};
         final ApexMain apexMain = new ApexMain(args);
