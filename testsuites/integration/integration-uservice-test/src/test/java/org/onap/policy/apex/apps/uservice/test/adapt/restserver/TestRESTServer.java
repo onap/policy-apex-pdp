@@ -34,6 +34,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -77,30 +78,67 @@ public class TestRESTServer {
 
         apexMain.shutdown();
     }
-
+    
     @Test
     public void testRESTServerPost() throws MessagingException, ApexException, IOException {
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
-
+        
         final Client client = ClientBuilder.newClient();
-
+        
         // Wait for the required amount of events to be received or for 10 seconds
         for (int i = 0; i < 20; i++) {
             ThreadUtilities.sleep(100);
-
+            
             final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                     .request("application/json").post(Entity.json(getEvent()));
-
+            
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             final String responseString = response.readEntity(String.class);
-
+            
             @SuppressWarnings("unchecked")
             final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
             assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
             assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
         }
+        
+        apexMain.shutdown();
+    }    
 
+    @Test    
+    public void testRESTServerGetStatus() throws MessagingException, ApexException, IOException {
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEvent.json"};
+        final ApexMain apexMain = new ApexMain(args);
+
+        final Client client = ClientBuilder.newClient();
+
+        // trigger 10 POST & PUT events
+        for (int i = 0; i < 10; i++) {
+            ThreadUtilities.sleep(100);
+            client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                    .post(Entity.json(getEvent()));
+            client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                    .put(Entity.json(getEvent()));
+        }
+        
+        //one more PUT
+        ThreadUtilities.sleep(100);
+        client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                .put(Entity.json(getEvent()));
+        
+        final Response response = client.target("http://localhost:23324/apex/FirstConsumer/Status")
+                .request("application/json").get();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        final String responseString = response.readEntity(String.class);
+        System.out.println(responseString);
+        @SuppressWarnings("unchecked")
+        final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+        assertEquals("[FirstConsumer]", jsonMap.get("INPUTS"));            
+        assertEquals(1.0, jsonMap.get("STAT"));
+        assertEquals(10.0, jsonMap.get("POST"));
+        assertEquals(11.0, jsonMap.get("PUT"));
+        
         apexMain.shutdown();
     }
 
