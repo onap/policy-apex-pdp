@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da7095c5_7f9f2c04",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-28T19:04:36Z",
+      "side": 1,
+      "message": "Can you check if you need this sleep (as per Ram\u0027s comments)?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 39
+      },
+      "revId": "2596fc2cfed9e2bf6832cc89160d8c785d3ded84",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da7095c5_bfee248a",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
         "patchSetId": 3
@@ -13,6 +36,30 @@
       "writtenOn": "2018-07-28T14:36:21Z",
       "side": 1,
       "message": "Same comment.",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 39
+      },
+      "revId": "2596fc2cfed9e2bf6832cc89160d8c785d3ded84",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_9fa48058",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-28T19:04:36Z",
+      "side": 1,
+      "message": "If you wait for and process the responses then you won\u0027t have to sleep because everything will be de-facto syncronized and in lock step.",
+      "parentUuid": "da7095c5_bfee248a",
       "range": {
         "startLine": 116,
         "startChar": 12,
