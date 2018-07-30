@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_a0c38037",
+        "filename": "packages/apex-pdp-package-full/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-30T20:44:05Z",
+      "side": 1,
+      "message": "Not for this review but we should look at getting the RPM build working.",
+      "range": {
+        "startLine": 463,
+        "startChar": 31,
+        "endLine": 463,
+        "endChar": 34
+      },
+      "revId": "9e318f20f2e64970bf3c2e3a5532c516231a6f8a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
