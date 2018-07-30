@@ -59,10 +59,7 @@ public class TestRESTServer {
 
         final Client client = ClientBuilder.newClient();
 
-        // Wait for the required amount of events to be received or for 10 seconds
         for (int i = 0; i < 20; i++) {
-            ThreadUtilities.sleep(100);
-
             final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                     .request("application/json").put(Entity.json(getEvent()));
 
@@ -85,10 +82,7 @@ public class TestRESTServer {
 
         final Client client = ClientBuilder.newClient();
 
-        // Wait for the required amount of events to be received or for 10 seconds
         for (int i = 0; i < 20; i++) {
-            ThreadUtilities.sleep(100);
-
             final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                     .request("application/json").post(Entity.json(getEvent()));
 
@@ -105,16 +99,46 @@ public class TestRESTServer {
     }
 
     @Test
+    public void testRESTServerGetStatus() throws MessagingException, ApexException, IOException {
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEvent.json"};
+        final ApexMain apexMain = new ApexMain(args);
+
+        final Client client = ClientBuilder.newClient();
+
+        // trigger 10 POST & PUT events
+        for (int i = 0; i < 10; i++) {
+            final Response postResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
+                    .request("application/json").post(Entity.json(getEvent()));
+            final Response putResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
+                    .request("application/json").put(Entity.json(getEvent()));
+            assertEquals(Response.Status.OK.getStatusCode(), postResponse.getStatus());
+            assertEquals(Response.Status.OK.getStatusCode(), putResponse.getStatus());
+        }
+
+        final Response statResponse =
+                client.target("http://localhost:23324/apex/FirstConsumer/Status").request("application/json").get();
+
+        assertEquals(Response.Status.OK.getStatusCode(), statResponse.getStatus());
+        final String responseString = statResponse.readEntity(String.class);
+
+        @SuppressWarnings("unchecked")
+        final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+        assertEquals("[FirstConsumer]", jsonMap.get("INPUTS"));
+        assertEquals(1.0, jsonMap.get("STAT"));
+        assertEquals(10.0, jsonMap.get("POST"));
+        assertEquals(10.0, jsonMap.get("PUT"));
+
+        apexMain.shutdown();
+    }
+
+    @Test
     public void testRESTServerMultiInputs() throws MessagingException, ApexException, IOException {
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventMultiIn.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
 
-        // Wait for the required amount of events to be received or for 10 seconds
         for (int i = 0; i < 20; i++) {
-            ThreadUtilities.sleep(100);
-
             final Response firstResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                     .request("application/json").post(Entity.json(getEvent()));
 
@@ -286,10 +310,7 @@ public class TestRESTServer {
 
         final Client client = ClientBuilder.newClient();
 
-        // Wait for the required amount of events to be received or for 10 seconds
         for (int i = 0; i < 20; i++) {
-            ThreadUtilities.sleep(100);
-
             final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                     .request("application/json").put(Entity.json(getEvent()));
 
@@ -301,9 +322,7 @@ public class TestRESTServer {
             assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
             assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
             assertTrue(((String) jsonMap.get("exceptionMessage")).contains("caused by: / by zero"));
-
         }
-
 
         apexMain.shutdown();
     }
