@@ -210,6 +210,12 @@
             <artifactId>examples-onap-vcpe</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.examples</groupId>
+            <artifactId>examples-servlet</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -307,6 +313,15 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}/examples/models/ONAPvCPE</outputDirectory>
                                     <includes>/ONAPvCPEPolicyModel.json</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>examples-servlet</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>war</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/etc</outputDirectory>
+                                    <includes>/readme_examples-servlet.txt</includes>
                                 </artifactItem>
                             </artifactItems>
                             <overWriteReleases>true</overWriteReleases>
@@ -411,6 +426,15 @@
                                     </mapper>
                                 </data>
                                 <data>
+                                    <src>${project.build.directory}/install_hierarchy/war</src>
+                                    <type>directory</type>
+                                    <dst>etc</dst>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/opt/app/policy/apex-pdp/${install.package.name}-${project.version}/war</prefix>
+                                    </mapper>
+                                </data>
+                                <data>
                                     <src>${project.build.directory}/install_hierarchy/examples</src>
                                     <type>directory</type>
                                     <dst>etc</dst>
@@ -494,6 +518,16 @@
                                     <sources>
                                         <source>
                                             <location>${project.build.directory}/install_hierarchy/etc</location>
+                                        </source>
+                                    </sources>
+                                </mapping>
+                                <mapping>
+                                    <directory>/opt/app/policy/apex-pdp/${install.package.name}-${project.version}/war</directory>
+                                    <username>root</username>
+                                    <groupname>root</groupname>
+                                    <sources>
+                                        <source>
+                                            <location>${project.build.directory}/install_hierarchy/war</location>
                                         </source>
                                     </sources>
                                 </mapping>
