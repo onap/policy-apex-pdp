@@ -22,6 +22,30 @@
       "revId": "f62f540561d8fa673d76d9e50871e0852903f157",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_77369005",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/apps/uservice/test/adapt/restserver/TestRESTServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-07-30T08:02:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6a9dd7_574a6c84",
+      "range": {
+        "startLine": 110,
+        "startChar": 1,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "f62f540561d8fa673d76d9e50871e0852903f157",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
