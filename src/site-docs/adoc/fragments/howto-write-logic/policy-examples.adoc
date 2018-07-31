@@ -1,0 +1,44 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== My First Policy
+
+A good starting point is the `My First Policy` example.
+It describes a sales problem, to which policy can be applied.
+The example details the policy background, shows how to use the REST Editor to create a policy, and provides details for running the policies.
+The documentation can be found:
+
+* link:https://ericsson.github.io/apex-docs/modules/apex-domains/apex-domains.myfirstpolicy/MyFirstPolicyHowto.html[My-First-Policy on the APEX site]
+* link:https://ericsson.github.io/apex-docs/docs-apex/html/HowTo-MyFirstPolicy.html[Stand-alone HTML]
+* link:https://ericsson.github.io/apex-docs/docs-apex/pdf/HowTo-MyFirstPolicy.pdf[Stand-alone PDF]
+
+
+== VPN SLA
+
+The domain Policy-controlled Video Streaming (PCVS) contains a policy for controlling video streams with different strategies.
+It also provides details for installing an actual testbed with off-the-shelve software (Mininet, Floodlight, Kafka, Zookeeper).
+The policy model here demonstrates virtually all APEX features: local context and policies controlling it, task selection logic and multiple tasks in a single state, AVRO schemas for context, AVOR schemas for events (trigger and local), and a CLI editor specification of the policy.
+The documentation can be found:
+
+* link:https://ericsson.github.io/apex-docs/modules/apex-domains/apex-domains.pcvs/vpnsla/policy.html[VPN SLA Policy on the APEX site]
+
+
+== Decision Maker
+
+The domain Decision Maker shows a very simple policy for decisions.
+Interesting here is that the it creates a Docker image to run the policy and that it uses the APEX REST applications to update the policy on the-fly.
+It also has local context to remember past decisions, and shows how to use that to no make the same decision twice in a row.
+The documentation can be found:
+
+* link:https://ericsson.github.io/apex-docs/modules/apex-domains/apex-domains.decisionmaker/index.html[Decision Maker on APEX site]
+

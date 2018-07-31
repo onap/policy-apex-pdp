@@ -1,0 +1,86 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Standard Build
+
+Use Maven to for a standard build without any tests.
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+# cd /usr/local/src/apex
+# mvn clean install -DskipTests
+----
+|
+[source%nowrap,bat,numbered]
+----
+>c:
+>cd \dev\apex
+>mvn clean install -DskipTests
+----
+|====================
+
+The build takes 2-3 minutes on a standard development laptop.
+It should run through without errors, but with a lot of messages from the build process.
+
+When Maven is finished with the build, the final screen should look similar to this (omitting some `success` lines):
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/mvn-install-skiptests.txt[mvn build, no tests]
+----
+
+
+The build will have created all artifacts required for an APEX installation.
+The following example show how to change to the target directory and how it should look like.
+
+[width="100%",options="header",cols="a"]
+|====================
+| Unix, Cygwin
+|
+[source%nowrap,sh,numbered]
+----
+# cd modules/apex-apps/apex-apps.uservice/apex-apps.uservice-packaging/apex-apps.uservice-package-full/target
+# ls -l
+----
+
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-unix.txt[successful build, ls, unix]
+----
+
+|====================
+
+
+[width="100%",options="header",cols="a"]
+|====================
+| Windows
+|
+[source%nowrap,bat,numbered]
+----
+>cd modules\apex-apps\apex-apps.uservice\apex-apps.uservice-packaging\apex-apps.uservice-package-full\target
+>dir
+----
+
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-win.txt[successful build, ls, windows]
+----
+
+|====================
+

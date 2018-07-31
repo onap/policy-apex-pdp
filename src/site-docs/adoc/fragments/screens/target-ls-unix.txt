@@ -1,0 +1,12 @@
+-rwxrwx---+ 1 esvevan Domain Users       706 Jan  4 10:44 apex-apps.uservice-package-full_0.7.0_all.changes
+-rwxrwx---+ 1 esvevan Domain Users     32694 Jan  4 10:43 apex-apps.uservice-package-full-0.7.0.jar
+-rwxrwx---+ 1 esvevan Domain Users 255629634 Jan  4 10:44 apex-uservice-full-0.7.0.deb
+-rwxrwx---+ 1 esvevan Domain Users 255613724 Jan  4 10:43 apex-uservice-full-0.7.0-tarball.tar.gz
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 archive-tmp/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 classes/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 dependency-maven-plugin-markers/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 etc/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 examples/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 install_hierarchy/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 lib/
+drwxrwx---+ 1 esvevan Domain Users         0 Jan  4 10:43 maven-archiver/

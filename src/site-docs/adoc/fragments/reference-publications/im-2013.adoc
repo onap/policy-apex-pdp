@@ -1,0 +1,55 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Recommender System (IM'13)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| A Recommender-system for Telecommunications Network Management Actions
+
+h| Venue
+| IEEE IM, Ghent, May 2013
+
+h| Abstract
+| Research and products in telecoms network management have long been focused on the automation of processes to keep complex managed networks in an operational state, while being profitable to operate for the network operator. Due to the ever increasing scale and complexity of the problem domain, coupled with specific constraints (legal, regulatory, technological change), a fully automated management approach is virtually impossible. It remains the responsibility of human Network Operations Centre (NOC) operators to oversee and manage the running of the network, where their main task is to respond to huge numbers of messages, errors, warnings and faults constantly flowing from the managed network. In the past, network operators either employed expert systems or became very dependent on expert knowledge of their operational staff. Considering the current explosion in size and complexity of managed telecoms network, it is widely understood and accepted that current manual and semiautomated approaches cannot scale. In this paper we investigate the applicability of recommender systems as an approach to assist NOC operators to correctly respond to indications of incidents in the network they are actively managing.
+
+h| Links
+| link:https://www.researchgate.net/publication/259785776_A_recommender-system_for_telecommunications_network_management_actions[Research Gate] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/im/KeeneyMH13,
+  author    = {John Keeney and
+               Sven van der Meer and
+               Gabriel Hogan},
+  title     = {A Recommender-system for Telecommunications
+               Network Management Actions},
+  booktitle = {2013 {IFIP/IEEE} International Symposium on Integrated
+               Network Management
+               {IM} 2013, Ghent, Belgium, May 27-31, 2013},
+  pages     = {760--763},
+  year      = {2013},
+  crossref  = {DBLP:conf/im/2013},
+  url       = {http://ieeexplore.ieee.org/document/6573072/},
+  timestamp = {Sun, 30 Apr 2017 09:41:39 +0200},
+  biburl    = {http://dblp.org/rec/bib/conf/im/KeeneyMH13},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+----
+
+|===
+

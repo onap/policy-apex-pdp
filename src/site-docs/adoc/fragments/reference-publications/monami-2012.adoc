@@ -1,0 +1,32 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== HetNets, Big Data, Cloud, SDN ... (Monami'12)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| HetNets, Big Data, Cloud, SDN...all problems solved and your lunch served, right?
+
+h| Venue
+| Keynote, 4th MONAMI, Hamburg, September, 2012
+
+h| Abstract
+| What happens when you get a huge increase of devices and cells (i.e.Heterogeneous Networks - HetNets), all of which have to be monitored and managed, and our current OSSs are already overburdened, handling their existing workloads? In other domains, there are many promising techniques, such as smart filtering, complex event processing, and predictive analytics, but they are not as effectively applied to network management. Why is that? Can we do better? Instead of being overloaded with all of the hype (BigData and Cloud and Software-Defined Networking) and hoping that by mixing some combination of these magic ingredients a solution will emerge, a combination of science and engineering might be a better way to solve the problem! This keynote will discuss a number of common misconceptions with regard to technologies, all of which cause us to spend money on useless mechanisms and services. Focusing on the actual problems, which are a combination of current state of business, foreseeable future, and customer demands, we will be able to point to a number of real problems that require a solution. As with many things, there is no silver bullet but a combination of social and behavioral, technical and methodological advances that will facilitate a networked society, and in the process change the nature of OSSs from Operation Support Systems to Opportunity Support Systems.
+
+h| Links
+| link:https://www.researchgate.net/publication/279527537_HetNets_Big_Data_Cloud_SDNall_problems_solved_and_your_lunch_served_right[Research Gate] [accessed Aug 11, 2017]
+
+|===
+

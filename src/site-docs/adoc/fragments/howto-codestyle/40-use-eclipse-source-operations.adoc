@@ -1,0 +1,48 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+
+== Use Eclipse Source Operations
+
+Eclipse Source Operations can be carried out on individual files or on all the files in a package but do not recurse into sub-packages.
+They are available as a menu in Eclipse by selecting a file or package and right clicking on __Source__.
+Note that running __Clean Up...__ with the Apex clean up profile will run __Format__ and __Organize Imports__.
+So if you run a clean up on a file or package, you need not run __Format__ or __Organize Imports__.
+
+We recommend you use the following Eclipse Source Operations:
+
+. __Format__ applies the current format definition to the file or all files in a package
+. __Organize Imports__ sorts the imports on each file in standard order
+. __Clean Up__ runs a number of cleaning operations on each file. The Apex clean up template
+  ** Remove `this` qualifier for non static field accesses
+  ** Change non static accesses to static members using declaring type
+  ** Change indirect accesses to static members to direct accesses (accesses through subtypes)
+  ** Convert control statement bodies to block
+  ** Convert `for` loops to enhanced `for` loops
+  ** Add final modifier to private fields
+  ** Add final modifier to local variables
+  ** Remove unused imports
+  ** Remove unused private methods
+  ** Remove unused private constructors
+  ** Remove unused private types
+  ** Remove unused private fields
+  ** Remove unused local variables
+  ** Add missing `@Override` annotations
+  ** Add missing `@Override` annotations to implementations of interface methods
+  ** Add missing `@Deprecated` annotations
+  ** Add missing serial version ID (generated)
+  ** Remove unnecessary casts
+  ** Remove unnecessary `$NON-NLS$` tags
+  ** Organize imports
+  ** Format source code
+  ** Remove trailing white spaces on all lines
+  ** Correct indentation
+  ** Remove redundant type arguments
+  ** Add file header (JAutodoc)
+

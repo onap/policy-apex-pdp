@@ -1,0 +1,52 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Requirements
+APEX is 100% written in Java and runs on any platform that supports a JVM, e.g. Windows, Unix, Cygwin.
+Some APEX applications (such as the monitoring application) come as web archives, they do require a war-capable web server installed.
+
+
+=== Installation Requirements
+
+- Downloaded distribution: JAVA runtime environment (JRE, Java 8 or later, APEX is tested with the Oracle Java)
+- Building from source: JAVA development kit (JDK, Java 8 or later, APEX is tested with the Oracle Java)
+- A web archive capable webserver, for instance for the monitoring application
+  ** for instance link:https://tomcat.apache.org/[Apache Tomcat]
+- Sufficient rights to install APEX on the system
+- Installation tools depending on the installation method used:
+  ** ZIP to extract from a ZIP distribution
+     *** Windows for instance link:http://www.7-zip.org/[7Zip]
+  ** TAR and GZ to extract from that TAR.GZ distribution
+     *** Windows for instance link:http://www.7-zip.org/[7Zip]
+  ** RPM to install from the RPM distribution
+     *** Install: `sudo apt-get install rpm`
+  ** DPKG to install from the DEB distribution
+     *** Install: `sudo apt-get install dpkg`
+
+
+=== Feature Requirements
+APEX supports a number of features that require extra software being installed.
+
+- link:https://kafka.apache.org/[Apache Kafka] to connect APEX to a Kafka message bus
+- link:https://hazelcast.com/[Hazelcast] to use distributed hash maps for context
+- link:http://infinispan.org/[Infinispan] for distributed context and persistence
+- link:https://www.docker.com/[Docker] to run APEX inside a Docker container
+
+
+=== Build (Install from Source) Requirements
+Installation from source requires a few development tools
+
+- GIT to retrieve the source code
+- Java SDK, Java version 8 or later
+- Apache Maven 3 (the APEX build environment)
+

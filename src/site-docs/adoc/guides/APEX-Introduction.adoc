@@ -1,0 +1,45 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= A short Introduction to APEX
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>; Liam Fallon <liam.fallon@ericsson.com>; John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-09-05
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A short introduction to the APEX policy Engine and System
+:keywords: APEX, documentation, engine, applications, editors
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/introduction.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/configuration-matrix.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/policy-matrix.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/upee-deployment.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/upee-clustering.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/resources.adoc[]

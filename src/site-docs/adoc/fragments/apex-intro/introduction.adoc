@@ -1,0 +1,57 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction to APEX
+
+APEX stand for Adaptive Policy EXecution.
+It is a lightweight engine for execution of policies.
+APEX allows you to specify logic as a policy, logic that you can adapt on the fly as your system executes.
+The APEX policies you design can be really simple, with a single snippet of logic, or can be very complex, with many states and tasks.
+APEX policies can even be designed to self-adapt at execution time, the choice is yours!
+
+.Simple APEX Overview
+image::apex-intro/ApexSimple.png[Simple APEX Overview]
+
+The Adaptive Policy Engine in APEX runs your policies.
+These policies are triggered by incoming events.
+The logic of the policies executes and produces a response event.
+The __Incoming Context__ on the incoming event and the __Outgoing Context__ on the outgoing event are simply the fields and attributes of the event.
+You design the policies that APEX executes and the trigger and action events that your policies accept and produce.
+Events are fed in and sent out as JSON or XML events over Kafka, a Websocket, a file or named pipe, or even standard input.
+If you run APEX as a library in your application, you can even feed and receive events over a Java API.
+
+.APEX States and Context
+image::apex-intro/ApexStatesAndContext.png[APEX States and Context]
+
+You design your policy as a chain of states, with each state being fed by the state before.
+The simplest policy can have just one state.
+We provide specific support for the four-state link:https://www.researchgate.net/publication/303564082_Apex_An_Engine_for_Dynamic_Adaptive_Policy_Execution[MEDA (Match Establish Decide Act)] policy state model and the three-state link:https://en.wikipedia.org/wiki/Event_condition_action[ECA (Event Condition Action)] policy state model.
+APEX is fully distributed.
+You can decide how many APEX engine instances to run for your application and on which real or virtual hosts to run them.
+
+In APEX, you also have control of the __Context__ used by your policies.
+Context is simply the state information and data used by your policies.
+You define what context your policies use and what the scope of that context is.
+__Policy Context__ is private to a particular policy and is accessible only to whatever APEX engines are running that particular policy.
+__Global Context__ is available to all policies.
+__External Context__ is read-only context such as weather or topology information that is provided by other systems.
+APEX keeps context coordinated across all the the instances running a particular policy.
+If a policy running in an APEX engine changes the value of a piece of context, that value is is available to all other APEX engines that use that piece of context.
+APEX takes care of distribution, locking, writing of context to persistent storage, and monitoring of context.
+
+.The APEX Eco-System
+image::apex-intro/ApexEcosystem.png[The APEX Eco-System]
+
+The APEX engine (AP-EN) is available as a Java library for inclusion in your application, as a microservice running in a Docker container, or as a stand-alone service available for integration into your system.
+APEX also includes a policy editor (AP-AUTH) that allows you to design your policies and a web-based policy management console you use to deploy policies and to keep track of the state of policies and context in policies.
+Context handling (AP-CTX) is integrated into the APEX engine and policy deployment (AP-DEP) is provided as a servlet running under a web framework such as link:http://tomcat.apache.org/[Apache Tomcat].

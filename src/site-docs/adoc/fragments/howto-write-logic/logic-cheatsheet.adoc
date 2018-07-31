@@ -1,0 +1,269 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Logic Cheatsheet
+
+Examples given here use Javascript (if not stated otherwise), other execution environments will be similar.
+
+
+=== Add Nashorn
+
+First line in the logic use this import.
+
+.JS Nashorn
+[source,javascript,options="nowrap"]
+----
+load("nashorn:mozilla_compat.js");
+----
+
+
+=== Finish Logic with Success or Error
+
+To finish logic, i.e. return to APEX, with success use the following lines close to the end of the logic.
+
+.JS Success
+[source,javascript,options="nowrap"]
+----
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(true);
+----
+
+To notify a problem, finish with an error.
+
+.JS Fail
+[source,javascript,options="nowrap"]
+----
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(false);
+----
+
+
+=== Logic Logging
+
+Logging can be made easy using a local variable for the logger.
+Line 1 below does that.
+Then we start with a trace log with the task (or task logic) identifier followed by the infields.
+
+.JS Logging
+[source,javascript,options="nowrap"]
+----
+var logger = executor.logger;
+logger.trace("start: " + executor.subject.id);
+logger.trace("-- infields: " + executor.inFields);
+----
+
+For larger logging blocks you can use the standard logging API to detect log levels, for instance:
+
+.JS Logging Blocks
+[source,javascript,options="nowrap"]
+----
+if(logger.isTraceEnabled()){
+    // trace logging block here
+}
+----
+
+Note: the shown logger here logs to `org.onap.policy.apex.executionlogging`.
+The behavior of the actual logging can be specified in the `$APEX_HOME/etc/logback.xml`.
+
+If you want to log into the APEX root logger (which is sometimes necessary to report serious logic errors to the top),
+then import the required class and use this logger.
+
+.JS Root Logger
+[source,javascript,options="nowrap"]
+----
+importClass(org.slf4j.LoggerFactory);
+var rootLogger = LoggerFactory.getLogger(logger.ROOT_LOGGER_NAME);
+
+rootLogger.error("Serious error in logic detected: " + executor.subject.id);
+----
+
+=== Local Variable for Infields
+
+It is a good idea to use local variables for `infields`.
+This avoids long code lines and policy evolution.
+The following example assumes infields named `nodeName` and `nodeAlias`.
+
+.JS Infields Local Var
+[source,javascript,options="nowrap"]
+----
+var ifNodeName = executor.inFields["nodeName"];
+var ifNodeAlias = executor.inFields["nodeAlias"];
+----
+
+
+=== Local Variable for Context Albums
+
+Similar to the `infields` it is good practice to use local variables for context albums as well.
+The following example assumes that a task can access a context album `albumTopoNodes`.
+The second line gets a particular node from this context album.
+
+.JS Infields Local Var
+[source,javascript,options="nowrap"]
+----
+var albumTopoNodes = executor.getContextAlbum("albumTopoNodes");
+var ctxtNode = albumTopoNodes.get(ifNodeName);
+----
+
+
+=== Set Outfields in Logic
+
+The task logic needs to set outfields with content generated.
+The exception are outfields that are a direct copy from an infield of the same name, APEX does that autmatically.
+
+.JS Set Outfields
+[source,javascript,options="nowrap"]
+----
+executor.outFields["report"] = "node ctxt :: added node " + ifNodeName;
+----
+
+
+=== Create a instance of an Outfield using Schemas
+
+If an outfield is not an atomic type (string, integer, etc.) but uses a complex schema (with a Java or Avro backend), APEX can help to create new instances.
+The `executor` provides a field called `subject`, which provides a schem helper with an API for this.
+The complete API of the schema helper is documented here: link:https://ericsson.github.io/apex-docs/javadocs/index.html[API Doc: SchemaHelper].
+
+If the backend is Avro, then an import of the Avro schema library is required:
+
+.JS Import Avro
+[source,javascript,options="nowrap"]
+----
+importClass(org.apache.avro.generic.GenericData.Array);
+importClass(org.apache.avro.generic.GenericRecord);
+importClass(org.apache.avro.Schema);
+----
+
+If the backend is Java, then the Java class implementing the schema needs to be imported.
+
+The following example assumes an outfield `situation`.
+The `subject` method `getOutFieldSchemaHelper()` is used to create a new instance.
+
+.JS Outfield Instance with Schema
+[source,javascript,options="nowrap"]
+----
+var situation = executor.subject.getOutFieldSchemaHelper("situation").createNewInstance();
+----
+
+If the schema backend is Java, the new instance will be as implemented in the Java class.
+If the schema backend is Avro, the new instance will have all fields from the Avro schema specification, but set to `null`.
+So any entry here needs to be done separately.
+For instance, the `situation` schema has a field `problemID` which we set.
+
+.JS Outfield Instance with Schema, set
+[source,javascript,options="nowrap"]
+----
+situation.put("problemID", "my-problem");
+----
+
+
+=== Create a instance of an Context Album entry using Schemas
+
+Context album instances can be created using very similar to the outfields.
+Here, the schema helper comes from the context album directly.
+The API of the schema helper is the same as for outfields, see link:https://ericsson.github.io/apex-docs/javadocs/index.html[API Doc: SchemaHelper].
+
+If the backend is Avro, then an import of the Avro schema library is required:
+
+.JS Import Avro
+[source,javascript,options="nowrap"]
+----
+importClass(org.apache.avro.generic.GenericData.Array);
+importClass(org.apache.avro.generic.GenericRecord);
+importClass(org.apache.avro.Schema);
+----
+
+If the backend is Java, then the Java class implementing the schema needs to be imported.
+
+The following example creates a new instance of a context album instance named `albumProblemMap`.
+
+.JS Outfield Instance with Schema
+[source,javascript,options="nowrap"]
+----
+var albumProblemMap = executor.getContextAlbum("albumProblemMap");
+var linkProblem = albumProblemMap.getSchemaHelper().createNewInstance();
+----
+
+This can of course be also done in a single call without the local variable for the context album.
+
+.JS Outfield Instance with Schema, one line
+[source,javascript,options="nowrap"]
+----
+var linkProblem = executor.getContextAlbum("albumProblemMap").getSchemaHelper().createNewInstance();
+----
+
+If the schema backend is Java, the new instance will be as implemented in the Java class.
+If the schema backend is Avro, the new instance will have all fields from the Avro schema specification, but set to `null`.
+So any entry here needs to be done separately (see above in outfields for an example).
+
+
+=== Enumerates
+
+When dealing with enumerates (Avro or Java defined), it is sometimes and in some execution environments necessary to convert them to a string.
+For example, assume an Avro enumerate schema as:
+
+.Avro Enumerate Schema
+[source,json,options="nowrap"]
+----
+{
+  "type": "enum",
+  "name": "Status",
+  "symbols" : [
+    "UP",
+    "DOWN"
+  ]
+}
+
+----
+
+Using a switch over a field initialized with this enumerate in Javascript will fail.
+Instead, use the `toString` method, for example:
+
+.JS Outfield Instance with Schema, one line
+[source,javascript,options="nowrap"]
+----
+var switchTest = executor.inFields["status"];
+switch(switchTest.toString()){
+  case "UP": ...; break;
+  case "DOWN": ...; break;
+  default: ...;
+}
+----
+
+
+=== MVEL Initialize Outfields First!
+
+In MVEL, we observed a problem when accessing (setting) outfields without a prior access to them.
+So in any MVEL task logic, before setting any outfield, simply do a get (with any string), to load the outfields into the MVEL cache.
+
+.MVEL Outfield Initialization
+[source,java,options="nowrap"]
+----
+outFields.get("initialize outfields");
+----
+
+
+=== Using Java in Scripting Logic
+
+Since APEX executes the logic inside a JVM, most scripting languages provide access to all standard Java classes.
+Simply add an import for the required class and then use it as in actual Java.
+
+The following example imports `java.util.arraylist` into a Javascript logic, and then creates a new list.
+
+.JS Import ArrayList
+[source,javascript,options="nowrap"]
+----
+importClass(java.util.ArrayList);
+var myList = new ArrayList();
+----
+
+

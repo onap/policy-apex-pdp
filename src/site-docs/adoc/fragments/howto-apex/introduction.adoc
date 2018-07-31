@@ -1,0 +1,51 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction to APEX Engine and Applications
+The core of APEX is the APEX Engine, also known as the APEX Policy Engine.
+Beside this engine, an APEX system comes with a few applications intended to help with policy authoring, deployment, and execution.
+
+The engine itself and most applications are started from the command line with command line arguments.
+This is called a Command Line Interface (CLI).
+Some applications require an installation on a webserver, as for instance the REST Editor.
+Those applications can be accessed via a web browser.
+
+Starting with APEX version 0.5.6, we also provide plugins for Eclipse realizing a policy development environment.
+Those plugins support the main APEX policy language.
+Other, higher-level, policy languages will be added in future versions along with their Eclipse plugins.
+Furthermore, we are planning to provide a backend supporting the Language Server Protocol (LSP).
+This backend, run as a server, will allow to join any editor or IDE that is LSP-enabled to benefit from the APEX policy languages.
+
+Last not least, one can use the available APEX APIs and applications to develop other applications as required.
+This includes policy languages (and associated parsers and compilers / interpreters), GUIs to access APEX or to define policies, clients to connect to APEX, etc.
+Separate documentation will be available in APEX releases addressing this type of applications.
+
+For this documentation, we assume an installation of APEX as a full system (i.e. not minimal) of version 0.5.6 or higher.
+
+== CLI on Unix, Windows, and Cygwin
+A note on APEX CLI applications: all applications and the engine itself have been deployed and tested on different operating systems: Red Hat, Ubuntu, Debian, Mac OSX, Windows, Cygwin.
+Each operating system comes with its own way of configuring and executing Java.
+The main items here are:
+
+- For UNIX systems (RHL, Ubuntu, Debian, Mac OSX), the provided bash scripts work as expected
+  with absolute paths (e.g. `/opt/ericsson/apex/apex-{release-version}/examples`),
+  indirect and linked paths (e.g. `../apex/apex`),
+  and path substitutions using environment settings (e.g. `$APEX_HOME/bin/`)
+- For Windows systems, the provided batch files (`.bat`) work as expected with 
+  with absolute paths (e.g. `C:\apex\apex-{release-version}\examples`),
+  and path substitutions using environment settings (e.g. `%APEX_HOME%\bin\`)
+- For Cygwin system we assume a standard Cygwin installation with standard tools (mainly bash) using a Windows Java installation.
+  This means that the bash scripts can be used as in UNIX, however any argument pointing to files and directories need to use either a DOS path (e.g. `C:\apex\apex-{release-version}\examples\config\...`)
+  or the command `cygpath` with a mixed option.
+  The reason for that is: Cygwin executes Java using UNIX paths but then runs Java as a DOS/WINDOWS process, which requires DOS paths for file access.
+

@@ -1,0 +1,50 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== The APEX Deployment Client
+The standard way to use the APEX Deployment Client is via an installation of the __war__ file on a webserver.
+However, the Deployment Client can also be started via command line.
+This will start a Grizzly webserver with the __war__ deployed.
+Access to the Deployment Client is then via the provided URL 
+
+On UNIX and Cygwin systems use:
+
+- `apexApps.sh eng-deployment` - simply starts the webserver with the Deployment Client
+
+On Windows systems use:
+
+- `apexApps.bat eng-deployment` - simply starts the webserver with the Deployment Client
+
+
+The option `-h` provides a help screen with all command line arguments.
+
+[source%nowrap,sh]
+----
+usage: org.onap.policy.apex.services.client.deployment.rest.ApexDeploymentRestMain [options...]
+-h,--help                         outputs the usage of this command
+-p,--port <PORT>                  port to use for the Apex Services REST calls
+-t,--time-to-live <TIME_TO_LIVE>  the amount of time in seconds that the server will run for before terminating
+----
+
+If the Deployment Client is started without any arguments the final messages will look similar to this:
+
+[source%nowrap,sh]
+----
+INFO: [HttpServer] Started.
+Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: URI=http://localhost:18989/apexservices/, TTL=-1sec], State=RUNNING) started at http://localhost:18989/apexservices/
+----
+
+The last line states the URL on which the Deployment Client can be accessed.
+The example above stated `http://localhost:18989/apexservices`.
+In a web browser use the URL `http://localhost:18989`.
+

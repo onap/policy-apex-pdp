@@ -1,0 +1,99 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Application: Create Event Templates
+
+**Status: Experimental**
+
+This application takes a policy model (JSON or XML encoded) and generates templates for events in JSON format.
+This can help when a policy defines rather complex trigger or action events or complex events between states.
+The application can produce events for the types: stimuli (policy trigger events), internal (events between policy states), and response (action events).
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexApps.sh tpl-event-json [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexApps.bat tpl-event-json [args]
+----
+|====================
+
+The option `-h` provides a help screen.
+
+[source%nowrap,sh]
+----
+usage: gen-model2event
+ -h,--help                 prints this help and usage screen
+ -m,--model <MODEL-FILE>   set the input policy model file
+ -t,--type <TYPE>          set the event type for generation, one of:
+                           stimuli (trigger events), response (action
+                           events), internal (events between states)
+ -v,--version              prints the application version
+----
+
+The created templates are not valid events, instead they use some markup for values one will need to change to actual values.
+For instance, running the tool with the __Sample Domain__ policy model as:
+[source%nowrap,sh]
+----
+apexApps.sh tpl-event-json -m $APEX_HOME/examples/models/SampleDomain/SamplePolicyModelJAVA.json -t stimuli
+----
+
+will produce the following status messages:
+
+[source%nowrap,sh]
+----
+gen-model2event: starting Event generator
+ --> model file: examples/models/SampleDomain/SamplePolicyModelJAVA.json
+ --> type: stimuli
+----
+
+and then run the generator application producing two event templates.
+The first template is called `Event0000`.
+
+[source%nowrap,json]
+----
+{
+        "name" : "Event0000",
+        "nameSpace" : "org.onap.policy.apex.sample.events",
+        "version" : "0.0.1",
+        "source" : "Outside",
+        "target" : "Match",
+        "TestTemperature" : ###double: 0.0###,
+        "TestTimestamp" : ###long: 0###,
+        "TestMatchCase" : ###integer: 0###,
+        "TestSlogan" : "###string###"
+}
+----
+The values for the keys are marked with `###` and the expected type of the value.
+To create an actual stimuli event, all these markers need to be change to actual values, for instance:
+[source%nowrap,json]
+----
+{
+        "name" : "Event0000",
+        "nameSpace" : "org.onap.policy.apex.sample.events",
+        "version" : "0.0.1",
+        "source" : "Outside",
+        "target" : "Match",
+        "TestTemperature" : 25,
+        "TestTimestamp" : 123456789123456789,
+        "TestMatchCase" : 1,
+        "TestSlogan" : "Testing the Match Case with Temperature 25"
+}
+----
+

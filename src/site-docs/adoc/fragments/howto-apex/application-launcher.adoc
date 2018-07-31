@@ -1,0 +1,80 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== The APEX Application Launcher
+The standard applications (Engine, CLI Editor, REST Editor) come with dedicated start scripts.
+For all other APEX applications, we provide an application launcher.
+
+On UNIX and Cygwin systems use:
+
+- apexApps.sh` - simply starts the application launcher
+
+On Windows systems use:
+
+- `apexApps.bat` - simply starts the application launcher
+
+
+Summary of alternatives to start the APEX application launcher:
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexApps.sh [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexApps.bat [args]
+----
+|====================
+
+The option `-h` provides a help screen with all launcher command line arguments.
+
+[source%nowrap,sh]
+----
+apexApps.sh - runs APEX applications
+
+       Usage:  apexApps.sh [options] | [<application> [<application options>]]
+
+       Options
+         -d <app>    - describes an application
+         -l          - lists all applications supported by this script
+         -h          - this help screen
+----
+
+Using `-l` lists all known application the launcher can start.
+
+[source%nowrap,sh]
+----
+apexApps.sh: supported applications:
+ --> ws-echo engine eng-monitoring full-client eng-deployment tpl-event-json model-2-cli rest-editor cli-editor ws-console
+----
+
+Using the `-d <name>` option describes the named application, for instance for the `ws-console`:
+
+[source%nowrap,sh]
+----
+apexApps.sh: application 'ws-console'
+ --> a simple console sending events to APEX, connect to APEX consumer port
+----
+
+Launching an application is done by calling the script with only the application name and any CLI arguments for the application.
+For instance, starting the `ws-echo` application with port `8888`:
+[source%nowrap,sh]
+----
+apexApps.sh ws-echo -p 8888
+----
+

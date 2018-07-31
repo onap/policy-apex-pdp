@@ -1,0 +1,112 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Build APEX
+
+The examples in this document assume that the APEX source repositories are cloned to:
+
+- Unix, Cygwin: `/usr/local/src/apex`
+- Windows: `C:\dev\apex`
+- Cygwin: `/cygdrive/c/dev/apex`
+
+[IMPORTANT]
+.A Build needs Space
+====
+Building APEX requires approximately 2-3 GB of hard disc space, 1 GB for the actual build with full distribution and 1-2 GB for the downloaded dependencies
+====
+
+[IMPORTANT]
+.A Build requires Internet (for first build)
+====
+During the build, several (a lot) of Maven dependencies will be downloaded and stored in the configured local Maven repository.
+The first standard build (and any first specific build) requires Internet access to download those dependencies.
+====
+
+[IMPORTANT]
+.Building RPM distributions
+====
+RPM images are only build if the `rpm` package is installed (Unix).
+To install `rpm` run `sudo apt-get install rpm`, then build APEX.
+====
+
+Use Maven to for a standard build without any tests.
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+# cd /usr/local/src/apex
+# mvn clean install -DskipTests
+----
+|
+[source%nowrap,bat,numbered]
+----
+>c:
+>cd \dev\apex
+>mvn clean install -DskipTests
+----
+|====================
+
+The build takes 2-3 minutes on a standard development laptop.
+It should run through without errors, but with a lot of messages from the build process.
+
+When Maven is finished with the build, the final screen should look similar to this (omitting some `success` lines):
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/mvn-install-skiptests.txt[mvn build, no tests]
+----
+
+
+The build will have created all artifacts required for an APEX installation.
+The following example show how to change to the target directory and how it should look like.
+
+[width="100%",options="header",cols="a"]
+|====================
+| Unix, Cygwin
+|
+[source%nowrap,sh,numbered]
+----
+# cd modules/apex-apps/apex-apps.uservice/apex-apps.uservice-packaging/apex-apps.uservice-package-full/target
+# ls -l
+----
+
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-unix.txt[successful build, ls, unix]
+----
+
+|====================
+
+
+[width="100%",options="header",cols="a"]
+|====================
+| Windows
+|
+[source%nowrap,bat,numbered]
+----
+>cd modules\apex-apps\apex-apps.uservice\apex-apps.uservice-packaging\apex-apps.uservice-package-full\target
+>dir
+----
+
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-win.txt[successful build, ls, windows]
+----
+
+|====================
+

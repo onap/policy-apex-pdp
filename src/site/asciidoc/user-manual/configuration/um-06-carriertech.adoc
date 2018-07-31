@@ -1,0 +1,32 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/carriertech.adoc[]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-standard-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-file-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-eventrequestor-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-kafka-dir}/site-docs/adoc/fragments/ct-kafka-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-jms-dir}/site-docs/adoc/fragments/ct-jms-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ct-websocket-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-restclient-dir}/site-docs/adoc/fragments/ct-restclient-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-restserver-dir}/site-docs/adoc/fragments/ct-restserver-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-restrequestor-dir}/site-docs/adoc/fragments/ct-restrequestor-io.adoc[leveloffset=+1]

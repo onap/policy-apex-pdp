@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+  
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+  
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+  
+-->
+
+<document>
+	<properties>
+		<title>The APEX User Manual</title>
+		<author email="sven.van.der.meer@ericsson.com">Sven van der Meer</author>
+		<author email="liam.fallon@ericsson.com">Liam Fallon</author>
+		<author email="john.keeney@ericsson.com">John Keeny</author>
+	</properties>
+	<body>
+
+		<section name="The APEX User Manual">
+
+			<p>
+				The APEX user manual combines a set of guides and howto documents, all supporting the use of APEX.
+				The guides and howto documents are provided as integrated documentation in the APEX site.
+				Furthermore, we provide stand-alone documents in HTML and PDF.
+			</p>
+
+			<p>
+				Note: most of the documentation is written in AsciiDoc.
+				We are using the AsciiDoctor version.
+				Due to the different build tools used for the different documentation targets, the rendered documents differ in style.
+				The content however comes always from a single, normative source located in the APEX source repositories.
+			</p>
+
+			<h3>APEX User Manual documentation</h3>
+				<table>
+					<tr>
+						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em" width="20%">Name</th>
+						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em" width="50%">Description</th>
+						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em" width="30%">Links</th>
+					</tr>
+					<tr>
+						<td>User Manual</td>
+						<td>
+							The complete APEX User Manual, including all HowTos and other documentation.
+							The stand-alone versions aggregate all other documents listed in this table.
+						</td>
+						<td>
+							<ul>
+								<li><a href="docs-apex/html/APEX-User-Manual.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/APEX-User-Manual.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Installation Guide</td>
+						<td>
+							The guide with all information on how to get an APEX distribution, install it, configure it, and verify an installation.
+							The guide describes automatic and manual installations on Unix, Windows, and Cygwin.
+							It also has a brief description on how to build APEX from source.
+						</td>
+						<td>
+							<ul>
+								<li><a href="user-manual/install/um-install.html">APEX Site</a></li>
+								<li><a href="docs-apex/html/APEX-Install-Guide.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/APEX-Install-Guide.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>HowTo: Configure the APEX Engine</td>
+						<td>
+							This HowTo document details all options for configuring an APEX engine.
+						</td>
+						<td>
+							<ul>
+								<li><a href="user-manual/configuration/um-00-introduction.html">APEX Site</a></li>
+								<li><a href="docs-apex/html/HowTo-Configuration.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/HowTo-Configuration.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>HowTo: Run the APEX engine and the provided applications</td>
+						<td>
+							This Howto details the different ways to run an APEX engine.
+							It also shows how the various provided applications (e.g. CLI Editor, REST Editor, WS clients) can be used.
+						</td>
+						<td>
+							<ul>
+								<li><a href="user-manual/engine-apps/um-engapps.html">APEX Site</a></li>
+								<li><a href="docs-apex/html/HowTo-APEX.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/HowTo-APEX.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>HowTo: My First Policy</td>
+						<td>
+							This HowTo is a step-by-step introduction on how to define a policy.
+							The document introduces a non-technical retail scenario and analyzes what requirements a policy will have.
+							Then it shows how a simple policy can be defined, includining all events (trigger and action).
+							It finished with an extension of this simple policy including some context information.
+						</td>
+						<td>
+							<ul>
+								<li><a href="user-manual/my-first-policy/um-mfp-01-introduction.html">APEX Site</a></li>
+								<li><a href="docs-apex/html/HowTo-MyFirstPolicy.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/HowTo-MyFirstPolicy.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>HowTo: Logging</td>
+						<td>
+							The APEX system uses SLF4j for logging with logback as backend.
+							This HowTo explains how the logging can be configured for a number of use cases.
+						</td>
+						<td>
+							<ul>
+								<li><a href="user-manual/logging/um-logging.html">APEX Site</a></li>
+								<li><a href="docs-apex/html/HowTo-Logging.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/HowTo-Logging.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>HowTo: APEX and Websockets as Carrier Technology</td>
+						<td>
+							This HowTo starts with a brief introduction into Websockets in general, including links to open source Java implementations.
+							Then it explains the different configuration options for an APEX engine when using Websockets.
+							It finishes with an example configuration using the simple Websocket clients (applications).
+						</td>
+						<td>
+							<ul>
+								<li><a href="user-manual/websockets/um-websocket-introduction.html">APEX Site</a></li>
+								<li><a href="docs-apex/html/HowTo-Websockets.html">stand-alone HTML</a></li>
+								<li><a href="docs-apex/pdf/HowTo-Websockets.pdf">stand-alone PDF</a></li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+		</section>
+	</body>
+</document>

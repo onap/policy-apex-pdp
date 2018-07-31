@@ -1,0 +1,160 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== System Configuration
+Once APEX is installed, a few configurations need to be done:
+
+- Create an APEX user and an APEX group (optional, if not installed using RPM and DPKG)
+- Create environment settings for `APEX_HOME` and `APEX_USER`, required by the start scripts
+- Change settings of the logging framework (optional)
+- Create directories for logging, required (execution might fail if directories do not exist or cannot be created)
+
+=== APEX User and Group
+On smaller installations and test systems, APEX can run as any user or group.
+
+However, if APEX is installed in production, we strongly recommend you set up a dedicated user for running APEX.
+This will isolate the execution of APEX to that user.
+We recommend you use the userid `apexuser` but you may use any user you choose.
+
+The following example, for UNIX, creates a group called `apexuser`, an APEX user called `apexuser`, adds the group to the user, and changes ownership of the APEX installation to the user.
+Substitute `<apex-dir>` with the directory where APEX is installed.
+
+[source%nowrap,sh,numbered]
+----
+# sudo groupadd apexuser
+# sudo useradd -g apexuser apexuser
+# sudo chwon -R apexuser:apexuser <apex-dir>
+----
+
+For other operating systems please consult your manual or system administrator.
+
+
+=== Environment Settings: APEX_HOME and APEX_USER
+The provided start scripts for APEX require two environment variables being set:
+
+- `APEX_USER` with the user under whos name and permission APEX should be started (Unix only)
+- `APEX_HOME` with the directory where APEX is installed (Unix, Windows, Cygwin)
+
+The first row in the following table shows how to set these environment variables temporary (assuming the user is `apexuser`).
+The second row shows how to verify the settings.
+The last row explains how to set those variables permanently.
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin (bash/tcsh) | Windows
+|
+[source%nowrap,bash,numbered]
+----
+# export APEX_USER=apexuser
+# cd /opt/ericsson/apex/apex
+# export APEX_HOME=`pwd`
+----
+
+[source%nowrap,tcsh,numbered]
+----
+# setenv APEX_USER apexuser
+# cd /opt/ericsson/apex/apex
+# setenv APEX_HOME `pwd`
+----
+|
+[source%nowrap,bat,numbered,subs="attributes+"]
+----
+>set APEX_HOME=C:\apex\apex-full-{release-version}
+----
+
+|
+[source%nowrap,sh,numbered]
+----
+# env \| grep APEX
+APEX_USER=apexuser
+APEX_HOME=/opt/ericsson/apex/apex
+----
+|
+[source%nowrap,bat,numbered,subs="attributes+"]
+----
+>set APEX_HOME
+APEX_HOME=\apex\apex-full-{release-version}
+----
+
+|====================
+
+
+==== Making Environment Settings Permanent (Unix, Cygwin)
+For a per-user setting, edit the a user's `bash` or `tcsh` settings in `~/.bashrc` or `~/.tcshrc`.
+For system-wide settings, edit `/etc/profiles` (requires permissions).
+
+
+==== Making Environment Settings Permanent (Windows)
+On Windows 7 do
+
+- Click on the *Start* Menu
+- Right click on *Computer*
+- Select *Properties*
+
+On Windows 8/10 do
+
+- Click on the *Start* Menu
+- Select *System*
+
+Then do the following
+
+- Select *Advanced System Settings*
+- On the *Advanced* tab, click the *Environment Variables* button 
+- Edit an existing variable, or create a new System variable: 'Variable name'="APEX_HOME", 'Variable value'="C:\apex\apex-full-{release-version}"
+
+For the settings to take effect, an application needs to be restarted (e.g. any open `cmd` window).
+
+
+
+=== Edit the APEX Logging Settings
+Configure the APEX logging settings to your requirements, for instance:
+
+- change the directory where logs are written to, or
+- change the log levels
+
+Edit the file `$APEX_HOME/etc/logback.xml` for any required changes.
+To change the log directory change the line
+
+`<property name="VAR_LOG" value="/var/log/ericsson/apex/" />`
+
+to
+
+`<property name="VAR_LOG" value="/PATH/TO/LOG/DIRECTORY/" />`
+
+On Windows, it is recommended to change the log directory to:
+
+`<property name="VAR_LOG" value="C:/apex/apex-full-{release-version}/logs" />`
+
+Note: Be careful about when to use `\` vs. `/` as the path separator!
+
+
+=== Create Directories for Logging
+Make sure that the log directory exists.
+This is important when APEX was installed manually or when the log directory was changed in the settings (see above).
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+mkdir -p /var/log/ericsson/apex
+chown -R apexuser:apexuser /var/log/ericsson/apex
+----
+|
+[source%nowrap,bat,numbered,subs="attributes+"]
+----
+>mkdir C:\apex\apex-full-{release-version}\logs
+----
+|====================
+

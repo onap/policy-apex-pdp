@@ -1,0 +1,54 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== APEX Engine (NOMS'16)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| APEX: An Engine for Dynamic Adaptive Policy Execution
+
+h| Venue
+| IEEE NOMS, Istanbul, April 2016
+
+h| Abstract
+| The advent of " Soft Networking " , where networks are composed of virtual nodes and links, promises to dramatically ease the definition and deployment of networks whilst allowing network applications that are limited only by the imagination of the developers of those applications. In such a dynamic environment, the Autonomic Management pattern supervised by policies has been recognized as holding more promise for management of Soft Networks than traditional techniques. We have proposed Dynamic Adaptive Policies as an approach to give classic policies the dynamicity and flexibility to manage such networks and whatever applications are running on them. In this paper, we describe our ongoing work on Apex, an engine that executes and administers Dynamic Adaptive Policies in a scalable and distributed manner.
+
+h| Links
+| link:https://www.researchgate.net/publication/303564082_Apex_An_Engine_for_Dynamic_Adaptive_Policy_Execution[Research Gate] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/noms/FallonMK16,
+  author    = {Liam Fallon and
+               Sven van der Meer and
+               John Keeney},
+  title     = {Apex: An Engine for Dynamic Adaptive Policy Execution},
+  booktitle = {2016 {IEEE/IFIP} Network Operations and Management Symposium,
+              {NOMS} 2016, Istanbul, Turkey, April 25-29, 2016},
+  pages     = {699--702},
+  year      = {2016},
+  crossref  = {DBLP:conf/noms/2016},
+  url       = {https://doi.org/10.1109/NOMS.2016.7502880},
+  doi       = {10.1109/NOMS.2016.7502880},
+  timestamp = {Fri, 19 May 2017 01:26:25 +0200},
+  biburl    = {http://dblp.org/rec/bib/conf/noms/FallonMK16},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+----
+
+|===
+

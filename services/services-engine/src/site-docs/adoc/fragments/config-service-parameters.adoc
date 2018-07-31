@@ -1,0 +1,47 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Engine Service Parameters
+
+The configuration provides a number of parameters to configure the engine.
+An example configuration with explanations of all options is shown below.
+
+[source%nowrap,json]
+----
+"engineServiceParameters" : {
+  "name"          : "AADMApexEngine", // <1>
+  "version"        : "0.0.1",  // <2>
+  "id"             :  45,  // <3>
+  "instanceCount"  : 4,  // <4>
+  "deploymentPort" : 12345,  // <5>
+  "policyModelFileName" : "examples/models/VPN/VPNPolicyModelJava.json", // <6>
+  "periodicEventPeriod": 1000, <7>
+  "engineParameters":{ <8>
+    "engineParameters":{...}, <9>
+    "contextParameters":{...} <10>
+  }
+}
+----
+<1> a name for the engine. The engine name is used to create a key in a runtime engine. An name matching the following regular expression can be used here: `[A-Za-z0-9\\-_\\.]+`
+<2> a version of the engine, use semantic versioning as explained here: link:http://semver.org/[Semantic Versioning]. This version is used in a runtime engine to create a version of the engine. For that reason, the version must match the following regular expression `[A-Z0-9.]+`
+<3> a numeric identifier for the engine
+<4> the number of threads (policy instances executed in parallel) the engine should use, use `1` for single threaded engines
+<5> the port for the deployment Websocket connection to the engine
+<6> the model file to load into the engine on startup (optional)
+<7> an optional timer for periodic policies, in milliseconds (a defined periodic policy will be executed every `X` milliseconds), not used of not set or `0`
+<8> engine parameters for plugin configurations (execution environments and context handling)
+<9> engine specific parameters, mainly for executor plugins
+<10> context specific parameters, e.g. for context schemas, persistence, etc.
+
+The model file is optional, it can also be specified via command line.
+In any case, make sure all execution and other required plug-ins for the loaded model are loaded as required.

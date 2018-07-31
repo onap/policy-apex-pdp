@@ -1,0 +1,50 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Build with all Tests
+
+Use Maven to for a standard build with __all__ tests.
+
+[IMPORTANT]
+.Some tests have specific timing Requirements
+====
+Some of the tests have very specific timing requirements.
+If run on a low-powered build machine, or if the build machine is on high load, those tests might fail and the whole build might fail as well.
+If this happens, reduce the load on your build machine and restart the build.
+====
+
+[IMPORTANT]
+.Might require specific software
+====
+When running all tests, some modules require specific software installed on the build machine.
+For instance, testing the full capabilities of context (with distribution and persistence) will require Hazelcast and Infinispan installed on the build machine.
+====
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+# cd /usr/local/src/apex
+# mvn clean install -DallTests
+----
+|
+[source%nowrap,bat,numbered]
+----
+>c:
+>cd \dev\apex
+>mvn clean install -DallTests
+----
+|====================
+

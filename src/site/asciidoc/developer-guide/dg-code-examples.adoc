@@ -1,0 +1,18 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Code Examples
+
+- APEX Applications (apex-apps)
+  ** Utilities: link:../modules/tools/tools-common/example-cli.html[CLI Options and Parser Example]
+  ** Utilities: link:../modules/tools/tools-common/example-cli-version.html[Autoversion for Applications Example]

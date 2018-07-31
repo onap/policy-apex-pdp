@@ -1,0 +1,36 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configure Checkstyle (Eclipse, globally)
+
+. Set up a module with the Checkstyle style files (see above)
+. In menu:Eclipse[Window > Preferences] go to Checkstyle
+. Import the settings for Checkstyle
+  * Press kbd:[New...] to create a new __Global Check Configurations__ entry
+  * Give the configuration a name such as __Apex Checkstyle Configuration__ and select the __External Configuration File__ form in the __Type__ drop down menu
+  * Browse to the Checckstyle setting file (`ApexCheckstyleSettings.xml`) and press kbd:[OK]
+. Press kbd:[OK]
+  * You may now get an __Unresolved Properties found__ dialogue
+  * This is because there is a second Checkstyle configuration file required to check file headers
+. Press kbd:[Edit Properties...] and press kbd:[Find unresolved properties] on the next dialogue window
+. The plugin will find the `${checkstyle.header.file}` property is unresolved and will ask should it be added to the properties, click kbd:[yes]
+. Now, select the row on the dialogue for the `checkstyle.header.file property` and click kbd:[Edit...]
+. Set the value of the `checkstyle.header.file property` to `<your-apex-git-location>/apex-model/apex-model.build-tools/src/main/resources/checkstyle/apex_header.txt`
+  * Of course replacing the tag `<your-apex-git-location>` with the location of your Apex GIT repository
+. Press kbd:[OK], kbd:[OK], kbd:[OK] to back out to the main Checkstyle properties window
+. Select the __Apex Checkstyle Configuration__ as your default configuration by selecting its line in the __Global Check Configuraitons__ list and clicking kbd:[Set as Default]
+. Press kbd:[Apply and Close] to finish Checkstyle global configuration
+
+The templates mentioned above can be found in `apex-model/apex-model.build-tools/src/main/resources/eclipse`
+
+

@@ -1,0 +1,90 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== APEX Policy Matrix
+
+APEX offers a lot of flexibility for defining, deploying, and executing policies.
+Based on a theoretic model, it supports virtually any policy model and allows to translate legacy policies into the APEX execution format.
+However, the most important aspect for using APEX is to decide what policy is needed, what underlying policy concepts should be used, and how the decision logic should be realized.
+Once these aspects are decided, APEX can be used to execute the policies.
+If the policy evolves, say from a simple decision table to a fully adaptable policy, only the policy definition requires change.
+APEX supports all of that.
+
+The figure below shows a (non-exhaustive) matrix, which will help to decide what policy is required to solve your problem.
+Read the matrix from left to right choosing one cell in each column.
+
+.APEX Policy Matrix
+image::apex-intro/ApexPolicyMatrix.png[APEX Policy Matrix]
+
+The policy can support one of a number of stimuli with an associated purpose/model of the policy, for instance:
+
+* Configuration, i.e. what should happen.
+	An example is an event that states an intended network configuration and the policy should provide the detailed actions for it.
+	The policy can be realized for instance as an obligation policy, a promise or an intent.
+* Report, i.e. something did happen.
+	An example is an event about an error or fault and the policy needs to repair that problem.
+	The policy would usually be an obligation, utility function, or goal policy.
+* Monitoring, i.e. something does happen.
+	An example is a notification about certain network conditions, to which the policy might (or might not) react.
+	The policy will mitigate the monitored events or permit (deny) related actions as an obligation or authorization.
+* Analysis, i.e. why did something happen.
+	An example is an analytic component sends insights of a situation requiring a policy to act on it.
+	The policy can solve the problem, escalate it, or delegate it as a refrain or delegation policy.
+* Prediction, i.e. what will happen next.
+	An example are events that a policy uses to predict a future network condition.
+	The policy can prevent or enforce the prediction as an adaptive policy, a utility function, or a goal.
+* Feedback, i.e. why did something happen or not happen.
+	Similar to analysis, but here the feedback will be in the input event and the policy needs to something with that information.
+	Feedback can be related to history or experience, for instance a previous policy execution.
+	The policy needs to be context-aware or be a meta-policy.
+
+Once the purpose of the policy is decided, the next step is to look into what context information the policy will require to do its job.
+This can range from very simple to a lot of different information, for instance:
+
+* No context, nothing but a trigger event, e.g. a string or a number, is required
+* Event context, the incoming event provides all information (more than a string or number) for the policy
+* Policy context (read only), the policy has access to additional information related to its class but cannot change/alter them
+* Policy context (read and write), the policy has access to additional information related to its class and can alter this information (for instance to record historic information)
+* Global context (read only), the policy has access to additional information of any kind but cannot change/alter them
+* Global context (read and write), the policy the policy has access to additional information of any kind and can alter this information (for instance to record historic information)
+
+The next step is to decide how the policy should do its job, i.e. what flavor it has, how many states are needed, and how many tasks.
+There are many possible combinations, for instance:
+
+* Simple / God: a simple policy with 1 state and 1 task, which is doing everything for the decision-making.
+	This is the ideal policy for simple situation, e.g. deciding on configuration parameters or simple access control.
+* Simple sequence: a simple policy with a number of states each having a single task.
+	This is a very good policy for simple decision-making with different steps.
+	For instance, a classic action policy (ECA) would have 3 states (E, C, and A) with some logic (1 task) in each state.
+* Simple selective: a policy with 1 state but more than one task.
+	Here, the appropriate task (and it's logic) will be selected at execution time.
+	This policy is very good for dealing with similar (or the same) situation in different contexts.
+	For instance, the tasks can be related to available external software, or to current work load on the compute node, or to time of day.
+* Selective: any number of states having any number of tasks (usually more than 1 task).
+	This is a combination of the two policies above, for instance an ECA policy with more than one task in E, C, and A.
+* Classic directed: a policy with more than one state, each having one task, but a non-sequential execution.
+	This means that the sequence of the states is not pre-defined in the policy (as would be for all cases above) but calculated at runtime.
+	This can be good to realize decision trees based on contextual information.
+* Super Adaptive: using the full potential of the APEX policy model, states and tasks and state execution are fully flexible and calculated at runtime (per policy execution).
+	This policy is very close to a general programming system (with only a few limitations), but can solve very hard problems.
+
+The final step is to select a response that the policy creates.
+Possible responses have been discussed in the literature for a very long time.
+A few examples are:
+
+* Obligation (deontic for what should happen)
+* Authorization (e.g. for rule-based or other access control or security systems)
+* Intent (instead of providing detailed actions the response is an intent statement and a further system processes that)
+* Delegation (hand the problem over to someone else, possibly with some information or instructions)
+* Fail / Error (the policy has encountered a problem, and reports it)
+* Feedback (why did the policy make a certain decision)

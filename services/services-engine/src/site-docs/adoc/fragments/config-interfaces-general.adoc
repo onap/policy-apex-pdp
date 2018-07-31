@@ -1,0 +1,124 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Input and Output Interfaces
+
+An APEX engine has two main interfaces:
+
+- An _input_ interface to receive events: also known as ingress interface or consumer, receiving (consuming) events commonly named triggers, and
+- An _output_ interface to publish produced events: also known as egress interface or producer, sending (publishing) events commonly named actions or action events.
+
+The input and output interface is configured in terms of inputs and outputs, respectively.
+Each input and output is a combination of a carrier technology and an event protocol.
+Carrier technologies and event protocols are provided by plugins, each with its own specific configuration.
+Most carrier technologies can be configured for input as well as output.
+Most event protocols can be used for all carrier technologies.
+One exception is the JMS object event protocol, which can only be used for the JMS carrier technology.
+Some further restrictions apply (for instance for carrier technologies using bi- or uni-directional modes).
+
+Input and output interface can be configured separately, in isolation, with any number of carrier technologies.
+The resulting general configuration options are:
+
+- Input interface with one or more inputs
+  ** each input with a carrier technology and an event protocol
+  ** some inputs with optional synchronous mode
+  ** some event protocols with additional parameters
+- Output interface with one or more outputs
+  ** each output with a carrier technology and an event encoding
+  ** some outputs with optional synchronous mode
+  ** some event protocols with additional parameters
+
+The configuration for input and output is contained in `eventInputParameters` and `eventOutputParameters`, respectively.
+Inside here, one can configure any number of inputs and outputs.
+Each of them needs to have a unique identifier (name), the content of the name is free form.
+The example below shows a configuration for two inputs and two outputs.
+
+[source%nowrap,json]
+----
+"eventInputParameters": { <1>
+  "FirstConsumer": { <2>
+    "carrierTechnologyParameters" : {...}, <3>
+    "eventProtocolParameters":{...}, <4>
+    ... <5>
+  },
+  "SecondConsumer": { <6>
+    "carrierTechnologyParameters" : {...}, <7>
+    "eventProtocolParameters":{...}, <8>
+    ... <9>
+  },
+},
+"eventOutputParameters": { <10>
+  "FirstProducer": { <11>
+    "carrierTechnologyParameters":{...}, <12>
+    "eventProtocolParameters":{...}, <13>
+    ... <14>
+  },
+  "SecondProducer": { <15>
+    "carrierTechnologyParameters":{...}, <16>
+    "eventProtocolParameters":{...}, <17>
+    ... <18>
+  }
+}
+----
+<1> input interface configuration, APEX input plugins
+<2> first input called `FirstConsumer`
+<3> carrier technology for plugin
+<4> event protocol for plugin
+<5> any other input configuration (e.g. event name filter, see below)
+<6> second input called `SecondConsumer`
+<7> carrier technology for plugin
+<8> event protocol for plugin
+<9> any other plugin configuration
+<10> output interface configuration, APEX output plugins
+<11> first output called `FirstProducer`
+<12> carrier technology for plugin
+<13> event protocol for plugin
+<14> any other plugin configuration
+<15> second output called `SecondProducer`
+<16> carrier technology for plugin
+<17> event protocol for plugin
+<18> any other output configuration (e.g. event name filter, see below)
+
+=== Event Filters
+
+APEX will always send an event after a policy execution is finished.
+For a successful execution, the event sent is the output event created by the policy.
+In case the policy does not create an output event, APEX will create a new event with all input event fields plus an additional field `exceptionMessage` with an exception message.
+
+There are situations in which this auto-generated error event might not be required or wanted:
+
+* when a policy failing should not result in an event send out via an output interface
+* when the auto-generated event goes back in an APEX engine (or the same APEX engine), this can create endless loops
+* the auto-generated event should go to a special output interface or channel
+
+All of these situations are supported by a filter option using a wildecard (regular expression) configuration on APEX I/O interfaces.
+The parameter is called `eventNameFilter` and the value are link:https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[Java regular expressions] (a link:http://www.vogella.com/tutorials/JavaRegularExpressions/article.html[tutorial]).
+The following code shows some examples:
+
+[source%nowrap,json]
+----
+"eventInputParameters": {
+  "Input1": {
+    "carrierTechnologyParameters" : {...},
+    "eventProtocolParameters":{...},
+    "eventNameFilter" : "^E[Vv][Ee][Nn][Tt][0-9]004$" <1>
+  }
+},
+"eventOutputParameters": {
+  "Output1": {
+    "carrierTechnologyParameters":{...},
+    "eventProtocolParameters":{...},
+    "eventNameFilter" : "^E[Vv][Ee][Nn][Tt][0-9]104$" <2>
+  }
+}
+----

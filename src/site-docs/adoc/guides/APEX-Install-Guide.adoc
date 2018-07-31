@@ -1,0 +1,52 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX Installation Guide
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>; Liam Fallon <liam.fallon@ericsson.com>; John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-07-25
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A short guide to install the APEX policy engine
+:keywords: APEX, documentation, install
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 4
+:icons: font
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/requirements.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/get-source.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/build-apex.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/layout.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/configure.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/verify.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-monitoring.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-resteditor.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/docker.adoc[]

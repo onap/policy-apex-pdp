@@ -1,0 +1,13 @@
+[INFO] apex-apps.uservice ................................. SUCCESS [  0.054 s]
+[INFO] apex-apps.uservice-packaging ....................... SUCCESS [  0.058 s]
+[INFO] apex-apps.uservice-package-minimal ................. SUCCESS [  7.138 s]
+[INFO] apex-apps.uservice-package-full .................... SUCCESS [ 58.960 s]
+[INFO] apex-apps.uservice-packages ........................ SUCCESS [  1.781 s]
+[INFO] apex-apps.servlet .................................. SUCCESS [  3.465 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 02:48 min
+[INFO] Finished at: 2018-01-04T12:20:45+00:00
+[INFO] Final Memory: 164M/1648M
+[INFO] ------------------------------------------------------------------------

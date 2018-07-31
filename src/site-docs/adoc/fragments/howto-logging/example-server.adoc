@@ -1,0 +1,46 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Example Configuration for a Production Server
+
+The following example shows a configuration that logs all APEX components, including policy logic, to a file (__debug__).
+This configuration an be used in a production phase with the APEX engine being executed as a service on a system without console output.
+This logback configuration is in the APEX installation as `logback-server.xml`
+
+[source%nowrap,xml]
+----
+<configuration debug="false">
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+  <contextName>Apex</contextName>
+  <property name="VAR_LOG" value="/var/log/ericsson/apex/" />
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${VAR_LOG}/apex.log</file>
+    <encoder>
+      <pattern>
+        %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
+      </pattern>
+    </encoder>
+  </appender>
+
+  <root level="debug">
+    <appender-ref ref="FILE" />
+  </root>
+
+  <logger name="org.onap.policy.apex.executionlogging" level="debug" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
+</configuration>
+----
+

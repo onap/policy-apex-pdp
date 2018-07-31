@@ -1,0 +1,82 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== The APEX CLI Editor
+The CLI Editor allows to define policies from the command line.
+The application uses a simple language and supports all elements of an APEX policy.
+It can be used in to different ways:
+
+- non-interactive, specifying a file with the commands to create a policy
+- interactive, using the editors CLI to create a policy
+
+When a policy is fully specified, the editor will generate the APEX core policy specification in JSON.
+This core specification is called the policy model in the APEX engine and can be used directly with the APEX engine.
+
+On UNIX and Cygwin systems use:
+
+- `apexCLIEditor.sh` - simply starts the CLI editor, arguments to the script determine the mode of the editor
+- `apexApps.sh cli-editor` - simply starts the CLI editor, arguments to the script determine the mode of the editor
+
+On Windows systems use:
+
+- `apexCLIEditor.bat` - simply starts the CLI editor, arguments to the script determine the mode of the editor
+- `apexApps.bat cli-editor` - simply starts the CLI editor, arguments to the script determine the mode of the editor
+
+
+Summary of alternatives to start the APEX CLI Editor:
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexCLIEditor.sh.sh [args]
+# $APEX_HOME/bin/apexApps.sh cli-editor [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexCLIEditor.bat [args]
+> %APEX_HOME%\bin\apexApps.bat cli-editor [args]
+----
+|====================
+
+The option `-h` provides a help screen with all command line arguments.
+
+[source%nowrap,sh]
+----
+usage: org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain [options...]
+options
+
+ -a,--model-props-file <MODEL_PROPS_FILE>       name of the apex model properties file to use
+ -c,--command-file <COMMAND_FILE>               name of a file containing editor commands to run into the editor
+ -h,--help                                      outputs the usage of this command
+ -i,--input-model-file <INPUT_MODEL_FILE>       name of a file that contains an input model for the editor
+ -if,--ignore-failures <IGNORE_FAILURES_FLAG>   true or false, ignore failures of commands in command files and continue
+                                                executing the command file
+ -l,--log-file <LOG_FILE>                       name of a file that will contain command logs from the editor, will log
+                                                to standard output if not specified or suppressed with "-nl" flag
+ -m,--metadata-file <CMD_METADATA_FILE>         name of the command metadata file to use
+ -nl,--no-log                                   if specified, no logging or output of commands to standard output or log
+                                                file is carried out
+ -nm,--no-model-output                          if specified, no output of a model to standard output or model output
+                                                file is carried out, the user can use the "save" command in a script to
+                                                save a model
+ -o,--output-model-file <OUTPUT_MODEL_FILE>     name of a file that will contain the output model for the editor, will
+                                                output model to standard output if not specified or suppressed with
+                                                "-nm" flag
+ -wd,--working-directory <WORKING_DIRECTORY>    the working directory that is the root for the CLI editor and is the
+                                                root from which to look for included macro files
+----
+

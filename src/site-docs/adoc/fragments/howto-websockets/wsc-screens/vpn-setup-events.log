@@ -1,0 +1,29 @@
+{Link=L09, LinkUp=true}
+L09     true
+outFields: {Link=L09, LinkUp=true}
+{Link=L10, LinkUp=true}
+L09     true
+L10     true
+outFields: {Link=L10, LinkUp=true}
+{CustomerName=C, LinkList=L09 L10, SlaDT=300, YtdDT=300}
+*** Customers ***
+C       300     300     [L09, L10]
+outFields: {CustomerName=C, LinkList=L09 L10, SlaDT=300, YtdDT=300}
+{CustomerName=A, LinkList=L09 L10, SlaDT=300, YtdDT=50}
+*** Customers ***
+A       300     50      [L09, L10]
+C       300     300     [L09, L10]
+outFields: {CustomerName=A, LinkList=L09 L10, SlaDT=300, YtdDT=50}
+{CustomerName=D, LinkList=L09 L10, SlaDT=300, YtdDT=400}
+*** Customers ***
+A       300     50      [L09, L10]
+C       300     300     [L09, L10]
+D       300     400     [L09, L10]
+outFields: {CustomerName=D, LinkList=L09 L10, SlaDT=300, YtdDT=400}
+{CustomerName=B, LinkList=L09 L10, SlaDT=300, YtdDT=299}
+*** Customers ***
+A       300     50      [L09, L10]
+B       300     299     [L09, L10]
+C       300     300     [L09, L10]
+D       300     400     [L09, L10]
+outFields: {CustomerName=B, LinkList=L09 L10, SlaDT=300, YtdDT=299}

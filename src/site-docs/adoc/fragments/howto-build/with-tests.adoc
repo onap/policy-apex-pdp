@@ -1,0 +1,57 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Build with standard Tests
+
+Use Maven to for a standard build with standard tests.
+
+[IMPORTANT]
+.Some tests have specific timing Requirements
+====
+Some of the tests have very specific timing requirements.
+If run on a low-powered build machine, or if the build machine is on high load, those tests might fail and the whole build might fail as well.
+If this happens, reduce the load on your build machine and restart the build.
+====
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+# cd /usr/local/src/apex
+# mvn clean install
+----
+|
+[source%nowrap,bat,numbered]
+----
+>c:
+>cd \dev\apex
+>mvn clean install
+----
+|====================
+
+The build takes about 5-6 minutes with tests on a standard development laptop.
+It should run through without errors, but with a lot of messages from the build process.
+If build with tests (i.e. without `-DskipTests`), there will be error messages and stack trace prints from some tests.
+This is normal, as long as the build finishes successful.
+
+When Maven is finished with the build, the final screen should look similar to this (omitting some `success` lines):
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/mvn-install-skiptests.txt[mvn build, with tests]
+----
+
+The build will have created all artifacts required for an APEX installation.
+

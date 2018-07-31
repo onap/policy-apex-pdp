@@ -1,0 +1,50 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Build from Source
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-07-31
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo build APEX from source
+:keywords: APEX, documentation, build, Maven
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/introduction.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/standard.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/checkstyle.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/with-tests.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/with-all-tests.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/with-all-components.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/documentation.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/site.adoc[]
+

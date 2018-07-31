@@ -1,0 +1,103 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== A configuration example
+
+The following example loads all available plug-ins.
+
+Events are consumed from a Websocket, APEX as client.
+Consumed event format is JSON.
+
+Events are produced to Kafka.
+Produced event format is XML.
+
+[source%nowrap,json]
+----
+{
+  "engineServiceParameters" : {
+    "name"          : "MyApexEngine",
+    "version"        : "0.0.1",
+    "id"             :  45,
+    "instanceCount"  : 4,
+    "deploymentPort" : 12345,
+    "policyModelFileName" : "examples/models/some-model.json",
+    "engineParameters"    : {
+      "executorParameters" : {
+        "JAVASCRIPT" : {
+          "parameterClassName" :
+              "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+        },
+        "JYTHON" : {
+          "parameterClassName" :
+              "org.onap.policy.apex.plugins.executor.jython.JythonExecutorParameters"
+        },
+        "JRUBY" : {
+          "parameterClassName" :
+              "org.onap.policy.apex.plugins.executor.jruby.JrubyExecutorParameters"
+        },
+        "JAVA" : {
+          "parameterClassName" :
+              "org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters"
+        },
+        "MVEL" : {
+          "parameterClassName" :
+              "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+        }
+      },
+      "contextParameters" : {
+        "parameterClassName" :
+            "org.onap.policy.apex.context.parameters.ContextParameters",
+        "schemaParameters" : {
+          "Avro":{
+             "parameterClassName" :
+                 "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+          }
+        }
+      }
+    }
+  },
+  "producerCarrierTechnologyParameters" : {
+    "carrierTechnology" : "KAFKA",
+    "parameterClassName" :
+        "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+    "parameters" : {
+      "bootstrapServers"  : "localhost:49092",
+      "acks"              : "all",
+      "retries"           : 0,
+      "batchSize"         : 16384,
+      "lingerTime"        : 1,
+      "bufferMemory"      : 33554432,
+      "producerTopic"     : "apex-out",
+      "keySerializer"     : "org.apache.kafka.common.serialization.StringSerializer",
+      "valueSerializer"   : "org.apache.kafka.common.serialization.StringSerializer"
+    }
+  },
+  "producerEventProtocolParameters" : {
+    "eventProtocol" : "XML",
+	 "parameterClassName" :
+	     "org.onap.policy.apex.plugins.event.protocol.xml.XMLEventProtocolParameters"
+  },
+  "consumerCarrierTechnologyParameters" : {
+    "carrierTechnology" : "WEBSOCKET",
+    "parameterClassName" :
+        "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+    "parameters" : {
+      "host" : "localhost",
+      "port" : 88888
+    }
+  },
+  "consumerEventProtocolParameters" : {
+    "eventProtocol" : "JSON"
+  }
+}
+----

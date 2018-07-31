@@ -1,0 +1,55 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Towards NFV (CNSM'14)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| Towards Real-time Management of Virtualized Telecommunication Networks
+
+h| Venue
+| IEEE CNSM, Rio de Janeiro, November 2014
+
+h| Abstract
+| The idea of virtualizing network functions is driven by recent advances in network-focused hardware. In 2012, several large telecommunication operators issued a call to action for Network Function Virtualization (NFV) 1. The underlying idea is that every network service currently delivered on proprietary, application specific hardware should be deliverable using virtual machines. This means that routers, firewalls, load balancers and other network devices run virtualized on commodity hardware. Consequently, ETSI is extending this idea to mobile networks. Here, parts of the core and the radio access network will be virtualized. The immediate advantage is that any Virtual Network Function (VNF) can now be deployed, redeployed and un-deployed in the same way as any traditional virtual machine. Thus, NFV will result in more dynamic and agile networks than seen heretofore. However, this will raise a number of serious issues in managing these future networks. In this paper, we examine issues and challenges in orchestrating these virtualized functions and their interconnections to provide a more agile mobile telecommunication network. 
+
+h| Links
+| link:https://www.researchgate.net/publication/272164781_Towards_Real-time_Management_of_Virtualized_Telecommunication_Networks[Research Gate] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/cnsm/KeeneyMF14,
+  author    = {John Keeney and
+               Sven van der Meer and
+               Liam Fallon},
+  title     = {Towards Real-time Management of
+               Virtualized Telecommunication Networks},
+  booktitle = {10th International Conference on Network and Service Management,
+               {CNSM} 2014, Rio de Janeiro, Brazil, November 17-21, 2014},
+  pages     = {388--393},
+  year      = {2014},
+  crossref  = {DBLP:conf/cnsm/2014},
+  url       = {https://doi.org/10.1109/CNSM.2014.7014200},
+  doi       = {10.1109/CNSM.2014.7014200},
+  timestamp = {Tue, 23 May 2017 01:11:56 +0200},
+  biburl    = {http://dblp.org/rec/bib/conf/cnsm/KeeneyMF14},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+----
+
+|===
+

@@ -1,0 +1,99 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Installing the Web Monitoring Application
+
+APEX comes with a deployment and monitoring application realized as a servlet.
+This requires a _full_ installation of APEX.
+This requires a web server that can execute `war` web archives.
+We recommend to use link:https://tomcat.apache.org/[Apache Tomcat], however other web servers can be used as well.
+
+Install Apache Tomcat including the `Manager App`, see link:https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html#Configuring_Manager_Application_Access[V9.0 Docs] for details.
+Start the Tomcat service, or make sure that Tomcat is running.
+Locate the APEX monitoring application.
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+$APEX_HOME/war/apex-services.client.monitoring-{release-version}.war
+----
+
+[source%nowrap,bat,numbered,subs="attributes+"]
+----
+%APEX_HOME%\war\apex-services.client.monitoring-{release-version}.war
+----
+
+There are multiple ways to install the APEX monitoring application:
+
+- copy the `.war` file into the Tomcat `webapps` folder
+- use the Tomcat `Manager App` to deploy via the web interface
+- deploy using a REST call to Tomcat
+
+For details on how to install `war` files please consult the link:https://tomcat.apache.org/tomcat-9.0-doc/index.html[Tomcat Documentation] or the link:https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html[Manager App HOW-TO].
+Once you installed the APEX monitoring application (and wait for sufficient time for Tomcat to finalize the installation), open the `Manager App` in Tomcat.
+You should see the APEX monitoring application being installed and running.
+
+image::install-guide/tomcat-installed.png[Tomcat Application Manager with APEX Monitoring Application]
+
+In case of errors, examine the log files in the Tomcat log directory.
+In a conventional install, those log files are in the logs directory where Tomcat is installed.
+
+Once the APEX monitoring application is installed, start an APEX engine with the `SampleDomain` configuration as described above.
+Wait until the engine is fully started.
+Then open a browser (or a new tab) and use the following URL to connect to the APEX monitoring application.
+Change the values for the Tomcat port (`10080` in the example), the APEX application version (`{release-version}` in the example), and the APEX management port (`12345` in the example, taken from the example configuration) to your local settings.
+If your browser is not opened on the same host as the APEX engine runs, change `localhost` to the host name with the APEX engine.
+
+[source%nowrap,url,subs="attributes+"]
+----
+http://localhost:10080/apex-services.client-{release-version}/?hostname=localhost&port=12345
+----
+
+The browser will now show the APEX monitoring application.
+
+image::install-guide/monitoring-app.png[APEX Monitoring and Deployment Application]
+
+Now send some events to the APEX engine.
+The configuration is for standard input, so simply paste the following event into the APEX engine console.
+
+[source%nowrap,json,numbered]
+----
+{
+  "nameSpace": "org.onap.policy.apex.sample.events",
+  "name": "Event0000",
+  "version": "0.0.1",
+  "source": "test",
+  "target": "apex",
+  "TestSlogan": "Test slogan for External Event0",
+  "TestMatchCase": 0,
+  "TestTimestamp": 1469781869269,
+  "TestTemperature": 9080.866
+}
+----
+
+When events are sent to APEX, the monitoring application will show all engine status changes.
+The following screen shot show the engine status after passing several events into the engine.
+
+image::install-guide/monitoring-app-status.png[APEX Monitoring: status]
+
+To terminate this setting, first use `CTRL+C` in the engine console to terminate the engine.
+Within a few seconds, the APEX monitoring application will terminate as well with a connection error:
+
+----
+Error connecting to Apex Engine Service at localhost:12345
+cound not handshake with server localhost:12345 
+See detailed message in log
+----
+
+Terminate the browser now (or the tab with the application).
+Finally, if you do not want to use Tomcat for any other applications, terminate the Tomcat server as well.
+

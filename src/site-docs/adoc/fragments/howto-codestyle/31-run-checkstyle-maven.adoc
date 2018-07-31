@@ -1,0 +1,30 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Run Checkstyle (Maven)
+
+Run Checkstyle using Maven on the command line with the command:
+
+[source%nowrap,sh]
+----
+mvn checkstyle:check
+----
+
+On the main APEX project, run a full checkstyle check as:
+
+[source%nowrap,sh]
+----
+mvn checkstyle:checkstyle -DapexAll
+----
+
+

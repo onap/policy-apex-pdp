@@ -1,0 +1,45 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configure Checkstyle (Maven)
+
+When using a custom style configuration with Checkstyle, the definition of that style must of course be available to Checkstyle.
+In order not to have to distribute style files for checkstyle into all Maven modules, it is recommended that a special Maven module be built that contains the checkstyle style definition.
+That module is then used as a dependency in the __POM__ for all other modules that wish to use that checkstyle style.
+For a full explanation see link:https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/multi-module-config.html[the explanation of Checkstyle multi-module configuration].
+
+In Apex, the module `apex-model.build-tools` provides the Apex checkstyle style files as resources in `src/main/resources/checkstyle`.
+This style is a slightly tweaked version of the standard Google checkstyle style that allows longer lines and has some other checks slightly relaxed.
+Therefore, all modules that wish to use the Apex style must put the following build directive into their `pom.xml`.
+
+[source%nowrap,xml]
+----
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-checkstyle-plugin</artifactId>
+  <version>2.17</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.onap.policy.apex.model</groupId>
+      <artifactId>apex-model.build-tools</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  <configuration>
+    <configLocation>checkstyle/apex_style_checks.xml</configLocation>
+    <headerLocation>checkstyle/apex_header.txt</headerLocation>
+  </configuration>
+</plugin>
+----
+
+

@@ -1,0 +1,55 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Dynamically Adaptive Policies (CNSM'15)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| Dynamically Adaptive Policies for Dynamically Adaptive Telecommunications Networks
+
+h| Venue
+| IEEE CNSM, Barcelona, November 2015
+
+h| Abstract
+| New technologies are changing the world of communication networks and even more so their management. Cloud computing and predictive analytics have removed the need for specialized compute hardware and created products that continuously search for and find insights in management data. Virtualization of networks and network functions, SDN and NFV, are beginning to be mature enough for production networks resulting in much more flexible and dynamic networks. IoT and M2M traffic and new customer demands are driving new thinking and demands for 5G networks. Almost every aspect in the control and management of networks has seen new dimensions of flexibility and dynamicity, with the notable exception of the policies that drive them. This paper discusses the need to add adaptiveness to classic policies, describes a novel approach for adaptive policies, shows how adaptive policies will form part of future network frameworks and architectures, and finally discusses early use cases developed for mobile operators.
+
+h| Links
+| link:https://www.researchgate.net/publication/282576518_Dynamically_Adaptive_Policies_for_Dynamically_Adaptive_Telecommunications_Networks[Research Gate] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/cnsm/MeerKF15,
+  author    = {Sven van der Meer and
+               John Keeney and
+               Liam Fallon},
+  title     = {Dynamically Adaptive Policies for
+               Dynamically Adaptive Telecommunications Networks},
+  booktitle = {11th International Conference on Network and Service Management,
+              {CNSM} 2015, Barcelona, Spain, November 9-13, 2015},
+  pages     = {182--186},
+  year      = {2015},
+  crossref  = {DBLP:conf/cnsm/2015},
+  url       = {https://doi.org/10.1109/CNSM.2015.7367357},
+  doi       = {10.1109/CNSM.2015.7367357},
+  timestamp = {Tue, 23 May 2017 01:11:56 +0200},
+  biburl    = {http://dblp.org/rec/bib/conf/cnsm/MeerKF15},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+----
+
+|===
+

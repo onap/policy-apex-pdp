@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+  
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+  
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+  
+-->
+
+<project name="APEX">
+    <body>
+        <menu name="APEX - Adaptive Policy Execution">
+            <item href="index.html" name="Welcome" />
+
+            <item href="apex-intro/intro-introduction.html" name="Short APEX Introduction" collapse="true">
+                <item href="apex-intro/intro-configuration-matrix.html" name="Configurations" />
+                <item href="apex-intro/intro-policy-matrix.html" name="Policy Matrix" />
+                <item href="apex-intro/intro-upee-deployment.html" name="Flexible Deployment" />
+                <item href="apex-intro/intro-upee-clustering.html" name="Flexible Clustering" />
+                <item href="apex-intro/intro-resources.html" name="Resources" />
+            </item>
+
+            <item href="apex-publications.html" name="APEX Publications" collapse="false" />
+
+            <item href="user-manual.html" name="User Manual" collapse="true">
+                <item href="user-manual/install/um-install.html" name="Installation Guide" collapse="true">
+                    <item href="user-manual/install/um-install-get-source.html" name="Get Source" />
+                    <item href="user-manual/install/um-install-build-apex.html" name="Build APEX" />
+                    <item href="user-manual/install/um-install-install.html" name="Install APEX" />
+                    <item href="user-manual/install/um-install-layout.html" name="Final Layout" />
+                    <item href="user-manual/install/um-install-configure.html" name="System Configuration" />
+                    <item href="user-manual/install/um-install-verify.html" name="Verify Installation" />
+                    <item href="user-manual/install/um-install-monitoring.html" name="Install Monitoring" />
+                    <item href="user-manual/install/um-install-resteditor.html" name="Install REST Editor" />
+                    <item href="user-manual/install/um-install-docker.html" name="APEX in Docker" />
+                </item>
+
+                <item href="user-manual/configuration/um-00-introduction.html" name="Configure APEX"
+                    collapse="true">
+                    <item href="user-manual/configuration/um-01-config-general-format.html"
+                        name="Configuration File Format" />
+                    <item href="user-manual/configuration/um-02-config-service-parameters.html"
+                        name="Engine Service Params" />
+                    <item href="user-manual/configuration/um-03-config-interfaces-general.html"
+                        name="IO Interfaces, general" />
+                    <item href="user-manual/configuration/um-04-executors.html" name="Executors" />
+                    <item href="user-manual/configuration/um-05-context.html" name="Context Handlers" />
+                    <item href="user-manual/configuration/um-06-carriertech.html" name="Carrier Technologies" />
+                    <item href="user-manual/configuration/um-07-eventprotols.html" name="Event Protocols" />
+                    <item href="user-manual/configuration/um-99-config-example.html" name="Example Configuration" />
+                </item>
+
+                <item href="user-manual/engine-apps/um-engapps.html" name="Running Engine and Apps" collapse="true">
+                    <item href="user-manual/engine-apps/um-engapps-engine.html" name="Running APEX Engine" />
+                    <item href="user-manual/engine-apps/um-engapps-cli-editor.html" name="Run CLI Editor" />
+                    <item href="user-manual/engine-apps/um-engapps-rest-editor.html" name="Run REST Editor" />
+                    <item href="user-manual/engine-apps/um-engapps-eng-monitoring.html" name="Run Engine Monitor" />
+                    <item href="user-manual/engine-apps/um-engapps-eng-deployment.html" name="Run Engine Deployer" />
+                    <item href="user-manual/engine-apps/um-engapps-full-client.html" name="Run Full Client" />
+                    <item href="user-manual/engine-apps/um-engapps-application-launcher.html"
+                        name="The Application Launcher" />
+                    <item href="user-manual/engine-apps/um-engapps-app-tpl-event-json.html"
+                        name="Create Event Templates" />
+                    <item href="user-manual/engine-apps/um-engapps-app-model-2-cli.html"
+                        name="Model to CLI Commands" />
+                    <item href="user-manual/engine-apps/um-engapps-app-ws.html" name="Websocket Applications" />
+                </item>
+
+                <item href="user-manual/my-first-policy/um-mfp-01-introduction.html" name="My First Policy"
+                    collapse="true">
+                    <item href="user-manual/my-first-policy/um-mfp-02-data-models.html" name="Data Models" />
+                    <item href="user-manual/my-first-policy/um-mfp-03-policy-step1.html" name="Policy Step 1">
+                        <item href="user-manual/my-first-policy/um-mfp-031-s1-new-model.html"
+                            name="New Policy Model" />
+                        <item href="user-manual/my-first-policy/um-mfp-032-s1-new-events.html" name="Events" />
+                        <item href="user-manual/my-first-policy/um-mfp-033-s1-new-policy.html" name="New Policy" />
+                        <item href="user-manual/my-first-policy/um-mfp-034-s1-test-policy.html"
+                            name="Test the Policy" />
+                        <item href="user-manual/my-first-policy/um-mfp-035-s1-clieditor.html"
+                            name="CLI Editor File" />
+                    </item>
+                    <item href="user-manual/my-first-policy/um-mfp-04-policy-step2.html" name="Policy Step 2">
+                        <item href="user-manual/my-first-policy/um-mfp-041-s2-extend-model.html"
+                            name="Extend Policy Model" />
+                        <item href="user-manual/my-first-policy/um-mfp-042-s2-test-policy.html"
+                            name="Test the Policy" />
+                        <item href="user-manual/my-first-policy/um-mfp-043-s2-clieditor.html"
+                            name="CLI Editor File" />
+                    </item>
+                </item>
+
+                <item href="user-manual/logging/um-logging.html" name="Logging Configuration" collapse="true">
+                    <item href="user-manual/logging/um-logging-standard-configuration.html"
+                        name="Standard Configuration" />
+                    <item href="user-manual/logging/um-logging-logback-status.html" name="Logback Status" />
+                    <item href="user-manual/logging/um-logging-logging-3pps.html" name="Logging 3PPs" />
+                    <item href="user-manual/logging/um-logging-logging-policy-logic.html"
+                        name="Logging Policy Logic" />
+                    <item href="user-manual/logging/um-logging-rolling-file-appenders.html"
+                        name="Rolling File Appenders" />
+                    <item href="user-manual/logging/um-logging-example-logic.html" name="Example: Logic" />
+                    <item href="user-manual/logging/um-logging-example-server.html" name="Example: Server" />
+                </item>
+
+                <item href="user-manual/websockets/um-websocket-introduction.html" name="APEX and Websockets"
+                    collapse="true">
+                    <item href="user-manual/websockets/um-websocket-engine-config.html"
+                        name="Configure APEX Engine" />
+                    <item href="user-manual/websockets/um-websocket-demo-00.html"
+                        name="Demo with VPN Policy Model ">
+                        <item href="user-manual/websockets/um-websocket-demo-01-vpn-wsconfig.html"
+                            name="VPN Engine Configuration" />
+                        <item href="user-manual/websockets/um-websocket-demo-02-start-engine.html"
+                            name="Start APEX Engine" />
+                        <item href="user-manual/websockets/um-websocket-demo-03-start-echo-client.html"
+                            name="Run Echo Client" />
+                        <item href="user-manual/websockets/um-websocket-demo-04-start-console-client.html"
+                            name="Run Console Client" />
+                        <item href="user-manual/websockets/um-websocket-demo-05-send-events.html"
+                            name="Send Events" />
+                    </item>
+                </item>
+            </item>
+
+            <item href="policy-guide.html" name="Policy Guide" collapse="true">
+
+                <item href="policy-guide/pg-policy-matrix.html" name="Policy Matrix" />
+
+                <item href="policy-guide/policy-model/apm-introduction.html" name="APEX Policy Model"
+                    collapse="true">
+                    <item href="policy-guide/policy-model/apm-concepts-keys.html" name="Concepts and Keys" />
+                    <item href="policy-guide/policy-model/apm-concept-policymodel.html" name="Concept: PolicyModel" />
+                    <item href="policy-guide/policy-model/apm-concept-datatype.html" name="Concept: DataType" />
+                    <item href="policy-guide/policy-model/apm-concept-event.html" name="Concept: Event" />
+                    <item href="policy-guide/policy-model/apm-concept-eventfield.html" name="Concept: EventField" />
+                    <item href="policy-guide/policy-model/apm-concept-contextmap.html" name="Concept: ContextMap" />
+                    <item href="policy-guide/policy-model/apm-concept-contextitem.html" name="Concept: ContextItem" />
+                    <item href="policy-guide/policy-model/apm-concept-contextitemtemplate.html"
+                        name="Concept: ContextItemTemplate" />
+                    <item href="policy-guide/policy-model/apm-concept-task.html" name="Concept: Task" />
+                    <item href="policy-guide/policy-model/apm-concept-taskparameter.html"
+                        name="Concept: TaskParameter" />
+                    <item href="policy-guide/policy-model/apm-concept-logic.html" name="Concept: Logic" />
+                    <item href="policy-guide/policy-model/apm-concept-policy.html" name="Concept: Policy" />
+                    <item href="policy-guide/policy-model/apm-concept-state.html" name="Concept: State" />
+                </item>
+
+                <item href="policy-guide/pg-task-logic.html" name="Writing Task Logic" />
+                <item href="policy-guide/pg-task-selection-logic.html" name="Writing Task Selection Logic" />
+                <item href="policy-guide/pg-logic-cheatsheet.html" name="Logic Cheatsheet" />
+                <item href="policy-guide/pg-policy-examples.html" name="Policy Examples" />
+            </item>
+
+            <item href="developer-guide.html" name="Developer Guide" collapse="true">
+                <item href="developer-guide/build/dg-build.html" name="Build APEX" collapse="true">
+                    <item href="developer-guide/build/dg-build-standard.html" name="Standard Build" />
+                    <item href="developer-guide/build/dg-build-checkstyle.html" name="Checkstyle" />
+                    <item href="developer-guide/build/dg-build-with-tests.html" name="Build with Tests" />
+                    <item href="developer-guide/build/dg-build-with-all-tests.html" name="Build with all Tests" />
+                    <item href="developer-guide/build/dg-build-with-all-components.html"
+                        name="Build all Components" />
+                    <item href="developer-guide/build/dg-build-documentation.html" name="Build documentation" />
+                    <item href="developer-guide/build/dg-build-site.html" name="Build site" />
+                </item>
+
+                <item href="developer-guide/codestyle/dg-codestyle.html" name="Codestyle" collapse="true">
+                    <item href="developer-guide/codestyle/dg-codestyle-02-rules.html" name="Java Coding Rules" />
+                    <item href="developer-guide/codestyle/dg-codestyle-10-plugin-jautodoc.html"
+                        name="Plugin: JAutoDoc" />
+                    <item href="developer-guide/codestyle/dg-codestyle-11-plugin-checkstyle.html"
+                        name="Plugin: Checkstyle" />
+                    <item href="developer-guide/codestyle/dg-codestyle-20-configure-eclipse-templates.html"
+                        name="Configure Eclipse Templates" />
+                    <item href="developer-guide/codestyle/dg-codestyle-21-configure-jautodoc-templates.html"
+                        name="Configure JAutoDoc Templates" />
+                    <item href="developer-guide/codestyle/dg-codestyle-30-configure-checkstyle-maven.html"
+                        name="Configure Checkstyle Maven" />
+                    <item href="developer-guide/codestyle/dg-codestyle-31-run-checkstyle-maven.html"
+                        name="Run Checkstyle Maven" />
+                    <item href="developer-guide/codestyle/dg-codestyle-32-configure-checkstyle-eclipse.html"
+                        name="Configure Checkstyle Eclipse" />
+                    <item href="developer-guide/codestyle/dg-codestyle-33-configure-checkstyle-blueprint.html"
+                        name="Configure Checkstyle Blueprint" />
+                    <item href="developer-guide/codestyle/dg-codestyle-40-use-eclipse-source-operations.html"
+                        name="Eclipse Source Operations" />
+                    <item href="developer-guide/codestyle/dg-codestyle-41-using-jautodoc.html"
+                        name="Using JAutoDoc" />
+                    <item href="developer-guide/codestyle/dg-codestyle-42-using-checkstyle.html"
+                        name="Using Checkstyle" />
+                    <item href="developer-guide/codestyle/dg-codestyle-50-disable-eclispe-formatting.html"
+                        name="Disable in Eclipse" />
+                    <item href="developer-guide/codestyle/dg-codestyle-51-supress-checkstyle.html"
+                        name="Supress Checkstyle" />
+                </item>
+
+                <item href="developer-guide/dg-code-examples.html" name="Code Examples" />
+                <item href="javadocs/index.html" name="Complete API Doc" />
+            </item>
+
+        </menu>
+        <menu ref="reports" inherit="top" />
+        <menu ref="modules" />
+
+        <breadcrumbs>
+            <item name="APEX" href="index.html" />
+        </breadcrumbs>
+    </body>
+
+    <publishDate position="right" />
+    <version position="right" />
+    <poweredBy>
+        <logo name="ONAP" href="http://www.onap.org/" img="images/logos.png" />
+    </poweredBy>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.5</version>
+    </skin>
+</project>

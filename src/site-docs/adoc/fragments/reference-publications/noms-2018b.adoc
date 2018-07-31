@@ -1,0 +1,56 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== 5G Management and Policy (NOMS'18)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| 5G Networks Must Be Autonomic!
+
+h| Venue
+| IEEE NOMS, Taipei, April 2018
+
+h| Abstract
+| 5G networks will be the first real converged networks
+supporting a plethora of different services, each with their
+own requirements. A static best-effort approach is no longer
+sufficient. Extreme flexibility and dynamicity is required, yet costs
+must be drastically reduced. The only way that these conflicting
+goals can be achieved is with vastly increased automation in the
+provision and operation of our future 5G networks. In this paper
+we briefly discuss the facilitators, goals and challenges for 5G
+networks. We identify some of the places where automation is not
+just helpful, but is in fact required for 5G to become a reality.
+We go on to present a conceptual approach for modeling and
+achieving autonomic operations and management in 5G networks
+positioning modern policy-based management as a key enabler
+for autonomic 5G network management.
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{noms/MeerMK18b,
+  author    = {Sven van der Meer and
+               John Keeney and
+               Liam Fallon},
+  title     = {5G Networks Must Be Autonomic!},
+  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium,
+              {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  year      = {2018}
+----
+
+|===
+

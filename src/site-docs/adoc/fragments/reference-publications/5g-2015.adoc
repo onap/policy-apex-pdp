@@ -1,0 +1,47 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== 5G & Autonomic Networking (5G Summit 2015)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| 5G & Autonomic Networking - Challenges in closing the Loop
+
+h| Venue
+| 1st IEEE 5G Summit, Princeton, May 25, 2015
+
+h| Abstract
+| This presentation outlines the problems with existing policy based management systems and why we now need adaptive policy based management systems enabling networks to be self-governed. The talk focuses on the integration of key technologies shaping the future of the ENM Automation Framework, including control theory, predictive analytics, policy-based management context aware computing, knowledge engineering and semantics, modelling of adaptive behavior.
+
+h| Links
+| link:https://www.researchgate.net/publication/277329201_5G_Autonomic_Networking_-_Challenges_in_closing_the_Loop[Research Gate] [accessed Aug 11, 2017]
+
+link:https://ieeetv.ieee.org/mobile/video/princeton-5g-summit-sven-van-der-meer-keynote-automatic-automation[Recorded Talk at IEEE TV] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@article{VanDerMeer2015b,
+	Author = {van der Meer, Sven},
+	Journal = {IEEE First International 5G Summit},
+	Month = {May},
+	Title = {{5G \& Autonomic Networking - Challenges in closing the Loop}},
+	Url = {https://ieeetv.ieee.org/mobile/video/princeton-5g-summit-sven-van-der-meer-keynote-automatic-automation},
+	Year = {2015},
+----
+
+|===
+

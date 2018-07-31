@@ -1,0 +1,55 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Engine and Applications
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-07-26
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo use the APEX engine and the APEX applications
+:keywords: APEX, documentation, engine, applications, editors
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/introduction.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/engine.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/cli-editor.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/rest-editor.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/eng-monitoring.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/eng-deployment.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/full-client.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/application-launcher.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/app-tpl-event-json.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/app-model-2-cli.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/app-ws.adoc[]

@@ -1,0 +1,27 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Get the APEX Source Code
+The APEX source code is hosted in as project on Github link:https://github.com/Ericsson/apex[Ericsson:apex].
+The current stable version is in the master branch.
+Simply clone the master branch from Github using either HTTPS (first example below) or SSH (second example below).
+
+[source%nowrap,sh,numbered]
+----
+git clone https://github.com/Ericsson/apex.git
+----
+
+[source%nowrap,sh,numbered]
+----
+git clone git@github.com:Ericsson/apex.git
+----

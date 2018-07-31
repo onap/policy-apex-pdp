@@ -1,0 +1,28 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: Event
+
+An __Event__ defines the structure of a message that passes into or out of an APEX engine or that passes between two states in an APEX engine.
+APEX supports message reception and sending in many formats and all messages are translated into an __Event__ prior to processing by an APEX engine.
+Event concepts are keyed with an `ArtifactKey` key.
+The parameters of an event are held as a map of __EventField__ concept instances with each parameter indexed by the __LocalName__ of its `ReferenceKey`.
+An __Event__ has three fields:
+
+* The __NameSpace__ identifies the domain of application of the event
+* The __Source__ of the event identifies the system that emitted the event
+* The __Target__ of the event identifies the system that the event was sent to
+
+A __PolicyModel__ contains a map of all the events known to a given policy model.
+Although an empty model may have no events in its event map, any sane policy model must have at least one __Event__ defined.
+

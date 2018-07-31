@@ -1,0 +1,43 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction
+
+The APEX policy model is shown in UML notation in the figure below.
+A policy model can be stored in JSON or XML format in a file or can be held in a database.
+The APEX editor creates and modifies APEX policy models.
+APEX deployment deploys policy models, and a policy model is loaded into APEX engines so that the engines can run the policies in the policy model.
+
+The figure shows four different views of the policy model:
+
+* The general model view shows the main parts of a policy: state, state output, event, and task.
+    A task can also have parameters.
+    Data types can be defined on a per-model basis using either standard atomic types (such as character, string, numbers) or complex types from a policy domain.
+* The logic model view emphasizes how decision-making logic is injected into a policy.
+    There are essentially three different types of logic:
+      task logic (for decision making in a task),
+      task selection logic (to select a task if more than one is defined in a state), and
+      state finalizer logic (to compute the final output event of a state and select an appropriate next state from the policy model).
+* The context model view shows how context is injected into a policy.
+    States collect all context from their tasks.
+    A task can define what context it requires for the decision making, i.e. what context the task logic will process.
+    Context itself is a collection of items (individual context information) with data types.
+    Context can be templated.
+* The event and field model view shows the events in the policy model.
+    Tasks define what information they consume (input) and produce (output).
+    This information is modeled as fields, essentially a key/type tuple in the model and a key/type/value triple at execution.
+    Events then are collection of fields.
+
+.APEX Policy Model for Execution
+image::apex-policy-model/UmlPolicyModels.png[APEX Policy Model for Execution]
+

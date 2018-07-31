@@ -1,0 +1,34 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Checkstyle with Maven
+
+The codestyle for all APEX java projects can be checked automatically.
+The checks include empty or non-existing Javadocs.
+Any checkstyle run should complete without any errors, some warnings are acceptable.
+
+To run checkstyle on an APEX Maven project use:
+
+[source%nowrap,sh]
+----
+mvn checkstyle:check
+----
+
+
+To run checkstyle on all modules use:
+
+[source%nowrap,sh]
+----
+mvn checkstyle:checkstyle -DapexAll
+----
+

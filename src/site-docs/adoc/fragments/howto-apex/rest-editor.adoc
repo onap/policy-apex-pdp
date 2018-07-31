@@ -1,0 +1,74 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== The APEX REST Editor
+The standard way to use the APEX REST Editor is via an installation of the __war__ file on a webserver.
+However, the REST editor can also be started via command line.
+This will start a Grizzly webserver with the __war__ deployed.
+Access to the REST Editor is then via the provided URL 
+
+On UNIX and Cygwin systems use:
+
+- `apexRESTEditor.sh` - simply starts the webserver with the REST editor
+- `apexApps.sh rest-editor` - simply starts the webserver with the REST editor
+
+On Windows systems use:
+
+- `apexRESTEditor.bat` - simply starts the webserver with the REST editor
+- `apexApps.bat rest-editor` - simply starts the webserver with the REST editor
+
+
+Summary of alternatives to start the APEX REST Editor:
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexRESTEditor.sh.sh [args]
+# $APEX_HOME/bin/apexApps.sh rest-editor [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexRESTEditor.bat [args]
+> %APEX_HOME%\bin\apexApps.bat rest-editor [args]
+----
+|====================
+
+The option `-h` provides a help screen with all command line arguments.
+
+[source%nowrap,sh]
+----
+usage: org.onap.policy.apex.auth.rest.ApexEditorMain [options...]
+-h,--help                        outputs the usage of this command
+-l,--listen <ADDRESS>            the IP address to listen on.  Default value is 0.0.0.0 to listen on all available
+                                 addresses. Use value 'localhost' to restrict access to the local machine only.
+-p,--port <PORT>                 port to use for the Apex RESTful editor REST calls.
+-t,--time-to-live <TIME_TO_LIVE> the amount of time in seconds that the server will run for before terminating. Default
+                                 value is -1 to run indefinitely.
+----
+
+If the REST Editor is started without any arguments the final messages will look similar to this:
+
+[source%nowrap,sh]
+----
+INFO: [HttpServer] Started.
+Apex Editor REST endpoint (ApexEditorMain: Config=[ApexEditorParameters: URI=http://0.0.0.0:18988/apex/, TTL=-1sec], State=RUNNING) started at http://0.0.0.0:18988/apex/
+----
+
+The last line states the URL on which the REST Editor can be accessed.
+The example above stated `http://0.0.0.0:18988/apex/`.
+In a web browser use the URL `http://localhost:18988` and the REST Editor will start.
+

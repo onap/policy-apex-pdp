@@ -1,0 +1,65 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== General Configuration Format
+
+The APEX configuration file is a JSON file containing a few main blocks for different parts of the configuration.
+Each block then holds the configuration details.
+The following code shows the main blocks:
+
+[source%nowrap,json]
+----
+{
+  "engineServiceParameters":{
+    ... // <1>
+    "engineParameters":{ <2>
+      "engineParameters":{...}, <3>
+      "contextParameters":{...} <4>
+    }
+  },
+  "eventInputParameters":{ <5>
+    "input1":{ <6>
+      "carrierTechnologyParameters":{...},
+      "eventProtocolParameters":{...}
+    },
+    "input2":{...}, <7>
+      "carrierTechnologyParameters":{...},
+      "eventProtocolParameters":{...}
+    },
+    ... // <8>
+  },
+  "eventOutputParameters":{ <9>
+    "output1":{ <10>
+      "carrierTechnologyParameters":{...},
+      "eventProtocolParameters":{...}
+    },
+    "output2":{ <11>
+      "carrierTechnologyParameters":{...},
+      "eventProtocolParameters":{...}
+    },
+    ... // <12>
+  }
+}
+----
+<1> main engine configuration
+<2> engine parameters for plugin configurations (execution environments and context handling)
+<3> engine specific parameters, mainly for executor plugins
+<4> context specific parameters, e.g. for context schemas, persistence, etc.
+<5> configuration of the input interface
+<6> an example input called `input1` with carrier technology and event protocol
+<7> an example input called `input2` with carrier technology and event protocol
+<8> any further input configuration
+<9> configuration of the output interface
+<10> an example output called `output1` with carrier technology and event protocol
+<11> an example output called `output2` with carrier technology and event protocol
+<12> any further output configuration

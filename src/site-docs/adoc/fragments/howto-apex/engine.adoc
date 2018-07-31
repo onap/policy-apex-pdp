@@ -1,0 +1,71 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== The APEX Engine
+The APEX engine can be started in different ways, depending your requirements.
+All scripts are located in the APEX __bin__ directory
+
+On UNIX and Cygwin systems use:
+
+- `apexEngine.sh` - this script will
+  ** Test if `$APEX_USER` is set and if the user exists, terminate with an error otherwise
+  ** Test if `$APEX_HOME` is set. If not set, it will use the default setting as `/opt/ericsson/apex/apex`.
+     Then the set directory is tested to exist, the script will terminate if not.
+  ** When all tests are passed successfully, the script will call `apexApps.sh` with arguments to start the APEX engine.
+- `apexApps.sh engine` - this is the general APEX application launcher, which will
+  ** Start the engine with the argument `engine`
+  ** Test if `$APEX_HOME` is set and points to an existing directory. If not set or directory does not exist, script terminates.
+  ** Not test for any settings of `$APEX_USER`.
+
+On Windows systems use `apexEngine.bat` and `apexApps.bat engine` respectively.
+Note: none of the windows batch files will test for `%APEX_USER%`.
+
+Summary of alternatives to start the APEX Engine:
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexEngine.sh [args]
+# $APEX_HOME/bin/apexApps.sh engine [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexEngine.bat [args]
+> %APEX_HOME%\bin\apexApps.bat engine [args]
+----
+|====================
+
+
+The APEX engine comes with a few CLI arguments for setting configuration and policy model.
+The configuration file is always required.
+The policy model file is only required if no model file is specified in the configuration, or if the specified model file should be over written.
+The option `-h` prints a help screen.
+
+[source%nowrap,sh]
+----
+usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]
+options
+ -c,--config-file <CONFIG_FILE>   the full path to the configuration file to use,
+                                  the configuration file must be a Json
+                                  file containing the Apex configuration parameters
+ -h,--help                        outputs the usage of this command
+ -m,--model-file <MODEL_FILE>     the full path to the model file to use,
+                                  if set it overrides the model file set in the
+                                  configuration file
+ -v,--version                     outputs the version of Apex
+----
+

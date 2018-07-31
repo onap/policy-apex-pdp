@@ -1,0 +1,58 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== COMPA AADM (IM'2017)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| Using the COMPA Autonomous Architecture for Mobile Network Security
+
+h| Venue
+| IEEE IM, Lisbon, May, 2017
+
+h| Abstract
+| The COMPA (Control, Orchestration, Management, Policy, and Analytics) adaptive control loop realizes an automation pattern that can operate recursively at many layers in a carrier network. An overall COMPA autonomic control loop can orchestrate functions, themselves implemented as COMPA autonomic loops. Thus the COMPA automation patter can recurse right down to resource level in a network. One of the most exciting application areas for the COMPA automation pattern is in assuring mobile network security. The recursive nature of the pattern is the ideal mechanism for automating monitoring and root cause analysis of security threats to networks. In this paper we present a Proof of Concept of a COMPA compliant system for a Distributed Denial of Service (DDoS) scenario. The system monitors, performs root cause analysis, and mitigates a DDoS attack. The system was built by integrating a number of existing components that were deployed as VNFs. Our experiences of using the system were that the system could handle a DDoS attack quickly and automatically. In addition, the system was very flexible to build and deploy.
+
+h| Links
+| link:https://www.researchgate.net/publication/317014658_Using_the_COMPA_Autonomous_Architecture_for_Mobile_Network_Security[Research Gate] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/im/FallonKMQM17,
+  author    = {Liam Fallon and
+               John Keeney and
+               Mark McFadden and
+               John Quilty and
+               Sven van der Meer},
+  title     = {Using the {COMPA} Autonomous Architecture
+               for Mobile Network Security},
+  booktitle = {2017 {IFIP/IEEE} International Symposium on Integrated
+               Network Management
+               {IM} 2017, Lisbon, Portugal, May 8-12, 2017},
+  pages     = {747--753},
+  year      = {2017},
+  crossref  = {DBLP:conf/im/2017},
+  url       = {https://doi.org/10.23919/INM.2017.7987370},
+  doi       = {10.23919/INM.2017.7987370},
+  timestamp = {Fri, 28 Jul 2017 12:12:57 +0200},
+  biburl    = {http://dblp.org/rec/bib/conf/im/FallonKMQM17},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+----
+
+|===
+

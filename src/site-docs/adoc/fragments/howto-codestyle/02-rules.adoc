@@ -1,0 +1,38 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Java coding Rules
+
+* APEX is (in large parts) a platform (or middleware), so link:https://en.wikipedia.org/wiki/Software_design_pattern[Software Design Patterns] are a good thing
+* The link:https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)[Solid Principles] apply
+* Avoid class fields scoped as `protected`
+  ** They break a lot of good design rules, e.g. most SOLID rules
+  ** For a discussion see this link:https://softwareengineering.stackexchange.com/questions/162643/why-is-clean-code-suggesting-avoiding-protected-variables[Stackoverflow Question]
+* If you absolutely need `protected` class fields they should be `final`
+* Avoid `default` scope for class fields and methods
+  ** For fields: use `public` or `private` (see also above)
+  ** For methods: use `public` for general use, `protected` for specialization using inheritance (ideally `final`), `private` for everything else
+* Method parameters that are not changed in the method should be marked `final`
+* Every package must have a `package-info.java` file with an appropriate description, minimum a descriptive one liner
+* Every class must have
+  ** The common header (copyright, file, date)
+  ** Javadoc header for the class with description of the class and author
+  ** Javadoc for _all public__ fields
+  ** If possible, Javadoc for __private__ fields, at least some documentation for private fields
+  ** Javadoc for __all__ methods
+* All project must build with all tests on Unix, Windows, __and__ Cygwin
+  ** Support all line endings in files, e.g. `\n` and `\r\n`
+  ** Be aware of potential differences in exception messages, if testing against a message
+  ** Support all types of paths: Unix with `/`, Windows with an optinal drive `C:\` and `\`, Cygwin with mixed paths
+
+

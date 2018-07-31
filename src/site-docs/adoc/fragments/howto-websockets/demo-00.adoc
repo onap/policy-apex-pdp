@@ -1,0 +1,24 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Demo with VPN Policy Model
+
+We assume that you have an APEX installation using the full package, i.e. APEX with all examples, of version `0.5.6` or higher.
+We will use the VPN policy from the APEX examples here.
+
+Now, have the following ready to start the demo:
+
+- 3 terminals on the host where APEX is running (we need 1 for APEX and 1 for each client)
+- the events in the file `$APEX_HOME/examples/events/VPN/SetupEvents.json` open in an editor (we need to send those events to APEX)
+- the events in the file `$APEX_HOME/examples/events/VPN/Link09Events.json` open in an editor (we need to send those events to APEX)
+

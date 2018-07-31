@@ -1,0 +1,39 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction to APEX Logging
+
+All APEX components make extensive use of logging using the logging façade link:https://www.slf4j.org/[SLF4J] with the backend link:https://logback.qos.ch/[Logback].
+Both are used off-the-shelve, so the standard documentation and configuration apply to APEX logging.
+For details on how to work with logback please see the link:https://logback.qos.ch/manual/index.html[logback manual].
+
+The APEX applications is the logback configuration file `$APEX_HOME/etc/logback.xml` (Windows: `%APEX_HOME%\etc\logback.xml`).
+The logging backend is set to no debug, i.e. logs from the logging framework should be hidden at runtime.
+
+The configurable log levels work as expected:
+
+- __error__ (or __ERROR__) is used for serious errors in the APEX runtime engine
+- __warn__ (or __WARN__) is used for warnings, which in general can be ignored but might indicate some deeper problems
+- __info__ (or __INFO__) is used to provide generally interesting messages for startup and policy execution
+- __debug__ (or __DEBUG__) provides more details on startup and policy execution
+- __trace__ (or __TRACE__) gives full details on every aspect of the APEX engine from start to end
+
+The loggers can also be configured as expected.
+The standard configuration (after installing APEX) uses log level __info__ on all APEX classes (components).
+
+The applications and scripts in `$APEX_HOME/bin` (Windows: `%APEX_HOME\bin`) are configured to use the logback configuration `$APEX_HOME/etc/logback.xml` (Windows: `%APEX_HOME\etc\logback.xml`).
+There are multiple ways to use different logback configurations, for instance:
+
+- Maintain multiple configurations in `etc`, for instance a `logback-debug.xml` for deep debugging and a `logback-production.xml` for APEX in production mode, then copy the required configuration file to the used `logback.xml` prior starting APEX
+- Edit the scripts in `bin` to use a different logback configuration file (only recommended if you are familiar with editing bash scripts or windows batch files)
+

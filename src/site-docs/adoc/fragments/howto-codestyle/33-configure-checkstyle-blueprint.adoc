@@ -1,0 +1,35 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configure Checkstyle Blueprint
+
+As well as being configured globally, Checkstyle must be configured and activated for each project in Eclipse.
+In order to make this process less tedious, set up the first project you apply Checkstye to as a blueprint project and then use this blueprint for all other projects.
+
+. Select the project you want to use as a blueprint
+  * For example, `apex-model.basic-model` in `apex` and enter the project properties by right clicking and selecting menu:Properties[]
+. Click __Checkstyle__ on the properties to get the Checkstyle project configuration window
+. Click the box __Checkstyle active for this project__ and in the __Exclude from checking...__ list check the boxes:
+  * [*] __files outside source directories__
+  * [*] __derived (generated) files__
+  * [*] __files from packages:__
+. Now, in order to turn off checking on resource directories and on JUnit tests
+  * Select the line __files from packages:__ in the __Exclude from checking...__ list and click kbd:[Change...]
+. On the __Filter packages__ dialogue
+  * Check all the boxes except the top box, which is the box for __src/main/java__
+  * Ensure that the __recursively exclude sub-packages__ check box is ticked
+    ** [*] __recursively exclude sub-packages__
+  * Press kbd:[OK]
+. Press kbd:[Apply and Close] to apply the changes
+
+

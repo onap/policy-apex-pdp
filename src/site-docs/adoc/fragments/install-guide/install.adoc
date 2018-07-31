@@ -1,0 +1,226 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Install APEX
+APEX can be installed in different ways:
+
+- Unix: automatically using `rpm` or `dpkg` from `.rpm` or `.deb` archive
+- Windows, Unix, Cygwin: manually from a `.tar.gz` archive
+- Windows, Unix, Cygwin: build from source using Maven, then install manually
+
+
+=== Install with RPM and DPKG
+The install distributions of APEX automatically install the system.
+The installation directory is `/opt/ericsson/apex`.
+Log files are located in `/var/log/ericsson/apex`.
+The latest APEX version will be available as `/opt/ericsson/apex/apex`.
+
+For the installation, a new user `apexuser` and a new group `apexuser` will be created.
+This user owns the installation directories and the log file location.
+The user is also used by the standard APEX start scripts to run APEX with this user's permissions.
+
+[width="100%",options="header",cols="a"]
+|====================
+| RPM Installation
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+# sudo rpm -i apex-apps.uservice-packages-{release-version}-full.rpm
+********************preinst*******************
+arguments 1
+**********************************************
+creating group apexuser . . .
+creating user apexuser . . .
+********************postinst****************
+arguments 1
+***********************************************
+----
+|====================
+
+
+[width="100%",options="header",cols="a"]
+|====================
+| DPKG Installation
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+# sudo dpkg -i apex-apps.uservice-packages-{release-version}-full.deb
+Selecting previously unselected package apex-uservice.
+(Reading database ... 288458 files and directories currently installed.)
+Preparing to unpack apex-apps.uservice-packages-{release-version}-full.deb ...
+********************preinst*******************
+arguments install
+**********************************************
+creating group apexuser . . .
+creating user apexuser . . .
+Unpacking apex-uservice ({release-version}) ...
+Setting up apex-uservice ({release-version}) ...
+********************postinst****************
+arguments configure 
+***********************************************
+----
+|====================
+
+Once the installation is finished, APEX is fully installed and ready to run.
+
+
+=== Install Manually from Archive (Unix, Cygwin)
+Download a `tar.gz` archive.
+Create a directory where APEX should be installed.
+Extract the `tar` archive.
+The following example shows how to install APEX in `/opt/apex` and create a link to `/opt/apex/apex` for the most recent installation.
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+# cd /opt
+# mkdir apex
+# cd apex
+# mkdir apex-full-{release-version}
+# tar xvfz ~/Downloads/apex-apps.uservice-packages-{release-version}-full.tar.gz -C apex-full-{release-version}
+# ln -s apex apex-apps.uservice-packages-{release-version}
+----
+
+
+=== Install Manually from Archive (Windows, 7Zip, GUI)
+Download a `tar.gz` archive and copy the file into the install folder (in this example `C:\apex`).
+Assuming you are using 7Zip, right click on the file and extract the `tar` archive.
+Note: the screenshots might show an older version than you have.
+
+image::install-guide/win-extract-tar-gz.png[Extract the TAR archive]
+
+The right-click on the new created TAR file and extract the actual APEX distribution.
+
+image::install-guide/win-extract-tar.png[Extract the APEX distribution]
+
+Inside the new APEX folder you see the main directories: `bin`, `etc`, `examples`, `lib`, and `war`
+
+image::install-guide/win-extracted.png[Extracted APEX distribution]
+
+Once extracted, please rename the created folder to `apex-full-{release-version}`.
+This will keep the directory name in line with the rest of this documentation.
+
+
+=== Install Manually from Archive (Windows, 7Zip, CMD)
+Download a `tar.gz` archive and copy the file into the install folder (in this example `C:\apex`).
+Start `cmd`, for instance typing `Windows+R` and then `cmd` in the dialog.
+Assuming `7Zip` is installed in the standard folder, simply run the following commands (for APEX version {release-version} full distribution)
+
+[source%nowrap,bat,numbered,subs="attributes+"]
+----
+>c:
+>cd \apex
+>"\Program Files\7-Zip\7z.exe" x apex-apps.uservice-packages-{release-version}-full.tar.gz -so | "\Program Files\7-Zip\7z.exe" x -aoa -si -ttar -o"apex-full-{release-version}"
+----
+
+APEX is now installed in the folder `C:\apex\apex-full-{release-version}`.
+
+
+
+== Build from Source
+
+=== Build and Install Manually (Unix, Windows, Cygwin)
+Clone the APEX GIT repositories into a directory.
+Go to that directory.
+Use Maven to build APEX (all details on building APEX from source can be found in __APEX HowTo: Build__).
+Install from the created artifacts (`rpm`, `deb`, `tar.gz`, or copying manually).
+
+[IMPORTANT]
+.Building RPM distributions
+====
+RPM images are only build if the `rpm` package is installed (Unix).
+To install `rpm` run `sudo apt-get install rpm`, then build APEX.
+====
+
+The following example shows how to build the APEX system, without tests (`-DskipTests`) to safe some time.
+It assumes that the APX GIT repositories are cloned to:
+
+- Unix, Cygwin: `/usr/local/src/apex`
+- Windows: `C:\dev\apex`
+
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+# cd /usr/local/src/apex
+# mvn clean install -DskipTests
+----
+|
+[source%nowrap,bat,numbered]
+----
+>c:
+>cd \dev\apex
+>mvn clean install -DskipTests
+----
+|====================
+
+The build takes about 2 minutes without test and about 4-5 minutes with tests on a standard development laptop.
+It should run through without errors, but with a lot of messages from the build process.
+If build with tests (i.e. without `-DskipTests`), there will be error messages and stack trace prints from some tests.
+This is normal, as long as the build finishes successful.
+
+When Maven is finished with the build, the final screen should look similar to this (omitting some `success` lines):
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/mvn-install-skiptests.txt[mvn build, no tests]
+----
+
+
+The build will have created all artifacts required for an APEX installation.
+The following example show how to change to the target directory and how it should look like.
+
+[width="100%",options="header",cols="a"]
+|====================
+| Unix, Cygwin
+|
+[source%nowrap,sh,numbered]
+----
+# cd modules/apex-apps/apex-apps.uservice/apex-apps.uservice-packaging/apex-apps.uservice-package-full/target
+# ls -l
+----
+
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-unix.txt[successful build, ls, unix]
+----
+
+
+|====================
+
+
+[width="100%",options="header",cols="a"]
+|====================
+| Windows
+|
+[source%nowrap,bat,numbered]
+----
+>cd modules\apex-apps\apex-apps.uservice\apex-apps.uservice-packaging\apex-apps.uservice-package-full\target
+>dir
+----
+
+|
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-win.txt[successful build, ls, windows]
+----
+
+
+|====================
+
+Now, take the `.deb` or the `.tar.gz` file and install APEX.
+Alternatively, copy the content of the folder `install_hierarchy` to your APEX directory.
+

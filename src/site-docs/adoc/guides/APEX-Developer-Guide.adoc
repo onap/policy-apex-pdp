@@ -1,0 +1,92 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX Developer Guide
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>; Liam Fallon <liam.fallon@ericsson.com>; John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-07-31
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A short guide to develop inside the APEX system
+:keywords: APEX, documentation, development, Java
+:experimental:
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 4
+:icons: font
+
+
+== Build APEX from Source
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/introduction.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/standard.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/checkstyle.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/with-tests.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/with-all-tests.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/with-all-components.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/documentation.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-build/site.adoc[leveloffset=+1]
+
+
+== APEX Codestyle
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/01-introduction.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/02-rules.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/10-plugin-jautodoc.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/11-plugin-checkstyle.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/20-configure-eclipse-templates.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/21-configure-jautodoc-templates.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/30-configure-checkstyle-maven.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/31-run-checkstyle-maven.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/32-configure-checkstyle-eclipse.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/33-configure-checkstyle-blueprint.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/40-use-eclipse-source-operations.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/41-using-jautodoc.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/42-using-checkstyle.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/50-disable-eclispe-formatting.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/51-supress-checkstyle.adoc[leveloffset=+1]
+
+== apex-apps.utilities
+
+include::{adsite-tools-common-dir}/site-docs/adoc/fragments/example-cli.adoc[leveloffset=+1]
+
+include::{adsite-tools-common-dir}/site-docs/adoc/fragments/example-cli-version.adoc[leveloffset=+1]
+

@@ -1,0 +1,34 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: Policy
+
+The __Policy__ concept defines a policy in APEX.
+The definition is rather straightforward.
+A policy is made up of a set of states with the flavor of the policy determining the structure of the policy states and the first state defining what state in the policy executes first.
+__Policy__ concepts are keyed with an `ArtifactKey` key.
+
+The __PolicyFlavour__ of a __Policy__ concept specifies the structure that will be used for the states in the policy.
+A number of commonly used policy patterns are supported as APEX policy flavors.
+The standard policy flavors are:
+
+* The __MEDA__ flavor supports policies written to the link:https://www.researchgate.net/publication/282576518_Dynamically_Adaptive_Policies_for_Dynamically_Adaptive_Telecommunications_Networks[MEDA policy pattern] and require a sequence of four states: namely __Match__, __Establish__, __Decide__ and __Act__.
+* The __OODA__ flavor supports policies written to the link:https://en.wikipedia.org/wiki/OODA_loop[OODA loop pattern] and require a sequence of four states: namely __Observe__, __Orient__, __Decide__ and __Act__.
+* The __ECA__ flavor supports policies written to the link:https://en.wikipedia.org/wiki/Event_condition_action[ECA active rule pattern] and require a sequence of three states: namely __Event__, __Condition__ and __Action__
+* The __XACML__ flavor supports policies written in link:https://en.wikipedia.org/wiki/XACML[XACML] and require a single state: namely __XACML__
+* The __FREEFORM__ flavor supports policies written in an arbitrary style.
+  A user can define a __FREEFORM__ policy as an arbitrarily long chain of states.
+
+The __FirstState__ field of a __Policy__ definition is the starting point for execution of a policy.
+Therefore, the trigger event of the state referenced in the __FirstState__ field is also the trigger event for the entire policy.
+

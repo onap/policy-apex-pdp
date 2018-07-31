@@ -1,0 +1,46 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Flexible Clustering
+
+APEX can be clustered in various ways.
+The following figure shows a few of these clustering options.
+Cluster, engine and (policy) executors are named UPec (universal policy cluster), UPe (universal policy engine, APEX engine) and UPx (universal policy executor, the APEX internal state machine executor).
+
+.APEX Clustering Options
+image::apex-intro/UpeeClusterOptions.png[APEX Clustering Options]
+
+[loweralpha]
+. Single source/target, single UPx
+	* Simple forward
+. Multiple sources/targets, single UPx
+	* Simple forward
+. Single source/target, multiple UPx
+	* Multithreading (MT) in UPe
+. Multiple sources/targets, multiple UPx instances
+	* Simple forward & MT in UPe
+. Multiple non-MT UPe in UPec
+	* Simple event routing
+. Multiple MT UPe in UPec
+	* Simple event routing
+. Mixed UPe in UPec
+	* Simple event routing
+. Multiple non-MT UPec in UPec
+	* Intelligent event routing
+. Multiple mixed UPec in UPec
+	* Intelligent event routing
+
+["loweralpha", start=11]
+. Mix of UPec in multiple UPec
+	* External intelligent event routing
+	* Optimized with UPec internal routing

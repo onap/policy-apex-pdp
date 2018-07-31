@@ -1,0 +1,31 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Supress Checkstyle (partially)
+
+Sometimes Checkstyle checks identify code that does not comply with Checkstyle rules.
+In limited cases Checkstyle rules can be suppressed, for example where it is impossible to design the code in a way that complies with Checkstyle or where the Checkstyle rule is impossible to apply.
+Checkstyle rules are suppressed as is explained in this link:https://stackoverflow.com/questions/4023185/how-to-disable-a-particular-checkstyle-rule-for-a-particular-line-of-code[Stackoverflow post].
+
+The example below illustrates how to suppress a Checkstyle rule that specifies all methods must have seven parameters or less.
+
+[source%nowrap,java,numbered]
+----
+// CHECKSTYLE:OFF: checkstyle:ParameterNumber
+public myMethod(final int par1, final int par2, final int par3, final int par4,
+  final int par5, final int par6, final int par7, final int par8) {
+}
+// CHECKSTYLE:ON: checkstyle:ParameterNumber
+----
+
+

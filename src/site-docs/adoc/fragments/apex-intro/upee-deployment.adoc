@@ -1,0 +1,44 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Flexible Deployment
+
+APEX can be deployed in various ways.
+The following figure shows a few of these deployment options.
+Engine and (policy) executors are named UPe (universal policy engine, APEX engine) and UPx (universal policy executor, the APEX internal state machine executor).
+
+.APEX Deployment Options
+image::apex-intro/UpeeDeploymentOptions.png[APEX Deployment Options]
+
+[loweralpha]
+. For an interface or class
+	* Either UPx or UPe as association
+. For an application
+	* UPx as object for single policies
+	* UPe as object for multiple policies
+. For a component (as service)
+	* UPe as service for requests
+	* UPec as service for requests
+. As a service (PolaS)
+	* One or more UPe with service i/f
+	* One or more Upec/UPec with service i/f
+	* One or more Upec/UPec with service i/f
+. In a control loop
+	* UPe as decision making part
+	* UPec as decision making part
+. On cloud compute nodes
+	* Nodes with only UPe or Upec
+	* Nodes with any combination of UPe, UPec
+. A cloud example
+	* Left: 2 UPec managing several UPe on different cloud nodes
+	* Right: 2 large UPec with different UPe/UPec deployments

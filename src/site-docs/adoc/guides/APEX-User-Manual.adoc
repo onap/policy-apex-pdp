@@ -1,0 +1,217 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX User Manual
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>; Liam Fallon <liam.fallon@ericsson.com>; John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-07-26
+:revremark: for APEX {release-version}
+:version-label!:
+:description: The comprehensive APEX User Manual
+:keywords: APEX, documentation, install, configure, validate, verify, test, run, logg
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+
+== Installation
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/requirements.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/get-source.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/build-apex.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/layout.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/configure.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/verify.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-monitoring.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-resteditor.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/docker.adoc[leveloffset=+1]
+
+
+== APEX Configurations Explained
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-config/introduction.adoc[leveloffset=+1]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-general-format.adoc[leveloffset=+1]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-service-parameters.adoc[leveloffset=+1]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-interfaces-general.adoc[leveloffset=+1]
+
+
+include::{adsite-plugins-executor-dir}/site-docs/adoc/fragments/executors.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-javascript-dir}/site-docs/adoc/fragments/javascript-config.adoc[leveloffset=+2]
+
+include::{adsite-plugins-executor-jython-dir}/site-docs/adoc/fragments/jython-config.adoc[leveloffset=+2]
+
+include::{adsite-plugins-executor-jruby-dir}/site-docs/adoc/fragments/jruby-config.adoc[leveloffset=+2]
+
+include::{adsite-plugins-executor-java-dir}/site-docs/adoc/fragments/java-config.adoc[leveloffset=+2]
+
+include::{adsite-plugins-executor-mvel-dir}/site-docs/adoc/fragments/mvel-config.adoc[leveloffset=+2]
+
+
+include::{adsite-plugins-context-dir}/site-docs/adoc/fragments/context.adoc[leveloffset=+1]
+
+include::{adsite-plugins-context-schema-avro-dir}/site-docs/adoc/fragments/ctx-schema-avro-config.adoc[leveloffset=+2]
+
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/carriertech.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-standard-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-file-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-eventrequestor-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-kafka-dir}/site-docs/adoc/fragments/ct-kafka-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-jms-dir}/site-docs/adoc/fragments/ct-jms-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ct-websocket-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-restclient-dir}/site-docs/adoc/fragments/ct-restclient-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-restserver-dir}/site-docs/adoc/fragments/ct-restserver-io.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-carrier-restrequestor-dir}/site-docs/adoc/fragments/ct-restrequestor-io.adoc[leveloffset=+2]
+
+
+include::{adsite-plugins-event-protocol-dir}/site-docs/adoc/fragments/event-protocols.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-protocol-dir}/site-docs/adoc/fragments/ep-json.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-protocol-dir}/site-docs/adoc/fragments/ep-apex.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-protocol-jms-dir}/site-docs/adoc/fragments/ep-jms.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-protocol-yaml-dir}/site-docs/adoc/fragments/ep-yaml.adoc[leveloffset=+2]
+
+include::{adsite-plugins-event-protocol-xml-dir}/site-docs/adoc/fragments/ep-xml.adoc[leveloffset=+2]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-example.adoc[leveloffset=+1]
+
+
+== Engine and Applications of the APEX System
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/introduction.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/engine.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/cli-editor.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/rest-editor.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/eng-monitoring.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/eng-deployment.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/full-client.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/application-launcher.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/app-tpl-event-json.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/app-model-2-cli.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-apex/app-ws.adoc[leveloffset=+1]
+
+
+== My First Policy
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/01-introduction.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/02-data-models.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/03-policy-step1.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/031-s1-new-model.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/032-s1-new-events.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/033-s1-new-policy.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/034-s1-test-policy.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/035-s1-clieditor.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/04-policy-step2.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/041-s2-extend-model.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/042-s2-test-policy.adoc[leveloffset=+1]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/043-s2-clieditor.adoc[leveloffset=+1]
+
+
+== APEX Logging
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/introduction.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/standard-configuration.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/logback-status.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/logging-3pps.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/logging-policy-logic.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/rolling-file-appenders.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/example-logic.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/example-server.adoc[leveloffset=+1]
+
+
+
+== Building a System with Websocket Backend
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ws-intro.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ws-java.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ws-foss.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/engine-config-bcp.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-00.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-01-vpn-wsconfig.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-02-start-engine.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-03-start-echo-client.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-04-start-console-client.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-05-send-events.adoc[leveloffset=+1]
+

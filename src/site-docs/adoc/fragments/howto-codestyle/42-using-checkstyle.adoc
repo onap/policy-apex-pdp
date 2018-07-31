@@ -1,0 +1,32 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Using Checkstyle
+
+In order to use Checkstyle, you must configure it per project and then activate it per project.
+The easiest way to do this is to set up one project as a blueprint and use that blueprint for other projects (see above).
+Once you have a blueprint project, you can use Checkstyle on other projects as follows
+
+. Set up Checkstyle on projects by selecting one or more projects
+  * Right clicking and selecting menu:Checkstyle[Configure project(s)] from __blueprint...__ and then selecting your blueprint project
+  * (for example `apex-model.basic-model`) from the list of projects and pressing kbd:[OK]
+. Activate Checkstyle on projects by selecting one or more projects
+  * Right clicking and selecting menu:Checkstyle[Activate Checkstyle]
+  * Now Checkstyle warnings will appear on the selected projects if they have warnings
+. You can disable Checkstyle checking on a file or a package (recursively) by selecting a file or package
+  * Right clicking and selecting menu:Checkstyle[Clear Checkstyle violations]
+. You can enable Checkstyle checking on a file or a package (recursively) by selecting a file or package
+  * Right clicking and selecting menu:Checkstyle[Check Code with Checkstyle]
+. On individual files, you can apply fixes that clear some Checkstyle warnings
+  * Select the file, right click and select menu:Apply Checkstyle fixes[]
+

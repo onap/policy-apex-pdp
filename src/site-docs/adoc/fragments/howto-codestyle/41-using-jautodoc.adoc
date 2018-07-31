@@ -1,0 +1,23 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Using JAutodoc
+
+Similar to Eclipse Source Operations, JAutodoc operations  can be carried out on individual files or on all the files in a package but do not recurse into sub-packages.
+The JAutodoc operations are available by selecting a file or package and right clicking on __JAutodoc__:
+
+. To add a `package-info.java` file to a package, select the package and right-click menu:Jautodoc[Add Package Javadoc]
+. To add headers to files select on a file (or on the package to do all files) and right click menu:JAutodoc[Add Header]
+. To add JAutodoc stubs to a files, select on a file (or on the package to do all files) and right click menu:JAutodoc[Add Javadoc]
+
+

@@ -1,0 +1,54 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concepts and Keys
+
+Each element of the policy model is called a __concept__.
+Each __concept__ is a subclass of the abstract __Concept__ class, as shown in the next figure.
+Every concept implements the following abstract methods:
+
+.Concepts and Keys
+image::apex-policy-model/ConceptsKeys.png[Concepts and Keys]
+
+* `getKey()` - gets the unique key for this concept instance in the system
+* `validate()` - validates the structure of this concept, its sub-concepts and its relationships
+* `clean()` - carries out housekeeping on the concept such as trimming strings, remove any hanging references
+* `clone()` - creates a deep copy of an instance of this concept
+* `equals()` - checks if two instances of this concept are equal
+* `toString()` - returns a string representation of the concept
+* `hashCode()` - returns a hash code for the concept
+* `copyTo()` - carries out a deep copy of one instance of the concept to another instance, overwriting the target fields.
+
+All concepts must have a __key__, which uniquely identifies a concept instance.
+The __key__ of a subclass of an __Concept__ must either be an `ArtifactKey` or an `ReferenceKey`.
+Concepts that have a stand-alone independent existence such as __Policy__, __Task__, and __Event__ must have an `ArtifctKey` key.
+Concepts that are contained in other concepts, that do not exist as stand-alone concepts must have an `ReferenceKey` key.
+Examples of such concepts are __State__ and __EventParameter__.
+
+An `ArticactKey` has two fields; the __Name__ of the concept it is the key for and the concept's __Version__.
+A concept's name must be unique in a given PolicyModel.
+A concept version is represented using the well known __major.minor.path__ scheme as used in semantic versioning.
+
+A `ReferenceKey` has three fields.
+The __UserKeyName__ and __UserKeyVersion__ fields identify the `ArtifactKey` of the concept in which the concept keyed by the `ReferenceKey` is contained.
+The __LocalName__ field identifies the contained concept instance.
+The __LocalName__ must be unique in the concepts of a given type contained by a parent.
+
+For example, a policy called `_SalesPolicy_` with a Version of `_1.12.4_` has a state called `_Decide_`.
+The `_Decide_` state is linked to the `_SalesPolicy_` with a `ReferenceKey` with fields __UserKeyName__ of `_SalesPolicy_`, __UserKeyVersion__ of `_1.12.4_`, and __LocalName__ of `_Decide_`.
+There must not be another state called `_Decide_` in the policy `_SalesPolicy_`.
+However, there may well be a state called `_Decide_` in some other policy called `_PurchasingPolicy_`.
+
+Each concept in the model is also a JPA (link:https://en.wikipedia.org/wiki/Java_Persistence_API[Java Persistence API]) Entity.
+This means that every concept can be individually persisted or the entire model can be persisted en-bloc to any persistence mechanism using an JPA framework such as link:http://hibernate.org/[Hibernate] or link:http://www.eclipse.org/eclipselink/[EclipseLink].
+

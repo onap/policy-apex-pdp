@@ -1,0 +1,29 @@
+ws-simple-echo: received
+---------------------------------
+{
+  "name": "VPNCustomerCtxtActEvent",
+  "version": "0.0.1",
+  "nameSpace": "org.onap.policy.apex.domains.vpn.events",
+  "source": "Source",
+  "target": "Target",
+  "CustomerName": "C",
+  "LinkList": "L09 L10",
+  "SlaDT": 300,
+  "YtdDT": 300
+}
+=================================
+
+ws-simple-echo: received
+---------------------------------
+{
+  "name": "VPNCustomerCtxtActEvent",
+  "version": "0.0.1",
+  "nameSpace": "org.onap.policy.apex.domains.vpn.events",
+  "source": "Source",
+  "target": "Target",
+  "CustomerName": "D",
+  "LinkList": "L09 L10",
+  "SlaDT": 300,
+  "YtdDT": 400
+}
+=================================

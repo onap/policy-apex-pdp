@@ -1,0 +1,37 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Logging External Components
+
+Logback can also be configured to log any other, external components APEX is using, if they are using the common logging framework.
+
+For instance, the context component of APEX is using __Infinispan__ and one can add a logger for this external component.
+The following example adds a logger for __Infinispan__ using the standard output appender.
+
+[source%nowrap,xml]
+----
+<logger name="org.infinispan" level="INFO" additivity="false">
+  <appender-ref ref="STDOUT" />
+</logger>
+----
+
+Another example is Apache Zookeeper.
+The following example adds a logger for Zookeeper using the standard outout appender.
+
+[source%nowrap,xml]
+----
+<logger name="org.apache.zookeeper.ClientCnxn" level="INFO" additivity="false">
+  <appender-ref ref="STDOUT" />
+</logger>
+----
+

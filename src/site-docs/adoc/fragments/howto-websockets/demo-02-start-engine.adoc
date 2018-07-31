@@ -1,0 +1,41 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Start APEX Engine
+
+In a new terminal, start APEX with the new configuration for Websocket-Server ingress/egress:
+
+[source%nowrap,sh,numbered]
+----
+#: $APEX_HOME/bin/apexEngine.sh -c $APEX_HOME/examples/config/VPN/Ws2WsServerAvroContextJsonEvent.json
+----
+
+[source%nowrap,bat,numbered]
+----
+#: %APEX_HOME%\bin\apexEngine.bat -c %APEX_HOME%\examples\config\VPN\Ws2WsServerAvroContextJsonEvent.json
+----
+
+Wait for APEX to start, it takes a while to create all Websocket servers (about 8 seconds on a standard laptop without cached binaries).
+depending on your log messages, you will see no (some, a lot) log messages.
+If APEX starts correctly, the last few messages you should see are:
+
+[source%nowrap,sh,numbered]
+----
+2017-07-28 13:17:20,834 Apex [main] INFO c.e.a.s.engine.runtime.EngineService - engine model VPNPolicyModelAvro:0.0.1 added to the engine-AxArtifactKey:(name=VPNApexEngine-0,version=0.0.1)
+2017-07-28 13:17:21,057 Apex [Apex-apex-engine-service-0:0] INFO c.e.a.s.engine.runtime.EngineService - Engine AxArtifactKey:(name=VPNApexEngine-0,version=0.0.1) processing ...
+2017-07-28 13:17:21,296 Apex [main] INFO c.e.a.s.e.r.impl.EngineServiceImpl - Added the action listener to the engine
+Started Apex service
+----
+
+APEX is running in the new terminal and will produce output when the policy is triggered/executed.
+

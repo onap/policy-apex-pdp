@@ -1,0 +1,52 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: ContextMap
+
+The set of context that is available for use by the policies of a __PolicyModel__ is defined as __ContextMap__ concept instances.
+The __PolicyModel__ holds a map of all the __ContextMap__ definitions.
+A __ContextMap__ is itself a container for a group of related context items, each of which is represented by a __ContextItem__ concept instance.
+__ContextMap__ concepts are keyed with an `ArtifactKey` key.
+A developer can use the APEX Policy Editor to create context maps for their application domain.
+
+A __ContextMap__ uses a map to hold the context items.
+The ContextItem concept instances in the map are indexed by the __LocalName__ of their `ReferenceKey`.
+
+The __ContextMapType__ field of a __ContextMap__ defines the type of a context map.
+The type can have either of two values:
+
+* A __BAG__ context map is a context map with fixed content.
+  Each possible context item in the context map is defined at design time and is held in the __ContextMap__ context instance as __ContextItem__ concept definitions and only the values of the context items in the context map can be changed at run time.
+  The context items in a __BAG__ context map have mixed types and distinct __ContextItem__ concept instances of the same type can be defined.
+  A __BAG__ context map is convenient for defining a group of context items that are diverse but are related by domain, such as the characteristics of a device.
+  A fully defined __BAG__ context map has a fully populated __ContextItem__ map but its __ContextItemTemplate__ reference is not defined.
++
+* A __SAMETYPE__ context map is used to represent a group of __ContextItem__ instances of the same type.
+  Unlike a __BAG__ context map, the __ContextItem__ concept instances of a __SAMETYPE__ context map can be added, modified, and deleted at runtime.
+  All __ContextItem__ concept instances in a __SAMETYPE__ context map must be of the same type, and that context item is defined as a single __ContextItemTemplate__ concept instances at design time.
+  At run time, the __ContextItemTemplate__ definition is used to create new __ContextItem__ concept instances for the context map on demand.
+  A fully defined _SAMETYPE__ context map has an empty __ContextItem__ map and its __ContextItemTemplate__ reference is defined.
+
+
+The __Scope__ of a __ContextMap__ defines the range of applicability of a context map in APEX.
+The following scopes of applicability are defined:
+
+* __EPHEMERAL__ scope means that the context map is owned, used, and modified by a single application, but the context map only exists while that application is running
+* __APPLICATION__ scope specifies that the context map is owned, used, and modified by a single application, the context map is persistent
+* __GLOBAL__ scope specifies that the context map is globally owned and is used and modified by any application, the context map is persistent
+* __EXTERNAL__ scope specifies that the context map is owned by an external system and may be used in a read-only manner by any application, the context map is persistent
+
+A much more sophisticated scoping mechanism for context maps is envisaged for
+Apex in future work. In such a mechanism, the scope of a context map would work
+somewhat like the way roles work in security authentication systems.
+

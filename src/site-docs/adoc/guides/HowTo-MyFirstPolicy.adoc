@@ -1,0 +1,63 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: My First Policy
+John Keeney <john.keeney@ericsson.com>, Liam Fallon <liam.fallon@ericsson.com>, Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-08-09
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A short guide to create a sample policy for APEX
+:keywords: APEX, documentation, sample, my first policy
+:experimental:
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:coderay-linenums-mode: table
+:pygments-linenums-mode: table
+:source-highlighter: coderay
+:toc:
+
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/01-introduction.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/02-data-models.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/03-policy-step1.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/031-s1-new-model.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/032-s1-new-events.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/033-s1-new-policy.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/034-s1-test-policy.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/035-s1-clieditor.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/04-policy-step2.adoc[]
+
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/041-s2-extend-model.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/042-s2-test-policy.adoc[]
+
+include::{adsite-examples-myfirstpolicy-dir}/site-docs/adoc/fragments/043-s2-clieditor.adoc[]
+

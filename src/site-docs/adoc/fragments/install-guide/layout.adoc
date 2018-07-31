@@ -1,0 +1,47 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Installation Layout
+
+A full installation of APEX comes with the following layout.
+
+----
+$APEX_HOME
+    ├───bin					<1>
+    ├───etc					<2>
+    │   ├───editor
+    │   ├───hazelcast
+    │   ├───infinispan
+    │   └───META-INF
+    ├───examples			<3>
+    │   ├───config			<4>
+    │   ├───docker			<5>
+    │   ├───events			<6>
+    │   ├───models			<7>
+    │   └───scripts			<8>
+    ├───lib					<9>
+    │   └───applications	<10>
+    └───war					<11>
+----
+<1> binaries, mainly scripts (bash and bat) to start the APEX engine and applications
+<2> configuration files, such as logback (logging) and third party library configurations
+<3> example policy models to get started
+<4> configurations for the examples (with sub directories for individual examples)
+<5> Docker files and additional Docker instructions for the exampples
+<6> example events for the examples (with sub directories for individual examples)
+<7> the policy models, generated for each example (with sub directories for individual examples)
+<8> additional scripts for the examples (with sub directories for individual examples)
+<9> the library folder with all Java JAR files
+<10> applications, also known as jar with dependencies (or fat jars), individually deployable
+<11> WAR files for web applications
+

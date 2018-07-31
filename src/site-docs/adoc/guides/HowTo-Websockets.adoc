@@ -1,0 +1,54 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Websockets
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-07-25
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo connect Websocket Consumer and Producer to APEX
+:keywords: APEX, documentation, Websocket
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ws-intro.adoc[]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ws-java.adoc[]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ws-foss.adoc[]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/engine-config-bcp.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-00.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-01-vpn-wsconfig.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-02-start-engine.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-03-start-echo-client.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-04-start-console-client.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/demo-05-send-events.adoc[]

@@ -1,0 +1,28 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configure Eclipse
+
+* Set the template for Eclipse code clean up
+  . menu:Eclipse[Window > Preferences > Java > Code Style > Clean Up] -> kbd:[Import...]
+  . Select your template file (`ApexCleanUpTemplate.xml`) and apply it
+* Set the Eclipse code templates
+  . menu:Eclipse[Window > Preferences > Java > Code Style > Code Templates] -> kbd:[Import...]
+  . Select your templates file (`ApexCodeTemplates.xml`) and apply it
+  ** Make sure to set your email address in generated comments by selecting "Comments->Types" in the "Configure generated code and comments:" pane, then change the email address on the @author tag to be your email address
+* Set the Eclipse Formatter profile
+  . menu:Eclipse[Window > Preferences > Java > Code Style > Formatter] -> kbd:[Import...]
+  . Select your formatter profile file (`ApexFormatterProfile.xml`) and apply it
+
+The templates mentioned above can be found in `apex-model/apex-model.build-tools/src/main/resources/eclipse`
+

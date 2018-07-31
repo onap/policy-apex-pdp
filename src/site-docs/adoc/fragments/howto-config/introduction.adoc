@@ -1,0 +1,31 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction to APEX Configuration
+
+An APEX engine can be configured to use various combinations of
+	event input handlers,
+	event output handlers,
+	event protocols,
+	context handlers, and
+	logic executors.
+The system is build using a plugin architecture.
+Each configuration option is realized by a plugin, which can be loaded and configured when the engine is started.
+New plugins can be added to the system at any time, though to benefit from a new plugin an engine will need to be restarted.
+
+.APEX Configuration Matrix
+image::apex-intro/ApexEngineConfig.png[APEX Configuration Matrix]
+
+The APEX distribution already comes with a number of plugins.
+The figure above shows the provided plugins.
+Any combination of input, output, event protocol, context handlers, and executors is possible.

@@ -1,0 +1,20 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: TaskParameter
+
+Each configuration parameter of a task are represented as a __Taskparameter__ concept keyed with a `ReferenceKey` key, which references the task.
+The __LocalName__ field of the `ReferenceKey` holds the name of the parameter.
+The __DefaultValue__ field defines the default value that the task parameter is set to.
+The value of __TaskParameter__ instances can be overridden at deployment time by specifying their values in the configuration information passed to APEX engines.
+

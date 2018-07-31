@@ -1,0 +1,55 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== D-MIM (IM'17)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| Distributed Management Information Models
+
+h| Venue
+| IEEE IM, Lisbon, May 2017
+
+h| Abstract
+| The use of information models to share and allow modification of network element state is one of the best and most widely adopted ideas in network management. The formal structure of information models and the controlled manner of accessing and changing such models brings both flexibility and control when managing network elements. However, keeping information models synchronized and consistent across network elements and management systems is also one of the most challenging tasks in network management system development. Today this problem is exasperated with the advent of ephemeral network functions and elements and also by the need for distributed scalable cooperating management functions running in containerized distributed cloud deployments. In computer science, there have been major advances in systems that allow seamless distribution of data across distributed executing entities, and separately in systems that allow highly granular data access synchronization across distributed entities. However, such systems do not place importance on " information model " concepts, with data usually distributed as largely unmodeled unstructured data maps. In this paper, we describe our novel approach for distributed information models. We describe how information models are distributed to dispersed network elements and management systems, how synchronized access to distributed information models is achieved, how information models are persisted, and how lookups and changes to information models are logged.
+
+h| Links
+| link:https://www.researchgate.net/publication/316629867_Distributed_Management_Information_Models[Research Gate] [accessed Aug 11, 2017]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/im/FallonKM17,
+  author    = {Liam Fallon and
+               John Keeney and
+               Sven van der Meer},
+  title     = {Distributed Management Information Models},
+  booktitle = {2017 {IFIP/IEEE} International Symposium on Integrated
+               Network Management
+               {IM} 2017, Lisbon, Portugal, May 8-12, 2017},
+  pages     = {414--420},
+  year      = {2017},
+  crossref  = {DBLP:conf/im/2017},
+  url       = {https://doi.org/10.23919/INM.2017.7987306},
+  doi       = {10.23919/INM.2017.7987306},
+  timestamp = {Fri, 28 Jul 2017 12:12:57 +0200},
+  biburl    = {http://dblp.org/rec/bib/conf/im/FallonKM17},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+----
+
+|===
+

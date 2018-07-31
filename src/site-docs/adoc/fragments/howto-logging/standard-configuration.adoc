@@ -1,0 +1,96 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Standard Logging Configuration
+
+The standard logging configuration defines a context __APEX__, which is used in the standard output pattern.
+The location for log files is defined in the property `VAR_LOG` and set to `/var/log/apex`.
+The standard status listener is set to __NOP__ and the overall logback configuration is set to no debug.
+
+[source%nowrap,xml,numbered]
+----
+<configuration debug="false">
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+  <contextName>Apex</contextName>
+  <property name="VAR_LOG" value="/var/log/ericsson/apex/" />
+
+  ...appenders
+  ...loggers
+</configuration>
+----
+
+The first appender defined is called `STDOUT` for logs to standard out.
+
+[source%nowrap,xml,numbered]
+----
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+    <Pattern>%d %contextName [%t] %level %logger{36} - %msg%n</Pattern>
+  </encoder>
+</appender>
+----
+
+The root level logger then is set to the level __info__ using the standard out appender.
+[source%nowrap,xml,numbered]
+----
+<root level="info">
+  <appender-ref ref="STDOUT" />
+</root>
+----
+
+The first appender is called `FILE`.
+It writes logs to a file `apex.log`.
+[source%nowrap,xml,numbered]
+----
+<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+  <file>${VAR_LOG}/apex.log</file>
+  <encoder>
+    <pattern>
+      %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
+    </pattern>
+  </encoder>
+</appender>
+----
+
+The first appender is called `CTXT_FILE`.
+It writes logs to a file `apex_ctxt.log`.
+[source%nowrap,xml,numbered]
+----
+<appender name="CTXT_FILE" class="ch.qos.logback.core.FileAppender">
+  <file>${VAR_LOG}/apex_ctxt.log</file>
+  <encoder>
+    <pattern>
+      %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
+    </pattern>
+  </encoder>
+</appender>
+----
+
+The last definitions are for specific loggers.
+The first logger captures all standard APEX classes, appends logs to `STDOUT` with the log level __info__.
+The second logger capture all standard APEX classes, appends logs to `FILE` with log level __info__.
+The third logger captures context monitoring classes, appends logs to `CTXT_FILE` with log level __trace__.
+
+[source%nowrap,xml,numbered]
+----
+<logger name="org.onap.policy.apex" level="info" additivity="false">
+  <appender-ref ref="STDOUT" />
+  <appender-ref ref="FILE" />
+</logger>
+
+<logger name="org.onap.policy.apex.core.context.monitoring" level="TRACE" additivity="false">
+  <appender-ref ref="CTXT_FILE" />
+</logger>
+----
+

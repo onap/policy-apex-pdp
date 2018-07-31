@@ -1,0 +1,96 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Configuration
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-07-25
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo configure APEX
+:keywords: APEX, documentation, configuration
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-config/introduction.adoc[]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-general-format.adoc[]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-service-parameters.adoc[]
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-interfaces-general.adoc[]
+
+
+include::{adsite-plugins-executor-dir}/site-docs/adoc/fragments/executors.adoc[]
+
+include::{adsite-plugins-executor-javascript-dir}/site-docs/adoc/fragments/javascript-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-jython-dir}/site-docs/adoc/fragments/jython-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-jruby-dir}/site-docs/adoc/fragments/jruby-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-java-dir}/site-docs/adoc/fragments/java-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-mvel-dir}/site-docs/adoc/fragments/mvel-config.adoc[leveloffset=+1]
+
+
+include::{adsite-plugins-context-dir}/site-docs/adoc/fragments/context.adoc[]
+
+include::{adsite-plugins-context-schema-avro-dir}/site-docs/adoc/fragments/ctx-schema-avro-config.adoc[leveloffset=+1]
+
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/carriertech.adoc[]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-standard-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-file-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-dir}/site-docs/adoc/fragments/ct-eventrequestor-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-kafka-dir}/site-docs/adoc/fragments/ct-kafka-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-jms-dir}/site-docs/adoc/fragments/ct-jms-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-websocket-dir}/site-docs/adoc/fragments/ct-websocket-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-restclient-dir}/site-docs/adoc/fragments/ct-restclient-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-restserver-dir}/site-docs/adoc/fragments/ct-restserver-io.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-carrier-restrequestor-dir}/site-docs/adoc/fragments/ct-restrequestor-io.adoc[leveloffset=+1]
+
+
+include::{adsite-plugins-event-protocol-dir}/site-docs/adoc/fragments/event-protocols.adoc[]
+
+include::{adsite-plugins-event-protocol-dir}/site-docs/adoc/fragments/ep-json.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-protocol-dir}/site-docs/adoc/fragments/ep-apex.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-protocol-jms-dir}/site-docs/adoc/fragments/ep-jms.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-protocol-yaml-dir}/site-docs/adoc/fragments/ep-yaml.adoc[leveloffset=+1]
+
+include::{adsite-plugins-event-protocol-xml-dir}/site-docs/adoc/fragments/ep-xml.adoc[leveloffset=+1]
+
+
+include::{adsite-services-engine-dir}/site-docs/adoc/fragments/config-example.adoc[]
+

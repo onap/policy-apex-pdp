@@ -1,0 +1,37 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Disable Eclipse Formatting (partially)
+
+Sometimes, the Eclipse code formatting results in correct but untidy indentation, for example when Java Persistence annotations or long sequences of lined-up assignments are formatted.
+You can disable formatting for sections of code.
+
+. Ensure that Off/On Tags are enabled in Eclipse
+  . In menu:Eclipse[Window > Preferences > Java > Code Style > Formatter] window press kbd:[Edit...]
+  . Click on the __Off/On Tags__ tab
+  . Ensure that the __Enable Off/On Tags__ checkbox is checked
+. Surround the section of code that you do not want the formatter to act on with comments containing the Off/On tags
+
+
+[source%nowrap,java,numbered]
+----
+// @formatter:off
+// Plugin Parameters
+private DistributorParameters distributorParameters = new DistributorParameters();
+private SchemaParameters      schemaParameters      = new SchemaParameters();
+private LockManagerParameters lockManagerParameters = new LockManagerParameters();
+private PersistorParameters   persistorParameters   = new PersistorParameters();
+// @formatter:on
+----
+
+

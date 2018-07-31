@@ -1,0 +1,25 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Eclipse Plugin: JAutodoc
+
+This plugin is a helper plugin for writing Javadoc.
+It will automatically create standard headers on files, create package-info.java files and will put in remarkably good stub Javadoc comments in your code, using class names and method names as hints.
+
+Available from the Eclipse Marketplace.
+In Eclipse Help->Eclipse Marketplace... and type `JAutodoc`.
+Select JAutodoc when the search returns and install it.
+
+You must configure JAutoDoc in order to get the most out of it.
+Ideally JAutoDoc should be configured with templates that cooperate with the inbuilt Eclipse Code Formatter for best results.
+

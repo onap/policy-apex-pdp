@@ -1,0 +1,54 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configuring loggers for Policy Logic
+
+The logging for the logic inside a policy (task logic, task selection logic, state finalizer logic) can be configured separate from standard logging.
+The logger for policy logic is `org.onap.policy.apex.executionlogging`.
+The following example defines
+
+- a new appender for policy logic logging to standard out using a very simple pattern (simply the actual message)
+- a logger for policy logic to standard out using the new appender
+- a logger for policy logic to the standard `FILE` appender
+
+[source%nowrap,xml]
+----
+<appender name="POLICY_APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+    <pattern>policy: %msg\n</pattern>
+  </encoder>
+</appender>
+
+<appender name="POLICY_APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+    <pattern>policy: %msg\n</pattern>
+  </encoder>
+</appender>
+
+<logger name="org.onap.policy.apex.executionlogging" level="info" additivity="false">
+  <appender-ref ref="POLICY_APPENDER_STDOUT" />
+  <appender-ref ref="FILE" />
+</logger>
+
+----
+
+It is also possible to use specific logging for parts of policy logic.
+The following example defines a logger for task logic.
+
+[source%nowrap,xml]
+----
+<logger name="org.onap.policy.apex.executionlogging.TaskExecutionLogging" level="TRACE" additivity="false">
+  <appender-ref ref="STDOUT" />
+</logger>
+----
+

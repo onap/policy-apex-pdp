@@ -1,0 +1,16 @@
+04/01/2018  11:51    <DIR>          .
+04/01/2018  11:51    <DIR>          ..
+04/01/2018  10:43            32,694 apex-apps.uservice-package-full-0.7.0.jar
+04/01/2018  10:44               706 apex-apps.uservice-package-full_0.7.0_all.changes
+04/01/2018  10:43       255,613,724 apex-uservice-full-0.7.0-tarball.tar.gz
+04/01/2018  10:44       255,629,634 apex-uservice-full-0.7.0.deb
+04/01/2018  10:43    <DIR>          archive-tmp
+04/01/2018  10:43    <DIR>          classes
+04/01/2018  10:43    <DIR>          dependency-maven-plugin-markers
+04/01/2018  10:43    <DIR>          etc
+04/01/2018  10:43    <DIR>          examples
+04/01/2018  10:43    <DIR>          install_hierarchy
+04/01/2018  10:43    <DIR>          lib
+04/01/2018  10:43    <DIR>          maven-archiver
+               4 File(s)    511,276,758 bytes
+              10 Dir(s)   6,230,409,216 bytes free

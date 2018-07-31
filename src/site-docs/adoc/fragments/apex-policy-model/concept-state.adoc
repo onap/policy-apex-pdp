@@ -1,0 +1,45 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: State
+
+The __State__ concept represents a phase or a stage in a policy, with a policy being composed of a series of states.
+Each state has at least one but may have many tasks and, on each run of execution, a state executes one and only one of its tasks.
+If a state has more than one task, then its task selection logic is used to select which task to execute.
+Task selection logic is programmable logic provided by the state designer.
+That logic can use incoming, policy, global, and external context to select which task best accomplishes the purpose of the state in a give situation if more than one task has been specified on a state.
+A state calls one and only one task when it is executed.
+
+Each state is triggered by an event, which means that all tasks of a state must also be triggered by that same event.
+The set of output events for a state is the union of all output events from all tasks for that task.
+In practice at the moment, because a state can only have a single input event, a state that is not the final state of a policy
+may only output a single event and all tasks of that state may also only output that single event.
+In future work, the concept of having a less restrictive trigger pattern will be examined.
+
+A __State__ concept is keyed with a `ReferenceKey` key, which references the __Policy__ concept that owns the state.
+The __LocalName__ field of the `ReferenceKey` holds the name of the state.
+As a state is part of a chain of states, the __NextState__ field of a state holds the `ReferenceKey` key of the state in the policy to execute after this state.
+
+The __Trigger__ field of a state holds the `ArtifactKey` of the event that triggers this state.
+The __OutgoingEvents__ field holds the `ArtifactKey` references of all possible events that may be output from the state.
+This is a set that is the union of all output events of all tasks of the state.
+
+The __Task__ concepts that hold the definitions of the task for the state are held as a set of `ArtifactKey` references in the state.
+The __DefaultTask__ field holds a reference to the default task for the state, a task that is executed if no task selection logic is
+specified.
+If the state has only one task, that task is the default task.
+
+The __Logic__ concept referenced by a state holds the task selection logic for a state.
+The task selection logic uses the incoming context (parameters of the incoming event) and other context to determine the best task to use to execute its goals.
+The state holds a set of references to __ContextItem__ and __ContextItemTemplate__ definitions for the context used by its task selection logic.
+

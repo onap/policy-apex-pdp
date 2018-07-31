@@ -1,0 +1,41 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Build the APEX Documentation
+
+The APEX Maven build also includes stand-alone documentations, such as the HowTo documents, the Installation Guide, and the User Manual.
+Use Maven to build the APEX Documentation.
+The Maven options `-N` prevents Maven to go through all APEX modules, which is not necessary for the documentation.
+The final documents will be in `target/generated-docs` (Windows: `target\generated-docs`).
+The __HTML__ documents are in the `html/` folder, the __PDF__ documents are in the `pdf/` folder.
+Once the documentation is build, copy the __HTML__ and __PDF__ documents to a folder of choice
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh,numbered]
+----
+# cd /usr/local/src/apex
+# mvn clean generate-resources -N -DapexDocs
+----
+|
+[source%nowrap,bat,numbered]
+----
+>c:
+>cd \dev\apex
+>mvn clean generate-resources -N -DapexDocs
+----
+|====================
+
+

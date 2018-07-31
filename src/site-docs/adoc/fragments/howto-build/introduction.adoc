@@ -1,0 +1,56 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction to building APEX
+
+APEX is written 100% in Java and uses link:https://maven.apache.org/[Apache Maven] as the build system.
+The requirements for building APEX are:
+
+- An installed Java development kit for Java version 8 or higher
+  ** To install a Java SDK please follow these guidelines link:https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html[Oracle Java 8 SDK].
+- Maven 3
+  ** To get Maven 3 running please follow the guidelines for link:https://maven.apache.org/download.cgi[Download] and link:https://maven.apache.org/install.html[Install], and link:https://maven.apache.org/run.html[Run] Maven
+- A clone of the APEX source repositories
+
+To get a clone of the APEX source repositories, please see the APEX Installation Guide or the APEX User manual.
+
+One all requirements are in place, APEX can be build.
+There are several different artifacts one can create building APEX, most of them defined in their own __profile__.
+APEX can also be build in a standard way with standard tests (`mvn clean install`) or without standard tests (`mvn clean install -DskipTests`).
+
+The examples in this document assume that the APEX source repositories are cloned to:
+
+- Unix, Cygwin: `/usr/local/src/apex`
+- Windows: `C:\dev\apex`
+- Cygwin: `/cygdrive/c/dev/apex`
+
+[IMPORTANT]
+.A Build needs Space
+====
+Building APEX requires approximately 2-3 GB of hard disc space, 1 GB for the actual build with full distribution and 1-2 GB for the downloaded dependencies
+====
+
+[IMPORTANT]
+.A Build requires Internet (for first build to download all dependencies and plugins)
+====
+During the build, several (a lot) of Maven dependencies will be downloaded and stored in the configured local Maven repository.
+The first standard build (and any first specific build) requires Internet access to download those dependencies.
+====
+
+[IMPORTANT]
+.Building RPM distributions
+====
+RPM images are only build if the `rpm` package is installed (Unix).
+To install `rpm` run `sudo apt-get install rpm`, then build APEX.
+====
+

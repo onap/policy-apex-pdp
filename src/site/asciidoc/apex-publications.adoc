@@ -1,0 +1,45 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== APEX Publications
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/apex.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/cnsm-2015.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2016.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/im-2017a.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/im-2017b.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018a.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018c.adoc[leveloffset=+1]
+
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/policy-general.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/monami-2012.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/im-2013.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/monami-2013.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/cnsm-2014.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/5g-2015.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018b.adoc[leveloffset=+1]
+

@@ -1,0 +1,51 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== An APEX Testbed (NOMS'18)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| A Testbed For Policy Driven Closed Loop Network Management
+
+h| Venue
+| IEEE NOMS, Taipei, April 2018
+
+h| Abstract
+| Due to the increase in the dynamicity, programmability, scope and complexity of modern networks there is a greatly increased requirement that network management systems control, orchestrate and manage networks in a much more automated and dynamic manner. 
+This drive towards automation and dynamicity requires autonomic network management that continuously analyses network state and continually steers the network in accordance with changing high level goals and policies. As dynamicity increases, it is proving increasingly difficult to test and validate the analytics routines and policies that drive today\textquoteright s network management systems. With more automation, the potential for unanticipated network incidents increase, for example where multiple automation features interact and conflict.
+
+There is no substitute for seeing how a network management feature actually performs in a real network, ideally allowing iterative authoring/validation development cycles. However, due to the high stakes involved in degrading or disrupting network performance, this is not usually feasible until the very final testing and deployment stages. The next best option is a testbed that accurately represents a live network scenario to support authoring and validation development cycles in a low-risk environment.
+
+In this work we present our experiences of building a networking testbed that incorporates an emulated network, a production-grade network controller, an analytics function, and a policy execution environment. This allows users to develop policies for adaptive (closed loop) management of a realistic emulated network. We also present two scenarios where the testbed is used to emulate and mitigate against a temporary and prolonged failure occurring on a network.
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{noms/McNamaraMK18,
+  author    = {Joseph McNamara and
+               John Keeney and
+               Liam Fallon and
+               Sven van der Meer and
+               Enda Fallon},
+  title     = {A Testbed For Policy Driven Closed Loop Network Management},
+  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium,
+              {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  year      = {2018}
+}
+----
+
+|===
+

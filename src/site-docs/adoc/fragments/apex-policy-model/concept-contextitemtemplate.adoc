@@ -1,0 +1,22 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: ContextItemTemplate
+
+In a __SAMETYPE__ __ContextMap__, the __ContextItemTemplate__ definition provides a template for the __ContextItem__ instances that will be created on the context map at run time.
+Each __ContextItem__ concept instance in the context map is created using the __ContextItemTemplate__ template.
+It is keyed with a `ReferenceKey` key, which references the context map of the context item.
+The __LocalName__ field of the `ReferenceKey`, supplied by the creator of the context item at run time, holds the name of the context item in the context map.
+A reference to a __DataType__ concept defines the data type that values of this context item have at run time.
+The __WritableFlag__ indicates if the context item is read only or read-write at run time.
+

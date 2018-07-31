@@ -1,0 +1,45 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Application: Websocket Clients (Echo and Console)
+
+**Status: Production**
+
+The application launcher also provides a Websocket echo client and a Websocket console client.
+The echo client connects to APEX and prints all events it receives from APEX.
+The console client connects to APEX, reads input from the command line, and sends this input as events to APEX.
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexApps.sh ws-echo [args]
+# $APEX_HOME/bin/apexApps.sh ws-console [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexApps.bat ws-echo [args]
+> %APEX_HOME%\bin\apexApps.bat ws-console [args]
+----
+|====================
+
+The arguments are the same for both applications:
+
+- `-p` defines the Websocket port to connect to (defaults to `8887`)
+- `-s` defines the host on which a Websocket server is running (defaults to `localhost`)
+
+A discussion on how to use these two applications to build an APEX system is detailed HowTo-Websockets.
+

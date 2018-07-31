@@ -1,0 +1,44 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Policy Logic
+John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-08-10
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo write policy logic
+:keywords: APEX, documentation, policy, logic, task, task selection
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/task-logic.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/task-selection-logic.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/logic-cheatsheet.adoc[]
+
+== Policy Examples
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/policy-examples.adoc[leveloffset=+1]
+

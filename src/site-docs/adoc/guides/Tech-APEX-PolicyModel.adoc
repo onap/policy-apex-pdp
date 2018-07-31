@@ -1,0 +1,62 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX Policy Model
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>; Liam Fallon <liam.fallon@ericsson.com>; John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-09-05
+:revremark: for APEX {release-version}
+:version-label!:
+:description: The APEX Policy Model
+:keywords: APEX, documentation, engine, policy model
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/introduction.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concepts-keys.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-policymodel.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-datatype.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-event.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-eventfield.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-contextmap.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-contextitem.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-contextitemtemplate.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-task.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-taskparameter.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-logic.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-policy.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-state.adoc[]
+

@@ -1,0 +1,93 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Build APEX Site
+
+The APEX Maven build comes with full support to build a web site using Maven Site.
+Use Maven to build the APEX Site.
+Stage the APEX web site.
+The target folder for the staged site is
+
+- Unix: `/usr/local/src/apex/target/gh-pages`
+- Windows: `C:\dev\apex\target\gh-pages`
+- Cygwin: `/cygdrive/c/dev/apex/target/gh-pages`
+
+Once the web site is staged, copy the full site to a folder of choice or into a web server.
+
+
+[IMPORTANT]
+.Building a Site takes Time
+====
+Building and staging the APEX web site can take very long.
+The stand-alone documentation will take about 2 minutes.
+The sites for all modules and projects and the main APEX site can take between 10-30 minutes depending on your build machine
+(~10 minutes without generating source and test-source reports, closer to 30 minutes with all reports).
+====
+
+
+Start the build deleting the staging directory that might have been created by a previous site build.
+Then go to the APEX packaging directory.
+
+[width="100%",options="header",cols="5a,5a,5a"]
+|====================
+| Unix | Windows | Cygwin
+|
+[source%nowrap,sh]
+----
+cd /usr/local/src/apex
+rm -fr target/gh-pages
+----
+|
+[source%nowrap,bat]
+----
+c:
+cd \dev\apex
+rmdir /s /q target\gh-pages
+----
+|
+[source%nowrap,sh]
+----
+cd /cygdrive/c/dev/apex
+rm -fr target/gh-pages
+----
+|====================
+
+the workflow for building a complete site then is as follows:
+
+[source%nowrap,sh]
+----
+mvn clean -DapexAll #<1>
+mvn install -DskipTests #<2>
+mvn generate-resources -N -DapexDocs #<3>
+mvn initialize site:attach-descriptor site site:stage -DapexSite #<4>
+----
+. First clean all modules to remove any site artifacts, use the _apexXtext_ profile to make sure these modules are processed as well
+. Next run a simple install without tests
+. Now generate the APEX stand -alone documentation, they are in the local package only so we can use the _-N_ switch
+. Last build the actual sites and stage (copy to the staging directory) with the profile _apexSite_ (do not forget the initialize goal, otherwise the staging directory will not be correctly set and sites are staged in every model in a directory called `docs`).
+
+If you want to build the site for a particular project for testing, the Maven command is simpler.
+Since only the main project has APEX documentation (stand-alone), you can use Maven as follow.
+
+[source%nowrap,sh]
+----
+mvn clean site -DapexSite
+----
+
+If you want to stage the tested site, then use
+
+[source%nowrap,sh]
+----
+mvn clean initialize site:attach-descriptor site site:stage -DapexSite
+----
+

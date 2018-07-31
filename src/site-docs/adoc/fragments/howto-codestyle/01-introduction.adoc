@@ -1,0 +1,27 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction: APEX Codestyle
+
+This page describes how to apply a code style to the APEX Java projects.
+The provided code templates are guidelines and are provided for references and as examples.
+We will not engage in "holy war" on style for coding.
+As long as the style of a particular block of code is understandable, consistent, and readable, please feel free to adapt or modify these guides or use other guides as you see fit.
+
+The JAutoDoc and Checkstyle Eclipse Plugins and tools are useful and remove a lot of the tedium from code documentation.
+Use them to check your code and please fix any issues they identify with your code.
+
+The templates and examples on this page have been tested on a clean installation of Eclipse Oxygen Release (4.7.0) on Ubuntu Linux 16.04 LTS.
+
+The Apex settings referred to on this page are also available in the apex-model GIT repository in the APEX model repository in apex-model/apex-model.build-tools/src/main/resources/`.
+

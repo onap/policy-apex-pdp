@@ -1,0 +1,62 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Application: Convert a Policy Model to CLI Editor Commands
+
+**Status: Experimental**
+
+This application takes a policy model (JSON or XML encoded) and generates commands for the APEX CLI Editor.
+This effectively reverses a policy specification realized with the CLI Editor.
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexApps.sh model-2-cli [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexApps.bat model-2-cli [args]
+----
+|====================
+
+The option `-h` provides a help screen.
+
+[source%nowrap,sh]
+----
+usage: gen-model2cli
+ -h,--help                 prints this help and usage screen
+ -m,--model <MODEL-FILE>   set the input policy model file
+ -sv,--skip-validation     switch of validation of the input file
+ -v,--version              prints the application version
+----
+
+For instance, running the tool with the __Sample Domain__ policy model as:
+[source%nowrap,sh]
+----
+apexApps.sh tpl-event-json -m $APEX_HOME/examples/models/SampleDomain/SamplePolicyModelJAVA.json -t stimuli
+----
+
+will produce the following status messages:
+
+[source%nowrap,sh]
+----
+gen-model2cli: starting CLI generator
+ --> model file: examples/models/SampleDomain/SamplePolicyModelJAVA.json
+----
+
+and then run the generator application producing all CLI Editor commands and printing them to standard out.
+

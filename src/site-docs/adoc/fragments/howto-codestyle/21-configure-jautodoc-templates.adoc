@@ -1,0 +1,25 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configure JAutodoc (Eclipse)
+
+Import the settings for JAutodoc:
+
+  . menu:Eclipse[Window > Preferences > Java > JAutodoc] -> kbd:[Import All...] (at bottom of the JAutodoc preferences window)
+  . Leave all the preferences ticked to import all preferences, browse to the JAutodoc setting file (`ApexJautodocSettings.xml`) and press kbd:[OK]
+  . Set your email address in the package Javadoc template
+    * Press kbd:[Edit Template...] in the Package Javadoc area of the JAutodoc preferences window, and change the email address on the `@author` tag to be your email address
+  . Now, apply the JAutodoc settings
+
+The templates mentioned above can be found in `apex-model/apex-model.build-tools/src/main/resources/eclipse`
+

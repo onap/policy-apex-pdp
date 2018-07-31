@@ -1,0 +1,71 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Rolling File Appenders
+
+Rolling file appenders are a good option for more complex logging of a production or complex testing APEX installation.
+The standard logback configuration can be used for these use cases.
+This section gives two examples for the standard logging and for context logging.
+
+First the standard logging.
+The following example defines a rolling file appender.
+The appender rolls over on a daily basis.
+It allows for a file size of 100 MB.
+
+[source%nowrap,xml]
+----
+<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  <file>${VAR_LOG}/apex.log</file>
+  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <!-- rollover daily -->
+    <!-- <fileNamePattern>xstream-%d{yyyy-MM-dd}.%i.txt</fileNamePattern> -->
+    <fileNamePattern>${VAR_LOG}/apex_%d{yyyy-MM-dd}.%i.log.gz
+    </fileNamePattern>
+    <maxHistory>4</maxHistory>
+    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+      <!-- or whenever the file size reaches 100MB -->
+      <maxFileSize>100MB</maxFileSize>
+    </timeBasedFileNamingAndTriggeringPolicy>
+  </rollingPolicy>
+  <encoder>
+    <pattern>
+      %d %-5relative [procId=${processId}] [%thread] %-5level %logger{26} - %msg %ex{full} %n
+    </pattern>
+  </encoder>
+</appender>
+----
+
+A very similar configuration can be used for a rolling file appender logging APEX context.
+
+[source%nowrap,xml]
+----
+<appender name="CTXT-FILE"
+      class="ch.qos.logback.core.rolling.RollingFileAppender">
+  <file>${VAR_LOG}/apex_ctxt.log</file>
+  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <fileNamePattern>${VAR_LOG}/apex_ctxt_%d{yyyy-MM-dd}.%i.log.gz
+    </fileNamePattern>
+    <maxHistory>4</maxHistory>
+    <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+      <maxFileSize>100MB</maxFileSize>
+    </timeBasedFileNamingAndTriggeringPolicy>
+  </rollingPolicy>
+  <encoder>
+    <pattern>
+      %d %-5relative [procId=${processId}] [%thread] %-5level %logger{26} - %msg %ex{full} %n
+    </pattern>
+  </encoder>
+</appender>
+----
+

@@ -1,0 +1,83 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX Policy Guide
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>; Liam Fallon <liam.fallon@ericsson.com>; John Keeney <john.keeney@ericsson.com>
+
+:revdate: 2017-08-10
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A short guide to Policies, including programming logic
+:keywords: APEX, documentation, policy, programming, logic
+:experimental:
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 4
+:icons: font
+
+== APEX Policy Matrix
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-intro/policy-matrix.adoc[leveloffset=+1]
+
+
+== APEX Policy Model
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/introduction.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concepts-keys.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-policymodel.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-datatype.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-event.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-eventfield.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-contextmap.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-contextitem.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-contextitemtemplate.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-task.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-taskparameter.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-logic.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-policy.adoc[leveloffset=+2]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/apex-policy-model/concept-state.adoc[leveloffset=+2]
+
+
+== Writing Logic
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/task-logic.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/task-selection-logic.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/logic-cheatsheet.adoc[leveloffset=+1]
+
+
+== Policy Examples
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-write-logic/policy-examples.adoc[leveloffset=+1]
+

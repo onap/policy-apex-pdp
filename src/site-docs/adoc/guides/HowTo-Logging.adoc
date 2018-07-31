@@ -1,0 +1,50 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Logging
+Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-07-25
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo configure APEX logging
+:keywords: APEX, documentation, logging, SLF4j
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/introduction.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/standard-configuration.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/logback-status.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/logging-3pps.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/logging-policy-logic.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/rolling-file-appenders.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/example-logic.adoc[leveloffset=+1]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-logging/example-server.adoc[]
+

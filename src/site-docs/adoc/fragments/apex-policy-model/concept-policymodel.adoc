@@ -1,0 +1,23 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: PolicyModel
+
+The __PolicyModel__ concept is a container that holds the definition of a set of policies and their associated events, context maps, and tasks.
+A __PolicyModel__ is implemented as four maps for policies, events, context maps, and tasks.
+Each map is indexed by the key of the policy, event, context map, or task.
+Any non-empty policy model must have at least one entry in its policy, event, and task map because all policies must have at least one input and output event and must execute at least one task.
+
+A __PolicyModel__ concept is keyed with an `ArtifactKey key`.
+Because a __PolicyModel__ is an `AxConcept`, calling the `validate()` method on a policy model validates the concepts, structure, and relationships of the entire policy model.
+

@@ -128,7 +128,7 @@
                                                 <execute />
                                             </action>
                                         </pluginExecution>
-                                         <pluginExecution>
+                                        <pluginExecution>
                                             <pluginExecutionFilter>
                                                 <groupId>org.apache.maven.plugins</groupId>
                                                 <artifactId>maven-dependency-plugin</artifactId>
@@ -147,6 +147,467 @@
                         </plugin>
                     </plugins>
                 </pluginManagement>
+            </build>
+        </profile>
+
+        <profile>
+            <!--This profile is used to create local APEX documentation and a Maven site -->
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <properties>
+                <!-- needed to add this to avoid slow site creation due to many dead repos in some configuration see: https://stackoverflow.com/questions/26144541/why-am-i-getting-maven-error-unable-to-determine-if-resource-x-exists-in-http 
+                     see: https://stackoverflow.com/questions/26144541/why-am-i-getting-maven-error-unable-to-determine-if-resource-x-exists-in-http/35673586 see: https://whatiscomingtomyhead.wordpress.com/2011/04/20/if-your-maven-site-build-is-too-slow/ -->
+                <dependency.locations.enabled>false</dependency.locations.enabled>
+
+                <!-- Site and ADOC properties -->
+                <apex.adsite.prefix>https://www.onap.org/policy/apex-pdp/site</apex.adsite.prefix>
+                <release-version>${project.version}</release-version>
+
+                <adsite-main-dir>${project.basedir}/src</adsite-main-dir>
+                <adsite-tools-wsclients-dir>${project.basedir}/tools/simple-wsclient/src</adsite-tools-wsclients-dir>
+                <adsite-tools-common-dir>${project.basedir}/tools/tools-common/src</adsite-tools-common-dir>
+                <adsite-apps-uservice-test-dir>${project.basedir}/apps/apps.uservice/apps.uservice-test/src</adsite-apps-uservice-test-dir>
+                <adsite-examples-myfirstpolicy-dir>${project.basedir}/examples/examples-myfirstpolicy/src</adsite-examples-myfirstpolicy-dir>
+                <adsite-examples-decisionmaker-dir>${project.basedir}/examples/examples-decisionmaker/src</adsite-examples-decisionmaker-dir>
+                <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
+                <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
+                <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
+
+                <adsite-plugins-event-protocol-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/src</adsite-plugins-event-protocol-dir>
+                <adsite-plugins-event-protocol-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src</adsite-plugins-event-protocol-jms-dir>
+                <adsite-plugins-event-protocol-xml-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/src</adsite-plugins-event-protocol-xml-dir>
+                <adsite-plugins-event-protocol-yaml-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-yaml/src</adsite-plugins-event-protocol-yaml-dir>
+
+                <adsite-plugins-event-carrier-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/src</adsite-plugins-event-carrier-dir>
+                <adsite-plugins-event-carrier-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src</adsite-plugins-event-carrier-jms-dir>
+                <adsite-plugins-event-carrier-restclient-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src</adsite-plugins-event-carrier-restclient-dir>
+                <adsite-plugins-event-carrier-restserver-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src</adsite-plugins-event-carrier-restserver-dir>
+                <adsite-plugins-event-carrier-restrequestor-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src</adsite-plugins-event-carrier-restrequestor-dir>
+                <adsite-plugins-event-carrier-kafka-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src</adsite-plugins-event-carrier-kafka-dir>
+                <adsite-plugins-event-carrier-websocket-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src</adsite-plugins-event-carrier-websocket-dir>
+                <adsite-plugins-context-dir>${project.basedir}/plugins/plugins-context/src</adsite-plugins-context-dir>
+                <adsite-plugins-context-schema-avro-dir>${project.basedir}/plugins/plugins-context/context-schema/context-schema-avro/src</adsite-plugins-context-schema-avro-dir>
+                <adsite-plugins-executor-dir>${project.basedir}/plugins/plugins-executor/src</adsite-plugins-executor-dir>
+                <adsite-plugins-executor-java-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-java/src</adsite-plugins-executor-java-dir>
+                <adsite-plugins-executor-javascript-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-javascript/src</adsite-plugins-executor-javascript-dir>
+                <adsite-plugins-executor-jruby-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jruby/src</adsite-plugins-executor-jruby-dir>
+                <adsite-plugins-executor-jython-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jython/src</adsite-plugins-executor-jython-dir>
+                <adsite-plugins-executor-mvel-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-mvel/src</adsite-plugins-executor-mvel-dir>
+                <adsite-services-engine-dir>${project.basedir}/services/services-engine/src</adsite-services-engine-dir>
+            </properties>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/</url>
+                </site>
+            </distributionManagement>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.commonjava.maven.plugins</groupId>
+                        <artifactId>directory-maven-plugin</artifactId>
+                        <version>0.2</version>
+                        <executions>
+                            <execution>
+                                <id>directories</id>
+                                <goals>
+                                    <goal>directory-of</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <property>apex.basedir</property>
+                                    <project>
+                                        <groupId>org.onap.policy.apex-pdp</groupId>
+                                        <artifactId>apex-pdp</artifactId>
+                                    </project>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <version>3.7.1</version>
+                        <configuration>
+                            <stagingDirectory>${apex.basedir}/target/ad-site</stagingDirectory>
+                            <asciidoc>
+                                <embedAssets>true</embedAssets>
+                                <attributes>
+                                    <source-highlighter>coderay</source-highlighter>
+                                    <coderay-css>style</coderay-css>
+                                    <imagesdir>images</imagesdir>
+                                </attributes>
+                            </asciidoc>
+                            <moduleExcludes>
+                                <asciidoc>**/_*.adoc</asciidoc>
+                            </moduleExcludes>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.maven.doxia</groupId>
+                                <artifactId>doxia-site-renderer</artifactId>
+                                <version>1.8</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.asciidoctor</groupId>
+                                <artifactId>asciidoctor-maven-plugin</artifactId>
+                                <version>1.5.6</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <executions>
+                            <execution>
+                                <id>copy-site-css</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site/css</directory>
+                                            <includes>
+                                                <include>**/*.css</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/css</outputDirectory>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-site-logos</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site/images</directory>
+                                            <includes>
+                                                <include>**/*.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/images</outputDirectory>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-um-install-images</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site-docs/adoc/resources/images/install-guide</directory>
+                                            <includes>
+                                                <include>**/*.jpg</include>
+                                                <include>**/*.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/user-manual/install/images/install-guide</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-howto-config-images</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site-docs/adoc/resources/images/apex-intro</directory>
+                                            <includes>
+                                                <include>ApexEngineConfig.jpg</include>
+                                                <include>ApexEngineConfig.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/user-manual/configuration/images/apex-intro</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-tech-intro-apex-images</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site-docs/adoc/resources/images/apex-intro</directory>
+                                            <includes>
+                                                <include>**/*.jpg</include>
+                                                <include>**/*.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/apex-intro/images/apex-intro</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-tech-pm-apex-images</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site-docs/adoc/resources/images/apex-policy-model</directory>
+                                            <includes>
+                                                <include>**/*.jpg</include>
+                                                <include>**/*.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/policy-guide/policy-model/images/apex-policy-model</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-tech-pm-apex-intro-images</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site-docs/adoc/resources/images/apex-intro</directory>
+                                            <includes>
+                                                <include>ApexPolicyMatrix.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/policy-guide/images/apex-intro</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-domain-mfp-images</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/examples/myfirstpolicy/src/site-docs/adoc/resources/images</directory>
+                                            <includes>
+                                                <include>**/*.jpg</include>
+                                                <include>**/*.png</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/user-manual/my-first-policy/images</outputDirectory>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-asciidoc-generated</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>target/generated-docs</directory>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/site/docs-apex</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>2.9</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.0.0-M1</version>
+                        <reportSets>
+                            <reportSet>
+                                <id>default</id>
+                                <reports>
+                                    <report>javadoc</report>
+                                </reports>
+                            </reportSet>
+                            <reportSet>
+                                <id>aggregate</id>
+                                <inherited>false</inherited>
+                                <reports>
+                                    <report>aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                        <configuration>
+                            <destDir>javadocs</destDir>
+                            <source>${maven.compiler.target}</source>
+                            <encoding>${project.resources.sourceEncoding}</encoding>
+                            <docencoding>${project.resources.sourceEncoding}</docencoding>
+                            <charset>${project.resources.sourceEncoding}</charset>
+                            <!--<aggregate>false</aggregate>-->
+                            <nohelp>true</nohelp>
+                            <header>APEX - ${project.artifactId} ${project.version}</header>
+                            <footer>APEX - ${project.artifactId} ${project.version}</footer>
+                            <doctitle>APEX - ${project.artifactId} ${project.version}</doctitle>
+                            <noqualifier>all</noqualifier>
+                            <detectLinks>false</detectLinks>
+                            <detectJavaApiLink>true</detectJavaApiLink>
+                            <javadocDirectory>${project.basedir}/src/main/javadoc</javadocDirectory>
+                            <docfilessubdirs>true</docfilessubdirs>
+                            <overview>overview.html</overview>
+                            <show>public</show>
+                            <!-- Exclude JAXB generated packages -->
+                            <excludePackageNames>org.onap.policy.apex.plugins.event.protocol.xml.jaxb</excludePackageNames>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+        <profile>
+            <id>apexDocs</id>
+            <activation>
+                <property>
+                    <name>apexDocs</name>
+                </property>
+            </activation>
+            <modules></modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>1.5.6</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.asciidoctor</groupId>
+                                <artifactId>asciidoctorj-pdf</artifactId>
+                                <version>1.5.0-alpha.16</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <sourceDirectory>src/site-docs/adoc/guides</sourceDirectory>
+                            <preserveDirectories>true</preserveDirectories>
+                            <attributes>
+                                <toc />
+                                <pagenums />
+                                <sectnums />
+                                <linkcss>true</linkcss>
+                                <stylesdir>styles</stylesdir>
+
+                                <!-- Change this to get another style -->
+                                <stylesheet>compass/rocket-panda.css</stylesheet>
+                                <pdf-stylesdir>${project.basedir}/src/site-docs/adoc/resources-pdf/themes</pdf-stylesdir>
+                                <pdf-style>apex-pdf.yml</pdf-style>
+                                <pdf-fontsdir>${project.basedir}/src/site-docs/adoc/resources-pdf/fonts</pdf-fontsdir>
+
+                                <revnumber>${project.version}</revnumber>
+                                <revdate>${maven.build.timestamp}</revdate>
+                                <organization>${project.organization.name}</organization>
+
+                                <release-version>${project.version}</release-version>
+
+                                <adsite-main-dir>${project.basedir}/src</adsite-main-dir>
+                                <adsite-tools-wsclients-dir>${project.basedir}/tools/simple-wsclient/src</adsite-tools-wsclients-dir>
+                                <adsite-tools-common-dir>${project.basedir}/tools/tools-common/src</adsite-tools-common-dir>
+                                <adsite-apps-uservice-test-dir>${project.basedir}/apps/apps.uservice/apps.uservice-test/src</adsite-apps-uservice-test-dir>
+                                <adsite-examples-myfirstpolicy-dir>${project.basedir}/examples/examples-myfirstpolicy/src</adsite-examples-myfirstpolicy-dir>
+                                <adsite-examples-decisionmaker-dir>${project.basedir}/examples/examples-decisionmaker/src</adsite-examples-decisionmaker-dir>
+                                <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
+                                <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
+                                <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
+
+                                <adsite-plugins-event-protocol-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/src</adsite-plugins-event-protocol-dir>
+                                <adsite-plugins-event-protocol-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src</adsite-plugins-event-protocol-jms-dir>
+                                <adsite-plugins-event-protocol-xml-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-xml/src</adsite-plugins-event-protocol-xml-dir>
+                                <adsite-plugins-event-protocol-yaml-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-yaml/src</adsite-plugins-event-protocol-yaml-dir>
+                                <adsite-plugins-event-carrier-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/src</adsite-plugins-event-carrier-dir>
+                                <adsite-plugins-event-carrier-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src</adsite-plugins-event-carrier-jms-dir>
+                                <adsite-plugins-event-carrier-restclient-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src</adsite-plugins-event-carrier-restclient-dir>
+                                <adsite-plugins-event-carrier-restserver-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src</adsite-plugins-event-carrier-restserver-dir>
+                                <adsite-plugins-event-carrier-restrequestor-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src</adsite-plugins-event-carrier-restrequestor-dir>
+                                <adsite-plugins-event-carrier-kafka-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src</adsite-plugins-event-carrier-kafka-dir>
+                                <adsite-plugins-event-carrier-websocket-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src</adsite-plugins-event-carrier-websocket-dir>
+                                <adsite-plugins-context-dir>${project.basedir}/plugins/plugins-context/src</adsite-plugins-context-dir>
+                                <adsite-plugins-context-schema-avro-dir>${project.basedir}/plugins/plugins-context/context-schema/context-schema-avro/src</adsite-plugins-context-schema-avro-dir>
+                                <adsite-plugins-executor-dir>${project.basedir}/plugins/plugins-executor/src</adsite-plugins-executor-dir>
+                                <adsite-plugins-executor-java-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-java/src</adsite-plugins-executor-java-dir>
+                                <adsite-plugins-executor-javascript-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-javascript/src</adsite-plugins-executor-javascript-dir>
+                                <adsite-plugins-executor-jruby-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jruby/src</adsite-plugins-executor-jruby-dir>
+                                <adsite-plugins-executor-jython-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jython/src</adsite-plugins-executor-jython-dir>
+                                <adsite-plugins-executor-mvel-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-mvel/src</adsite-plugins-executor-mvel-dir>
+                                <adsite-services-engine-dir>${project.basedir}/services/services-engine/src</adsite-services-engine-dir>
+                            </attributes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>asciidoc-html-doc</id>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <backend>html</backend>
+                                    <outputDirectory>${project.build.directory}/generated-docs/html</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/site-docs/adoc/resources</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>${project.basedir}/examples/myfirstpolicy/src/site-docs/adoc/resources</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>asciidoc-pdf-doc</id>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <outputDirectory>${project.build.directory}/generated-docs/pdf</outputDirectory>
+                                    <imagesDir>${project.basedir}/target/generated-docs/html/images</imagesDir>
+                                </configuration>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

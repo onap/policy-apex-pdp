@@ -1,0 +1,21 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: ContextItem
+
+Each piece of context in a __ContextMap__ is represented by an instance of the __ContextItem__ concept.
+Each __ContextItem__ concept instance in a context map keyed with a `ReferenceKey` key, which references the context map of the context item.
+The __LocalName__ field of the `ReferenceKey` holds the name of the context item in the context map
+A reference to a __DataType__ concept defines the data type that values of this context item have at run time.
+The __WritableFlag__ indicates if the context item is read only or read-write at run time.
+

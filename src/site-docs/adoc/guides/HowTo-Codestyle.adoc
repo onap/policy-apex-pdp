@@ -1,0 +1,65 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+= APEX HowTo: Codestyle for Java Projects
+Liam Fallon <liam.fallon@ericsson.com>, Sven van_der_Meer <sven.van.der.meer@ericsson.com>
+
+:revdate: 2017-07-31
+:revremark: for APEX {release-version}
+:version-label!:
+:description: A HowTo on codestyle and Eclipse/Maven configuration for checks
+:keywords: APEX, documentation, codestyle, javadoc, codecheck, jautodoc, Eclipse, Maven
+:experimental:
+
+Version: {release-version}
+
+Version Date: {revdate}
+
+Version Notes: {revremark}
+
+:pygments-linenums-mode: table
+:toc:
+:toclevels: 5
+:icons: font
+
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/01-introduction.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/02-rules.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/10-plugin-jautodoc.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/11-plugin-checkstyle.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/20-configure-eclipse-templates.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/21-configure-jautodoc-templates.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/30-configure-checkstyle-maven.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/31-run-checkstyle-maven.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/32-configure-checkstyle-eclipse.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/33-configure-checkstyle-blueprint.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/40-use-eclipse-source-operations.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/41-using-jautodoc.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/42-using-checkstyle.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/50-disable-eclispe-formatting.adoc[]
+
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/51-supress-checkstyle.adoc[]
+	

@@ -1,0 +1,69 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== A Websocket Configuration for the VPN Domain
+
+Create a new APEX configuration using the VPN policy model and configuring APEX as discussed above for Websockets.
+Copy the following configuration into `$APEX_HOME/examples/config/VPN/Ws2WsServerAvroContextJsonEvent.json` (for Windows use `%APEX_HOME%\examples\config\VPN\Ws2WsServerAvroContextJsonEvent.json`):
+
+[source%nowrap,json,numbered,subs="attributes+"]
+----
+{
+  "engineServiceParameters" : {
+    "name"          : "VPNApexEngine",
+    "version"        : "0.0.1",
+    "id"             :  45,
+    "instanceCount"  : 1,
+    "deploymentPort" : 12345,
+    "policyModelFileName" : "examples/models/VPN/VPNPolicyModelAvro.json",
+    "engineParameters"    : {
+      "executorParameters" : {
+        "MVEL" : {
+          "parameterClassName" : "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+        }
+      },
+      "contextParameters" : {
+        "parameterClassName" : "org.onap.policy.apex.context.parameters.ContextParameters",
+        "schemaParameters":{
+          "Avro":{
+            "parameterClassName" : "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+          }
+        }
+      }
+    }
+  },
+  "producerCarrierTechnologyParameters" : {
+    "carrierTechnology" : "WEBSOCKET",
+    "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+    "parameters" : {
+      "wsClient" : false,
+      "port"     : 42452
+    }
+  },
+  "producerEventProtocolParameters" : {
+    "eventProtocol" : "JSON"
+  },
+  "consumerCarrierTechnologyParameters" : {
+    "carrierTechnology" : "WEBSOCKET",
+    "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+    "parameters" : {
+      "wsClient" : false,
+      "port"     : 42450
+    }
+  },
+  "consumerEventProtocolParameters" : {
+    "eventProtocol" : "JSON"
+  }
+}
+----
+

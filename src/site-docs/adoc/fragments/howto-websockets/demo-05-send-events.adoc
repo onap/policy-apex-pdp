@@ -1,0 +1,58 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Send Events
+
+Now you have the full system up and running:
+
+- Terminal 1: APEX ready and loaded
+- Terminal 2: an echo client, printing received messages produced by the VPN policy
+- Terminal 2: a console client, waiting for input on the console (standard in) and sending text to APEX
+
+We started the engine with the VPN policy example.
+So all the events we are using now are located in files in the following example directory:
+
+[source%nowrap,sh,numbered]
+----
+#: $APEX_HOME/examples/events/VPN
+> %APEX_HOME%\examples\events\VPN
+----
+
+To sends events, simply copy the content of the event files into Terminal 3 (the console client).
+It will read multi-line JSON text and send the events.
+So copy the content of `SetupEvents.json` into the client.
+APEX will trigger a policy and produce some output, the echo client will also print some events created in the policy.
+In Terminal 1 (APEX) you’ll see some status messages from the policy as:
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/wsc-screens/vpn-setup-events.log[APEX output for VPN Setup Events]
+----
+
+In Terminal 2 (echo-client) you see the received events, the last two should look like:
+
+[source%nowrap,sh,numbered,subs="attributes+"]
+----
+include::{adsite-main-dir}/site-docs/adoc/fragments/howto-websockets/wsc-screens/echo-client-received-events.log[Echo Client Received Events]
+----
+
+Congratulations, you have triggered a policy in APEX using Websockets, the policy did run through, created events, picked up by the echo-client.
+
+Now you can send the Link 09 and Link 10 events, they will trigger the actual VPN policy and some calculations are made.
+Let’s take the Link 09 events from `Link09Events.json`, copy them all into Terminal 3 (the console).
+APEX will run the policy (with some status output), and the echo client will receive and print events.
+
+To terminate the applications, simply press `CTRL+C` in Terminal 1 (APEX).
+This will also terminate the echo-client in Terminal 2.
+Then type `exit<enter>` in Terminal 3 (or `CTRL+C`) to terminate the console-client.
+

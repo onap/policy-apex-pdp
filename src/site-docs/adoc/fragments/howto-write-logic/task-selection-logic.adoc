@@ -1,0 +1,165 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Writing APEX Task Selection Logic
+
+The function of Task Selection Logic is to choose which task should be executed for an Apex State as one of the steps in an Apex Policy.
+Since each state must define a default task there is no need for Task Selection Logic unless the state uses more than one task.
+This logic can be specified in a number of ways, exploiting Apex's plug-in architecture to support a range of logic executors.
+In Apex scripted Task Selection Logic can be written in any of these languages: 
+
+* https://en.wikipedia.org/wiki/MVEL[`MVEL`],
+* https://en.wikipedia.org/wiki/JavaScript[`JavaScript`],
+* https://en.wikipedia.org/wiki/JRuby[`JRuby`] or
+* https://en.wikipedia.org/wiki/Jython[`Jython`].
+
+These languages were chosen because the scripts can be compiled into Java bytecode at runtime and then efficiently executed natively in the JVM.
+Task Selection Logic an also be written directly in Java but needs to be compiled, with the resulting classes added to the classpath.
+There are also a number of other Task Selection Logic types but these are not supported as yet.
+This guide will focus on the scripted Task Selection Logic approaches, with MVEL and JavaScript being our favorite languages. 
+In particular this guide will focus on the Apex aspects of the scripts. However, this guide does not attempt to teach you about the scripting languages themselves ... that is up to you!
+
+[TIP]
+.JVM-based scripting languages
+====
+For more more information on Scripting for the Java platform see: https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/index.html
+====
+
+[NOTE]
+.What does Task Selection Logic do? 
+====
+When an Apex state references multiple tasks, there must be a way to dynamically decide which task should be chosen and executed. This can depend on the many factors, e.g. the _incoming event for the state_, _shared state_ or _context_, _external context_, etc.. This is the function of a state's Task Selection Logic. Obviously, if there is only one task then Task Selection Logic is not needed. Each state must also select one of the tasks a the _default state_. If the Task Selection Logic is unable to select an appropriate task, then it should select the _default task_. Once the task has been selected the Apex Engine will then execute that task.
+==== 
+
+First lets start with some simple Task Selection Logic, drawn from the "My First Apex Policy" example:
+The Task Selection Logic from the "My First Apex Policy" example is specified in JavaScript here:
+ 
+.Javascript code for the "My First Policy" Task Selection Logic
+[source,javascript,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicy_BoozeAuthDecideTSL.js[]
+----
+
+The role of the Task Selection Logic in this simple example is to examine the value in one incoming field (`branchid`), then depending on that field's value set the value for the selected task to the appropriate task (`MorningBoozeCheck`, `MorningBoozeCheckAlt1`, or the default task). 
+
+Another thing to notice is that Task Selection Logic should return a `java.lang.Boolean` value `true` if the logic executed correctly. If the logic fails for some reason then `false` can be returned, but this will cause the policy invoking this task will fail and exit. 
+[NOTE]
+.How to return a value from Task Selection Logic
+====
+Some languages explicitly support returning values from the script (e.g. MVEL and JRuby) using an explicit return statement (e.g. `return true`), other languages do not (e.g. JavaScript and Jython). For languages that do not support the `return` statement, a special field called `returnValue` must be created to hold the result of the task logic operation (i.e. assign a `java.lang.Boolean` value to the `returnValue` field before completing the task). 
+
+Also, in MVEL if there is not explicit return statement then the return value of the last executed statement will return (e.g.  the statement a=(1+2) will return the value 3).
+====
+
+Each of the scripting languages used in Apex can import and use standard Java libraries to perform complex tasks. Besides imported classes and normal language features Apex provides some natively available parameters and functions that can be used directly. At run-time these parameters are populated by the Apex execution environment and made natively available to logic scripts each time the logic script is invoked. (These can be accessed using the `executor` keyword for most languages, or can be accessed directly without the `executor` keyword in MVEL):
+
+
+.The `executor` Fields / Methods
+[width="100%",cols="10l,10d,30m,40a",options="header"]
+|====================
+|Name | Type | Java type | Description  
+
+|inFields | Fields | java.util.Map <String,Object> | 
+All fields in the state's incoming event. This is implemented as a standard Java (unmodifiable) Map. 
+
+2+| 2+<a|
+*Example:*
+[source,javascript,numbered,options="nowrap"]
+----
+executor.logger.info("Input Event: "
+   +executor.inFields);
+
+var branchid = executor.inFields.get("branch_ID");
+
+if(branchid >=0 && branchid <1000){ ... }
+----
+
+|selectedTask | ID/key | AxArtifactKey | 
+The writeable field is used to store the result of the task selection logic. The task selection logic should copy the ID of one of the available tasks into this field. Note: ID/key objects have a helpful `copyTo` functions to assist copying IDs.
+
+2+| 2+<a|
+*Example:*
+[source,javascript,numbered,options="nowrap"]
+----
+taskorig = executor.subject.getTaskKey("MorningBoozeCheck");
+if(branchid >=0 && branchid <1000){
+  taskorig.copyTo(executor.selectedTask);
+}
+----
+
+|logger | Logger | org.slf4j.ext.XLogger | A helpful logger 
+
+2+| 2+<a|
+*Example:*
+[source,javascript,numbered,options="nowrap"]
+----
+executor.logger.info("Executing TSL: "
+   +executor.subject.id);
+----
+
+|TRUE/FALSE | boolean | java.lang.Boolean | 2 helpful constants. These are useful to retrieve correct return values for the task selection logic
+
+2+| 2+<a|
+*Example:*
+[source,javascript,options="nowrap"]
+----
+var returnValue = executor.TRUE;
+// functionally equivalent to: 
+var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = new returnValueType(true);
+----
+
+|subject | State | StateFacade | 
+
+This provides some useful information about the state that hosts this task selection logic. This object has some useful fields and methods : 
+
+[options="compact"]
+- *_AxState state_* to get access to the full state definition of the host state
+- *_String getStateName()_* to get the name of the host task
+- *_String getId()_* to get the ID of the host state 
+- *_List<String> getTaskNames()_* to get the names of tasks available for selection
+- *_AxArtifactKey getTaskKey( String taskName )_* to get the ID of a named task for this state
+- *_AxArtifactKey getDefaultTaskKey()_* to get the ID of the default task for this state. As described above, all states must define a default task
+
+2+| 2+<a|
+*Example:*
+[source,javascript,numbered,options="nowrap"]
+----
+executor.logger.info("State name: "
+   +executor.subject.getStateName());
+executor.logger.info("State id: "
+   +executor.subject.getId());
+executor.logger.info("State input event : "
+   +executor.subject.state.getTrigger());
+executor.logger.info("Available tasks : "
+   +executor.subject.getTaskNames());
+taskdef = executor.subject.getDefaultTaskKey();
+taskorig = executor.subject.getTaskKey("MorningBoozeCheck");
+----
+
+3+l|ContextAlbum getContextAlbum(
+       String ctxtAlbumName ) |
+A utility method to retrieve a `ContextAlbum` for use in the task selection logic. This is how you access the context used in task selection. The returned `ContextAlbum` implements the `java.util.Map <String,Object>` interface to get and set context as appropriate. The returned `ContextAlbum` also has methods to lock context albums, get information about the schema of the items to be stored in a context album, and get a `SchemaHelper` to manipulate context album items. How to define and use context in task selection logic is described in the Apex Programmer's Guide and in the My First Apex Policy guide 
+
+2+| 2+<a|
+*Example:*
+[source,javascript,numbered,options="nowrap"]
+----
+var bkey = executor.inFields.get("branch_ID");
+var cnts = executor.getContextMap("BranchCounts");
+cnts.lockForWriting(bkey);
+cnts.put(bkey, cnts.get(bkey) + 1);
+cnts.unlockForWriting(bkey);
+----
+|====================
+

@@ -1,0 +1,22 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: EventField
+
+The incoming context and outgoing context of an event are the fields of the event.
+Each field representing a single piece of incoming or outgoing context.
+Each field of an __Event__ is represented by an instance of the __EventField__ concept.
+Each __EventField__ concept instance in an event is keyed with a `ReferenceKey` key, which references the event.
+The __LocalName__ field of the `ReferenceKey` holds the name of the field
+A reference to a __DataType__ concept defines the data type that values of this parameter have at run time.
+

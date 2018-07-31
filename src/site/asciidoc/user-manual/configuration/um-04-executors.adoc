@@ -1,0 +1,24 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+include::{adsite-plugins-executor-dir}/site-docs/adoc/fragments/executors.adoc[]
+
+include::{adsite-plugins-executor-javascript-dir}/site-docs/adoc/fragments/javascript-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-jython-dir}/site-docs/adoc/fragments/jython-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-jruby-dir}/site-docs/adoc/fragments/jruby-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-java-dir}/site-docs/adoc/fragments/java-config.adoc[leveloffset=+1]
+
+include::{adsite-plugins-executor-mvel-dir}/site-docs/adoc/fragments/mvel-config.adoc[leveloffset=+1]

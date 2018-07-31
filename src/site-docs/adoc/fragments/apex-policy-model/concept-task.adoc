@@ -1,0 +1,37 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: Task
+
+The smallest unit of logic in a policy is a __Task__.
+A task encapsulates a single atomic unit of logic, and is designed to be a single indivisible unit of execution.
+A task may be invoked by a single policy or by many policies.
+A task has a single trigger event, which is sent to the task when it is invoked.
+Tasks emit one or more outgoing events, which carry the result of the task execution.
+Tasks may use or modify context as they execute.
+
+The Task concept definition captures the definition of an APEX task.
+Task concepts are keyed with an `ArtifactKey` key.
+The Trigger of the task is a reference to the __Event__ concept that triggers the task.
+The __OutgoingEvents__ of a task are a set of references to __Event__ concepts that may be emitted by the task.
+
+All tasks have logic, some code that is programmed to execute the work of the task.
+The __Logic__ concept of the task holds the definition of that logic.
+
+The __Task__ definition holds a set of __ContextItem__ and __ContextItemTemplate__ context items that the task is allow to access, as defined by the task developer at design time.
+The type of access (read-only or read write) that a task has is determined by the __WritableFlag__ flag on the individual context item definitions.
+At run time, a task may only access the context items specified in its context item set, the APEX engine makes only the context items in the task context item set is available to the task.
+
+A task can be configured with startup parameters.
+The set of parameters that can be configured on a task are defined as a set of __TaskParameter__ concept definitions.
+

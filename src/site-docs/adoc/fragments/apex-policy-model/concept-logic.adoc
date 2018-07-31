@@ -1,0 +1,30 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Concept: Logic
+
+The __Logic__ concept instance holds the actual programmed task logic for a task defined in a __Task__ concept or the programmed task selection logic for a state defined in a __State__ concept.
+It is keyed with a `ReferenceKey` key, which references the task or state that owns the logic.
+The __LocalName__ field of the Logic concept is the name of the logic.
+
+The __LogicCode__ field of a Logic concept definition is a string that holds the program code that is to be executed at run time.
+The __LogicType__ field defines the language of the code.
+The standard values are the logic languages supported by APEX:
+  link:https://en.wikipedia.org/wiki/JavaScript[JAVASCRIPT],
+  link:https://java.com/en/[JAVA],
+  link:http://www.jython.org/[JYTHON],
+  link:http://jruby.org/[JRUBY], or
+  link:https://en.wikibooks.org/wiki/Transwiki:MVEL_Language_Guide[MVEL].
+
+The APEX engine uses the __LogicType__ field value to decide which language interpreter to use for a task and then sends the logic defined in the __LogicCode__ field to that interpreter.
+
