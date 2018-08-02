@@ -37,8 +37,8 @@ public class ApexEditorParameters {
 
     // Base URI the HTTP server will listen on
     private static final String DEFAULT_SERVER_URI_PREFIX = "http://";
-    /** The server listens on all available interfaces/addresses. */
-    public static final String DEFAULT_SERVER_URI_ROOT = "0.0.0.0";
+    /** The server listens on localhost by default. */
+    public static final String DEFAULT_SERVER_URI_ROOT = "localhost";
     private static final String DEFAULT_REST_PATH = "/apexservices/";
     private static final String DEFAULT_STATIC_PATH = "/";
 

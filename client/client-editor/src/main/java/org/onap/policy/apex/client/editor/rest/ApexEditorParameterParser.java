@@ -55,9 +55,9 @@ public class ApexEditorParameterParser {
                 .desc("the amount of time in seconds that the server will run for before terminating. "
                         + "Default value is " + ApexEditorParameters.INFINITY_TIME_TO_LIVE + " to run indefinitely.")
                 .hasArg().argName("TIME_TO_LIVE").required(false).type(Number.class).build());
-        options.addOption(Option.builder("l").longOpt("listen").desc("the IP address to listen on.  Default value is "
-                + ApexEditorParameters.DEFAULT_SERVER_URI_ROOT + " "
-                + "to listen on all available addresses. Use value 'localhost' to restrict access to the local machine only.")
+        options.addOption(Option.builder("l").longOpt("listen")
+                .desc("the IP address to listen on.  Default value is " + ApexEditorParameters.DEFAULT_SERVER_URI_ROOT
+                        + " to restrict access to the local machine only.")
                 .hasArg().argName("ADDRESS").required(false).type(String.class).build());
     }
 
