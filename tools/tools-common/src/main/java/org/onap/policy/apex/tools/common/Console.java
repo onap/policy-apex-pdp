@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StrBuilder;
+import org.slf4j.ext.XLoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
@@ -326,12 +327,12 @@ public final class Console {
             if (appName != null) {
                 System.err.print(appName + ": ");
             }
-            System.err.println("exception stack trace: ");
-            System.err.println(" - message: " + exception.getMessage());
+            System.err.println(" exception message: " + exception.getMessage());
             if (exception.getCause() != null) {
-                System.err.println(" - cause: " + exception.getCause());
+                System.err.println(" exception cause: " + exception.getCause());
             }
-            exception.printStackTrace();
+            System.err.println("for exception stack trace, please refer logs.");
+            XLoggerFactory.getXLogger(Console.class).error("stacktrace", exception);
         }
     }
 

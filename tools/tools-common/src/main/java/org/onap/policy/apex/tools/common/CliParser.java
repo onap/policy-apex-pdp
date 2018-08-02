@@ -81,8 +81,8 @@ public class CliParser {
         try {
             cmd = parser.parse(options, args);
         } catch (final ParseException ex) {
-            System.err.println("Parsing failed.  Reason: " + ex.getMessage());
-            ex.printStackTrace();
+            Console.CONSOLE.error("Parsing failed, see reason and cause below");
+            Console.CONSOLE.stacktrace(ex);
         }
         return cmd;
     }
