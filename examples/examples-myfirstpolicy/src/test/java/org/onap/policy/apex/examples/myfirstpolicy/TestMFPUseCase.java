@@ -44,9 +44,9 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
  * Test MyFirstPolicy Use Case.

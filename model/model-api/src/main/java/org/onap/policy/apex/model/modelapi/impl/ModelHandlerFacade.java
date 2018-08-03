@@ -55,8 +55,8 @@ import org.onap.policy.apex.model.policymodel.handling.PolicyModelComparer;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelMerger;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelSplitter;
 import org.onap.policy.apex.model.utilities.Assertions;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

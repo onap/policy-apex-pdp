@@ -37,7 +37,6 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.ObjectFactory;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.XMLApexEvent;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.XMLApexEventData;
@@ -46,6 +45,7 @@ import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.xml.sax.SAXException;
@@ -73,7 +73,7 @@ public final class Apex2XMLEventConverter implements ApexEventProtocolConverter 
      */
     public Apex2XMLEventConverter() throws ApexEventException {
         try {
-            final URL schemaURL = ResourceUtils.getURLResource(MODEL_SCHEMA_NAME);
+            final URL schemaURL = ResourceUtils.getUrlResource(MODEL_SCHEMA_NAME);
             final Schema apexEventSchema =
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaURL);
 

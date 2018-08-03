@@ -45,7 +45,7 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -202,7 +202,7 @@ public class EngineServiceFacade {
         // Get the model file as a string
         URL apexModelURL = ResourceUtils.getLocalFile(modelFileName);
         if (apexModelURL == null) {
-            apexModelURL = ResourceUtils.getURLResource(modelFileName);
+            apexModelURL = ResourceUtils.getUrlResource(modelFileName);
             if (apexModelURL == null) {
                 LOGGER.error("cound not create apex model, could not read from XML file {}", modelFileName);
                 throw new ApexDeploymentException(

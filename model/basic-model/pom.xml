@@ -33,6 +33,10 @@
     <description>Basic Models used and model handling in Apex</description>
 
     <dependencies>
+         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.model</groupId>
             <artifactId>utilities</artifactId>

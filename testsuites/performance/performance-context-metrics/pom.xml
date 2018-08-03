@@ -32,6 +32,10 @@
     <description>[${project.parent.artifactId}] module to calculate metrics using various plugins</description>
 
     <dependencies>
+         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
             <artifactId>core-infrastructure</artifactId>

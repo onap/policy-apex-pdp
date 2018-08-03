@@ -26,7 +26,7 @@ import org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
  * A factory for creating PCVSDomainModel objects.
