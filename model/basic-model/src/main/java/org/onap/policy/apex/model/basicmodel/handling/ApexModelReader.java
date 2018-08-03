@@ -43,8 +43,8 @@ import org.eclipse.persistence.oxm.MediaType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.utilities.Assertions;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -119,7 +119,7 @@ public class ApexModelReader<C extends AxConcept> {
         if (schemaFileName != null) {
             try {
                 // Set the concept schema
-                final URL schemaURL = ResourceUtils.getURLResource(schemaFileName);
+                final URL schemaURL = ResourceUtils.getUrlResource(schemaFileName);
                 final Schema apexConceptSchema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaURL);
                 unmarshaller.setSchema(apexConceptSchema);
             }
