@@ -37,6 +37,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
             <artifactId>core-engine</artifactId>
             <version>${project.version}</version>

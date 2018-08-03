@@ -34,7 +34,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
  * This class reads and handles command line parameters for the Apex main program.
@@ -266,7 +266,7 @@ public class ApexCommandLineArguments {
         }
 
         // The file name can refer to a resource on the local file system or on the class path
-        final URL fileURL = ResourceUtils.getURL4Resource(fileName);
+        final URL fileURL = ResourceUtils.getUrl4Resource(fileName);
         if (fileURL == null) {
             throw new ApexException(fileTag + " file \"" + fileName + "\" does not exist");
         }

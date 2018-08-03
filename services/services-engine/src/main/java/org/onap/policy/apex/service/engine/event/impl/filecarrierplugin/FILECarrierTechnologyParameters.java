@@ -20,10 +20,10 @@
 
 package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin;
 
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer.ApexFileEventProducer;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
  * This class holds the parameters that allows transport of events into and out of Apex using files
