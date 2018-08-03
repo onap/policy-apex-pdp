@@ -26,8 +26,8 @@ import java.net.URL;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.service.parameters.ApexParameterValidator;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 
 import org.onap.policy.apex.core.engine.EngineParameters;
 
@@ -305,7 +305,7 @@ public class EngineServiceParameters extends AbstractParameters implements ApexP
             } else {
                 // The file name can refer to a resource on the local file system or on the class
                 // path
-                final URL fileURL = ResourceUtils.getURL4Resource(policyModelFileName);
+                final URL fileURL = ResourceUtils.getUrl4Resource(policyModelFileName);
                 if (fileURL == null) {
                     errorMessageBuilder.append(
                             "  policyModelFileName [" + policyModelFileName + "] not found or is not a plain file\n");

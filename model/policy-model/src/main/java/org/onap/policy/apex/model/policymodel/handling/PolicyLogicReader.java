@@ -24,7 +24,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogicReader;
 import org.onap.policy.apex.model.policymodel.concepts.PolicyRuntimeException;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

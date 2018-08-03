@@ -32,7 +32,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.onap.policy.apex.context.test.utils.NetworkUtils;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

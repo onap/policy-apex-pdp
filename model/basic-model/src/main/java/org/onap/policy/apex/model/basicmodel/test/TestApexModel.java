@@ -34,7 +34,7 @@ import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

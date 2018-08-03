@@ -53,13 +53,13 @@ import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
-import org.onap.policy.apex.model.utilities.ResourceUtils;
 import org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanDistributorParameters;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManagerParameters;
 import org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

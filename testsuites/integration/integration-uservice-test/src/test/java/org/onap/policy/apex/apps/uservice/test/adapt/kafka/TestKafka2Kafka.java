@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.apps.uservice.test.adapt.kafka;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,13 +46,12 @@ import kafka.utils.ZKStringSerializer$;
 import kafka.utils.ZkUtils;
 import kafka.zk.EmbeddedZookeeper;
 
-
 public class TestKafka2Kafka {
     // The method of starting an embedded Kafka server used in this example is based on the method
-    // on slashdot at
+    // on stack overflow at
     // https://github.com/asmaier/mini-kafka
 
-    private static final long MAX_TEST_LENGTH = 10000;
+    private static final long MAX_TEST_LENGTH = 20000;
 
     private static final int EVENT_COUNT = 100;
     private static final int EVENT_INTERVAL = 20;
@@ -79,6 +78,9 @@ public class TestKafka2Kafka {
         brokerProps.setProperty("broker.id", "0");
         brokerProps.setProperty("log.dirs", Files.createTempDirectory("kafka-").toAbsolutePath().toString());
         brokerProps.setProperty("listeners", "PLAINTEXT://" + BROKERHOST + ":" + BROKERPORT);
+        brokerProps.setProperty("offsets.topic.replication.factor", "1");
+        brokerProps.setProperty("transaction.state.log.replication.factor", "1");
+        brokerProps.setProperty("transaction.state.log.min.isr", "1");
         final KafkaConfig config = new KafkaConfig(brokerProps);
         final Time mock = new MockTime();
         kafkaServer = TestUtils.createServer(config, mock);
@@ -135,9 +137,7 @@ public class TestKafka2Kafka {
 
         ThreadUtilities.sleep(1000);
 
-        System.out.println("sent event count: " + producer.getEventsSentCount());
-        System.out.println("received event count: " + subscriber.getEventsReceivedCount());
-        assertTrue(subscriber.getEventsReceivedCount() == producer.getEventsSentCount());
+        assertEquals(producer.getEventsSentCount(), subscriber.getEventsReceivedCount());
 
         apexMain.shutdown();
         subscriber.shutdown();

@@ -35,6 +35,10 @@
     </properties>
 
     <dependencies>
+         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.model</groupId>
             <artifactId>policy-model</artifactId>
