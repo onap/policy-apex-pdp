@@ -1,0 +1,29 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== BCP: Websocket Configuration
+
+The probably best is to configure APEX for Websocket servers for input (ingress, consume) and output (egress, produce) interfaces.
+This means that APEX will start Websocket servers on named ports and wait for clients to connect.
+Advantage: once APEX is running all connectivity infrastructure is running as well.
+Consequence: if APEX is not running, everyone else is in the dark, too.
+
+The best protocol to be used is JSON string.
+Each event on any interface is then a string with a JSON encoding.
+JSON string is a little bit slower than byte code, but we doubt that this will be noticeable.
+A further advantage of JSON strings over Websockets with APEX starting the servers: it is very easy to connect web browsers to such a system.
+Simple connect the web browser to the APEX sockets and send/read JSON strings.
+
+Once APEX is started you simply connect Websocket clients to it, and send/receive event.
+When APEX is terminated, the Websocket servers go down, and the clients will be disconnected.
+APEX does not (yet) support auto-client reconnect nor WAMP, so clients might need to be restarted or reconnected manually after an APEX boot.

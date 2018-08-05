@@ -1,0 +1,30 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Executors
+
+Executors are plugins that realize the execution of logic contained in a policy model.
+Logic can be in a task selector, a task, and a state finalizer.
+Using plugins for execution environments makes APEX very flexible to support virtually any executable logic expressions.
+
+APEX {release-version} supports the following executors:
+
+- Java, for Java implemented logic
+  ** This executor requires logic implemented using the APEX Java interfaces.
+  ** Generated JAR files must be in the classpath of the APEX engine at start time.
+- Javascript
+- JRuby,
+- Jython,
+- MVEL
+  ** This executor uses the latest version of the MVEL engine, which can be very hard to debug and can produce unwanted side effects during execution
+

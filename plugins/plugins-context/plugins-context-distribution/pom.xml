@@ -38,4 +38,21 @@
         <module>plugins-context-distribution-hazelcast</module>
         <module>plugins-context-distribution-infinispan</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

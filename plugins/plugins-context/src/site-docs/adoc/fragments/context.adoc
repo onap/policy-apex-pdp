@@ -1,0 +1,24 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Context Handlers
+
+Context handlers are responsible for all context processing.
+There are the following main areas:
+
+- Context schema: use schema handlers other than Java class (supported by default without configuration)
+- Context distribution: distribute context across multiple APEX engines
+- Context locking: mechanisms to lock context elements for read/write
+- Context persistence: mechanisms to persist context
+
+APEX provides plugins for each of the main areas.

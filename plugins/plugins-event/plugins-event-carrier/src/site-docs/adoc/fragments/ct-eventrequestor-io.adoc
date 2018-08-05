@@ -1,0 +1,92 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Event Requestor IO
+
+Event Requestor IO does not require a specific plugin, it is supported be default.
+It should only be used with the APEX event protocol.
+
+=== Event Requestor Input
+
+APEX will take events from APEX.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology": "EVENT_REQUESTOR" // <1>
+}
+----
+<1> set event requestor input
+
+
+=== Event Requestor Output
+
+APEX will write events to APEX.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology": "EVENT_REQUESTOR" // <1>
+}
+----
+
+=== Peering Event Requestors
+
+When using event requestors, they need to be peered.
+This means an event requestor output needs to be peered (associated) with an event requestor input.
+The following example shows the use of an event requestor with the APEX event protocol and the peering of output and input.
+
+[source%nowrap,json]
+----
+"eventInputParameters": {
+  "EventRequestorConsumer": {
+    "carrierTechnologyParameters": {
+      "carrierTechnology": "EVENT_REQUESTOR" // <1>
+    },
+    "eventProtocolParameters": {
+      "eventProtocol": "APEX" // <2>
+    },
+    "eventNameFilter": "InputEvent", // <3>
+    "requestorMode": true, // <4>
+    "requestorPeer": "EventRequestorProducer", // <5>
+    "requestorTimeout": 500 // <6>
+  }
+},
+"eventOutputParameters": {
+  "EventRequestorProducer": {
+    "carrierTechnologyParameters": {
+      "carrierTechnology": "EVENT_REQUESTOR" <7>
+    },
+    "eventProtocolParameters": {
+      "eventProtocol": "APEX" <8>
+    },
+    "eventNameFilter": "EventListEvent", // <9>
+    "requestorMode": true, // <10>
+    "requestorPeer": "EventRequestorConsumer", // <11>
+    "requestorTimeout": 500 // <12>
+  }
+}
+----
+
+<1> event requestor on a consumer
+<2> with APEX event protocol
+<3> optional filter (best to use a filter to prevent unwanted events on the consumer side)
+<4> activate requestor mode
+<5> the peer to the output (must match the output carrier)
+<6> an optional timeout in milliseconds
+<7> event requestor on a producer
+<8> with APEX event protocol
+<9> optional filter (best to use a filter to prevent unwanted events on the consumer side)
+<10> activate requestor mode
+<11> the peer to the output (must match the input carrier)
+<12> an optional timeout in milliseconds

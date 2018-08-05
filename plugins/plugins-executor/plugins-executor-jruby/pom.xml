@@ -73,4 +73,24 @@
             <version>1.2.10</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <properties>
+                <adsite-plugins-executor-jruby-dir>${project.basedir}/src</adsite-plugins-executor-jruby-dir>
+            </properties>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

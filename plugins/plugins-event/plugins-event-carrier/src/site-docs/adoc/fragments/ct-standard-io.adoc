@@ -1,0 +1,52 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Standard IO
+
+Standard IO does not require a specific plugin, it is supported be default.
+
+=== Standard Input
+
+APEX will take events from its standard input.
+This carrier is good for testing, but certainly not for a use case where APEX runs as a server.
+The configuration is as follows:
+
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "FILE", // <1>
+  "parameters" : {
+    "standardIO" : true <2>
+  }
+}
+----
+<1> standard input is considered a file
+<2> file descriptor set to standard input
+
+
+=== Standard Output
+
+APEX will send events to its standard output.
+This carrier is good for testing, but certainly not for a use case where APEX runs as a server.
+The configuration is as follows:
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "FILE", // <1>
+  "parameters" : {
+    "standardIO" : true  <2>
+  }
+}
+----
+<1> standard output is considered a file
+<2> file descriptor set to standard output

@@ -1,0 +1,86 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== REST Requestor IO
+
+APEX can act as REST requestor on the input as well as on the output interface.
+The media type is `application/json`, so this plugin does only work with the JSON Event protocol.
+
+=== REST Requestor Input
+
+APEX will connect to a given URL to request an input.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters": {
+  "carrierTechnology": "RESTREQUESTOR", <1>
+  "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters",
+  "parameters": {
+    "url": "http://localhost:54321/some/path/to/rest/resource", <2>
+    "httpMethod": "POST", <3>
+    "restRequestTimeout": 2000 <4>
+  }
+},
+----
+
+<1> set REST requestor as carrier technology
+<2> the URL of the HTTP server for events
+<3> use HTTP PUT (remove this line to use HTTP POST)
+<4> request timeout in milliseconds
+
+Further settings are required on the consumer to define the event that is requested, for example:
+
+[source%nowrap,json]
+----
+"eventName": "GuardResponseEvent", <1>
+"eventNameFilter": "GuardResponseEvent", <2>
+"requestorMode": true, <3>
+"requestorPeer": "GuardRequestorProducer", <4>
+"requestorTimeout": 500 <5>
+----
+
+<1> the event name
+<2> a filter on the event
+<3> the mode of the requestor
+<4> a peer for the requestor
+<5> a general request timeout
+
+
+=== REST Requestor Output
+
+APEX will connect to a given URL to send events, but not receive any events.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters": {
+  "carrierTechnology": "RESTREQUESTOR", <1>
+  "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters"
+},
+----
+
+<1> set REST requestor as carrier technology
+
+Further settings are required on the consumer to define the event that is requested, for example:
+
+[source%nowrap,json]
+----
+"eventNameFilter": "GuardRequestEvent", <1>
+"requestorMode": true, <2>
+"requestorPeer": "GuardRequestorConsumer", <3>
+"requestorTimeout": 500 <4>
+----
+
+<1> a filter on the event
+<2> the mode of the requestor
+<3> a peer for the requestor
+<4> a general request timeout

@@ -33,4 +33,24 @@
     <properties>
         <apex-plugins-event-carrier-websocket-dir>${project.basedir}/src</apex-plugins-event-carrier-websocket-dir>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <properties>
+                <adsite-plugins-event-carrier-websocket-dir>${project.basedir}/src</adsite-plugins-event-carrier-websocket-dir>
+            </properties>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/plugins-event/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

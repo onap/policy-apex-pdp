@@ -1,0 +1,93 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== JMS IO
+
+APEX supports the Java Messaging Service (JMS) as input as well as output.
+JMS IO is supported by the APEX JMS plugin.
+Input and output support an event encoding as text (JSON string) or object (serialized object).
+The input configuration is the same for both encodings, the output configuration differs.
+
+
+=== JMS Input
+
+APEX will receive events from a JMS messaging system.
+The input is uni-directional, an engine will only receive events from the input but not send any event to the input.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "JMS", <1>
+  "parameterClassName" :
+      "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+  "parameters" : { <2>
+    "initialContextFactory" :
+        "org.jboss.naming.remote.client.InitialContextFactory", <3>
+    "connectionFactory" : "ConnectionFactory", <4>
+    "providerURL" : "remote://localhost:5445", <5>
+    "securityPrincipal" : "guest", <6>
+    "securityCredentials" : "IAmAGuest", <7>
+    "consumerTopic" : "jms/topic/apexIn" <8>
+  }
+}
+----
+
+<1> set JMS as carrier technology
+<2> set all JMS specific parameters
+<3> the context factory, in this case from JBOSS (it requires the dependency org.jboss:jboss-remote-naming:2.0.4.Final or a different version to be in the directory `$APEX_HOME/lib` or `%APEX_HOME%\lib`
+<4> a connection factory for the JMS connection
+<5> URL with host and port of the JMS provider
+<6> access credentials, user name
+<7> access credentials, user password
+<8> the JMS topic to listen to
+
+
+=== JMS Output with Text
+
+APEX engine send events to a JMS messaging system.
+The output is uni-directional, an engine will send events to the output but not receive any event from output.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "JMS", <1>
+  "parameterClassName" : 
+      "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+  "parameters" : { <2>
+    "initialContextFactory" :
+        "org.jboss.naming.remote.client.InitialContextFactory", <3>
+    "connectionFactory" : "ConnectionFactory", <4>
+    "providerURL" : "remote://localhost:5445", <5>
+    "securityPrincipal" : "guest", <6>
+    "securityCredentials" : "IAmAGuest", <7>
+    "producerTopic" : "jms/topic/apexOut", <8>
+    "objectMessageSending": "false" <9>
+  }
+}
+----
+
+<1> set JMS as carrier technology
+<2> set all JMS specific parameters
+<3> the context factory, in this case from JBOSS (it requires the dependency org.jboss:jboss-remote-naming:2.0.4.Final or a different version to be in the directory `$APEX_HOME/lib` or `%APEX_HOME%\lib`
+<4> a connection factory for the JMS connection
+<5> URL with host and port of the JMS provider
+<6> access credentials, user name
+<7> access credentials, user password
+<8> the JMS topic to write to
+<9> set object messaging to `false` means it sends JSON text
+
+
+=== JMS Output with Object
+
+To configure APEX for JMS objects on the output interface use the same configuration as above (for output).
+Simply change the `objectMessageSending` parameter to `true`.

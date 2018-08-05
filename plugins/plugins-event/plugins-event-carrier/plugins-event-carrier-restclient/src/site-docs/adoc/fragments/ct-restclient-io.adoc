@@ -1,0 +1,63 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== REST Client IO
+
+APEX can act as REST client on the input as well as on the output interface.
+The media type is `application/json`, so this plugin does only work with the JSON Event protocol.
+
+=== REST Client Input
+
+APEX will connect to a given URL to receive events, but not send any events.
+The server is polled, i.e. APEX will do an HTTP GET, take the result, and then do the next GET.
+Any required timing needs to be handled by the server configured via the URL.
+For instance, the server could support a wait timeout via the URL as `?timeout=100ms`.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "RESTCLIENT", <1>
+  "parameterClassName" :
+    "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",		
+  "parameters" : {
+    "url" : "http://example.org:8080/triggers/events", <2>
+  }
+}
+----
+
+<1> set REST client as carrier technology
+<2> the URL of the HTTP server for events
+
+
+=== REST Client Output
+
+APEX will connect to a given URL to send events, but not receive any events.
+The default HTTP operation is POST (no configuration required).
+To change it to PUT simply add the configuration parameter (as shown in the example below).
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "RESTCLIENT", <1>
+  "parameterClassName" :
+    "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",		
+  "parameters" : {
+    "url" : "http://example.com:8888/actions/events", <2>
+    "httpMethod" : "PUT" <3>
+  }
+}
+----
+
+<1> set REST client as carrier technology
+<2> the URL of the HTTP server for events
+<3> use HTTP PUT (remove this line to use HTTP POST)

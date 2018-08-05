@@ -1,0 +1,23 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Websockets
+
+Websocket is a protocol to run sockets of HTTP.
+Since it in essence a socket, the connection is realized between a server (waiting for connections) and a client (connecting to a server).
+Server/client separation is only important for connection establishment, once connected, everyone can send/receive on the same socket (as any standard socket would allow). 
+
+Standard Websocket implementations are simple, no publish/subscribe and no special event handling.
+Most servers simply send all incoming messages to all connections.
+There is a PubSub definition on top of Websocket called link:http://wamp-proto.org/[WAMP].
+APEX does not support WAMP at the moment.

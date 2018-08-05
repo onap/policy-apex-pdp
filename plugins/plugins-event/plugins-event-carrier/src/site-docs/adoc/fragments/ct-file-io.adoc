@@ -1,0 +1,53 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== File IO
+
+File IO does not require a specific plugin, it is supported be default.
+
+=== File Input
+
+APEX will take events from a file.
+The same file should not be used as an output.
+The configuration is as follows:
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "FILE", // <1>
+  "parameters" : {
+    "fileName" : "examples/events/SampleDomain/EventsIn.xmlfile" // <2>
+  }
+}
+----
+<1> set file input
+<2> the name of the file to read events from
+
+
+=== File Output
+
+APEX will write events to a file.
+The same file should not be used as an input.
+The configuration is as follows:
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "FILE", // <1>
+  "parameters" : {
+    "fileName"  : "examples/events/SampleDomain/EventsOut.xmlfile" // <2>
+  }
+}
+----
+<1> set file output
+<2> the name of the file to write events to

@@ -1,0 +1,134 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== REST Server IO
+
+APEX supports a REST server for input and output.
+
+The REST server plugin always uses a synchronous mode.
+A client does a HTTP GET on the APEX REST server with the input event and receives the generated output event in the server reply.
+This means that for the REST server there has to always to be an input with an associated output.
+Input or output only are not permitted.
+
+The plugin will start a Grizzly server as REST server for a normal APEX engine.
+If the APEX engine is executed as a servlet, for instance inside Tomcat, then Tomcat will be used as REST server (this case requires configuration on Tomcat as well).
+
+Some configuration restrictions apply for all scenarios:
+
+- Minimum port: 1024
+- Maximum port: 65535
+- The media type is `application/json`, so this plugin does only work with the JSON Event protocol.
+
+The URL the client calls is created using
+
+- the configured host and port, e.g. `http://localhost:12345`
+- the standard path, e.g. `/apex/`
+- the name of the input/output, e.g. `FirstConsumer/`
+- the input or output name, e.g. `EventIn`.
+
+The examples above lead to the URL `http://localhost:12345/apex/FirstConsumer/EventIn`.
+
+A client can also get status information of the REST server using `/Status`, e.g. `http://localhost:12345/apex/FirstConsumer/Status`.
+
+
+=== REST Server Stand-alone
+
+We need to configure a REST server input and a REST server output.
+Input and output are associated with each other via there name.
+
+Timeouts for REST calls need to be set carefully.
+If they are too short, the call might timeout before a policy finished creating an event.
+
+The following example configures the input named as `MyConsumer` and associates an output named `MyProducer` with it.
+
+[source%nowrap,json]
+----
+"eventInputParameters": {
+  "MyConsumer": {
+    "carrierTechnologyParameters" : {
+      "carrierTechnology" : "RESTSERVER", <1>
+      "parameterClassName" : 
+        "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+      "parameters" : {
+        "standalone" : true, <2>
+        "host" : "localhost", <3>
+        "port" : 12345 <4>
+      }
+    },
+    "eventProtocolParameters":{
+      "eventProtocol" : "JSON" <5>
+    },
+    "synchronousMode"    : true, <6>
+    "synchronousPeer"    : "MyProducer", <7>
+    "synchronousTimeout" : 500 <8>
+  }
+}
+----
+<1> set REST server as carrier technology
+<2> set the server as stand-alone
+<3> set the server host
+<4> set the server listen port
+<5> use JSON event protocol
+<6> activate synchronous mode
+<7> associate an output `MyProducer`
+<8> set a timeout of 500 milliseconds
+
+
+The following example configures the output named as `MyProducer` and associates the input `MyConsumer` with it.
+Note that for the output there are no more paramters (such as host or port), since they are already configured in the associated input
+
+[source%nowrap,json]
+----
+"eventOutputParameters": {
+  "MyProducer": {
+    "carrierTechnologyParameters":{
+      "carrierTechnology" : "RESTSERVER",
+      "parameterClassName" :
+        "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters"
+    },
+    "eventProtocolParameters":{
+      "eventProtocol" : "JSON"
+    },
+    "synchronousMode"    : true,
+    "synchronousPeer"    : "MyConsumer",
+    "synchronousTimeout" : 500
+  }
+}
+----
+
+
+=== REST Server Stand-alone, multi input
+
+Any number of input/output pairs for REST servers can be configured.
+For instance, we can configure an input `FirstConsumer` with output `FirstProducer` and an input `SecondConsumer` with output `SecondProducer`.
+Important is that there is always one pair of input/output.
+
+
+=== REST Server Stand-alone in Servlet
+
+If APEX is executed as a servlet, e.g. inside Tomcat, the configuration becomes easier since the plugin can now use Tomcat as the REST server.
+In this scenario, there are not parameters (port, host, etc.) and the key `standalone` must not be used (or set to false).
+
+For the Tomcat configuration, we need to add the REST server plugin, e.g.
+
+[source%nowrap,xml]
+----
+<servlet>
+  ...
+  <init-param>
+    ...
+    <param-value>org.onap.policy.apex.plugins.event.carrier.restserver</param-value>
+  </init-param>
+  ...
+</servlet>
+----

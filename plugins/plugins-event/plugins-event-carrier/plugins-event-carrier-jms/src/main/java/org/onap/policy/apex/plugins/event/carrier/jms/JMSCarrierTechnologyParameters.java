@@ -177,7 +177,7 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
      * @return the provider URL
      */
     public String getProviderURL() {
-        return providerURL;
+        return       providerURL;
     }
 
     /**
