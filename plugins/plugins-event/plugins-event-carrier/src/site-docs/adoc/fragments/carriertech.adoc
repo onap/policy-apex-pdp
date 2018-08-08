@@ -1,0 +1,41 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Carrier Technologies
+
+Carrier technologies define how APEX receives (input) and sends (output) events.
+They can be used in any combination, using asynchronous or synchronous mode.
+There can also be any number of carrier technologies for the input (consume) and the output (produce) interface.
+
+Supported _input_ technologies are:
+
+- Standard input, read events from the standard input (console), not suitable for APEX background servers
+- File input, read events from a file
+- Kafka, read events from a Kafka system
+- Websockets, read events from a Websocket
+- JMS,
+- REST (synchronous and asynchronous), additionally as client or server
+- Event Requestor, allows reading of events that have been looped back into APEX
+
+
+Supported _output_ technologies are:
+
+- Standard output, write events to the standard output (console), not suitable for APEX background servers
+- File output, write events to a file
+- Kafka, write events to a Kafka system
+- Websockets, write events to a Websocket
+- JMS
+- REST (synchronous and asynchronous), additionally as client or server
+- Event Requestor, allows events to be looped back into APEX
+
+New carrier technologies can be added as plugins to APEX or developed outside APEX and added to an APEX deployment.

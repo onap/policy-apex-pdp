@@ -28,4 +28,21 @@
     <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for persistence using EclipseLink</description>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/plugins-persistence/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

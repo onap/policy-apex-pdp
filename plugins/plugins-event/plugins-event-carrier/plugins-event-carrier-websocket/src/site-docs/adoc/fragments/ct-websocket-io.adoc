@@ -1,0 +1,75 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Websocket (WS) IO
+
+APEX supports the Websockets as input as well as output.
+WS IO is supported by the APEX Websocket plugin.
+This carrier technology does only support uni-directional communication.
+APEX will not send events to a Websocket input and any event sent to a Websocket output will result in an error log.
+
+The input can be configured as client (APEX connects to an existing Websocket server) or server (APEX starts a Websocket server).
+The same applies to the output.
+Input and output can both use a client or a server configuration, or separate configurations (input as client and output as server, input as server and output as client).
+Each configuration should use its own dedicated port to avoid any communication loops.
+The configuration of a Websocket client is the same for input and output.
+The configuration of a Websocket server is the same for input and output.
+
+
+=== Websocket Client
+
+APEX will connect to a given Websocket server.
+As input, it will receive events from the server but not send any events.
+As output, it will send events to the server and any event received from the server will result in an error log.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "WEBSOCKET", <1>
+  "parameterClassName" :
+  "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+  "parameters" : {
+    "host" : "localhost", <2>
+    "port" : 42451 <3>
+  }
+}
+----
+
+<1> set Websocket as carrier technology
+<2> the host name on which a Websocket server is running
+<3> the port of that Websocket server
+
+
+
+=== Websocket Server
+
+APEX will start a Websocket server, which will accept any Websocket clients to connect.
+As input, it will receive events from the server but not send any events.
+As output, it will send events to the server and any event received from the server will result in an error log.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "WEBSOCKET", <1>
+  "parameterClassName" :
+  "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+  "parameters" : {
+    "wsClient" : false, <2>
+    "port"     : 42450 <3>
+  }
+}
+----
+
+<1> set Websocket as carrier technology
+<2> disable client, so that APEX will start a Websocket server
+<3> the port for the Websocket server APEX will start

@@ -50,4 +50,20 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/plugins-context/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

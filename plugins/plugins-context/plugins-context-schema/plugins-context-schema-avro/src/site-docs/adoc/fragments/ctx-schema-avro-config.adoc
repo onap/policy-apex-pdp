@@ -1,0 +1,49 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Configure AVRO Schema Handler
+
+The AVRO schema handler is added to the configuration as follows:
+
+[source%nowrap,json]
+----
+"engineServiceParameters":{
+  "engineParameters":{
+    "contextParameters":{
+      "parameterClassName" : "org.onap.policy.apex.context.parameters.ContextParameters",
+      "schemaParameters":{
+        "Avro":{
+          "parameterClassName" : 
+            "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+        }
+      }
+    }
+  }
+}
+----
+
+Using the AVRO schema handler has one limitation: AVRO only supports field names that represent valid Java class names.
+This means only letters and the character `_` are supported.
+Characters commonly used in field names, such as `.` and `-`, are not supported by AVRO.
+for more information see link:https://avro.apache.org/docs/1.8.1/spec.html#names[Avro Spec: Names].
+
+To work with this limitation, the APEX Avro plugin will parse a given AVRO definition and replace _all_ occurrences of `.` and `-` with a `_`.
+This means that
+
+- In a policy model, if the AVRO schema defined a field as `my-name` the policy logic should access it as `my_name`
+- In a policy model, if the AVRO schema defined a field as `my.name` the policy logic should access it as `my_name`
+- There should be no field names that convert to the same internal name
+  ** For instance the simultaneous use of `my_name`, `my.name`, and `my-name` should be avoided
+  ** If not avoided, the event processing might create unwanted side effects
+- If field names use any other not-supported character, the AVRO plugin will reject it
+  ** Since AVRO uses lazy initialization, this rejection might only become visible at runtime
