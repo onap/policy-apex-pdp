@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_abd81df0",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/ApexEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "These ones seem to be over 120 characters in length",
+      "range": {
+        "startLine": 159,
+        "startChar": 1,
+        "endLine": 168,
+        "endChar": 9
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0befd188",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/PeeredReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "120 characters",
+      "range": {
+        "startLine": 44,
+        "startChar": 66,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2bf40d5a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/SynchronousEventCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "\u003e120, and there are other long lines in this class.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 119
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_abffbd33",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "\u003e120",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 115
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8b02013d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "\u003e120",
+      "range": {
+        "startLine": 82,
+        "startChar": 36,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0b96f1f0",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/runtime/EngineService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "\u003e120, there are others.",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 102
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2b9bad19",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "Also long lines in this class",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_eba4d558",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/carriertechnology/CarrierTechnologyParametersJSONAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "Long lines here too",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 111
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8b89a1cc",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/eventprotocol/EventProtocolParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "\u003e120",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 108
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ab86ddb7",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/eventprotocol/EventProtocolParametersJSONAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "long lines",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 5
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4b9389fa",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/eventprotocol/EventProtocolTextTokenDelimitedParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-09T14:28:22Z",
+      "side": 1,
+      "message": "and in this class",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 113
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
