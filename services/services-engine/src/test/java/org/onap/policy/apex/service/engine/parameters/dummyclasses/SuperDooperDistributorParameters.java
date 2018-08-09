@@ -24,7 +24,7 @@ import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
- * Distributor parameters for the Super Dooper Distributor
+ * Distributor parameters for the Super Dooper Distributor.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @version

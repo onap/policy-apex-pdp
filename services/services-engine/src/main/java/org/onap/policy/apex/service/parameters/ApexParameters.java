@@ -36,8 +36,8 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 
 /**
  * The main container parameter class for an Apex service.
- * <p>
- * The following parameters are defined:
+ * 
+ * <p>The following parameters are defined:
  * <ol>
  * <li>engineServiceParameters: The parameters for the Apex engine service itself, such as the
  * number of engine threads to run and the deployment port number to use.
@@ -215,7 +215,7 @@ public class ApexParameters extends AbstractParameters implements ApexParameterV
     }
 
     /**
-     * Validate parameter values for event handlers in a peered mode
+     * Validate parameter values for event handlers in a peered mode.
      * 
      * @param eventHandlerType The event handler type we are checking
      * @param errorMessageBuilder The builder to which to append any error messages
@@ -251,7 +251,7 @@ public class ApexParameters extends AbstractParameters implements ApexParameterV
     }
 
     /**
-     * This method validates that the settings are valid for the given peered mode
+     * This method validates that the settings are valid for the given peered mode.
      * 
      * @param errorMessageBuilder The builder to which to append any error messages
      * @param peeredMode The peered mode to check
@@ -281,7 +281,7 @@ public class ApexParameters extends AbstractParameters implements ApexParameterV
     }
 
     /**
-     * This method validates that the settings are valid for the event handlers on one
+     * This method validates that the settings are valid for the event handlers on one.
      * 
      * @param messagePreamble the preamble for messages indicating the peered mode side
      * @param errorMessageBuilder The builder to which to append any error messages

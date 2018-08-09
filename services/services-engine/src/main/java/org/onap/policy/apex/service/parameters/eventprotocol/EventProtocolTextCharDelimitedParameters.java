@@ -26,8 +26,7 @@ import org.onap.policy.apex.service.parameters.ApexParameterValidator;
  * An event protocol parameter class for character delimited textual event protocols that may be
  * specialized by event protocol plugins that require plugin specific parameters.
  *
- * <p>
- * The following parameters are defined:
+ * <p>The following parameters are defined:
  * <ol>
  * <li>startChar: starting character delimiter for text blocks containing an event.
  * <li>endChar: ending character delimiter for text blocks containing an event.

@@ -71,7 +71,8 @@ public class ApexCommandLineArguments {
                 .build());
         options.addOption(Option.builder("c")
                 .longOpt("config-file")
-                .desc("the full path to the configuration file to use, the configuration file must be a Json file containing the Apex configuration parameters")
+                .desc("the full path to the configuration file to use, the configuration file must be a Json file "
+                        + "containing the Apex configuration parameters")
                 .hasArg()
                 .argName("CONFIG_FILE")
                 .required(false)

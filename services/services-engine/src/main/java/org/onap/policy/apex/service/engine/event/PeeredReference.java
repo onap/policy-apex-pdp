@@ -35,13 +35,14 @@ public class PeeredReference {
     private final ApexEventProducer peeredProducer;
 
     /**
-     * Create a peered consumer/producer reference
+     * Create a peered consumer/producer reference.
      * 
      * @param peeredMode the peered mode for which to return the reference
      * @param consumer the consumer that is receiving event
      * @param producer the producer that is sending events
      */
-    public PeeredReference(final EventHandlerPeeredMode peeredMode, final ApexEventConsumer consumer, final ApexEventProducer producer) {
+    public PeeredReference(final EventHandlerPeeredMode peeredMode, final ApexEventConsumer consumer,
+            final ApexEventProducer producer) {
         this.peeredConsumer = consumer;
         this.peeredProducer = producer;
 

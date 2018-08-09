@@ -35,8 +35,7 @@ import org.onap.policy.apex.core.engine.EngineParameters;
  * This class holds the parameters for an Apex Engine Service with multiple engine threads running
  * multiple engines.
  *
- * <p>
- * The following parameters are defined:
+ * <p>The following parameters are defined:
  * <ol>
  * <li>name: The name of the Apex engine service, which can be set to any value that matches the
  * regular expression {@link org.onap.policy.apex.model.basicmodel.concepts.AxKey#NAME_REGEXP}.

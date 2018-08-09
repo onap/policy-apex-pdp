@@ -34,6 +34,7 @@ import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlock;
 
 /**
+ * Test JSON Tagged Event Consumer.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestJSONTaggedEventConsumer {

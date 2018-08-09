@@ -23,8 +23,7 @@ package org.onap.policy.apex.service.parameters.eventhandler;
 /**
  * This enum specifies the peered mode that an event handler may be in.
  * 
- * <p>
- * The following values are defined:
+ * <p>The following values are defined:
  * <ol>
  * <li>SYNCHRONOUS: The event handler is tied to another event handler for event handling in APEX,
  * used for request-response calls where APEX is the receiver.

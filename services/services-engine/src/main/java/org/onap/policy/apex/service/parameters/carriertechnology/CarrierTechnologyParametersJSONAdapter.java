@@ -55,6 +55,7 @@ public class CarrierTechnologyParametersJSONAdapter
 
     // Built in technology parameters
     private static final Map<String, String> BUILT_IN_CARRIER_TECHNOLOGY_PARMETER_CLASS_MAP = new HashMap<>();
+    
     static {
         BUILT_IN_CARRIER_TECHNOLOGY_PARMETER_CLASS_MAP.put("FILE",
                 FILECarrierTechnologyParameters.class.getCanonicalName());

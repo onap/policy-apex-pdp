@@ -26,8 +26,7 @@ import org.onap.policy.apex.service.parameters.ApexParameterValidator;
  * An event protocol parameter class for token delimited textual event protocols that may be specialized by event
  * protocol plugins that require plugin specific parameters.
  *
- * <p>
- * The following parameters are defined:
+ * <p>The following parameters are defined:
  * <ol>
  * <li>startDelimiterToken: the token string that delimits the start of text blocks that contain events.
  * <li>endDelimiterToken: the token string that delimits the end of text blocks that contain events, this parameter is
@@ -95,7 +94,7 @@ public abstract class EventProtocolTextTokenDelimitedParameters extends EventPro
     }
 
     /**
-     * Does there have to be a delimiter at the start of the first text block?
+     * Check if there must be a delimiter at the start of the first text block.
      * 
      * @return true if there must be a delimiter at the start of the text block
      */
@@ -104,7 +103,7 @@ public abstract class EventProtocolTextTokenDelimitedParameters extends EventPro
     }
 
     /**
-     * Sets if there has to be a delimiter at the start of the first text block?
+     * Sets if there has to be a delimiter at the start of the first text block.
      * 
      * @param delimiterAtStart
      *        true if there must be a delimiter at the start of the text block

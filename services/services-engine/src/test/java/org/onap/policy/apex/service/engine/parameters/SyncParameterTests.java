@@ -38,7 +38,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 
 /**
- * Test for an empty parameter file
+ * Test for an empty parameter file.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

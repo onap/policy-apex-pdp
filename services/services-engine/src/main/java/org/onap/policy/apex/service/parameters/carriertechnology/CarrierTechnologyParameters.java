@@ -26,8 +26,8 @@ import org.onap.policy.apex.service.parameters.ApexParameterValidator;
 /**
  * The default carrier technology parameter class that may be specialized by carrier technology
  * plugins that require plugin specific parameters.
- * <p>
- * The following parameters are defined:
+ * 
+ * <p>The following parameters are defined:
  * <ol>
  * <li>label: The label of the carrier technology.
  * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce

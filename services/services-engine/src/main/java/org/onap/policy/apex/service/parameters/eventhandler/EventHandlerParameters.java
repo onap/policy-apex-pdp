@@ -30,12 +30,12 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
 
 /**
  * The parameters for a single event producer, event consumer or synchronous event handler.
- * <p>
- * Event producers, consumers, and synchronous event handlers all use a carrier technology and an
+ * 
+ * <p>Event producers, consumers, and synchronous event handlers all use a carrier technology and an
  * event protocol so the actual parameters for each one are the same. Therefore, we use the same
  * class for the parameters of each one.
- * <p>
- * The following parameters are defined:
+ * 
+ * <p>The following parameters are defined:
  * <ol>
  * <li>carrierTechnologyParameters: The carrier technology is the type of messaging infrastructure
  * used to carry events. Examples are File, Kafka or REST.

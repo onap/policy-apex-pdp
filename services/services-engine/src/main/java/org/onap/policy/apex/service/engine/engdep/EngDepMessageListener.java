@@ -57,8 +57,8 @@ import com.google.common.eventbus.Subscribe;
  * processing a engDepMessage event implements this interface, and the object created with that
  * class is registered with a component using the component's <code>addEngDepMessageListener</code>
  * method. When the engDepMessage event occurs, that object's appropriate method is invoked.
- *
- * This class uses a queue to buffer incoming messages. When the listener is called, it places the
+ * 
+ * <p>This class uses a queue to buffer incoming messages. When the listener is called, it places the
  * incoming message on the queue. A thread runs which removes the messages from the queue and
  * forwards them to the Apex engine.
  *
