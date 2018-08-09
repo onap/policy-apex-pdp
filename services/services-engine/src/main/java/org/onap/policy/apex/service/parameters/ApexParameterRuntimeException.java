@@ -44,9 +44,9 @@ public class ApexParameterRuntimeException extends ApexRuntimeException {
      * exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ApexParameterRuntimeException(final String message, final Exception e) {
-        super(message, e);
+    public ApexParameterRuntimeException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

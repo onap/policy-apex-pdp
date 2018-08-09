@@ -30,8 +30,9 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class ApexEvent is an event class that external systems use to send events to and receive events from Apex engines. The event itself is a hash map of
- * string keys and object values, used to pass data.
+ * The Class ApexEvent is an event class that external systems use to send events to and receive
+ * events from Apex engines. The event itself is a hash map of string keys and object values, used
+ * to pass data.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -43,35 +44,44 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     // Holds the next identifier for event execution.
     private static AtomicLong nextExecutionID = new AtomicLong(0L);
 
-    /** The name of the Apex event, a mandatory field. All Apex events must have a name so that the event can be looked up in the Apex policy model. */
+    /**
+     * The name of the Apex event, a mandatory field. All Apex events must have a name so that the
+     * event can be looked up in the Apex policy model.
+     */
     public static final String NAME_HEADER_FIELD = "name";
 
     /**
-     * The version of the Apex event, an optional field. If a version is specified on an Apex event, the definition of that version of the event is taken from
-     * the Apex policy model. If no version is specified, the latest version of the event is used.
+     * The version of the Apex event, an optional field. If a version is specified on an Apex event,
+     * the definition of that version of the event is taken from the Apex policy model. If no
+     * version is specified, the latest version of the event is used.
      */
     public static final String VERSION_HEADER_FIELD = "version";
 
     /**
-     * The name space of the Apex event, an optional field. If a name space is specified on an Apex event it must match the name space on the event definition
-     * taken from the Apex policy model. If no name space is specified, the name space from the event definition in the Apex policy model is used.
+     * The name space of the Apex event, an optional field. If a name space is specified on an Apex
+     * event it must match the name space on the event definition taken from the Apex policy model.
+     * If no name space is specified, the name space from the event definition in the Apex policy
+     * model is used.
      */
     public static final String NAMESPACE_HEADER_FIELD = "nameSpace";
 
     /**
-     * The source of the Apex event, an optional field. It specifies where the Apex event has come from and its use is reserved for now. If no source is
-     * specified, the source from the event definition in the Apex policy model is used.
+     * The source of the Apex event, an optional field. It specifies where the Apex event has come
+     * from and its use is reserved for now. If no source is specified, the source from the event
+     * definition in the Apex policy model is used.
      */
     public static final String SOURCE_HEADER_FIELD = "source";
 
     /**
-     * The target of the Apex event, an optional field. It specifies where the Apex event is going to and its use is reserved for now. If no target is
-     * specified, the target from the event definition in the Apex policy model is used.
+     * The target of the Apex event, an optional field. It specifies where the Apex event is going
+     * to and its use is reserved for now. If no target is specified, the target from the event
+     * definition in the Apex policy model is used.
      */
     public static final String TARGET_HEADER_FIELD = "target";
 
     /**
-     * The exception message field of an Apex event is an exception message indicating that an event failed.
+     * The exception message field of an Apex event is an exception message indicating that an event
+     * failed.
      */
     public static final String EXCEPTION_MESSAGE_HEADER_FIELD = "exceptionMessage";
 
@@ -99,14 +109,16 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private final String target;
     // @formatter:on
 
-    // An identifier for the current event execution. The default value here will always be unique in a single JVM
+    // An identifier for the current event execution. The default value here will always be unique
+    // in a single JVM
     private long executionID = ApexEvent.getNextExecutionID();
 
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;
 
     /**
-     * Private utility to get the next candidate value for a Execution ID. This value will always be unique in a single JVM
+     * Private utility to get the next candidate value for a Execution ID. This value will always be
+     * unique in a single JVM
      * 
      * @return the next candidate value for a Execution ID
      */
@@ -124,7 +136,8 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * @param target the target of the event
      * @throws ApexEventException thrown on validation errors on event names and versions
      */
-    public ApexEvent(final String name, final String version, final String nameSpace, final String source, final String target) throws ApexEventException {
+    public ApexEvent(final String name, final String version, final String nameSpace, final String source,
+            final String target) throws ApexEventException {
         // @formatter:off
         this.name      = validateField("name",      name,      NAME_REGEXP);
         this.version   = validateField("version",   version,   VERSION_REGEXP);
@@ -143,13 +156,15 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * @return the validated field value
      * @throws ApexEventException thrown if the field is invalid
      */
-    private String validateField(final String fieldName, final String fieldValue, final String fieldRegexp) throws ApexEventException {
+    private String validateField(final String fieldName, final String fieldValue, final String fieldRegexp)
+            throws ApexEventException {
         if (fieldValue.matches(fieldRegexp)) {
             return fieldValue;
-        }
-        else {
-            LOGGER.warn("event \"" + name + ": field \"" + fieldName + "=" + fieldValue + "\"  is illegal. It doesn't match regex '" + fieldRegexp + "'");
-            throw new ApexEventException("event \"" + name + ": field \"" + fieldName + "=" + fieldValue + "\"  is illegal");
+        } else {
+            LOGGER.warn("event \"" + name + ": field \"" + fieldName + "=" + fieldValue
+                    + "\"  is illegal. It doesn't match regex '" + fieldRegexp + "'");
+            throw new ApexEventException(
+                    "event \"" + name + ": field \"" + fieldName + "=" + fieldValue + "\"  is illegal");
         }
     }
 
@@ -163,8 +178,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private String validKey(final String key) throws ApexEventException {
         if (key.matches(AxReferenceKey.LOCAL_NAME_REGEXP)) {
             return key;
-        }
-        else {
+        } else {
             LOGGER.warn("event \"" + name + ": key \"" + key + "\" is illegal");
             throw new ApexEventException("event \"" + name + ": key \"" + key + "\" is illegal");
         }
@@ -225,8 +239,9 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     }
 
     /**
-     * Sets the pass-thru executionID for this event. The default value for executionID will be be unique in the current JVM. For some applications/deployments
-     * this executionID may need to globally unique
+     * Sets the pass-thru executionID for this event. The default value for executionID will be be
+     * unique in the current JVM. For some applications/deployments this executionID may need to
+     * globally unique
      *
      * @param executionID the executionID
      */
@@ -266,8 +281,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         // Check if the key is valid
         try {
             return super.put(validKey(key), value);
-        }
-        catch (final ApexEventException e) {
+        } catch (final ApexEventException e) {
             return null;
         }
     }
@@ -284,8 +298,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
             for (final String key : incomingMap.keySet()) {
                 validKey(key);
             }
-        }
-        catch (final ApexEventException e) {
+        } catch (final ApexEventException e) {
             // One of the keys is invalid
             return;
         }
@@ -327,8 +340,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         for (final Map.Entry<String, Object> dataEntry : this.entrySet()) {
             if (firstData) {
                 firstData = false;
-            }
-            else {
+            } else {
                 builder.append(',');
             }
 

@@ -79,7 +79,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     private final BlockingQueue<ApexEvent> queue = new LinkedBlockingQueue<>();
 
     // Thread factory for thread management
-    private final ApplicationThreadFactory tFactory = new ApplicationThreadFactory("apex-engine-service", 512);
+    private final ApplicationThreadFactory atFactory = new ApplicationThreadFactory("apex-engine-service", 512);
 
     // Periodic event generator and its period in milliseconds
     private ApexPeriodicEventGenerator periodicEventGenerator = null;
@@ -111,7 +111,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         for (int engineCounter = 0; engineCounter < threadCount; engineCounter++) {
             final AxArtifactKey engineWorkerKey =
                     new AxArtifactKey(engineServiceKey.getName() + '-' + engineCounter, engineServiceKey.getVersion());
-            engineWorkerMap.put(engineWorkerKey, new EngineWorker(engineWorkerKey, queue, tFactory));
+            engineWorkerMap.put(engineWorkerKey, new EngineWorker(engineWorkerKey, queue, atFactory));
             LOGGER.info("Created apex engine {} .", engineWorkerKey.getID());
         }
 

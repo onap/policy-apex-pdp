@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**
+ * Test Apex Command Line Arguments.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestApexCommandLineArguments {
@@ -165,7 +166,7 @@ public class TestApexCommandLineArguments {
         }
 
         final String[] args06 = {"-c", "src/test/resources/parameters/goodParams.json", "-m",
-                "src/test/resources/main/DummyModelFile.json"};
+                                 "src/test/resources/main/DummyModelFile.json"};
         try {
             apexArguments.parse(args06);
             apexArguments.validate();

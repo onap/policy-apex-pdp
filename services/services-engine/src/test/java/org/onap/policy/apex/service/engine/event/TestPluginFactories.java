@@ -35,6 +35,7 @@ import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 
 /**
+ * Test Plugin Factories.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @author John Keeney (john.keeney@ericsson.com)
  */

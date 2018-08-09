@@ -56,6 +56,7 @@ public class EventProtocolParametersJSONAdapter
 
     // Built in event protocol parameters
     private static final Map<String, String> BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP = new HashMap<>();
+    
     static {
         BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP.put("JSON", JSONEventProtocolParameters.class.getCanonicalName());
         BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP.put("APEX", ApexEventProtocolParameters.class.getCanonicalName());

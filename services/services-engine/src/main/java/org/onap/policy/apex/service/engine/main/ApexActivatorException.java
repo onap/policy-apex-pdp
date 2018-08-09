@@ -43,9 +43,9 @@ public class ApexActivatorException extends ApexException {
      * Instantiates a new apex activator exception with a message and a caused by exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ApexActivatorException(final String message, final Exception e) {
-        super(message, e);
+    public ApexActivatorException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

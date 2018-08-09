@@ -94,7 +94,7 @@ public class EventRequestorProducer implements ApexEventProducer {
     }
 
     /**
-     * Get the number of events sent to date
+     * Get the number of events sent to date.
      * 
      * @return the number of events received
      */

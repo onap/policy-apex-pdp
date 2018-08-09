@@ -44,9 +44,9 @@ public class ApexActivatorRuntimeException extends ApexRuntimeException {
      * Instantiates a new apex activator exception with a message and a caused by exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ApexActivatorRuntimeException(final String message, final Exception e) {
-        super(message, e);
+    public ApexActivatorRuntimeException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

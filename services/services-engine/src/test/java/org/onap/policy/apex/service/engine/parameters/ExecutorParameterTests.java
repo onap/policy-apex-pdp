@@ -30,7 +30,7 @@ import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 
 /**
- * Test for an empty parameter file
+ * Test for an empty parameter file.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -61,7 +61,8 @@ public class ExecutorParameterTests {
         } catch (final ApexParameterException e) {
             assertEquals(
                     "error reading parameters from \"src/test/resources/parameters/serviceExecutorBadParams.json\"\n"
-                            + "(ApexParameterRuntimeException):value of \"executorParameters:ZOOBY\" entry is not a parameter JSON object",
+                            + "(ApexParameterRuntimeException):value of \"executorParameters:ZOOBY\" entry is not "
+                            + "a parameter JSON object",
                     e.getMessage());
         }
     }
@@ -75,10 +76,10 @@ public class ExecutorParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorNoExecutorParams.json\"\n"
-                            + "(ApexParameterRuntimeException):no \"executorParameters\" entry found in parameters, at least one executor parameter entry must be specified",
-                    e.getMessage());
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/serviceExecutorNoExecutorParams.json\"\n"
+                    + "(ApexParameterRuntimeException):no \"executorParameters\" entry found in parameters,"
+                    + " at least one executor parameter entry must be specified", e.getMessage());
         }
     }
 
@@ -91,10 +92,10 @@ public class ExecutorParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorEmptyParams.json\"\n"
-                            + "(ApexParameterRuntimeException):could not find field \"parameterClassName\" in \"executorParameters:ZOOBY\" entry",
-                    e.getMessage());
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/serviceExecutorEmptyParams.json\"\n"
+                    + "(ApexParameterRuntimeException):could not find field \"parameterClassName\" "
+                    + "in \"executorParameters:ZOOBY\" entry", e.getMessage());
         }
     }
 
@@ -107,10 +108,10 @@ public class ExecutorParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorBadPluginNameParams.json\"\n"
-                            + "(ApexParameterRuntimeException):could not find field \"parameterClassName\" in \"executorParameters:ZOOBY\" entry",
-                    e.getMessage());
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/serviceExecutorBadPluginNameParams.json\"\n"
+                    + "(ApexParameterRuntimeException):could not find field \"parameterClassName\" "
+                    + "in \"executorParameters:ZOOBY\" entry", e.getMessage());
         }
     }
 
@@ -123,10 +124,10 @@ public class ExecutorParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json\"\n"
-                            + "(ApexParameterRuntimeException):value for field \"parameterClassName\" in \"executorParameters:LOOBY\" entry is not a plain string",
-                    e.getMessage());
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json\"\n"
+                    + "(ApexParameterRuntimeException):value for field \"parameterClassName\" "
+                    + "in \"executorParameters:LOOBY\" entry is not a plain string", e.getMessage());
         }
     }
 
@@ -139,10 +140,10 @@ public class ExecutorParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json\"\n"
-                            + "(ApexParameterRuntimeException):value for field \"parameterClassName\" in \"executorParameters:LOOBY\" entry is not specified or is blank",
-                    e.getMessage());
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json\"\n"
+                    + "(ApexParameterRuntimeException):value for field \"parameterClassName\" "
+                    + "in \"executorParameters:LOOBY\" entry is not specified or is blank", e.getMessage());
         }
     }
 
@@ -156,11 +157,11 @@ public class ExecutorParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorBadPluginValueParams.json\"\n"
-                            + "(ApexParameterRuntimeException):failed to deserialize the parameters for \"executorParameters:LOOBY\" to parameter class \"helloworld\"\n"
-                            + "java.lang.ClassNotFoundException: helloworld",
-                    e.getMessage());
+            assertEquals("error reading parameters from"
+                    + " \"src/test/resources/parameters/serviceExecutorBadPluginValueParams.json\"\n"
+                    + "(ApexParameterRuntimeException):failed to deserialize the parameters "
+                    + "for \"executorParameters:LOOBY\" to parameter class \"helloworld\"\n"
+                    + "java.lang.ClassNotFoundException: helloworld", e.getMessage());
         }
     }
 

@@ -43,9 +43,9 @@ public class ApexEventRuntimeException extends ApexRuntimeException {
      * Instantiates a new apex runtime event exception with a message and a caused by exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ApexEventRuntimeException(final String message, final Exception e) {
-        super(message, e);
+    public ApexEventRuntimeException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

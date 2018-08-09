@@ -50,6 +50,7 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
+ * Test JSON Event Handler.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestJSONEventHandler {
@@ -159,7 +160,8 @@ public class TestJSONEventHandler {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertTrue(e.getMessage().startsWith(
-                        "Failed to unmarshal JSON event: an event definition for an event named \"Event0000\" with version \"1.2.3\" not found in Apex model"));
+                        "Failed to unmarshal JSON event: an event definition for an event named "
+                        + "\"Event0000\" with version \"1.2.3\" not found in Apex model"));
             }
 
             apexEventJSONStringIn = JSONEventGenerator.jsonEventNoNamespace();
@@ -181,8 +183,8 @@ public class TestJSONEventHandler {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertTrue(e.getMessage().startsWith(
-                        "Failed to unmarshal JSON event: namespace \"pie.in.the.sky\" on event \"Event0000\" "
-                                + "does not match namespace \"org.onap.policy.apex.sample.events\" for that event in the Apex model"));
+                        "Failed to unmarshal JSON event: namespace \"pie.in.the.sky\" on event \"Event0000\" does not"
+                        + " match namespace \"org.onap.policy.apex.sample.events\" for that event in the Apex model"));
             }
 
             apexEventJSONStringIn = JSONEventGenerator.jsonEventNoSource();

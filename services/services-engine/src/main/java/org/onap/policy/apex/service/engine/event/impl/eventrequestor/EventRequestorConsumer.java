@@ -98,7 +98,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
     }
 
     /**
-     * Receive an incoming event send request from the peered event Requestor producer and queue it
+     * Receive an incoming event send request from the peered event Requestor producer and queue it.
      * 
      * @param eventObject the incoming event to process
      * @throws ApexEventRuntimeException on queueing errors
@@ -140,7 +140,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
     }
 
     /**
-     * Get the number of events received to date
+     * Get the number of events received to date.
      * 
      * @return the number of events received
      */

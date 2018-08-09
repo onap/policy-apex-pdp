@@ -25,7 +25,7 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextCh
 /**
  * Event protocol parameters for JSON as an event protocol.
  *
- * The parameters for this plugin are:
+ * <p>The parameters for this plugin are:
  * <ol>
  * <li>nameAlias: The field in a JSON event to use as an alias for the event name. This parameter is
  * optional.

@@ -71,14 +71,16 @@ public class ApexCommandLineArguments {
                 .build());
         options.addOption(Option.builder("c")
                 .longOpt("config-file")
-                .desc("the full path to the configuration file to use, the configuration file must be a Json file containing the Apex configuration parameters")
+                .desc("the full path to the configuration file to use, the configuration file must be a Json file "
+                        + "containing the Apex configuration parameters")
                 .hasArg()
                 .argName("CONFIG_FILE")
                 .required(false)
                 .type(String.class)
                 .build());
         options.addOption(Option.builder("m").longOpt("model-file")
-                .desc("the full path to the model file to use, if set it overrides the model file set in the configuration file").hasArg().argName("MODEL_FILE")
+                .desc("the full path to the model file to use, if set it overrides the model file set in the "
+                        + "configuration file").hasArg().argName("MODEL_FILE")
                 .required(false)
                 .type(String.class).build());
         //@formatter:on

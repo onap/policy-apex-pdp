@@ -31,7 +31,7 @@ import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 
 /**
- * Test for an empty parameter file
+ * Test for an empty parameter file.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -111,11 +111,11 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/prodConsNoCTParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):carrier technology \"SUPER_DOOPER\" does not match plugin \"FILE\" in "
-                            + "\"com.ericsson.apex.service.engine.event.impl.filecarrierplugin.FILECarrierTechnologyParameters\", "
-                            + "specify correct carrier technology parameter plugin in parameter \"parameterClassName\"",
+            assertEquals("error reading parameters from \"src/test/resources/parameters/prodConsNoCTParClass.json\"\n"
+                    + "(ApexParameterRuntimeException):carrier technology \"SUPER_DOOPER\" "
+                    + "does not match plugin \"FILE\" in "
+                    + "\"com.ericsson.apex.service.engine.event.impl.filecarrierplugin.FILECarrierTechnologyParameters"
+                    + "\", specify correct carrier technology parameter plugin in parameter \"parameterClassName\"",
                     e.getMessage());
         }
     }
@@ -129,11 +129,12 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/prodConsMismatchCTParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):carrier technology \"SUPER_LOOPER\" does not match plugin \"SUPER_DOOPER\" in "
-                            + "\"com.ericsson.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters\", "
-                            + "specify correct carrier technology parameter plugin in parameter \"parameterClassName\"",
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/prodConsMismatchCTParClass.json\"\n"
+                    + "(ApexParameterRuntimeException):carrier technology \"SUPER_LOOPER\" "
+                    + "does not match plugin \"SUPER_DOOPER\" in \""
+                    + "com.ericsson.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters"
+                    + "\", specify correct carrier technology parameter plugin in parameter \"parameterClassName\"",
                     e.getMessage());
         }
     }
@@ -147,11 +148,12 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):could not create default parameters for carrier technology \"SUPER_DOOPER\"\n"
-                            + "com.ericsson.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters "
-                            + "cannot be cast to com.ericsson.apex.service.parameters.carriertechnology.CarrierTechnologyParameters",
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
+                    + "(ApexParameterRuntimeException):could not create default parameters for carrier technology "
+                    + "\"SUPER_DOOPER\"\ncom.ericsson.apex.service.engine.parameters.dummyclasses."
+                    + "SuperTokenDelimitedEventProtocolParameters cannot be cast to "
+                    + "com.ericsson.apex.service.parameters.carriertechnology.CarrierTechnologyParameters",
                     e.getMessage());
         }
     }
@@ -184,9 +186,9 @@ public class ProducerConsumerTests {
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
             assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/prodConsBadFileName.json\"\n"
-                            + "Apex parameters invalid\n" + " event output (aProducer) parameters invalid\n"
-                            + "  fileName not specified or is blank or null, it must be specified as a valid file location",
+                    "validation error(s) on parameters from \"src/test/resources/parameters/prodConsBadFileName.json\""
+                    + "\nApex parameters invalid\n" + " event output (aProducer) parameters invalid"
+                    + "\n fileName not specified or is blank or null, it must be specified as a valid file location",
                     e.getMessage());
         }
     }
@@ -201,11 +203,10 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/prodConsBadEPParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):event protocol \"SUPER_TOK_DEL\" does not match plugin \"JSON\" in "
-                            + "\"com.ericsson.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters\", "
-                            + "specify correct event protocol parameter plugin in parameter \"parameterClassName\"",
+            assertEquals("error reading parameters from \"src/test/resources/parameters/prodConsBadEPParClass.json\"\n"
+                    + "(ApexParameterRuntimeException):event protocol \"SUPER_TOK_DEL\" does not match plugin \"JSON\" "
+                    + "in \"com.ericsson.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters"
+                    + "\", specify correct event protocol parameter plugin in parameter \"parameterClassName\"",
                     e.getMessage());
         }
     }
@@ -219,11 +220,10 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/prodConsNoEPParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):event protocol \"SUPER_TOK_DEL\" does not match plugin \"JSON\" in "
-                            + "\"com.ericsson.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters\", "
-                            + "specify correct event protocol parameter plugin in parameter \"parameterClassName\"",
+            assertEquals("error reading parameters from \"src/test/resources/parameters/prodConsNoEPParClass.json\"\n"
+                    + "(ApexParameterRuntimeException):event protocol \"SUPER_TOK_DEL\" does not match plugin \"JSON\" "
+                    + "in \"com.ericsson.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters"
+                    + "\", specify correct event protocol parameter plugin in parameter \"parameterClassName\"",
                     e.getMessage());
         }
     }
@@ -239,8 +239,10 @@ public class ProducerConsumerTests {
         } catch (final ApexParameterException e) {
             assertEquals(
                     "error reading parameters from \"src/test/resources/parameters/prodConsMismatchEPParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):event protocol \"SUPER_TOK_BEL\" does not match plugin \"SUPER_TOK_DEL\" in "
-                            + "\"com.ericsson.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters\", "
+                            + "(ApexParameterRuntimeException):event protocol \"SUPER_TOK_BEL\" "
+                            + "does not match plugin \"SUPER_TOK_DEL\" in "
+                            + "\"com.ericsson.apex.service.engine.parameters.dummyclasses."
+                            + "SuperTokenDelimitedEventProtocolParameters\", "
                             + "specify correct event protocol parameter plugin in parameter \"parameterClassName\"",
                     e.getMessage());
         }
@@ -255,11 +257,12 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n"
-                            + "(ApexParameterRuntimeException):could not create default parameters for event protocol \"SUPER_TOK_DEL\"\n"
-                            + "com.ericsson.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters "
-                            + "cannot be cast to com.ericsson.apex.service.parameters.eventprotocol.EventProtocolParameters",
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n"
+                    + "(ApexParameterRuntimeException):could not create default parameters for event protocol "
+                    + "\"SUPER_TOK_DEL\"\n"
+                    + "com.ericsson.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters "
+                    + "cannot be cast to com.ericsson.apex.service.parameters.eventprotocol.EventProtocolParameters",
                     e.getMessage());
         }
     }

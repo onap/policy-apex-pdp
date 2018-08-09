@@ -23,6 +23,8 @@ package org.onap.policy.apex.service.engine.event;
 import java.util.Random;
 
 /**
+ * This class generates JSON event used for the test cases.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JSONEventGenerator {

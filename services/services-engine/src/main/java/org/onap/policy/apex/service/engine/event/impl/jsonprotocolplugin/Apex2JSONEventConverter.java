@@ -276,11 +276,16 @@ public class Apex2JSONEventConverter implements ApexEventProtocolConverter {
             throws ApexEventException {
         // Get the event header fields
         // @formatter:off
-        String name      = getJSONStringField(jsonObject, ApexEvent.NAME_HEADER_FIELD,      jsonPars.getNameAlias(),      ApexEvent.NAME_REGEXP,      false);
-        String version   = getJSONStringField(jsonObject, ApexEvent.VERSION_HEADER_FIELD,   jsonPars.getVersionAlias(),   ApexEvent.VERSION_REGEXP,   false);
-        String namespace = getJSONStringField(jsonObject, ApexEvent.NAMESPACE_HEADER_FIELD, jsonPars.getNameSpaceAlias(), ApexEvent.NAMESPACE_REGEXP, false);
-        String source    = getJSONStringField(jsonObject, ApexEvent.SOURCE_HEADER_FIELD,    jsonPars.getSourceAlias(),    ApexEvent.SOURCE_REGEXP,    false);
-        String target    = getJSONStringField(jsonObject, ApexEvent.TARGET_HEADER_FIELD,    jsonPars.getTargetAlias(),    ApexEvent.TARGET_REGEXP,    false);
+        String name      = getJSONStringField(jsonObject, ApexEvent.NAME_HEADER_FIELD,      
+                jsonPars.getNameAlias(), ApexEvent.NAME_REGEXP, false);
+        String version   = getJSONStringField(jsonObject, ApexEvent.VERSION_HEADER_FIELD,   
+                jsonPars.getVersionAlias(), ApexEvent.VERSION_REGEXP, false);
+        String namespace = getJSONStringField(jsonObject, ApexEvent.NAMESPACE_HEADER_FIELD,
+                jsonPars.getNameSpaceAlias(), ApexEvent.NAMESPACE_REGEXP, false);
+        String source    = getJSONStringField(jsonObject, ApexEvent.SOURCE_HEADER_FIELD,
+                jsonPars.getSourceAlias(),    ApexEvent.SOURCE_REGEXP, false);
+        String target    = getJSONStringField(jsonObject, ApexEvent.TARGET_HEADER_FIELD,
+                jsonPars.getTargetAlias(),    ApexEvent.TARGET_REGEXP, false);
         // @formatter:on
 
         // Check that an event name has been specified
@@ -292,9 +297,8 @@ public class Apex2JSONEventConverter implements ApexEventProtocolConverter {
         // Check if an event name was specified on the event parameters
         if (eventName != null) {
             if (name != null && !eventName.equals(name)) {
-                LOGGER.warn(
-                        "The incoming event name \"{}\" does not match the configured event name \"{}\", using configured event name",
-                        name, eventName);
+                LOGGER.warn("The incoming event name \"{}\" does not match the configured event name \"{}\","
+                        + " using configured event name", name, eventName);
             }
             name = eventName;
         }

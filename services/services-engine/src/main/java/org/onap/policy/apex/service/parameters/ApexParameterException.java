@@ -44,9 +44,9 @@ public class ApexParameterException extends ApexException {
      * exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ApexParameterException(final String message, final Exception e) {
-        super(message, e);
+    public ApexParameterException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

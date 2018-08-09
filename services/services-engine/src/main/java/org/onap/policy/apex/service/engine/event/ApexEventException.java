@@ -43,9 +43,9 @@ public class ApexEventException extends ApexException {
      * Instantiates a new apex event exception.
      *
      * @param message the message
-     * @param e the e
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ApexEventException(final String message, final Exception e) {
-        super(message, e);
+    public ApexEventException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

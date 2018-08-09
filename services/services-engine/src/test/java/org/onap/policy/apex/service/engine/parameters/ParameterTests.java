@@ -41,7 +41,7 @@ import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnolo
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 
 /**
- * Test for an empty parameter file
+ * Test for an empty parameter file.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -115,19 +115,19 @@ public class ParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/badParams.json\"\n"
-                            + "Apex parameters invalid\n" + " engine service parameters invalid\n"
-                            + "  name [hello there] and/or version [PA1] invalid\n"
-                            + "   parameter \"name\": value \"hello there\", does not match regular expression \"[A-Za-z0-9\\-_\\.]+\"\n"
-                            + "  id not specified or specified value [-45] invalid, must be specified as id >= 0\n"
-                            + "  instanceCount [-345] invalid, must be specified as instanceCount >= 1\n"
-                            + "  deploymentPort [65536] invalid, must be specified as 1024 <= port <= 65535\n"
-                            + "  policyModelFileName [/some/file/name.xml] not found or is not a plain file\n"
-                            + " event input (TheFileConsumer1) parameters invalid\n"
-                            + "  fileName not specified or is blank or null, it must be specified as a valid file location\n"
-                            + " event output (FirstProducer) parameters invalid\n"
-                            + "  fileName not specified or is blank or null, it must be specified as a valid file location",
+            assertEquals("validation error(s) on parameters from \"src/test/resources/parameters/badParams.json\"\n"
+                    + "Apex parameters invalid\n" + " engine service parameters invalid\n"
+                    + "  name [hello there] and/or version [PA1] invalid\n"
+                    + "   parameter \"name\": value \"hello there\","
+                    + " does not match regular expression \"[A-Za-z0-9\\-_\\.]+\"\n"
+                    + "  id not specified or specified value [-45] invalid, must be specified as id >= 0\n"
+                    + "  instanceCount [-345] invalid, must be specified as instanceCount >= 1\n"
+                    + "  deploymentPort [65536] invalid, must be specified as 1024 <= port <= 65535\n"
+                    + "  policyModelFileName [/some/file/name.xml] not found or is not a plain file\n"
+                    + " event input (TheFileConsumer1) parameters invalid\n"
+                    + "  fileName not specified or is blank or null, it must be specified as a valid file location\n"
+                    + " event output (FirstProducer) parameters invalid\n"
+                    + "  fileName not specified or is blank or null, it must be specified as a valid file location",
                     e.getMessage());
         }
     }

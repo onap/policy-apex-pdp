@@ -23,7 +23,7 @@ package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 
 /**
- * Default Executor parameters for MVEL
+ * Default Executor parameters for MVEL.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @version

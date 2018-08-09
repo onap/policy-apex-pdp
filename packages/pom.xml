@@ -37,4 +37,21 @@
         <module>apex-pdp-package-full</module>
         <module>apex-pdp-docker</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

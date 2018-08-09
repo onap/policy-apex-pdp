@@ -38,7 +38,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 
 /**
- * Test for an empty parameter file
+ * Test for an empty parameter file.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -52,11 +52,11 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " parameter \\\"synchronousPeer\\\" is illegal on non synchronous event output \"SyncProducer0\"",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json\"\n"
+                    + "Apex parameters invalid\n"
+                    + " parameter \\\"synchronousPeer\\\" is illegal on non synchronous event output "
+                    + "\"SyncProducer0\"", e.getMessage());
         }
     }
 
@@ -69,10 +69,10 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " parameter \\\"synchronousPeer\\\" is illegal on non synchronous event output \"SyncProducer0\"",
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json\"\n"
+                    + "Apex parameters invalid\n"
+                    + " parameter \\\"synchronousPeer\\\" is illegal on non synchronous event output \"SyncProducer0\"",
                     e.getMessage());
         }
     }
@@ -86,14 +86,16 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncBadParamsBadPeers.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " specified \"synchronousPeer\" parameter value \"SyncConsumer1\" on event input \"SyncConsumer0\" does not exist or is an invalid peer for this event handler\n"
-                            + " specified \"synchronousPeer\" parameter value \"SyncConsumer0\" on event input \"SyncConsumer1\" does not exist or is an invalid peer for this event handler\n"
-                            + " specified \"synchronousPeer\" parameter value \"SyncProducer1\" on event output \"SyncProducer0\" does not exist or is an invalid peer for this event handler\n"
-                            + " specified \"synchronousPeer\" parameter value \"SyncProducer0\" on event output \"SyncProducer1\" does not exist or is an invalid peer for this event handler",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncBadParamsBadPeers.json\"" + "\nApex parameters invalid\n"
+                    + " specified \"synchronousPeer\" parameter value \"SyncConsumer1\" on event input "
+                    + "\"SyncConsumer0\" does not exist or is an invalid peer for this event handler\n"
+                    + " specified \"synchronousPeer\" parameter value \"SyncConsumer0\" on event input "
+                    + "\"SyncConsumer1\" does not exist or is an invalid peer for this event handler\n"
+                    + " specified \"synchronousPeer\" parameter value \"SyncProducer1\" on event output "
+                    + "\"SyncProducer0\" does not exist or is an invalid peer for this event handler\n"
+                    + " specified \"synchronousPeer\" parameter value \"SyncProducer0\" on event output "
+                    + "\"SyncProducer1\" does not exist or is an invalid peer for this event handler", e.getMessage());
         }
     }
 
@@ -106,16 +108,21 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncBadParamsInvalidTimeout.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " parameter \\\"synchronousTimeout\\\" value \"-1\" is illegal on synchronous event input \"SyncConsumer0\", specify a non-negative timeout value in milliseconds\n"
-                            + " parameter \\\"synchronousTimeout\\\" value \"-99999999\" is illegal on synchronous event input \"SyncConsumer1\", specify a non-negative timeout value in milliseconds\n"
-                            + " parameter \\\"synchronousTimeout\\\" value \"-10\" is illegal on synchronous event output \"SyncProducer0\", specify a non-negative timeout value in milliseconds\n"
-                            + " parameter \\\"synchronousTimeout\\\" value \"-3\" is illegal on synchronous event output \"SyncProducer1\", specify a non-negative timeout value in milliseconds\n"
-                            + " synchronous timeout of event input \"SyncConsumer0\" and event output \"SyncProducer0\" [-1/-10] do not match\n"
-                            + " synchronous timeout of event input \"SyncConsumer1\" and event output \"SyncProducer1\" [-99999999/-3] do not match",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncBadParamsInvalidTimeout.json\"\n"
+                    + "Apex parameters invalid\n"
+                    + " parameter \\\"synchronousTimeout\\\" value \"-1\" is illegal on synchronous event input "
+                    + "\"SyncConsumer0\", specify a non-negative timeout value in milliseconds\n"
+                    + " parameter \\\"synchronousTimeout\\\" value \"-99999999\" is illegal on synchronous event input "
+                    + "\"SyncConsumer1\", specify a non-negative timeout value in milliseconds\n"
+                    + " parameter \\\"synchronousTimeout\\\" value \"-10\" is illegal on synchronous event output "
+                    + "\"SyncProducer0\", specify a non-negative timeout value in milliseconds\n"
+                    + " parameter \\\"synchronousTimeout\\\" value \"-3\" is illegal on synchronous event output "
+                    + "\"SyncProducer1\", specify a non-negative timeout value in milliseconds\n"
+                    + " synchronous timeout of event input \"SyncConsumer0\" and event output \"SyncProducer0\" "
+                    + "[-1/-10] do not match\n"
+                    + " synchronous timeout of event input \"SyncConsumer1\" and event output "
+                    + "\"SyncProducer1\" [-99999999/-3] do not match", e.getMessage());
         }
     }
 
@@ -128,11 +135,10 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncBadParamsBadTimeout.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " parameter \\\"synchronousTimeout\\\" is illegal on non synchronous event output \"MyOtherProducer\"",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncBadParamsBadTimeout.json\"\n" + "Apex parameters invalid\n"
+                    + " parameter \\\"synchronousTimeout\\\" is illegal on non synchronous event output "
+                    + "\"MyOtherProducer\"", e.getMessage());
         }
     }
 
@@ -145,12 +151,13 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncBadParamsUnpairedTimeout.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " synchronous timeout of event input \"SyncConsumer0\" and event output \"SyncProducer0\" [1/10] do not match\n"
-                            + " synchronous timeout of event input \"SyncConsumer1\" and event output \"SyncProducer1\" [99999999/3] do not match",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncBadParamsUnpairedTimeout.json\"\n"
+                    + "Apex parameters invalid\n"
+                    + " synchronous timeout of event input \"SyncConsumer0\" and event output "
+                    + "\"SyncProducer0\" [1/10] do not match\n"
+                    + " synchronous timeout of event input \"SyncConsumer1\" and event output "
+                    + "\"SyncProducer1\" [99999999/3] do not match", e.getMessage());
         }
     }
 
@@ -223,13 +230,12 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncUnusedConsumerPeers.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " value of parameter \"synchronousPeer\" on event output \"SyncProducer1\" must be unique, it s used on another event output\n"
-                            + ""
-                            + " synchronous peers of event input \"SyncConsumer1\" and event output \"SyncProducer1/SyncConsumer0\" do not match",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncUnusedConsumerPeers.json\"\n" + "Apex parameters invalid\n"
+                    + " value of parameter \"synchronousPeer\" on event output \"SyncProducer1\" must be unique, "
+                    + "it s used on another event output\n"
+                    + " synchronous peers of event input \"SyncConsumer1\" and event output "
+                    + "\"SyncProducer1/SyncConsumer0\" do not match", e.getMessage());
         }
     }
 
@@ -242,12 +248,12 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncMismatchedPeers.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " synchronous peers of event input \"SyncConsumer0\" and event output \"SyncProducer0/SyncConsumer1\" do not match\n"
-                            + " synchronous peers of event input \"SyncConsumer1\" and event output \"SyncProducer1/SyncConsumer0\" do not match",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncMismatchedPeers.json\"\nApex parameters invalid\n"
+                    + " synchronous peers of event input \"SyncConsumer0\" and event output "
+                    + "\"SyncProducer0/SyncConsumer1\" do not match\n"
+                    + " synchronous peers of event input \"SyncConsumer1\" and event output "
+                    + "\"SyncProducer1/SyncConsumer0\" do not match", e.getMessage());
         }
     }
 
@@ -260,12 +266,11 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncUnusedProducerPeers.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " value of parameter \"synchronousPeer\" on event input \"SyncConsumer1\" must be unique, it s used on another event input\n"
-                            + " synchronous peers of event input \"SyncConsumer0\" and event output \"SyncProducer1/SyncConsumer1\" do not match",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncUnusedProducerPeers.json\"\nApex parameters invalid\n"
+                    + " value of parameter \"synchronousPeer\" on event input \"SyncConsumer1\" must be unique, "
+                    + "it is used on another event input\nsynchronous peers of event input \"SyncConsumer0\" and event"
+                    + " output \"SyncProducer1/SyncConsumer1\" do not match", e.getMessage());
         }
     }
 
@@ -278,12 +283,12 @@ public class SyncParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ApexParameterException e) {
-            assertEquals(
-                    "validation error(s) on parameters from \"src/test/resources/parameters/syncUnusedProducerPeers.json\"\n"
-                            + "Apex parameters invalid\n"
-                            + " value of parameter \"synchronousPeer\" on event input \"SyncConsumer1\" must be unique, it s used on another event input\n"
-                            + " synchronous peers of event input \"SyncConsumer0\" and event output \"SyncProducer1/SyncConsumer1\" do not match",
-                    e.getMessage());
+            assertEquals("validation error(s) on parameters from "
+                    + "\"src/test/resources/parameters/syncUnusedProducerPeers.json\"\n" + "Apex parameters invalid\n"
+                    + " value of parameter \"synchronousPeer\" on event input \"SyncConsumer1\" "
+                    + "must be unique, it s used on another event input\n"
+                    + " synchronous peers of event input \"SyncConsumer0\" and event output "
+                    + "\"SyncProducer1/SyncConsumer1\" do not match", e.getMessage());
         }
     }
 

@@ -29,8 +29,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  * This class holds the parameters that allows transport of events into and out of Apex using files
  * and standard input and output.
  *
- * <p>
- * The following parameters are defined:
+ * <p>The following parameters are defined:
  * <ol>
  * <li>fileName: The full path to the file from which to read events or to which to write events.
  * <li>standardIO: If this flag is set to true, then standard input is used to read events in or
@@ -149,7 +148,7 @@ public class FILECarrierTechnologyParameters extends CarrierTechnologyParameters
     }
 
     /**
-     * Gets the delay in milliseconds before the plugin starts processing
+     * Gets the delay in milliseconds before the plugin starts processing.
      * 
      * @return the delay
      */
@@ -158,7 +157,7 @@ public class FILECarrierTechnologyParameters extends CarrierTechnologyParameters
     }
 
     /**
-     * Sets the delay in milliseconds before the plugin starts processing
+     * Sets the delay in milliseconds before the plugin starts processing.
      * 
      * @param startDelay the delay
      */

@@ -66,7 +66,7 @@ import com.google.gson.JsonParser;
  * is triggered by an Apex event, and when the policy is triggered it runs through to completion in
  * the ApexEngine.
  *
- * This class acts as a container for an {@link ApexEngine}, running it in a thread, sending it
+ * <p>This class acts as a container for an {@link ApexEngine}, running it in a thread, sending it
  * events, and receiving events from it.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)

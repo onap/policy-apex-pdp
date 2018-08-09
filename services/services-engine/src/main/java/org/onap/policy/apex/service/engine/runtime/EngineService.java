@@ -139,8 +139,8 @@ public interface EngineService {
 
     /**
      * This method checks if all Apex engines in the engine service are started.
-     * <p>
-     * Note: an engine can be both not stopped and not started, for example, when it is starting or
+     * 
+     * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
      * @return true if all Apex engines in the engine service are started.
@@ -149,8 +149,8 @@ public interface EngineService {
 
     /**
      * This method checks if an Apex engine in the engine service is started.
-     * <p>
-     * Note: an engine can be both not stopped and not started, for example, when it is starting or
+     * 
+     * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
      * @param engineKey The key of the Apex engine to check
@@ -160,8 +160,8 @@ public interface EngineService {
 
     /**
      * This method checks if all Apex engines in the engine service are stopped.
-     * <p>
-     * Note: an engine can be both not stopped and not started, for example, when it is starting or
+     * 
+     * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
      * @return true if all Apex engines in the engine service are stopped.
@@ -170,8 +170,8 @@ public interface EngineService {
 
     /**
      * This method checks if an Apex engine in the engine service is stopped.
-     * <p>
-     * Note: an engine can be both not stopped and not started, for example, when it is starting or
+     * 
+     * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
      * @param engineKey The key of the Apex engine to check
