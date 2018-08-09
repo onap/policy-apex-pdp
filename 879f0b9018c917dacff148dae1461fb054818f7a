@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_8b7761d4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/PeeredReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-08-09T16:55:42Z",
+      "side": 1,
+      "message": "No this line has 101 chars.",
+      "parentUuid": "1a76adc5_0befd188",
+      "range": {
+        "startLine": 44,
+        "startChar": 66,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "879f0b9018c917dacff148dae1461fb054818f7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_2bf40d5a",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/SynchronousEventCache.java",
         "patchSetId": 1
