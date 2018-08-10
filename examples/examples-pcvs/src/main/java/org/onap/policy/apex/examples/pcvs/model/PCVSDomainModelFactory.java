@@ -51,8 +51,8 @@ public class PCVSDomainModelFactory {
         pathFile.mkdirs();
 
         final String[] args =
-                new String[] { "-c", "src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/vpnsla.apex", "-wd",
-                        workingDirectory, "-o", full };
+                new String[] {"-c", "src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/vpnsla.apex", "-wd",
+                        workingDirectory, "-o", full};
 
         final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(args);
         if (cliEditor.getErrorCount() > 0) {

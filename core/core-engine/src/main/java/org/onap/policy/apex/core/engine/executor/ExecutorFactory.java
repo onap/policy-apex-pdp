@@ -26,7 +26,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 
 /**
- * This class is used by the state machine to get implementations of task selection and task executors.
+ * This class is used by the state machine to get implementations of task selection and task
+ * executors.
  *
  * @author Liam Fallon
  */

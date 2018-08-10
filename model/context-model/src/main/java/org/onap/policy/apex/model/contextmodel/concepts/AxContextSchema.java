@@ -44,22 +44,24 @@ import org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class holds a data schema definition in Apex. A data schema describes the structure of a single atom of data
- * handled by Apex. This atom of data can be a primitive type such as an integer or a string, or it can be a more
- * complex data type such as a Java object or an object described using a data definition language such as Avro. The
- * schema flavour defines the type of schema being defined and the schema itself defines the schema. The schema flavour
- * is used by Apex to look up and load a plugin class that understands and interprets the schema definition and can
+ * This class holds a data schema definition in Apex. A data schema describes the structure of a
+ * single atom of data handled by Apex. This atom of data can be a primitive type such as an integer
+ * or a string, or it can be a more complex data type such as a Java object or an object described
+ * using a data definition language such as Avro. The schema flavour defines the type of schema
+ * being defined and the schema itself defines the schema. The schema flavour is used by Apex to
+ * look up and load a plugin class that understands and interprets the schema definition and can
  * create instances of classes for the schema.
- * <p>
- * An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that enter, exit, and are
- * passed internally in Apex. In addition, an Apex {@link AxContextAlbum} instances hold a map of
- * {@link AxContextSchema} instances to represent the context being managed as an {@link AxContextAlbum}. For example,
- * the state of all cells in a mobile network might be represented as an {@link AxContextAlbum} with its
- * {@link AxContextSchema} being defined as @code cell} objects.
- * <p>
- * Validation checks that the schema key is not null. It also checks that the schema flavour is defined and matches the
- * regular expression {@link SCHEMA_FLAVOUR_REGEXP}. Finally, validation checks that the defined schema is not a blank
- * or empty string.
+ * 
+ * <p>An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that
+ * enter, exit, and are passed internally in Apex. In addition, an Apex {@link AxContextAlbum}
+ * instances hold a map of {@link AxContextSchema} instances to represent the context being managed
+ * as an {@link AxContextAlbum}. For example, the state of all cells in a mobile network might be
+ * represented as an {@link AxContextAlbum} with its {@link AxContextSchema} being defined as @code
+ * cell} objects.
+ * 
+ * <p>Validation checks that the schema key is not null. It also checks that the schema flavour is
+ * defined and matches the regular expression {@link SCHEMA_FLAVOUR_REGEXP}. Finally, validation
+ * checks that the defined schema is not a blank or empty string.
  */
 @Entity
 @Table(name = "AxContextSchema")
@@ -108,7 +110,7 @@ public class AxContextSchema extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */

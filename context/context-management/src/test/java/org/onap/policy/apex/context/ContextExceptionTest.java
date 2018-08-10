@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.context;
 
 import static org.junit.Assert.assertEquals;
@@ -30,12 +31,15 @@ public class ContextExceptionTest {
     @Test
     public void testContextException() {
         assertEquals("context exception message", new ContextException("context exception message").getMessage());
-        assertEquals("context exception message", new ContextException("context exception message", new IOException()).getMessage());
+        assertEquals("context exception message",
+                new ContextException("context exception message", new IOException()).getMessage());
     }
 
     @Test
     public void testContextRuntimeException() {
-        assertEquals("context exception message", new ContextRuntimeException("context exception message").getMessage());
-        assertEquals("context exception message", new ContextRuntimeException("context exception message", new IOException()).getMessage());
+        assertEquals("context exception message",
+                new ContextRuntimeException("context exception message").getMessage());
+        assertEquals("context exception message",
+                new ContextRuntimeException("context exception message", new IOException()).getMessage());
     }
 }

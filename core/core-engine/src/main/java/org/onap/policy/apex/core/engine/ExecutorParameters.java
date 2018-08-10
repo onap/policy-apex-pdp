@@ -26,8 +26,8 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 /**
  * This class provides the executors for a logic flavour. Plugin classes for execution of task logic, task selection
  * logic, and state finalizer logic for the logic flavour must be specified.
- * <p>
- * Specializations of this class may provide extra parameters for their specific logic flavour executors.
+ * 
+ * <p>Specializations of this class may provide extra parameters for their specific logic flavour executors.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

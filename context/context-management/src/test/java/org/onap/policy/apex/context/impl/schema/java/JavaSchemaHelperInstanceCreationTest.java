@@ -35,6 +35,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 /**
+ * JavaSchemaHelperInstanceCreationTest.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @version
  */
@@ -73,9 +74,8 @@ public class JavaSchemaHelperInstanceCreationTest {
             schemaHelper0.createNewInstance();
             fail("this test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\" using the default constructor \"Boolean()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\" using the default"
+                    + " constructor \"Boolean()\"", e.getMessage());
         }
         assertEquals(true, schemaHelper0.createNewInstance("true"));
 
@@ -84,9 +84,8 @@ public class JavaSchemaHelperInstanceCreationTest {
             schemaHelper1.createNewInstance();
             fail("this test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\" using the default constructor \"Long()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\" using the default "
+                    + "constructor \"Long()\"", e.getMessage());
         }
         assertEquals(65536L, schemaHelper1.createNewInstance("65536"));
 

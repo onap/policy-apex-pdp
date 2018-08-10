@@ -35,6 +35,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 
 /**
+ * TestContextAlbums.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestContextAlbums {
@@ -115,7 +116,8 @@ public class TestContextAlbums {
 
         final AxContextAlbum clonedAlbum = new AxContextAlbum(album);
         assertEquals(
-                "AxContextAlbum:(key=AxArtifactKey:(name=NewAlbumName,version=0.0.1),scope=NewAlbumScope,isWritable=true,itemSchema=AxArtifactKey:(name=AlbumSchemaName,version=0.0.1))",
+                "AxContextAlbum:(key=AxArtifactKey:(name=NewAlbumName,version=0.0.1),scope=NewAlbumScope,"
+                        + "isWritable=true,itemSchema=AxArtifactKey:(name=AlbumSchemaName,version=0.0.1))",
                 clonedAlbum.toString());
 
         assertFalse(album.hashCode() == 0);

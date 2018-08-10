@@ -26,8 +26,8 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 /**
  * A persistor parameter class that may be specialized by context persistor plugins that require plugin specific
  * parameters.
- * <p>
- * The following parameters are defined:
+ * 
+ * <p>The following parameters are defined:
  * <ol>
  * <li>pluginClass: the persistor plugin as the JVM local dummy ephemeral persistor
  * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the period for flushing

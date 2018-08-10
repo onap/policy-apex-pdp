@@ -38,12 +38,13 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This handler holds and manages state machines for each policy in an Apex engine. When the class is instantiated, an
- * executor {@link StateMachineExecutor} is created for each policy in the policy model the state machine handler will
- * execute. The executors for each policy are held in a map indexed by event.
- * <p>
- * When an event is received on the policy, the state machine executor to execute that event is looked up on the
- * executor map and the event is passed to the executor for execution.
+ * This handler holds and manages state machines for each policy in an Apex engine. When the class
+ * is instantiated, an executor {@link StateMachineExecutor} is created for each policy in the
+ * policy model the state machine handler will execute. The executors for each policy are held in a
+ * map indexed by event.
+ * 
+ * <p>When an event is received on the policy, the state machine executor to execute that event is
+ * looked up on the executor map and the event is passed to the executor for execution.
  *
  * @author Liam Fallon
  *
@@ -58,7 +59,8 @@ public class StateMachineHandler {
     // The state machines in this engine
     private final HashMap<AxEvent, StateMachineExecutor> stateMachineExecutorMap = new HashMap<>();
 
-    // The executor factory is used to get logic executors for the particular type of executor we need for task
+    // The executor factory is used to get logic executors for the particular type of executor we
+    // need for task
     // selection logic or task logic
     private final ExecutorFactory executorFactory;
 
@@ -109,7 +111,8 @@ public class StateMachineHandler {
     }
 
     /**
-     * This constructor starts the state machines for each policy, carrying out whatever initialization executors need.
+     * This constructor starts the state machines for each policy, carrying out whatever
+     * initialization executors need.
      *
      * @throws StateMachineException On state machine initiation errors
      */

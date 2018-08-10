@@ -35,6 +35,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 /**
+ * TestContextSchemas.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestContextSchemas {
@@ -105,9 +106,8 @@ public class TestContextSchemas {
         schema.clean();
 
         final AxContextSchema clonedSchema = new AxContextSchema(schema);
-        assertEquals(
-                "AxContextSchema:(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1),schemaFlavour=NewSchemaFlavour,schemaDefinition=NewSchemaDefinition)",
-                clonedSchema.toString());
+        assertEquals("AxContextSchema:(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1),"
+                + "schemaFlavour=NewSchemaFlavour," + "schemaDefinition=NewSchemaDefinition)", clonedSchema.toString());
 
         assertFalse(schema.hashCode() == 0);
 

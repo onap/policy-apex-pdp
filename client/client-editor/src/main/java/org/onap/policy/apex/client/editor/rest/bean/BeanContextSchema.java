@@ -27,10 +27,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanContextSchema extends BeanBase {
-
-    private String name = null, version = null, schemaFlavour = null, schemaDefinition = null, uuid = null,
-            description = null;
-
+    private String name = null;
+    private String version = null;
+    private String schemaFlavour = null;
+    private String schemaDefinition = null;
+    private String uuid = null;
+    private String description = null;
+    
     /**
      * Gets the name.
      *

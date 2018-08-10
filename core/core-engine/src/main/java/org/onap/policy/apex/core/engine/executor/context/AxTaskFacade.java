@@ -31,8 +31,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class AxTaskFacade acts as a facade into the AxTask class so that task logic can easily access information in an
- * AxTask instance.
+ * The Class AxTaskFacade acts as a facade into the AxTask class so that task logic can easily
+ * access information in an AxTask instance.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
@@ -43,8 +43,8 @@ public class AxTaskFacade {
     // CHECKSTYLE:OFF: checkstyle:visibilityModifier Logic has access to this field
 
     /**
-     * The full definition of the task we are presenting a facade to, executing logic has full access to the task
-     * definition.
+     * The full definition of the task we are presenting a facade to, executing logic has full
+     * access to the task definition.
      */
     public final AxTask task;
 

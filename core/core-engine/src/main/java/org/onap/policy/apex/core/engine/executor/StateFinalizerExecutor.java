@@ -36,8 +36,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This abstract class executes state finalizer logic in a state of an Apex policy and is specialized by classes that
- * implement execution of state finalizer logic.
+ * This abstract class executes state finalizer logic in a state of an Apex policy and is
+ * specialized by classes that implement execution of state finalizer logic.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -59,7 +59,8 @@ public abstract class StateFinalizerExecutor
     // The next state finalizer executor
     private Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> nextExecutor = null;
 
-    // The execution context; contains the facades for events and context to be used by tasks executed by this task
+    // The execution context; contains the facades for events and context to be used by tasks
+    // executed by this task
     // executor
     private StateFinalizerExecutionContext executionContext = null;
 
@@ -75,9 +76,8 @@ public abstract class StateFinalizerExecutor
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.engine.executor.Executor,
-     * java.lang.Object, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
+     * engine.executor.Executor, java.lang.Object, java.lang.Object)
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent,
@@ -103,7 +103,8 @@ public abstract class StateFinalizerExecutor
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public String execute(final long executionID, final Map<String, Object> newIncomingFields)
@@ -115,7 +116,8 @@ public abstract class StateFinalizerExecutor
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public final void executePre(final long executionID, final Map<String, Object> newIncomingFields)
@@ -243,7 +245,8 @@ public abstract class StateFinalizerExecutor
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.executor.Executor)
+     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
+     * executor.Executor)
      */
     @Override
     public void setNext(
@@ -264,8 +267,9 @@ public abstract class StateFinalizerExecutor
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.engine.
-     * ExecutorParameters)
+     * @see
+     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
+     * engine. ExecutorParameters)
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}

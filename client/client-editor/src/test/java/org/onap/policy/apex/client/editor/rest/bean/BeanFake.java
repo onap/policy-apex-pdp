@@ -27,9 +27,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanFake extends BeanBase {
-
-    private String name = null, version = null, field1 = null;
-    private int field2 = 0, field3 = 0;
+    private String name = null;
+    private String version = null;
+    private String field1 = null;
+    private int field2 = 0;
+    private int field3 = 0;
 
     public String getName() {
         field1 = name;

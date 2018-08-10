@@ -39,8 +39,8 @@ public class StErrorListener implements STErrorListener {
     @Override
     public void IOError(final STMessage msg) {
         switch (msg.error) {
-        default:
-            this.registerErrors(msg);
+            default:
+                this.registerErrors(msg);
         }
     }
 
@@ -50,8 +50,8 @@ public class StErrorListener implements STErrorListener {
     @Override
     public void compileTimeError(final STMessage msg) {
         switch (msg.error) {
-        default:
-            this.registerErrors(msg);
+            default:
+                this.registerErrors(msg);
         }
     }
 
@@ -61,8 +61,8 @@ public class StErrorListener implements STErrorListener {
     @Override
     public void internalError(final STMessage msg) {
         switch (msg.error) {
-        default:
-            this.registerErrors(msg);
+            default:
+                this.registerErrors(msg);
         }
     }
 
@@ -72,12 +72,12 @@ public class StErrorListener implements STErrorListener {
     @Override
     public void runTimeError(final STMessage msg) {
         switch (msg.error) {
-        case NO_SUCH_PROPERTY:
-        case ARGUMENT_COUNT_MISMATCH:
-        case ANON_ARGUMENT_MISMATCH:
-            break;
-        default:
-            this.registerErrors(msg);
+            case NO_SUCH_PROPERTY:
+            case ARGUMENT_COUNT_MISMATCH:
+            case ANON_ARGUMENT_MISMATCH:
+                break;
+            default:
+                this.registerErrors(msg);
         }
     }
 

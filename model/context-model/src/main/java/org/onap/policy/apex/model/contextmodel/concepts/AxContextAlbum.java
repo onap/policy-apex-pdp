@@ -46,23 +46,24 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
  * This class is used to define an album of context.
- * <p>
- * A context album is a distributed map of context that will be distributed across all process instances that require
- * access to it. This class defines the schema (structure) of the items in the context album, whether the items on the
- * context album are writable or not, and what the scope of the context album is.
- * <p>
- * The structure of items (objects) the context album is defined as a schema, which is understood by whatever schema
- * implementation is being used for the context album.
- * <p>
- * The scope of a context album is a string field, understood by whatever distribution mechanism is being used for the
- * context album. The distribution mechanism uses the scope of the context album to decide to which executable entities
- * a given context album is distributed.
- * <p>
- * The writable flag on a context album defines whether users of a context album can write to the context album or just
- * read objects from the context album.
- * <p>
- * Validation checks that the album key and the context schema key are not null and that the scope field is not
- * undefined and matches the regular expression {@link SCOPE_REGEXP}.
+ * 
+ * <p>A context album is a distributed map of context that will be distributed across all process
+ * instances that require access to it. This class defines the schema (structure) of the items in
+ * the context album, whether the items on the context album are writable or not, and what the scope
+ * of the context album is.
+ * 
+ * <p>The structure of items (objects) the context album is defined as a schema, which is understood by
+ * whatever schema implementation is being used for the context album.
+ * 
+ * <p>The scope of a context album is a string field, understood by whatever distribution mechanism is
+ * being used for the context album. The distribution mechanism uses the scope of the context album
+ * to decide to which executable entities a given context album is distributed.
+ * 
+ * <p>The writable flag on a context album defines whether users of a context album can write to the
+ * context album or just read objects from the context album.
+ * 
+ * <p>Validation checks that the album key and the context schema key are not null and that the scope
+ * field is not undefined and matches the regular expression {@link SCOPE_REGEXP}.
  */
 @Entity
 @Table(name = "AxContextAlbum")
@@ -70,7 +71,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "scope", "isWritable", "itemSchema" })
+        propOrder = {"key", "scope", "isWritable", "itemSchema"})
 
 public class AxContextAlbum extends AxConcept {
     private static final String SCOPE_STRING = "scope";
@@ -112,9 +113,9 @@ public class AxContextAlbum extends AxConcept {
     // @formatter:on
 
     /**
-     * The default constructor creates a context album with a null artifact key. The scope of the context album is set
-     * as {@link SCOPE_UNDEFINED}, the album is writable, and the artifact key of the context schema is set to the null
-     * artifact key.
+     * The default constructor creates a context album with a null artifact key. The scope of the
+     * context album is set as {@link SCOPE_UNDEFINED}, the album is writable, and the artifact key
+     * of the context schema is set to the null artifact key.
      */
     public AxContextAlbum() {
         this(new AxArtifactKey());
@@ -124,7 +125,7 @@ public class AxContextAlbum extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -133,9 +134,9 @@ public class AxContextAlbum extends AxConcept {
     }
 
     /**
-     * The keyed constructor creates a context album with the specified artifact key. The scope of the context album is
-     * set as {@link SCOPE_UNDEFINED}, the album is writable, and the artifact key of the context schema is set to the
-     * null artifact key.
+     * The keyed constructor creates a context album with the specified artifact key. The scope of
+     * the context album is set as {@link SCOPE_UNDEFINED}, the album is writable, and the artifact
+     * key of the context schema is set to the null artifact key.
      *
      * @param key the key of the context album
      */
@@ -256,7 +257,8 @@ public class AxContextAlbum extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -327,7 +329,8 @@ public class AxContextAlbum extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
      * basicmodel.concepts.AxConcept)
      */
     @Override

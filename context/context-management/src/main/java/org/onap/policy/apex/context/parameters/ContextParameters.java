@@ -26,8 +26,8 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 /**
  * Bean class to hold parameters for context handling in Apex. This class contains all the context parameters for schema
  * handling, distribution, locking, and persistence of context albums.
- * <p>
- * The following parameters are defined:
+ * 
+ * <p>The following parameters are defined:
  * <ol>
  * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the period for flushing
  * is the flush period.

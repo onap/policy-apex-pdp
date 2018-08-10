@@ -31,9 +31,9 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  * Bean class holding schema parameters for schemas and their helpers. As more than one schema can be used in Apex
  * simultaneously, this class is used to hold the schemas that are defined in a given Apex system and to get the schema
  * helper plugin parameters {@link SchemaHelperParameters} for each schema.
- * <p>
- * The default {@code Java} schema is always defined and its parameters are held in a {@link JavaSchemaHelperParameters}
- * instance.
+ * 
+ * <p>The default {@code Java} schema is always defined and its parameters are held in a 
+ * {@link JavaSchemaHelperParameters} instance.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

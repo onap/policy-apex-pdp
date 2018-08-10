@@ -44,13 +44,15 @@ import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * A container class for an Apex context model. This class is a container class that allows an Apex model to be
- * constructed that just contains context and the key information for that context. The model contains schema
- * definitions and the definitions of context albums that use those schemas. In the case where Apex context is being
- * used without policy or independent of policy, an Apex context model is sufficient to get Apex context working.
- * <p>
- * Validation runs {@link AxModel} validation on the model. In addition, the {@link AxContextSchemas} and
- * {@link AxContextAlbums} validation is run on the context schemas and albums in the model.
+ * A container class for an Apex context model. This class is a container class that allows an Apex
+ * model to be constructed that just contains context and the key information for that context. The
+ * model contains schema definitions and the definitions of context albums that use those schemas.
+ * In the case where Apex context is being used without policy or independent of policy, an Apex
+ * context model is sufficient to get Apex context working.
+ * 
+ * <p>Validation runs {@link AxModel} validation on the model. In addition, the
+ * {@link AxContextSchemas} and {@link AxContextAlbums} validation is run on the context schemas and
+ * albums in the model.
  */
 @Entity
 @Table(name = "AxContextModel")
@@ -102,7 +104,7 @@ public class AxContextModel extends AxModel {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */

@@ -26,11 +26,13 @@ import org.onap.policy.apex.core.engine.executor.exception.StateMachineException
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 
 /**
- * This interface defines what operations must be provided by an executing entity in Apex. It is implemented by classes
- * that execute logic in a state machine. Each executor has an incoming entity {@code IN} that triggers execution, an
- * outgoing entity {@code OUT} that is produced by execution, a subject {@code SUBJECT} that is being executed, and a
- * context {@code CONTEXT} in which execution is being carried out. An executor can be part of a chain of executors and
- * the {@code setNext} method is used to set the next executor to be executed after this executor has completed.
+ * This interface defines what operations must be provided by an executing entity in Apex. It is
+ * implemented by classes that execute logic in a state machine. Each executor has an incoming
+ * entity {@code IN} that triggers execution, an outgoing entity {@code OUT} that is produced by
+ * execution, a subject {@code SUBJECT} that is being executed, and a context {@code CONTEXT} in
+ * which execution is being carried out. An executor can be part of a chain of executors and the
+ * {@code setNext} method is used to set the next executor to be executed after this executor has
+ * completed.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -45,7 +47,8 @@ public interface Executor<IN, OUT, SUBJECT, CONTEXT> {
     /**
      * Save the subject and context of the executor.
      *
-     * @param parent the parent executor of this executor or null if this executor is the top executor
+     * @param parent the parent executor of this executor or null if this executor is the top
+     *        executor
      * @param executorSubject the executor subject, the subject of execution
      * @param executorContext the executor context, the context in which execution takes place
      */
@@ -80,10 +83,11 @@ public interface Executor<IN, OUT, SUBJECT, CONTEXT> {
     void executePre(long executionID, IN incomingEntity) throws StateMachineException, ContextException;
 
     /**
-     * Carry out the post work for execution, the returning entity should be set by the child execution object.
+     * Carry out the post work for execution, the returning entity should be set by the child
+     * execution object.
      *
-     * @param returnValue the return value indicates whether the execution was successful and, if it failed, how it
-     *        failed
+     * @param returnValue the return value indicates whether the execution was successful and, if it
+     *        failed, how it failed
      * @throws StateMachineException on an execution error
      * @throws ContextException On context errors
      */

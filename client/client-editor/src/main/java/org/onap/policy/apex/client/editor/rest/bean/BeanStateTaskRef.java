@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanStateTaskRef extends BeanBase {
-
     private BeanKeyRef task = null;
-    private String outputType = null, outputName = null;
+    private String outputType = null;
+    private String outputName = null;
 
     /**
      * Gets the task.

@@ -428,7 +428,8 @@ public class ApexEngineImpl implements ApexEngine {
      * @return the exception event
      */
     private EnEvent createExceptionEvent(final EnEvent incomingEvent, final Exception eventException) {
-        // The exception event is a clone of the incoming event with the exception suffix added to its name and an extra
+        // The exception event is a clone of the incoming event with the exception suffix added to
+        // its name and an extra
         // field "ExceptionMessage" added
         final EnEvent exceptionEvent = (EnEvent) incomingEvent.clone();
 

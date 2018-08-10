@@ -26,7 +26,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 
 /**
- * This class creates sample Policy Models
+ * This class creates sample Policy Models.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

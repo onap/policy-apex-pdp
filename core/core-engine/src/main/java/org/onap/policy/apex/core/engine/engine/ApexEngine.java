@@ -30,20 +30,21 @@ import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
- * The Interface ApexEngine is used to control the execution of a single Apex engine thread. This engine instance
- * executes the policies in an {@link AxPolicyModel}, which defines the policies that are executed by the engine and the
- * context in which they execute. Many instances of an Apex engine may run on the same Apex model, in which case they
- * operate the same policy set in parallel over the same context. When the {@code handleEvent} method is passed to the
- * Apex engine, the engine executes the policy triggered by that event. A single Apex engine instance does not executed
- * multiple policies in parallel, it receives a trigger event and executes the policy for that event to completion
- * before it is available to execute another policy.
+ * The Interface ApexEngine is used to control the execution of a single Apex engine thread. This
+ * engine instance executes the policies in an {@link AxPolicyModel}, which defines the policies
+ * that are executed by the engine and the context in which they execute. Many instances of an Apex
+ * engine may run on the same Apex model, in which case they operate the same policy set in parallel
+ * over the same context. When the {@code handleEvent} method is passed to the Apex engine, the
+ * engine executes the policy triggered by that event. A single Apex engine instance does not
+ * executed multiple policies in parallel, it receives a trigger event and executes the policy for
+ * that event to completion before it is available to execute another policy.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public interface ApexEngine {
     /**
-     * The amount of milliseconds to wait for the current Apex engine to timeout on engine stop requests. If the timeout
-     * is exceeded, the stop aborts.
+     * The amount of milliseconds to wait for the current Apex engine to timeout on engine stop
+     * requests. If the timeout is exceeded, the stop aborts.
      */
     int APEX_ENGINE_STOP_EXECUTION_WAIT_TIMEOUT = 3000;
 
@@ -51,10 +52,10 @@ public interface ApexEngine {
     int APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT = 100;
 
     /**
-     * Update the Apex model to be used by the Apex engine. The engine must be in state "STOPPED" when the model is
-     * updated. The engine will replace the current model with the incoming model if the model of the engine was
-     * previously updated and the value of common context is transferred if there is common context in the old and new
-     * models.
+     * Update the Apex model to be used by the Apex engine. The engine must be in state "STOPPED"
+     * when the model is updated. The engine will replace the current model with the incoming model
+     * if the model of the engine was previously updated and the value of common context is
+     * transferred if there is common context in the old and new models.
      *
      * @param apexModel the apex model
      * @throws ApexException on model update errors
@@ -83,7 +84,8 @@ public interface ApexEngine {
     void clear() throws ApexException;
 
     /**
-     * This method constructs an event with the correct event context so that it can later be sent to the Apex engine.
+     * This method constructs an event with the correct event context so that it can later be sent
+     * to the Apex engine.
      *
      * @param eventKey The key of the event in the Apex model
      * @return the created event
@@ -91,8 +93,8 @@ public interface ApexEngine {
     EnEvent createEvent(AxArtifactKey eventKey);
 
     /**
-     * This method passes an event to the Apex model to invoke a policy. If the event matches a policy, then that policy
-     * is executed.
+     * This method passes an event to the Apex model to invoke a policy. If the event matches a
+     * policy, then that policy is executed.
      *
      * @return return true if a policy was invoked without error, otherwise false.
      * @param incomingEvent the incoming event

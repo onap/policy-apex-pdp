@@ -56,8 +56,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * {@link AxContextAlbums} class implements the helper methods of the {@link AxConceptGetter}
  * interface to allow {@link AxContextAlbum} instances to be retrieved by calling methods directly
  * on this class without referencing the contained map.
- * <p>
- * Validation checks that the container key is not null. An observation is issued if no context
+ * 
+ * <p>Validation checks that the container key is not null. An observation is issued if no context
  * albums are defined in the container. If context albums do exist, they are checked to ensure that
  * keys and values are not null and that the map key matches the key in the map value for all album
  * entries. Each context album entry is then validated individually.
@@ -92,7 +92,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */

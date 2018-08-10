@@ -41,8 +41,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This abstract class executes a task in a state of an Apex policy and is specialized by classes that implement
- * execution of task logic.
+ * This abstract class executes a task in a state of an Apex policy and is specialized by classes
+ * that implement execution of task logic.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -64,7 +64,8 @@ public abstract class TaskExecutor
     // The next task executor
     private Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> nextExecutor = null;
 
-    // The task execution context; contains the facades for events and context to be used by tasks executed by this task
+    // The task execution context; contains the facades for events and context to be used by tasks
+    // executed by this task
     // executor
     private TaskExecutionContext executionContext = null;
 
@@ -80,9 +81,8 @@ public abstract class TaskExecutor
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.engine.executor.Executor,
-     * java.lang.Object, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
+     * engine.executor.Executor, java.lang.Object, java.lang.Object)
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxTask newAxTask,
@@ -107,7 +107,8 @@ public abstract class TaskExecutor
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public Map<String, Object> execute(final long executionID, final Map<String, Object> newIncomingFields)
@@ -119,7 +120,8 @@ public abstract class TaskExecutor
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public final void executePre(final long executionID, final Map<String, Object> newIncomingFields)
@@ -175,14 +177,16 @@ public abstract class TaskExecutor
             throw new StateMachineException(errorMessage);
         }
 
-        // Copy any unset fields from the input to the output if their data type and names are identical
+        // Copy any unset fields from the input to the output if their data type and names are
+        // identical
         for (final String field : axTask.getOutputFields().keySet()) {
             // Check if the field exists and is not set on the output
             if (!getOutgoing().containsKey(field) || getOutgoing().get(field) != null) {
                 continue;
             }
 
-            // This field is not in the output, check if it's on the input and is the same type (Note here, the output
+            // This field is not in the output, check if it's on the input and is the same type
+            // (Note here, the output
             // field definition has to exist so it's not
             // null checked)
             final AxInputField inputFieldDef = axTask.getInputFields().get(field);
@@ -195,7 +199,8 @@ public abstract class TaskExecutor
             getOutgoing().put(field, getIncoming().get(field));
         }
 
-        // Finally, check that the outgoing fields have all the output fields defined for this state and, if not, output
+        // Finally, check that the outgoing fields have all the output fields defined for this state
+        // and, if not, output
         // a list of missing fields
         final Set<String> missingTaskOutputFields = new TreeSet<>(axTask.getOutputFields().keySet());
         missingTaskOutputFields.removeAll(outgoingFields.keySet());
@@ -213,7 +218,8 @@ public abstract class TaskExecutor
                     + "\" are missing for task \"" + axTask.getKey().getID() + "\"");
         }
 
-        // Finally, check that the outgoing field map don't have any extra fields, if present, raise exception with the
+        // Finally, check that the outgoing field map don't have any extra fields, if present, raise
+        // exception with the
         // list of extra fields
         final Set<String> extraTaskOutputFields = new TreeSet<>(outgoingFields.keySet());
         extraTaskOutputFields.removeAll(axTask.getOutputFields().keySet());
@@ -299,7 +305,8 @@ public abstract class TaskExecutor
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.executor.Executor)
+     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
+     * executor.Executor)
      */
     @Override
     public void setNext(
@@ -320,8 +327,9 @@ public abstract class TaskExecutor
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.engine.
-     * ExecutorParameters)
+     * @see
+     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
+     * engine. ExecutorParameters)
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}
