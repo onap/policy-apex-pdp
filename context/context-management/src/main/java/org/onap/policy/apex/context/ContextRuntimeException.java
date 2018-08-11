@@ -43,9 +43,9 @@ public class ContextRuntimeException extends ApexRuntimeException {
      * Instantiates a new apex context exception with a message and a caused by exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ContextRuntimeException(final String message, final Exception e) {
-        super(message, e);
+    public ContextRuntimeException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

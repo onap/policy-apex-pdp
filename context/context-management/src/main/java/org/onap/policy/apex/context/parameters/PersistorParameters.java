@@ -24,14 +24,14 @@ import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
- * A persistor parameter class that may be specialized by context persistor plugins that require plugin specific
- * parameters.
- * <p>
- * The following parameters are defined:
+ * A persistor parameter class that may be specialized by context persistor plugins that require
+ * plugin specific parameters.
+ *
+ * <p>The following parameters are defined:
  * <ol>
  * <li>pluginClass: the persistor plugin as the JVM local dummy ephemeral persistor
- * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the period for flushing
- * is the flush period.
+ * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the
+ * period for flushing is the flush period.
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -51,7 +51,8 @@ public class PersistorParameters extends AbstractParameters {
     private long flushPeriod = DEFAULT_FLUSH_PERIOD;
 
     /**
-     * Constructor to create a persistor parameters instance and register the instance with the parameter service.
+     * Constructor to create a persistor parameters instance and register the instance with the
+     * parameter service.
      */
     public PersistorParameters() {
         super(PersistorParameters.class.getCanonicalName());
@@ -59,8 +60,8 @@ public class PersistorParameters extends AbstractParameters {
     }
 
     /**
-     * Constructor to create a persistor parameters instance with the name of a sub class of this class and register the
-     * instance with the parameter service.
+     * Constructor to create a persistor parameters instance with the name of a sub class of this
+     * class and register the instance with the parameter service.
      *
      * @param parameterClassName the class name of a sub class of this class
      */

@@ -32,8 +32,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class implements the {@link SchemaHelper} functionality that is common across all implementations. Schema
- * helpers for specific schema mechanisms specialize this class.
+ * This class implements the {@link SchemaHelper} functionality that is common across all
+ * implementations. Schema helpers for specific schema mechanisms specialize this class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -62,8 +62,9 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.context.SchemaHelper#init(org.onap.policy.apex.model.basicmodel.concepts.AxKey,
-     * org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
+     * @see
+     * org.onap.policy.apex.context.SchemaHelper#init(org.onap.policy.apex.model.basicmodel.concepts
+     * .AxKey, org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
      */
     @Override
     public void init(final AxKey incomingUserKey, final AxContextSchema incomingSchema) throws ContextRuntimeException {

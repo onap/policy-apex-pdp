@@ -43,9 +43,9 @@ public class ContextException extends ApexException {
      * Instantiates a new apex context exception with a message and a caused by exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
-    public ContextException(final String message, final Exception e) {
-        super(message, e);
+    public ContextException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }
