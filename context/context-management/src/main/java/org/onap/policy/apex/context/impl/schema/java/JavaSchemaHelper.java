@@ -49,6 +49,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     // This map defines the built in types in types in Java
     // @formatter:off
     private static final Map<String, Class<?>> BUILT_IN_MAP = new HashMap<>();
+    
     static {
         BUILT_IN_MAP.put("int",    Integer  .TYPE);
         BUILT_IN_MAP.put("long",   Long     .TYPE);
@@ -109,7 +110,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             throw new ContextRuntimeException(returnString);
         }
 
-       if (incomingObject instanceof JsonElement) {
+        if (incomingObject instanceof JsonElement) {
             final String elementJsonString = new Gson().toJson((JsonElement) incomingObject);
             return new Gson().fromJson(elementJsonString, this.getSchemaClass());
         }

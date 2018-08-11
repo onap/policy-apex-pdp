@@ -93,8 +93,8 @@ public class ContextAlbumImplTest {
             new ContextAlbumImpl(new AxContextAlbum(), new JVMLocalDistributor(), new LinkedHashMap<String, Object>());
             fail("this test should throw an exception");
         } catch (ApexRuntimeException e) {
-            assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas not found in model service",
-                            e.getMessage());
+            assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas "
+                    + "not found in model service", e.getMessage());
         } catch (ContextException e) {
             fail("this test should throw an ApexRuntimeException");
         }
@@ -112,7 +112,7 @@ public class ContextAlbumImplTest {
                         true, AxArtifactKey.getNullKey());
 
         AxContextAlbum axContextAlbumRO = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                        false, simpleStringSchema.getKey());
+                false, simpleStringSchema.getKey());
 
         try {
             new ContextAlbumImpl(axContextAlbum, new JVMLocalDistributor(), new LinkedHashMap<String, Object>());
@@ -195,8 +195,9 @@ public class ContextAlbumImplTest {
             albumRO.remove("AllKey0");
             fail("test should throw an exception");
         } catch (ContextRuntimeException e) {
-            assertEquals("album \"TestContextAlbum:0.0.1\" remove() not allowed on read only albums for key=\"AllKey0\"",
-                            e.getMessage());
+            assertEquals(
+                    "album \"TestContextAlbum:0.0.1\" remove() not allowed on read only albums for key=\"AllKey0\"",
+                    e.getMessage());
         }
 
         try {

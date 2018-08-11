@@ -17,15 +17,16 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.context.impl.schema.java;
 
 public class MyBaseClass {
     final String stringField;
-    
+
     public MyBaseClass(final String stringField) {
         this.stringField = stringField;
     }
-    
+
     public String getStringField() {
         return stringField;
     }

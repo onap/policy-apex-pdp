@@ -24,21 +24,21 @@ import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
- * Bean class to hold parameters for context handling in Apex. This class contains all the context parameters for schema
- * handling, distribution, locking, and persistence of context albums.
- * <p>
- * The following parameters are defined:
+ * Bean class to hold parameters for context handling in Apex. This class contains all the context
+ * parameters for schema handling, distribution, locking, and persistence of context albums.
+ *
+ * <p>The following parameters are defined:
  * <ol>
- * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the period for flushing
- * is the flush period.
- * <li>distributorParameters: The parameters (a {@link distributorParameters} instance) for the distributor plugin that
- * is being used for context album distribution
- * <li>schemaParameters: The parameters (a {@link SchemaParameters} instance) for the schema plugin that is being used
- * for context album schemas
- * <li>lockManagerParameters: The parameters (a {@link LockManagerParameters} instance) for the locking mechanism plugin
- * that is being used for context album locking
- * <li>persistorParameters: The parameters (a {@link PersistorParameters} instance) for the persistence plugin that is
- * being used for context album persistence
+ * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the
+ * period for flushing is the flush period.
+ * <li>distributorParameters: The parameters (a {@link distributorParameters} instance) for the
+ * distributor plugin that is being used for context album distribution
+ * <li>schemaParameters: The parameters (a {@link SchemaParameters} instance) for the schema plugin
+ * that is being used for context album schemas
+ * <li>lockManagerParameters: The parameters (a {@link LockManagerParameters} instance) for the
+ * locking mechanism plugin that is being used for context album locking
+ * <li>persistorParameters: The parameters (a {@link PersistorParameters} instance) for the
+ * persistence plugin that is being used for context album persistence
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -53,7 +53,8 @@ public class ContextParameters extends AbstractParameters {
     // @formatter:on
 
     /**
-     * Constructor to create a context parameters instance and register the instance with the parameter service.
+     * Constructor to create a context parameters instance and register the instance with the
+     * parameter service.
      */
     public ContextParameters() {
         super(ContextParameters.class.getCanonicalName());
