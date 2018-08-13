@@ -20,8 +20,8 @@
 
 /**
  * Implements the RESTful editor for Apex. It implements a RESTful service towards the
- * {@link org.onap.policy.apex.model.modelapi.ApexEditorAPI} Java interface for use by clients over REST. It also
- * provides a web-based client written in Javascript.
+ * {@link org.onap.policy.apex.model.modelapi.ApexEditorAPI} Java interface for use by clients over
+ * REST. It also provides a web-based client written in Javascript.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

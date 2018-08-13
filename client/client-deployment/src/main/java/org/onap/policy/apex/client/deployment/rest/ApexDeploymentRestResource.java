@@ -42,11 +42,12 @@ import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The class represents the root resource exposed at the base URL<br>
- * The url to access this resource would be in the form {@code <baseURL>/rest/....} <br>
+ *
+ * <p>The url to access this resource would be in the form {@code <baseURL>/rest/....} <br>
  * For example: a GET request to the following URL
  * {@code http://localhost:18989/apexservices/rest/?hostName=localhost&port=12345}
  *
- * <b>Note:</b> An allocated {@code hostName} and {@code port} query parameter must be included in all requests.
+ * <p><b>Note:</b> An allocated {@code hostName} and {@code port} query parameter must be included in all requests.
  * Datasets for different {@code hostName} are completely isolated from one another.
  *
  */
@@ -64,7 +65,7 @@ public class ApexDeploymentRestResource {
     public ApexDeploymentRestResource() {}
 
     /**
-     * Query the engine service for data
+     * Query the engine service for data.
      *
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.

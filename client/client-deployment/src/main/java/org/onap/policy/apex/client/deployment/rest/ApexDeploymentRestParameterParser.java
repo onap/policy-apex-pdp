@@ -32,16 +32,16 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * This class reads and handles command line parameters to the Apex RESTful services
+ * This class reads and handles command line parameters to the Apex RESTful services.
  *
- * User: ewatkmi Date: 31 Jul 2017
+ * @author Michael Watkins (michael.watkins@ericsson.com)
  */
 public class ApexDeploymentRestParameterParser {
     // Apache Commons CLI options
     Options options;
 
     /**
-     * Construct the options for the CLI RESTful services
+     * Construct the options for the CLI RESTful services.
      */
     public ApexDeploymentRestParameterParser() {
         options = new Options();
@@ -54,7 +54,7 @@ public class ApexDeploymentRestParameterParser {
     }
 
     /**
-     * Parse the command line options
+     * Parse the command line options.
      *
      * @param args the arguments
      * @return the parsed arguments
@@ -99,7 +99,7 @@ public class ApexDeploymentRestParameterParser {
     }
 
     /**
-     * Get help information
+     * Get help information.
      *
      * @param mainClassName the main class name for the help output
      * @return help string
