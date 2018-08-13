@@ -28,7 +28,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 public class BeanModel extends BeanBase {
 
-    private String name = null, version = null, uuid = null, description = null;
+    private String name = null;
+    private String version = null;
+    private String uuid = null;
+    private String description = null;
 
     /**
      * Gets the name.

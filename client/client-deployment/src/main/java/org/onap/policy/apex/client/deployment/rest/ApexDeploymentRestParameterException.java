@@ -23,13 +23,13 @@ package org.onap.policy.apex.client.deployment.rest;
 /**
  * A run time exception used to report parsing and parameter input errors.
  *
- * User: ewatkmi Date: 31 Jul 2017
+ * <p>User: ewatkmi Date: 31 Jul 2017
  */
 public class ApexDeploymentRestParameterException extends IllegalArgumentException {
     private static final long serialVersionUID = 6520231162404452427L;
 
     /**
-     * Create an ApexServicesRestParameterException with a message
+     * Create an ApexServicesRestParameterException with a message.
      *
      * @param message the message
      */

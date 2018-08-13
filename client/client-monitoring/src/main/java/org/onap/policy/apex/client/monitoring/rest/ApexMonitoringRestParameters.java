@@ -23,8 +23,7 @@ package org.onap.policy.apex.client.monitoring.rest;
 import java.net.URI;
 
 /**
- * This class reads and handles command line parameters to the Apex RESTful services
- *
+ * This class reads and handles command line parameters to the Apex RESTful services.
  * User: ewatkmi Date: 31 Jul 2017
  */
 public class ApexMonitoringRestParameters {

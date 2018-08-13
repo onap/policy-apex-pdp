@@ -53,21 +53,21 @@ public class ApexEditorException extends ApexException {
      * Instantiates a new apex editor exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param ex the exception that caused this Apex exception
      */
-    public ApexEditorException(final String message, final Exception e) {
-        super(message, e);
+    public ApexEditorException(final String message, final Exception ex) {
+        super(message, ex);
     }
 
     /**
      * Instantiates a new apex editor exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param ex the exception that caused this Apex exception
      * @param object the object that the exception was thrown on
      */
-    public ApexEditorException(final String message, final Exception e, final Object object) {
-        super(message, e, object);
+    public ApexEditorException(final String message, final Exception ex, final Object object) {
+        super(message, ex, object);
     }
 
 }

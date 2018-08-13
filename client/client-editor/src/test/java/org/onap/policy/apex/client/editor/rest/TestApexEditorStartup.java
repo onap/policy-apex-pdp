@@ -71,8 +71,9 @@ public class TestApexEditorStartup {
             runEditor(args);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith("Apex Editor REST endpoint (ApexEditorMain: "
-                    + "Config=[null], State=STOPPED) parameter error, too many command line arguments specified : [12321]"));
+            assertTrue(e.getLocalizedMessage().startsWith(
+                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
+                    + " too many command line arguments specified : [12321]"));
         }
     }
 
@@ -90,8 +91,9 @@ public class TestApexEditorStartup {
             runEditor(args);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith("Apex Editor REST endpoint (ApexEditorMain: "
-                    + "Config=[null], State=STOPPED) parameter error, too many command line arguments specified : [12321 12322 12323]"));
+            assertTrue(e.getLocalizedMessage().startsWith(
+                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
+                    + " too many command line arguments specified : [12321 12322 12323]"));
         }
     }
 
@@ -109,8 +111,9 @@ public class TestApexEditorStartup {
             runEditor(args);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith("Apex Editor REST endpoint (ApexEditorMain: "
-                    + "Config=[null], State=STOPPED) parameter error, invalid command line arguments specified : Unrecognized option: -z"));
+            assertTrue(e.getLocalizedMessage().startsWith(
+                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
+                    + " invalid command line arguments specified : Unrecognized option: -z"));
         }
     }
 
@@ -128,8 +131,9 @@ public class TestApexEditorStartup {
             runEditor(args);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith("Apex Editor REST endpoint (ApexEditorMain: "
-                    + "Config=[null], State=STOPPED) parameter error, invalid command line arguments specified : Unrecognized option: --hello"));
+            assertTrue(e.getLocalizedMessage().startsWith(
+                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
+                    + " invalid command line arguments specified : Unrecognized option: --hello"));
         }
     }
 
@@ -253,8 +257,9 @@ public class TestApexEditorStartup {
             runEditor(args);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("Apex Editor REST endpoint (ApexEditorMain: "
-                    + "Config=[null], State=STOPPED) parameter error, error parsing argument \"port\" :For input string: \" 12321\""));
+            assertTrue(e.getMessage().startsWith(
+                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
+                    + " error parsing argument \"port\" :For input string: \" 12321\""));
         }
     }
 

@@ -64,7 +64,7 @@ public class ApexDeploymentRestResource {
     public ApexDeploymentRestResource() {}
 
     /**
-     * Query the engine service for data
+     * Query the engine service for data.
      *
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.

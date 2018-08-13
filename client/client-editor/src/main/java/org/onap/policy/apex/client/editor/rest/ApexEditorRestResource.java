@@ -1000,7 +1000,8 @@ public class ApexEditorRestResource {
                     if (p.getValue() == null) {
                         ret = new ApexAPIResult(RESULT.FAILED, "Null event parameter information for parameter \""
                                 + p.getKey() + "\" in event " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The event was created, but there was an error adding the event parameters. The event has only been partially defined.");
+                                + ". The event was created, but there was an error adding the event parameters."
+                                + " The event has only been partially defined.");
                         return ret;
                     }
                     final ApexAPIResult rettmp =
@@ -1009,7 +1010,8 @@ public class ApexEditorRestResource {
                     if (rettmp.isNOK()) {
                         rettmp.addMessage("Failed to add event parameter information for parameter \"" + p.getKey()
                                 + "\" in event " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The event was created, but there was an error adding the event parameters. The event has only been partially defined.");
+                                + ". The event was created, but there was an error adding the event parameters."
+                                + " The event has only been partially defined.");
                         ret = rettmp;
                         return ret;
                     }
@@ -1240,7 +1242,8 @@ public class ApexEditorRestResource {
                     if (fin.getValue() == null) {
                         ret = new ApexAPIResult(RESULT.FAILED, "Null task input field information for field \""
                                 + fin.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the input fields. The task has only been partially defined.");
+                                + ". The task was created, but there was an error adding the input fields."
+                                + " The task has only been partially defined.");
                         return ret;
                     }
                     if (fin.getKey() == null || !fin.getKey().equals(fin.getValue().getLocalName())) {
@@ -1248,7 +1251,8 @@ public class ApexEditorRestResource {
                                 + fin.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
                                 + ". The localName of the field (\"" + fin.getValue().getLocalName()
                                 + "\") is not the same as the field name. "
-                                + "The task was created, but there was an error adding the input fields. The task has only been partially defined.");
+                                + "The task was created, but there was an error adding the input fields."
+                                + " The task has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskInputField(jsonbean.getName(), jsonbean.getVersion(),
@@ -1257,7 +1261,8 @@ public class ApexEditorRestResource {
                     if (tempres.isNOK()) {
                         tempres.addMessage("Failed to add task input field information for field \"" + fin.getKey()
                                 + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the input fields. The task has only been partially defined.");
+                                + ". The task was created, but there was an error adding the input fields."
+                                + " The task has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1268,7 +1273,8 @@ public class ApexEditorRestResource {
                     if (fout.getValue() == null) {
                         ret = new ApexAPIResult(RESULT.FAILED, "Null task output field information for field \""
                                 + fout.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the output fields. The task has only been partially defined.");
+                                + ". The task was created, but there was an error adding the output fields."
+                                + " The task has only been partially defined.");
                         return ret;
                     }
                     if (fout.getKey() == null || !fout.getKey().equals(fout.getValue().getLocalName())) {
@@ -1276,7 +1282,8 @@ public class ApexEditorRestResource {
                                 + fout.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
                                 + ". The localName of the field (\"" + fout.getValue().getLocalName()
                                 + "\") is not the same as the field name. "
-                                + "The task was created, but there was an error adding the output fields. The task has only been partially defined.");
+                                + "The task was created, but there was an error adding the output fields."
+                                + " The task has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskOutputField(jsonbean.getName(), jsonbean.getVersion(),
@@ -1285,7 +1292,8 @@ public class ApexEditorRestResource {
                     if (tempres.isNOK()) {
                         tempres.addMessage("Failed to add task output field information for field \"" + fout.getKey()
                                 + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the output fields. The task has only been partially defined.");
+                                + ". The task was created, but there was an error adding the output fields."
+                                + " The task has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1298,7 +1306,8 @@ public class ApexEditorRestResource {
                 if (tempres.isNOK()) {
                     tempres.addMessage("Failed to add task logic in task " + jsonbean.getName() + ":"
                             + jsonbean.getVersion()
-                            + ". The task was created, but there was an error adding the logic. The task has only been partially defined.");
+                            + ". The task was created, but there was an error adding the logic."
+                            + " The task has only been partially defined.");
                     ret = tempres;
                     return ret;
                 }
@@ -1310,7 +1319,8 @@ public class ApexEditorRestResource {
                         ret = new ApexAPIResult(RESULT.FAILED,
                                 "Null or invalid task parameter information for parameter \"" + param.getKey()
                                         + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                        + ". The task was created, but there was an error adding the parameters. The task has only been partially defined.");
+                                        + ". The task was created, but there was an error adding the parameters."
+                                        + " The task has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskParameter(jsonbean.getName(), jsonbean.getVersion(),
@@ -1318,7 +1328,8 @@ public class ApexEditorRestResource {
                     if (tempres.isNOK()) {
                         tempres.addMessage("Failed to add task parameter \"" + param.getKey() + "\" in task "
                                 + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the parameters. The task has only been partially defined.");
+                                + ". The task was created, but there was an error adding the parameters."
+                                + " The task has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1577,7 +1588,8 @@ public class ApexEditorRestResource {
             if (jsonbean.getStates() == null || jsonbean.getStates().isEmpty()) {
                 ret = new ApexAPIResult(RESULT.FAILED, "Null or empty state map; no states defined for policy \""
                         + policyname + ":" + policyversion
-                        + "\". The policy was created, but there was an error adding states. The policy has only been partially defined.");
+                        + "\". The policy was created, but there was an error adding states."
+                        + " The policy has only been partially defined.");
                 return ret;
             }
 
@@ -1589,19 +1601,22 @@ public class ApexEditorRestResource {
                 if (state == null) {
                     ret = new ApexAPIResult(RESULT.FAILED, "Null or invalid state information for state \"" + statename
                             + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy was created, but there was an error adding the state. The policy has only been partially defined.");
+                            + "\". The policy was created, but there was an error adding the state."
+                            + " The policy has only been partially defined.");
                     return ret;
                 }
                 if (state.getTrigger() == null) {
                     ret = new ApexAPIResult(RESULT.FAILED, "Null or invalid state trigger for state \"" + statename
                             + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy was created, but there was an error adding the state. The policy has only been partially defined.");
+                            + "\". The policy was created, but there was an error adding the state."
+                            + " The policy has only been partially defined.");
                     return ret;
                 }
                 if (state.getDefaultTask() == null) {
                     ret = new ApexAPIResult(RESULT.FAILED, "Null or invalid default task for state \"" + statename
                             + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy was created, but there was an error adding the state. The policy has only been partially defined.");
+                            + "\". The policy was created, but there was an error adding the state."
+                            + " The policy has only been partially defined.");
                     return ret;
                 }
                 tempres = sessionApexModel.createPolicyState(policyname, policyversion, statename,
@@ -1624,8 +1639,8 @@ public class ApexEditorRestResource {
                     if (tempres.isNOK()) {
                         tempres.addMessage("Failed to add task selection logic for state \"" + statename + "\" for"
                                 + " policy \"" + policyname + ":" + policyversion
-                                + "\". The policy was created, but there was an error adding the task selection logic for "
-                                + "the state. The policy has only been partially defined.");
+                                + "\". The policy was created, but there was an error adding the task selection logic "
+                                + "for the state. The policy has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1638,8 +1653,8 @@ public class ApexEditorRestResource {
                             ret = new ApexAPIResult(RESULT.FAILED,
                                     "Null or invalid context reference \"" + c + "\" for" + " state \"" + statename
                                             + "\" for policy \"" + policyname + ":" + policyversion
-                                            + "\". The policy was created, but there was an error adding the context reference for the state."
-                                            + " The policy has only been partially defined.");
+                                            + "\". The policy was created, but there was an error adding the context "
+                                            + "reference for the state. The policy has only been partially defined.");
                             return ret;
                         }
                         tempres = sessionApexModel.createPolicyStateContextRef(policyname, policyversion, statename,
@@ -1647,8 +1662,8 @@ public class ApexEditorRestResource {
                         if (tempres.isNOK()) {
                             tempres.addMessage("Failed to add context reference \"" + c + "\" for state \"" + statename
                                     + "\" for policy \"" + policyname + ":" + policyversion
-                                    + "\". The policy was created, but there was an error adding the context reference for the state."
-                                    + " The policy has only been partially defined.");
+                                    + "\". The policy was created, but there was an error adding the context reference "
+                                    + "for the state. The policy has only been partially defined.");
                             ret = tempres;
                             return ret;
                         }
@@ -1663,10 +1678,10 @@ public class ApexEditorRestResource {
                         if (finalizername == null || finalizer == null) {
                             ret = new ApexAPIResult(RESULT.FAILED,
                                     "Null or invalid finalizer information for finalizer " + "named \"" + finalizername
-                                            + "\" in state \"" + statename + "\" for policy \"" + policyname + ":"
+                                            + "\" in state \"" + statename + "\" for policy \"" + policyname + ":" 
                                             + policyversion
-                                            + "\". The policy and state were created, but there was an error adding the finalizer."
-                                            + " The policy has only been partially defined.");
+                                            + "\". The policy and state were created, but there was an error adding the"
+                                            + " finalizer. The policy has only been partially defined.");
                             return ret;
                         }
                         tempres = sessionApexModel.createPolicyStateFinalizerLogic(policyname, policyversion, statename,
@@ -1675,8 +1690,8 @@ public class ApexEditorRestResource {
                             tempres.addMessage("Failed to add finalizer information for finalizer named \""
                                     + finalizername + "\" in" + " state \"" + statename + "\" for policy \""
                                     + policyname + ":" + policyversion
-                                    + "\". The policy and state were created, but there was an error adding the finalizer."
-                                    + " The policy has only been partially defined.");
+                                    + "\". The policy and state were created, but there was an error adding the"
+                                    + " finalizer. The policy has only been partially defined.");
                             ret = tempres;
                             return ret;
                         }
@@ -1687,8 +1702,8 @@ public class ApexEditorRestResource {
                     ret = new ApexAPIResult(RESULT.FAILED,
                             "No state outputs have been defined in state \"" + statename + "\" for policy \""
                                     + policyname + ":" + policyversion
-                                    + "\". The policy and state were created, but there was an error adding state outputs."
-                                    + " The policy has only been partially defined.");
+                                    + "\". The policy and state were created, but there was an error adding state"
+                                    + " outputs. The policy has only been partially defined.");
                     return ret;
                 }
                 for (final Map.Entry<String, BeanStateOutput> o : outputs.entrySet()) {
@@ -1698,8 +1713,8 @@ public class ApexEditorRestResource {
                         ret = new ApexAPIResult(RESULT.FAILED,
                                 "Null or invalid output information for output named \"" + outputname + "\" in state \""
                                         + statename + "\" for policy \"" + policyname + ":" + policyversion
-                                        + "\". The policy and state were created, but there was an error adding the output."
-                                        + " The policy has only been partially defined.");
+                                        + "\". The policy and state were created, but there was an error adding the"
+                                        + " output. The policy has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createPolicyStateOutput(policyname, policyversion, statename, outputname,
@@ -1730,8 +1745,8 @@ public class ApexEditorRestResource {
                         ret = new ApexAPIResult(RESULT.FAILED,
                                 "Null or invalid task information for task named \"" + tasklocalname + "\" in state \""
                                         + statename + "\" for for policy \"" + policyname + ":" + policyversion
-                                        + "\". The policy and state were created, but there was an error adding the task. "
-                                        + "The policy has only been partially defined.");
+                                        + "\". The policy and state were created, but there was an error adding the "
+                                        + "task. The policy has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createPolicyStateTaskRef(policyname, policyversion, statename,
@@ -1740,8 +1755,8 @@ public class ApexEditorRestResource {
                     if (tempres.isNOK()) {
                         tempres.addMessage("Failed to add task reference \"" + t + "\" for state \"" + statename
                                 + "\" for policy \"" + policyname + ":" + policyversion
-                                + "\". The policy was created, but there was an error adding the task reference for the state."
-                                + " The policy has only been partially defined.");
+                                + "\". The policy was created, but there was an error adding the task reference for"
+                                + " the state. The policy has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1799,7 +1814,11 @@ public class ApexEditorRestResource {
                 final ApexAPIResult existingPeriodicEvent = sessionApexModel.listEvent("PeriodicEvent", null);
                 if (existingPeriodicEvent.isNOK()) {
                     final String periodicEventString =
-                            "{\"name\":\"PeriodicEvent\",\"version\":\"0.0.1\",\"uuid\":\"44236da1-3d47-4988-8033-b6fee9d6a0f4\",\"description\":\"Generated description for concept referred to by key 'PeriodicEvent:0.0.1'\",\"source\":\"System\",\"target\":\"Apex\",\"nameSpace\":\"org.onap.policy.apex.domains.aadm.events\",\"parameters\":{}}";
+                            "{\"name\":\"PeriodicEvent\",\"version\":\"0.0.1\","
+                            + "\"uuid\":\"44236da1-3d47-4988-8033-b6fee9d6a0f4\","
+                            + "\"description\":\"Generated description for concept referred to by key "
+                            + "'PeriodicEvent:0.0.1'\",\"source\":\"System\",\"target\":\"Apex\","
+                            + "\"nameSpace\":\"org.onap.policy.apex.domains.aadm.events\",\"parameters\":{}}";
                     ret = createEvent(periodicEventString);
                     if (ret.isNOK()) {
                         return ret;

@@ -23,13 +23,14 @@ package org.onap.policy.apex.client.monitoring.rest;
 import java.io.PrintStream;
 
 /**
+ * Apex Monitoring Rest Main class.
  * User: ewatkmi Date: 31 Jul 2017
  */
 public class ApexMonitoringRestMain {
     // Services state
     public enum ServicesState {
         STOPPED, READY, INITIALIZING, RUNNING
-    };
+    }
 
     private ServicesState state = ServicesState.STOPPED;
 
@@ -43,7 +44,7 @@ public class ApexMonitoringRestMain {
     private ApexMonitoringRest apexMonitoringRest = null;
 
     /**
-     * Main method, main entry point for command
+     * Main method, main entry point for command.
      *
      * @param args The command line arguments for the client
      */
@@ -57,7 +58,7 @@ public class ApexMonitoringRestMain {
     }
 
     /**
-     * Constructor, kicks off the rest service
+     * Constructor, kicks off the rest service.
      *
      * @param args The command line arguments for the RESTful service
      * @param outStream The stream for output messages
@@ -95,7 +96,7 @@ public class ApexMonitoringRestMain {
     }
 
     /**
-     * Initialize the rest service
+     * Initialize the rest service.
      */
     public void init() {
         outStream.println("Apex Services REST endpoint (" + this.toString() + ") starting at "
@@ -161,7 +162,7 @@ public class ApexMonitoringRestMain {
     }
 
     /**
-     * Explicitly shut down the services
+     * Explicitly shut down the services.
      */
     public void shutdown() {
         if (apexMonitoringRest != null) {
@@ -173,7 +174,7 @@ public class ApexMonitoringRestMain {
     }
 
     /**
-     * This class is a shutdown hook for the Apex services command
+     * This class is a shutdown hook for the Apex services command.
      */
     private class ApexServicesShutdownHook implements Runnable {
         /*

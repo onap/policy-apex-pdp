@@ -41,9 +41,9 @@ public class ApexEditorParameterException extends IllegalArgumentException {
      * Create an ApexEditorParameterException with a message and an exception.
      *
      * @param message the message
-     * @param t the t
+     * @param th the Throwable instance
      */
-    public ApexEditorParameterException(final String message, final Throwable t) {
-        super(message, t);
+    public ApexEditorParameterException(final String message, final Throwable th) {
+        super(message, th);
     }
 }
