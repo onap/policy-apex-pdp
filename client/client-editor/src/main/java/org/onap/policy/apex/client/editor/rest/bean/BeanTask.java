@@ -30,8 +30,10 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanTask extends BeanBase {
-
-    private String name = null, version = null, uuid = null, description = null;
+    private String name = null;
+    private String version = null;
+    private String uuid = null;
+    private String description = null;
     private BeanLogic taskLogic = null;
     private Map<String, BeanField> inputFields = null;
     private Map<String, BeanField> outputFields = null;

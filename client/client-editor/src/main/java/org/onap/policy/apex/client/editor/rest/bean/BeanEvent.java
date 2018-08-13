@@ -29,9 +29,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanEvent extends BeanBase {
-
-    private String name = null, version = null, nameSpace = null, source = null, target = null, uuid = null,
-            description = null;
+    private String name = null;
+    private String version = null;
+    private String nameSpace = null;
+    private String source = null;
+    private String target = null;
+    private String uuid = null;
+    private String description = null;
     private Map<String, BeanField> parameters = null;
 
     /**
@@ -109,12 +113,12 @@ public class BeanEvent extends BeanBase {
     /**
      * Gets the parameter.
      *
-     * @param p the p
+     * @param ps the parameter string
      * @return the parameter
      */
-    public BeanField getParameter(final String p) {
+    public BeanField getParameter(final String ps) {
         if (parameters != null) {
-            return parameters.get(p);
+            return parameters.get(ps);
         }
         return null;
     }

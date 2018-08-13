@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 public class BeanTaskParameter extends BeanBase {
 
-    private String parameterName = null, defaultValue = null;
+    private String parameterName = null;
+    private String defaultValue = null;
 
     /**
      * Gets the parameter name.

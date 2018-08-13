@@ -97,7 +97,8 @@ public abstract class RestUtils {
     }
 
     /**
-     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings into a map.
+     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings
+     * into a map.
      *
      * @param jsonString the incoming JSON string
      * @return a map of the JSON strings
@@ -116,7 +117,8 @@ public abstract class RestUtils {
     }
 
     /**
-     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings into a map.
+     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings
+     * into a map.
      *
      * @param <CLZ> the generic type
      * @param jsonString the incoming JSON string
@@ -137,13 +139,11 @@ public abstract class RestUtils {
     }
 
     // Regular expressions for checking input types
-    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; // (starts with <?xml...>
-    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]"; // starts with some
-                                                                                                  // kind of bracket [
-                                                                                                  // or ( or {, then has
-                                                                                                  // something, then has
-                                                                                                  // and has a close
-                                                                                                  // bracket
+    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; //starts with <?xml...>
+    /**
+     * starts with some kind of bracket [ or ( or {, then has something, then has bracket.
+     */
+    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]";
 
     /**
      * Gets the concept from JSON.
