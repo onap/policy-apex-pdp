@@ -37,6 +37,7 @@ import org.onap.policy.apex.model.modelapi.ApexAPIResult.RESULT;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 
 /**
+ * Test Apex Editor Rest Resource.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestApexEditorRestResource extends JerseyTest {
@@ -537,7 +538,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         entityString = "{" + "\"name\"             : \"HowsItGoing\"," + "\"version\"          : \"0.0.2\","
                 + "\"namespace\"        : \"somewhere.over.the.rainbow\"," + "\"source\"           : \"beginning\","
                 + "\"target\"           : \"end\","
-                + "\"parameters\"       : {\"Par0\" : {\"name\" : \"StringType\", \"version\" : \"0.0.1\", \"localName\" : \"Par0\", \"optional\" : false}},"
+                + "\"parameters\"       : {\"Par0\" : {\"name\" : \"StringType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"Par0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -556,7 +558,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         entityString = "{" + "\"name\"             : \"GoodDay\"," + "\"version\"          : \"0.0.2\","
                 + "\"namespace\"        : \"somewhere.over.the.rainbow\"," + "\"source\"           : \"beginning\","
                 + "\"target\"           : \"end\","
-                + "\"parameters\"       : {\"Par0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", \"localName\" : \"Par0\", \"optional\" : false}},"
+                + "\"parameters\"       : {\"Par0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"Par0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -725,7 +728,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
 
         entityString = "{" + "\"name\"             : \"HowsItGoing\"," + "\"version\"          : \"0.0.2\","
-                + "\"inputFields\"      : {\"IField0\" : {\"name\" : \"StringType\", \"version\" : \"0.0.1\", \"localName\" : \"IField0\", \"optional\" : false}},"
+                + "\"inputFields\"      : {\"IField0\" : {\"name\" : \"StringType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"IField0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -741,7 +745,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         entityString = "{" + "\"name\"             : \"GoodDay\"," + "\"version\"          : \"0.0.2\","
-                + "\"inputFields\"      : {\"IField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", \"localName\" : \"IField0\", \"optional\" : false}},"
+                + "\"inputFields\"      : {\"IField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"IField0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -749,7 +754,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         entityString = "{" + "\"name\"             : \"Howdy\"," + "\"version\"          : \"0.0.2\","
-                + "\"inputFields\"      : {\"IField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", \"localName\" : \"NotIField0\", \"optional\" : false}},"
+                + "\"inputFields\"      : {\"IField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"NotIField0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -757,7 +763,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         entityString = "{" + "\"name\"             : \"HowsItGoing2\"," + "\"version\"          : \"0.0.2\","
-                + "\"outputFields\"     : {\"OField0\" : {\"name\" : \"StringType\", \"version\" : \"0.0.1\", \"localName\" : \"OField0\", \"optional\" : false}},"
+                + "\"outputFields\"     : {\"OField0\" : {\"name\" : \"StringType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"OField0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -773,7 +780,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         entityString = "{" + "\"name\"             : \"GoodDay2\"," + "\"version\"          : \"0.0.2\","
-                + "\"outputFields\"     : {\"OField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", \"localName\" : \"OField0\", \"optional\" : false}},"
+                + "\"outputFields\"     : {\"OField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\","
+                + " \"localName\" : \"OField0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -781,7 +789,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         entityString = "{" + "\"name\"             : \"Howdy2\"," + "\"version\"          : \"0.0.2\","
-                + "\"outputFields\"     : {\"OField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", \"localName\" : \"NotOField0\", \"optional\" : false}},"
+                + "\"outputFields\"     : {\"OField0\" : {\"name\" : \"NonExistantType\", \"version\" : \"0.0.1\", "
+                + "\"localName\" : \"NotOField0\", \"optional\" : false}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -789,8 +798,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         entityString = "{" + "\"name\"             : \"HowsItGoing3\"," + "\"version\"          : \"0.0.2\","
-                + "\"taskLogic\"        : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
-                + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
+                + "\"taskLogic\"        : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons,"
+                + " lots of lime\"}," + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
         result = target("editor/" + sessionId + "/Task/Create").request().post(entity, ApexAPIResult.class);
@@ -806,8 +815,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         entityString = "{" + "\"name\"             : \"GoodDay3\"," + "\"version\"          : \"0.0.2\","
                 + "\"namespace\"        : \"somewhere.over.the.rainbow\"," + "\"source\"           : \"beginning\","
                 + "\"target\"           : \"end\","
-                + "\"taskLogic\"        : {\"logicFlavour\" : \"UNDEFINED\", \"logic\" : \"lots of lemons, lots of lime\"},"
-                + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
+                + "\"taskLogic\"        : {\"logicFlavour\" : \"UNDEFINED\", \"logic\" : \"lots of lemons,"
+                + " lots of lime\"}," + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
         result = target("editor/" + sessionId + "/Task/Create").request().post(entity, ApexAPIResult.class);
@@ -822,7 +831,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         entityString = "{" + "\"name\"             : \"HowsItGoing4\"," + "\"version\"          : \"0.0.2\","
-                + "\"parameters\"       : {\"Par0\" : {\"parameterName\" : \"Par0\", \"defaultValue\" : \"Parameter Defaultvalue\"}},"
+                + "\"parameters\"       : {\"Par0\" : {\"parameterName\" : \"Par0\", "
+                + "\"defaultValue\" : \"Parameter Defaultvalue\"}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -838,7 +848,8 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         entityString = "{" + "\"name\"             : \"GoodDay4\"," + "\"version\"          : \"0.0.2\","
-                + "\"parameters\"       : {\"Par0\" : {\"parameterName\" : \"NotPar0\", \"defaultValue\" : \"Parameter Defaultvalue\"}},"
+                + "\"parameters\"       : {\"Par0\" : {\"parameterName\" : \"NotPar0\", \"defaultValue\" : "
+                + "\"Parameter Defaultvalue\"}},"
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -1223,8 +1234,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
-                + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"}," + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "    \"nextState\"        : null" + "   }" + "  }," + "  \"tasks\"              : {"
                 + "   \"tr0\"               : {"
@@ -1261,7 +1272,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"},"
                 + "  \"contexts\"           : [{\"name\" : \"contextAlbum0\", \"version\" : \"0.0.1\"}],"
                 + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
@@ -1281,7 +1293,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"},"
                 + "  \"contexts\"           : [{\"name\" : \"IDontExist\", \"version\" : \"0.0.1\"}],"
                 + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
@@ -1301,7 +1314,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"},"
                 + "  \"contexts\"           : [null]," + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "    \"nextState\"        : null" + "   }" + "  }," + "  \"tasks\"              : {"
@@ -1320,7 +1334,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"},"
                 + "  \"contexts\"           : [{\"name\" : \"contextAlbum0\", \"version\" : \"0.0.1\"}],"
                 + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
@@ -1329,7 +1344,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "    \"task\"             : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
                 + "    \"outputType\"       : \"DIRECT\"," + "    \"outputName\"       : \"so0\"" + "   }" + "  },"
                 + "  \"finalizers\"         : {"
-                + "   \"sf0\"               : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"}"
+                + "   \"sf0\"               : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"}"
                 + "  }" + " }" + "}," + "\"uuid\"                 : \"1fa2e430-f2b2-11e6-bc64-92361f002671\","
                 + "\"description\"          : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
@@ -1342,7 +1358,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"},"
                 + "  \"contexts\"           : [{\"name\" : \"contextAlbum0\", \"version\" : \"0.0.1\"}],"
                 + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
@@ -1363,7 +1380,8 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "  \"name\"               : \"state\","
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
-                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, lots of lime\"},"
+                + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
+                + "lots of lime\"},"
                 + "  \"contexts\"           : [{\"name\" : \"contextAlbum0\", \"version\" : \"0.0.1\"}],"
                 + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"

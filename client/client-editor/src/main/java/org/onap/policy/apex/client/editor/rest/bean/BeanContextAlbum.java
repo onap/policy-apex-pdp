@@ -27,8 +27,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanContextAlbum extends BeanBase {
-
-    private String name = null, version = null, scope = null, uuid = null, description = null;
+    private String name = null;
+    private String version = null;
+    private String scope = null;
+    private String uuid = null;
+    private String description = null;
     private BeanKeyRef itemSchema = null;
     private boolean writeable;
 
@@ -105,5 +108,4 @@ public class BeanContextAlbum extends BeanBase {
         return "ContextAlbum [name=" + name + ", version=" + version + ", scope=" + scope + ", uuid=" + uuid
                 + ", description=" + description + ", itemSchema=" + itemSchema + ", writeable=" + writeable + "]";
     }
-
 }

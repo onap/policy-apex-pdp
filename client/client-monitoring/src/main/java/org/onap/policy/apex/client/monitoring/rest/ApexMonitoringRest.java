@@ -38,16 +38,16 @@ public class ApexMonitoringRest {
     private HttpServer server;
 
     /**
-     * Starts the HTTP server for the Apex services client on the default base URI and with the default REST packages
+     * Starts the HTTP server for the Apex services client on the default base URI and with the default REST packages.
      */
     public ApexMonitoringRest() {
         this(new ApexMonitoringRestParameters());
     }
 
     /**
-     * Starts the HTTP server for the Apex services client
+     * Starts the HTTP server for the Apex services client.
      *
-     * @param parameters: The Apex parameters to use to start the server
+     * @param parameters The Apex parameters to use to start the server.
      */
     public ApexMonitoringRest(final ApexMonitoringRestParameters parameters) {
         Assertions.argumentNotNull(parameters, "parameters may not be null");
@@ -70,7 +70,7 @@ public class ApexMonitoringRest {
     }
 
     /**
-     * Shut down the web server
+     * Shut down the web server.
      */
     public void shutdown() {
         logger.debug("Apex services RESTful client shutting down . . .");

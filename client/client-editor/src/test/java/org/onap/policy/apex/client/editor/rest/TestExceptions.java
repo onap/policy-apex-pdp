@@ -27,6 +27,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 /**
+ * Test Apex Editor Exceptions.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestExceptions {

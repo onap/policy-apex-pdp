@@ -27,8 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanLogic extends BeanBase {
-
-    private String logic = null, logicFlavour = null;
+    private String logic = null;
+    private String logicFlavour = null;
 
     /**
      * Gets the logic flavour.
@@ -57,5 +57,4 @@ public class BeanLogic extends BeanBase {
     public String toString() {
         return "Logic [logicFlavour=" + logicFlavour + ", logic=" + logic + "]";
     }
-
 }

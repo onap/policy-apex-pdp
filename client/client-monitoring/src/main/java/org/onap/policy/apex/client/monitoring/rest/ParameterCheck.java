@@ -49,7 +49,7 @@ public final class ParameterCheck {
         START,
         /** Stop of an Apex engine has been ordered. */
         STOP
-    };
+    }
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ParameterCheck.class);
 

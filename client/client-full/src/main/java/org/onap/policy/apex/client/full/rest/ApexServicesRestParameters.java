@@ -23,9 +23,9 @@ package org.onap.policy.apex.client.full.rest;
 import java.net.URI;
 
 /**
- * This class reads and handles command line parameters to the Apex RESTful services
+ * This class reads and handles command line parameters to the Apex RESTful services.
  *
- * User: ewatkmi Date: 31 Jul 2017
+ * @author Michael Watkins (michael.watkins@ericsson.com)
  */
 public class ApexServicesRestParameters {
     public static final int DEFAULT_REST_PORT = 18989;
