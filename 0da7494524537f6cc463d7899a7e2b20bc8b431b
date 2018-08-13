@@ -68,6 +68,29 @@
       "revId": "0da7494524537f6cc463d7899a7e2b20bc8b431b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0a3262a7",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/RestUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 3237
+      },
+      "writtenOn": "2018-08-13T13:59:38Z",
+      "side": 1,
+      "message": "change it to javadoc",
+      "range": {
+        "startLine": 141,
+        "startChar": 98,
+        "endLine": 142,
+        "endChar": 77
+      },
+      "revId": "0da7494524537f6cc463d7899a7e2b20bc8b431b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
