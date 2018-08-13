@@ -21,8 +21,7 @@
 package org.onap.policy.apex.client.monitoring.rest;
 
 /**
- * A run time exception used to report parsing and parameter input errors
- *
+ * A run time exception used to report parsing and parameter input errors.
  * User: ewatkmi Date: 31 Jul 2017
  */
 public class ApexMonitoringRestParameterException extends IllegalArgumentException {

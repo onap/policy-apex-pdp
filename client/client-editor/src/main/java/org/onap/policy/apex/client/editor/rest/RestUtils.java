@@ -138,12 +138,8 @@ public abstract class RestUtils {
 
     // Regular expressions for checking input types
     private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; // (starts with <?xml...>
-    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]"; // starts with some
-                                                                                                  // kind of bracket [
-                                                                                                  // or ( or {, then has
-                                                                                                  // something, then has
-                                                                                                  // and has a close
-                                                                                                  // bracket
+    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]"; // starts with 
+    // some kind of bracket [ or ( or {, then has something, then has bracket
 
     /**
      * Gets the concept from JSON.

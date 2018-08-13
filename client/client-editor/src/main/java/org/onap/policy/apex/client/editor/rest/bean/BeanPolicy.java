@@ -29,8 +29,12 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanPolicy extends BeanBase {
-
-    private String name = null, version = null, uuid = null, description = null, firstState = null, template = null;
+    private String name = null;
+    private String version = null;
+    private String uuid = null;
+    private String description = null;
+    private String firstState = null;
+    private String template = null;
     private Map<String, BeanState> states = null;
 
     /**

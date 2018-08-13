@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
+ * TestBeans.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestBeans {

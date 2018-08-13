@@ -27,8 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 public class BeanKeyRef extends BeanBase {
-
-    private String name = null, version = null;
+    private String name = null;
+    private String version = null;
 
     /**
      * Gets the name.

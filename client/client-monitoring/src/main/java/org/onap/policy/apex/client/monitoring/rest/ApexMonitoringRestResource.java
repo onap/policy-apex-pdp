@@ -81,7 +81,7 @@ public class ApexMonitoringRestResource {
     public ApexMonitoringRestResource() {}
 
     /**
-     * Query the engine service for data
+     * Query the engine service for data.
      *
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.
@@ -163,7 +163,7 @@ public class ApexMonitoringRestResource {
     }
 
     /**
-     * Start/Stop and Apex engine
+     * Start/Stop and Apex engine.
      *
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.
@@ -210,7 +210,7 @@ public class ApexMonitoringRestResource {
     }
 
     /**
-     * Start/Stop and Apex engine
+     * Start/Stop and Apex engine.
      *
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.
@@ -252,7 +252,7 @@ public class ApexMonitoringRestResource {
     }
 
     /**
-     * Check if periodic events are running
+     * Check if periodic events are running.
      *
      * @param host the engine's host url
      * @return a boolean stating if periodic events are running for a given host
@@ -262,7 +262,7 @@ public class ApexMonitoringRestResource {
     }
 
     /**
-     * Sets the state of periodic events for a host
+     * Sets the state of periodic events for a host.
      *
      * @param host the engine's host url
      * @param boolean that states if periodic events have been started or stopped
@@ -273,7 +273,7 @@ public class ApexMonitoringRestResource {
 
     /**
      * This method takes in the latest data entry for an engine, adds it to an existing data set and returns the full
-     * map for that host and engine
+     * map for that host and engine.
      *
      * @param host the engine's host url
      * @param id the engines id
@@ -314,12 +314,12 @@ public class ApexMonitoringRestResource {
         }
 
         @Override
-        public boolean add(final V e) {
+        public boolean add(final V elm) {
             if (this.size() > (maxEntries - 1)) {
                 this.removeFirst();
             }
-            return super.add(e);
-        };
+            return super.add(elm);
+        }
 
     }
 

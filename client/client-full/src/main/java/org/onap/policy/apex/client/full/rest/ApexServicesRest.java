@@ -29,7 +29,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class is used to launch the services. It creates a Grizzly embedded web server and runs the services.
+ * This class is used to launch the services. It creates a Grizzly embedded web server and runs the
+ * services.
  */
 public class ApexServicesRest {
     // Logger for this class
@@ -39,16 +40,17 @@ public class ApexServicesRest {
     private HttpServer server;
 
     /**
-     * Starts the HTTP server for the Apex services client on the default base URI and with the default REST packages
+     * Starts the HTTP server for the Apex services client on the default base URI and with the
+     * default REST packages.
      */
     public ApexServicesRest() {
         this(new ApexServicesRestParameters());
     }
 
     /**
-     * Starts the HTTP server for the Apex services client
+     * Starts the HTTP server for the Apex services client.
      *
-     * @param parameters: The Apex parameters to use to start the server
+     * @param parameters The Apex parameters to use to start the server
      */
     public ApexServicesRest(final ApexServicesRestParameters parameters) {
         Assertions.argumentNotNull(parameters, "parameters may not be null");
@@ -74,7 +76,7 @@ public class ApexServicesRest {
     }
 
     /**
-     * Shut down the web server
+     * Shut down the web server.
      */
     public void shutdown() {
         logger.debug("Apex services RESTful client shutting down . . .");

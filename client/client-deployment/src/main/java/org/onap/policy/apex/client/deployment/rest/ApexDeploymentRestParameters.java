@@ -23,9 +23,9 @@ package org.onap.policy.apex.client.deployment.rest;
 import java.net.URI;
 
 /**
- * This class reads and handles command line parameters to the Apex RESTful services
+ * This class reads and handles command line parameters to the Apex RESTful services.
  *
- * User: ewatkmi Date: 31 Jul 2017
+ * <p>User: ewatkmi Date: 31 Jul 2017
  */
 public class ApexDeploymentRestParameters {
     public static final int DEFAULT_REST_PORT = 18989;

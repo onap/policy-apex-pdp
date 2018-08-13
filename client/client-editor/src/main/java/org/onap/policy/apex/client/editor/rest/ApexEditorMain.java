@@ -40,7 +40,7 @@ public class ApexEditorMain {
         INITIALIZING,
         /** The editor is running. */
         RUNNING
-    };
+    }
 
     private static final int EDITOR_RNNING_CHECK_TIMEOUT = 1000;
 

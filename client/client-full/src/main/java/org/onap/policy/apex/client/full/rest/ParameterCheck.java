@@ -40,7 +40,7 @@ public final class ParameterCheck {
     private ParameterCheck() {}
 
     /**
-     * The Enum StartStop is used to hold .
+     * The Enum StartStop is used to hold.
      *
      * @author Liam Fallon (liam.fallon@ericsson.com)
      */
@@ -49,7 +49,7 @@ public final class ParameterCheck {
         START,
         /** Stop of an Apex engine has been ordered. */
         STOP
-    };
+    }
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ParameterCheck.class);
 
