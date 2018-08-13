@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_ca722ae5",
+        "filename": "client/client-deployment/src/main/java/org/onap/policy/apex/client/deployment/rest/ApexDeploymentRestMain.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-08-13T15:30:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_aa0faee0",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 3
+      },
+      "revId": "0da7494524537f6cc463d7899a7e2b20bc8b431b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8af672d6",
         "filename": "client/client-deployment/src/main/java/org/onap/policy/apex/client/deployment/rest/ApexDeploymentRestParameterException.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-13T13:58:02Z",
       "side": 1,
       "message": "this is internal to Ericsson change it to michael.watkins@ericsson.com... same in other files",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "0da7494524537f6cc463d7899a7e2b20bc8b431b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_aa6d6e06",
+        "filename": "client/client-deployment/src/main/java/org/onap/policy/apex/client/deployment/rest/ApexDeploymentRestParameterException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-08-13T15:30:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_8af672d6",
       "range": {
         "startLine": 26,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_8a7432d0",
+        "filename": "client/client-deployment/src/main/java/org/onap/policy/apex/client/deployment/rest/ApexDeploymentRestParameterParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-08-13T15:30:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_4a005aaa",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "0da7494524537f6cc463d7899a7e2b20bc8b431b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_0a3262a7",
         "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/RestUtils.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-13T13:59:38Z",
       "side": 1,
       "message": "change it to javadoc",
+      "range": {
+        "startLine": 141,
+        "startChar": 98,
+        "endLine": 142,
+        "endChar": 77
+      },
+      "revId": "0da7494524537f6cc463d7899a7e2b20bc8b431b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2a815e8f",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/RestUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-08-13T15:30:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_0a3262a7",
       "range": {
         "startLine": 141,
         "startChar": 98,
