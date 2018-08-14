@@ -19,7 +19,8 @@
  */
 
 /**
- * Provides the implementation of the {@link org.onap.policy.apex.core.engine.engine.ApexEngine} interface.
+ * Provides the implementation of the {@link org.onap.policy.apex.core.engine.engine.ApexEngine}
+ * interface.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

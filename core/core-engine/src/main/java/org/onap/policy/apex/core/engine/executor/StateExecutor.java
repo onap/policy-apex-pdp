@@ -84,7 +84,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     /**
      * Constructor, save the executor factory.
      *
-     * @param executorFactory the executor factory to use for getting executors for task selection logic
+     * @param executorFactory the executor factory to use for getting executors for task selection
+     *        logic
      */
     public StateExecutor(final ExecutorFactory executorFactory) {
         this.executorFactory = executorFactory;
@@ -93,9 +94,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.engine.executor.Executor,
-     * java.lang.Object, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
+     * engine.executor.Executor, java.lang.Object, java.lang.Object)
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent, final AxState incomingAxState,
@@ -167,7 +167,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public StateOutput execute(final long executionID, final EnEvent incomingEvent)
@@ -190,7 +191,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
                 taskKey = taskSelectExecutor.execute(executionID, incomingEvent);
             }
 
-            // If there's no task selection logic or the TSL returned no task, just use the default task
+            // If there's no task selection logic or the TSL returned no task, just use the default
+            // task
             if (taskKey == null) {
                 taskKey = axState.getDefaultTask();
             }
@@ -205,7 +207,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             // Check if this task has direct output
             String stateOutputName = directStateOutputMap.get(taskKey);
 
-            // If a direct state output name was not found, state finalizer logic should be defined for the task
+            // If a direct state output name was not found, state finalizer logic should be defined
+            // for the task
             if (stateOutputName == null) {
                 // State finalizer logic should exist for the task
                 final StateFinalizerExecutor finalizerLogicExecutor = task2StateFinalizerMap.get(taskKey);
@@ -214,7 +217,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
                             + "\" not found for state \"" + axState.getID() + "\"");
                 }
 
-                // Execute the state finalizer logic to select a state output and to adjust the taskExecutionResultMap
+                // Execute the state finalizer logic to select a state output and to adjust the
+                // taskExecutionResultMap
                 stateOutputName =
                         finalizerLogicExecutor.execute(incomingEvent.getExecutionID(), taskExecutionResultMap);
             }
@@ -254,7 +258,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public final void executePre(final long executionID, final EnEvent incomingEntity) throws StateMachineException {
@@ -353,7 +358,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.executor.Executor)
+     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
+     * executor.Executor)
      */
     @Override
     public final void setNext(final Executor<EnEvent, StateOutput, AxState, ApexInternalContext> incomingNextExecutor) {
@@ -373,8 +379,9 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.engine.
-     * ExecutorParameters)
+     * @see
+     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
+     * engine. ExecutorParameters)
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}

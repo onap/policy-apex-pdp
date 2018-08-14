@@ -43,9 +43,9 @@ public class StateMachineException extends ApexException {
      * Instantiates a new state machine exception.
      *
      * @param message the message
-     * @param e the e
+     * @param ex the exception
      */
-    public StateMachineException(final String message, final Exception e) {
-        super(message, e);
+    public StateMachineException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

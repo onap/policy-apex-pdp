@@ -40,8 +40,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * Instances of the Class EnEvent are events being passed through the Apex system. All events in the system are
- * instances of this class.
+ * Instances of the Class EnEvent are events being passed through the Apex system. All events in the
+ * system are instances of this class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -62,7 +62,8 @@ public class EnEvent extends HashMap<String, Object> {
 
     private static Random rand = new Random(System.nanoTime());
 
-    // An identifier for the current event execution. The default value here will always be a random number, and should
+    // An identifier for the current event execution. The default value here will always be a random
+    // number, and should
     // be reset
     private long executionID = rand.nextLong();
 
@@ -126,10 +127,11 @@ public class EnEvent extends HashMap<String, Object> {
     }
 
     /**
-     * Get the currently set value for the ExecutionID for this event. A ExecutionID in an EnEvent is used identify all
-     * EnEvents (input, internal and output events) used in a single Engine invocation. Therefore, a ExecutionID can be
-     * used to match which output event is the result of a particular input event. The default initialized value for the
-     * ExecutionID is always unique in a single JVM.
+     * Get the currently set value for the ExecutionID for this event. A ExecutionID in an EnEvent
+     * is used identify all EnEvents (input, internal and output events) used in a single Engine
+     * invocation. Therefore, a ExecutionID can be used to match which output event is the result of
+     * a particular input event. The default initialized value for the ExecutionID is always unique
+     * in a single JVM.
      *
      * @return the currently set value for the ExecutionID for this event.
      */
@@ -138,10 +140,11 @@ public class EnEvent extends HashMap<String, Object> {
     }
 
     /**
-     * Set the value for the ExecutionID for this event. A ExecutionID in an EnEvent is used identify all EnEvents
-     * (input, internal and output events) used in a single Engine invocation. Therefore, a ExecutionID can be used to
-     * match which output event is the result of a particular input event. The default initialised value for the
-     * ExecutionID is always unique in a single JVM.
+     * Set the value for the ExecutionID for this event. A ExecutionID in an EnEvent is used
+     * identify all EnEvents (input, internal and output events) used in a single Engine invocation.
+     * Therefore, a ExecutionID can be used to match which output event is the result of a
+     * particular input event. The default initialised value for the ExecutionID is always unique in
+     * a single JVM.
      *
      * @param executionID the new value for the ExecutionID for this event.
      */

@@ -59,7 +59,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     private ExecutorFactory executorFactory = null;
 
     /**
-     * Constructor, save the executor factory that will give us executors for task selection logic and task logic.
+     * Constructor, save the executor factory that will give us executors for task selection logic
+     * and task logic.
      *
      * @param executorFactory the executor factory
      * @param owner the artifact key of the owner of this state machine
@@ -71,9 +72,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.engine.executor.Executor,
-     * java.lang.Object, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
+     * engine.executor.Executor, java.lang.Object, java.lang.Object)
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxPolicy newAxPolicy,
@@ -124,7 +124,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executeDirected(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executeDirected(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public EnEvent execute(final long executionID, final EnEvent incomingEvent)
@@ -139,7 +140,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
             throw new StateMachineException("first state not defined on state machine");
         }
 
-        // Get the first state of the state machine and define a state output that starts state execution
+        // Get the first state of the state machine and define a state output that starts state
+        // execution
         StateExecutor stateExecutor = firstExecutor;
         StateOutput stateOutput = new StateOutput(new AxStateOutput(firstExecutor.getSubject().getKey(),
                 incomingEvent.getKey(), firstExecutor.getSubject().getKey()), incomingEvent);
@@ -169,7 +171,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public final void executePre(final long executionID, final EnEvent incomingEntity) throws StateMachineException {
@@ -262,7 +265,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.executor.Executor)
+     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
+     * executor.Executor)
      */
     @Override
     public final void setNext(final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> newNextExecutor) {
@@ -282,8 +286,9 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.engine.
-     * ExecutorParameters)
+     * @see
+     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
+     * engine. ExecutorParameters)
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}

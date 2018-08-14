@@ -43,9 +43,9 @@ public class EnException extends ApexRuntimeException {
      * Instantiates a new engine event exception.
      *
      * @param message the message
-     * @param e the e
+     * @param ex the exception
      */
-    public EnException(final String message, final Exception e) {
-        super(message, e);
+    public EnException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

@@ -201,7 +201,8 @@ public class ExecutorFactoryImpl extends ExecutorFactory {
     private Executor<?, ?, ?, ?> createExecutor(final String logicFlavour,
             final Class<Executor<?, ?, ?, ?>> executorClass,
             final Class<? extends Executor<?, ?, ?, ?>> executorSuperClass) {
-        // It's OK for an executor class not to be defined but it's not all right to try and create a non-defined
+        // It's OK for an executor class not to be defined but it's not all right to try and create
+        // a non-defined
         // executor class
         if (executorClass == null) {
             final String errorMessage = "Executor plugin class not defined for \"" + logicFlavour

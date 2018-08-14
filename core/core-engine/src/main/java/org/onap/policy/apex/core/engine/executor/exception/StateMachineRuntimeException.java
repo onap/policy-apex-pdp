@@ -43,9 +43,9 @@ public class StateMachineRuntimeException extends ApexRuntimeException {
      * Instantiates a new state machine exception.
      *
      * @param message the message
-     * @param e the e
+     * @param ex the exception
      */
-    public StateMachineRuntimeException(final String message, final Exception e) {
-        super(message, e);
+    public StateMachineRuntimeException(final String message, final Exception ex) {
+        super(message, ex);
     }
 }

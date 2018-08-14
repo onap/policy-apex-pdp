@@ -19,8 +19,8 @@
  */
 
 /**
- * Provides monitoring of APEX policy execution. It monitors events as they trigger Apex policies, pass between the
- * various states of a policy, and are emitted by a policy.
+ * Provides monitoring of APEX policy execution. It monitors events as they trigger Apex policies,
+ * pass between the various states of a policy, and are emitted by a policy.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

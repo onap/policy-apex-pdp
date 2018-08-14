@@ -24,10 +24,11 @@ import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
 import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
- * This class provides the executors for a logic flavour. Plugin classes for execution of task logic, task selection
- * logic, and state finalizer logic for the logic flavour must be specified.
- * <p>
- * Specializations of this class may provide extra parameters for their specific logic flavour executors.
+ * This class provides the executors for a logic flavour. Plugin classes for execution of task
+ * logic, task selection logic, and state finalizer logic for the logic flavour must be specified.
+ *
+ * <p>Specializations of this class may provide extra parameters for their specific logic flavour
+ * executors.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -38,7 +39,8 @@ public class ExecutorParameters extends AbstractParameters {
     private String stateFinalizerExecutorPluginClass;
 
     /**
-     * Constructor to create an executor parameters instance and register the instance with the parameter service.
+     * Constructor to create an executor parameters instance and register the instance with the
+     * parameter service.
      */
     public ExecutorParameters() {
         super(ExecutorParameters.class.getCanonicalName());
@@ -46,8 +48,8 @@ public class ExecutorParameters extends AbstractParameters {
     }
 
     /**
-     * Constructor to create an executor parameters instance with the name of a sub class of this class and register the
-     * instance with the parameter service.
+     * Constructor to create an executor parameters instance with the name of a sub class of this
+     * class and register the instance with the parameter service.
      *
      * @param parameterClassName the class name of a sub class of this class
      */
@@ -85,7 +87,8 @@ public class ExecutorParameters extends AbstractParameters {
     /**
      * Sets the task selection executor plugin class for the executor.
      *
-     * @param taskSelectionExecutorPluginClass the task selection executor plugin class for the executor
+     * @param taskSelectionExecutorPluginClass the task selection executor plugin class for the
+     *        executor
      */
     public void setTaskSelectionExecutorPluginClass(final String taskSelectionExecutorPluginClass) {
         this.taskSelectionExecutorPluginClass = taskSelectionExecutorPluginClass;
@@ -103,7 +106,8 @@ public class ExecutorParameters extends AbstractParameters {
     /**
      * Sets the state finalizer executor plugin class for the executor.
      *
-     * @param stateFinalizerExecutorPluginClass the state finalizer executor plugin class for the executor
+     * @param stateFinalizerExecutorPluginClass the state finalizer executor plugin class for the
+     *        executor
      */
     public void setStateFinalizerExecutorPluginClass(final String stateFinalizerExecutorPluginClass) {
         this.stateFinalizerExecutorPluginClass = stateFinalizerExecutorPluginClass;

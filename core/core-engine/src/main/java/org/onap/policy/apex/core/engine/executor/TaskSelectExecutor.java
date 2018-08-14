@@ -35,8 +35,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This abstract class executes a the task selection logic of a state of an Apex policy and is specialized by classes
- * that implement execution of task selection logic.
+ * This abstract class executes a the task selection logic of a state of an Apex policy and is
+ * specialized by classes that implement execution of task selection logic.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -57,7 +57,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     // The next task selection executor
     private Executor<EnEvent, AxArtifactKey, AxState, ApexInternalContext> nextExecutor = null;
 
-    // The task selection execution context; contains the facades for events and context to be used by tasks executed by
+    // The task selection execution context; contains the facades for events and context to be used
+    // by tasks executed by
     // this task selection executor
     private TaskSelectionExecutionContext executionContext;
 
@@ -73,9 +74,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.engine.executor.Executor,
-     * java.lang.Object, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
+     * engine.executor.Executor, java.lang.Object, java.lang.Object)
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxState newAxState,
@@ -100,7 +100,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public AxArtifactKey execute(final long executionID, final EnEvent newIncomingEvent)
@@ -111,7 +112,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
+     * java.lang.Object)
      */
     @Override
     public final void executePre(final long executionID, final EnEvent newIncomingEvent) throws StateMachineException {
@@ -215,7 +217,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.executor.Executor)
+     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
+     * executor.Executor)
      */
     @Override
     public void setNext(final Executor<EnEvent, AxArtifactKey, AxState, ApexInternalContext> newNextExecutor) {
@@ -255,8 +258,9 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.engine.
-     * ExecutorParameters)
+     * @see
+     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
+     * engine. ExecutorParameters)
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}
