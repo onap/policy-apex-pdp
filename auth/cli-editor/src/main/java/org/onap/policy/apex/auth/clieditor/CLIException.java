@@ -41,9 +41,9 @@ public class CLIException extends IllegalArgumentException {
      * Create a CLIException with a message and an exception.
      *
      * @param message the message
-     * @param t the t
+     * @param th the throwable
      */
-    public CLIException(final String message, final Throwable t) {
-        super(message, t);
+    public CLIException(final String message, final Throwable th) {
+        super(message, th);
     }
 }

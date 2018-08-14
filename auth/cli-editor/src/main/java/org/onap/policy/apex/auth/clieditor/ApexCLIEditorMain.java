@@ -152,7 +152,8 @@ public class ApexCLIEditorMain {
             if (errorCount == 0) {
                 LOGGER.info("Apex CLI editor completed execution");
             } else {
-                LOGGER.error("execution of Apex command line editor failed: {} command execution failure(s) occurred", errorCount);
+                LOGGER.error("execution of Apex command line editor failed: {} command execution failure(s) occurred",
+                        errorCount);
             }
         } catch (final IOException e) {
             LOGGER.error("execution of Apex command line editor failed: " + e.getMessage());
@@ -160,7 +161,7 @@ public class ApexCLIEditorMain {
     }
 
     /**
-     * Get the number of errors encountered in command processing
+     * Get the number of errors encountered in command processing.
      * 
      * @return the number of errors
      */

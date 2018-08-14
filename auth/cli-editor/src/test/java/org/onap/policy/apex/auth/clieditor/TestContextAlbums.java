@@ -45,13 +45,8 @@ public class TestContextAlbums {
     public void createTempFiles() throws IOException {
         tempModelFile = File.createTempFile("TestPolicyModel", ".json");
 
-        logicBlockArgs = new String[] {
-                "-c",
-                "src/test/resources/scripts/ContextAlbums.apex",
-                "-o",
-                tempModelFile.getAbsolutePath(),
-                "-nl"
-        };
+        logicBlockArgs = new String[] {"-c", "src/test/resources/scripts/ContextAlbums.apex", "-o",
+                tempModelFile.getAbsolutePath(), "-nl"};
     }
 
     /**
@@ -81,7 +76,8 @@ public class TestContextAlbums {
         final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
         assertNotNull(writtenModel);
 
-        final URL compareModelURL = ResourceUtils.getLocalFile("src/test/resources/compare/ContextAlbumsModel_Compare.json");
+        final URL compareModelURL =
+                ResourceUtils.getLocalFile("src/test/resources/compare/ContextAlbumsModel_Compare.json");
         final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
 
         // Ignore key info UUIDs
