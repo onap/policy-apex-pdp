@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7dc87974",
+        "filename": "client/client-monitoring/src/main/java/org/onap/policy/apex/client/monitoring/rest/ApexMonitoringRestMain.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:16:16Z",
+      "side": 1,
+      "message": "Space",
+      "range": {
+        "startLine": 26,
+        "startChar": 45,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "aadf4d65948b5d110472444f9239e44d0fd1287a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
