@@ -32,7 +32,7 @@ public class TestContextBooleanItem implements Serializable {
 
     private static final long serialVersionUID = 7241008665286367796L;
 
-    private boolean flag = false;;
+    private boolean flag = false;
 
     /**
      * The Constructor.

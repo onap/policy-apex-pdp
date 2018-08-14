@@ -94,9 +94,9 @@ public class ContextUpdate {
             longContextAlbum.put(_0, ZERO);
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
-            assertEquals(
-                    "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum:0.0.1: object \"zero\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
-                    e.getMessage());
+            assertEquals("Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\":"
+                    + " LongContextAlbum:0.0.1: object \"zero\" of class \"java.lang.String\" not compatible with"
+                    + " class \"java.lang.Long\"", e.getMessage());
         }
 
         try {
@@ -104,7 +104,8 @@ public class ContextUpdate {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals(
-                    "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum:0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
+                    "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum"
+                    + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
                     e.getMessage());
         }
 

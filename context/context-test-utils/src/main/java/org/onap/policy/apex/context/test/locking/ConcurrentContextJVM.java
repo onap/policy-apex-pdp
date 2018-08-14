@@ -120,8 +120,8 @@ public final class ConcurrentContextJVM {
         // An even number of arguments greater than 3
         if (args.length < 9) {
             LOGGER.error("invalid arguments: " + Arrays.toString(args));
-            LOGGER.error(
-                    "usage: TestConcurrentContextJVM testType jvmNo threadCount threadLoops albumSize lockType [parameterKey parameterJson].... ");
+            LOGGER.error("usage: TestConcurrentContextJVM testType jvmNo threadCount threadLoops albumSize "
+                    + "lockType [parameterKey parameterJson].... ");
             return;
         }
 

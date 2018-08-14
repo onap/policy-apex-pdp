@@ -20,9 +20,7 @@
 
 package org.onap.policy.apex.context.test.distribution;
 
-
 import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Test;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;

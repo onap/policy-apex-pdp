@@ -273,9 +273,8 @@ public class ContextInstantiation {
             try {
                 externalContextAlbum.put("TestExternalContextItem00A", null);
             } catch (final ContextRuntimeException e) {
-                assertEquals(
-                        "album \"ExternalContextAlbum:0.0.1\" null values are illegal on key \"TestExternalContextItem00A\" for put()",
-                        e.getMessage());
+                assertEquals("album \"ExternalContextAlbum:0.0.1\" null values are illegal on key "
+                        + "\"TestExternalContextItem00A\" for put()", e.getMessage());
             }
             assertEquals(tciAA, externalContextItem.getTestExternalContextItem00A());
 
@@ -302,25 +301,24 @@ public class ContextInstantiation {
             try {
                 externalContextAlbum.put("TestExternalContextItem00A", null);
             } catch (final ContextRuntimeException e) {
-                assert (e.getMessage().equals(
-                        "album \"ExternalContextAlbum:0.0.1\" null values are illegal on key \"TestExternalContextItem00A\" for put()"));
+                assert (e.getMessage().equals("album \"ExternalContextAlbum:0.0.1\" null values are illegal on key "
+                        + "\"TestExternalContextItem00A\" for put()"));
             }
             assertTrue(externalContextAlbum.get(EXTERNAL_CONTEXT).equals(externalContext));
 
             try {
                 externalContextAlbum.put("TestExternalContextItemFFF", null);
             } catch (final ContextRuntimeException e) {
-                assert (e.getMessage().equals(
-                        "album \"ExternalContextAlbum:0.0.1\" null values are illegal on key \"TestExternalContextItemFFF\" for put()"));
+                assert (e.getMessage().equals("album \"ExternalContextAlbum:0.0.1\" null values are illegal on key "
+                        + "\"TestExternalContextItemFFF\" for put()"));
             }
             assertEquals(1, externalContextAlbum.size());
 
             try {
                 externalContextAlbum.put("TestExternalContextItemFFF", null);
             } catch (final ContextRuntimeException e) {
-                assertEquals(
-                        "album \"ExternalContextAlbum:0.0.1\" null values are illegal on key \"TestExternalContextItemFFF\" for put()",
-                        e.getMessage());
+                assertEquals("album \"ExternalContextAlbum:0.0.1\" null values are illegal on key "
+                        + "\"TestExternalContextItemFFF\" for put()", e.getMessage());
             }
             assertEquals(1, externalContextAlbum.size());
 

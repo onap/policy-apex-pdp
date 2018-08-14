@@ -40,9 +40,9 @@ import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
-import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.concepts.TestContextDateItem;
 import org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem;
+import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.concepts.TestContextTreeMapItem;
 import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -118,7 +118,8 @@ public class TestPersistentContextInstantiation {
 
         contextAlbumForMap.putAll(valueMap0);
 
-        assertEquals(((TestContextTreeMapItem) contextAlbumForMap.get("TestPolicyContextItem000")).getMapValue().get("key"),
+        assertEquals(
+                ((TestContextTreeMapItem) contextAlbumForMap.get("TestPolicyContextItem000")).getMapValue().get("key"),
                 "This is a policy context string");
 
         contextAlbumForMap.flush();

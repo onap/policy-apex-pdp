@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.context.test.utils;
 
 import java.net.InetAddress;
@@ -36,7 +37,7 @@ public class NetworkUtils {
      * function sets the address to be the first non-loopback IPv4 address on a host
      * 
      * @return Set of IPv4 addresses
-     * @throws SocketException
+     * @throws SocketException throw socket exception if error occurs
      */
     public static TreeSet<String> getIPv4NonLoopAddresses() throws SocketException {
         final TreeSet<String> ipAddressSet = new TreeSet<String>();
