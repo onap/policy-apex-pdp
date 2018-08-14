@@ -35,17 +35,17 @@ public class CgStringRenderer implements AttributeRenderer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.stringtemplate.v4.AttributeRenderer#toString(java.lang.Object, java.lang.String,
      * java.util.Locale)
      */
     @Override
-    public String toString(final Object o, final String format, final Locale locale) {
+    public String toString(final Object obj, final String format, final Locale locale) {
         if ("doQuotes".equals(format)) {
-            if (o == null) {
+            if (obj == null) {
                 return null;
             }
-            String ret = o.toString();
+            String ret = obj.toString();
             if (ret.length() == 0) {
                 return "\"\"";
             }
@@ -56,16 +56,16 @@ public class CgStringRenderer implements AttributeRenderer {
         }
 
         if ("doDescription".equals(format)) {
-            String ret = o.toString();
+            String ret = obj.toString();
             if (ret.contains("\n") || ret.contains("\"")) {
                 ret = "LS" + "\n" + ret + "\n" + "LE";
             } else {
-                ret = this.toString(o, "doQuotes", locale);
+                ret = this.toString(obj, "doQuotes", locale);
             }
             return ret;
         }
 
         // return the default string renderer if we don't know otherwise
-        return new StringRenderer().toString(o, format, locale);
+        return new StringRenderer().toString(obj, format, locale);
     }
 }

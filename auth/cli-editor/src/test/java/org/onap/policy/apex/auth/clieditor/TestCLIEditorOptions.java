@@ -235,7 +235,7 @@ public class TestCLIEditorOptions {
 
         // Generate input model
         final String[] cliArgsIn = new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex",
-                "-l", tempLogFileIn.getAbsolutePath(), "-o", tempModelFileIn.getAbsolutePath()};
+            "-l", tempLogFileIn.getAbsolutePath(), "-o", tempModelFileIn.getAbsolutePath()};
 
         final ApexCLIEditorMain cliEditorIn = new ApexCLIEditorMain(cliArgsIn);
         assertEquals(0, cliEditorIn.getErrorCount());
@@ -252,8 +252,8 @@ public class TestCLIEditorOptions {
         assertEquals(2924, tempModelFileInCharCount);
 
         final String[] cliArgsOut = new String[] {"-i", tempModelFileIn.getAbsolutePath(), "-c",
-                "src/main/resources/examples/scripts/ShellPolicyModelAddSchema.apex", "-l",
-                tempLogFileOut.getAbsolutePath(), "-o", tempModelFileOut.getAbsolutePath()};
+            "src/main/resources/examples/scripts/ShellPolicyModelAddSchema.apex", "-l",
+            tempLogFileOut.getAbsolutePath(), "-o", tempModelFileOut.getAbsolutePath()};
 
         final ApexCLIEditorMain cliEditorOut = new ApexCLIEditorMain(cliArgsOut);
         assertEquals(0, cliEditorOut.getErrorCount());

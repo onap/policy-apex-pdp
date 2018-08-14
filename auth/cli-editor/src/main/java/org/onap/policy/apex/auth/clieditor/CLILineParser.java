@@ -36,9 +36,9 @@ public class CLILineParser {
      * single words followed by an '=' character Arguments are single words or a block of quoted
      * text following an '=' character.
      *
-     * Format: command [command....] parameter=argument [parameter = argument]
+     * <p>Format: command [command....] parameter=argument [parameter = argument]
      *
-     * Examples entity create name=hello description="description of hello" help entity list
+     * <p>Examples entity create name=hello description="description of hello" help entity list
      *
      * @param line The line to parse
      * @param logicBlock A block of logic code to be taken literally

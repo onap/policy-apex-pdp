@@ -41,75 +41,65 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  * Test FileMacro in the CLI.
  */
 public class TestFileMacro {
-	private String[] fileMacroArgs;
+    private String[] fileMacroArgs;
 
-	private File tempModelFile;
-	private File tempLogFile;
+    private File tempModelFile;
+    private File tempLogFile;
 
-	@Before
-	public void createTempFiles() throws IOException {
-		tempModelFile = File.createTempFile("TestPolicyModel", ".json");
-		tempLogFile   = File.createTempFile("TestPolicyModel", ".log");
+    @Before
+    public void createTempFiles() throws IOException {
+        tempModelFile = File.createTempFile("TestPolicyModel", ".json");
+        tempLogFile = File.createTempFile("TestPolicyModel", ".log");
 
-		fileMacroArgs = new String[] {
-				"-c",
-				"src/test/resources/scripts/FileMacro.apex",
-				"-l",
-				tempLogFile.getCanonicalPath(),
-				"-o",
-				tempModelFile.getCanonicalPath(),
-				"-if",
-				"true"
-		};
-	}
+        fileMacroArgs = new String[] {"-c", "src/test/resources/scripts/FileMacro.apex", "-l",
+                tempLogFile.getCanonicalPath(), "-o", tempModelFile.getCanonicalPath(), "-if", "true"};
+    }
 
-	@After
-	public void removeGeneratedModels() {
-		tempModelFile.delete();
-	}
+    @After
+    public void removeGeneratedModels() {
+        tempModelFile.delete();
+    }
 
-	/**
-	 * Test logic block macro in CLI scripts.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ApexModelException if there is an Apex error
-	 */
-	@Test
-	public void testLogicBlock() throws IOException, ApexModelException {
-		final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(fileMacroArgs);
-		// We expect eight errors
-		assertEquals(8, cliEditor.getErrorCount());
+    /**
+     * Test logic block macro in CLI scripts.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexModelException if there is an Apex error
+     */
+    @Test
+    public void testLogicBlock() throws IOException, ApexModelException {
+        final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(fileMacroArgs);
+        // We expect eight errors
+        assertEquals(8, cliEditor.getErrorCount());
 
-		// Read the file from disk
-		final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
-		modelReader.setValidateFlag(false);
+        // Read the file from disk
+        final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
+        modelReader.setValidateFlag(false);
 
-		final URL writtenModelURL = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
-		final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
+        final URL writtenModelURL = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
+        final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
 
-		final URL compareModelURL = ResourceUtils.getLocalFile("src/test/resources/compare/FileMacroModel_Compare.json");
-		final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
+        final URL compareModelURL =
+                ResourceUtils.getLocalFile("src/test/resources/compare/FileMacroModel_Compare.json");
+        final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
 
-		// Ignore key info UUIDs
-		writtenModel.getKeyInformation().getKeyInfoMap().clear();
-		compareModel.getKeyInformation().getKeyInfoMap().clear();
+        // Ignore key info UUIDs
+        writtenModel.getKeyInformation().getKeyInfoMap().clear();
+        compareModel.getKeyInformation().getKeyInfoMap().clear();
 
-		assertTrue(writtenModel.equals(compareModel));
+        assertTrue(writtenModel.equals(compareModel));
 
-		// The output event is in this file
-		final File outputLogFile = new File(tempLogFile.getCanonicalPath());
+        // The output event is in this file
+        final File outputLogFile = new File(tempLogFile.getCanonicalPath());
 
-		final String outputLogString = TextFileUtils
-				.getTextFileAsString(outputLogFile.getCanonicalPath())
-				.replace(Paths.get("").toAbsolutePath().toString() + File.separator, "")
-				.replaceAll("\\s+", "");
+        final String outputLogString = TextFileUtils.getTextFileAsString(outputLogFile.getCanonicalPath())
+                .replace(Paths.get("").toAbsolutePath().toString() + File.separator, "").replaceAll("\\s+", "");
 
-		// We compare the log to what we expect to get
-		final String outputLogCompareString = TextFileUtils
-				.getTextFileAsString("src/test/resources/compare/FileMacro_Compare.log")
-				.replaceAll("\\s+", "");
+        // We compare the log to what we expect to get
+        final String outputLogCompareString = TextFileUtils
+                .getTextFileAsString("src/test/resources/compare/FileMacro_Compare.log").replaceAll("\\s+", "");
 
-		// Check what we got is what we expected to get
-		assertEquals(outputLogCompareString, outputLogString);
-	}
+        // Check what we got is what we expected to get
+        assertEquals(outputLogCompareString, outputLogString);
+    }
 }

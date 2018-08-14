@@ -57,7 +57,8 @@ public class CLIParameterParser {
                 .desc("name of a file containing editor commands to run into the editor").hasArg()
                 .argName("COMMAND_FILE").required(false).type(String.class).build());
         options.addOption(Option.builder("l").longOpt("log-file")
-                .desc("name of a file that will contain command logs from the editor, will log to standard output if not specified or suppressed with \"-nl\" flag")
+                .desc("name of a file that will contain command logs from the editor, will log to standard output "
+                        + "if not specified or suppressed with \"-nl\" flag")
                 .hasArg().argName("LOG_FILE").required(false).type(String.class).build());
         options.addOption(Option.builder("nl").longOpt("no-log")
                 .desc("if specified, no logging or output of commands to standard output or log file is carried out")
@@ -74,10 +75,12 @@ public class CLIParameterParser {
                         + "will output model to standard output if not specified or suppressed with \"-nm\" flag")
                 .hasArg().argName("OUTPUT_MODEL_FILE").required(false).type(String.class).build());
         options.addOption(Option.builder("if").longOpt("ignore-failures")
-                .desc("true or false, ignore failures of commands in command files and continue executing the command file")
+                .desc("true or false, ignore failures of commands in command files and continue executing the "
+                        + "command file")
                 .hasArg().argName("IGNORE_FAILURES_FLAG").required(false).type(Boolean.class).build());
         options.addOption(Option.builder("wd").longOpt("working-directory")
-                .desc("the working directory that is the root for the CLI editor and is the root from which to look for included macro files")
+                .desc("the working directory that is the root for the CLI editor and is the root from which to "
+                        + "look for included macro files")
                 .hasArg().argName("WORKING_DIRECTORY").required(false).type(String.class).build());
     }
 

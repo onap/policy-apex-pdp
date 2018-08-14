@@ -522,7 +522,7 @@ public class CLIParameters {
     }
 
     /**
-     * Check if the command failures flag is set
+     * Check if the command failures flag is set.
      * 
      * @return true if the command failures flag has been set
      */
