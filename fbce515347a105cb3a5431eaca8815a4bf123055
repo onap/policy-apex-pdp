@@ -22,6 +22,30 @@
       "revId": "fbce515347a105cb3a5431eaca8815a4bf123055",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_58bcabbb",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CLIException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4195
+      },
+      "writtenOn": "2018-08-14T13:57:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_9869e38d",
+      "range": {
+        "startLine": 44,
+        "startChar": 21,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "fbce515347a105cb3a5431eaca8815a4bf123055",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
