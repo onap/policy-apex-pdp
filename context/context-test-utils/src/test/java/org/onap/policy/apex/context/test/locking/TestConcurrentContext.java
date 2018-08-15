@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.context.test.locking;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -131,7 +130,7 @@ public class TestConcurrentContext {
             @Override
             public Map<String, Object> getContextAlbumInitValues() {
                 final Map<String, Object> initValues = super.getContextAlbumInitValues();
-                initValues.put(Constants.TEST_VALUE, new TestContextLongItem(0l));
+                initValues.put(Constants.TEST_VALUE, new TestContextLongItem(0L));
                 return initValues;
             }
         };

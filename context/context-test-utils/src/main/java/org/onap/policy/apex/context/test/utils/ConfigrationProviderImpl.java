@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.context.test.utils;
 
 import java.util.HashMap;
@@ -135,7 +136,7 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
     public Map<String, Object> getContextAlbumInitValues() {
         final Map<String, Object> values = new HashMap<>();
         for (int i = 0; i < albumSize; i++) {
-            values.put(Integer.toString(i), new TestContextLongItem(0l));
+            values.put(Integer.toString(i), new TestContextLongItem(0L));
         }
         return values;
     }
