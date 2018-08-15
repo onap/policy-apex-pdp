@@ -19,8 +19,8 @@
  */
 
 /**
- * Provides the event handling classes that an APEX engine uses and which uses use to send and receive events to and
- * from an APEX engine.
+ * Provides the event handling classes that an APEX engine uses and which uses use to send and
+ * receive events to and from an APEX engine.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

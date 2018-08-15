@@ -31,8 +31,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 
 /**
- * The Class AxStateFacade acts as a facade into the AxState class so that task logic can easily access information in
- * an AxState instance.
+ * The Class AxStateFacade acts as a facade into the AxState class so that task logic can easily
+ * access information in an AxState instance.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */

@@ -38,15 +38,16 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * Container class for the execution context for state finalizer logic executions in a state being executed in an Apex
- * engine. The state finalizer must have easy access to the state definition, the fields, as well as the policy, global,
- * and external context.
+ * Container class for the execution context for state finalizer logic executions in a state being
+ * executed in an Apex engine. The state finalizer must have easy access to the state definition,
+ * the fields, as well as the policy, global, and external context.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public class StateFinalizerExecutionContext {
     /**
-     * Logger for state finalizer execution, state finalizer logic can use this field to access and log to Apex logging.
+     * Logger for state finalizer execution, state finalizer logic can use this field to access and
+     * log to Apex logging.
      */
     private static final XLogger EXCEUTION_LOGGER =
             XLoggerFactory.getXLogger("org.onap.policy.apex.executionlogging.StateFinalizerExecutionLogging");
@@ -60,15 +61,16 @@ public class StateFinalizerExecutionContext {
     public final Long executionID;
 
     /**
-     * The list of state outputs for this state finalizer. The purpose of a state finalizer is to select a state output
-     * for a state from this list of state output names.
+     * The list of state outputs for this state finalizer. The purpose of a state finalizer is to
+     * select a state output for a state from this list of state output names.
      */
     public final Set<String> stateOutputNames;
 
     /**
-     * The fields of this state finalizer. A state finalizer receives this list of fields from a task and may use these
-     * fields to determine what state output to select. Once a state finalizer has selected a state output, it must
-     * marshal these fields so that they match the fields required for the event defined in the state output.
+     * The fields of this state finalizer. A state finalizer receives this list of fields from a
+     * task and may use these fields to determine what state output to select. Once a state
+     * finalizer has selected a state output, it must marshal these fields so that they match the
+     * fields required for the event defined in the state output.
      */
     public final Map<String, Object> fields;
 
@@ -76,13 +78,15 @@ public class StateFinalizerExecutionContext {
     private String message;
 
     /**
-     * The state output that the state finalizer logic has selected for a state. The state finalizer logic sets this
-     * field in its logic after executing and the Apex engine uses this state output for this state.
+     * The state output that the state finalizer logic has selected for a state. The state finalizer
+     * logic sets this field in its logic after executing and the Apex engine uses this state output
+     * for this state.
      */
     private String selectedStateOutputName;
 
     /**
-     * Logger for state finalizer execution, state finalizer logic can use this field to access and log to Apex logging.
+     * Logger for state finalizer execution, state finalizer logic can use this field to access and
+     * log to Apex logging.
      */
     public final XLogger logger = EXCEUTION_LOGGER;
 
@@ -98,8 +102,10 @@ public class StateFinalizerExecutionContext {
      * @param executionID the execution ID for the current APEX policy execution instance
      * @param axState the state definition that is the subject of execution
      * @param fields the fields to be manipulated by the state finalizer
-     * @param stateOutputNames the state output names, one of which will be selected by the state finalizer
-     * @param internalContext the execution context of the Apex engine in which the task is being executed
+     * @param stateOutputNames the state output names, one of which will be selected by the state
+     *        finalizer
+     * @param internalContext the execution context of the Apex engine in which the task is being
+     *        executed
      */
     public StateFinalizerExecutionContext(final StateFinalizerExecutor stateFinalizerExecutor, final long executionID,
             final AxState axState, final Map<String, Object> fields, final Set<String> stateOutputNames,
@@ -141,7 +147,8 @@ public class StateFinalizerExecutionContext {
      *
      * @param contextAlbumName The context album name
      * @return The context album
-     * @throws ContextRuntimeException if the context album does not exist on the state for this executor
+     * @throws ContextRuntimeException if the context album does not exist on the state for this
+     *         executor
      */
     public ContextAlbum getContextAlbum(final String contextAlbumName) throws ContextRuntimeException {
         // Find the context album

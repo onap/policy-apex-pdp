@@ -24,8 +24,8 @@ import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**
- * A factory class to create APEX engines of a given type. As there is only a single type of Apex engine in existence,
- * this class is trivial.
+ * A factory class to create APEX engines of a given type. As there is only a single type of Apex
+ * engine in existence, this class is trivial.
  *
  * @author Liam Fallon
  */
