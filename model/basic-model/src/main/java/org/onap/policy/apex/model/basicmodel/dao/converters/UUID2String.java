@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 @Converter
-public class UUID2String extends XmlAdapter<String, UUID> implements AttributeConverter<UUID, String> {
+public class Uuid2String extends XmlAdapter<String, UUID> implements AttributeConverter<UUID, String> {
 
     /*
      * (non-Javadoc)
@@ -67,8 +67,8 @@ public class UUID2String extends XmlAdapter<String, UUID> implements AttributeCo
      * @see javax.xml.bind.annotation.adapters.XmlAdapter
      */
     @Override
-    public UUID unmarshal(final String v) throws Exception {
-        return this.convertToEntityAttribute(v);
+    public UUID unmarshal(final String str) throws Exception {
+        return this.convertToEntityAttribute(str);
     }
 
     /*
@@ -77,7 +77,7 @@ public class UUID2String extends XmlAdapter<String, UUID> implements AttributeCo
      * @see javax.xml.bind.annotation.adapters.XmlAdapter
      */
     @Override
-    public String marshal(final UUID v) throws Exception {
-        return this.convertToDatabaseColumn(v);
+    public String marshal(final UUID str) throws Exception {
+        return this.convertToDatabaseColumn(str);
     }
 }

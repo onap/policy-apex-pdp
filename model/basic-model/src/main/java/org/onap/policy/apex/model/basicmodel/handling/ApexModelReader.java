@@ -60,7 +60,8 @@ public class ApexModelReader<C extends AxConcept> {
 
     // Regular expressions for checking input types
     private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; // (starts with <?xml...>
-    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]"; // starts with some kind of bracket [ or (
+    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]"; 
+    // starts with some kind of bracket [ or (
     // or {, then has something, then has
     // and has a close bracket
 
@@ -119,8 +120,9 @@ public class ApexModelReader<C extends AxConcept> {
         if (schemaFileName != null) {
             try {
                 // Set the concept schema
-                final URL schemaURL = ResourceUtils.getUrlResource(schemaFileName);
-                final Schema apexConceptSchema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaURL);
+                final URL schemaUrl = ResourceUtils.getUrlResource(schemaFileName);
+                final Schema apexConceptSchema = 
+                        SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaUrl);
                 unmarshaller.setSchema(apexConceptSchema);
             }
             catch (final Exception e) {

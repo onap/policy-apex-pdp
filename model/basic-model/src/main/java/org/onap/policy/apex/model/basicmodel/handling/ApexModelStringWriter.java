@@ -32,7 +32,8 @@ import org.slf4j.ext.XLoggerFactory;
  * This class writes an Apex concept to a string.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @param <C> the type of Apex concept to write to a string, must be a sub class of {@link AxConcept}
+ * @param <C> the type of Apex concept to write to a string, must be a sub class of
+ *        {@link AxConcept}
  */
 public class ApexModelStringWriter<C extends AxConcept> {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelStringWriter.class);
@@ -58,13 +59,13 @@ public class ApexModelStringWriter<C extends AxConcept> {
      * @return The string with the concept
      * @throws ApexException thrown on errors
      */
-    public String writeString(final C concept, final Class<C> rootConceptClass, final boolean jsonFlag) throws ApexException {
+    public String writeString(final C concept, final Class<C> rootConceptClass, final boolean jsonFlag)
+            throws ApexException {
         Assertions.argumentNotNull(concept, "concept may not be null");
-        
+
         if (jsonFlag) {
-            return writeJSONString(concept, rootConceptClass);
-        }
-        else {
+            return writeJsonString(concept, rootConceptClass);
+        } else {
             return concept.toString();
         }
     }
@@ -77,8 +78,8 @@ public class ApexModelStringWriter<C extends AxConcept> {
      * @return The string with the concept
      * @throws ApexException thrown on errors
      */
-    public String writeXMLString(final C concept, final Class<C> rootConceptClass) throws ApexException {
-        LOGGER.debug("running writeXMLString . . .");
+    public String writeXmlString(final C concept, final Class<C> rootConceptClass) throws ApexException {
+        LOGGER.debug("running writeXmlString . . .");
 
         final ApexModelWriter<C> conceptWriter = new ApexModelWriter<>(rootConceptClass);
         conceptWriter.setValidateFlag(validateFlag);
@@ -90,13 +91,12 @@ public class ApexModelStringWriter<C extends AxConcept> {
         try {
             conceptWriter.write(concept, baOutputStream);
             baOutputStream.close();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn("error writing XML string", e);
             throw new ApexException("error writing XML string", e);
         }
 
-        LOGGER.debug("ran writeXMLString");
+        LOGGER.debug("ran writeXmlString");
         return baOutputStream.toString();
     }
 
@@ -108,8 +108,8 @@ public class ApexModelStringWriter<C extends AxConcept> {
      * @return The string with the concept
      * @throws ApexException thrown on errors
      */
-    public String writeJSONString(final C concept, final Class<C> rootConceptClass) throws ApexException {
-        LOGGER.debug("running writeJSONString . . .");
+    public String writeJsonString(final C concept, final Class<C> rootConceptClass) throws ApexException {
+        LOGGER.debug("running writeJsonString . . .");
 
         final ApexModelWriter<C> conceptWriter = new ApexModelWriter<>(rootConceptClass);
         conceptWriter.setJsonOutput(true);
@@ -119,13 +119,12 @@ public class ApexModelStringWriter<C extends AxConcept> {
         try {
             conceptWriter.write(concept, baOutputStream);
             baOutputStream.close();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn("error writing JSON string", e);
             throw new ApexException("error writing JSON string", e);
         }
 
-        LOGGER.debug("ran writeJSONString");
+        LOGGER.debug("ran writeJsonString");
         return baOutputStream.toString();
     }
 

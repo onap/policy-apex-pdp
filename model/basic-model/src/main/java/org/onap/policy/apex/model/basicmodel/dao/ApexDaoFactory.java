@@ -27,7 +27,7 @@ import org.slf4j.ext.XLoggerFactory;
 
 /**
  * This factory class returns an Apex DAO for the configured persistence mechanism. The factory uses the plugin class
- * specified in {@link DAOParameters} to instantiate a DAO instance.
+ * specified in {@link DaoParameters} to instantiate a DAO instance.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -42,7 +42,7 @@ public class ApexDaoFactory {
      * @return the Apex DAO
      * @throws ApexException on invalid JPA plugins
      */
-    public ApexDao createApexDao(final DAOParameters daoParameters) throws ApexException {
+    public ApexDao createApexDao(final DaoParameters daoParameters) throws ApexException {
         Assertions.argumentNotNull(daoParameters, ApexException.class, "Parameter \"daoParameters\" may not be null");
 
         // Get the class for the DAO using reflection

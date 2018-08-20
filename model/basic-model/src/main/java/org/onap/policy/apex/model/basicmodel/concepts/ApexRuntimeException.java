@@ -55,21 +55,21 @@ public class ApexRuntimeException extends RuntimeException {
      * Instantiates a new apex runtime exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param ex the exception that caused this Apex exception
      */
-    public ApexRuntimeException(final String message, final Exception e) {
-        this(message, e, null);
+    public ApexRuntimeException(final String message, final Exception ex) {
+        this(message, ex, null);
     }
 
     /**
      * Instantiates a new apex runtime exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param ex the exception that caused this Apex exception
      * @param object the object that the exception was thrown on
      */
-    public ApexRuntimeException(final String message, final Exception e, final Object object) {
-        super(message, e);
+    public ApexRuntimeException(final String message, final Exception ex, final Object object) {
+        super(message, ex);
         this.object = object;
     }
 

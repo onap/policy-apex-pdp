@@ -21,8 +21,8 @@
 package org.onap.policy.apex.model.basicmodel.concepts;
 
 /**
- * The key uniquely identifies every entity in the system. This class is an abstract class to give a common parent for
- * all key types in the system.
+ * The key uniquely identifies every entity in the system. This class is an abstract class to give a
+ * common parent for all key types in the system.
  */
 public abstract class AxKey extends AxConcept {
     private static final long serialVersionUID = 6281159885962014041L;
@@ -49,15 +49,18 @@ public abstract class AxKey extends AxConcept {
         /** The keys have different names. */
         DIFFERENT,
         /**
-         * The name of the key matches but the Major version number of the keys is different (x in x.y.z do not match).
+         * The name of the key matches but the Major version number of the keys is different (x in
+         * x.y.z do not match).
          */
         MAJOR,
         /**
-         * The name of the key matches but the Minor version number of the keys is different (y in x.y.z do not match).
+         * The name of the key matches but the Minor version number of the keys is different (y in
+         * x.y.z do not match).
          */
         MINOR,
         /**
-         * The name of the key matches but the Patch version number of the keys is different (z in x.y.z do not match).
+         * The name of the key matches but the Patch version number of the keys is different (z in
+         * x.y.z do not match).
          */
         PATCH,
         /** The keys match completely. */
@@ -65,14 +68,14 @@ public abstract class AxKey extends AxConcept {
     }
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public AxKey() {
         super();
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -83,10 +86,10 @@ public abstract class AxKey extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getID()
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getId()
      */
     @Override
-    public abstract String getID();
+    public abstract String getId();
 
     /**
      * Return the result of a compatibility check of two keys.
@@ -97,7 +100,8 @@ public abstract class AxKey extends AxConcept {
     public abstract Compatibility getCompatibility(AxKey otherKey);
 
     /**
-     * Check if two keys are compatible, that is the keys are IDENTICAL or have only MINOR, PATCH differences.
+     * Check if two keys are compatible, that is the keys are IDENTICAL or have only MINOR, PATCH
+     * differences.
      *
      * @param otherKey the key to check compatibility against
      * @return true, if the keys are compatible

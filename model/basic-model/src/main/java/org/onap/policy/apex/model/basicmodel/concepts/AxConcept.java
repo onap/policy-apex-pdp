@@ -28,8 +28,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is the base class for all Apex concept classes. It enforces implementation of abstract methods and
- * interfaces on all concepts that are sub-classes of this class.
+ * This class is the base class for all Apex concept classes. It enforces implementation of abstract
+ * methods and interfaces on all concepts that are sub-classes of this class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -40,12 +40,12 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     private static final long serialVersionUID = -7434939557282697490L;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public AxConcept() {}
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -62,8 +62,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     public abstract AxKey getKey();
 
     /**
-     * Gets a list of all keys for this concept and all concepts that are defined or referenced by this concept and its
-     * sub-concepts.
+     * Gets a list of all keys for this concept and all concepts that are defined or referenced by
+     * this concept and its sub-concepts.
      *
      * @return the keys used by this concept and it's contained concepts
      */
@@ -73,13 +73,14 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      * Validate that this concept is structurally correct.
      *
      * @param result the parameter in which the result of the validation will be returned
-     * @return the validation result that was passed in in the @{link result} field with the result of this validation
-     *         added
+     * @return the validation result that was passed in in the @{link result} field with the result
+     *         of this validation added
      */
     public abstract AxValidationResult validate(AxValidationResult result);
 
     /**
-     * Clean this concept, tidy up any superfluous information such as leading and trailing white space.
+     * Clean this concept, tidy up any superfluous information such as leading and trailing white
+     * space.
      */
     public abstract void clean();
 
@@ -108,7 +109,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     public abstract int hashCode();
 
     /**
-     * Copy this concept to another object. The target object must have the same class as the source object.
+     * Copy this concept to another object. The target object must have the same class as the source
+     * object.
      *
      * @param target the target object to which this object is copied
      * @return the copied object
@@ -120,8 +122,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      *
      * @return the ID string of this concept
      */
-    public String getID() {
-        return getKey().getID();
+    public String getId() {
+        return getKey().getId();
     }
 
     /**
@@ -130,10 +132,10 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      * @param id the key ID to match against
      * @return true, if this key matches the ID
      */
-    public final boolean matchesID(final String id) {
+    public final boolean matchesId(final String id) {
         Assertions.argumentNotNull(id, "id may not be null");
 
         // Check the ID
-        return getID().equals(id);
+        return getId().equals(id);
     }
 }

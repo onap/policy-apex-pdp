@@ -46,21 +46,23 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * The Class AxKeyInformation holds a map of the key information for the entire Apex model. All Apex models
- * {@link AxModel} must have an {@link AxKeyInformation} field. The {@link AxKeyInformation} class implements the helper
- * methods of the {@link AxConceptGetter} interface to allow {@link AxKeyInfo} instances to be retrieved by calling
- * methods directly on this class without referencing the contained map.
- * <p>
- * Validation checks that the key is not null, that the key information map is not empty, that each key and value in the
- * map is defined, that the key in each map entry matches the key if each entry value, and that no duplicate UUIDs
- * exist. Each key information entry is then validated individually.
+ * The Class AxKeyInformation holds a map of the key information for the entire Apex model. All Apex
+ * models {@link AxModel} must have an {@link AxKeyInformation} field. The {@link AxKeyInformation}
+ * class implements the helper methods of the {@link AxConceptGetter} interface to allow
+ * {@link AxKeyInfo} instances to be retrieved by calling methods directly on this class without
+ * referencing the contained map.
+ * 
+ * <p>Validation checks that the key is not null, that the key information map is not empty, that each
+ * key and value in the map is defined, that the key in each map entry matches the key if each entry
+ * value, and that no duplicate UUIDs exist. Each key information entry is then validated
+ * individually.
  */
 @Entity
 @Table(name = "AxKeyInformation")
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxKeyInformation", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "keyInfoMap" })
+        propOrder = {"key", "keyInfoMap"})
 
 public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKeyInfo> {
     private static final long serialVersionUID = -2746380769017043888L;
@@ -87,7 +89,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -121,14 +123,15 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the key information map is returned as a raw Hash
-     * Map. This method is called by JAXB after unmarshaling and is used to convert the hash map to a
-     * {@link NavigableMap} so that it will work with the {@link AxConceptGetter} interface.
+     * When a model is unmarshalled from disk or from the database, the key information map is
+     * returned as a raw Hash Map. This method is called by JAXB after unmarshaling and is used to
+     * convert the hash map to a {@link NavigableMap} so that it will work with the
+     * {@link AxConceptGetter} interface.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param um the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller um, final Object parent) {
         // The map must be navigable to allow name and version searching,
         // unmarshaling returns a hash map
         final NavigableMap<AxArtifactKey, AxKeyInfo> navigablekeyInfoMap = new TreeMap<>();
@@ -137,8 +140,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * This method generates default key information for all keys found in the concept passed in as a parameter that do
-     * not already have key information.
+     * This method generates default key information for all keys found in the concept passed in as
+     * a parameter that do not already have key information.
      *
      * @param concept the concept for which to generate key information
      */
@@ -152,7 +155,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
             if (!keyInfoMap.containsKey(artifactKey)) {
                 final AxKeyInfo keyInfo = new AxKeyInfo(artifactKey);
                 // generate a reproducible UUID
-                keyInfo.setUuid(AxKeyInfo.generateReproducibleUUID(keyInfo.getID() + keyInfo.getDescription()));
+                keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
                 keyInfoMap.put(artifactKey, keyInfo);
             }
         }
@@ -215,8 +218,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -244,10 +247,11 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * Validate an key information entry
+     * Validate an key information entry.
      *
      * @param keyInfoEntry the key information entry
-     * @param uuidSet the set of UUIDs encountered in validation so far, the UUID of this entry is added to the set
+     * @param uuidSet the set of UUIDs encountered in validation so far, the UUID of this entry is
+     *        added to the set
      * @param result the validation result to append to
      * @return The validation result
      */
@@ -268,12 +272,12 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
 
             result = keyInfoEntry.getValue().validate(result);
 
-            if (uuidSet.contains(keyInfoEntry.getValue().getUUID())) {
+            if (uuidSet.contains(keyInfoEntry.getValue().getUuid())) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
                         "duplicate UUID found on keyInfoMap entry " + keyInfoEntry.getKey() + ":"
-                                + keyInfoEntry.getValue().getUUID()));
+                                + keyInfoEntry.getValue().getUuid()));
             } else {
-                uuidSet.add(keyInfoEntry.getValue().getUUID());
+                uuidSet.add(keyInfoEntry.getValue().getUuid());
             }
         }
 
@@ -316,8 +320,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -408,8 +412,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.core.basicmodel.concepts.
-     * AxArtifactKey)
+     * org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.core.
+     * basicmodel.concepts. AxArtifactKey)
      */
     @Override
     public AxKeyInfo get(final AxArtifactKey conceptKey) {
@@ -429,7 +433,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang. String, java.lang.String)
+     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang. String,
+     * java.lang.String)
      */
     @Override
     public AxKeyInfo get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -450,7 +455,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java. lang.String, java.lang.String)
+     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java. lang.String,
+     * java.lang.String)
      */
     @Override
     public Set<AxKeyInfo> getAll(final String conceptKeyName, final String conceptKeyVersion) {

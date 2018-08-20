@@ -34,13 +34,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDao;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class DefaultApexDao is an JPA implementation of the {@link ApexDao} class for Apex concepts ({@link AxConcept}).
- * It uses the default JPA implementation in the javax {@link Persistence} class.
+ * The Class DefaultApexDao is an JPA implementation of the {@link ApexDao} class for Apex concepts
+ * ({@link AxConcept}). It uses the default JPA implementation in the javax {@link Persistence}
+ * class.
  *
  *
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
@@ -63,10 +64,11 @@ public class DefaultApexDao implements ApexDao {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.dao.ApexDao#init(org.onap.policy.apex.model.basicmodel.dao.DAOParameters)
+     * org.onap.policy.apex.model.basicmodel.dao.ApexDao#init(org.onap.policy.apex.model.basicmodel.
+     * dao.DaoParameters)
      */
     @Override
-    public void init(final DAOParameters daoParameters) throws ApexException {
+    public void init(final DaoParameters daoParameters) throws ApexException {
         if (daoParameters == null || daoParameters.getPersistenceUnit() == null) {
             LOGGER.error("Apex persistence unit parameter not set");
             throw new ApexException("Apex persistence unit parameter not set");
@@ -113,8 +115,8 @@ public class DefaultApexDao implements ApexDao {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#create(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#create(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
      */
     @Override
     public <T extends AxConcept> void create(final T obj) {
@@ -125,72 +127,6 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             mg.merge(obj);
-            mg.getTransaction().commit();
-        } finally {
-            mg.close();
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
-     */
-    @Override
-    public <T extends AxConcept> void delete(final T obj) {
-        if (obj == null) {
-            return;
-        }
-        final EntityManager mg = getEntityManager();
-        try {
-            mg.getTransaction().begin();
-            mg.remove(mg.contains(obj) ? obj : mg.merge(obj));
-            mg.getTransaction().commit();
-        } finally {
-            mg.close();
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
-     */
-    @Override
-    public <T extends AxConcept> void delete(final Class<T> aClass, final AxArtifactKey key) {
-        if (key == null) {
-            return;
-        }
-        final EntityManager mg = getEntityManager();
-        try {
-            mg.getTransaction().begin();
-            mg.createQuery(DELETE_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName() + AND_C_KEY_VERSION
-                    + key.getVersion() + "'", aClass).executeUpdate();
-            mg.getTransaction().commit();
-        } finally {
-            mg.close();
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
-     */
-    @Override
-    public <T extends AxConcept> void delete(final Class<T> aClass, final AxReferenceKey key) {
-        if (key == null) {
-            return;
-        }
-        final EntityManager mg = getEntityManager();
-        try {
-            mg.getTransaction().begin();
-            mg.createQuery(DELETE_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME + key.getParentKeyName()
-                    + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion() + AND_C_KEY_LOCAL_NAME
-                    + key.getLocalName() + "'", aClass).executeUpdate();
             mg.getTransaction().commit();
         } finally {
             mg.close();
@@ -222,6 +158,72 @@ public class DefaultApexDao implements ApexDao {
     /*
      * (non-Javadoc)
      *
+     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
+     */
+    @Override
+    public <T extends AxConcept> void delete(final T obj) {
+        if (obj == null) {
+            return;
+        }
+        final EntityManager mg = getEntityManager();
+        try {
+            mg.getTransaction().begin();
+            mg.remove(mg.contains(obj) ? obj : mg.merge(obj));
+            mg.getTransaction().commit();
+        } finally {
+            mg.close();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.lang.Class,
+     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+     */
+    @Override
+    public <T extends AxConcept> void delete(final Class<T> someClass, final AxArtifactKey key) {
+        if (key == null) {
+            return;
+        }
+        final EntityManager mg = getEntityManager();
+        try {
+            mg.getTransaction().begin();
+            mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
+                    + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
+            mg.getTransaction().commit();
+        } finally {
+            mg.close();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.lang.Class,
+     * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
+     */
+    @Override
+    public <T extends AxConcept> void delete(final Class<T> someClass, final AxReferenceKey key) {
+        if (key == null) {
+            return;
+        }
+        final EntityManager mg = getEntityManager();
+        try {
+            mg.getTransaction().begin();
+            mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
+                    + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
+                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
+            mg.getTransaction().commit();
+        } finally {
+            mg.close();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.util.Collection)
      */
     @Override
@@ -244,10 +246,12 @@ public class DefaultApexDao implements ApexDao {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#deleteByArtifactKey(java.lang.Class, java.util.Collection)
+     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#deleteByArtifactKey(java.lang.Class,
+     * java.util.Collection)
      */
     @Override
-    public <T extends AxConcept> int deleteByArtifactKey(final Class<T> aClass, final Collection<AxArtifactKey> keys) {
+    public <T extends AxConcept> int deleteByArtifactKey(final Class<T> someClass,
+            final Collection<AxArtifactKey> keys) {
         if (keys == null || keys.isEmpty()) {
             return 0;
         }
@@ -256,8 +260,8 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             for (final AxArtifactKey key : keys) {
-                deletedCount += mg.createQuery(DELETE_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
-                        + AND_C_KEY_VERSION + key.getVersion() + "'", aClass).executeUpdate();
+                deletedCount += mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME
+                        + key.getName() + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
             }
             mg.getTransaction().commit();
         } finally {
@@ -273,7 +277,7 @@ public class DefaultApexDao implements ApexDao {
      * java.util.Collection)
      */
     @Override
-    public <T extends AxConcept> int deleteByReferenceKey(final Class<T> aClass,
+    public <T extends AxConcept> int deleteByReferenceKey(final Class<T> someClass,
             final Collection<AxReferenceKey> keys) {
         if (keys == null || keys.isEmpty()) {
             return 0;
@@ -285,10 +289,10 @@ public class DefaultApexDao implements ApexDao {
             for (final AxReferenceKey key : keys) {
                 deletedCount +=
                         mg.createQuery(
-                                DELETE_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
+                                DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
                                         + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION
                                         + key.getParentKeyVersion() + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'",
-                                aClass).executeUpdate();
+                                someClass).executeUpdate();
             }
             mg.getTransaction().commit();
         } finally {
@@ -303,11 +307,11 @@ public class DefaultApexDao implements ApexDao {
      * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#deleteAll(java.lang.Class)
      */
     @Override
-    public <T extends AxConcept> void deleteAll(final Class<T> aClass) {
+    public <T extends AxConcept> void deleteAll(final Class<T> someClass) {
         final EntityManager mg = getEntityManager();
         try {
             mg.getTransaction().begin();
-            mg.createQuery(DELETE_FROM + aClass.getSimpleName() + " c ", aClass).executeUpdate();
+            mg.createQuery(DELETE_FROM + someClass.getSimpleName() + " c ", someClass).executeUpdate();
             mg.getTransaction().commit();
         } finally {
             mg.close();
@@ -321,21 +325,21 @@ public class DefaultApexDao implements ApexDao {
      * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
      */
     @Override
-    public <T extends AxConcept> T get(final Class<T> aClass, final AxArtifactKey key) {
-        if (aClass == null) {
+    public <T extends AxConcept> T get(final Class<T> someClass, final AxArtifactKey key) {
+        if (someClass == null) {
             return null;
         }
         final EntityManager mg = getEntityManager();
         try {
-            final T t = mg.find(aClass, key);
+            final T t = mg.find(someClass, key);
             if (t != null) {
                 // This clone is created to force the JPA DAO to recurse down through the object
                 try {
-                    final T clonedT = aClass.newInstance();
+                    final T clonedT = someClass.newInstance();
                     t.copyTo(clonedT);
                     return clonedT;
                 } catch (final Exception e) {
-                    LOGGER.warn("Could not clone object of class \"" + aClass.getCanonicalName() + "\"", e);
+                    LOGGER.warn("Could not clone object of class \"" + someClass.getCanonicalName() + "\"", e);
                     return null;
                 }
             } else {
@@ -353,20 +357,20 @@ public class DefaultApexDao implements ApexDao {
      * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
      */
     @Override
-    public <T extends AxConcept> T get(final Class<T> aClass, final AxReferenceKey key) {
-        if (aClass == null) {
+    public <T extends AxConcept> T get(final Class<T> someClass, final AxReferenceKey key) {
+        if (someClass == null) {
             return null;
         }
         final EntityManager mg = getEntityManager();
         try {
-            final T t = mg.find(aClass, key);
+            final T t = mg.find(someClass, key);
             if (t != null) {
                 try {
-                    final T clonedT = aClass.newInstance();
+                    final T clonedT = someClass.newInstance();
                     t.copyTo(clonedT);
                     return clonedT;
                 } catch (final Exception e) {
-                    LOGGER.warn("Could not clone object of class \"" + aClass.getCanonicalName() + "\"", e);
+                    LOGGER.warn("Could not clone object of class \"" + someClass.getCanonicalName() + "\"", e);
                     return null;
                 }
             } else {
@@ -383,13 +387,13 @@ public class DefaultApexDao implements ApexDao {
      * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#getAll(java.lang.Class)
      */
     @Override
-    public <T extends AxConcept> List<T> getAll(final Class<T> aClass) {
-        if (aClass == null) {
+    public <T extends AxConcept> List<T> getAll(final Class<T> someClass) {
+        if (someClass == null) {
             return Collections.emptyList();
         }
         final EntityManager mg = getEntityManager();
         try {
-            return mg.createQuery(SELECT_C_FROM + aClass.getSimpleName() + " c", aClass).getResultList();
+            return mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + " c", someClass).getResultList();
         } finally {
             mg.close();
         }
@@ -402,15 +406,17 @@ public class DefaultApexDao implements ApexDao {
      * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
      */
     @Override
-    public <T extends AxConcept> List<T> getAll(final Class<T> aClass, final AxArtifactKey parentKey) {
-        if (aClass == null) {
+    public <T extends AxConcept> List<T> getAll(final Class<T> someClass, final AxArtifactKey parentKey) {
+        if (someClass == null) {
             return Collections.emptyList();
         }
         final EntityManager mg = getEntityManager();
         try {
             return mg
-                    .createQuery(SELECT_C_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                            + parentKey.getName() + AND_C_KEY_PARENT_KEY_VERSION + parentKey.getVersion() + "'", aClass)
+                    .createQuery(
+                            SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
+                                    + parentKey.getName() + AND_C_KEY_PARENT_KEY_VERSION + parentKey.getVersion() + "'",
+                            someClass)
                     .getResultList();
         } finally {
             mg.close();
@@ -424,15 +430,15 @@ public class DefaultApexDao implements ApexDao {
      * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
      */
     @Override
-    public <T extends AxConcept> T getArtifact(final Class<T> aClass, final AxArtifactKey key) {
-        if (aClass == null || key == null) {
+    public <T extends AxConcept> T getArtifact(final Class<T> someClass, final AxArtifactKey key) {
+        if (someClass == null || key == null) {
             return null;
         }
         final EntityManager mg = getEntityManager();
         List<T> ret;
         try {
-            ret = mg.createQuery(SELECT_C_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
-                    + AND_C_KEY_VERSION + key.getVersion() + "'", aClass).getResultList();
+            ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
+                    + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).getResultList();
         } finally {
             mg.close();
         }
@@ -440,8 +446,8 @@ public class DefaultApexDao implements ApexDao {
             return null;
         }
         if (ret.size() > 1) {
-            throw new IllegalArgumentException("More than one result was returned for search for " + aClass
-                    + " with key " + key.getID() + ": " + ret);
+            throw new IllegalArgumentException("More than one result was returned for search for " + someClass
+                    + " with key " + key.getId() + ": " + ret);
         }
         return ret.get(0);
     }
@@ -453,16 +459,16 @@ public class DefaultApexDao implements ApexDao {
      * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
      */
     @Override
-    public <T extends AxConcept> T getArtifact(final Class<T> aClass, final AxReferenceKey key) {
-        if (aClass == null || key == null) {
+    public <T extends AxConcept> T getArtifact(final Class<T> someClass, final AxReferenceKey key) {
+        if (someClass == null || key == null) {
             return null;
         }
         final EntityManager mg = getEntityManager();
         List<T> ret;
         try {
-            ret = mg.createQuery(SELECT_C_FROM + aClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
+            ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
                     + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
-                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", aClass).getResultList();
+                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).getResultList();
         } finally {
             mg.close();
         }
@@ -470,8 +476,8 @@ public class DefaultApexDao implements ApexDao {
             return null;
         }
         if (ret.size() > 1) {
-            throw new IllegalArgumentException("More than one result was returned for search for " + aClass
-                    + " with key " + key.getID() + ": " + ret);
+            throw new IllegalArgumentException("More than one result was returned for search for " + someClass
+                    + " with key " + key.getId() + ": " + ret);
         }
         return ret.get(0);
     }
@@ -479,8 +485,8 @@ public class DefaultApexDao implements ApexDao {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#update(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#update(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
      */
     @Override
     public <T extends AxConcept> T update(final T obj) {
@@ -503,14 +509,14 @@ public class DefaultApexDao implements ApexDao {
      * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#size(java.lang.Class)
      */
     @Override
-    public <T extends AxConcept> long size(final Class<T> aClass) {
-        if (aClass == null) {
+    public <T extends AxConcept> long size(final Class<T> someClass) {
+        if (someClass == null) {
             return 0;
         }
         final EntityManager mg = getEntityManager();
         long size = 0;
         try {
-            size = mg.createQuery("SELECT COUNT(c) FROM " + aClass.getSimpleName() + " c", Long.class)
+            size = mg.createQuery("SELECT COUNT(c) FROM " + someClass.getSimpleName() + " c", Long.class)
                     .getSingleResult();
         } finally {
             mg.close();

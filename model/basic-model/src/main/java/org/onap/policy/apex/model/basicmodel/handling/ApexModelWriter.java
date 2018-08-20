@@ -67,7 +67,7 @@ public class ApexModelWriter<C extends AxConcept> {
     private boolean jsonOutput = false;
 
     // The list of fields to output as CDATA
-    private final Set<String> cDataFieldSet = new TreeSet<>();
+    private final Set<String> dataFieldSet = new TreeSet<>();
 
     // The Marshaller for the Apex concepts
     private Marshaller marshaller = null;
@@ -104,7 +104,7 @@ public class ApexModelWriter<C extends AxConcept> {
      * @return the set of fields
      */
     public Set<String> getCDataFieldSet() {
-        return cDataFieldSet;
+        return dataFieldSet;
     }
 
     /**
@@ -176,14 +176,14 @@ public class ApexModelWriter<C extends AxConcept> {
             LOGGER.debug(validationResult.toString());
             if (!validationResult.isValid()) {
                 LOGGER.warn(validationResult.toString());
-                throw new ApexModelException("Apex concept xml (" + concept.getKey().getID() + ") validation failed");
+                throw new ApexModelException("Apex concept xml (" + concept.getKey().getId() + ") validation failed");
             }
         }
 
         if (jsonOutput) {
-            writeJSON(concept, apexConceptWriter);
+            writeJson(concept, apexConceptWriter);
         } else {
-            writeXML(concept, apexConceptWriter);
+            writeXml(concept, apexConceptWriter);
         }
     }
 
@@ -194,7 +194,7 @@ public class ApexModelWriter<C extends AxConcept> {
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
-    private void writeXML(final C concept, final Writer apexConceptWriter) throws ApexModelException {
+    private void writeXml(final C concept, final Writer apexConceptWriter) throws ApexModelException {
         Assertions.argumentNotNull(concept, CONCEPT_MAY_NOT_BE_NULL);
 
         LOGGER.debug("writing Apex concept XML . . .");
@@ -210,9 +210,9 @@ public class ApexModelWriter<C extends AxConcept> {
 
             final Transformer domTransformer = getTransformer();
 
-            // Convert the cDataFieldSet into a space delimited string
+            // Convert the dataFieldSet into a space delimited string
             domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS,
-                    cDataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
+                    dataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
             domTransformer.transform(new DOMSource(document), new StreamResult(apexConceptWriter));
         } catch (JAXBException | TransformerException | ParserConfigurationException e) {
             LOGGER.warn("Unable to marshal Apex concept XML", e);
@@ -245,7 +245,7 @@ public class ApexModelWriter<C extends AxConcept> {
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
-    private void writeJSON(final C concept, final Writer apexConceptWriter) throws ApexModelException {
+    private void writeJson(final C concept, final Writer apexConceptWriter) throws ApexModelException {
         Assertions.argumentNotNull(concept, CONCEPT_MAY_NOT_BE_NULL);
 
         LOGGER.debug("writing Apex concept JSON . . .");

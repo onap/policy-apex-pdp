@@ -44,15 +44,16 @@ import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is the base class for all models in Apex. All model classes inherit from this model so all models must
- * have a key and have key information.
- * <p>
- * Validation checks that the model key is valid. It goes on to check for null keys and checks each key for uniqueness
- * in the model. A check is carried out to ensure that an {@link AxKeyInfo} instance exists for every
- * {@link AxArtifactKey} key. For each {@link AxReferenceKey} instance, a check is made that its parent and local name
- * are nut null and that a {@link AxKeyInfo} entry exists for its parent. Then a check is made that each used
- * {@link AxArtifactKey} and {@link AxReferenceKey} usage references a key that exists. Finally, a check is made to
- * ensure that an {@link AxArtifactKey} instance exists for every {@link AxKeyInfo} instance.
+ * This class is the base class for all models in Apex. All model classes inherit from this model so
+ * all models must have a key and have key information.
+ * 
+ * <p>Validation checks that the model key is valid. It goes on to check for null keys and checks
+ *  each key for uniqueness in the model. A check is carried out to ensure that an {@link AxKeyInfo}
+ * instance exists for every {@link AxArtifactKey} key. For each {@link AxReferenceKey} instance, a
+ * check is made that its parent and local name are nut null and that a {@link AxKeyInfo} entry
+ * exists for its parent. Then a check is made that each used {@link AxArtifactKey} and
+ * {@link AxReferenceKey} usage references a key that exists. Finally, a check is made to ensure
+ * that an {@link AxArtifactKey} instance exists for every {@link AxKeyInfo} instance.
  */
 
 @Entity
@@ -61,7 +62,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 @XmlRootElement(name = "apexModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "key", "keyInformation" })
+@XmlType(name = "AxModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "keyInformation"})
 
 public class AxModel extends AxConcept {
     private static final String IS_A_NULL_KEY = " is a null key";
@@ -88,7 +89,7 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -121,9 +122,9 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Registers this model with the {@link ModelService}. All models are registered with the model service so that
-     * models can be references from anywhere in the Apex system without being passed as references through deep call
-     * chains.
+     * Registers this model with the {@link ModelService}. All models are registered with the model
+     * service so that models can be references from anywhere in the Apex system without being
+     * passed as references through deep call chains.
      */
     public void register() {
         ModelService.registerModel(AxKeyInformation.class, getKeyInformation());
@@ -189,8 +190,8 @@ public class AxModel extends AxConcept {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -244,10 +245,11 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Check for consistent usage of an artifact key in the model
+     * Check for consistent usage of an artifact key in the model.
      *
      * @param artifactKey The artifact key to check
-     * @param artifactKeySet The set of artifact keys encountered so far, this key is appended to the set
+     * @param artifactKeySet The set of artifact keys encountered so far, this key is appended to
+     *        the set
      * @param result The validation result to append to
      * @return the result of the validation
      */
@@ -283,10 +285,11 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Check for consistent usage of a reference key in the model
+     * Check for consistent usage of a reference key in the model.
      *
      * @param artifactKey The reference key to check
-     * @param referenceKeySet The set of reference keys encountered so far, this key is appended to the set
+     * @param referenceKeySet The set of reference keys encountered so far, this key is appended to
+     *        the set
      * @param result The validation result to append to
      * @return the result of the validation
      */
@@ -334,11 +337,13 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Check for consistent usage of cross-key references in the model
+     * Check for consistent usage of cross-key references in the model.
      *
      * @param usedKeySet The set of all keys used in the model
-     * @param artifactKeySet The set of artifact keys encountered so far, this key is appended to the set
-     * @param referenceKeySet The set of reference keys encountered so far, this key is appended to the set
+     * @param artifactKeySet The set of artifact keys encountered so far, this key is appended to
+     *        the set
+     * @param referenceKeySet The set of reference keys encountered so far, this key is appended to
+     *        the set
      * @param result The validation result to append to
      * @return the result of the validation
      */
@@ -398,8 +403,8 @@ public class AxModel extends AxConcept {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {

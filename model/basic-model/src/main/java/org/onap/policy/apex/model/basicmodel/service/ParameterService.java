@@ -30,11 +30,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 /**
  * The parameter service makes Apex parameters available to all classes in a JVM.
  *
- * The reason for having a parameter service is to avoid having to pass parameters down long call chains in modules such as the Apex engine and editor. The
- * parameter service makes parameters available statically.
+ * <p>The reason for having a parameter service is to avoid having to pass parameters down long call
+ * chains in modules such as the Apex engine and editor. The parameter service makes parameters
+ * available statically.
  *
- * The parameter service must be used with care because changing a parameter set anywhere in a JVM will affect all users of those parameters anywhere in the
- * JVM.
+ * <p>The parameter service must be used with care because changing a parameter set anywhere in a
+ *  JVM will affect all users of those parameters anywhere in the JVM.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -45,8 +46,7 @@ public abstract class ParameterService {
     /**
      * This class is an abstract static class that cannot be extended.
      */
-    private ParameterService() {
-    }
+    private ParameterService() {}
 
     /**
      * Register parameters with the parameter service.
@@ -55,7 +55,8 @@ public abstract class ParameterService {
      * @param parametersClass the class of the parameter, used to index the parameter
      * @param parameters the parameters
      */
-    public static <P extends AbstractParameters> void registerParameters(final Class<P> parametersClass, final P parameters) {
+    public static <P extends AbstractParameters> void registerParameters(final Class<P> parametersClass,
+            final P parameters) {
         parameterMap.put(parametersClass, parameters);
     }
 
@@ -81,7 +82,8 @@ public abstract class ParameterService {
         final P parameter = (P) parameterMap.get(parametersClass);
 
         if (parameter == null) {
-            throw new ApexRuntimeException("Parameters for " + parametersClass.getCanonicalName() + " not found in parameter service");
+            throw new ApexRuntimeException(
+                    "Parameters for " + parametersClass.getCanonicalName() + " not found in parameter service");
         }
 
         return parameter;

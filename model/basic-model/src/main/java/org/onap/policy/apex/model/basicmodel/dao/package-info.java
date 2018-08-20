@@ -20,8 +20,8 @@
 
 /**
  * Defines and implements the Data Access Object (DAO) that allows Apex
- * {@link org.onap.policy.apex.model.basicmodel.concepts.AxConcept} concepts to be read from and written to databases over
- * JDBC.
+ * {@link org.onap.policy.apex.model.basicmodel.concepts.AxConcept} concepts to be read from and
+ * written to databases over JDBC.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

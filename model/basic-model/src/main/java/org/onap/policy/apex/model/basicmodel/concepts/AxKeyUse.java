@@ -26,11 +26,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class records a usage of a key in the system. When the list of keys being used by a concept is built using the
- * getKeys() method of the {@link AxConcept} class, an instance of this class is created for every key occurrence. The
- * list of keys returned by the getKeys() method is a list of {@link AxKeyUse} objects.
- * <p>
- * Validation checks that each key is valid.
+ * This class records a usage of a key in the system. When the list of keys being used by a concept
+ * is built using the getKeys() method of the {@link AxConcept} class, an instance of this class is
+ * created for every key occurrence. The list of keys returned by the getKeys() method is a list of
+ * {@link AxKeyUse} objects.
+ *
+ * <p>Validation checks that each key is valid.
  */
 
 public class AxKeyUse extends AxKey {
@@ -46,7 +47,7 @@ public class AxKeyUse extends AxKey {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -87,11 +88,11 @@ public class AxKeyUse extends AxKey {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getID()
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getId()
      */
     @Override
-    public String getID() {
-        return usedKey.getID();
+    public String getId() {
+        return usedKey.getId();
     }
 
     /**
@@ -107,8 +108,9 @@ public class AxKeyUse extends AxKey {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getCompatibility(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxKey)
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxKey#getCompatibility(org.onap.policy.apex.
+     * model.basicmodel. concepts.AxKey)
      */
     @Override
     public AxKey.Compatibility getCompatibility(final AxKey otherKey) {
@@ -119,8 +121,8 @@ public class AxKeyUse extends AxKey {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxKey#isCompatible(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxKey)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxKey#isCompatible(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxKey)
      */
     @Override
     public boolean isCompatible(final AxKey otherKey) {
@@ -131,8 +133,8 @@ public class AxKeyUse extends AxKey {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
@@ -173,8 +175,8 @@ public class AxKeyUse extends AxKey {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {

@@ -25,13 +25,13 @@ import javax.persistence.Converter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * The Class CDATAConditioner converts a CDATA String to and from database format by removing spaces at the ends of
+ * The Class CdataConditioner converts a CDATA String to and from database format by removing spaces at the ends of
  * lines and platform-specific new line endings.
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
 @Converter
-public class CDATAConditioner extends XmlAdapter<String, String> implements AttributeConverter<String, String> {
+public class CdataConditioner extends XmlAdapter<String, String> implements AttributeConverter<String, String> {
 
     private static final String NL = "\n";
 
@@ -61,8 +61,8 @@ public class CDATAConditioner extends XmlAdapter<String, String> implements Attr
      * @see javax.xml.bind.annotation.adapters.XmlAdapter
      */
     @Override
-    public String unmarshal(final String v) throws Exception {
-        return this.convertToEntityAttribute(v);
+    public String unmarshal(final String str) throws Exception {
+        return this.convertToEntityAttribute(str);
     }
 
     /*
@@ -71,8 +71,8 @@ public class CDATAConditioner extends XmlAdapter<String, String> implements Attr
      * @see javax.xml.bind.annotation.adapters.XmlAdapter
      */
     @Override
-    public String marshal(final String v) throws Exception {
-        return this.convertToDatabaseColumn(v);
+    public String marshal(final String str) throws Exception {
+        return this.convertToDatabaseColumn(str);
     }
 
     /**

@@ -55,21 +55,21 @@ public class ApexException extends Exception {
      * Instantiates a new apex exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param ex the exception that caused this Apex exception
      */
-    public ApexException(final String message, final Exception e) {
-        this(message, e, null);
+    public ApexException(final String message, final Exception ex) {
+        this(message, ex, null);
     }
 
     /**
      * Instantiates a new apex exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param ex the exception that caused this Apex exception
      * @param object the object that the exception was thrown on
      */
-    public ApexException(final String message, final Exception e, final Object object) {
-        super(message, e);
+    public ApexException(final String message, final Exception ex, final Object object) {
+        super(message, ex);
         this.object = object;
     }
 
@@ -83,7 +83,7 @@ public class ApexException extends Exception {
     }
 
     /**
-     * Build a cascaded message from an exception and all its nested exceptions
+     * Build a cascaded message from an exception and all its nested exceptions.
      * @param throwable the top level exception
      * @return cascaded message string
      */
@@ -99,8 +99,7 @@ public class ApexException extends Exception {
         return builder.toString();
     }
 
-    /**
-     *
+    /**     
      * Get the object on which the exception was thrown.
      *
      * @return The object on which the exception was thrown

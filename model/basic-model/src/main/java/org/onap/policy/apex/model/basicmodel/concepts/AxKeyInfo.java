@@ -37,16 +37,17 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner;
-import org.onap.policy.apex.model.basicmodel.dao.converters.UUID2String;
+import org.onap.policy.apex.model.basicmodel.dao.converters.CdataConditioner;
+import org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * The key information on an {@link AxArtifactKey} key in an Apex policy model. Each {@link AxArtifactKey} must have an
- * {@link AxKeyInfo} object. THe information held is the key's UUID and it's description.
- * <p>
- * Validation checks that all fields are defined and that the key is valid. It also observes that descriptions are blank
- * and warns if the UUID is a zero UUID.
+ * The key information on an {@link AxArtifactKey} key in an Apex policy model. Each
+ * {@link AxArtifactKey} must have an {@link AxKeyInfo} object. THe information held is the key's
+ * UUID and it's description.
+ * 
+ * <p>Validation checks that all fields are defined and that the key is valid. It also observes that
+ * descriptions are blank and warns if the UUID is a zero UUID.
  */
 
 @Entity
@@ -55,7 +56,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "uuid", "description" })
+        propOrder = {"key", "uuid", "description"})
 
 public class AxKeyInfo extends AxConcept {
     private static final long serialVersionUID = -4023935924068914308L;
@@ -68,14 +69,14 @@ public class AxKeyInfo extends AxConcept {
     private AxArtifactKey key;
 
     @Column(name = "uuid")
-    @Convert(converter = UUID2String.class)
-    @XmlJavaTypeAdapter(value = UUID2String.class)
+    @Convert(converter = Uuid2String.class)
+    @XmlJavaTypeAdapter(value = Uuid2String.class)
     @XmlElement(name = "UUID", required = true)
     private UUID uuid;
 
     @Column(name = "description", length = MAX_DESCRIPTION_LENGTH_8192)
-    @Convert(converter = CDATAConditioner.class)
-    @XmlJavaTypeAdapter(value = CDATAConditioner.class)
+    @Convert(converter = CdataConditioner.class)
+    @XmlJavaTypeAdapter(value = CdataConditioner.class)
     @XmlElement(required = true)
     private String description;
 
@@ -87,7 +88,7 @@ public class AxKeyInfo extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -101,7 +102,7 @@ public class AxKeyInfo extends AxConcept {
      * @param key the key of the concept
      */
     public AxKeyInfo(final AxArtifactKey key) {
-        this(key, UUID.randomUUID(), "Generated description for concept referred to by key \"" + key.getID() + "\"");
+        this(key, UUID.randomUUID(), "Generated description for concept referred to by key \"" + key.getId() + "\"");
     }
 
     /**
@@ -157,7 +158,7 @@ public class AxKeyInfo extends AxConcept {
      *
      * @return the uuid of the concept
      */
-    public UUID getUUID() {
+    public UUID getUuid() {
         return uuid;
     }
 
@@ -194,8 +195,8 @@ public class AxKeyInfo extends AxConcept {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -256,8 +257,8 @@ public class AxKeyInfo extends AxConcept {
      * (non-Javadoc)
      *
      * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * basicmodel.concepts. AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -313,8 +314,8 @@ public class AxKeyInfo extends AxConcept {
         if (!uuid.equals(other.uuid)) {
             return false;
         }
-        final String thisdesc = CDATAConditioner.clean(description);
-        final String otherdesc = CDATAConditioner.clean(other.description);
+        final String thisdesc = CdataConditioner.clean(description);
+        final String otherdesc = CdataConditioner.clean(other.description);
         return thisdesc.equals(otherdesc);
     }
 
@@ -351,7 +352,7 @@ public class AxKeyInfo extends AxConcept {
      * @param seed the seed
      * @return the uuid
      */
-    public static UUID generateReproducibleUUID(final String seed) {
+    public static UUID generateReproducibleUuid(final String seed) {
         final Random random;
         if (seed != null && seed.length() > 0) {
             random = new Random(seed.hashCode());

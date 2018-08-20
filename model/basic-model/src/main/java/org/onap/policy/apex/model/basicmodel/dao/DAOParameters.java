@@ -27,7 +27,7 @@ import java.util.Properties;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class DAOParameters {
+public class DaoParameters {
     /** The default Apex DAO plugin class. */
     public static final String DEFAULT_PLUGIN_CLASS = "org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao";
 
@@ -119,7 +119,7 @@ public class DAOParameters {
      */
     @Override
     public String toString() {
-        return "DAOParameters [pluginClass=" + pluginClass + ", persistenceUnit=" + persistenceUnit
+        return "DaoParameters [pluginClass=" + pluginClass + ", persistenceUnit=" + persistenceUnit
                 + ", jdbcProperties=" + jdbcProperties + "]";
     }
 }
