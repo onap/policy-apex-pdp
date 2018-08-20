@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for handling REST requests and responses</description>
 
-    <properties>
-        <apex-plugins-event-carrier-restrequestor-dir>${project.basedir}/src</apex-plugins-event-carrier-restrequestor-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>

@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for execution of JRuby logic in Apex</description>
 
-    <properties>
-        <apex-plugins-executor-jruby-dir>${project.basedir}/src</apex-plugins-executor-jruby-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.jruby</groupId>

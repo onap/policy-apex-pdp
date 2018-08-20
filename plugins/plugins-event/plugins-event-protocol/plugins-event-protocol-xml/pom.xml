@@ -105,4 +105,24 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <properties>
+                <adsite-plugins-event-protocol-xml-dir>${project.basedir}/src</adsite-plugins-event-protocol-xml-dir>
+            </properties>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/plugins-event/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

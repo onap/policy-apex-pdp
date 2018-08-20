@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for handling events being transported over Kafka</description>
 
-    <properties>
-        <apex-plugins-event-carrier-kafka-dir>${project.basedir}/src</apex-plugins-event-carrier-kafka-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.kafka</groupId>

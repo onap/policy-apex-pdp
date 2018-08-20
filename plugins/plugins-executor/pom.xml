@@ -33,10 +33,6 @@
     <name>${project.artifactId}</name>
     <description>Plugins for logic execution in Apex</description>
 
-    <properties>
-        <apex-plugins-executor-dir>${project.basedir}/src</apex-plugins-executor-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>

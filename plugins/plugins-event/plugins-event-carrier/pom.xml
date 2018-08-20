@@ -33,10 +33,6 @@
     <name>${project.artifactId}</name>
     <description>Plugins for 3pps that carry events</description>
 
-    <properties>
-        <apex-plugins-event-carrier-dir>${project.basedir}/src</apex-plugins-event-carrier-dir>
-    </properties>
-
     <modules>
         <module>plugins-event-carrier-kafka</module>
         <module>plugins-event-carrier-websocket</module>

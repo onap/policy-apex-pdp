@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for handling events being transported over web sockets</description>
 
-    <properties>
-        <apex-plugins-event-carrier-websocket-dir>${project.basedir}/src</apex-plugins-event-carrier-websocket-dir>
-    </properties>
-
     <profiles>
         <profile>
             <id>apexSite</id>

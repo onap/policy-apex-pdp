@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for execution of Jython logic in Apex</description>
 
-    <properties>
-        <apex-plugins-executor-jython-dir>${project.basedir}/src</apex-plugins-executor-jython-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.python</groupId>

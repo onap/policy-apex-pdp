@@ -30,7 +30,23 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugins for handling events that are being transported as JMS messages</description>
 
-    <properties>
-        <apex-plugins-event-protocol-jms-dir>${project.basedir}/src</apex-plugins-event-protocol-jms-dir>
-    </properties>
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <properties>
+                <adsite-plugins-event-protocol-jms-dir>${project.basedir}/src</adsite-plugins-event-protocol-jms-dir>
+            </properties>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/plugins/plugins-event/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

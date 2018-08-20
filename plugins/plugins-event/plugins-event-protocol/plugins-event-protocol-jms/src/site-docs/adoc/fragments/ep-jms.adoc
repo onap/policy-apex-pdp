@@ -1,0 +1,51 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== JMS Event
+
+The event protocol for JMS is provided by the APEX JMS plugin.
+The plugin supports encoding as JSON text or as object.
+There is no difference in the configuration for the input and output interface.
+
+=== JMS Text
+
+If used as input, APEX will take a JMS message and extract a JSON string, then proceed as if a JSON event was received.
+If used as output, APEX will take the event produced by a policy, create a JSON string, and then wrap it into a JMS message.
+
+The configuration for JMS text is as follows:
+
+[source%nowrap,json]
+----
+"eventProtocolParameters":{
+  "eventProtocol" : "JMSTEXT",
+  "parameterClassName" :
+    "org.onap.policy.apex.plugins.event.protocol.jms.JMSTextEventProtocolParameters"
+}
+----
+
+
+=== JMS Object
+
+If used as input, APEX will will take a JMS message, extract a Java Bean from the `ObjectMessage` message, construct an APEX event and put the bean on the APEX event as a parameter.
+If used as output, APEX will take the event produced by a policy, create a Java Bean and send it as a JMS message.
+
+The configuration for JMS object is as follows:
+
+[source%nowrap,json]
+----
+"eventProtocolParameters":{
+  "eventProtocol" : "JMSOBJECT",
+  "parameterClassName" :
+    "org.onap.policy.apex.plugins.event.protocol.jms.JMSObjectEventProtocolParameters"
+}
+----

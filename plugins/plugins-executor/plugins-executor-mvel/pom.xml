@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for execution of Mvel logic in Apex</description>
 
-    <properties>
-        <apex-plugins-executor-mvel-dir>${project.basedir}/src</apex-plugins-executor-mvel-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.mvel</groupId>

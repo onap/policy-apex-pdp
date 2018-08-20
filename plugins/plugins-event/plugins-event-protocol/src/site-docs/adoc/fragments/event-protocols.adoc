@@ -1,0 +1,38 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Event Protocols, Format and Encoding
+
+Event protocols define what event formats APEX can receive (input) and should send (output).
+They can be used in any combination for input and output, unless further restricted by a carrier technology plugin (for instance for JMS output).
+There can only be 1 event protocol per event plugin.
+
+Supported _input_ event protocols are:
+
+- JSON, the event as a JSON string
+- APEX, an APEX event
+- JMS object, the event as a JMS object,
+- JMS text, the event as a JMS text,
+- XML, the event as an XML string,
+- YAML, the event as YAML text
+
+Supported _output_ event protocols are:
+
+- JSON, the event as a JSON string
+- APEX, an APEX event
+- JMS object, the event as a JMS object,
+- JMS text, the event as a JMS text,
+- XML, the event as an XML string,
+- YAML, the event as YAML text
+
+New event protocols can be added as plugins to APEX or developed outside APEX and added to an APEX deployment.

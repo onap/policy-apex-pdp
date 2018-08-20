@@ -1,0 +1,54 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== JSON Event
+
+The event protocol for JSON encoding does not require a specific plugin, it is supported by default.
+Furthermore, there is no difference in the configuration for the input and output interface.
+
+For an input, APEX requires a well-formed JSON string.
+Well-formed here means according to the definitions of a policy.
+Any JSON string that is not defined as a trigger event (consume) will not be consumed (errors will be thrown).
+For output JSON events, APEX will always produce valid JSON strings according to the definition in the policy model.
+
+The following JSON shows the configuration.
+
+[source%nowrap,json]
+----
+"eventProtocolParameters":{
+  "eventProtocol" : "JSON"
+}
+----
+
+For JSON events, there are a few more optional parameters, which allow to define a mapping for standard event fields.
+An APEX event must have the fields `name`, `version`, `source`, and `target` defined.
+Sometimes it is not possible to configure a trigger or actioning system to use those fields.
+However, they might be in an event generated outside APEX (or used outside APEX) just with different names.
+To configure APEX to map between the different event names, simply add the following parameters to a JSON event:
+
+[source%nowrap,json]
+----
+"eventProtocolParameters":{
+  "eventProtocol" : "JSON",
+  "nameAlias"     : "policyName", <1>
+  "versionAlias"  : "policyVersion", <2>
+  "sourceAlias"   : "from", <3>
+  "targetAlias"   : "to", <4>
+  "nameSpaceAlias": "my.name.space" <5>
+}
+----
+<1> mapping for the `name` field, here from a field called `policyName`
+<2> mapping for the `version` field, here from a field called `policyVersion`
+<3> mapping for the `source` field, here from a field called `from` (only for an input event)
+<4> mapping for the `target` field, here from a field called `to` (only for an output event)
+<5> mapping for the `nameSpace` field, here from a field called `my.name.space`

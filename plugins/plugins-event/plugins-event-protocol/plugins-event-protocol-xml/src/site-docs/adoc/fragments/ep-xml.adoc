@@ -1,0 +1,33 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== XML Event
+
+The event protocol for XML is provided by the APEX XML plugin.
+There is no difference in the configuration for the input and output interface.
+
+If used as input, APEX will consume events as XML and map them to policy trigger events.
+Not well-formed XML and not understood trigger events will be rejected.
+If used as output, APEX produce XML encoded events from the event a policy produces.
+Those events will always be well-formed according to the definition in the policy model.
+
+The following code shows the configuration.
+
+[source%nowrap,json]
+----
+"eventProtocolParameters":{
+  "eventProtocol" : "XML",
+  "parameterClassName" :
+      "org.onap.policy.apex.plugins.event.protocol.xml.XMLEventProtocolParameters"
+}
+----

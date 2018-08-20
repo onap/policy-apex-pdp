@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for execution of Java logic in Apex</description>
 
-    <properties>
-        <apex-plugins-executor-java-dir>${project.basedir}/src</apex-plugins-executor-java-dir>
-    </properties>
-
     <profiles>
         <profile>
             <id>apexSite</id>
