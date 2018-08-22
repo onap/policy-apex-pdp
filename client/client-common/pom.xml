@@ -25,11 +25,11 @@
         <artifactId>client</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>client-common</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -52,4 +52,21 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>apexSite</id>
+            <activation>
+                <property>
+                    <name>apexSite</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <site>
+                    <id>${project.artifactId}-site</id>
+                    <url>${apex.adsite.prefix}/modules/${project.parent.artifactId}/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
