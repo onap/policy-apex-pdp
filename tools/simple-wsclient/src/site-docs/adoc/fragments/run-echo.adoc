@@ -1,0 +1,79 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Run the Websocket Echo Client
+
+The echo client is included in an APEX full installation.
+To run the client, open a new shell (Unix, Cygwin) or command prompt (`cmd` on Windows).
+Then use the APEX application launcher to start the client.
+
+[IMPORTANT]
+.APEX engine needs to run first
+====
+The example assumes that an APEX engine configured for __produce__ carrier technology Websocket and __JSON__ event protocol is executed first.
+====
+
+
+[width="100%",options="header",cols="5a,5a"]
+|====================
+| Unix, Cygwin | Windows
+|
+[source%nowrap,sh]
+----
+# $APEX_HOME/bin/apexApps.sh ws-echo [args]
+----
+|
+[source%nowrap,bat]
+----
+> %APEX_HOME%\bin\apexApps.bat ws-echo [args]
+----
+|====================
+
+Use the following command line arguments for server and port of the Websocket server.
+The port should be the same as configured in the APEX engine.
+The server host should be the host on which the APEX engine is running
+
+- `-p` defines the Websocket port to connect to (defaults to `8887`)
+- `-s` defines the host on which a Websocket server is running (defaults to `localhost`)
+
+Let's assume that there is an APEX engine running, configured for produce Websocket carrier technology, as server, for port 42452, with produce event protocol JSON,.
+If we start the console client on the same host, we can omit the `-s` options.
+We start the console client as:
+
+[source%nowrap,bat]
+----
+# $APEX_HOME/bin/apexApps.sh ws-echo -p 42452 <1>
+> %APEX_HOME%\bin\apexApps.bat ws-echo -p 42452 <2>
+----
+<1> Start client on Unix or Cygwin
+<2> Start client on Windows
+
+Once started successfully, the client will produce the following messages (assuming we used `-p 42452` and an APEX engine is running on `localhost` with the same port:
+
+[source%nowrap,bat]
+----
+
+
+ws-simple-echo: starting simple event echo
+ --> server: localhost
+ --> port: 42452
+
+Once started, the application will simply print out all received events to standard out.
+Each received event will be prefixed by '---' and suffixed by '===='
+
+
+ws-simple-echo: opened connection to APEX (Web Socket Protocol Handshake)
+
+
+----
+

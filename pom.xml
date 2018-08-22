@@ -186,6 +186,7 @@
                 <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
                 <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
                 <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
+                <adsite-examples-servlet-dir>${project.basedir}/examples/examples-servlet/src</adsite-examples-servlet-dir>
 
                 <adsite-plugins-event-protocol-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/src</adsite-plugins-event-protocol-dir>
                 <adsite-plugins-event-protocol-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src</adsite-plugins-event-protocol-jms-dir>
@@ -200,7 +201,7 @@
                 <adsite-plugins-event-carrier-kafka-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src</adsite-plugins-event-carrier-kafka-dir>
                 <adsite-plugins-event-carrier-websocket-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src</adsite-plugins-event-carrier-websocket-dir>
                 <adsite-plugins-context-dir>${project.basedir}/plugins/plugins-context/src</adsite-plugins-context-dir>
-                <adsite-plugins-context-schema-avro-dir>${project.basedir}/plugins/plugins-context/context-schema/context-schema-avro/src</adsite-plugins-context-schema-avro-dir>
+                <adsite-plugins-context-schema-avro-dir>${project.basedir}/plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src</adsite-plugins-context-schema-avro-dir>
                 <adsite-plugins-executor-dir>${project.basedir}/plugins/plugins-executor/src</adsite-plugins-executor-dir>
                 <adsite-plugins-executor-java-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-java/src</adsite-plugins-executor-java-dir>
                 <adsite-plugins-executor-javascript-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-javascript/src</adsite-plugins-executor-javascript-dir>
@@ -424,7 +425,7 @@
                                 <configuration>
                                     <resources>
                                         <resource>
-                                            <directory>${project.basedir}/examples/myfirstpolicy/src/site-docs/adoc/resources/images</directory>
+                                            <directory>${project.basedir}/examples/examples-myfirstpolicy/src/site-docs/adoc/resources/images</directory>
                                             <includes>
                                                 <include>**/*.jpg</include>
                                                 <include>**/*.png</include>
@@ -560,6 +561,7 @@
                                 <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
                                 <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
                                 <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
+                                <adsite-examples-servlet-dir>${project.basedir}/examples/examples-servlet/src</adsite-examples-servlet-dir>
 
                                 <adsite-plugins-event-protocol-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/src</adsite-plugins-event-protocol-dir>
                                 <adsite-plugins-event-protocol-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src</adsite-plugins-event-protocol-jms-dir>
@@ -573,7 +575,7 @@
                                 <adsite-plugins-event-carrier-kafka-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src</adsite-plugins-event-carrier-kafka-dir>
                                 <adsite-plugins-event-carrier-websocket-dir>${project.basedir}/plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src</adsite-plugins-event-carrier-websocket-dir>
                                 <adsite-plugins-context-dir>${project.basedir}/plugins/plugins-context/src</adsite-plugins-context-dir>
-                                <adsite-plugins-context-schema-avro-dir>${project.basedir}/plugins/plugins-context/context-schema/context-schema-avro/src</adsite-plugins-context-schema-avro-dir>
+                                <adsite-plugins-context-schema-avro-dir>${project.basedir}/plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src</adsite-plugins-context-schema-avro-dir>
                                 <adsite-plugins-executor-dir>${project.basedir}/plugins/plugins-executor/src</adsite-plugins-executor-dir>
                                 <adsite-plugins-executor-java-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-java/src</adsite-plugins-executor-java-dir>
                                 <adsite-plugins-executor-javascript-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-javascript/src</adsite-plugins-executor-javascript-dir>
@@ -595,7 +597,7 @@
                                             <directory>src/site-docs/adoc/resources</directory>
                                         </resource>
                                         <resource>
-                                            <directory>${project.basedir}/examples/myfirstpolicy/src/site-docs/adoc/resources</directory>
+                                            <directory>${project.basedir}/examples/examples-myfirstpolicy/src/site-docs/adoc/resources</directory>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -617,6 +619,34 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <executions>
+                            <execution>
+                                <id>copy-site-css</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/src/site-docs/adoc/guides</directory>
+                                            <includes>
+                                                <include>**/*.css</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.basedir}/target/generated-docs/pdf/styles</outputDirectory>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>

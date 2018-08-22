@@ -5,276 +5,315 @@
   ================================================================================
   This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
   Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
-  
+
   SPDX-License-Identifier: CC-BY-4.0
   ============LICENSE_END=========================================================
-  
+
   @author Sven van der Meer (sven.van.der.meer@ericsson.com)
-  
+
 -->
 
 <document>
 
-	<properties>
-		<title>Welcome to APEX - The Adaptive Policy EXecution (Engine)</title>
-		<author email="sven.van.der.meer@ericsson.com">Sven van der Meer</author>
-		<author email="liam.fallon@ericsson.com">Liam Fallon</author>
-		<author email="john.keeney@ericsson.com">John Keeny</author>
-	</properties>
+    <properties>
+        <title>Welcome to APEX - The Adaptive Policy EXecution (Engine)</title>
+        <author email="sven.van.der.meer@ericsson.com">Sven van der Meer</author>
+        <author email="liam.fallon@ericsson.com">Liam Fallon</author>
+        <author email="john.keeney@ericsson.com">John Keeny</author>
+    </properties>
 
-	<body>
-		<section name="Welcome to APEX - The Adaptive Policy EXecution (Engine)">
+    <body>
+        <section name="Welcome to APEX - The Adaptive Policy EXecution (Engine)">
 
-			<p>
-				The APEX (Adaptive Policy Execution) policy engine is a fully featured policy engine that executes anything from simple to adaptive policies.
-				An adaptive policy is one that can modify its behavior based on the current conditions of the network and systems.
-				Adaptive policies have the following characteristics:
-				<ul>
-					<li>Are able to make decisions at runtime rather than simply selecting decisions described at policy definition time</li>
-					<li>Can use additional context information that was not provided in the incoming event or request</li>
-					<li>Can be adapted or self-adapt at runtime to modify decision making</li>
-				</ul>
-			</p>
+            <p>
+                The APEX (Adaptive Policy Execution) policy engine is a fully featured policy engine that executes anything from simple to adaptive policies.
+                An adaptive policy is one that can modify its behavior based on the current conditions of the network and systems.
+                Adaptive policies have the following characteristics:
+                <ul>
+                    <li>Are able to make decisions at runtime rather than simply selecting decisions described at policy definition time</li>
+                    <li>Can use additional context information that was not provided in the incoming event or request</li>
+                    <li>Can be adapted or self-adapt at runtime to modify decision making</li>
+                </ul>
+            </p>
 
-			<p>
-				The APEX policy engine accepts input events and requests from other components, routes the input to the appropriate policies, computes the policy results, and generates response events or actions to be processed by other components.
-				The policies may be affected by information injected into the policy context as changes in business or domain goals, by information derived from previous executions of the policies, and by context information retrieved from other components (analytics, inventory, topology, etc.).
-			</p>
+            <p>
+                The APEX policy engine accepts input events and requests from other components, routes the input to the appropriate policies, computes the policy results, and generates response events or actions to be processed by other components.
+                The policies may be affected by information injected into the policy context as changes in business or domain goals, by information derived from previous executions of the policies, and by context information retrieved from other components (analytics, inventory, topology, etc.).
+            </p>
 
-			<p>
-				APEX connects to a Trigger System to receive events that can trigger a policy and to an Actioning System to send the result of a policy.
-				The connection support various common technologies, such as messaging systems (Kafka, Websockets), file input/output, and standard input/output.
-				APEX supports context (as additional information) for all events as well as inside the engine to support policies.
-				Context information can be read from any outside source.
-			</p>
+            <p>
+                APEX connects to a Trigger System to receive events that can trigger a policy and to an Actioning System to send the result of a policy.
+                The connection support various common technologies, such as messaging systems (Kafka, Websockets), file input/output, and standard input/output.
+                APEX supports context (as additional information) for all events as well as inside the engine to support policies.
+                Context information can be read from any outside source.
+            </p>
 
-			<p>
-				A policy is defined in a Universal Execution Policy Specification (UEPS), directly executable in an APEX engine.
-				Higher-level policy specifications (or existing policy languages) can be easily translated in UEPS.
-			</p>
+            <p>
+                A policy is defined in a Universal Execution Policy Specification (UEPS), directly executable in an APEX engine.
+                Higher-level policy specifications (or existing policy languages) can be easily translated in UEPS.
+            </p>
 
-			<p>
-				An APEX system can use multiple policy engines with different policies deployed on each of them.
-				Context information is automatically shared between all engine instances.
-				A simple deployment component is provided.
-			</p>
-
-
-			<h3>APEX Documentation</h3>
-				<table>
-					<tr>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Document</th>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
-					</tr>
-					<tr>
-						<td><a href="apex-intro/intro-introduction.html">APEX Introduction</a></td>
-						<td>
-							This is a short introduction to APEX to show its features and capabilities.
-
-							<br /><br />
-							Also available as
-								<a href="docs-apex/html/APEX-Introduction.html">stand-alone HTML</a> and
-								<a href="docs-apex/pdf/APEX-Introduction.pdf">stand-alone PDF</a>.
-						</td>
-					</tr>
-
-					<tr>
-						<td><a href="apex-publications.html">Publications</a></td>
-						<td>
-							APEX is based on a theor called Unifying Policy Theory (UPT).
-							Over the years, we have published a number of papers on APEX, context management, policy in general, and control loops.
-							This is the list of all APEX and the most relevant other publications.
-							We provide links to full text versions if possible.
-
-							<br /><br />
-							Also available as
-								<a href="docs-apex/html/APEX-Publications.html">stand-alone HTML</a> and
-								<a href="docs-apex/pdf/APEX-Publications.pdf">stand-alone PDF</a>.
-						</td>
-					</tr>
-					<tr>
-						<td><a href="user-manual.html">APEX User Manual</a></td>
-						<td>
-							The APEX user manual combines a set of guides and howto documents, all supporting the use of APEX.
-							The guides and howto documents are provided as integrated documentation in the APEX site.
-							Furthermore, we provide stand-alone documents in HTML and PDF.
-						</td>
-					</tr>
-					<tr>
-						<td><a href="policy-guide.html">APEX Policy Guide</a></td>
-						<td>
-							The APEX policy guide combines a set of howto documents, all supporting APEX and policy, including how to write task and task selection logic.
-							The howto documents are provided as integrated documentation in the APEX site.
-							Furthermore, we provide stand-alone documents in HTML and PDF.
-						</td>
-					</tr>
-					<tr>
-						<td><a href="developer-guide.html">APEX Development Guide</a></td>
-						<td>
-							The APEX developer guide combines a set of guides and howto documents, all addressing aspects for APEX developers.
-							These documents look at APEX internals and how to extend build and extend the platform, and how to add applications.
-							The guide and howto documents are provided as integrated documentation in the APEX site.
-							Furthermore, we provide stand-alone documents in HTML and PDF. 
-						</td>
-					</tr>
-				</table>
+            <p>
+                An APEX system can use multiple policy engines with different policies deployed on each of them.
+                Context information is automatically shared between all engine instances.
+                A simple deployment component is provided.
+            </p>
 
 
-			<h3>APEX Modules and Projects</h3>
-				<table>
-					<tr>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Name</th>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Useful for</th>
-					</tr>
-<!--
-					<tr>
-						<td><a href="modules/apps/index.html">apps</a></td>
-						<td>
-							The APEX applications, implementation dependent wrappers and mediation for APEX in various technologies.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/apps/apps-generators/apps-generators-model/index.html">apps-generators-model</a> - Generators from/to the APEX policy mode</li>
-								<li><a href="modules/apps/apps-utilities/index.html">apps-utilities</a> - Utilities for APEX application developers</li>
-								<li><a href="modules/apps/apps-wsclients/apps-wsclients-simple/index.html">apps-wsclients-simple</a> - Simple Websocket clients (console and echo) for trigger/actioning systems</li>
-								<li><a href="modules/apps/apps-uservice/apps-uservice-test/index.html">apps-uservice-test</a> - Test cases with configurations, policy models, events, for all carrier technologies and event protocols</li>
-							</ul>
-						</td>
-						<td>Applications developers, DevOps, Installers</td>
-					</tr>
--->
-					<tr>
-						<td><a href="modules/auth/index.html">auth</a></td>
-						<td>
-							Policy, state, and task authoring for APEX.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/auth/cli-editor/index.html">cli-editor</a> - The APEX CLI Editor</li>
-								<li><a href="modules/auth/cli-codegen/index.html">cli-codegen</a> - Code-generation tools</li>
-							</ul>
-						</td>
-						<td>Policy Designers</td>
-					</tr>
-<!--
-					<tr>
-						<td><a href="modules/domains/index.html">domains</a></td>
-						<td>
-							Specific source code and other artefacts for APEX domains of application.
-							Here one can find complete implementations, examples, and tests for APEX policies.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/domains/domains-decisionmaker/index.html">domains-decisionmaker</a> - A simple decision maker demo, with REST interface for interactions deployed in a Docker container</li>
-								<li><a href="modules/domains/domains-myfirstpolicy/index.html">domains-myfirstpolicy</a> - My First Policy, a step-by-step tutorial for defining a policy</li>
-								<li><a href="modules/domains/domains-pcvs/index.html">domains-pcvs</a> - An example policy for managing customers and link failures showing video streaming for a simple VPN scenario</li>
-								<li><a href="modules/domains/domains-onap-vcpe/index.html">domains-onap-vcpe</a> - An example policy for managing vCPE's in ONAP</li>
-								<li><a href="modules/domains/domains-periodic/index.html">domains-periodic</a> - An example periodic policy</li>
-								<li><a href="modules/domains/domains-adaptive/index.html">domains-adaptive</a> - A simple adaptive policy</li>
-								<li><a href="modules/domains/domains-aadm/index.html">domains-aadm</a> - A policy realizing a complex scenario for Autonomic Anomaly Detection and Mitigation (AADM)</li>
-							</ul>
-						</td>
-						<td>Policy Designers, Testers</td>
-					</tr>
--->
-					<tr>
-						<td><a href="modules/plugins/index.html">plugins</a></td>
-						<td>
-							Plugins for APEX that can be implemented with various 3PPs are implemented here.
-							Most of the APEX engine and system functionality is realized using plug-ins.
-							These plug-ins are loaded when an APEX policy engine is started.
-							A configuration specifies which plugins to load.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/plugins/plugins-executor/index.html">plugins-executor</a> - Execution environments for policy logic, such as Javascript, Java, JRuby, Jython, MVEL</li>
-								<li><a href="modules/plugins/plugins-event/index.html">plugins-event</a> - All event-related plugins: carrier technologies (Kafka, Websocket), event protocols (XML, IBeam)</li>
-								<li><a href="modules/plugins/plugins-context/index.html">plugins-context</a> - Everything for context: schema (for defining context) distribution (across policies and engines), locking (for writing to context items), persistence</li>
-								<li><a href="modules/plugins/plugins-persistence/index.html">plugins-persistence</a> - Everything needed for persistence (beside context), mainly JPA plugins for Eclipselink and Hibernate</li>
-							</ul>
-						</td>
-						<td>Plugin developers</td>
-					</tr>
-					<tr>
-						<td><a href="modules/services/index.html">services</a></td>
-						<td>
-							The main services of APEX, deployment independent.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/services/services-engine/index.html">services-engine</a> - APEX engine service</li>
-<!--
-								<li><a href="modules/services/services-client/services.client-editor/index.html">services: client-editor</a> - APEX REST Editor</li>
-								<li><a href="modules/services/services-client/services.client-monitoring/index.html">services: client-monitoring</a> - APEX Monitoring Client</li>
-								<li><a href="modules/services/services-client/services.client-deployment/index.html">services: client-deployment</a> - APEX Deployment Client</li>
-								<li><a href="modules/services/services-client/services.client-full/index.html">services: client-full</a> - APEX Full Client</li>
--->
-							</ul>
-						</td>
-						<td>Service developers, Deployers</td>
-					</tr>
-					<tr>
-						<td><a href="modules/core/index.html">core</a></td>
-						<td>
-							The core of APEX, deployment independent.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/core/core-engine/index.html">core-engine</a> - The APEX policy execution engine</li>
-								<li><a href="modules/core/core-infrastructure/index.html">core-infrastructure</a> - Common non-functional components for APEX</li>
-								<li><a href="modules/core/core-deployment/index.html">core-deployment</a> - The APEX policy deployer</li>
-								<li><a href="modules/core/core-protocols/index.html">core-protocols</a> - Protocols used to transfer information between components in APEX</li>
-							</ul>
-						</td>
-						<td>Core APEX developers</td>
-					</tr>
-					<tr>
-						<td><a href="modules/context/index.html">context</a></td>
-						<td>
-							The context handling framework of APEX.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/context/context-management/index.html">context-management</a> - Context management for Apex policy execution</li>
-								<li><a href="modules/context/context-test/index.html">context-test</a> - Test context date for testing</li>
-							</ul>
-						</td>
-						<td>Core APEX developers</td>
-					</tr>
-					<tr>
-						<td><a href="modules/model/index.html">model</a></td>
-						<td>
-							The model for APEX, it comtains definitions of all APEX concepts, also has handling for APEX policy models.
-							Important projects here are:
-							<ul>
-								<li><a href="modules/model/model-api/index.html">model-api</a> - The APEX Model API with programatic access to a policy model</li>
-								<li><a href="modules/model/basic-model/index.html">basic-model</a> - Basic Models used and model handling in Apex</li>
-								<li><a href="modules/model/event-model/index.html">event-model</a> -  Event Models used in APEX </li>
-								<li><a href="modules/model/policy-model/index.html">policy-model</a> - Policy Models used in APEX</li>
-								<li><a href="modules/model/engine-model/index.html">engine-model</a> - Engine Models used in APEX</li>
-								<li><a href="modules/model/context-model/index.html">context-model</a> - Context Models used in APEX</li>
-								<li><a href="modules/model/utilities/index.html">model-utilities</a> - Common non-functional Apex Model Utilities</li>
-							</ul>
-						</td>
-						<td>Core APEX developers, Application developers (Model API)</td>
-					</tr>
-				</table>
+            <h3>APEX Documentation</h3>
+                <table>
+                    <tr>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Document</th>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
+                    </tr>
+                    <tr>
+                        <td><a href="apex-intro/intro-introduction.html">APEX Introduction</a></td>
+                        <td>
+                            This is a short introduction to APEX to show its features and capabilities.
+
+                            <br /><br />
+                            Also available as
+                                <a href="docs-apex/html/APEX-Introduction.html">stand-alone HTML</a> and
+                                <a href="docs-apex/pdf/APEX-Introduction.pdf">stand-alone PDF</a>.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="apex-publications.html">Publications</a></td>
+                        <td>
+                            APEX is based on a theor called Unifying Policy Theory (UPT).
+                            Over the years, we have published a number of papers on APEX, context management, policy in general, and control loops.
+                            This is the list of all APEX and the most relevant other publications.
+                            We provide links to full text versions if possible.
+
+                            <br /><br />
+                            Also available as
+                                <a href="docs-apex/html/APEX-Publications.html">stand-alone HTML</a> and
+                                <a href="docs-apex/pdf/APEX-Publications.pdf">stand-alone PDF</a>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="user-manual.html">APEX User Manual</a></td>
+                        <td>
+                            The APEX user manual combines a set of guides and howto documents, all supporting the use of APEX.
+                            The guides and howto documents are provided as integrated documentation in the APEX site.
+                            Furthermore, we provide stand-alone documents in HTML and PDF.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="policy-guide.html">APEX Policy Guide</a></td>
+                        <td>
+                            The APEX policy guide combines a set of howto documents, all supporting APEX and policy, including how to write task and task selection logic.
+                            The howto documents are provided as integrated documentation in the APEX site.
+                            Furthermore, we provide stand-alone documents in HTML and PDF.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="developer-guide.html">APEX Development Guide</a></td>
+                        <td>
+                            The APEX developer guide combines a set of guides and howto documents, all addressing aspects for APEX developers.
+                            These documents look at APEX internals and how to extend build and extend the platform, and how to add applications.
+                            The guide and howto documents are provided as integrated documentation in the APEX site.
+                            Furthermore, we provide stand-alone documents in HTML and PDF. 
+                        </td>
+                    </tr>
+                </table>
 
 
-			<h3>APEX Resources</h3>
-				<table>
-					<tr>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Resource</th>
-						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
-					</tr>
-					<tr>
-						<td><a href="https://gerrit.onap.org/r/#/admin/projects/policy/apex-pdp">APEX Source (ONAP)</a></td>
-						<td>
-							The source of APEX is hosted part of the ONAP Policy Framework.
-						</td>
-					</tr>
-					<tr>
-						<td><a href="https://github.com/Ericsson/apex/issues">APEX Issue Management (Github)</a></td>
-						<td>
-							Issues with the APEX software and integrated documentation are managed here.
-						</td>
-					</tr>
-				</table>
+            <h3>APEX Modules and Projects</h3>
+                <table>
+                    <tr>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Name</th>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Useful for</th>
+                    </tr>
 
-		</section>
-	</body>
+                    <tr>
+                        <td><a href="modules/examples/index.html">examples</a></td>
+                        <td>
+                            Example policies and policy models for several use cases, all written for APEX..
+                            Here one can find complete implementations, examples, and tests for APEX policies.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/examples/examples-decisionmaker/index.html">examples-decisionmaker</a> - A simple decision maker demo, with REST interface for interactions deployed in a Docker container</li>
+                                <li><a href="modules/examples/examples-myfirstpolicy/index.html">examples-myfirstpolicy</a> - My First Policy, a step-by-step tutorial for defining a policy</li>
+                                <li><a href="modules/examples/examples-pcvs/index.html">examples-pcvs</a> - An example policy for managing customers and link failures showing video streaming for a simple VPN scenario</li>
+                                <li><a href="modules/examples/examples-onap-vcpe/index.html">examples-onap-vcpe</a> - An example policy for managing vCPE's in ONAP</li>
+                                <li><a href="modules/examples/examples-periodic/index.html">examples-periodic</a> - An example periodic policy</li>
+                                <li><a href="modules/examples/examples-servlet/index.html">examples-aadm</a> - An  APEX Servlet Example</li>
+                                <li><a href="modules/examples/examples-adaptive/index.html">examples-adaptive</a> - A simple adaptive policy</li>
+                                <li><a href="modules/examples/examples-aadm/index.html">examples-aadm</a> - A policy realizing a complex scenario for Autonomic Anomaly Detection and Mitigation (AADM)</li>
+                            </ul>
+                        </td>
+                        <td>Policy Designers, Testers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/client/index.html">clients</a></td>
+                        <td>
+                            Web clients for APEX, including engine monitoring, policy model deployment, and an HTML-based policy editor.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/client/client-editor/index.html">client-editor</a> - APEX REST Editor</li>
+                                <li><a href="modules/client/client-monitoring/index.html">client-monitoring</a> - APEX Monitoring Client</li>
+                                <li><a href="modules/client/client-deployment/index.html">client-deployment</a> - APEX Deployment Client</li>
+                                <li><a href="modules/client/client-full/index.html">client-full</a> - APEX Full Client</li>
+                            </ul>
+                        </td>
+                        <td>APEX users, Developers, Deployers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/auth/index.html">auth</a></td>
+                        <td>
+                            Policy, state, and task authoring for APEX.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/auth/cli-editor/index.html">cli-editor</a> - The APEX CLI Editor</li>
+                                <li><a href="modules/auth/cli-codegen/index.html">cli-codegen</a> - Code-generation tools</li>
+                            </ul>
+                        </td>
+                        <td>Policy Designers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/packages/index.html">packages</a></td>
+                        <td>
+                            The APEX packages, for full deployment (installation package) and Docker deployment.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/packages/apex-pdp-package-full/index.html">package-full</a> - The full deployment module, generates DEB, RPM and TAR deployment artifacts</li>
+                                <li><a href="modules/packages/apex-pdp-docker/index.html">apex-pdp-docker</a> - Creates a Docker deployment artifact</li>
+                            </ul>
+                        </td>
+                        <td>Tester, DevOps, Installers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/tools/index.html">tools</a></td>
+                        <td>
+                            The APEX applications, implementation dependent wrappers and mediation for APEX in various technologies.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/tools/tools-common/index.html">tools-common</a> - Utilities for APEX application developers</li>
+                                <li><a href="modules/tools/model-generator/index.html">model-generator</a> - Generators from/to the APEX policy mode</li>
+                                <li><a href="modules/tools/simple-wsclient/index.html">simple-wsclient</a> - Simple Websocket clients (console and echo) for trigger/actioning systems</li>
+                            </ul>
+                        </td>
+                        <td>Applications developers, DevOps, Installers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/plugins/index.html">plugins</a></td>
+                        <td>
+                            Plugins for APEX that can be implemented with various 3PPs are implemented here.
+                            Most of the APEX engine and system functionality is realized using plug-ins.
+                            These plug-ins are loaded when an APEX policy engine is started.
+                            A configuration specifies which plugins to load.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/plugins/plugins-executor/index.html">plugins-executor</a> - Execution environments for policy logic, such as Javascript, Java, JRuby, Jython, MVEL</li>
+                                <li><a href="modules/plugins/plugins-event/index.html">plugins-event</a> - All event-related plugins: carrier technologies (Kafka, Websocket), event protocols (XML, IBeam)</li>
+                                <li><a href="modules/plugins/plugins-context/index.html">plugins-context</a> - Everything for context: schema (for defining context) distribution (across policies and engines), locking (for writing to context items), persistence</li>
+                                <li><a href="modules/plugins/plugins-persistence/index.html">plugins-persistence</a> - Everything needed for persistence (beside context), mainly JPA plugins for Eclipselink and Hibernate</li>
+                            </ul>
+                        </td>
+                        <td>Plugin developers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/testsuites/index.html">testsuites</a></td>
+                        <td>
+                            APEX testsuites for integration tests, performance tests, and bench marking.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/testsuites/integration/index.html">integration</a> - Packaging for all the Apex components, the engine, the WAR service, and the editor</li>
+                                <li><a href="modules/testsuites/performance/index.html">performance</a> - Packaging for all the Apex components, the engine, the WAR service, and the editor</li>
+                            </ul>
+                        </td>
+                        <td>Service developers, Deployers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/services/index.html">services</a></td>
+                        <td>
+                            The APEX engine as a service, deployment independent.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/services/services-engine/index.html">services-engine</a> - APEX engine service</li>
+                            </ul>
+                        </td>
+                        <td>Service developers, Deployers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/core/index.html">core</a></td>
+                        <td>
+                            The core of APEX, deployment independent.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/core/core-engine/index.html">core-engine</a> - The APEX policy execution engine</li>
+                                <li><a href="modules/core/core-infrastructure/index.html">core-infrastructure</a> - Common non-functional components for APEX</li>
+                                <li><a href="modules/core/core-deployment/index.html">core-deployment</a> - The APEX policy deployer</li>
+                                <li><a href="modules/core/core-protocols/index.html">core-protocols</a> - Protocols used to transfer information between components in APEX</li>
+                            </ul>
+                        </td>
+                        <td>Core APEX developers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/context/index.html">context</a></td>
+                        <td>
+                            The context handling framework of APEX.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/context/context-management/index.html">context-management</a> - Context management for Apex policy execution</li>
+                                <li><a href="modules/context/context-test-utils/index.html">context-test-utils</a> - Test utilities for context</li>
+                            </ul>
+                        </td>
+                        <td>Core APEX developers</td>
+                    </tr>
+
+                    <tr>
+                        <td><a href="modules/model/index.html">model</a></td>
+                        <td>
+                            The model for APEX, it comtains definitions of all APEX concepts, also has handling for APEX policy models.
+                            Important projects here are:
+                            <ul>
+                                <li><a href="modules/model/model-api/index.html">model-api</a> - The APEX Model API with programatic access to a policy model</li>
+                                <li><a href="modules/model/basic-model/index.html">basic-model</a> - Basic Models used and model handling in Apex</li>
+                                <li><a href="modules/model/event-model/index.html">event-model</a> -  Event Models used in APEX </li>
+                                <li><a href="modules/model/policy-model/index.html">policy-model</a> - Policy Models used in APEX</li>
+                                <li><a href="modules/model/engine-model/index.html">engine-model</a> - Engine Models used in APEX</li>
+                                <li><a href="modules/model/context-model/index.html">context-model</a> - Context Models used in APEX</li>
+                                <li><a href="modules/model/utilities/index.html">model-utilities</a> - Common non-functional Apex Model Utilities</li>
+                            </ul>
+                        </td>
+                        <td>Core APEX developers, Application developers (Model API)</td>
+                    </tr>
+                </table>
+
+
+            <h3>APEX Resources</h3>
+                <table>
+                    <tr>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Resource</th>
+                        <th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
+                    </tr>
+                    <tr>
+                        <td><a href="https://gerrit.onap.org/r/#/admin/projects/policy/apex-pdp">APEX Source (ONAP)</a></td>
+                        <td>
+                            The source of APEX is hosted part of the ONAP Policy Framework.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/Ericsson/apex/issues">APEX Issue Management (Github)</a></td>
+                        <td>
+                            Issues with the APEX software and integrated documentation are managed here.
+                        </td>
+                    </tr>
+                </table>
+
+        </section>
+    </body>
 </document>
