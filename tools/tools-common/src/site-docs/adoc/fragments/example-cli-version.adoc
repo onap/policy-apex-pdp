@@ -1,0 +1,50 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Autoversioning an Application
+
+The APEX utilities project provides means to versioning an application automatically towards the APEX version it is written for.
+This is realized by generating a file called `app-version.txt` that includes the Maven project version.
+This file is then automatically deployed in the folder `etc` of a full APEX distribution.
+The CLI Parser here provides a mthod to access this version for an application.
+
+First, create a new CLI Parser object, add some options (in the example an option for version, but any options will do), then parse the command line:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleAppVersion.java[tags=setupParser,indent=0]
+----
+
+Next, we check if the version option was used in the command line and print application name and version if it was used:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleAppVersion.java[tags=processCliVersion,indent=0]
+----
+
+The output will be:
+
+[source,sh,subs="attributes+"]
+----
+myApp {release-version}
+----
+
+The auto-version information comes from the method call `cli.getAppVersion()` in line 2 in the example above.
+The method is defined in the `CliParser` class as:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/main/java/org/onap/policy/apex/tools/common/CliParser.java[tags=cliParserVersion,indent=0]
+----
+
+The file `app-version.txt` is automatically added to an APEX full distribution, as described above (for details on this see the POM files in the APEX application packaging projects).

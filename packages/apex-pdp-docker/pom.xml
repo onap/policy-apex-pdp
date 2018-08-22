@@ -117,7 +117,7 @@
             <distributionManagement>
                 <site>
                     <id>${project.artifactId}-site</id>
-                    <url>${apex.adsite.prefix}/modules/${project.artifactId}/</url>
+                    <url>${apex.adsite.prefix}/modules/${project.parent.artifactId}/${project.artifactId}/</url>
                 </site>
             </distributionManagement>
         </profile>

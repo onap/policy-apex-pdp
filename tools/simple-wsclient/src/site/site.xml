@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+
+-->
+<project name="APEX Tools Simple-WS-Clients">
+    <body>
+        <menu name="APEX Tools Simple-WS-Clients">
+            <item href="clients.html" name="Simple Websocket Clients" />
+            <item href="run-console.html" name="Run Console Client" />
+            <item href="run-echo.html" name="Run Echo Client" />
+
+            <item href="javadocs/index.html" name="API Doc" />
+        </menu>
+        <menu ref="reports" inherit="top"/>
+        <menu ref="modules"/>
+
+        <breadcrumbs>
+            <item name="Simple-WS-Clients" href="index.html"/>
+        </breadcrumbs>
+    </body>
+</project>

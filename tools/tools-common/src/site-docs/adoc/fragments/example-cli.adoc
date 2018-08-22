@@ -1,0 +1,125 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== CLI Example
+
+Using the APEX CLI utilities can be done as follows.
+First, add the dependency of the utility project to your POM file.
+
+[source,xml,subs="attributes+"]
+----
+<dependency>
+  <groupId>com.ericsson.apex.apps</groupId>
+  <artifactId>apex-apps</artifactId>
+  <version>{release-version}</version>
+</dependency>
+----
+
+Now, create a new application project, for instance `MyApp`.
+In this project, create a new main application class as `Application.java`.
+In this class, create a new main method as `public static void main(String[] args)`.
+
+No use the provided `CliOptions` and `CliParser`.
+Manually importing means to add the following lines to the start of your application (in Eclipse this import will be done automatically):
+
+[source,java, linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=import,indent=0]
+----
+
+Now, inside your `main()` method, start setting some general application properties.
+Important are the application name and some description of your application.
+For instance:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=setApp,indent=0]
+----
+
+Next, create a new CLI Parser and add a few CLI options from the standard `CliOptions`.
+The following example adds options for help, version, and a model file:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=setCli,indent=0]
+----
+
+Next, parse the given CLI arguments:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=parseCli,indent=0]
+----
+
+Once the command line is parsed, we can look into the individual options, check if they are set, and then act accordingly.
+We start with the option for __help__.
+If the option is present, we print a help screen and return:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=processCliHelp,indent=0]
+----
+
+Next, we process the option for __version__.
+Here, we want to print a version for our application and return.
+The CLI Parser already provides a method to obtain the correct version for an APEX build, so we use that:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=processCliVersion,indent=0]
+----
+
+Once help and version arguments are processed, we can proceed to look at all other options.
+We have added an option for a model file, so check this option and test if we can actually load a model file with the given argument.
+If we can load a model, everything is ok.
+If we cannot load a model, we print an error and return.
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=processCliModel,indent=0]
+----
+
+With a model file being loadable, we finish parsing command line arguments.
+We also print some status messages to note that the application now is ready to start:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=someStartPrint,indent=0]
+----
+
+The last action now is to run the actual application.
+The example below is taken from a version of the `Model2Cli` application, which creates a new object and runs it in a `try` block, since exceptions might be thrown by the object:
+
+[source,java,linenums,subs="attributes+"]
+----
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleCliParser.java[tags=yourApp,indent=0]
+----
+
+If this new application is now called with the command line `-h` or `--help` it will print the following help screen:
+
+[source,sh,subs="attributes+"]
+----
+test-app v{release-version} - a test app for documenting how to use the CLI utilities
+usage: test-app
+ -h,--help                 prints this help and usage screen
+ -m,--model <MODEL-FILE>   set the input policy model file
+ -v,--version              prints the application version
+----
+
+If this new application is called with the option `-v` or `--version` it will print its version information as:
+
+[source,sh,subs="attributes+"]
+----
+test-app {release-version}
+----
+
