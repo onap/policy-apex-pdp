@@ -1,0 +1,25 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Introduction
+
+Consider a scenario where a supermarket chain called _HyperM_ controls how it sells items in a policy-based manner.
+Each time an item is processed by _HyperM_'s point-of-sale (PoS) system an event is generated and published about that item of stock being sold.
+This event can then be used to update stock levels, etc..
+
+__HyperM__ want to extend this approach to allow some checks to be performed before the sale can be completed.
+This can be achieved by requesting a policy-controlled decision as each item is processed by for sale by each PoS system.
+The decision process is integrated with __HyperM__'s other IT systems that manage stock control, sourcing and purchasing, personnel systems, etc.
+
+In this document we will show how APEX and APEX Policies can be used to achieve this, starting with a simple policy, building up to more complicated policy that demonstrates the features of APEX.
+

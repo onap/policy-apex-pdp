@@ -1,0 +1,36 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Context Schemas
+
+The context schemas are for the local context.
+We model edges and nodes for the topology, customers, and problems with all information on detected problems.
+
+.AVRO Schema Edges
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/topology-edges.avsc[AVRO Schema Edges]
+----
+
+
+.AVRO Schema Nodes
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/topology-nodes.avsc[AVRO Schema Nodes]
+----
+
+.AVRO Schema Customers
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/customers.avsc[AVRO Schema Customers]
+----

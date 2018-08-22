@@ -1,0 +1,91 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Test Policy Step 2
+
+To start a new APEX Engine you can use the following configuration.
+In a full APEX installation you can find this configuration in `$APEX_HOME/examples/config/MyFirstPolicy/2/MyFirstPolicyConfigStdin2StdoutJsonEvent.json`.
+Note, this has changed from the configuration file in Step 1 to enable the `JAVASCRIPT` executor for our new 'Task Selection Logic'.
+
+.JSON to load and execute _My First Policy_, read input JSON events from `stdin`, and emit output events to `stdout`
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/org/onap/policy/apex/examples/myfirstpolicy/2/config/MyFirstPolicyConfigStdin2StdoutJsonEvent.json[configuration file]
+----
+
+To test the policy try paste the following events into the console as the APEX engine executes. Note, all tests from Step 1 will still work perfectly since none of those events originate from a branch with `branch_ID` between `1000` and `2000`. The 'Task Selection Logic' will therefore pick the `MorningBoozeCheck` task as expected, and will therefore give the same results.
+
+.Inputs and Outputs when testing _My First Policy_
+[width="100%",options="header",cols="3a,5a,3d"]
+|====================
+| Input Event (JSON) | Output Event (JSON) | comment
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventIn_BoozeItem_084106GMT.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json[Output (`JSON`)]
+----
+| Request to buy alcohol item (`item_ID=1249`) at _08:41:06 GMT_ on _Monday, 02 January 2017_.
+
+Sale is not authorized. Uses the `MorningBoozeCheck` task.
+
+Note this test is copied from Step 1 above, and demonstrates that the original `MorningBoozeCheck` task is executed.
+
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/2/EventIn_BoozeItem_101433CET_thurs.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/2/EventOut_BoozeItem_101433CET_thurs.json[Output (`JSON`)]
+----
+| Request to buy alcohol (`item_ID=1047`) at _10:14:33_ on _Thursday, 22 December 2016_.
+
+Sale is not authorized. Uses the `MorningBoozeCheckAlt1` task.
+
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/2/EventIn_BoozeItem_171937CET_sun.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/2/EventOut_BoozeItem_171937CET_sun.json[Output (`JSON`)]
+----
+| Request to buy alcohol (`item_ID=1443`) at _17:19:37_ on _Sunday, 18 December 2016_.
+
+Sale is not authorized. Uses the `MorningBoozeCheckAlt1` task.
+
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/2/EventIn_NonBoozeItem_111309CET_mon.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/2/EventOut_NonBoozeItem_111309CET_mon.json[Output (`JSON`)]
+----
+| Request to buy non-alcoholic item (`item_ID=5321`) at _11:13:09_ on _Monday, 2 January 2017_.
+
+Sale is authorized. Uses the `MorningBoozeCheckAlt1` task.
+
+|====================
+

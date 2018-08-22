@@ -1,0 +1,122 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Create the input event `SALE_INPUT` and the output event `SALE_AUTH`
+
+Using the APEX Policy Editor, click on the 'Events' tab. In the 'Events' pane, right click and select 'New':
+
+.Create a new Event type
+image::mfp/MyFirstPolicy_P1_newEvent1.png[Right click to create a new event]
+
+Create a new event type called `SALE_INPUT`. Use the 'Generate UUID' button to create a new unique ID for the event type, and fill in a description for the event. Add a namespace, e.g. `com.hyperm`. We can add hard-coded strings for the `Source` and `Target`, e.g. `POS` and `APEX`. At this stage we will not add any parameter fields, we will leave this until later. Use the `Submit` button to create the event.
+
+.Populate the `SALE_INPUT` event
+image::mfp/MyFirstPolicy_P1_newEvent2.png["Fill in the necessary information for the 'SALE_INPUT' event and click 'Submit'"]
+
+Repeat the same steps for a new event type called `SALE_AUTH`.
+Just use `APEX` as source and `POS` as target, since this is the output event coming from APEX going to the sales point.
+
+Before we can add parameter fields to an event we must first define APEX Context Item Schemas that can be used by those fields.
+
+To create new item schemas, click on the 'Context Item Schemas' tab. In that 'Context Item Schemas' pane, right click and select 'Create new ContextSchema'.
+
+.Create new Data Types
+image::mfp/MyFirstPolicy_P1_newItemSchema1.png["Right click to create a new Item Schema"]
+
+Create item schemas with the following characteristics, each with its own unique UUID:
+
+.Item Schemas
+[width="100%",options="header"]
+|====================
+| Name | Schema Flavour | Schema Definition | Description
+| timestamp_type | Java | java.lang.Long | A type for `time` values
+| sale_ID_type | Java | java.lang.Long | A type for `sale_ID` values
+| price_type | Java | java.lang.Long | A type for `amount`/`price` values
+| item_ID_type | Java | java.lang.Long | A type for `item_ID` values
+| assistant_ID_type | Java | java.lang.Long |  A type for `assistant_ID` values
+| quantity_type | Java | java.lang.Integer |  A type for `quantity` values
+| branch_ID_type | Java | java.lang.Long | A type for `branch_ID` values
+| notes_type | Java | java.lang.String |  A type for `notes` values
+| authorised_type | Java | java.lang.Boolean | A type for `authorised` values
+| message_type | Java | java.lang.String | A type for `message` values
+|====================
+
+.Create new Item Schemas
+image::mfp/MyFirstPolicy_P1_newItemSchema2.png["Create a new Item Schema"]
+
+The item schemas can now be seen on the 'Context Item Schemas' tab, and can be updated at any time by right-clicking on the item schemas on the 'Context Item Schemas' tab. Now we can go back to the event definitions for `SALE_INPUT` and `SALE_AUTH` and add some parameter fields.
+
+[TIP]
+.Field Schema types
+================================
+APEX natively supports schema definitions in `Java` and `Avro`.
+
+`Java` schema definitions are simply the name of a Java Class. There are some restrictions:
+
+* the class must be instantiatable, i.e. not an Java interface or abstract class
+
+* primitive types are not supported, i.e. use `java.lang.Integer` instead of `int`, etc.
+
+* it must be possible to find the class, i.e. the class must be contained in the Java classpath.
+
+`Avro` schema definitions can be any valid https://avro.apache.org/docs/current/spec.html[Avro] schema. For events using fields defined with `Avro` schemas, any incoming event containing that field must contain a value that conforms to the Avro schema.
+================================
+
+Click on the 'Events' tab, then right click the `SALE_INPUT` row and select 'Edit Event `SALE_INPUT`'. To add a new event parameter use the 'Add Event Parameter' button at the bottom of the screen. For the `SALE_INPUT` event add the following event parameters:
+
+.Event Parameter Fields for the `SALE_INPUT` Event
+[width="100%",options="header"]
+|====================
+| Parameter Name | Parameter Type | Optional
+| time | timestamp_type | no
+| sale_ID | sale_ID_type | no
+| amount | price_type | no
+| item_ID | item_ID_type | no
+| quantity | quantity_type | no
+| assistant_ID | assistant_ID_type | no
+| branch_ID | branch_ID_type | no
+| notes | notes_type | _yes_
+|====================
+
+Remember to click the 'Submit' button at the bottom of the event definition pane.
+
+[TIP]
+.Optional Fields in APEX Events
+================================
+Parameter fields can be _optional_ in events. If a parameter is not marked as _optional_ then by default it is _mandatory_, so it must appear in any input event passed to APEX. If an _optional_ field is not set for an output event then value will be set to `null`.
+================================
+
+.Add typed parameter fields to an event
+image::mfp/MyFirstPolicy_P1_newEvent3.png["Add new event parameters to an event"]
+
+Select the `SALE_AUTH` event and add the following event parameters:
+
+.Event Parameter Fields for the `SALE_AUTH` Event
+[width="100%",options="header"]
+|====================
+| Parameter Name | Parameter Type  | no
+| sale_ID | sale_ID_type | no
+| time | timestamp_type | no
+| authorised |  authorised_type | no
+| message | message_type | _yes_
+| amount | price_type | no
+| item_ID | item_ID_type | no
+| assistant_ID | assistant_ID_type | no
+| quantity | quantity_type | no
+| branch_ID | branch_ID_type | no
+| notes | notes_type | _yes_
+|====================
+Remember to click the 'Submit' button at the bottom of the event definition pane.
+
+The events for our policy are now defined.
+

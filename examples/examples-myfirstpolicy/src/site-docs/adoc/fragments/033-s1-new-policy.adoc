@@ -1,0 +1,141 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Create a new Policy and add the _"No Booze before 11:30"_ check
+
+APEX policies are defined using a state-machine model. Each policy comprises one or more _states_ that can be individually executed. Where there is more than one _state_ the states are chained together to form a https://en.wikipedia.org/wiki/Directed_acyclic_graph[Directed Acyclic Graph (DAG)] of states. A _state_ is triggered by passing it a single input (or 'trigger') event and once executed each state then emits an output event. For each _state_ the logic for the _state_ is embedded in one or more _tasks_. Each _task_ contains specific _task logic_ that is executed by the APEX execution environment each time the _task_ is invoked. Where there is more than one _task_ in a _state_ then the _state_ also defines some _task selection logic_ to select an appropriate task each time the _state_ is executed.
+
+Therefore, to create a new policy we must first define one or more tasks.
+
+To create a new Task click on the 'Tasks' tab. In the 'Tasks' pane, right click and select 'Create new Task'. Create a new Task called `MorningBoozeCheck`. Use the 'Generate UUID' button to create a new unique ID for the task, and fill in a description for the task.
+
+.Create a new Task
+image::mfp/MyFirstPolicy_P1_newTask1.png["Right click to create a new task"]
+
+Tasks are configured with a set of _input fields_ and a set of _output fields_. To add new input/output fields for a task use the 'Add Task Input Field' and 'Add Task Output Field' button. The list of input and out fields to add for the `MorningBoozeCheck` task are given below. The input fields are drawn from the parameters in the state's input event, and the task's output fields are used to populate the state's output event. The task's input and output fields must be a subset of the event parameters defined for the input and output events for any state that uses that task. (You may have noticed that the input and output fields for the `MorningBoozeCheck` task have the exact same names and reuse the item schemas that we used for the parameters in the `SALE_INPUT` and `SALE_AUTH` events respectively).
+
+.Input fields for `MorningBoozeCheck` task
+[width="100%",options="header"]
+|====================
+| Parameter Name | Parameter Type
+| time | timestamp_type
+| sale_ID | sale_ID_type
+| amount | price_type
+| item_ID | item_ID_type
+| quantity | quantity_type
+| assistant_ID | assistant_ID_type
+| branch_ID | branch_ID_type
+| notes | notes_type
+|====================
+
+.Output fields for `MorningBoozeCheck` task
+[width="100%",options="header"]
+|====================
+| Parameter Name | Parameter Type
+| sale_ID | sale_ID_type
+| time | timestamp_type
+| authorised |  authorised_type
+| message | message_type
+| amount | price_type
+| item_ID | item_ID_type
+| assistant_ID | assistant_ID_type
+| quantity | quantity_type
+| branch_ID | branch_ID_type
+| notes | notes_type
+|====================
+
+.Add input and out fields for the Task
+image::mfp/MyFirstPolicy_P1_newTask2.png["Add input and out fields for the task"]
+
+Each task must include some 'Task Logic' that implements the behaviour for the task. Task logic can be defined in a number of different ways using a choice of languages. For this task we will author the logic using the Java-like scripting language called https://en.wikipedia.org/wiki/MVEL[`MVEL`].
+
+For simplicity use the following code for the task logic. Paste the script text into the 'Task Logic' box, and use "MVEL" as the 'Task Logic Type / Flavour'. 
+
+This logic assumes that all items with `item_ID` between 1000 and 2000 contain alcohol, which is not very realistic, but we will see a better approach for this later. It also uses the standard `Java` time utilities to check if the current time is between `00:00:00 GMT` and `11:30:00 GMT`. For a detailed guide to how to write your own logic in https://en.wikipedia.org/wiki/JavaScript[`JavaScript`], https://en.wikipedia.org/wiki/MVEL[`MVEL`] or one of the other supported languages please refer to APEX Programmers Guide.
+
+.MVEL code for the `MorningBoozeCheck` task
+[source,java,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/models/MyFirstPolicy/1/MorningBoozeCheck.mvel[`MorningBoozeCheck` task logic (`MVEL`)]
+----
+
+
+.Add Task Logic the Task
+image::mfp/MyFirstPolicy_P1_newTask3.png["Add task logic the task"]
+
+An alternative version of the same logic is available in JavaScript.
+Just use "JAVASCRIPT" as the 'Task Logic Type / Flavour' instead.
+
+.Javascript alternative for the `MorningBoozeCheck` task
+[source,javascript,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/models/MyFirstPolicy/1/MorningBoozeCheck.js[`MorningBoozeCheck` task logic (`Javascript`)]
+----
+
+
+The task definition is now complete so click the 'Submit' button to save the task. The task can now be seen on the 'Tasks' tab, and can be updated at any time by right-clicking on the task on the 'Task' tab. Now that we have created our task, we can can create a policy that uses that task.
+
+To create a new Policy click on the 'Policies' tab. In the 'Policies' pane, right click and select 'Create new Policy':
+
+Create a new Policy called `MyFirstPolicy`. Use the 'Generate UUID' button to create a new unique ID for the policy, and fill in a description for the policy. Use 'FREEFORM' as the 'Policy Flavour'.
+
+Each policy must have at least one state. Since this is 'freeform' policy we can add as many states as we wish. Let's start with one state.  Add a new state called `BoozeAuthDecide` to this `MyFirstPolicy` policy using the 'Add new State' button after filling in the name of our new state.
+
+.Create a new Policy
+image::mfp/MyFirstPolicy_P1_newPolicy1.png["Create a new policy"]
+
+Each state must uses one input event type. For this new state select the `SALE_INPUT` event as the input event.
+
+Each policy must define a 'First State' and a 'Policy Trigger Event'. The 'Policy Trigger Event' is the input event for the policy as a whole. This event is then passed to the first state in the chain of states in the policy, therefore the 'Policy Trigger Event' will be the input event for the first state. Each policy can only have one 'First State'. For our `MyFirstPolicy` policy, select `BoozeAuthDecide` as the 'First State'. This will automatically select `SALE_INPUT` as the 'Policy Trigger Event' for our policy.
+
+.Create a new State
+image::mfp/MyFirstPolicy_P1_newState1.png["Create a state"]
+
+In this case we will create a reference the pre-existing `MorningBoozeCheck` task that we defined above using the 'Add New Task' button. Select the `MorningBoozeCheck` task, and use the name of the task as the 'Local Name' for the task.
+
+in the case where a state references more than one task, a 'Default Task' must be selected for the state and some logic ('Task Selection Logic') must be specified to select the appropriate task at execution time. Since our new state `BoozeAuthDecide` only has one task the default task is automatically selected and no 'Task Selection Logic' is required.
+
+[NOTE]
+.State Output Mappings
+====
+In a 'Policy' 'State' a 'State Output Mapping' has 3 roles: 1) Select which 'State' should be executed next, 2) Select the type of the state's 'Outgoing Event', and 3) Populate the state's 'Outgoing Event'. This is how states are chained together to form a (https://en.wikipedia.org/wiki/Directed_acyclic_graph[Directed Acyclic Graph (DAG)]) of states. The final state(s) of a policy are those that do not select any 'next' state. Since a 'State' can only accept a single type of event, the type of the event emitted by a previous 'State' must be match the incoming event type of the next 'State'. This is also how the last state(s) in a policy can emit events of different types. The 'State Output Mapping' is also responsible for taking the fields that are output by the task executed in the state and populating the state's output event before it is emitted.
+
+Each 'Task' referenced in 'State' must have a defined 'Output Mapping' to take the output of the task, select an 'Outgoing Event' type for the state, populate the state's outgoing event, and then select the next state to be executed (if any).
+
+There are 2 basic types of output mappings:
+
+. *Direct Output Mappings* have a single value for 'Next State' and a single value for 'State Output Event'. The outgoing event for the state is automatically created, any outgoing event parameters that were present in the incoming event are copied into the outgoing event, then any task output fields that have the same name and type as parameters in the outgoing event are automatically copied into the outgoing event.
+. *Logic-based State Output Mappings / Finalizers* have some logic defined that dynamically selects and creates the 'State Outgoing Event', manages the population of the outgoing event parameters (perhaps changing or adding to the outputs from the task), and then dynamically selects the next state to be executed (if any).
+====
+
+Each task reference must also have an associated 'Output State Mapping' so we need an 'Output State Mapping' for the `BoozeAuthDecide` state to use when the `MorningBoozeCheck` task is executed. The simplest type of output mapping is a 'Direct Output Mapping'.
+
+Create a new 'Direct Output Mapping' for the state called `MorningBoozeCheck_Output_Direct` using the 'Add New Direct State Output Mapping' button. Select `SALE_AUTH` as the output event and select `None` for the next state value. We can then select this output mapping for use when the the `MorningBoozeCheck` task is executed. Since there is only state, and only one task for that state, this output mapping ensures that the `BoozeAuthDecide` state is the only state executed and the state (and the policy) can only emit events of type `SALE_AUTH`. (You may remember that the output fields for the `MorningBoozeCheck` task have the exact same names and reuse the item schemas that we used for the parameters in `SALE_AUTH` event. The `MorningBoozeCheck_Output_Direct` direct output mapping can now automatically copy the values from the  `MorningBoozeCheck` task directly into outgoing `SALE_AUTH` events.)
+
+.Add a Task and Output Mapping
+image::mfp/MyFirstPolicy_P1_newState2.png["Add a Task and Output Mapping"]
+
+Click the 'Submit' button to complete the definition of our `MyFirstPolicy` policy. The policy `MyFirstPolicy` can now be seen in the list of policies on the 'Policies' tab, and can be updated at any time by right-clicking on the policy on the 'Policies' tab.
+
+The `MyFirstPolicyModel`, including our `MyFirstPolicy` policy can now be checked for errors. Click on the 'Model' menu and select 'Validate'. The model should validate without any 'Warning' or 'Error' messages. If you see any 'Error' or 'Warning' messages, carefully read the message as a hint to find where you might have made a mistake when defining some aspect of your policy model.
+
+.Validate a Policy Model
+image::mfp/MyFirstPolicy_P1_validatePolicyModel.png["Validate the policy model for error using the 'Model' > 'Validate' menu item"]
+
+Congratulations, you have now completed your first APEX policy. The policy model containing our new policy can now be exported from the editor and saved. Click on the 'File' menu and select 'Download' to save the policy model in JSON format.
+The exported policy model is then available in the directory you selected, for instance `$APEX_HOME/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.json`.
+The exported policy can now be loaded into the APEX Policy Engine, or can be re-loaded and edited by the APEX Policy Editor.
+
+.Export a Policy Model
+image::mfp/MyFirstPolicy_P1_exportPolicyModel1.png["Download the completed policy model using the 'File' > 'Download' menu item"]
+

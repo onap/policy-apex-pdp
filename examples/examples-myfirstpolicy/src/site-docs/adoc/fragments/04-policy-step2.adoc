@@ -1,0 +1,23 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Policy Step 2
+
+=== Scenario
+_HyperM_ have just opened a new branch in a different country, but that country has different rules about when alcohol can be sold! In this section we will go through the necessary steps to extend our policy to enforce this for _HyperM_.
+
+* In some branches alcohol cannot be sold before 1pm, and not at all on Sundays.
+
+Although there are a number of ways to accomplish this the easiest approach for us is to define another task and then select which task is appropriate at runtime depending on the branch identifier in the incoming event.
+
+

@@ -1,0 +1,75 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Test Policy Step 1
+
+To start a new APEX Engine you can use the following configuration.
+In a full APEX installation you can find this configuration in `$APEX_HOME/examples/config/MyFirstPolicy/1/MyFirstPolicyConfigStdin2StdoutJsonEvent.json`.
+This configuration expects incoming events to be in `JSON` format and to be passed into the APEX Engine from `stdin`, and result events will be printed in `JSON` format to `stdout`. This configuration loads the policy model stored in the file 'MyFirstPolicyModel_0.0.1.json' as exported from the APEX Editor. Note, you may need to edit this file to provide the full path to wherever you stored the exported policy model file.
+
+.JSON to load and execute _My First Policy_, read input JSON events from `stdin`, and emit output events to `stdout`
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/org/onap/policy/apex/examples/myfirstpolicy/1/config/MyFirstPolicyConfigStdin2StdoutJsonEvent.json[configuration file]
+----
+
+To test the policy try paste the following events into the console as the APEX engine executes:
+
+.Inputs and Outputs when testing _My First Policy_
+[width="100%",options="header",cols="4a,6a,2d"]
+|====================
+| Input Event (JSON) | Output Event (JSON) | comment
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json[Output (`JSON`)]
+----
+| Request to buy a non-alcoholic item (`item_ID=5123`) at _10:13:09_ on _Tuesday, 10 January 2017_.
+
+Sale is authorized.
+
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventIn_BoozeItem_084106GMT.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json[Output (`JSON`)]
+----
+| Request to buy alcohol item (`item_ID=1249`) at _08:41:06_ on _Monday, 02 January 2017_.
+
+Sale is not authorized.
+
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventIn_BoozeItem_201713GMT.json[Input (`JSON`)]
+----
+|
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json[Output (`JSON`)]
+----
+| Request to buy alcohol (`item_ID=1943`) at _20:17:13_ on _Tuesday, 20 December 2016_.
+
+Sale is authorized.
+
+|====================
+

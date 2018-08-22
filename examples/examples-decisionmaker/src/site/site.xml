@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+
+-->
+
+<project name="APEX Examples Decision Maker">
+    <body>
+        <menu name="APEX Examples Decision Maker">
+            <item href="ApexConfigRESTClient.html" name="Config: REST Client" />
+            <item href="ApexConfigRESTServer.html" name="Config: REST Server" />
+            <item href="AnswerInitiationEvents.html" name="Inititation Events" />
+            <item href="MakeDecision_Client.html" name="HTML Client" />
+            <item href="MakeDecision_Server.html" name="HTML Server" />
+            <item href="MakeDecisionExtraMode_Client.html" name="HTML Client (Extra)" />
+            <item href="MakeDecisionExtraMode_Server.html" name="HTML Server (Extra)" />
+            <item href="DecisionMakerPolicyModel.html" name="APEX Model (Policy)"
+                collapse="true">
+                <item href="AnswerInitTask.html" name="Task Logic: Answer Init" />
+                <item href="DitheringAnswerTask.html" name="Task Logic: Dithering Answer" />
+                <item href="MakeDecisionStateTSL.html" name="Task Selection Logic: Make Decision State" />
+                <item href="OptimisticAnswerTask.html" name="Task Logic: Optimistic Answer" />
+                <item href="PessimisticAnswerTask.html" name="Task Logic: Pessimistic Answer" />
+                <item href="RandomAnswerTask.html" name="Task Logic: Random Answer" />
+                <item href="RoundRobinAnswerTask.html" name="Task Logic: RoundRobin Answer" />
+            </item>
+            <item href="dockerfile.html" name="Dockerfile" />
+
+        </menu>
+        <menu ref="reports" inherit="top" />
+        <menu ref="modules" />
+
+        <breadcrumbs>
+            <item name="Decision Maker" href="index.html" />
+        </breadcrumbs>
+    </body>
+</project>

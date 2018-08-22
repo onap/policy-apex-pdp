@@ -1,0 +1,25 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Create the an new empty Policy Model `MyFirstPolicyModel`
+
+Since an organisation like _HyperM_ may have many policies covering many different domains, policies should be grouped into policy sets. In order to edit or deploy a policy, or policy set, the definition of the policy(ies) and all required events, tasks, states, etc., are grouped together into a 'Policy Model'. An organization might define many Policy Models, each containing a different set of policies.
+
+So the first step is to create a new empty Policy Model called `MyFirstPolicyModel`. Using the APEX Policy Editor, click on the 'File' menus and select 'New'. Then define our new policy model called `MyFirstPolicyModel`. Use the 'Generate UUID' button to create a new unique ID for the policy model, and fill in a description for the policy model. Press the `Submit` button to save your changes.
+
+.Create a new Policy Model 1/2
+image::mfp/MyFirstPolicy_P1_newPolicyModel1.png[File > New to create a new Policy Model]
+
+.Create a new Policy Model 2/2
+image::mfp/MyFirstPolicy_P1_newPolicyModel2.png[Create a new Policy Model]
+
