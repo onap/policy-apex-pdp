@@ -1,0 +1,165 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== VPN SLA Demo
+
+This demo uses a network with several central office and core switches, over which two VPNs are run.
+A customer `A` has two location `A1` and `A2` and a VPN between them.
+A customer `B` has two location `B1` and `B2` and a VPN between them.
+
+.VPN SLA Architecture
+image::pcvs/vpnsla-arch.png[VPN SLA Architecture]
+
+The architecture above shows the scenario.
+The components are realized in this demo as follows:
+
+* _CEP / Analytics_ - a simple Python script taking events from Kafka and sending them to APEX
+* _APEX / Policy_ - the APEX engine running the VPA SLA policy
+* _Controller_ - A vanilla Floodlight controller taking events from the Link Monitor and configuring Mininet
+* _Network_ - A network created using Mininet
+
+The demo requires to start some software (detailed below).
+To show actual video streams, we use `VLC`.
+If you do not want to show video streams, but only the policy, skip the `VLC` section.
+
+All shown scripts are available in a full APEX installation in `$APEX_HOME/examples/scripts/pcvs/vpnsla`.
+
+=== Start all Software
+
+Create environment variables in a file, say `env.sh`.
+In each new Xterm
+
+* Source these environment settings, e.g. `. ./env.sh`
+* Run the commands below as root (`sudo` per command or `sudo -i` for interactive mode as shown below)
+
+----
+#!/usr/bin/env bash
+
+export src_dir=/usr/local/src
+export APEX_HOME=/opt/ericsson/apex/apex
+export APEX_USER=apexuser
+----
+
+In a new Xterm, start Floodlight
+
+----
+sudo -i
+. ./env.sh
+cd $src_dir/floodlight-master && java -jar target/floodlight.jar
+----
+
+In a new Xterm start Mininet
+
+----
+sudo -i
+. ./env.sh
+mn -c && python $APEX_HOME/examples/scripts/pcvs/vpnsla/MininetTopology.py
+----
+
+In a new Xterm, start Kafka
+
+----
+sudo -i
+. ./env.sh
+/opt/Kafka/kafka_2.12-1.0.0/bin/kafka-server-start.sh /opt/Kafka/kafka_2.12-1.0.0/config/server.properties
+----
+
+In a new Xerm start APEX with the Kafka configuration for this demo
+
+----
+cd $APEX_HOME
+./bin/apexApps.sh engine -c examples/config/pcvs/vpnsla/kafka2kafka.json
+----
+
+In a new Xterm start the Link Monitor.
+The Link Monitor has a 30 second sleep to slow down the demonstration.
+So the first action of it comes 30 seconds after start.
+Every new action in 30 second intervals.
+
+----
+sudo -i
+. ./env.sh
+cd $src_dir
+xterm -hold -e 'python3 $src_dir/kafka-python/LinkMonitor.py' &
+----
+
+Now all software should be started and the demo is running.
+The Link Monitor will send link up events, picked up by APEX which triggers the policy.
+Since there is no problem, the policy will do nothing.
+
+
+
+=== Create 2 Video Streams with VLC
+
+In the Mininet console, type `xterm A1 A2` and `xterm B1 B2` to open terminals on these nodes.
+
+`A2` and `B2` are the receiving nodes.
+In these terminals, run `vlc-wrapper`.
+In each opened VLC window do
+
+* Click Media -> Open Network Stream
+* Give the URL as `rtp://@:5004`
+
+`A1` and `B1` are the sending nodes (sending the video stream)
+In these terminals, run `vlc-wrapper`.
+In each opened VLC window do
+
+* Click Media -> Stream
+* Add the video (from `/usr/local/src/videos`)
+* Click `Stream`
+* Click `Next`
+* Change the destination `RTP / MPEG Transport Stream` and click `Add`
+* Change the address and type to `10.0.0.2` in `A1` and to `10.0.0.4` in `B1`
+* Turn off `Active Transcoding` (this is important to minimize CPU load)
+* Click `Next`
+* Click `Stream`
+
+The video should be streaming across the network from `A1` to `A2` and from `B1` to `B2`.
+If the video streams a slow or interrupted the CPU load is too high.
+In these cases either try a better machine or use a different (lower quality) video stream.
+
+=== Take out L09 and let the Policy do it's Magic
+
+Now it is time to take out the link `L09`.
+This will be picked up by the Link Monitor, which sends a new event (L09 DOWN) to the policy.
+The policy then will calculate which customer should be impeded (throttled).
+This will continue, until SLAs are violated, then a priority calculation will kick in (Customer `A` is prioritized in the setup).
+
+To initiate this, simply type `link s5 s6 down` in the Mininet console followed by `exit`.
+
+If you have the video streams running, you will see one or the other struggeling, depending on the policy decision.
+
+=== Reset the Demo
+
+If you want to reset the demo, simple stop (in this order) the following process
+
+* Link Monitor
+* APEX
+* Mininet
+* Floodlight
+
+Then restart them in this order
+
+* Floodlight
+* Mininet
+* APEX
+* Link Monitor
+
+
+=== Monitor the Demo
+
+Floodlight and APEX provide REST interfaces for monitoring.
+
+* Floodlight: see link:https://floodlight.atlassian.net/wiki/spaces/floodlightcontroller/pages/40403023/Web+GUI[Floodlight Docs] for details on how to access the monitoring. In a standard installation as we use here, pointing browser to the URL `http://localhost:8080/ui/pages/index.html` should work on the same host
+* APEX please see the APEX documentation for link:https://ericsson.github.io/apex-docs/user-manual/engine-apps/um-engapps-eng-monitoring.html[Monitoring Client] or link:https://ericsson.github.io/apex-docs/user-manual/engine-apps/um-engapps-full-client.html[Full Client] for details on how to monitor APEX.
+

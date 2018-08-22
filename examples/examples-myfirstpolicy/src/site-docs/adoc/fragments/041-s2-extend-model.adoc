@@ -1,0 +1,92 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Extend the Policy with the new Scenario
+
+To create a new Task click on the 'Tasks' tab. In the 'Tasks' pane, right click and select 'Create new Task':
+
+Create a new Task called `MorningBoozeCheckAlt1`.  Use the 'Generate UUID' button to create a new unique ID for the task, and fill in a description for the task. Select the same input and output fields that we used earlier when we defined the `MorningBoozeCheck` task earlier.
+
+.Input fields for `MorningBoozeCheckAlt1` task
+[width="100%",options="header"]
+|====================
+| Parameter Name | Parameter Type
+| time | timestamp_type
+| sale_ID | sale_ID_type
+| amount | price_type
+| item_ID | item_ID_type
+| quantity | quantity_type
+| assistant_ID | assistant_ID_type
+| branch_ID | branch_ID_type
+| notes | notes_type
+|====================
+
+.Output fields for `MorningBoozeCheckAlt1` task
+[width="100%",options="header"]
+|====================
+| Parameter Name | Parameter Type
+| sale_ID | sale_ID_type
+| time | timestamp_type
+| authorised |  authorised_type
+| message | message_type
+| amount | price_type
+| item_ID | item_ID_type
+| assistant_ID | assistant_ID_type
+| quantity | quantity_type
+| branch_ID | branch_ID_type
+| notes | notes_type
+|====================
+
+This task also requires some 'Task Logic' to implement the new behaviour for this task.
+
+For simplicity use the following code for the task logic. It again assumes that all items with `item_ID` between 1000 and 2000 contain alcohol. We again use the standard `Java` time utilities to check if the current time is between `00:00:00 CET` and `13:00:00 CET` or if it is `Sunday`.
+
+For this task we will again author the logic using the https://en.wikipedia.org/wiki/MVEL[`MVEL`] scripting language. Sample task logic code (specified in https://en.wikipedia.org/wiki/MVEL[`MVEL`]) is given below. For a detailed guide to how to write your own logic in https://en.wikipedia.org/wiki/JavaScript[`JavaScript`], https://en.wikipedia.org/wiki/MVEL[`MVEL`] or one of the other supported languages please refer to APEX Programmers Guide.
+
+.MVEL code for the `MorningBoozeCheckAlt1` task
+[source,java,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/models/MyFirstPolicy/2/MorningBoozeCheckAlt1.mvel[`MorningBoozeCheckAlt1` task logic (`MVEL`)]
+----
+
+.Create a new Task
+image::mfp/MyFirstPolicy_P2_newTask1.png["Create a new alternative task `MorningBoozeCheckAlt1`"]
+
+The task definition is now complete so click the 'Submit' button to save the task. Now that we have created our task, we can can add this task to the single pre-existing state (`BoozeAuthDecide`) in our policy.
+
+To edit the `BoozeAuthDecide` state in our policy click on the 'Policies' tab. In the 'Policies' pane, right click on our `MyFirstPolicy` policy and select 'Edit'. Navigate to the `BoozeAuthDecide` state in the 'states' section at the bottom of the policy definition pane.
+
+.Edit a Policy
+image::mfp/MyFirstPolicy_P2_editPolicy1.png["Right click to edit a policy"]
+
+To add our new task `MorningBoozeCheckAlt1`, scroll down to the `BoozeAuthDecide` state in the 'States' section. In the 'State Tasks' section for `BoozeAuthDecide` use the 'Add new task' button. Select our new `MorningBoozeCheckAlt1` task, and use the name of the task as the 'Local Name' for the task. The `MorningBoozeCheckAlt1` task can reuse the same `MorningBoozeCheck_Output_Direct` 'Direct State Output Mapping' that we used for the `MorningBoozeCheck` task. (Recall that the role of the 'State Output Mapping' is to select the output event for the state, and select the next state to be executed. These both remain the same as before.)
+
+Since our state has more than one task we must define some logic to determine which task should be used each time the state is executed. This _task selection logic_ is defined in the state definition. For our `BoozeAuthDecide` state we want the choice of which task to use to be based on the `branch_ID` from which the `SALE_INPUT` event originated. For simplicity sake let us assume that branches with `branch_ID` between `0` and `999` should use the `MorningBoozeCheck` task, and the branches with with `branch_ID` between `1000` and `1999` should use the `MorningBoozeCheckAlt1` task.
+
+This time, for variety, we will author the task selection logic using the https://en.wikipedia.org/wiki/JavaScript[`JavaScript`] scripting language. Sample task selection logic code (specified in https://en.wikipedia.org/wiki/JavaScript[`JavaScript`]) is given below. Paste the script text into the 'Task Selection Logic' box, and use "JAVASCRIPT" as the 'Task Selection Logic Type / Flavour'. It is necessary to mark one of the tasks as the 'Default Task' so that the task selection logic always has a fallback default option in cases where a particular task cannot be selected. In this case the `MorningBoozeCheck` task can be the default task.
+
+.JavaScript code for the `BoozeAuthDecide` task selection logic
+[source,javascript,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicy_BoozeAuthDecideTSL.js[`BoozeAuthDecide` task selection logic (`JavaScript`)]
+----
+
+.State definition with 2 Tasks and Task Selection Logic
+image::mfp/MyFirstPolicy_P2_editState1.png["State definition with 2 Tasks and Task Selection Logic"]
+
+When complete don't forget to click the 'Submit' button at the bottom of 'Policies' pane for our `MyFirstPolicy` policy after updating the `BoozeAuthDecide` state.
+
+Congratulations, you have now completed the second step towards your first APEX policy. The policy model containing our new policy can again be validated and exported from the editor and saved as shown in Step 1.
+
+The exported policy model is then available in the directory you selected, as link:files/mfp-files/2/MyFirstPolicyModel_0.0.1.json[_MyFirstPolicyModel_0.0.1.json_]. The exported policy can now be loaded into the APEX Policy Engine, or can be re-loaded and edited by the APEX Policy Editor.
+

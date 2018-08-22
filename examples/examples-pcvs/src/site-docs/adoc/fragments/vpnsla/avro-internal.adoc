@@ -1,0 +1,32 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Internal Event Schemas
+
+For the communication between some of the policy states we are also using Avro schemas, namely:
+
+* Establish -> Decide: a schema for the established situation
+* Decide -> Act: a schema for the taken decision
+
+.AVRO Schema Situation
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/situation.avsc[AVRO Schema Situation]
+----
+
+
+.AVRO Schema Decision
+[source,json,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/decision.avsc[AVRO Schema Decision]
+----

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+
+-->
+
+<project name="APEX Examples PCVS">
+    <body>
+        <menu name="APEX Examples PCVS">
+            <item href="introduction.html" name="Introduction" />
+            <item href="install.html" name="Install Ubuntu Server and SW" />
+            <item href="vpnsla.html" name="VPN SLA Demo" />
+            <item href="vpnsla/policy.html" name="VPN SLA Policy" collapse="true">
+                <item href="vpnsla/avro-ctxt.html" name="Context Schemas" />
+                <item href="vpnsla/avro-internal.html" name="Internal Schemas" />
+                <item href="vpnsla/avro-trigger.html" name="Trigger Schema" />
+                <item href="vpnsla/ctxt-logic-nodes.html" name="Context Logic Nodes" />
+                <item href="vpnsla/ctxt-logic-edges.html" name="Context Logic Edges" />
+                <item href="vpnsla/ctxt-logic-customer.html" name="Context Logic Customers" />
+                <item href="vpnsla/logic-match.html" name="Logic: Match" />
+                <item href="vpnsla/logic-establish.html" name="Logic: Establish" />
+                <item href="vpnsla/logic-decide.html" name="Logic: Decide" />
+                <item href="vpnsla/logic-decide-none.html" name="Logic: Decide None" />
+                <item href="vpnsla/logic-decide-solved.html" name="Logic: Decide Solved" />
+                <item href="vpnsla/logic-decide-sla.html" name="Logic: Decide SLA" />
+                <item href="vpnsla/logic-decide-priority.html" name="Logic: Decide Priority" />
+                <item href="vpnsla/logic-act.html" name="Logic: Act" />
+                <item href="vpnsla/cli-spec.html" name="CLI Spec" />
+                <item href="vpnsla/ctxt-events-nodes.html" name="Context Events Nodes" />
+                <item href="vpnsla/ctxt-events-edges.html" name="Context Events Edges" />
+                <item href="vpnsla/ctxt-events-customers.html" name="Context Events Customers" />
+                <item href="vpnsla/events-trigger.html" name="Trigger Examples" />
+                <item href="vpnsla/python-linkmonitor.html" name="Link Monitor" />
+                <item href="vpnsla/python-mininet.html" name="Mininet Topology" />
+            </item>
+            <item href="javadocs/index.html" name="API Doc" />
+        </menu>
+        <menu ref="reports" inherit="top" />
+        <menu ref="modules" />
+
+        <breadcrumbs>
+            <item name="pcvs" href="index.html" />
+        </breadcrumbs>
+    </body>
+</project>

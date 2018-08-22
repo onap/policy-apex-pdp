@@ -1,0 +1,29 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Logic: Policy Establish State
+
+This is the logic for the establish state.
+It is the most complicated logic, since establishing a situation for a decision is the most important part of any policy.
+First, the policy describes what we find (the switch block), in terms of 8 normal situations and 1 extreme error case.
+
+If required, it creates local context information for the problem (if it is new) or updates it (if the problem still exists).
+It also calculates customer SLA downtime and checks for any SLA violations.
+Finally, it creates a situation object.
+
+.JS Logic Policy Establish State
+[source,javascript,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/task-establish.js[JS Logic Policy Establish State]
+----
+

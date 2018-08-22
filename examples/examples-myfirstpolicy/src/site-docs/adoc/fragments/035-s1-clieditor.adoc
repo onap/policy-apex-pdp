@@ -1,0 +1,23 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+=== Policy 1 in CLI Editor
+
+An equivalent version of the `MyFirstPolicyModel` policy model can again be generated using the APEX CLI editor.
+A sample APEX CLI script is shown below:
+
+.APEX CLI Editor code for Policy 1
+[source,apex,options="nowrap"]
+----
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex[APEX CLI Editor code for Policy 1]
+----

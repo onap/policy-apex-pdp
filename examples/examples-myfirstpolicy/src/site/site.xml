@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+
+-->
+
+<project name="APEX Examples My First Policy">
+    <body>
+        <menu name="APEX Examples My First Policy">
+            <item href="MyFirstPolicyHowto.html" name="HowTo: My First Policy"
+                collapse="true">
+                <item href="02-data-models.html" name="Data Models" />
+                <item href="03-policy-step1.html" name="Policy Step 1">
+                    <item href="031-s1-new-model.html" name="New Policy Model" />
+                    <item href="032-s1-new-events.html" name="Events" />
+                    <item href="033-s1-new-policy.html" name="New Policy" />
+                    <item href="034-s1-test-policy.html" name="Test the Policy" />
+                    <item href="035-s1-clieditor.html" name="CLI Editor File" />
+                </item>
+                <item href="04-policy-step2.html" name="Policy Step 2">
+                    <item href="041-s2-extend-model.html" name="Extend Policy Model" />
+                    <item href="042-s2-test-policy.html" name="Test the Policy" />
+                    <item href="043-s2-clieditor.html" name="CLI Editor File" />
+                </item>
+            </item>
+            <item href="javadocs/index.html" name="API Doc" />
+        </menu>
+        <menu ref="reports" inherit="top" />
+        <menu ref="modules" />
+
+        <breadcrumbs>
+            <item name="My First Policy" href="index.html" />
+        </breadcrumbs>
+    </body>
+</project>

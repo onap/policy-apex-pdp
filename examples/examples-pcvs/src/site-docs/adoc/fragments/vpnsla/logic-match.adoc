@@ -1,0 +1,25 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Logic: Policy Match State
+
+This is the logic for the match state.
+It is kept very simple.
+Beside taking the trigger event, it also creates a timestamp.
+This timestamp is later used for SLA and downtime calculations as well as for some performance information of the policy.
+
+.JS Logic Policy Match State
+[source,javascript,options="nowrap"]
+----
+include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/task-match.js[JS Logic Policy Match State]
+----

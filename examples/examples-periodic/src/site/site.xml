@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============LICENSE_START=======================================================
+   Copyright (C) 2016-2018 Ericsson. All rights reserved.
+  ================================================================================
+  This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+  Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+
+  SPDX-License-Identifier: CC-BY-4.0
+  ============LICENSE_END=========================================================
+
+  @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+
+-->
+
+<project name="APEX Examples Periodic Policy">
+    <body>
+        <menu name="APEX Domains Periodic Policy">
+            <item href="apex-configuration.html" name="APEX Configuration" />
+            <item href="apex-model.html" name="APEX Model (Policy)" />
+            <item href="logic-task-output.html" name="Logic: Output Task" />
+            <item href="logic-task-periodic.html" name="Logic: Periodic Task" />
+            <item href="dockerfile.html" name="Dockerfile" />
+        </menu>
+        <menu ref="reports" inherit="top" />
+        <menu ref="modules" />
+
+        <breadcrumbs>
+            <item name="Periodic Policy" href="index.html" />
+        </breadcrumbs>
+    </body>
+</project>

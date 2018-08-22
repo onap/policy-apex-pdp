@@ -1,0 +1,28 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== VPN SLA Policy
+
+The VPN SLA policy is designed as a MEDA policy.
+The first state (M = Match) takes the trigger event (a link up or down) and checks if this is a change to the known topology.
+The second state (E = Establish) takes all available information (trigger event, local context) and defines what situation we have.
+The third state (D = Decide) takes the situation and selects which algorithm is best to process it.
+This state can select between `none` (nothing to do), `solved` (a problem is solved now), `sla` (compare the current customer SLA situation and select one to impede), and `priority` (impede non-priority customers).
+The fourth and final state (A = Act) selects the right action for the taken decision and creates the response event sent to the orchestrator.
+
+We have added three more policies to set the local context: one for adding nodes, one for adding edges (links), and one for adding customers.
+These policies do not realize any action, they are only here for updating the local context.
+This mechanism is the fasted way to update local context, and it is independent of any context plugin.
+
+The policy uses data defined in Avro, so we have a number of Avro schema definitions.
+
