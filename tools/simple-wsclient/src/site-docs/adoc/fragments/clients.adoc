@@ -1,0 +1,22 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Simple Websocket Clients
+
+In a full installation, the APEX applications provide two demo Websocket clients: echo and console.
+The __echo__ client connects to a Websocket server and prints all events it receives (reading text/string from Websocket).
+The __console__ client connects to a Websocket server, takes strings from the console (multi-line JSON encoded string starting with ‘{‘ and ending with ‘}’) and sends them as text via a Websocket.
+
+Both demo clients use `Java-WebSocket` and have no further dependency on APEX:
+
+- link:https://search.maven.org/#artifactdetails%7Corg.java-websocket%7CJava-WebSocket%7C1.3.4%7Cjar[Websocket implementation]

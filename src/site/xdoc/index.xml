@@ -127,22 +127,42 @@
 						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Description</th>
 						<th style="white-space:nowrap; font-weight: bold; font-size: 1.25em">Useful for</th>
 					</tr>
-<!--
+
 					<tr>
-						<td><a href="modules/apps/index.html">apps</a></td>
+						<td><a href="modules/examples/index.html">examples</a></td>
 						<td>
-							The APEX applications, implementation dependent wrappers and mediation for APEX in various technologies.
+							Example policies and policy models for several use cases, all written for APEX..
+							Here one can find complete implementations, examples, and tests for APEX policies.
 							Important projects here are:
 							<ul>
-								<li><a href="modules/apps/apps-generators/apps-generators-model/index.html">apps-generators-model</a> - Generators from/to the APEX policy mode</li>
-								<li><a href="modules/apps/apps-utilities/index.html">apps-utilities</a> - Utilities for APEX application developers</li>
-								<li><a href="modules/apps/apps-wsclients/apps-wsclients-simple/index.html">apps-wsclients-simple</a> - Simple Websocket clients (console and echo) for trigger/actioning systems</li>
-								<li><a href="modules/apps/apps-uservice/apps-uservice-test/index.html">apps-uservice-test</a> - Test cases with configurations, policy models, events, for all carrier technologies and event protocols</li>
+								<li><a href="modules/examples/examples-decisionmaker/index.html">examples-decisionmaker</a> - A simple decision maker demo, with REST interface for interactions deployed in a Docker container</li>
+								<li><a href="modules/examples/examples-myfirstpolicy/index.html">examples-myfirstpolicy</a> - My First Policy, a step-by-step tutorial for defining a policy</li>
+								<li><a href="modules/examples/examples-pcvs/index.html">examples-pcvs</a> - An example policy for managing customers and link failures showing video streaming for a simple VPN scenario</li>
+								<li><a href="modules/examples/examples-onap-vcpe/index.html">examples-onap-vcpe</a> - An example policy for managing vCPE's in ONAP</li>
+								<li><a href="modules/examples/examples-periodic/index.html">examples-periodic</a> - An example periodic policy</li>
+								<li><a href="modules/examples/examples-servlet/index.html">examples-aadm</a> - An  APEX Servlet Example</li>
+								<li><a href="modules/examples/examples-adaptive/index.html">examples-adaptive</a> - A simple adaptive policy</li>
+								<li><a href="modules/examples/examples-aadm/index.html">examples-aadm</a> - A policy realizing a complex scenario for Autonomic Anomaly Detection and Mitigation (AADM)</li>
 							</ul>
 						</td>
-						<td>Applications developers, DevOps, Installers</td>
+						<td>Policy Designers, Testers</td>
 					</tr>
--->
+
+					<tr>
+						<td><a href="modules/client/index.html">clients</a></td>
+						<td>
+							Web clients for APEX, including engine monitoring, policy model deployment, and an HTML-based policy editor.
+							Important projects here are:
+							<ul>
+								<li><a href="modules/client/client-editor/index.html">client-editor</a> - APEX REST Editor</li>
+								<li><a href="modules/client/client-monitoring/index.html">client-monitoring</a> - APEX Monitoring Client</li>
+								<li><a href="modules/client/client-deployment/index.html">client-deployment</a> - APEX Deployment Client</li>
+								<li><a href="modules/client/client-full/index.html">client-full</a> - APEX Full Client</li>
+							</ul>
+						</td>
+						<td>APEX users, Developers, Deployers</td>
+					</tr>
+
 					<tr>
 						<td><a href="modules/auth/index.html">auth</a></td>
 						<td>
@@ -155,26 +175,34 @@
 						</td>
 						<td>Policy Designers</td>
 					</tr>
-<!--
+
 					<tr>
-						<td><a href="modules/domains/index.html">domains</a></td>
+						<td><a href="modules/packages/index.html">packages</a></td>
 						<td>
-							Specific source code and other artefacts for APEX domains of application.
-							Here one can find complete implementations, examples, and tests for APEX policies.
+							The APEX packages, for full deployment (installation package) and Docker deployment.
 							Important projects here are:
 							<ul>
-								<li><a href="modules/domains/domains-decisionmaker/index.html">domains-decisionmaker</a> - A simple decision maker demo, with REST interface for interactions deployed in a Docker container</li>
-								<li><a href="modules/domains/domains-myfirstpolicy/index.html">domains-myfirstpolicy</a> - My First Policy, a step-by-step tutorial for defining a policy</li>
-								<li><a href="modules/domains/domains-pcvs/index.html">domains-pcvs</a> - An example policy for managing customers and link failures showing video streaming for a simple VPN scenario</li>
-								<li><a href="modules/domains/domains-onap-vcpe/index.html">domains-onap-vcpe</a> - An example policy for managing vCPE's in ONAP</li>
-								<li><a href="modules/domains/domains-periodic/index.html">domains-periodic</a> - An example periodic policy</li>
-								<li><a href="modules/domains/domains-adaptive/index.html">domains-adaptive</a> - A simple adaptive policy</li>
-								<li><a href="modules/domains/domains-aadm/index.html">domains-aadm</a> - A policy realizing a complex scenario for Autonomic Anomaly Detection and Mitigation (AADM)</li>
+								<li><a href="modules/packages/apex-pdp-package-full/index.html">package-full</a> - The full deployment module, generates DEB, RPM and TAR deployment artifacts</li>
+								<li><a href="modules/packages/apex-pdp-docker/index.html">apex-pdp-docker</a> - Creates a Docker deployment artifact</li>
 							</ul>
 						</td>
-						<td>Policy Designers, Testers</td>
+						<td>Tester, DevOps, Installers</td>
 					</tr>
--->
+
+					<tr>
+						<td><a href="modules/tools/index.html">tools</a></td>
+						<td>
+							The APEX applications, implementation dependent wrappers and mediation for APEX in various technologies.
+							Important projects here are:
+							<ul>
+								<li><a href="modules/tools/tools-common/index.html">tools-common</a> - Utilities for APEX application developers</li>
+								<li><a href="modules/tools/model-generator/index.html">model-generator</a> - Generators from/to the APEX policy mode</li>
+								<li><a href="modules/tools/simple-wsclient/index.html">simple-wsclient</a> - Simple Websocket clients (console and echo) for trigger/actioning systems</li>
+							</ul>
+						</td>
+						<td>Applications developers, DevOps, Installers</td>
+					</tr>
+
 					<tr>
 						<td><a href="modules/plugins/index.html">plugins</a></td>
 						<td>
@@ -192,23 +220,32 @@
 						</td>
 						<td>Plugin developers</td>
 					</tr>
+
 					<tr>
-						<td><a href="modules/services/index.html">services</a></td>
+						<td><a href="modules/testsuites/index.html">testsuites</a></td>
 						<td>
-							The main services of APEX, deployment independent.
+							APEX testsuites for integration tests, performance tests, and bench marking.
 							Important projects here are:
 							<ul>
-								<li><a href="modules/services/services-engine/index.html">services-engine</a> - APEX engine service</li>
-<!--
-								<li><a href="modules/services/services-client/services.client-editor/index.html">services: client-editor</a> - APEX REST Editor</li>
-								<li><a href="modules/services/services-client/services.client-monitoring/index.html">services: client-monitoring</a> - APEX Monitoring Client</li>
-								<li><a href="modules/services/services-client/services.client-deployment/index.html">services: client-deployment</a> - APEX Deployment Client</li>
-								<li><a href="modules/services/services-client/services.client-full/index.html">services: client-full</a> - APEX Full Client</li>
--->
+								<li><a href="modules/testsuites/integration/index.html">integration</a> - Packaging for all the Apex components, the engine, the WAR service, and the editor</li>
+								<li><a href="modules/testsuites/performance/index.html">performance</a> - Packaging for all the Apex components, the engine, the WAR service, and the editor</li>
 							</ul>
 						</td>
 						<td>Service developers, Deployers</td>
 					</tr>
+
+					<tr>
+						<td><a href="modules/services/index.html">services</a></td>
+						<td>
+							The APEX engine as a service, deployment independent.
+							Important projects here are:
+							<ul>
+								<li><a href="modules/services/services-engine/index.html">services-engine</a> - APEX engine service</li>
+							</ul>
+						</td>
+						<td>Service developers, Deployers</td>
+					</tr>
+
 					<tr>
 						<td><a href="modules/core/index.html">core</a></td>
 						<td>
@@ -223,6 +260,7 @@
 						</td>
 						<td>Core APEX developers</td>
 					</tr>
+
 					<tr>
 						<td><a href="modules/context/index.html">context</a></td>
 						<td>
@@ -230,11 +268,12 @@
 							Important projects here are:
 							<ul>
 								<li><a href="modules/context/context-management/index.html">context-management</a> - Context management for Apex policy execution</li>
-								<li><a href="modules/context/context-test/index.html">context-test</a> - Test context date for testing</li>
+								<li><a href="modules/context/context-test-utils/index.html">context-test-utils</a> - Test utilities for context</li>
 							</ul>
 						</td>
 						<td>Core APEX developers</td>
 					</tr>
+
 					<tr>
 						<td><a href="modules/model/index.html">model</a></td>
 						<td>
