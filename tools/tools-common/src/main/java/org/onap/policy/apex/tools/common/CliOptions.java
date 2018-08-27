@@ -88,7 +88,8 @@ public final class CliOptions {
 
     /** A type option defining what type is used for events with "-t" and "--type". */
     public static final Option TYPE = Option.builder("t").hasArg().argName("TYPE").longOpt("type").desc(
-            "set the event type for generation, one of: stimuli (trigger events), response (action events), internal (events between states)")
+            "set the event type for generation, one of: stimuli (trigger events), response (action events),"
+            + " internal (events between states)")
             .build();
 
     /** A server option with "-s" and "--server". */

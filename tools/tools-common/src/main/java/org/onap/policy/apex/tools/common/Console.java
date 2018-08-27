@@ -151,16 +151,6 @@ public final class Console {
     }
 
     /**
-     * Configures the console. Use the configuration flags in combination for the required configuration. For instance,
-     * to collect errors and warnings use <code>CONFIG_COLLECT_ERRORS | CONFIG_COLLECT_WARNINGS</code>.
-     *
-     * @param config the new configuration, overwrites the current configuration, 0 deactivates all settings
-     */
-    public void configure(final int config) {
-        this.configuration = config;
-    }
-
-    /**
      * Sets the type to the given types, effectively deactivating all other types.
      *
      * @param ts array of types to set
@@ -170,6 +160,16 @@ public final class Console {
         for (final int type : ts) {
             this.activate(type);
         }
+    }
+
+    /**
+     * Configures the console. Use the configuration flags in combination for the required configuration. For instance,
+     * to collect errors and warnings use <code>CONFIG_COLLECT_ERRORS | CONFIG_COLLECT_WARNINGS</code>.
+     *
+     * @param config the new configuration, overwrites the current configuration, 0 deactivates all settings
+     */
+    public void configure(final int config) {
+        this.configuration = config;
     }
 
     /**

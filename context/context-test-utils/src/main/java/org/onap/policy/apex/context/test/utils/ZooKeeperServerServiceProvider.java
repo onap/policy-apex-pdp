@@ -26,6 +26,8 @@ import java.net.InetSocketAddress;
 
 import org.apache.zookeeper.server.NIOServerCnxnFactory;
 import org.apache.zookeeper.server.ZooKeeperServer;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -46,6 +48,11 @@ public class ZooKeeperServerServiceProvider {
         this.addr = new InetSocketAddress(addr, port);
     }
 
+    /**
+     * Start the Zookeeper server.
+     * @throws IOException the IO exception occurs while setting up Zookeeper server
+     * @throws InterruptedException the interrupted exception occurs while setting up Zookeeper server
+     */
     public void startZookeeperServer() throws IOException, InterruptedException {
         LOGGER.info("Starting up ZooKeeperServer using address: {} and port: {}", addr.getAddress(), addr.getPort());
         final ZooKeeperServer server = new ZooKeeperServer(zookeeperDirectory, zookeeperDirectory, 5000);
@@ -54,6 +61,9 @@ public class ZooKeeperServerServiceProvider {
         zookeeperFactory.startup(server);
     }
 
+    /**
+     * Stop the Zookeeper server.
+     */
     public void stopZookeeperServer() {
         LOGGER.info("Stopping ZooKeeperServer for address: {} and port: {}", addr.getAddress(), addr.getPort());
         if (zookeeperFactory != null) {

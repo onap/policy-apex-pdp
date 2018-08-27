@@ -39,6 +39,9 @@ public class SchemaHelperFactoryTest {
     private static AxContextSchemas schemas;
     private static AxContextSchema badSchema;
 
+    /**
+     * Set ups schema for the test.
+     */
     @BeforeClass
     public static void setupSchema() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));

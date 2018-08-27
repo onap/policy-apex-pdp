@@ -64,6 +64,11 @@ public enum LockType {
         return value;
     }
 
+    /**
+     * Get the lock type given an int value.
+     * @param value the value of lock type
+     * @return the lock type
+     */
     public static LockType getLockType(final int value) {
         for (final LockType lockType : LockType.values()) {
             if (lockType.getValue() == value) {

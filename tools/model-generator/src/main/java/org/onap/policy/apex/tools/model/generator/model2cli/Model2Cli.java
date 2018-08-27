@@ -205,11 +205,11 @@ public class Model2Cli {
      * Gets the parameters for event.
      *
      * @param cg the code generator
-     * @param e the event
+     * @param event the event
      * @return the parameters for event
      */
-    private List<ST> getParametersForEvent(final CGCliEditor cg, final AxEvent e) {
-        final Collection<AxField> fields = e.getFields();
+    private List<ST> getParametersForEvent(final CGCliEditor cg, final AxEvent event) {
+        final Collection<AxField> fields = event.getFields();
         final List<ST> ret = new ArrayList<>(fields.size());
         for (final AxField f : fields) {
             final AxReferenceKey fkey = f.getKey();
@@ -226,13 +226,13 @@ public class Model2Cli {
      * Gets the context references for task.
      *
      * @param cg the code generator
-     * @param t the task
+     * @param task the task
      * @return the context references for task
      */
-    private List<ST> getCtxtRefsForTask(final CGCliEditor cg, final AxTask t) {
-        final Collection<AxArtifactKey> ctxs = t.getContextAlbumReferences();
+    private List<ST> getCtxtRefsForTask(final CGCliEditor cg, final AxTask task) {
+        final Collection<AxArtifactKey> ctxs = task.getContextAlbumReferences();
         final List<ST> ret = new ArrayList<>(ctxs.size());
-        final AxArtifactKey tkey = t.getKey();
+        final AxArtifactKey tkey = task.getKey();
         for (final AxArtifactKey ckey : ctxs) {
 
             final ST val = cg.createTaskDefinitionContextRef(kig.getName(tkey), kig.getVersion(tkey), kig.getName(ckey),
@@ -247,11 +247,11 @@ public class Model2Cli {
      * Gets the parameters for task.
      *
      * @param cg the code generator
-     * @param t the task
+     * @param task the task
      * @return the parameters for task
      */
-    private List<ST> getParametersForTask(final CGCliEditor cg, final AxTask t) {
-        final Collection<AxTaskParameter> pars = t.getTaskParameters().values();
+    private List<ST> getParametersForTask(final CGCliEditor cg, final AxTask task) {
+        final Collection<AxTaskParameter> pars = task.getTaskParameters().values();
         final List<ST> ret = new ArrayList<>(pars.size());
         for (final AxTaskParameter p : pars) {
             final AxReferenceKey pkey = p.getKey();
@@ -268,12 +268,12 @@ public class Model2Cli {
      * Gets the logic for task.
      *
      * @param cg the code generator
-     * @param t the task
+     * @param task the task
      * @return the logic for task
      */
-    private ST getLogicForTask(final CGCliEditor cg, final AxTask t) {
-        final AxArtifactKey tkey = t.getKey();
-        final AxTaskLogic tl = t.getTaskLogic();
+    private ST getLogicForTask(final CGCliEditor cg, final AxTask task) {
+        final AxArtifactKey tkey = task.getKey();
+        final AxTaskLogic tl = task.getTaskLogic();
 
         final ST val =
                 cg.createTaskDefLogic(kig.getName(tkey), kig.getVersion(tkey), tl.getLogicFlavour(), tl.getLogic());
@@ -285,11 +285,11 @@ public class Model2Cli {
      * Gets the output fields for task.
      *
      * @param cg the code generator
-     * @param t the task
+     * @param task the task
      * @return the output fields for task
      */
-    private List<ST> getOutfieldsForTask(final CGCliEditor cg, final AxTask t) {
-        final Collection<? extends AxField> fields = t.getOutputFields().values();
+    private List<ST> getOutfieldsForTask(final CGCliEditor cg, final AxTask task) {
+        final Collection<? extends AxField> fields = task.getOutputFields().values();
         final List<ST> ret = new ArrayList<>(fields.size());
         for (final AxField f : fields) {
             final AxReferenceKey fkey = f.getKey();
@@ -306,11 +306,11 @@ public class Model2Cli {
      * Gets the input fields for task.
      *
      * @param cg the code generator
-     * @param t the task
+     * @param task the task
      * @return the input fields for task
      */
-    private List<ST> getInfieldsForTask(final CGCliEditor cg, final AxTask t) {
-        final Collection<? extends AxField> fields = t.getInputFields().values();
+    private List<ST> getInfieldsForTask(final CGCliEditor cg, final AxTask task) {
+        final Collection<? extends AxField> fields = task.getInputFields().values();
         final List<ST> ret = new ArrayList<>(fields.size());
         for (final AxField f : fields) {
             final AxReferenceKey fkey = f.getKey();
@@ -327,11 +327,11 @@ public class Model2Cli {
      * Gets the states for policy.
      *
      * @param cg the code generator
-     * @param p the policy
+     * @param pol the policy
      * @return the states for policy
      */
-    private List<ST> getStatesForPolicy(final CGCliEditor cg, final AxPolicy p) {
-        final Collection<AxState> states = p.getStateMap().values();
+    private List<ST> getStatesForPolicy(final CGCliEditor cg, final AxPolicy pol) {
+        final Collection<AxState> states = pol.getStateMap().values();
         final List<ST> ret = new ArrayList<>(states.size());
         for (final AxState st : states) {
             final AxReferenceKey skey = st.getKey();

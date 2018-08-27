@@ -48,6 +48,9 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 public class ContextAlbumImplTest {
+    /**
+     * Set ups everything for the test.
+     */
     @BeforeClass
     public static void prepareForTest() {
         final ContextParameters contextParameters = new ContextParameters();
@@ -111,9 +114,6 @@ public class ContextAlbumImplTest {
         AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
                         true, AxArtifactKey.getNullKey());
 
-        AxContextAlbum axContextAlbumRO = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                false, simpleStringSchema.getKey());
-
         try {
             new ContextAlbumImpl(axContextAlbum, new JVMLocalDistributor(), new LinkedHashMap<String, Object>());
             fail("this test should throw an exception");
@@ -126,7 +126,10 @@ public class ContextAlbumImplTest {
         Distributor distributor = new JVMLocalDistributor();
         distributor.init(axContextAlbum.getKey());
         ContextAlbum album = new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
-        ContextAlbum albumRO = new ContextAlbumImpl(axContextAlbumRO, distributor, new LinkedHashMap<String, Object>());
+
+        AxContextAlbum axContextAlbumRo = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
+                false, simpleStringSchema.getKey());
+        ContextAlbum albumRo = new ContextAlbumImpl(axContextAlbumRo, distributor, new LinkedHashMap<String, Object>());
 
         assertEquals("TestContextAlbum", album.getName());
         assertEquals("TestContextAlbum:0.0.1", album.getKey().getID());
@@ -172,7 +175,7 @@ public class ContextAlbumImplTest {
         }
 
         try {
-            albumRO.put("KeyReadOnly", "A value for a Read Only Album");
+            albumRo.put("KeyReadOnly", "A value for a Read Only Album");
             fail("test should throw an exception");
         } catch (ContextRuntimeException e) {
             assertEquals("album \"TestContextAlbum:0.0.1\" put() not allowed on read only albums "
@@ -185,14 +188,14 @@ public class ContextAlbumImplTest {
         putAllData.put("AllKey2", "vaue of AllKey2");
 
         try {
-            albumRO.putAll(putAllData);
+            albumRo.putAll(putAllData);
             fail("test should throw an exception");
         } catch (ContextRuntimeException e) {
             assertEquals("album \"TestContextAlbum:0.0.1\" putAll() not allowed on read only albums", e.getMessage());
         }
 
         try {
-            albumRO.remove("AllKey0");
+            albumRo.remove("AllKey0");
             fail("test should throw an exception");
         } catch (ContextRuntimeException e) {
             assertEquals(
@@ -208,7 +211,7 @@ public class ContextAlbumImplTest {
         }
 
         try {
-            albumRO.clear();
+            albumRo.clear();
             fail("test should throw an exception");
         } catch (ContextRuntimeException e) {
             assertEquals("album \"TestContextAlbum:0.0.1\" clear() not allowed on read only albums", e.getMessage());

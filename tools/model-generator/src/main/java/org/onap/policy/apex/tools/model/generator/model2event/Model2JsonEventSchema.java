@@ -136,9 +136,10 @@ public class Model2JsonEventSchema {
     /**
      * Runs the application.
      *
+     *
+     * @return status of the application execution, 0 for success, positive integer for exit
+     *         condition (such as help or version), negative integer for errors
      * @throws ApexException if any problem occurred in the model
-     * @return status of the application execution, 0 for success, positive integer for exit condition (such as help or
-     *         version), negative integer for errors
      */
     public int runApp() throws ApexException {
         final STGroupFile stg = new STGroupFile("org/onap/policy/apex/tools/model/generator/event-json.stg");
