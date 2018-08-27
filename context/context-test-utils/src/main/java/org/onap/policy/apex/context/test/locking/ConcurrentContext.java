@@ -51,7 +51,7 @@ public class ConcurrentContext {
 
     // The context distributor and map used by each test
     private Distributor contextDistributor = null;
-    private ContextAlbum lTypeAlbum = null;
+    private ContextAlbum ltypeAlbum = null;
 
     private final ConfigrationProvider configrationProvider;
 
@@ -59,6 +59,13 @@ public class ConcurrentContext {
         this.configrationProvider = configrationProvider;
     }
 
+    /**
+     * The method tests concurrent use of context.
+     * @return the verified context
+     * @throws ApexModelException the exception occurs in model handling
+     * @throws IOException the IO exception occurs in handling IO
+     * @throws ApexException the Apex exception occurs in handling Apex
+     */
     public Map<String, TestContextLongItem> testConcurrentContext()
             throws ApexModelException, IOException, ApexException {
 
@@ -135,11 +142,11 @@ public class ConcurrentContext {
      */
     private void setupAndVerifyContext() throws ContextException {
         contextDistributor = configrationProvider.getDistributor();
-        lTypeAlbum = configrationProvider.getContextAlbum(contextDistributor);
+        ltypeAlbum = configrationProvider.getContextAlbum(contextDistributor);
         final Map<String, Object> initValues = configrationProvider.getContextAlbumInitValues();
 
         for (final Entry<String, Object> entry : initValues.entrySet()) {
-            lTypeAlbum.put(entry.getKey(), entry.getValue());
+            ltypeAlbum.put(entry.getKey(), entry.getValue());
         }
     }
 
@@ -147,7 +154,7 @@ public class ConcurrentContext {
         final Map<String, TestContextLongItem> values = new HashMap<>();
         try {
 
-            for (Entry<String, Object> entry : lTypeAlbum.entrySet()) {
+            for (Entry<String, Object> entry : ltypeAlbum.entrySet()) {
                 values.put(entry.getKey(), (TestContextLongItem) entry.getValue());
             }
         } catch (final Exception exception) {

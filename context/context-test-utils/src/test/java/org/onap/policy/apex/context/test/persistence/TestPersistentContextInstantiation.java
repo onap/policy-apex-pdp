@@ -91,7 +91,7 @@ public class TestPersistentContextInstantiation {
         final Distributor contextDistributor = new DistributorFactory().getDistributor(distributorKey);
 
         final AxArtifactKey[] usedArtifactStackArray = {new AxArtifactKey("testC-top", "0.0.1"),
-                new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
+            new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
 
         final DAOParameters daoParameters = new DAOParameters();
         daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");

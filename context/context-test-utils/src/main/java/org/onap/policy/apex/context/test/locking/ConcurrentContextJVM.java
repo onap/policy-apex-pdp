@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.context.test.locking;
 
+import com.google.gson.Gson;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
@@ -46,7 +48,6 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import com.google.gson.Gson;
 
 /**
  * The Class ConcurrentContextJVM tests concurrent use of context in a single JVM.
@@ -72,6 +73,10 @@ public final class ConcurrentContextJVM {
         this.executorService = configrationProvider.getExecutorService(name, configrationProvider.getThreadCount());
     }
 
+    /**
+     * This method executes the test of concurrent use of context in a single JVM.
+     * @throws ApexException the Apex exception occurs while running the test
+     */
     public void execute() throws ApexException {
         LOGGER.debug("starting JVMs and threads . . .");
 
@@ -186,7 +191,7 @@ public final class ConcurrentContextJVM {
 
 
     /**
-     * This method setus up any static configuration required by the JVM.
+     * This method sets up any static configuration required by the JVM.
      *
      * @throws Exception on configuration errors
      */

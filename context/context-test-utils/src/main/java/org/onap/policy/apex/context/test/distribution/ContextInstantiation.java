@@ -91,12 +91,11 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
  */
 public class ContextInstantiation {
-
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ContextInstantiation.class);
 
-    private final static TreeSet<String> TEST_TREE_SET = new TreeSet<>();
-    private final static Map<String, String> TEST_HASH_MAP = new HashMap<>();
+    private static final TreeSet<String> TEST_TREE_SET = new TreeSet<>();
+    private static final Map<String, String> TEST_HASH_MAP = new HashMap<>();
 
     static {
         TEST_TREE_SET.add("one hundred");
@@ -373,6 +372,40 @@ public class ContextInstantiation {
         return globalContext;
     }
 
+    private TestGlobalContextItem getTestGlobalContextItem(final Date testDate, final TestContextDateTzItem tci9,
+            final TestContextDateLocaleItem tciA) {
+        final TestGlobalContextItem globalContext = new TestGlobalContextItem();
+
+        final TestContextBooleanItem testGlobalContextItem000 = new TestContextBooleanItem(false);
+        final TestContextByteItem testGlobalContextItem001 = new TestContextByteItem(BYTE_VAL);
+        final TestContextIntItem testGlobalContextItem002 = new TestContextIntItem(INT_VAL);
+        final TestContextLongItem testGlobalContextItem003 = new TestContextLongItem(LONG_VAL);
+        final TestContextFloatItem testGlobalContextItem004 = new TestContextFloatItem(new Float(FLOAT_VAL));
+        final TestContextDoubleItem testGlobalContextItem005 = new TestContextDoubleItem(PI_VAL);
+        final TestContextStringItem testGlobalContextItem006 = new TestContextStringItem(STRING_GLOBAL_VAL);
+        final TestContextLongObjectItem testGlobalContextItem007 = new TestContextLongObjectItem(testDate.getTime());
+
+        final TestContextDateItem testGlobalContextItem008 = new TestContextDateItem(testDate);
+        final TestContextTreeSetItem testGlobalContextItem00B = new TestContextTreeSetItem(TEST_TREE_SET);
+        final TestContextTreeMapItem testGlobalContextItem00C = new TestContextTreeMapItem(TEST_HASH_MAP);
+
+
+        globalContext.setTestGlobalContextItem000(testGlobalContextItem000);
+        globalContext.setTestGlobalContextItem001(testGlobalContextItem001);
+        globalContext.setTestGlobalContextItem002(testGlobalContextItem002);
+        globalContext.setTestGlobalContextItem003(testGlobalContextItem003);
+        globalContext.setTestGlobalContextItem004(testGlobalContextItem004);
+        globalContext.setTestGlobalContextItem005(testGlobalContextItem005);
+        globalContext.setTestGlobalContextItem006(testGlobalContextItem006);
+        globalContext.setTestGlobalContextItem007(testGlobalContextItem007);
+        globalContext.setTestGlobalContextItem008(testGlobalContextItem008);
+        globalContext.setTestGlobalContextItem009(tci9);
+        globalContext.setTestGlobalContextItem00A(tciA);
+        globalContext.setTestGlobalContextItem00B(testGlobalContextItem00B);
+        globalContext.setTestGlobalContextItem00C(testGlobalContextItem00C);
+        return globalContext;
+    }
+
     private TestPolicyContextItem getTestPolicyContextItem(final ContextAlbum policyContextAlbum, final Date testDate) {
         final TestContextStringItem contextStringItem = new TestContextStringItem(STRING_VAL);
         final TestContextLongItem contextLongItem = new TestContextLongItem(LONG_VAL);
@@ -451,40 +484,6 @@ public class ContextInstantiation {
         tci9.setTZValue(TIME_ZONE.getDisplayName());
         tci9.setDST(true);
         return tci9;
-    }
-
-    private TestGlobalContextItem getTestGlobalContextItem(final Date testDate, final TestContextDateTzItem tci9,
-            final TestContextDateLocaleItem tciA) {
-        final TestGlobalContextItem globalContext = new TestGlobalContextItem();
-
-        final TestContextBooleanItem testGlobalContextItem000 = new TestContextBooleanItem(false);
-        final TestContextByteItem testGlobalContextItem001 = new TestContextByteItem(BYTE_VAL);
-        final TestContextIntItem testGlobalContextItem002 = new TestContextIntItem(INT_VAL);
-        final TestContextLongItem testGlobalContextItem003 = new TestContextLongItem(LONG_VAL);
-        final TestContextFloatItem testGlobalContextItem004 = new TestContextFloatItem(new Float(FLOAT_VAL));
-        final TestContextDoubleItem testGlobalContextItem005 = new TestContextDoubleItem(PI_VAL);
-        final TestContextStringItem testGlobalContextItem006 = new TestContextStringItem(STRING_GLOBAL_VAL);
-        final TestContextLongObjectItem testGlobalContextItem007 = new TestContextLongObjectItem(testDate.getTime());
-
-        final TestContextDateItem testGlobalContextItem008 = new TestContextDateItem(testDate);
-        final TestContextTreeSetItem testGlobalContextItem00B = new TestContextTreeSetItem(TEST_TREE_SET);
-        final TestContextTreeMapItem testGlobalContextItem00C = new TestContextTreeMapItem(TEST_HASH_MAP);
-
-
-        globalContext.setTestGlobalContextItem000(testGlobalContextItem000);
-        globalContext.setTestGlobalContextItem001(testGlobalContextItem001);
-        globalContext.setTestGlobalContextItem002(testGlobalContextItem002);
-        globalContext.setTestGlobalContextItem003(testGlobalContextItem003);
-        globalContext.setTestGlobalContextItem004(testGlobalContextItem004);
-        globalContext.setTestGlobalContextItem005(testGlobalContextItem005);
-        globalContext.setTestGlobalContextItem006(testGlobalContextItem006);
-        globalContext.setTestGlobalContextItem007(testGlobalContextItem007);
-        globalContext.setTestGlobalContextItem008(testGlobalContextItem008);
-        globalContext.setTestGlobalContextItem009(tci9);
-        globalContext.setTestGlobalContextItem00A(tciA);
-        globalContext.setTestGlobalContextItem00B(testGlobalContextItem00B);
-        globalContext.setTestGlobalContextItem00C(testGlobalContextItem00C);
-        return globalContext;
     }
 
     private TestExternalContextItem getTestExternalContextItem(final Date testDate, final TestContextDateTzItem tci9A,

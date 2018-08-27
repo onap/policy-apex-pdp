@@ -34,8 +34,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
  * <p>A context album uses plugins to handle its context schemas, its distribution, its locking, and
  * its persistence.
  *
- * <p>
- * The schema that defines the items in a context album is interpreted by a plugin that implements
+ * <p>The schema that defines the items in a context album is interpreted by a plugin that implements
  * the {@link SchemaHelper} interface. The schema helper uses the schema definition to provide new
  * instances for a context album. By default, context albums use Java schemas.
  *

@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.context.test.locking;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.InputStream;
@@ -34,7 +36,7 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import com.google.gson.Gson;
+
 
 /**
  * The Class TestConcurrentContextThread tests concurrent use of context.

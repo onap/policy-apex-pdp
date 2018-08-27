@@ -43,6 +43,9 @@ public class JavaSchemaHelperInstanceCreationTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
 
+    /**
+     * Set ups everything for the test.
+     */
     @Before
     public void initTest() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));

@@ -47,6 +47,15 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
     private final int albumSize;
     private final LockType lockType;
 
+    /**
+     * The parameterized ConfigrationProviderImpl constructor.
+     * @param testType the test type
+     * @param jvmCount the JVM count
+     * @param threadCount the thread count
+     * @param loopSize the size of loop
+     * @param albumSize the size of album
+     * @param lockType the lock type
+     */
     public ConfigrationProviderImpl(final String testType, final int jvmCount, final int threadCount,
             final int loopSize, final int albumSize, final int lockType) {
         this.testType = testType;
