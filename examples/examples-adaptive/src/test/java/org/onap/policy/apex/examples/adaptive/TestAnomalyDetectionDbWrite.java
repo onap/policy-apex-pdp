@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.examples.aadm;
+package org.onap.policy.apex.examples.adaptive;
 
 import java.io.File;
 import java.sql.Connection;
@@ -31,16 +31,20 @@ import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
-public class TestAADMDBWrite {
+public class TestAnomalyDetectionDbWrite {
     private Connection connection;
     TestApexModel<AxPolicyModel> testApexModel;
-
+    
+    /**
+     * Set ups embedded Derby database and the Apex anomaly detection model for the tests.
+     * @throws Exception exception to be thrown while setting up the database connection
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
         connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
 
-        testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new TestAADMModelCreator());
+        testApexModel = new TestApexModel<>(AxPolicyModel.class, new TestAnomalyDetectionModelCreator());
     }
 
     @After
@@ -50,10 +54,10 @@ public class TestAADMDBWrite {
     }
 
     @Test
-    public void testModelWriteReadJPA() throws Exception {
+    public void testModelWriteReadJpa() throws Exception {
         final DAOParameters daoParameters = new DAOParameters();
         daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("AADMModelTest");
+        daoParameters.setPersistenceUnit("AdaptiveModelsTest");
 
         testApexModel.testApexModelWriteReadJPA(daoParameters);
     }

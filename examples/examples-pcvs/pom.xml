@@ -97,7 +97,7 @@
                             <arguments>
                                 <argument>-classpath</argument>
                                 <classpath />
-                                <argument>org.onap.policy.apex.examples.pcvs.model.PCVSDomainModelSaver</argument>
+                                <argument>org.onap.policy.apex.examples.pcvs.model.PcvsDomainModelSaver</argument>
                                 <argument>${project.basedir}</argument>
                                 <argument>${project.build.directory}/classes/examples/models/pcvs/</argument>
                             </arguments>

@@ -51,7 +51,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
 /**
  * Test MyFirstPolicy Use Case.
  */
-public class TestMFPUseCase {
+public class TestMfpUseCase {
     // CHECKSTYLE:OFF: MagicNumber
 
     private static ApexEngineImpl apexEngine;
@@ -60,7 +60,7 @@ public class TestMFPUseCase {
      * Test MFP use case setup.
      */
     @BeforeClass
-    public static void testMFPUseCaseSetup() {
+    public static void testMfpUseCaseSetup() {
         final AxArtifactKey key = new AxArtifactKey("MyFirstPolicyApexEngine", "0.0.1");
         final EngineParameters parameters = new EngineParameters();
         parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
@@ -76,7 +76,7 @@ public class TestMFPUseCase {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testMFP1Case() throws ApexException, InterruptedException, IOException {
+    public void testMfp1Case() throws ApexException, InterruptedException, IOException {
         final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP1PolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -124,7 +124,7 @@ public class TestMFPUseCase {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testMFP2Case() throws ApexException, InterruptedException, IOException {
+    public void testMfp2Case() throws ApexException, InterruptedException, IOException {
         final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP2PolicyModel();
         assertNotNull(apexPolicyModel);
 

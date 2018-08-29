@@ -37,7 +37,11 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 public class TestAADMModel {
     private Connection connection;
     TestApexModel<AxPolicyModel> testApexModel;
-
+    
+    /**
+     * Set ups embedded Derby database and the AADM model for the tests.
+     * @throws Exception exception to be thrown while setting up the database connection
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();

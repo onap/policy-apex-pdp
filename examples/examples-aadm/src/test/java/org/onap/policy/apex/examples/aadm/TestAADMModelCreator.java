@@ -25,6 +25,7 @@ import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
+ * This class implements Interface TestApexModelCreator to support AADM model.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestAADMModelCreator implements TestApexModelCreator<AxPolicyModel> {

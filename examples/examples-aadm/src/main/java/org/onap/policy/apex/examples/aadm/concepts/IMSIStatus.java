@@ -34,7 +34,7 @@ public class IMSIStatus implements Serializable {
 
     private boolean anomalous = false;
     private long anomalousTime = TIME_NOT_SET;
-    private String eNodeBID;
+    private String enodeBId;
     private long blackListedTime = TIME_NOT_SET;
     private long blockingCount = 0;
 
@@ -98,7 +98,7 @@ public class IMSIStatus implements Serializable {
      * @return theeNodeB ID to which the IMSI is attached
      */
     public String getENodeBID() {
-        return eNodeBID;
+        return enodeBId;
     }
 
     /**
@@ -107,7 +107,7 @@ public class IMSIStatus implements Serializable {
      * @param incomingENodeBID the eNodeB ID to which the IMSI is attached
      */
     public void setENodeBID(final String incomingENodeBID) {
-        this.eNodeBID = incomingENodeBID;
+        this.enodeBId = incomingENodeBID;
     }
 
     /**
@@ -116,7 +116,7 @@ public class IMSIStatus implements Serializable {
      * @return true, if eNodeB ID to which the IMSI is attached is set
      */
     public boolean checkSetENodeBID() {
-        return (eNodeBID != null);
+        return (enodeBId != null);
     }
 
     /**

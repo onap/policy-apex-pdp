@@ -25,14 +25,14 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
- * The Class PCVSDomainModelSaver.
+ * The Class PcvsDomainModelSaver.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public final class PCVSDomainModelSaver {
+public final class PcvsDomainModelSaver {
 
     /** Private constructor to prevent instantiation. */
-    private PCVSDomainModelSaver() {}
+    private PcvsDomainModelSaver() {}
 
     /**
      * Write all PCVS models to args[0].
@@ -43,11 +43,11 @@ public final class PCVSDomainModelSaver {
     public static void main(final String[] args) throws ApexException {
         if (args.length != 2) {
             System.err.println(
-                    "usage: " + PCVSDomainModelSaver.class.getCanonicalName() + " workingDirectory modelDirectory");
+                    "usage: " + PcvsDomainModelSaver.class.getCanonicalName() + " workingDirectory modelDirectory");
             return;
         }
 
-        final AxPolicyModel pcvsPolicyModel = new PCVSDomainModelFactory().getPCVVpnSlaSPolicyModel(args[0]);
+        final AxPolicyModel pcvsPolicyModel = new PcvsDomainModelFactory().getPcvsVpnSlaSPolicyModel(args[0]);
         final ApexModelSaver<AxPolicyModel> pcvsModelSaver =
                 new ApexModelSaver<>(AxPolicyModel.class, pcvsPolicyModel, args[1] + "vpnsla/");
         pcvsModelSaver.apexModelWriteJSON();

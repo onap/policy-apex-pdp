@@ -45,13 +45,15 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * User: Sergey Sachkov Date: 13/10/15
+ * This class tests AADM use case.
+ * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
+ *
  */
 public class TestAADMUseCase {
     private static final XLogger logger = XLoggerFactory.getXLogger(TestAADMUseCase.class);
 
     /**
-     * Test aadm use case setup.
+     * Test AADM use case setup.
      */
     @Before
     public void testAADMUseCaseSetup() {}
