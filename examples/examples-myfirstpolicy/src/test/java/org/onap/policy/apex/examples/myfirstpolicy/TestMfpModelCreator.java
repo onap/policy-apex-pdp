@@ -29,7 +29,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
-public abstract class TestMFPModelCreator implements TestApexModelCreator<AxPolicyModel> {
+public abstract class TestMfpModelCreator implements TestApexModelCreator<AxPolicyModel> {
 
     /*
      * (non-Javadoc)
@@ -74,7 +74,7 @@ public abstract class TestMFPModelCreator implements TestApexModelCreator<AxPoli
     /**
      * Create the MyFirstPolicyModel #1.
      */
-    public static class TestMFP1ModelCreator extends TestMFPModelCreator {
+    public static class TestMfp1ModelCreator extends TestMfpModelCreator {
 
         /*
          * (non-Javadoc)
@@ -90,7 +90,7 @@ public abstract class TestMFPModelCreator implements TestApexModelCreator<AxPoli
     /**
      * Create the MyFirstPolicyModel#2.
      */
-    public static class TestMFP2ModelCreator extends TestMFPModelCreator {
+    public static class TestMfp2ModelCreator extends TestMfpModelCreator {
 
         /*
          * (non-Javadoc)

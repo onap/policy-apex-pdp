@@ -38,7 +38,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  *
  * @author John Keeney (john.keeney@ericsson.com)
  */
-public class TestMFPModel {
+public class TestMfpModel {
 
     private static Connection connection;
     private static TestApexModel<AxPolicyModel> testApexModel1;
@@ -53,8 +53,8 @@ public class TestMFPModel {
     public static void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
         connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
-        testApexModel1 = new TestApexModel<>(AxPolicyModel.class, new TestMFPModelCreator.TestMFP1ModelCreator());
-        testApexModel2 = new TestApexModel<>(AxPolicyModel.class, new TestMFPModelCreator.TestMFP2ModelCreator());
+        testApexModel1 = new TestApexModel<>(AxPolicyModel.class, new TestMfpModelCreator.TestMfp1ModelCreator());
+        testApexModel2 = new TestApexModel<>(AxPolicyModel.class, new TestMfpModelCreator.TestMfp2ModelCreator());
     }
 
     /**
@@ -88,7 +88,7 @@ public class TestMFPModel {
      * @throws Exception if there is an error
      */
     @Test
-    public void testModelWriteReadXML() throws Exception {
+    public void testModelWriteReadXml() throws Exception {
         testApexModel1.testApexModelWriteReadXml();
         testApexModel2.testApexModelWriteReadXml();
     }
@@ -99,7 +99,7 @@ public class TestMFPModel {
      * @throws Exception if there is an error
      */
     @Test
-    public void testModelWriteReadJSON() throws Exception {
+    public void testModelWriteReadJson() throws Exception {
         testApexModel1.testApexModelWriteReadJson();
         testApexModel2.testApexModelWriteReadJson();
     }

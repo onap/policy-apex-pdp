@@ -54,8 +54,8 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
-public class TestAutoLearnTSLUseCase {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestAutoLearnTSLUseCase.class);
+public class TestAutoLearnTslUseCase {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestAutoLearnTslUseCase.class);
 
     private static final int MAXITERATIONS = 1000;
     private static final Random rand = new Random(System.currentTimeMillis());
@@ -105,7 +105,7 @@ public class TestAutoLearnTSLUseCase {
 
     @Test
     // once through the long running test below
-    public void TestAutoLearnTSL() throws ApexException, InterruptedException, IOException {
+    public void testAutoLearnTsl() throws ApexException, InterruptedException, IOException {
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -153,9 +153,9 @@ public class TestAutoLearnTSLUseCase {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     // @Test
-    public void TestAutoLearnTSL_main() throws ApexException, InterruptedException, IOException {
+    public void testAutoLearnTslMain() throws ApexException, InterruptedException, IOException {
 
-        final double WANT = 50.0;
+        final double dwant = 50.0;
         final double toleranceTileJump = 3.0;
 
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
@@ -179,10 +179,10 @@ public class TestAutoLearnTSLUseCase {
 
         final EnEvent triggerEvent = apexEngine1.createEvent(new AxArtifactKey("AutoLearnTriggerEvent", "0.0.1"));
         assertNotNull(triggerEvent);
-        final double MIN = -100;
-        final double MAX = 100;
+        final double dmin = -100;
+        final double dmax = 100;
 
-        double rval = (((rand.nextGaussian() + 1) / 2) * (MAX - MIN)) + MIN;
+        double rval = (((rand.nextGaussian() + 1) / 2) * (dmax - dmin)) + dmin;
         triggerEvent.put("MonitoredValue", rval);
         triggerEvent.put("LastMonitoredValue", 0);
 
@@ -207,13 +207,13 @@ public class TestAutoLearnTSLUseCase {
             avcount = Math.min((avcount + 1), 20); // maintain average of only the last 20 values
             avval = ((avval * (avcount - 1)) + val) / (avcount);
 
-            distance = Math.abs(WANT - avval);
+            distance = Math.abs(dwant - avval);
             if (distance < toleranceTileJump) {
-                rval = (((rand.nextGaussian() + 1) / 2) * (MAX - MIN)) + MIN;
+                rval = (((rand.nextGaussian() + 1) / 2) * (dmax - dmin)) + dmin;
                 val = rval;
                 triggerEvent.put("MonitoredValue", val);
                 LOGGER.info("Iteration " + iteration + ": Average " + avval + " has become closer (" + distance
-                        + ") than " + toleranceTileJump + " to " + WANT + " so reseting val:\t\t\t\t\t\t\t\t" + val);
+                        + ") than " + toleranceTileJump + " to " + dwant + " so reseting val:\t\t\t\t\t\t\t\t" + val);
                 avval = 0;
                 avcount = 0;
             }
@@ -229,6 +229,6 @@ public class TestAutoLearnTSLUseCase {
     }
 
     public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
-        new TestAutoLearnTSLUseCase().TestAutoLearnTSL_main();
+        new TestAutoLearnTslUseCase().testAutoLearnTslMain();
     }
 }

@@ -25,6 +25,7 @@ import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
+ *  The class TestAutoLearnModelCreator.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestAutoLearnModelCreator implements TestApexModelCreator<AxPolicyModel> {

@@ -47,15 +47,18 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
 
     /**
      * A map to hold the Anomaly degree/levels/probabilities required for each task.<br>
-     * If there is no task defined for a calculated anomaly-degree, then the default task is used.<br>
-     * The map use (LinkedHashMap) is an insertion-ordered map, so the first interval matching a query is used.
+     * If there is no task defined for a calculated anomaly-degree, then the default task is
+     * used.<br>
+     * The map use (LinkedHashMap) is an insertion-ordered map, so the first interval matching a
+     * query is used.
      */
     // CHECKSTYLE:OFF: checkstyle:magicNumber
     private static final Map<double[], String> TASK_INTERVALS = new LinkedHashMap<>();
+
     static {
-        TASK_INTERVALS.put(new double[] { 0.0, 0.1 }, null); // null will mean default task
-        TASK_INTERVALS.put(new double[] { 0.25, 0.5 }, "AnomalyDetectionDecideTask1");
-        TASK_INTERVALS.put(new double[] { 0.5, 1.01 }, "AnomalyDetectionDecideTask2");
+        TASK_INTERVALS.put(new double[] {0.0, 0.1}, null); // null will mean default task
+        TASK_INTERVALS.put(new double[] {0.25, 0.5}, "AnomalyDetectionDecideTask1");
+        TASK_INTERVALS.put(new double[] {0.5, 1.01}, "AnomalyDetectionDecideTask2");
     }
     // CHECKSTYLE:ON: checkstyle:magicNumber
 
@@ -74,8 +77,8 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
         logger.debug(executor.inFields.toString());
         final double now = (Double) (executor.inFields.get("MonitoredValue"));
         final Integer iteration = (Integer) (executor.inFields.get("Iteration"));
-        final double[] vals = this.forecastingAndAnomaly(now); // double[forecastedValue, AnomalyScore,
-                                                               // AnomalyProbability]
+        // get the double[forecastedValue, AnomalyScore, AnomalyProbability]
+        final double[] vals = this.forecastingAndAnomaly(now);
         final double anomalyness = vals[2];
         String task = null;
         for (final Map.Entry<double[], String> i : TASK_INTERVALS.entrySet()) {
@@ -103,8 +106,8 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
      * Anomaly detection and forecast.
      *
      * @param value The current value
-     * @return Null if the function can not be executed correctly, otherwise double[forecastedValue, AnomalyScore,
-     *         AnomalyProbability]
+     * @return Null if the function can not be executed correctly, otherwise double[forecastedValue,
+     *         AnomalyScore, AnomalyProbability]
      */
     public double[] forecastingAndAnomaly(final double value) {
         try {
@@ -167,7 +170,7 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
         double anomalyProbability = 0.0;
         if (anomalyDetection.getAnomalyScores().size() > 30) {
             // 0.5
-            anomalyProbability = gStatsTest(anomalyDetection.getAnomalyScores(), ANOMALY_SENSITIVITY);
+            anomalyProbability = getStatsTest(anomalyDetection.getAnomalyScores(), ANOMALY_SENSITIVITY);
         }
         // CHECKSTYLE:ON: checkstyle:magicNumber
 
@@ -178,16 +181,16 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
             return null;
         }
 
-        return new double[] { forecastedValue, anomalyScore, anomalyProbability };
+        return new double[] {forecastedValue, anomalyScore, anomalyProbability};
     }
 
     /**
-     * Is the passed value inside the interval, i.e. (value<interval[1] && value>=interval[0])
+     * Is the passed value inside the interval, i.e. (value < interval[1] && value>=interval[0]).
      *
      * @param value The value to check
      * @param interval A 2 element double array describing an interval
-     * @return true if the value is between interval[0] (inclusive) and interval[1] (exclusive), i.e. (value<interval[1]
-     *         && value>=interval[0]). Otherwise false;
+     * @return true if the value is between interval[0] (inclusive) and interval[1] (exclusive),
+     *         i.e. (value < interval[1] && value>=interval[0]). Otherwise false;
      */
     private static boolean checkInterval(final double value, final double[] interval) {
         if (interval == null || interval.length != 2) {
@@ -203,100 +206,89 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
      *
      * @param values the values
      * @param significanceLevel the significance level
-     * @return the double
+     * @return the anomaly probability
      */
-    private static double gStatsTest(final List<Double> values, final double significanceLevel) {
+    private static double getStatsTest(final List<Double> values, final double significanceLevel) {
         if (isAllEqual(values)) {
             return 0.0;
         }
         // the targeted value or the last value
         final double currentV = values.get(values.size() - 1);
-        Double[] lValuesCopy = values.toArray(new Double[values.size()]);
-        Arrays.sort(lValuesCopy); // takes ~40% of method time
-        // if(logger.isDebugEnabled()){
-        // logger.debug("values:" + Arrays.toString(lValuesCopy));
-        // }
+        Double[] lvaluesCopy = values.toArray(new Double[values.size()]);
+        Arrays.sort(lvaluesCopy); // takes ~40% of method time
         // get mean
-        double mean = getMean(lValuesCopy);
-        // get the test value: v
-        double v = getV(lValuesCopy, mean, true);
+        double mean = getMean(lvaluesCopy);
+        // get the test value: val
+        double val = getV(lvaluesCopy, mean, true);
         // get the p value for the test value
-        double pValue = getPValue(lValuesCopy, v, mean); // takes approx 25% of method time
-        // if(logger.isDebugEnabled()){
-        // logger.debug("pValue:" + pValue);
-        // }
+        double pvalue = getPValue(lvaluesCopy, val, mean); // takes approx 25% of method time
 
         // check the critical level
-        while (pValue < significanceLevel) { // takes approx 20% of method time
+        while (pvalue < significanceLevel) { // takes approx 20% of method time
             // the score value as the anomaly probability
-            final double score = (significanceLevel - pValue) / significanceLevel;
-            if (Double.compare(v, currentV) == 0) {
+            final double score = (significanceLevel - pvalue) / significanceLevel;
+            if (Double.compare(val, currentV) == 0) {
                 return score;
             }
             // do the critical check again for the left values
-            lValuesCopy = removevalue(lValuesCopy, v);
-            if (isAllEqual(lValuesCopy)) {
+            lvaluesCopy = removevalue(lvaluesCopy, val);
+            if (isAllEqual(lvaluesCopy)) {
                 return 0.0;
             }
-            // if(logger.isDebugEnabled()){
-            // logger.debug("left values:" + Arrays.toString(lValuesCopy));
-            // }
-            mean = getMean(lValuesCopy);
-            v = getV(lValuesCopy, mean, true);
-            pValue = getPValue(lValuesCopy, v, mean);
+
+            mean = getMean(lvaluesCopy);
+            val = getV(lvaluesCopy, mean, true);
+            pvalue = getPValue(lvaluesCopy, val, mean);
         }
         return 0.0;
     }
 
     /**
-     * get the test value based on mean from sorted values.
+     * Get the test value based on mean from sorted values.
      *
-     * @param lValues the l values
+     * @param lvalues the l values
      * @param mean the mean
      * @param maxValueOnly : only the max extreme value will be tested
      * @return the value to be tested
      */
-    private static double getV(final Double[] lValues, final double mean, final boolean maxValueOnly) {
-        double v = lValues[lValues.length - 1];
+    private static double getV(final Double[] lvalues, final double mean, final boolean maxValueOnly) {
+        double val = lvalues[lvalues.length - 1];
         // max value as the extreme value
         if (maxValueOnly) {
-            return v;
+            return val;
         }
         // check the extreme side
-        if ((v - mean) < (mean - lValues[0])) {
-            v = lValues[0];
+        if ((val - mean) < (mean - lvalues[0])) {
+            val = lvalues[0];
         }
-        return v;
+        return val;
     }
 
     /**
      * calculate the P value for the t distribution.
      *
-     * @param lValues the l values
-     * @param v the v
+     * @param lvalues the l values
+     * @param val the value
      * @param mean the mean
      * @return the p value
      */
-    private static double getPValue(final Double[] lValues, final double v, final double mean) {
+    private static double getPValue(final Double[] lvalues, final double val, final double mean) {
         // calculate z value
-        final double z = FastMath.abs(v - mean) / getStdDev(lValues, mean);
-        // logger.debug("z: " + z);
+        final double z = FastMath.abs(val - mean) / getStdDev(lvalues, mean);
         // calculate T
-        final double n = lValues.length;
+        final double n = lvalues.length;
         final double s = (z * z * n * (2.0 - n)) / (z * z * n - (n - 1.0) * (n - 1.0));
         final double t = FastMath.sqrt(s);
-        // logger.debug("t:" + t);
         // default p value = 0
-        double pValue = 0.0;
+        double pvalue = 0.0;
         if (!Double.isNaN(t)) {
             // t distribution with n-2 degrees of freedom
             final TDistribution tDist = new TDistribution(n - 2);
-            pValue = n * (1.0 - tDist.cumulativeProbability(t));
-            // set max pValue = 1
-            pValue = pValue > 1.0 ? 1.0 : pValue;
+            pvalue = n * (1.0 - tDist.cumulativeProbability(t));
+            // set max pvalue = 1
+            pvalue = pvalue > 1.0 ? 1.0 : pvalue;
         }
-        // logger.debug("value: "+ v + " , pValue: " + pValue);
-        return pValue;
+        return pvalue;
     }
 
     /*
@@ -318,52 +310,52 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
     }
 
     /**
-     * Remove the first occurence of the value v from the array.
+     * Remove the first occurrence of the value val from the array.
      *
-     * @param lValues the l values
-     * @param v the v
+     * @param lvalues the l values
+     * @param val the value
      * @return the double[]
      */
-    private static Double[] removevalue(final Double[] lValues, final double v) {
-        for (int i = 0; i < lValues.length; i++) {
-            if (Double.compare(lValues[i], v) == 0) {
-                final Double[] ret = new Double[lValues.length - 1];
-                System.arraycopy(lValues, 0, ret, 0, i);
-                System.arraycopy(lValues, i + 1, ret, i, lValues.length - i - 1);
+    private static Double[] removevalue(final Double[] lvalues, final double val) {
+        for (int i = 0; i < lvalues.length; i++) {
+            if (Double.compare(lvalues[i], val) == 0) {
+                final Double[] ret = new Double[lvalues.length - 1];
+                System.arraycopy(lvalues, 0, ret, 0, i);
+                System.arraycopy(lvalues, i + 1, ret, i, lvalues.length - i - 1);
                 return ret;
             }
         }
-        return lValues;
+        return lvalues;
     }
 
     /**
      * get mean value of double list.
      *
-     * @param lValues the l values
+     * @param lvalues the l values
      * @return the mean
      */
-    private static double getMean(final Double[] lValues) {
+    private static double getMean(final Double[] lvalues) {
         double sum = 0.0;
-        for (final double d : lValues) {
+        for (final double d : lvalues) {
 
             sum += d;
         }
-        return sum / lValues.length;
+        return sum / lvalues.length;
     }
 
     /**
      * get standard deviation of double list.
      *
-     * @param lValues the l values
+     * @param lvalues the l values
      * @param mean the mean
      * @return stddev
      */
-    private static double getStdDev(final Double[] lValues, final double mean) {
+    private static double getStdDev(final Double[] lvalues, final double mean) {
         double temp = 0.0;
-        for (final double d : lValues) {
+        for (final double d : lvalues) {
             temp += (mean - d) * (mean - d);
         }
-        return FastMath.sqrt(temp / lValues.length);
+        return FastMath.sqrt(temp / lvalues.length);
     }
 
     /**
@@ -383,12 +375,12 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
     /**
      * return true if all values are equal.
      *
-     * @param lValues the l values
+     * @param lvalues the l values
      * @return true, if checks if is all equal
      */
-    private static boolean isAllEqual(final List<Double> lValues) {
-        final double first = lValues.get(0);
-        for (final Double d : lValues) {
+    private static boolean isAllEqual(final List<Double> lvalues) {
+        final double first = lvalues.get(0);
+        for (final Double d : lvalues) {
             if (Double.compare(d, first) != 0) {
                 return false;
             }
@@ -399,12 +391,12 @@ public class AnomalyDetectionPolicy_Decide_TaskSelectionLogic {
     /**
      * return true if all values are equal.
      *
-     * @param lValues the l values
+     * @param lvalues the l values
      * @return true, if checks if is all equal
      */
-    private static boolean isAllEqual(final Double[] lValues) {
-        final double first = lValues[0];
-        for (final Double d : lValues) {
+    private static boolean isAllEqual(final Double[] lvalues) {
+        final double first = lvalues[0];
+        for (final Double d : lvalues) {
             if (Double.compare(d, first) != 0) {
                 return false;
             }

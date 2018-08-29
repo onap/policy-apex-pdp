@@ -38,6 +38,10 @@ public class TestAutoLearnModel {
     private Connection connection;
     TestApexModel<AxPolicyModel> testApexModel;
 
+    /**
+     * Set ups embedded Derby database and the Apex AutoLearn model for the tests.
+     * @throws Exception exception to be thrown while setting up the database connection
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -59,12 +63,12 @@ public class TestAutoLearnModel {
     }
 
     @Test
-    public void testModelWriteReadXML() throws Exception {
+    public void testModelWriteReadXml() throws Exception {
         testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
-    public void testModelWriteReadJSON() throws Exception {
+    public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 
