@@ -56,8 +56,8 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
-public class TestAnomalyDetectionTSLUseCase {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestAnomalyDetectionTSLUseCase.class);
+public class TestAnomalyDetectionTslUseCase {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestAnomalyDetectionTslUseCase.class);
 
     private static final int MAXITERATIONS = 3660;
     private static final Random RAND = new Random(System.currentTimeMillis());
@@ -107,7 +107,7 @@ public class TestAnomalyDetectionTSLUseCase {
 
     @Test
     // once through the long running test below
-    public void TestAnomalyDetectionTSL() throws ApexException, InterruptedException, IOException {
+    public void testAnomalyDetectionTsl() throws ApexException, InterruptedException, IOException {
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -156,10 +156,10 @@ public class TestAnomalyDetectionTSLUseCase {
     // Test is disabled by default. uncomment below, or execute using the main() method
     // @Test
     // EG Dos command: apex-core.engine> mvn
-    // -Dtest=org.onap.policy.apex.core.engine.ml.TestAnomalyDetectionTSLUseCase test | findstr /L /C:"Apex [main] DEBUG
+    // -Dtest=org.onap.policy.apex.core.engine.ml.TestAnomalyDetectionTslUseCase test | findstr /L /C:"Apex [main] DEBUG
     // c.e.a.e.TaskSelectionExecutionLogging -
     // TestAnomalyDetectionTSL_Policy0000DecideStateTaskSelectionLogic.getTask():"
-    public void TestAnomalyDetectionTSL_main() throws ApexException, InterruptedException, IOException {
+    public void testAnomalyDetectionTslmain() throws ApexException, InterruptedException, IOException {
 
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
         assertNotNull(apexPolicyModel);
@@ -206,6 +206,6 @@ public class TestAnomalyDetectionTSLUseCase {
     }
 
     public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
-        new TestAnomalyDetectionTSLUseCase().TestAnomalyDetectionTSL_main();
+        new TestAnomalyDetectionTslUseCase().testAnomalyDetectionTslmain();
     }
 }

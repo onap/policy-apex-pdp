@@ -33,7 +33,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class PCVSDomainModelFactory {
+public class PcvsDomainModelFactory {
 
     /**
      * Generates the PCVS VPN-SLA policy model from CLI commands and creates an APEX model.
@@ -42,7 +42,7 @@ public class PCVSDomainModelFactory {
      *
      * @return the PCVS VPN-SLA policy model
      */
-    public AxPolicyModel getPCVVpnSlaSPolicyModel(final String workingDirectory) {
+    public AxPolicyModel getPcvsVpnSlaSPolicyModel(final String workingDirectory) {
         final String path = "target/model-gen/pcvs/vpnsla";
         final String file = "policy.json";
         final String full = path + "/" + file;
@@ -51,8 +51,8 @@ public class PCVSDomainModelFactory {
         pathFile.mkdirs();
 
         final String[] args =
-                new String[] { "-c", "src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/vpnsla.apex", "-wd",
-                        workingDirectory, "-o", full };
+                new String[] {"-c", "src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/vpnsla.apex", "-wd",
+                    workingDirectory, "-o", full};
 
         final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(args);
         if (cliEditor.getErrorCount() > 0) {

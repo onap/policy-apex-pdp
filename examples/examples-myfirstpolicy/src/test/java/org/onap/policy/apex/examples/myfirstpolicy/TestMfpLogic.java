@@ -39,9 +39,9 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
- * The Class TestMFPLogic.
+ * The Class TestMfpLogic.
  */
-public class TestMFPLogic {
+public class TestMfpLogic {
 
     private static final Map<String, String> LOGICEXTENSIONS = new LinkedHashMap<>();
 
@@ -49,7 +49,7 @@ public class TestMFPLogic {
      * Test setup.
      */
     @BeforeClass
-    public static void testMFPUseCaseSetup() {
+    public static void testMfpUseCaseSetup() {
         LOGICEXTENSIONS.put("MVEL", "mvel");
         LOGICEXTENSIONS.put("JAVASCRIPT", "js");
     }
@@ -58,12 +58,12 @@ public class TestMFPLogic {
      * Check logic for MyFirstPolicy#1.
      */
     @Test
-    public void testMFP1TaskLogic() {
+    public void testMfp1TaskLogic() {
         final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP1PolicyModel();
         assertNotNull(apexPolicyModel);
 
         final Map<String, String> logics = new LinkedHashMap<>();
-        logics.putAll(getTSLLogics(apexPolicyModel));
+        logics.putAll(getTslLogics(apexPolicyModel));
         logics.putAll(getTaskLogics(apexPolicyModel));
 
         for (final Entry<String, String> logicvalue : logics.entrySet()) {
@@ -84,12 +84,12 @@ public class TestMFPLogic {
      * Check logic for MyFirstPolicyAlt#1.
      */
     @Test
-    public void testMFP1AltTaskLogic() {
+    public void testMfp1AltTaskLogic() {
         final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP1AltPolicyModel();
         assertNotNull(apexPolicyModel);
 
         final Map<String, String> logics = new LinkedHashMap<>();
-        logics.putAll(getTSLLogics(apexPolicyModel));
+        logics.putAll(getTslLogics(apexPolicyModel));
         logics.putAll(getTaskLogics(apexPolicyModel));
 
         for (final Entry<String, String> logicvalue : logics.entrySet()) {
@@ -109,12 +109,12 @@ public class TestMFPLogic {
      * Check logic for MyFirstPolicy2.
      */
     @Test
-    public void testMFP2TaskLogic() {
+    public void testMfp2TaskLogic() {
         final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP2PolicyModel();
         assertNotNull(apexPolicyModel);
 
         final Map<String, String> logics = new LinkedHashMap<>();
-        logics.putAll(getTSLLogics(apexPolicyModel));
+        logics.putAll(getTslLogics(apexPolicyModel));
         logics.putAll(getTaskLogics(apexPolicyModel));
 
         for (final Entry<String, String> logicvalue : logics.entrySet()) {
@@ -136,7 +136,7 @@ public class TestMFPLogic {
      * @param apexPolicyModel the apex policy model
      * @return the TSL logics
      */
-    private Map<String, String> getTSLLogics(final AxPolicyModel apexPolicyModel) {
+    private Map<String, String> getTslLogics(final AxPolicyModel apexPolicyModel) {
         final Map<String, String> ret = new LinkedHashMap<>();
         for (final Entry<AxArtifactKey, AxPolicy> policyentry : apexPolicyModel.getPolicies().getPolicyMap()
                 .entrySet()) {

@@ -38,6 +38,10 @@ public class TestAADMModel {
     private Connection connection;
     TestApexModel<AxPolicyModel> testApexModel;
 
+    /**
+     * Sets up embedded Derby database and the AADM model for the tests.
+     * @throws Exception exception to be thrown while setting up the database connection
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();

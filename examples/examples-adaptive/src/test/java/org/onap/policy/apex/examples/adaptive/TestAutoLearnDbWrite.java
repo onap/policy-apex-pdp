@@ -31,10 +31,14 @@ import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
-public class TestAutoLearnDBWrite {
+public class TestAutoLearnDbWrite {
     private Connection connection;
     TestApexModel<AxPolicyModel> testApexModel;
 
+    /**
+     * Sets up embedded Derby database and the Apex AutoLearn model for the tests.
+     * @throws Exception exception to be thrown while setting up the database connection
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -50,7 +54,7 @@ public class TestAutoLearnDBWrite {
     }
 
     @Test
-    public void testModelWriteReadJPA() throws Exception {
+    public void testModelWriteReadJpa() throws Exception {
         final DaoParameters DaoParameters = new DaoParameters();
         DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
         DaoParameters.setPersistenceUnit("AdaptiveModelsTest");

@@ -28,7 +28,7 @@ import java.io.Serializable;
 public class ENodeBStatus implements Serializable {
     private static final long serialVersionUID = 2852523814242234172L;
 
-    private final String eNodeB;
+    private final String enodeB;
 
     private long dosCount = 0;
     private boolean beingProbed = false;
@@ -36,10 +36,10 @@ public class ENodeBStatus implements Serializable {
     /**
      * The Constructor initiates the status of the eNodeB.
      *
-     * @param eNodeB the e node B
+     * @param enodeB the eNodeB
      */
-    public ENodeBStatus(final String eNodeB) {
-        this.eNodeB = eNodeB;
+    public ENodeBStatus(final String enodeB) {
+        this.enodeB = enodeB;
     }
 
     /**
@@ -48,7 +48,7 @@ public class ENodeBStatus implements Serializable {
      * @return the eNodeB name
      */
     public String getENodeB() {
-        return eNodeB;
+        return enodeB;
     }
 
     /**

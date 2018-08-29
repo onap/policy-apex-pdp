@@ -36,7 +36,7 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
 /**
  * Test MyFirstPolicyModel CLI.
  */
-public class TestMFPModelCLI {
+public class TestMfpModelCli {
     private static AxPolicyModel testApexModel1;
     private static AxPolicyModel testApexModel2;
 
@@ -47,8 +47,8 @@ public class TestMFPModelCLI {
      */
     @BeforeClass
     public static void setup() throws Exception {
-        testApexModel1 = new TestMFPModelCreator.TestMFP1ModelCreator().getModel();
-        testApexModel2 = new TestMFPModelCreator.TestMFP2ModelCreator().getModel();
+        testApexModel1 = new TestMfpModelCreator.TestMfp1ModelCreator().getModel();
+        testApexModel2 = new TestMfpModelCreator.TestMfp2ModelCreator().getModel();
     }
 
     /**
@@ -58,17 +58,17 @@ public class TestMFPModelCLI {
      * @throws ApexModelException ifd there is an Apex Error
      */
     @Test
-    public void testCLIPolicy() throws IOException, ApexModelException {
+    public void testCliPolicy() throws IOException, ApexModelException {
 
         final File tempLogFile1 = File.createTempFile("TestMyFirstPolicy1CLI", ".log");
         final File tempModelFile1 = File.createTempFile("TestMyFirstPolicy1CLI", ".json");
         final File tempLogFile2 = File.createTempFile("TestMyFirstPolicy2CLI", ".log");
         final File tempModelFile2 = File.createTempFile("TestMyFirstPolicy2CLI", ".json");
         final String[] testApexModel1CliArgs =
-                { "-c", "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex", "-l",
+            { "-c", "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex", "-l",
                         tempLogFile1.getAbsolutePath(), "-o", tempModelFile1.getAbsolutePath() };
         final String[] testApexModel2CliArgs =
-                { "-c", "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex", "-l",
+            { "-c", "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex", "-l",
                         tempLogFile2.getAbsolutePath(), "-o", tempModelFile2.getAbsolutePath() };
 
         new ApexCLIEditorMain(testApexModel1CliArgs);

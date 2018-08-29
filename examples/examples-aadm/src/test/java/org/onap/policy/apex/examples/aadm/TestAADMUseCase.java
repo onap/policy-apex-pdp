@@ -50,7 +50,9 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * User: Sergey Sachkov Date: 13/10/15
+ * This class tests AADM use case.
+ * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
+ *
  */
 public class TestAADMUseCase {
     private static final XLogger logger = XLoggerFactory.getXLogger(TestAADMUseCase.class);
@@ -59,15 +61,18 @@ public class TestAADMUseCase {
     private ContextParameters contextParameters;
     private EngineParameters engineParameters;
 
+    /**
+     * Test AADM use case setup.
+     */
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
