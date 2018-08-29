@@ -43,29 +43,27 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This policy passes, and recieves a Double event context filed called "EVCDouble".<br>
- * The policy tries to detect anomalies in the pattern of values for EVCDouble<br>
- * See the 2 test cases below (1 short, 1 long)
+ * Test Auto learning in TSL.
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
-public class TestAnomalyDetectionTSLUseCase {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestAnomalyDetectionTSLUseCase.class);
+public class TestAutoLearnTslUseCase {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestAutoLearnTslUseCase.class);
 
-    private static final int MAXITERATIONS = 3660;
-    private static final Random RAND = new Random(System.currentTimeMillis());
+    private static final int MAXITERATIONS = 1000;
+    private static final Random rand = new Random(System.currentTimeMillis());
 
     @Test
     // once through the long running test below
-    public void TestAnomalyDetectionTSL() throws ApexException, InterruptedException, IOException {
-        final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
+    public void testAutoLearnTsl() throws ApexException, InterruptedException, IOException {
+        final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
         assertNotNull(apexPolicyModel);
 
         final AxValidationResult validationResult = new AxValidationResult();
         apexPolicyModel.validate(validationResult);
         assertTrue(validationResult.isValid());
 
-        final AxArtifactKey key = new AxArtifactKey("AnomalyTSLApexEngine", "0.0.1");
+        final AxArtifactKey key = new AxArtifactKey("AADMApexEngine", "0.0.1");
         final EngineParameters parameters = new EngineParameters();
         parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
         parameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
@@ -76,11 +74,10 @@ public class TestAnomalyDetectionTSLUseCase {
         apexEngine1.addEventListener("listener", listener1);
         apexEngine1.updateModel(apexPolicyModel);
         apexEngine1.start();
-        final EnEvent triggerEvent =
-                apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
-        final double rval = RAND.nextGaussian();
-        triggerEvent.put("Iteration", 0);
+        final EnEvent triggerEvent = apexEngine1.createEvent(new AxArtifactKey("AutoLearnTriggerEvent", "0.0.1"));
+        final double rval = rand.nextGaussian();
         triggerEvent.put("MonitoredValue", rval);
+        triggerEvent.put("LastMonitoredValue", 0D);
         LOGGER.info("Triggering policy in Engine 1 with " + triggerEvent);
         apexEngine1.handleEvent(triggerEvent);
         final EnEvent result = listener1.getResult();
@@ -93,35 +90,35 @@ public class TestAnomalyDetectionTSLUseCase {
     }
 
     /**
-     * This policy passes, and recieves a Double event context filed called "EVCDouble"<br>
-     * The policy tries to detect anomalies in the pattern of values for EVCDouble <br>
-     * This test case generates a SineWave-like pattern for the parameter, repeating every 360 iterations. (These Period
-     * should probably be set using TaskParameters!) Every 361st value is a random number!, so should be identified as
-     * an Anomaly. The policy has 3 Decide Tasks, and the Decide TaskSelectionLogic picks one depending on the
-     * 'Anomaliness' of the input data. <br>
-     * To plot the results grep debug results for the string "************", paste into excel and delete non-relevant
+     * This policy passes, and receives a Double event context filed called "EVCDouble"<br>
+     * The policy tries to keep the value at 50, with a Min -100, Max 100 (These should probably be set using
+     * TaskParameters!)<br>
+     * The policy has 7 Decide Tasks that manipulate the value of this field in unknown ways.<br>
+     * The Decide TSL learns the effect of each task, and then selects the appropriate task to get the value back to
+     * 50<br>
+     * After the value settles close to 50 for a while, the test Rests the value to to random number and then
+     * continues<br>
+     * To plot the results grep stdout debug results for the string "*******", paste into excel and delete non-relevant
      * columns<br>
      *
      * @throws ApexException the apex exception
      * @throws InterruptedException the interrupted exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    // Test is disabled by default. uncomment below, or execute using the main() method
     // @Test
-    // EG Dos command: apex-core.engine> mvn
-    // -Dtest=org.onap.policy.apex.core.engine.ml.TestAnomalyDetectionTSLUseCase test | findstr /L /C:"Apex [main] DEBUG
-    // c.e.a.e.TaskSelectionExecutionLogging -
-    // TestAnomalyDetectionTSL_Policy0000DecideStateTaskSelectionLogic.getTask():"
-    public void TestAnomalyDetectionTSL_main() throws ApexException, InterruptedException, IOException {
+    public void testAutoLearnTslMain() throws ApexException, InterruptedException, IOException {
 
-        final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
+        final double dwant = 50.0;
+        final double toleranceTileJump = 3.0;
+
+        final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
         assertNotNull(apexPolicyModel);
 
         final AxValidationResult validationResult = new AxValidationResult();
         apexPolicyModel.validate(validationResult);
         assertTrue(validationResult.isValid());
 
-        final AxArtifactKey key = new AxArtifactKey("AnomalyTSLApexEngine", "0.0.1");
+        final AxArtifactKey key = new AxArtifactKey("AADMApexEngine", "0.0.1");
         final EngineParameters parameters = new EngineParameters();
         parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
         parameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
@@ -133,32 +130,58 @@ public class TestAnomalyDetectionTSLUseCase {
         apexEngine1.updateModel(apexPolicyModel);
         apexEngine1.start();
 
-        final EnEvent triggerEvent =
-                apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
+        final EnEvent triggerEvent = apexEngine1.createEvent(new AxArtifactKey("AutoLearnTriggerEvent", "0.0.1"));
         assertNotNull(triggerEvent);
+        final double dmin = -100;
+        final double dmax = 100;
+
+        double rval = (((rand.nextGaussian() + 1) / 2) * (dmax - dmin)) + dmin;
+        triggerEvent.put("MonitoredValue", rval);
+        triggerEvent.put("LastMonitoredValue", 0);
+
+        double avval = 0;
+        double distance;
+        double avcount = 0;
 
         for (int iteration = 0; iteration < MAXITERATIONS; iteration++) {
             // Trigger the policy in engine 1
-
-            double value = (Math.sin(Math.toRadians(iteration))) + (RAND.nextGaussian() / 25.0);
-            // lets make every 361st number a random value to perhaps flag as an anomaly
-            if (((iteration + 45) % 361) == 0) {
-                value = (RAND.nextGaussian() * 2.0);
-            }
-            triggerEvent.put("Iteration", iteration);
-            triggerEvent.put("MonitoredValue", value);
-            LOGGER.info("Iteration " + iteration + ":\tTriggering policy in Engine 1 with " + triggerEvent);
+            LOGGER.info("Triggering policy in Engine 1 with " + triggerEvent);
             apexEngine1.handleEvent(triggerEvent);
             final EnEvent result = listener1.getResult();
-            LOGGER.info("Iteration " + iteration + ":\tReceiving action event {} ", result);
+            LOGGER.info("Receiving action event {} ", result);
             triggerEvent.clear();
+
+            double val = (Double) result.get("MonitoredValue");
+            final double prevval = (Double) result.get("LastMonitoredValue");
+
+            triggerEvent.put("MonitoredValue", prevval);
+            triggerEvent.put("LastMonitoredValue", val);
+
+            avcount = Math.min((avcount + 1), 20); // maintain average of only the last 20 values
+            avval = ((avval * (avcount - 1)) + val) / (avcount);
+
+            distance = Math.abs(dwant - avval);
+            if (distance < toleranceTileJump) {
+                rval = (((rand.nextGaussian() + 1) / 2) * (dmax - dmin)) + dmin;
+                val = rval;
+                triggerEvent.put("MonitoredValue", val);
+                LOGGER.info("Iteration " + iteration + ": Average " + avval + " has become closer (" + distance
+                        + ") than " + toleranceTileJump + " to " + dwant + " so reseting val:\t\t\t\t\t\t\t\t" + val);
+                avval = 0;
+                avcount = 0;
+            }
+            LOGGER.info("Iteration " + iteration + ": \tpreval\t" + prevval + "\tval\t" + val + "\tavval\t" + avval);
+
             result.clear();
+            Thread.sleep(1);
         }
+
         apexEngine1.stop();
         Thread.sleep(1000);
+
     }
 
     public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
-        new TestAnomalyDetectionTSLUseCase().TestAnomalyDetectionTSL_main();
+        new TestAutoLearnTslUseCase().testAutoLearnTslMain();
     }
 }
