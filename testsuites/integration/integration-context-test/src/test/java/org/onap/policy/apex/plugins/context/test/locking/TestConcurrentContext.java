@@ -40,7 +40,6 @@ import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistribut
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.lock.modifier.LockType;
 import org.onap.policy.apex.context.test.locking.ConcurrentContext;
@@ -52,13 +51,13 @@ import org.onap.policy.apex.context.test.utils.ZooKeeperServerServiceProvider;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanContextDistributor;
 import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanDistributorParameters;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManagerParameters;
 import org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -226,7 +225,7 @@ public class TestConcurrentContext {
             curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
-            ParameterService.registerParameters(LockManagerParameters.class, curatorParameters);
+            ParameterService.register(curatorParameters);
 
             final ConfigrationProvider configrationProvider = getConfigrationProvider("CuratorLock",
                     TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
@@ -308,7 +307,7 @@ public class TestConcurrentContext {
             curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
-            ParameterService.registerParameters(LockManagerParameters.class, curatorParameters);
+            ParameterService.register(curatorParameters);
 
             final ConfigrationProvider configrationProvider = getConfigrationProvider("InfinispanMultiCuratorLock",
                     TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
@@ -342,7 +341,7 @@ public class TestConcurrentContext {
             curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
-            ParameterService.registerParameters(LockManagerParameters.class, curatorParameters);
+            ParameterService.register(curatorParameters);
 
             final ConfigrationProvider configrationProvider = getConfigrationProvider("HazelcastMultiCuratorLock",
                     TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);

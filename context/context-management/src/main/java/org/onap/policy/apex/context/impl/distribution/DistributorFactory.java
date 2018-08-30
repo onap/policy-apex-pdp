@@ -22,10 +22,11 @@ package org.onap.policy.apex.context.impl.distribution;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -51,24 +52,23 @@ public class DistributorFactory {
         Assertions.argumentNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
         // Get the class for the distributor using reflection
-        final DistributorParameters distributorParameters = ParameterService.getParameters(DistributorParameters.class);
+        final DistributorParameters distributorParameters = ParameterService
+                        .get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         final String pluginClass = distributorParameters.getPluginClass();
         Object contextDistributorObject = null;
         try {
             contextDistributorObject = Class.forName(pluginClass).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            LOGGER.error(
-                    "Apex context distributor class not found for context distributor plugin \"" + pluginClass + "\"",
-                    e);
-            throw new ContextException(
-                    "Apex context distributor class not found for context distributor plugin \"" + pluginClass + "\"",
-                    e);
+            LOGGER.error("Apex context distributor class not found for context distributor plugin \"" + pluginClass
+                            + "\"", e);
+            throw new ContextException("Apex context distributor class not found for context distributor plugin \""
+                            + pluginClass + "\"", e);
         }
 
         // Check the class is a distributor
         if (!(contextDistributorObject instanceof Distributor)) {
             final String returnString = "Specified Apex context distributor plugin class \"" + pluginClass
-                    + "\" does not implement the ContextDistributor interface";
+                            + "\" does not implement the ContextDistributor interface";
             LOGGER.error(returnString);
             throw new ContextException(returnString);
         }
@@ -79,8 +79,8 @@ public class DistributorFactory {
         // Lock and load the context distributor
         contextDistributor.init(key);
 
-        LOGGER.exit(
-                "Distributor factory, key=" + key + ", selected distributor of class " + contextDistributor.getClass());
+        LOGGER.exit("Distributor factory, key=" + key + ", selected distributor of class "
+                        + contextDistributor.getClass());
         return contextDistributor;
     }
 }

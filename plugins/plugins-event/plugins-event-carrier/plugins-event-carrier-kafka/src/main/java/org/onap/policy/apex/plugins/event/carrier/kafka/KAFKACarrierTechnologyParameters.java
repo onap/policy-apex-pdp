@@ -25,6 +25,8 @@ import java.util.Collection;
 import java.util.Properties;
 
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for Kafka as an event carrier technology.
@@ -41,6 +43,9 @@ public class KAFKACarrierTechnologyParameters extends CarrierTechnologyParameter
 
     /** The consumer plugin class for the Kafka carrier technology. */
     public static final String KAFKA_EVENT_CONSUMER_PLUGIN_CLASS = ApexKafkaConsumer.class.getCanonicalName();
+
+    // Repeated strings in messages
+    private static final String SPECIFY_AS_STRING_MESSAGE = "not specified, must be specified as a string";
 
     // Default parameter values
     private static final String   DEFAULT_ACKS                = "all";
@@ -102,7 +107,7 @@ public class KAFKACarrierTechnologyParameters extends CarrierTechnologyParameter
      * service.
      */
     public KAFKACarrierTechnologyParameters() {
-        super(KAFKACarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the kafka carrier technology
         this.setLabel(KAFKA_CARRIER_TECHNOLOGY_LABEL);
@@ -308,89 +313,107 @@ public class KAFKACarrierTechnologyParameters extends CarrierTechnologyParameter
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
-        errorMessageBuilder.append(super.validate());
-
-        if (bootstrapServers == null || bootstrapServers.trim().length() == 0) {
-            errorMessageBuilder
-                    .append("  bootstrapServers not specified, must be specified as a string of form host:port\n");
+        if (isNullOrBlank(bootstrapServers)) {
+            result.setResult("bootstrapServers", ValidationStatus.INVALID,
+                            "not specified, must be specified as a string of form host:port");
         }
 
-        if (acks == null || acks.trim().length() == 0) {
-            errorMessageBuilder.append("  acks not specified, must be specified as a string with values [0|1|all]\n");
+        if (isNullOrBlank(acks)) {
+            result.setResult("acks", ValidationStatus.INVALID,
+                            "not specified, must be specified as a string with values [0|1|all]");
         }
 
         if (retries < 0) {
-            errorMessageBuilder.append("  retries [" + retries + "] invalid, must be specified as retries >= 0\n");
+            result.setResult(PROPERTY_RETRIES, ValidationStatus.INVALID,
+                            "[" + retries + "] invalid, must be specified as retries >= 0");
         }
 
         if (batchSize < 0) {
-            errorMessageBuilder
-                    .append("  batchSize [" + batchSize + "] invalid, must be specified as batchSize >= 0\n");
+            result.setResult("batchSize", ValidationStatus.INVALID,
+                            "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
         }
 
         if (lingerTime < 0) {
-            errorMessageBuilder
-                    .append("  lingerTime [" + lingerTime + "] invalid, must be specified as lingerTime >= 0\n");
+            result.setResult("lingerTime", ValidationStatus.INVALID,
+                            "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
         }
 
         if (bufferMemory < 0) {
-            errorMessageBuilder
-                    .append("  bufferMemory [" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0\n");
+            result.setResult("bufferMemory", ValidationStatus.INVALID,
+                            "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
         }
 
-        if (groupId == null || groupId.trim().length() == 0) {
-            errorMessageBuilder.append("  groupId not specified, must be specified as a string\n");
+        if (isNullOrBlank(groupId)) {
+            result.setResult("groupId", ValidationStatus.INVALID, SPECIFY_AS_STRING_MESSAGE);
         }
 
         if (autoCommitTime < 0) {
-            errorMessageBuilder.append(
-                    "  autoCommitTime [" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0\n");
+            result.setResult("autoCommitTime", ValidationStatus.INVALID,
+                            "[" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0");
         }
 
         if (sessionTimeout < 0) {
-            errorMessageBuilder.append(
-                    "  sessionTimeout [" + sessionTimeout + "] invalid, must be specified as sessionTimeout >= 0\n");
+            result.setResult("sessionTimeout", ValidationStatus.INVALID,
+                            "[" + sessionTimeout + "] invalid, must be specified as sessionTimeout >= 0");
         }
 
-        if (producerTopic == null || producerTopic.trim().length() == 0) {
-            errorMessageBuilder.append("  producerTopic not specified, must be specified as a string\n");
+        if (isNullOrBlank(producerTopic)) {
+            result.setResult("producerTopic", ValidationStatus.INVALID,
+                            SPECIFY_AS_STRING_MESSAGE);
         }
 
         if (consumerPollTime < 0) {
-            errorMessageBuilder.append("  consumerPollTime [" + consumerPollTime
-                    + "] invalid, must be specified as consumerPollTime >= 0\n");
+            result.setResult("consumerPollTime", ValidationStatus.INVALID,
+                            "[" + consumerPollTime + "] invalid, must be specified as consumerPollTime >= 0");
         }
 
+        validateConsumerTopicList(result);
+
+        if (isNullOrBlank(keySerializer)) {
+            result.setResult("keySerializer", ValidationStatus.INVALID,
+                            SPECIFY_AS_STRING_MESSAGE);
+        }
+
+        if (isNullOrBlank(valueSerializer)) {
+            result.setResult("valueSerializer", ValidationStatus.INVALID,
+                            SPECIFY_AS_STRING_MESSAGE);
+        }
+
+        if (isNullOrBlank(keyDeserializer)) {
+            result.setResult("keyDeserializer", ValidationStatus.INVALID,
+                            SPECIFY_AS_STRING_MESSAGE);
+        }
+
+        if (isNullOrBlank(valueDeserializer)) {
+            result.setResult("valueDeserializer", ValidationStatus.INVALID,
+                            SPECIFY_AS_STRING_MESSAGE);
+        }
+
+        return result;
+    }
+    
+    private void validateConsumerTopicList(final GroupValidationResult result) {
         if (consumerTopicList == null || consumerTopicList.length == 0) {
-            errorMessageBuilder.append("  consumerTopicList not specified, must be specified as a list of strings\n");
+            result.setResult("consumerTopicList", ValidationStatus.INVALID,
+                            "not specified, must be specified as a list of strings");
         }
 
+        StringBuilder consumerTopicStringBuilder = new StringBuilder();
         for (final String consumerTopic : consumerTopicList) {
             if (consumerTopic == null || consumerTopic.trim().length() == 0) {
-                errorMessageBuilder.append("  invalid consumer topic \"" + consumerTopic
-                        + "\" specified on consumerTopicList, consumer topics must be specified as strings\n");
+                consumerTopicStringBuilder.append(consumerTopic + "/");
             }
         }
-
-        if (keySerializer == null || keySerializer.trim().length() == 0) {
-            errorMessageBuilder.append("  keySerializer not specified, must be specified as a string\n");
+        if (consumerTopicStringBuilder.length() > 0) {
+            result.setResult("consumerTopicList", ValidationStatus.INVALID,
+                            "invalid consumer topic list entries found: /" + consumerTopicStringBuilder.toString());
         }
+    }
 
-        if (valueSerializer == null || valueSerializer.trim().length() == 0) {
-            errorMessageBuilder.append("  valueSerializer not specified, must be specified as a string\n");
-        }
-
-        if (keyDeserializer == null || keyDeserializer.trim().length() == 0) {
-            errorMessageBuilder.append("  keyDeserializer not specified, must be specified as a string\n");
-        }
-
-        if (valueDeserializer == null || valueDeserializer.trim().length() == 0) {
-            errorMessageBuilder.append("  valueDeserializer not specified, must be specified as a string\n");
-        }
-
-        return errorMessageBuilder.toString();
+    private boolean isNullOrBlank(final String stringValue) {
+       return stringValue == null || stringValue.trim().length() == 0;
     }
 }

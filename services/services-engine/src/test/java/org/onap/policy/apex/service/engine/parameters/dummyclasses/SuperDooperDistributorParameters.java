@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 
 import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
  * Distributor parameters for the Super Dooper Distributor.
@@ -44,9 +43,7 @@ public class SuperDooperDistributorParameters extends DistributorParameters {
     private String jGroupsBindAddress = DEFAULT_INFINSPAN_JGROUPS_BIND_ADDRESS;
 
     public SuperDooperDistributorParameters() {
-        super(SuperDooperDistributorParameters.class.getCanonicalName());
-        ParameterService.registerParameters(SuperDooperDistributorParameters.class, this);
-        ParameterService.registerParameters(DistributorParameters.class, this);
+        super();
     }
 
     public String getConfigFile() {

@@ -20,25 +20,28 @@
 
 package org.onap.policy.apex.service.parameters.carriertechnology;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.service.parameters.ApexParameterValidator;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterRuntimeException;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
- * The default carrier technology parameter class that may be specialized by carrier technology
- * plugins that require plugin specific parameters.
+ * The default carrier technology parameter class that may be specialized by carrier technology plugins that require
+ * plugin specific parameters.
  * 
- * <p>The following parameters are defined:
+ * <p>
+ * The following parameters are defined:
  * <ol>
  * <li>label: The label of the carrier technology.
- * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce
- * and emit output events for this carrier technology
- * <li>eventConsumerPluginClass: The name of the plugin class that will be used by Apex to receive
- * and process input events from this carrier technology carrier technology
+ * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce and emit output
+ * events for this carrier technology
+ * <li>eventConsumerPluginClass: The name of the plugin class that will be used by Apex to receive and process input
+ * events from this carrier technology carrier technology
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class CarrierTechnologyParameters extends AbstractParameters implements ApexParameterValidator {
+public abstract class CarrierTechnologyParameters implements ParameterGroup {
 
     // The carrier technology label
     private String label = null;
@@ -49,13 +52,13 @@ public abstract class CarrierTechnologyParameters extends AbstractParameters imp
     private String eventConsumerPluginClass = null;
 
     /**
-     * Constructor to create a carrier technology parameters instance with the name of a sub class
-     * of this class and register the instance with the parameter service.
+     * Constructor to create a carrier technology parameters instance with the name of a sub class of this class and
+     * register the instance with the parameter service.
      *
      * @param parameterClassName the class name of a sub class of this class
      */
-    public CarrierTechnologyParameters(final String parameterClassName) {
-        super(parameterClassName);
+    public CarrierTechnologyParameters() {
+        super();
     }
 
     /**
@@ -132,7 +135,7 @@ public abstract class CarrierTechnologyParameters extends AbstractParameters imp
     @Override
     public String toString() {
         return "CarrierTechnologyParameters [label=" + label + ", eventProducerPluginClass=" + eventProducerPluginClass
-                + ", eventConsumerPluginClass=" + eventConsumerPluginClass + "]";
+                        + ", eventConsumerPluginClass=" + eventConsumerPluginClass + "]";
     }
 
     /*
@@ -141,21 +144,34 @@ public abstract class CarrierTechnologyParameters extends AbstractParameters imp
      * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = new GroupValidationResult(this);
 
         if (label == null || label.length() == 0) {
-            errorMessageBuilder.append("  carrier technology label not specified or is blank\n");
+            result.setResult("label", ValidationStatus.INVALID, "carrier technology label not specified or is blank");
         }
 
         if (eventProducerPluginClass == null || eventProducerPluginClass.length() == 0) {
-            errorMessageBuilder.append("  carrier technology eventProducerPluginClass not specified or is blank\n");
+            result.setResult("eventProducerPluginClass", ValidationStatus.INVALID,
+                            "carrier technology eventProducerPluginClass not specified or is blank");
         }
 
         if (eventConsumerPluginClass == null || eventConsumerPluginClass.length() == 0) {
-            errorMessageBuilder.append("  carrier technology eventConsumerPluginClass not specified or is blank\n");
+            result.setResult("eventConsumerPluginClass", ValidationStatus.INVALID,
+                            "carrier technology eventConsumerPluginClass not specified or is blank");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
+    
+    @Override
+    public String getName() {
+        return this.getLabel();
+    }
+
+    @Override
+    public void setName(final String name) {
+        throw new ParameterRuntimeException("the name/label of this carrier technology is always \"" + getLabel() + "\"");
+    }
+
 }

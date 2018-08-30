@@ -23,42 +23,42 @@ package org.onap.policy.apex.service.parameters.eventhandler;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.service.parameters.ApexParameterValidator;
+import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * The parameters for a single event producer, event consumer or synchronous event handler.
  * 
- * <p>Event producers, consumers, and synchronous event handlers all use a carrier technology and an
- * event protocol so the actual parameters for each one are the same. Therefore, we use the same
- * class for the parameters of each one.
+ * <p>
+ * Event producers, consumers, and synchronous event handlers all use a carrier technology and an event protocol so the
+ * actual parameters for each one are the same. Therefore, we use the same class for the parameters of each one.
  * 
- * <p>The following parameters are defined:
+ * <p>
+ * The following parameters are defined:
  * <ol>
- * <li>carrierTechnologyParameters: The carrier technology is the type of messaging infrastructure
- * used to carry events. Examples are File, Kafka or REST.
- * <li>eventProtocolParameters: The format that the events are in when being carried. Examples are
- * JSON, XML, or Java Beans. carrier technology
+ * <li>carrierTechnologyParameters: The carrier technology is the type of messaging infrastructure used to carry events.
+ * Examples are File, Kafka or REST.
+ * <li>eventProtocolParameters: The format that the events are in when being carried. Examples are JSON, XML, or Java
+ * Beans. carrier technology
  * <li>synchronousMode: true if the event handler is working in synchronous mode, defaults to false
- * <li>synchronousPeer: the peer event handler (consumer for producer or producer for consumer) of
- * this event handler in synchronous mode
- * <li>synchronousTimeout: the amount of time to wait for the reply to synchronous events before
- * they are timed out
+ * <li>synchronousPeer: the peer event handler (consumer for producer or producer for consumer) of this event handler in
+ * synchronous mode
+ * <li>synchronousTimeout: the amount of time to wait for the reply to synchronous events before they are timed out
  * <li>requestorMode: true if the event handler is working in requestor mode, defaults to false
- * <li>requestorPeer: the peer event handler (consumer for producer or producer for consumer) of
- * this event handler in requestor mode
- * <li>requestorTimeout: the amount of time to wait for the reply to synchronous events before they
- * are timed out
- * <li>eventNameFilter: a regular expression to apply to events on this event handler. If specified,
- * events not matching the given regular expression are ignored. If it is null, all events are
- * handledDefaults to null.
+ * <li>requestorPeer: the peer event handler (consumer for producer or producer for consumer) of this event handler in
+ * requestor mode
+ * <li>requestorTimeout: the amount of time to wait for the reply to synchronous events before they are timed out
+ * <li>eventNameFilter: a regular expression to apply to events on this event handler. If specified, events not matching
+ * the given regular expression are ignored. If it is null, all events are handledDefaults to null.
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class EventHandlerParameters extends AbstractParameters implements ApexParameterValidator {
+public class EventHandlerParameters implements ParameterGroup {
     private String name = null;
     private CarrierTechnologyParameters carrierTechnologyParameters = null;
     private EventProtocolParameters eventProtocolParameters = null;
@@ -75,17 +75,10 @@ public class EventHandlerParameters extends AbstractParameters implements ApexPa
      * Constructor to create an event handler parameters instance.
      */
     public EventHandlerParameters() {
-        super(EventHandlerParameters.class.getCanonicalName());
-    }
+        super();
 
-    /**
-     * Constructor to create an event handler parameters instance with the name of a sub class of
-     * this class.
-     *
-     * @param parameterClassName the class name of a sub class of this class
-     */
-    public EventHandlerParameters(final String parameterClassName) {
-        super(parameterClassName);
+        // Set the name for the parameters
+        this.name = ApexParameterConstants.EVENT_HANDLER_GROUP_NAME;
     }
 
     /**
@@ -150,7 +143,6 @@ public class EventHandlerParameters extends AbstractParameters implements ApexPa
     public void setEventProtocolParameters(final EventProtocolParameters eventProtocolParameters) {
         this.eventProtocolParameters = eventProtocolParameters;
     }
-
 
     /**
      * Checks if the event handler is in the given peered mode.
@@ -320,30 +312,33 @@ public class EventHandlerParameters extends AbstractParameters implements ApexPa
      * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = new GroupValidationResult(this);
 
         if (eventProtocolParameters == null) {
-            errorMessageBuilder.append("  event handler eventProtocolParameters not specified or blank\n");
+            result.setResult("eventProtocolParameters", ValidationStatus.INVALID,
+                            "event handler eventProtocolParameters not specified or blank");
         } else {
-            errorMessageBuilder.append(eventProtocolParameters.validate());
+            result.setResult("eventProtocolParameters", eventProtocolParameters.validate());
         }
 
         if (carrierTechnologyParameters == null) {
-            errorMessageBuilder.append("  event handler carrierTechnologyParameters not specified or blank\n");
+            result.setResult("carrierTechnologyParameters", ValidationStatus.INVALID,
+                            "event handler carrierTechnologyParameters not specified or blank");
         } else {
-            errorMessageBuilder.append(carrierTechnologyParameters.validate());
+            result.setResult("carrierTechnologyParameters", carrierTechnologyParameters.validate());
         }
 
         if (eventNameFilter != null) {
             try {
                 Pattern.compile(eventNameFilter);
             } catch (final PatternSyntaxException pse) {
-                errorMessageBuilder.append("  event handler eventNameFilter is not a valid regular expression: "
-                        + pse.getMessage() + "\n");
+                result.setResult("eventNameFilter", ValidationStatus.INVALID,
+                                "event handler eventNameFilter is not a valid regular expression: " + pse.getMessage());
             }
         }
-        return errorMessageBuilder.toString();
+
+        return result;
     }
 
     /*
@@ -354,9 +349,10 @@ public class EventHandlerParameters extends AbstractParameters implements ApexPa
     @Override
     public String toString() {
         return "EventHandlerParameters [name=" + name + ", carrierTechnologyParameters=" + carrierTechnologyParameters
-                + ", eventProtocolParameters=" + eventProtocolParameters + ", synchronousMode=" + synchronousMode
-                + ", synchronousPeer=" + synchronousPeer + ", synchronousTimeout=" + synchronousTimeout
-                + ", requestorMode=" + requestorMode + ", requestorPeer=" + requestorPeer + ", requestorTimeout="
-                + requestorTimeout + ", eventName=" + eventName + ", eventNameFilter=" + eventNameFilter + "]";
+                        + ", eventProtocolParameters=" + eventProtocolParameters + ", synchronousMode="
+                        + synchronousMode + ", synchronousPeer=" + synchronousPeer + ", synchronousTimeout="
+                        + synchronousTimeout + ", requestorMode=" + requestorMode + ", requestorPeer=" + requestorPeer
+                        + ", requestorTimeout=" + requestorTimeout + ", eventName=" + eventName + ", eventNameFilter="
+                        + eventNameFilter + "]";
     }
 }

@@ -29,10 +29,10 @@ import org.onap.policy.apex.service.engine.event.impl.EventConsumerFactory;
 import org.onap.policy.apex.service.engine.event.impl.EventProducerFactory;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 
-import org.onap.policy.apex.service.parameters.ApexParameterException;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
+import org.onap.policy.common.parameters.ParameterException;
 
 /**
  * Test Plugin Factories.
@@ -42,7 +42,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParamete
 public class TestPluginFactories {
 
     @Test
-    public void testEventConsumerFactory() throws ApexEventException, ApexParameterException {
+    public void testEventConsumerFactory() throws ApexEventException, ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/factoryGoodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
