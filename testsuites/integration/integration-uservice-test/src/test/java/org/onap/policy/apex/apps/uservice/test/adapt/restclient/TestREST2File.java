@@ -123,7 +123,7 @@ public class TestREST2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains("  no URL has been set for event sending on REST client"));
+        assertTrue(outString.contains(" no URL has been set for event sending on REST client"));
     }
 
     @Test

@@ -21,8 +21,8 @@
 package org.onap.policy.apex.context.parameters;
 
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * An empty lock manager parameter class that may be specialized by context lock manager plugins
@@ -31,13 +31,13 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class LockManagerParameters extends AbstractParameters {
+public class LockManagerParameters implements ParameterGroup {
     /**
      * The default lock manager can lock context album instance across all threads in a single JVM.
      */
     public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JVMLocalLockManager.class.getCanonicalName();
 
-    // Plugin class names
+    private String name;
     private String pluginClass = DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;
 
     /**
@@ -45,18 +45,10 @@ public class LockManagerParameters extends AbstractParameters {
      * parameter service.
      */
     public LockManagerParameters() {
-        super(LockManagerParameters.class.getCanonicalName());
-        ParameterService.registerParameters(LockManagerParameters.class, this);
-    }
+        super();
 
-    /**
-     * Constructor to create a lock manager parameters instance with the name of a sub class of this
-     * class and register the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
-     */
-    public LockManagerParameters(final String parameterClassName) {
-        super(parameterClassName);
+        // Set the name for the parameters
+        this.name = ContextParameterConstants.LOCKING_GROUP_NAME;
     }
 
     /**
@@ -76,14 +68,24 @@ public class LockManagerParameters extends AbstractParameters {
     public void setPluginClass(final String pluginClass) {
         this.pluginClass = pluginClass;
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
-     */
+    
     @Override
     public String toString() {
-        return "LockManagerParameters [pluginClass=" + pluginClass + "]";
+        return "LockManagerParameters [name=" + name + ", pluginClass=" + pluginClass + "]";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }

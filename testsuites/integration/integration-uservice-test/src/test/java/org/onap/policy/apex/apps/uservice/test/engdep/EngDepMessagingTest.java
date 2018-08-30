@@ -33,6 +33,10 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.deployment.BatchDeployer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -42,6 +46,7 @@ import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.test.common.model.SampleDomainModelFactory;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -58,13 +63,55 @@ public class EngDepMessagingTest {
 
     private static final long MAX_START_WAIT = 10000; // 10 sec
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
+    private EngineServiceParameters engineServiceParameters;
+
     @Before
-    public void setUp() throws Exception {}
+    public void beforeTest() {
+        schemaParameters = new SchemaParameters();
+        
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+        
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        engineServiceParameters = new EngineServiceParameters();
+        engineServiceParameters.setName("EngDepMessagingTest");
+        engineServiceParameters.setVersion("0.0.1");
+        engineServiceParameters.setDeploymentPort(58820);
+        engineServiceParameters.setInstanceCount(3);
+        engineServiceParameters.setId(100);
+        engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+
+        ParameterService.register(engineServiceParameters);
+        ParameterService.register(engineServiceParameters.getEngineParameters());
+    }
+
+    @After
+    public void afterTest() {
+        ParameterService.deregister(engineServiceParameters);
+        ParameterService.deregister(engineServiceParameters.getEngineParameters());
+
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+
+        ParameterService.deregister(schemaParameters);
+    }
 
     /**
      * Test EngDep messaging.
@@ -79,15 +126,7 @@ public class EngDepMessagingTest {
 
         ModelService.clear();
 
-        final EngineServiceParameters parameters = new EngineServiceParameters();
-        parameters.setName("EngDepMessagingTest");
-        parameters.setVersion("0.0.1");
-        parameters.setDeploymentPort(58820);
-        parameters.setInstanceCount(3);
-        parameters.setId(100);
-        parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
-
-        final EngineTestServer server = new EngineTestServer(parameters);
+        final EngineTestServer server = new EngineTestServer(engineServiceParameters);
         assertNotNull(server);
 
         final Thread serverThread = new Thread(server);
@@ -135,7 +174,7 @@ public class EngDepMessagingTest {
         }
         ThreadUtilities.sleep(500);
 
-        assertEquals(server.getTotalActionEventsReceived(), 2);
+        assertEquals(2, server.getTotalActionEventsReceived());
 
         deployer1.init();
         deployer1.stopEngines();
@@ -160,7 +199,7 @@ public class EngDepMessagingTest {
         }
         ThreadUtilities.sleep(500);
 
-        assertEquals(server.getTotalActionEventsReceived(), 4);
+        assertEquals(4, server.getTotalActionEventsReceived());
 
         deployer2.init();
         deployer2.stopEngines();

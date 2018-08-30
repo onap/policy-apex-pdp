@@ -37,7 +37,6 @@ import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
@@ -48,13 +47,14 @@ import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.HeaderDelimitedTextBlockReader;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlock;
+import org.onap.policy.common.parameters.ParameterService;
 
 public class TestYamlEventProtocol {
     @BeforeClass
     public static void registerTestEventsAndSchemas() throws IOException {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
-        ParameterService.registerParameters(SchemaParameters.class, schemaParameters);
+        ParameterService.register(schemaParameters, true);
 
         AxContextSchemas schemas = new AxContextSchemas();
 
@@ -199,6 +199,7 @@ public class TestYamlEventProtocol {
     @AfterClass
     public static void unregisterTestEventsAndSchemas() {
         ModelService.clear();
+        ParameterService.clear();
     }
 
     @Test

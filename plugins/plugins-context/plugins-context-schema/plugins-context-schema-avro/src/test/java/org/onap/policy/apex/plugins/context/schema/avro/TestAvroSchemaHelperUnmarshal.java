@@ -25,16 +25,19 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.apache.avro.util.Utf8;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
+import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -48,24 +51,37 @@ public class TestAvroSchemaHelperUnmarshal {
     public void initTest() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
-        new SchemaParameters().getSchemaHelperParameterMap().put("Avro", new AvroSchemaHelperParameters());
     }
 
-    // @Test
+    @Before
+    public void initContext() {
+        SchemaParameters schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
+        ParameterService.register(schemaParameters);
+
+    }
+
+    @After
+    public void clearContext() {
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+    }
+
+    @Test
     public void testNullUnmarshal() {
-        final AxContextSchema avroNullSchema =
-                new AxContextSchema(new AxArtifactKey("AvroNull", "0.0.1"), "Avro", "{\"type\": \"null\"}");
+        final AxContextSchema avroNullSchema = new AxContextSchema(new AxArtifactKey("AvroNull", "0.0.1"), "AVRO",
+                        "{\"type\": \"null\"}");
 
         schemas.getSchemasMap().put(avroNullSchema.getKey(), avroNullSchema);
-        final SchemaHelper schemaHelper0 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroNullSchema.getKey());
+        final SchemaHelper schemaHelper0 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroNullSchema.getKey());
 
         try {
             schemaHelper0.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: could not create an instance, schema class for the schema is null",
-                    e.getMessage());
+                            e.getMessage());
         }
 
         assertEquals(null, schemaHelper0.unmarshal("null"));
@@ -74,28 +90,26 @@ public class TestAvroSchemaHelperUnmarshal {
             schemaHelper0.unmarshal("123");
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: object \"123\" Avro unmarshalling failed: Expected null. Got VALUE_NUMBER_INT",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: object \"123\" Avro unmarshalling failed: Expected null. Got VALUE_NUMBER_INT",
+                            e.getMessage());
         }
     }
 
-    // @Test
+    @Test
     public void testBooleanUnmarshal() {
-        final AxContextSchema avroBooleanSchema =
-                new AxContextSchema(new AxArtifactKey("AvroBoolean", "0.0.1"), "Avro", "{\"type\": \"boolean\"}");
+        final AxContextSchema avroBooleanSchema = new AxContextSchema(new AxArtifactKey("AvroBoolean", "0.0.1"), "AVRO",
+                        "{\"type\": \"boolean\"}");
 
         schemas.getSchemasMap().put(avroBooleanSchema.getKey(), avroBooleanSchema);
-        final SchemaHelper schemaHelper1 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroBooleanSchema.getKey());
+        final SchemaHelper schemaHelper1 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroBooleanSchema.getKey());
 
         try {
             schemaHelper1.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\" using the default constructor \"Boolean()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\" using the default constructor \"Boolean()\"",
+                            e.getMessage());
         }
         assertEquals(true, schemaHelper1.createNewInstance("true"));
 
@@ -105,28 +119,27 @@ public class TestAvroSchemaHelperUnmarshal {
             schemaHelper1.unmarshal(0);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: object \"0\" Avro unmarshalling failed: Expected boolean. Got VALUE_NUMBER_INT",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: object \"0\" of type \"java.lang.Integer\" must be assignable to "
+                            + "\"java.lang.Boolean\" or be a Json string representation of it for "
+                            + "Avro unmarshalling", e.getMessage());
         }
     }
 
-    // @Test
+    @Test
     public void testIntUnmarshal() {
-        final AxContextSchema avroIntSchema =
-                new AxContextSchema(new AxArtifactKey("AvroInt", "0.0.1"), "Avro", "{\"type\": \"int\"}");
+        final AxContextSchema avroIntSchema = new AxContextSchema(new AxArtifactKey("AvroInt", "0.0.1"), "AVRO",
+                        "{\"type\": \"int\"}");
 
         schemas.getSchemasMap().put(avroIntSchema.getKey(), avroIntSchema);
-        final SchemaHelper schemaHelper2 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroIntSchema.getKey());
+        final SchemaHelper schemaHelper2 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroIntSchema.getKey());
 
         try {
             schemaHelper2.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Integer\" using the default constructor \"Integer()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Integer\" using the default constructor \"Integer()\"",
+                            e.getMessage());
         }
         assertEquals(123, schemaHelper2.createNewInstance("123"));
 
@@ -142,40 +155,39 @@ public class TestAvroSchemaHelperUnmarshal {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
-                    "AvroTest:0.0.1: object \"2147483648\" Avro unmarshalling failed: Numeric value (2147483648) out of range of int"));
+                            "AvroTest:0.0.1: object \"2147483648\" Avro unmarshalling failed: Numeric value (2147483648) out of range of int"));
         }
         try {
             schemaHelper2.unmarshal("-2147483649");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
-                    "AvroTest:0.0.1: object \"-2147483649\" Avro unmarshalling failed: Numeric value (-2147483649) out of range of int"));
+                            "AvroTest:0.0.1: object \"-2147483649\" Avro unmarshalling failed: Numeric value (-2147483649) out of range of int"));
         }
         try {
             schemaHelper2.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
+                            "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
         }
     }
 
-    // @Test
+    @Test
     public void testLongUnmarshal() {
-        final AxContextSchema avroLongSchema =
-                new AxContextSchema(new AxArtifactKey("AvroLong", "0.0.1"), "Avro", "{\"type\": \"long\"}");
+        final AxContextSchema avroLongSchema = new AxContextSchema(new AxArtifactKey("AvroLong", "0.0.1"), "AVRO",
+                        "{\"type\": \"long\"}");
 
         schemas.getSchemasMap().put(avroLongSchema.getKey(), avroLongSchema);
-        final SchemaHelper schemaHelper3 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroLongSchema.getKey());
+        final SchemaHelper schemaHelper3 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroLongSchema.getKey());
 
         try {
             schemaHelper3.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\" using the default constructor \"Long()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\" using the default constructor \"Long()\"",
+                            e.getMessage());
         }
         assertEquals(123456789L, schemaHelper3.createNewInstance("123456789"));
 
@@ -191,47 +203,46 @@ public class TestAvroSchemaHelperUnmarshal {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
-                    "AvroTest:0.0.1: object \"9223372036854775808\" Avro unmarshalling failed: Numeric value (9223372036854775808) out of range of long"));
+                            "AvroTest:0.0.1: object \"9223372036854775808\" Avro unmarshalling failed: Numeric value (9223372036854775808) out of range of long"));
         }
         try {
             schemaHelper3.unmarshal("-9223372036854775809");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith(
-                    "AvroTest:0.0.1: object \"-9223372036854775809\" Avro unmarshalling failed: Numeric value (-9223372036854775809) out of range of long"));
+                            "AvroTest:0.0.1: object \"-9223372036854775809\" Avro unmarshalling failed: Numeric value (-9223372036854775809) out of range of long"));
         }
         try {
             schemaHelper3.unmarshal("\"Hello\"");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: Expected long. Got VALUE_STRING"));
+                            "AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: Expected long. Got VALUE_STRING"));
         }
         try {
             schemaHelper3.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
+                            "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
         }
     }
 
-    // @Test
+    @Test
     public void testFloatUnmarshal() {
-        final AxContextSchema avroFloatSchema =
-                new AxContextSchema(new AxArtifactKey("AvroFloat", "0.0.1"), "Avro", "{\"type\": \"float\"}");
+        final AxContextSchema avroFloatSchema = new AxContextSchema(new AxArtifactKey("AvroFloat", "0.0.1"), "AVRO",
+                        "{\"type\": \"float\"}");
 
         schemas.getSchemasMap().put(avroFloatSchema.getKey(), avroFloatSchema);
-        final SchemaHelper schemaHelper4 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroFloatSchema.getKey());
+        final SchemaHelper schemaHelper4 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroFloatSchema.getKey());
 
         try {
             schemaHelper4.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Float\" using the default constructor \"Float()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Float\" using the default constructor \"Float()\"",
+                            e.getMessage());
         }
         assertEquals(1.2345F, schemaHelper4.createNewInstance("1.2345"));
 
@@ -249,33 +260,32 @@ public class TestAvroSchemaHelperUnmarshal {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: Expected float. Got VALUE_STRING"));
+                            "AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: Expected float. Got VALUE_STRING"));
         }
         try {
             schemaHelper4.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
+                            "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
         }
     }
 
-    // @Test
+    @Test
     public void testDoubleUnmarshal() {
-        final AxContextSchema avroDoubleSchema =
-                new AxContextSchema(new AxArtifactKey("AvroDouble", "0.0.1"), "Avro", "{\"type\": \"double\"}");
+        final AxContextSchema avroDoubleSchema = new AxContextSchema(new AxArtifactKey("AvroDouble", "0.0.1"), "AVRO",
+                        "{\"type\": \"double\"}");
 
         schemas.getSchemasMap().put(avroDoubleSchema.getKey(), avroDoubleSchema);
-        final SchemaHelper schemaHelper5 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroDoubleSchema.getKey());
+        final SchemaHelper schemaHelper5 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroDoubleSchema.getKey());
 
         try {
             schemaHelper5.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Double\" using the default constructor \"Double()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Double\" using the default constructor \"Double()\"",
+                            e.getMessage());
         }
         assertEquals(1.2345E06, schemaHelper5.createNewInstance("1.2345E06"));
 
@@ -293,25 +303,25 @@ public class TestAvroSchemaHelperUnmarshal {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: Expected double. Got VALUE_STRING"));
+                            "AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: Expected double. Got VALUE_STRING"));
         }
         try {
             schemaHelper5.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
+                            "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
         }
     }
 
     @Test
     public void testStringUnmarshal() {
-        final AxContextSchema avroStringSchema =
-                new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "Avro", "{\"type\": \"string\"}");
+        final AxContextSchema avroStringSchema = new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "AVRO",
+                        "{\"type\": \"string\"}");
 
         schemas.getSchemasMap().put(avroStringSchema.getKey(), avroStringSchema);
-        final SchemaHelper schemaHelper7 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, avroStringSchema.getKey());
+        final SchemaHelper schemaHelper7 = new SchemaHelperFactory().createSchemaHelper(testKey,
+                        avroStringSchema.getKey());
 
         assertEquals("", schemaHelper7.createNewInstance(""));
         assertEquals("1.2345E06", schemaHelper7.createNewInstance("1.2345E06"));
@@ -332,14 +342,14 @@ public class TestAvroSchemaHelperUnmarshal {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
+                            "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
         }
     }
 
     @Test
     public void testBytesUnmarshal() {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "Avro", "{\"type\": \"bytes\"}");
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "AVRO",
+                        "{\"type\": \"bytes\"}");
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -348,9 +358,8 @@ public class TestAvroSchemaHelperUnmarshal {
             schemaHelper.createNewInstance();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"java.lang.Byte[]\" using the default constructor \"Byte[]()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Byte[]\" using the default constructor \"Byte[]()\"",
+                            e.getMessage());
         }
         final byte[] newBytes = (byte[]) schemaHelper.createNewInstance("\"hello\"");
         assertEquals(5, newBytes.length);
@@ -365,7 +374,7 @@ public class TestAvroSchemaHelperUnmarshal {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().equals(
-                    "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
+                            "AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: String to read from cannot be null!"));
         }
     }
 }

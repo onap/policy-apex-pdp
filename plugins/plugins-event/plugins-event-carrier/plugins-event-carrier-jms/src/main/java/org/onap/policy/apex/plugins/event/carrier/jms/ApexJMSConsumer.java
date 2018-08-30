@@ -96,7 +96,7 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
         InitialContext jmsContext = null;
         ConnectionFactory connectionFactory = null;
         try {
-            jmsContext = new InitialContext(jmsConsumerProperties.getJMSConsumerProperties());
+            jmsContext = new InitialContext(jmsConsumerProperties.getJmsConsumerProperties());
             connectionFactory = (ConnectionFactory) jmsContext.lookup(jmsConsumerProperties.getConnectionFactory());
 
             // Check if we actually got a connection factory
@@ -107,7 +107,7 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
         } catch (final Exception e) {
             final String errorMessage = "lookup of JMS connection factory  \""
                     + jmsConsumerProperties.getConnectionFactory() + "\" failed for JMS consumer properties \""
-                    + jmsConsumerProperties.getJMSConsumerProperties() + "\"";
+                    + jmsConsumerProperties.getJmsConsumerProperties() + "\"";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
@@ -123,7 +123,7 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
             }
         } catch (final Exception e) {
             final String errorMessage = "lookup of JMS topic  \"" + jmsConsumerProperties.getConsumerTopic()
-                    + "\" failed for JMS consumer properties \"" + jmsConsumerProperties.getJMSConsumerProperties()
+                    + "\" failed for JMS consumer properties \"" + jmsConsumerProperties.getJmsConsumerProperties()
                     + "\"";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
@@ -136,7 +136,7 @@ public class ApexJMSConsumer implements MessageListener, ApexEventConsumer, Runn
             connection.start();
         } catch (final Exception e) {
             final String errorMessage = "connection to the JMS server failed for JMS properties \""
-                    + jmsConsumerProperties.getJMSConsumerProperties() + "\"";
+                    + jmsConsumerProperties.getJmsConsumerProperties() + "\"";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }

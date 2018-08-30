@@ -286,6 +286,6 @@ public class TestRESTRequestor {
         System.setErr(stderr);
 
         assertTrue(outString.contains(
-                "event input for peered mode \"REQUESTOR\": peer \"RestRequestorProducer\" for event handler \"RestRequestorConsumer\" does not exist or is not defined as being synchronous"));
+                "peer \"RestRequestorProducer for peered mode REQUESTOR does not exist or is not defined with the same peered mode"));
     }
 }

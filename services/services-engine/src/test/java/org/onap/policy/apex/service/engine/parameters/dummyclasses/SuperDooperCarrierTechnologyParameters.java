@@ -24,8 +24,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
 
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for SuperDooper as an event carrier technology.
@@ -46,14 +47,11 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private static final int DEFAULT_SESSION_TIMEOUT = 30000;
     private static final String DEFAULT_PRODUCER_TOPIC = "apex-out";
     private static final int DEFAULT_CONSUMER_POLL_TIME = 100;
-    private static final String[] DEFAULT_CONSUMER_TOPIC_LIST = {"apex-in"};
+    private static final String[] DEFAULT_CONSUMER_TOPIC_LIST = { "apex-in" };
     private static final String DEFAULT_KEY_SERIALIZER = "org.apache.superDooper.common.serialization.StringSerializer";
-    private static final String DEFAULT_VALUE_SERIALIZER =
-            "org.apache.superDooper.common.serialization.StringSerializer";
-    private static final String DEFAULT_KEY_DESERIALIZER =
-            "org.apache.superDooper.common.serialization.StringDeserializer";
-    private static final String DEFAULT_VALUE_DESERIALIZER =
-            "org.apache.superDooper.common.serialization.StringDeserializer";
+    private static final String DEFAULT_VALUE_SERIALIZER = "org.apache.superDooper.common.serialization.StringSerializer";
+    private static final String DEFAULT_KEY_DESERIALIZER = "org.apache.superDooper.common.serialization.StringDeserializer";
+    private static final String DEFAULT_VALUE_DESERIALIZER = "org.apache.superDooper.common.serialization.StringDeserializer";
 
     // Parameter property map tokens
     private static final String PROPERTY_BOOTSTRAP_SERVERS = "bootstrap.servers";
@@ -91,19 +89,18 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private String valueDeserializer = DEFAULT_VALUE_DESERIALIZER;
 
     /**
-     * Constructor to create a file carrier technology parameters instance and register the instance
-     * with the parameter service.
+     * Constructor to create a file carrier technology parameters instance and register the instance with the parameter
+     * service.
      */
     public SuperDooperCarrierTechnologyParameters() {
-        super(SuperDooperCarrierTechnologyParameters.class.getCanonicalName());
-        ParameterService.registerParameters(SuperDooperCarrierTechnologyParameters.class, this);
+        super();
 
         // Set the carrier technology properties for the FILE carrier technology
         this.setLabel("SUPER_DOOPER");
         this.setEventProducerPluginClass(
-                "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventProducer");
+                        "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventProducer");
         this.setEventConsumerPluginClass(
-                "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventSubscriber");
+                        "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventSubscriber");
     }
 
     /**
@@ -454,92 +451,103 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     /*
      * (non-Javadoc)
      * 
+     * @see org.onap.policy.common.parameters.ParameterGroup#getName()
+     */
+    @Override
+    public String getName() {
+        return this.getLabel();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         if (bootstrapServers == null || bootstrapServers.trim().length() == 0) {
-            errorMessageBuilder
-                    .append("  bootstrapServers not specified, must be specified as a string of form host:port\n");
+            result.setResult("bootstrapServers", ValidationStatus.INVALID,
+                            "bootstrapServers not specified, must be specified as a string of form host:port");
         }
 
         if (acks == null || acks.trim().length() == 0) {
-            errorMessageBuilder.append("  acks not specified, must be specified as a string with values [0|1|all]\n");
+            result.setResult("acks", ValidationStatus.INVALID,
+                            "acks not specified, must be specified as a string with values [0|1|all]");
         }
 
         if (retries < 0) {
-            errorMessageBuilder.append("  retries [" + retries + "] invalid, must be specified as retries >= 0\n");
+            result.setResult("retries", ValidationStatus.INVALID, "[" + retries + "] invalid, must be specified as retries >= 0");
         }
 
         if (batchSize < 0) {
-            errorMessageBuilder
-                    .append("  batchSize [" + batchSize + "] invalid, must be specified as batchSize >= 0\n");
+            result.setResult("batchSize", ValidationStatus.INVALID, "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
         }
 
         if (lingerTime < 0) {
-            errorMessageBuilder
-                    .append("  lingerTime [" + lingerTime + "] invalid, must be specified as lingerTime >= 0\n");
+            result.setResult("lingerTime", ValidationStatus.INVALID, "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
         }
 
         if (bufferMemory < 0) {
-            errorMessageBuilder
-                    .append("  bufferMemory [" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0\n");
+            result.setResult("bufferMemory", ValidationStatus.INVALID, "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
         }
 
         if (groupId == null || groupId.trim().length() == 0) {
-            errorMessageBuilder.append("  groupId not specified, must be specified as a string\n");
+            result.setResult("groupId", ValidationStatus.INVALID, "not specified, must be specified as a string");
         }
 
         if (autoCommitTime < 0) {
-            errorMessageBuilder.append(
-                    "  autoCommitTime [" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0\n");
+            result.setResult("autoCommitTime", ValidationStatus.INVALID, "[" + autoCommitTime
+                            + "] invalid, must be specified as autoCommitTime >= 0");
         }
 
         if (sessionTimeout < 0) {
-            errorMessageBuilder.append(
-                    "  sessionTimeout [" + sessionTimeout + "] invalid, must be specified as sessionTimeout >= 0\n");
+            result.setResult("sessionTimeout", ValidationStatus.INVALID, "sessionTimeout [" + sessionTimeout
+                            + "] invalid, must be specified as sessionTimeout >= 0");
         }
 
         if (producerTopic == null || producerTopic.trim().length() == 0) {
-            errorMessageBuilder.append("  producerTopic not specified, must be specified as a string\n");
+            result.setResult("producerTopic", ValidationStatus.INVALID, "producerTopic not specified, must be specified as a string");
         }
 
         if (consumerPollTime < 0) {
-            errorMessageBuilder.append("  consumerPollTime [" + consumerPollTime
-                    + "] invalid, must be specified as consumerPollTime >= 0\n");
+            result.setResult("consumerPollTime", ValidationStatus.INVALID, "[" + consumerPollTime
+                            + "] invalid, must be specified as consumerPollTime >= 0");
         }
 
         if (consumerTopicList == null || consumerTopicList.length == 0) {
-            errorMessageBuilder.append("  consumerTopicList not specified, must be specified as a list of strings\n");
+            result.setResult("consumerTopicList", ValidationStatus.INVALID, "not specified, must be specified as a list of strings");
         }
 
+        StringBuilder consumerTopicMessageBuilder = new StringBuilder();
         for (final String consumerTopic : consumerTopicList) {
             if (consumerTopic == null || consumerTopic.trim().length() == 0) {
-                errorMessageBuilder.append("  invalid consumer topic \"" + consumerTopic
-                        + "\" specified on consumerTopicList, consumer topics must be specified as strings\n");
+                consumerTopicMessageBuilder.append("  invalid consumer topic \"" + consumerTopic
+                                + "\" specified on consumerTopicList, consumer topics must be specified as strings");
             }
+        }
+        
+        if (consumerTopicMessageBuilder.length() > 0) {
+            result.setResult("consumerTopicList", ValidationStatus.INVALID, consumerTopicMessageBuilder.toString());
         }
 
         if (keySerializer == null || keySerializer.trim().length() == 0) {
-            errorMessageBuilder.append("  keySerializer not specified, must be specified as a string\n");
+            result.setResult("keySerializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
         }
 
         if (valueSerializer == null || valueSerializer.trim().length() == 0) {
-            errorMessageBuilder.append("  valueSerializer not specified, must be specified as a string\n");
+            result.setResult("valueSerializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
         }
 
         if (keyDeserializer == null || keyDeserializer.trim().length() == 0) {
-            errorMessageBuilder.append("  keyDeserializer not specified, must be specified as a string\n");
+            result.setResult("keyDeserializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
         }
 
         if (valueDeserializer == null || valueDeserializer.trim().length() == 0) {
-            errorMessageBuilder.append("  valueDeserializer not specified, must be specified as a string\n");
+            result.setResult("valueDeserializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

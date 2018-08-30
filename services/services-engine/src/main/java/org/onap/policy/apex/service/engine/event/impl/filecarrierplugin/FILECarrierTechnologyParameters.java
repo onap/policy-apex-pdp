@@ -23,23 +23,25 @@ package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer.ApexFileEventProducer;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
- * This class holds the parameters that allows transport of events into and out of Apex using files
- * and standard input and output.
+ * This class holds the parameters that allows transport of events into and out of Apex using files and standard input
+ * and output.
  *
- * <p>The following parameters are defined:
+ * <p>
+ * The following parameters are defined:
  * <ol>
  * <li>fileName: The full path to the file from which to read events or to which to write events.
- * <li>standardIO: If this flag is set to true, then standard input is used to read events in or
- * standard output is used to write events and the fileName parameter is ignored if present
+ * <li>standardIO: If this flag is set to true, then standard input is used to read events in or standard output is used
+ * to write events and the fileName parameter is ignored if present
  * <li>standardError: If this flag is set to true, then standard error is used to write events
- * <li>streamingMode: If this flag is set to true, then streaming mode is set for reading events and
- * event handling will wait on the input stream for events until the stream is closed. If streaming
- * model is off, then event reading completes when the end of input is detected.
- * <li>startDelay: The amount of milliseconds to wait at startup startup before processing the first
- * event.
+ * <li>streamingMode: If this flag is set to true, then streaming mode is set for reading events and event handling will
+ * wait on the input stream for events until the stream is closed. If streaming model is off, then event reading
+ * completes when the end of input is detected.
+ * <li>startDelay: The amount of milliseconds to wait at startup startup before processing the first event.
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -63,11 +65,11 @@ public class FILECarrierTechnologyParameters extends CarrierTechnologyParameters
     // @formatter:on
 
     /**
-     * Constructor to create a file carrier technology parameters instance and register the instance
-     * with the parameter service.
+     * Constructor to create a file carrier technology parameters instance and register the instance with the parameter
+     * service.
      */
     public FILECarrierTechnologyParameters() {
-        super(FILECarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the FILE carrier technology
         this.setLabel(FILE_CARRIER_TECHNOLOGY_LABEL);
@@ -168,14 +170,23 @@ public class FILECarrierTechnologyParameters extends CarrierTechnologyParameters
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters#
-     * toString()
+     * @see org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters# toString()
      */
     @Override
     public String toString() {
         return "FILECarrierTechnologyParameters [fileName=" + fileName + ", standardIO=" + standardIO
-                + ", standardError=" + standardError + ", streamingMode=" + streamingMode + ", startDelay=" + startDelay
-                + "]";
+                        + ", standardError=" + standardError + ", streamingMode=" + streamingMode + ", startDelay="
+                        + startDelay + "]";
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.common.parameters.ParameterGroup#getName()
+     */
+    @Override
+    public String getName() {
+        return this.getLabel();
     }
 
     /*
@@ -184,14 +195,12 @@ public class FILECarrierTechnologyParameters extends CarrierTechnologyParameters
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         if (!standardIO && !standardError && (fileName == null || fileName.trim().length() == 0)) {
-            errorMessageBuilder.append(
-                    "  fileName not specified or is blank or null, it must be specified as a valid file location\n");
+            result.setResult("fileName", ValidationStatus.INVALID,
+                            "fileName not specified or is blank or null, it must be specified as a valid file location");
         }
 
         if (standardIO || standardError) {
@@ -199,9 +208,10 @@ public class FILECarrierTechnologyParameters extends CarrierTechnologyParameters
         }
 
         if (startDelay < 0) {
-            errorMessageBuilder.append("  startDelay must be zero or a positive number of milliseconds\n");
+            result.setResult("startDelay", ValidationStatus.INVALID,
+                            "startDelay must be zero or a positive number of milliseconds");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

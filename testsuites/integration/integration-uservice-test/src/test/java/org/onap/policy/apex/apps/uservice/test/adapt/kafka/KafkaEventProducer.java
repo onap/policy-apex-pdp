@@ -80,8 +80,6 @@ public class KafkaEventProducer implements Runnable {
                 sendEventsFlag = false;
             }
         }
-
-        producer.close(1000, TimeUnit.MILLISECONDS);
     }
 
     public void sendEvents() {
@@ -123,6 +121,8 @@ public class KafkaEventProducer implements Runnable {
         while (producerThread.isAlive()) {
             ThreadUtilities.sleep(10);
         }
+
+        producer.close(1000, TimeUnit.MILLISECONDS);
 
         System.out.println(KafkaEventProducer.class.getCanonicalName() + ": stopped");
     }
