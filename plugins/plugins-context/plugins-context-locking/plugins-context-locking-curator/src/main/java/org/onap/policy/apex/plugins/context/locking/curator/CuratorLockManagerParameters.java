@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.context.locking.curator;
 
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
  * Bean class for Curator locking parameters.
@@ -49,8 +48,7 @@ public class CuratorLockManagerParameters extends LockManagerParameters {
      * The Constructor.
      */
     public CuratorLockManagerParameters() {
-        super(CuratorLockManagerParameters.class.getCanonicalName());
-        ParameterService.registerParameters(CuratorLockManagerParameters.class, this);
+        super();
     }
 
     /**

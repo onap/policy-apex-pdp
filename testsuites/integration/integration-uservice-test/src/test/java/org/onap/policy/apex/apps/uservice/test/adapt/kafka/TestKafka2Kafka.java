@@ -26,6 +26,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Properties;
 
+import kafka.admin.AdminUtils;
+import kafka.admin.RackAwareMode;
+import kafka.server.BrokerState;
+import kafka.server.KafkaConfig;
+import kafka.server.KafkaServer;
+import kafka.utils.TestUtils;
+import kafka.utils.ZKStringSerializer$;
+import kafka.utils.ZkUtils;
+import kafka.zk.EmbeddedZookeeper;
+
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.kafka.common.utils.MockTime;
 import org.apache.kafka.common.utils.Time;
@@ -37,14 +47,6 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
-import kafka.admin.AdminUtils;
-import kafka.admin.RackAwareMode;
-import kafka.server.KafkaConfig;
-import kafka.server.KafkaServer;
-import kafka.utils.TestUtils;
-import kafka.utils.ZKStringSerializer$;
-import kafka.utils.ZkUtils;
-import kafka.zk.EmbeddedZookeeper;
 
 public class TestKafka2Kafka {
     // The method of starting an embedded Kafka server used in this example is based on the method
@@ -84,11 +86,13 @@ public class TestKafka2Kafka {
         final KafkaConfig config = new KafkaConfig(brokerProps);
         final Time mock = new MockTime();
         kafkaServer = TestUtils.createServer(config, mock);
-
+        kafkaServer.startup();
+        
         // create topics
         AdminUtils.createTopic(zkUtils, "apex-in-0", 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
         AdminUtils.createTopic(zkUtils, "apex-in-1", 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
         AdminUtils.createTopic(zkUtils, "apex-out", 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
+        
     }
 
     @AfterClass
@@ -120,11 +124,12 @@ public class TestKafka2Kafka {
             throws MessagingException, ApexException {
         final KafkaEventSubscriber subscriber =
                 new KafkaEventSubscriber("apex-out-" + topicSuffix, "localhost:" + BROKERPORT);
-        final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + topicSuffix, "localhost:" + BROKERPORT,
-                EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(3000);
+
+        final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + topicSuffix, "localhost:" + BROKERPORT,
+                        EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
 
         producer.sendEvents();
 

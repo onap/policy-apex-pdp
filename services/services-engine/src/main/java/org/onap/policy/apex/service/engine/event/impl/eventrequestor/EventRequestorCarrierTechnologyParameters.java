@@ -21,6 +21,7 @@
 package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
 
 /**
  * This class holds the parameters that allows an output event to to be sent back into APEX as one
@@ -47,7 +48,7 @@ public class EventRequestorCarrierTechnologyParameters extends CarrierTechnology
      * the instance with the parameter service.
      */
     public EventRequestorCarrierTechnologyParameters() {
-        super(EventRequestorCarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the EVENT_REQUESTOR carrier technology
         this.setLabel(EVENT_REQUESTOR_CARRIER_TECHNOLOGY_LABEL);
@@ -61,7 +62,15 @@ public class EventRequestorCarrierTechnologyParameters extends CarrierTechnology
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        return "";
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
+    }
+
+    /* (non-Javadoc)
+     * @see org.onap.policy.common.parameters.ParameterGroup#getName()
+     */
+    @Override
+    public String getName() {
+        return this.getLabel();
     }
 }

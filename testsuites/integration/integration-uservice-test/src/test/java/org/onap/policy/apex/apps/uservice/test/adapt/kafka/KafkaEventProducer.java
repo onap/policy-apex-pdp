@@ -40,14 +40,12 @@ public class KafkaEventProducer implements Runnable {
     private final long eventInterval;
     private long eventsSentCount = 0;
 
-    private Producer<String, String> producer;
-
     private final Thread producerThread;
     private boolean sendEventsFlag = false;
     private boolean stopFlag = false;
 
     public KafkaEventProducer(final String topic, final String kafkaServerAddress, final int eventCount,
-            final boolean xmlEvents, final long eventInterval) {
+                    final boolean xmlEvents, final long eventInterval) {
         this.topic = topic;
         this.kafkaServerAddress = kafkaServerAddress;
         this.eventCount = eventCount;
@@ -70,13 +68,13 @@ public class KafkaEventProducer implements Runnable {
         kafkaProducerProperties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         kafkaProducerProperties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-        producer = new KafkaProducer<String, String>(kafkaProducerProperties);
+        final Producer<String, String> producer = new KafkaProducer<String, String>(kafkaProducerProperties);
 
         while (producerThread.isAlive() && !stopFlag) {
             ThreadUtilities.sleep(50);
 
             if (sendEventsFlag) {
-                sendEventsToTopic();
+                sendEventsToTopic(producer);
                 sendEventsFlag = false;
             }
         }
@@ -88,13 +86,13 @@ public class KafkaEventProducer implements Runnable {
         sendEventsFlag = true;
     }
 
-    private void sendEventsToTopic() {
+    private void sendEventsToTopic(final Producer<String, String> producer) {
         System.out.println(KafkaEventProducer.class.getCanonicalName() + ": sending events to Kafka server at "
-                + kafkaServerAddress + ", event count " + eventCount + ", xmlEvents " + xmlEvents);
+                        + kafkaServerAddress + ", event count " + eventCount + ", xmlEvents " + xmlEvents);
 
         for (int i = 0; i < eventCount; i++) {
             System.out.println(KafkaEventProducer.class.getCanonicalName() + ": waiting " + eventInterval
-                    + " milliseconds before sending next event");
+                            + " milliseconds before sending next event");
             ThreadUtilities.sleep(eventInterval);
 
             String eventString = null;
@@ -159,8 +157,8 @@ public class KafkaEventProducer implements Runnable {
             return;
         }
 
-        final KafkaEventProducer producer =
-                new KafkaEventProducer(args[0], args[1], eventCount, xmlEvents, eventInterval);
+        final KafkaEventProducer producer = new KafkaEventProducer(args[0], args[1], eventCount, xmlEvents,
+                        eventInterval);
 
         producer.sendEvents();
         producer.shutdown();

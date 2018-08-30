@@ -27,10 +27,12 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.apache.avro.util.Utf8;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -38,6 +40,7 @@ import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -54,17 +57,30 @@ public class TestAvroSchemaMap {
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
-        new SchemaParameters().getSchemaHelperParameterMap().put("Avro", new AvroSchemaHelperParameters());
         longMapSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleLong.avsc");
         addressMapSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleAddress.avsc");
         addressMapSchemaInvalidFields =
                 TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleAddressInvalidFields.avsc");
     }
 
+    @Before
+    public void initContext() {
+        SchemaParameters schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
+        ParameterService.register(schemaParameters);
+        
+    }
+
+    @After
+    public void clearContext() {
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+    }
+
     @Test
     public void testMapInit() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "Avro", addressMapSchema);
+                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", addressMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -82,7 +98,7 @@ public class TestAvroSchemaMap {
     @Test
     public void testLongMapUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "Avro", longMapSchema);
+                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", longMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -94,7 +110,7 @@ public class TestAvroSchemaMap {
     @Test
     public void testAddressMapUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "Avro", addressMapSchema);
+                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -106,7 +122,7 @@ public class TestAvroSchemaMap {
     @Test
     public void testAddressMapUnmarshalMarshalInvalidFields() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "Avro", addressMapSchemaInvalidFields);
+                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchemaInvalidFields);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());

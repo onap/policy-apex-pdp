@@ -21,6 +21,8 @@
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for REST as an event carrier technology with Apex as a REST client.
@@ -60,7 +62,7 @@ public class RESTClientCarrierTechnologyParameters extends CarrierTechnologyPara
      * service.
      */
     public RESTClientCarrierTechnologyParameters() {
-        super(RESTClientCarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the web socket carrier technology
         this.setLabel(RESTCLIENT_CARRIER_TECHNOLOGY_LABEL);
@@ -115,20 +117,19 @@ public class RESTClientCarrierTechnologyParameters extends CarrierTechnologyPara
         return "RESTClientCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + "]";
     }
 
-
     /*
      *
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         // Check if the URL has been set for event output
         if (getURL() == null) {
-            errorMessageBuilder.append("  no URL has been set for event sending on REST client");
+            result.setResult("url", ValidationStatus.INVALID, "no URL has been set for event sending on REST client");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

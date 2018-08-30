@@ -25,8 +25,9 @@ import java.util.TimerTask;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -59,7 +60,8 @@ public class DistributorFlushTimerTask extends TimerTask {
         this.contextDistributor = contextDistributor;
 
         // Set the period for persistence flushing
-        final PersistorParameters persistorParameters = ParameterService.getParameters(PersistorParameters.class);
+        final PersistorParameters persistorParameters = ParameterService
+                        .get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
         period = persistorParameters.getFlushPeriod();
 
         // Set up the timer
@@ -67,7 +69,7 @@ public class DistributorFlushTimerTask extends TimerTask {
         timer.schedule(this, period, period);
 
         LOGGER.debug("context distributor " + contextDistributor.getKey().getID() + " flushing set up with interval: "
-                + period + "ms");
+                        + period + "ms");
     }
 
     /**
@@ -79,14 +81,14 @@ public class DistributorFlushTimerTask extends TimerTask {
         flushCount++;
 
         LOGGER.debug("context distributor " + contextDistributor.getKey().getID() + " flushing: period=" + period
-                + ": count=" + flushCount);
+                        + ": count=" + flushCount);
         try {
             contextDistributor.flush();
             LOGGER.debug("context distributor " + contextDistributor.getKey().getID() + " flushed: period=" + period
-                    + ": count=" + flushCount);
+                            + ": count=" + flushCount);
         } catch (final ContextException e) {
             LOGGER.error("flush error on context distributor " + contextDistributor.getKey().getID() + ": period="
-                    + period + ": count=" + flushCount, e);
+                            + period + ": count=" + flushCount, e);
         }
     }
 
