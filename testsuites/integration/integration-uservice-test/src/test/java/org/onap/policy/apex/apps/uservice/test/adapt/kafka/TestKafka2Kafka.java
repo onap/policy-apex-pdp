@@ -51,7 +51,7 @@ public class TestKafka2Kafka {
     // on stack overflow at
     // https://github.com/asmaier/mini-kafka
 
-    private static final long MAX_TEST_LENGTH = 20000;
+    private static final long MAX_TEST_LENGTH = 30000;
 
     private static final int EVENT_COUNT = 100;
     private static final int EVENT_INTERVAL = 20;

@@ -43,8 +43,8 @@ import org.onap.policy.apex.context.test.utils.Constants;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -144,13 +144,13 @@ public final class ConcurrentContextJVM {
         for (int p = 7; p < args.length - 1; p += 2) {
             @SuppressWarnings("rawtypes")
             final Class parametersClass = Class.forName(args[p]);
-            final AbstractParameters parameters =
-                    (AbstractParameters) new Gson().fromJson(args[p + 1], parametersClass);
-            ParameterService.registerParameters(parametersClass, parameters);
+            final ParameterGroup parameters =
+                    (ParameterGroup) new Gson().fromJson(args[p + 1], parametersClass);
+            ParameterService.register(parameters);
         }
 
-        for (final Entry<Class<?>, AbstractParameters> parameterEntry : ParameterService.getAll()) {
-            LOGGER.info("Parameter class " + parameterEntry.getKey().getCanonicalName() + "="
+        for (final Entry<String, ParameterGroup> parameterEntry : ParameterService.getAll()) {
+            LOGGER.info("Parameter class " + parameterEntry.getKey() + "="
                     + parameterEntry.getValue().toString());
         }
 

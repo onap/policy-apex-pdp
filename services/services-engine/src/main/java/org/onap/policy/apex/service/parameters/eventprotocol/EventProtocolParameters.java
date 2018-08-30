@@ -20,23 +20,26 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.service.parameters.ApexParameterValidator;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterRuntimeException;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
- * A default event protocol parameter class that may be specialized by event protocol plugins that
- * require plugin specific parameters.
+ * A default event protocol parameter class that may be specialized by event protocol plugins that require plugin
+ * specific parameters.
  *
- * <p>The following parameters are defined:
+ * <p>
+ * The following parameters are defined:
  * <ol>
  * <li>label: The label of the event protocol technology.
- * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce
- * and emit output events for this carrier technology
+ * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce and emit output
+ * events for this carrier technology
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class EventProtocolParameters extends AbstractParameters implements ApexParameterValidator {
+public abstract class EventProtocolParameters implements ParameterGroup {
     // The event protocol label
     private String label = null;
 
@@ -44,13 +47,13 @@ public abstract class EventProtocolParameters extends AbstractParameters impleme
     private String eventProtocolPluginClass;
 
     /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of
-     * this class and register the instance with the parameter service.
+     * Constructor to create an event protocol parameters instance with the name of a sub class of this class and
+     * register the instance with the parameter service.
      *
      * @param parameterClassName the class name of a sub class of this class
      */
     public EventProtocolParameters(final String parameterClassName) {
-        super(parameterClassName);
+        super();
     }
 
     /**
@@ -97,7 +100,7 @@ public abstract class EventProtocolParameters extends AbstractParameters impleme
     @Override
     public String toString() {
         return "CarrierTechnologyParameters [label=" + label + ", EventProtocolPluginClass=" + eventProtocolPluginClass
-                + "]";
+                        + "]";
     }
 
     /*
@@ -106,17 +109,28 @@ public abstract class EventProtocolParameters extends AbstractParameters impleme
      * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = new GroupValidationResult(this);
 
         if (label == null || label.length() == 0) {
-            errorMessageBuilder.append("  event protocol label not specified or is blank\n");
+            result.setResult("label", ValidationStatus.INVALID, "event protocol label not specified or is blank");
         }
 
         if (eventProtocolPluginClass == null || eventProtocolPluginClass.length() == 0) {
-            errorMessageBuilder.append("  event protocol eventProtocolPluginClass not specified or is blank\n");
+            result.setResult("eventProtocolPluginClass", ValidationStatus.INVALID,
+                            "event protocol eventProtocolPluginClass not specified or is blank");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
+    }
+
+    @Override
+    public String getName() {
+        return this.getLabel();
+    }
+
+    @Override
+    public void setName(final String name) {
+        throw new ParameterRuntimeException("the name/label of this event protocol is always \"" + getLabel() + "\"");
     }
 }

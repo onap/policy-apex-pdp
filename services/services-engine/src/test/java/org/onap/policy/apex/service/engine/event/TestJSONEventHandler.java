@@ -32,9 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
@@ -46,6 +47,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JSONEventConverter;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -67,9 +69,17 @@ public class TestJSONEventHandler {
         apexPolicyModel.register();
     }
 
-    @Before
-    public void initializeDefaultSchemaParameters() {
-        new SchemaParameters();
+    @BeforeClass
+    public static void initializeDefaultSchemaParameters() {
+        ParameterService.clear();
+        final SchemaParameters schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ParameterService.register(schemaParameters);
+    }
+
+    @AfterClass
+    public static void teardownDefaultSchemaParameters() {
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
     @Test

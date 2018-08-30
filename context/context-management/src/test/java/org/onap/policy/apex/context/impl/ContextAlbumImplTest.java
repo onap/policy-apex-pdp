@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.context.ContextAlbum;
@@ -35,6 +36,7 @@ import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
@@ -42,10 +44,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
+import org.onap.policy.common.parameters.ParameterService;
 
 public class ContextAlbumImplTest {
     /**
@@ -56,11 +58,32 @@ public class ContextAlbumImplTest {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters()
                         .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager");
-        ParameterService.registerParameters(ContextParameters.class, contextParameters);
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
 
         final SchemaParameters schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
-        ParameterService.registerParameters(SchemaParameters.class, schemaParameters);
+
+        ParameterService.register(schemaParameters);
+    }
+
+    @AfterClass
+    public static void cleanUpAfterTest() {
+        ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.MAIN_GROUP_NAME);
+        ParameterService.clear();
     }
 
     @Test

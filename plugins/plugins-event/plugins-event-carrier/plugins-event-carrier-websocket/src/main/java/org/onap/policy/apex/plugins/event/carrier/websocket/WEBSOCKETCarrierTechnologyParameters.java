@@ -21,6 +21,8 @@
 package org.onap.policy.apex.plugins.event.carrier.websocket;
 
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for Kafka as an event carrier technology.
@@ -56,7 +58,7 @@ public class WEBSOCKETCarrierTechnologyParameters extends CarrierTechnologyParam
      * parameter service.
      */
     public WEBSOCKETCarrierTechnologyParameters() {
-        super(WEBSOCKETCarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the web socket carrier technology
         this.setLabel(WEB_SCOKET_CARRIER_TECHNOLOGY_LABEL);
@@ -97,19 +99,18 @@ public class WEBSOCKETCarrierTechnologyParameters extends CarrierTechnologyParam
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         if (wsClient && (host == null || host.trim().length() == 0)) {
-            errorMessageBuilder.append("  host not specified, must be host as a string\n");
+            result.setResult("host", ValidationStatus.INVALID, "host not specified, must be host as a string");
         }
 
         if (port < MIN_USER_PORT || port > MAX_USER_PORT) {
-            errorMessageBuilder.append("  port [" + port + "] invalid, must be specified as 1024 <= port <= 6535\n");
+            result.setResult("port", ValidationStatus.INVALID,
+                            "[" + port + "] invalid, must be specified as 1024 <= port <= 65535");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

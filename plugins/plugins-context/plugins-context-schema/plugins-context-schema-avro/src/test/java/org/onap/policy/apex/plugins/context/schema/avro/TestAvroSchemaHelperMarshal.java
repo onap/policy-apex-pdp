@@ -24,16 +24,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
+import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -47,13 +50,26 @@ public class TestAvroSchemaHelperMarshal {
     public void initTest() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
-        new SchemaParameters().getSchemaHelperParameterMap().put("Avro", new AvroSchemaHelperParameters());
+    }
+
+    @Before
+    public void initContext() {
+        SchemaParameters schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
+        ParameterService.register(schemaParameters);
+        
+    }
+
+    @After
+    public void clearContext() {
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
     @Test
     public void testNullMarshal() {
         final AxContextSchema avroNullSchema =
-                new AxContextSchema(new AxArtifactKey("AvroNull", "0.0.1"), "Avro", "{\"type\": \"null\"}");
+                new AxContextSchema(new AxArtifactKey("AvroNull", "0.0.1"), "AVRO", "{\"type\": \"null\"}");
 
         schemas.getSchemasMap().put(avroNullSchema.getKey(), avroNullSchema);
         final SchemaHelper schemaHelper0 =
@@ -67,7 +83,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testBooleanMarshal() {
         final AxContextSchema avroBooleanSchema =
-                new AxContextSchema(new AxArtifactKey("AvroBoolean", "0.0.1"), "Avro", "{\"type\": \"boolean\"}");
+                new AxContextSchema(new AxArtifactKey("AvroBoolean", "0.0.1"), "AVRO", "{\"type\": \"boolean\"}");
 
         schemas.getSchemasMap().put(avroBooleanSchema.getKey(), avroBooleanSchema);
         final SchemaHelper schemaHelper1 =
@@ -98,7 +114,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testIntMarshal() {
         final AxContextSchema avroIntSchema =
-                new AxContextSchema(new AxArtifactKey("AvroInt", "0.0.1"), "Avro", "{\"type\": \"int\"}");
+                new AxContextSchema(new AxArtifactKey("AvroInt", "0.0.1"), "AVRO", "{\"type\": \"int\"}");
 
         schemas.getSchemasMap().put(avroIntSchema.getKey(), avroIntSchema);
         final SchemaHelper schemaHelper2 =
@@ -130,7 +146,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testLongMarshal() {
         final AxContextSchema avroLongSchema =
-                new AxContextSchema(new AxArtifactKey("AvroLong", "0.0.1"), "Avro", "{\"type\": \"long\"}");
+                new AxContextSchema(new AxArtifactKey("AvroLong", "0.0.1"), "AVRO", "{\"type\": \"long\"}");
 
         schemas.getSchemasMap().put(avroLongSchema.getKey(), avroLongSchema);
         final SchemaHelper schemaHelper3 =
@@ -160,7 +176,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testFloatMarshal() {
         final AxContextSchema avroFloatSchema =
-                new AxContextSchema(new AxArtifactKey("AvroFloat", "0.0.1"), "Avro", "{\"type\": \"float\"}");
+                new AxContextSchema(new AxArtifactKey("AvroFloat", "0.0.1"), "AVRO", "{\"type\": \"float\"}");
 
         schemas.getSchemasMap().put(avroFloatSchema.getKey(), avroFloatSchema);
         final SchemaHelper schemaHelper4 =
@@ -195,7 +211,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testDoubleMarshal() {
         final AxContextSchema avroDoubleSchema =
-                new AxContextSchema(new AxArtifactKey("AvroDouble", "0.0.1"), "Avro", "{\"type\": \"double\"}");
+                new AxContextSchema(new AxArtifactKey("AvroDouble", "0.0.1"), "AVRO", "{\"type\": \"double\"}");
 
         schemas.getSchemasMap().put(avroDoubleSchema.getKey(), avroDoubleSchema);
         final SchemaHelper schemaHelper5 =
@@ -229,7 +245,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testStringMarshal() {
         final AxContextSchema avroStringSchema =
-                new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "Avro", "{\"type\": \"string\"}");
+                new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "AVRO", "{\"type\": \"string\"}");
 
         schemas.getSchemasMap().put(avroStringSchema.getKey(), avroStringSchema);
         final SchemaHelper schemaHelper7 =
@@ -257,7 +273,7 @@ public class TestAvroSchemaHelperMarshal {
     @Test
     public void testBytesMarshal() {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "Avro", "{\"type\": \"bytes\"}");
+                new AxContextSchema(new AxArtifactKey("AvroString", "0.0.1"), "AVRO", "{\"type\": \"bytes\"}");
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());

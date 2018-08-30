@@ -20,8 +20,8 @@
 
 package org.onap.policy.apex.core.engine;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * This class provides the executors for a logic flavour. Plugin classes for execution of task
@@ -32,7 +32,10 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ExecutorParameters extends AbstractParameters {
+public class ExecutorParameters implements ParameterGroup {
+    // Parameter group name
+    private String name;
+
     // Executor Plugin classes for executors
     private String taskExecutorPluginClass;
     private String taskSelectionExecutorPluginClass;
@@ -43,18 +46,10 @@ public class ExecutorParameters extends AbstractParameters {
      * parameter service.
      */
     public ExecutorParameters() {
-        super(ExecutorParameters.class.getCanonicalName());
-        ParameterService.registerParameters(ExecutorParameters.class, this);
-    }
+        super();
 
-    /**
-     * Constructor to create an executor parameters instance with the name of a sub class of this
-     * class and register the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
-     */
-    public ExecutorParameters(final String parameterClassName) {
-        super(parameterClassName);
+        // Set the name for the parameters
+        this.name = EngineParameterConstants.EXECUTOR_GROUP_NAME;
     }
 
     /**
@@ -113,15 +108,25 @@ public class ExecutorParameters extends AbstractParameters {
         this.stateFinalizerExecutorPluginClass = stateFinalizerExecutorPluginClass;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
-     */
     @Override
     public String toString() {
-        return "ExecutorParameters [taskExecutorPluginClass=" + taskExecutorPluginClass
-                + ", taskSelectionExecutorPluginClass=" + taskSelectionExecutorPluginClass
-                + ", StateFinalizerExecutorPluginClass=" + stateFinalizerExecutorPluginClass + "]";
+        return "ExecutorParameters [name=" + name + ", taskExecutorPluginClass=" + taskExecutorPluginClass
+                        + ", taskSelectionExecutorPluginClass=" + taskSelectionExecutorPluginClass
+                        + ", stateFinalizerExecutorPluginClass=" + stateFinalizerExecutorPluginClass + "]";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }

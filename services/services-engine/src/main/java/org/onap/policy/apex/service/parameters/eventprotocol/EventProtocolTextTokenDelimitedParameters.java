@@ -20,7 +20,8 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
-import org.onap.policy.apex.service.parameters.ApexParameterValidator;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * An event protocol parameter class for token delimited textual event protocols that may be specialized by event
@@ -38,8 +39,7 @@ import org.onap.policy.apex.service.parameters.ApexParameterValidator;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class EventProtocolTextTokenDelimitedParameters extends EventProtocolParameters
-                implements ApexParameterValidator {
+public abstract class EventProtocolTextTokenDelimitedParameters extends EventProtocolParameters {
     // The delimiter token for text blocks
     private String startDelimiterToken = null;
     private String endDelimiterToken = null;
@@ -124,15 +124,14 @@ public abstract class EventProtocolTextTokenDelimitedParameters extends EventPro
      * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         if (startDelimiterToken == null || startDelimiterToken.length() == 0) {
-            errorMessageBuilder.append("  text start delimiter token not specified or is blank\n");
+            result.setResult("startDelimiterToken", ValidationStatus.INVALID,
+                            "text start delimiter token not specified or is blank\n");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

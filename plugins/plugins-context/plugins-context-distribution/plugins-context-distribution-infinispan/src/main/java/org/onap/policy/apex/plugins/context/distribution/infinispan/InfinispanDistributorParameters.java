@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 
 /**
  * Distributor parameters for the Infinspan Distributor.
@@ -30,9 +29,9 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  */
 public class InfinispanDistributorParameters extends DistributorParameters {
     // @formatter:off
-
+    
     /** The default Infinispan configuration file location. */
-    public static final String  DEFAULT_INFINISPAN_DISTRIBUTION_CONFIG_FILE = "/infinispan/infinispan.xml";
+    public static final String  DEFAULT_INFINISPAN_DISTRIBUTION_CONFIG_FILE = "infinispan/infinispan.xml";
 
     /** The default Infinispan jgroups configuration file location. */
     public static final String  DEFAULT_INFINISPAN_DISTRIBUTION_JGROUPS_FILE = null;
@@ -54,9 +53,7 @@ public class InfinispanDistributorParameters extends DistributorParameters {
      * The Constructor.
      */
     public InfinispanDistributorParameters() {
-        super(InfinispanDistributorParameters.class.getCanonicalName());
-        ParameterService.registerParameters(InfinispanDistributorParameters.class, this);
-        ParameterService.registerParameters(DistributorParameters.class, this);
+        super();
     }
 
     /**

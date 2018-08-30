@@ -25,9 +25,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -40,20 +44,44 @@ public class TestContextInstantiation {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestContextInstantiation.class);
 
-    @Before
-    public void beforeTest() {}
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
 
-    /**
-     * Test context instantiation clear down.
-     */
+    @Before
+    public void beforeTest() {
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+    }
+
     @After
-    public void afterTest() {}
+    public void afterTest() {
+        ParameterService.deregister(schemaParameters);
+
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+    }
 
     @Test
     public void testContextInstantiationJVMLocalVarSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationJVMLocalVarSet test . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
         new ContextInstantiation().testContextInstantiation();
 
@@ -64,10 +92,8 @@ public class TestContextInstantiation {
     public void testContextInstantiationJVMLocalVarNotSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationJVMLocalVarNotSet test . . .");
 
-        new ContextParameters();
         new ContextInstantiation().testContextInstantiation();
 
         logger.debug("Ran testContextInstantiationJVMLocalVarNotSet test");
     }
-
 }

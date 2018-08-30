@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.onap.policy.apex.service.engine.event.impl.apexprotocolplugin.ApexEventProtocolParameters;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters;
-import org.onap.policy.apex.service.parameters.ApexParameterRuntimeException;
+import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -34,7 +34,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -55,11 +54,11 @@ public class EventProtocolParametersJSONAdapter
     private static final String EVENT_PROTOCOL_PARAMETERS = "parameters";
 
     // Built in event protocol parameters
-    private static final Map<String, String> BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP = new HashMap<>();
+    private static final Map<String, String> BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP = new HashMap<>();
     
     static {
-        BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP.put("JSON", JSONEventProtocolParameters.class.getCanonicalName());
-        BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP.put("APEX", ApexEventProtocolParameters.class.getCanonicalName());
+        BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("JSON", JSONEventProtocolParameters.class.getCanonicalName());
+        BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("APEX", ApexEventProtocolParameters.class.getCanonicalName());
     }
 
     /*
@@ -73,7 +72,7 @@ public class EventProtocolParametersJSONAdapter
             final JsonSerializationContext context) {
         final String returnMessage = "serialization of Apex event protocol parameters to Json is not supported";
         LOGGER.error(returnMessage);
-        throw new ApexParameterRuntimeException(returnMessage);
+        throw new ParameterRuntimeException(returnMessage);
     }
 
     /*
@@ -84,7 +83,7 @@ public class EventProtocolParametersJSONAdapter
      */
     @Override
     public EventProtocolParameters deserialize(final JsonElement json, final Type typeOfT,
-            final JsonDeserializationContext context) throws JsonParseException {
+            final JsonDeserializationContext context) {
         final JsonObject jsonObject = json.getAsJsonObject();
 
         // Get the event protocol label primitive
@@ -102,7 +101,7 @@ public class EventProtocolParametersJSONAdapter
             final String errorMessage = "event protocol parameter \"" + EVENT_PROTOCOL_TOKEN + "\" value \""
                     + labelJsonPrimitive.getAsString() + "\" invalid in JSON file";
             LOGGER.warn(errorMessage);
-            throw new ApexParameterRuntimeException(errorMessage);
+            throw new ParameterRuntimeException(errorMessage);
         }
 
         // We now get the event protocol parameter class
@@ -114,7 +113,7 @@ public class EventProtocolParametersJSONAdapter
 
         // If no event protocol parameter class was specified, we use the default
         if (classNameJsonPrimitive == null) {
-            eventProtocolParameterClassName = BUILT_IN_EVENT_RPOTOCOL_PARMETER_CLASS_MAP.get(eventProtocolLabel);
+            eventProtocolParameterClassName = BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.get(eventProtocolLabel);
         } else {
             // We use the specified one
             eventProtocolParameterClassName = classNameJsonPrimitive.getAsString().replaceAll("\\s+", "");
@@ -127,7 +126,7 @@ public class EventProtocolParametersJSONAdapter
                             + (classNameJsonPrimitive != null ? classNameJsonPrimitive.getAsString() : "null")
                             + "\" invalid in JSON file";
             LOGGER.warn(errorMessage);
-            throw new ApexParameterRuntimeException(errorMessage);
+            throw new ParameterRuntimeException(errorMessage);
         }
 
         // Get the class for the event protocol
@@ -139,7 +138,7 @@ public class EventProtocolParametersJSONAdapter
                     "event protocol \"" + eventProtocolLabel + "\" parameter \"" + PARAMETER_CLASS_NAME + "\" value \""
                             + eventProtocolParameterClassName + "\", could not find class";
             LOGGER.warn(errorMessage, e);
-            throw new ApexParameterRuntimeException(errorMessage, e);
+            throw new ParameterRuntimeException(errorMessage, e);
         }
 
         // Deserialise the class
@@ -154,7 +153,7 @@ public class EventProtocolParametersJSONAdapter
                 final String errorMessage = "could not create default parameters for event protocol \""
                         + eventProtocolLabel + "\"\n" + e.getMessage();
                 LOGGER.warn(errorMessage, e);
-                throw new ApexParameterRuntimeException(errorMessage, e);
+                throw new ParameterRuntimeException(errorMessage, e);
             }
         }
 
@@ -166,7 +165,7 @@ public class EventProtocolParametersJSONAdapter
                     + "\", specify correct event protocol parameter plugin in parameter \"" + PARAMETER_CLASS_NAME
                     + "\"";
             LOGGER.warn(errorMessage);
-            throw new ApexParameterRuntimeException(errorMessage);
+            throw new ParameterRuntimeException(errorMessage);
         }
 
         return eventProtocolParameters;

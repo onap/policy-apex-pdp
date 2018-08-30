@@ -201,7 +201,7 @@ public class TestRESTServer {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains("  host and port are specified only in standalone mode"));
+        assertTrue(outString.contains(" host is specified only in standalone mode"));
     }
 
     @Test
@@ -220,7 +220,7 @@ public class TestRESTServer {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains("  host and port are specified only in standalone mode"));
+        assertTrue(outString.contains(" port is specified only in standalone mode"));
     }
 
     @Test
@@ -300,7 +300,7 @@ public class TestRESTServer {
         System.setErr(stderr);
 
         assertTrue(outString.contains(
-                "event output for peered mode \"SYNCHRONOUS\": peer \"FirstConsumer\" for event handler \"FirstProducer\" does not exist or is not defined as being synchronous"));
+                "peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined with the same peered mode"));
     }
 
     @Test
