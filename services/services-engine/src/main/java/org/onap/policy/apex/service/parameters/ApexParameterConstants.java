@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,33 +20,19 @@
 
 package org.onap.policy.apex.service.parameters;
 
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-
 /**
- * This exception will be called if an error occurs in Apex parameter handling.
- *
- * @author Liam Fallon
+ * This class holds constants used when managing parameter groups in apex.
  */
-public class ApexParameterException extends ApexException {
-    private static final long serialVersionUID = -8507246953751956974L;
+public abstract class ApexParameterConstants {
+    public static final String MAIN_GROUP_NAME = "APEX_PARAMETERS";
+    public static final String ENGINE_SERVICE_GROUP_NAME = "ENGINE_SERVICE_PARAMETERS";
+    public static final String EVENT_HANDLER_GROUP_NAME = "EVENT_HANDLER_PARAMETERS";
 
     /**
-     * Instantiates a new apex parameter handling exception with a message.
-     *
-     * @param message the message
+     * Private default constructor to prevent subclassing
      */
-    public ApexParameterException(final String message) {
-        super(message);
+    private ApexParameterConstants() {
+        // Prevents subclassing
     }
 
-    /**
-     * Instantiates a new apex parameter handling exception with a message and a caused by
-     * exception.
-     *
-     * @param message the message
-     * @param ex the exception that caused this exception to be thrown
-     */
-    public ApexParameterException(final String message, final Exception ex) {
-        super(message, ex);
-    }
 }

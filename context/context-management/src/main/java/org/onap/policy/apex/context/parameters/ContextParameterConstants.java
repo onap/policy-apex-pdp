@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,24 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.service.parameters;
+package org.onap.policy.apex.context.parameters;
 
 /**
- * This interface is implemented by Apex parameter classes so that they can be validated.
- *
- * @author Liam Fallon (liam.fallon@ericsson.com)
+ * This class holds constants used when managing context parameter groups in apex.
  */
-public interface ApexParameterValidator {
+public abstract class ContextParameterConstants {
+    public static final String MAIN_GROUP_NAME = "CONTEXT_PARAMETERS";
+    public static final String SCHEMA_GROUP_NAME = "CONTEXT_SCHEMA_PARAMETERS";
+    public static final String SCHEMA_HELPER_GROUP_NAME = "CONTEXT_SCHEMA_HELPER_PARAMETERS";
+    public static final String DISTRIBUTOR_GROUP_NAME = "CONTEXT_DISTRIBUTOR_PARAMETERS";
+    public static final String LOCKING_GROUP_NAME = "CONTEXT_LOCKING_PARAMETERS";
+    public static final String PERSISTENCE_GROUP_NAME = "CONTEXT_PERSISTENCE_PARAMETERS";
+
     /**
-     * Validate a parameter java bean, if the parameter bean is valid, an empty string is returned,
-     * otherwise the string gives details of the invalid parameters.
-     *
-     * @return the string with validation errors
+     * Private default constructor to prevent subclassing
      */
-    String validate();
+    private ContextParameterConstants() {
+        // Prevents subclassing
+    }
+
 }

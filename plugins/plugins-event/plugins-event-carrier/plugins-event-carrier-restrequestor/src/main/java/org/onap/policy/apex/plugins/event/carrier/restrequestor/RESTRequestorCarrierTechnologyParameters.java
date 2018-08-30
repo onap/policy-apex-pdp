@@ -68,7 +68,7 @@ public class RESTRequestorCarrierTechnologyParameters extends CarrierTechnologyP
      * service.
      */
     public RESTRequestorCarrierTechnologyParameters() {
-        super(RESTRequestorCarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the web socket carrier technology
         this.setLabel(RESTREQUESTOR_CARRIER_TECHNOLOGY_LABEL);
@@ -121,15 +121,5 @@ public class RESTRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     @Override
     public String toString() {
         return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + "]";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
-     */
-    @Override
-    public String validate() {
-        return "";
     }
 }

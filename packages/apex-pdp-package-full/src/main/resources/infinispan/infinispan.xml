@@ -19,20 +19,22 @@
   ============LICENSE_END=========================================================
 -->
 
-<infinispan xmlns="urn:infinispan:config:8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:infinispan:config:8.0 http://infinispan.org/schemas/infinispan-config-8.0.xsd">
-    <jgroups>
-        <stack-file name="apex" path="infinispan/jgroups-apex.xml" />
-    </jgroups>
+<infinispan xmlns="urn:infinispan:config:8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:infinispan:config:8.0 http://infinispan.org/schemas/infinispan-config-8.0.xsd">
+	<jgroups>
+		<stack-file name="external-file" path="infinispan/default-jgroups-tcp.xml" />
+	</jgroups>
 
-    <cache-container name="ApexCacheContainer" default-cache="default">
-        <transport cluster="apexCluster" stack="apex" />
-        <jmx />
-        <replicated-cache name="LargeContextMap_0.0.1" mode="SYNC" statistics="true">
-            <state-transfer enabled="true" />
-        </replicated-cache>
-        <replicated-cache name="TestContext_0.0.1" mode="SYNC">
-            <state-transfer enabled="true" />
-        </replicated-cache>
-    </cache-container>
+	<cache-container name="ApexCacheContainer" default-cache="TestContext_0.0.1">
+		<transport cluster="apexCluster" stack="external-file" />
+		<jmx />
+		<replicated-cache name="LargeContextMap_0.0.1" mode="SYNC" statistics="true">
+			<state-transfer enabled="true" />
+		</replicated-cache>
+		<replicated-cache name="LongSameTypeContextMap_0.0.1" mode="SYNC" statistics="true">
+			<state-transfer enabled="true" />
+		</replicated-cache>
+		<replicated-cache name="TestContext_0.0.1" mode="SYNC">
+			<state-transfer enabled="true" />
+		</replicated-cache>
+	</cache-container>
 </infinispan>

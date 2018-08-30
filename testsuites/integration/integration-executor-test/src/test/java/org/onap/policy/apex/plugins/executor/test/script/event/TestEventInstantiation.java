@@ -30,7 +30,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
@@ -41,6 +47,7 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
 import org.onap.policy.apex.test.common.model.SampleDomainModelFactory;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -52,6 +59,48 @@ import org.slf4j.ext.XLoggerFactory;
 public class TestEventInstantiation {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestEventInstantiation.class);
+
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
+    private EngineParameters engineParameters;
+
+    @Before
+    public void beforeTest() {
+        schemaParameters = new SchemaParameters();
+        
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+        
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        engineParameters = new EngineParameters();
+        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        ParameterService.register(engineParameters);
+    }
+
+    @After
+    public void afterTest() {
+        ParameterService.deregister(engineParameters);
+        
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+
+        ParameterService.deregister(schemaParameters);
+    }
 
     /**
      * Test event instantiation.
@@ -68,9 +117,6 @@ public class TestEventInstantiation {
 
         final AxPolicyModel apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
         assertNotNull(apexPolicyModel);
-
-        final EngineParameters parameters = new EngineParameters();
-        parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
 
         final ApexEngine apexEngine = new ApexEngineFactory().createApexEngine(apexPolicyModel.getKey());
         apexEngine.updateModel(apexPolicyModel);

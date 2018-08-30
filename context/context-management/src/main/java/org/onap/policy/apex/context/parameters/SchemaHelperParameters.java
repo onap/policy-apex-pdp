@@ -20,8 +20,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * An empty schema helper parameter class that may be specialized by context schema helper plugins that require plugin
@@ -29,26 +29,15 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class SchemaHelperParameters extends AbstractParameters {
-    // Schema helper plugin class for the schema
+public class SchemaHelperParameters implements ParameterGroup {
+    private String name;
     private String schemaHelperPluginClass;
 
     /**
      * Constructor to create a schema helper parameters instance and register the instance with the parameter service.
      */
     public SchemaHelperParameters() {
-        super(SchemaHelperParameters.class.getCanonicalName());
-        ParameterService.registerParameters(SchemaHelperParameters.class, this);
-    }
-
-    /**
-     * Constructor to create a schema helper parameters instance with the name of a sub class of this class and register
-     * the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
-     */
-    public SchemaHelperParameters(final String parameterClassName) {
-        super(parameterClassName);
+        super();
     }
 
     /**
@@ -68,14 +57,24 @@ public class SchemaHelperParameters extends AbstractParameters {
     public void setSchemaHelperPluginClass(final String pluginClass) {
         schemaHelperPluginClass = pluginClass;
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
-     */
+    
     @Override
     public String toString() {
-        return "SchemaHelperParameters [schemaHelperPluginClass=" + schemaHelperPluginClass + "]";
+        return "SchemaHelperParameters [name=" + name + ", schemaHelperPluginClass=" + schemaHelperPluginClass + "]";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }

@@ -28,11 +28,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
+import org.onap.policy.common.parameters.ParameterService;
 
 public class SchemaHelperFactoryTest {
     private static AxContextSchema intSchema;
@@ -76,15 +78,21 @@ public class SchemaHelperFactoryTest {
         }
 
         schemas.getSchemasMap().put(intSchema.getKey(), intSchema);
-        new SchemaParameters();
+        SchemaParameters schemaParameters0 = new SchemaParameters();
+        schemaParameters0.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ParameterService.register(schemaParameters0);
         try {
             new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey());
             fail("this test should throw an exception");
         } catch (ContextRuntimeException e) {
             assertEquals("context schema helper parameters not found for context schema  \"JAVA\"", e.getMessage());
         }
+        ParameterService.deregister(schemaParameters0);
 
-        new SchemaParameters().getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+        SchemaParameters schemaParameters1 = new SchemaParameters();
+        schemaParameters1.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ParameterService.register(schemaParameters1);
+        schemaParameters1.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
         assertNotNull(new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey()));
 
         schemas.getSchemasMap().put(intSchema.getKey(), badSchema);
