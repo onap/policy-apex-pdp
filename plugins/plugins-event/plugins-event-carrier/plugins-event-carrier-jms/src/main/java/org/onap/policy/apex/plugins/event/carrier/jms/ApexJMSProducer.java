@@ -58,9 +58,6 @@ public class ApexJMSProducer implements ApexEventProducer {
     // The connection to the JMS server
     private Connection connection;
 
-    // The topic on which we send events to JMS
-    private Topic jmsOutgoingTopic;
-
     // The JMS session on which we will send events
     private Session jmsSession;
 
@@ -96,7 +93,7 @@ public class ApexJMSProducer implements ApexEventProducer {
         InitialContext jmsContext = null;
         ConnectionFactory connectionFactory = null;
         try {
-            jmsContext = new InitialContext(jmsProducerProperties.getJMSProducerProperties());
+            jmsContext = new InitialContext(jmsProducerProperties.getJmsProducerProperties());
             connectionFactory = (ConnectionFactory) jmsContext.lookup(jmsProducerProperties.getConnectionFactory());
 
             // Check if we actually got a connection factory
@@ -107,12 +104,13 @@ public class ApexJMSProducer implements ApexEventProducer {
         } catch (final Exception e) {
             final String errorMessage = "lookup of JMS connection factory  \""
                     + jmsProducerProperties.getConnectionFactory() + "\" failed for JMS producer properties \""
-                    + jmsProducerProperties.getJMSConsumerProperties() + "\" for producer (" + this.name + ")";
+                    + jmsProducerProperties.getJmsConsumerProperties() + "\" for producer (" + this.name + ")";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
         // Lookup the topic on which we will send events
+        Topic jmsOutgoingTopic;
         try {
             jmsOutgoingTopic = (Topic) jmsContext.lookup(jmsProducerProperties.getProducerTopic());
 
@@ -123,7 +121,7 @@ public class ApexJMSProducer implements ApexEventProducer {
             }
         } catch (final Exception e) {
             final String errorMessage = "lookup of JMS topic  \"" + jmsProducerProperties.getProducerTopic()
-                    + "\" failed for JMS producer properties \"" + jmsProducerProperties.getJMSProducerProperties()
+                    + "\" failed for JMS producer properties \"" + jmsProducerProperties.getJmsProducerProperties()
                     + "\" for producer (" + this.name + ")";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
@@ -136,7 +134,7 @@ public class ApexJMSProducer implements ApexEventProducer {
             connection.start();
         } catch (final Exception e) {
             final String errorMessage = "connection to JMS server failed for JMS properties \""
-                    + jmsProducerProperties.getJMSConsumerProperties() + "\" for producer (" + this.name + ")";
+                    + jmsProducerProperties.getJmsConsumerProperties() + "\" for producer (" + this.name + ")";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
@@ -146,7 +144,7 @@ public class ApexJMSProducer implements ApexEventProducer {
             jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         } catch (final Exception e) {
             final String errorMessage = "creation of session to JMS server failed for JMS properties \""
-                    + jmsProducerProperties.getJMSConsumerProperties() + "\" for producer (" + this.name + ")";
+                    + jmsProducerProperties.getJmsConsumerProperties() + "\" for producer (" + this.name + ")";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
@@ -157,7 +155,7 @@ public class ApexJMSProducer implements ApexEventProducer {
         } catch (final Exception e) {
             final String errorMessage =
                     "creation of producer for sending events to JMS server failed for JMS properties \""
-                            + jmsProducerProperties.getJMSConsumerProperties() + "\"";
+                            + jmsProducerProperties.getJmsConsumerProperties() + "\"";
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }

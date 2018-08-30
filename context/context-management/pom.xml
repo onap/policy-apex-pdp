@@ -32,6 +32,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>common-parameters</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.apex-pdp.model</groupId>
             <artifactId>context-model</artifactId>
             <version>${project.version}</version>

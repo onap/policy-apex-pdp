@@ -20,13 +20,15 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
-import org.onap.policy.apex.service.parameters.ApexParameterValidator;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
- * An event protocol parameter class for character delimited textual event protocols that may be
- * specialized by event protocol plugins that require plugin specific parameters.
+ * An event protocol parameter class for character delimited textual event protocols that may be specialized by event
+ * protocol plugins that require plugin specific parameters.
  *
- * <p>The following parameters are defined:
+ * <p>
+ * The following parameters are defined:
  * <ol>
  * <li>startChar: starting character delimiter for text blocks containing an event.
  * <li>endChar: ending character delimiter for text blocks containing an event.
@@ -34,15 +36,13 @@ import org.onap.policy.apex.service.parameters.ApexParameterValidator;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class EventProtocolTextCharDelimitedParameters extends EventProtocolParameters
-        implements ApexParameterValidator {
+public abstract class EventProtocolTextCharDelimitedParameters extends EventProtocolParameters {
     // The starting and ending character delimiter
     private char startChar = '\0';
     private char endChar = '\0';
 
     /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of
-     * this class.
+     * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
      *
      * @param parameterClassName the class name of a sub class of this class
      */
@@ -94,7 +94,7 @@ public abstract class EventProtocolTextCharDelimitedParameters extends EventProt
     @Override
     public String toString() {
         return "EventProtocolTextCharDelimitedParameters {" + super.toString() + "} [startChar=" + startChar
-                + ", endChar=" + endChar + "]";
+                        + ", endChar=" + endChar + "]";
     }
 
     /*
@@ -103,19 +103,19 @@ public abstract class EventProtocolTextCharDelimitedParameters extends EventProt
      * @see org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         if (startChar == '\0') {
-            errorMessageBuilder.append("  text character delimited start character has not been specified\n");
+            result.setResult("startChar", ValidationStatus.INVALID,
+                            "text character delimited start character has not been specified");
         }
 
         if (endChar == '\0') {
-            errorMessageBuilder.append("  text character delimited end character has not been specified\n");
+            result.setResult("endChar", ValidationStatus.INVALID,
+                            "text character delimited end character has not been specified\n");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

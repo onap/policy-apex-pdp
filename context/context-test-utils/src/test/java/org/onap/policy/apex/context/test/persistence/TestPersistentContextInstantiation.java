@@ -38,8 +38,10 @@ import org.junit.Test;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
-import org.onap.policy.apex.context.parameters.PersistorParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.context.test.concepts.TestContextDateItem;
 import org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
@@ -53,6 +55,7 @@ import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
+import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * The Class TestContextInstantiation.
@@ -65,6 +68,8 @@ public class TestPersistentContextInstantiation {
     // XLoggerFactory.getXLogger(TestPersistentContextInstantiation.class);
 
     private Connection connection;
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
 
     @Before
     public void setup() throws Exception {
@@ -78,14 +83,39 @@ public class TestPersistentContextInstantiation {
         new File("derby.log").delete();
     }
 
+    @Before
+    public void beforeTest() {
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+    }
+
     @After
-    public void afterTest() throws IOException {}
+    public void afterTest() {
+        ParameterService.deregister(schemaParameters);
+
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+    }
 
     @Test
     public void testContextPersistentInstantiation() throws ApexModelException, IOException, ApexException {
-
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.setPersistorParameters(new PersistorParameters());
 
         final AxArtifactKey distributorKey = new AxArtifactKey("AbstractDistributor", "0.0.1");
         final Distributor contextDistributor = new DistributorFactory().getDistributor(distributorKey);
@@ -181,6 +211,5 @@ public class TestPersistentContextInstantiation {
 
         contextAlbumForLong.flush();
         contextDistributor.clear();
-
     }
 }

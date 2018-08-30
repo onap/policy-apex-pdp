@@ -21,14 +21,20 @@ package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import java.io.IOException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.context.test.distribution.ContextAlbumUpdate;
 import org.onap.policy.apex.context.test.distribution.ContextInstantiation;
 import org.onap.policy.apex.context.test.distribution.ContextUpdate;
 import org.onap.policy.apex.context.test.distribution.SequentialContextInstantiation;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -37,13 +43,46 @@ public class InfinispanContextDistributorTest {
 
     private static final String PLUGIN_CLASS = InfinispanContextDistributor.class.getCanonicalName();
 
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
+
+    @Before
+    public void beforeTest() {
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        InfinispanDistributorParameters inifinispanDistributorParameters = new InfinispanDistributorParameters();
+        inifinispanDistributorParameters.setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        inifinispanDistributorParameters.setPluginClass(PLUGIN_CLASS);
+        contextParameters.setDistributorParameters(inifinispanDistributorParameters);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+    }
+
+    @After
+    public void afterTest() {
+        ParameterService.deregister(schemaParameters);
+
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+    }
+
     @Test
     public void testContextAlbumUpdateInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextAlbumUpdateInfinispan test . . .");
-
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(PLUGIN_CLASS);
-        new InfinispanDistributorParameters();
 
         new ContextAlbumUpdate().testContextAlbumUpdate();
 
@@ -54,10 +93,6 @@ public class InfinispanContextDistributorTest {
     public void testContextInstantiationInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationInfinispan test . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(PLUGIN_CLASS);
-        new InfinispanDistributorParameters();
-
         new ContextInstantiation().testContextInstantiation();
 
         logger.debug("Ran testContextInstantiationInfinispan test");
@@ -66,10 +101,6 @@ public class InfinispanContextDistributorTest {
     @Test
     public void testContextUpdateInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextUpdateInfinispan test . . .");
-
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(PLUGIN_CLASS);
-        new InfinispanDistributorParameters();
 
         new ContextUpdate().testContextUpdate();
 
@@ -80,14 +111,8 @@ public class InfinispanContextDistributorTest {
     public void testSequentialContextInstantiationInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testSequentialContextInstantiationInfinispan test . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(PLUGIN_CLASS);
-        new InfinispanDistributorParameters();
-
         new SequentialContextInstantiation().testSequentialContextInstantiation();
 
         logger.debug("Ran testSequentialContextInstantiationInfinispan test");
     }
-
-
 }

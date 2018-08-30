@@ -51,7 +51,7 @@ public class TestKafka2Kafka {
     // on stack overflow at
     // https://github.com/asmaier/mini-kafka
 
-    private static final long MAX_TEST_LENGTH = 20000;
+    private static final long MAX_TEST_LENGTH = 30000;
 
     private static final int EVENT_COUNT = 100;
     private static final int EVENT_INTERVAL = 20;
@@ -89,6 +89,9 @@ public class TestKafka2Kafka {
         AdminUtils.createTopic(zkUtils, "apex-in-0", 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
         AdminUtils.createTopic(zkUtils, "apex-in-1", 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
         AdminUtils.createTopic(zkUtils, "apex-out", 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
+
+        // Give Kafka time to come up
+        ThreadUtilities.sleep(3000);
     }
 
     @AfterClass
@@ -124,7 +127,7 @@ public class TestKafka2Kafka {
                 EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(3000);
+        ThreadUtilities.sleep(1000);
 
         producer.sendEvents();
 

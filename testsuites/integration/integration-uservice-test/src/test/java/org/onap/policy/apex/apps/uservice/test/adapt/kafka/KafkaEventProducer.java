@@ -54,12 +54,6 @@ public class KafkaEventProducer implements Runnable {
         this.xmlEvents = xmlEvents;
         this.eventInterval = eventInterval;
 
-        producerThread = new Thread(this);
-        producerThread.start();
-    }
-
-    @Override
-    public void run() {
         final Properties kafkaProducerProperties = new Properties();
         kafkaProducerProperties.put("bootstrap.servers", kafkaServerAddress);
         kafkaProducerProperties.put("acks", "all");
@@ -70,8 +64,14 @@ public class KafkaEventProducer implements Runnable {
         kafkaProducerProperties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         kafkaProducerProperties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-        producer = new KafkaProducer<String, String>(kafkaProducerProperties);
+        this.producer = new KafkaProducer<String, String>(kafkaProducerProperties);
 
+        producerThread = new Thread(this);
+        producerThread.start();
+    }
+
+    @Override
+    public void run() {
         while (producerThread.isAlive() && !stopFlag) {
             ThreadUtilities.sleep(50);
 
@@ -80,8 +80,8 @@ public class KafkaEventProducer implements Runnable {
                 sendEventsFlag = false;
             }
         }
-
-        producer.close(1000, TimeUnit.MILLISECONDS);
+        
+        ThreadUtilities.sleep(200);
     }
 
     public void sendEvents() {
@@ -123,6 +123,8 @@ public class KafkaEventProducer implements Runnable {
         while (producerThread.isAlive()) {
             ThreadUtilities.sleep(10);
         }
+
+        producer.close(1000, TimeUnit.MILLISECONDS);
 
         System.out.println(KafkaEventProducer.class.getCanonicalName() + ": stopped");
     }

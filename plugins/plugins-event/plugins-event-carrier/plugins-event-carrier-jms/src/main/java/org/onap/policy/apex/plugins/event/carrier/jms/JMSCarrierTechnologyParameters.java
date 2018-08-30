@@ -25,6 +25,8 @@ import java.util.Properties;
 import javax.naming.Context;
 
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for JMS as an event carrier technology.
@@ -99,7 +101,7 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
     // JMS carrier parameters
     private String  connectionFactory     = DEFAULT_CONNECTION_FACTORY;
     private String  initialContextFactory = DEFAULT_INITIAL_CONTEXT_FACTORY;
-    private String  providerURL           = DEFAULT_PROVIDER_URL;
+    private String  providerUrl           = DEFAULT_PROVIDER_URL;
     private String  securityPrincipal     = DEFAULT_SECURITY_PRINCIPAL;
     private String  securityCredentials   = DEFAULT_SECURITY_CREDENTIALS;
     private String  producerTopic         = DEFAULT_PRODUCER_TOPIC;
@@ -113,7 +115,7 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
      * service.
      */
     public JMSCarrierTechnologyParameters() {
-        super(JMSCarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the JMS carrier technology
         this.setLabel(JMS_CARRIER_TECHNOLOGY_LABEL);
@@ -126,15 +128,8 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
      *
      * @return the JMS producer properties
      */
-    public Properties getJMSProducerProperties() {
-        final Properties jmsProperties = new Properties();
-
-        jmsProperties.put(PROPERTY_INITIAL_CONTEXT_FACTORY, initialContextFactory);
-        jmsProperties.put(PROPERTY_PROVIDER_URL, providerURL);
-        jmsProperties.put(PROPERTY_SECURITY_PRINCIPAL, securityPrincipal);
-        jmsProperties.put(PROPERTY_SECURITY_CREDENTIALS, securityCredentials);
-
-        return jmsProperties;
+    public Properties getJmsProducerProperties() {
+        return getJmsProperties();
     }
 
     /**
@@ -142,11 +137,20 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
      *
      * @return the jms consumer properties
      */
-    public Properties getJMSConsumerProperties() {
+    public Properties getJmsConsumerProperties() {
+        return getJmsProperties();
+    }
+
+    /**
+     * Gets the JMS consumer properties.
+     *
+     * @return the jms consumer properties
+     */
+    private Properties getJmsProperties() {
         final Properties jmsProperties = new Properties();
 
         jmsProperties.put(PROPERTY_INITIAL_CONTEXT_FACTORY, initialContextFactory);
-        jmsProperties.put(PROPERTY_PROVIDER_URL, providerURL);
+        jmsProperties.put(PROPERTY_PROVIDER_URL, providerUrl);
         jmsProperties.put(PROPERTY_SECURITY_PRINCIPAL, securityPrincipal);
         jmsProperties.put(PROPERTY_SECURITY_CREDENTIALS, securityCredentials);
 
@@ -176,8 +180,8 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
      *
      * @return the provider URL
      */
-    public String getProviderURL() {
-        return       providerURL;
+    public String getProviderUrl() {
+        return providerUrl;
     }
 
     /**
@@ -246,10 +250,10 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
     /**
      * Sets the provider URL.
      *
-     * @param providerURL the provider URL
+     * @param providerUrl the provider URL
      */
-    public void setProviderURL(final String providerURL) {
-        this.providerURL = providerURL;
+    public void setProviderUrl(final String providerUrl) {
+        this.providerUrl = providerUrl;
     }
 
     /**
@@ -321,48 +325,51 @@ public class JMSCarrierTechnologyParameters extends CarrierTechnologyParameters 
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         if (initialContextFactory == null || initialContextFactory.trim().length() == 0) {
-            errorMessageBuilder
-                    .append("  initialContextFactory not specified, must be specified as a string that is a class"
-                            + " that implements the interface org.jboss.naming.remote.client.InitialContextFactory\n");
+            result.setResult("initialContextFactory", ValidationStatus.INVALID,
+                            "initialContextFactory must be specified as a string that is a class that implements the "
+                                            + "interface org.jboss.naming.remote.client.InitialContextFactory");
         }
 
-        if (providerURL == null || providerURL.trim().length() == 0) {
-            errorMessageBuilder.append(
-                    "  providerURL not specified, must be specified as a URL string that specifies the location of "
-                            + "configuration information for the service provider to use such as remote://localhost:4447\n");
+        if (providerUrl == null || providerUrl.trim().length() == 0) {
+            result.setResult("providerUrl", ValidationStatus.INVALID,
+                            "providerUrl must be specified as a URL string that specifies the location of "
+                                            + "configuration information for the service provider to use "
+                                            + "such as remote://localhost:4447");
         }
 
         if (securityPrincipal == null || securityPrincipal.trim().length() == 0) {
-            errorMessageBuilder.append(
-                    "  securityPrincipal not specified, must be specified the identity of the principal for authenticating the caller to the service\n");
+            result.setResult("securityPrincipal", ValidationStatus.INVALID,
+                            "securityPrincipal must be specified the identity of the principal for authenticating "
+                                            + "the caller to the service");
         }
 
         if (securityCredentials == null || securityCredentials.trim().length() == 0) {
-            errorMessageBuilder.append("  securityCredentials not specified, must be specified as "
-                    + "the credentials of the principal for authenticating the caller to the service\n");
+            result.setResult("securityCredentials", ValidationStatus.INVALID,
+                            "  securityCredentials must be specified as the credentials of the "
+                                            + "principal for authenticating the caller to the service");
         }
 
         if (producerTopic == null || producerTopic.trim().length() == 0) {
-            errorMessageBuilder.append(
-                    "  producerTopic not specified, must be a string that identifies the JMS topic on which Apex will send events\n");
+            result.setResult("producerTopic", ValidationStatus.INVALID,
+                            "  producerTopic must be a string that identifies the JMS topic "
+                                            + "on which Apex will send events");
         }
 
         if (consumerTopic == null || consumerTopic.trim().length() == 0) {
-            errorMessageBuilder.append(
-                    "  consumerTopic not specified, must be a string that identifies the JMS topic on which Apex will recieve events\n");
+            result.setResult("consumerTopic", ValidationStatus.INVALID,
+                            "  consumerTopic must be a string that identifies the JMS topic "
+                                            + "on which Apex will recieve events");
         }
 
         if (consumerWaitTime < 0) {
-            errorMessageBuilder.append("  consumerWaitTime [" + consumerWaitTime
-                    + "] invalid, must be specified as consumerWaitTime >= 0\n");
+            result.setResult("consumerWaitTime", ValidationStatus.INVALID,
+                            "[" + consumerWaitTime + "] invalid, must be specified as consumerWaitTime >= 0");
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }

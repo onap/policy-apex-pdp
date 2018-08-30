@@ -20,8 +20,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * Bean class to hold parameters for context handling in Apex. This class contains all the context
@@ -43,9 +43,10 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ContextParameters extends AbstractParameters {
+public class ContextParameters implements ParameterGroup {
     // @formatter:off
     // Plugin Parameters
+    private String                name;
     private DistributorParameters distributorParameters = new DistributorParameters();
     private SchemaParameters      schemaParameters      = new SchemaParameters();
     private LockManagerParameters lockManagerParameters = new LockManagerParameters();
@@ -57,8 +58,10 @@ public class ContextParameters extends AbstractParameters {
      * parameter service.
      */
     public ContextParameters() {
-        super(ContextParameters.class.getCanonicalName());
-        ParameterService.registerParameters(ContextParameters.class, this);
+        super();
+
+        // Set the name for the parameters
+        this.name = ContextParameterConstants.MAIN_GROUP_NAME;
     }
 
     /**
@@ -132,16 +135,26 @@ public class ContextParameters extends AbstractParameters {
     public void setPersistorParameters(final PersistorParameters persistorParameters) {
         this.persistorParameters = persistorParameters;
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
-     */
+    
     @Override
     public String toString() {
-        return "ContextParameters [distributorParameters=" + distributorParameters + ", schemaParameters="
-                + schemaParameters + ", lockManagerParameters=" + lockManagerParameters + ", persistorParameters="
-                + persistorParameters + "]";
+        return "ContextParameters [name=" + name + ", distributorParameters=" + distributorParameters
+                        + ", schemaParameters=" + schemaParameters + ", lockManagerParameters=" + lockManagerParameters
+                        + ", persistorParameters=" + persistorParameters + "]";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }

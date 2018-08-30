@@ -21,8 +21,8 @@
 package org.onap.policy.apex.context.parameters;
 
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * An empty distributor parameter class that may be specialized by context distributor plugins that
@@ -31,11 +31,11 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class DistributorParameters extends AbstractParameters {
+public class DistributorParameters implements ParameterGroup {
     /** The default distributor makes context albums available to all threads in a single JVM. */
     public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JVMLocalDistributor.class.getCanonicalName();
 
-    // Plugin class names
+    private String name;
     private String pluginClass = DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;
 
     /**
@@ -43,18 +43,10 @@ public class DistributorParameters extends AbstractParameters {
      * parameter service.
      */
     public DistributorParameters() {
-        super(DistributorParameters.class.getCanonicalName());
-        ParameterService.registerParameters(DistributorParameters.class, this);
-    }
-
-    /**
-     * Constructor to create a distributor parameters instance with the name of a sub class of this
-     * class and register the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
-     */
-    public DistributorParameters(final String parameterClassName) {
-        super(parameterClassName);
+        super();
+        
+        // Set the name for the parameters
+        this.name = ContextParameterConstants.DISTRIBUTOR_GROUP_NAME;
     }
 
     /**
@@ -75,13 +67,23 @@ public class DistributorParameters extends AbstractParameters {
         this.pluginClass = pluginClass;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
-     */
     @Override
     public String toString() {
-        return "DistributorParameters [pluginClass=" + pluginClass + "]";
+        return "DistributorParameters [name=" + name + ", pluginClass=" + pluginClass + "]";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }
