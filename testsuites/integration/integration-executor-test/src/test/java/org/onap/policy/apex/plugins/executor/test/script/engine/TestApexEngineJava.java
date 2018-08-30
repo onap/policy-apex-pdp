@@ -22,10 +22,17 @@ package org.onap.policy.apex.plugins.executor.test.script.engine;
 
 import java.io.IOException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
+import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * The Class TestApexEngine_Java.
@@ -33,6 +40,47 @@ import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestApexEngineJava {
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
+    private EngineParameters engineParameters;
+
+    @Before
+    public void beforeTest() {
+        schemaParameters = new SchemaParameters();
+        
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+        
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        engineParameters = new EngineParameters();
+        engineParameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
+        ParameterService.register(engineParameters);
+    }
+
+    @After
+    public void afterTest() {
+        ParameterService.deregister(engineParameters);
+        
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+
+        ParameterService.deregister(schemaParameters);
+    }
 
     /**
      * Test apex engine.
@@ -43,10 +91,7 @@ public class TestApexEngineJava {
      */
     @Test
     public void testApexEngineJava() throws InterruptedException, IOException, ApexException {
-        final EngineParameters parameters = new EngineParameters();
-        parameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
-
-        new TestApexEngine("JAVA", parameters);
-        new TestApexEngine("JAVA", parameters);
+        new TestApexEngine("JAVA", engineParameters);
+        new TestApexEngine("JAVA", engineParameters);
     }
 }

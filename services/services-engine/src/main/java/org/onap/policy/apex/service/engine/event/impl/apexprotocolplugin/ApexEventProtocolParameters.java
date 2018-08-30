@@ -32,16 +32,15 @@ public class ApexEventProtocolParameters extends EventProtocolParameters {
     public static final String APEX_EVENT_PROTOCOL_LABEL = "APEX";
 
     /**
-     * Constructor to create a JSON event protocol parameter instance and register the instance with
-     * the parameter service.
+     * Constructor to create a JSON event protocol parameter instance and register the instance with the parameter
+     * service.
      */
     public ApexEventProtocolParameters() {
         this(ApexEventProtocolParameters.class.getCanonicalName(), APEX_EVENT_PROTOCOL_LABEL);
     }
 
     /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of
-     * this class.
+     * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
      *
      * @param parameterClassName the class name of a sub class of this class
      * @param eventProtocolLabel the name of the event protocol for this plugin

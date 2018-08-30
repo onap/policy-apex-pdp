@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.onap.policy.apex.service.engine.event.impl.eventrequestor.EventRequestorCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FILECarrierTechnologyParameters;
-import org.onap.policy.apex.service.parameters.ApexParameterRuntimeException;
+import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -34,7 +34,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -74,7 +73,7 @@ public class CarrierTechnologyParametersJSONAdapter
             final JsonSerializationContext context) {
         final String returnMessage = "serialization of Apex carrier technology parameters to Json is not supported";
         LOGGER.error(returnMessage);
-        throw new ApexParameterRuntimeException(returnMessage);
+        throw new ParameterRuntimeException(returnMessage);
     }
 
     /*
@@ -85,7 +84,7 @@ public class CarrierTechnologyParametersJSONAdapter
      */
     @Override
     public CarrierTechnologyParameters deserialize(final JsonElement json, final Type typeOfT,
-            final JsonDeserializationContext context) throws JsonParseException {
+            final JsonDeserializationContext context) {
         final JsonObject jsonObject = json.getAsJsonObject();
 
         // Get the carrier technology label primitive
@@ -103,7 +102,7 @@ public class CarrierTechnologyParametersJSONAdapter
             final String errorMessage = "carrier technology parameter \"" + CARRIER_TECHNOLOGY_TOKEN + "\" value \""
                     + labelJsonPrimitive.getAsString() + "\" invalid in JSON file";
             LOGGER.warn(errorMessage);
-            throw new ApexParameterRuntimeException(errorMessage);
+            throw new ParameterRuntimeException(errorMessage);
         }
 
         // We now get the technology carrier parameter class
@@ -130,7 +129,7 @@ public class CarrierTechnologyParametersJSONAdapter
                     + (classNameJsonPrimitive != null ? classNameJsonPrimitive.getAsString() : "null")
                     + "\" invalid in JSON file";
             LOGGER.warn(errorMessage);
-            throw new ApexParameterRuntimeException(errorMessage);
+            throw new ParameterRuntimeException(errorMessage);
         }
 
         // Get the class for the carrier technology
@@ -142,7 +141,7 @@ public class CarrierTechnologyParametersJSONAdapter
                     "carrier technology \"" + carrierTechnologyLabel + "\" parameter \"" + PARAMETER_CLASS_NAME
                             + "\" value \"" + carrierTechnologyParameterClassName + "\", could not find class";
             LOGGER.warn(errorMessage, e);
-            throw new ApexParameterRuntimeException(errorMessage, e);
+            throw new ParameterRuntimeException(errorMessage, e);
         }
 
         // Deserialise the class
@@ -158,7 +157,7 @@ public class CarrierTechnologyParametersJSONAdapter
                 final String errorMessage = "could not create default parameters for carrier technology \""
                         + carrierTechnologyLabel + "\"\n" + e.getMessage();
                 LOGGER.warn(errorMessage, e);
-                throw new ApexParameterRuntimeException(errorMessage, e);
+                throw new ParameterRuntimeException(errorMessage, e);
             }
         }
 
@@ -170,7 +169,7 @@ public class CarrierTechnologyParametersJSONAdapter
                     + "\", specify correct carrier technology parameter plugin in parameter \"" + PARAMETER_CLASS_NAME
                     + "\"";
             LOGGER.warn(errorMessage);
-            throw new ApexParameterRuntimeException(errorMessage);
+            throw new ParameterRuntimeException(errorMessage);
         }
 
         return carrierTechnologyParameters;

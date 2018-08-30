@@ -22,10 +22,11 @@ package org.onap.policy.apex.context.impl.persistence;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Persistor;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -49,7 +50,8 @@ public class PersistorFactory {
         LOGGER.entry("persistor factory, key=" + key);
         Assertions.argumentNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
-        final PersistorParameters persistorParameters = ParameterService.getParameters(PersistorParameters.class);
+        final PersistorParameters persistorParameters = ParameterService
+                        .get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
 
         // Get the class for the persistor using reflection
         Object persistorObject = null;
@@ -58,17 +60,17 @@ public class PersistorFactory {
             persistorObject = Class.forName(pluginClass).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             LOGGER.error("Apex context persistor class not found for context persistor plugin \"" + pluginClass + "\"",
-                    e);
-            throw new ContextException(
-                    "Apex context persistor class not found for context persistor plugin \"" + pluginClass + "\"", e);
+                            e);
+            throw new ContextException("Apex context persistor class not found for context persistor plugin \""
+                            + pluginClass + "\"", e);
         }
 
         // Check the class is a persistor
         if (!(persistorObject instanceof Persistor)) {
-            LOGGER.error("Specified Apex context persistor plugin class \"" + pluginClass
-                    + "\" does not implement the ContextDistributor interface");
+            LOGGER.error("Specified Apex context persistor plugin class \"{}\" does not implement the ContextDistributor interface",
+                            pluginClass);
             throw new ContextException("Specified Apex context persistor plugin class \"" + pluginClass
-                    + "\" does not implement the ContextDistributor interface");
+                            + "\" does not implement the ContextDistributor interface");
         }
 
         // The persistor to return

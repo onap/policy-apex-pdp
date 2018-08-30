@@ -28,14 +28,20 @@ import static org.onap.policy.apex.context.test.utils.Constants.TEST_VALUE;
 
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
 import org.onap.policy.apex.context.test.utils.ConfigrationProviderImpl;
 import org.onap.policy.apex.context.test.utils.Constants;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -57,11 +63,44 @@ public class TestConcurrentContext {
     private static final int TEST_THREAD_COUNT_MULTI_JVM = 20;
     private static final int TEST_THREAD_LOOPS = 100;
 
+    private SchemaParameters schemaParameters;
+    private ContextParameters contextParameters;
+
+    @Before
+    public void beforeTest() {
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+    }
+
+    @After
+    public void afterTest() {
+        ParameterService.deregister(schemaParameters);
+
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+    }
+
     @Test
     public void testConcurrentContextJVMLocalVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalVarSet test . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalVarSet",
@@ -84,7 +123,6 @@ public class TestConcurrentContext {
     public void testConcurrentContextJVMLocalNoVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalNoVarSet test . . .");
 
-        new ContextParameters();
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalNoVarSet",
                 TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
 
@@ -104,7 +142,6 @@ public class TestConcurrentContext {
     public void testConcurrentContextMultiJVMNoLock() throws Exception {
         logger.debug("Running testConcurrentContextMultiJVMNoLock test . . .");
 
-        final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
         contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
 

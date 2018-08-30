@@ -20,8 +20,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * A persistor parameter class that may be specialized by context persistor plugins that require
@@ -36,7 +36,7 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class PersistorParameters extends AbstractParameters {
+public class PersistorParameters implements ParameterGroup {
     /** The default persistor is a dummy persistor that stubs the Persistor interface. */
     public static final String DEFAULT_PERSISTOR_PLUGIN_CLASS =
             "org.onap.policy.apex.context.impl.persistence.ephemeral.EphemeralPersistor";
@@ -44,7 +44,7 @@ public class PersistorParameters extends AbstractParameters {
     /** Default periodic flushing interval, 5 minutes in milliseconds. */
     public static final long DEFAULT_FLUSH_PERIOD = 300000;
 
-    // Plugin class names
+    private String name;
     private String pluginClass = DEFAULT_PERSISTOR_PLUGIN_CLASS;
 
     // Parameters for flushing
@@ -55,18 +55,10 @@ public class PersistorParameters extends AbstractParameters {
      * parameter service.
      */
     public PersistorParameters() {
-        super(PersistorParameters.class.getCanonicalName());
-        ParameterService.registerParameters(PersistorParameters.class, this);
-    }
+        super();
 
-    /**
-     * Constructor to create a persistor parameters instance with the name of a sub class of this
-     * class and register the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
-     */
-    public PersistorParameters(final String parameterClassName) {
-        super(parameterClassName);
+        // Set the name for the parameters
+        this.name = ContextParameterConstants.PERSISTENCE_GROUP_NAME;
     }
 
     /**
@@ -109,13 +101,24 @@ public class PersistorParameters extends AbstractParameters {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
-     */
     @Override
     public String toString() {
-        return "PersistorParameters [pluginClass=" + pluginClass + ", flushPeriod=" + flushPeriod + "]";
+        return "PersistorParameters [name=" + name + ", pluginClass=" + pluginClass + ", flushPeriod=" + flushPeriod
+                        + "]";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }
