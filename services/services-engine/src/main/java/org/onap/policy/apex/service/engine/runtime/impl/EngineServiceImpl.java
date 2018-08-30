@@ -45,6 +45,7 @@ import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -156,9 +157,9 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             LOGGER.warn("Engine service configuration parameters is null");
             throw new ApexException("engine service configuration parameters is null");
         }
-        final String validation = config.validate();
-        if (validation != null && validation.length() > 0) {
-            LOGGER.warn("Invalid engine service configuration parameters: " + validation);
+        final GroupValidationResult validation = config.validate();
+        if (!validation.isValid()) {
+            LOGGER.warn("Invalid engine service configuration parameters: {}" + validation.getResult());
             throw new ApexException("Invalid engine service configuration parameters: " + validation);
         }
         final AxArtifactKey engineServiceKey = config.getEngineKey();

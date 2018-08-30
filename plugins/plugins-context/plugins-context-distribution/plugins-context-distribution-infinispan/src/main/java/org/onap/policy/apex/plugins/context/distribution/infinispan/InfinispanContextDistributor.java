@@ -25,8 +25,9 @@ import java.util.Map;
 import org.infinispan.Cache;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -71,7 +72,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         if (infinispanManager == null) {
             // Get the parameters from the parameter service
             final InfinispanDistributorParameters parameters =
-                    ParameterService.getParameters(InfinispanDistributorParameters.class);
+                    ParameterService.get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
 
             LOGGER.debug("initiating Infinispan with the parameters: " + parameters);
 

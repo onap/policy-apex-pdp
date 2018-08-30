@@ -33,9 +33,9 @@ import org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
 public class EventAlbumContextTest {

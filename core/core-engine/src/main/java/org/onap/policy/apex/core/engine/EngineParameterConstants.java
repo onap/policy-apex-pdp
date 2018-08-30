@@ -1,6 +1,6 @@
-/*
+/*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,20 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.model.basicmodel.service;
-
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
+package org.onap.policy.apex.core.engine;
 
 /**
- * @author Liam Fallon (liam.fallon@ericsson.com)
+ * This class holds constants used when managing engine parameter groups in apex.
  */
-public class IllegalParameters extends AbstractParameters {
-    public IllegalParameters() {
-        super("somewhere.over.the.rainbow");
+public abstract class EngineParameterConstants {
+    public static final String MAIN_GROUP_NAME = "ENGINE_PARAMETERS";
+    public static final String EXECUTOR_GROUP_NAME = "EXECUTOR_PARAMETERS";
+
+    /**
+     * Private default constructor to prevent subclassing
+     */
+    private EngineParameterConstants() {
+        // Prevents subclassing
     }
+
 }

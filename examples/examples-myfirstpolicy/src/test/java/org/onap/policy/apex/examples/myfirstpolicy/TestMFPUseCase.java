@@ -32,8 +32,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineImpl;
@@ -46,6 +51,7 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
@@ -62,10 +68,50 @@ public class TestMFPUseCase {
     @BeforeClass
     public static void testMFPUseCaseSetup() {
         final AxArtifactKey key = new AxArtifactKey("MyFirstPolicyApexEngine", "0.0.1");
-        final EngineParameters parameters = new EngineParameters();
-        parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
-        parameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
         apexEngine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(key);
+    }
+
+    private static ContextParameters contextParameters;
+    private static SchemaParameters schemaParameters;
+    private static EngineParameters engineParameters;
+
+    @BeforeClass
+    public static void beforeTest() {
+        schemaParameters = new SchemaParameters();
+        
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
+        
+        contextParameters = new ContextParameters();
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+        
+        engineParameters = new EngineParameters();
+        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineParameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
+        ParameterService.register(engineParameters);
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        ParameterService.deregister(engineParameters);
+        
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters);
+
+        ParameterService.deregister(schemaParameters);
     }
 
     /**

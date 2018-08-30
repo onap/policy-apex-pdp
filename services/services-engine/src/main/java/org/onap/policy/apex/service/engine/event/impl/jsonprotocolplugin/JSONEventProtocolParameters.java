@@ -87,6 +87,14 @@ public class JSONEventProtocolParameters extends EventProtocolTextCharDelimitedP
         this.setEventProtocolPluginClass(Apex2JSONEventConverter.class.getCanonicalName());
     }
 
+    /* (non-Javadoc)
+     * @see org.onap.policy.common.parameters.ParameterGroup#getName()
+     */
+    @Override
+    public String getName() {
+        return this.getLabel();
+    }
+
     /**
      * Gets the name alias.
      *

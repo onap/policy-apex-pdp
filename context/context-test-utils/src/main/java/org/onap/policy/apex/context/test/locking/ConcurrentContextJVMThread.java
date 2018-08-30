@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -79,8 +79,8 @@ public class ConcurrentContextJVMThread implements Runnable, Closeable {
         commandList.add(new Integer(configrationProvider.getLockType().getValue()).toString());
         commandList.add(System.getProperty("hazelcast.config", ""));
 
-        for (final Entry<Class<?>, AbstractParameters> parameterServiceEntry : ParameterService.getAll()) {
-            commandList.add(parameterServiceEntry.getKey().getCanonicalName());
+        for (final Entry<String, ParameterGroup> parameterServiceEntry : ParameterService.getAll()) {
+            commandList.add(parameterServiceEntry.getValue().getClass().getCanonicalName());
             commandList.add(new Gson().toJson(parameterServiceEntry.getValue()));
         }
 

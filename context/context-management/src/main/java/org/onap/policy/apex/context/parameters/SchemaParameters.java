@@ -24,8 +24,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * Bean class holding schema parameters for schemas and their helpers. As more than one schema can
@@ -38,9 +38,11 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class SchemaParameters extends AbstractParameters {
+public class SchemaParameters implements ParameterGroup {
     /** The Java schema flavour is always available for use. */
     public static final String DEFAULT_SCHEMA_FLAVOUR = "Java";
+
+    private String name;
 
     // A map of parameters for executors of various logic types
     private Map<String, SchemaHelperParameters> schemaHelperParameterMap;
@@ -50,8 +52,10 @@ public class SchemaParameters extends AbstractParameters {
      * parameter service.
      */
     public SchemaParameters() {
-        super(SchemaParameters.class.getCanonicalName());
-        ParameterService.registerParameters(SchemaParameters.class, this);
+        super();
+
+        // Set the name for the parameters
+        this.name = ContextParameterConstants.SCHEMA_GROUP_NAME;
 
         schemaHelperParameterMap = new TreeMap<>();
 
@@ -85,5 +89,20 @@ public class SchemaParameters extends AbstractParameters {
      */
     public SchemaHelperParameters getSchemaHelperParameters(final String schemaFlavour) {
         return schemaHelperParameterMap.get(schemaFlavour);
+    }
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }

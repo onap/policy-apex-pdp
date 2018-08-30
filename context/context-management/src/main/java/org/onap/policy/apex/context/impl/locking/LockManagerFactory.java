@@ -22,9 +22,10 @@ package org.onap.policy.apex.context.impl.locking;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.LockManager;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -48,7 +49,8 @@ public class LockManagerFactory {
     public LockManager createLockManager(final AxArtifactKey key) throws ContextException {
         LOGGER.entry("Lock Manager factory, key=" + key);
 
-        final LockManagerParameters lockManagerParameters = ParameterService.getParameters(LockManagerParameters.class);
+        final LockManagerParameters lockManagerParameters = ParameterService
+                        .get(ContextParameterConstants.LOCKING_GROUP_NAME);
 
         // Get the class for the lock manager using reflection
         Object lockManagerObject = null;
@@ -56,20 +58,18 @@ public class LockManagerFactory {
         try {
             lockManagerObject = Class.forName(pluginClass).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            LOGGER.error(
-                    "Apex context lock manager class not found for context lock manager plugin \"" + pluginClass + "\"",
-                    e);
-            throw new ContextException(
-                    "Apex context lock manager class not found for context lock manager plugin \"" + pluginClass + "\"",
-                    e);
+            LOGGER.error("Apex context lock manager class not found for context lock manager plugin \"" + pluginClass
+                            + "\"", e);
+            throw new ContextException("Apex context lock manager class not found for context lock manager plugin \""
+                            + pluginClass + "\"", e);
         }
 
         // Check the class is a lock manager
         if (!(lockManagerObject instanceof LockManager)) {
-            LOGGER.error("Specified Apex context lock manager plugin class \"" + pluginClass
-                    + "\" does not implement the LockManager interface");
+            LOGGER.error("Specified Apex context lock manager plugin class \"{}\" does not implement the LockManager interface",
+                            pluginClass);
             throw new ContextException("Specified Apex context lock manager plugin class \"" + pluginClass
-                    + "\" does not implement the LockManager interface");
+                            + "\" does not implement the LockManager interface");
         }
 
         // The context lock manager to return

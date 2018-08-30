@@ -24,8 +24,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.parameters.ContextParameters;
-import org.onap.policy.apex.model.basicmodel.service.AbstractParameters;
-import org.onap.policy.apex.model.basicmodel.service.ParameterService;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
  * This class holds the parameters for a single Apex engine. This parameter class holds parameters
@@ -43,19 +43,24 @@ import org.onap.policy.apex.model.basicmodel.service.ParameterService;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class EngineParameters extends AbstractParameters {
+public class EngineParameters implements ParameterGroup {
     private ContextParameters contextParameters = new ContextParameters();
 
+    // Parameter group name
+    private String name;
+
     // A map of parameters for executors of various logic types
-    private Map<String, ExecutorParameters> executorParameterMap = new TreeMap<String, ExecutorParameters>();
+    private Map<String, ExecutorParameters> executorParameterMap = new TreeMap<>();
 
     /**
      * Constructor to create an engine parameters instance and register the instance with the
      * parameter service.
      */
     public EngineParameters() {
-        super(EngineParameters.class.getCanonicalName());
-        ParameterService.registerParameters(EngineParameters.class, this);
+        super();
+        
+        // Set the name for the parameters
+        this.name = EngineParameterConstants.MAIN_GROUP_NAME;
     }
 
     /**
@@ -92,5 +97,20 @@ public class EngineParameters extends AbstractParameters {
      */
     public void setExecutorParameterMap(final Map<String, ExecutorParameters> executorParameterMap) {
         this.executorParameterMap = executorParameterMap;
+    }
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    @Override
+    public GroupValidationResult validate() {
+        return new GroupValidationResult(this);
     }
 }

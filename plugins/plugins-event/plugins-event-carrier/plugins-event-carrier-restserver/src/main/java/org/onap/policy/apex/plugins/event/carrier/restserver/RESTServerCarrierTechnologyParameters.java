@@ -21,6 +21,8 @@
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for REST as an event carrier technology with Apex as a REST client.
@@ -63,7 +65,7 @@ public class RESTServerCarrierTechnologyParameters extends CarrierTechnologyPara
      * service.
      */
     public RESTServerCarrierTechnologyParameters() {
-        super(RESTServerCarrierTechnologyParameters.class.getCanonicalName());
+        super();
 
         // Set the carrier technology properties for the web socket carrier technology
         this.setLabel(RESTSERVER_CARRIER_TECHNOLOGY_LABEL);
@@ -105,32 +107,30 @@ public class RESTServerCarrierTechnologyParameters extends CarrierTechnologyPara
      * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
      */
     @Override
-    public String validate() {
-        final StringBuilder errorMessageBuilder = new StringBuilder();
-
-        errorMessageBuilder.append(super.validate());
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
 
         // Check if host is defined, it is only defined on REST server consumers
         if (standalone) {
-            if (host != null) {
-                if (host.trim().length() == 0) {
-                    errorMessageBuilder.append("  host not specified, must be host as a string\n");
-                }
+            if (host != null && host.trim().length() == 0) {
+                result.setResult("host", ValidationStatus.INVALID,
+                                "host not specified, host must be specified as a string");
             }
 
             // Check if port is defined, it is only defined on REST server consumers
-            if (port != -1) {
-                if (port < MIN_USER_PORT || port > MAX_USER_PORT) {
-                    errorMessageBuilder
-                            .append("  port [" + port + "] invalid, must be specified as 1024 <= port <= 6535\n");
-                }
+            if (port != -1 && port < MIN_USER_PORT || port > MAX_USER_PORT) {
+                result.setResult("port", ValidationStatus.INVALID,
+                                "[" + port + "] invalid, must be specified as 1024 <= port <= 65535");
             }
         } else {
-            if (host != null || port != -1) {
-                errorMessageBuilder.append("  host and port are specified only in standalone mode\n");
+            if (host != null) {
+                result.setResult("host", ValidationStatus.INVALID, "host is specified only in standalone mode");
+            }
+            if (port != -1) {
+                result.setResult("port", ValidationStatus.INVALID, "port is specified only in standalone mode");
             }
         }
 
-        return errorMessageBuilder.toString();
+        return result;
     }
 }
