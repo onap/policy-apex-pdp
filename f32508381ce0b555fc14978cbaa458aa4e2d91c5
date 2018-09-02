@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_be122b55",
+        "filename": "pom.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-02T23:40:29Z",
+      "side": 1,
+      "message": "Would be the same though as version.policy.common. I don\u0027t think we would release them separately.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "f32508381ce0b555fc14978cbaa458aa4e2d91c5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
