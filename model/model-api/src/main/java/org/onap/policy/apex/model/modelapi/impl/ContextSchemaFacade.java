@@ -96,7 +96,7 @@ public class ContextSchemaFacade {
             }
 
             if (apexModel.getPolicyModel().getSchemas().getSchemasMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getID() + ALREADY_EXISTS);
+                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
             }
 
             apexModel.getPolicyModel().getSchemas().getSchemasMap().put(key, new AxContextSchema(key, schemaFlavour, schemaDefinition));
@@ -189,7 +189,7 @@ public class ContextSchemaFacade {
                             new ApexModelStringWriter<AxContextSchema>(false).writeString(removedSchema, AxContextSchema.class, jsonMode));
                 }
                 else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST, CONCEPT + key.getID() + DOES_NOT_EXIST);
+                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST, CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 

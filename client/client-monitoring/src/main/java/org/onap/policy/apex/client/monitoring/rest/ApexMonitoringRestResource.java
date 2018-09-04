@@ -105,9 +105,9 @@ public class ApexMonitoringRestResource {
         final JsonObject responseObject = new JsonObject();
 
         // Engine Service data
-        responseObject.addProperty("engine_id", engineServiceFacade.getKey().getID());
+        responseObject.addProperty("engine_id", engineServiceFacade.getKey().getId());
         responseObject.addProperty("model_id",
-                engineServiceFacade.getApexModelKey() != null ? engineServiceFacade.getApexModelKey().getID()
+                engineServiceFacade.getApexModelKey() != null ? engineServiceFacade.getApexModelKey().getId()
                         : "Not Set");
         responseObject.addProperty("server", hostName);
         responseObject.addProperty("port", Integer.toString(port));
@@ -121,23 +121,23 @@ public class ApexMonitoringRestResource {
                 final JsonObject engineStatusObject = new JsonObject();
                 final AxEngineModel axEngineModel = engineServiceFacade.getEngineStatus(engineKey);
                 engineStatusObject.addProperty("timestamp", axEngineModel.getTimeStampString());
-                engineStatusObject.addProperty("id", engineKey.getID());
+                engineStatusObject.addProperty("id", engineKey.getId());
                 engineStatusObject.addProperty("status", axEngineModel.getState().toString());
                 engineStatusObject.addProperty("last_message", axEngineModel.getStats().getTimeStampString());
                 engineStatusObject.addProperty("up_time", axEngineModel.getStats().getUpTime() / 1000L);
                 engineStatusObject.addProperty("policy_executions", axEngineModel.getStats().getEventCount());
                 engineStatusObject.addProperty("last_policy_duration",
                         gson.toJson(
-                                getValuesFromCache(host, engineKey.getID() + "_last_policy_duration",
+                                getValuesFromCache(host, engineKey.getId() + "_last_policy_duration",
                                         axEngineModel.getTimestamp(), axEngineModel.getStats().getLastExecutionTime()),
                                 List.class));
                 engineStatusObject.addProperty("average_policy_duration",
-                        gson.toJson(getValuesFromCache(host, engineKey.getID() + "_average_policy_duration",
+                        gson.toJson(getValuesFromCache(host, engineKey.getId() + "_average_policy_duration",
                                 axEngineModel.getTimestamp(),
                                 (long) axEngineModel.getStats().getAverageExecutionTime()), List.class));
                 engineStatusList.add(engineStatusObject);
             } catch (final ApexException e) {
-                LOGGER.warn("Error getting status of engine with ID " + engineKey.getID() + "<br>", e);
+                LOGGER.warn("Error getting status of engine with ID " + engineKey.getId() + "<br>", e);
             }
         }
         responseObject.add("status", engineStatusList);
@@ -149,12 +149,12 @@ public class ApexMonitoringRestResource {
                 final String engineInfo = engineServiceFacade.getEngineInfo(engineKey);
                 if (engineInfo != null && !engineInfo.trim().isEmpty()) {
                     final JsonObject engineContextObject = new JsonObject();
-                    engineContextObject.addProperty("id", engineKey.getID());
+                    engineContextObject.addProperty("id", engineKey.getId());
                     engineContextObject.addProperty("engine_info", engineInfo);
                     engineContextList.add(engineContextObject);
                 }
             } catch (final ApexException e) {
-                LOGGER.warn("Error getting runtime information of engine with ID " + engineKey.getID() + "<br>", e);
+                LOGGER.warn("Error getting runtime information of engine with ID " + engineKey.getId() + "<br>", e);
             }
         }
         responseObject.add("context", engineContextList);

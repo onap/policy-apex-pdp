@@ -50,8 +50,8 @@ public final class PCVSDomainModelSaver {
         final AxPolicyModel pcvsPolicyModel = new PCVSDomainModelFactory().getPCVVpnSlaSPolicyModel(args[0]);
         final ApexModelSaver<AxPolicyModel> pcvsModelSaver =
                 new ApexModelSaver<>(AxPolicyModel.class, pcvsPolicyModel, args[1] + "vpnsla/");
-        pcvsModelSaver.apexModelWriteJSON();
-        pcvsModelSaver.apexModelWriteXML();
+        pcvsModelSaver.apexModelWriteJson();
+        pcvsModelSaver.apexModelWriteXml();
 
     }
 }

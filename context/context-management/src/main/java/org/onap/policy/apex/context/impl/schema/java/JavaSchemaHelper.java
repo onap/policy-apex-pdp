@@ -82,8 +82,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             setSchemaClass(TypeBuilder.getJavaTypeClass(schema.getSchema()));
         } catch (final IllegalArgumentException e) {
 
-            String resultSting = userKey.getID() + ": class/type " + schema.getSchema() + " for context schema \""
-                    + schema.getID() + "\" not found.";
+            String resultSting = userKey.getId() + ": class/type " + schema.getSchema() + " for context schema \""
+                    + schema.getId() + "\" not found.";
             if (JavaSchemaHelper.BUILT_IN_MAP.get(javatype) != null) {
                 resultSting += " Primitive types are not supported. Use the appropriate Java boxing type instead.";
             } else {
@@ -107,7 +107,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
 
         if (getSchemaClass() == null) {
             final String returnString =
-                    getUserKey().getID() + ": could not create an instance, schema class for the schema is null";
+                    getUserKey().getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -121,7 +121,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return incomingObject;
         }
 
-        final String returnString = getUserKey().getID() + ": the object \"" + incomingObject + "\" of type \""
+        final String returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
                 + incomingObject.getClass().getCanonicalName()
                 + "\" is not an instance of JsonObject and is not assignable to \""
                 + getSchemaClass().getCanonicalName() + "\"";
@@ -173,7 +173,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             // Use Gson to translate the object
             return new Gson().toJson(schemaObject);
         } else {
-            final String returnString = getUserKey().getID() + ": object \"" + schemaObject.toString()
+            final String returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
                     + "\" of class \"" + schemaObject.getClass().getCanonicalName() + "\" not compatible with class \""
                     + getSchemaClass().getCanonicalName() + "\"";
             LOGGER.warn(returnString);
@@ -232,7 +232,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             final Constructor<?> stringConstructor = getSchemaClass().getConstructor(String.class);
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
-            final String returnString = getUserKey().getID() + ": object \"" + object.toString() + "\" of class \""
+            final String returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
                     + object.getClass().getCanonicalName() + "\" not compatible with class \""
                     + getSchemaClass().getCanonicalName() + "\"";
             LOGGER.warn(returnString);

@@ -685,7 +685,7 @@ public class AxState extends AxConcept {
         if (!taskSelectionLogic.getKey().equals(AxReferenceKey.getNullKey())) {
             if (!taskSelectionLogic.getKey().getParentReferenceKey().equals(key)) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "taskSelectionLogic key " + taskSelectionLogic.getKey().getID() + DOES_NOT_EQUAL_STATE_KEY));
+                        "taskSelectionLogic key " + taskSelectionLogic.getKey().getId() + DOES_NOT_EQUAL_STATE_KEY));
             }
             result = taskSelectionLogic.validate(result);
         }
@@ -707,7 +707,7 @@ public class AxState extends AxConcept {
             } else {
                 if (!stateFinalizerLogicEntry.getValue().getKey().getParentReferenceKey().equals(key)) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "stateFinalizerLogic parent key " + stateFinalizerLogicEntry.getValue().getKey().getID()
+                            "stateFinalizerLogic parent key " + stateFinalizerLogicEntry.getValue().getKey().getId()
                                     + DOES_NOT_EQUAL_STATE_KEY));
                 }
 
@@ -778,7 +778,7 @@ public class AxState extends AxConcept {
             Set<String> stateFinalizerLogicNameSet, AxValidationResult result) {
         if (!taskReference.getKey().getParentReferenceKey().equals(key)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "stateTaskReference parent key " + taskReference.getKey().getID() + DOES_NOT_EQUAL_STATE_KEY));
+                    "stateTaskReference parent key " + taskReference.getKey().getId() + DOES_NOT_EQUAL_STATE_KEY));
         }
 
         if (taskReference.getStateTaskOutputType().equals(AxStateTaskOutputType.DIRECT)) {

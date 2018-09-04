@@ -73,7 +73,7 @@ public class AxValidationResult {
      *
      * @return true, if the concept has no warnings or errors
      */
-    public boolean isOK() {
+    public boolean isOk() {
         return validationResult == ValidationResult.VALID || validationResult == ValidationResult.OBSERVATION;
     }
 

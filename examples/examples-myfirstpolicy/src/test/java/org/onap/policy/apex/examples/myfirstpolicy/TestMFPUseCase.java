@@ -262,7 +262,7 @@ public class TestMFPUseCase {
                 continue;
             }
             assertTrue("Event file " + inputFile + " has a field " + e.getKey() + " but this is not defined for "
-                    + event.getID(), (event.getParameterMap().containsKey(e.getKey())));
+                    + event.getId(), (event.getParameterMap().containsKey(e.getKey())));
             if (jsonObject.get(e.getKey()).isJsonNull()) {
                 ret.put(e.getKey(), null);
             }
@@ -270,7 +270,7 @@ public class TestMFPUseCase {
         for (final AxField field : event.getFields()) {
             if (!field.getOptional()) {
                 assertTrue("Event file " + inputFile + " is missing a mandatory field " + field.getKey().getLocalName()
-                        + " for " + event.getID(), jsonObject.has(field.getKey().getLocalName()));
+                        + " for " + event.getId(), jsonObject.has(field.getKey().getLocalName()));
             } else {
                 ret.put(field.getKey().getLocalName(), null);
             }
@@ -329,7 +329,7 @@ public class TestMFPUseCase {
                 continue;
             }
             assertTrue("Event file " + inputFile + " has a field " + e.getKey() + " but this is not defined for "
-                    + event.getID(), (event.getParameterMap().containsKey(e.getKey())));
+                    + event.getId(), (event.getParameterMap().containsKey(e.getKey())));
             if (jsonObject.get(e.getKey()).isJsonNull()) {
                 ret.put(e.getKey(), null);
             }
@@ -337,7 +337,7 @@ public class TestMFPUseCase {
         for (final AxField field : event.getFields()) {
             if (!field.getOptional()) {
                 assertTrue("Event file " + inputFile + " is missing a mandatory field " + field.getKey().getLocalName()
-                        + " for " + event.getID(), jsonObject.has(field.getKey().getLocalName()));
+                        + " for " + event.getId(), jsonObject.has(field.getKey().getLocalName()));
             } else {
                 ret.put(field.getKey().getLocalName(), null);
             }

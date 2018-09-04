@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.model.modelapi;
 
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
@@ -67,18 +67,18 @@ public interface ApexModel extends ApexEditorAPI {
      * @param modelName the name of the model to load
      * @param modelVersion the version of the model to load, loads the policy model from the database with this name, if more than one exist, an exception is
      *            thrown
-     * @param daoParameters the parameters to use to access the database over JDBC
+     * @param DaoParameters the parameters to use to access the database over JDBC
      * @return the result of the operation
      */
-    ApexAPIResult loadFromDatabase(String modelName, String modelVersion, DAOParameters daoParameters);
+    ApexAPIResult loadFromDatabase(String modelName, String modelVersion, DaoParameters DaoParameters);
 
     /**
      * Save an Apex model to a database.
      *
-     * @param daoParameters the parameters to use to access the database over JDBC
+     * @param DaoParameters the parameters to use to access the database over JDBC
      * @return the result of the operation
      */
-    ApexAPIResult saveToDatabase(DAOParameters daoParameters);
+    ApexAPIResult saveToDatabase(DaoParameters DaoParameters);
 
     /**
      * Read an APEX model from a location identified by a URL.

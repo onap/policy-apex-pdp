@@ -43,9 +43,9 @@ public class ApexModelException extends ApexException {
      * Instantiates a new apex model handling exception.
      *
      * @param message the message
-     * @param e the e
+     * @param exception the exception
      */
-    public ApexModelException(final String message, final Exception e) {
-        super(message, e);
+    public ApexModelException(final String message, final Exception exception) {
+        super(message, exception);
     }
 }

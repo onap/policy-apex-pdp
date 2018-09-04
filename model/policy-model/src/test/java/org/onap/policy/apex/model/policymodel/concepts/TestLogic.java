@@ -83,8 +83,8 @@ public class TestLogic {
 
         final AxReferenceKey logicKey = new AxReferenceKey("LogicParentName", "0.0.1", "PLN", "LN");
         logic.setKey(logicKey);
-        assertEquals("LogicParentName:0.0.1:PLN:LN", logic.getKey().getID());
-        assertEquals("LogicParentName:0.0.1:PLN:LN", logic.getKeys().get(0).getID());
+        assertEquals("LogicParentName:0.0.1:PLN:LN", logic.getKey().getId());
+        assertEquals("LogicParentName:0.0.1:PLN:LN", logic.getKeys().get(0).getId());
 
         logic.setLogicFlavour("LogicFlavour");
         assertEquals("LogicFlavour", logic.getLogicFlavour());

@@ -33,9 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestAxKeyInfo {
 
     @Test
@@ -46,23 +43,24 @@ public class TestAxKeyInfo {
 
         AxKeyInfo testKeyInfo = new AxKeyInfo();
         testKeyInfo.setKey((new AxArtifactKey("PN", "0.0.1")));
-        assertEquals("PN:0.0.1", testKeyInfo.getKey().getID());
+        assertEquals("PN:0.0.1", testKeyInfo.getKey().getId());
 
         AxArtifactKey key = new AxArtifactKey("key", "0.0.1");
         testKeyInfo.setKey(key);
         assertEquals(key, testKeyInfo.getKey());
-        
+
         UUID uuid = UUID.randomUUID();
         testKeyInfo.setUuid(uuid);
-        assertEquals(uuid, testKeyInfo.getUUID());
+        assertEquals(uuid, testKeyInfo.getUuid());
         testKeyInfo.setDescription("Key Description");
         assertEquals("Key Description", testKeyInfo.getDescription());
-        
+
         AxKeyInfo clonedReferenceKey = new AxKeyInfo(testKeyInfo);
-        assertTrue(clonedReferenceKey.toString().startsWith("AxKeyInfo:(artifactId=AxArtifactKey:(name=key,version=0.0.1),uuid="));
-        
+        assertTrue(clonedReferenceKey.toString()
+                        .startsWith("AxKeyInfo:(artifactId=AxArtifactKey:(name=key,version=0.0.1),uuid="));
+
         assertFalse(testKeyInfo.hashCode() == 0);
-        
+
         assertTrue(testKeyInfo.equals(testKeyInfo));
         assertTrue(testKeyInfo.equals(clonedReferenceKey));
         assertFalse(testKeyInfo.equals(null));
@@ -71,7 +69,7 @@ public class TestAxKeyInfo {
         assertFalse(testKeyInfo.equals(new AxKeyInfo(key, UUID.randomUUID(), "Some Description")));
         assertFalse(testKeyInfo.equals(new AxKeyInfo(key, uuid, "Some Description")));
         assertTrue(testKeyInfo.equals(new AxKeyInfo(key, uuid, "Key Description")));
-        
+
         assertEquals(0, testKeyInfo.compareTo(testKeyInfo));
         assertEquals(0, testKeyInfo.compareTo(clonedReferenceKey));
         assertNotEquals(0, testKeyInfo.compareTo(null));
@@ -80,28 +78,28 @@ public class TestAxKeyInfo {
         assertNotEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, UUID.randomUUID(), "Some Description")));
         assertNotEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, uuid, "Some Description")));
         assertEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, uuid, "Key Description")));
-        
+
         assertNotNull(testKeyInfo.getKeys());
-        
+
         AxValidationResult result = new AxValidationResult();
         result = testKeyInfo.validate(result);
         assertEquals(AxValidationResult.ValidationResult.VALID, result.getValidationResult());
-        
+
         testKeyInfo.setDescription("");
         result = testKeyInfo.validate(result);
         assertEquals(AxValidationResult.ValidationResult.OBSERVATION, result.getValidationResult());
-        
+
         testKeyInfo.setUuid(new UUID(0, 0));
         result = testKeyInfo.validate(result);
         assertEquals(AxValidationResult.ValidationResult.WARNING, result.getValidationResult());
-        
+
         testKeyInfo.setKey(AxArtifactKey.getNullKey());
         result = testKeyInfo.validate(result);
         assertEquals(AxValidationResult.ValidationResult.INVALID, result.getValidationResult());
-        
-        assertNotNull(AxKeyInfo.generateReproducibleUUID(null));
-        assertNotNull(AxKeyInfo.generateReproducibleUUID("SeedString"));
-        
+
+        assertNotNull(AxKeyInfo.generateReproducibleUuid(null));
+        assertNotNull(AxKeyInfo.generateReproducibleUuid("SeedString"));
+
         testKeyInfo.clean();
         assertNotNull(testKeyInfo);
     }

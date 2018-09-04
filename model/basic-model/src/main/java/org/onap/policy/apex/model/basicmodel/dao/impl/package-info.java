@@ -19,7 +19,8 @@
  */
 
 /**
- * Contains a default DAO implementation for APEX {@link org.onap.policy.apex.model.basicmodel.concepts.AxConcept} classes that uses javax persistence.
+ * Contains a default DAO implementation for APEX {@link org.onap.policy.apex.model.basicmodel.concepts.AxConcept}
+ * classes that uses javax persistence.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

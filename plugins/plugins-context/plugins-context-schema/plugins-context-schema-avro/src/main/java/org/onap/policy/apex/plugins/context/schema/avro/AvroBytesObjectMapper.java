@@ -102,7 +102,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
         // The Avro object should be a Utf8 object
         if (!(avroObject instanceof ByteBuffer)) {
             final String returnString =
-                    userKey.getID() + ": object \"" + avroObject + "\" of class \"" + avroObject.getClass()
+                    userKey.getId() + ": object \"" + avroObject + "\" of class \"" + avroObject.getClass()
                             + "\" cannot be decoded to an object of class \"" + schemaClass.getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -127,7 +127,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
     @Override
     public Object mapToAvro(final Object object) {
         if (object == null) {
-            final String returnString = userKey.getID() + ": cannot encode a null object of class \""
+            final String returnString = userKey.getId() + ": cannot encode a null object of class \""
                     + schemaClass.getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -135,7 +135,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
 
         // The incoming object should be a byte array
         if (!(object instanceof byte[])) {
-            final String returnString = userKey.getID() + ": object \"" + object + "\" of class \"" + object.getClass()
+            final String returnString = userKey.getId() + ": object \"" + object + "\" of class \"" + object.getClass()
                     + "\" cannot be decoded to an object of class \"" + schemaClass.getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);

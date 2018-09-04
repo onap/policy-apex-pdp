@@ -53,8 +53,8 @@ public class TestContextAlbums {
 
         final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
         album.setKey(newKey);
-        assertEquals("NewAlbumName:0.0.1", album.getKey().getID());
-        assertEquals("NewAlbumName:0.0.1", album.getKeys().get(0).getID());
+        assertEquals("NewAlbumName:0.0.1", album.getKey().getId());
+        assertEquals("NewAlbumName:0.0.1", album.getKeys().get(0).getId());
         album.setKey(albumKey);
 
         try {
@@ -74,7 +74,7 @@ public class TestContextAlbums {
 
         final AxArtifactKey newSchemaKey = new AxArtifactKey("NewAlbumSchemaName", "0.0.1");
         album.setItemSchema(newSchemaKey);
-        assertEquals("NewAlbumSchemaName:0.0.1", album.getItemSchema().getID());
+        assertEquals("NewAlbumSchemaName:0.0.1", album.getItemSchema().getId());
         album.setItemSchema(albumSchemaKey);
 
         AxValidationResult result = new AxValidationResult();

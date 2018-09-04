@@ -19,10 +19,11 @@
  */
 
 /**
- * Provides the base definition of an APEX model. It also defines the Model Service, the mechanism that allows access to the
- * model for APEX concepts anywhere in the system.
+ * Provides the base definition of an APEX model. It also defines the Model Service, the mechanism that allows access to
+ * the model for APEX concepts anywhere in the system.
  *
- * It also provides handling support to models, allowing them to be read and written to file and databases in JSON and XML format.
+ * It also provides handling support to models, allowing them to be read and written to file and databases in JSON and
+ * XML format.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

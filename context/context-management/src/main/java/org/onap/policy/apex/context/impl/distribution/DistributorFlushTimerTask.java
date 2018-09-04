@@ -68,7 +68,7 @@ public class DistributorFlushTimerTask extends TimerTask {
         timer = new Timer(DistributorFlushTimerTask.class.getSimpleName(), true);
         timer.schedule(this, period, period);
 
-        LOGGER.debug("context distributor " + contextDistributor.getKey().getID() + " flushing set up with interval: "
+        LOGGER.debug("context distributor " + contextDistributor.getKey().getId() + " flushing set up with interval: "
                         + period + "ms");
     }
 
@@ -80,14 +80,14 @@ public class DistributorFlushTimerTask extends TimerTask {
         // Increment the flush counter
         flushCount++;
 
-        LOGGER.debug("context distributor " + contextDistributor.getKey().getID() + " flushing: period=" + period
+        LOGGER.debug("context distributor " + contextDistributor.getKey().getId() + " flushing: period=" + period
                         + ": count=" + flushCount);
         try {
             contextDistributor.flush();
-            LOGGER.debug("context distributor " + contextDistributor.getKey().getID() + " flushed: period=" + period
+            LOGGER.debug("context distributor " + contextDistributor.getKey().getId() + " flushed: period=" + period
                             + ": count=" + flushCount);
         } catch (final ContextException e) {
-            LOGGER.error("flush error on context distributor " + contextDistributor.getKey().getID() + ": period="
+            LOGGER.error("flush error on context distributor " + contextDistributor.getKey().getId() + ": period="
                             + period + ": count=" + flushCount, e);
         }
     }

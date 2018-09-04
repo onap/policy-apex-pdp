@@ -27,9 +27,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestAxReferenceKeyAdapter {
 
     @Test
@@ -37,10 +34,10 @@ public class TestAxReferenceKeyAdapter {
         AxReferenceKeyAdapter arka = new AxReferenceKeyAdapter();
         assertNotNull(arka);
         
-        AxReferenceKey rKey = new AxReferenceKey("Name", "0.0.1", "PLN", "LN");
+        AxReferenceKey rkey = new AxReferenceKey("Name", "0.0.1", "PLN", "LN");
         
-        String rKeyString = arka.marshal(rKey);
-        assertEquals("LN", rKeyString);
-        assertEquals(rKey.getLocalName(),arka.unmarshal(rKeyString).getLocalName());
+        String rkeyString = arka.marshal(rkey);
+        assertEquals("LN", rkeyString);
+        assertEquals(rkey.getLocalName(),arka.unmarshal(rkeyString).getLocalName());
     }
 }

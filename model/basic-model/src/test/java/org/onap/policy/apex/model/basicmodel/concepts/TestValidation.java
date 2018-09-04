@@ -32,9 +32,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestValidation {
 
     @Test
@@ -42,49 +39,53 @@ public class TestValidation {
         AxValidationResult result = new AxValidationResult();
         AxReferenceKey refKey = new AxReferenceKey("PK", "0.0.1", "PLN", "LN");
         result = refKey.validate(result);
-        
+
         assertNotNull(result);
-        assertTrue(result.isOK());
+        assertTrue(result.isOk());
         assertTrue(result.isValid());
         assertEquals(AxValidationResult.ValidationResult.VALID, result.getValidationResult());
         assertNotNull(result.getMessageList());
-        
-        AxValidationMessage vMess0 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class, ValidationResult.VALID, "Some message");
-        result.addValidationMessage(vMess0);
-        
-        assertTrue(result.isOK());
+
+        AxValidationMessage vmess0 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class,
+                        ValidationResult.VALID, "Some message");
+        result.addValidationMessage(vmess0);
+
+        assertTrue(result.isOk());
         assertTrue(result.isValid());
         assertEquals(AxValidationResult.ValidationResult.VALID, result.getValidationResult());
         assertNotNull(result.getMessageList());
         assertNotNull("hello", result.toString());
-        
-        AxValidationMessage vMess1 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class, ValidationResult.OBSERVATION, "Some message");
-        result.addValidationMessage(vMess1);
-        
-        assertTrue(result.isOK());
+
+        AxValidationMessage vmess1 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class,
+                        ValidationResult.OBSERVATION, "Some message");
+        result.addValidationMessage(vmess1);
+
+        assertTrue(result.isOk());
         assertTrue(result.isValid());
         assertEquals(AxValidationResult.ValidationResult.OBSERVATION, result.getValidationResult());
         assertNotNull(result.getMessageList());
         assertNotNull("hello", result.toString());
-        
-        AxValidationMessage vMess2 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class, ValidationResult.WARNING, "Some message");
-        result.addValidationMessage(vMess2);
-        
-        assertFalse(result.isOK());
+
+        AxValidationMessage vmess2 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class,
+                        ValidationResult.WARNING, "Some message");
+        result.addValidationMessage(vmess2);
+
+        assertFalse(result.isOk());
         assertTrue(result.isValid());
         assertEquals(AxValidationResult.ValidationResult.WARNING, result.getValidationResult());
         assertNotNull(result.getMessageList());
         assertNotNull("hello", result.toString());
-        
-        AxValidationMessage vMess3 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class, ValidationResult.INVALID, "Some message");
-        result.addValidationMessage(vMess3);
-        
-        assertFalse(result.isOK());
+
+        AxValidationMessage vmess3 = new AxValidationMessage(AxArtifactKey.getNullKey(), AxArtifactKey.class,
+                        ValidationResult.INVALID, "Some message");
+        result.addValidationMessage(vmess3);
+
+        assertFalse(result.isOk());
         assertFalse(result.isValid());
         assertEquals(AxValidationResult.ValidationResult.INVALID, result.getValidationResult());
         assertNotNull(result.getMessageList());
         assertNotNull("hello", result.toString());
-        
+
         assertEquals(AxValidationResult.ValidationResult.INVALID, result.getMessageList().get(3).getValidationResult());
         assertEquals("Some message", result.getMessageList().get(3).getMessage());
         assertEquals(AxArtifactKey.class.getCanonicalName(), result.getMessageList().get(3).getObservedClass());

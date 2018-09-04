@@ -269,7 +269,7 @@ public class AxStateTaskReference extends AxConcept {
 
         if (output.equals(AxReferenceKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "output key " + output.getID() + " is a null key"));
+                    "output key " + output.getId() + " is a null key"));
         }
         result = output.validate(result);
 

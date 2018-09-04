@@ -51,14 +51,14 @@ public final class AdaptiveDomainModelSaver {
         final AxPolicyModel adPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
         final ApexModelSaver<AxPolicyModel> adModelSaver =
                 new ApexModelSaver<>(AxPolicyModel.class, adPolicyModel, args[0]);
-        adModelSaver.apexModelWriteJSON();
-        adModelSaver.apexModelWriteXML();
+        adModelSaver.apexModelWriteJson();
+        adModelSaver.apexModelWriteXml();
 
         // Save Auto Learn model
         final AxPolicyModel alPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
         final ApexModelSaver<AxPolicyModel> alModelSaver =
                 new ApexModelSaver<>(AxPolicyModel.class, alPolicyModel, args[0]);
-        alModelSaver.apexModelWriteJSON();
-        alModelSaver.apexModelWriteXML();
+        alModelSaver.apexModelWriteJson();
+        alModelSaver.apexModelWriteXml();
     }
 }

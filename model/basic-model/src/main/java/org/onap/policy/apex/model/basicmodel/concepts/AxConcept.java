@@ -40,12 +40,12 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     private static final long serialVersionUID = -7434939557282697490L;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public AxConcept() {}
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -120,8 +120,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      *
      * @return the ID string of this concept
      */
-    public String getID() {
-        return getKey().getID();
+    public String getId() {
+        return getKey().getId();
     }
 
     /**
@@ -130,10 +130,10 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      * @param id the key ID to match against
      * @return true, if this key matches the ID
      */
-    public final boolean matchesID(final String id) {
+    public final boolean matchesId(final String id) {
         Assertions.argumentNotNull(id, "id may not be null");
 
         // Check the ID
-        return getID().equals(id);
+        return getId().equals(id);
     }
 }

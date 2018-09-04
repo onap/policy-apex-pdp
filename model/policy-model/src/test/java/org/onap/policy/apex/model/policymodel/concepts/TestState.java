@@ -86,8 +86,8 @@ public class TestState {
         }
 
         state.setKey(stateKey);
-        assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKey().getID());
-        assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKeys().get(0).getID());
+        assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKey().getId());
+        assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKeys().get(0).getId());
 
         final AxStateOutput so0 = new AxStateOutput(new AxReferenceKey(stateKey, "SO0"), triggerKey, new AxReferenceKey());
         final AxStateOutput soU = new AxStateOutput(new AxReferenceKey(stateKey, "SOU"), triggerKey, stateKeyNext);

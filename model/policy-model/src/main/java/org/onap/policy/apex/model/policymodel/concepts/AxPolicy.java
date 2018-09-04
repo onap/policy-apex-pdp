@@ -303,7 +303,7 @@ public class AxPolicy extends AxConcept {
 
         // Validation continues from this point only if all validation checks this far have been
         // passed
-        if (!result.isOK()) {
+        if (!result.isOk()) {
             return result;
         }
 
@@ -361,7 +361,7 @@ public class AxPolicy extends AxConcept {
                     && !stateMap.containsKey(stateOutput.getNextState().getLocalName())) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
                         " nextState of state " + stateEntry.getKey() + " not found in StateMap: "
-                                + stateOutput.getNextState().getID()));
+                                + stateOutput.getNextState().getId()));
             }
         }
 

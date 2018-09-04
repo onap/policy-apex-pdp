@@ -30,7 +30,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDao;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDaoFactory;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
@@ -39,19 +39,19 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class tests reading and writing of Apex models to file and to a database using JPA. It also tests validation of Apex models. This class is designed for
- * use in unit tests in modules that define Apex models.
+ * This class tests reading and writing of Apex models to file and to a database using JPA. It also tests validation of
+ * Apex models. This class is designed for use in unit tests in modules that define Apex models.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the generic type
  */
 public class TestApexModel<M extends AxModel> {
     private static final String MODEL_IS_INVALID = "model is invalid ";
-	private static final String ERROR_PROCESSING_FILE = "error processing file ";
-	private static final String TEST_MODEL_DOES_NOT_EQUAL_MODEL_READ_FROM_XML_FILE = "test model does not equal model read from XML file ";
-	private static final String ERROR_CREATING_TEMPORARY_FILE_FOR_APEX_MODEL = "error creating temporary file for Apex model";
+    private static final String ERROR_PROCESSING_FILE = "error processing file ";
+    private static final String TEST_MODEL_UNEQUAL_STR = "test model does not equal model read from XML file ";
+    private static final String TEMP_FILE_CREATE_ERR_STR = "error creating temporary file for Apex model";
 
-	private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestApexModel.class);
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestApexModel.class);
 
     // The root model class that specifies the root to import and export from
     private final Class<M> rootModelClass;
@@ -60,8 +60,8 @@ public class TestApexModel<M extends AxModel> {
     private TestApexModelCreator<M> modelCreator = null;
 
     /**
-     * Constructor, defines the subclass of {@link AxModel} that is being tested and the {@link TestApexModelCreator} object that is used to generate Apex
-     * models.
+     * Constructor, defines the subclass of {@link AxModel} that is being tested and the {@link TestApexModelCreator}
+     * object that is used to generate Apex models.
      *
      * @param rootModelClass the Apex model class, a sub class of {@link AxModel}
      * @param modelCreator the @link TestApexModelCreator} that will generate Apex models of various types for testing
@@ -85,36 +85,34 @@ public class TestApexModel<M extends AxModel> {
      *
      * @throws ApexException on write/read errors
      */
-    public final void testApexModelWriteReadXML() throws ApexException {
+    public final void testApexModelWriteReadXml() throws ApexException {
         LOGGER.debug("running testApexModelWriteReadXML . . .");
 
         final M model = modelCreator.getModel();
 
         // Write the file to disk
         File xmlFile;
-        
+
         try {
             xmlFile = File.createTempFile("ApexModel", ".xml");
             xmlFile.deleteOnExit();
+        } catch (final Exception e) {
+            LOGGER.warn(TEMP_FILE_CREATE_ERR_STR, e);
+            throw new ApexException(TEMP_FILE_CREATE_ERR_STR, e);
         }
-        catch (final Exception e) {
-            LOGGER.warn(ERROR_CREATING_TEMPORARY_FILE_FOR_APEX_MODEL, e);
-            throw new ApexException(ERROR_CREATING_TEMPORARY_FILE_FOR_APEX_MODEL, e);
-        }
-        new ApexModelFileWriter<M>(true).apexModelWriteXMLFile(model, rootModelClass, xmlFile.getPath());
+        new ApexModelFileWriter<M>(true).apexModelWriteXmlFile(model, rootModelClass, xmlFile.getPath());
 
         // Read the file from disk
         final ApexModelReader<M> modelReader = new ApexModelReader<>(rootModelClass);
 
         try {
-            final URL apexModelURL = ResourceUtils.getLocalFile(xmlFile.getAbsolutePath());
-            final M fileModel = modelReader.read(apexModelURL.openStream());
+            final URL apexModelUrl = ResourceUtils.getLocalFile(xmlFile.getAbsolutePath());
+            final M fileModel = modelReader.read(apexModelUrl.openStream());
             if (!model.equals(fileModel)) {
-                LOGGER.warn(TEST_MODEL_DOES_NOT_EQUAL_MODEL_READ_FROM_XML_FILE + xmlFile.getAbsolutePath());
-                throw new ApexException(TEST_MODEL_DOES_NOT_EQUAL_MODEL_READ_FROM_XML_FILE + xmlFile.getAbsolutePath());
+                LOGGER.warn(TEST_MODEL_UNEQUAL_STR + xmlFile.getAbsolutePath());
+                throw new ApexException(TEST_MODEL_UNEQUAL_STR + xmlFile.getAbsolutePath());
             }
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn(ERROR_PROCESSING_FILE + xmlFile.getAbsolutePath(), e);
             throw new ApexException(ERROR_PROCESSING_FILE + xmlFile.getAbsolutePath(), e);
         }
@@ -141,7 +139,7 @@ public class TestApexModel<M extends AxModel> {
      *
      * @throws ApexException on write/read errors
      */
-    public final void testApexModelWriteReadJSON() throws ApexException {
+    public final void testApexModelWriteReadJson() throws ApexException {
         LOGGER.debug("running testApexModelWriteReadJSON . . .");
 
         final M model = modelCreator.getModel();
@@ -151,25 +149,24 @@ public class TestApexModel<M extends AxModel> {
         try {
             jsonFile = File.createTempFile("ApexModel", ".xml");
             jsonFile.deleteOnExit();
+        } catch (final Exception e) {
+            LOGGER.warn(TEMP_FILE_CREATE_ERR_STR, e);
+            throw new ApexException(TEMP_FILE_CREATE_ERR_STR, e);
         }
-        catch (final Exception e) {
-            LOGGER.warn(ERROR_CREATING_TEMPORARY_FILE_FOR_APEX_MODEL, e);
-            throw new ApexException(ERROR_CREATING_TEMPORARY_FILE_FOR_APEX_MODEL, e);
-        }
-        new ApexModelFileWriter<M>(true).apexModelWriteJSONFile(model, rootModelClass, jsonFile.getPath());
+        new ApexModelFileWriter<M>(true).apexModelWriteJsonFile(model, rootModelClass, jsonFile.getPath());
 
         // Read the file from disk
         final ApexModelReader<M> modelReader = new ApexModelReader<>(rootModelClass);
 
         try {
-            final URL apexModelURL = ResourceUtils.getLocalFile(jsonFile.getAbsolutePath());
-            final M fileModel = modelReader.read(apexModelURL.openStream());
+            final URL apexModelUrl = ResourceUtils.getLocalFile(jsonFile.getAbsolutePath());
+            final M fileModel = modelReader.read(apexModelUrl.openStream());
             if (!model.equals(fileModel)) {
-                LOGGER.warn(TEST_MODEL_DOES_NOT_EQUAL_MODEL_READ_FROM_XML_FILE + jsonFile.getAbsolutePath());
-                throw new ApexException(TEST_MODEL_DOES_NOT_EQUAL_MODEL_READ_FROM_XML_FILE + jsonFile.getAbsolutePath());
+                LOGGER.warn(TEST_MODEL_UNEQUAL_STR + jsonFile.getAbsolutePath());
+                throw new ApexException(
+                                TEST_MODEL_UNEQUAL_STR + jsonFile.getAbsolutePath());
             }
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn(ERROR_PROCESSING_FILE + jsonFile.getAbsolutePath(), e);
             throw new ApexException(ERROR_PROCESSING_FILE + jsonFile.getAbsolutePath(), e);
         }
@@ -195,7 +192,7 @@ public class TestApexModel<M extends AxModel> {
      * @param daoParameters the DAO parameters to use for JPA/JDBC
      * @throws ApexException thrown on errors writing or reading the model to database
      */
-    public final void testApexModelWriteReadJPA(final DAOParameters daoParameters) throws ApexException {
+    public final void testApexModelWriteReadJpa(final DaoParameters daoParameters) throws ApexException {
         LOGGER.debug("running testApexModelWriteReadJPA . . .");
 
         final M model = modelCreator.getModel();
@@ -204,10 +201,10 @@ public class TestApexModel<M extends AxModel> {
         apexDao.init(daoParameters);
 
         apexDao.create(model);
-        final M dbJPAModel = apexDao.get(rootModelClass, model.getKey());
+        final M dbJpaModel = apexDao.get(rootModelClass, model.getKey());
         apexDao.close();
 
-        if (!model.equals(dbJPAModel)) {
+        if (!model.equals(dbJpaModel)) {
             LOGGER.warn("test model does not equal model written and read using generic JPA");
             throw new ApexException("test model does not equal model written and read using generic JPA");
         }

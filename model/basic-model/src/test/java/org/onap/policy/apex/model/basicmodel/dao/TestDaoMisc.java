@@ -27,28 +27,25 @@ import static org.junit.Assert.fail;
 import java.util.Properties;
 
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner;
-import org.onap.policy.apex.model.basicmodel.dao.converters.UUID2String;
+import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
+import org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestDaoMisc {
 
     @Test
-    public void testUUID2StringMopUp() {
-        final UUID2String uuid2String = new UUID2String();
+    public void testUuid2StringMopUp() {
+        final Uuid2String uuid2String = new Uuid2String();
         assertEquals("", uuid2String.convertToDatabaseColumn(null));
     }
 
     @Test
     public void testCDataConditionerMopUp() {
-        assertNull(CDATAConditioner.clean(null));
+        assertNull(CDataConditioner.clean(null));
     }
 
     @Test
     public void testDaoFactory() {
-        final DAOParameters daoParameters = new DAOParameters();
+        final DaoParameters daoParameters = new DaoParameters();
 
         daoParameters.setPluginClass("somewhere.over.the.rainbow");
         try {
@@ -63,15 +60,14 @@ public class TestDaoMisc {
             new ApexDaoFactory().createApexDao(daoParameters);
             fail("test shold throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "Specified Apex DAO plugin class \"java.lang.String\" does not implement the ApexDao interface",
-                    e.getMessage());
+            assertEquals("Specified Apex DAO plugin class \"java.lang.String\" "
+                            + "does not implement the ApexDao interface", e.getMessage());
         }
     }
 
     @Test
     public void testDaoParameters() {
-        final DAOParameters pars = new DAOParameters();
+        final DaoParameters pars = new DaoParameters();
         pars.setJdbcProperties(new Properties());
         assertEquals(0, pars.getJdbcProperties().size());
 
@@ -84,8 +80,7 @@ public class TestDaoMisc {
         pars.setPluginClass("somewhere.over.the.rainbow");
         assertEquals("somewhere.over.the.rainbow", pars.getPluginClass());
 
-        assertEquals(
-                "DAOParameters [pluginClass=somewhere.over.the.rainbow, persistenceUnit=Kansas, jdbcProperties={name=Dorothy}]",
-                pars.toString());
+        assertEquals("DAOParameters [pluginClass=somewhere.over.the.rainbow, "
+                        + "persistenceUnit=Kansas, jdbcProperties={name=Dorothy}]", pars.toString());
     }
 }

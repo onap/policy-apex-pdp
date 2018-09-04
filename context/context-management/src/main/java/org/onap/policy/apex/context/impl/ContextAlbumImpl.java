@@ -290,7 +290,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public Object get(final Object key) {
         if (key == null) {
             final String returnString =
-                    "album \"" + albumDefinition.getID() + "\" null keys are illegal on keys for get()";
+                    "album \"" + albumDefinition.getId() + "\" null keys are illegal on keys for get()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -365,20 +365,20 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public Object put(final String key, final Object incomingValue) {
         if (key == null) {
             final String returnString =
-                    "album \"" + albumDefinition.getID() + "\" null keys are illegal on keys for put()";
+                    "album \"" + albumDefinition.getId() + "\" null keys are illegal on keys for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (incomingValue == null) {
-            final String returnString = "album \"" + albumDefinition.getID() + "\" null values are illegal on key \""
+            final String returnString = "album \"" + albumDefinition.getId() + "\" null values are illegal on key \""
                     + key + "\" for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (!albumDefinition.isWritable()) {
-            final String returnString = "album \"" + albumDefinition.getID()
+            final String returnString = "album \"" + albumDefinition.getId()
                     + "\" put() not allowed on read only albums for key=\"" + key + "\", value=\"" + incomingValue;
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -403,7 +403,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
             return albumMap.put(key, valueToPut);
         } catch (final ContextRuntimeException e) {
             final String returnString = "Failed to set context value for key \"" + key + "\" in album \""
-                    + albumDefinition.getID() + "\": " + e.getMessage();
+                    + albumDefinition.getId() + "\": " + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -418,7 +418,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public void putAll(final Map<? extends String, ? extends Object> incomingContextAlbum) {
         if (!albumDefinition.isWritable()) {
             final String returnString =
-                    "album \"" + albumDefinition.getID() + "\" putAll() not allowed on read only albums";
+                    "album \"" + albumDefinition.getId() + "\" putAll() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -454,7 +454,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     @Override
     public Object remove(final Object key) {
         if (!albumDefinition.isWritable()) {
-            final String returnString = "album \"" + albumDefinition.getID()
+            final String returnString = "album \"" + albumDefinition.getId()
                     + "\" remove() not allowed on read only albums for key=\"" + key + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -483,7 +483,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public void clear() {
         if (!albumDefinition.isWritable()) {
             final String returnString =
-                    "album \"" + albumDefinition.getID() + "\" clear() not allowed on read only albums";
+                    "album \"" + albumDefinition.getId() + "\" clear() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }

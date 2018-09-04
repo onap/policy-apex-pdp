@@ -42,7 +42,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner;
+import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 import org.onap.policy.apex.model.utilities.Assertions;
 
@@ -99,8 +99,8 @@ public class AxLogic extends AxConcept {
     private String logicFlavour;
 
     @Column(name = "logic", length = MAX_LOGIC_SIZE)
-    @Convert(converter = CDATAConditioner.class)
-    @XmlJavaTypeAdapter(value = CDATAConditioner.class)
+    @Convert(converter = CDataConditioner.class)
+    @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(required = true)
     private String logic;
 
@@ -385,8 +385,8 @@ public class AxLogic extends AxConcept {
         if (!logicFlavour.equals(other.logicFlavour)) {
             return false;
         }
-        final String thislogic = CDATAConditioner.clean(logic).replaceAll("\n", "");
-        final String otherlogic = CDATAConditioner.clean(other.logic).replaceAll("\n", "");
+        final String thislogic = CDataConditioner.clean(logic).replaceAll("\n", "");
+        final String otherlogic = CDataConditioner.clean(other.logic).replaceAll("\n", "");
         return thislogic.equals(otherlogic);
     }
 

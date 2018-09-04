@@ -257,20 +257,20 @@ public class TestApexBasicModelConcepts {
         mwr.removeKey(keyU);
 
         // Key Use on bad artifact key
-        final AxKeyUse keyBU = new AxKeyUse(new AxArtifactKey("SomeKey", "0.0.1"));
-        mwr.addKey(keyBU);
+        final AxKeyUse keyBadUsage = new AxKeyUse(new AxArtifactKey("SomeKey", "0.0.1"));
+        mwr.addKey(keyBadUsage);
         result = new AxValidationResult();
         result = mwr.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
-        mwr.removeKey(keyBU);
+        mwr.removeKey(keyBadUsage);
 
         // Key Use on bad reference key
-        final AxKeyUse keyBRU = new AxKeyUse(new AxReferenceKey("SomeKey", "0.0.1", "Local"));
-        mwr.addKey(keyBRU);
+        final AxKeyUse keyBadReferenceUsage = new AxKeyUse(new AxReferenceKey("SomeKey", "0.0.1", "Local"));
+        mwr.addKey(keyBadReferenceUsage);
         result = new AxValidationResult();
         result = mwr.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
-        mwr.removeKey(keyBRU);
+        mwr.removeKey(keyBadReferenceUsage);
 
         result = new AxValidationResult();
         result = mwr.validate(result);

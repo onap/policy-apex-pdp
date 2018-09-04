@@ -288,7 +288,7 @@ public class AdaptiveDomainModelFactory {
 
         final AxValidationResult result = anomalyDetectionPolicyModel.validate(new AxValidationResult());
         if (!result.getValidationResult().equals(AxValidationResult.ValidationResult.VALID)) {
-            throw new ApexRuntimeException("model " + anomalyDetectionPolicyModel.getID() + " is not valid" + result);
+            throw new ApexRuntimeException("model " + anomalyDetectionPolicyModel.getId() + " is not valid" + result);
         }
         return anomalyDetectionPolicyModel;
     }
@@ -550,7 +550,7 @@ public class AdaptiveDomainModelFactory {
 
         final AxValidationResult result = autoLearnPolicyModel.validate(new AxValidationResult());
         if (!result.getValidationResult().equals(AxValidationResult.ValidationResult.VALID)) {
-            throw new ApexRuntimeException("model " + autoLearnPolicyModel.getID() + " is not valid" + result);
+            throw new ApexRuntimeException("model " + autoLearnPolicyModel.getId() + " is not valid" + result);
         }
         return autoLearnPolicyModel;
     }

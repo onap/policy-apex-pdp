@@ -60,10 +60,10 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
         try {
             compiled = ((Compilable) engine).compile(getSubject().getTaskSelectionLogic().getLogic());
         } catch (final ScriptException e) {
-            LOGGER.error("execute: task selection logic failed to compile for state  \"" + getSubject().getKey().getID()
+            LOGGER.error("execute: task selection logic failed to compile for state  \"" + getSubject().getKey().getId()
                     + "\"");
             throw new StateMachineException(
-                    "task selection logic failed to compile for state  \"" + getSubject().getKey().getID() + "\"", e);
+                    "task selection logic failed to compile for state  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
     }
@@ -96,26 +96,26 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
             }
         } catch (final ScriptException e) {
             LOGGER.error(
-                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getID() + "\"");
+                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"");
             throw new StateMachineException(
-                    "task selection logic failed to run for state  \"" + getSubject().getKey().getID() + "\"", e);
+                    "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
         try {
             final Object ret = engine.get("returnValue");
             if (ret == null) {
                 LOGGER.error("execute: task selection logic failed to set a return value for state  \""
-                        + getSubject().getKey().getID() + "\"");
+                        + getSubject().getKey().getId() + "\"");
                 throw new StateMachineException(
                         "execute: task selection logic failed to set a return value for state  \""
-                                + getSubject().getKey().getID() + "\"");
+                                + getSubject().getKey().getId() + "\"");
             }
             returnValue = (Boolean) ret;
         } catch (NullPointerException | ClassCastException e) {
             LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                    + getSubject().getKey().getID() + "\"", e);
+                    + getSubject().getKey().getId() + "\"", e);
             throw new StateMachineException("execute: task selection logic failed to set a return value for state  \""
-                    + getSubject().getKey().getID() + "\"", e);
+                    + getSubject().getKey().getId() + "\"", e);
         }
 
         // Do the execution post work
@@ -136,7 +136,7 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
                 + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
                 + getSubject().getTaskSelectionLogic().getLogic());
         engine = null;

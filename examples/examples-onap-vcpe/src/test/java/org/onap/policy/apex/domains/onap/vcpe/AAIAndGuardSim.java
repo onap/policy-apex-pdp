@@ -28,7 +28,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
 public class AAIAndGuardSim {
-    private static final String BASE_URI = "http://192.168.144.235:54321/AAIAndGuardSim";
+    private static final String BASE_URI = "http://localhost:54321/AAIAndGuardSim";
     private HttpServer server;
 
     public AAIAndGuardSim() {

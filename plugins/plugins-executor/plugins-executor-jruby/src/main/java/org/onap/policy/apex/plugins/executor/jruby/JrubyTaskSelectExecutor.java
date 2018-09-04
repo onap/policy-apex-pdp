@@ -114,7 +114,7 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
                 + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
                 + getSubject().getTaskSelectionLogic().getLogic());
         container.terminate();

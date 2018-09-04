@@ -23,7 +23,8 @@ package org.onap.policy.apex.model.basicmodel.handling;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
 /**
- * This interface is implemented by factories that create Apex models. It is mainly used by unit test classes that generate Apex models for test purposes.
+ * This interface is implemented by factories that create Apex models. It is mainly used by unit test classes that
+ * generate Apex models for test purposes.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the type of Apex model to create, must be a sub class of {@link AxModel}

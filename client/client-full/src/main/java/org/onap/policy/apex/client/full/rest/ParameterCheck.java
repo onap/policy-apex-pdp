@@ -154,7 +154,7 @@ public final class ParameterCheck {
      */
     public static ParameterCheck.StartStop getStartStop(final Map<String, String[]> parameterMap,
             final AxArtifactKey engineKey) {
-        final String startStopPar = AXARTIFACTKEY_PAR + '#' + engineKey.getID();
+        final String startStopPar = AXARTIFACTKEY_PAR + '#' + engineKey.getId();
         if (!parameterMap.containsKey(startStopPar)) {
             LOGGER.warn("parameter \"" + startStopPar + "\" not found");
             return null;

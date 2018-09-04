@@ -29,7 +29,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -60,21 +60,21 @@ public class TestApexSamplePolicyModel {
 
     @Test
     public void testModelWriteReadXML() throws Exception {
-        testApexModel.testApexModelWriteReadXML();
+        testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
     public void testModelWriteReadJSON() throws Exception {
-        testApexModel.testApexModelWriteReadJSON();
+        testApexModel.testApexModelWriteReadJson();
     }
 
     @Test
     public void testModelWriteReadJPA() throws Exception {
-        final DAOParameters daoParameters = new DAOParameters();
-        daoParameters.setPluginClass(DefaultApexDao.class.getCanonicalName());
-        daoParameters.setPersistenceUnit("SampleModelTest");
+        final DaoParameters DaoParameters = new DaoParameters();
+        DaoParameters.setPluginClass(DefaultApexDao.class.getCanonicalName());
+        DaoParameters.setPersistenceUnit("SampleModelTest");
 
-        testApexModel.testApexModelWriteReadJPA(daoParameters);
+        testApexModel.testApexModelWriteReadJpa(DaoParameters);
     }
 
     

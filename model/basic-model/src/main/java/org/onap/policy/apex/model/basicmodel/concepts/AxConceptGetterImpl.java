@@ -82,7 +82,8 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
                 break;
             }
             foundKey = nextkey;
-        } while (true);
+        }
+        while (true);
 
         return conceptMap.get(foundKey);
     }
@@ -147,7 +148,8 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
                 break;
             }
             returnSet.add(conceptMap.get(foundKey));
-        } while (true);
+        }
+        while (true);
 
         return returnSet;
     }

@@ -535,7 +535,7 @@ public class SampleDomainModelFactory {
 
         AxValidationResult result = policyModel.validate(new AxValidationResult());
         if (!result.getValidationResult().equals(AxValidationResult.ValidationResult.VALID)) {
-            throw new ApexRuntimeException("model " + policyModel.getID() + " is not valid" + result);
+            throw new ApexRuntimeException("model " + policyModel.getId() + " is not valid" + result);
         }
         return policyModel;
     }

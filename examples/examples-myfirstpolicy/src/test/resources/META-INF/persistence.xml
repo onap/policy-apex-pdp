@@ -23,8 +23,8 @@
     <persistence-unit name="MFPModelTest" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner</class>
-        <class>org.onap.policy.apex.model.basicmodel.dao.converters.UUID2String</class>
+        <class>org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner</class>
+        <class>org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String</class>
         <class>org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey</class>
         <class>org.onap.policy.apex.model.basicmodel.concepts.AxConcept</class>
         <class>org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo</class>

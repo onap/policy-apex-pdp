@@ -66,10 +66,10 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
                 compiled = Py.compile_flags(logic, filename, CompileMode.exec, new CompilerFlags());
             }
         } catch (final PyException e) {
-            LOGGER.warn("failed to compile Jython code for task selection logic in " + getSubject().getKey().getID(),
+            LOGGER.warn("failed to compile Jython code for task selection logic in " + getSubject().getKey().getId(),
                     e);
             throw new StateMachineException(
-                    "failed to compile Jython code for task selection logic in " + getSubject().getKey().getID(), e);
+                    "failed to compile Jython code for task selection logic in " + getSubject().getKey().getId(), e);
         }
 
     }
@@ -104,27 +104,27 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
                     final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
                     if (ret == null) {
                         LOGGER.error("execute: task selection logic failed to set a return value for state  \""
-                                + getSubject().getKey().getID() + "\"");
+                                + getSubject().getKey().getId() + "\"");
                         throw new StateMachineException(
                                 "execute: task selection logic failed to set a return value for state  \""
-                                        + getSubject().getKey().getID() + "\"");
+                                        + getSubject().getKey().getId() + "\"");
                     }
                     returnValue = (Boolean) ret;
                 } catch (NullPointerException | ClassCastException e) {
                     LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                            + getSubject().getKey().getID() + "\"", e);
+                            + getSubject().getKey().getId() + "\"", e);
                     throw new StateMachineException(
                             "execute: task selection logic failed to set a return value for state  \""
-                                    + getSubject().getKey().getID() + "\"",
+                                    + getSubject().getKey().getId() + "\"",
                             e);
                 }
             }
             /* */
         } catch (final Exception e) {
-            LOGGER.warn("failed to execute Jython code for task selection logic in " + getSubject().getKey().getID(),
+            LOGGER.warn("failed to execute Jython code for task selection logic in " + getSubject().getKey().getId(),
                     e);
             throw new StateMachineException(
-                    "failed to execute Jython code for task selection logic in " + getSubject().getKey().getID(), e);
+                    "failed to execute Jython code for task selection logic in " + getSubject().getKey().getId(), e);
         }
 
         // Do the execution post work
@@ -146,7 +146,7 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         interpreter.cleanup();
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
                 + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
                 + getSubject().getTaskSelectionLogic().getLogic());
     }

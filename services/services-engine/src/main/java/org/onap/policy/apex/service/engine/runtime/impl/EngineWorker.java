@@ -131,7 +131,7 @@ final class EngineWorker implements EngineService {
     public void registerActionListener(final String listenerName, final ApexEventListener apexEventListener) {
         // Sanity checks on the Apex model
         if (engine == null) {
-            LOGGER.warn("listener registration on engine with key " + engineWorkerKey.getID()
+            LOGGER.warn("listener registration on engine with key " + engineWorkerKey.getId()
                     + ", failed, listener is null");
             return;
         }
@@ -150,7 +150,7 @@ final class EngineWorker implements EngineService {
     public void deregisterActionListener(final String listenerName) {
         // Sanity checks on the Apex model
         if (engine == null) {
-            LOGGER.warn("listener deregistration on engine with key " + engineWorkerKey.getID()
+            LOGGER.warn("listener deregistration on engine with key " + engineWorkerKey.getId()
                     + ", failed, listener is null");
             return;
         }
@@ -222,13 +222,13 @@ final class EngineWorker implements EngineService {
             final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
             apexPolicyModel = modelReader.read(new ByteArrayInputStream(engineModel.getBytes()));
         } catch (final ApexModelException e) {
-            LOGGER.error("failed to unmarshal the apex model on engine " + engineKey.getID(), e);
-            throw new ApexException("failed to unmarshal the apex model on engine " + engineKey.getID(), e);
+            LOGGER.error("failed to unmarshal the apex model on engine " + engineKey.getId(), e);
+            throw new ApexException("failed to unmarshal the apex model on engine " + engineKey.getId(), e);
         }
 
         if (apexPolicyModel == null) {
-            LOGGER.error("apex model null on engine " + engineKey.getID());
-            throw new ApexException("apex model null on engine " + engineKey.getID());
+            LOGGER.error("apex model null on engine " + engineKey.getId());
+            throw new ApexException("apex model null on engine " + engineKey.getId());
         }
 
         // Update the Apex model in the Apex engine
@@ -252,16 +252,16 @@ final class EngineWorker implements EngineService {
 
         // Check if the key on the update request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getID() + " does not match the key" + engineWorkerKey.getID()
+            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
                     + " of this engine");
-            throw new ApexException("engine key " + engineKey.getID() + " does not match the key"
-                    + engineWorkerKey.getID() + " of this engine");
+            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
+                    + engineWorkerKey.getId() + " of this engine");
         }
 
         // Sanity checks on the Apex model
         if (engine == null) {
-            LOGGER.warn("engine with key " + engineKey.getID() + " not initialized");
-            throw new ApexException("engine with key " + engineKey.getID() + " not initialized");
+            LOGGER.warn("engine with key " + engineKey.getId() + " not initialized");
+            throw new ApexException("engine with key " + engineKey.getId() + " not initialized");
         }
 
         // Check model compatibility
@@ -270,14 +270,14 @@ final class EngineWorker implements EngineService {
             final AxPolicyModel currentModel = ModelService.getModel(AxPolicyModel.class);
             if (!currentModel.getKey().isCompatible(apexModel.getKey())) {
                 if (forceFlag) {
-                    LOGGER.warn("apex model update forced, supplied model with key \"" + apexModel.getKey().getID()
+                    LOGGER.warn("apex model update forced, supplied model with key \"" + apexModel.getKey().getId()
                             + "\" is not a compatible model update from the existing engine model with key \""
-                            + currentModel.getKey().getID() + "\"");
+                            + currentModel.getKey().getId() + "\"");
                 } else {
                     throw new ContextException(
-                            "apex model update failed, supplied model with key \"" + apexModel.getKey().getID()
+                            "apex model update failed, supplied model with key \"" + apexModel.getKey().getId()
                                     + "\" is not a compatible model update from the existing engine model with key \""
-                                    + currentModel.getKey().getID() + "\"");
+                                    + currentModel.getKey().getId() + "\"");
                 }
             }
         }
@@ -285,7 +285,7 @@ final class EngineWorker implements EngineService {
         // Update the Apex model in the Apex engine
         engine.updateModel(apexModel);
 
-        LOGGER.debug("engine model {} added to the engine-{}", apexModel.getKey().getID(), engineWorkerKey);
+        LOGGER.debug("engine model {} added to the engine-{}", apexModel.getKey().getId(), engineWorkerKey);
         LOGGER.exit();
     }
 
@@ -322,22 +322,22 @@ final class EngineWorker implements EngineService {
 
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getID() + " does not match the key" + engineWorkerKey.getID()
+            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
                     + " of this engine");
-            throw new ApexException("engine key " + engineKey.getID() + " does not match the key"
-                    + engineWorkerKey.getID() + " of this engine");
+            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
+                    + engineWorkerKey.getId() + " of this engine");
         }
 
         if (engine == null) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getID() + " null");
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getID() + " null");
+            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " null");
+            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId() + " null");
         }
 
         // Starts the event processing thread that handles incoming events
         if (processorThread != null && processorThread.isAlive()) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getID() + " is already running with state "
+            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " is already running with state "
                     + getState());
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getID()
+            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId()
                     + " is already running with state " + getState());
         }
 
@@ -372,22 +372,22 @@ final class EngineWorker implements EngineService {
     public void stop(final AxArtifactKey engineKey) throws ApexException {
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getID() + " does not match the key" + engineWorkerKey.getID()
+            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
                     + " of this engine");
-            throw new ApexException("engine key " + engineKey.getID() + " does not match the key"
-                    + engineWorkerKey.getID() + " of this engine");
+            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
+                    + engineWorkerKey.getId() + " of this engine");
         }
 
         if (engine == null) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getID() + " null");
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getID() + " null");
+            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " null");
+            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId() + " null");
         }
 
         // Interrupt the worker to stop its thread
         if (processorThread == null || !processorThread.isAlive()) {
             processorThread = null;
 
-            LOGGER.warn("apex engine for engine key" + engineWorkerKey.getID() + " is already stopped with state "
+            LOGGER.warn("apex engine for engine key" + engineWorkerKey.getId() + " is already stopped with state "
                     + getState());
             return;
         }

@@ -29,15 +29,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestBasicModelTest {
 
     @Test
     public void testNormalModelCreator() throws ApexException {
-        final TestApexModel<AxModel> testApexModel =
-                new TestApexModel<AxModel>(AxModel.class, new TestApexBasicModelCreator());
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+                        new TestApexBasicModelCreator());
 
         testApexModel.testApexModelValid();
         try {
@@ -50,14 +47,14 @@ public class TestBasicModelTest {
         testApexModel.testApexModelVaidateInvalidModel();
         testApexModel.testApexModelVaidateMalstructured();
 
-        testApexModel.testApexModelWriteReadJSON();
-        testApexModel.testApexModelWriteReadXML();
+        testApexModel.testApexModelWriteReadJson();
+        testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
     public void testModelCreator0() throws ApexException {
-        final TestApexModel<AxModel> testApexModel =
-                new TestApexModel<AxModel>(AxModel.class, new TestApexTestModelCreator0());
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+                        new TestApexTestModelCreator0());
 
         testApexModel.testApexModelValid();
         try {
@@ -88,8 +85,8 @@ public class TestBasicModelTest {
 
     @Test
     public void testModelCreator1() throws ApexException {
-        final TestApexModel<AxModel> testApexModel =
-                new TestApexModel<AxModel>(AxModel.class, new TestApexTestModelCreator1());
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+                        new TestApexTestModelCreator1());
 
         try {
             testApexModel.testApexModelValid();
@@ -115,8 +112,8 @@ public class TestBasicModelTest {
 
     @Test
     public void testModelCreator2() throws ApexException {
-        final TestApexModel<AxModel> testApexModel =
-                new TestApexModel<AxModel>(AxModel.class, new TestApexTestModelCreator2());
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+                        new TestApexTestModelCreator2());
 
         testApexModel.testApexModelValid();
         testApexModel.testApexModelVaidateObservation();
@@ -129,19 +126,19 @@ public class TestBasicModelTest {
     }
 
     @Test
-    public void testModelCreator1XMLJSON() throws ApexException {
-        final TestApexModel<AxModel> testApexModel =
-                new TestApexModel<AxModel>(AxModel.class, new TestApexTestModelCreator1());
+    public void testModelCreator1XmlJson() throws ApexException {
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+                        new TestApexTestModelCreator1());
 
         try {
-            testApexModel.testApexModelWriteReadJSON();
+            testApexModel.testApexModelWriteReadJson();
             fail("Test should throw an exception");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith("error processing file"));
         }
 
         try {
-            testApexModel.testApexModelWriteReadXML();
+            testApexModel.testApexModelWriteReadXml();
             fail("Test should throw an exception");
         } catch (final Exception e) {
             assertTrue(e.getMessage().startsWith("error processing file"));

@@ -113,7 +113,7 @@ public class JrubyStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getLogicFlavour() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
         container.terminate();
         container = null;

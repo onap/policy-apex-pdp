@@ -50,13 +50,13 @@ public final class MFPDomainModelSaver {
         AxPolicyModel mfpPolicyModel = new MFPDomainModelFactory().getMFP1PolicyModel();
         ApexModelSaver<AxPolicyModel> mfpModelSaver =
                 new ApexModelSaver<>(AxPolicyModel.class, mfpPolicyModel, args[0] + "/1/");
-        mfpModelSaver.apexModelWriteJSON();
-        mfpModelSaver.apexModelWriteXML();
+        mfpModelSaver.apexModelWriteJson();
+        mfpModelSaver.apexModelWriteXml();
 
         mfpPolicyModel = new MFPDomainModelFactory().getMFP2PolicyModel();
         mfpModelSaver = new ApexModelSaver<>(AxPolicyModel.class, mfpPolicyModel, args[0] + "/2/");
-        mfpModelSaver.apexModelWriteJSON();
-        mfpModelSaver.apexModelWriteXML();
+        mfpModelSaver.apexModelWriteJson();
+        mfpModelSaver.apexModelWriteXml();
 
     }
 }

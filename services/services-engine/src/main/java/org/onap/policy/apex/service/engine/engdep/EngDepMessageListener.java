@@ -203,90 +203,90 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
             switch (enDepAction) {
                 case GET_ENGINE_SERVICE_INFO:
                     final GetEngineServiceInfo engineServiceInformationMessage = (GetEngineServiceInfo) message;
-                    LOGGER.debug("getting engine service information for engine service " + apexService.getKey().getID()
+                    LOGGER.debug("getting engine service information for engine service " + apexService.getKey().getId()
                             + " . . .");
                     // Send a reply with the engine service information
                     sendServiceInfoReply(webSocket, engineServiceInformationMessage, apexService.getKey(),
                             apexService.getEngineKeys(), apexService.getApexModelKey());
                     LOGGER.debug(
-                            "returned engine service information for engine service " + apexService.getKey().getID());
+                            "returned engine service information for engine service " + apexService.getKey().getId());
                     break;
 
                 case UPDATE_MODEL:
                     final UpdateModel updateModelMessage = (UpdateModel) message;
-                    LOGGER.debug("updating model in engine {} . . .", updateModelMessage.getTarget().getID());
+                    LOGGER.debug("updating model in engine {} . . .", updateModelMessage.getTarget().getId());
                     // Update the model
                     apexService.updateModel(updateModelMessage.getTarget(), updateModelMessage.getMessageData(),
                             updateModelMessage.isForceInstall());
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, updateModelMessage, true,
-                            "updated model in engine " + updateModelMessage.getTarget().getID());
-                    LOGGER.debug("updated model in engine service {}", updateModelMessage.getTarget().getID());
+                            "updated model in engine " + updateModelMessage.getTarget().getId());
+                    LOGGER.debug("updated model in engine service {}", updateModelMessage.getTarget().getId());
                     break;
 
                 case START_ENGINE:
                     final StartEngine startEngineMessage = (StartEngine) message;
-                    LOGGER.debug("starting engine {} . . .", startEngineMessage.getTarget().getID());
+                    LOGGER.debug("starting engine {} . . .", startEngineMessage.getTarget().getId());
                     // Start the engine
                     apexService.start(startEngineMessage.getTarget());
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, startEngineMessage, true,
-                            "started engine " + startEngineMessage.getTarget().getID());
-                    LOGGER.debug("started engine {}", startEngineMessage.getTarget().getID());
+                            "started engine " + startEngineMessage.getTarget().getId());
+                    LOGGER.debug("started engine {}", startEngineMessage.getTarget().getId());
                     break;
 
                 case STOP_ENGINE:
                     final StopEngine stopEngineMessage = (StopEngine) message;
-                    LOGGER.debug("stopping engine {} . . .", stopEngineMessage.getTarget().getID());
+                    LOGGER.debug("stopping engine {} . . .", stopEngineMessage.getTarget().getId());
                     // Stop the engine
                     apexService.stop(stopEngineMessage.getTarget());
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, stopEngineMessage, true,
-                            "stopped engine " + stopEngineMessage.getTarget().getID());
-                    LOGGER.debug("stopping engine {}", stopEngineMessage.getTarget().getID());
+                            "stopped engine " + stopEngineMessage.getTarget().getId());
+                    LOGGER.debug("stopping engine {}", stopEngineMessage.getTarget().getId());
                     break;
 
                 case START_PERIODIC_EVENTS:
                     final StartPeriodicEvents startPeriodicEventsMessage = (StartPeriodicEvents) message;
                     LOGGER.debug("starting periodic events on engine {} . . .",
-                            startPeriodicEventsMessage.getTarget().getID());
+                            startPeriodicEventsMessage.getTarget().getId());
                     // Start periodic events with the period specified in the message
                     final Long period = Long.parseLong(startPeriodicEventsMessage.getMessageData());
                     apexService.startPeriodicEvents(period);
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, startPeriodicEventsMessage, true, "started periodic events on engine "
-                            + startPeriodicEventsMessage.getTarget().getID() + " with period " + period);
-                    LOGGER.debug("started periodic events on engine " + startPeriodicEventsMessage.getTarget().getID()
+                            + startPeriodicEventsMessage.getTarget().getId() + " with period " + period);
+                    LOGGER.debug("started periodic events on engine " + startPeriodicEventsMessage.getTarget().getId()
                             + " with period " + period);
                     break;
 
                 case STOP_PERIODIC_EVENTS:
                     final StopPeriodicEvents stopPeriodicEventsMessage = (StopPeriodicEvents) message;
                     LOGGER.debug("stopping periodic events on engine {} . . .",
-                            stopPeriodicEventsMessage.getTarget().getID());
+                            stopPeriodicEventsMessage.getTarget().getId());
                     // Stop periodic events
                     apexService.stopPeriodicEvents();
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, stopPeriodicEventsMessage, true,
-                            "stopped periodic events on engine " + stopPeriodicEventsMessage.getTarget().getID());
-                    LOGGER.debug("stopped periodic events on engine " + stopPeriodicEventsMessage.getTarget().getID());
+                            "stopped periodic events on engine " + stopPeriodicEventsMessage.getTarget().getId());
+                    LOGGER.debug("stopped periodic events on engine " + stopPeriodicEventsMessage.getTarget().getId());
                     break;
 
                 case GET_ENGINE_STATUS:
                     final GetEngineStatus getEngineStatusMessage = (GetEngineStatus) message;
-                    LOGGER.debug("getting status for engine{} . . .", getEngineStatusMessage.getTarget().getID());
+                    LOGGER.debug("getting status for engine{} . . .", getEngineStatusMessage.getTarget().getId());
                     // Send a reply with the engine status
                     sendReply(webSocket, getEngineStatusMessage, true,
                             apexService.getStatus(getEngineStatusMessage.getTarget()));
-                    LOGGER.debug("returned status for engine {}", getEngineStatusMessage.getTarget().getID());
+                    LOGGER.debug("returned status for engine {}", getEngineStatusMessage.getTarget().getId());
                     break;
 
                 case GET_ENGINE_INFO:
                     final GetEngineInfo getEngineInfo = (GetEngineInfo) message;
-                    LOGGER.debug("getting runtime information for engine {} . . .", getEngineInfo.getTarget().getID());
+                    LOGGER.debug("getting runtime information for engine {} . . .", getEngineInfo.getTarget().getId());
                     // Send a reply with the engine runtime information
                     sendReply(webSocket, getEngineInfo, true, apexService.getRuntimeInfo(getEngineInfo.getTarget()));
-                    LOGGER.debug("returned runtime information for engine {}", getEngineInfo.getTarget().getID());
+                    LOGGER.debug("returned runtime information for engine {}", getEngineInfo.getTarget().getId());
                     break;
                 case RESPONSE:
                     throw new ApexException("RESPONSE action on received message not handled by engine");

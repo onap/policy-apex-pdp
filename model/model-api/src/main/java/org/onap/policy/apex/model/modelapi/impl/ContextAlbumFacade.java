@@ -100,7 +100,7 @@ public class ContextAlbumFacade {
 
             if (apexModel.getPolicyModel().getAlbums().getAlbumsMap().containsKey(key)) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + key.getID() + " already exists");
+                        CONCEPT + key.getId() + " already exists");
             }
 
             final AxContextSchema schema =
@@ -229,7 +229,7 @@ public class ContextAlbumFacade {
                     return new ApexAPIResult();
                 } else {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getID() + DOES_NOT_EXIST);
+                            CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 

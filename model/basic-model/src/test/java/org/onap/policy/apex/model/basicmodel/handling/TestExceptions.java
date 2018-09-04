@@ -28,9 +28,6 @@ import java.io.IOException;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestExceptions {
 
     @Test

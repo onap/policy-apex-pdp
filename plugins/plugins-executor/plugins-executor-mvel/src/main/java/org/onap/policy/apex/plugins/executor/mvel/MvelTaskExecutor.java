@@ -59,8 +59,8 @@ public class MvelTaskExecutor extends TaskExecutor {
         try {
             compiled = MVEL.compileExpression(getSubject().getTaskLogic().getLogic());
         } catch (final Exception e) {
-            LOGGER.warn("failed to compile MVEL code for task " + getSubject().getKey().getID(), e);
-            throw new StateMachineException("failed to compile MVEL code for task " + getSubject().getKey().getID(), e);
+            LOGGER.warn("failed to compile MVEL code for task " + getSubject().getKey().getId(), e);
+            throw new StateMachineException("failed to compile MVEL code for task " + getSubject().getKey().getId(), e);
         }
         argumentNotNull(compiled, "MVEL task not compiled.");
     }
@@ -89,8 +89,8 @@ public class MvelTaskExecutor extends TaskExecutor {
             returnValue =
                     (boolean) MVEL.executeExpression(compiled, getExecutionContext(), new HashMap<String, Object>());
         } catch (final Exception e) {
-            LOGGER.warn("failed to execute MVEL code for task " + getSubject().getKey().getID(), e);
-            throw new StateMachineException("failed to execute MVEL code for task " + getSubject().getKey().getID(), e);
+            LOGGER.warn("failed to execute MVEL code for task " + getSubject().getKey().getId(), e);
+            throw new StateMachineException("failed to execute MVEL code for task " + getSubject().getKey().getId(), e);
         }
 
         // Do the execution post work
@@ -111,7 +111,7 @@ public class MvelTaskExecutor extends TaskExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getTaskLogic().getLogicFlavour()
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogicFlavour()
                 + "," + getSubject().getTaskLogic().getLogic());
     }
 }

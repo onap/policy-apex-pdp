@@ -29,9 +29,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.utilities.DirectoryUtils;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class DirectoryUtilsTest {
 
     @Test

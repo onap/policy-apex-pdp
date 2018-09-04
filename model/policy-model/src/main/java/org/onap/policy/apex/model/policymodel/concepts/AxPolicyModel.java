@@ -382,7 +382,7 @@ public class AxPolicyModel extends AxModel {
                 if (getSchemas().get(field.getSchema()) == null) {
                     result.addValidationMessage(
                             new AxValidationMessage(event.getKey(), this.getClass(), ValidationResult.INVALID,
-                                    "event field data type " + field.getSchema().getID() + DOES_NOT_EXIST));
+                                    "event field data type " + field.getSchema().getId() + DOES_NOT_EXIST));
                 }
             }
         }
@@ -400,7 +400,7 @@ public class AxPolicyModel extends AxModel {
             if (getSchemas().get(contextAlbum.getItemSchema()) == null) {
                 result.addValidationMessage(
                         new AxValidationMessage(contextAlbum.getKey(), this.getClass(), ValidationResult.INVALID,
-                                "context album schema " + contextAlbum.getItemSchema().getID() + DOES_NOT_EXIST));
+                                "context album schema " + contextAlbum.getItemSchema().getId() + DOES_NOT_EXIST));
             }
         }
         return result;
@@ -431,20 +431,20 @@ public class AxPolicyModel extends AxModel {
             if (getSchemas().get(field.getSchema()) == null) {
                 result.addValidationMessage(
                         new AxValidationMessage(task.getKey(), this.getClass(), ValidationResult.INVALID,
-                                "task input field schema " + field.getSchema().getID() + DOES_NOT_EXIST));
+                                "task input field schema " + field.getSchema().getId() + DOES_NOT_EXIST));
             }
         }
         for (final AxField field : task.getOutputFieldSet()) {
             if (getSchemas().get(field.getSchema()) == null) {
                 result.addValidationMessage(
                         new AxValidationMessage(task.getKey(), this.getClass(), ValidationResult.INVALID,
-                                "task output field schema " + field.getSchema().getID() + DOES_NOT_EXIST));
+                                "task output field schema " + field.getSchema().getId() + DOES_NOT_EXIST));
             }
         }
         for (final AxArtifactKey contextAlbumKey : task.getContextAlbumReferences()) {
             if (albums.get(contextAlbumKey) == null) {
                 result.addValidationMessage(new AxValidationMessage(task.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "task context album " + contextAlbumKey.getID() + DOES_NOT_EXIST));
+                        ValidationResult.INVALID, "task context album " + contextAlbumKey.getId() + DOES_NOT_EXIST));
             }
         }
         return result;
@@ -476,20 +476,20 @@ public class AxPolicyModel extends AxModel {
         for (final AxArtifactKey contextAlbumKey : state.getContextAlbumReferences()) {
             if (albums.get(contextAlbumKey) == null) {
                 result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "state context album " + contextAlbumKey.getID() + DOES_NOT_EXIST));
+                        ValidationResult.INVALID, "state context album " + contextAlbumKey.getId() + DOES_NOT_EXIST));
             }
         }
 
         final AxEvent triggerEvent = events.getEventMap().get(state.getTrigger());
         if (triggerEvent == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "state trigger event " + state.getTrigger().getID() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "state trigger event " + state.getTrigger().getId() + DOES_NOT_EXIST));
         }
 
         final AxTask defaultTask = tasks.getTaskMap().get(state.getDefaultTask());
         if (defaultTask == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "state default task " + state.getDefaultTask().getID() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "state default task " + state.getDefaultTask().getId() + DOES_NOT_EXIST));
         }
 
         // Check task input fields and event fields are compatible for default tasks with no task
@@ -501,15 +501,15 @@ public class AxPolicyModel extends AxModel {
             for (final AxField unhandledTaskInputField : unhandledTaskInputFields) {
                 result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
                         ValidationResult.INVALID, "task input field " + unhandledTaskInputField + " for task "
-                                + defaultTask.getID() + " not in trigger event " + triggerEvent.getID()));
+                                + defaultTask.getId() + " not in trigger event " + triggerEvent.getId()));
             }
         }
 
         for (final AxStateOutput stateOutput : state.getStateOutputs().values()) {
             if (events.getEventMap().get(stateOutput.getOutgingEvent()) == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getID()
-                                + " for state output " + stateOutput.getID() + DOES_NOT_EXIST));
+                        ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
+                                + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
         }
 
@@ -534,7 +534,7 @@ public class AxPolicyModel extends AxModel {
             final AxTask usedTask = tasks.getTaskMap().get(taskRefEntry.getKey());
             if (usedTask == null) {
                 result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "state task " + taskRefEntry.getKey().getID() + DOES_NOT_EXIST));
+                        ValidationResult.INVALID, "state task " + taskRefEntry.getKey().getId() + DOES_NOT_EXIST));
             } else {
                 AxStateOutput stateOutput =
                         state.getStateOutputs().get(taskRefEntry.getValue().getOutput().getKey().getLocalName());
@@ -556,14 +556,14 @@ public class AxPolicyModel extends AxModel {
             final AxStateOutput stateOutput, AxValidationResult result) {
         if (stateOutput == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "state output on task reference for task " + task.getID() + " is null"));
+                    ValidationResult.INVALID, "state output on task reference for task " + task.getId() + " is null"));
 
         } else {
             final AxEvent usedEvent = events.getEventMap().get(stateOutput.getOutgingEvent());
             if (usedEvent == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getID()
-                                + " for state output " + stateOutput.getID() + DOES_NOT_EXIST));
+                        ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
+                                + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
 
             if (task != null && usedEvent != null) {
@@ -572,7 +572,7 @@ public class AxPolicyModel extends AxModel {
                 for (final AxField unhandledTaskOutputField : unhandledTaskOutputFields) {
                     result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
                             ValidationResult.INVALID, "task output field " + unhandledTaskOutputField + " for task "
-                                    + task.getID() + " not in output event " + usedEvent.getID()));
+                                    + task.getId() + " not in output event " + usedEvent.getId()));
                 }
             }
         }

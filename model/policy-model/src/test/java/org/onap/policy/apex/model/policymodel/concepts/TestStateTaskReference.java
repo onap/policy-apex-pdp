@@ -62,8 +62,8 @@ public class TestStateTaskReference {
         }
 
         stRef.setKey(stRefKey);
-        assertEquals("StateParent:0.0.1:SOState:SOName", stRef.getKey().getID());
-        assertEquals("StateParent:0.0.1:SOState:SOName", stRef.getKeys().get(0).getID());
+        assertEquals("StateParent:0.0.1:SOState:SOName", stRef.getKey().getId());
+        assertEquals("StateParent:0.0.1:SOState:SOName", stRef.getKeys().get(0).getId());
 
         try {
             stRef.setStateTaskOutputType(null);

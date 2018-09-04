@@ -33,9 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestModelStringWriter {
 
     @Test
@@ -43,23 +40,23 @@ public class TestModelStringWriter {
         AxModel basicModel = new TestApexBasicModelCreator().getModel();
         assertNotNull(basicModel);
        
-        AxKeyInfo intKI   = basicModel.getKeyInformation().get("IntegerKIKey");
-        AxKeyInfo floatKI = basicModel.getKeyInformation().get("FloatKIKey");
+        AxKeyInfo intKeyInfo   = basicModel.getKeyInformation().get("IntegerKIKey");
+        AxKeyInfo floatKeyInfo = basicModel.getKeyInformation().get("FloatKIKey");
 
         // Ensure marshalling is OK
         ApexModelStringWriter<AxKeyInfo> stringWriter = new ApexModelStringWriter<AxKeyInfo>(true);
         
-        assertNotNull(stringWriter.writeJSONString(intKI,   AxKeyInfo.class));
-        assertNotNull(stringWriter.writeJSONString(floatKI, AxKeyInfo.class));
+        assertNotNull(stringWriter.writeJsonString(intKeyInfo,   AxKeyInfo.class));
+        assertNotNull(stringWriter.writeJsonString(floatKeyInfo, AxKeyInfo.class));
        
-        assertNotNull(stringWriter.writeString(intKI,   AxKeyInfo.class, true));
-        assertNotNull(stringWriter.writeString(floatKI, AxKeyInfo.class, true));
+        assertNotNull(stringWriter.writeString(intKeyInfo,   AxKeyInfo.class, true));
+        assertNotNull(stringWriter.writeString(floatKeyInfo, AxKeyInfo.class, true));
        
-        assertNotNull(stringWriter.writeString(intKI,   AxKeyInfo.class, false));
-        assertNotNull(stringWriter.writeString(floatKI, AxKeyInfo.class, false));
+        assertNotNull(stringWriter.writeString(intKeyInfo,   AxKeyInfo.class, false));
+        assertNotNull(stringWriter.writeString(floatKeyInfo, AxKeyInfo.class, false));
         
-        assertNotNull(stringWriter.writeXMLString(intKI,   AxKeyInfo.class));
-        assertNotNull(stringWriter.writeXMLString(floatKI, AxKeyInfo.class));
+        assertNotNull(stringWriter.writeXmlString(intKeyInfo,   AxKeyInfo.class));
+        assertNotNull(stringWriter.writeXmlString(floatKeyInfo, AxKeyInfo.class));
         
         try {
             stringWriter.writeString(null, AxKeyInfo.class, true);
@@ -78,7 +75,7 @@ public class TestModelStringWriter {
         }
         
         try {
-            stringWriter.writeJSONString(null, AxKeyInfo.class);
+            stringWriter.writeJsonString(null, AxKeyInfo.class);
             fail("test should thrown an exception here");
         }
         catch (Exception e) {
@@ -86,7 +83,7 @@ public class TestModelStringWriter {
         }
         
         try {
-            stringWriter.writeXMLString(null, AxKeyInfo.class);
+            stringWriter.writeXmlString(null, AxKeyInfo.class);
             fail("test should thrown an exception here");
         }
         catch (Exception e) {

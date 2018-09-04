@@ -75,7 +75,7 @@ public class TestPolicyModel {
         model.register();
 
         assertNotNull(model.getContextModel());
-        assertEquals("ModelKey:0.0.1", model.getKeys().get(0).getID());
+        assertEquals("ModelKey:0.0.1", model.getKeys().get(0).getId());
 
         model.clean();
         assertNotNull(model);

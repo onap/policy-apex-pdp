@@ -36,7 +36,8 @@ public class TestApexTestModelCreator0 implements TestApexModelCreator<AxModel> 
         basicModel.setKeyInformation(new AxKeyInformation(new AxArtifactKey("KeyInfoMapKey", "0.0.1")));
 
         basicModel.getKeyInformation().getKeyInfoMap().put(basicModel.getKey(), new AxKeyInfo(basicModel.getKey()));
-        basicModel.getKeyInformation().getKeyInfoMap().put(basicModel.getKeyInformation().getKey(), new AxKeyInfo(basicModel.getKeyInformation().getKey()));
+        basicModel.getKeyInformation().getKeyInfoMap().put(basicModel.getKeyInformation().getKey(),
+                        new AxKeyInfo(basicModel.getKeyInformation().getKey()));
 
         return basicModel;
     }

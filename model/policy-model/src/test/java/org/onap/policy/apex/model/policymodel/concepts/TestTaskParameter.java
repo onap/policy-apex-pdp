@@ -49,8 +49,8 @@ public class TestTaskParameter {
 
         final AxReferenceKey parKey = new AxReferenceKey("ParParentName", "0.0.1", "PLN", "LN");
         par.setKey(parKey);
-        assertEquals("ParParentName:0.0.1:PLN:LN", par.getKey().getID());
-        assertEquals("ParParentName:0.0.1:PLN:LN", par.getKeys().get(0).getID());
+        assertEquals("ParParentName:0.0.1:PLN:LN", par.getKey().getId());
+        assertEquals("ParParentName:0.0.1:PLN:LN", par.getKeys().get(0).getId());
 
         par.setDefaultValue("DefaultValue");
         assertEquals("DefaultValue", par.getTaskParameterValue());

@@ -92,7 +92,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
      */
     @Override
     public void prepare() throws StateMachineException {
-        LOGGER.debug("prepare:" + axState.getKey().getID() + "," + axState.getTaskSelectionLogic().getLogicFlavour()
+        LOGGER.debug("prepare:" + axState.getKey().getId() + "," + axState.getTaskSelectionLogic().getLogicFlavour()
                 + "," + axState.getTaskSelectionLogic().getLogic());
         argumentNotNull(axState.getTaskSelectionLogic().getLogic(), "task selection logic cannot be null.");
     }
@@ -117,7 +117,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
      */
     @Override
     public final void executePre(final long executionID, final EnEvent newIncomingEvent) throws StateMachineException {
-        LOGGER.debug("execute-pre:" + axState.getKey().getID() + "," + axState.getTaskSelectionLogic().getLogicFlavour()
+        LOGGER.debug("execute-pre:" + axState.getKey().getId() + "," + axState.getTaskSelectionLogic().getLogicFlavour()
                 + "," + axState.getTaskSelectionLogic().getLogic());
 
         this.incomingEvent = newIncomingEvent;
@@ -139,7 +139,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     public final void executePost(final boolean returnValue) throws StateMachineException {
         if (!returnValue) {
             String errorMessage =
-                    "execute-post: task selection logic failed on state \"" + axState.getKey().getID() + "\"";
+                    "execute-post: task selection logic failed on state \"" + axState.getKey().getId() + "\"";
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -149,18 +149,18 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
 
         if (outgoingTaskKey == null || AxArtifactKey.getNullKey().getName().equals(outgoingTaskKey.getName())) {
             outgoingTaskKey = axState.getDefaultTask();
-            LOGGER.debug("execute-post:" + axState.getKey().getID() + ", returning default task");
+            LOGGER.debug("execute-post:" + axState.getKey().getId() + ", returning default task");
             return;
         }
 
         if (!axState.getTaskReferences().containsKey(outgoingTaskKey)) {
-            LOGGER.error("execute-post: task \"" + outgoingTaskKey.getID()
-                    + "\" returned by task selection logic not defined on state \"" + axState.getKey().getID() + "\"");
-            throw new StateMachineException("task \"" + outgoingTaskKey.getID()
-                    + "\" returned by task selection logic not defined on state \"" + axState.getKey().getID() + "\"");
+            LOGGER.error("execute-post: task \"" + outgoingTaskKey.getId()
+                    + "\" returned by task selection logic not defined on state \"" + axState.getKey().getId() + "\"");
+            throw new StateMachineException("task \"" + outgoingTaskKey.getId()
+                    + "\" returned by task selection logic not defined on state \"" + axState.getKey().getId() + "\"");
         }
 
-        LOGGER.debug("execute-post:" + axState.getKey().getID() + "," + ", returning task " + outgoingTaskKey.getID());
+        LOGGER.debug("execute-post:" + axState.getKey().getId() + "," + ", returning task " + outgoingTaskKey.getId());
     }
 
     /*

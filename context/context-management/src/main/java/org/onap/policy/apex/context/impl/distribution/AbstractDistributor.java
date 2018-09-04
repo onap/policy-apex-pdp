@@ -159,7 +159,7 @@ public abstract class AbstractDistributor implements Distributor {
         // Get the context album definition
         final AxContextAlbum album = ModelService.getModel(AxContextAlbums.class).get(axContextAlbumKey);
         if (album == null) {
-            final String resultString = "context album " + axContextAlbumKey.getID() + " does not exist";
+            final String resultString = "context album " + axContextAlbumKey.getId() + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextException(resultString);
         }
@@ -168,7 +168,7 @@ public abstract class AbstractDistributor implements Distributor {
         final AxValidationResult result = album.validate(new AxValidationResult());
         if (!result.isValid()) {
             final String resultString =
-                    "context album definition for " + album.getKey().getID() + " is invalid" + result;
+                    "context album definition for " + album.getKey().getId() + " is invalid" + result;
             LOGGER.warn(resultString);
             throw new ContextException(resultString);
         }
@@ -176,8 +176,8 @@ public abstract class AbstractDistributor implements Distributor {
         // Get the schema of the context album
         final AxContextSchema schema = ModelService.getModel(AxContextSchemas.class).get(album.getItemSchema());
         if (schema == null) {
-            final String resultString = "schema \"" + album.getItemSchema().getID() + "\" for context album "
-                    + album.getKey().getID() + " does not exist";
+            final String resultString = "schema \"" + album.getItemSchema().getId() + "\" for context album "
+                    + album.getKey().getId() + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextException(resultString);
         }
@@ -266,7 +266,7 @@ public abstract class AbstractDistributor implements Distributor {
     @Override
     public synchronized void lockForReading(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
         // Lock using the lock manager
-        lockManager.lockForReading(mapKey.getID(), itemKey);
+        lockManager.lockForReading(mapKey.getId(), itemKey);
     }
 
     /*
@@ -277,7 +277,7 @@ public abstract class AbstractDistributor implements Distributor {
     @Override
     public synchronized void lockForWriting(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
         // Lock using the lock manager
-        lockManager.lockForWriting(mapKey.getID(), itemKey);
+        lockManager.lockForWriting(mapKey.getId(), itemKey);
     }
 
     /*
@@ -288,7 +288,7 @@ public abstract class AbstractDistributor implements Distributor {
     @Override
     public void unlockForReading(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
         // Unlock using the lock manager
-        lockManager.unlockForReading(mapKey.getID(), itemKey);
+        lockManager.unlockForReading(mapKey.getId(), itemKey);
     }
 
     /*
@@ -299,7 +299,7 @@ public abstract class AbstractDistributor implements Distributor {
     @Override
     public void unlockForWriting(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
         // Unlock using the lock manager
-        lockManager.unlockForWriting(mapKey.getID(), itemKey);
+        lockManager.unlockForWriting(mapKey.getId(), itemKey);
     }
 
     /*

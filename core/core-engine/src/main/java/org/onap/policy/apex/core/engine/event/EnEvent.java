@@ -123,7 +123,7 @@ public class EnEvent extends HashMap<String, Object> {
      * @return the event key
      */
     public String getID() {
-        return axEvent.getKey().getID();
+        return axEvent.getKey().getId();
     }
 
     /**

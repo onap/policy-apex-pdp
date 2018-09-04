@@ -441,7 +441,7 @@ public class TestAADMUseCase {
      */
     private AxEvent getTriggerEvent(final AxPolicyModel apexPolicyModel) {
         for (final AxEvent axEvent : apexPolicyModel.getEvents().getEventMap().values()) {
-            if (axEvent.getKey().getID().equals("AADMEvent:0.0.1")) {
+            if (axEvent.getKey().getId().equals("AADMEvent:0.0.1")) {
                 return axEvent;
             }
         }

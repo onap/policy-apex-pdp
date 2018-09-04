@@ -108,7 +108,7 @@ public class RestInterfaceTest {
         localmodel = new ApexModelReader<>(AxPolicyModel.class, false)
                 .read(ResourceUtils.getResourceAsStream(TESTMODELFILE));
         localmodelString =
-                new ApexModelStringWriter<AxPolicyModel>(false).writeJSONString(localmodel, AxPolicyModel.class);
+                new ApexModelStringWriter<AxPolicyModel>(false).writeJsonString(localmodel, AxPolicyModel.class);
 
         // initialize a session ID
         createNewSession();
@@ -195,7 +195,7 @@ public class RestInterfaceTest {
 
         // Write that local copy of the AxPolicy object to a Json String, ten parse it again
         final ApexModelStringWriter<AxPolicy> apexModelWriter = new ApexModelStringWriter<>(false);
-        final String localPolicyString = apexModelWriter.writeJSONString(localpolicy, AxPolicy.class);
+        final String localPolicyString = apexModelWriter.writeJsonString(localpolicy, AxPolicy.class);
         apexPolicyReader = new ApexModelReader<>(AxPolicy.class, false);
         final AxPolicy localpolicyReparsed = apexPolicyReader.read(localPolicyString);
         // AxPolicy localpolicy_reparsed = RestUtils.getConceptFromJSON(returnedPolicyAsString, AxPolicy.class);

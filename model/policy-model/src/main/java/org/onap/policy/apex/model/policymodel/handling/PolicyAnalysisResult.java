@@ -212,7 +212,7 @@ public class PolicyAnalysisResult {
         builder.append('\n');
         for (final Entry<? extends AxKey, Set<AxKey>> usageEntry : usageMap.entrySet()) {
             builder.append(" ");
-            builder.append(usageEntry.getKey().getID());
+            builder.append(usageEntry.getKey().getId());
             if (usageEntry.getValue().isEmpty()) {
                 builder.append(" (unused)\n");
                 continue;
@@ -221,7 +221,7 @@ public class PolicyAnalysisResult {
             builder.append('\n');
             for (final AxKey usageKey : usageEntry.getValue()) {
                 builder.append("  ");
-                builder.append(usageKey.getID());
+                builder.append(usageKey.getId());
                 builder.append("\n");
             }
         }

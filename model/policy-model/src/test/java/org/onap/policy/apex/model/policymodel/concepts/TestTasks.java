@@ -67,8 +67,8 @@ public class TestTasks {
 
         final AxArtifactKey taskKey = new AxArtifactKey("TaskName", "0.0.1");
         task.setKey(taskKey);
-        assertEquals("TaskName:0.0.1", task.getKey().getID());
-        assertEquals("TaskName:0.0.1", task.getKeys().get(0).getID());
+        assertEquals("TaskName:0.0.1", task.getKey().getId());
+        assertEquals("TaskName:0.0.1", task.getKeys().get(0).getId());
 
         final AxArtifactKey f0SchemaKey = new AxArtifactKey("FS0", "0.0.1");
 
@@ -114,8 +114,8 @@ public class TestTasks {
         assertEquals(tl, task.getTaskLogic());
 
         task.setKey(taskKey);
-        assertEquals("TaskName:0.0.1", task.getKey().getID());
-        assertEquals("TaskName:0.0.1", task.getKeys().get(0).getID());
+        assertEquals("TaskName:0.0.1", task.getKey().getId());
+        assertEquals("TaskName:0.0.1", task.getKeys().get(0).getId());
 
         task.afterUnmarshal(null, null);
         assertEquals(1, task.getTaskParameters().size());
@@ -256,7 +256,7 @@ public class TestTasks {
 
         // Invalid, no tasks in task map
         tasks.setKey(new AxArtifactKey("TasksKey", "0.0.1"));
-        assertEquals("TasksKey:0.0.1", tasks.getKey().getID());
+        assertEquals("TasksKey:0.0.1", tasks.getKey().getId());
 
         result = new AxValidationResult();
         result = tasks.validate(result);

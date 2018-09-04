@@ -103,7 +103,8 @@ public abstract class TextFileUtils {
             if (charsRead > 0) {
                 builder.append(chars, 0, charsRead);
             }
-        } while (charsRead > 0);
+        }
+        while (charsRead > 0);
         return builder.toString();
     }
 }

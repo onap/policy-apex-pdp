@@ -50,8 +50,8 @@ public class TestContextSchemas {
 
         final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
         schema.setKey(newKey);
-        assertEquals("NewSchemaName:0.0.1", schema.getKey().getID());
-        assertEquals("NewSchemaName:0.0.1", schema.getKeys().get(0).getID());
+        assertEquals("NewSchemaName:0.0.1", schema.getKey().getId());
+        assertEquals("NewSchemaName:0.0.1", schema.getKeys().get(0).getId());
 
         try {
             schema.setSchemaFlavour("");

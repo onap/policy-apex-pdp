@@ -483,7 +483,7 @@ public class AxTask extends AxConcept {
 
         if (!taskLogic.getKey().getParentArtifactKey().equals(key)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "taskLogic parent key " + taskLogic.getKey().getID() + DOES_NOT_EQUAL_TASK_KEY));
+                    "taskLogic parent key " + taskLogic.getKey().getId() + DOES_NOT_EQUAL_TASK_KEY));
         }
 
         return taskLogic.validate(result);

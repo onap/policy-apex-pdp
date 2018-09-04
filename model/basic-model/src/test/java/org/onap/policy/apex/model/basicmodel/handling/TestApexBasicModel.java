@@ -33,13 +33,18 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
 public class TestApexBasicModel {
     private Connection connection;
     TestApexModel<AxModel> testApexModel;
 
+    /**
+     * Set up the test.
+     * 
+     * @throws Exception any exception thrown by the test
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -88,46 +93,57 @@ public class TestApexBasicModel {
     }
 
     @Test
-    public void testModelWriteReadXML() throws Exception {
-        testApexModel.testApexModelWriteReadXML();
+    public void testModelWriteReadXml() throws Exception {
+        testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
-    public void testModelWriteReadJSON() throws Exception {
-        testApexModel.testApexModelWriteReadJSON();
+    public void testModelWriteReadJson() throws Exception {
+        testApexModel.testApexModelWriteReadJson();
     }
 
     @Test
-    public void testModelWriteReadJPA() throws Exception {
-        final DAOParameters daoParameters = new DAOParameters();
+    public void testModelWriteReadJpa() throws Exception {
+        final DaoParameters daoParameters = new DaoParameters();
         daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("DAOTest");
+        daoParameters.setPersistenceUnit("DaoTest");
 
-        testApexModel.testApexModelWriteReadJPA(daoParameters);
+        testApexModel.testApexModelWriteReadJpa(daoParameters);
     }
 
     // As there are no real concepts in a basic model, this is as near to a valid model as we can get
     private static final String VALID_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-            + "AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry\n"
-            + "AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + ".AxModel:WARNING:key not found for key information entry\n"
+                    + "AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + ".AxModel:WARNING:key not found for key information entry\n" + "********************************";
 
     private static final String WARNING_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-            + "AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry\n"
-            + "AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry\n"
-            + "AxArtifactKey:(name=Unref0,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry\n"
-            + "AxArtifactKey:(name=Unref1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + ".AxModel:WARNING:key not found for key information entry\n"
+                    + "AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + ".AxModel:WARNING:key not found for key information entry\n"
+                    + "AxArtifactKey:(name=Unref0,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + ".AxModel:WARNING:key not found for key information entry\n"
+                    + "AxArtifactKey:(name=Unref1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + ".AxModel:WARNING:key not found for key information entry\n" + "********************************";
 
     private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-            + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-            + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:OBSERVATION:description is blank\n"
-            + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-            + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation:INVALID:duplicate UUID found on keyInfoMap entry AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):00000000-0000-0000-0000-000000000000\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
+                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxKeyInfo:OBSERVATION:description is blank\n"
+                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
+                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxKeyInformation:INVALID:duplicate UUID found on keyInfoMap entry AxArtifactKey:"
+                    + "(name=KeyInfoMapKey,version=0.0.1):00000000-0000-0000-0000-000000000000\n"
+                    + "********************************";
 
     private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-            + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-            + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:INVALID:key information not found for key AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
+                    + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxModel:INVALID:key information not found for key "
+                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)\n" + "********************************";
 }

@@ -32,9 +32,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestAxReferenceKey {
 
     @Test
@@ -49,46 +46,47 @@ public class TestAxReferenceKey {
         assertNotNull(new AxReferenceKey("ParentKeyName", "0.0.1", "ParentLocalName", "LocalName"));
         assertNotNull(new AxReferenceKey("ParentKeyName:0.0.1:ParentLocalName:LocalName"));
         assertEquals(AxReferenceKey.getNullKey().getKey(), AxReferenceKey.getNullKey());
-        assertEquals("NULL:0.0.0:NULL:NULL", AxReferenceKey.getNullKey().getID());
+        assertEquals("NULL:0.0.0:NULL:NULL", AxReferenceKey.getNullKey().getId());
 
         AxReferenceKey testReferenceKey = new AxReferenceKey();
         testReferenceKey.setParentArtifactKey(new AxArtifactKey("PN", "0.0.1"));
-        assertEquals("PN:0.0.1", testReferenceKey.getParentArtifactKey().getID());
-        
+        assertEquals("PN:0.0.1", testReferenceKey.getParentArtifactKey().getId());
+
         testReferenceKey.setParentReferenceKey(new AxReferenceKey("PN", "0.0.1", "LN"));
-        assertEquals("PN:0.0.1:NULL:LN", testReferenceKey.getParentReferenceKey().getID());
-        
+        assertEquals("PN:0.0.1:NULL:LN", testReferenceKey.getParentReferenceKey().getId());
+
         testReferenceKey.setParentKeyName("NPKN");
         assertEquals("NPKN", testReferenceKey.getParentKeyName());
-        
+
         testReferenceKey.setParentKeyVersion("0.0.1");
         assertEquals("0.0.1", testReferenceKey.getParentKeyVersion());
-        
+
         testReferenceKey.setParentLocalName("NPKLN");
         assertEquals("NPKLN", testReferenceKey.getParentLocalName());
-        
+
         testReferenceKey.setLocalName("NLN");
         assertEquals("NLN", testReferenceKey.getLocalName());
-        
+
         assertFalse(testReferenceKey.isCompatible(AxArtifactKey.getNullKey()));
         assertFalse(testReferenceKey.isCompatible(AxReferenceKey.getNullKey()));
         assertTrue(testReferenceKey.isCompatible(testReferenceKey));
-        
+
         assertEquals(AxKey.Compatibility.DIFFERENT, testReferenceKey.getCompatibility(AxArtifactKey.getNullKey()));
         assertEquals(AxKey.Compatibility.DIFFERENT, testReferenceKey.getCompatibility(AxReferenceKey.getNullKey()));
         assertEquals(AxKey.Compatibility.IDENTICAL, testReferenceKey.getCompatibility(testReferenceKey));
-        
+
         AxValidationResult result = new AxValidationResult();
         result = testReferenceKey.validate(result);
         assertEquals(AxValidationResult.ValidationResult.VALID, result.getValidationResult());
-        
+
         testReferenceKey.clean();
-        
+
         AxReferenceKey clonedReferenceKey = new AxReferenceKey(testReferenceKey);
-        assertEquals("AxReferenceKey:(parentKeyName=NPKN,parentKeyVersion=0.0.1,parentLocalName=NPKLN,localName=NLN)", clonedReferenceKey.toString());
-        
+        assertEquals("AxReferenceKey:(parentKeyName=NPKN,parentKeyVersion=0.0.1,parentLocalName=NPKLN,localName=NLN)",
+                        clonedReferenceKey.toString());
+
         assertFalse(testReferenceKey.hashCode() == 0);
-        
+
         assertTrue(testReferenceKey.equals(testReferenceKey));
         assertTrue(testReferenceKey.equals(clonedReferenceKey));
         assertFalse(testReferenceKey.equals("Hello"));
@@ -97,7 +95,7 @@ public class TestAxReferenceKey {
         assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN")));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "NPLN", "LN")));
         assertTrue(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "NPKLN", "NLN")));
-        
+
         assertEquals(0, testReferenceKey.compareTo(testReferenceKey));
         assertEquals(0, testReferenceKey.compareTo(clonedReferenceKey));
         assertNotEquals(0, testReferenceKey.compareTo(new AxArtifactKey()));
@@ -106,7 +104,7 @@ public class TestAxReferenceKey {
         assertNotEquals(0, testReferenceKey.compareTo(new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN")));
         assertNotEquals(0, testReferenceKey.compareTo(new AxReferenceKey("NPKN", "0.0.1", "NPLN", "LN")));
         assertEquals(0, testReferenceKey.compareTo(new AxReferenceKey("NPKN", "0.0.1", "NPKLN", "NLN")));
-        
+
         assertNotNull(testReferenceKey.getKeys());
     }
 }

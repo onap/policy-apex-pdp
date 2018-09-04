@@ -23,9 +23,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogicReader;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class DummyLogicReader implements AxLogicReader {
 
     /*

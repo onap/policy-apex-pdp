@@ -47,22 +47,22 @@ public class TestEntity extends AxConcept {
     protected AxReferenceKey key;
 
     private double doubleValue;
-   
+
     public TestEntity() {
         this.key = new AxReferenceKey();
         this.doubleValue = 0;
     }
-   
+
     public TestEntity(Double doubleValue) {
         this.key = new AxReferenceKey();
         this.doubleValue = doubleValue;
     }
-   
+
     public TestEntity(AxReferenceKey key, Double doubleValue) {
         this.key = key;
         this.doubleValue = doubleValue;
     }
-   
+
     public AxReferenceKey getKey() {
         return key;
     }
@@ -96,7 +96,7 @@ public class TestEntity extends AxConcept {
     public void clean() {
         key.clean();
     }
-   
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -107,20 +107,18 @@ public class TestEntity extends AxConcept {
 
     @Override
     public AxConcept copyTo(AxConcept target) {
-        final Object copyObject = ((target == null) ? new TestEntity(): target);
+        final Object copyObject = ((target == null) ? new TestEntity() : target);
         if (copyObject instanceof TestEntity) {
             final TestEntity copy = ((TestEntity) copyObject);
             if (this.checkSetKey()) {
                 copy.setKey(new AxReferenceKey(key));
-            }
-            else {
+            } else {
                 copy.key = null;
             }
             copy.doubleValue = doubleValue;
             return copy;
-        }
-        else {
-        		return null;
+        } else {
+            return null;
         }
     }
 
@@ -134,42 +132,49 @@ public class TestEntity extends AxConcept {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (this == obj)
+        }
+        if (this == obj) {
             return true;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         TestEntity other = (TestEntity) obj;
         if (key == null) {
-            if (other.key != null)
+            if (other.key != null) {
                 return false;
+            }
+        } else if (!key.equals(other.key)) {
+            return false;
         }
-        else
-            if (!key.equals(other.key))
-                return false;
-        if (doubleValue != other.doubleValue)
-                return false;
+        if (doubleValue != other.doubleValue) {
+            return false;
+        }
         return true;
     }
-   
+
     @Override
     public int compareTo(AxConcept otherObj) {
-        if (otherObj == null)
+        if (otherObj == null) {
             return -1;
-        if (this == otherObj)
+        }
+        if (this == otherObj) {
             return 0;
+        }
         TestEntity other = (TestEntity) otherObj;
         if (key == null) {
-            if (other.key != null)
+            if (other.key != null) {
                 return 1;
+            }
+        } else if (!key.equals(other.key)) {
+            return key.compareTo(other.key);
         }
-        else
-            if (!key.equals(other.key))
-                return key.compareTo(other.key);
-        if (doubleValue != other.doubleValue)
+        if (doubleValue != other.doubleValue) {
             return new Double(doubleValue).compareTo(other.doubleValue);
-       
+        }
+
         return 0;
     }
 }

@@ -52,6 +52,21 @@
             <version>${version.jersey}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+            <artifactId>plugins-context-schema-avro</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
+            <artifactId>plugins-executor-javascript</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
+            <artifactId>plugins-event-carrier-restrequestor</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

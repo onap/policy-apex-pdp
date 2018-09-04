@@ -29,9 +29,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.handling.TestApexBasicModelCreator;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestModelService {
 
     @Test
@@ -42,13 +39,12 @@ public class TestModelService {
         try {
             ModelService.getModel(AxKeyInformation.class);
         } catch (final Exception e) {
-            assertEquals(
-                    "Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation not found in model service",
-                    e.getMessage());
+            assertEquals("Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation "
+                            + "not found in model service", e.getMessage());
         }
 
         ModelService.registerModel(AxKeyInformation.class,
-                new TestApexBasicModelCreator().getModel().getKeyInformation());
+                        new TestApexBasicModelCreator().getModel().getKeyInformation());
         assertTrue(ModelService.existsModel(AxKeyInformation.class));
         assertNotNull(ModelService.getModel(AxKeyInformation.class));
 
@@ -58,13 +54,12 @@ public class TestModelService {
         try {
             ModelService.getModel(AxKeyInformation.class);
         } catch (final Exception e) {
-            assertEquals(
-                    "Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation not found in model service",
-                    e.getMessage());
+            assertEquals("Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation "
+                            + "not found in model service", e.getMessage());
         }
 
         ModelService.registerModel(AxKeyInformation.class,
-                new TestApexBasicModelCreator().getModel().getKeyInformation());
+                        new TestApexBasicModelCreator().getModel().getKeyInformation());
         assertTrue(ModelService.existsModel(AxKeyInformation.class));
         assertNotNull(ModelService.getModel(AxKeyInformation.class));
 
@@ -73,9 +68,8 @@ public class TestModelService {
         try {
             ModelService.getModel(AxKeyInformation.class);
         } catch (final Exception e) {
-            assertEquals(
-                    "Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation not found in model service",
-                    e.getMessage());
+            assertEquals("Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation "
+                            + "not found in model service", e.getMessage());
         }
 
     }

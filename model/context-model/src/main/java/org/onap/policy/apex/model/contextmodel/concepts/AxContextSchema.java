@@ -40,7 +40,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDATAConditioner;
+import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
@@ -93,8 +93,8 @@ public class AxContextSchema extends AxConcept {
     private String schemaFlavour;
 
     @Column(name = "schemaDefinition", length = MAX_SCHEMA_SIZE)
-    @Convert(converter = CDATAConditioner.class)
-    @XmlJavaTypeAdapter(value = CDATAConditioner.class)
+    @Convert(converter = CDataConditioner.class)
+    @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(name = "schemaDefinition", required = true)
     private String schemaDefinition;
 
@@ -343,8 +343,8 @@ public class AxContextSchema extends AxConcept {
         if (!schemaFlavour.equals(other.schemaFlavour)) {
             return false;
         }
-        final String thisSchema = CDATAConditioner.clean(schemaDefinition).replaceAll("\n", "");
-        final String otherSchema = CDATAConditioner.clean(other.schemaDefinition).replaceAll("\n", "");
+        final String thisSchema = CDataConditioner.clean(schemaDefinition).replaceAll("\n", "");
+        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replaceAll("\n", "");
         return thisSchema.equals(otherSchema);
     }
 
@@ -372,8 +372,8 @@ public class AxContextSchema extends AxConcept {
         if (!schemaFlavour.equals(other.schemaFlavour)) {
             return schemaFlavour.compareTo(other.schemaFlavour);
         }
-        final String thisSchema = CDATAConditioner.clean(schemaDefinition).replaceAll("\n", "");
-        final String otherSchema = CDATAConditioner.clean(other.schemaDefinition).replaceAll("\n", "");
+        final String thisSchema = CDataConditioner.clean(schemaDefinition).replaceAll("\n", "");
+        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replaceAll("\n", "");
         return thisSchema.compareTo(otherSchema);
     }
 }

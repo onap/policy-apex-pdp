@@ -60,8 +60,8 @@ public class TestStateOutput {
         }
 
         so.setKey(soKey);
-        assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKey().getID());
-        assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKeys().get(0).getID());
+        assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKey().getId());
+        assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKeys().get(0).getId());
 
         try {
             so.setNextState(null);

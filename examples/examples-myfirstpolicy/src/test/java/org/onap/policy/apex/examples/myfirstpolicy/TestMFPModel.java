@@ -76,10 +76,10 @@ public class TestMFPModel {
     @Test
     public void testModelValid() throws Exception {
         AxValidationResult result = testApexModel1.testApexModelValid();
-        assertTrue("Model did not validate cleanly", result.isOK());
+        assertTrue("Model did not validate cleanly", result.isOk());
 
         result = testApexModel2.testApexModelValid();
-        assertTrue("Model did not validate cleanly", result.isOK());
+        assertTrue("Model did not validate cleanly", result.isOk());
     }
 
     /**
@@ -89,8 +89,8 @@ public class TestMFPModel {
      */
     @Test
     public void testModelWriteReadXML() throws Exception {
-        testApexModel1.testApexModelWriteReadXML();
-        testApexModel2.testApexModelWriteReadXML();
+        testApexModel1.testApexModelWriteReadXml();
+        testApexModel2.testApexModelWriteReadXml();
     }
 
     /**
@@ -100,7 +100,7 @@ public class TestMFPModel {
      */
     @Test
     public void testModelWriteReadJSON() throws Exception {
-        testApexModel1.testApexModelWriteReadJSON();
-        testApexModel2.testApexModelWriteReadJSON();
+        testApexModel1.testApexModelWriteReadJson();
+        testApexModel2.testApexModelWriteReadJson();
     }
 }

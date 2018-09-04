@@ -88,7 +88,7 @@ public class KeyInformationFacade {
             }
 
             if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getID() + ALREADY_EXISTS);
+                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
             }
 
             final AxKeyInfo keyInfo = new AxKeyInfo(key);
@@ -99,7 +99,7 @@ public class KeyInformationFacade {
                 keyInfo.setUuid(UUID.fromString(uuid));
             } else {
                 // generate a reproducible UUID
-                keyInfo.setUuid(AxKeyInfo.generateReproducibleUUID(keyInfo.getID() + keyInfo.getDescription()));
+                keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
             }
             apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().put(key, keyInfo);
             return new ApexAPIResult();
@@ -135,7 +135,7 @@ public class KeyInformationFacade {
                 keyInfo.setUuid(UUID.fromString(uuid));
             } else {
                 // generate a reproducible UUID
-                keyInfo.setUuid(AxKeyInfo.generateReproducibleUUID(keyInfo.getID() + keyInfo.getDescription()));
+                keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
             }
 
             return new ApexAPIResult();
@@ -190,7 +190,7 @@ public class KeyInformationFacade {
                             .writeString(removedKeyInfo, AxKeyInfo.class, jsonMode));
                 } else {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getID() + DOES_NOT_EXIST);
+                            CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 

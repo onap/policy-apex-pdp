@@ -101,7 +101,7 @@ public class AvroStringObjectMapper implements AvroObjectMapper {
         // The Avro object should be a Utf8 object
         if (!(avroObject instanceof Utf8)) {
             final String returnString =
-                    userKey.getID() + ": object \"" + avroObject + "\" of class \"" + avroObject.getClass()
+                    userKey.getId() + ": object \"" + avroObject + "\" of class \"" + avroObject.getClass()
                             + "\" cannot be decoded to an object of class \"" + schemaClass.getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -119,7 +119,7 @@ public class AvroStringObjectMapper implements AvroObjectMapper {
     @Override
     public Object mapToAvro(final Object object) {
         if (object == null) {
-            final String returnString = userKey.getID() + ": cannot encode a null object of class \""
+            final String returnString = userKey.getId() + ": cannot encode a null object of class \""
                     + schemaClass.getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);

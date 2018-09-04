@@ -148,10 +148,10 @@ public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> 
                 // The schema is different, throw an exception because the schema should not change if the key of the
                 // album has not changed
                 throw new ContextException("internal context update failed on context album \""
-                        + contextAlbumEntry.getKey().getID() + "\" in model \"" + key.getID() + "\", schema \""
-                        + currentContextAlbum.getItemSchema().getID()
+                        + contextAlbumEntry.getKey().getId() + "\" in model \"" + key.getId() + "\", schema \""
+                        + currentContextAlbum.getItemSchema().getId()
                         + "\" on existing context model does not equal schema \""
-                        + newContextAlbum.getItemSchema().getID() + "\" on incoming model");
+                        + newContextAlbum.getItemSchema().getId() + "\" on incoming model");
             }
         }
 

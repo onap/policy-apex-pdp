@@ -54,8 +54,8 @@ public class TestEngineStats {
         }
 
         stats.setKey(statsKey);
-        assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKey().getID());
-        assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKeys().get(0).getID());
+        assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKey().getId());
+        assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKeys().get(0).getId());
 
         stats.setAverageExecutionTime(123.45);
         assertEquals(new Double(123.45), new Double(stats.getAverageExecutionTime()));

@@ -38,15 +38,16 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * An artifact key uniquely identifies every first order entity in the system. Every first order concept in the system
  * must have an {@link AxArtifactKey} to identify it. Concepts that are wholly contained in another concept are
  * identified using a {@link AxReferenceKey} key.
- * <p>
- * Key validation checks that the name and version fields match the {@link NAME_REGEXP} and {@link VERSION_REGEXP}
+ * 
+ * <p>Key validation checks that the name and version fields match the {@link NAME_REGEXP} and {@link VERSION_REGEXP}
  * regular expressions respectively.
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp")
 
-@XmlType(name = "AxArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "name", "version" })
+@XmlType(name = "AxArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "name", "version" })
 
 public class AxArtifactKey extends AxKey {
     private static final long serialVersionUID = 8932717618579392561L;
@@ -70,10 +71,9 @@ public class AxArtifactKey extends AxKey {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
-     * @param copyConcept
-     *        the concept to copy from
+     * @param copyConcept the concept to copy from
      */
     public AxArtifactKey(final AxArtifactKey copyConcept) {
         super(copyConcept);
@@ -82,10 +82,8 @@ public class AxArtifactKey extends AxKey {
     /**
      * Constructor to create a key with the specified name and version.
      *
-     * @param name
-     *        the key name
-     * @param version
-     *        the key version
+     * @param name the key name
+     * @param version the key version
      */
     public AxArtifactKey(final String name, final String version) {
         super();
@@ -96,8 +94,7 @@ public class AxArtifactKey extends AxKey {
     /**
      * Constructor to create a key using the key and version from the specified key ID.
      *
-     * @param id
-     *        the key ID in a format that respects the {@link KEY_ID_REGEXP}
+     * @param id the key ID in a format that respects the {@link KEY_ID_REGEXP}
      */
     public AxArtifactKey(final String id) {
         Assertions.argumentNotNull(id, "id may not be null");
@@ -152,7 +149,7 @@ public class AxArtifactKey extends AxKey {
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getID()
      */
     @Override
-    public String getID() {
+    public String getId() {
         return name + ':' + version;
     }
 
@@ -168,8 +165,7 @@ public class AxArtifactKey extends AxKey {
     /**
      * Sets the key name.
      *
-     * @param name
-     *        the key name
+     * @param name the key name
      */
     public void setName(final String name) {
         this.name = Assertions.validateStringParameter(NAME_TOKEN, name, NAME_REGEXP);
@@ -187,8 +183,7 @@ public class AxArtifactKey extends AxKey {
     /**
      * Sets the key version.
      *
-     * @param version
-     *        the key version
+     * @param version the key version
      */
     public void setVersion(final String version) {
         this.version = Assertions.validateStringParameter(VERSION_TOKEN, version, VERSION_REGEXP);
@@ -265,8 +260,8 @@ public class AxArtifactKey extends AxKey {
                             "name invalid-" + nameValidationErrorMessage));
         }
 
-        final String versionValidationErrorMessage = Assertions.getStringParameterValidationMessage(VERSION_TOKEN, version,
-                        VERSION_REGEXP);
+        final String versionValidationErrorMessage = Assertions.getStringParameterValidationMessage(VERSION_TOKEN,
+                        version, VERSION_REGEXP);
         if (versionValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
                             "version invalid-" + versionValidationErrorMessage));

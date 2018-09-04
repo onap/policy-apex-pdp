@@ -91,11 +91,11 @@ public class InfinispanContextDistributor extends AbstractDistributor {
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextAlbumKey) {
-        LOGGER.info("InfinispanContextDistributor: create album: " + contextAlbumKey.getID());
+        LOGGER.info("InfinispanContextDistributor: create album: " + contextAlbumKey.getId());
 
         // Get the Cache from Infinispan
         final Cache<String, Object> infinispanCache =
-                infinispanManager.getCacheManager().getCache(contextAlbumKey.getID().replace(':', '_'));
+                infinispanManager.getCacheManager().getCache(contextAlbumKey.getId().replace(':', '_'));
 
         return infinispanCache;
     }

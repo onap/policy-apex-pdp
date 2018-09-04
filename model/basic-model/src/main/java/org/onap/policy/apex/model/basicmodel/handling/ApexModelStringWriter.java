@@ -58,13 +58,13 @@ public class ApexModelStringWriter<C extends AxConcept> {
      * @return The string with the concept
      * @throws ApexException thrown on errors
      */
-    public String writeString(final C concept, final Class<C> rootConceptClass, final boolean jsonFlag) throws ApexException {
+    public String writeString(final C concept, final Class<C> rootConceptClass, final boolean jsonFlag)
+                    throws ApexException {
         Assertions.argumentNotNull(concept, "concept may not be null");
-        
+
         if (jsonFlag) {
-            return writeJSONString(concept, rootConceptClass);
-        }
-        else {
+            return writeJsonString(concept, rootConceptClass);
+        } else {
             return concept.toString();
         }
     }
@@ -77,7 +77,7 @@ public class ApexModelStringWriter<C extends AxConcept> {
      * @return The string with the concept
      * @throws ApexException thrown on errors
      */
-    public String writeXMLString(final C concept, final Class<C> rootConceptClass) throws ApexException {
+    public String writeXmlString(final C concept, final Class<C> rootConceptClass) throws ApexException {
         LOGGER.debug("running writeXMLString . . .");
 
         final ApexModelWriter<C> conceptWriter = new ApexModelWriter<>(rootConceptClass);
@@ -90,8 +90,7 @@ public class ApexModelStringWriter<C extends AxConcept> {
         try {
             conceptWriter.write(concept, baOutputStream);
             baOutputStream.close();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn("error writing XML string", e);
             throw new ApexException("error writing XML string", e);
         }
@@ -108,7 +107,7 @@ public class ApexModelStringWriter<C extends AxConcept> {
      * @return The string with the concept
      * @throws ApexException thrown on errors
      */
-    public String writeJSONString(final C concept, final Class<C> rootConceptClass) throws ApexException {
+    public String writeJsonString(final C concept, final Class<C> rootConceptClass) throws ApexException {
         LOGGER.debug("running writeJSONString . . .");
 
         final ApexModelWriter<C> conceptWriter = new ApexModelWriter<>(rootConceptClass);
@@ -119,8 +118,7 @@ public class ApexModelStringWriter<C extends AxConcept> {
         try {
             conceptWriter.write(concept, baOutputStream);
             baOutputStream.close();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn("error writing JSON string", e);
             throw new ApexException("error writing JSON string", e);
         }
