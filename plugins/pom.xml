@@ -35,7 +35,7 @@
     <description>Plugins for Apex that can be implemented with various 3PPs are implemented here.</description>
 
     <properties>
-        <version.hazelcast>3.10.2</version.hazelcast>
+        <version.hazelcast>3.11-BETA-1</version.hazelcast>
     </properties>
 
     <modules>
