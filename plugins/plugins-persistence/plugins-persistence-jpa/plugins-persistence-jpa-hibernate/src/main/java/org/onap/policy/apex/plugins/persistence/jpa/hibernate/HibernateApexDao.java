@@ -239,7 +239,7 @@ public class HibernateApexDao extends DefaultApexDao {
         }
         if (ret.size() > 1) {
             throw new IllegalArgumentException("More than one result was returned for search for " + aClass
-                    + " with key " + key.getID() + ": " + ret);
+                    + " with key " + key.getId() + ": " + ret);
         }
         return ret.get(0);
     }
@@ -269,7 +269,7 @@ public class HibernateApexDao extends DefaultApexDao {
         }
         if (ret.size() > 1) {
             throw new IllegalArgumentException("More than one result was returned for search for " + aClass
-                    + " with key " + key.getID() + ": " + ret);
+                    + " with key " + key.getId() + ": " + ret);
         }
         return ret.get(0);
     }

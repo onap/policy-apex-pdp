@@ -39,9 +39,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestModelReader {
 
     @Test
@@ -87,12 +84,12 @@ public class TestModelReader {
         
         modelWriter.setJsonOutput(false);
         
-        ByteArrayOutputStream baosXML = new ByteArrayOutputStream();
-        modelWriter.write(model, baosXML);
+        ByteArrayOutputStream baosXml = new ByteArrayOutputStream();
+        modelWriter.write(model, baosXml);
         
-        ByteArrayInputStream baisXML = new ByteArrayInputStream(baosXML.toByteArray());
-        AxModel readModelXML = modelReader.read(baisXML);
-        assertEquals(model, readModelXML);
+        ByteArrayInputStream baisXml = new ByteArrayInputStream(baosXml.toByteArray());
+        AxModel readModelXml = modelReader.read(baisXml);
+        assertEquals(model, readModelXml);
         
         String dummyString = "SomeDummyText";
         ByteArrayInputStream baisDummy = new ByteArrayInputStream(dummyString.getBytes());

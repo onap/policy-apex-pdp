@@ -88,10 +88,10 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
                     new Class[] { StateFinalizerExecutionContext.class });
             returnValue = (boolean) method.invoke(stateFinalizerLogicObject, getExecutionContext());
         } catch (final Exception e) {
-            LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \"" + getSubject().getID()
+            LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \"" + getSubject().getId()
                     + "\"");
             throw new StateMachineException(
-                    "state finalizer logic failed to run for state finalizer  \"" + getSubject().getID() + "\"", e);
+                    "state finalizer logic failed to run for state finalizer  \"" + getSubject().getId() + "\"", e);
         }
 
         // Do the execution post work
@@ -112,7 +112,7 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getID() + "," + getSubject().getLogicFlavour() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
     }
 }

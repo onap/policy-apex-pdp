@@ -88,9 +88,9 @@ public class JavaTaskExecutor extends TaskExecutor {
                     new Class[] { TaskExecutionContext.class });
             returnValue = (boolean) method.invoke(taskLogicObject, getExecutionContext());
         } catch (final Exception e) {
-            LOGGER.error("execute: task logic failed to run for task  \"" + getSubject().getKey().getID() + "\"");
+            LOGGER.error("execute: task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"");
             throw new StateMachineException(
-                    "task logic failed to run for task  \"" + getSubject().getKey().getID() + "\"", e);
+                    "task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
         // Do the execution post work
@@ -111,7 +111,7 @@ public class JavaTaskExecutor extends TaskExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getTaskLogic().getLogicFlavour()
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogicFlavour()
                 + "," + getSubject().getTaskLogic().getLogic());
     }
 }

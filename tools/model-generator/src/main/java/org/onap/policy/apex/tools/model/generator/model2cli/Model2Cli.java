@@ -121,7 +121,7 @@ public class Model2Cli {
         if (validate) {
             final AxValidationResult val = new AxValidationResult();
             policyModel.validate(val);
-            if (!val.isOK()) {
+            if (!val.isOk()) {
                 System.err.println("Cannot translate the model. The model is not valid: \n" + val.toString());
                 return -1;
             }

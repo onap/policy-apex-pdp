@@ -89,10 +89,10 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             returnValue = (boolean) method.invoke(taskSelectionLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error(
-                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getID() + "\"",
+                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"",
                     e);
             throw new StateMachineException(
-                    "task selection logic failed to run for state  \"" + getSubject().getKey().getID() + "\"", e);
+                    "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
         // Do the execution post work
@@ -113,7 +113,7 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
                 + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
                 + getSubject().getTaskSelectionLogic().getLogic());
     }

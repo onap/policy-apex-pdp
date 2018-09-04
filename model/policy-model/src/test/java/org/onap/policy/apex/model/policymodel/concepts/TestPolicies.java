@@ -76,8 +76,8 @@ public class TestPolicies {
         }
 
         policy.setKey(policyKey);
-        assertEquals("PolicyName:0.0.1", policy.getKey().getID());
-        assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getID());
+        assertEquals("PolicyName:0.0.1", policy.getKey().getId());
+        assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getId());
 
         try {
             policy.setTemplate(null);
@@ -109,7 +109,7 @@ public class TestPolicies {
         policy.setFirstState("FirstState");
         assertEquals("FirstState", policy.getFirstState());
 
-        assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getID());
+        assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getId());
 
         policy = new TestApexPolicyModelCreator().getModel().getPolicies().get("policy");
 
@@ -269,7 +269,7 @@ public class TestPolicies {
 
         // Invalid, no events in event map
         policies.setKey(new AxArtifactKey("PoliciesKey", "0.0.1"));
-        assertEquals("PoliciesKey:0.0.1", policies.getKey().getID());
+        assertEquals("PoliciesKey:0.0.1", policies.getKey().getId());
 
         result = new AxValidationResult();
         result = policies.validate(result);

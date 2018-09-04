@@ -165,7 +165,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
 
             if (!apexEvent.containsKey(fieldName)) {
                 if (!eventField.getOptional()) {
-                    final String errorMessage = "error parsing " + eventDefinition.getID() + " event to Json. "
+                    final String errorMessage = "error parsing " + eventDefinition.getId() + " event to Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
                     LOGGER.debug(errorMessage);
                     throw new ApexEventRuntimeException(errorMessage);
@@ -204,7 +204,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
             final String fieldName = eventField.getKey().getLocalName();
             if (!yamlMap.containsKey(fieldName)) {
                 if (!eventField.getOptional()) {
-                    final String errorMessage = "error parsing " + eventDefinition.getID() + " event from Json. "
+                    final String errorMessage = "error parsing " + eventDefinition.getId() + " event from Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory.";
                     LOGGER.debug(errorMessage);
                     throw new ApexEventException(errorMessage);

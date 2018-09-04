@@ -29,11 +29,13 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 /**
  * The model service makes Apex models available to all classes in a JVM.
  *
- * The reason for having a model service is to avoid having to pass concept and model definitions down long call chains in modules such as the Apex engine and
- * editor. The model service makes the model and concept definitions available statically.
+ * <p>The reason for having a model service is to avoid having to pass concept and model definitions down long call
+ * chains in modules such as the Apex engine and editor. The model service makes the model and concept definitions
+ * available statically.
  *
- * Note that the use of the model service means that only a single Apex model of a particular type may exist in Apex (particularly the engine) at any time. Of
- * course the model in a JVM can be changed at any time provided all users of the model are stopped and restrted in an orderly manner.
+ * <p>Note that the use of the model service means that only a single Apex model of a particular type may exist in
+ * Apex (particularly the engine) at any time. Of course the model in a JVM can be changed at any time provided all
+ * users of the model are stopped and restarted in an orderly manner.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -80,7 +82,8 @@ public abstract class ModelService {
         final M model = (M) modelMap.get(modelClass);
 
         if (model == null) {
-            throw new ApexRuntimeException("Model for " + modelClass.getCanonicalName() + " not found in model service");
+            throw new ApexRuntimeException(
+                            "Model for " + modelClass.getCanonicalName() + " not found in model service");
         }
 
         return model;

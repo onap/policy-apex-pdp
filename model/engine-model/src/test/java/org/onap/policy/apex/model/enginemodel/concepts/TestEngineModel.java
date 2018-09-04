@@ -70,8 +70,8 @@ public class TestEngineModel {
         }
 
         model.setKey(modelKey);
-        assertEquals("ModelName:0.0.1", model.getKey().getID());
-        assertEquals("ModelName:0.0.1", model.getKeys().get(0).getID());
+        assertEquals("ModelName:0.0.1", model.getKey().getId());
+        assertEquals("ModelName:0.0.1", model.getKeys().get(0).getId());
 
         final long timestamp = System.currentTimeMillis();
         model.setTimestamp(timestamp);

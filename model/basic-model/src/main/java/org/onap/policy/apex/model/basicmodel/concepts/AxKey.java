@@ -65,14 +65,14 @@ public abstract class AxKey extends AxConcept {
     }
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public AxKey() {
         super();
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -86,7 +86,7 @@ public abstract class AxKey extends AxConcept {
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getID()
      */
     @Override
-    public abstract String getID();
+    public abstract String getId();
 
     /**
      * Return the result of a compatibility check of two keys.

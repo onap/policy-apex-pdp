@@ -112,7 +112,7 @@ public final class SchemaUtils {
             }
         } catch (final AvroRuntimeException e) {
             throw new ApexEventException("failed to decode a schema for parameter " + parameter.getKey().getLocalName()
-                    + " of type " + parameter.getSchema().getID() + " with Java type " + schemaHelper.getSchemaClass(),
+                    + " of type " + parameter.getSchema().getId() + " with Java type " + schemaHelper.getSchemaClass(),
                     e);
         }
         final String schemaname = parameterSchema.getFullName();
@@ -126,7 +126,7 @@ public final class SchemaUtils {
             processSubSchemas(parameterSchema, preexistingParamSchemas);
         } catch (AvroRuntimeException | ApexEventException e) {
             throw new ApexEventException("failed to decode a schema for parameter " + parameter.getKey().getLocalName()
-                    + " of type " + parameter.getSchema().getID() + " using Schema type " + schemaname, e);
+                    + " of type " + parameter.getSchema().getId() + " using Schema type " + schemaname, e);
         }
         if (alreadyseen != null) {
             // logger.warn("parameter "+ parameter.getKey().getLocalName() + " of type " + parameter.getSchema().getID()

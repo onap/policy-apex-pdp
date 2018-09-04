@@ -65,7 +65,7 @@ public class EnField implements Serializable {
         try {
             schemaHelper = new SchemaHelperFactory().createSchemaHelper(axField.getKey(), axField.getSchema());
         } catch (final ContextRuntimeException e) {
-            final String message = "schema helper cannot be created for parameter with key \"" + axField.getID()
+            final String message = "schema helper cannot be created for parameter with key \"" + axField.getId()
                     + "\" with schema \"" + axField.getSchema() + "\"";
             LOGGER.warn(message, e);
             throw new EnException(message, e);

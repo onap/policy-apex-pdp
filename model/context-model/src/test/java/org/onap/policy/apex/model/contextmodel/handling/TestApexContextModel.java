@@ -30,7 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 
@@ -84,21 +84,21 @@ public class TestApexContextModel {
 
     @Test
     public void testModelWriteReadXML() throws Exception {
-        testApexModel.testApexModelWriteReadXML();
+        testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
     public void testModelWriteReadJSON() throws Exception {
-        testApexModel.testApexModelWriteReadJSON();
+        testApexModel.testApexModelWriteReadJson();
     }
 
     @Test
     public void testModelWriteReadJPA() throws Exception {
-        final DAOParameters daoParameters = new DAOParameters();
-        daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("DAOTest");
+        final DaoParameters DaoParameters = new DaoParameters();
+        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
+        DaoParameters.setPersistenceUnit("DAOTest");
 
-        testApexModel.testApexModelWriteReadJPA(daoParameters);
+        testApexModel.testApexModelWriteReadJpa(DaoParameters);
     }
 
     private static final String VALID_MODEL_STRING = "***validation of model successful***";

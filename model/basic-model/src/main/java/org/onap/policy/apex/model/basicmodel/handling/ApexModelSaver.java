@@ -45,13 +45,13 @@ public class ApexModelSaver<M extends AxModel> {
     private final String writePath;
 
     /**
-     * Constructor, specifies the type of the Apex model (a sub class of {@link AxModel}), the model to write, and the path of a directory to which to write the
-     * model.
+     * Constructor, specifies the type of the Apex model (a sub class of {@link AxModel}), the model to write, and the
+     * path of a directory to which to write the model.
      *
      * @param rootModelClass the class of the model, a sub class of {@link AxModel}
      * @param model the model to write, an instance of a sub class of {@link AxModel}
-     * @param writePath the directory to which models will be written. The name of the written model will be the Model Name for its key with the suffix
-     *            {@code .xml} or {@code .json}.
+     * @param writePath the directory to which models will be written. The name of the written model will be the Model
+     *        Name for its key with the suffix {@code .xml} or {@code .json}.
      */
     public ApexModelSaver(final Class<M> rootModelClass, final M model, final String writePath) {
         Assertions.argumentNotNull(rootModelClass, "argument rootModelClass may not be null");
@@ -68,12 +68,12 @@ public class ApexModelSaver<M extends AxModel> {
      *
      * @throws ApexException on errors writing the Apex model
      */
-    public void apexModelWriteXML() throws ApexException {
+    public void apexModelWriteXml() throws ApexException {
         LOGGER.debug("running apexModelWriteXML . . .");
 
         // Write the file to disk
         final File xmlFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".xml");
-        new ApexModelFileWriter<M>(true).apexModelWriteXMLFile(model, rootModelClass, xmlFile.getPath());
+        new ApexModelFileWriter<M>(true).apexModelWriteXmlFile(model, rootModelClass, xmlFile.getPath());
 
         LOGGER.debug("ran apexModelWriteXML");
     }
@@ -83,12 +83,12 @@ public class ApexModelSaver<M extends AxModel> {
      *
      * @throws ApexException on errors writing the Apex model
      */
-    public void apexModelWriteJSON() throws ApexException {
+    public void apexModelWriteJson() throws ApexException {
         LOGGER.debug("running apexModelWriteJSON . . .");
 
         // Write the file to disk
         final File jsonFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".json");
-        new ApexModelFileWriter<M>(true).apexModelWriteJSONFile(model, rootModelClass, jsonFile.getPath());
+        new ApexModelFileWriter<M>(true).apexModelWriteJsonFile(model, rootModelClass, jsonFile.getPath());
 
         LOGGER.debug("ran apexModelWriteJSON");
     }

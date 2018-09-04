@@ -46,9 +46,9 @@ import org.onap.policy.apex.model.utilities.Assertions;
 /**
  * This class is the base class for all models in Apex. All model classes inherit from this model so all models must
  * have a key and have key information.
- * <p>
- * Validation checks that the model key is valid. It goes on to check for null keys and checks each key for uniqueness
- * in the model. A check is carried out to ensure that an {@link AxKeyInfo} instance exists for every
+ * 
+ * <p>Validation checks that the model key is valid. It goes on to check for null keys and checks each key for
+ * uniqueness in the model. A check is carried out to ensure that an {@link AxKeyInfo} instance exists for every
  * {@link AxArtifactKey} key. For each {@link AxReferenceKey} instance, a check is made that its parent and local name
  * are nut null and that a {@link AxKeyInfo} entry exists for its parent. Then a check is made that each used
  * {@link AxArtifactKey} and {@link AxReferenceKey} usage references a key that exists. Finally, a check is made to
@@ -61,7 +61,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 @XmlRootElement(name = "apexModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "key", "keyInformation" })
+@XmlType(name = "AxModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "keyInformation" })
 
 public class AxModel extends AxConcept {
     private static final String IS_A_NULL_KEY = " is a null key";
@@ -88,7 +89,7 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -197,8 +198,8 @@ public class AxModel extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
@@ -226,7 +227,7 @@ public class AxModel extends AxConcept {
         for (final AxReferenceKey referenceKey : referenceKeySet) {
             if (!artifactKeySet.contains(referenceKey.getParentArtifactKey())) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "parent artifact key not found for reference key " + referenceKey));
+                                "parent artifact key not found for reference key " + referenceKey));
             }
         }
 
@@ -236,7 +237,7 @@ public class AxModel extends AxConcept {
         for (final AxArtifactKey keyInfoKey : keyInformation.getKeyInfoMap().keySet()) {
             if (!artifactKeySet.contains(keyInfoKey)) {
                 result.addValidationMessage(new AxValidationMessage(keyInfoKey, this.getClass(),
-                        ValidationResult.WARNING, "key not found for key information entry"));
+                                ValidationResult.WARNING, "key not found for key information entry"));
             }
         }
 
@@ -244,7 +245,7 @@ public class AxModel extends AxConcept {
     }
 
     /**
-     * Check for consistent usage of an artifact key in the model
+     * Check for consistent usage of an artifact key in the model.
      *
      * @param artifactKey The artifact key to check
      * @param artifactKeySet The set of artifact keys encountered so far, this key is appended to the set
@@ -252,23 +253,23 @@ public class AxModel extends AxConcept {
      * @return the result of the validation
      */
     private AxValidationResult validateArtifactKeyInModel(final AxArtifactKey artifactKey,
-            final Set<AxArtifactKey> artifactKeySet, final AxValidationResult result) {
+                    final Set<AxArtifactKey> artifactKeySet, final AxValidationResult result) {
         // Null key check
         if (artifactKey.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key " + artifactKey + IS_A_NULL_KEY));
+                            "key " + artifactKey + IS_A_NULL_KEY));
         }
 
         // Null key name start check
         if (artifactKey.getName().toUpperCase().startsWith(AxKey.NULL_KEY_NAME)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key " + artifactKey + " name starts with keyword " + AxKey.NULL_KEY_NAME));
+                            "key " + artifactKey + " name starts with keyword " + AxKey.NULL_KEY_NAME));
         }
 
         // Unique key check
         if (artifactKeySet.contains(artifactKey)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "duplicate key " + artifactKey + " found"));
+                            "duplicate key " + artifactKey + " found"));
         } else {
             artifactKeySet.add(artifactKey);
         }
@@ -276,14 +277,14 @@ public class AxModel extends AxConcept {
         // Key information check
         if (!keyInformation.getKeyInfoMap().containsKey(artifactKey)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key information not found for key " + artifactKey));
+                            "key information not found for key " + artifactKey));
         }
 
         return result;
     }
 
     /**
-     * Check for consistent usage of a reference key in the model
+     * Check for consistent usage of a reference key in the model.
      *
      * @param artifactKey The reference key to check
      * @param referenceKeySet The set of reference keys encountered so far, this key is appended to the set
@@ -291,35 +292,35 @@ public class AxModel extends AxConcept {
      * @return the result of the validation
      */
     private AxValidationResult validateReferenceKeyInModel(final AxReferenceKey referenceKey,
-            final Set<AxReferenceKey> referenceKeySet, final AxValidationResult result) {
+                    final Set<AxReferenceKey> referenceKeySet, final AxValidationResult result) {
         // Null key check
         if (referenceKey.equals(AxReferenceKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key " + referenceKey + IS_A_NULL_KEY));
+                            "key " + referenceKey + IS_A_NULL_KEY));
         }
 
         // Null parent key check
         if (referenceKey.getParentArtifactKey().equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "parent artifact key of key " + referenceKey + IS_A_NULL_KEY));
+                            "parent artifact key of key " + referenceKey + IS_A_NULL_KEY));
         }
 
         // Null local name check
         if (referenceKey.getLocalName().equals(AxKey.NULL_KEY_NAME)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key " + referenceKey + " has a null local name"));
+                            "key " + referenceKey + " has a null local name"));
         }
 
         // Null key name start check
         if (referenceKey.getParentArtifactKey().getName().toUpperCase().startsWith(AxKey.NULL_KEY_NAME)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key " + referenceKey + " parent name starts with keyword " + AxKey.NULL_KEY_NAME));
+                            "key " + referenceKey + " parent name starts with keyword " + AxKey.NULL_KEY_NAME));
         }
 
         // Unique key check
         if (referenceKeySet.contains(referenceKey)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "duplicate key " + referenceKey + " found"));
+                            "duplicate key " + referenceKey + " found"));
         } else {
             referenceKeySet.add(referenceKey);
         }
@@ -327,14 +328,14 @@ public class AxModel extends AxConcept {
         // Key information check
         if (!keyInformation.getKeyInfoMap().containsKey(referenceKey.getParentArtifactKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key information not found for parent key of key " + referenceKey));
+                            "key information not found for parent key of key " + referenceKey));
         }
 
         return result;
     }
 
     /**
-     * Check for consistent usage of cross-key references in the model
+     * Check for consistent usage of cross-key references in the model.
      *
      * @param usedKeySet The set of all keys used in the model
      * @param artifactKeySet The set of artifact keys encountered so far, this key is appended to the set
@@ -343,27 +344,26 @@ public class AxModel extends AxConcept {
      * @return the result of the validation
      */
     private AxValidationResult validateKeyUses(final Set<AxKeyUse> usedKeySet, final Set<AxArtifactKey> artifactKeySet,
-            final Set<AxReferenceKey> referenceKeySet, final AxValidationResult result) {
+                    final Set<AxReferenceKey> referenceKeySet, final AxValidationResult result) {
         // Check all key uses
         for (final AxKeyUse usedKey : usedKeySet) {
             if (usedKey.getKey() instanceof AxArtifactKey) {
                 // AxArtifact key usage, check the key exists
                 if (!artifactKeySet.contains(usedKey.getKey())) {
                     result.addValidationMessage(new AxValidationMessage(usedKey.getKey(), this.getClass(),
-                            ValidationResult.INVALID, "an artifact key used in the model is not defined"));
+                                    ValidationResult.INVALID, "an artifact key used in the model is not defined"));
                 }
             } else {
                 // AxReference key usage, check the key exists
                 if (!referenceKeySet.contains(usedKey.getKey())) {
                     result.addValidationMessage(new AxValidationMessage(usedKey.getKey(), this.getClass(),
-                            ValidationResult.INVALID, "a reference key used in the model is not defined"));
+                                    ValidationResult.INVALID, "a reference key used in the model is not defined"));
                 }
             }
         }
 
         return result;
     }
-
 
     /*
      * (non-Javadoc)

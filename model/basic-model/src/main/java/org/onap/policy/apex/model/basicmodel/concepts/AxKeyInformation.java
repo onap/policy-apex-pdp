@@ -50,9 +50,9 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * {@link AxModel} must have an {@link AxKeyInformation} field. The {@link AxKeyInformation} class implements the helper
  * methods of the {@link AxConceptGetter} interface to allow {@link AxKeyInfo} instances to be retrieved by calling
  * methods directly on this class without referencing the contained map.
- * <p>
- * Validation checks that the key is not null, that the key information map is not empty, that each key and value in the
- * map is defined, that the key in each map entry matches the key if each entry value, and that no duplicate UUIDs
+ * 
+ * <p>Validation checks that the key is not null, that the key information map is not empty, that each key and value in
+ * the map is defined, that the key in each map entry matches the key if each entry value, and that no duplicate UUIDs
  * exist. Each key information entry is then validated individually.
  */
 @Entity
@@ -87,7 +87,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -125,10 +125,10 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * Map. This method is called by JAXB after unmarshaling and is used to convert the hash map to a
      * {@link NavigableMap} so that it will work with the {@link AxConceptGetter} interface.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         // The map must be navigable to allow name and version searching,
         // unmarshaling returns a hash map
         final NavigableMap<AxArtifactKey, AxKeyInfo> navigablekeyInfoMap = new TreeMap<>();
@@ -152,7 +152,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
             if (!keyInfoMap.containsKey(artifactKey)) {
                 final AxKeyInfo keyInfo = new AxKeyInfo(artifactKey);
                 // generate a reproducible UUID
-                keyInfo.setUuid(AxKeyInfo.generateReproducibleUUID(keyInfo.getID() + keyInfo.getDescription()));
+                keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
                 keyInfoMap.put(artifactKey, keyInfo);
             }
         }
@@ -244,7 +244,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * Validate an key information entry
+     * Validate an key information entry.
      *
      * @param keyInfoEntry the key information entry
      * @param uuidSet the set of UUIDs encountered in validation so far, the UUID of this entry is added to the set
@@ -268,12 +268,12 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
 
             result = keyInfoEntry.getValue().validate(result);
 
-            if (uuidSet.contains(keyInfoEntry.getValue().getUUID())) {
+            if (uuidSet.contains(keyInfoEntry.getValue().getUuid())) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
                         "duplicate UUID found on keyInfoMap entry " + keyInfoEntry.getKey() + ":"
-                                + keyInfoEntry.getValue().getUUID()));
+                                + keyInfoEntry.getValue().getUuid()));
             } else {
-                uuidSet.add(keyInfoEntry.getValue().getUUID());
+                uuidSet.add(keyInfoEntry.getValue().getUuid());
             }
         }
 

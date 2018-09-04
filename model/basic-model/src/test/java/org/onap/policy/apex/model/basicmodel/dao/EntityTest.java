@@ -45,7 +45,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.TestEntity;
 
 /**
- * JUnit test class
+ * JUnit test class.
  */
 public class EntityTest {
     private Connection connection;
@@ -65,7 +65,7 @@ public class EntityTest {
 
     @Test
     public void testEntityTestSanity() throws ApexException {
-        final DAOParameters daoParameters = new DAOParameters();
+        final DaoParameters daoParameters = new DaoParameters();
 
         apexDao = new ApexDaoFactory().createApexDao(daoParameters);
 
@@ -101,10 +101,10 @@ public class EntityTest {
     }
 
     @Test
-    public void testEntityTestAllOpsJPA() throws ApexException {
-        final DAOParameters daoParameters = new DAOParameters();
+    public void testEntityTestAllOpsJpa() throws ApexException {
+        final DaoParameters daoParameters = new DaoParameters();
         daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("DAOTest");
+        daoParameters.setPersistenceUnit("DaoTest");
 
         apexDao = new ApexDaoFactory().createApexDao(daoParameters);
         apexDao.init(daoParameters);
@@ -115,9 +115,9 @@ public class EntityTest {
 
     @Test
     public void testEntityTestBadVals() throws ApexException {
-        final DAOParameters daoParameters = new DAOParameters();
+        final DaoParameters daoParameters = new DaoParameters();
         daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("DAOTest");
+        daoParameters.setPersistenceUnit("DaoTest");
 
         apexDao = new ApexDaoFactory().createApexDao(daoParameters);
         apexDao.init(daoParameters);
@@ -130,12 +130,12 @@ public class EntityTest {
         final List<AxReferenceKey> emptyRKeyList = new ArrayList<>();
 
         apexDao.create(nullKey);
-        apexDao.create(nullKeyList);
-        apexDao.create(emptyKeyList);
+        apexDao.createCollection(nullKeyList);
+        apexDao.createCollection(emptyKeyList);
 
         apexDao.delete(nullKey);
-        apexDao.delete(nullKeyList);
-        apexDao.delete(emptyKeyList);
+        apexDao.deleteCollection(nullKeyList);
+        apexDao.deleteCollection(emptyKeyList);
         apexDao.delete(AxArtifactKey.class, nullKey);
         apexDao.delete(AxReferenceKey.class, nullRefKey);
         apexDao.deleteByArtifactKey(AxArtifactKey.class, nullKeyList);
@@ -160,12 +160,12 @@ public class EntityTest {
         final AxArtifactKey aKey0 = new AxArtifactKey("A-KEY0", "0.0.1");
         final AxArtifactKey aKey1 = new AxArtifactKey("A-KEY1", "0.0.1");
         final AxArtifactKey aKey2 = new AxArtifactKey("A-KEY2", "0.0.1");
-        final AxKeyInfo keyInfo0 =
-                new AxKeyInfo(aKey0, UUID.fromString("00000000-0000-0000-0000-000000000000"), "key description 0");
-        final AxKeyInfo keyInfo1 =
-                new AxKeyInfo(aKey1, UUID.fromString("00000000-0000-0000-0000-000000000001"), "key description 1");
-        final AxKeyInfo keyInfo2 =
-                new AxKeyInfo(aKey2, UUID.fromString("00000000-0000-0000-0000-000000000002"), "key description 2");
+        final AxKeyInfo keyInfo0 = new AxKeyInfo(aKey0, UUID.fromString("00000000-0000-0000-0000-000000000000"),
+                        "key description 0");
+        final AxKeyInfo keyInfo1 = new AxKeyInfo(aKey1, UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                        "key description 1");
+        final AxKeyInfo keyInfo2 = new AxKeyInfo(aKey2, UUID.fromString("00000000-0000-0000-0000-000000000002"),
+                        "key description 2");
 
         apexDao.create(keyInfo0);
 
@@ -185,7 +185,7 @@ public class EntityTest {
         keyInfoSetIn.add(keyInfo1);
         keyInfoSetIn.add(keyInfo2);
 
-        apexDao.create(keyInfoSetIn);
+        apexDao.createCollection(keyInfoSetIn);
 
         Set<AxKeyInfo> keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
 
@@ -197,14 +197,14 @@ public class EntityTest {
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
         assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
 
-        apexDao.delete(keyInfoSetIn);
+        apexDao.deleteCollection(keyInfoSetIn);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
         assertEquals(0, keyInfoSetOut.size());
 
         keyInfoSetIn.add(keyInfo0);
         keyInfoSetIn.add(keyInfo1);
         keyInfoSetIn.add(keyInfo0);
-        apexDao.create(keyInfoSetIn);
+        apexDao.createCollection(keyInfoSetIn);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
         assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
 
@@ -226,7 +226,7 @@ public class EntityTest {
         keyInfoSetIn.add(keyInfo0);
         keyInfoSetIn.add(keyInfo1);
         keyInfoSetIn.add(keyInfo0);
-        apexDao.create(keyInfoSetIn);
+        apexDao.createCollection(keyInfoSetIn);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
         assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
 

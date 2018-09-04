@@ -31,9 +31,6 @@ import java.io.PrintStream;
 
 import org.junit.Test;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestSchemaGenerator {
 
     @Test
@@ -83,7 +80,7 @@ public class TestSchemaGenerator {
 
         final File tempFile = File.createTempFile("ApexSchemaGeneratorTest", "xsd");
         final String[] args5 =
-                { "org.onap.policy.apex.model.basicmodel.concepts.AxModel", tempFile.getCanonicalPath() };
+            { "org.onap.policy.apex.model.basicmodel.concepts.AxModel", tempFile.getCanonicalPath() };
 
         ApexSchemaGenerator.main(args5);
         assertTrue(tempFile.length() > 100);

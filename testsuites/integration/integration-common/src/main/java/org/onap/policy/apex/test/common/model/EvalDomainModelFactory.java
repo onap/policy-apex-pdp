@@ -263,8 +263,8 @@ public class EvalDomainModelFactory {
         policyModel.getKeyInformation().generateKeyInfo(policyModel);
 
         final AxValidationResult result = policyModel.validate(new AxValidationResult());
-        if (!result.isOK()) {
-            throw new ApexRuntimeException("model " + policyModel.getID() + " is not valid" + result);
+        if (!result.isOk()) {
+            throw new ApexRuntimeException("model " + policyModel.getId() + " is not valid" + result);
         }
         return policyModel;
     }
@@ -434,8 +434,8 @@ public class EvalDomainModelFactory {
         policyModel.getKeyInformation().generateKeyInfo(policyModel);
 
         final AxValidationResult result = policyModel.validate(new AxValidationResult());
-        if (!result.isOK()) {
-            throw new ApexRuntimeException("model " + policyModel.getID() + " is not valid" + result);
+        if (!result.isOk()) {
+            throw new ApexRuntimeException("model " + policyModel.getId() + " is not valid" + result);
         }
         return policyModel;
     }

@@ -51,7 +51,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDao;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDaoFactory;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
@@ -123,11 +123,11 @@ public class TestPersistentContextInstantiation {
         final AxArtifactKey[] usedArtifactStackArray = {new AxArtifactKey("testC-top", "0.0.1"),
             new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
 
-        final DAOParameters daoParameters = new DAOParameters();
-        daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("DAOTest");
-        final ApexDao apexDao = new ApexDaoFactory().createApexDao(daoParameters);
-        apexDao.init(daoParameters);
+        final DaoParameters DaoParameters = new DaoParameters();
+        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
+        DaoParameters.setPersistenceUnit("DAOTest");
+        final ApexDao apexDao = new ApexDaoFactory().createApexDao(DaoParameters);
+        apexDao.init(DaoParameters);
 
         final AxContextModel someContextModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
 

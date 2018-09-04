@@ -73,7 +73,7 @@ public class AxStateTree implements Comparable<AxStateTree> {
 
             // Check for state tree loops
             if (referencedStateNameSet.contains(nextState.getKey())) {
-                throw new PolicyRuntimeException("loop detected in state tree for policy " + policy.getID() + " state "
+                throw new PolicyRuntimeException("loop detected in state tree for policy " + policy.getId() + " state "
                         + thisState.getKey().getLocalName() + ", next state " + nextState.getKey().getLocalName()
                         + " referenced more than once");
             }

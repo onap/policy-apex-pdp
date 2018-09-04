@@ -71,7 +71,7 @@ public class StateMachineHandler {
      * @throws StateMachineException On state machine initiation errors
      */
     protected StateMachineHandler(final ApexInternalContext internalContext) throws StateMachineException {
-        LOGGER.entry("StateMachineHandler()->" + internalContext.getKey().getID());
+        LOGGER.entry("StateMachineHandler()->" + internalContext.getKey().getId());
 
         key = internalContext.getKey();
 
@@ -97,17 +97,17 @@ public class StateMachineHandler {
             if (lastStateMachineExecutor != null
                     && lastStateMachineExecutor.getSubject() != thisStateMachineExecutor.getSubject()) {
                 LOGGER.error("No more than one policy in a model can have the same trigger event. In model "
-                        + internalContext.getKey().getID() + " Policy ("
-                        + lastStateMachineExecutor.getSubject().getKey().getID() + ") and Policy ("
-                        + thisStateMachineExecutor.getSubject().getKey().getID() + ") have the same Trigger event ("
-                        + triggerEvent.getKey().getID() + ") ");
+                        + internalContext.getKey().getId() + " Policy ("
+                        + lastStateMachineExecutor.getSubject().getKey().getId() + ") and Policy ("
+                        + thisStateMachineExecutor.getSubject().getKey().getId() + ") have the same Trigger event ("
+                        + triggerEvent.getKey().getId() + ") ");
                 LOGGER.error(" Policy (" + lastStateMachineExecutor.getSubject().getKey() + ") has overwritten Policy ("
-                        + thisStateMachineExecutor.getSubject().getKey().getID()
+                        + thisStateMachineExecutor.getSubject().getKey().getId()
                         + " so this overwritten policy will never be triggered in this engine.");
             }
         }
 
-        LOGGER.exit("StateMachineHandler()<-" + internalContext.getKey().getID());
+        LOGGER.exit("StateMachineHandler()<-" + internalContext.getKey().getId());
     }
 
     /**
@@ -117,21 +117,21 @@ public class StateMachineHandler {
      * @throws StateMachineException On state machine initiation errors
      */
     protected void start() throws StateMachineException {
-        LOGGER.entry("start()->" + key.getID());
+        LOGGER.entry("start()->" + key.getId());
 
         // Iterate over the state machines
         for (final StateMachineExecutor smExecutor : stateMachineExecutorMap.values()) {
             try {
                 smExecutor.prepare();
             } catch (final StateMachineException e) {
-                final String stateMachineID = smExecutor.getContext().getKey().getID();
-                LOGGER.warn("start()<-" + key.getID() + ", start failed, state machine \"" + stateMachineID + "\"", e);
+                final String stateMachineID = smExecutor.getContext().getKey().getId();
+                LOGGER.warn("start()<-" + key.getId() + ", start failed, state machine \"" + stateMachineID + "\"", e);
                 throw new StateMachineException(
-                        "start()<-" + key.getID() + ", start failed, state machine \"" + stateMachineID + "\"", e);
+                        "start()<-" + key.getId() + ", start failed, state machine \"" + stateMachineID + "\"", e);
             }
         }
 
-        LOGGER.exit("start()<-" + key.getID());
+        LOGGER.exit("start()<-" + key.getId());
     }
 
     /**
@@ -180,7 +180,7 @@ public class StateMachineHandler {
             try {
                 smExecutor.cleanUp();
             } catch (final StateMachineException e) {
-                final String smID = smExecutor.getContext().getKey().getID();
+                final String smID = smExecutor.getContext().getKey().getId();
                 LOGGER.warn("stop()<-clean up failed, state machine \"" + smID + "\" cleanup failed", e);
             }
         }

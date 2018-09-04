@@ -22,7 +22,7 @@ package org.onap.policy.apex.model.modelapi.impl;
 
 import java.util.Properties;
 
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.ApexAPIResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -1054,23 +1054,23 @@ public final class ApexModelImpl implements ApexModel {
      * (non-Javadoc)
      *
      * @see org.onap.policy.apex.model.modelapi.ApexModel#loadFromDatabase(java.lang.String,
-     * java.lang.String, org.onap.policy.apex.model.basicmodel.dao.DAOParameters)
+     * java.lang.String, org.onap.policy.apex.model.basicmodel.dao.DaoParameters)
      */
     @Override
     public ApexAPIResult loadFromDatabase(final String modelName, final String modelVersion,
-            final DAOParameters daoParameters) {
-        return modelHandlerFacade.loadFromDatabase(modelName, modelVersion, daoParameters);
+            final DaoParameters DaoParameters) {
+        return modelHandlerFacade.loadFromDatabase(modelName, modelVersion, DaoParameters);
     }
 
     /*
      * (non-Javadoc)
      *
      * @see org.onap.policy.apex.model.modelapi.ApexModel#saveToDatabase(org.onap.policy.apex.model.
-     * basicmodel. dao.DAOParameters)
+     * basicmodel. dao.DaoParameters)
      */
     @Override
-    public ApexAPIResult saveToDatabase(final DAOParameters daoParameters) {
-        return modelHandlerFacade.saveToDatabase(daoParameters);
+    public ApexAPIResult saveToDatabase(final DaoParameters DaoParameters) {
+        return modelHandlerFacade.saveToDatabase(DaoParameters);
     }
 
     /*

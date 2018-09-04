@@ -24,8 +24,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelCreator;
 
 /**
- * The Interface TestApexModelCreator is used to create models for Apex model tests. It is mainly used by unit tests for Apex domain models so that
- * developers can write test Java programs to create models.
+ * The Interface TestApexModelCreator is used to create models for Apex model tests. It is mainly used by unit tests for
+ * Apex domain models so that developers can write test Java programs to create models.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the generic type

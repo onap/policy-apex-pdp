@@ -98,7 +98,7 @@ public class ModelFacade {
 
             if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + apexModel.getPolicyModel().getKey().getID() + ALREADY_CREATED);
+                        CONCEPT + apexModel.getPolicyModel().getKey().getId() + ALREADY_CREATED);
             }
 
             apexModel.setPolicyModel(new AxPolicyModel(key));
@@ -137,13 +137,13 @@ public class ModelFacade {
                     key.setVersion(defaultVersion);
                 } else {
                     return new ApexAPIResult(ApexAPIResult.RESULT.FAILED,
-                            CONCEPT + apexModel.getPolicyModel().getKey().getID() + NO_VERSION_SPECIFIED);
+                            CONCEPT + apexModel.getPolicyModel().getKey().getId() + NO_VERSION_SPECIFIED);
                 }
             }
 
             if (apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + apexModel.getPolicyModel().getKey().getID() + DOES_NOT_EXIST);
+                        CONCEPT + apexModel.getPolicyModel().getKey().getId() + DOES_NOT_EXIST);
             }
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);

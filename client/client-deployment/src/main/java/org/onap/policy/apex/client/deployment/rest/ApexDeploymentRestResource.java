@@ -88,9 +88,9 @@ public class ApexDeploymentRestResource {
         final JsonObject responseObject = new JsonObject();
 
         // Engine Service data
-        responseObject.addProperty("engine_id", engineServiceFacade.getKey().getID());
+        responseObject.addProperty("engine_id", engineServiceFacade.getKey().getId());
         responseObject.addProperty("model_id",
-                engineServiceFacade.getApexModelKey() != null ? engineServiceFacade.getApexModelKey().getID()
+                engineServiceFacade.getApexModelKey() != null ? engineServiceFacade.getApexModelKey().getId()
                         : "Not Set");
         responseObject.addProperty("server", hostName);
         responseObject.addProperty("port", Integer.toString(port));
@@ -132,16 +132,16 @@ public class ApexDeploymentRestResource {
             engineServiceFacade.deployModel(fileDetail.getFileName(), uploadedInputStream, ignoreConflicts,
                     forceUpdate);
         } catch (final Exception e) {
-            LOGGER.warn("Error updating model on engine service " + engineServiceFacade.getKey().getID(), e);
+            LOGGER.warn("Error updating model on engine service " + engineServiceFacade.getKey().getId(), e);
             final String errorMessage =
-                    "Error updating model on engine service " + engineServiceFacade.getKey().getID();
+                    "Error updating model on engine service " + engineServiceFacade.getKey().getId();
             LOGGER.warn(errorMessage + "<br>", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage + "\n" + e.getMessage())
                     .build();
         }
 
         return Response.ok("Model " + fileDetail.getFileName() + " deployed on engine service "
-                + engineServiceFacade.getKey().getID()).build();
+                + engineServiceFacade.getKey().getId()).build();
     }
 
 }

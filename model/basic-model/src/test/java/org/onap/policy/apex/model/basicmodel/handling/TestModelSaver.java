@@ -30,22 +30,20 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestModelSaver {
 
     @Test
     public void testModelSaver() throws IOException, ApexException {
         AxModel model = new TestApexBasicModelCreator().getModel();
-        
+
         Path tempPath = Files.createTempDirectory("ApexTest");
-        
-        ApexModelSaver<AxModel> modelSaver = new ApexModelSaver<AxModel>(AxModel.class, model, tempPath.toAbsolutePath().toString());
-        
-        modelSaver.apexModelWriteXML();
-        modelSaver.apexModelWriteJSON();
-        
+
+        ApexModelSaver<AxModel> modelSaver = new ApexModelSaver<AxModel>(AxModel.class, model,
+                        tempPath.toAbsolutePath().toString());
+
+        modelSaver.apexModelWriteXml();
+        modelSaver.apexModelWriteJson();
+
         Files.deleteIfExists(new File(tempPath.toAbsolutePath() + "/BasicModel.json").toPath());
         Files.deleteIfExists(new File(tempPath.toAbsolutePath() + "/BasicModel.xml").toPath());
         Files.deleteIfExists(tempPath);

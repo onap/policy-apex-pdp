@@ -113,7 +113,7 @@ public class JrubyTaskExecutor extends TaskExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getTaskLogic().getLogicFlavour()
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogicFlavour()
                 + "," + getSubject().getTaskLogic().getLogic());
         container.terminate();
         container = null;

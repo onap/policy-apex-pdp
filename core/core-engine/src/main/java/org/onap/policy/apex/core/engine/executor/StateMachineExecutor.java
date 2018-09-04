@@ -161,7 +161,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
             stateExecutor = stateExecutorMap.get(stateOutput.getNextState());
             if (stateExecutor == null) {
                 throw new StateMachineException(
-                        "state execution failed, next state \"" + stateOutput.getNextState().getID() + "\" not found");
+                        "state execution failed, next state \"" + stateOutput.getNextState().getId() + "\" not found");
             }
         }
 

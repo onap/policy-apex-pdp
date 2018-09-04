@@ -68,7 +68,7 @@ public class AxStateFacade {
      * @return the ID
      */
     public String getId() {
-        return state.getKey().getID();
+        return state.getKey().getId();
     }
 
     /**

@@ -66,7 +66,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         try {
             avroSchema = new Schema.Parser().parse(schema.getSchema());
         } catch (final Exception e) {
-            final String resultSting = userKey.getID() + ": avro context schema \"" + schema.getID()
+            final String resultSting = userKey.getId() + ": avro context schema \"" + schema.getId()
                     + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
             LOGGER.warn(resultSting);
             throw new ContextRuntimeException(resultSting);
@@ -121,7 +121,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             return createNewInstance(elementJsonString);
         }
         else {
-            final String returnString = getUserKey().getID() + ": the object \"" + incomingObject
+            final String returnString = getUserKey().getId() + ": the object \"" + incomingObject
             + "\" is not an instance of JsonObject";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -146,7 +146,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             final JsonDecoder jsonDecoder = DecoderFactory.get().jsonDecoder(avroSchema, objectString);
             decodedObject = new GenericDatumReader<GenericRecord>(avroSchema).read(null, jsonDecoder);
         } catch (final Exception e) {
-            final String returnString = getUserKey().getID() + ": object \"" + objectString
+            final String returnString = getUserKey().getId() + ": object \"" + objectString
                     + "\" Avro unmarshalling failed: " + e.getMessage();
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString, e);
@@ -185,7 +185,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
                 return (String) object;
             }
         } catch (final ClassCastException e) {
-            final String returnString = getUserKey().getID() + ": object \"" + object + "\" of type \""
+            final String returnString = getUserKey().getId() + ": object \"" + object + "\" of type \""
                     + (object != null ? object.getClass().getCanonicalName() : "null") + "\" must be assignable to \""
                     + getSchemaClass().getCanonicalName()
                     + "\" or be a Json string representation of it for Avro unmarshalling";
@@ -218,7 +218,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             return new String(output.toByteArray());
         } catch (final Exception e) {
             final String returnString =
-                    getUserKey().getID() + ": object \"" + object + "\" Avro marshalling failed: " + e.getMessage();
+                    getUserKey().getId() + ": object \"" + object + "\" Avro marshalling failed: " + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
         }

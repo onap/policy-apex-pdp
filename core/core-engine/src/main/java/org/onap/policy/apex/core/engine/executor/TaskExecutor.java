@@ -99,7 +99,7 @@ public abstract class TaskExecutor
      */
     @Override
     public void prepare() throws StateMachineException {
-        LOGGER.debug("prepare:" + axTask.getKey().getID() + "," + axTask.getTaskLogic().getLogicFlavour() + ","
+        LOGGER.debug("prepare:" + axTask.getKey().getId() + "," + axTask.getTaskLogic().getLogicFlavour() + ","
                 + axTask.getTaskLogic().getLogic());
         argumentNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class, "task logic cannot be null.");
     }
@@ -127,7 +127,7 @@ public abstract class TaskExecutor
     public final void executePre(final long executionID, final Map<String, Object> newIncomingFields)
             throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + getSubject().getTaskLogic().getLogicFlavour() + ","
-                + getSubject().getKey().getID() + "," + getSubject().getTaskLogic().getLogic());
+                + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
 
         // Check that the incoming event has all the input fields for this state
         final Set<String> missingTaskInputFields = new TreeSet<>(axTask.getInputFields().keySet());
@@ -143,7 +143,7 @@ public abstract class TaskExecutor
         }
         if (!missingTaskInputFields.isEmpty()) {
             throw new StateMachineException("task input fields \"" + missingTaskInputFields
-                    + "\" are missing for task \"" + axTask.getKey().getID() + "\"");
+                    + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
         }
 
         // Record the incoming fields
@@ -169,7 +169,7 @@ public abstract class TaskExecutor
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
             String errorMessage = "execute-post: task logic execution failure on task \"" + axTask.getKey().getName()
-                    + "\" in model " + internalContext.getKey().getID();
+                    + "\" in model " + internalContext.getKey().getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -215,7 +215,7 @@ public abstract class TaskExecutor
         }
         if (!missingTaskOutputFields.isEmpty()) {
             throw new StateMachineException("task output fields \"" + missingTaskOutputFields
-                    + "\" are missing for task \"" + axTask.getKey().getID() + "\"");
+                    + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
         }
 
         // Finally, check that the outgoing field map don't have any extra fields, if present, raise
@@ -225,10 +225,10 @@ public abstract class TaskExecutor
         extraTaskOutputFields.removeAll(axTask.getOutputFields().keySet());
         if (!extraTaskOutputFields.isEmpty()) {
             throw new StateMachineException("task output fields \"" + extraTaskOutputFields
-                    + "\" are unwanted for task \"" + axTask.getKey().getID() + "\"");
+                    + "\" are unwanted for task \"" + axTask.getKey().getId() + "\"");
         }
 
-        LOGGER.debug("execute-post:" + axTask.getKey().getID() + ", returning fields " + outgoingFields.toString());
+        LOGGER.debug("execute-post:" + axTask.getKey().getId() + ", returning fields " + outgoingFields.toString());
     }
 
     /*

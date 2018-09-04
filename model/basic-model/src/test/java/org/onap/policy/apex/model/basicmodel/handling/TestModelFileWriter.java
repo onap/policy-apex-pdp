@@ -31,15 +31,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestModelFileWriter {
 
     @Test
     public void testModelFileWriter() throws IOException, ApexException {
-        AxModel model = new TestApexBasicModelCreator().getModel();
-
         ApexModelFileWriter<AxModel> modelFileWriter = new ApexModelFileWriter<>(true);
 
         modelFileWriter.setValidateFlag(true);
@@ -52,9 +47,10 @@ public class TestModelFileWriter {
         File jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/ApexFileWriterTest.json");
         File xmlTempFile = new File(tempDir.getAbsolutePath() + "/ccc/ApexFileWriterTest.xml");
         
-        modelFileWriter.apexModelWriteJSONFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+        AxModel model = new TestApexBasicModelCreator().getModel();
 
-        modelFileWriter.apexModelWriteXMLFile(model, AxModel.class, xmlTempFile.getAbsolutePath());
+        modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+        modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, xmlTempFile.getAbsolutePath());
         
         jsonTempFile.delete();
         xmlTempFile.delete();
@@ -64,8 +60,8 @@ public class TestModelFileWriter {
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.json");
         xmlTempFile = new File(tempDir.getAbsolutePath() + "/ccc/ddd/ApexFileWriterTest.xml");
         
-        modelFileWriter.apexModelWriteJSONFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
-        modelFileWriter.apexModelWriteXMLFile(model, AxModel.class, xmlTempFile.getAbsolutePath());
+        modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+        modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, xmlTempFile.getAbsolutePath());
                 
         jsonTempFile.delete();
         xmlTempFile.delete();
@@ -84,7 +80,7 @@ public class TestModelFileWriter {
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.xml");
 
         try {
-            modelFileWriter.apexModelWriteJSONFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+            modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
         }
         catch (Exception e) {
@@ -92,7 +88,7 @@ public class TestModelFileWriter {
         }
 
         try {
-            modelFileWriter.apexModelWriteXMLFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+            modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
         }
         catch (Exception e) {
@@ -110,7 +106,7 @@ public class TestModelFileWriter {
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.xml");
 
         try {
-            modelFileWriter.apexModelWriteJSONFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+            modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
         }
         catch (Exception e) {
@@ -118,7 +114,7 @@ public class TestModelFileWriter {
         }
 
         try {
-            modelFileWriter.apexModelWriteXMLFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+            modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
         }
         catch (Exception e) {

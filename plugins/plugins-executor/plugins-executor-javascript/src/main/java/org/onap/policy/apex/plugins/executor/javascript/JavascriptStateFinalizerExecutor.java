@@ -61,9 +61,9 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
             compiled = ((Compilable) engine).compile(getSubject().getLogic());
         } catch (final ScriptException e) {
             LOGGER.error("execute: state finalizer logic failed to compile for state finalizer  \""
-                    + getSubject().getKey().getID() + "\"");
+                    + getSubject().getKey().getId() + "\"");
             throw new StateMachineException("state finalizer logic failed to compile for state finalizer  \""
-                    + getSubject().getKey().getID() + "\"", e);
+                    + getSubject().getKey().getId() + "\"", e);
         }
     }
 
@@ -95,9 +95,9 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
             }
         } catch (final ScriptException e) {
             LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \""
-                    + getSubject().getKey().getID() + "\"");
+                    + getSubject().getKey().getId() + "\"");
             throw new StateMachineException("state finalizer logic failed to run for state finalizer  \""
-                    + getSubject().getKey().getID() + "\"", e);
+                    + getSubject().getKey().getId() + "\"", e);
         }
 
         returnValue = (boolean) engine.get("returnValue");
@@ -120,7 +120,7 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getLogicFlavour() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
         engine = null;
     }

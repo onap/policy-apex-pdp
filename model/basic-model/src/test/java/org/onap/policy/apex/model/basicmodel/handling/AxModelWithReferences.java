@@ -31,7 +31,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 public class AxModelWithReferences extends AxModel {
     private static final long serialVersionUID = -8194956638511120008L;
 
-    private List<AxKey> extraKeyList = new ArrayList<>();
+    private List<AxKey> extrakeyList = new ArrayList<>();
     
     public AxModelWithReferences(final AxArtifactKey key) {
         super(key);
@@ -40,30 +40,33 @@ public class AxModelWithReferences extends AxModel {
     @Override
     public List<AxKey> getKeys() {
         List<AxKey> keys = super.getKeys();
-        keys.addAll(extraKeyList);
+        keys.addAll(extrakeyList);
 
         return keys;
     }
 
-    public List<AxKey> getExtraKeyList() {
-        return extraKeyList;
+    public List<AxKey> getExtrakeyList() {
+        return extrakeyList;
     }
 
+    /**
+     * Set the reference key list.
+     */
     public void setReferenceKeyList() {
         List<AxKey> keys = super.getKeys();
         
         for (AxKey key: keys) {
-            AxArtifactKey aKey = (AxArtifactKey)key;
-            AxReferenceKey keyRef = new AxReferenceKey(aKey, aKey.getName());
-            extraKeyList.add(keyRef);
+            AxArtifactKey akey = (AxArtifactKey)key;
+            AxReferenceKey keyRef = new AxReferenceKey(akey, akey.getName());
+            extrakeyList.add(keyRef);
         }
     }
     
-    public void addKey(final AxKey aKey) {
-        extraKeyList.add(aKey);
+    public void addKey(final AxKey akey) {
+        extrakeyList.add(akey);
     }
     
-    public void removeKey(final AxKey aKey) {
-        extraKeyList.remove(aKey);
+    public void removeKey(final AxKey akey) {
+        extrakeyList.remove(akey);
     }
 }

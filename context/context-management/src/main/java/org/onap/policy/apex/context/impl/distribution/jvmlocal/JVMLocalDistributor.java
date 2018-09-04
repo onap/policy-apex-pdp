@@ -54,7 +54,7 @@ public class JVMLocalDistributor extends AbstractDistributor {
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextMapKey) {
-        LOGGER.debug("create map: " + contextMapKey.getID());
+        LOGGER.debug("create map: " + contextMapKey.getId());
         return Collections.synchronizedMap(new HashMap<String, Object>());
     }
 

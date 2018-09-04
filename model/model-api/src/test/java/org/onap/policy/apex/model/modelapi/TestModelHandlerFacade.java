@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.impl.ModelHandlerFacade;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 
@@ -77,17 +77,17 @@ public class TestModelHandlerFacade {
         result = mhf.loadFromString(modelString);
         assertEquals(ApexAPIResult.RESULT.CONCEPT_EXISTS, result.getResult());
 
-        final DAOParameters daoParameters = new DAOParameters();
-        result = mhf.loadFromDatabase("SomeModel", null, daoParameters);
+        final DaoParameters DaoParameters = new DaoParameters();
+        result = mhf.loadFromDatabase("SomeModel", null, DaoParameters);
         assertEquals(ApexAPIResult.RESULT.CONCEPT_EXISTS, result.getResult());
 
         result = apexModel.deleteModel();
         assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
 
-        result = mhf.loadFromDatabase("SomeModel", null, daoParameters);
+        result = mhf.loadFromDatabase("SomeModel", null, DaoParameters);
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
-        result = mhf.saveToDatabase(daoParameters);
+        result = mhf.saveToDatabase(DaoParameters);
         assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
 
         result = mhf.readFromURL("blah://somewhere/over/the/rainbow");

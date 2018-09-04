@@ -62,7 +62,7 @@ public class SchemaHelperFactory {
         final AxContextSchema schema = ModelService.getModel(AxContextSchemas.class).get(schemaKey);
         if (schema == null) {
             final String resultString =
-                    "schema \"" + schemaKey.getID() + "\" for entity " + owningEntityKey.getID() + " does not exist";
+                    "schema \"" + schemaKey.getId() + "\" for entity " + owningEntityKey.getId() + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);
         }

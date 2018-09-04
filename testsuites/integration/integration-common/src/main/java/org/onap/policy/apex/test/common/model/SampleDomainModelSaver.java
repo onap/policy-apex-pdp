@@ -51,32 +51,32 @@ public final class SampleDomainModelSaver {
         // Save Java model
         final AxPolicyModel javaPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVA");
         final ApexModelSaver<AxPolicyModel> javaModelSaver = new ApexModelSaver<AxPolicyModel>(AxPolicyModel.class, javaPolicyModel, args[0]);
-        javaModelSaver.apexModelWriteJSON();
-        javaModelSaver.apexModelWriteXML();
+        javaModelSaver.apexModelWriteJson();
+        javaModelSaver.apexModelWriteXml();
 
         // Save Javascript model
         final AxPolicyModel javascriptPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
         final ApexModelSaver<AxPolicyModel> javascriptModelSaver = new ApexModelSaver<AxPolicyModel>(AxPolicyModel.class, javascriptPolicyModel, args[0]);
-        javascriptModelSaver.apexModelWriteJSON();
-        javascriptModelSaver.apexModelWriteXML();
+        javascriptModelSaver.apexModelWriteJson();
+        javascriptModelSaver.apexModelWriteXml();
 
         // Save JRuby model
         final AxPolicyModel jRubyPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JRUBY");
         final ApexModelSaver<AxPolicyModel> jRubyModelSaver = new ApexModelSaver<AxPolicyModel>(AxPolicyModel.class, jRubyPolicyModel, args[0]);
-        jRubyModelSaver.apexModelWriteJSON();
-        jRubyModelSaver.apexModelWriteXML();
+        jRubyModelSaver.apexModelWriteJson();
+        jRubyModelSaver.apexModelWriteXml();
 
         // Save Jython model
         final AxPolicyModel jythonPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JYTHON");
         final ApexModelSaver<AxPolicyModel> jythonModelSaver = new ApexModelSaver<AxPolicyModel>(AxPolicyModel.class, jythonPolicyModel, args[0]);
-        jythonModelSaver.apexModelWriteJSON();
-        jythonModelSaver.apexModelWriteXML();
+        jythonModelSaver.apexModelWriteJson();
+        jythonModelSaver.apexModelWriteXml();
 
         // Save MVEL model
         final AxPolicyModel mvelPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
         final ApexModelSaver<AxPolicyModel> mvelModelSaver = new ApexModelSaver<AxPolicyModel>(AxPolicyModel.class, mvelPolicyModel, args[0]);
-        mvelModelSaver.apexModelWriteJSON();
-        mvelModelSaver.apexModelWriteXML();
+        mvelModelSaver.apexModelWriteJson();
+        mvelModelSaver.apexModelWriteXml();
     }
 
 }

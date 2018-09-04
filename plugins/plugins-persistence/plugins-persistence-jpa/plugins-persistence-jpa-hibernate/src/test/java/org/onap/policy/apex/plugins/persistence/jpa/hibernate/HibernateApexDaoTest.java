@@ -37,7 +37,7 @@ import org.onap.policy.apex.context.test.entities.ReferenceKeyTestEntity;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 
 /**
  * Junit test for class HibernateApexDao
@@ -51,16 +51,16 @@ public class HibernateApexDaoTest {
     private static final List<AxArtifactKey> TEST_ARTIKEYS = Arrays.asList(new AxArtifactKey[] {
             new AxArtifactKey("ABC", "0.0.1"), new AxArtifactKey("DEF", "0.1.1"), new AxArtifactKey("XYZ", "1.1.1")});
 
-    private final DAOParameters daoParameters = new DAOParameters();
+    private final DaoParameters DaoParameters = new DaoParameters();
 
     private HibernateApexDao hibernateApexDao = null;
 
     @Before
     public void setupDAO() throws ApexException {
-        daoParameters.setPluginClass(HibernateApexDao.class.getCanonicalName());
-        daoParameters.setPersistenceUnit("DAOTest");
+        DaoParameters.setPluginClass(HibernateApexDao.class.getCanonicalName());
+        DaoParameters.setPersistenceUnit("DAOTest");
         hibernateApexDao = new HibernateApexDao();
-        hibernateApexDao.init(daoParameters);
+        hibernateApexDao.init(DaoParameters);
     }
 
     @After

@@ -74,7 +74,7 @@ public class AxTaskFacade {
      * @return the task ID
      */
     public String getId() {
-        return task.getID();
+        return task.getId();
     }
 
     /**
@@ -112,7 +112,7 @@ public class AxTaskFacade {
         // Find the field for the field name
         if (field == null) {
             final String message = "no " + directionString + " field with name \"" + fieldName + "\" defined on task \""
-                    + task.getID() + "\"";
+                    + task.getId() + "\"";
             LOGGER.warn(message);
             throw new StateMachineRuntimeException(message);
         }
@@ -122,7 +122,7 @@ public class AxTaskFacade {
             return new SchemaHelperFactory().createSchemaHelper(field.getKey(), field.getSchema());
         } catch (final ContextRuntimeException e) {
             final String message = "schema helper cannot be created for task field \"" + fieldName + "\" with key \""
-                    + field.getID() + "\" with schema \"" + field.getSchema() + "\"";
+                    + field.getId() + "\" with schema \"" + field.getSchema() + "\"";
             LOGGER.warn(message, e);
             throw new EnException(message, e);
         }

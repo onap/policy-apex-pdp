@@ -29,8 +29,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * This class records a usage of a key in the system. When the list of keys being used by a concept is built using the
  * getKeys() method of the {@link AxConcept} class, an instance of this class is created for every key occurrence. The
  * list of keys returned by the getKeys() method is a list of {@link AxKeyUse} objects.
- * <p>
- * Validation checks that each key is valid.
+ * 
+ * <p>Validation checks that each key is valid.
  */
 
 public class AxKeyUse extends AxKey {
@@ -46,7 +46,7 @@ public class AxKeyUse extends AxKey {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -90,8 +90,8 @@ public class AxKeyUse extends AxKey {
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getID()
      */
     @Override
-    public String getID() {
-        return usedKey.getID();
+    public String getId() {
+        return usedKey.getId();
     }
 
     /**

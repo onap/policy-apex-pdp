@@ -57,8 +57,8 @@ public class ApexModelFileWriter<M extends AxModel> {
      * @param modelFileName The name of the file to write to
      * @throws ApexException thrown on errors
      */
-    public void apexModelWriteXMLFile(final M model, final Class<M> rootModelClass, final String modelFileName)
-            throws ApexException {
+    public void apexModelWriteXmlFile(final M model, final Class<M> rootModelClass, final String modelFileName)
+                    throws ApexException {
         LOGGER.debug("running apexModelWriteXMLFile . . .");
 
         final ApexModelWriter<M> modelWriter = new ApexModelWriter<>(rootModelClass);
@@ -80,8 +80,8 @@ public class ApexModelFileWriter<M extends AxModel> {
      * @param modelFileName The name of the file to write to
      * @throws ApexException thrown on errors
      */
-    public void apexModelWriteJSONFile(final M model, final Class<M> rootModelClass, final String modelFileName)
-            throws ApexException {
+    public void apexModelWriteJsonFile(final M model, final Class<M> rootModelClass, final String modelFileName)
+                    throws ApexException {
         LOGGER.debug("running apexModelWriteJSONFile . . .");
 
         final ApexModelWriter<M> modelWriter = new ApexModelWriter<>(rootModelClass);
@@ -119,7 +119,8 @@ public class ApexModelFileWriter<M extends AxModel> {
      * @param modelFileName the file name of the file to write to
      * @throws ApexException on exceptions writing the model
      */
-    private void writeModelFile(final M model, final ApexModelWriter<M> modelWriter, final String modelFileName) throws ApexException {
+    private void writeModelFile(final M model, final ApexModelWriter<M> modelWriter, final String modelFileName)
+                    throws ApexException {
         final File modelFile = new File(modelFileName);
         if (!modelFile.getParentFile().exists() && !modelFile.getParentFile().mkdirs()) {
             LOGGER.warn("could not create directory  " + modelFile.getParentFile());
@@ -130,8 +131,7 @@ public class ApexModelFileWriter<M extends AxModel> {
             final FileOutputStream fileOutputStream = new FileOutputStream(modelFile);
             modelWriter.write(model, fileOutputStream);
             fileOutputStream.close();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             LOGGER.warn("error processing file " + modelFile.getAbsolutePath(), e);
             throw new ApexException("error processing file " + modelFile.getAbsolutePath(), e);
         }

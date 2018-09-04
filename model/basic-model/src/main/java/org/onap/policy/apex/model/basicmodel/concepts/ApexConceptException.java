@@ -41,9 +41,9 @@ public class ApexConceptException extends ApexException {
      * Instantiates a new apex concept exception.
      *
      * @param message the message on the exception
-     * @param e the exception that caused this Apex exception
+     * @param exception the exception that caused this Apex exception
      */
-    public ApexConceptException(final String message, final Exception e) {
-        super(message, e);
+    public ApexConceptException(final String message, final Exception exception) {
+        super(message, exception);
     }
 }

@@ -30,8 +30,8 @@ public class TestApexSamplePolicyCreateModelFiles {
         final TestApexSamplePolicyModelCreator apexPolicyModelCreator = new TestApexSamplePolicyModelCreator("JAVA");
         final TestApexModel<AxPolicyModel> testApexPolicyModel =
                 new TestApexModel<AxPolicyModel>(AxPolicyModel.class, apexPolicyModelCreator);
-        testApexPolicyModel.testApexModelWriteReadXML();
-        testApexPolicyModel.testApexModelWriteReadJSON();
+        testApexPolicyModel.testApexModelWriteReadXml();
+        testApexPolicyModel.testApexModelWriteReadJson();
     }
 
     @Test
@@ -40,8 +40,8 @@ public class TestApexSamplePolicyCreateModelFiles {
                 new TestApexSamplePolicyModelCreator("JAVASCRIPT");
         final TestApexModel<AxPolicyModel> testApexPolicyModel =
                 new TestApexModel<AxPolicyModel>(AxPolicyModel.class, apexPolicyModelCreator);
-        testApexPolicyModel.testApexModelWriteReadXML();
-        testApexPolicyModel.testApexModelWriteReadJSON();
+        testApexPolicyModel.testApexModelWriteReadXml();
+        testApexPolicyModel.testApexModelWriteReadJson();
     }
 
     @Test
@@ -49,8 +49,8 @@ public class TestApexSamplePolicyCreateModelFiles {
         final TestApexSamplePolicyModelCreator apexPolicyModelCreator = new TestApexSamplePolicyModelCreator("JRUBY");
         final TestApexModel<AxPolicyModel> testApexPolicyModel =
                 new TestApexModel<AxPolicyModel>(AxPolicyModel.class, apexPolicyModelCreator);
-        testApexPolicyModel.testApexModelWriteReadXML();
-        testApexPolicyModel.testApexModelWriteReadJSON();
+        testApexPolicyModel.testApexModelWriteReadXml();
+        testApexPolicyModel.testApexModelWriteReadJson();
     }
 
     @Test
@@ -58,8 +58,8 @@ public class TestApexSamplePolicyCreateModelFiles {
         final TestApexSamplePolicyModelCreator apexPolicyModelCreator = new TestApexSamplePolicyModelCreator("JYTHON");
         final TestApexModel<AxPolicyModel> testApexPolicyModel =
                 new TestApexModel<AxPolicyModel>(AxPolicyModel.class, apexPolicyModelCreator);
-        testApexPolicyModel.testApexModelWriteReadXML();
-        testApexPolicyModel.testApexModelWriteReadJSON();
+        testApexPolicyModel.testApexModelWriteReadXml();
+        testApexPolicyModel.testApexModelWriteReadJson();
     }
 
     @Test
@@ -67,7 +67,7 @@ public class TestApexSamplePolicyCreateModelFiles {
         final TestApexSamplePolicyModelCreator apexPolicyModelCreator = new TestApexSamplePolicyModelCreator("MVEL");
         final TestApexModel<AxPolicyModel> testApexPolicyModel =
                 new TestApexModel<AxPolicyModel>(AxPolicyModel.class, apexPolicyModelCreator);
-        testApexPolicyModel.testApexModelWriteReadXML();
-        testApexPolicyModel.testApexModelWriteReadJSON();
+        testApexPolicyModel.testApexModelWriteReadXml();
+        testApexPolicyModel.testApexModelWriteReadJson();
     }
 }

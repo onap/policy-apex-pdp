@@ -17,9 +17,12 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.model.utilities.json;
 
 import static org.junit.Assert.assertEquals;
+
+import com.google.gson.GsonBuilder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,9 +31,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.google.gson.GsonBuilder;
-
-public class JSONHandlerTest {
+public class JsonHandlerTest {
 
     private static final String VALUE = "value";
 

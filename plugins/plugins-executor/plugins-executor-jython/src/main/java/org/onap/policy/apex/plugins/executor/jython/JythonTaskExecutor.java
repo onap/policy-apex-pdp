@@ -67,8 +67,8 @@ public class JythonTaskExecutor extends TaskExecutor {
                 compiled = Py.compile_flags(logic, filename, CompileMode.exec, new CompilerFlags());
             }
         } catch (final PyException e) {
-            LOGGER.warn("failed to compile Jython code for task " + getSubject().getKey().getID(), e);
-            throw new StateMachineException("failed to compile Jython code for task " + getSubject().getKey().getID(),
+            LOGGER.warn("failed to compile Jython code for task " + getSubject().getKey().getId(), e);
+            throw new StateMachineException("failed to compile Jython code for task " + getSubject().getKey().getId(),
                     e);
         }
 
@@ -104,24 +104,24 @@ public class JythonTaskExecutor extends TaskExecutor {
                     final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
                     if (ret == null) {
                         LOGGER.error("execute: task logic failed to set a return value for task  \""
-                                + getSubject().getKey().getID() + "\"");
+                                + getSubject().getKey().getId() + "\"");
                         throw new StateMachineException("execute: task logic failed to set a return value for task  \""
-                                + getSubject().getKey().getID() + "\"");
+                                + getSubject().getKey().getId() + "\"");
                     }
                     returnValue = (Boolean) ret;
                 } catch (NullPointerException | ClassCastException e) {
                     LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                            + getSubject().getKey().getID() + "\"", e);
+                            + getSubject().getKey().getId() + "\"", e);
                     throw new StateMachineException(
                             "execute: task selection logic failed to set a return value for state  \""
-                                    + getSubject().getKey().getID() + "\"",
+                                    + getSubject().getKey().getId() + "\"",
                             e);
                 }
             }
             /* */
         } catch (final Exception e) {
-            LOGGER.warn("failed to execute Jython code for task " + getSubject().getKey().getID(), e);
-            throw new StateMachineException("failed to execute Jython code for task " + getSubject().getKey().getID(),
+            LOGGER.warn("failed to execute Jython code for task " + getSubject().getKey().getId(), e);
+            throw new StateMachineException("failed to execute Jython code for task " + getSubject().getKey().getId(),
                     e);
         }
 
@@ -144,7 +144,7 @@ public class JythonTaskExecutor extends TaskExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         interpreter.cleanup();
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getTaskLogic().getLogicFlavour()
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogicFlavour()
                 + "," + getSubject().getTaskLogic().getLogic());
     }
 }

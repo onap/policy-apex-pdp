@@ -60,8 +60,8 @@ public class TestEvents {
 
         final AxArtifactKey eventKey = new AxArtifactKey("EventName", "0.0.1");
         event.setKey(eventKey);
-        assertEquals("EventName:0.0.1", event.getKey().getID());
-        assertEquals("EventName:0.0.1", event.getKeys().get(0).getID());
+        assertEquals("EventName:0.0.1", event.getKey().getId());
+        assertEquals("EventName:0.0.1", event.getKeys().get(0).getId());
 
         event.setNameSpace("namespace");
         assertEquals("namespace", event.getNameSpace());
@@ -86,13 +86,13 @@ public class TestEvents {
 
         final AxArtifactKey newEventKey = new AxArtifactKey("NewEventName", "0.0.1");
         event.setKey(newEventKey);
-        assertEquals("NewEventName:0.0.1", event.getKey().getID());
-        assertEquals("NewEventName:0.0.1", event.getKeys().get(0).getID());
+        assertEquals("NewEventName:0.0.1", event.getKey().getId());
+        assertEquals("NewEventName:0.0.1", event.getKeys().get(0).getId());
         assertEquals("NewEventName:0.0.1",
-                event.getParameterMap().get("Field0").getKey().getParentArtifactKey().getID());
+                event.getParameterMap().get("Field0").getKey().getParentArtifactKey().getId());
         event.setKey(eventKey);
-        assertEquals("EventName:0.0.1", event.getKey().getID());
-        assertEquals("EventName:0.0.1", event.getKeys().get(0).getID());
+        assertEquals("EventName:0.0.1", event.getKey().getId());
+        assertEquals("EventName:0.0.1", event.getKeys().get(0).getId());
 
         assertTrue("Field0", event.getFields().contains(eventField));
         assertTrue(event.hasFields(new TreeSet<AxField>(parameterMap.values())));
@@ -223,7 +223,7 @@ public class TestEvents {
 
         // Invalid, no events in event map
         events.setKey(new AxArtifactKey("EventsKey", "0.0.1"));
-        assertEquals("EventsKey:0.0.1", events.getKey().getID());
+        assertEquals("EventsKey:0.0.1", events.getKey().getId());
 
         result = new AxValidationResult();
         result = events.validate(result);

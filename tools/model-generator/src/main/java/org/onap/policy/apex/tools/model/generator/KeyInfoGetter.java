@@ -131,10 +131,10 @@ public class KeyInfoGetter {
      */
     public String getUUID(final AxArtifactKey key) {
         final AxKeyInfo ki = model.getKeyInformation().get(key);
-        if (ki == null || ki.getUUID() == null) {
+        if (ki == null || ki.getUuid() == null) {
             return null;
         }
-        return ki.getUUID().toString();
+        return ki.getUuid().toString();
     }
 
     /**

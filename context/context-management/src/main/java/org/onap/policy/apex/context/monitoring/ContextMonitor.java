@@ -184,9 +184,9 @@ public class ContextMonitor {
                     builder.append(',');
                 }
                 if (stackKey instanceof AxArtifactKey) {
-                    builder.append(((AxArtifactKey) stackKey).getID());
+                    builder.append(((AxArtifactKey) stackKey).getId());
                 } else if (stackKey instanceof AxReferenceKey) {
-                    builder.append(((AxReferenceKey) stackKey).getID());
+                    builder.append(((AxReferenceKey) stackKey).getId());
                 } else {
                     builder.append(stackKey.toString());
                 }
@@ -194,9 +194,9 @@ public class ContextMonitor {
         }
         builder.append("],");
 
-        builder.append(albumKey.getID());
+        builder.append(albumKey.getId());
         builder.append(',');
-        builder.append(schemaKey.getID());
+        builder.append(schemaKey.getId());
         builder.append(',');
         builder.append(name);
 

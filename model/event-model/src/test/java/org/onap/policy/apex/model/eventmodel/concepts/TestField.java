@@ -68,12 +68,12 @@ public class TestField {
 
         final AxReferenceKey fieldKey = new AxReferenceKey("FieldName", "0.0.1", "PLN", "LN");
         field.setKey(fieldKey);
-        assertEquals("FieldName:0.0.1:PLN:LN", field.getKey().getID());
-        assertEquals("FieldName:0.0.1:PLN:LN", field.getKeys().get(0).getID());
+        assertEquals("FieldName:0.0.1:PLN:LN", field.getKey().getId());
+        assertEquals("FieldName:0.0.1:PLN:LN", field.getKeys().get(0).getId());
 
         final AxArtifactKey schemaKey = new AxArtifactKey("SchemaName", "0.0.1");
         field.setSchema(schemaKey);
-        assertEquals("SchemaName:0.0.1", field.getSchema().getID());
+        assertEquals("SchemaName:0.0.1", field.getSchema().getId());
 
         assertEquals(false, field.getOptional());
         field.setOptional(true);

@@ -35,7 +35,7 @@ import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 
@@ -114,29 +114,29 @@ public class TestApexModelAPI {
         ApexAPIResult result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
-        final DAOParameters daoParameters = new DAOParameters();
-        daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("DAOTest");
+        final DaoParameters DaoParameters = new DaoParameters();
+        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
+        DaoParameters.setPersistenceUnit("DAOTest");
 
-        result = apexModel.saveToDatabase(daoParameters);
+        result = apexModel.saveToDatabase(DaoParameters);
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
         result = apexModel.deleteModel();
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
-        result = apexModel.loadFromDatabase("PolicyModel", "0.0.1", daoParameters);
+        result = apexModel.loadFromDatabase("PolicyModel", "0.0.1", DaoParameters);
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
         result = apexModel.deleteModel();
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
-        result = apexModel.loadFromDatabase("PolicyModel", null, daoParameters);
+        result = apexModel.loadFromDatabase("PolicyModel", null, DaoParameters);
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
         result = apexModel.deleteModel();
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
 
-        result = apexModel.loadFromDatabase("VPNPolicyModel", "0.0.1", daoParameters);
+        result = apexModel.loadFromDatabase("VPNPolicyModel", "0.0.1", DaoParameters);
         assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
     }
 

@@ -95,9 +95,9 @@ public class EventMonitor {
                     builder.append(',');
                 }
                 if (stackKey instanceof AxArtifactKey) {
-                    builder.append(((AxArtifactKey) stackKey).getID());
+                    builder.append(((AxArtifactKey) stackKey).getId());
                 } else if (stackKey instanceof AxReferenceKey) {
-                    builder.append(((AxReferenceKey) stackKey).getID());
+                    builder.append(((AxReferenceKey) stackKey).getId());
                 } else {
                     builder.append(stackKey.toString());
                 }

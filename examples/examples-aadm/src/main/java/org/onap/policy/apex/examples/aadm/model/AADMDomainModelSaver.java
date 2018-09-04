@@ -51,7 +51,7 @@ public final class AADMDomainModelSaver {
         final AxPolicyModel aadmPolicyModel = new AADMDomainModelFactory().getAADMPolicyModel();
         final ApexModelSaver<AxPolicyModel> aadmModelSaver =
                 new ApexModelSaver<>(AxPolicyModel.class, aadmPolicyModel, args[0]);
-        aadmModelSaver.apexModelWriteJSON();
-        aadmModelSaver.apexModelWriteXML();
+        aadmModelSaver.apexModelWriteJson();
+        aadmModelSaver.apexModelWriteXml();
     }
 }

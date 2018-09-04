@@ -155,9 +155,9 @@ public class ContextAlbumImplTest {
         ContextAlbum albumRo = new ContextAlbumImpl(axContextAlbumRo, distributor, new LinkedHashMap<String, Object>());
 
         assertEquals("TestContextAlbum", album.getName());
-        assertEquals("TestContextAlbum:0.0.1", album.getKey().getID());
-        assertEquals("TestContextAlbum:0.0.1", album.getAlbumDefinition().getID());
-        assertEquals("SimpleStringSchema:0.0.1", album.getSchemaHelper().getSchema().getID());
+        assertEquals("TestContextAlbum:0.0.1", album.getKey().getId());
+        assertEquals("TestContextAlbum:0.0.1", album.getAlbumDefinition().getId());
+        assertEquals("SimpleStringSchema:0.0.1", album.getSchemaHelper().getSchema().getId());
 
         try {
             album.containsKey(null);
@@ -272,8 +272,8 @@ public class ContextAlbumImplTest {
 
         AxConcept[] userArtifactStack = { somePolicyKey, somePolicyState };
         album.setUserArtifactStack(userArtifactStack);
-        assertEquals("MyPolicy:0.0.1", album.getUserArtifactStack()[0].getID());
-        assertEquals("MyPolicy:0.0.1:NULL:SomeState", album.getUserArtifactStack()[1].getID());
+        assertEquals("MyPolicy:0.0.1", album.getUserArtifactStack()[0].getId());
+        assertEquals("MyPolicy:0.0.1:NULL:SomeState", album.getUserArtifactStack()[1].getId());
 
         assertEquals(true, album.keySet().contains("Key0"));
         assertEquals(true, album.values().contains("value of Key0"));

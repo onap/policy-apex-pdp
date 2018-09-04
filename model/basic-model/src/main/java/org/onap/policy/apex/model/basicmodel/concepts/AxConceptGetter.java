@@ -24,9 +24,9 @@ import java.util.Set;
 
 /**
  * This interface is used to allow get methods to be placed on concepts that have embedded maps.
- * <p>
- * It forces those concepts with maps to implement the get methods specified on this interface as convenience methods to avoid concept users having to use a
- * second level of referencing to access concepts in the the maps.
+ * 
+ * <p>It forces those concepts with maps to implement the get methods specified on this interface as convenience methods
+ * to avoid concept users having to use a second level of referencing to access concepts in the the maps.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <C> the type of concept on which the interface is applied.

@@ -110,7 +110,7 @@ public class StateOutput {
 
         if (!incomingFieldDefinitionMap.keySet().equals(eventFieldMap.keySet())) {
             throw new StateMachineException(
-                    "field definitions and values do not match for event " + outputEventDef.getID() + '\n'
+                    "field definitions and values do not match for event " + outputEventDef.getId() + '\n'
                             + incomingFieldDefinitionMap.keySet() + '\n' + eventFieldMap.keySet());
         }
         for (final Entry<String, Object> incomingFieldEntry : eventFieldMap.entrySet()) {
@@ -120,7 +120,7 @@ public class StateOutput {
             // Check if this field is a field in the event
             if (!outputEventDef.getFields().contains(fieldDef)) {
                 throw new StateMachineException(
-                        "field \"" + fieldName + "\" does not exist on event \"" + outputEventDef.getID() + "\"");
+                        "field \"" + fieldName + "\" does not exist on event \"" + outputEventDef.getId() + "\"");
             }
 
             // Set the value in the output event

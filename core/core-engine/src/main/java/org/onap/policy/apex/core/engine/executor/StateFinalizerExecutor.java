@@ -95,7 +95,7 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public void prepare() throws StateMachineException {
-        LOGGER.debug("prepare:" + finalizerLogic.getID() + "," + finalizerLogic.getLogicFlavour() + ","
+        LOGGER.debug("prepare:" + finalizerLogic.getId() + "," + finalizerLogic.getLogicFlavour() + ","
                 + finalizerLogic.getLogic());
         argumentNotNull(finalizerLogic.getLogic(), StateMachineException.class, "task logic cannot be null.");
     }
@@ -122,7 +122,7 @@ public abstract class StateFinalizerExecutor
     @Override
     public final void executePre(final long executionID, final Map<String, Object> newIncomingFields)
             throws StateMachineException, ContextException {
-        LOGGER.debug("execute-pre:" + finalizerLogic.getLogicFlavour() + "," + getSubject().getID() + ","
+        LOGGER.debug("execute-pre:" + finalizerLogic.getLogicFlavour() + "," + getSubject().getId() + ","
                 + finalizerLogic.getLogic());
 
         // Record the incoming fields
@@ -141,8 +141,8 @@ public abstract class StateFinalizerExecutor
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
-            String errorMessage = "execute-post: state finalizer logic execution failure on state \"" + axState.getID()
-                    + "\" on finalizer logic " + finalizerLogic.getID();
+            String errorMessage = "execute-post: state finalizer logic execution failure on state \"" + axState.getId()
+                    + "\" on finalizer logic " + finalizerLogic.getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -152,22 +152,22 @@ public abstract class StateFinalizerExecutor
 
         // Check a state output has been selected
         if (getOutgoing() == null) {
-            LOGGER.warn("execute-post: state finalizer logic \"" + finalizerLogic.getID()
+            LOGGER.warn("execute-post: state finalizer logic \"" + finalizerLogic.getId()
                     + "\" did not select an output state");
-            throw new StateMachineException("execute-post: state finalizer logic \"" + finalizerLogic.getID()
+            throw new StateMachineException("execute-post: state finalizer logic \"" + finalizerLogic.getId()
                     + "\" did not select an output state");
         }
 
         if (!axState.getStateOutputs().keySet().contains(getOutgoing())) {
             LOGGER.warn(
-                    "execute-post: state finalizer logic \"" + finalizerLogic.getID() + "\" selected output state \""
-                            + getOutgoing() + "\" that does not exsist on state \"" + axState.getID() + "\"");
+                    "execute-post: state finalizer logic \"" + finalizerLogic.getId() + "\" selected output state \""
+                            + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
             throw new StateMachineException(
-                    "execute-post: state finalizer logic \"" + finalizerLogic.getID() + "\" selected output state \""
-                            + getOutgoing() + "\" that does not exsist on state \"" + axState.getID() + "\"");
+                    "execute-post: state finalizer logic \"" + finalizerLogic.getId() + "\" selected output state \""
+                            + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
         }
 
-        LOGGER.debug("execute-post:" + finalizerLogic.getID() + ", returning  state output \"" + getOutgoing()
+        LOGGER.debug("execute-post:" + finalizerLogic.getId() + ", returning  state output \"" + getOutgoing()
                 + " and fields " + incomingFields);
     }
 

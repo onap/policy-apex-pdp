@@ -39,7 +39,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDao;
 import org.onap.policy.apex.model.basicmodel.dao.ApexDaoFactory;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
@@ -106,7 +106,7 @@ public class ModelHandlerFacade {
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                    MODEL + apexModel.getPolicyModel().getKey().getID() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         ApexAPIResult result = new ApexAPIResult();
@@ -127,7 +127,7 @@ public class ModelHandlerFacade {
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                    MODEL + apexModel.getPolicyModel().getKey().getID() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         ApexAPIResult result = new ApexAPIResult();
@@ -152,9 +152,9 @@ public class ModelHandlerFacade {
 
         try {
             if (xmlFlag) {
-                apexModelFileWriter.apexModelWriteXMLFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
+                apexModelFileWriter.apexModelWriteXmlFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
             } else {
-                apexModelFileWriter.apexModelWriteJSONFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
+                apexModelFileWriter.apexModelWriteJsonFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
             }
             return new ApexAPIResult();
         } catch (ApexException e) {
@@ -168,23 +168,23 @@ public class ModelHandlerFacade {
      * @param modelName the name of the model to load
      * @param modelVersion the version of the model to load, loads the policy model from the
      *        database with this name, if more than one exist, an exception is thrown
-     * @param daoParameters the parameters to use to access the database over JDBC
+     * @param DaoParameters the parameters to use to access the database over JDBC
      * @return the result of the operation
      */
     public ApexAPIResult loadFromDatabase(final String modelName, final String modelVersion,
-            final DAOParameters daoParameters) {
+            final DaoParameters DaoParameters) {
         Assertions.argumentNotNull(modelName, "modelName may not be null");
-        Assertions.argumentNotNull(daoParameters, "daoParameters may not be null");
+        Assertions.argumentNotNull(DaoParameters, "DaoParameters may not be null");
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                    MODEL + apexModel.getPolicyModel().getKey().getID() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         ApexDao apexDao = null;
         try {
-            apexDao = new ApexDaoFactory().createApexDao(daoParameters);
-            apexDao.init(daoParameters);
+            apexDao = new ApexDaoFactory().createApexDao(DaoParameters);
+            apexDao.init(DaoParameters);
 
             // Single specific model requested
             if (modelVersion != null) {
@@ -249,15 +249,15 @@ public class ModelHandlerFacade {
     /**
      * Save an Apex model to a database.
      *
-     * @param daoParameters the parameters to use to access the database over JDBC
+     * @param DaoParameters the parameters to use to access the database over JDBC
      * @return the result of the operation
      */
-    public ApexAPIResult saveToDatabase(final DAOParameters daoParameters) {
+    public ApexAPIResult saveToDatabase(final DaoParameters DaoParameters) {
         ApexDao apexDao = null;
 
         try {
-            apexDao = new ApexDaoFactory().createApexDao(daoParameters);
-            apexDao.init(daoParameters);
+            apexDao = new ApexDaoFactory().createApexDao(DaoParameters);
+            apexDao.init(DaoParameters);
 
             apexDao.create(apexModel.getPolicyModel());
             return new ApexAPIResult();
@@ -281,7 +281,7 @@ public class ModelHandlerFacade {
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                    MODEL + apexModel.getPolicyModel().getKey().getID() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         URL apexModelURL;
@@ -468,7 +468,7 @@ public class ModelHandlerFacade {
                     PolicyModelSplitter.getSubPolicyModel(apexModel.getPolicyModel(), requiredPolicySet, false);
 
             ApexModelFileWriter<AxPolicyModel> apexModelFileWriter = new ApexModelFileWriter<>(false);
-            apexModelFileWriter.apexModelWriteJSONFile(splitPolicyModel, AxPolicyModel.class, targetModelName);
+            apexModelFileWriter.apexModelWriteJsonFile(splitPolicyModel, AxPolicyModel.class, targetModelName);
             return new ApexAPIResult();
         } catch (ApexException e) {
             return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
@@ -503,7 +503,7 @@ public class ModelHandlerFacade {
             return splitResult;
         } catch (Exception e) {
             return new ApexAPIResult(ApexAPIResult.RESULT.FAILED,
-                    "split of policy model " + apexModel.getPolicyModel().getID() + " failed", e);
+                    "split of policy model " + apexModel.getPolicyModel().getId() + " failed", e);
         } finally {
             if (tempSplitPolicyFile != null) {
                 try {

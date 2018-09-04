@@ -101,7 +101,7 @@ public class TaskFacade {
             }
 
             if (apexModel.getPolicyModel().getTasks().getTaskMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getID() + ALREADY_EXISTS);
+                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
             }
 
             apexModel.getPolicyModel().getTasks().getTaskMap().put(key, new AxTask(key));
@@ -182,7 +182,7 @@ public class TaskFacade {
                             new ApexModelStringWriter<AxTask>(false).writeString(removedTask, AxTask.class, jsonMode));
                 } else {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getID() + DOES_NOT_EXIST);
+                            CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
@@ -256,7 +256,7 @@ public class TaskFacade {
 
             if (!task.getTaskLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getID() + ALREADY_EXISTS);
+                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             task.setTaskLogic(new AxTaskLogic(refKey, logicFlavour, logic));
@@ -286,7 +286,7 @@ public class TaskFacade {
 
             if (task.getTaskLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + task.getTaskLogic().getKey().getID() + DOES_NOT_EXIST);
+                        CONCEPT + task.getTaskLogic().getKey().getId() + DOES_NOT_EXIST);
             }
 
             final AxTaskLogic taskLogic = task.getTaskLogic();
@@ -342,7 +342,7 @@ public class TaskFacade {
 
             if (task.getTaskLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + task.getTaskLogic().getKey().getID() + DOES_NOT_EXIST);
+                        CONCEPT + task.getTaskLogic().getKey().getId() + DOES_NOT_EXIST);
             }
 
             final ApexAPIResult result = new ApexAPIResult();
@@ -383,7 +383,7 @@ public class TaskFacade {
 
             if (task.getInputFields().containsKey(refKey.getLocalName())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getID() + ALREADY_EXISTS);
+                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxContextSchema schema =
@@ -430,7 +430,7 @@ public class TaskFacade {
             } else {
                 if (task.getInputFields().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no input fields defined on task " + task.getKey().getID());
+                            "no input fields defined on task " + task.getKey().getId());
                 }
 
                 final ApexAPIResult result = new ApexAPIResult();
@@ -476,7 +476,7 @@ public class TaskFacade {
             } else {
                 if (task.getInputFields().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no input fields defined on task " + task.getKey().getID());
+                            "no input fields defined on task " + task.getKey().getId());
                 }
 
                 for (final AxInputField field : task.getInputFields().values()) {
@@ -520,7 +520,7 @@ public class TaskFacade {
 
             if (task.getOutputFields().containsKey(refKey.getLocalName())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getID() + ALREADY_EXISTS);
+                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxContextSchema schema =
@@ -567,7 +567,7 @@ public class TaskFacade {
             } else {
                 if (task.getOutputFields().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no output fields defined on task " + task.getKey().getID());
+                            "no output fields defined on task " + task.getKey().getId());
                 }
 
                 final ApexAPIResult result = new ApexAPIResult();
@@ -612,7 +612,7 @@ public class TaskFacade {
             } else {
                 if (task.getOutputFields().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no output fields defined on task " + task.getKey().getID());
+                            "no output fields defined on task " + task.getKey().getId());
                 }
 
                 for (final AxOutputField field : task.getOutputFields().values()) {
@@ -651,7 +651,7 @@ public class TaskFacade {
 
             if (task.getTaskParameters().containsKey(refKey.getLocalName())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getID() + ALREADY_EXISTS);
+                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             task.getTaskParameters().put(refKey.getLocalName(), new AxTaskParameter(refKey, defaultValue));
@@ -690,7 +690,7 @@ public class TaskFacade {
             } else {
                 if (task.getTaskParameters().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no task parameters defined on task " + task.getKey().getID());
+                            "no task parameters defined on task " + task.getKey().getId());
                 }
 
                 final ApexAPIResult result = new ApexAPIResult();
@@ -735,7 +735,7 @@ public class TaskFacade {
             } else {
                 if (task.getTaskParameters().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no task parameters defined on task " + task.getKey().getID());
+                            "no task parameters defined on task " + task.getKey().getId());
                 }
 
                 for (final AxTaskParameter parameter : task.getTaskParameters().values()) {
@@ -778,7 +778,7 @@ public class TaskFacade {
 
             if (task.getContextAlbumReferences().contains(contextAlbum.getKey())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, "context album reference for concept "
-                        + contextAlbum.getKey().getID() + " already exists in task");
+                        + contextAlbum.getKey().getId() + " already exists in task");
             }
 
             task.getContextAlbumReferences().add(contextAlbum.getKey());

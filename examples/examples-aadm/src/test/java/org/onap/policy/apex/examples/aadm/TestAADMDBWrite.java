@@ -27,7 +27,7 @@ import java.sql.DriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.dao.DAOParameters;
+import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
@@ -51,10 +51,10 @@ public class TestAADMDBWrite {
 
     @Test
     public void testModelWriteReadJPA() throws Exception {
-        final DAOParameters daoParameters = new DAOParameters();
-        daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        daoParameters.setPersistenceUnit("AADMModelTest");
+        final DaoParameters DaoParameters = new DaoParameters();
+        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
+        DaoParameters.setPersistenceUnit("AADMModelTest");
 
-        testApexModel.testApexModelWriteReadJPA(daoParameters);
+        testApexModel.testApexModelWriteReadJpa(DaoParameters);
     }
 }

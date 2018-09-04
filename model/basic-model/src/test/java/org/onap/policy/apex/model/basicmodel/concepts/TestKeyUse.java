@@ -28,12 +28,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxKey.Compatibility;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyUse;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.concepts.AxKey.Compatibility;
 
-public class testKeyUse {
+public class TestKeyUse {
 
     @Test
     public void test() {
@@ -45,7 +45,7 @@ public class testKeyUse {
         AxKeyUse keyUse = new AxKeyUse();
         keyUse.setKey(key);
         assertEquals(key, keyUse.getKey());
-        assertEquals("Key:0.0.1", keyUse.getID());
+        assertEquals("Key:0.0.1", keyUse.getId());
         assertEquals(key, keyUse.getKeys().get(0));
         
         assertEquals(Compatibility.IDENTICAL, keyUse.getCompatibility(key));

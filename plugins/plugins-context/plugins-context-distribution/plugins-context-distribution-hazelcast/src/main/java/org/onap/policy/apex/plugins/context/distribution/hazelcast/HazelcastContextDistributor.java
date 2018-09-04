@@ -85,8 +85,8 @@ public class HazelcastContextDistributor extends AbstractDistributor {
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextAlbumKey) {
         // Get the map from Hazelcast
-        LOGGER.info("HazelcastContextDistributor: create album: " + contextAlbumKey.getID());
-        return hazelcastInstance.getMap(contextAlbumKey.getID());
+        LOGGER.info("HazelcastContextDistributor: create album: " + contextAlbumKey.getId());
+        return hazelcastInstance.getMap(contextAlbumKey.getId());
     }
 
     /*

@@ -696,7 +696,7 @@ public class AADMDomainModelFactory {
 
         final AxValidationResult result = aadmPolicyModel.validate(new AxValidationResult());
         if (!result.getValidationResult().equals(AxValidationResult.ValidationResult.VALID)) {
-            throw new ApexRuntimeException("model " + aadmPolicyModel.getID() + " is not valid" + result);
+            throw new ApexRuntimeException("model " + aadmPolicyModel.getId() + " is not valid" + result);
         }
         return aadmPolicyModel;
     }

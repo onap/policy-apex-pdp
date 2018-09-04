@@ -33,15 +33,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 
-/**
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
 public class TestModelWriter {
 
     @Test
     public void testModelWriter() throws IOException, ApexException {
-        AxModel model = new TestApexBasicModelCreator().getModel();
-        
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
         
         modelWriter.setValidateFlag(true);
@@ -56,6 +51,8 @@ public class TestModelWriter {
         
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
+        AxModel model = new TestApexBasicModelCreator().getModel();
+        
         modelWriter.write(model, baos);
         modelWriter.setJsonOutput(true);
         modelWriter.write(model, baos);

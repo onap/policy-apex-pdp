@@ -59,8 +59,8 @@ public class MvelStateFinalizerExecutor extends StateFinalizerExecutor {
         try {
             compiled = MVEL.compileExpression(getSubject().getLogic());
         } catch (final Exception e) {
-            LOGGER.warn("failed to compile MVEL code for state " + getSubject().getKey().getID(), e);
-            throw new StateMachineException("failed to compile MVEL code for state " + getSubject().getKey().getID(),
+            LOGGER.warn("failed to compile MVEL code for state " + getSubject().getKey().getId(), e);
+            throw new StateMachineException("failed to compile MVEL code for state " + getSubject().getKey().getId(),
                     e);
         }
     }
@@ -89,8 +89,8 @@ public class MvelStateFinalizerExecutor extends StateFinalizerExecutor {
             returnValue =
                     (boolean) MVEL.executeExpression(compiled, getExecutionContext(), new HashMap<String, Object>());
         } catch (final Exception e) {
-            LOGGER.warn("failed to execute MVEL code for state " + getSubject().getKey().getID(), e);
-            throw new StateMachineException("failed to execute MVEL code for state " + getSubject().getKey().getID(),
+            LOGGER.warn("failed to execute MVEL code for state " + getSubject().getKey().getId(), e);
+            throw new StateMachineException("failed to execute MVEL code for state " + getSubject().getKey().getId(),
                     e);
         }
 
@@ -112,7 +112,7 @@ public class MvelStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getID() + "," + getSubject().getLogicFlavour() + ","
+        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
     }
 }

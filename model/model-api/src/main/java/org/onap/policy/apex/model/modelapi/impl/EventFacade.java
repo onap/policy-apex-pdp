@@ -99,7 +99,7 @@ public class EventFacade {
             }
 
             if (apexModel.getPolicyModel().getEvents().getEventMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getID() + ALREADY_EXISTS);
+                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
             }
 
             final AxEvent event = new AxEvent(key);
@@ -200,7 +200,7 @@ public class EventFacade {
                             .writeString(removedEvent, AxEvent.class, jsonMode));
                 } else {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getID() + DOES_NOT_EXIST);
+                            CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
@@ -278,7 +278,7 @@ public class EventFacade {
 
             if (event.getParameterMap().containsKey(refKey.getLocalName())) {
                 return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getID() + ALREADY_EXISTS);
+                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxContextSchema schema =
@@ -323,7 +323,7 @@ public class EventFacade {
             } else {
                 if (event.getParameterMap().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no parameters defined on event " + event.getKey().getID());
+                            "no parameters defined on event " + event.getKey().getId());
                 }
 
                 final ApexAPIResult result = new ApexAPIResult();
@@ -368,7 +368,7 @@ public class EventFacade {
             } else {
                 if (event.getParameterMap().size() == 0) {
                     return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
-                            "no parameters defined on event " + event.getKey().getID());
+                            "no parameters defined on event " + event.getKey().getId());
                 }
 
                 for (final AxField eventPar : event.getParameterMap().values()) {
