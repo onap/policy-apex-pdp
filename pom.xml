@@ -186,13 +186,15 @@
                 <adsite-main-dir>${project.basedir}/src</adsite-main-dir>
                 <adsite-tools-wsclients-dir>${project.basedir}/tools/simple-wsclient/src</adsite-tools-wsclients-dir>
                 <adsite-tools-common-dir>${project.basedir}/tools/tools-common/src</adsite-tools-common-dir>
-                <adsite-apps-uservice-test-dir>${project.basedir}/apps/apps.uservice/apps.uservice-test/src</adsite-apps-uservice-test-dir>
+
                 <adsite-examples-myfirstpolicy-dir>${project.basedir}/examples/examples-myfirstpolicy/src</adsite-examples-myfirstpolicy-dir>
                 <adsite-examples-decisionmaker-dir>${project.basedir}/examples/examples-decisionmaker/src</adsite-examples-decisionmaker-dir>
                 <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
                 <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
                 <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
                 <adsite-examples-servlet-dir>${project.basedir}/examples/examples-servlet/src</adsite-examples-servlet-dir>
+
+                <adsite-packages-docker-dir>${project.basedir}/packages/apex-pdp-docker/src</adsite-packages-docker-dir>
 
                 <adsite-plugins-event-protocol-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/src</adsite-plugins-event-protocol-dir>
                 <adsite-plugins-event-protocol-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src</adsite-plugins-event-protocol-jms-dir>
@@ -214,6 +216,7 @@
                 <adsite-plugins-executor-jruby-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jruby/src</adsite-plugins-executor-jruby-dir>
                 <adsite-plugins-executor-jython-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jython/src</adsite-plugins-executor-jython-dir>
                 <adsite-plugins-executor-mvel-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-mvel/src</adsite-plugins-executor-mvel-dir>
+
                 <adsite-services-engine-dir>${project.basedir}/services/services-engine/src</adsite-services-engine-dir>
             </properties>
             <distributionManagement>
@@ -561,13 +564,15 @@
                                 <adsite-main-dir>${project.basedir}/src</adsite-main-dir>
                                 <adsite-tools-wsclients-dir>${project.basedir}/tools/simple-wsclient/src</adsite-tools-wsclients-dir>
                                 <adsite-tools-common-dir>${project.basedir}/tools/tools-common/src</adsite-tools-common-dir>
-                                <adsite-apps-uservice-test-dir>${project.basedir}/apps/apps.uservice/apps.uservice-test/src</adsite-apps-uservice-test-dir>
+
                                 <adsite-examples-myfirstpolicy-dir>${project.basedir}/examples/examples-myfirstpolicy/src</adsite-examples-myfirstpolicy-dir>
                                 <adsite-examples-decisionmaker-dir>${project.basedir}/examples/examples-decisionmaker/src</adsite-examples-decisionmaker-dir>
                                 <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
                                 <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
                                 <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
                                 <adsite-examples-servlet-dir>${project.basedir}/examples/examples-servlet/src</adsite-examples-servlet-dir>
+
+                                <adsite-packages-docker-dir>${project.basedir}/packages/apex-pdp-docker/src</adsite-packages-docker-dir>
 
                                 <adsite-plugins-event-protocol-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/src</adsite-plugins-event-protocol-dir>
                                 <adsite-plugins-event-protocol-jms-dir>${project.basedir}/plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src</adsite-plugins-event-protocol-jms-dir>
@@ -588,6 +593,7 @@
                                 <adsite-plugins-executor-jruby-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jruby/src</adsite-plugins-executor-jruby-dir>
                                 <adsite-plugins-executor-jython-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jython/src</adsite-plugins-executor-jython-dir>
                                 <adsite-plugins-executor-mvel-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-mvel/src</adsite-plugins-executor-mvel-dir>
+
                                 <adsite-services-engine-dir>${project.basedir}/services/services-engine/src</adsite-services-engine-dir>
                             </attributes>
                         </configuration>

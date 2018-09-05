@@ -17,8 +17,8 @@ A full installation of APEX comes with the following layout.
 
 ----
 $APEX_HOME
-    ├───bin					<1>
-    ├───etc					<2>
+    ├───bin				<1>
+    ├───etc				<2>
     │   ├───editor
     │   ├───hazelcast
     │   ├───infinispan
@@ -27,11 +27,13 @@ $APEX_HOME
     │   ├───config			<4>
     │   ├───docker			<5>
     │   ├───events			<6>
-    │   ├───models			<7>
-    │   └───scripts			<8>
-    ├───lib					<9>
-    │   └───applications	<10>
-    └───war					<11>
+    │   ├───html			<7>
+    │   ├───models			<8>
+    │   └───scripts			<9>
+    ├───lib				<10>
+    │   └───applications		<11>
+    └───war				<12>
+
 ----
 <1> binaries, mainly scripts (bash and bat) to start the APEX engine and applications
 <2> configuration files, such as logback (logging) and third party library configurations
@@ -39,9 +41,10 @@ $APEX_HOME
 <4> configurations for the examples (with sub directories for individual examples)
 <5> Docker files and additional Docker instructions for the exampples
 <6> example events for the examples (with sub directories for individual examples)
-<7> the policy models, generated for each example (with sub directories for individual examples)
-<8> additional scripts for the examples (with sub directories for individual examples)
-<9> the library folder with all Java JAR files
-<10> applications, also known as jar with dependencies (or fat jars), individually deployable
-<11> WAR files for web applications
+<7> HTML files for some examples, e.g. the Decisionmaker example
+<8> the policy models, generated for each example (with sub directories for individual examples)
+<9> additional scripts for the examples (with sub directories for individual examples)
+<10> the library folder with all Java JAR files
+<11> applications, also known as jar with dependencies (or fat jars), individually deployable
+<12> WAR files for web applications
 

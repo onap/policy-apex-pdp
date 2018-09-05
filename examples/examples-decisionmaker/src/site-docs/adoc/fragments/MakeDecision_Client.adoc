@@ -16,5 +16,5 @@
 .HTML Client
 [source,html,options="nowrap"]
 ----
-include::{adsite-examples-decisionmaker-dir}/main/resources/html/MakeDecision_Client.html[HTML Client]
+include::{adsite-examples-decisionmaker-dir}/main/resources/examples/html/DecisionMaker/MakeDecision_Client.html[HTML Client]
 ----

@@ -38,6 +38,7 @@ The option `-h` provides a help screen.
 
 [source%nowrap,sh]
 ----
+gen-model2event v{release-version} - generates JSON templates for events generated from a policy model
 usage: gen-model2event
  -h,--help                 prints this help and usage screen
  -m,--model <MODEL-FILE>   set the input policy model file

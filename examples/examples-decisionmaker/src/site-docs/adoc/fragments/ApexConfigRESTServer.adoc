@@ -16,5 +16,5 @@
 .Config REST Server
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-decisionmaker-dir}/main/resources/config/ApexConfigRESTServer.json[Config REST Server]
+include::{adsite-examples-decisionmaker-dir}/main/resources/examples/config/DecisionMaker/ApexConfigRESTServer.json[Config REST Server]
 ----

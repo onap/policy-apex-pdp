@@ -45,8 +45,6 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/configure.adoc
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/verify.adoc[]
 
-include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-monitoring.adoc[]
-
-include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-resteditor.adoc[]
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-wars.adoc[]
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/docker.adoc[]

@@ -18,9 +18,9 @@ Use Maven to build the APEX Site.
 Stage the APEX web site.
 The target folder for the staged site is
 
-- Unix: `/usr/local/src/apex/target/gh-pages`
-- Windows: `C:\dev\apex\target\gh-pages`
-- Cygwin: `/cygdrive/c/dev/apex/target/gh-pages`
+- Unix: `/usr/local/src/apex/target/ad-site`
+- Windows: `C:\dev\apex\target\ad-site`
+- Cygwin: `/cygdrive/c/dev/apex/target/ad-site`
 
 Once the web site is staged, copy the full site to a folder of choice or into a web server.
 
@@ -45,20 +45,20 @@ Then go to the APEX packaging directory.
 [source%nowrap,sh]
 ----
 cd /usr/local/src/apex
-rm -fr target/gh-pages
+rm -fr target/ad-site
 ----
 |
 [source%nowrap,bat]
 ----
 c:
 cd \dev\apex
-rmdir /s /q target\gh-pages
+rmdir /s /q target\ad-site
 ----
 |
 [source%nowrap,sh]
 ----
 cd /cygdrive/c/dev/apex
-rm -fr target/gh-pages
+rm -fr target/ad-site
 ----
 |====================
 

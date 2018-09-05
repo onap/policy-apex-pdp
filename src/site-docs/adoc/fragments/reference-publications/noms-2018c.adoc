@@ -30,20 +30,23 @@ There is no substitute for seeing how a network management feature actually perf
 
 In this work we present our experiences of building a networking testbed that incorporates an emulated network, a production-grade network controller, an analytics function, and a policy execution environment. This allows users to develop policies for adaptive (closed loop) management of a realistic emulated network. We also present two scenarios where the testbed is used to emulate and mitigate against a temporary and prolonged failure occurring on a network.
 
+h| Links
+| link:https://www.researchgate.net/publication/325059988_A_Testbed_For_Policy_Driven_Closed_Loop_Network_Management[Research Gate] [accessed Sep 4, 2018]
+
 h| BibTeX
 a|
 [source,bibtex]
 ----
-@inproceedings{noms/McNamaraMK18,
-  author    = {Joseph McNamara and
-               John Keeney and
-               Liam Fallon and
-               Sven van der Meer and
-               Enda Fallon},
-  title     = {A Testbed For Policy Driven Closed Loop Network Management},
-  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium,
-              {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
-  year      = {2018}
+@inproceedings{DBLP:conf/noms/McNamaraKFMF18,
+  author    = {Joseph McNamara and John Keeney and Liam Fallon and Sven van der Meer and Enda Fallon},
+  title     = {A testbed for policy driven closed loop network management},
+  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium, {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  pages     = {1--6},
+  year      = {2018},
+  crossref  = {DBLP:conf/noms/2018},
+  doi       = {10.1109/NOMS.2018.8406144},
+  biburl    = {https://dblp.org/rec/bib/conf/noms/McNamaraKFMF18},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ----
 

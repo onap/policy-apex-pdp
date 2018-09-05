@@ -22,6 +22,9 @@ package org.onap.policy.apex.context.test.lock.modifier;
 
 import org.onap.policy.apex.context.ContextRuntimeException;
 
+/**
+ * The Enum LockType defines the type of lock on a test context album.
+ */
 public enum LockType {
 
     NO_LOCK(0) {
@@ -56,10 +59,20 @@ public enum LockType {
 
     private final int value;
 
+    /**
+     * Instantiates a new lock type.
+     *
+     * @param value the value
+     */
     private LockType(final int value) {
         this.value = value;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public int getValue() {
         return value;
     }
@@ -78,6 +91,11 @@ public enum LockType {
         throw new ContextRuntimeException("Invalid Lock type value: " + value);
     }
 
+    /**
+     * Gets the album modifier.
+     *
+     * @return the album modifier
+     */
     public abstract AlbumModifier getAlbumModifier();
 
 }

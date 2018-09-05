@@ -23,37 +23,26 @@ h| Venue
 | IEEE NOMS, Taipei, April 2018
 
 h| Abstract
-| Since the 1970’s it has been acknowledged that a
-complex system can be broken into (a) its invariant functional
-parts (mechanism), and (b) the externalized choices for how the
-system should behave (policy). Policy-based management’s main
-objective is to separate and externalize the decisions required by a
-system from the mechanisms provided by the system, and provide
-a way to define and evaluate these decisions. A few decades later,
-we have today a plethora of different policy models and even more
-policy languages – plus tooling – offering policy-based solutions
-for virtually any use case and scenario. However, policy-based
-management as a standalone domain has never been evaluated
-in terms of which parts are variant / invariant, i.e. which parts
-of policy-based management can be domain-, model-, language-,
-usecase-independent. In this paper, we introduce and define a
-formal universal policy model that does exactly that. The result
-is a model that can be used to design, implement, and deploy
-immutable policy infrastructure (engine and executor) being able
-to execute (virtually) any policy model.
+| Since the 1970’s it has been acknowledged that a complex system can be broken into (a) its invariant functional parts (mechanism), and (b) the externalized choices for how the system should behave (policy). Policy-based management’s main objective is to separate and externalize the decisions required by a system from the mechanisms provided by the system, and provide a way to define and evaluate these decisions. A few decades later, we have today a plethora of different policy models and even more policy languages – plus tooling – offering policy-based solutions for virtually any use case and scenario. However, policy-based management as a standalone domain has never been evaluated in terms of which parts are variant / invariant, i.e. which parts of policy-based management can be domain-, model-, language-, usecase-independent. In this paper, we introduce and define a formal universal policy model that does exactly that. The result is a model that can be used to design, implement, and deploy immutable policy infrastructure (engine and executor) being able to execute (virtually) any policy model.
+
+h| Links
+| link:https://www.researchgate.net/publication/325057975_Taming_Policy_Complexity_Model_to_Execution[Research Gate] [accessed Sep 4, 2018]
 
 h| BibTeX
 a|
 [source,bibtex]
 ----
-@inproceedings{noms/MeerMK18a,
-  author    = {Sven van der Meer and
-               John Keeney and
-               Liam Fallon},
-  title     = {Taming Policy Complexity: Model to Execution},
-  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium,
-              {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
-  year      = {2018}
+@inproceedings{DBLP:conf/noms/MeerKF18,
+  author    = {Sven van der Meer and John Keeney and Liam Fallon},
+  title     = {Taming policy complexity: Model to execution},
+  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium, {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  pages     = {1--8},
+  year      = {2018},
+  crossref  = {DBLP:conf/noms/2018},
+  doi       = {10.1109/NOMS.2018.8406172},
+  biburl    = {https://dblp.org/rec/bib/conf/noms/MeerKF18},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
 ----
 
 |===

@@ -13,248 +13,32 @@
 
 == Running APEX in Docker 
 
-This section explains how to create a Docker image that contains the base APEX package and shows how to run APEX in Docker.
-It also explains how to use the base APEX Docker image to create application docker images that contain both APEX and your application policies.
-
-We assume you have already installed Docker on your host.
-For instructions on how to install Docker, see the link:https://www.docker.com/community-edition[Get Started with Docker] page on the Docker web site.
+Since APEX is in ONAP, we provide a full virtualization environment for the engine.
 
 
-=== Create the APEX Base Docker Image
+=== Run in ONAP
 
-You need only perform this task once to create an APEX base image that you can use as a base for your applications from then on.
-This task sets up an Ubuntu Docker image and then installs Java and APEX on Ubuntu running in the Docker image.
+Running APEX from the ONAP docker repository only requires 2 commands:
 
-. Create an empty directory, here the directory is called `apex`, and change into that directory
-+
-[source%nowrap,bash,numbered]
+. Log into the ONAP docker repo
+[source%nowrap,sh,numbered]
 ----
-# mkdir apex
-# cd apex
+docker login -u docker -p docker nexus3.onap.org:10003
 ----
-+
-. Copy the APEX Debian package from the APEX download site into the directory
-. Open a text editor and create a file called `Dockerfile` in your directory
-. Paste the following text into the editor that is editing `Dockerfile`
-+
-[source%nowrap,bash,numbered,subs="attributes+"]
+. Run the APEX docker image
+[source%nowrap,sh,numbered]
 ----
-#
-# Docker file to build an image that runs APEX on Java 8 in Ubuntu
-#
-FROM ubuntu:16.04
-MAINTAINER <YOUR> <NAME> <YOUR>.<NAME>@ericsson.com
-
-RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y software-properties-common && \
-	add-apt-repository ppa:webupd8team/java -y && \
-	apt-get update && \
-	echo oracle-javax8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-	apt-get install -y oracle-java8-installer
-
-RUN mkdir /packages
-COPY apex-apps.uservice-packages-{release-version}-full.deb /packages
-RUN dpkg -i packages/apex-apps.uservice-packages-{release-version}-full.deb
-RUN rm /packages/apex-apps.uservice-packages-{release-version}-full.deb
-
-ENV PATH /opt/ericsson/apex/apex/bin:$PATH
-
-RUN apt-get clean
-
-RUN chown -R apexuser:apexuser /home/apexuser/*
-WORKDIR /home/apexuser
-
-----
-+
-. Replace the fields <YOUR> and <NAME> above with your name and email address
-. Save the `Dockerfile`
-. An example working base `Dockerfile` appears below
-+
-[source%nowrap,bash,numbered,subs="attributes+"]
-----
-#
-# Docker file to build an image that runs APEX on Java 8 in Ubuntu
-#
-FROM ubuntu:16.04
-MAINTAINER Sean Citizen sean.citizen@ericsson.com
-
-RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y software-properties-common && \
-	add-apt-repository ppa:webupd8team/java -y && \
-	apt-get update && \
-	echo oracle-javax8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-	apt-get install -y oracle-java8-installer
-
-RUN mkdir /packages
-COPY apex-apps.uservice-packages-{release-version}-full.deb /packages
-RUN dpkg -i packages/apex-apps.uservice-packages-{release-version}-full.deb
-RUN rm /packages/apex-apps.uservice-packages-{release-version}-full.deb
-
-ENV PATH /opt/ericsson/apex/apex/bin:$PATH
-
-RUN apt-get clean
-
-RUN chown -R apexuser:apexuser /home/apexuser/*
-WORKDIR /home/apexuser
-----
-+
-. Create and tag the base Docker image for APEX using this command
-+
-[source%nowrap,bash,numbered]
-----
-docker build -t apex/base . 
-docker tag apex/base apex/base:latest
-docker tag apex/base apex/base:{release-version}
-----
-+
-. Test the APEX Docker base image with the following command, APEX will start a sample policy:
-+
-[source%nowrap,bash,numbered]
-----
-docker run --name apex --user=apexuser:apexuser -it --rm -p 12345:12345 apex/base apexEngine.sh -c examples/config/SampleDomain/Stdin2StdoutJsonEventJavascript.json
-----
-+
-. Paste the following event into the shell and the APEX Policy will process the event
-+
-[source%nowrap,json,numbered]
-----
-{
-  "nameSpace": "org.onap.policy.apex.sample.events",
-  "name": "Event0000",
-  "version": "0.0.1",
-  "source": "test",
-  "target": "apex",
-  "TestSlogan": "Test slogan for External Event0",
-  "TestMatchCase": 0,
-  "TestTimestamp": 1469781869269,
-  "TestTemperature": 9080.866
-}
-----
-+
-. APEX returns the following event
-+
-[source%nowrap,json,numbered]
-----
-{
-  "nameSpace" : "org.onap.policy.apex..sample.events",
-  "name" : "Event0004",
-  "version" : "0.0.1",
-  "source" : "",
-  "target" : "",
-  "TestActCaseSelected" : 3,
-  "TestActStateTime" : 1481215910429,
-  "TestTemperature" : 9080.866,
-  "TestDecideCaseSelected" : 1,
-  "TestMatchCaseSelected" : 2,
-  "TestTimestamp" : 1469781869269,
-  "TestDecideStateTime" : 1481215910425,
-  "TestMatchCase" : 0,
-  "TestSlogan" : "Test slogan for External Event0",
-  "TestEstablishCaseSelected" : 0,
-  "TestEstablishStateTime" : 1481215910421,
-  "TestMatchStateTime" : 1481215910415
-}
-----
-+
-. You now have built and tested an APEX base Docker image.
-  You can connect the APEX Deployment and Monitoring servlet to this APEX engine instance. For example, assuming the APEX Deployment and Monitoring servlet is deploying on the localhost computer on port 8080 you can use the following URL: 
-+
-----
-http://localhost:8080/apex-services.client-{release-version}/?hostname=0.0.0.0&port=12345
+docker run -it --rm  nexus3.onap.org:10003/onap/policy-apex-pdp:latest
 ----
 
-=== Create an APEX Application Docker Image using the APEX Base Docker Image
 
-We assume you have created an APEX application, that you wish to use static deployment, and that you have APEX metadata to add to the base APEX Docker image.
+=== Build a Docker Image
 
-. 1.Create an empty directory for your application, here the directory is called `myApplication`, and change into that directory
-+
-[source%nowrap,bash,numbered]
-----
-mkdir myApplication
-cd myApplication
-----
-+
-. Copy the directories containing your application metadata into that directory, for example, if you have three directories called `myappDirectory0`, `myappDirectory1`, and `myappDirectoryn`, you will have the following directory structure
-+
-[source%nowrap,bash,numbered]
-----
-ls | cat
-myappDirectory0
-myappDirectory1
-myappDirectoryn
-----
-+
-. Open a text editor and create a file called `Dockerfile` in your application directory
-. Paste the following text into the editor that is editing `Dockerfile`
-+
-[source%nowrap,bash,numbered]
-----
-#
-# Docker file to build an image that runs APEX Applications on Java 8 in Ubuntu
-#
-FROM apex/base:{release-version}
-MAINTAINER <YOUR> <NAME> <YOUR>.<NAME>@ericsson.com
+Alternatively, one can use the Dockerfile defined in the Docker package to build an image.
 
-# Copy your application metadata
-COPY <MY_APP_DIRECTORY_0> /home/apexuser/<MY_APP_DIRECTORY_0>
-COPY <MY_APP_DIRECTORY_1> /home/apexuser/<MY_APP_DIRECTORY_1>
-COPY <MY_APP_DIRECTORY_N> /home/apexuser/<MY_APP_DIRECTORY_N>
-
-run chown -R apexuser:apexuser /home/apexuser/*
+.APEX Dockerfile
+[source%nowrap,sh,numbered,subs="attributes+"]
 ----
-+
-. Edit the template fields
-  .. Replace the fields <YOUR> and <NAME> with your name and email address
-  .. Replace the <MY_APP_DIRECTORY_x> fields with the names of your actual application directory names, myappDirectoryx in our example here. Do this for all application directories you have.
-. Save the `Dockerfile`
-. An example working application `Dockerfile` appears below
-+
-[source%nowrap,bash,numbered]
+include::{adsite-packages-docker-dir}/main/docker/Dockerfile[APEX Dockerfile]
 ----
-#
-# Docker file to build an image that runs APEX Applications on Java 8 in Ubuntu
-#
-FROM apex/base:{release-version}
-MAINTAINER Sean Citizen sean.citizen@ericsson.com
-
-# Copy your application metadata
-COPY myappDirectory0 /home/apexuser/myappDirectory0
-COPY myappDirectory1 /home/apexuser/myappDirectory1
-COPY myappDirectoryn /home/apexuser/myappDirectoryn
-
-run chown -R apexuser:apexuser /home/apexuser/*
-----
-+
-. Create the Docker image for your APEX application using this command
-+
-[source%nowrap,bash,numbered]
-----
-docker build -t apex/myapplication .
-----
-+
-. Test the APEX Docker base image with the following command, APEX will start to a bash shell in the `apexuser` home directory:
-+
-[source%nowrap,bash,numbered]
-----
-docker run --name myapplication -it --rm -p 12345:12345 apex/myapplication apexBash.sh
-----
-+
-. Check that your application directories have been created, the command returns the directory list:
-+
-[source%nowrap,bash,numbered]
-----
-> pwd
-/opt/ericsson
-> ls -l
-total 16
-drwxr-xr-x 8 apexuser apexuser 4096 Dec  9 13:28 examples
-drwxr-xr-x 2 apexuser apexuser 4096 Dec  9 13:28 myappDirectory0
-drwxr-xr-x 2 apexuser apexuser 4096 Dec  9 13:28 myappDirectory1
-drwxr-xr-x 2 apexuser apexuser 4096 Dec  9 13:28 myappDirectoryn
-----
-+
-. You now have built an APEX Application docker image and you can use the `apexEngine.sh` command to run your application using the appropriate configuration file for your application.
 

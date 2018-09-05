@@ -47,7 +47,7 @@ usage: gen-model2cli
 For instance, running the tool with the __Sample Domain__ policy model as:
 [source%nowrap,sh]
 ----
-apexApps.sh tpl-event-json -m $APEX_HOME/examples/models/SampleDomain/SamplePolicyModelJAVA.json -t stimuli
+apexApps.sh model-2-cli -m $APEX_HOME/examples/models/SampleDomain/SamplePolicyModelJAVA.json
 ----
 
 will produce the following status messages:

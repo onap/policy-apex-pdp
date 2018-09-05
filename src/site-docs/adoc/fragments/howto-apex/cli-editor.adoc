@@ -58,7 +58,6 @@ The option `-h` provides a help screen with all command line arguments.
 ----
 usage: org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain [options...]
 options
-
  -a,--model-props-file <MODEL_PROPS_FILE>       name of the apex model properties file to use
  -c,--command-file <COMMAND_FILE>               name of a file containing editor commands to run into the editor
  -h,--help                                      outputs the usage of this command

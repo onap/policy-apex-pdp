@@ -49,9 +49,7 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/configure.adoc
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/verify.adoc[leveloffset=+1]
 
-include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-monitoring.adoc[leveloffset=+1]
-
-include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-resteditor.adoc[leveloffset=+1]
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-wars.adoc[leveloffset=+1]
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/docker.adoc[leveloffset=+1]
 

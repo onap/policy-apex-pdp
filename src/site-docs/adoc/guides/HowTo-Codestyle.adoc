@@ -62,4 +62,3 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/42-using-che
 include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/50-disable-eclispe-formatting.adoc[]
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/howto-codestyle/51-supress-checkstyle.adoc[]
-	

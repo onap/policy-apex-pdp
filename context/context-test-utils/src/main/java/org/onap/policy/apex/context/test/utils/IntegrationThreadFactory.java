@@ -26,6 +26,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+/**
+ * A factory for creating IntegrationThread objects.
+ */
 public class IntegrationThreadFactory implements ThreadFactory {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(IntegrationThreadFactory.class);
 
@@ -34,10 +37,18 @@ public class IntegrationThreadFactory implements ThreadFactory {
 
     private final AtomicInteger counter = new AtomicInteger();
 
+    /**
+     * Instantiates a new integration thread factory.
+     *
+     * @param threadFactoryName the thread factory name
+     */
     public IntegrationThreadFactory(final String threadFactoryName) {
         this.threadFactoryName = threadFactoryName;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
+     */
     @Override
     public Thread newThread(final Runnable runnable) {
         final Thread thread = new Thread(runnable);
@@ -45,5 +56,4 @@ public class IntegrationThreadFactory implements ThreadFactory {
         LOGGER.debug("started thread " + thread.getName());
         return thread;
     }
-
 }

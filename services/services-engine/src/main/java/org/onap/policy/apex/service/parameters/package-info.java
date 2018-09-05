@@ -19,10 +19,9 @@
  */
 
 /**
- * Implements parameter handling for all parameters in APEX. It uses specializations of (@link
- * {@link org.onap.policy.apex.model.basicmodel.service.AbstractParameters} for all parameters and
- * works with {@link org.onap.policy.apex.model.basicmodel.service.ParameterService} for storing and
- * finding parameters.
+ * Implements parameter handling for all parameters in APEX.
+ * It uses specializations of the class <code>AbstractParameters</code> (basic model) for all parameters.
+ * It works with <code>ParameterService</code> (basic model) for storing and finding parameters.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

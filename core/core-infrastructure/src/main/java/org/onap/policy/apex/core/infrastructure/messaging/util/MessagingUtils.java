@@ -77,7 +77,7 @@ public final class MessagingUtils {
     /**
      * This method searches the availability of the port, if the requested port not available,this
      * method will increment the port number and check the availability of that port, this process
-     * will continue until it reaches max port range which is {@link MAX_PORT_RANGE}.
+     * will continue until it reaches max port range which is MAX_PORT_RANGE.
      *
      * @param port the first port to check
      * @return the port that was found

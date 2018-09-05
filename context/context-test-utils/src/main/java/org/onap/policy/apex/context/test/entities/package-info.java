@@ -19,7 +19,7 @@
  */
 
 /**
- * Contains common test entities  
+ * Contains common test entities.
  * @author Dinh Danh Le (dinh.danh.le@ericsson.com)
  *
  */

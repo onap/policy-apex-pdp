@@ -19,18 +19,18 @@ We model edges and nodes for the topology, customers, and problems with all info
 .AVRO Schema Edges
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/topology-edges.avsc[AVRO Schema Edges]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/avro/topology-edges.avsc[AVRO Schema Edges]
 ----
 
 
 .AVRO Schema Nodes
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/topology-nodes.avsc[AVRO Schema Nodes]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/avro/topology-nodes.avsc[AVRO Schema Nodes]
 ----
 
 .AVRO Schema Customers
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/avro/customers.avsc[AVRO Schema Customers]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/avro/customers.avsc[AVRO Schema Customers]
 ----

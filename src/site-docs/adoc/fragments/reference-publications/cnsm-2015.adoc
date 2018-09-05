@@ -33,19 +33,13 @@ a|
 [source,bibtex]
 ----
 @inproceedings{DBLP:conf/cnsm/MeerKF15,
-  author    = {Sven van der Meer and
-               John Keeney and
-               Liam Fallon},
-  title     = {Dynamically Adaptive Policies for
-               Dynamically Adaptive Telecommunications Networks},
-  booktitle = {11th International Conference on Network and Service Management,
-              {CNSM} 2015, Barcelona, Spain, November 9-13, 2015},
+  author    = {Sven van der Meer and John Keeney and Liam Fallon},
+  title     = {Dynamically Adaptive Policies for Dynamically Adaptive Telecommunications Networks},
+  booktitle = {11th International Conference on Network and Service Management, {CNSM} 2015, Barcelona, Spain, November 9-13, 2015},
   pages     = {182--186},
   year      = {2015},
   crossref  = {DBLP:conf/cnsm/2015},
-  url       = {https://doi.org/10.1109/CNSM.2015.7367357},
   doi       = {10.1109/CNSM.2015.7367357},
-  timestamp = {Tue, 23 May 2017 01:11:56 +0200},
   biburl    = {http://dblp.org/rec/bib/conf/cnsm/MeerKF15},
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }

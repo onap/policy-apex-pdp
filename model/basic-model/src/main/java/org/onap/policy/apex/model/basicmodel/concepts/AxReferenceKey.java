@@ -47,9 +47,9 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * <p>If a reference key's parent is itself a reference key, then the parent's local name must be set in the reference
  * key. If the parent is a first order concept, then the parent's local name in the key will be set to NULL.
  * 
- * <p>Key validation checks that the parent name and parent version fields match the {@link NAME_REGEXP} and
- * {@link VERSION_REGEXP} regular expressions respectively and that the local name fields match the
- * {@link LOCAL_NAME_REGEXP} regular expression.
+ * <p>Key validation checks that the parent name and parent version fields match the NAME_REGEXP and
+ * VERSION_REGEXP regular expressions respectively and that the local name fields match the
+ * LOCAL_NAME_REGEXP regular expression.
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -203,7 +203,7 @@ public class AxReferenceKey extends AxKey {
      * Constructor to create a key from the specified key ID.
      *
      * @param id
-     *        the key ID in a format that respects the {@link KEY_ID_REGEXP}
+     *        the key ID in a format that respects the KEY_ID_REGEXP
      */
     public AxReferenceKey(final String id) {
         final String conditionedId = Assertions.validateStringParameter("id", id, REFERENCE_KEY_ID_REGEXP);

@@ -14,6 +14,6 @@
 == Resources
 
 * APEX Documentation hosted on Github: link:https://ericsson.github.io/apex-docs[]
-* APEX source code repo hosted on Github: link:https://github.com/Ericsson/apex[]
-* Issue Management (source and documentation): link:https://github.com/Ericsson/apex/issues[]
+* APEX source code repository hosted by ONAP: link:https://gerrit.onap.org/r/#/admin/projects/policy/apex-pdp[]
+* Issue Management (source and documentation, ONAP JIRA, requires a Linux Foundation ID): link:https://jira.onap.org/projects/POLICY/issues[]
 * List of APEX publications: link:https://ericsson.github.io/apex-docs/apex-publications.html[]

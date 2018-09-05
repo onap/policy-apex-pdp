@@ -1,13 +1,13 @@
-[INFO] apex-apps.uservice ................................. SUCCESS [  0.054 s]
-[INFO] apex-apps.uservice-packaging ....................... SUCCESS [  0.058 s]
-[INFO] apex-apps.uservice-package-minimal ................. SUCCESS [  7.138 s]
-[INFO] apex-apps.uservice-package-full .................... SUCCESS [ 58.960 s]
-[INFO] apex-apps.uservice-packages ........................ SUCCESS [  1.781 s]
-[INFO] apex-apps.servlet .................................. SUCCESS [  3.465 s]
+[INFO] tools .............................................. SUCCESS [  0.248 s]
+[INFO] tools-common ....................................... SUCCESS [  0.784 s]
+[INFO] simple-wsclient .................................... SUCCESS [  3.303 s]
+[INFO] model-generator .................................... SUCCESS [  0.644 s]
+[INFO] packages ........................................... SUCCESS [  0.336 s]
+[INFO] apex-pdp-package-full .............................. SUCCESS [01:10 min]
+[INFO] Policy APEX PDP - Docker build 2.0.0-SNAPSHOT ...... SUCCESS [ 10.307 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 02:48 min
-[INFO] Finished at: 2018-01-04T12:20:45+00:00
-[INFO] Final Memory: 164M/1648M
+[INFO] Total time: 03:43 min
+[INFO] Finished at: 2018-09-03T11:56:01+01:00
 [INFO] ------------------------------------------------------------------------

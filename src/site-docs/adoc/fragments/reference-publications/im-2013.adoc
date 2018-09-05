@@ -33,19 +33,13 @@ a|
 [source,bibtex]
 ----
 @inproceedings{DBLP:conf/im/KeeneyMH13,
-  author    = {John Keeney and
-               Sven van der Meer and
-               Gabriel Hogan},
-  title     = {A Recommender-system for Telecommunications
-               Network Management Actions},
-  booktitle = {2013 {IFIP/IEEE} International Symposium on Integrated
-               Network Management
-               {IM} 2013, Ghent, Belgium, May 27-31, 2013},
+  author    = {John Keeney and Sven van der Meer and Gabriel Hogan}
+  title     = {A Recommender-system for Telecommunications Network Management Actions},
+  booktitle = {2013 {IFIP/IEEE} International Symposium on Integrated Network Management {IM} 2013, Ghent, Belgium, May 27-31, 2013},
   pages     = {760--763},
   year      = {2013},
   crossref  = {DBLP:conf/im/2013},
   url       = {http://ieeexplore.ieee.org/document/6573072/},
-  timestamp = {Sun, 30 Apr 2017 09:41:39 +0200},
   biburl    = {http://dblp.org/rec/bib/conf/im/KeeneyMH13},
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }

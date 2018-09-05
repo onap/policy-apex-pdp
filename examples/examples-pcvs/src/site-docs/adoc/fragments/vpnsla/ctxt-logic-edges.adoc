@@ -18,5 +18,5 @@ The edge context logic simply takes the trigger event (for context) and creates 
 .JS Logic Edge Context
 [source,javascript,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/ctxt-edges.js[JS Logic Edge Context]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/ctxt-edges.js[JS Logic Edge Context]
 ----

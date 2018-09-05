@@ -16,5 +16,5 @@
 .Config REst Client
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-decisionmaker-dir}/main/resources/config/ApexConfigRESTClient.json[Config Rest Client]
+include::{adsite-examples-decisionmaker-dir}/main/resources/examples/config/DecisionMaker/ApexConfigRESTClient.json[Config Rest Client]
 ----

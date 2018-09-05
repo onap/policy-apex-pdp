@@ -140,7 +140,7 @@
                                 <li><a href="modules/examples/examples-pcvs/index.html">examples-pcvs</a> - An example policy for managing customers and link failures showing video streaming for a simple VPN scenario</li>
                                 <li><a href="modules/examples/examples-onap-vcpe/index.html">examples-onap-vcpe</a> - An example policy for managing vCPE's in ONAP</li>
                                 <li><a href="modules/examples/examples-periodic/index.html">examples-periodic</a> - An example periodic policy</li>
-                                <li><a href="modules/examples/examples-servlet/index.html">examples-aadm</a> - An  APEX Servlet Example</li>
+                                <li><a href="modules/examples/examples-servlet/index.html">examples-servlet</a> - An  APEX Servlet Example</li>
                                 <li><a href="modules/examples/examples-adaptive/index.html">examples-adaptive</a> - A simple adaptive policy</li>
                                 <li><a href="modules/examples/examples-aadm/index.html">examples-aadm</a> - A policy realizing a complex scenario for Autonomic Anomaly Detection and Mitigation (AADM)</li>
                             </ul>
@@ -307,9 +307,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><a href="https://github.com/Ericsson/apex/issues">APEX Issue Management (Github)</a></td>
+                        <td><a href="https://jira.onap.org/projects/POLICY/issues">APEX Issue Management (ONAP, JIRA)</a></td>
                         <td>
                             Issues with the APEX software and integrated documentation are managed here.
+                            This link requires a Linux Foundation ID.
                         </td>
                     </tr>
                 </table>

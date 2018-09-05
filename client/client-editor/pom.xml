@@ -109,7 +109,7 @@
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
-                        <phase>generate-resources</phase>
+                        <phase>validate</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
                             <includeArtifacIds>client-common</includeArtifacIds>
@@ -121,7 +121,49 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-common-resources-to-jar</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
+                            <filtering>false</filtering>
+                            <resources>
+                                <resource>
+                                    <directory>../client-common/src/main/resources</directory>
+                                </resource>
+                            </resources>
+                            <overwrite>true</overwrite>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-local-resources-to-jar</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
+                            <filtering>false</filtering>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/webapp</directory>
+                                </resource>
+                            </resources>
+                            <overwrite>true</overwrite>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -170,6 +212,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
                     <classifier>ui</classifier>
                     <warSourceDirectory>src/main/resources/webapp</warSourceDirectory>

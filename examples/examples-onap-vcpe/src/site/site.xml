@@ -16,7 +16,6 @@
 <project name="APEX Examples ONAP vCPE">
     <body>
         <menu name="APEX Examples ONAP vCPE">
-            <item href="dockerfile.html" name="Dockerfile" />
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules" />

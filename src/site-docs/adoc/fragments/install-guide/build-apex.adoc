@@ -15,9 +15,17 @@
 
 The examples in this document assume that the APEX source repositories are cloned to:
 
-- Unix, Cygwin: `/usr/local/src/apex`
-- Windows: `C:\dev\apex`
-- Cygwin: `/cygdrive/c/dev/apex`
+- Unix, Cygwin: `/usr/local/src/apex-pdp`
+- Windows: `C:\dev\apex-pdp`
+- Cygwin: `/cygdrive/c/dev/apex-pdp`
+
+[IMPORTANT]
+.A Build requires ONAP Nexus
+====
+APEX has a dependency to ONAP parent projects.
+You might need to adjust your Maven M2 settings.
+The most current settings can be found in the ONAP oparent repo: link:https://git.onap.org/oparent/plain/settings.xml[Settings].
+====
 
 [IMPORTANT]
 .A Build needs Space
@@ -47,14 +55,14 @@ Use Maven to for a standard build without any tests.
 |
 [source%nowrap,sh,numbered]
 ----
-# cd /usr/local/src/apex
+# cd /usr/local/src/apex-pdp
 # mvn clean install -DskipTests
 ----
 |
 [source%nowrap,bat,numbered]
 ----
 >c:
->cd \dev\apex
+>cd \dev\apex-pdp
 >mvn clean install -DskipTests
 ----
 |====================
@@ -79,7 +87,7 @@ The following example show how to change to the target directory and how it shou
 |
 [source%nowrap,sh,numbered]
 ----
-# cd modules/apex-apps/apex-apps.uservice/apex-apps.uservice-packaging/apex-apps.uservice-package-full/target
+# cd packages/apex-pdp-package-full/target
 # ls -l
 ----
 
@@ -98,7 +106,7 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-unix.txt[s
 |
 [source%nowrap,bat,numbered]
 ----
->cd modules\apex-apps\apex-apps.uservice\apex-apps.uservice-packaging\apex-apps.uservice-package-full\target
+>cd packages\apex-pdp-package-full\target
 >dir
 ----
 

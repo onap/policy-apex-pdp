@@ -16,6 +16,7 @@
 <project name="APEX Packages Docker">
     <body>
         <menu name="APEX Packages Docker">
+            <item href="dockerfile.html" name="APEX Dockerfile" />
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules" />

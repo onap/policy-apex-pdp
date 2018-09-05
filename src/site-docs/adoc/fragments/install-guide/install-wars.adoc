@@ -1,0 +1,46 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Installing WAR Applications
+APEX comes with a set of WAR files.
+These are complete applications that can be installed and run in an application server.
+All of these applications are realized as servlets.
+You can find the WAR applications in `$APEX_HOME/war` (UNIX, Cygwin) or `%APEX_HOME%\war` (Windows).
+
+Installing and using the WAR applications requires a web server that can execute `war` web archives.
+We recommend to use link:https://tomcat.apache.org/[Apache Tomcat], however other web servers can be used as well.
+
+Install Apache Tomcat including the `Manager App`, see link:https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html#Configuring_Manager_Application_Access[V9.0 Docs] for details.
+Start the Tomcat service, or make sure that Tomcat is running.
+
+There are multiple ways to install the APEX WAR applications:
+
+- copy the `.war` file into the Tomcat `webapps` folder
+- use the Tomcat `Manager App` to deploy via the web interface
+- deploy using a REST call to Tomcat
+
+For details on how to install `war` files please consult the link:https://tomcat.apache.org/tomcat-9.0-doc/index.html[Tomcat Documentation] or the link:https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html[Manager App HOW-TO].
+Once you installed an APEX WAR application (and wait for sufficient time for Tomcat to finalize the installation), open the `Manager App` in Tomcat.
+You should see the APEX WAR application being installed and running.
+
+In case of errors, examine the log files in the Tomcat log directory.
+In a conventional install, those log files are in the logs directory where Tomcat is installed.
+
+The current APEX version provides the following WAR applications:
+
+* client-deployment-{release-version}.war - a client to deploy new policy models to a running engine
+* client-editor-{release-version}.war - the standard policy REST editor GUI
+* client-monitoring-{release-version}.war - a client for monitoring a running APEX engine
+* client-full-{release-version}.war - a full client with a one-stop-access to deployment, monitoring, and REST editor
+* examples-servlet-{release-version}.war - an example APEX servlet
+

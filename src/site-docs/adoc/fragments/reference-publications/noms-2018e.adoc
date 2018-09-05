@@ -1,0 +1,44 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== NOMS 2018, Keynote #6
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| What do we actually manage in 5G? - And what is missing?
+
+h| Venue
+| IEEE NOMS, Taipei, April 2018
+
+h| Abstract
+| We are at the crossroads of yet another technology shift. Networks evolved continuously from TDM to IP, legacy to SDN, PNF to VNF as part of virtualization and now microservices/containers/K8s. All these technologies play a vital role in the evolution of 5G and the future networks will deliver services to many vertical industries. Distributed cloud is key to deliver services that require low latency and high bandwidth. Orchestration and adaptive Policy decisions will be key for automation in 5G networks. In this keynote, we will discuss the requirements and challenges for managing this – massive scale, dynamic, and complex – new environment. We will see what efforts are underway and planned for 5 G management, including open source initiatives such as ONAP. Finally, we will explore what is missing today to tame the 5G management complexity.
+
+h| Links
+| link:http://noms2018.ieee-noms.org/content/keynotes[Event], link:https://www.researchgate.net/publication/325057988_What_do_we_actually_manage_in_5G_And_what_is_missing[Research Gate] [accessed Sep 4, 2018]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@online{vandermeer-noms2018-e,
+  author        = {Sven van der Meer},
+  title         = {What do we actually manage in 5G? - And what is missing?},
+  howpublished  = {Keynote, 2018 {IEEE/IFIP} Network Operations and Management Symposium, {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  year          = {2018}
+}
+----
+
+|===
+

@@ -54,8 +54,6 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
     /**
      * Constructor to create a carrier technology parameters instance with the name of a sub class of this class and
      * register the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
      */
     public CarrierTechnologyParameters() {
         super();

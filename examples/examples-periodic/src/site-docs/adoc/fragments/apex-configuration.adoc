@@ -16,5 +16,5 @@
 .APEX configuration
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-periodic-dir}/main/resources/config/ApexConfigPeriodic.json[APEX configuration]
+include::{adsite-examples-periodic-dir}/main/resources/examples/config/Periodic/ApexConfigPeriodic.json[APEX configuration]
 ----

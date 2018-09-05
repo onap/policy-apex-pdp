@@ -20,7 +20,7 @@ This TSL select a task in the current policy execution (i.e. potentially a diffe
 .JS Logic Policy Decide State - TSL
 [source,javascript,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/tsl-decide.js[JS Logic Policy Decide State - TSL]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/tsl-decide.js[JS Logic Policy Decide State - TSL]
 ----
 
 The actual task logic are then `none`, `solved`, `sla`, and `priority`.

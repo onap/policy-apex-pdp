@@ -11,4 +11,4 @@
 // @author Sven van der Meer (sven.van.der.meer@ericsson.com)
 //
 
-include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-resteditor.adoc[]
+include::{adsite-packages-docker-dir}/site-docs/adoc/fragments/dockerfile.adoc[]

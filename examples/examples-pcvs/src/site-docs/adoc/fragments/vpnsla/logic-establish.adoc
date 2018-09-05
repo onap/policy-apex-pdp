@@ -24,6 +24,6 @@ Finally, it creates a situation object.
 .JS Logic Policy Establish State
 [source,javascript,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/task-establish.js[JS Logic Policy Establish State]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/task-establish.js[JS Logic Policy Establish State]
 ----
 

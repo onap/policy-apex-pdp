@@ -28,9 +28,18 @@ import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+/**
+ * The Class ReadLockAlbumModifier implements a read lock context album.
+ */
 public class ReadLockAlbumModifier implements AlbumModifier {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ReadLockAlbumModifier.class);
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.lock.modifier.AlbumModifier#modifyAlbum(org.onap.policy.apex.context.
+     * ContextAlbum, int, int)
+     */
     @Override
     public void modifyAlbum(final ContextAlbum contextAlbum, final int loopSize, final int arraySize) {
         final Random rand = new Random();

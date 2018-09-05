@@ -17,13 +17,12 @@
 :: ============LICENSE_END=========================================================
 
 ::
-:: Script to run APEX Applications
-:: Call -h for help
+:: Script to run APEX Applications, call with '-h' for help
 :: - adding a new app means to add a command to APEX_APP_MAP and a description to APEX_APP_DESCR_MAP using same/unique key
 ::
 :: @package    org.onap.policy.apex
 :: @author     Sven van der Meer <sven.van.der.meer@ericsson.com>
-:: @version    v0.7.0
+:: @version    v2.0.0
 
 ::
 :: DO NOT CHANGE CODE BELOW, unless you know what you are doing
@@ -72,16 +71,16 @@ set CLASSPATH=%APEX_HOME%\etc%cpsep%%APEX_HOME%\etc\hazelcast%cpsep%%APEX_HOME%\
 
 :: array of applications with name=command
 :: declare -A APEX_APP_MAP
-set APEX_APP_MAP[ws-console]=java -jar %APEX_HOME%\lib\applications\apex-apps.wsclients-simple-%_VERSION%-jar-with-dependencies.jar -c
-set APEX_APP_MAP[ws-echo]=java -jar %APEX_HOME%\lib\applications\apex-apps.wsclients-simple-%_VERSION%-jar-with-dependencies.jar
-set APEX_APP_MAP[tpl-event-json]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.apps.generators.model.model2event.Application
-set APEX_APP_MAP[model-2-cli]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.apps.generators.model.model2cli.Application
-set APEX_APP_MAP[rest-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\apex-services.client-editor-%_VERSION%-editor.jar
+set APEX_APP_MAP[ws-console]=java -jar %APEX_HOME%\lib\applications\simple-wsclient-%_VERSION%-jar-with-dependencies.jar -c
+set APEX_APP_MAP[ws-echo]=java -jar %APEX_HOME%\lib\applications\simple-wsclient-%_VERSION%-jar-with-dependencies.jar
+set APEX_APP_MAP[tpl-event-json]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.tools.model.generator.model2event.Application
+set APEX_APP_MAP[model-2-cli]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.tools.model.generator.model2cli.Application
+set APEX_APP_MAP[rest-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-editor-%_VERSION%-editor.jar
 set APEX_APP_MAP[cli-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain
 set APEX_APP_MAP[engine]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.service.engine.main.ApexMain
-set APEX_APP_MAP[eng-deployment]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\apex-services.client-deployment-%_VERSION%-deployment.jar
-set APEX_APP_MAP[eng-monitoring]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\apex-services.client-monitoring-%_VERSION%-monitoring.jar
-set APEX_APP_MAP[full-client]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\apex-services.client-full-%_VERSION%-full.jar
+set APEX_APP_MAP[eng-deployment]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-deployment-%_VERSION%-deployment.jar
+set APEX_APP_MAP[eng-monitoring]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-monitoring-%_VERSION%-monitoring.jar
+set APEX_APP_MAP[full-client]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-full-%_VERSION%-full.jar
 
 :: array of applications with name=description
 :: declare -A APEX_APP_DESCR_MAP

@@ -56,14 +56,14 @@ The last row explains how to set those variables permanently.
 [source%nowrap,bash,numbered]
 ----
 # export APEX_USER=apexuser
-# cd /opt/ericsson/apex/apex
+# cd /opt/app/policy/apex-pdp/apex-pdp
 # export APEX_HOME=`pwd`
 ----
 
 [source%nowrap,tcsh,numbered]
 ----
 # setenv APEX_USER apexuser
-# cd /opt/ericsson/apex/apex
+# cd /opt/app/policy/apex-pdp/apex-pdp
 # setenv APEX_HOME `pwd`
 ----
 |
@@ -77,7 +77,7 @@ The last row explains how to set those variables permanently.
 ----
 # env \| grep APEX
 APEX_USER=apexuser
-APEX_HOME=/opt/ericsson/apex/apex
+APEX_HOME=/opt/app/policy/apex-pdp/apex-pdp
 ----
 |
 [source%nowrap,bat,numbered,subs="attributes+"]
@@ -125,7 +125,7 @@ Configure the APEX logging settings to your requirements, for instance:
 Edit the file `$APEX_HOME/etc/logback.xml` for any required changes.
 To change the log directory change the line
 
-`<property name="VAR_LOG" value="/var/log/ericsson/apex/" />`
+`<property name="VAR_LOG" value="/var/log/onap/policy/apex-pdp/" />`
 
 to
 
@@ -148,8 +148,8 @@ This is important when APEX was installed manually or when the log directory was
 |
 [source%nowrap,sh,numbered]
 ----
-mkdir -p /var/log/ericsson/apex
-chown -R apexuser:apexuser /var/log/ericsson/apex
+mkdir -p /var/log/onap/policy/apex-pdp
+chown -R apexuser:apexuser /var/log/onap/policy/apex-pdp
 ----
 |
 [source%nowrap,bat,numbered,subs="attributes+"]

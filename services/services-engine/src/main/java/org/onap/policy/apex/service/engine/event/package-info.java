@@ -19,10 +19,10 @@
  */
 
 /**
- * Provides a generic externally-facing {@link ApexEvent} class that can be sent into an APEX engine
- * and processed by an APEX engine. It provides the producer {@link ApexEventProducer} producer and
- * {@link ApexEventConsumer} consumer interfaces that APEX uses to send events to and receive events
- * from other systems. It also provides the {@link ApexEventConverter} interface that can be
+ * Provides a generic externally-facing ApexEvent class that can be sent into an APEX engine
+ * and processed by an APEX engine. It provides the producer ApexEventProducer producer and
+ * ApexEventConsumer consumer interfaces that APEX uses to send events to and receive events
+ * from other systems. It also provides the ApexEventConverter interface that can be
  * implemented by plugins that wish to convert some external event format into the APEX event
  * format. It also provides a periodic event generator that can be used to send periodic events into
  * an APEX engine for triggering of policies to carry out housekeeping tasks.

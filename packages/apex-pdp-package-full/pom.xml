@@ -41,6 +41,32 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Client Servlet applications -->
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.client</groupId>
+            <artifactId>client-full</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.client</groupId>
+            <artifactId>client-editor</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.client</groupId>
+            <artifactId>client-deployment</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.client</groupId>
+            <artifactId>client-monitoring</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        
         <!-- Plugins for Context Distribution -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
@@ -161,7 +187,19 @@
             <artifactId>cli-editor</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        
+        <!-- Tools -->
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.tools</groupId>
+            <artifactId>simple-wsclient</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.tools</groupId>
+            <artifactId>model-generator</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
         <!-- Test Data used by examples -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.context</groupId>
@@ -323,11 +361,70 @@
                                     <outputDirectory>${project.build.directory}/etc</outputDirectory>
                                     <includes>/readme_examples-servlet.txt</includes>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.tools</groupId>
+                                    <artifactId>tools-common</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/etc</outputDirectory>
+                                    <includes>/app-version.txt</includes>
+                                </artifactItem>
                             </artifactItems>
                             <overWriteReleases>true</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>copy-fat-jars</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.tools</groupId>
+                                    <artifactId>simple-wsclient</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <classifier>jar-with-dependencies</classifier>
+                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
+                                    <artifactId>client-monitoring</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>monitoring</classifier>
+                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
+                                    <artifactId>client-editor</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>editor</classifier>
+                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
+                                    <artifactId>client-deployment</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>deployment</classifier>
+                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
+                                    <artifactId>client-full</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>full</classifier>
+                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
  

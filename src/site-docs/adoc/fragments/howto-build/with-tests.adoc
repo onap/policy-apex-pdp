@@ -41,17 +41,7 @@ If this happens, reduce the load on your build machine and restart the build.
 ----
 |====================
 
-The build takes about 5-6 minutes with tests on a standard development laptop.
+The build takes about 10 minutes with tests on a standard development laptop.
 It should run through without errors, but with a lot of messages from the build process.
 If build with tests (i.e. without `-DskipTests`), there will be error messages and stack trace prints from some tests.
 This is normal, as long as the build finishes successful.
-
-When Maven is finished with the build, the final screen should look similar to this (omitting some `success` lines):
-
-[source%nowrap,sh,numbered,subs="attributes+"]
-----
-include::{adsite-main-dir}/site-docs/adoc/fragments/screens/mvn-install-skiptests.txt[mvn build, with tests]
-----
-
-The build will have created all artifacts required for an APEX installation.
-

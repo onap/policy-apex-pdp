@@ -16,6 +16,7 @@
 <project name="APEX Testsuites Performance Context-Metrics">
     <body>
         <menu name="APEX Testsuites Performance Context-Metrics">
+            <item href="javadocs/index.html" name="API Doc" />
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules" />

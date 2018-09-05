@@ -62,7 +62,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * read objects from the context album.
  * <p>
  * Validation checks that the album key and the context schema key are not null and that the scope field is not
- * undefined and matches the regular expression {@link SCOPE_REGEXP}.
+ * undefined and matches the regular expression SCOPE_REGEXP.
  */
 @Entity
 @Table(name = "AxContextAlbum")
@@ -113,7 +113,7 @@ public class AxContextAlbum extends AxConcept {
 
     /**
      * The default constructor creates a context album with a null artifact key. The scope of the context album is set
-     * as {@link SCOPE_UNDEFINED}, the album is writable, and the artifact key of the context schema is set to the null
+     * as SCOPE_UNDEFINED, the album is writable, and the artifact key of the context schema is set to the null
      * artifact key.
      */
     public AxContextAlbum() {
@@ -134,7 +134,7 @@ public class AxContextAlbum extends AxConcept {
 
     /**
      * The keyed constructor creates a context album with the specified artifact key. The scope of the context album is
-     * set as {@link SCOPE_UNDEFINED}, the album is writable, and the artifact key of the context schema is set to the
+     * set as SCOPE_UNDEFINED, the album is writable, and the artifact key of the context schema is set to the
      * null artifact key.
      *
      * @param key the key of the context album
@@ -147,7 +147,7 @@ public class AxContextAlbum extends AxConcept {
      * Constructor that sets all the fields of the context album.
      *
      * @param key the key of the context album
-     * @param scope the scope field, must match the regular expression {@link SCOPE_REGEXP}
+     * @param scope the scope field, must match the regular expression SCOPE_REGEXP
      * @param isWritable specifies whether the context album will be writable or not
      * @param itemSchema the artifact key of the context schema to use for this context album
      */

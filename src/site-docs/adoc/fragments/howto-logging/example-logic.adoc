@@ -13,52 +13,52 @@
 
 == Example Configuration for Logging Logic
 
-The following example shows a configuration that logs policy logic to standard out (__info__) and a file (__debug__)
-All other APEX components are logging to a file (__debug__) and standard out (__error__).
+The following example shows a configuration that logs policy logic to standard out and a file (__info__).
+All other APEX components are logging to a file (__debug__)..
 This configuration an be used in a pre-production phase with the APEX engine still running in a separate terminal to monitor policy execution.
-This logback configuration is in the APEX installation as `etc/logback-logic.xml`
+This logback configuration is in the APEX installation as `etc/logback-logic.xml`.
 
 [source%nowrap,xml]
 ----
 <configuration debug="false">
-  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
 
-  <contextName>Apex</contextName>
-  <property name="VAR_LOG" value="/var/log/ericsson/apex/" />
+    <contextName>Apex</contextName>
+    <property name="VAR_LOG" value="/var/log/onap/policy/apex-pdp/" />
 
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <Pattern>%d %contextName [%t] %level %logger{36} - %msg%n</Pattern>
-    </encoder>
-  </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d %contextName [%t] %level %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
 
-  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>${VAR_LOG}/apex.log</file>
-    <encoder>
-      <pattern>
-        %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
-      </pattern>
-    </encoder>
-  </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${VAR_LOG}/apex.log</file>
+        <encoder>
+            <pattern>
+                %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
+            </pattern>
+        </encoder>
+    </appender>
 
-  <appender name="POLICY_APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>policy: %msg\n</pattern>
-    </encoder>
-  </appender>
+    <appender name="POLICY_APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>policy: %msg\n</pattern>
+        </encoder>
+    </appender>
 
-  <root level="error">
-    <appender-ref ref="STDOUT" />
-  </root>
+    <root level="error">
+        <appender-ref ref="STDOUT" />
+    </root>
 
-<logger name="org.onap.policy.apex" level="debug" additivity="false">
-  <appender-ref ref="FILE" />
-</logger>
+    <logger name="org.onap.policy.apex" level="debug" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
 
-  <logger name="org.onap.policy.apex.executionlogging" level="debug" additivity="false">
-    <appender-ref ref="POLICY_APPENDER_STDOUT" />
-    <appender-ref ref="FILE" />
-  </logger>
+    <logger name="org.onap.policy.apex.executionlogging" level="info" additivity="false">
+        <appender-ref ref="POLICY_APPENDER_STDOUT" />
+        <appender-ref ref="FILE" />
+    </logger>
 </configuration>
 ----
 

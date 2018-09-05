@@ -33,7 +33,7 @@ Use Maven to for a standard build without any tests.
 ----
 |====================
 
-The build takes 2-3 minutes on a standard development laptop.
+The build takes about 6 minutes on a standard development laptop.
 It should run through without errors, but with a lot of messages from the build process.
 
 When Maven is finished with the build, the final screen should look similar to this (omitting some `success` lines):
@@ -53,7 +53,7 @@ The following example show how to change to the target directory and how it shou
 |
 [source%nowrap,sh,numbered]
 ----
-# cd modules/apex-apps/apex-apps.uservice/apex-apps.uservice-packaging/apex-apps.uservice-package-full/target
+# cd packages/apex-pdp-package-full/target
 # ls -l
 ----
 
@@ -72,7 +72,7 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-unix.txt[s
 |
 [source%nowrap,bat,numbered]
 ----
->cd modules\apex-apps\apex-apps.uservice\apex-apps.uservice-packaging\apex-apps.uservice-package-full\target
+>cd packages\apex-pdp-package-full\target
 >dir
 ----
 

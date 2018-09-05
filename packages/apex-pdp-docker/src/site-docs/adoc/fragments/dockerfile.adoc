@@ -11,7 +11,10 @@
 // @author Sven van der Meer (sven.van.der.meer@ericsson.com)
 //
 
-[source%nowrap,xml,subs="attributes+"]
+== APEX Dockerfile
+
+.APEX Dockerfile
+[source%nowrap,sh,numbered,subs="attributes+"]
 ----
-include::{apex-main-dir}/eclipse/ApexCheckstyleSettings.xml[]
+include::{adsite-packages-docker-dir}/main/docker/Dockerfile[APEX Dockerfile]
 ----

@@ -20,7 +20,6 @@
             <item href="apex-model.html" name="APEX Model (Policy)" />
             <item href="logic-task-output.html" name="Logic: Output Task" />
             <item href="logic-task-periodic.html" name="Logic: Periodic Task" />
-            <item href="dockerfile.html" name="Dockerfile" />
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules" />

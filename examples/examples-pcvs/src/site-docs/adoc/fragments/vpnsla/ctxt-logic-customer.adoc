@@ -18,6 +18,6 @@ The customer context logic simply takes the trigger event (for context) and crea
 .JS Logic Customer Context
 [source,javascript,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/ctxt-customer.js[JS Logic Customer Context]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/ctxt-customer.js[JS Logic Customer Context]
 ----
 

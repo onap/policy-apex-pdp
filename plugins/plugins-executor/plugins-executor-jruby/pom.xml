@@ -46,11 +46,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>com.github.jnr</groupId>
-                    <artifactId>jnr-posix:</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.jnr</groupId>
-                    <artifactId>jnr-posix:</artifactId>
+                    <artifactId>jnr-posix</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.github.jnr</groupId>

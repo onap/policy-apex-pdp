@@ -1,0 +1,51 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== APEX Demo (NOMS'18)
+
+[width="100%",cols="15%,90%"]
+|===
+
+h| Title
+e| Demo: Adaptive policy execution (APEX)
+
+h| Venue
+| IEEE NOMS, Taipei, April 2018
+
+h| Abstract
+| This demo focuses on demonstrating features of the Adaptive Policy Execution (APEX) system. APEX is a carrier-grade, production ready, scalable policy engine implementing, based on published theory, universal and immutable policy infrastructure. The demo will showcase the main APEX features, from authoring via deployment to runtime; with three demo use cases. All software and features are available on Github.
+
+h| Links
+| link:https://www.researchgate.net/publication/325058016_Demo_Adaptive_Policy_Execution_APEX[Research Gate] [accessed Sep 4, 2018]
+
+h| BibTeX
+a|
+[source,bibtex]
+----
+@inproceedings{DBLP:conf/noms/MeerKFM18,
+  author    = {Sven van der Meer and John Keeney and Liam Fallon and Joseph McNamara},
+  title     = {Demo: Adaptive policy execution {(APEX)}},
+  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium, {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  pages     = {1--2},
+  year      = {2018},
+  crossref  = {DBLP:conf/noms/2018},
+  url       = {https://doi.org/10.1109/NOMS.2018.8406117},
+  doi       = {10.1109/NOMS.2018.8406117},
+  timestamp = {Tue, 10 Jul 2018 16:33:52 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/noms/MeerKFM18},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+----
+
+|===
+

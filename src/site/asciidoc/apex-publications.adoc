@@ -25,6 +25,8 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/im-20
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018a.adoc[leveloffset=+1]
 
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018d.adoc[leveloffset=+1]
+
 include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018c.adoc[leveloffset=+1]
 
 
@@ -43,3 +45,4 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/5g-20
 
 include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018b.adoc[leveloffset=+1]
 
+include::{adsite-main-dir}/site-docs/adoc/fragments/reference-publications/noms-2018e.adoc[leveloffset=+1]

@@ -28,13 +28,21 @@ import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+/**
+ * The Class SingleValueWriteLockAlbumModifier implements a single value lock context album.
+ */
 public class SingleValueWriteLockAlbumModifier implements AlbumModifier {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(SingleValueWriteLockAlbumModifier.class);
 
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.lock.modifier.AlbumModifier#modifyAlbum(org.onap.policy.apex.context.
+     * ContextAlbum, int, int)
+     */
     @Override
     public void modifyAlbum(final ContextAlbum contextAlbum, final int loopSize, final int arraySize)
-            throws ContextException {
+                    throws ContextException {
         for (int i = 0; i < loopSize; i++) {
             try {
                 contextAlbum.lockForWriting(TEST_VALUE);

@@ -21,14 +21,11 @@
 #-------------------------------------------------------------------------------
 
 ##
-## Script to run the APEX
-## - requires BASH with associative arrays, bash of at least version 4
-## - for BASH examples with arrays see for instance: http://www.artificialworlds.net/blog/2012/10/17/bash-associative-array-examples/
-## - adding a new app means to add a command to APEX_APP_MAP and a description to APEX_APP_DESCR_MAP using same/unique key
+## Script to run the APEX, calls apexApps.sh
 ##
 ## @package    org.onap.policy.apex
 ## @author     Sven van der Meer <sven.van.der.meer@ericsson.com>
-## @version    v0.7.0
+## @version    v2.0.0
 
 ##
 ## DO NOT CHANGE CODE BELOW, unless you know what you are doing

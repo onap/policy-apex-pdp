@@ -39,7 +39,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * must have an {@link AxArtifactKey} to identify it. Concepts that are wholly contained in another concept are
  * identified using a {@link AxReferenceKey} key.
  * 
- * <p>Key validation checks that the name and version fields match the {@link NAME_REGEXP} and {@link VERSION_REGEXP}
+ * <p>Key validation checks that the name and version fields match the NAME_REGEXP and VERSION_REGEXP
  * regular expressions respectively.
  */
 @Embeddable
@@ -94,7 +94,7 @@ public class AxArtifactKey extends AxKey {
     /**
      * Constructor to create a key using the key and version from the specified key ID.
      *
-     * @param id the key ID in a format that respects the {@link KEY_ID_REGEXP}
+     * @param id the key ID in a format that respects the KEY_ID_REGEXP
      */
     public AxArtifactKey(final String id) {
         Assertions.argumentNotNull(id, "id may not be null");

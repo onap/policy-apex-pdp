@@ -36,8 +36,7 @@
                     <item href="user-manual/install/um-install-layout.html" name="Final Layout" />
                     <item href="user-manual/install/um-install-configure.html" name="System Configuration" />
                     <item href="user-manual/install/um-install-verify.html" name="Verify Installation" />
-                    <item href="user-manual/install/um-install-monitoring.html" name="Install Monitoring" />
-                    <item href="user-manual/install/um-install-resteditor.html" name="Install REST Editor" />
+                    <item href="user-manual/install/um-install-wars.html" name="Install WARs" />
                     <item href="user-manual/install/um-install-docker.html" name="APEX in Docker" />
                 </item>
 

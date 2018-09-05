@@ -33,19 +33,13 @@ a|
 [source,bibtex]
 ----
 @inproceedings{DBLP:conf/im/FallonKM17,
-  author    = {Liam Fallon and
-               John Keeney and
-               Sven van der Meer},
+  author    = {Liam Fallon and John Keeney and Sven van der Meer},
   title     = {Distributed Management Information Models},
-  booktitle = {2017 {IFIP/IEEE} International Symposium on Integrated
-               Network Management
-               {IM} 2017, Lisbon, Portugal, May 8-12, 2017},
+  booktitle = {2017 {IFIP/IEEE} International Symposium on Integrated Network Management {IM} 2017, Lisbon, Portugal, May 8-12, 2017},
   pages     = {414--420},
   year      = {2017},
   crossref  = {DBLP:conf/im/2017},
-  url       = {https://doi.org/10.23919/INM.2017.7987306},
   doi       = {10.23919/INM.2017.7987306},
-  timestamp = {Fri, 28 Jul 2017 12:12:57 +0200},
   biburl    = {http://dblp.org/rec/bib/conf/im/FallonKM17},
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }

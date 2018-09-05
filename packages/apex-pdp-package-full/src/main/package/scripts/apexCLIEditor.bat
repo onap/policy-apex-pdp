@@ -17,11 +17,11 @@
 :: ============LICENSE_END=========================================================
 
 ::
-:: Script to run the APEX CLI Editor
+:: Script to run the APEX CLI Editor, calls apexApps.bat
 ::
 :: @package    org.onap.policy.apex
 :: @author     Sven van der Meer <sven.van.der.meer@ericsson.com>
-:: @version    v0.7.0
+:: @version    v2.0.0
 
 ::
 :: DO NOT CHANGE CODE BELOW, unless you know what you are doing

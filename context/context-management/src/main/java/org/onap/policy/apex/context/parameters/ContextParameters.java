@@ -31,7 +31,7 @@ import org.onap.policy.common.parameters.ParameterGroup;
  * <ol>
  * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the
  * period for flushing is the flush period.
- * <li>distributorParameters: The parameters (a {@link distributorParameters} instance) for the
+ * <li>distributorParameters: The parameters (a {@link DistributorParameters} instance) for the
  * distributor plugin that is being used for context album distribution
  * <li>schemaParameters: The parameters (a {@link SchemaParameters} instance) for the schema plugin
  * that is being used for context album schemas

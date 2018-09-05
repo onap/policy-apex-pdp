@@ -12,16 +12,16 @@
 //
 
 == Get the APEX Source Code
-The APEX source code is hosted in as project on Github link:https://github.com/Ericsson/apex[Ericsson:apex].
+
+The first APEX source code was hosted on Github in January 2018.
+By the end of 2018, APEX was added as a project in the ONAP Policy Framework, released later in the ONAP Casablanca release.
+
+The APEX source code is hosted in ONAP as project APEX.
 The current stable version is in the master branch.
-Simply clone the master branch from Github using either HTTPS (first example below) or SSH (second example below).
+Simply clone the master branch from ONAP using HTTPS.
 
 [source%nowrap,sh,numbered]
 ----
-git clone https://github.com/Ericsson/apex.git
+git clone https://gerrit.onap.org/r/policy/apex-pdp
 ----
 
-[source%nowrap,sh,numbered]
-----
-git clone git@github.com:Ericsson/apex.git
-----

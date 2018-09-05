@@ -33,8 +33,6 @@
                 <item href="RandomAnswerTask.html" name="Task Logic: Random Answer" />
                 <item href="RoundRobinAnswerTask.html" name="Task Logic: RoundRobin Answer" />
             </item>
-            <item href="dockerfile.html" name="Dockerfile" />
-
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules" />

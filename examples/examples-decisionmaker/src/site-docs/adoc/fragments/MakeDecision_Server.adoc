@@ -16,5 +16,5 @@
 .HTML Server
 [source,html,options="nowrap"]
 ----
-include::{adsite-examples-decisionmaker-dir}/main/resources/html/MakeDecision_Server.html[HTML Server]
+include::{adsite-examples-decisionmaker-dir}/main/resources/examples/html/DecisionMaker/MakeDecision_Server.html[HTML Server]
 ----

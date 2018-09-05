@@ -58,7 +58,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * {@link AxContextSchema} being defined as @code cell} objects.
  * <p>
  * Validation checks that the schema key is not null. It also checks that the schema flavour is defined and matches the
- * regular expression {@link SCHEMA_FLAVOUR_REGEXP}. Finally, validation checks that the defined schema is not a blank
+ * regular expression SCHEMA_FLAVOUR_REGEXP. Finally, validation checks that the defined schema is not a blank
  * or empty string.
  */
 @Entity
@@ -100,7 +100,7 @@ public class AxContextSchema extends AxConcept {
 
     /**
      * The default constructor creates a context schema with a null artifact key. The flavour of the context album is
-     * set as {@link SCHEMA_FLAVOUR_UNDEFINED} and the schema itself is defined as an empty string.
+     * set as SCHEMA_FLAVOUR_UNDEFINED and the schema itself is defined as an empty string.
      */
     public AxContextSchema() {
         this(new AxArtifactKey());
@@ -118,7 +118,7 @@ public class AxContextSchema extends AxConcept {
 
     /**
      * The key constructor creates a context schema with the given artifact key. The flavour of the context album is set
-     * as {@link SCHEMA_FLAVOUR_UNDEFINED} and the schema itself is defined as an empty string.
+     * as SCHEMA_FLAVOUR_UNDEFINED and the schema itself is defined as an empty string.
      *
      * @param key the key
      */

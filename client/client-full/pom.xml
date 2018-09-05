@@ -62,21 +62,21 @@
                 </includes>
             </resource>
             <resource>
-                <directory>../client-monitoring/target/client-monitoring-${project.version}</directory>
+                <directory>../client-monitoring/target/classes/webapp</directory>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
                 <targetPath>webapp/monitoring</targetPath>
             </resource>
             <resource>
-                <directory>../client-editor/target/client-editor-${project.version}</directory>
+                <directory>../client-editor/target/classes/webapp</directory>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
                 <targetPath>webapp/editor</targetPath>
             </resource>
             <resource>
-                <directory>../client-deployment/target/client-deployment-${project.version}</directory>
+                <directory>../client-deployment/target/classes/webapp</directory>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
@@ -89,7 +89,27 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-client-editor-shared-resources</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
+                            <includeArtifacIds>client-common</includeArtifacIds>
+                            <includeGroupIds>${project.groupId}</includeGroupIds>
+                            <excludeTransitive>true</excludeTransitive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -138,6 +158,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
                     <classifier>ui</classifier>
                     <warSourceDirectory>target/classes/webapp</warSourceDirectory>

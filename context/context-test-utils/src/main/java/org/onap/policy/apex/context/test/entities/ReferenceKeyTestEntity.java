@@ -35,6 +35,9 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
+/**
+ * The Class ReferenceKeyTestEntity provides a reference key test concept.
+ */
 @Entity
 @Table(name = "ReferenceKeyTestEntity")
 public class ReferenceKeyTestEntity extends AxConcept {
@@ -47,62 +50,130 @@ public class ReferenceKeyTestEntity extends AxConcept {
 
     private double doubleValue;
 
+    /**
+     * Instantiates a new reference key test entity.
+     */
     public ReferenceKeyTestEntity() {
         this.key = new AxReferenceKey();
         this.doubleValue = 0;
     }
 
+    /**
+     * Instantiates a new reference key test entity.
+     *
+     * @param doubleValue the double value
+     */
     public ReferenceKeyTestEntity(final Double doubleValue) {
         this.key = new AxReferenceKey();
         this.doubleValue = doubleValue;
     }
 
+    /**
+     * Instantiates a new reference key test entity.
+     *
+     * @param key the key
+     * @param doubleValue the double value
+     */
     public ReferenceKeyTestEntity(final AxReferenceKey key, final Double doubleValue) {
         this.key = key;
         this.doubleValue = doubleValue;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+     */
     @Override
     public AxReferenceKey getKey() {
         return key;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+     */
     @Override
     public List<AxKey> getKeys() {
         return Arrays.asList((AxKey) getKey());
     }
 
+    /**
+     * Sets the key.
+     *
+     * @param key the new key
+     */
     public void setKey(final AxReferenceKey key) {
         this.key = key;
     }
 
+    /**
+     * Check set key.
+     *
+     * @return true, if successful
+     */
     public boolean checkSetKey() {
         return (this.key != null);
     }
 
+    /**
+     * Gets the double value.
+     *
+     * @return the double value
+     */
     public double getDoubleValue() {
         return doubleValue;
     }
 
+    /**
+     * Sets the double value.
+     *
+     * @param doubleValue the new double value
+     */
     public void setDoubleValue(final double doubleValue) {
         this.doubleValue = doubleValue;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
+     * AxValidationResult)
+     */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
         return key.validate(result);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+     */
     @Override
     public void clean() {
         key.clean();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+     */
     @Override
     public String toString() {
         return "ReferenceKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
+     * AxConcept)
+     */
     @Override
     public AxConcept copyTo(final AxConcept target) {
         final Object copyObject = ((target == null) ? new ReferenceKeyTestEntity() : target);
@@ -120,6 +191,11 @@ public class ReferenceKeyTestEntity extends AxConcept {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -128,6 +204,11 @@ public class ReferenceKeyTestEntity extends AxConcept {
         return result;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (obj == null) {
@@ -150,6 +231,11 @@ public class ReferenceKeyTestEntity extends AxConcept {
         return (Double.compare(doubleValue, other.doubleValue) == 0);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final AxConcept otherObj) {
         if (otherObj == null) {

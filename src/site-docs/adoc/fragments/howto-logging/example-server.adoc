@@ -20,27 +20,27 @@ This logback configuration is in the APEX installation as `logback-server.xml`
 [source%nowrap,xml]
 ----
 <configuration debug="false">
-  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
 
-  <contextName>Apex</contextName>
-  <property name="VAR_LOG" value="/var/log/ericsson/apex/" />
+    <contextName>Apex</contextName>
+    <property name="VAR_LOG" value="/var/log/onap/policy/apex-pdp/" />
 
-  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>${VAR_LOG}/apex.log</file>
-    <encoder>
-      <pattern>
-        %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
-      </pattern>
-    </encoder>
-  </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${VAR_LOG}/apex.log</file>
+        <encoder>
+            <pattern>
+                %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
+            </pattern>
+        </encoder>
+    </appender>
 
-  <root level="debug">
-    <appender-ref ref="FILE" />
-  </root>
+    <root level="debug">
+        <appender-ref ref="FILE" />
+    </root>
 
-  <logger name="org.onap.policy.apex.executionlogging" level="debug" additivity="false">
-    <appender-ref ref="FILE" />
-  </logger>
+    <logger name="org.onap.policy.apex.executionlogging" level="debug" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
 </configuration>
 ----
 

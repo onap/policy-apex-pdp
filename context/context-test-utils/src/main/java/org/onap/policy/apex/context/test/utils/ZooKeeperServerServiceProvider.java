@@ -30,6 +30,9 @@ import org.apache.zookeeper.server.ZooKeeperServer;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+/**
+ * The Class ZooKeeperServerServiceProvider provides a zookeeper service to a caller.
+ */
 public class ZooKeeperServerServiceProvider {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ZooKeeperServerServiceProvider.class);
 
@@ -37,11 +40,24 @@ public class ZooKeeperServerServiceProvider {
     private File zookeeperDirectory;
     private InetSocketAddress addr;
 
+    /**
+     * Instantiates a new zoo keeper server service provider.
+     *
+     * @param zookeeperDirectory the zookeeper directory
+     * @param addr the addr
+     */
     public ZooKeeperServerServiceProvider(final File zookeeperDirectory, final InetSocketAddress addr) {
         this.zookeeperDirectory = zookeeperDirectory;
         this.addr = addr;
     }
 
+    /**
+     * Instantiates a new zoo keeper server service provider.
+     *
+     * @param zookeeperDirectory the zookeeper directory
+     * @param addr the addr
+     * @param port the port
+     */
     public ZooKeeperServerServiceProvider(final File zookeeperDirectory, final String addr, final int port) {
         this.zookeeperDirectory = zookeeperDirectory;
         this.addr = new InetSocketAddress(addr, port);
@@ -69,5 +85,4 @@ public class ZooKeeperServerServiceProvider {
             zookeeperFactory.shutdown();
         }
     }
-
 }

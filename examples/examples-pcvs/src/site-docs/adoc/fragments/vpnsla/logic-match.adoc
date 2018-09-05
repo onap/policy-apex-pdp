@@ -21,5 +21,5 @@ This timestamp is later used for SLA and downtime calculations as well as for so
 .JS Logic Policy Match State
 [source,javascript,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/task-match.js[JS Logic Policy Match State]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/task-match.js[JS Logic Policy Match State]
 ----

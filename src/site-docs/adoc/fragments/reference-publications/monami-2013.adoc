@@ -26,28 +26,20 @@ h| Abstract
 | The explosion in consumer devices has resulted in a significant increase in the number of mobile telecommunications nodes. As a result of increased device and node numbers, network operators have experienced a large increase in associated events. In such an environment, scalability and performance of event handling become important aspects for Operation Support Systems (OSS). A traditional approach has been to centralize monitoring and decision functions. The scale of events in a modern mobile telecommunications network means such centralized implementations are performance limited. What is required is a remodeling of Complex Event Processing (monitoring) and Policies (decision making) towards a distributed yet coordinated system. This paper describes an extensible architecture for such a distributed policy-based event processing system. Our approach provides a pluggable mechanism into which various event handling functionality can be integrated. In order to illustrate the applicability of our approach we evaluate the performance of 2 message queuing protocols, Advanced Message Queuing Protocol (AMQP) based RabbitMQ and Java Web Sockets. Our performance evaluation illustrates the ability of our architecture to transparently integrate alternative event processing technologies.
 
 h| Links
-| ###
+| link:https://www.researchgate.net/publication/259785930_Cloudifying_Mobile_Network_Management_Performance_Tests_of_Event_Distribution_and_Rule_Processing[ResarchGate] [accessed Aug 11, 2017]
 
 h| BibTeX
 a|
 [source,bibtex]
 ----
 @inproceedings{DBLP:conf/monami/DawarMKFB13,
-  author    = {Sumit Dawar and
-               Sven van der Meer and
-               John Keeney and
-               Enda Fallon and
-               Tom Bennet},
-  title     = {Cloudifying Mobile Network Management: Performance Tests
-               of Event Distribution and Rule Processing},
-  booktitle = {Mobile Networks and Management - 5th International Conference,
-              {MONAMI} 2013, Cork, Ireland, September 23-25, 2013},
+  author    = {Sumit Dawar and Sven van der Meer and John Keeney and Enda Fallon and Tom Bennet},
+  title     = {Cloudifying Mobile Network Management: Performance Tests of Event Distribution and Rule Processing},
+  booktitle = {Mobile Networks and Management - 5th International Conference, {MONAMI} 2013, Cork, Ireland, September 23-25, 2013},
   pages     = {94--107},
   year      = {2013},
   crossref  = {DBLP:conf/monami/2013},
-  url       = {https://doi.org/10.1007/978-3-319-04277-0_8},
   doi       = {10.1007/978-3-319-04277-0_8},
-  timestamp = {Wed, 24 May 2017 08:27:31 +0200},
   biburl    = {http://dblp.org/rec/bib/conf/monami/DawarMKFB13},
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }

@@ -21,9 +21,9 @@ APEX can be installed in different ways:
 
 === Install with RPM and DPKG
 The install distributions of APEX automatically install the system.
-The installation directory is `/opt/ericsson/apex`.
-Log files are located in `/var/log/ericsson/apex`.
-The latest APEX version will be available as `/opt/ericsson/apex/apex`.
+The installation directory is `/opt/app/policy/apex-pdp`.
+Log files are located in `/var/log/onap/policy/apex-pdp`.
+The latest APEX version will be available as `/opt/app/policy/apex-pdp/apex-pdp`.
 
 For the installation, a new user `apexuser` and a new group `apexuser` will be created.
 This user owns the installation directories and the log file location.
@@ -35,7 +35,7 @@ The user is also used by the standard APEX start scripts to run APEX with this u
 |
 [source%nowrap,sh,numbered,subs="attributes+"]
 ----
-# sudo rpm -i apex-apps.uservice-packages-{release-version}-full.rpm
+# sudo rpm -i apex-pdp-package-full-{release-version}.rpm
 ********************preinst*******************
 arguments 1
 **********************************************
@@ -54,10 +54,10 @@ arguments 1
 |
 [source%nowrap,sh,numbered,subs="attributes+"]
 ----
-# sudo dpkg -i apex-apps.uservice-packages-{release-version}-full.deb
+# sudo dpkg -i apex-pdp-package-full-{release-version}.deb
 Selecting previously unselected package apex-uservice.
 (Reading database ... 288458 files and directories currently installed.)
-Preparing to unpack apex-apps.uservice-packages-{release-version}-full.deb ...
+Preparing to unpack apex-pdp-package-full-{release-version}.deb ...
 ********************preinst*******************
 arguments install
 **********************************************
@@ -86,8 +86,8 @@ The following example shows how to install APEX in `/opt/apex` and create a link
 # mkdir apex
 # cd apex
 # mkdir apex-full-{release-version}
-# tar xvfz ~/Downloads/apex-apps.uservice-packages-{release-version}-full.tar.gz -C apex-full-{release-version}
-# ln -s apex apex-apps.uservice-packages-{release-version}
+# tar xvfz ~/Downloads/apex-pdp-package-full-{release-version}.tar.gz -C apex-full-{release-version}
+# ln -s apex apex-pdp-package-full-{release-version}
 ----
 
 
@@ -104,8 +104,6 @@ image::install-guide/win-extract-tar.png[Extract the APEX distribution]
 
 Inside the new APEX folder you see the main directories: `bin`, `etc`, `examples`, `lib`, and `war`
 
-image::install-guide/win-extracted.png[Extracted APEX distribution]
-
 Once extracted, please rename the created folder to `apex-full-{release-version}`.
 This will keep the directory name in line with the rest of this documentation.
 
@@ -119,7 +117,7 @@ Assuming `7Zip` is installed in the standard folder, simply run the following co
 ----
 >c:
 >cd \apex
->"\Program Files\7-Zip\7z.exe" x apex-apps.uservice-packages-{release-version}-full.tar.gz -so | "\Program Files\7-Zip\7z.exe" x -aoa -si -ttar -o"apex-full-{release-version}"
+>"\Program Files\7-Zip\7z.exe" x apex-pdp-package-full-{release-version}.tar.gz -so | "\Program Files\7-Zip\7z.exe" x -aoa -si -ttar -o"apex-full-{release-version}"
 ----
 
 APEX is now installed in the folder `C:\apex\apex-full-{release-version}`.
@@ -188,7 +186,7 @@ The following example show how to change to the target directory and how it shou
 |
 [source%nowrap,sh,numbered]
 ----
-# cd modules/apex-apps/apex-apps.uservice/apex-apps.uservice-packaging/apex-apps.uservice-package-full/target
+# cd packages/apex-pdp-package-full/target
 # ls -l
 ----
 
@@ -208,7 +206,7 @@ include::{adsite-main-dir}/site-docs/adoc/fragments/screens/target-ls-unix.txt[s
 |
 [source%nowrap,bat,numbered]
 ----
->cd modules\apex-apps\apex-apps.uservice\apex-apps.uservice-packaging\apex-apps.uservice-package-full\target
+>cd packages\apex-pdp-package-full\target
 >dir
 ----
 

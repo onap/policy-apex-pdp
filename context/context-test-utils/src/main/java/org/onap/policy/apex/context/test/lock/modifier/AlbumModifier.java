@@ -23,8 +23,19 @@ package org.onap.policy.apex.context.test.lock.modifier;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 
+/**
+ * The Interface AlbumModifier defines the interface to allow context albums be modified during context tests.
+ */
 public interface AlbumModifier {
 
+    /**
+     * Modify album.
+     *
+     * @param contextAlbum the context album
+     * @param loopSize the loop size
+     * @param arraySize the array size
+     * @throws ContextException the context exception
+     */
     void modifyAlbum(final ContextAlbum contextAlbum, final int loopSize, final int arraySize) throws ContextException;
 
 }

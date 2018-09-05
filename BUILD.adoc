@@ -1,0 +1,109 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Quick Guide: How to build APEX from source
+
+
+[IMPORTANT]
+.A Build needs Space
+====
+Building APEX requires approximately 2-3 GB of hard disc space, 1 GB for the actual build with full distribution and 1-2 GB for the downloaded dependencies
+====
+
+[IMPORTANT]
+.A Build requires Internet (for first build)
+====
+During the build, several (a lot) of Maven dependencies will be downloaded and stored in the configured local Maven repository.
+The first standard build (and any first specific build) requires Internet access to download those dependencies.
+====
+
+[IMPORTANT]
+.Building RPM distributions
+====
+RPM images are only build if the `rpm` package is installed (Unix).
+To install `rpm` run `sudo apt-get install rpm`, then build APEX.
+====
+
+
+
+=== Standard build
+
+A standard build will build all Maven projects, including the packages.
+It will not build the APEX site oand documentation.
+
+Note: APEX has a dependency to ONAP parent projects.
+You might need to adjust your Maven M2 settings.
+The most current settings can be found in the ONAP oparent repo: link:https://git.onap.org/oparent/plain/settings.xml[Settings].
+
+Without tests, takes about 6 minutes.
+
+----
+mvn install -DskipTests
+----
+
+With standard tests, takes about 10-15 minutes.
+
+----
+mvn install
+----
+
+With all tests (requires some database and other software installed).
+
+----
+mvn install -DapexAll
+----
+
+
+=== Building the HowTo with all details
+
+
+Build the APEX stand-alone documentation
+
+----
+mvn generate-resources -N -DapexDocs
+----
+
+Then open the HowTo in a browser, for example
+
+----
+firefox target/generated-docs/html/HowTo-Build-APEX.html
+----
+
+
+=== APEX Site
+
+Building a complete site workflow (start with cleaning your local site staging directory).
+
+[IMPORTANT]
+.Building a Site takes Time
+====
+Building and staging the APEX web site can take very long.
+The stand-alone documentation will take about 2 minutes.
+The sites for all modules and projects and the main APEX site can take between 10-30 minutes depending on your build machine
+(~10 minutes without generating source and test-source reports, closer to 30 minutes with all reports).
+====
+
+
+----
+mvn clean -DapexAll
+mvn install -DskipTests
+mvn generate-resources -N -DapexDocs
+mvn initialize site:attach-descriptor site site:stage -DapexSite
+----
+
+
+Terms & Conditions apply
+
+
+* * *
+*The ONAP APEX team*

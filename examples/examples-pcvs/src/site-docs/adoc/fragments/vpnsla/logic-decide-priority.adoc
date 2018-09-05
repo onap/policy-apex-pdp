@@ -16,5 +16,5 @@
 .JS Logic Policy Decide State - Priority
 [source,javascript,options="nowrap"]
 ----
-include::{adsite-examples-pcvs-dir}/main/resources/com/ericsson/apex/domains/pcvs/vpnsla/logic/task-decide-priority.js[JS Logic Policy Decide State - Priority]
+include::{adsite-examples-pcvs-dir}/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/task-decide-priority.js[JS Logic Policy Decide State - Priority]
 ----

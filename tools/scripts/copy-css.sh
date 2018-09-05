@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
@@ -18,31 +20,28 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
-#
-# Docker file to build an image that runs APEX on Java 8 in Ubuntu
-#
-# apex/base:0.6.0
-FROM ubuntu:16.04
-MAINTAINER John Keeney John.Keeney@ericsson.com
+##
+## Script to copy css artifacts from parent to all child modules, recursively.
+##
+## @author     Sven van der Meer <sven.van.der.meer@ericsson.com>
+## @version    v2.0.0
 
-RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y software-properties-common && \
-	add-apt-repository ppa:webupd8team/java -y && \
-	apt-get update && \
-	echo oracle-javax8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-	apt-get install -y oracle-java8-installer && \
-	rm -rf /var/cache/oracle-jdk8-installer && \
-	apt-get clean
 
-RUN mkdir /packages
-COPY apex-pdp-package-full-2.0.0-SNAPSHOT.deb /packages
-RUN dpkg -i packages/apex-pdp-package-full-2.0.0-SNAPSHOT.deb  && \
-	rm /packages/apex-pdp-package-full-2.0.0-SNAPSHOT.deb
+##
+## DO NOT CHANGE CODE BELOW, unless you know what you are doing
+##
 
-ENV PATH /opt/ericsson/apex/apex/bin:$PATH
+## script name for output
+MOD_SCRIPT_NAME=`basename $0`
 
-RUN  apt-get clean
+echo 
+echo "$MOD_SCRIPT_NAME: copying standard css and images to modules"
+for dir in `find -type d -name "site"|grep "/src"|grep "./modules/"`
+do
+	echo "--> copying to $dir"
+	cp -dfrp src/site/css $dir
+	cp -dfrp src/site/images $dir
+done
 
-RUN chown -R apexuser:apexuser /home/apexuser/*
-WORKDIR /home/apexuser
+echo "-> done"
+echo

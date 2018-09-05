@@ -27,8 +27,14 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.TreeSet;
 
+/**
+ * The Class NetworkUtils contains some utility functions for getting network information for context tests.
+ */
 public class NetworkUtils {
 
+    /**
+     * Instantiates a new network utils.
+     */
     private NetworkUtils() {}
 
     /**

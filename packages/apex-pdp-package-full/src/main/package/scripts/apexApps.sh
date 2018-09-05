@@ -19,6 +19,15 @@
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
+##
+## Script to run APEX Applications, call with '-h' for help
+## - requires BASH with associative arrays, bash of at least version 4
+## - for BASH examples with arrays see for instance: http://www.artificialworlds.net/blog/2012/10/17/bash-associative-array-examples/
+## - adding a new app means to add a command to APEX_APP_MAP and a description to APEX_APP_DESCR_MAP using same/unique key
+##
+## @package    org.onap.policy.apex
+## @author     Sven van der Meer <sven.van.der.meer@ericsson.com>
+## @version    v2.0.0
 
 ##
 ## DO NOT CHANGE CODE BELOW, unless you know what you are doing
@@ -27,7 +36,7 @@
 
 if [ -z $APEX_HOME ]
 then
-    APEX_HOME="/opt/app/policy/apex-pdp"
+    APEX_HOME="/opt/app/policy/apex-pdp/apex-pdp"
 fi
 
 if [ ! -d $APEX_HOME ]
@@ -71,16 +80,16 @@ CLASSPATH="$APEX_HOME/etc${cpsep}$APEX_HOME/etc/hazelcast${cpsep}$APEX_HOME/etc/
 
 ## array of applications with name=command
 declare -A APEX_APP_MAP
-APEX_APP_MAP["ws-console"]="java -jar $APEX_HOME/lib/applications/apex-apps.wsclients-simple-$_version-jar-with-dependencies.jar -c"
-APEX_APP_MAP["ws-echo"]="java -jar $APEX_HOME/lib/applications/apex-apps.wsclients-simple-$_version-jar-with-dependencies.jar"
-APEX_APP_MAP["tpl-event-json"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.apps.generators.model.model2event.Application"
-APEX_APP_MAP["model-2-cli"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.apps.generators.model.model2cli.Application"
-APEX_APP_MAP["rest-editor"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/apex-services.client-editor-$_version-editor.jar"
+APEX_APP_MAP["ws-console"]="java -jar $APEX_HOME/lib/applications/simple-wsclient-$_version-jar-with-dependencies.jar -c"
+APEX_APP_MAP["ws-echo"]="java -jar $APEX_HOME/lib/applications/simple-wsclient-$_version-jar-with-dependencies.jar"
+APEX_APP_MAP["tpl-event-json"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.tools.model.generator.model2event.Application"
+APEX_APP_MAP["model-2-cli"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.tools.model.generator.model2cli.Application"
+APEX_APP_MAP["rest-editor"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-editor-$_version-editor.jar"
 APEX_APP_MAP["cli-editor"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain"
 APEX_APP_MAP["engine"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.service.engine.main.ApexMain"
-APEX_APP_MAP["eng-deployment"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/apex-services.client-deployment-$_version-deployment.jar"
-APEX_APP_MAP["eng-monitoring"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/apex-services.client-monitoring-$_version-monitoring.jar"
-APEX_APP_MAP["full-client"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/apex-services.client-full-$_version-full.jar"
+APEX_APP_MAP["eng-deployment"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-deployment-$_version-deployment.jar"
+APEX_APP_MAP["eng-monitoring"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-monitoring-$_version-monitoring.jar"
+APEX_APP_MAP["full-client"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-full-$_version-full.jar"
 
 ## array of applications with name=description
 declare -A APEX_APP_DESCR_MAP

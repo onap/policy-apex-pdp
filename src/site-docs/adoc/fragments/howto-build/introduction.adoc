@@ -34,6 +34,15 @@ The examples in this document assume that the APEX source repositories are clone
 - Windows: `C:\dev\apex`
 - Cygwin: `/cygdrive/c/dev/apex`
 
+
+[IMPORTANT]
+.A Build requires ONAP Nexus
+====
+APEX has a dependency to ONAP parent projects.
+You might need to adjust your Maven M2 settings.
+The most current settings can be found in the ONAP oparent repo: link:https://git.onap.org/oparent/plain/settings.xml[Settings].
+====
+
 [IMPORTANT]
 .A Build needs Space
 ====

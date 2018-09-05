@@ -19,7 +19,7 @@ On UNIX and Cygwin systems use:
 
 - `apexEngine.sh` - this script will
   ** Test if `$APEX_USER` is set and if the user exists, terminate with an error otherwise
-  ** Test if `$APEX_HOME` is set. If not set, it will use the default setting as `/opt/ericsson/apex/apex`.
+  ** Test if `$APEX_HOME` is set. If not set, it will use the default setting as `/opt/app/policy/apex-pdp/apex-pdp`.
      Then the set directory is tested to exist, the script will terminate if not.
   ** When all tests are passed successfully, the script will call `apexApps.sh` with arguments to start the APEX engine.
 - `apexApps.sh engine` - this is the general APEX application launcher, which will
@@ -59,13 +59,11 @@ The option `-h` prints a help screen.
 ----
 usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]
 options
- -c,--config-file <CONFIG_FILE>   the full path to the configuration file to use,
-                                  the configuration file must be a Json
-                                  file containing the Apex configuration parameters
- -h,--help                        outputs the usage of this command
- -m,--model-file <MODEL_FILE>     the full path to the model file to use,
-                                  if set it overrides the model file set in the
-                                  configuration file
- -v,--version                     outputs the version of Apex
+-c,--config-file <CONFIG_FILE>  the full path to the configuration file to use, the configuration file must be a Json file
+                                containing the Apex configuration parameters
+-h,--help                       outputs the usage of this command
+-m,--model-file <MODEL_FILE>    the full path to the model file to use, if set it overrides the model file set in the
+                                configuration file
+-v,--version                    outputs the version of Apex
 ----
 

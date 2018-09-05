@@ -114,6 +114,9 @@
                     <name>apexSite</name>
                 </property>
             </activation>
+            <properties>
+                <adsite-packages-docker-dir>${project.basedir}/src</adsite-packages-docker-dir>
+            </properties>
             <distributionManagement>
                 <site>
                     <id>${project.artifactId}-site</id>

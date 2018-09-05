@@ -30,10 +30,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Simple Websocket client (console and echo)</description>
 
-    <properties>
-        <apex-apps-wsclients-simple-dir>${project.basedir}/src</apex-apps-wsclients-simple-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.java-websocket</groupId>
@@ -64,7 +60,7 @@
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>org.onap.policy.apex.tools.simple.wsclients.Application</mainClass>
+                                    <mainClass>org.onap.policy.apex.tools.simple.wsclient.Application</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

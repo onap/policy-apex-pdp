@@ -19,9 +19,9 @@
  */
 
 /**
- * Provides Java APIs for APEX engines at runtime. The {@link EngineService} is used to start, stop
- * and manage APEX engines. {@link EngineServiceEventInterface} is used to send events to an APEX
- * engine. {@link ApexEventListener} interface is used to receive events from an APEX engine.
+ * Provides Java APIs for APEX engines at runtime. The EngineService is used to start, stop
+ * and manage APEX engines. EngineServiceEventInterface is used to send events to an APEX
+ * engine. ApexEventListener interface is used to receive events from an APEX engine.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

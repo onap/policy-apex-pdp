@@ -16,5 +16,5 @@
 .HTML Client, Extra Mode
 [source,html,options="nowrap"]
 ----
-include::{adsite-examples-decisionmaker-dir}/main/resources/html/MakeDecisionExtraMode_Client.html[HTML Client, Extra Mode]
+include::{adsite-examples-decisionmaker-dir}/main/resources/examples/html/DecisionMaker/MakeDecisionExtraMode_Client.html[HTML Client, Extra Mode]
 ----

@@ -14,7 +14,7 @@
 == Standard Logging Configuration
 
 The standard logging configuration defines a context __APEX__, which is used in the standard output pattern.
-The location for log files is defined in the property `VAR_LOG` and set to `/var/log/apex`.
+The location for log files is defined in the property `VAR_LOG` and set to `/var/log/onap/policy/apex-pdp`.
 The standard status listener is set to __NOP__ and the overall logback configuration is set to no debug.
 
 [source%nowrap,xml,numbered]
@@ -23,7 +23,7 @@ The standard status listener is set to __NOP__ and the overall logback configura
   <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
 
   <contextName>Apex</contextName>
-  <property name="VAR_LOG" value="/var/log/ericsson/apex/" />
+  <property name="VAR_LOG" value="/var/log/onap/policy/apex-pdp/" />
 
   ...appenders
   ...loggers
@@ -49,38 +49,35 @@ The root level logger then is set to the level __info__ using the standard out a
 </root>
 ----
 
-The first appender is called `FILE`.
+The second appender is called `FILE`.
 It writes logs to a file `apex.log`.
 [source%nowrap,xml,numbered]
 ----
 <appender name="FILE" class="ch.qos.logback.core.FileAppender">
   <file>${VAR_LOG}/apex.log</file>
   <encoder>
-    <pattern>
-      %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
-    </pattern>
+    <pattern>%d %-5relative [procId=${processId}] [%thread] %-5level %logger{26} - %msg %n %ex{full}</pattern>
   </encoder>
 </appender>
 ----
 
-The first appender is called `CTXT_FILE`.
+The third appender is called `CTXT_FILE`.
 It writes logs to a file `apex_ctxt.log`.
 [source%nowrap,xml,numbered]
 ----
 <appender name="CTXT_FILE" class="ch.qos.logback.core.FileAppender">
   <file>${VAR_LOG}/apex_ctxt.log</file>
   <encoder>
-    <pattern>
-      %d %-5relative [procId=${processId}] [%thread] %-5level%logger{26} - %msg %n %ex{full}
-    </pattern>
+    <pattern>%d %-5relative [procId=${processId}] [%thread] %-5level %logger{26} - %msg %n %ex{full}</pattern>
   </encoder>
 </appender>
 ----
 
 The last definitions are for specific loggers.
-The first logger captures all standard APEX classes, appends logs to `STDOUT` with the log level __info__.
-The second logger capture all standard APEX classes, appends logs to `FILE` with log level __info__.
-The third logger captures context monitoring classes, appends logs to `CTXT_FILE` with log level __trace__.
+The first logger captures all standard APEX classes.
+It is configured for log level __info__ and uses the standard output and file appenders.
+The second logger captures APEX context classes responsible for context monitoring.
+It is configured for log level __trace__ and uses the context file appender.
 
 [source%nowrap,xml,numbered]
 ----

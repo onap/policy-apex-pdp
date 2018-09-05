@@ -30,16 +30,20 @@ The option `-h` provides a help screen with all command line arguments.
 
 [source%nowrap,sh]
 ----
-usage: org.onap.policy.apex.services.client.monitoring.rest.ApexMonitoringRestMain [options...]
--h,--help                         outputs the usage of this command
--p,--port <PORT>                  port to use for the Apex Services REST calls
--t,--time-to-live <TIME_TO_LIVE>  the amount of time in seconds that the server will run for before terminating
+usage: org.onap.policy.apex.client.monitoring.rest.ApexMonitoringRestMain [options...]
+-h,--help                        outputs the usage of this command
+-p,--port <PORT>                 port to use for the Apex Services REST calls
+-t,--time-to-live <TIME_TO_LIVE> the amount of time in seconds that the server will run for before terminating
 ----
 
 If the Monitoring Client is started without any arguments the final messages will look similar to this:
 
 [source%nowrap,sh]
 ----
+Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRestParameters: URI=http://localhost:18989/apexservices/, TTL=-1sec], State=READY) starting at http://localhost:18989/apexservices/ . . .
+Sep 05, 2018 11:26:20 PM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [localhost:18989]
+Sep 05, 2018 11:26:20 PM org.glassfish.grizzly.http.server.HttpServer start
 INFO: [HttpServer] Started.
 Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRestParameters: URI=http://localhost:18989/apexservices/, TTL=-1sec], State=RUNNING) started at http://localhost:18989/apexservices/
 ----

@@ -18,7 +18,7 @@ It describes a sales problem, to which policy can be applied.
 The example details the policy background, shows how to use the REST Editor to create a policy, and provides details for running the policies.
 The documentation can be found:
 
-* link:https://ericsson.github.io/apex-docs/modules/apex-domains/apex-domains.myfirstpolicy/MyFirstPolicyHowto.html[My-First-Policy on the APEX site]
+* link:https://ericsson.github.io/apex-docs/modules/examples/examples-myfirstpolicy/MyFirstPolicyHowto.html[My-First-Policy on the APEX site]
 * link:https://ericsson.github.io/apex-docs/docs-apex/html/HowTo-MyFirstPolicy.html[Stand-alone HTML]
 * link:https://ericsson.github.io/apex-docs/docs-apex/pdf/HowTo-MyFirstPolicy.pdf[Stand-alone PDF]
 
@@ -30,7 +30,7 @@ It also provides details for installing an actual testbed with off-the-shelve so
 The policy model here demonstrates virtually all APEX features: local context and policies controlling it, task selection logic and multiple tasks in a single state, AVRO schemas for context, AVOR schemas for events (trigger and local), and a CLI editor specification of the policy.
 The documentation can be found:
 
-* link:https://ericsson.github.io/apex-docs/modules/apex-domains/apex-domains.pcvs/vpnsla/policy.html[VPN SLA Policy on the APEX site]
+* link:https://ericsson.github.io/apex-docs/modules/examples/examples-pcvs/vpnsla/policy.html[VPN SLA Policy on the APEX site]
 
 
 == Decision Maker
@@ -40,5 +40,5 @@ Interesting here is that the it creates a Docker image to run the policy and tha
 It also has local context to remember past decisions, and shows how to use that to no make the same decision twice in a row.
 The documentation can be found:
 
-* link:https://ericsson.github.io/apex-docs/modules/apex-domains/apex-domains.decisionmaker/index.html[Decision Maker on APEX site]
+* link:https://ericsson.github.io/apex-docs/modules/examples/examples-decisionmaker/index.html[Decision Maker on APEX site]
 

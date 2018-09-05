@@ -1,16 +1,19 @@
-04/01/2018  11:51    <DIR>          .
-04/01/2018  11:51    <DIR>          ..
-04/01/2018  10:43            32,694 apex-apps.uservice-package-full-0.7.0.jar
-04/01/2018  10:44               706 apex-apps.uservice-package-full_0.7.0_all.changes
-04/01/2018  10:43       255,613,724 apex-uservice-full-0.7.0-tarball.tar.gz
-04/01/2018  10:44       255,629,634 apex-uservice-full-0.7.0.deb
-04/01/2018  10:43    <DIR>          archive-tmp
-04/01/2018  10:43    <DIR>          classes
-04/01/2018  10:43    <DIR>          dependency-maven-plugin-markers
-04/01/2018  10:43    <DIR>          etc
-04/01/2018  10:43    <DIR>          examples
-04/01/2018  10:43    <DIR>          install_hierarchy
-04/01/2018  10:43    <DIR>          lib
-04/01/2018  10:43    <DIR>          maven-archiver
-               4 File(s)    511,276,758 bytes
-              10 Dir(s)   6,230,409,216 bytes free
+03/09/2018  11:55    <DIR>          .
+03/09/2018  11:55    <DIR>          ..
+03/09/2018  11:55       146,296,819 apex-pdp-package-full-2.0.0-SNAPSHOT-tarball.tar.gz
+03/09/2018  11:55       146,328,082 apex-pdp-package-full-2.0.0-SNAPSHOT.deb
+03/09/2018  11:54            15,633 apex-pdp-package-full-2.0.0-SNAPSHOT.jar
+03/09/2018  11:55               772 apex-pdp-package-full_2.0.0~SNAPSHOT_all.changes
+03/09/2018  11:54    <DIR>          archive-tmp
+03/09/2018  11:54                89 checkstyle-cachefile
+03/09/2018  11:54            10,621 checkstyle-checker.xml
+03/09/2018  11:54               584 checkstyle-header.txt
+03/09/2018  11:54                86 checkstyle-result.xml
+03/09/2018  11:54    <DIR>          classes
+03/09/2018  11:54    <DIR>          dependency-maven-plugin-markers
+03/09/2018  11:54    <DIR>          etc
+03/09/2018  11:54    <DIR>          examples
+03/09/2018  11:55    <DIR>          install_hierarchy
+03/09/2018  11:54    <DIR>          maven-archiver
+               8 File(s)    292,652,686 bytes
+               9 Dir(s)  14,138,720,256 bytes free

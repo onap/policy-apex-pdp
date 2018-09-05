@@ -25,6 +25,9 @@ import java.util.TimeZone;
 import org.onap.policy.apex.context.test.concepts.TestPolicyContextItem;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
+/**
+ * The Class Constants provides constants for context tests.
+ */
 public class Constants {
     public static final String MAP_CONTEXT_ALBUM = "MapContextAlbum";
     public static final String LONG_CONTEXT_ALBUM = "LongContextAlbum";
@@ -61,10 +64,18 @@ public class Constants {
 
     private static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = new AxArtifactKey[] {KEY, KEY2, KEY3};
 
+    /**
+     * Gets the ax artifact key array.
+     *
+     * @return the ax artifact key array
+     */
     public static final AxArtifactKey[] getAxArtifactKeyArray() {
         return USED_ARTIFACT_STACK_ARRAY;
     }
 
+    /**
+     * Instantiates a new constants.
+     */
     private Constants() {}
 
 }

@@ -21,6 +21,8 @@ In Eclipse Help->Eclipse Marketplace... and type "Checkstyle".
 Select "Checkstyle Plug-in" when the search returns and install it.
 Note that "Checkstyle Plug-in" may not be the first result in the list of items returned.
 
-You must configure Checkstyle in order to get the most out of it.
-There are two built-in style templates in Checkstyle (from Oracle and Google) but user will almost certainly wish to tweak these.
+For APEX, the ONAP checkstyle rules do apply.
+The configuration is part of the ONAP parent.
+See link:https://git.onap.org/oparent/plain/checkstyle/src/main/resources/onap-checkstyle/[ONAP Git] for details and updates.
+All settings for checkstyle are already part of the code (POM files).
 

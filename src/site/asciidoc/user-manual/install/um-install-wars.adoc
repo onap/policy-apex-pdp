@@ -11,10 +11,4 @@
 // @author Sven van der Meer (sven.van.der.meer@ericsson.com)
 //
 
-== Dockerfile
-
-.Dockerfile
-[source,bash,options="nowrap"]
-----
-include::{adsite-examples-decisionmaker-dir}/../Dockerfile[Dockerfile]
-----
+include::{adsite-main-dir}/site-docs/adoc/fragments/install-guide/install-wars.adoc[]

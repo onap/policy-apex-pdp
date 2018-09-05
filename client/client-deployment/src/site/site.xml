@@ -16,6 +16,7 @@
 <project name="APEX Client Deployment">
     <body>
         <menu name="APEX Client Deployment">
+            <item href="javadocs/index.html" name="API Doc" />
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules" />

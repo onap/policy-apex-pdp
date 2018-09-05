@@ -16,6 +16,7 @@
 <project name="APEX Client Full">
     <body>
         <menu name="APEX Client Full">
+            <item href="javadocs/index.html" name="API Doc" />
         </menu>
         <menu ref="reports" inherit="top" />
         <menu ref="modules"/>

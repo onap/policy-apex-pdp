@@ -38,6 +38,9 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.utilities.Assertions;
 
+/**
+ * The Class ConfigrationProviderImpl provides configuration information for a context test back to the caller.
+ */
 public class ConfigrationProviderImpl implements ConfigrationProvider {
 
     private final String testType;
@@ -49,6 +52,7 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
 
     /**
      * The parameterized ConfigrationProviderImpl constructor.
+     * 
      * @param testType the test type
      * @param jvmCount the JVM count
      * @param threadCount the thread count
@@ -57,7 +61,7 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
      * @param lockType the lock type
      */
     public ConfigrationProviderImpl(final String testType, final int jvmCount, final int threadCount,
-            final int loopSize, final int albumSize, final int lockType) {
+                    final int loopSize, final int albumSize, final int lockType) {
         this.testType = testType;
         this.jvmCount = jvmCount;
         this.threadCount = threadCount;
@@ -66,31 +70,61 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         this.lockType = LockType.getLockType(lockType);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getTestName()
+     */
     @Override
     public String getTestName() {
         return testType;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getLoopSize()
+     */
     @Override
     public int getLoopSize() {
         return loopSize;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getThreadCount()
+     */
     @Override
     public int getThreadCount() {
         return threadCount;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getJvmCount()
+     */
     @Override
     public int getJvmCount() {
         return jvmCount;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getAlbumSize()
+     */
     @Override
     public int getAlbumSize() {
         return albumSize;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getExecutorService()
+     */
     @Override
     public ExecutorService getExecutorService() {
         final String name = getThreadFactoryName(jvmCount, testType);
@@ -99,6 +133,11 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return executorService;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getExecutorService(java.lang.String, int)
+     */
     @Override
     public ExecutorService getExecutorService(final String threadFactoryName, final int threadPoolSize) {
         final IntegrationThreadFactory threadFactory = new IntegrationThreadFactory(threadFactoryName);
@@ -106,6 +145,13 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return executorService;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.onap.policy.apex.context.test.utils.ConfigrationProvider#getDistributor(org.onap.policy.apex.model.basicmodel
+     * .concepts.AxArtifactKey)
+     */
     @Override
     public Distributor getDistributor(final AxArtifactKey key) {
         try {
@@ -115,20 +161,38 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getDistributor()
+     */
     @Override
     public Distributor getDistributor() {
         final AxArtifactKey distributorKey = new AxArtifactKey("ApexDistributor", "0.0.1");
         return getDistributor(distributorKey);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getContextAlbum(org.onap.policy.apex.context.
+     * Distributor)
+     */
     @Override
     public ContextAlbum getContextAlbum(final Distributor distributor) {
         return getContextAlbum(distributor, Constants.L_TYPE_CONTEXT_ALBUM, Constants.getAxArtifactKeyArray());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getContextAlbum(org.onap.policy.apex.context.
+     * Distributor, org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey,
+     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey[])
+     */
     @Override
     public ContextAlbum getContextAlbum(final Distributor distributor, final AxArtifactKey axContextAlbumKey,
-            final AxArtifactKey[] artifactKeys) {
+                    final AxArtifactKey[] artifactKeys) {
         final AxContextModel axContextModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
         try {
             distributor.registerModel(axContextModel);
@@ -141,6 +205,11 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getContextAlbumInitValues()
+     */
     @Override
     public Map<String, Object> getContextAlbumInitValues() {
         final Map<String, Object> values = new HashMap<>();
@@ -150,27 +219,48 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return values;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getAlbumModifier()
+     */
     @Override
     public AlbumModifier getAlbumModifier() {
         return lockType.getAlbumModifier();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getLockType()
+     */
     @Override
     public LockType getLockType() {
         return lockType;
     }
 
-
+    /**
+     * Gets the thread factory name.
+     *
+     * @param jvmCount the jvm count
+     * @param testType the test type
+     * @return the thread factory name
+     */
     private String getThreadFactoryName(final int jvmCount, final String testType) {
         return jvmCount == 1 ? testType + ":TestConcurrentContextThread_0_"
-                : testType + ":TestConcurrentContextJVMThread_";
+                        : testType + ":TestConcurrentContextJVMThread_";
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "ConfigrationProviderImpl [testType=" + testType + ", jvmCount=" + jvmCount + ", threadCount="
-                + threadCount + ", loopSize=" + loopSize + ", albumSize=" + albumSize + ", lockType=" + lockType + "]";
+                        + threadCount + ", loopSize=" + loopSize + ", albumSize=" + albumSize + ", lockType=" + lockType
+                        + "]";
     }
-
 
 }

@@ -23,33 +23,26 @@ h| Venue
 | IEEE NOMS, Taipei, April 2018
 
 h| Abstract
-| 5G networks will be the first real converged networks
-supporting a plethora of different services, each with their
-own requirements. A static best-effort approach is no longer
-sufficient. Extreme flexibility and dynamicity is required, yet costs
-must be drastically reduced. The only way that these conflicting
-goals can be achieved is with vastly increased automation in the
-provision and operation of our future 5G networks. In this paper
-we briefly discuss the facilitators, goals and challenges for 5G
-networks. We identify some of the places where automation is not
-just helpful, but is in fact required for 5G to become a reality.
-We go on to present a conceptual approach for modeling and
-achieving autonomic operations and management in 5G networks
-positioning modern policy-based management as a key enabler
-for autonomic 5G network management.
+| 5G networks will be the first real converged networks supporting a plethora of different services, each with their own requirements. A static best-effort approach is no longer sufficient. Extreme flexibility and dynamicity is required, yet costs must be drastically reduced. The only way that these conflicting goals can be achieved is with vastly increased automation in the provision and operation of our future 5G networks. In this paper we briefly discuss the facilitators, goals and challenges for 5G networks. We identify some of the places where automation is not just helpful, but is in fact required for 5G to become a reality. We go on to present a conceptual approach for modeling and achieving autonomic operations and management in 5G networks positioning modern policy-based management as a key enabler for autonomic 5G network management.
+
+h| Links
+| link:https://www.researchgate.net/publication/325057790_5G_Networks_Must_Be_Autonomic?_iepl%5BgeneralViewId%5D=NFUJVNL9bfZcUhlhGPKG13VvHQDRMJhMCBbY&_iepl%5Bcontexts%5D%5B0%5D=searchReact&_iepl%5BviewId%5D=K8kQ3zeC2xUNNSJwMYtpD849IAOlx6jPYj2I&_iepl%5BsearchType%5D=publication&_iepl%5Bdata%5D%5BcountLessEqual20%5D=1&_iepl%5Bdata%5D%5BinteractedWithPosition1%5D=1&_iepl%5Bdata%5D%5BwithEnrichment%5D=1&_iepl%5Bposition%5D=1&_iepl%5BrgKey%5D=PB%3A325057790&_iepl%5BtargetEntityId%5D=PB%3A325057790&_iepl%5BinteractionType%5D=publicationTitle[Research Gate] [accessed Sep 4, 2018]
 
 h| BibTeX
 a|
 [source,bibtex]
 ----
-@inproceedings{noms/MeerMK18b,
-  author    = {Sven van der Meer and
-               John Keeney and
-               Liam Fallon},
-  title     = {5G Networks Must Be Autonomic!},
-  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium,
-              {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
-  year      = {2018}
+@inproceedings{DBLP:conf/noms/MeerKF18a,
+  author    = {Sven van der Meer and John Keeney and Liam Fallon},
+  title     = {5G networks must be autonomic!},
+  booktitle = {2018 {IEEE/IFIP} Network Operations and Management Symposium, {NOMS} 2018, Taipei, Taiwan, April 23-27, 2018},
+  pages     = {1--5},
+  year      = {2018},
+  crossref  = {DBLP:conf/noms/2018},
+  doi       = {10.1109/NOMS.2018.8406185},
+  biburl    = {https://dblp.org/rec/bib/conf/noms/MeerKF18a},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
 ----
 
 |===

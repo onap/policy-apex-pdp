@@ -35,12 +35,12 @@ a|
 [source,bibtex]
 ----
 @article{VanDerMeer2015b,
-	Author = {van der Meer, Sven},
-	Journal = {IEEE First International 5G Summit},
-	Month = {May},
-	Title = {{5G \& Autonomic Networking - Challenges in closing the Loop}},
-	Url = {https://ieeetv.ieee.org/mobile/video/princeton-5g-summit-sven-van-der-meer-keynote-automatic-automation},
-	Year = {2015},
+    Author      = {van der Meer, Sven},
+    Journal     = {IEEE First International 5G Summit},
+    Month       = may,
+    Title       = {{5G \& Autonomic Networking - Challenges in closing the Loop}},
+    Year        = {2015}
+}
 ----
 
 |===

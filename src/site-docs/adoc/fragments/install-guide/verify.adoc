@@ -14,13 +14,10 @@
 == Verify the APEX Installation
 When APEX is installed and all settings are realized, the installation can be verified.
 
-=== Verify a Minimal Installation
-The minimal installation does not come with any configuration or policy model.
-It is therefore not possible to test all APEX features, or an engine running with policies.
-
-However, one can verify that the engine starts up to the point where it tries to load a configuration.
-
+=== Verify Installation - run Engine
+A simple verification of an APEX installation can be done by simply starting the APEX engine without any configuration.
 On Unix (or Cygwin) start the engine using `$APEX_HOME/bin/apexEngine.sh`.
+On Windows start the engine using `%APEX_HOME%\bin\apexEngine.bat`.
 The engine will fail to fully start.
 However, if the output looks similar to the following line, the APEX installation is realized.
 
@@ -28,22 +25,26 @@ However, if the output looks similar to the following line, the APEX installatio
 ----
 Starting Apex service with parameters [] . . .
 start of Apex service failed: Apex configuration file was not specified as an argument
-2017-07-28 13:18:44,266 Apex [main] ERROR c.e.a.service.engine.main.ApexMain - start of Apex service failed:
+2018-09-03 13:11:33,914 Apex [main] ERROR o.o.p.a.service.engine.main.ApexMain - start of Apex service failed
+org.onap.policy.apex.model.basicmodel.concepts.ApexException: Apex configuration file was not specified as an argument
+        at org.onap.policy.apex.service.engine.main.ApexCommandLineArguments.validateReadableFile(ApexCommandLineArguments.java:267)
+        at org.onap.policy.apex.service.engine.main.ApexCommandLineArguments.validate(ApexCommandLineArguments.java:161)
+        at org.onap.policy.apex.service.engine.main.ApexMain.<init>(ApexMain.java:68)
+        at org.onap.policy.apex.service.engine.main.ApexMain.main(ApexMain.java:165)
+usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]
+options
+-c,--config-file <CONFIG_FILE>the full path to the configuration file to use, the configuration file must be a Json file
+                              containing the Apex configuration parameters
+-h,--help                     outputs the usage of this command
+-m,--model-file <MODEL_FILE>  the full path to the model file to use, if set it overrides the model file set in the
+                              configuration file
+-v,--version                  outputs the version of Apex
+
 ----
 
-On Windows start the engine using `%APEX_HOME%\bin\apexEngine.bat`.
-The engine will fail to fully start.
-However, if the output looks similar to the following line, the APEX installation is realized.
-
-[source%nowrap,bat,numbered]
-----
-Starting Apex service with parameters [] . . .
-start of Apex service failed: Apex configuration file was not specified as an argument
-2017-07-28 13:18:44,266 Apex [main] ERROR c.e.a.service.engine.main.ApexMain - start of Apex service failed:
-----
 
 
-=== Verify a Full Installation - run an Example
+=== Verify Installation - run an Example
 A full APEX installation comes with several examples.
 Here, we can fully verify the installation by running one of the examples.
 
@@ -55,7 +56,7 @@ Note: Cygwin executes scripts as Unix scripts but runs Java as a Windows applica
 ----
 # $APEX_HOME/bin/apexEngine.sh -c $APEX_HOME/examples/config/SampleDomain/Stdin2StdoutJsonEventJava.json # <1>
 # $APEX_HOME/bin/apexEngine.sh -c C:/apex/apex-full-{release-version}/examples/config/SampleDomain/Stdin2StdoutJsonEventJava.json # <2>
->%APEX_HOME%\bin\apexEngine.bat -c %APEX_HOME%\examples\config\SampleDomain\Stdin2StdoutJsonEventJava.json @@ <3>
+>%APEX_HOME%\bin\apexEngine.bat -c %APEX_HOME%\examples\config\SampleDomain\Stdin2StdoutJsonEventJava.json :: <3>
 ----
 <1> UNIX
 <2> Cygwin
@@ -67,12 +68,19 @@ Assuming the logging levels are not change (default level is `info`), the output
 
 [source%nowrap,sh,numbered]
 ----
-2017-07-28 13:20:54,673 Apex [main] INFO c.e.a.s.engine.runtime.EngineService - engine model SamplePolicyModelJAVA:0.0.1 added to the engine-AxArtifactKey:(name=MyApexEngine-3,version=0.0.1)
-2017-07-28 13:20:54,675 Apex [Apex-apex-engine-service-0:0] INFO c.e.a.s.engine.runtime.EngineService - Engine AxArtifactKey:(name=MyApexEngine-0,version=0.0.1) processing ...
-2017-07-28 13:20:54,677 Apex [Apex-apex-engine-service-0:1] INFO c.e.a.s.engine.runtime.EngineService - Engine AxArtifactKey:(name=MyApexEngine-1,version=0.0.1) processing ...
-2017-07-28 13:20:54,677 Apex [Apex-apex-engine-service-0:2] INFO c.e.a.s.engine.runtime.EngineService - Engine AxArtifactKey:(name=MyApexEngine-2,version=0.0.1) processing ...
-2017-07-28 13:20:54,677 Apex [Apex-apex-engine-service-0:3] INFO c.e.a.s.engine.runtime.EngineService - Engine AxArtifactKey:(name=MyApexEngine-3,version=0.0.1) processing ...
-2017-07-28 13:20:54,680 Apex [main] INFO c.e.a.s.e.r.impl.EngineServiceImpl - Added the action listener to the engine
+Starting Apex service with parameters [-c, v:/dev/ericsson/apex/onap/apex-pdp/packages/apex-pdp-package-full/target/install_hierarchy/examples/config/SampleDomain/Stdin2StdoutJsonEventJava.json] . . .
+2018-09-05 15:16:42,800 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Created apex engine MyApexEngine-0:0.0.1 .
+2018-09-05 15:16:42,804 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Created apex engine MyApexEngine-1:0.0.1 .
+2018-09-05 15:16:42,804 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Created apex engine MyApexEngine-2:0.0.1 .
+2018-09-05 15:16:42,805 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Created apex engine MyApexEngine-3:0.0.1 .
+2018-09-05 15:16:42,805 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - APEX service created.
+2018-09-05 15:16:43,962 Apex [main] INFO o.o.p.a.s.e.e.EngDepMessagingService - engine<-->deployment messaging starting . . .
+2018-09-05 15:16:43,963 Apex [main] INFO o.o.p.a.s.e.e.EngDepMessagingService - engine<-->deployment messaging started
+2018-09-05 15:16:44,987 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Registering apex model on engine MyApexEngine-0:0.0.1
+2018-09-05 15:16:45,112 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Registering apex model on engine MyApexEngine-1:0.0.1
+2018-09-05 15:16:45,113 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Registering apex model on engine MyApexEngine-2:0.0.1
+2018-09-05 15:16:45,113 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Registering apex model on engine MyApexEngine-3:0.0.1
+2018-09-05 15:16:45,120 Apex [main] INFO o.o.p.a.s.e.r.impl.EngineServiceImpl - Added the action listener to the engine
 Started Apex service
 ----
 
@@ -107,23 +115,23 @@ Pasting the input event multiple times will produce output events with different
 [source%nowrap,json,numbered]
 ----
 {
-  "nameSpace" : "org.onap.policy.apex.sample.events",
-  "name" : "Event0004",
-  "version" : "0.0.1",
-  "source" : "Act",
-  "target" : "Outside",
-  "TestActCaseSelected" : 1,
-  "TestActStateTime" : 1499280954832,
-  "TestTemperature" : 9080.866,
-  "TestDecideCaseSelected" : 2,
-  "TestMatchCaseSelected" : 2,
-  "TestTimestamp" : 1469781869269,
-  "TestDecideStateTime" : 1499280954831,
-  "TestMatchCase" : 0,
-  "TestSlogan" : "Test slogan for External Event0",
-  "TestEstablishCaseSelected" : 1,
-  "TestEstablishStateTime" : 1499280954831,
-  "TestMatchStateTime" : 1499280954828
+  "name": "Event0004",
+  "version": "0.0.1",
+  "nameSpace": "org.onap.policy.apex.sample.events",
+  "source": "Act",
+  "target": "Outside",
+  "TestActCaseSelected": 2,
+  "TestActStateTime": 1536157104627,
+  "TestDecideCaseSelected": 0,
+  "TestDecideStateTime": 1536157104625,
+  "TestEstablishCaseSelected": 0,
+  "TestEstablishStateTime": 1536157104623,
+  "TestMatchCase": 0,
+  "TestMatchCaseSelected": 1,
+  "TestMatchStateTime": 1536157104620,
+  "TestSlogan": "Test slogan for External Event0",
+  "TestTemperature": 9080.866,
+  "TestTimestamp": 1469781869269
 }
 ----
 |====================
@@ -147,20 +155,20 @@ Start the REST editor as follows.
 ----
 
 The script will start a simple web server (link:https://javaee.github.io/grizzly/[Grizzly]) and deploy a `war` web archive in it.
-Once the editor is started, it will be available on `localhost:18988`.
+Once the editor is started, it will be available on `localhost:18989`.
 The last few line of the messages should be:
 
 [source%nowrap,sh,numbered]
 ----
-Apex Editor REST endpoint (ApexEditorMain: Config=[ApexEditorParameters: URI=http://localhost:18988/apex/, TTL=-1sec], State=READY) starting at http://localhost:18988/apex/ . . .
-Jul 28, 2017 1:22:15 PM org.glassfish.grizzly.http.server.NetworkListener start
-INFO: Started listener bound to [localhost:18988]
-Jul 28, 2017 1:22:15 PM org.glassfish.grizzly.http.server.HttpServer start
+Apex Editor REST endpoint (ApexEditorMain: Config=[ApexEditorParameters: URI=http://localhost:18989/apexservices/, TTL=-1sec], State=READY) starting at http://localhost:18989/apexservices/ . . .
+Sep 05, 2018 10:35:57 PM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [localhost:18989]
+Sep 05, 2018 10:35:57 PM org.glassfish.grizzly.http.server.HttpServer start
 INFO: [HttpServer] Started.
-Apex Editor REST endpoint (ApexEditorMain: Config=[ApexEditorParameters: URI=http://localhost:18988/apex/, TTL=-1sec], State=RUNNING) started at http://localhost:18988/apex/
+Apex Editor REST endpoint (ApexEditorMain: Config=[ApexEditorParameters: URI=http://localhost:18989/apexservices/, TTL=-1sec], State=RUNNING) started at http://localhost:18989/apexservices/
 ----
 
-Now open a browser (Firefox, Chrome, Opera, Internet Explorer) and use the URL `http://localhost:18988/`.
+Now open a browser (Firefox, Chrome, Opera, Internet Explorer) and use the URL `http://localhost:18989/`.
 This will connect the browser to the started REST editor.
 The start screen should be as follows.
 

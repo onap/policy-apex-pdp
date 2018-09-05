@@ -11,10 +11,10 @@
 // @author Sven van der Meer (sven.van.der.meer@ericsson.com)
 //
 
-== Initiation Events
+== Initiation Event
 
-.Initiation Events
+.Initiation Event
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-decisionmaker-dir}/main/resources/config/AnswerInitiationEvents.txt[Initiation Events]
+include::{adsite-examples-decisionmaker-dir}/main/resources/examples/config/DecisionMaker/AnswerInitiationEvent.json[Initiation Event]
 ----
