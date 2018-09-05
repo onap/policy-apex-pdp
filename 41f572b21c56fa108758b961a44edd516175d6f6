@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_83b90f17",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/TestAADMModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T10:57:45Z",
+      "side": 1,
+      "message": "Sets up",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "41f572b21c56fa108758b961a44edd516175d6f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_63bcf306",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/TestAadmDbWrite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T10:57:45Z",
+      "side": 1,
+      "message": "Sets up",
+      "range": {
+        "startLine": 39,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "41f572b21c56fa108758b961a44edd516175d6f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a3c68b98",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestAnomalyDetectionDbWrite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T10:57:45Z",
+      "side": 1,
+      "message": "Sets up",
+      "range": {
+        "startLine": 39,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "41f572b21c56fa108758b961a44edd516175d6f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c3c38787",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestAnomalyDetectionModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T10:57:45Z",
+      "side": 1,
+      "message": "Sets up",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "41f572b21c56fa108758b961a44edd516175d6f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_433f7788",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestAutoLearnDbWrite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T10:57:45Z",
+      "side": 1,
+      "message": "You know!",
+      "range": {
+        "startLine": 39,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "41f572b21c56fa108758b961a44edd516175d6f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e33fa385",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestAutoLearnModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T10:57:45Z",
+      "side": 1,
+      "message": "!",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "41f572b21c56fa108758b961a44edd516175d6f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
