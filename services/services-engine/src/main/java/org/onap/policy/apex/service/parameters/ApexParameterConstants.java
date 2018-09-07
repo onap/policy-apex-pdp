@@ -29,7 +29,7 @@ public abstract class ApexParameterConstants {
     public static final String EVENT_HANDLER_GROUP_NAME = "EVENT_HANDLER_PARAMETERS";
 
     /**
-     * Private default constructor to prevent subclassing
+     * Private default constructor to prevent subclassing.
      */
     private ApexParameterConstants() {
         // Prevents subclassing

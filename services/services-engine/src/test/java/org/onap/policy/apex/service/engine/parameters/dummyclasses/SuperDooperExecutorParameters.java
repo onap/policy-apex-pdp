@@ -23,12 +23,13 @@ package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 
 /**
- * Default Executor parameters for MVEL.
- * 
- * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * Dummy executor parameters.
  */
 public class SuperDooperExecutorParameters extends ExecutorParameters {
+    
+    /**
+     * Instantiates a new super dooper executor parameters.
+     */
     public SuperDooperExecutorParameters() {
         this.setTaskExecutorPluginClass(
                 "org.onap.policy.apex.service.engine.parameters.dummyclasses.DummyTaskExecutor");

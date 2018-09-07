@@ -60,7 +60,7 @@ public class TestRESTRequestor {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        final ResourceConfig rc = new ResourceConfig(TestRESTREequestorEndpoint.class);
+        final ResourceConfig rc = new ResourceConfig(TestRestRequestorEndpoint.class);
         server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 
         while (!server.isStarted()) {
@@ -79,7 +79,7 @@ public class TestRESTRequestor {
 
     @Before
     public void resetCounters() {
-        TestRESTREequestorEndpoint.resetCounters();
+        TestRestRequestorEndpoint.resetCounters();
     }
 
     @Test

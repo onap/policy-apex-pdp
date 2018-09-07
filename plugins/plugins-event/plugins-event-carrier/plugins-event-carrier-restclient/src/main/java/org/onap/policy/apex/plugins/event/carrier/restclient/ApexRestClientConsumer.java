@@ -72,19 +72,19 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-            final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+                    final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
 
         // Check and get the REST Properties
         if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RESTClientCarrierTechnologyParameters)) {
-            final String errorMessage =
-                    "specified consumer properties are not applicable to REST client consumer (" + this.name + ")";
+            final String errorMessage = "specified consumer properties are not applicable to REST client consumer ("
+                            + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        restConsumerProperties =
-                (RESTClientCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+        restConsumerProperties = (RESTClientCarrierTechnologyParameters) consumerParameters
+                        .getCarrierTechnologyParameters();
 
         // Check if the HTTP method has been set
         if (restConsumerProperties.getHttpMethod() == null) {
@@ -92,10 +92,10 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
         }
 
         if (!restConsumerProperties.getHttpMethod()
-                .equalsIgnoreCase(RESTClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD)) {
+                        .equalsIgnoreCase(RESTClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD)) {
             final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
-                    + "\" is invalid, only HTTP method \"GET\" is supported for event reception on REST client consumer ("
-                    + this.name + ")";
+                            + "\" is invalid, only HTTP method \"GET\" "
+                            + "is supported for event reception on REST client consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
@@ -202,14 +202,14 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
         @Override
         public void run() {
             try {
-                final Response response =
-                        client.target(restConsumerProperties.getURL()).request("application/json").get();
+                final Response response = client.target(restConsumerProperties.getUrl()).request("application/json")
+                                .get();
 
                 // Check that the event request worked
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                    final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getURL()
-                            + "\" failed with status code " + response.getStatus() + " and message \""
-                            + response.readEntity(String.class) + "\"";
+                    final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
+                                    + "\" failed with status code " + response.getStatus() + " and message \""
+                                    + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -218,8 +218,8 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
                 // Check there is content
                 if (eventJSONString == null || eventJSONString.trim().length() == 0) {
-                    final String errorMessage =
-                            "received an empty event from URL \"" + restConsumerProperties.getURL() + "\"";
+                    final String errorMessage = "received an empty event from URL \"" + restConsumerProperties.getUrl()
+                                    + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 

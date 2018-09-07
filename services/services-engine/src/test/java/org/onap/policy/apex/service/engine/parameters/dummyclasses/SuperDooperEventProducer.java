@@ -29,6 +29,7 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
+ * Dummy event producer parameters.
  * @author John Keeney (john.keeney@ericsson.com)
  */
 public class SuperDooperEventProducer implements ApexEventProducer {

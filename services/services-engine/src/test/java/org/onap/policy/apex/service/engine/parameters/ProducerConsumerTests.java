@@ -38,7 +38,8 @@ import org.onap.policy.common.parameters.ParameterException;
 public class ProducerConsumerTests {
     @Test
     public void goodParametersTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/goodParams.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/goodParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -72,7 +73,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void noCarrierTechnology() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoCT.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsNoCT.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -93,7 +95,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void noEventProcol() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoEP.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsNoEP.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -124,7 +127,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void noCarrierTechnologyParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoCTParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsNoCTParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -139,7 +143,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void mismatchCarrierTechnologyParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsMismatchCTParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsMismatchCTParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -158,7 +163,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void wrongTypeCarrierTechnologyParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -177,7 +183,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void okFileNameCarrierTechnology() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsOKFileName.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsOKFileName.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -195,7 +202,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void badFileNameCarrierTechnology() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsBadFileName.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsBadFileName.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -220,7 +228,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void badEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsBadEPParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsBadEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -237,7 +246,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void noEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoEPParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsNoEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -252,7 +262,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void mismatchEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsMismatchEPParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsMismatchEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -271,7 +282,8 @@ public class ProducerConsumerTests {
 
     @Test
     public void wrongTypeEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {

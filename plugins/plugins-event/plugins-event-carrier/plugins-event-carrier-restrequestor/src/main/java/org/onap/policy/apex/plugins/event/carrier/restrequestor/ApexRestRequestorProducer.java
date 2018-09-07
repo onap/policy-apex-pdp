@@ -86,7 +86,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
         }
 
         // Check if the HTTP URL has been set
-        if (restProducerProperties.getURL() != null) {
+        if (restProducerProperties.getUrl() != null) {
             final String errorMessage = "URL may not be specified on REST Requestor producer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
@@ -112,7 +112,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
     }
 
     /**
-     * Get the number of events sent to date
+     * Get the number of events sent to date.
      *
      * @return the number of events received
      */
@@ -163,7 +163,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
             // Find the REST Response Consumer that will handle this request
             final ApexEventConsumer consumer = peeredRequestorReference.getPeeredConsumer();
             if (!(consumer instanceof ApexRestRequestorConsumer)) {
-                final String errorMessage = "send of event to URL \"" + restProducerProperties.getURL() + "\" failed,"
+                final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" failed,"
                         + " REST response consumer is not an instance of ApexRestRequestorConsumer\n" + event;
                 LOGGER.warn(errorMessage);
                 throw new ApexEventRuntimeException(errorMessage);
@@ -176,7 +176,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
             eventsSent++;
         } else {
             // No peered consumer defined
-            final String errorMessage = "send of event to URL \"" + restProducerProperties.getURL() + "\" failed,"
+            final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" failed,"
                     + " REST response consumer is not defined\n" + event;
             LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);

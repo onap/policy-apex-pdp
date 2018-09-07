@@ -545,7 +545,8 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         }
 
         if (valueDeserializer == null || valueDeserializer.trim().length() == 0) {
-            result.setResult("valueDeserializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
+            result.setResult("valueDeserializer", ValidationStatus.INVALID,
+                            "not specified, must be specified as a string");
         }
 
         return result;

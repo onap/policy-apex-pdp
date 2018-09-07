@@ -305,7 +305,8 @@ public class ApexParameters implements ParameterGroup {
             // Check that the peer reference is OK
             if (rightModeParameters == null) {
                 result.setResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
-                                PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING + peeredMode
+                                PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING
+                                                + peeredMode
                                                 + " does not exist or is not defined with the same peered mode");
                 continue;
             }

@@ -26,7 +26,7 @@ import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnolo
  * Apex parameters for REST as an event carrier technology with Apex issuing a REST request and receiving a REST
  * response.
  *
- * The parameters for this plugin are:
+ * <p>The parameters for this plugin are:
  * <ol>
  * <li>url: The URL that the Apex Rest Requestor will connect to over REST for REST request sending. This parameter is
  * mandatory.
@@ -81,7 +81,7 @@ public class RESTRequestorCarrierTechnologyParameters extends CarrierTechnologyP
      *
      * @return the URL
      */
-    public String getURL() {
+    public String getUrl() {
         return url;
     }
 

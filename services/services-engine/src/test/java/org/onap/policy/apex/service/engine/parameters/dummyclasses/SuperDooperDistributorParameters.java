@@ -40,7 +40,7 @@ public class SuperDooperDistributorParameters extends DistributorParameters {
     private String configFile = DEFAULT_SUPER_DOOPER_DISTRIBUTION_CONFIG_FILE;
     private String jgroupsFile = DEFAULT_SUPER_DOOPER_DISTRIBUTION_JGROUPS_FILE;
     private boolean preferIPv4Stack = DEFAULT_SUPER_DOOPER_JAVA_NET_PREFER_IPV4_STACK;
-    private String jGroupsBindAddress = DEFAULT_INFINSPAN_JGROUPS_BIND_ADDRESS;
+    private String jgroupsBindAddress = DEFAULT_INFINSPAN_JGROUPS_BIND_ADDRESS;
 
     public SuperDooperDistributorParameters() {
         super();
@@ -62,7 +62,7 @@ public class SuperDooperDistributorParameters extends DistributorParameters {
         this.jgroupsFile = jgroupsFile;
     }
 
-    public boolean preferIPv4Stack() {
+    public boolean isPreferIPv4Stack() {
         return preferIPv4Stack;
     }
 
@@ -70,17 +70,17 @@ public class SuperDooperDistributorParameters extends DistributorParameters {
         this.preferIPv4Stack = preferIPv4Stack;
     }
 
-    public String getjGroupsBindAddress() {
-        return jGroupsBindAddress;
+    public String getJgroupsBindAddress() {
+        return jgroupsBindAddress;
     }
 
     public void setjGroupsBindAddress(final String jGroupsBindAddress) {
-        this.jGroupsBindAddress = jGroupsBindAddress;
+        this.jgroupsBindAddress = jGroupsBindAddress;
     }
 
     @Override
     public String toString() {
         return "SuperDooperDistributorParameters [configFile=" + configFile + ", jgroupsFile=" + jgroupsFile
-                + ", preferIPv4Stack=" + preferIPv4Stack + ", jGroupsBindAddress=" + jGroupsBindAddress + "]";
+                + ", preferIPv4Stack=" + preferIPv4Stack + ", jGroupsBindAddress=" + jgroupsBindAddress + "]";
     }
 }

@@ -33,12 +33,10 @@ import org.onap.policy.common.parameters.ValidationStatus;
 /**
  * The parameters for a single event producer, event consumer or synchronous event handler.
  * 
- * <p>
- * Event producers, consumers, and synchronous event handlers all use a carrier technology and an event protocol so the
+ * <p>Event producers, consumers, and synchronous event handlers all use a carrier technology and an event protocol so the
  * actual parameters for each one are the same. Therefore, we use the same class for the parameters of each one.
  * 
- * <p>
- * The following parameters are defined:
+ * <p>The following parameters are defined:
  * <ol>
  * <li>carrierTechnologyParameters: The carrier technology is the type of messaging infrastructure used to carry events.
  * Examples are File, Kafka or REST.
@@ -339,6 +337,54 @@ public class EventHandlerParameters implements ParameterGroup {
         }
 
         return result;
+    }
+
+    /**
+     * Check if we're using synchronous mode
+     * 
+     * @return true if if we're using synchronous mode
+     */
+    public boolean isSynchronousMode() {
+        return synchronousMode;
+    }
+
+    /**
+     * The synchronous peer for this event handler
+     * @return the synchronous peer for this event handler
+     */
+    public String getSynchronousPeer() {
+        return synchronousPeer;
+    }
+
+    /**
+     * Get the timeout for synchronous operations
+     * @return the timeout for synchronous operations
+     */
+    public long getSynchronousTimeout() {
+        return synchronousTimeout;
+    }
+
+    /**
+     * Check if this event handler will use requestor mode
+     * @return true if this event handler will use requestor mode
+     */
+    public boolean isRequestorMode() {
+        return requestorMode;
+    }
+
+    /**
+     * The requestor peer for this event handler
+     * @return the requestor peer for this event handler
+     */
+    public String getRequestorPeer() {
+        return requestorPeer;
+    }
+
+    /**
+     * @return the requestorTimeout
+     */
+    public long getRequestorTimeout() {
+        return requestorTimeout;
     }
 
     /*

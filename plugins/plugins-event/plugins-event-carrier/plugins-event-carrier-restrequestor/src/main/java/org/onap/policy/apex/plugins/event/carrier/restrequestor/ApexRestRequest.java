@@ -21,7 +21,7 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 /**
- * This class holds a record of a REST request for the REST requestor plugin
+ * This class holds a record of a REST request for the REST requestor plugin.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

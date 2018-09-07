@@ -35,7 +35,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 @Path("/apex")
-public class TestRESTREequestorEndpoint {
+public class TestRestRequestorEndpoint {
 
     private static Object counterLock = new Object();
     private static int postMessagesReceived = 0;

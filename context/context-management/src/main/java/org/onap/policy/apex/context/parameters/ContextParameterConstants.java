@@ -32,7 +32,7 @@ public abstract class ContextParameterConstants {
     public static final String PERSISTENCE_GROUP_NAME = "CONTEXT_PERSISTENCE_PARAMETERS";
 
     /**
-     * Private default constructor to prevent subclassing
+     * Private default constructor to prevent subclassing.
      */
     private ContextParameterConstants() {
         // Prevents subclassing

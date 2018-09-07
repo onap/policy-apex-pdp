@@ -24,7 +24,7 @@ import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEve
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextTokenDelimitedParameters;
 
 /**
- * @author Liam Fallon (liam.fallon@ericsson.com)
+ * Dummy token delimited parameters.
  */
 public class SuperTokenDelimitedEventProtocolParameters extends EventProtocolTextTokenDelimitedParameters {
     /** The label of this carrier technology. */

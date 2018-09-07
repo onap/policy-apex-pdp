@@ -14,7 +14,7 @@
                     "configFile": "my/lovely/configFile.xml",
                     "jgroupsFile": "holy/stone.xml",
                     "preferIPv4Stack": false,
-                    "jGroupsBindAddress": "fatherted"
+                    "jgroupsBindAddress": "fatherted"
                 },
                 "lockManagerParameters": {
                     "parameterClassName": "org.onap.policy.apex.context.parameters.LockManagerParameters"

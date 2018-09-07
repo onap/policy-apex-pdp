@@ -129,7 +129,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         }
 
         // Check if the HTTP URL has been set
-        if (restConsumerProperties.getURL() == null) {
+        if (restConsumerProperties.getUrl() == null) {
             final String errorMessage = "no URL has been specified on REST Requestor consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
@@ -137,7 +137,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
 
         // Check if the HTTP URL is valid
         try {
-            new URL(restConsumerProperties.getURL());
+            new URL(restConsumerProperties.getUrl());
         } catch (final Exception e) {
             final String errorMessage = "invalid URL has been specified on REST Requestor consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
@@ -154,7 +154,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
     }
 
     /**
-     * Receive an incoming REST request from the peered REST Requestor producer and queue it
+     * Receive an incoming REST request from the peered REST Requestor producer and queue it.
      *
      * @param restRequest the incoming rest request to queue
      * @throws ApexEventRuntimeException on queueing errors
@@ -346,7 +346,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                 // Check that the event request worked
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                     final String errorMessage = "reception of response to \"" + request + "\" from URL \""
-                            + restConsumerProperties.getURL() + "\" failed with status code " + response.getStatus()
+                            + restConsumerProperties.getUrl() + "\" failed with status code " + response.getStatus()
                             + " and message \"" + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
@@ -357,7 +357,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                 // Check there is content
                 if (eventJSONString == null || eventJSONString.trim().length() == 0) {
                     final String errorMessage = "received an enpty response to \"" + request + "\" from URL \""
-                            + restConsumerProperties.getURL() + "\"";
+                            + restConsumerProperties.getUrl() + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -390,18 +390,18 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         public Response sendEventAsRESTRequest() {
             switch (restConsumerProperties.getHttpMethod()) {
                 case GET:
-                    return client.target(restConsumerProperties.getURL()).request(APPLICATION_JSON).get();
+                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON).get();
 
                 case PUT:
-                    return client.target(restConsumerProperties.getURL()).request(APPLICATION_JSON)
+                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
                             .put(Entity.json(request.getEvent()));
 
                 case POST:
-                    return client.target(restConsumerProperties.getURL()).request(APPLICATION_JSON)
+                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
                             .post(Entity.json(request.getEvent()));
 
                 case DELETE:
-                    return client.target(restConsumerProperties.getURL()).request(APPLICATION_JSON).delete();
+                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON).delete();
             }
 
             return null;

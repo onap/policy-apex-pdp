@@ -48,7 +48,8 @@ import org.onap.policy.common.parameters.ParameterException;
 public class ParameterTests {
     @Test
     public void invalidParametersNoFileTest() throws ParameterException {
-        final String[] args = { "-c", "src/test/resources/parameters/invalidNoFile.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/invalidNoFile.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -62,7 +63,8 @@ public class ParameterTests {
 
     @Test
     public void invalidParametersEmptyTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/empty.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/empty.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -76,7 +78,8 @@ public class ParameterTests {
 
     @Test
     public void invalidParametersNoParamsTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/noParams.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/noParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -97,7 +100,8 @@ public class ParameterTests {
 
     @Test
     public void invalidParametersBlankParamsTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/blankParams.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/blankParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -123,7 +127,8 @@ public class ParameterTests {
 
     @Test
     public void invalidParametersTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/badParams.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/badParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -171,7 +176,8 @@ public class ParameterTests {
 
     @Test
     public void goodParametersTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/goodParams.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/goodParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -222,7 +228,8 @@ public class ParameterTests {
 
     @Test
     public void superDooperParametersTest() {
-        final String[] args = { "-c", "src/test/resources/parameters/superDooperParams.json" };
+        final String[] args =
+            { "-c", "src/test/resources/parameters/superDooperParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -268,7 +275,8 @@ public class ParameterTests {
             assertEquals("some.key.deserailizer", superDooperParameters.getKeyDeserializer());
             assertEquals("some.value.deserailizer", superDooperParameters.getValueDeserializer());
 
-            final String[] consumerTopics = { "consumer-out-0", "consumer-out-1", "consumer-out-2" };
+            final String[] consumerTopics =
+                { "consumer-out-0", "consumer-out-1", "consumer-out-2" };
             assertEquals(Arrays.asList(consumerTopics), superDooperParameters.getConsumerTopicList());
         } catch (final ParameterException e) {
             fail("This test should not throw an exception");

@@ -22,6 +22,9 @@ package org.onap.policy.apex.service.parameters;
 
 import java.io.FileReader;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
@@ -34,9 +37,6 @@ import org.onap.policy.common.parameters.ParameterException;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * This class handles reading, parsing and validating of Apex parameters from JSON files.

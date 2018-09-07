@@ -146,11 +146,11 @@ public class ApexRestClientProducer implements ApexEventProducer {
         }
 
         // Send the event as a REST request
-        final Response response = sendEventAsRESTRequest((String) event);
+        final Response response = sendEventAsRestRequest((String) event);
 
         // Check that the request worked
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-            final String errorMessage = "send of event to URL \"" + restProducerProperties.getURL() + "\" using HTTP \""
+            final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" using HTTP \""
                     + restProducerProperties.getHttpMethod() + "\" failed with status code " + response.getStatus()
                     + " and message \"" + response.readEntity(String.class) + "\", event:\n" + event;
             LOGGER.warn(errorMessage);
@@ -159,7 +159,7 @@ public class ApexRestClientProducer implements ApexEventProducer {
 
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("event sent from engine using {} to URL {} with HTTP {} : {} and response {} ", this.name,
-                    restProducerProperties.getURL(), restProducerProperties.getHttpMethod(), event, response);
+                    restProducerProperties.getUrl(), restProducerProperties.getHttpMethod(), event, response);
         }
     }
 
@@ -180,12 +180,12 @@ public class ApexRestClientProducer implements ApexEventProducer {
      * @param event the event to send
      * @return the response tot he JSON request
      */
-    public Response sendEventAsRESTRequest(final String event) {
+    public Response sendEventAsRestRequest(final String event) {
         // We have already checked that it is a PUT or POST request
         if (restProducerProperties.getHttpMethod().equalsIgnoreCase("POST")) {
-            return client.target(restProducerProperties.getURL()).request("application/json").post(Entity.json(event));
+            return client.target(restProducerProperties.getUrl()).request("application/json").post(Entity.json(event));
         } else {
-            return client.target(restProducerProperties.getURL()).request("application/json").put(Entity.json(event));
+            return client.target(restProducerProperties.getUrl()).request("application/json").put(Entity.json(event));
         }
     }
 }

@@ -29,8 +29,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * A default event protocol parameter class that may be specialized by event protocol plugins that require plugin
  * specific parameters.
  *
- * <p>
- * The following parameters are defined:
+ * <p>The following parameters are defined:
  * <ol>
  * <li>label: The label of the event protocol technology.
  * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce and emit output

@@ -27,7 +27,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
 /**
  * Apex parameters for REST as an event carrier technology with Apex as a REST client.
  *
- * The parameters for this plugin are:
+ * <p>The parameters for this plugin are:
  * <ol>
  * <li>url: The URL that the Apex Rest client will connect to over REST for event reception or event sending. This
  * parameter is mandatory.
@@ -76,7 +76,7 @@ public class RESTClientCarrierTechnologyParameters extends CarrierTechnologyPara
      *
      * @return the URL
      */
-    public String getURL() {
+    public String getUrl() {
         return url;
     }
 
@@ -126,7 +126,7 @@ public class RESTClientCarrierTechnologyParameters extends CarrierTechnologyPara
         final GroupValidationResult result = super.validate();
 
         // Check if the URL has been set for event output
-        if (getURL() == null) {
+        if (getUrl() == null) {
             result.setResult("url", ValidationStatus.INVALID, "no URL has been set for event sending on REST client");
         }
 
