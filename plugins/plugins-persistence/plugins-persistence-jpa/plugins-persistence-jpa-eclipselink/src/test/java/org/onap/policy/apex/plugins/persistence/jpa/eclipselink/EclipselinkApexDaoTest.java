@@ -40,7 +40,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 
 /**
- * Junit tests for class EclipselinkApexDao
+ * Junit tests for class EclipselinkApexDao.
  * 
  * @author Dinh Danh Le (dinh.danh.le@ericsson.com)
  *
@@ -48,19 +48,24 @@ import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 
 public class EclipselinkApexDaoTest {
 
-    private static final List<AxArtifactKey> TEST_ARTIKEYS = Arrays.asList(new AxArtifactKey[] {
-            new AxArtifactKey("ABC", "0.0.1"), new AxArtifactKey("DEF", "0.1.1"), new AxArtifactKey("XYZ", "1.1.1")});
+    private static final List<AxArtifactKey> TEST_ARTIKEYS = Arrays.asList(new AxArtifactKey[]
+        { new AxArtifactKey("ABC", "0.0.1"), new AxArtifactKey("DEF", "0.1.1"), new AxArtifactKey("XYZ", "1.1.1") });
 
-    private final DaoParameters DaoParameters = new DaoParameters();
+    private final DaoParameters daoParameters = new DaoParameters();
 
     private EclipselinkApexDao eclipselinkApexDao = null;
 
+    /**
+     * Setup the tests.
+     * 
+     * @throws ApexException Exceptions from test setup
+     */
     @Before
     public void setup() throws ApexException {
-        DaoParameters.setPluginClass(EclipselinkApexDao.class.getCanonicalName());
-        DaoParameters.setPersistenceUnit("DAOTest");
+        daoParameters.setPluginClass(EclipselinkApexDao.class.getCanonicalName());
+        daoParameters.setPersistenceUnit("DAOTest");
         eclipselinkApexDao = new EclipselinkApexDao();
-        eclipselinkApexDao.init(DaoParameters);
+        eclipselinkApexDao.init(daoParameters);
     }
 
     @After
@@ -115,7 +120,6 @@ public class EclipselinkApexDaoTest {
         }
     }
 
-
     @Test
     public void test_getArtifactByReferenceKey() {
         final AxArtifactKey artifactKey = new AxArtifactKey("XXX", "0.0.1");
@@ -133,11 +137,10 @@ public class EclipselinkApexDaoTest {
         assertNull(eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class, anotherReferenceKey));
 
         // assert return only one entity when finding an entity with correct key
-        final ReferenceKeyTestEntity retEntity =
-                eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class, referenceKey);
+        final ReferenceKeyTestEntity retEntity = eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class,
+                        referenceKey);
         assertEquals(referenceKey, retEntity.getKey());
     }
-
 
     @Test
     public void test_getArtifactByArtifactKey() {
@@ -152,11 +155,11 @@ public class EclipselinkApexDaoTest {
         assertNull(eclipselinkApexDao.getArtifact(ArtifactKeyTestEntity.class, otherArtifactKey));
 
         // assert return only one entity when finding an entity with correct key
-        final ArtifactKeyTestEntity retEntity = eclipselinkApexDao.getArtifact(ArtifactKeyTestEntity.class, artifactKey);
+        final ArtifactKeyTestEntity retEntity = eclipselinkApexDao.getArtifact(ArtifactKeyTestEntity.class,
+                        artifactKey);
         assertNotNull(retEntity);
         assertEquals(artifactKey, retEntity.getKey());
     }
-
 
     @Test
     public void test_deleteByArtifactKey() {
@@ -177,7 +180,6 @@ public class EclipselinkApexDaoTest {
         assertEquals(100.0, remainingEntities.get(0).getDoubleValue(), 0.0);
     }
 
-
     @Test
     public void test_deleteByReferenceKey() {
         // prepare 2 AxArtifactKeys
@@ -185,9 +187,12 @@ public class EclipselinkApexDaoTest {
         final AxArtifactKey owner1Key = new AxArtifactKey("Owner1", "0.0.1");
 
         // prepare a list of (3) AxReferenceKeys corresponding to owner0Key
-        final List<AxReferenceKey> refKey0s =
-                Arrays.asList(new AxReferenceKey[] {new AxReferenceKey(owner0Key, "Entity01"),
-                        new AxReferenceKey(owner0Key, "Entity02"), new AxReferenceKey(owner0Key, "Entity03")});
+        final List<AxReferenceKey> refKey0s = Arrays.asList(new AxReferenceKey[] {
+            new AxReferenceKey(owner0Key, "Entity01"),
+            new AxReferenceKey(owner0Key, "Entity02"),
+            new AxReferenceKey(owner0Key, "Entity03")
+        });
+        
         // prepare 2 more AxReferenceKeys corresponding to owner1Key
         final AxReferenceKey refKey11 = new AxReferenceKey(owner1Key, "Entity11");
         final AxReferenceKey refKey12 = new AxReferenceKey(owner1Key, "Entity12");
@@ -218,7 +223,6 @@ public class EclipselinkApexDaoTest {
         assertEquals(0, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class).size());
     }
 
-
     @Test
     public void test_getAllByArtifactKey() {
 
@@ -227,7 +231,6 @@ public class EclipselinkApexDaoTest {
 
         final AxReferenceKey refKey0 = new AxReferenceKey(artiKey0, "Entity0");
         final AxReferenceKey refKey1 = new AxReferenceKey(artiKey1, "Entity1");
-
 
         // test with null class with known key --> return an empty list
         assertNotNull(eclipselinkApexDao.getAll(null, artiKey1));
@@ -245,7 +248,5 @@ public class EclipselinkApexDaoTest {
         final ReferenceKeyTestEntity retEntity = ret.get(0);
         assertEquals(200.0, retEntity.getDoubleValue(), 0);
     }
-
-
 
 }

@@ -49,11 +49,6 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>${version.dom4j}</version>
-        </dependency>
     </dependencies>
 
     <modules>
