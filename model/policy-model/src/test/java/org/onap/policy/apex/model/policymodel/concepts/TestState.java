@@ -45,6 +45,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 
 /**
+ * Test policy states.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestState {
@@ -64,7 +66,7 @@ public class TestState {
         assertNotNull(new AxState());
         assertNotNull(new AxState(new AxReferenceKey()));
         assertNotNull(new AxState(new AxReferenceKey(), new AxArtifactKey(), soEmptyMap, ctxtEmptySet,
-                new AxTaskSelectionLogic(), sflEmptyMap, new AxArtifactKey(), trEmptyMap));
+                        new AxTaskSelectionLogic(), sflEmptyMap, new AxArtifactKey(), trEmptyMap));
 
         final AxState state = new AxState();
 
@@ -89,25 +91,28 @@ public class TestState {
         assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKey().getId());
         assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKeys().get(0).getId());
 
-        final AxStateOutput so0 = new AxStateOutput(new AxReferenceKey(stateKey, "SO0"), triggerKey, new AxReferenceKey());
+        final AxStateOutput so0 = new AxStateOutput(new AxReferenceKey(stateKey, "SO0"), triggerKey,
+                        new AxReferenceKey());
         final AxStateOutput soU = new AxStateOutput(new AxReferenceKey(stateKey, "SOU"), triggerKey, stateKeyNext);
         final AxStateOutput soSame = new AxStateOutput(new AxReferenceKey(stateKey, "SOU"), triggerKey, stateKey);
         final AxArtifactKey cr0 = new AxArtifactKey("ContextReference", "0.0.1");
         final AxStateFinalizerLogic sfl = new AxStateFinalizerLogic(stateKey, "SFLogicName", "LogicFlavour", "Logic");
-        final AxStateFinalizerLogic sflU = new AxStateFinalizerLogic(stateKey, "UnusedSFLogicName", "LogicFlavour", "Logic");
+        final AxStateFinalizerLogic sflU = new AxStateFinalizerLogic(stateKey, "UnusedSFLogicName", "LogicFlavour",
+                        "Logic");
         final AxStateTaskReference str0 = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR0"),
-                AxStateTaskOutputType.DIRECT, so0.getKey());
+                        AxStateTaskOutputType.DIRECT, so0.getKey());
         final AxStateTaskReference str1 = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR1"),
-                AxStateTaskOutputType.DIRECT, so0.getKey());
+                        AxStateTaskOutputType.DIRECT, so0.getKey());
         final AxStateTaskReference str2 = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR2"),
-                AxStateTaskOutputType.LOGIC, sfl.getKey());
+                        AxStateTaskOutputType.LOGIC, sfl.getKey());
 
         final AxStateTaskReference strBadState = new AxStateTaskReference(new AxReferenceKey(stateKeyBad, "STR2"),
-                AxStateTaskOutputType.LOGIC, sfl.getKey());
-        final AxStateTaskReference strBadSO = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR2"),
-                AxStateTaskOutputType.UNDEFINED, sfl.getKey());
-        final AxStateTaskReference strBadSFL = new AxStateTaskReference(new AxReferenceKey(stateKeyBad, "STR2"),
-                AxStateTaskOutputType.LOGIC, new AxReferenceKey(stateKey, "SomeSFL"));
+                        AxStateTaskOutputType.LOGIC, sfl.getKey());
+        final AxStateTaskReference strBadStateOutput = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR2"),
+                        AxStateTaskOutputType.UNDEFINED, sfl.getKey());
+        final AxStateTaskReference strBadStateFinalizerLogic = new AxStateTaskReference(
+                        new AxReferenceKey(stateKeyBad, "STR2"), AxStateTaskOutputType.LOGIC,
+                        new AxReferenceKey(stateKey, "SomeSFL"));
 
         soMap.put(so0.getKey().getLocalName(), so0);
         ctxtSet.add(cr0);
@@ -358,7 +363,7 @@ public class TestState {
         result = state.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        trMap.put(taskKeyBad, strBadSO);
+        trMap.put(taskKeyBad, strBadStateOutput);
         result = new AxValidationResult();
         result = state.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
@@ -378,7 +383,7 @@ public class TestState {
         result = state.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        trMap.put(taskKeyBad, strBadSFL);
+        trMap.put(taskKeyBad, strBadStateFinalizerLogic);
         result = new AxValidationResult();
         result = state.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
@@ -429,22 +434,22 @@ public class TestState {
         assertTrue(state.equals(clonedState));
         assertFalse(state.equals(null));
         assertFalse(state.equals("Hello"));
-        assertFalse(state
-                .equals(new AxState(new AxReferenceKey(), triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
-        assertFalse(state
-                .equals(new AxState(stateKey, new AxArtifactKey(), soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
-        assertFalse(
-                state.equals(new AxState(stateKey, triggerKey, soEmptyMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
-        assertFalse(
-                state.equals(new AxState(stateKey, triggerKey, soMap, ctxtEmptySet, tsl, sflMap, defTaskKey, trMap)));
+        assertFalse(state.equals(
+                        new AxState(new AxReferenceKey(), triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+        assertFalse(state.equals(
+                        new AxState(stateKey, new AxArtifactKey(), soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+        assertFalse(state.equals(
+                        new AxState(stateKey, triggerKey, soEmptyMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+        assertFalse(state.equals(
+                        new AxState(stateKey, triggerKey, soMap, ctxtEmptySet, tsl, sflMap, defTaskKey, trMap)));
         assertFalse(state.equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, new AxTaskSelectionLogic(), sflMap,
-                defTaskKey, trMap)));
-        assertFalse(
-                state.equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflEmptyMap, defTaskKey, trMap)));
-        assertFalse(state
-                .equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, new AxArtifactKey(), trMap)));
-        assertFalse(
-                state.equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trEmptyMap)));
+                        defTaskKey, trMap)));
+        assertFalse(state.equals(
+                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflEmptyMap, defTaskKey, trMap)));
+        assertFalse(state.equals(
+                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, new AxArtifactKey(), trMap)));
+        assertFalse(state.equals(
+                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trEmptyMap)));
         assertTrue(state.equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
 
         assertEquals(0, state.compareTo(state));
@@ -452,23 +457,23 @@ public class TestState {
         assertNotEquals(0, state.compareTo(new AxArtifactKey()));
         assertNotEquals(0, state.compareTo(null));
         assertNotEquals(0, state.compareTo(
-                new AxState(new AxReferenceKey(), triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
-        assertNotEquals(0, state
-                .compareTo(new AxState(stateKey, new AxArtifactKey(), soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
-        assertNotEquals(0, state
-                .compareTo(new AxState(stateKey, triggerKey, soEmptyMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
-        assertNotEquals(0, state
-                .compareTo(new AxState(stateKey, triggerKey, soMap, ctxtEmptySet, tsl, sflMap, defTaskKey, trMap)));
+                        new AxState(new AxReferenceKey(), triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+        assertNotEquals(0, state.compareTo(
+                        new AxState(stateKey, new AxArtifactKey(), soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+        assertNotEquals(0, state.compareTo(
+                        new AxState(stateKey, triggerKey, soEmptyMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+        assertNotEquals(0, state.compareTo(
+                        new AxState(stateKey, triggerKey, soMap, ctxtEmptySet, tsl, sflMap, defTaskKey, trMap)));
         assertNotEquals(0, state.compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, new AxTaskSelectionLogic(),
-                sflMap, defTaskKey, trMap)));
-        assertNotEquals(0, state
-                .compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflEmptyMap, defTaskKey, trMap)));
-        assertNotEquals(0, state
-                .compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, new AxArtifactKey(), trMap)));
-        assertNotEquals(0, state
-                .compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trEmptyMap)));
-        assertEquals(0,
-                state.compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                        sflMap, defTaskKey, trMap)));
+        assertNotEquals(0, state.compareTo(
+                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflEmptyMap, defTaskKey, trMap)));
+        assertNotEquals(0, state.compareTo(
+                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, new AxArtifactKey(), trMap)));
+        assertNotEquals(0, state.compareTo(
+                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trEmptyMap)));
+        assertEquals(0, state
+                        .compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
 
         assertNotNull(state.getKeys());
     }

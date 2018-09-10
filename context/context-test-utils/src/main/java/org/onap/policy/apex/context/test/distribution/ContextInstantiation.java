@@ -190,8 +190,8 @@ public class ContextInstantiation {
             final AxContextModel externalContextModel = TestContextAlbumFactory.createExternalContextModel();
 
             final TestContextDateTzItem tci9A = new TestContextDateTzItem(tci9);
-            final TestContextDateLocaleItem tciAA = new TestContextDateLocaleItem(tciA);
-            final TestExternalContextItem externalContext = getTestExternalContextItem(testDate, tci9A, tciAA);
+            final TestContextDateLocaleItem tciA_A = new TestContextDateLocaleItem(tciA);
+            final TestExternalContextItem externalContext = getTestExternalContextItem(testDate, tci9A, tciA_A);
 
             final Map<String, Object> valueMap2 = new HashMap<>();
             valueMap2.put(EXTERNAL_CONTEXT, externalContext);
@@ -226,7 +226,7 @@ public class ContextInstantiation {
             assertEquals(tci9A.getDateValue().getTime(),
                     externalContextItem.getTestExternalContextItem009().getDateValue().getTime());
 
-            assertEquals(tciAA.getDateValue().getTime(),
+            assertEquals(tciA_A.getDateValue().getTime(),
                     externalContextItem.getTestExternalContextItem00A().getDateValue().getTime());
             assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
             assertEquals(TEST_HASH_MAP, externalContextItem.getTestExternalContextItem00C().getMapValue());
@@ -275,7 +275,7 @@ public class ContextInstantiation {
                 assertEquals("album \"ExternalContextAlbum:0.0.1\" null values are illegal on key "
                         + "\"TestExternalContextItem00A\" for put()", e.getMessage());
             }
-            assertEquals(tciAA, externalContextItem.getTestExternalContextItem00A());
+            assertEquals(tciA_A, externalContextItem.getTestExternalContextItem00A());
 
             // Should return the hash set
             assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
@@ -471,9 +471,9 @@ public class ContextInstantiation {
     private TestContextDateLocaleItem getTestContextDateLocaleItem(final Date testDate) {
         final TestContextDateLocaleItem tciA = new TestContextDateLocaleItem();
         tciA.setDateValue(new TestContextDateItem(testDate));
-        tciA.setTZValue(TIME_ZONE.getDisplayName());
-        tciA.setDST(true);
-        tciA.setUTCOffset(-600);
+        tciA.setTzValue(TIME_ZONE.getDisplayName());
+        tciA.setDst(true);
+        tciA.setUtcOffset(-600);
         tciA.setLocale(Locale.ENGLISH);
         return tciA;
     }
@@ -481,13 +481,13 @@ public class ContextInstantiation {
     private TestContextDateTzItem getTestContextDateTzItem(final Date testDate) {
         final TestContextDateTzItem tci9 = new TestContextDateTzItem();
         tci9.setDateValue(new TestContextDateItem(testDate));
-        tci9.setTZValue(TIME_ZONE.getDisplayName());
-        tci9.setDST(true);
+        tci9.setTzValue(TIME_ZONE.getDisplayName());
+        tci9.setDst(true);
         return tci9;
     }
 
     private TestExternalContextItem getTestExternalContextItem(final Date testDate, final TestContextDateTzItem tci9A,
-            final TestContextDateLocaleItem tciAA) {
+            final TestContextDateLocaleItem tciAa) {
         final TestExternalContextItem externalContext = new TestExternalContextItem();
 
         final TestContextBooleanItem testExternalContextItem000 = new TestContextBooleanItem(false);
@@ -513,7 +513,7 @@ public class ContextInstantiation {
         externalContext.setTestExternalContextItem007(testExternalContextItem007);
         externalContext.setTestExternalContextItem008(testExternalContextItem008);
         externalContext.setTestExternalContextItem009(tci9A);
-        externalContext.setTestExternalContextItem00A(tciAA);
+        externalContext.setTestExternalContextItem00A(tciAa);
         externalContext.setTestExternalContextItem00B(testExternalContextItem00B);
         externalContext.setTestExternalContextItem00C(testExternalContextItem00C);
         return externalContext;

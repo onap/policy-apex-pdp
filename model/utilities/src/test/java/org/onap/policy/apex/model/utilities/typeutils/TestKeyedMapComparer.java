@@ -31,6 +31,8 @@ import org.onap.policy.apex.model.utilities.comparison.KeyedMapComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
 
 /**
+ * Test key map comparisons.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestKeyedMapComparer {
@@ -50,21 +52,23 @@ public class TestKeyedMapComparer {
         rightMap.put("E", "EEEEE");
         rightMap.put("F", "FFFFF");
         rightMap.put("G", "G");
-        
-        KeyedMapDifference<String, String> kmComparedSame = new KeyedMapComparer<String, String>().compareMaps(leftMap, leftMap);
-        KeyedMapDifference<String, String> kmComparedDiff = new KeyedMapComparer<String, String>().compareMaps(leftMap, rightMap);
-        
+
+        KeyedMapDifference<String, String> kmComparedSame = new KeyedMapComparer<String, String>().compareMaps(leftMap,
+                        leftMap);
+        KeyedMapDifference<String, String> kmComparedDiff = new KeyedMapComparer<String, String>().compareMaps(leftMap,
+                        rightMap);
+
         assertTrue(kmComparedSame.getIdenticalValues().equals(leftMap));
         assertEquals(1, kmComparedDiff.getLeftOnly().size());
         assertEquals(3, kmComparedDiff.getRightOnly().size());
         assertEquals(2, kmComparedDiff.getDifferentValues().size());
         assertEquals(1, kmComparedDiff.getIdenticalValues().size());
-        
+
         assertNotNull(kmComparedSame.asString(true, true));
         assertNotNull(kmComparedSame.asString(true, false));
         assertNotNull(kmComparedSame.asString(false, false));
         assertNotNull(kmComparedSame.asString(false, true));
-        
+
         assertNotNull(kmComparedDiff.asString(true, true));
         assertNotNull(kmComparedDiff.asString(true, false));
         assertNotNull(kmComparedDiff.asString(false, false));

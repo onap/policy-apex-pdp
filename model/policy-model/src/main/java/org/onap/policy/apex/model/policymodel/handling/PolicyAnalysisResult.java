@@ -32,7 +32,8 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
- * This class finds and holds the usage of context schemas, context albums, events, and tasks by the policies in a policy model.
+ * This class finds and holds the usage of context schemas, context albums, events, and tasks by the policies in a
+ * policy model.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -50,8 +51,8 @@ public class PolicyAnalysisResult {
     private final Map<AxArtifactKey, Set<AxKey>> taskUsage = new TreeMap<>();
 
     /**
-     * This constructor creates a {@link PolicyAnalysisResult} instance that holds maps that contain the usage of context schemas, contxt albums, events, and
-     * tasks by all policies in a policy model.
+     * This constructor creates a {@link PolicyAnalysisResult} instance that holds maps that contain the usage of
+     * context schemas, contxt albums, events, and tasks by all policies in a policy model.
      *
      * @param policyModel the policy model to analyse
      */
@@ -60,7 +61,8 @@ public class PolicyAnalysisResult {
             contextSchemaUsage.put(contextSchemaKey, new TreeSet<AxKey>());
         }
 
-        for (final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry : policyModel.getAlbums().getAlbumsMap().entrySet()) {
+        for (final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry : policyModel.getAlbums().getAlbumsMap()
+                        .entrySet()) {
             contextAlbumUsage.put(contextAlbumEntry.getKey(), new TreeSet<AxKey>());
         }
 

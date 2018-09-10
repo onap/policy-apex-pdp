@@ -52,8 +52,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * state output is selected. If no next state is defined (the next state is a null
  * {@link AxReferenceKey} key), then this state output outputs its event to an external system and
  * is an output state for the full policy.
- * <p>
- * During validation of a state output, the validation checks listed below are executed:
+ * 
+ * <p>During validation of a state output, the validation checks listed below are executed:
  * <ol>
  * <li>The state output key must not be a null key and must be valid, see validation in
  * {@link AxReferenceKey}
@@ -105,7 +105,7 @@ public class AxStateOutput extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */

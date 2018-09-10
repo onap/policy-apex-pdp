@@ -173,7 +173,7 @@
 					"description": "model description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createModel",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createModel",
 			"description": "Create an Apex model."
 		},
 		{
@@ -183,7 +183,7 @@
 				"list"
 			],
 			"argumentList": [],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listModel",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listModel",
 			"description": "List an Apex model, list all the concepts in the model"
 		},
 		{
@@ -193,7 +193,7 @@
 				"delete"
 			],
 			"argumentList": [],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteModel",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteModel",
 			"description": "Delete an Apex model, clear all the concepts in the model"
 		},
 		{
@@ -224,7 +224,7 @@
 					"description": "concept description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createKeyInformation",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createKeyInformation",
 			"description": "Create key information"
 		},
 		{
@@ -255,7 +255,7 @@
 					"description": "concept description, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateKeyInformation",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateKeyInformation",
 			"description": "Update key information"
 		},
 		{
@@ -276,7 +276,7 @@
 					"description": "starting version of the concept for the key information, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.ListKeyInformation",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.ListKeyInformation",
 			"description": "List key information"
 		},
 		{
@@ -297,7 +297,7 @@
 					"description": "version of the concept for the key information, omit to delete all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteKeyInformation",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteKeyInformation",
 			"description": "Delete key information"
 		},
 		{
@@ -318,7 +318,7 @@
 					"description": "version of the concept for the key information, omit to validate all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateKeyInformation",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.validateKeyInformation",
 			"description": "Validate key information"
 		},
 		{
@@ -359,7 +359,7 @@
 					"description": "schema description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createContextSchema",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createContextSchema",
 			"description": "Create a schema."
 		},
 		{
@@ -400,7 +400,7 @@
 					"description": "schema description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateContextSchema",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateContextSchema",
 			"description": "Update a schema."
 		},
 		{
@@ -421,7 +421,7 @@
 					"description": "starting version of the schema, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listContextSchemas",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listContextSchemas",
 			"description": "List schemas."
 		},
 		{
@@ -442,7 +442,7 @@
 					"description": "version of the schema, omit to delete all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteContextSchema",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteContextSchema",
 			"description": "Delete a schema."
 		},
 		{
@@ -463,7 +463,7 @@
 					"description": "starting version of the schema, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateContextSchemas",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.validateContextSchemas",
 			"description": "Validate context schemas."
 		},
 		{
@@ -509,7 +509,7 @@
 					"description": "event description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createEvent",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createEvent",
 			"description": "Create an event."
 		},
 		{
@@ -555,7 +555,7 @@
 					"description": "event description, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateEvent",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateEvent",
 			"description": "Update an event."
 		},
 		{
@@ -576,7 +576,7 @@
 					"description": "starting version of the event, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listEvent",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listEvent",
 			"description": "List events."
 		},
 		{
@@ -597,7 +597,7 @@
 					"description": "version of the event, omit to delete all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteEvent",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteEvent",
 			"description": "Delete an event."
 		},
 		{
@@ -618,7 +618,7 @@
 					"description": "starting version of the event, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateEvent",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.validateEvent",
 			"description": "Validate events."
 		},
 		{
@@ -660,7 +660,7 @@
 					"description": "indicates if the parameter is optional, if omitted, the parameter is mandatory"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createEventPar",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createEventPar",
 			"description": "Create an event parameter."
 		},
 		{
@@ -687,7 +687,7 @@
 					"description": "name of the parameter, omit to list all parameters of the event"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listEventPar",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listEventPar",
 			"description": "List event parameters."
 		},
 		{
@@ -714,7 +714,7 @@
 					"description": "of the parameter, omit to delete all parameters"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteEventPar",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteEventPar",
 			"description": "Delete an event parameter."
 		},
 		{
@@ -765,7 +765,7 @@
 					"description": "album description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createContextAlbum",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createContextAlbum",
 			"description": "Create a context album."
 		},
 		{
@@ -816,7 +816,7 @@
 					"description": "album description, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateContextAlbum",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateContextAlbum",
 			"description": "Update a context album."
 		},
 		{
@@ -837,7 +837,7 @@
 					"description": "starting version of the context album, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listContextAlbum",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listContextAlbum",
 			"description": "List context albums."
 		},
 		{
@@ -858,7 +858,7 @@
 					"description": "version of the context album, omit to delete versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteContextAlbum",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteContextAlbum",
 			"description": "Delete a context album."
 		},
 		{
@@ -879,7 +879,7 @@
 					"description": "starting version of the context album, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateContextAlbum",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.validateContextAlbum",
 			"description": "Validate context albums."
 		},
 		{
@@ -910,7 +910,7 @@
 					"description": "task description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTask",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTask",
 			"description": "Create a task."
 		},
 		{
@@ -941,7 +941,7 @@
 					"description": "task description, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateTask",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateTask",
 			"description": "Update a task."
 		},
 		{
@@ -962,7 +962,7 @@
 					"description": "starting version of the task, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTask",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTask",
 			"description": "List tasks."
 		},
 		{
@@ -983,7 +983,7 @@
 					"description": "version of the task, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTask",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTask",
 			"description": "Delete a task."
 		},
 		{
@@ -1004,7 +1004,7 @@
 					"description": "starting version of the task, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validateTask",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.validateTask",
 			"description": "Validate tasks."
 		},
 		{
@@ -1036,7 +1036,7 @@
 					"description": "the source code for the logic of the task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskLogic",
 			"description": "Create logic for a task."
 		},
 		{
@@ -1068,7 +1068,7 @@
 					"description": "the source code for the logic of the task, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updateTaskLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateTaskLogic",
 			"description": "Update logic for a task."
 		},
 		{
@@ -1090,7 +1090,7 @@
 					"description": "version of the task, omit to list the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskLogic",
 			"description": "List task logic."
 		},
 		{
@@ -1112,7 +1112,7 @@
 					"description": "version of the task, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskLogic",
 			"description": "Delete logic for a task."
 		},
 		{
@@ -1154,7 +1154,7 @@
 					"description": "indicates if the field is optional, if omitted, the field is mandatory"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskInputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskInputField",
 			"description": "Create a task input field."
 		},
 		{
@@ -1181,7 +1181,7 @@
 					"description": "field name of the input field, omit to list all input fields of the task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskInputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskInputField",
 			"description": "List task input fields."
 		},
 		{
@@ -1208,7 +1208,7 @@
 					"description": "of the input field, omit to delete all input fields"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskInputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskInputField",
 			"description": "Delete a task input field."
 		},
 		{
@@ -1250,7 +1250,7 @@
 					"description": "indicates if the field is optional, if omitted, the field is mandatory"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskOutputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskOutputField",
 			"description": "Create a task output field."
 		},
 		{
@@ -1277,7 +1277,7 @@
 					"description": "field name of the output field, omit to list all output fields of the task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskOutputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskOutputField",
 			"description": "List task output fields."
 		},
 		{
@@ -1304,7 +1304,7 @@
 					"description": "of the output field, omit to delete all output fields"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskOutputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskOutputField",
 			"description": "Delete a task output field."
 		},
 		{
@@ -1336,7 +1336,7 @@
 					"description": "of the parameter"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskParameter",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskParameter",
 			"description": "Create a task parameter."
 		},
 		{
@@ -1363,7 +1363,7 @@
 					"description": "name of the parameter, omit to list all parameters of the task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskParameter",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskParameter",
 			"description": "List task parameters."
 		},
 		{
@@ -1390,7 +1390,7 @@
 					"description": "of the parameter, omit to delete all task parameters"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskParameter",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskParameter",
 			"description": "Delete a task parameter."
 		},
 		{
@@ -1422,7 +1422,7 @@
 					"description": "version of the context album for the context reference, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createTaskContextRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskContextRef",
 			"description": "Create a task context reference."
 		},
 		{
@@ -1454,7 +1454,7 @@
 					"description": "version of the context album for the context reference, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listTaskContextRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskContextRef",
 			"description": "List task context references."
 		},
 		{
@@ -1486,7 +1486,7 @@
 					"description": "version of the context album for the context reference, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deleteTaskContextRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskContextRef",
 			"description": "Delete a task context reference."
 		},
 		{
@@ -1527,7 +1527,7 @@
 					"description": "policy description, omit to generate a description"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicy",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicy",
 			"description": "Create a policy."
 		},
 		{
@@ -1568,7 +1568,7 @@
 					"description": "policy description, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicy",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updatePolicy",
 			"description": "Update a policy."
 		},
 		{
@@ -1589,7 +1589,7 @@
 					"description": "starting version of the policy, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicy",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicy",
 			"description": "List policies."
 		},
 		{
@@ -1610,7 +1610,7 @@
 					"description": "version of the policy, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicy",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicy",
 			"description": "Delete a policy."
 		},
 		{
@@ -1631,7 +1631,7 @@
 					"description": "starting version of the policy, omit to list all versions"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.validatePolicy",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.validatePolicy",
 			"description": "Validate policies."
 		},
 		{
@@ -1678,7 +1678,7 @@
 					"description": "the default task version, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyState",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicyState",
 			"description": "Create a policy state."
 		},
 		{
@@ -1725,7 +1725,7 @@
 					"description": "the default task version, set to use latest version of default task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicyState",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updatePolicyState",
 			"description": "Update a policy state."
 		},
 		{
@@ -1752,7 +1752,7 @@
 					"description": "of the state, omit to list all states of the policy"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyState",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicyState",
 			"description": "List policy states."
 		},
 		{
@@ -1779,7 +1779,7 @@
 					"description": "of the state, omit to delete all states"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyState",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicyState",
 			"description": "Delete a policy state."
 		},
 		{
@@ -1817,7 +1817,7 @@
 					"description": "the source code for the logic of the state"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateTaskSelectionLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicyStateTaskSelectionLogic",
 			"description": "Create task selection logic for a state."
 		},
 		{
@@ -1855,7 +1855,7 @@
 					"description": "the source code for the logic of the state, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicyStateTaskSelectionLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updatePolicyStateTaskSelectionLogic",
 			"description": "Update task selection logic for a state."
 		},
 		{
@@ -1883,7 +1883,7 @@
 					"description": "of the state"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateTaskSelectionLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicyStateTaskSelectionLogic",
 			"description": "List task selection logic for a state."
 		},
 		{
@@ -1911,7 +1911,7 @@
 					"description": "of the state"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateTaskSelectionLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicyStateTaskSelectionLogic",
 			"description": "Delete task selection logic for a state."
 		},
 		{
@@ -1959,7 +1959,7 @@
 					"description": "for this state to transition to, omit if this is the last state that the policy transitions to on this branch"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateOutput",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicyStateOutput",
 			"description": "Create a policy state output."
 		},
 		{
@@ -1992,7 +1992,7 @@
 					"description": "of the state output, omit to list all outputs of the state"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateOutput",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicyStateOutput",
 			"description": "List policy state outputs."
 		},
 		{
@@ -2025,7 +2025,7 @@
 					"description": "of the state output, omit to delete all state outputs"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateOutput",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicyStateOutput",
 			"description": "Delete a policy state output."
 		},
 		{
@@ -2068,7 +2068,7 @@
 					"description": "the source code for the logic of the state"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateFinalizerLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicyStateFinalizerLogic",
 			"description": "Create policy finalizer logic for a state."
 		},
 		{
@@ -2111,7 +2111,7 @@
 					"description": "the source code for the logic of the state, omit to not update"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.updatePolicyStateFinalizerLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updatePolicyStateFinalizerLogic",
 			"description": "Update policy finalizer logic for a state."
 		},
 		{
@@ -2144,7 +2144,7 @@
 					"description": "name of the state finalizer logic"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateFinalizerLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicyStateFinalizerLogic",
 			"description": "List policy finalizer logic for a state."
 		},
 		{
@@ -2177,7 +2177,7 @@
 					"description": "name of the state finalizer logic"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateFinalizerLogic",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicyStateFinalizerLogic",
 			"description": "Delete policy finalizer logic for a state."
 		},
 		{
@@ -2230,7 +2230,7 @@
 					"description": "the name of the state output or state state finalizer logic to handle the task output"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateTaskRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicyStateTaskRef",
 			"description": "Create a policy state task reference."
 		},
 		{
@@ -2268,7 +2268,7 @@
 					"description": "version of the task, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateTaskRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicyStateTaskRef",
 			"description": "List policy state task references."
 		},
 		{
@@ -2306,7 +2306,7 @@
 					"description": "version of the task, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateTaskRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicyStateTaskRef",
 			"description": "Delete a policy state task reference."
 		},
 		{
@@ -2344,7 +2344,7 @@
 					"description": "version of the context album for the context reference, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.createPolicyStateContextRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createPolicyStateContextRef",
 			"description": "Create a policy state context reference."
 		},
 		{
@@ -2382,7 +2382,7 @@
 					"description": "version of the context album for the context reference, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.listPolicyStateContextRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listPolicyStateContextRef",
 			"description": "List policy state context references."
 		},
 		{
@@ -2420,7 +2420,7 @@
 					"description": "version of the context album for the context reference, omit to use the latest version"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorAPI.deletePolicyStateContextRef",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deletePolicyStateContextRef",
 			"description": "Delete a policy state context reference."
 		}
 	]

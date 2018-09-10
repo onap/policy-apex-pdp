@@ -107,7 +107,7 @@ public class TestContextDateLocaleItem implements Serializable {
      *
      * @return the TZ value
      */
-    public String getTZValue() {
+    public String getTzValue() {
         return timeZoneString;
     }
 
@@ -116,7 +116,7 @@ public class TestContextDateLocaleItem implements Serializable {
      *
      * @param tzValue the TZ value
      */
-    public void setTZValue(final String tzValue) {
+    public void setTzValue(final String tzValue) {
         this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
     }
 
@@ -125,7 +125,7 @@ public class TestContextDateLocaleItem implements Serializable {
      *
      * @return the dst
      */
-    public boolean getDST() {
+    public boolean getDst() {
         return dst;
     }
 
@@ -134,7 +134,7 @@ public class TestContextDateLocaleItem implements Serializable {
      *
      * @param newDst the dst
      */
-    public void setDST(final boolean newDst) {
+    public void setDst(final boolean newDst) {
         this.dst = newDst;
     }
 
@@ -143,7 +143,7 @@ public class TestContextDateLocaleItem implements Serializable {
      *
      * @return the UTC offset
      */
-    public int getUTCOffset() {
+    public int getUtcOffset() {
         return utcOffset;
     }
 
@@ -152,7 +152,7 @@ public class TestContextDateLocaleItem implements Serializable {
      *
      * @param newUtcOffset the UTC offset
      */
-    public void setUTCOffset(final int newUtcOffset) {
+    public void setUtcOffset(final int newUtcOffset) {
         this.utcOffset = newUtcOffset;
     }
 

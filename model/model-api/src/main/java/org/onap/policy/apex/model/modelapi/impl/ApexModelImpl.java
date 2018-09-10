@@ -23,7 +23,7 @@ package org.onap.policy.apex.model.modelapi.impl;
 import java.util.Properties;
 
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
@@ -114,7 +114,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createModel(final String name, final String version, final String uuid,
+    public ApexApiResult createModel(final String name, final String version, final String uuid,
             final String description) {
         return modelFacade.createModel(name, version, uuid, description);
     }
@@ -126,7 +126,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updateModel(final String name, final String version, final String uuid,
+    public ApexApiResult updateModel(final String name, final String version, final String uuid,
             final String description) {
         return modelFacade.updateModel(name, version, uuid, description);
     }
@@ -137,7 +137,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.core.modelapi.ApexEditorAPI#getModelKey()
      */
     @Override
-    public ApexAPIResult getModelKey() {
+    public ApexApiResult getModelKey() {
         return modelFacade.getModelKey();
     }
 
@@ -147,7 +147,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexEditorAPI#listModel()
      */
     @Override
-    public ApexAPIResult listModel() {
+    public ApexApiResult listModel() {
         return modelFacade.listModel();
     }
 
@@ -157,7 +157,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexEditorAPI#deleteModel()
      */
     @Override
-    public ApexAPIResult deleteModel() {
+    public ApexApiResult deleteModel() {
         return modelFacade.deleteModel();
     }
 
@@ -168,7 +168,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createKeyInformation(final String name, final String version, final String uuid,
+    public ApexApiResult createKeyInformation(final String name, final String version, final String uuid,
             final String description) {
         return keyInformationFacade.createKeyInformation(name, version, uuid, description);
     }
@@ -180,7 +180,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updateKeyInformation(final String name, final String version, final String uuid,
+    public ApexApiResult updateKeyInformation(final String name, final String version, final String uuid,
             final String description) {
         return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
     }
@@ -192,7 +192,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult listKeyInformation(final String name, final String version) {
+    public ApexApiResult listKeyInformation(final String name, final String version) {
         return keyInformationFacade.listKeyInformation(name, version);
     }
 
@@ -203,7 +203,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteKeyInformation(final String name, final String version) {
+    public ApexApiResult deleteKeyInformation(final String name, final String version) {
         return keyInformationFacade.deleteKeyInformation(name, version);
     }
 
@@ -214,7 +214,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult validateKeyInformation(final String name, final String version) {
+    public ApexApiResult validateKeyInformation(final String name, final String version) {
         return keyInformationFacade.validateKeyInformation(name, version);
     }
 
@@ -225,7 +225,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createContextSchema(final String name, final String version, final String schemaFlavour,
+    public ApexApiResult createContextSchema(final String name, final String version, final String schemaFlavour,
             final String schemaDefinition, final String uuid, final String description) {
         return contextSchemaFacade.createContextSchema(name, version, schemaFlavour, schemaDefinition, uuid,
                 description);
@@ -238,7 +238,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updateContextSchema(final String name, final String version, final String schemaFlavour,
+    public ApexApiResult updateContextSchema(final String name, final String version, final String schemaFlavour,
             final String schemaDefinition, final String uuid, final String description) {
         return contextSchemaFacade.updateContextSchema(name, version, schemaFlavour, schemaDefinition, uuid,
                 description);
@@ -251,7 +251,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult listContextSchemas(final String name, final String version) {
+    public ApexApiResult listContextSchemas(final String name, final String version) {
         return contextSchemaFacade.listContextSchemas(name, version);
     }
 
@@ -262,7 +262,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteContextSchema(final String name, final String version) {
+    public ApexApiResult deleteContextSchema(final String name, final String version) {
         return contextSchemaFacade.deleteContextSchema(name, version);
     }
 
@@ -273,7 +273,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult validateContextSchemas(final String name, final String version) {
+    public ApexApiResult validateContextSchemas(final String name, final String version) {
         return contextSchemaFacade.validateContextSchemas(name, version);
     }
 
@@ -285,7 +285,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult createEvent(final String name, final String version, final String nameSpace,
+    public ApexApiResult createEvent(final String name, final String version, final String nameSpace,
             final String source, final String target, final String uuid, final String description) {
         return eventFacade.createEvent(name, version, nameSpace, source, target, uuid, description);
     }
@@ -298,7 +298,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult updateEvent(final String name, final String version, final String nameSpace,
+    public ApexApiResult updateEvent(final String name, final String version, final String nameSpace,
             final String source, final String target, final String uuid, final String description) {
         return eventFacade.updateEvent(name, version, nameSpace, source, target, uuid, description);
     }
@@ -310,7 +310,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult listEvent(final String name, final String version) {
+    public ApexApiResult listEvent(final String name, final String version) {
         return eventFacade.listEvent(name, version);
     }
 
@@ -321,7 +321,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteEvent(final String name, final String version) {
+    public ApexApiResult deleteEvent(final String name, final String version) {
         return eventFacade.deleteEvent(name, version);
     }
 
@@ -332,7 +332,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult validateEvent(final String name, final String version) {
+    public ApexApiResult validateEvent(final String name, final String version) {
         return eventFacade.validateEvent(name, version);
     }
 
@@ -343,7 +343,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)
      */
     @Override
-    public ApexAPIResult createEventPar(final String name, final String version, final String parName,
+    public ApexApiResult createEventPar(final String name, final String version, final String parName,
             final String contextSchemaName, final String contextSchemaVersion, final boolean optional) {
         return eventFacade.createEventPar(name, version, parName, contextSchemaName, contextSchemaVersion, optional);
     }
@@ -355,7 +355,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listEventPar(final String name, final String version, final String parName) {
+    public ApexApiResult listEventPar(final String name, final String version, final String parName) {
         return eventFacade.listEventPar(name, version, parName);
     }
 
@@ -366,7 +366,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteEventPar(final String name, final String version, final String parName) {
+    public ApexApiResult deleteEventPar(final String name, final String version, final String parName) {
         return eventFacade.deleteEventPar(name, version, parName);
     }
 
@@ -379,7 +379,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexAPIResult createContextAlbum(final String name, final String version, final String scope,
+    public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
             final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description) {
         return contextAlbumFacade.createContextAlbum(name, version, scope, writable, contextSchemaName,
@@ -396,7 +396,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
     @Override
-    public ApexAPIResult updateContextAlbum(final String name, final String version, final String scope,
+    public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
             final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description) {
         return contextAlbumFacade.updateContextAlbum(name, version, scope, writable, contextSchemaName,
@@ -411,7 +411,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult listContextAlbum(final String name, final String version) {
+    public ApexApiResult listContextAlbum(final String name, final String version) {
         return contextAlbumFacade.listContextAlbum(name, version);
     }
 
@@ -422,7 +422,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteContextAlbum(final String name, final String version) {
+    public ApexApiResult deleteContextAlbum(final String name, final String version) {
         return contextAlbumFacade.deleteContextAlbum(name, version);
     }
 
@@ -433,7 +433,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult validateContextAlbum(final String name, final String version) {
+    public ApexApiResult validateContextAlbum(final String name, final String version) {
         return contextAlbumFacade.validateContextAlbum(name, version);
     }
 
@@ -444,7 +444,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createTask(final String name, final String version, final String uuid,
+    public ApexApiResult createTask(final String name, final String version, final String uuid,
             final String description) {
         return taskFacade.createTask(name, version, uuid, description);
     }
@@ -456,7 +456,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updateTask(final String name, final String version, final String uuid,
+    public ApexApiResult updateTask(final String name, final String version, final String uuid,
             final String description) {
         return taskFacade.updateTask(name, version, uuid, description);
     }
@@ -467,7 +467,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexEditorAPI#listTask(java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listTask(final String name, final String version) {
+    public ApexApiResult listTask(final String name, final String version) {
         return taskFacade.listTask(name, version);
     }
 
@@ -478,7 +478,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteTask(final String name, final String version) {
+    public ApexApiResult deleteTask(final String name, final String version) {
         return taskFacade.deleteTask(name, version);
     }
 
@@ -489,7 +489,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult validateTask(final String name, final String version) {
+    public ApexApiResult validateTask(final String name, final String version) {
         return taskFacade.validateTask(name, version);
     }
 
@@ -500,7 +500,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createTaskLogic(final String name, final String version, final String logicFlavour,
+    public ApexApiResult createTaskLogic(final String name, final String version, final String logicFlavour,
             final String logic) {
         return taskFacade.createTaskLogic(name, version, logicFlavour, logic);
     }
@@ -512,7 +512,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updateTaskLogic(final String name, final String version, final String logicFlavour,
+    public ApexApiResult updateTaskLogic(final String name, final String version, final String logicFlavour,
             final String logic) {
         return taskFacade.updateTaskLogic(name, version, logicFlavour, logic);
     }
@@ -524,7 +524,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult listTaskLogic(final String name, final String version) {
+    public ApexApiResult listTaskLogic(final String name, final String version) {
         return taskFacade.listTaskLogic(name, version);
     }
 
@@ -535,7 +535,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteTaskLogic(final String name, final String version) {
+    public ApexApiResult deleteTaskLogic(final String name, final String version) {
         return taskFacade.deleteTaskLogic(name, version);
     }
 
@@ -546,7 +546,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.boolean)
      */
     @Override
-    public ApexAPIResult createTaskInputField(final String name, final String version, final String fieldName,
+    public ApexApiResult createTaskInputField(final String name, final String version, final String fieldName,
             final String dataTypeName, final String dataTypeVersion, final boolean optional) {
         return taskFacade.createTaskInputField(name, version, fieldName, dataTypeName, dataTypeVersion, optional);
     }
@@ -558,7 +558,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listTaskInputField(final String name, final String version, final String fieldName) {
+    public ApexApiResult listTaskInputField(final String name, final String version, final String fieldName) {
         return taskFacade.listTaskInputField(name, version, fieldName);
     }
 
@@ -569,7 +569,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteTaskInputField(final String name, final String version, final String fieldName) {
+    public ApexApiResult deleteTaskInputField(final String name, final String version, final String fieldName) {
         return taskFacade.deleteTaskInputField(name, version, fieldName);
     }
 
@@ -580,7 +580,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.boolean)
      */
     @Override
-    public ApexAPIResult createTaskOutputField(final String name, final String version, final String fieldName,
+    public ApexApiResult createTaskOutputField(final String name, final String version, final String fieldName,
             final String dataTypeName, final String dataTypeVersion, final boolean optional) {
         return taskFacade.createTaskOutputField(name, version, fieldName, dataTypeName, dataTypeVersion, optional);
     }
@@ -592,7 +592,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listTaskOutputField(final String name, final String version, final String fieldName) {
+    public ApexApiResult listTaskOutputField(final String name, final String version, final String fieldName) {
         return taskFacade.listTaskOutputField(name, version, fieldName);
     }
 
@@ -603,7 +603,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteTaskOutputField(final String name, final String version, final String fieldName) {
+    public ApexApiResult deleteTaskOutputField(final String name, final String version, final String fieldName) {
         return taskFacade.deleteTaskOutputField(name, version, fieldName);
     }
 
@@ -614,7 +614,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createTaskParameter(final String name, final String version, final String parName,
+    public ApexApiResult createTaskParameter(final String name, final String version, final String parName,
             final String defaultValue) {
         return taskFacade.createTaskParameter(name, version, parName, defaultValue);
     }
@@ -626,7 +626,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listTaskParameter(final String name, final String version, final String parName) {
+    public ApexApiResult listTaskParameter(final String name, final String version, final String parName) {
         return taskFacade.listTaskParameter(name, version, parName);
     }
 
@@ -637,7 +637,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteTaskParameter(final String name, final String version, final String parName) {
+    public ApexApiResult deleteTaskParameter(final String name, final String version, final String parName) {
         return taskFacade.deleteTaskParameter(name, version, parName);
     }
 
@@ -648,7 +648,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createTaskContextRef(final String name, final String version, final String contextAlbumName,
+    public ApexApiResult createTaskContextRef(final String name, final String version, final String contextAlbumName,
             final String contextAlbumVersion) {
         return taskFacade.createTaskContextRef(name, version, contextAlbumName, contextAlbumVersion);
     }
@@ -660,7 +660,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listTaskContextRef(final String name, final String version, final String contextAlbumName,
+    public ApexApiResult listTaskContextRef(final String name, final String version, final String contextAlbumName,
             final String contextAlbumVersion) {
         return taskFacade.listTaskContextRef(name, version, contextAlbumName, contextAlbumVersion);
     }
@@ -672,7 +672,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deleteTaskContextRef(final String name, final String version, final String contextAlbumName,
+    public ApexApiResult deleteTaskContextRef(final String name, final String version, final String contextAlbumName,
             final String contextAlbumVersion) {
         return taskFacade.deleteTaskContextRef(name, version, contextAlbumName, contextAlbumVersion);
     }
@@ -684,7 +684,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createPolicy(final String name, final String version, final String template,
+    public ApexApiResult createPolicy(final String name, final String version, final String template,
             final String firstState, final String uuid, final String description) {
         return policyFacade.createPolicy(name, version, template, firstState, uuid, description);
     }
@@ -696,7 +696,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updatePolicy(final String name, final String version, final String template,
+    public ApexApiResult updatePolicy(final String name, final String version, final String template,
             final String firstState, final String uuid, final String description) {
         return policyFacade.updatePolicy(name, version, template, firstState, uuid, description);
     }
@@ -708,7 +708,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicy(final String name, final String version) {
+    public ApexApiResult listPolicy(final String name, final String version) {
         return policyFacade.listPolicy(name, version);
     }
 
@@ -719,7 +719,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicy(final String name, final String version) {
+    public ApexApiResult deletePolicy(final String name, final String version) {
         return policyFacade.deletePolicy(name, version);
     }
 
@@ -730,7 +730,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult validatePolicy(final String name, final String version) {
+    public ApexApiResult validatePolicy(final String name, final String version) {
         return policyFacade.validatePolicy(name, version);
     }
 
@@ -742,7 +742,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult createPolicyState(final String name, final String version, final String stateName,
+    public ApexApiResult createPolicyState(final String name, final String version, final String stateName,
             final String triggerName, final String triggerVersion, final String defaultTaskName,
             final String defaltTaskVersion) {
         return policyFacade.createPolicyState(name, version, stateName, triggerName, triggerVersion, defaultTaskName,
@@ -757,7 +757,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult updatePolicyState(final String name, final String version, final String stateName,
+    public ApexApiResult updatePolicyState(final String name, final String version, final String stateName,
             final String triggerName, final String triggerVersion, final String defaultTaskName,
             final String defaltTaskVersion) {
         return policyFacade.updatePolicyState(name, version, stateName, triggerName, triggerVersion, defaultTaskName,
@@ -771,7 +771,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicyState(final String name, final String version, final String stateName) {
+    public ApexApiResult listPolicyState(final String name, final String version, final String stateName) {
         return policyFacade.listPolicyState(name, version, stateName);
     }
 
@@ -782,7 +782,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicyState(final String name, final String version, final String stateName) {
+    public ApexApiResult deletePolicyState(final String name, final String version, final String stateName) {
         return policyFacade.deletePolicyState(name, version, stateName);
     }
 
@@ -794,7 +794,7 @@ public final class ApexModelImpl implements ApexModel {
      * String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createPolicyStateTaskSelectionLogic(final String name, final String version,
+    public ApexApiResult createPolicyStateTaskSelectionLogic(final String name, final String version,
             final String stateName, final String logicFlavour, final String logic) {
         return policyFacade.createPolicyStateTaskSelectionLogic(name, version, stateName, logicFlavour, logic);
     }
@@ -807,7 +807,7 @@ public final class ApexModelImpl implements ApexModel {
      * String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult updatePolicyStateTaskSelectionLogic(final String name, final String version,
+    public ApexApiResult updatePolicyStateTaskSelectionLogic(final String name, final String version,
             final String stateName, final String logicFlavour, final String logic) {
         return policyFacade.updatePolicyStateTaskSelectionLogic(name, version, stateName, logicFlavour, logic);
     }
@@ -819,7 +819,7 @@ public final class ApexModelImpl implements ApexModel {
      * String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicyStateTaskSelectionLogic(final String name, final String version,
+    public ApexApiResult listPolicyStateTaskSelectionLogic(final String name, final String version,
             final String stateName) {
         return policyFacade.listPolicyStateTaskSelectionLogic(name, version, stateName);
     }
@@ -832,7 +832,7 @@ public final class ApexModelImpl implements ApexModel {
      * String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicyStateTaskSelectionLogic(final String name, final String version,
+    public ApexApiResult deletePolicyStateTaskSelectionLogic(final String name, final String version,
             final String stateName) {
         return policyFacade.deletePolicyStateTaskSelectionLogic(name, version, stateName);
     }
@@ -845,7 +845,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult createPolicyStateOutput(final String name, final String version, final String stateName,
+    public ApexApiResult createPolicyStateOutput(final String name, final String version, final String stateName,
             final String outputName, final String eventName, final String eventVersion, final String nextState) {
         return policyFacade.createPolicyStateOutput(name, version, stateName, outputName, eventName, eventVersion,
                 nextState);
@@ -858,7 +858,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicyStateOutput(final String name, final String version, final String stateName,
+    public ApexApiResult listPolicyStateOutput(final String name, final String version, final String stateName,
             final String outputName) {
         return policyFacade.listPolicyStateOutput(name, version, stateName, outputName);
     }
@@ -870,7 +870,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicyStateOutput(final String name, final String version, final String stateName,
+    public ApexApiResult deletePolicyStateOutput(final String name, final String version, final String stateName,
             final String outputName) {
         return policyFacade.deletePolicyStateOutput(name, version, stateName, outputName);
     }
@@ -884,7 +884,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult createPolicyStateFinalizerLogic(final String name, final String version,
+    public ApexApiResult createPolicyStateFinalizerLogic(final String name, final String version,
             final String stateName, final String finalizerLogicName, final String logicFlavour, final String logic) {
         return policyFacade.createPolicyStateFinalizerLogic(name, version, stateName, finalizerLogicName, logicFlavour,
                 logic);
@@ -899,7 +899,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String)
      */
     @Override
-    public ApexAPIResult updatePolicyStateFinalizerLogic(final String name, final String version,
+    public ApexApiResult updatePolicyStateFinalizerLogic(final String name, final String version,
             final String stateName, final String finalizerLogicName, final String logicFlavour, final String logic) {
         return policyFacade.updatePolicyStateFinalizerLogic(name, version, stateName, finalizerLogicName, logicFlavour,
                 logic);
@@ -913,7 +913,7 @@ public final class ApexModelImpl implements ApexModel {
      * String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
+    public ApexApiResult listPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName) {
         return policyFacade.listPolicyStateFinalizerLogic(name, version, stateName, finalizerLogicName);
     }
@@ -926,7 +926,7 @@ public final class ApexModelImpl implements ApexModel {
      * String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicyStateFinalizerLogic(final String name, final String version,
+    public ApexApiResult deletePolicyStateFinalizerLogic(final String name, final String version,
             final String stateName, final String finalizerLogicName) {
         return policyFacade.deletePolicyStateFinalizerLogic(name, version, stateName, finalizerLogicName);
     }
@@ -941,7 +941,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexAPIResult createPolicyStateTaskRef(final String name, final String version, final String stateName,
+    public ApexApiResult createPolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskLocalName, final String taskName, final String taskVersion, final String outputType,
             final String outputName) {
         return policyFacade.createPolicyStateTaskRef(name, version, stateName, taskLocalName, taskName, taskVersion,
@@ -956,7 +956,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicyStateTaskRef(final String name, final String version, final String stateName,
+    public ApexApiResult listPolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskName, final String taskVersion) {
         return policyFacade.listPolicyStateTaskRef(name, version, stateName, taskName, taskVersion);
     }
@@ -968,7 +968,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicyStateTaskRef(final String name, final String version, final String stateName,
+    public ApexApiResult deletePolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskName, final String taskVersion) {
         return policyFacade.deletePolicyStateTaskRef(name, version, stateName, taskName, taskVersion);
     }
@@ -981,7 +981,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult createPolicyStateContextRef(final String name, final String version, final String stateName,
+    public ApexApiResult createPolicyStateContextRef(final String name, final String version, final String stateName,
             final String contextAlbumName, final String contextAlbumVersion) {
         return policyFacade.createPolicyStateContextRef(name, version, stateName, contextAlbumName,
                 contextAlbumVersion);
@@ -994,7 +994,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult listPolicyStateContextRef(final String name, final String version, final String stateName,
+    public ApexApiResult listPolicyStateContextRef(final String name, final String version, final String stateName,
             final String contextAlbumName, final String contextAlbumVersion) {
         return policyFacade.listPolicyStateContextRef(name, version, stateName, contextAlbumName, contextAlbumVersion);
     }
@@ -1007,7 +1007,7 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult deletePolicyStateContextRef(final String name, final String version, final String stateName,
+    public ApexApiResult deletePolicyStateContextRef(final String name, final String version, final String stateName,
             final String contextAlbumName, final String contextAlbumVersion) {
         return policyFacade.deletePolicyStateContextRef(name, version, stateName, contextAlbumName,
                 contextAlbumVersion);
@@ -1019,7 +1019,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.core.modelapi.ApexModel#loadFromString(java.lang.String)
      */
     @Override
-    public ApexAPIResult loadFromString(final String modelString) {
+    public ApexApiResult loadFromString(final String modelString) {
         return modelHandlerFacade.loadFromString(modelString);
     }
 
@@ -1030,7 +1030,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     // CHECKSTYLE:OFF: checkstyle:HiddenField
-    public ApexAPIResult loadFromFile(final String fileName) {
+    public ApexApiResult loadFromFile(final String fileName) {
         this.fileName = fileName;
         return modelHandlerFacade.loadFromFile(fileName);
     }
@@ -1042,7 +1042,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#saveToFile(java.lang.String, boolean)
      */
     @Override
-    public ApexAPIResult saveToFile(final String saveFileName, final boolean xmlFlag) {
+    public ApexApiResult saveToFile(final String saveFileName, final boolean xmlFlag) {
         if (saveFileName == null) {
             return modelHandlerFacade.saveToFile(fileName, xmlFlag);
         } else {
@@ -1057,9 +1057,9 @@ public final class ApexModelImpl implements ApexModel {
      * java.lang.String, org.onap.policy.apex.model.basicmodel.dao.DaoParameters)
      */
     @Override
-    public ApexAPIResult loadFromDatabase(final String modelName, final String modelVersion,
-            final DaoParameters DaoParameters) {
-        return modelHandlerFacade.loadFromDatabase(modelName, modelVersion, DaoParameters);
+    public ApexApiResult loadFromDatabase(final String modelName, final String modelVersion,
+            final DaoParameters daoParameters) {
+        return modelHandlerFacade.loadFromDatabase(modelName, modelVersion, daoParameters);
     }
 
     /*
@@ -1069,8 +1069,8 @@ public final class ApexModelImpl implements ApexModel {
      * basicmodel. dao.DaoParameters)
      */
     @Override
-    public ApexAPIResult saveToDatabase(final DaoParameters DaoParameters) {
-        return modelHandlerFacade.saveToDatabase(DaoParameters);
+    public ApexApiResult saveToDatabase(final DaoParameters daoParameters) {
+        return modelHandlerFacade.saveToDatabase(daoParameters);
     }
 
     /*
@@ -1079,8 +1079,8 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#readFromURL(java.lang.String)
      */
     @Override
-    public ApexAPIResult readFromURL(final String urlString) {
-        return modelHandlerFacade.readFromURL(urlString);
+    public ApexApiResult readFromUrl(final String urlString) {
+        return modelHandlerFacade.readFromUrl(urlString);
     }
 
     /*
@@ -1089,8 +1089,8 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#writeToURL(java.lang.String, boolean)
      */
     @Override
-    public ApexAPIResult writeToURL(final String urlString, final boolean xmlFlag) {
-        return modelHandlerFacade.writeToURL(urlString, xmlFlag);
+    public ApexApiResult writeToUrl(final String urlString, final boolean xmlFlag) {
+        return modelHandlerFacade.writeToUrl(urlString, xmlFlag);
     }
 
     /*
@@ -1099,7 +1099,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#analyse()
      */
     @Override
-    public ApexAPIResult analyse() {
+    public ApexApiResult analyse() {
         return modelHandlerFacade.analyse();
     }
 
@@ -1109,7 +1109,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#validate()
      */
     @Override
-    public ApexAPIResult validate() {
+    public ApexApiResult validate() {
         return modelHandlerFacade.validate();
     }
 
@@ -1119,7 +1119,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#compare(java.lang.String, boolean, boolean)
      */
     @Override
-    public ApexAPIResult compare(final String otherModelFileName, final boolean diffsOnly, final boolean keysOnly) {
+    public ApexApiResult compare(final String otherModelFileName, final boolean diffsOnly, final boolean keysOnly) {
         return modelHandlerFacade.compare(otherModelFileName, diffsOnly, keysOnly);
     }
 
@@ -1130,7 +1130,7 @@ public final class ApexModelImpl implements ApexModel {
      * boolean, boolean)
      */
     @Override
-    public ApexAPIResult compareWithString(final String otherModelString, final boolean diffsOnly,
+    public ApexApiResult compareWithString(final String otherModelString, final boolean diffsOnly,
             final boolean keysOnly) {
         return modelHandlerFacade.compareWithString(otherModelString, diffsOnly, keysOnly);
     }
@@ -1141,7 +1141,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#split(java.lang.String, java.lang.String)
      */
     @Override
-    public ApexAPIResult split(final String targetModelFileName, final String splitOutPolicies) {
+    public ApexApiResult split(final String targetModelFileName, final String splitOutPolicies) {
         return modelHandlerFacade.split(targetModelFileName, splitOutPolicies);
     }
 
@@ -1151,7 +1151,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.core.modelapi.ApexModel#split(java.lang.String)
      */
     @Override
-    public ApexAPIResult split(final String splitOutPolicies) {
+    public ApexApiResult split(final String splitOutPolicies) {
         return modelHandlerFacade.split(splitOutPolicies);
     }
 
@@ -1161,7 +1161,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.auth.api.ApexModel#merge(java.lang.String, boolean)
      */
     @Override
-    public ApexAPIResult merge(final String mergeInModelFileName, final boolean keepOriginal) {
+    public ApexApiResult merge(final String mergeInModelFileName, final boolean keepOriginal) {
         return modelHandlerFacade.merge(mergeInModelFileName, keepOriginal);
     }
 
@@ -1171,7 +1171,7 @@ public final class ApexModelImpl implements ApexModel {
      * @see org.onap.policy.apex.core.modelapi.ApexModel#mergeWithString(java.lang.String, boolean)
      */
     @Override
-    public ApexAPIResult mergeWithString(final String otherModelString, final boolean keepOriginal) {
+    public ApexApiResult mergeWithString(final String otherModelString, final boolean keepOriginal) {
         return modelHandlerFacade.mergeWithString(otherModelString, keepOriginal);
     }
 

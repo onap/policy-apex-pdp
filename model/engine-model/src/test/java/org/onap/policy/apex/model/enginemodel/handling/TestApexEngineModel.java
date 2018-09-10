@@ -38,6 +38,11 @@ public class TestApexEngineModel {
     private Connection connection;
     TestApexModel<AxEngineModel> testApexModel;
 
+    /**
+     * Set up the test.
+     * 
+     * @throws Exception errors from test setup
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -71,17 +76,17 @@ public class TestApexEngineModel {
     }
 
     @Test
-    public void testModelWriteReadXML() throws Exception {
+    public void testModelWriteReadXml() throws Exception {
         testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
-    public void testModelWriteReadJSON() throws Exception {
+    public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 
     @Test
-    public void testModelWriteReadJPA() throws Exception {
+    public void testModelWriteReadJpa() throws Exception {
         final DaoParameters DaoParameters = new DaoParameters();
         DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
         DaoParameters.setPersistenceUnit("DAOTest");
@@ -92,11 +97,14 @@ public class TestApexEngineModel {
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
 
     private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-            + "AxArtifactKey:(name=AnEngine,version=0.0.1):org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:AxEngineModel - state is UNDEFINED\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=AnEngine,version=0.0.1):"
+                    + "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:"
+                    + "AxEngineModel - state is UNDEFINED\n" + "********************************";
 
     private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-            + "AxArtifactKey:(name=AnEngine,version=0.0.1):org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:AxEngineModel - timestamp is not set\n"
-            + "AxArtifactKey:(name=AnEngine,version=0.0.1):org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:AxEngineModel - state is UNDEFINED\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=AnEngine,version=0.0.1):"
+                    + "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:"
+                    + "AxEngineModel - timestamp is not set\n" + "AxArtifactKey:(name=AnEngine,version=0.0.1):"
+                    + "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:"
+                    + "AxEngineModel - state is UNDEFINED\n" + "********************************";
 }

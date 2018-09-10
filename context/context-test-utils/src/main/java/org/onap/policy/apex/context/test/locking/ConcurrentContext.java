@@ -96,7 +96,7 @@ public class ConcurrentContext {
         } else {
             // Spawn JVMs to run the tests
             for (int j = 0; j < configrationProvider.getJvmCount(); j++) {
-                final ConcurrentContextJVMThread task = new ConcurrentContextJVMThread(j, configrationProvider);
+                final ConcurrentContextJvmThread task = new ConcurrentContextJvmThread(j, configrationProvider);
                 tasks.add(task);
                 executorService.execute(task);
             }

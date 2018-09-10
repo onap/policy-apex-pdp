@@ -24,7 +24,7 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -47,6 +47,9 @@ public class TestContextInstantiation {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Set up context for tests.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -68,6 +71,9 @@ public class TestContextInstantiation {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down context for tests.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -79,17 +85,17 @@ public class TestContextInstantiation {
     }
 
     @Test
-    public void testContextInstantiationJVMLocalVarSet() throws ApexModelException, IOException, ApexException {
+    public void testContextInstantiationJvmLocalVarSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationJVMLocalVarSet test . . .");
 
-        contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
         new ContextInstantiation().testContextInstantiation();
 
         logger.debug("Ran testContextInstantiationJVMLocalVarSet test");
     }
 
     @Test
-    public void testContextInstantiationJVMLocalVarNotSet() throws ApexModelException, IOException, ApexException {
+    public void testContextInstantiationJvmLocalVarNotSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationJVMLocalVarNotSet test . . .");
 
         new ContextInstantiation().testContextInstantiation();

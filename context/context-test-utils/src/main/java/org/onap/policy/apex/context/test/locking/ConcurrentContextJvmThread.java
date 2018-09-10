@@ -43,15 +43,15 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ConcurrentContextJVMThread implements Runnable, Closeable {
+public class ConcurrentContextJvmThread implements Runnable, Closeable {
     // Logger for this class
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJVMThread.class);
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJvmThread.class);
 
     private final int jvm;
     private final ConfigrationProvider configrationProvider;
     private Process process = null;
 
-    public ConcurrentContextJVMThread(final int jvm, final ConfigrationProvider configrationProvider) {
+    public ConcurrentContextJvmThread(final int jvm, final ConfigrationProvider configrationProvider) {
         this.jvm = jvm;
         this.configrationProvider = configrationProvider;
     }
@@ -70,7 +70,7 @@ public class ConcurrentContextJVMThread implements Runnable, Closeable {
         commandList.add("-Xmx512m");
         commandList.add("-cp");
         commandList.add(System.getProperty("java.class.path"));
-        commandList.add(ConcurrentContextJVM.class.getCanonicalName());
+        commandList.add(ConcurrentContextJvm.class.getCanonicalName());
         commandList.add(configrationProvider.getTestName());
         commandList.add(new Integer(jvm).toString());
         commandList.add(new Integer(configrationProvider.getThreadCount()).toString());

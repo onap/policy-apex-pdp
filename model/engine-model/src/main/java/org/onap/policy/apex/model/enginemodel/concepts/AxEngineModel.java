@@ -55,8 +55,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * is used by an Apex engine to pass its current execution state to any system that wishes to query
  * that information. The time stamp of the engine model is the time at which the state and
  * statistics of the engine were read.
- * <p>
- * Validation checks that the current state {@link AxEngineState} is defined and that the time stamp
+ * 
+ * <p>Validation checks that the current state {@link AxEngineState} is defined and that the time stamp
  * is set on the engine model.
  */
 @Entity
@@ -100,7 +100,7 @@ public class AxEngineModel extends AxContextModel {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */

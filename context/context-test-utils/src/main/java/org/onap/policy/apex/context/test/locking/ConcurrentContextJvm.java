@@ -54,9 +54,9 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public final class ConcurrentContextJVM {
+public final class ConcurrentContextJvm {
     // Logger for this class
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJVM.class);
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ConcurrentContextJvm.class);
 
     private static final int IPV4_ADDRESS_LENGTH = 4;
 
@@ -66,7 +66,7 @@ public final class ConcurrentContextJVM {
 
     private final ConfigrationProvider configrationProvider;
 
-    private ConcurrentContextJVM(final int jvmNo, final ConfigrationProvider configrationProvider) {
+    private ConcurrentContextJvm(final int jvmNo, final ConfigrationProvider configrationProvider) {
         this.jvmNo = jvmNo;
         this.configrationProvider = configrationProvider;
         final String name = configrationProvider.getTestName() + ":ConcurrentContextThread_" + jvmNo;
@@ -157,8 +157,8 @@ public final class ConcurrentContextJVM {
         try {
             final ConfigrationProvider configrationProvider =
                     new ConfigrationProviderImpl(testName, 1, threadCount, threadLoops, albumSize, lockType);
-            final ConcurrentContextJVM concurrentContextJVM = new ConcurrentContextJVM(jvmNo, configrationProvider);
-            concurrentContextJVM.execute();
+            final ConcurrentContextJvm concurrentContextJvm = new ConcurrentContextJvm(jvmNo, configrationProvider);
+            concurrentContextJvm.execute();
 
         } catch (final Exception e) {
             LOGGER.error("error running test in JVM", e);

@@ -34,6 +34,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 
 /**
+ * Test engine statistics.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestEngineStats {

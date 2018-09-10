@@ -28,7 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 
 /**
@@ -76,7 +76,7 @@ public class KeyInformationFacade {
      * @param description key information description, set to null to generate a description
      * @return result of the operation
      */
-    public ApexAPIResult createKeyInformation(final String name, final String version, final String uuid,
+    public ApexApiResult createKeyInformation(final String name, final String version, final String uuid,
             final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
@@ -88,7 +88,7 @@ public class KeyInformationFacade {
             }
 
             if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
             }
 
             final AxKeyInfo keyInfo = new AxKeyInfo(key);
@@ -102,9 +102,9 @@ public class KeyInformationFacade {
                 keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
             }
             apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().put(key, keyInfo);
-            return new ApexAPIResult();
+            return new ApexApiResult();
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -118,12 +118,12 @@ public class KeyInformationFacade {
      * @param description key information description, set to null to not update
      * @return result of the operation
      */
-    public ApexAPIResult updateKeyInformation(final String name, final String version, final String uuid,
+    public ApexApiResult updateKeyInformation(final String name, final String version, final String uuid,
             final String description) {
         try {
             final AxKeyInfo keyInfo = apexModel.getPolicyModel().getKeyInformation().get(name, version);
             if (keyInfo == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + name + ":" + version + DOES_NOT_EXIST);
             }
 
@@ -138,9 +138,9 @@ public class KeyInformationFacade {
                 keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
             }
 
-            return new ApexAPIResult();
+            return new ApexApiResult();
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -152,22 +152,22 @@ public class KeyInformationFacade {
      *        all versions
      * @return result of the operation
      */
-    public ApexAPIResult listKeyInformation(final String name, final String version) {
+    public ApexApiResult listKeyInformation(final String name, final String version) {
         try {
             final Set<AxKeyInfo> keyInfoSet = apexModel.getPolicyModel().getKeyInformation().getAll(name, version);
             if (name != null && keyInfoSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxKeyInfo keyInfo : keyInfoSet) {
                 result.addMessage(
                         new ApexModelStringWriter<AxKeyInfo>(false).writeString(keyInfo, AxKeyInfo.class, jsonMode));
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -179,28 +179,28 @@ public class KeyInformationFacade {
      *        versions
      * @return result of the operation
      */
-    public ApexAPIResult deleteKeyInformation(final String name, final String version) {
+    public ApexApiResult deleteKeyInformation(final String name, final String version) {
         try {
             if (version != null) {
                 final AxArtifactKey key = new AxArtifactKey(name, version);
                 final AxKeyInfo removedKeyInfo =
                         apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().remove(key);
                 if (removedKeyInfo != null) {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.SUCCESS, new ApexModelStringWriter<AxKeyInfo>(false)
+                    return new ApexApiResult(ApexApiResult.Result.SUCCESS, new ApexModelStringWriter<AxKeyInfo>(false)
                             .writeString(removedKeyInfo, AxKeyInfo.class, jsonMode));
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxKeyInfo> keyInfoSet = apexModel.getPolicyModel().getKeyInformation().getAll(name, version);
             if (keyInfoSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxKeyInfo keyInfo : keyInfoSet) {
                 result.addMessage(
                         new ApexModelStringWriter<AxKeyInfo>(false).writeString(keyInfo, AxKeyInfo.class, jsonMode));
@@ -208,7 +208,7 @@ public class KeyInformationFacade {
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -220,15 +220,15 @@ public class KeyInformationFacade {
      *        versions
      * @return result of the operation
      */
-    public ApexAPIResult validateKeyInformation(final String name, final String version) {
+    public ApexApiResult validateKeyInformation(final String name, final String version) {
         try {
             final Set<AxKeyInfo> keyInfoSet = apexModel.getPolicyModel().getKeyInformation().getAll(name, version);
             if (keyInfoSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxKeyInfo keyInfo : keyInfoSet) {
                 final AxValidationResult validationResult = keyInfo.validate(new AxValidationResult());
                 result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(keyInfo.getKey(),
@@ -237,7 +237,7 @@ public class KeyInformationFacade {
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 

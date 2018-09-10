@@ -32,8 +32,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class implements the {@link SchemaHelper} functionality that is common across all
- * implementations. Schema helpers for specific schema mechanisms specialize this class.
+ * This class implements the {@link SchemaHelper} functionality that is common across all implementations. Schema
+ * helpers for specific schema mechanisms specialize this class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -62,14 +62,15 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.context.SchemaHelper#init(org.onap.policy.apex.model.basicmodel.concepts
-     * .AxKey, org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
+     * @see org.onap.policy.apex.context.SchemaHelper#init(org.onap.policy.apex.model.basicmodel.concepts .AxKey,
+     * org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
      */
     @Override
     public void init(final AxKey incomingUserKey, final AxContextSchema incomingSchema) throws ContextRuntimeException {
-        Assertions.argumentNotNull(incomingUserKey, ContextRuntimeException.class, "incomingUserKey may not be null");
-        Assertions.argumentNotNull(incomingSchema, ContextRuntimeException.class, "incomingSchema may not be null");
+        Assertions.argumentOfClassNotNull(incomingUserKey, ContextRuntimeException.class,
+                        "incomingUserKey may not be null");
+        Assertions.argumentOfClassNotNull(incomingSchema, ContextRuntimeException.class,
+                        "incomingSchema may not be null");
 
         this.userKey = incomingUserKey;
         this.schema = incomingSchema;
@@ -123,8 +124,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public Object createNewInstance() {
         if (schemaClass == null) {
-            final String returnString =
-                    userKey.getId() + ": could not create an instance, schema class for the schema is null";
+            final String returnString = userKey.getId()
+                            + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -132,9 +133,9 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
         try {
             return schemaClass.newInstance();
         } catch (final Exception e) {
-            final String returnString =
-                    userKey.getId() + ": could not create an instance of class \"" + schemaClass.getCanonicalName()
-                            + "\" using the default constructor \"" + schemaClass.getSimpleName() + "()\"";
+            final String returnString = userKey.getId() + ": could not create an instance of class \""
+                            + schemaClass.getCanonicalName() + "\" using the default constructor \""
+                            + schemaClass.getSimpleName() + "()\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -148,8 +149,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public Object createNewInstance(final String stringValue) {
         if (schemaClass == null) {
-            final String returnString =
-                    userKey.getId() + ": could not create an instance, schema class for the schema is null";
+            final String returnString = userKey.getId()
+                            + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -161,9 +162,9 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             // Invoke the constructor
             return stringConstructor.newInstance(stringValue);
         } catch (final Exception e) {
-            final String returnString =
-                    userKey.getId() + ": could not create an instance of class \"" + schemaClass.getCanonicalName()
-                            + "\" using the string constructor \"" + schemaClass.getSimpleName() + "(String)\"";
+            final String returnString = userKey.getId() + ": could not create an instance of class \""
+                            + schemaClass.getCanonicalName() + "\" using the string constructor \""
+                            + schemaClass.getSimpleName() + "(String)\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }

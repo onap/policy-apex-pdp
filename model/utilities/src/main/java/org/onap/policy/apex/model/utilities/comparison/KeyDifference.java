@@ -21,7 +21,8 @@
 package org.onap.policy.apex.model.utilities.comparison;
 
 /**
- * This class is used to template key differences for bulk key comparisons in models. It performs a difference check between two keys.
+ * This class is used to template key differences for bulk key comparisons in models. It performs a difference check
+ * between two keys.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <K> the generic type
@@ -86,8 +87,7 @@ public class KeyDifference<K> {
                 builder.append(rightKey);
                 builder.append('\n');
             }
-        }
-        else {
+        } else {
             builder.append("left key ");
             builder.append(leftKey);
             builder.append(" and right key ");

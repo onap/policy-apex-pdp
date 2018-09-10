@@ -44,6 +44,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateTree;
 import org.onap.policy.apex.model.policymodel.handling.TestApexPolicyModelCreator;
 
 /**
+ * Test apex policies.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestPolicies {
@@ -63,9 +65,9 @@ public class TestPolicies {
 
         final AxState firstState = new AxState(new AxReferenceKey(policy.getKey(), "FirstState"));
         final AxState badState = new AxState(new AxReferenceKey(policy.getKey(), "BadState"));
-        final AxStateOutput badSO = new AxStateOutput(badState.getKey(), AxArtifactKey.getNullKey(),
-                new AxReferenceKey(policyKey, "BadNextState"));
-        badState.getStateOutputs().put(badSO.getKey().getLocalName(), badSO);
+        final AxStateOutput badStateOutput = new AxStateOutput(badState.getKey(), AxArtifactKey.getNullKey(),
+                        new AxReferenceKey(policyKey, "BadNextState"));
+        badState.getStateOutputs().put(badStateOutput.getKey().getLocalName(), badStateOutput);
         stateMap.put(firstState.getKey().getLocalName(), firstState);
 
         try {
@@ -231,7 +233,7 @@ public class TestPolicies {
 
         final AxPolicy clonedPolicy = new AxPolicy(policy);
         assertEquals("AxPolicy:(key=AxArtifactKey:(name=policy,version=0.0.1),template=FREEFORM,sta",
-                clonedPolicy.toString().substring(0, 77));
+                        clonedPolicy.toString().substring(0, 77));
 
         assertFalse(policy.hashCode() == 0);
 
@@ -239,8 +241,8 @@ public class TestPolicies {
         assertTrue(policy.equals(clonedPolicy));
         assertFalse(policy.equals(null));
         assertFalse(policy.equals("Hello"));
-        assertFalse(
-                policy.equals(new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
+        assertFalse(policy.equals(
+                        new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
         assertFalse(policy.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
         assertFalse(policy.equals(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
         assertFalse(policy.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
@@ -250,14 +252,14 @@ public class TestPolicies {
         assertEquals(0, policy.compareTo(clonedPolicy));
         assertNotEquals(0, policy.compareTo(new AxArtifactKey()));
         assertNotEquals(0, policy.compareTo(null));
-        assertNotEquals(0, policy
-                .compareTo(new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
+        assertNotEquals(0, policy.compareTo(
+                        new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
         assertNotEquals(0,
-                policy.compareTo(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
+                        policy.compareTo(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
         assertNotEquals(0,
-                policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
+                        policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
         assertNotEquals(0,
-                policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
+                        policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
         assertEquals(0, policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, savedFirstState)));
 
         assertNotNull(policy.getKeys());
@@ -315,7 +317,7 @@ public class TestPolicies {
 
         final AxPolicies clonedPolicies = new AxPolicies(policies);
         assertEquals("AxPolicies:(key=AxArtifactKey:(name=PoliciesKey,version=0.0.",
-                clonedPolicies.toString().substring(0, 60));
+                        clonedPolicies.toString().substring(0, 60));
 
         assertFalse(policies.hashCode() == 0);
 
@@ -359,18 +361,17 @@ public class TestPolicies {
         assertNotNull(stateTree.getNextStates());
 
         policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
-                .setNextState(policy.getStateMap().get("state").getKey());
+                        .setNextState(policy.getStateMap().get("state").getKey());
         try {
             policy.getStateTree();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "loop detected in state tree for policy policy:0.0.1 state SecondState, next state state referenced more than once",
-                    e.getMessage());
+            assertEquals("loop detected in state tree for policy policy:0.0.1 state SecondState, "
+                            + "next state state referenced more than once", e.getMessage());
         }
 
         policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
-                .setNextState(AxReferenceKey.getNullKey());
+                        .setNextState(AxReferenceKey.getNullKey());
 
         final AxState thirdState = new AxState(policy.getStateMap().get("state"));
         thirdState.getKey().setLocalName("ThirdState");
@@ -378,12 +379,12 @@ public class TestPolicies {
         policy.getStateMap().put("ThirdState", thirdState);
         policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0").setNextState(thirdState.getKey());
         policy.getStateMap().get("ThirdState").getStateOutputs().get("stateOutput0")
-                .setNextState(AxReferenceKey.getNullKey());
+                        .setNextState(AxReferenceKey.getNullKey());
 
         stateTree = policy.getStateTree();
 
-        final AxStateOutput ssS0Clone =
-                new AxStateOutput(policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0"));
+        final AxStateOutput ssS0Clone = new AxStateOutput(
+                        policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0"));
         ssS0Clone.getKey().setLocalName("ssS0Clone");
         policy.getStateMap().get("SecondState").getStateOutputs().put("ssS0Clone", ssS0Clone);
 
@@ -391,9 +392,8 @@ public class TestPolicies {
             policy.getStateTree();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "loop detected in state tree for policy policy:0.0.1 state SecondState, next state ThirdState referenced more than once",
-                    e.getMessage());
+            assertEquals("loop detected in state tree for policy policy:0.0.1 state SecondState, "
+                            + "next state ThirdState referenced more than once", e.getMessage());
         }
 
         policy.getStateMap().get("SecondState").getStateOutputs().remove("ssS0Clone");
@@ -411,9 +411,8 @@ public class TestPolicies {
             policy.getStateTree();
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "loop detected in state tree for policy policy:0.0.1 state ThirdState, next state SecondState referenced more than once",
-                    e.getMessage());
+            assertEquals("loop detected in state tree for policy policy:0.0.1 state ThirdState, "
+                            + "next state SecondState referenced more than once", e.getMessage());
         }
 
         thirdState.getStateOutputs().get("stateOutput0").setNextState(AxReferenceKey.getNullKey());

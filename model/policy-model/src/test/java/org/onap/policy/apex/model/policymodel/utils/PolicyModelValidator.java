@@ -28,11 +28,19 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
+/**
+ * Main class to run the policy model validator.
+ */
 public class PolicyModelValidator {
+    /**
+     * Main method.
+     * @param args the command line arguments
+     * @throws ApexModelException on errors on the apex model
+     * @throws FileNotFoundException on file find failures
+     */
     public static void main(final String[] args) throws ApexModelException, FileNotFoundException {
-        final ApexModelReader<AxPolicyModel> policyModelReader =
-                new ApexModelReader<AxPolicyModel>(AxPolicyModel.class);
-
+        final ApexModelReader<AxPolicyModel> policyModelReader = new ApexModelReader<AxPolicyModel>(
+                        AxPolicyModel.class);
 
         final AxPolicyModel policyModel = policyModelReader.read(new FileInputStream(args[0]));
         final AxValidationResult result = policyModel.validate(new AxValidationResult());

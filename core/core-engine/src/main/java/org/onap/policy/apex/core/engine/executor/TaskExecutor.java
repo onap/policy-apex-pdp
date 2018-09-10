@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentNotNull;
+import static org.onap.policy.apex.model.utilities.Assertions.argumentOfClassNotNull;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -101,7 +101,7 @@ public abstract class TaskExecutor
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + axTask.getKey().getId() + "," + axTask.getTaskLogic().getLogicFlavour() + ","
                 + axTask.getTaskLogic().getLogic());
-        argumentNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class, "task logic cannot be null.");
+        argumentOfClassNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class, "task logic cannot be null.");
     }
 
     /*

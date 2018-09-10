@@ -31,8 +31,8 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
-import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
+import org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -66,6 +66,9 @@ public class TestConcurrentContext {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Set up context for tests.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -87,6 +90,9 @@ public class TestConcurrentContext {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down context for tests.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -98,10 +104,10 @@ public class TestConcurrentContext {
     }
 
     @Test
-    public void testConcurrentContextJVMLocalVarSet() throws Exception {
+    public void testConcurrentContextJvmLocalVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalVarSet test . . .");
 
-        contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalVarSet",
                 TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
@@ -120,7 +126,7 @@ public class TestConcurrentContext {
     }
 
     @Test
-    public void testConcurrentContextJVMLocalNoVarSet() throws Exception {
+    public void testConcurrentContextJvmLocalNoVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalNoVarSet test . . .");
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalNoVarSet",
@@ -139,11 +145,11 @@ public class TestConcurrentContext {
     }
 
     @Test
-    public void testConcurrentContextMultiJVMNoLock() throws Exception {
+    public void testConcurrentContextMultiJvmNoLock() throws Exception {
         logger.debug("Running testConcurrentContextMultiJVMNoLock test . . .");
 
-        contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
-        contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("testConcurrentContextMultiJVMNoLock",
                 TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);

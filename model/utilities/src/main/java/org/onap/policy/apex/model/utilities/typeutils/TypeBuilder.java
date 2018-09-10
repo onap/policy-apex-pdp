@@ -47,7 +47,8 @@ public final class TypeBuilder {
      */
     public static Type build(final String type) {
         if (type == null || type.length() == 0) {
-            throw new IllegalArgumentException("Blank type string passed to " + TypeBuilder.class.getCanonicalName() + ".build(String type)");
+            throw new IllegalArgumentException("Blank type string passed to " + TypeBuilder.class.getCanonicalName()
+                            + ".build(String type)");
         }
 
         try {
@@ -59,8 +60,7 @@ public final class TypeBuilder {
             parser.setErrorHandler(new BailErrorStrategy());
             parser.setBuildParseTree(true);
             return parser.type().value.build();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             throw new IllegalArgumentException("Failed to build type '" + type + "': " + e, e);
         }
     }
@@ -84,16 +84,16 @@ public final class TypeBuilder {
     public static Class<?> getJavaTypeClass(final Type type) {
         if (type instanceof Class<?>) {
             return (Class<?>) type;
-        }
-        else if (type instanceof ParameterizedType) {
+        } else if (type instanceof ParameterizedType) {
             final Type raw = ((ParameterizedType) type).getRawType();
             if (!(raw instanceof Class<?>)) {
-                throw new IllegalArgumentException(
-                        "The Parameterised javatype " + type + " with base type " + raw + "  is not a Java 'Class' that can be instantiated");
+                throw new IllegalArgumentException("The Parameterised javatype " + type + " with base type " + raw
+                                + "  is not a Java 'Class' that can be instantiated");
             }
             return (Class<?>) raw;
         }
-        throw new IllegalArgumentException("The Parameterised javatype " + type + " is not a Java 'Type' that has a 'Class'");
+        throw new IllegalArgumentException(
+                        "The Parameterised javatype " + type + " is not a Java 'Type' that has a 'Class'");
     }
 
     /**
@@ -105,10 +105,10 @@ public final class TypeBuilder {
     public static Type[] getJavaTypeParameters(final Type type) {
         if (type instanceof Class<?>) {
             return new Type[0];
-        }
-        else if (type instanceof ParameterizedType) {
+        } else if (type instanceof ParameterizedType) {
             return ((ParameterizedType) type).getActualTypeArguments();
         }
-        throw new IllegalArgumentException("\"The Parameterised javatype \" + type + \" is not a Java 'Type' that has parameter types");
+        throw new IllegalArgumentException(
+                        "\"The Parameterised javatype \" + type + \" is not a Java 'Type' that has parameter types");
     }
 }

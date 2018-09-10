@@ -33,6 +33,8 @@ import org.onap.policy.apex.model.contextmodel.handling.ContextComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
 
 /**
+ * Test context comparisons.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestContextComparison {
@@ -42,122 +44,145 @@ public class TestContextComparison {
     private AxContextModel shellModel;
     private AxContextModel singleEntryModel;
 
+    /**
+     * Set up tests.
+     */
     @Before
     public void getContext() {
         final TestContextComparisonFactory factory = new TestContextComparisonFactory();
-        emptyModel           = factory.getEmptyModel();
-        fullModel            = factory.getFullModel();
+        emptyModel = factory.getEmptyModel();
+        fullModel = factory.getFullModel();
         noGlobalContextModel = factory.getNoGlobalContextModel();
-        shellModel           = factory.getShellModel();
-        singleEntryModel     = factory.getSingleEntryModel();
+        shellModel = factory.getShellModel();
+        singleEntryModel = factory.getSingleEntryModel();
     }
-    
+
     @Test
     public void testEmptyEmpty() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(emptyModel.getSchemas(), emptyModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(emptyModel.getSchemas(), emptyModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(emptyModel.getSchemas().getSchemasMap().equals(schemaResult.getIdenticalValues()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(emptyModel.getAlbums(), emptyModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(emptyModel.getAlbums(), emptyModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(emptyModel.getAlbums().getAlbumsMap().equals(albumResult.getIdenticalValues()));
     }
-    
+
     @Test
     public void testEmptyFull() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(emptyModel.getSchemas(), fullModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(emptyModel.getSchemas(), fullModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(fullModel.getSchemas().getSchemasMap().equals(schemaResult.getRightOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(emptyModel.getAlbums(), fullModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(emptyModel.getAlbums(), fullModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(fullModel.getAlbums().getAlbumsMap().equals(albumResult.getRightOnly()));
     }
-    
+
     @Test
     public void testFullEmpty() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(fullModel.getSchemas(), emptyModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(fullModel.getSchemas(), emptyModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(fullModel.getSchemas().getSchemasMap().equals(schemaResult.getLeftOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(fullModel.getAlbums(), emptyModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(fullModel.getAlbums(), emptyModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(fullModel.getAlbums().getAlbumsMap().equals(albumResult.getLeftOnly()));
     }
-    
+
     @Test
     public void testEmptyNoGlobalContext() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(emptyModel.getSchemas(), noGlobalContextModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(emptyModel.getSchemas(), noGlobalContextModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(noGlobalContextModel.getSchemas().getSchemasMap().equals(schemaResult.getRightOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(emptyModel.getAlbums(), noGlobalContextModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(emptyModel.getAlbums(), noGlobalContextModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(noGlobalContextModel.getAlbums().getAlbumsMap().equals(albumResult.getRightOnly()));
     }
-    
+
     @Test
     public void testNoGlobalContextEmpty() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(noGlobalContextModel.getSchemas(), emptyModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(noGlobalContextModel.getSchemas(), emptyModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(noGlobalContextModel.getSchemas().getSchemasMap().equals(schemaResult.getLeftOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(noGlobalContextModel.getAlbums(), emptyModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(noGlobalContextModel.getAlbums(), emptyModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(noGlobalContextModel.getAlbums().getAlbumsMap().equals(albumResult.getLeftOnly()));
     }
-    
+
     @Test
     public void testEmptyShell() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(emptyModel.getSchemas(), shellModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(emptyModel.getSchemas(), shellModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(shellModel.getSchemas().getSchemasMap().equals(schemaResult.getRightOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(emptyModel.getAlbums(), shellModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(emptyModel.getAlbums(), shellModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(shellModel.getAlbums().getAlbumsMap().equals(albumResult.getRightOnly()));
     }
-    
+
     @Test
     public void testShellEmpty() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(shellModel.getSchemas(), emptyModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(shellModel.getSchemas(), emptyModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(shellModel.getSchemas().getSchemasMap().equals(schemaResult.getLeftOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(shellModel.getAlbums(), emptyModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(shellModel.getAlbums(), emptyModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(shellModel.getAlbums().getAlbumsMap().equals(albumResult.getLeftOnly()));
     }
-    
+
     @Test
     public void testEmptySingleEntry() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(emptyModel.getSchemas(), singleEntryModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(emptyModel.getSchemas(), singleEntryModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(singleEntryModel.getSchemas().getSchemasMap().equals(schemaResult.getRightOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(emptyModel.getAlbums(), singleEntryModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(emptyModel.getAlbums(), singleEntryModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(singleEntryModel.getAlbums().getAlbumsMap().equals(albumResult.getRightOnly()));
     }
-    
+
     @Test
     public void testSingleEntryEmpty() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(singleEntryModel.getSchemas(), emptyModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(singleEntryModel.getSchemas(), emptyModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(singleEntryModel.getSchemas().getSchemasMap().equals(schemaResult.getLeftOnly()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(singleEntryModel.getAlbums(), emptyModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(singleEntryModel.getAlbums(), emptyModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(singleEntryModel.getAlbums().getAlbumsMap().equals(albumResult.getLeftOnly()));
     }
-    
+
     @Test
     public void testFullFull() {
-        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer().compare(fullModel.getSchemas(), fullModel.getSchemas());
+        final KeyedMapDifference<AxArtifactKey, AxContextSchema> schemaResult = new ContextComparer()
+                        .compare(fullModel.getSchemas(), fullModel.getSchemas());
         assertNotNull(schemaResult);
         assertTrue(fullModel.getSchemas().getSchemasMap().equals(schemaResult.getIdenticalValues()));
 
-        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer().compare(fullModel.getAlbums(), fullModel.getAlbums());
+        final KeyedMapDifference<AxArtifactKey, AxContextAlbum> albumResult = new ContextComparer()
+                        .compare(fullModel.getAlbums(), fullModel.getAlbums());
         assertNotNull(albumResult);
         assertTrue(fullModel.getAlbums().getAlbumsMap().equals(albumResult.getIdenticalValues()));
     }

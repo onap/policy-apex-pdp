@@ -43,9 +43,9 @@ public class PolicyRuntimeException extends ApexRuntimeException {
      * Instantiates a new apex policy runtime exception with a message and a caused by exception.
      *
      * @param message the message
-     * @param e the exception that caused this exception to be thrown
+     * @param exception the exception that caused this exception to be thrown
      */
-    public PolicyRuntimeException(final String message, final Exception e) {
-        super(message, e);
+    public PolicyRuntimeException(final String message, final Exception exception) {
+        super(message, exception);
     }
 }

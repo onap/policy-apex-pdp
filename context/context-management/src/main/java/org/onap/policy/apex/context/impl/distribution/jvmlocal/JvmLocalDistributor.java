@@ -34,14 +34,14 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class JVMLocalDistributor extends AbstractDistributor {
+public class JvmLocalDistributor extends AbstractDistributor {
     // Logger for this class
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(JVMLocalDistributor.class);
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(JvmLocalDistributor.class);
 
     /**
      * Create an instance of a JVM Local Context Distributor.
      */
-    public JVMLocalDistributor() {
+    public JvmLocalDistributor() {
         super();
     }
 

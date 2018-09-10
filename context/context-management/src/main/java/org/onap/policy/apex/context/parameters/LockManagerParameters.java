@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
+import org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 
@@ -35,7 +35,7 @@ public class LockManagerParameters implements ParameterGroup {
     /**
      * The default lock manager can lock context album instance across all threads in a single JVM.
      */
-    public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JVMLocalLockManager.class.getCanonicalName();
+    public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JvmLocalLockManager.class.getCanonicalName();
 
     private String name;
     private String pluginClass = DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;

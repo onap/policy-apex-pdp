@@ -21,8 +21,8 @@
 package org.onap.policy.apex.model.utilities.comparison;
 
 /**
- * This class compares two keys and returns their differences. It is used in bulk comparisons in models where maps of keys are being compared. The
- * {@link KeyComparer} that is returned does the actual comparison
+ * This class compares two keys and returns their differences. It is used in bulk comparisons in models where maps of
+ * keys are being compared. The {@link KeyComparer} that is returned does the actual comparison
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <K> the type of key being compared

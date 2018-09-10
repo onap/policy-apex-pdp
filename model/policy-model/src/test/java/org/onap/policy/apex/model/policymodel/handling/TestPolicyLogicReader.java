@@ -31,6 +31,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
 import org.onap.policy.apex.model.policymodel.handling.PolicyLogicReader;
 
 /**
+ * Logic reader for policy tests.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestPolicyLogicReader {
@@ -51,9 +53,8 @@ public class TestPolicyLogicReader {
             new AxLogic(logicKey, "FunkyLogic", plReader);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "logic not found for logic \"somewhere/over/the/rainbow/funkylogic/FunkyDefaultLogic.funkylogic\"",
-                    e.getMessage());
+            assertEquals("logic not found for logic "
+                            + "\"somewhere/over/the/rainbow/funkylogic/FunkyDefaultLogic.funkylogic\"", e.getMessage());
         }
 
         plReader.setDefaultLogic(null);
@@ -61,9 +62,9 @@ public class TestPolicyLogicReader {
             new AxLogic(logicKey, "FunkyLogic", plReader);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "logic not found for logic \"somewhere/over/the/rainbow/funkylogic/LogicParent_LogicInstanceName.funkylogic\"",
-                    e.getMessage());
+            assertEquals("logic not found for logic "
+                            + "\"somewhere/over/the/rainbow/funkylogic/LogicParent_LogicInstanceName.funkylogic\"",
+                            e.getMessage());
         }
 
         logicKey.setParentLocalName("LogicParentLocalName");
@@ -71,9 +72,8 @@ public class TestPolicyLogicReader {
             new AxLogic(logicKey, "FunkyLogic", plReader);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "logic not found for logic \"somewhere/over/the/rainbow/funkylogic/LogicParent_LogicParentLocalName_LogicInstanceName.funkylogic\"",
-                    e.getMessage());
+            assertEquals("logic not found for logic " + "\"somewhere/over/the/rainbow/funkylogic/"
+                            + "LogicParent_LogicParentLocalName_LogicInstanceName.funkylogic\"", e.getMessage());
         }
 
         plReader.setLogicPackage("path.to.apex.logic");
@@ -98,7 +98,7 @@ public class TestPolicyLogicReader {
         try {
             final AxLogic logic = new AxLogic(logicKey, "JAVA", plReader);
             assertEquals("somewhere.over.the.rainbow.java.LogicParent_LogicParentLocalName_LogicInstanceName",
-                    logic.getLogic());
+                            logic.getLogic());
         } catch (final Exception e) {
             fail("test should not throw an exception");
         }

@@ -29,9 +29,9 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 //CHECKSTYLE:ON: checkstyle:IllegalImport
 
 /**
- * This class is a utility class that builds a class with a set of user defined fields. It is used to get the Type of fields in Java schemas<br>
- * For more information see:<br>
- * <a href="http://stackoverflow.com/questions/39401083/class-forname-equivalent-for-creating-parameterizedtypes-from-string">
+ * This class is a utility class that builds a class with a set of user defined fields. It is used to get the Type of
+ * fields in Java schemas<br> For more information see:<br> <a
+ * href="http://stackoverflow.com/questions/39401083/class-forname-equivalent-for-creating-parameterizedtypes-from-string">
  * http://stackoverflow.com/questions/39401083/class-forname-equivalent-for-creating-parameterizedtypes-from-string</a><br>
  * <a href="https://github.com/KetothXupack/stackoverflow-answers/tree/master/q39401083">
  * https://github.com/KetothXupack/stackoverflow-answers/tree/master/q39401083</a><br>
@@ -59,13 +59,12 @@ public class ClassBuilder {
     public static ClassBuilder parse(final String className) {
         try {
             return new ClassBuilder(Class.forName(className));
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             try {
                 return new ClassBuilder(Class.forName("java.lang." + className));
-            }
-            catch (Exception ignore) {
-                throw new IllegalArgumentException("Class '" + className + "' not found. Also looked for a class called 'java.lang." + className + "'", e);
+            } catch (Exception ignore) {
+                throw new IllegalArgumentException("Class '" + className
+                                + "' not found. Also looked for a class called 'java.lang." + className + "'", e);
             }
         }
     }
@@ -89,11 +88,11 @@ public class ClassBuilder {
         if (parameters.isEmpty()) {
             return clazz;
         }
-        Type[] paramtypes = new Type[parameters.size()];
-        int i = 0;
+        Type[] paramTypes = new Type[parameters.size()];
+        int paramTypeIndex = 0;
         for (ClassBuilder classBuilder : parameters) {
-            paramtypes[i++] = classBuilder.build();
+            paramTypes[paramTypeIndex++] = classBuilder.build();
         }
-        return ParameterizedTypeImpl.make(clazz, paramtypes, null);
+        return ParameterizedTypeImpl.make(clazz, paramTypes, null);
     }
 }

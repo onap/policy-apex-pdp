@@ -26,12 +26,16 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 
 /**
- * This class creates sample Policy Models
+ * This class creates sample Policy Models.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestContextComparisonFactory {
 
+    /**
+     * Get a full context model.
+     * @return the model
+     */
     public AxContextModel getFullModel() {
         final AxContextSchema testContextSchema000 =
                 new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
@@ -69,6 +73,10 @@ public class TestContextComparisonFactory {
         return new AxContextModel(new AxArtifactKey("Context", "0.0.1"));
     }
 
+    /**
+     * Get a skeleton model.
+     * @return The model
+     */
     public AxContextModel getShellModel() {
         final AxContextSchema testContextSchema000 =
                 new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
@@ -88,6 +96,10 @@ public class TestContextComparisonFactory {
         return contextModel;
     }
 
+    /**
+     * Get a single entry model.
+     * @return The single entry model
+     */
     public AxContextModel getSingleEntryModel() {
         final AxContextSchema testContextSchema000 =
                 new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
@@ -104,6 +116,10 @@ public class TestContextComparisonFactory {
         return contextModel;
     }
 
+    /**
+     * Get a model with no global entries.
+     * @return the model
+     */
     public AxContextModel getNoGlobalContextModel() {
         final AxContextSchema testContextSchema000 =
                 new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",

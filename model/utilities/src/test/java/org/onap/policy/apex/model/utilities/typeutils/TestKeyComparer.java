@@ -28,6 +28,7 @@ import org.onap.policy.apex.model.utilities.comparison.KeyComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyDifference;
 
 /**
+ * Test key comparisons.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestKeyComparer {

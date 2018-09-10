@@ -34,8 +34,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * creates a tree that holds the state fan out branches in a policy that starts from the given top
  * state of the tree. Each branch from a state is held in a set of next states for the top state and
  * each branch in the state tree is itself a {@link AxStateTree} instance.
- * <p>
- * Validation checks for recursive state use, in other words validation forbids the use of a given
+ * 
+ * <p>Validation checks for recursive state use, in other words validation forbids the use of a given
  * state more than once in a state tree.
  */
 public class AxStateTree implements Comparable<AxStateTree> {

@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.onap.policy.apex.model.utilities.TreeMapUtils;
 
 /**
+ * Test the tree map utilities.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TreeMapUtilsTest {

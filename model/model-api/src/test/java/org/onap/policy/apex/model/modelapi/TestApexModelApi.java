@@ -40,9 +40,10 @@ import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 
 /**
+ * Test the apex model API.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexModelAPI {
+public class TestApexModelApi {
     private Connection connection;
 
     @Before
@@ -61,23 +62,23 @@ public class TestApexModelAPI {
     public void testApexModelLoadFromFile() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
 
-        ApexAPIResult result = apexModel.loadFromFile("src/main/resources/models/PolicyModel.json");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        ApexApiResult result = apexModel.loadFromFile("src/main/resources/models/PolicyModel.json");
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
 
         result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.deleteModel();
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.xml");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.deleteModel();
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.junk");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
         assertTrue(result.getMessages().get(0).equals("format of input for Apex concept is neither JSON nor XML"));
     }
 
@@ -85,105 +86,105 @@ public class TestApexModelAPI {
     public void testApexModelSaveToFile() throws IOException {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
 
-        ApexAPIResult result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        ApexApiResult result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         final File tempJsonModelFile = File.createTempFile("ApexModelTest", ".json");
         result = apexModel.saveToFile(tempJsonModelFile.getCanonicalPath(), false);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         final ApexModel jsonApexModel = new ApexModelFactory().createApexModel(null, false);
         result = jsonApexModel.loadFromFile(tempJsonModelFile.getCanonicalPath());
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
         tempJsonModelFile.delete();
 
-        final File tempXMLModelFile = File.createTempFile("ApexModelTest", ".xml");
-        result = apexModel.saveToFile(tempXMLModelFile.getCanonicalPath(), true);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        final File tempXmlModelFile = File.createTempFile("ApexModelTest", ".xml");
+        result = apexModel.saveToFile(tempXmlModelFile.getCanonicalPath(), true);
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         final ApexModel xmlApexModel = new ApexModelFactory().createApexModel(null, false);
-        result = xmlApexModel.loadFromFile(tempXMLModelFile.getCanonicalPath());
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
-        tempXMLModelFile.delete();
+        result = xmlApexModel.loadFromFile(tempXmlModelFile.getCanonicalPath());
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
+        tempXmlModelFile.delete();
     }
 
     @Test
     public void testApexModelDatabase() throws IOException {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
 
-        ApexAPIResult result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        ApexApiResult result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         final DaoParameters DaoParameters = new DaoParameters();
         DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
         DaoParameters.setPersistenceUnit("DAOTest");
 
         result = apexModel.saveToDatabase(DaoParameters);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.deleteModel();
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.loadFromDatabase("PolicyModel", "0.0.1", DaoParameters);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.deleteModel();
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.loadFromDatabase("PolicyModel", null, DaoParameters);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.deleteModel();
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
         result = apexModel.loadFromDatabase("VPNPolicyModel", "0.0.1", DaoParameters);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
     }
 
     @Test
-    public void testApexModelURL() throws IOException {
+    public void testApexModelUrl() throws IOException {
         ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
 
-        ApexAPIResult result = null;
+        ApexApiResult result = null;
 
         try {
-            result = apexModel.readFromURL(null);
+            result = apexModel.readFromUrl(null);
             fail("expecting an IllegalArgumentException");
         } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
 
         try {
-            result = apexModel.writeToURL(null, true);
+            result = apexModel.writeToUrl(null, true);
             fail("expecting an IllegalArgumentException");
         } catch (final Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
 
-        result = apexModel.readFromURL("zooby/looby");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        result = apexModel.readFromUrl("zooby/looby");
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
 
-        result = apexModel.writeToURL("zooby/looby", true);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        result = apexModel.writeToUrl("zooby/looby", true);
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
 
-        result = apexModel.readFromURL("zooby://zooby/looby");
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        result = apexModel.readFromUrl("zooby://zooby/looby");
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
 
-        result = apexModel.writeToURL("zooby://zooby/looby", false);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        result = apexModel.writeToUrl("zooby://zooby/looby", false);
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
 
         apexModel = new ApexModelFactory().createApexModel(null, false);
 
         final File tempJsonModelFile = File.createTempFile("ApexModelTest", ".json");
         result = apexModel.saveToFile(tempJsonModelFile.getCanonicalPath(), false);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
-        final String tempFileURLString = tempJsonModelFile.toURI().toString();
-        result = apexModel.readFromURL(tempFileURLString);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.SUCCESS));
+        final String tempFileUrlString = tempJsonModelFile.toURI().toString();
+        result = apexModel.readFromUrl(tempFileUrlString);
+        assertTrue(result.getResult().equals(ApexApiResult.Result.SUCCESS));
 
-        result = apexModel.writeToURL(tempFileURLString, false);
-        assertTrue(result.getResult().equals(ApexAPIResult.RESULT.FAILED));
+        result = apexModel.writeToUrl(tempFileUrlString, false);
+        assertTrue(result.getResult().equals(ApexApiResult.Result.FAILED));
         assertTrue(result.getMessages().get(0).equals("protocol doesn't support output"));
 
         tempJsonModelFile.delete();
@@ -193,63 +194,63 @@ public class TestApexModelAPI {
     public void testApexModelMisc() throws IOException {
         final ApexModelImpl apexModelImpl = (ApexModelImpl) new ApexModelFactory().createApexModel(null, false);
 
-        ApexAPIResult result = null;
+        ApexApiResult result = null;
 
         result = apexModelImpl.getModelKey();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.listModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.createModel("ModelName", "0.0.1", null, null);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.updateModel("ModelName", "0.0.1", UUID.randomUUID().toString(), "Model Description");
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         apexModelImpl.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         final String modelString = TextFileUtils.getTextFileAsString("src/test/resources/models/PolicyModel.json");
         result = apexModelImpl.loadFromString(modelString);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         final File tempFile = File.createTempFile("ApexModel", "json");
         tempFile.deleteOnExit();
         TextFileUtils.putStringAsFile(modelString, tempFile);
 
         apexModelImpl.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.loadFromFile(tempFile.getCanonicalPath());
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.saveToFile(null, false);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.analyse();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.validate();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.compare(tempFile.getCanonicalPath(), true, true);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.compareWithString(modelString, true, true);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.split("policy");
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.split(tempFile.getCanonicalPath(), "policy");
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.merge(tempFile.getCanonicalPath(), true);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModelImpl.mergeWithString(modelString, true);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         assertNotEquals(0, apexModelImpl.hashCode());
         assertNotNull(apexModelImpl.clone());

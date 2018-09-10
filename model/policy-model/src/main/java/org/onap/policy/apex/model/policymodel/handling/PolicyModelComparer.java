@@ -34,10 +34,9 @@ import org.onap.policy.apex.model.utilities.comparison.KeyedMapComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
 
 /**
- * This class compares two policy models {@link AxPolicyModel} and holds the result of that
- * comparison. It compares policy models on their keys, their context schema differences, their
- * event differences, their context album differences, their task differences, their policy
- * differences, and their key information differences.
+ * This class compares two policy models {@link AxPolicyModel} and holds the result of that comparison. It compares
+ * policy models on their keys, their context schema differences, their event differences, their context album
+ * differences, their task differences, their policy differences, and their key information differences.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -47,8 +46,7 @@ public class PolicyModelComparer {
 
     // Comparison of context schemas
     private final KeyDifference<AxArtifactKey> contextSchemasKeyDifference;
-    private KeyedMapDifference<AxArtifactKey, AxContextSchema> contextSchemaComparisonResult =
-            new KeyedMapDifference<>();
+    private KeyedMapDifference<AxArtifactKey, AxContextSchema> contextSchemaCompareResult = new KeyedMapDifference<>();
 
     // Comparison of events
     private final KeyDifference<AxArtifactKey> eventsKeyDifference;
@@ -86,13 +84,14 @@ public class PolicyModelComparer {
         policiesKeyDifference       = new KeyComparer<AxArtifactKey>().compareKeys(left.getKey(), right.getKey());
         keyInformationKeyDifference = new KeyComparer<AxArtifactKey>().compareKeys(left.getKey(), right.getKey());
 
-        contextSchemaComparisonResult = new KeyedMapComparer<AxArtifactKey, AxContextSchema>().compareMaps(
+        contextSchemaCompareResult = new KeyedMapComparer<AxArtifactKey, AxContextSchema>().compareMaps(
                 left.getSchemas().getSchemasMap(), right.getSchemas().getSchemasMap());
         eventComparisonResult         = new KeyedMapComparer<AxArtifactKey, AxEvent>().compareMaps(
                 left.getEvents().getEventMap(), right.getEvents().getEventMap());
         contextAlbumComparisonResult  = new KeyedMapComparer<AxArtifactKey, AxContextAlbum>().compareMaps(
                 left.getAlbums().getAlbumsMap(), right.getAlbums().getAlbumsMap());
-        taskComparisonResult          = new KeyedMapComparer<AxArtifactKey, AxTask>().compareMaps(left.getTasks().getTaskMap(), right.getTasks().getTaskMap());
+        taskComparisonResult          = new KeyedMapComparer<AxArtifactKey, AxTask>()
+                        .compareMaps(left.getTasks().getTaskMap(), right.getTasks().getTaskMap());
         policyComparisonResult        = new KeyedMapComparer<AxArtifactKey, AxPolicy>().compareMaps(
                 left.getPolicies().getPolicyMap(), right.getPolicies().getPolicyMap());
         keyInfoComparisonResult       = new KeyedMapComparer<AxArtifactKey, AxKeyInfo>().compareMaps(
@@ -124,7 +123,7 @@ public class PolicyModelComparer {
      * @return the difference between context schemas
      */
     public KeyedMapDifference<AxArtifactKey, AxContextSchema> getContextSchemaComparisonResult() {
-        return contextSchemaComparisonResult;
+        return contextSchemaCompareResult;
     }
 
     /**
@@ -242,7 +241,7 @@ public class PolicyModelComparer {
 
         builder.append("*** context schema differences ***\n");
         builder.append(contextSchemasKeyDifference.asString(diffsOnly));
-        builder.append(contextSchemaComparisonResult.asString(diffsOnly, keysOnly));
+        builder.append(contextSchemaCompareResult.asString(diffsOnly, keysOnly));
 
         builder.append("*** event differences ***\n");
         builder.append(eventsKeyDifference.asString(diffsOnly));

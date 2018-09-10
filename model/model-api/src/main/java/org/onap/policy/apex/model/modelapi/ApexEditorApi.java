@@ -23,7 +23,7 @@ package org.onap.policy.apex.model.modelapi;
 /**
  * The Interface ApexEditorAPI is used to manipulate Apex models.
  */
-public interface ApexEditorAPI {
+public interface ApexEditorApi {
     /*
      * Model API Methods
      */
@@ -37,7 +37,7 @@ public interface ApexEditorAPI {
      * @param description model description, set to null to generate a description
      * @return result of the operation
      */
-    ApexAPIResult createModel(final String name, final String version, final String uuid, final String description);
+    ApexApiResult createModel(final String name, final String version, final String uuid, final String description);
 
     /**
      * Update model.
@@ -48,28 +48,28 @@ public interface ApexEditorAPI {
      * @param description policy description, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updateModel(final String name, final String version, final String uuid, final String description);
+    ApexApiResult updateModel(final String name, final String version, final String uuid, final String description);
 
     /**
      * Get the key of an Apex model.
      *
      * @return the result of the operation
      */
-    ApexAPIResult getModelKey();
+    ApexApiResult getModelKey();
 
     /**
      * List an Apex model.
      *
      * @return the result of the operation
      */
-    ApexAPIResult listModel();
+    ApexApiResult listModel();
 
     /**
      * Delete an Apex model, clear all the concepts in the model.
      *
      * @return the result of the operation
      */
-    ApexAPIResult deleteModel();
+    ApexApiResult deleteModel();
 
     /*
      * Key Information API Methods
@@ -85,7 +85,7 @@ public interface ApexEditorAPI {
      * @param description key information description, set to null to generate a description
      * @return result of the operation
      */
-    ApexAPIResult createKeyInformation(final String name, final String version, final String uuid,
+    ApexApiResult createKeyInformation(final String name, final String version, final String uuid,
             final String description);
 
     /**
@@ -98,7 +98,7 @@ public interface ApexEditorAPI {
      * @param description key information description, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updateKeyInformation(final String name, final String version, final String uuid,
+    ApexApiResult updateKeyInformation(final String name, final String version, final String uuid,
             final String description);
 
     /**
@@ -109,7 +109,7 @@ public interface ApexEditorAPI {
      *        all versions
      * @return result of the operation
      */
-    ApexAPIResult listKeyInformation(final String name, final String version);
+    ApexApiResult listKeyInformation(final String name, final String version);
 
     /**
      * Delete key information.
@@ -119,7 +119,7 @@ public interface ApexEditorAPI {
      *        versions
      * @return result of the operation
      */
-    ApexAPIResult deleteKeyInformation(final String name, final String version);
+    ApexApiResult deleteKeyInformation(final String name, final String version);
 
     /**
      * Validate key information.
@@ -129,7 +129,7 @@ public interface ApexEditorAPI {
      *        versions
      * @return result of the operation
      */
-    ApexAPIResult validateKeyInformation(final String name, final String version);
+    ApexApiResult validateKeyInformation(final String name, final String version);
 
     /*
      * Context Schema API Methods
@@ -146,7 +146,7 @@ public interface ApexEditorAPI {
      * @param description context schema description, set to null to generate a description
      * @return result of the operation
      */
-    ApexAPIResult createContextSchema(final String name, final String version, final String schemaFlavour,
+    ApexApiResult createContextSchema(final String name, final String version, final String schemaFlavour,
             final String schemaDefinition, final String uuid, final String description);
 
     /**
@@ -160,7 +160,7 @@ public interface ApexEditorAPI {
      * @param description context schema description, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updateContextSchema(final String name, final String version, final String schemaFlavour,
+    ApexApiResult updateContextSchema(final String name, final String version, final String schemaFlavour,
             final String schemaDefinition, final String uuid, final String description);
 
     /**
@@ -170,7 +170,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the context schema, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult listContextSchemas(final String name, final String version);
+    ApexApiResult listContextSchemas(final String name, final String version);
 
     /**
      * Delete a context schema.
@@ -179,7 +179,7 @@ public interface ApexEditorAPI {
      * @param version version of the context schema, set to null to delete all versions
      * @return result of the operation
      */
-    ApexAPIResult deleteContextSchema(final String name, final String version);
+    ApexApiResult deleteContextSchema(final String name, final String version);
 
     /**
      * Validate context schemas.
@@ -188,7 +188,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the context schema, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult validateContextSchemas(final String name, final String version);
+    ApexApiResult validateContextSchemas(final String name, final String version);
 
     /*
      * Event API Methods
@@ -206,7 +206,7 @@ public interface ApexEditorAPI {
      * @param description event description, set to null to generate a description
      * @return result of the operation
      */
-    ApexAPIResult createEvent(final String name, final String version, final String nameSpace, final String source,
+    ApexApiResult createEvent(final String name, final String version, final String nameSpace, final String source,
             final String target, final String uuid, final String description);
 
     /**
@@ -221,7 +221,7 @@ public interface ApexEditorAPI {
      * @param description event description, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updateEvent(final String name, final String version, final String nameSpace, final String source,
+    ApexApiResult updateEvent(final String name, final String version, final String nameSpace, final String source,
             final String target, final String uuid, final String description);
 
     /**
@@ -231,7 +231,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the event, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult listEvent(final String name, final String version);
+    ApexApiResult listEvent(final String name, final String version);
 
     /**
      * Delete an event.
@@ -240,7 +240,7 @@ public interface ApexEditorAPI {
      * @param version version of the event, set to null to delete all versions
      * @return result of the operation
      */
-    ApexAPIResult deleteEvent(final String name, final String version);
+    ApexApiResult deleteEvent(final String name, final String version);
 
     /**
      * Validate events.
@@ -249,7 +249,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the event, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult validateEvent(final String name, final String version);
+    ApexApiResult validateEvent(final String name, final String version);
 
     /**
      * Create an event parameter.
@@ -263,7 +263,7 @@ public interface ApexEditorAPI {
      * @param optional true if the event parameter is optional, false otherwise
      * @return result of the operation
      */
-    ApexAPIResult createEventPar(final String name, final String version, final String parName,
+    ApexApiResult createEventPar(final String name, final String version, final String parName,
             final String contextSchemaName, final String contextSchemaVersion, boolean optional);
 
     /**
@@ -274,7 +274,7 @@ public interface ApexEditorAPI {
      * @param parName name of the parameter, set to null to list all parameters of the event
      * @return result of the operation
      */
-    ApexAPIResult listEventPar(final String name, final String version, final String parName);
+    ApexApiResult listEventPar(final String name, final String version, final String parName);
 
     /**
      * Delete an event parameter.
@@ -284,7 +284,7 @@ public interface ApexEditorAPI {
      * @param parName of the parameter, set to null to delete all parameters
      * @return result of the operation
      */
-    ApexAPIResult deleteEventPar(final String name, final String version, final String parName);
+    ApexApiResult deleteEventPar(final String name, final String version, final String parName);
 
     /*
      * Context Album API Methods
@@ -306,7 +306,7 @@ public interface ApexEditorAPI {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    ApexAPIResult createContextAlbum(final String name, final String version, final String scope, final String writable,
+    ApexApiResult createContextAlbum(final String name, final String version, final String scope, final String writable,
             final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description);
     // CHECKSTYLE:ON: checkstyle:parameterNumber
@@ -327,7 +327,7 @@ public interface ApexEditorAPI {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    ApexAPIResult updateContextAlbum(final String name, final String version, final String scope, final String writable,
+    ApexApiResult updateContextAlbum(final String name, final String version, final String scope, final String writable,
             final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description);
     // CHECKSTYLE:ON: checkstyle:parameterNumber
@@ -339,7 +339,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the context album, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult listContextAlbum(final String name, final String version);
+    ApexApiResult listContextAlbum(final String name, final String version);
 
     /**
      * Delete a context album.
@@ -348,7 +348,7 @@ public interface ApexEditorAPI {
      * @param version version of the context album, set to null to delete versions
      * @return result of the operation
      */
-    ApexAPIResult deleteContextAlbum(final String name, final String version);
+    ApexApiResult deleteContextAlbum(final String name, final String version);
 
     /**
      * Validate context albums.
@@ -357,7 +357,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the context album, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult validateContextAlbum(final String name, final String version);
+    ApexApiResult validateContextAlbum(final String name, final String version);
 
     /*
      * Task API Methods
@@ -372,7 +372,7 @@ public interface ApexEditorAPI {
      * @param description task description, set to null to generate a description
      * @return result of the operation
      */
-    ApexAPIResult createTask(final String name, final String version, final String uuid, final String description);
+    ApexApiResult createTask(final String name, final String version, final String uuid, final String description);
 
     /**
      * Update a task.
@@ -383,7 +383,7 @@ public interface ApexEditorAPI {
      * @param description task description, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updateTask(final String name, final String version, final String uuid, final String description);
+    ApexApiResult updateTask(final String name, final String version, final String uuid, final String description);
 
     /**
      * List tasks.
@@ -392,7 +392,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the task, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult listTask(final String name, final String version);
+    ApexApiResult listTask(final String name, final String version);
 
     /**
      * Delete a task.
@@ -401,7 +401,7 @@ public interface ApexEditorAPI {
      * @param version version of the task, set to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult deleteTask(final String name, final String version);
+    ApexApiResult deleteTask(final String name, final String version);
 
     /**
      * Validate tasks.
@@ -410,7 +410,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the task, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult validateTask(final String name, final String version);
+    ApexApiResult validateTask(final String name, final String version);
 
     /**
      * Create logic for a task.
@@ -422,7 +422,7 @@ public interface ApexEditorAPI {
      * @param logic the source code for the logic of the task
      * @return result of the operation
      */
-    ApexAPIResult createTaskLogic(final String name, final String version, final String logicFlavour,
+    ApexApiResult createTaskLogic(final String name, final String version, final String logicFlavour,
             final String logic);
 
     /**
@@ -434,7 +434,7 @@ public interface ApexEditorAPI {
      * @param logic the source code for the logic of the task, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updateTaskLogic(final String name, final String version, final String logicFlavour,
+    ApexApiResult updateTaskLogic(final String name, final String version, final String logicFlavour,
             final String logic);
 
     /**
@@ -444,7 +444,7 @@ public interface ApexEditorAPI {
      * @param version version of the task, set to null to list the latest version
      * @return result of the operation
      */
-    ApexAPIResult listTaskLogic(final String name, final String version);
+    ApexApiResult listTaskLogic(final String name, final String version);
 
     /**
      * Delete logic for a task.
@@ -453,7 +453,7 @@ public interface ApexEditorAPI {
      * @param version version of the task, set to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult deleteTaskLogic(final String name, final String version);
+    ApexApiResult deleteTaskLogic(final String name, final String version);
 
     /**
      * Create a task input field.
@@ -467,7 +467,7 @@ public interface ApexEditorAPI {
      * @param optional true if the task field is optional, false otherwise
      * @return result of the operation
      */
-    ApexAPIResult createTaskInputField(final String name, final String version, final String fieldName,
+    ApexApiResult createTaskInputField(final String name, final String version, final String fieldName,
             final String contextSchemaName, final String contextSchemaVersion, boolean optional);
 
     /**
@@ -479,7 +479,7 @@ public interface ApexEditorAPI {
      *        task
      * @return result of the operation
      */
-    ApexAPIResult listTaskInputField(final String name, final String version, final String fieldName);
+    ApexApiResult listTaskInputField(final String name, final String version, final String fieldName);
 
     /**
      * Delete a task input field.
@@ -489,7 +489,7 @@ public interface ApexEditorAPI {
      * @param fieldName of the input field, set to null to delete all input fields
      * @return result of the operation
      */
-    ApexAPIResult deleteTaskInputField(final String name, final String version, final String fieldName);
+    ApexApiResult deleteTaskInputField(final String name, final String version, final String fieldName);
 
     /**
      * Create a task output field.
@@ -503,7 +503,7 @@ public interface ApexEditorAPI {
      * @param optional true if the task field is optional, false otherwise
      * @return result of the operation
      */
-    ApexAPIResult createTaskOutputField(final String name, final String version, final String fieldName,
+    ApexApiResult createTaskOutputField(final String name, final String version, final String fieldName,
             final String contextSchemaName, final String contextSchemaVersion, boolean optional);
 
     /**
@@ -515,7 +515,7 @@ public interface ApexEditorAPI {
      *        task
      * @return result of the operation
      */
-    ApexAPIResult listTaskOutputField(final String name, final String version, final String fieldName);
+    ApexApiResult listTaskOutputField(final String name, final String version, final String fieldName);
 
     /**
      * Delete a task output field.
@@ -525,7 +525,7 @@ public interface ApexEditorAPI {
      * @param fieldName of the output field, set to null to delete all output fields
      * @return result of the operation
      */
-    ApexAPIResult deleteTaskOutputField(final String name, final String version, final String fieldName);
+    ApexApiResult deleteTaskOutputField(final String name, final String version, final String fieldName);
 
     /**
      * Create a task parameter.
@@ -536,7 +536,7 @@ public interface ApexEditorAPI {
      * @param defaultValue of the parameter
      * @return result of the operation
      */
-    ApexAPIResult createTaskParameter(final String name, final String version, final String parName,
+    ApexApiResult createTaskParameter(final String name, final String version, final String parName,
             final String defaultValue);
 
     /**
@@ -547,7 +547,7 @@ public interface ApexEditorAPI {
      * @param parName name of the parameter, set to null to list all parameters of the task
      * @return result of the operation
      */
-    ApexAPIResult listTaskParameter(final String name, final String version, final String parName);
+    ApexApiResult listTaskParameter(final String name, final String version, final String parName);
 
     /**
      * Delete a task parameter.
@@ -557,7 +557,7 @@ public interface ApexEditorAPI {
      * @param parName of the parameter, set to null to delete all task parameters
      * @return result of the operation
      */
-    ApexAPIResult deleteTaskParameter(final String name, final String version, final String parName);
+    ApexApiResult deleteTaskParameter(final String name, final String version, final String parName);
 
     /**
      * Create a task context album reference.
@@ -569,7 +569,7 @@ public interface ApexEditorAPI {
      *        to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult createTaskContextRef(final String name, final String version, final String contextAlbumName,
+    ApexApiResult createTaskContextRef(final String name, final String version, final String contextAlbumName,
             final String contextAlbumVersion);
 
     /**
@@ -583,7 +583,7 @@ public interface ApexEditorAPI {
      *        to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult listTaskContextRef(final String name, final String version, final String contextAlbumName,
+    ApexApiResult listTaskContextRef(final String name, final String version, final String contextAlbumName,
             final String contextAlbumVersion);
 
     /**
@@ -597,7 +597,7 @@ public interface ApexEditorAPI {
      *        to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult deleteTaskContextRef(final String name, final String version, final String contextAlbumName,
+    ApexApiResult deleteTaskContextRef(final String name, final String version, final String contextAlbumName,
             final String contextAlbumVersion);
 
     /*
@@ -615,7 +615,7 @@ public interface ApexEditorAPI {
      * @param description policy description, set to null to generate a description
      * @return result of the operation
      */
-    ApexAPIResult createPolicy(final String name, final String version, final String template, final String firstState,
+    ApexApiResult createPolicy(final String name, final String version, final String template, final String firstState,
             final String uuid, final String description);
 
     /**
@@ -629,7 +629,7 @@ public interface ApexEditorAPI {
      * @param description policy description, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updatePolicy(final String name, final String version, final String template, final String firstState,
+    ApexApiResult updatePolicy(final String name, final String version, final String template, final String firstState,
             final String uuid, final String description);
 
     /**
@@ -639,7 +639,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the policy, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult listPolicy(final String name, final String version);
+    ApexApiResult listPolicy(final String name, final String version);
 
     /**
      * Delete a policy.
@@ -648,7 +648,7 @@ public interface ApexEditorAPI {
      * @param version version of the policy, set to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult deletePolicy(final String name, final String version);
+    ApexApiResult deletePolicy(final String name, final String version);
 
     /**
      * Validate policies.
@@ -657,7 +657,7 @@ public interface ApexEditorAPI {
      * @param version starting version of the policy, set to null to list all versions
      * @return result of the operation
      */
-    ApexAPIResult validatePolicy(final String name, final String version);
+    ApexApiResult validatePolicy(final String name, final String version);
 
     /**
      * Create a policy state.
@@ -672,7 +672,7 @@ public interface ApexEditorAPI {
      * @param defaltTaskVersion the default task version, set to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult createPolicyState(final String name, final String version, final String stateName,
+    ApexApiResult createPolicyState(final String name, final String version, final String stateName,
             final String triggerName, final String triggerVersion, final String defaultTaskName,
             final String defaltTaskVersion);
 
@@ -689,7 +689,7 @@ public interface ApexEditorAPI {
      * @param defaltTaskVersion the default task version, set to use latest version of default task
      * @return result of the operation
      */
-    ApexAPIResult updatePolicyState(final String name, final String version, final String stateName,
+    ApexApiResult updatePolicyState(final String name, final String version, final String stateName,
             final String triggerName, final String triggerVersion, final String defaultTaskName,
             final String defaltTaskVersion);
 
@@ -701,7 +701,7 @@ public interface ApexEditorAPI {
      * @param stateName of the state, set to null to list all states of the policy
      * @return result of the operation
      */
-    ApexAPIResult listPolicyState(final String name, final String version, final String stateName);
+    ApexApiResult listPolicyState(final String name, final String version, final String stateName);
 
     /**
      * Delete a policy state.
@@ -711,7 +711,7 @@ public interface ApexEditorAPI {
      * @param stateName of the state, set to null to delete all states
      * @return result of the operation
      */
-    ApexAPIResult deletePolicyState(final String name, final String version, final String stateName);
+    ApexApiResult deletePolicyState(final String name, final String version, final String stateName);
 
     /**
      * Create task selection logic for a state.
@@ -724,7 +724,7 @@ public interface ApexEditorAPI {
      * @param logic the source code for the logic of the state
      * @return result of the operation
      */
-    ApexAPIResult createPolicyStateTaskSelectionLogic(final String name, final String version, final String stateName,
+    ApexApiResult createPolicyStateTaskSelectionLogic(final String name, final String version, final String stateName,
             final String logicFlavour, final String logic);
 
     /**
@@ -737,7 +737,7 @@ public interface ApexEditorAPI {
      * @param logic the source code for the logic of the state, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updatePolicyStateTaskSelectionLogic(final String name, final String version, final String stateName,
+    ApexApiResult updatePolicyStateTaskSelectionLogic(final String name, final String version, final String stateName,
             final String logicFlavour, final String logic);
 
     /**
@@ -748,7 +748,7 @@ public interface ApexEditorAPI {
      * @param stateName of the state
      * @return result of the operation
      */
-    ApexAPIResult listPolicyStateTaskSelectionLogic(final String name, final String version, final String stateName);
+    ApexApiResult listPolicyStateTaskSelectionLogic(final String name, final String version, final String stateName);
 
     /**
      * Delete task selection logic for a state.
@@ -758,7 +758,7 @@ public interface ApexEditorAPI {
      * @param stateName of the state
      * @return result of the operation
      */
-    ApexAPIResult deletePolicyStateTaskSelectionLogic(final String name, final String version, final String stateName);
+    ApexApiResult deletePolicyStateTaskSelectionLogic(final String name, final String version, final String stateName);
 
     /**
      * Create a policy state output.
@@ -774,7 +774,7 @@ public interface ApexEditorAPI {
      *        the policy transitions to on this branch
      * @return result of the operation
      */
-    ApexAPIResult createPolicyStateOutput(final String name, final String version, final String stateName,
+    ApexApiResult createPolicyStateOutput(final String name, final String version, final String stateName,
             final String outputName, final String eventName, final String eventVersion, final String nextState);
 
     /**
@@ -786,7 +786,7 @@ public interface ApexEditorAPI {
      * @param outputName of the state output, set to null to list all outputs of the state
      * @return result of the operation
      */
-    ApexAPIResult listPolicyStateOutput(final String name, final String version, final String stateName,
+    ApexApiResult listPolicyStateOutput(final String name, final String version, final String stateName,
             final String outputName);
 
     /**
@@ -798,7 +798,7 @@ public interface ApexEditorAPI {
      * @param outputName of the state output, set to null to delete all state outputs
      * @return result of the operation
      */
-    ApexAPIResult deletePolicyStateOutput(final String name, final String version, final String stateName,
+    ApexApiResult deletePolicyStateOutput(final String name, final String version, final String stateName,
             final String outputName);
 
     /**
@@ -813,7 +813,7 @@ public interface ApexEditorAPI {
      * @param logic the source code for the logic of the state
      * @return result of the operation
      */
-    ApexAPIResult createPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
+    ApexApiResult createPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName, final String logicFlavour, final String logic);
 
     /**
@@ -828,7 +828,7 @@ public interface ApexEditorAPI {
      * @param logic the source code for the logic of the state, set to null to not update
      * @return result of the operation
      */
-    ApexAPIResult updatePolicyStateFinalizerLogic(final String name, final String version, final String stateName,
+    ApexApiResult updatePolicyStateFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName, final String logicFlavour, final String logic);
 
     /**
@@ -840,7 +840,7 @@ public interface ApexEditorAPI {
      * @param finalizerLogicName name of the state finalizer logic
      * @return result of the operation
      */
-    ApexAPIResult listPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
+    ApexApiResult listPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName);
 
     /**
@@ -852,7 +852,7 @@ public interface ApexEditorAPI {
      * @param finalizerLogicName name of the state finalizer logic
      * @return result of the operation
      */
-    ApexAPIResult deletePolicyStateFinalizerLogic(final String name, final String version, final String stateName,
+    ApexApiResult deletePolicyStateFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName);
 
     /**
@@ -871,7 +871,7 @@ public interface ApexEditorAPI {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    ApexAPIResult createPolicyStateTaskRef(final String name, final String version, final String stateName,
+    ApexApiResult createPolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskLocalName, final String taskName, final String taskVersion, final String outputType,
             final String outputName);
     // CHECKSTYLE:ON: checkstyle:parameterNumber
@@ -886,7 +886,7 @@ public interface ApexEditorAPI {
      * @param taskVersion version of the task, set to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult listPolicyStateTaskRef(final String name, final String version, final String stateName,
+    ApexApiResult listPolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskName, final String taskVersion);
 
     /**
@@ -899,7 +899,7 @@ public interface ApexEditorAPI {
      * @param taskVersion version of the task, set to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult deletePolicyStateTaskRef(final String name, final String version, final String stateName,
+    ApexApiResult deletePolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskName, final String taskVersion);
 
     /**
@@ -913,7 +913,7 @@ public interface ApexEditorAPI {
      *        to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult createPolicyStateContextRef(final String name, final String version, final String stateName,
+    ApexApiResult createPolicyStateContextRef(final String name, final String version, final String stateName,
             final String contextAlbumName, final String contextAlbumVersion);
 
     /**
@@ -928,7 +928,7 @@ public interface ApexEditorAPI {
      *        to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult listPolicyStateContextRef(final String name, final String version, final String stateName,
+    ApexApiResult listPolicyStateContextRef(final String name, final String version, final String stateName,
             final String contextAlbumName, final String contextAlbumVersion);
 
     /**
@@ -943,6 +943,6 @@ public interface ApexEditorAPI {
      *        to null to use the latest version
      * @return result of the operation
      */
-    ApexAPIResult deletePolicyStateContextRef(final String name, final String version, final String stateName,
+    ApexApiResult deletePolicyStateContextRef(final String name, final String version, final String stateName,
             final String contextAlbumName, final String contextAlbumVersion);
 }

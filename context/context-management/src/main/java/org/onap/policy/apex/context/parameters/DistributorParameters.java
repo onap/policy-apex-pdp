@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 
@@ -33,7 +33,7 @@ import org.onap.policy.common.parameters.ParameterGroup;
  */
 public class DistributorParameters implements ParameterGroup {
     /** The default distributor makes context albums available to all threads in a single JVM. */
-    public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JVMLocalDistributor.class.getCanonicalName();
+    public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JvmLocalDistributor.class.getCanonicalName();
 
     private String name;
     private String pluginClass = DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;

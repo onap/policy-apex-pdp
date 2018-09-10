@@ -62,19 +62,19 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * required to run policies in Apex. The model contains schema definitions, definitions of events
  * and context albums that use those schemas, definitions of tasks for policies and definitions of
  * the policies themselves.
- * <p>
- * An Apex policy model is an important artifact in Apex. At editing time, an Apex editor creates
+ * 
+ * <p>An Apex policy model is an important artifact in Apex. At editing time, an Apex editor creates
  * and edits a policy model and a policy model is loaded into and is executed by an Apex engine.
  * Therefore, an Apex model and the set of policies that it holds is the way that the policy domain
  * that an Apex engine or a group of Apex engines executes across is expressed, both at design time
  * and run time. The Apex deployment system is responsible for deploying Apex models to and the
  * context they need the appropriate engines for execution.
- * <p>
- * Model registration is carried out by calling the {@code register()} method, which registers the
+ * 
+ * <p>Model registration is carried out by calling the {@code register()} method, which registers the
  * policy model and all its constituent containers with the model service. The containers for
  * context schemas, events, context albums, tasks, policies, and key information are all registered.
- * <p>
- * Once a policy model is composed, the overall structure of the policy model and all its references
+ * 
+ * <p>Once a policy model is composed, the overall structure of the policy model and all its references
  * can be validated. During validation of a policy model, the validation checks listed below are
  * executed:
  * <ol>
@@ -155,7 +155,7 @@ public class AxPolicyModel extends AxModel {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -467,7 +467,7 @@ public class AxPolicyModel extends AxModel {
     }
 
     /**
-     * Validate that the references used on a state are valid
+     * Validate that the references used on a state are valid.
      * 
      * @param state The state to check
      * @param result the validation result to append to
@@ -518,7 +518,7 @@ public class AxPolicyModel extends AxModel {
 
     /**
      * Validate that the fields on tasks and events that trigger them and are output by them are
-     * compatible for all tasks used on a state
+     * compatible for all tasks used on a state.
      * 
      * @param state The state to check
      * @param result the validation result to append to
@@ -545,7 +545,7 @@ public class AxPolicyModel extends AxModel {
 
     /**
      * Validate that the fields on a task of a state output and the events that trigger it are
-     * compatible
+     * compatible.
      * 
      * @param state The state to check
      * @param task The task to check

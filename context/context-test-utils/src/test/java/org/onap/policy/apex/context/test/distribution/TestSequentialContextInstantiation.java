@@ -24,7 +24,7 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -43,10 +43,13 @@ import org.slf4j.ext.XLoggerFactory;
 public class TestSequentialContextInstantiation {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestSequentialContextInstantiation.class);
-    
+
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Set up context for tests.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -60,7 +63,7 @@ public class TestSequentialContextInstantiation {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
@@ -68,6 +71,9 @@ public class TestSequentialContextInstantiation {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down context for tests.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -79,20 +85,20 @@ public class TestSequentialContextInstantiation {
     }
 
     @Test
-    public void testSequentialContextInstantiationJVMLocalVarSet()
-            throws ApexModelException, IOException, ApexException {
+    public void testSequentialContextInstantiationJvmLocalVarSet()
+                    throws ApexModelException, IOException, ApexException {
         logger.debug("Running testSequentialContextInstantiationJVMLocalVarSet test . . .");
 
-        contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
-        
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
+
         new SequentialContextInstantiation().testSequentialContextInstantiation();
 
         logger.debug("Ran testSequentialContextInstantiationJVMLocalVarSet test");
     }
 
     @Test
-    public void testSequentialContextInstantiationJVMLocalVarNotSet()
-            throws ApexModelException, IOException, ApexException {
+    public void testSequentialContextInstantiationJvmLocalVarNotSet()
+                    throws ApexModelException, IOException, ApexException {
         logger.debug("Running testSequentialContextInstantiationJVMLocalVarNotSet test . . .");
 
         new ContextParameters();

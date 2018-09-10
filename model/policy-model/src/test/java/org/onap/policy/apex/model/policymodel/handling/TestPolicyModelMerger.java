@@ -31,6 +31,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelMerger;
 
 /**
+ * Test model merging.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestPolicyModelMerger {
@@ -41,8 +43,8 @@ public class TestPolicyModelMerger {
         AxPolicyModel rightPolicyModel = new TestApexPolicyModelCreator().getModel();
 
         try {
-            final AxPolicyModel mergedPolicyModel =
-                    PolicyModelMerger.getMergedPolicyModel(leftPolicyModel, rightPolicyModel, false);
+            final AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(leftPolicyModel,
+                            rightPolicyModel, false);
             assertEquals(leftPolicyModel, mergedPolicyModel);
             assertEquals(rightPolicyModel, mergedPolicyModel);
         } catch (final ApexModelException e) {
@@ -66,8 +68,8 @@ public class TestPolicyModelMerger {
 
         leftPolicyModel.getKeyInformation().generateKeyInfo(leftPolicyModel);
         try {
-            final AxPolicyModel mergedPolicyModel =
-                    PolicyModelMerger.getMergedPolicyModel(leftPolicyModel, rightPolicyModel, true);
+            final AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(leftPolicyModel,
+                            rightPolicyModel, true);
             assertNotNull(mergedPolicyModel);
         } catch (final ApexModelException e) {
             fail("test should not throw an exception");
@@ -90,8 +92,8 @@ public class TestPolicyModelMerger {
 
         rightPolicyModel.getKeyInformation().generateKeyInfo(rightPolicyModel);
         try {
-            final AxPolicyModel mergedPolicyModel =
-                    PolicyModelMerger.getMergedPolicyModel(leftPolicyModel, rightPolicyModel, false);
+            final AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(leftPolicyModel,
+                            rightPolicyModel, false);
             assertNotNull(mergedPolicyModel);
         } catch (final ApexModelException e) {
             fail("test should not throw an exception");
@@ -99,8 +101,8 @@ public class TestPolicyModelMerger {
 
         rightPolicyModel = new TestApexPolicyModelCreator().getAnotherModel();
         try {
-            final AxPolicyModel mergedPolicyModel =
-                    PolicyModelMerger.getMergedPolicyModel(leftPolicyModel, rightPolicyModel, true);
+            final AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(leftPolicyModel,
+                            rightPolicyModel, true);
             assertNotNull(mergedPolicyModel);
         } catch (final ApexModelException e) {
             fail("test should not throw an exception");

@@ -34,6 +34,7 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEventModel;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 
 /**
+ * Test event models.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestEventModel {

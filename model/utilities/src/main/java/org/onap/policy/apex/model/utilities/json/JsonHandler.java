@@ -20,20 +20,20 @@
 
 package org.onap.policy.apex.model.utilities.json;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * This class reads objects of the given class from an input stream.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @param <TYPE> the generic type
+ * @param <P> the generic type
  */
-public class JSONHandler<TYPE> {
+public class JsonHandler<P> {
 
     /**
      * This method reads objects of a given class from an input stream.
@@ -42,7 +42,7 @@ public class JSONHandler<TYPE> {
      * @param inputStream the input stream to read from
      * @return the object read
      */
-    public TYPE read(final Class<TYPE> inputClass, final InputStream inputStream) {
+    public P read(final Class<P> inputClass, final InputStream inputStream) {
         // Register the adapters for our carrier technologies and event protocols with GSON
         final GsonBuilder gsonBuilder = new GsonBuilder();
 

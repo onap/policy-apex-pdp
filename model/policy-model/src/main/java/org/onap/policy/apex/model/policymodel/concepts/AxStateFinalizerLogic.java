@@ -34,14 +34,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 /**
  * This class holds State Finalizer Logic for {@link AxState} states in Apex. It is a specialization
  * of the {@link AxLogic} class, so that State Finalizer Logic in Apex states can be strongly typed.
- * <p>
- * State Finalizer Logic is used to select the output {@link AxStateOutput} that a state will use.
+ * 
+ * <p>State Finalizer Logic is used to select the output {@link AxStateOutput} that a state will use.
  * The logic uses fields emitted by the executed {@link AxTask} task and information from the
  * context albums available on a state to decide what state output {@link AxStateOutput} to select
  * in a given context. State Finalizer Logic must marshal the output fields from the task onto the
  * output event in whatever manner is appropriate for the domain being handled.
- * <p>
- * Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
+ * 
+ * <p>Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
  */
 @Entity
 @Table(name = "AxStateFinalizerLogic")

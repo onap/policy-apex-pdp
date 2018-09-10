@@ -43,7 +43,8 @@ public abstract class CollectionUtils {
      * @param rightList The rightmost list
      * @return an integer indicating how different the lists are
      */
-    public static <T> int compareLists(final List<? extends Comparable<T>> leftList, final List<? extends Comparable<T>> rightList) {
+    public static <T> int compareLists(final List<? extends Comparable<T>> leftList,
+                    final List<? extends Comparable<T>> rightList) {
         // Check for nulls
         if (leftList == null && rightList == null) {
             return 0;
@@ -59,7 +60,7 @@ public abstract class CollectionUtils {
         if (leftList.equals(rightList)) {
             return 0;
         }
-        
+
         return compareListEntries(leftList, rightList);
     }
 
@@ -71,8 +72,9 @@ public abstract class CollectionUtils {
      * @param rightList The rightmost list
      * @return an integer indicating how different the lists are
      */
-    private static <T> int compareListEntries(final List<? extends Comparable<T>> leftList, final List<? extends Comparable<T>> rightList) {
-        
+    private static <T> int compareListEntries(final List<? extends Comparable<T>> leftList,
+                    final List<? extends Comparable<T>> rightList) {
+
         // Iterate down the lists till we find a difference
         final ListIterator<?> leftIterator = leftList.listIterator();
         final ListIterator<?> rightIterator = rightList.listIterator();
@@ -104,5 +106,5 @@ public abstract class CollectionUtils {
                 return comparisonResult;
             }
         }
-	}
+    }
 }

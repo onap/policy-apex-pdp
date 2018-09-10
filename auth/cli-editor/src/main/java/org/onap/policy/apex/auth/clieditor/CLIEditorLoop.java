@@ -39,8 +39,8 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult.RESULT;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.model.utilities.TreeMapUtils;
 
@@ -102,8 +102,8 @@ public class CLIEditorLoop {
         // The main loop for command handing, it continues until EOF on the input stream or until a
         // quit command
         int errorCount = 0;
-        ApexAPIResult result = new ApexAPIResult();
-        while (result.getResult() != RESULT.FINISHED) {
+        ApexApiResult result = new ApexApiResult();
+        while (result.getResult() != Result.FINISHED) {
             if (!parameters.isIgnoreCommandFailures() && errorCount > 0) {
                 break;
             }
@@ -184,7 +184,7 @@ public class CLIEditorLoop {
                     // Execute the command, a FINISHED result means a command causes the loop to
                     // leave execution
                     result = executeCommand(command, argumentValues, writer);
-                    if (result.isNOK()) {
+                    if (result.isNok()) {
                         errorCount++;
                     }
                 }
@@ -381,7 +381,7 @@ public class CLIEditorLoop {
      * @param writer The writer to use for any output from the command
      * @return the result of execution of the command
      */
-    private ApexAPIResult executeCommand(final CLICommand command,
+    private ApexApiResult executeCommand(final CLICommand command,
             final TreeMap<String, CLIArgumentValue> argumentValues, final PrintWriter writer) {
         if (command.isSystemCommand()) {
             return exceuteSystemCommand(command, writer);
@@ -397,7 +397,7 @@ public class CLIEditorLoop {
      * @param writer The writer to use for any output from the command
      * @return the result of execution of the command
      */
-    private ApexAPIResult exceuteSystemCommand(final CLICommand command, final PrintWriter writer) {
+    private ApexApiResult exceuteSystemCommand(final CLICommand command, final PrintWriter writer) {
         if ("back".equals(command.getName())) {
             return executeBackCommand();
         } else if ("help".equals(command.getName())) {
@@ -405,7 +405,7 @@ public class CLIEditorLoop {
         } else if ("quit".equals(command.getName())) {
             return executeQuitCommand();
         } else {
-            return new ApexAPIResult(RESULT.SUCCESS);
+            return new ApexApiResult(Result.SUCCESS);
         }
     }
 
@@ -414,11 +414,11 @@ public class CLIEditorLoop {
      *
      * @return the result of execution of the command
      */
-    private ApexAPIResult executeBackCommand() {
+    private ApexApiResult executeBackCommand() {
         if (keywordNodeDeque.size() > 1) {
             keywordNodeDeque.pop();
         }
-        return new ApexAPIResult(RESULT.SUCCESS);
+        return new ApexApiResult(Result.SUCCESS);
     }
 
     /**
@@ -426,8 +426,8 @@ public class CLIEditorLoop {
      *
      * @return the result of execution of the command
      */
-    private ApexAPIResult executeQuitCommand() {
-        return new ApexAPIResult(RESULT.FINISHED);
+    private ApexApiResult executeQuitCommand() {
+        return new ApexApiResult(Result.FINISHED);
     }
 
     /**
@@ -436,11 +436,11 @@ public class CLIEditorLoop {
      * @param writer The writer to use for output from the command
      * @return the result of execution of the command
      */
-    private ApexAPIResult executeHelpCommand(final PrintWriter writer) {
+    private ApexApiResult executeHelpCommand(final PrintWriter writer) {
         for (final CLICommand command : keywordNodeDeque.peek().getCommands()) {
             writer.println(command.getHelp());
         }
-        return new ApexAPIResult(RESULT.SUCCESS);
+        return new ApexApiResult(Result.SUCCESS);
     }
 
     /**

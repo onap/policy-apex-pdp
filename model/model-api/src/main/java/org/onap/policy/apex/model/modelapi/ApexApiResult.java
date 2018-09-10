@@ -39,14 +39,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class ApexAPIResult {
+public class ApexApiResult {
 
     /**
      * This enumeration is used to represent the result status of a call on the {@link ApexModel}
      * API.
      */
     @XmlEnum(value = String.class)
-    public enum RESULT {
+    public enum Result {
         /** The method call succeeded. */
         SUCCESS,
         /** The method call succeeded and all operations are now completed. */
@@ -73,14 +73,14 @@ public class ApexAPIResult {
         OTHER_ERROR
     }
 
-    private RESULT result;
+    private Result result;
     private List<String> messages = new ArrayList<>();
 
     /**
      * The Default Constructor creates a result for a successful operation with no messages.
      */
-    public ApexAPIResult() {
-        result = RESULT.SUCCESS;
+    public ApexApiResult() {
+        result = Result.SUCCESS;
     }
 
     /**
@@ -88,7 +88,7 @@ public class ApexAPIResult {
      *
      * @param result the result status to use on this result
      */
-    public ApexAPIResult(final RESULT result) {
+    public ApexApiResult(final Result result) {
         this.result = result;
     }
 
@@ -98,7 +98,7 @@ public class ApexAPIResult {
      * @param result the result status to use on this result
      * @param message the message to return with the result
      */
-    public ApexAPIResult(final RESULT result, final String message) {
+    public ApexApiResult(final Result result, final String message) {
         this.result = result;
         addMessage(message);
     }
@@ -111,7 +111,7 @@ public class ApexAPIResult {
      * @param result the result status to use on this result
      * @param throwable the throwable object from which to add the message and stack trace
      */
-    public ApexAPIResult(final RESULT result, final Throwable throwable) {
+    public ApexApiResult(final Result result, final Throwable throwable) {
         this.result = result;
         addThrowable(throwable);
     }
@@ -125,7 +125,7 @@ public class ApexAPIResult {
      * @param message the message to return with the result
      * @param throwable the throwable object from which to add the message and stack trace
      */
-    public ApexAPIResult(final RESULT result, final String message, final Throwable throwable) {
+    public ApexApiResult(final Result result, final String message, final Throwable throwable) {
         this.result = result;
         addMessage(message);
         addThrowable(throwable);
@@ -138,8 +138,8 @@ public class ApexAPIResult {
      * @return true, if the result indicates the API operation succeeded
      */
     @XmlAttribute(required = true)
-    public boolean isOK() {
-        return result == RESULT.SUCCESS || result == RESULT.FINISHED;
+    public boolean isOk() {
+        return result == Result.SUCCESS || result == Result.FINISHED;
     }
 
     /**
@@ -148,8 +148,8 @@ public class ApexAPIResult {
      *
      * @return true, if the result indicates the API operation did not succeed
      */
-    public boolean isNOK() {
-        return !isOK();
+    public boolean isNok() {
+        return !isOk();
     }
 
     /**
@@ -158,7 +158,7 @@ public class ApexAPIResult {
      * @return the result status
      */
     @XmlAttribute(required = true)
-    public RESULT getResult() {
+    public Result getResult() {
         return result;
     }
 
@@ -167,7 +167,7 @@ public class ApexAPIResult {
      *
      * @param result the result status
      */
-    public void setResult(final RESULT result) {
+    public void setResult(final Result result) {
         this.result = result;
     }
 
@@ -236,11 +236,11 @@ public class ApexAPIResult {
     }
 
     /**
-     * Gets a representation of the {@link ApexAPIResult} instance as a JSON string.
+     * Gets a representation of the {@link ApexApiResult} instance as a JSON string.
      *
      * @return the result instance JSON string
      */
-    public String toJSON() {
+    public String toJson() {
         final StringBuilder builder = new StringBuilder();
         builder.append("{\n");
 

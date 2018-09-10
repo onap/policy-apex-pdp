@@ -32,14 +32,14 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.junit.Test;
 
-
 /**
+ * Test Java parsing.
  */
 public class ParserTest {
     @Test
     public void testParser() {
-        final CharStream stream = CharStreams.fromString(
-                "java.util.Map<java.util.List<java.lang.Integer>,java.util.Set<java.lang.String>>");
+        final CharStream stream = CharStreams
+                        .fromString("java.util.Map<java.util.List<java.lang.Integer>,java.util.Set<java.lang.String>>");
         final TokenStream tokenStream = new CommonTokenStream(new ParametrizedTypeLexer(stream));
 
         final ParametrizedTypeParser parser = new ParametrizedTypeParser(tokenStream);
@@ -47,23 +47,23 @@ public class ParserTest {
         parser.setErrorHandler(new BailErrorStrategy());
         parser.setBuildParseTree(true);
         assertEquals("java.util.Map<java.util.List<java.lang.Integer>, java.util.Set<java.lang.String>>",
-                parser.type().value.build().getTypeName());
+                        parser.type().value.build().getTypeName());
 
     }
 
     @Test
     public void testBuilder() throws IllegalArgumentException {
-        String t = "java.util.Map<java.util.List<java.lang.Integer>,java.util.Set<java.lang.String>>";
-        Type ret = TypeBuilder.build(t);
+        String typeString = "java.util.Map<java.util.List<java.lang.Integer>,java.util.Set<java.lang.String>>";
+        Type ret = TypeBuilder.build(typeString);
         assertEquals("java.util.Map<java.util.List<java.lang.Integer>, java.util.Set<java.lang.String>>",
-                ret.getTypeName());
+                        ret.getTypeName());
         assertEquals(java.util.Map.class, TypeBuilder.getJavaTypeClass(ret));
 
         final Type[] args = TypeBuilder.getJavaTypeParameters(ret);
         assertEquals("java.util.List<java.lang.Integer>", args[0].getTypeName());
         assertEquals("java.util.Set<java.lang.String>", args[1].getTypeName());
-        t = "java.lang.Integer";
-        ret = TypeBuilder.build(t);
+        typeString = "java.lang.Integer";
+        ret = TypeBuilder.build(typeString);
         assertEquals(java.lang.Integer.class, TypeBuilder.getJavaTypeClass(ret));
 
     }
@@ -74,17 +74,19 @@ public class ParserTest {
             TypeBuilder.build(null);
             fail("Test should throw exception");
         } catch (final IllegalArgumentException e) {
-            assertEquals(
-                    "Blank type string passed to org.onap.policy.apex.model.utilities.typeutils.TypeBuilder.build(String type)",
-                    e.getMessage());
+            assertEquals("Blank type string passed to "
+                            + "org.onap.policy.apex.model.utilities.typeutils.TypeBuilder.build(String type)",
+                            e.getMessage());
         }
 
         try {
             TypeBuilder.build("org.zooby.Wooby");
             fail("Test should throw exception");
         } catch (final IllegalArgumentException e) {
-            assertEquals(e.getMessage(), "Failed to build type 'org.zooby.Wooby': java.lang.IllegalArgumentException: "
-                    + "Class 'org.zooby.Wooby' not found. Also looked for a class called 'java.lang.org.zooby.Wooby'");
+            assertEquals(e.getMessage(),
+                            "Failed to build type 'org.zooby.Wooby': java.lang.IllegalArgumentException: "
+                                            + "Class 'org.zooby.Wooby' not found. "
+                                            + "Also looked for a class called 'java.lang.org.zooby.Wooby'");
         }
 
         assertEquals(TypeBuilder.getJavaTypeClass("java.lang.String"), String.class);

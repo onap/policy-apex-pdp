@@ -27,9 +27,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Compare two maps and returns their differences. The types of the keys and the values in the two maps being comapred must be the same. The class returns
- * entries that are only in the left map, only in the right map, entries that have identical keys and different values and entries that have different keys and
- * different values in a {@link KeyedMapDifference} instance.
+ * Compare two maps and returns their differences. The types of the keys and the values in the two maps being comapred
+ * must be the same. The class returns entries that are only in the left map, only in the right map, entries that have
+ * identical keys and different values and entries that have different keys and different values in a
+ * {@link KeyedMapDifference} instance.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <K> the type of the keys in the maps being compared
@@ -79,8 +80,7 @@ public class KeyedMapComparer<K, V> {
             // Store as appropriate
             if (leftValue.equals(rightValue)) {
                 result.getIdenticalValues().put(key, leftValue);
-            }
-            else {
+            } else {
                 // Store the two values
                 List<V> valueList = new ArrayList<>();
                 valueList.add(leftValue);

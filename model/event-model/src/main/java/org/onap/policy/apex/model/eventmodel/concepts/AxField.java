@@ -52,12 +52,12 @@ import org.onap.policy.apex.model.utilities.Assertions;
 /**
  * In Apex, a field is an input or output parameter to or from a concept. For example, the parameters of an event are
  * fields and the input and output of a task is defined as a collection of fields.
- * <p>
- * A field has an {@link AxReferenceKey} key that defines its name and parent, and a {@link AxArtifactKey} key to a
+ * 
+ * <p>A field has an {@link AxReferenceKey} key that defines its name and parent, and a {@link AxArtifactKey} key to a
  * context schema that defines the structure of the data atom that holds the value of the field. Fields can be specified
  * as being optional but are mandatory by default.
- * <p>
- * Validation checks that the field key and the field schema reference key are not null.
+ * 
+ * <p>Validation checks that the field key and the field schema reference key are not null.
  */
 @Entity
 @Table(name = "AxField")
@@ -65,8 +65,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexField", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxField", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "fieldSchemaKey", "optional" })
+@XmlType(name = "AxField", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "fieldSchemaKey", "optional" })
 
 public class AxField extends AxConcept {
     private static final String KEY_MAY_NOT_BE_NULL = "key may not be null";
@@ -113,7 +113,7 @@ public class AxField extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -269,15 +269,15 @@ public class AxField extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxReferenceKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (fieldSchemaKey.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "fieldSchemaKey is a null key: " + fieldSchemaKey));
+                            "fieldSchemaKey is a null key: " + fieldSchemaKey));
         }
         return fieldSchemaKey.validate(result);
     }

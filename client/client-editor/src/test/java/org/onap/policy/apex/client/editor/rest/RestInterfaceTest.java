@@ -43,7 +43,7 @@ import org.onap.policy.apex.client.editor.rest.ApexEditorMain.EditorState;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.ResourceUtils;
@@ -148,8 +148,8 @@ public class RestInterfaceTest {
      * @return the session ID
      */
     private static int createNewSession() {
-        final ApexAPIResult responseMsg = target.path("editor/-1/Session/Create").request().get(ApexAPIResult.class);
-        assertEquals(responseMsg.getResult(), ApexAPIResult.RESULT.SUCCESS);
+        final ApexApiResult responseMsg = target.path("editor/-1/Session/Create").request().get(ApexApiResult.class);
+        assertEquals(responseMsg.getResult(), ApexApiResult.Result.SUCCESS);
         assertTrue(responseMsg.getMessages().size() == 1);
         return Integer.parseInt(responseMsg.getMessages().get(0));
     }
@@ -162,8 +162,8 @@ public class RestInterfaceTest {
      */
     private void uploadPolicy(final int sessionID, final String modelAsJsonString) {
         final Builder requestbuilder = target.path("editor/" + sessionID + "/Model/Load").request();
-        final ApexAPIResult responseMsg = requestbuilder.put(Entity.json(modelAsJsonString), ApexAPIResult.class);
-        assertTrue(responseMsg.isOK());
+        final ApexApiResult responseMsg = requestbuilder.put(Entity.json(modelAsJsonString), ApexApiResult.class);
+        assertTrue(responseMsg.isOk());
     }
 
     /**
@@ -180,9 +180,9 @@ public class RestInterfaceTest {
 
         uploadPolicy(sessionID, localmodelString);
 
-        final ApexAPIResult responseMsg = target.path("editor/" + sessionID + "/Policy/Get")
-                .queryParam("name", "Policy0").queryParam("version", "0.0.1").request().get(ApexAPIResult.class);
-        assertTrue(responseMsg.isOK());
+        final ApexApiResult responseMsg = target.path("editor/" + sessionID + "/Policy/Get")
+                .queryParam("name", "Policy0").queryParam("version", "0.0.1").request().get(ApexApiResult.class);
+        assertTrue(responseMsg.isOk());
 
         // The string in responseMsg.Messages[0] is a JSON representation of a AxPolicy object. Lets parse it
         final String returnedPolicyAsString = responseMsg.getMessages().get(0);

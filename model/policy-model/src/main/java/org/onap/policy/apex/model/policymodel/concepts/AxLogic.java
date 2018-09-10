@@ -47,18 +47,16 @@ import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class holds Logic for executing a task or task selection on an Apex policy state. The
- * flavour of the logic describes the type of logic being used and it may be a language identifier
- * such as "Javascript" or "Jython". The logic itself is held as a string. The {@link AxLogic}
- * instance is used by the Apex engine to start an executor with the required flavour. Once the
- * executor is started, the Apex engine passes the logic to the executor and the executor executes
- * it. In the Apex engine, executors are deployed as plugins. Apex also provides the executor with
- * run-time context, which makes context such as input fields, output fields, and context albums
- * available to the task at runtime.
- * <p>
- * Validation checks that the logic key is valid, that the logic flavour is defined and is valid
- * when checked against the {@code LOGIC_FLAVOUR_REGEXP} regular expression, and that the specified
- * logic string is not null or blank.
+ * This class holds Logic for executing a task or task selection on an Apex policy state. The flavour of the logic
+ * describes the type of logic being used and it may be a language identifier such as "Javascript" or "Jython". The
+ * logic itself is held as a string. The {@link AxLogic} instance is used by the Apex engine to start an executor with
+ * the required flavour. Once the executor is started, the Apex engine passes the logic to the executor and the executor
+ * executes it. In the Apex engine, executors are deployed as plugins. Apex also provides the executor with run-time
+ * context, which makes context such as input fields, output fields, and context albums available to the task at
+ * runtime.
+ * 
+ * <p>Validation checks that the logic key is valid, that the logic flavour is defined and is valid when checked against
+ * the {@code LOGIC_FLAVOUR_REGEXP} regular expression, and that the specified logic string is not null or blank.
  */
 
 @Entity
@@ -67,8 +65,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexLogic", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxLogic", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "logicFlavour", "logic"})
+@XmlType(name = "AxLogic", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "logicFlavour", "logic" })
 
 public class AxLogic extends AxConcept {
     private static final long serialVersionUID = -4260562004005697328L;
@@ -105,8 +103,8 @@ public class AxLogic extends AxConcept {
     private String logic;
 
     /**
-     * The Default Constructor creates a logic instance with a null key, undefined logic flavour and
-     * a null logic string.
+     * The Default Constructor creates a logic instance with a null key, undefined logic flavour and a null logic
+     * string.
      */
     public AxLogic() {
         this(new AxReferenceKey());
@@ -114,7 +112,7 @@ public class AxLogic extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -123,8 +121,8 @@ public class AxLogic extends AxConcept {
     }
 
     /**
-     * The Key Constructor creates a logic instance with the given reference key, undefined logic
-     * flavour and a null logic string.
+     * The Key Constructor creates a logic instance with the given reference key, undefined logic flavour and a null
+     * logic string.
      *
      * @param key the reference key of the logic
      */
@@ -133,8 +131,8 @@ public class AxLogic extends AxConcept {
     }
 
     /**
-     * This Constructor creates a logic instance with a reference key constructed from the parents
-     * key and the logic local name and all of its fields defined.
+     * This Constructor creates a logic instance with a reference key constructed from the parents key and the logic
+     * local name and all of its fields defined.
      *
      * @param parentKey the reference key of the parent of this logic
      * @param logicName the logic name, held as the local name of the reference key of this logic
@@ -142,13 +140,12 @@ public class AxLogic extends AxConcept {
      * @param logic the actual logic as a string
      */
     public AxLogic(final AxReferenceKey parentKey, final String logicName, final String logicFlavour,
-            final String logic) {
+                    final String logic) {
         this(new AxReferenceKey(parentKey, logicName), logicFlavour, logic);
     }
 
     /**
-     * This Constructor creates a logic instance with the given reference key and all of its fields
-     * defined.
+     * This Constructor creates a logic instance with the given reference key and all of its fields defined.
      *
      * @param key the reference key of this logic
      * @param logicFlavour the flavour of this logic
@@ -166,8 +163,8 @@ public class AxLogic extends AxConcept {
     }
 
     /**
-     * This Constructor creates a logic instance with the given reference key and logic flavour, the
-     * logic is provided by the given logic reader instance.
+     * This Constructor creates a logic instance with the given reference key and logic flavour, the logic is provided
+     * by the given logic reader instance.
      *
      * @param key the reference key of this logic
      * @param logicFlavour the flavour of this logic
@@ -254,8 +251,7 @@ public class AxLogic extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -263,28 +259,28 @@ public class AxLogic extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxReferenceKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (logicFlavour.replaceAll(WHITESPACE_REGEXP, "").length() == 0
-                || logicFlavour.equals(LOGIC_FLAVOUR_UNDEFINED)) {
+                        || logicFlavour.equals(LOGIC_FLAVOUR_UNDEFINED)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "logic flavour is not defined"));
+                            "logic flavour is not defined"));
         }
 
         try {
             Assertions.validateStringParameter(LOGIC_FLAVOUR_TOKEN, logicFlavour, LOGIC_FLAVOUR_REGEXP);
         } catch (final IllegalArgumentException e) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "logic flavour invalid-" + e.getMessage()));
+                            "logic flavour invalid-" + e.getMessage()));
         }
 
         if (logic.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "no logic specified, logic may not be blank"));
+                            "no logic specified, logic may not be blank"));
         }
 
         return result;
@@ -327,8 +323,7 @@ public class AxLogic extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
      * basicmodel.concepts.AxConcept)
      */
     @Override

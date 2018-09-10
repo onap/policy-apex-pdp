@@ -35,6 +35,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 
 /**
+ * Test task parameters.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestTaskParameter {
@@ -89,9 +91,8 @@ public class TestTaskParameter {
         par.clean();
 
         final AxTaskParameter clonedPar = new AxTaskParameter(par);
-        assertEquals(
-                "AxTaskParameter:(key=AxReferenceKey:(parentKeyName=ParParentName,parentKeyVersion=0.0.1,parentLocalName=PLN,localName=LN),defaultValue=DefaultValue)",
-                clonedPar.toString());
+        assertEquals("AxTaskParameter:(key=AxReferenceKey:(parentKeyName=ParParentName,parentKeyVersion=0.0.1,"
+                        + "parentLocalName=PLN,localName=LN),defaultValue=DefaultValue)", clonedPar.toString());
 
         assertFalse(par.hashCode() == 0);
 

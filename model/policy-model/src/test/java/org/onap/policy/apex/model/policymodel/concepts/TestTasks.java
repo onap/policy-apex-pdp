@@ -43,6 +43,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 
 /**
+ * Test policy tasks.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestTasks {
@@ -302,7 +304,7 @@ public class TestTasks {
 
         final AxTasks clonedTasks = new AxTasks(tasks);
         assertEquals("AxTasks:(key=AxArtifactKey:(name=TasksKey,version=0.0.1),tas",
-                clonedTasks.toString().substring(0, 60));
+                        clonedTasks.toString().substring(0, 60));
 
         assertFalse(tasks.hashCode() == 0);
 

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,34 +18,39 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.model.policymodel.concepts;
+package org.onap.policy.apex.model.utilities;
 
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import java.io.File;
 
 /**
- * This exception is raised if an error occurs in an Apex policy or in Apex policy handling.
+ * The Class DirectoryShutdownHook removes the contents of a directory and the directory itself at shutdown.
  *
- * @author Liam Fallon
+ * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class PolicyException extends ApexException {
-    private static final long serialVersionUID = -8507246953751956974L;
+final class DirectoryDeleteShutdownHook extends Thread {
+    // The directory we are acting on
+    private final File tempDir;
 
     /**
-     * Instantiates a new apex policy exception with a message.
+     * Constructor that defines the directory to act on at shutdown.
      *
-     * @param message the message
+     * @param tempDir The temporary directory to delete
      */
-    public PolicyException(final String message) {
-        super(message);
+    DirectoryDeleteShutdownHook(final File tempDir) {
+        this.tempDir = tempDir;
     }
 
-    /**
-     * Instantiates a new apex policy exception with a message and a caused by exception.
+    /*
+     * (non-Javadoc)
      *
-     * @param message the message
-     * @param exception the exception that caused this exception to be thrown
+     * @see java.lang.Runnable#run()
      */
-    public PolicyException(final String message, final Exception exception) {
-        super(message, exception);
+    @Override
+    public void run() {
+        if (tempDir.exists()) {
+            // Empty and delete the directory
+            DirectoryUtils.emptyDirectory(tempDir);
+            tempDir.delete();
+        }
     }
 }

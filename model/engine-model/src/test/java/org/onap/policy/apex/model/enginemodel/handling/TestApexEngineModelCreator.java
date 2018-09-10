@@ -82,6 +82,9 @@ public class TestApexEngineModelCreator implements TestApexModelCreator<AxEngine
         return engineModel;
     }
 
+    /**
+     * Get a malstructured model.
+     */
     public AxEngineModel getMalstructuredModel() {
         final AxEngineModel engineModel = getModel();
 

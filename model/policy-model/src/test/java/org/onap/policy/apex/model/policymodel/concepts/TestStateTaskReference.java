@@ -36,6 +36,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 
 /**
+ * Test state task references.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestStateTaskReference {
@@ -44,15 +46,14 @@ public class TestStateTaskReference {
     public void testStateTaskReference() {
         assertNotNull(new AxStateTaskReference());
         assertNotNull(new AxStateTaskReference(new AxReferenceKey()));
-        assertNotNull(
-                new AxStateTaskReference(new AxReferenceKey(), AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));
+        assertNotNull(new AxStateTaskReference(new AxReferenceKey(), AxStateTaskOutputType.UNDEFINED,
+                        new AxReferenceKey()));
         assertNotNull(new AxStateTaskReference(new AxReferenceKey(), new AxArtifactKey(),
-                AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));
+                        AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));
 
         AxStateTaskReference stRef = new AxStateTaskReference();
 
         AxReferenceKey stRefKey = new AxReferenceKey("StateParent", "0.0.1", "SOState", "SOName");
-        AxReferenceKey soKey = new AxReferenceKey("StateParent", "0.0.1", "SOState", "STRef0");
 
         try {
             stRef.setKey(null);
@@ -86,6 +87,7 @@ public class TestStateTaskReference {
             assertEquals("output may not be null", e.getMessage());
         }
 
+        AxReferenceKey soKey = new AxReferenceKey("StateParent", "0.0.1", "SOState", "STRef0");
         stRef.setOutput(soKey);
         assertEquals(soKey, stRef.getOutput());
 
@@ -134,25 +136,25 @@ public class TestStateTaskReference {
         assertTrue(stRef.equals(clonedStRef));
         assertFalse(stRef.equals(null));
         assertFalse(stRef.equals("Hello"));
-        assertFalse(stRef
-                .equals(new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
+        assertFalse(stRef.equals(
+                        new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
         assertFalse(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));
-        assertFalse(
-                stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey())));
+        assertFalse(stRef
+                        .equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey())));
         assertTrue(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, soKey)));
 
         assertNotNull(new AxStateTaskReference(new AxReferenceKey(), new AxArtifactKey(),
-                AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));
+                        AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));
 
         assertEquals(0, stRef.compareTo(stRef));
         assertEquals(0, stRef.compareTo(clonedStRef));
         assertNotEquals(0, stRef.compareTo(new AxArtifactKey()));
         assertNotEquals(0, stRef.compareTo(null));
-        assertNotEquals(0, stRef
-                .compareTo(new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
+        assertNotEquals(0, stRef.compareTo(
+                        new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
         assertNotEquals(0, stRef.compareTo(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));
-        assertNotEquals(0,
-                stRef.compareTo(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey())));
+        assertNotEquals(0, stRef.compareTo(
+                        new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey())));
         assertEquals(0, stRef.compareTo(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, soKey)));
 
         assertNotNull(stRef.getKeys());

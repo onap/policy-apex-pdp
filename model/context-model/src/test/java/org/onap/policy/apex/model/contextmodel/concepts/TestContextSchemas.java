@@ -35,7 +35,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 /**
- * @author Liam Fallon (liam.fallon@ericsson.com)
+ * Context schema tests.
  */
 public class TestContextSchemas {
 
@@ -44,8 +44,8 @@ public class TestContextSchemas {
         assertNotNull(new AxContextSchema());
         assertNotNull(new AxContextSchema(new AxArtifactKey(), "SchemaFlavour", "SchemaDefinition"));
 
-        final AxContextSchema schema =
-                new AxContextSchema(new AxArtifactKey("SchemaName", "0.0.1"), "SchemaFlavour", "SchemaDefinition");
+        final AxContextSchema schema = new AxContextSchema(new AxArtifactKey("SchemaName", "0.0.1"), "SchemaFlavour",
+                        "SchemaDefinition");
         assertNotNull(schema);
 
         final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
@@ -57,9 +57,8 @@ public class TestContextSchemas {
             schema.setSchemaFlavour("");
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "parameter \"schemaFlavour\": value \"\", does not match regular expression \"[A-Za-z0-9\\-_]+\"",
-                    e.getMessage());
+            assertEquals("parameter \"schemaFlavour\": value \"\", "
+                            + "does not match regular expression \"[A-Za-z0-9\\-_]+\"", e.getMessage());
         }
 
         schema.setSchemaFlavour("NewSchemaFlavour");
@@ -105,16 +104,16 @@ public class TestContextSchemas {
         schema.clean();
 
         final AxContextSchema clonedSchema = new AxContextSchema(schema);
-        assertEquals(
-                "AxContextSchema:(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1),schemaFlavour=NewSchemaFlavour,schemaDefinition=NewSchemaDefinition)",
-                clonedSchema.toString());
+        assertEquals("AxContextSchema:(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1),"
+                        + "schemaFlavour=NewSchemaFlavour,schemaDefinition=NewSchemaDefinition)",
+                        clonedSchema.toString());
 
         assertFalse(schema.hashCode() == 0);
 
         assertTrue(schema.equals(schema));
         assertTrue(schema.equals(clonedSchema));
         assertFalse(schema.equals(null));
-        assertFalse(schema.equals("Hello"));
+        assertFalse(schema.equals((Object) "Hello"));
         assertFalse(schema.equals(new AxContextSchema(new AxArtifactKey(), "Flavour", "Def")));
         assertFalse(schema.equals(new AxContextSchema(newKey, "Flavour", "Def")));
         assertFalse(schema.equals(new AxContextSchema(newKey, "NewSchemaFlavour", "Def")));
@@ -169,14 +168,14 @@ public class TestContextSchemas {
 
         final AxContextSchemas clonedSchemas = new AxContextSchemas(schemas);
         assertTrue(clonedSchemas.toString()
-                .startsWith("AxContextSchemas:(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),"));
+                        .startsWith("AxContextSchemas:(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),"));
 
         assertFalse(schemas.hashCode() == 0);
 
         assertTrue(schemas.equals(schemas));
         assertTrue(schemas.equals(clonedSchemas));
         assertFalse(schemas.equals(null));
-        assertFalse(schemas.equals("Hello"));
+        assertFalse(schemas.equals((Object) "Hello"));
         assertFalse(schemas.equals(new AxContextSchemas(new AxArtifactKey())));
 
         assertEquals(0, schemas.compareTo(schemas));

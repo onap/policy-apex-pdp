@@ -40,6 +40,7 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 
 /**
+ * Test events.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestEvents {
