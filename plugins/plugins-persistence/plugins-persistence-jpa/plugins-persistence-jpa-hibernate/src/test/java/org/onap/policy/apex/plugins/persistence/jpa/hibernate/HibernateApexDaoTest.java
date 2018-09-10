@@ -40,31 +40,40 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 
 /**
- * Junit test for class HibernateApexDao
+ * Junit test for class HibernateApexDao.
  * 
  * @author Dinh Danh Le (dinh.danh.le@ericsson.com)
  *
  */
 
 public class HibernateApexDaoTest {
-
     private static final List<AxArtifactKey> TEST_ARTIKEYS = Arrays.asList(new AxArtifactKey[] {
-            new AxArtifactKey("ABC", "0.0.1"), new AxArtifactKey("DEF", "0.1.1"), new AxArtifactKey("XYZ", "1.1.1")});
+        new AxArtifactKey("ABC", "0.0.1"),
+        new AxArtifactKey("DEF", "0.1.1"), new AxArtifactKey("XYZ", "1.1.1")
+    });
 
-    private final DaoParameters DaoParameters = new DaoParameters();
+    private final DaoParameters daoParameters = new DaoParameters();
 
     private HibernateApexDao hibernateApexDao = null;
 
+    /**
+     * Set up tests.
+     * 
+     * @throws ApexException on test setup errors
+     */
     @Before
-    public void setupDAO() throws ApexException {
-        DaoParameters.setPluginClass(HibernateApexDao.class.getCanonicalName());
-        DaoParameters.setPersistenceUnit("DAOTest");
+    public void setupDao() throws ApexException {
+        daoParameters.setPluginClass(HibernateApexDao.class.getCanonicalName());
+        daoParameters.setPersistenceUnit("DAOTest");
         hibernateApexDao = new HibernateApexDao();
-        hibernateApexDao.init(DaoParameters);
+        hibernateApexDao.init(daoParameters);
     }
 
+    /**
+     * Cleardown tests.
+     */
     @After
-    public void teardownDAO() {
+    public void teardownDao() {
         hibernateApexDao.close();
     }
 
@@ -115,7 +124,6 @@ public class HibernateApexDaoTest {
         }
     }
 
-
     @Test
     public void test_getArtifactByReferenceKey() {
         final AxArtifactKey artifactKey = new AxArtifactKey("XXX", "0.0.1");
@@ -133,11 +141,10 @@ public class HibernateApexDaoTest {
         assertNull(hibernateApexDao.getArtifact(ReferenceKeyTestEntity.class, anotherReferenceKey));
 
         // assert return only one entity when finding an entity with correct key
-        final ReferenceKeyTestEntity retEntity =
-                hibernateApexDao.getArtifact(ReferenceKeyTestEntity.class, referenceKey);
+        final ReferenceKeyTestEntity retEntity = hibernateApexDao.getArtifact(ReferenceKeyTestEntity.class,
+                        referenceKey);
         assertEquals(referenceKey, retEntity.getKey());
     }
-
 
     @Test
     public void test_getArtifactByArtifactKey() {
@@ -156,7 +163,6 @@ public class HibernateApexDaoTest {
         assertNotNull(retEntity);
         assertEquals(artifactKey, retEntity.getKey());
     }
-
 
     @Test
     public void test_deleteByArtifactKey() {
@@ -177,7 +183,6 @@ public class HibernateApexDaoTest {
         assertEquals(100.0, remainingEntities.get(0).getDoubleValue(), 0.0);
     }
 
-
     @Test
     public void test_deleteByReferenceKey() {
         // prepare 2 AxArtifactKeys
@@ -185,9 +190,10 @@ public class HibernateApexDaoTest {
         final AxArtifactKey owner1Key = new AxArtifactKey("Owner1", "0.0.1");
 
         // prepare a list of (3) AxReferenceKeys corresponding to owner0Key
-        final List<AxReferenceKey> refKey0s =
-                Arrays.asList(new AxReferenceKey[] {new AxReferenceKey(owner0Key, "Entity01"),
-                        new AxReferenceKey(owner0Key, "Entity02"), new AxReferenceKey(owner0Key, "Entity03")});
+        final List<AxReferenceKey> refKey0s = Arrays.asList(new AxReferenceKey[] {
+            new AxReferenceKey(owner0Key, "Entity01"), new AxReferenceKey(owner0Key, "Entity02"),
+            new AxReferenceKey(owner0Key, "Entity03")
+        });
         // prepare 2 more AxReferenceKeys corresponding to owner1Key
         final AxReferenceKey refKey11 = new AxReferenceKey(owner1Key, "Entity11");
         final AxReferenceKey refKey12 = new AxReferenceKey(owner1Key, "Entity12");
@@ -218,7 +224,6 @@ public class HibernateApexDaoTest {
         assertEquals(0, hibernateApexDao.getAll(ReferenceKeyTestEntity.class).size());
     }
 
-
     @Test
     public void test_getAllByArtifactKey() {
 
@@ -227,7 +232,6 @@ public class HibernateApexDaoTest {
 
         final AxReferenceKey refKey0 = new AxReferenceKey(artiKey0, "Entity0");
         final AxReferenceKey refKey1 = new AxReferenceKey(artiKey1, "Entity1");
-
 
         // test with null class with known key --> return an empty list
         assertNotNull(hibernateApexDao.getAll(null, artiKey1));
@@ -245,7 +249,5 @@ public class HibernateApexDaoTest {
         final ReferenceKeyTestEntity retEntity = ret.get(0);
         assertEquals(200.0, retEntity.getDoubleValue(), 0);
     }
-
-
 
 }
