@@ -36,7 +36,7 @@
 
 if [ -z $APEX_HOME ]
 then
-    APEX_HOME="/opt/app/policy/apex-pdp/apex-pdp"
+    APEX_HOME="/opt/app/policy/apex-pdp"
 fi
 
 if [ ! -d $APEX_HOME ]

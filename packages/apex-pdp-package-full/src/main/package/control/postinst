@@ -40,7 +40,7 @@ if [ -L "/opt/app/policy/apex-pdp" ]; then
 fi
 
 # Add soft link for latest version of Apex
-ln -s `ls /opt/app/policy/apex-pdp | grep -i '^apex-*' | sort | tail -1` /opt/app/policy/apex-pdp
+ln -s `ls /opt/app/policy | grep -i '^apex-*' | sort | tail -1` /opt/app/policy/apex-pdp
 
 # Add Apex-specific directories and set ownership as the Apex admin user
 mkdir -p /var/log/onap/policy/apex-pdp
@@ -49,11 +49,11 @@ chown -R apexuser:apexuser /var/log/onap/policy/apex-pdp
 # Ensure everything has the correct permissions
 find /opt/app -type d -perm 755 
 find /opt/app -type f -perm 644 
-chmod a+x /opt/app/policy/apex-pdp/apex/bin/*
+chmod a+x /opt/app/policy/apex-pdp/bin/*
 
 # Copy examples to Apex user area
 if [ -e /home/apexuser/examples ]
 then
 	rm -rf /home/apexuser/examples
 fi
-cp -pr /opt/app/policy/apex-pdp/apex/examples /home/apexuser
+cp -pr /opt/app/policy/apex-pdp/examples /home/apexuser

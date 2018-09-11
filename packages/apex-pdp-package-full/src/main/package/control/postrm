@@ -40,9 +40,9 @@ if [ -L "/opt/app/policy/apex-pdp" ]; then
 fi
 
 DIRS_TO_DELETE="
-        /var/log/onap/policy/apex-pdp
-       /opt/app/policy/apex-pdp
-        "
+    /var/log/onap/policy/apex-pdp
+    /opt/app/policy/apex-pdp
+"
 
 for DIR in $DIRS_TO_DELETE
 do
