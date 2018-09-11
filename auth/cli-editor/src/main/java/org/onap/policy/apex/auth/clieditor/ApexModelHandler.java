@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.modelapi.ApexModelFactory;
 
@@ -62,8 +62,8 @@ public class ApexModelHandler {
             return;
         }
 
-        final ApexAPIResult result = apexModel.loadFromFile(modelFileName);
-        if (result.isNOK()) {
+        final ApexApiResult result = apexModel.loadFromFile(modelFileName);
+        if (result.isNok()) {
             throw new CLIException(result.getMessages().get(0));
         }
     }
@@ -76,7 +76,7 @@ public class ApexModelHandler {
      * @param writer A writer to which to write output
      * @return the result of the executed command
      */
-    public ApexAPIResult executeCommand(final CLICommand command,
+    public ApexApiResult executeCommand(final CLICommand command,
             final TreeMap<String, CLIArgumentValue> argumentValues, final PrintWriter writer) {
         // Get the method
         final Method apiMethod = getCommandMethod(command);
@@ -87,8 +87,8 @@ public class ApexModelHandler {
         try {
             final Object returnObject = apiMethod.invoke(apexModel, parameterArray);
 
-            if (returnObject instanceof ApexAPIResult) {
-                final ApexAPIResult result = (ApexAPIResult) returnObject;
+            if (returnObject instanceof ApexApiResult) {
+                final ApexApiResult result = (ApexApiResult) returnObject;
                 writer.println(result);
                 return result;
             } else {
@@ -176,9 +176,9 @@ public class ApexModelHandler {
      * @return the string
      */
     public String writeModelToString(final PrintWriter messageWriter) {
-        final ApexAPIResult result = apexModel.listModel();
+        final ApexApiResult result = apexModel.listModel();
 
-        if (result.isOK()) {
+        if (result.isOk()) {
             return result.getMessage();
         } else {
             return null;

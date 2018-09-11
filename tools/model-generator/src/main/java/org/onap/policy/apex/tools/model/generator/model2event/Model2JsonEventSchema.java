@@ -31,7 +31,7 @@ import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.modelapi.ApexModelFactory;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicies;
@@ -148,8 +148,8 @@ public class Model2JsonEventSchema {
         final ApexModelFactory factory = new ApexModelFactory();
         final ApexModel model = factory.createApexModel(new Properties(), true);
 
-        final ApexAPIResult result = model.loadFromFile(modelFile);
-        if (result.isNOK()) {
+        final ApexApiResult result = model.loadFromFile(modelFile);
+        if (result.isNok()) {
             System.err.println(appName + ": " + result.getMessage());
             return -1;
         }

@@ -40,7 +40,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.modelapi.ApexModelFactory;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
@@ -109,8 +109,8 @@ public class Model2Cli {
         final ApexModelFactory factory = new ApexModelFactory();
         final ApexModel model = factory.createApexModel(new Properties(), true);
 
-        final ApexAPIResult result = model.loadFromFile(modelFile);
-        if (result.isNOK()) {
+        final ApexApiResult result = model.loadFromFile(modelFile);
+        if (result.isNok()) {
             System.err.println(appName + ": " + result.getMessage());
             return -1;
         }

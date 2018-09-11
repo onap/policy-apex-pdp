@@ -35,12 +35,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 /**
  * This class holds Task Logic for {@link AxTask} tasks in Apex. It is a specialization of the
  * {@link AxLogic} class, so that Task Logic in Apex states can be strongly typed.
- * <p>
- * Task Logic is used to execute tasks {@link AxTask} in Apex. The logic uses fields on the incoming
+ * 
+ * <p>Task Logic is used to execute tasks {@link AxTask} in Apex. The logic uses fields on the incoming
  * trigger event and information from the context albums available on a task to get context during
  * execution. The task logic populates the output fields of the task.
- * <p>
- * Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
+ * 
+ * <p>Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
  */
 @Entity
 @Table(name = "AxTaskLogic")

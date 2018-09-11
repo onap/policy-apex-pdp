@@ -76,7 +76,7 @@ public class AxTaskParameter extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */

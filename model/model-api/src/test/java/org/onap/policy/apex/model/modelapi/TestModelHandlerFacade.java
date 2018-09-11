@@ -34,6 +34,7 @@ import org.onap.policy.apex.model.modelapi.impl.ModelHandlerFacade;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 
 /**
+ * Test the model handler facade.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestModelHandlerFacade {
@@ -60,88 +61,88 @@ public class TestModelHandlerFacade {
         final ModelHandlerFacade mhf = new ModelHandlerFacade(apexModel, modelProperties, false);
         assertNotNull(mhf);
 
-        ApexAPIResult result = mhf.loadFromFile("src/test/resources/models/PolicyModel.json");
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        ApexApiResult result = mhf.loadFromFile("src/test/resources/models/PolicyModel.json");
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = mhf.loadFromFile("src/test/resources/models/PolicyModel.json");
-        assertEquals(ApexAPIResult.RESULT.CONCEPT_EXISTS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
         final String modelString = TextFileUtils.getTextFileAsString("src/test/resources/models/PolicyModel.json");
 
         result = apexModel.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = mhf.loadFromString(modelString);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = mhf.loadFromString(modelString);
-        assertEquals(ApexAPIResult.RESULT.CONCEPT_EXISTS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
         final DaoParameters DaoParameters = new DaoParameters();
         result = mhf.loadFromDatabase("SomeModel", null, DaoParameters);
-        assertEquals(ApexAPIResult.RESULT.CONCEPT_EXISTS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
         result = apexModel.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = mhf.loadFromDatabase("SomeModel", null, DaoParameters);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.saveToDatabase(DaoParameters);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        result = mhf.readFromURL("blah://somewhere/over/the/rainbow");
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        result = mhf.readFromUrl("blah://somewhere/over/the/rainbow");
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.loadFromString(modelString);
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        result = mhf.readFromURL("http://somewhere/over/the/rainbow");
-        assertEquals(ApexAPIResult.RESULT.CONCEPT_EXISTS, result.getResult());
+        result = mhf.readFromUrl("http://somewhere/over/the/rainbow");
+        assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
         final File tempFile = File.createTempFile("ApexModel", "json");
         tempFile.deleteOnExit();
 
-        result = mhf.writeToURL("File:///" + tempFile.getCanonicalPath(), false);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        result = mhf.writeToUrl("File:///" + tempFile.getCanonicalPath(), false);
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.validate();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = mhf.validate();
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.compare("src/test/resources/models/NonExistant.json", true, true);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.compareWithString("zooby", true, true);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.split("FailSplit", "NonExistantPolicy");
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.split("NonExistantPolicy");
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.merge("src/test/resources/models/NonExistant.json", false);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = apexModel.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = mhf.merge("src/test/resources/models/PolicyModel.json", false);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.loadFromFile("src/test/resources/models/PolicyModel.json");
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = mhf.mergeWithString("@£@$@£", true);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = apexModel.deleteModel();
-        assertEquals(ApexAPIResult.RESULT.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = mhf.mergeWithString(modelString, false);
-        assertEquals(ApexAPIResult.RESULT.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
     }
 }

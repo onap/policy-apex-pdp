@@ -60,16 +60,16 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * This class holds the definition of a task in Apex. A task is executed by a state and performs
  * some domain specific logic to carry out work required to be done by a policy. The Task Logic that
  * is executed by a task is held in a {@link AxTaskLogic} instance.
- * <p>
- * A task has a set of input fields and output fields, which are passed to and are emitted from the
+ * 
+ * <p>A task has a set of input fields and output fields, which are passed to and are emitted from the
  * task during a task execution cycle. A task may have task parameters {@link AxTaskParameter},
  * which are configuration values passed to a task at initialization time.
- * <p>
- * The Task Logic in a task may use information in context albums to perform their domain specific
+ * 
+ * <p>The Task Logic in a task may use information in context albums to perform their domain specific
  * work. The context albums that the task uses and that should be made available to the task by Apex
  * policy distribution are held as a set of references to context albums in the task.
- * <p>
- * During validation of a task, the validation checks listed below are executed:
+ * 
+ * <p>During validation of a task, the validation checks listed below are executed:
  * <ol>
  * <li>The task key must not be a null key and must be valid, see validation in
  * {@link AxArtifactKey}
@@ -137,7 +137,7 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -197,10 +197,10 @@ public class AxTask extends AxConcept {
      * parent keys of all {@link AxInputField}, {@link AxOutputField}, and {@link AxTaskParameter}
      * instance in the task.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         taskLogic.getKey().setParentArtifactKey(key);
 
         for (final AxInputField inputField : inputFields.values()) {
@@ -490,7 +490,7 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Validate a field
+     * Validate a field.
      * 
      * @param key the key of the field to validate
      * @param field the field to validate
@@ -516,7 +516,7 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Validate a task parameter entry
+     * Validate a task parameter entry.
      * 
      * @param taskParameterEntry the task parameter entry to validate
      * @param result The validation result to append to
@@ -540,7 +540,7 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Validate a context album reference entry
+     * Validate a context album reference entry.
      * 
      * @param taskParameterEntry the context album reference entry to validate
      * @param result The validation result to append to

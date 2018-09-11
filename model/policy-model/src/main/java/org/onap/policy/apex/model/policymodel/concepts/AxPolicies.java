@@ -51,22 +51,21 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is a policy container and holds a map of the policies for an entire Apex model. All
- * Apex models that use policies must have an {@link AxPolicies} field. The {@link AxPolicies} class
- * implements the helper methods of the {@link AxConceptGetter} interface to allow {@link AxPolicy}
- * instances to be retrieved by calling methods directly on this class without referencing the
- * contained map.
- * <p>
- * Validation checks that the container key is not null. An error is issued if no policies are
- * defined in the container. Each policy entry is checked to ensure that its key and value are not
- * null and that the key matches the key in the map value. Each policy entry is then validated
- * individually.
+ * This class is a policy container and holds a map of the policies for an entire Apex model. All Apex models that use
+ * policies must have an {@link AxPolicies} field. The {@link AxPolicies} class implements the helper methods of the
+ * {@link AxConceptGetter} interface to allow {@link AxPolicy} instances to be retrieved by calling methods directly on
+ * this class without referencing the contained map.
+ * 
+ * <p>Validation checks that the container key is not null. An error is issued if no policies are defined in the
+ * container. Each policy entry is checked to ensure that its key and value are not null and that the key matches the
+ * key in the map value. Each policy entry is then validated individually.
  */
 @Entity
 @Table(name = "AxPolicies")
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxPolicies", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "policyMap"})
+@XmlType(name = "AxPolicies", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "policyMap" })
 
 public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     private static final long serialVersionUID = 4290442590545820316L;
@@ -87,16 +86,16 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     // @formatter:on
 
     /**
-     * The Default Constructor creates a {@link AxPolicies} object with a null artifact key and
-     * creates an empty event map.
+     * The Default Constructor creates a {@link AxPolicies} object with a null artifact key and creates an empty event
+     * map.
      */
     public AxPolicies() {
         this(new AxArtifactKey());
     }
 
     /**
-     * The Key Constructor creates a {@link AxPolicies} object with the given artifact key and
-     * creates an empty event map.
+     * The Key Constructor creates a {@link AxPolicies} object with the given artifact key and creates an empty event
+     * map.
      *
      * @param key the key
      */
@@ -105,7 +104,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -130,15 +129,14 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the policy map is returned as a
-     * raw hash map. This method is called by JAXB after unmarshaling and is used to convert the
-     * hash map to a {@link NavigableMap} so that it will work with the {@link AxConceptGetter}
-     * interface.
+     * When a model is unmarshalled from disk or from the database, the policy map is returned as a raw hash map. This
+     * method is called by JAXB after unmarshaling and is used to convert the hash map to a {@link NavigableMap} so that
+     * it will work with the {@link AxConceptGetter} interface.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         // The map must be navigable to allow name and version searching, unmarshaling returns a
         // hash map
         final NavigableMap<AxArtifactKey, AxPolicy> navigablePolicyMap = new TreeMap<>();
@@ -205,8 +203,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -214,24 +211,24 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (policyMap.size() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "policyMap may not be empty"));
+                            "policyMap may not be empty"));
         } else {
             for (final Entry<AxArtifactKey, AxPolicy> policyEntry : policyMap.entrySet()) {
                 final AxArtifactKey entryKey = policyEntry.getKey();
                 if (entryKey.equals(AxArtifactKey.getNullKey())) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key on policy entry " + entryKey + " may not be the null key"));
+                                    "key on policy entry " + entryKey + " may not be the null key"));
                 } else if (policyEntry.getValue() == null) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "value on policy entry " + entryKey + " may not be null"));
+                                    "value on policy entry " + entryKey + " may not be null"));
                 } else {
                     validate(result, policyEntry, entryKey);
                     result = policyEntry.getValue().validate(result);
@@ -243,11 +240,11 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     }
 
     private void validate(final AxValidationResult result, final Entry<AxArtifactKey, AxPolicy> policyEntry,
-            final AxArtifactKey entryKey) {
+                    final AxArtifactKey entryKey) {
         if (!entryKey.equals(policyEntry.getValue().getKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key on policy entry key "
-                            + entryKey + " does not equal policy value key " + policyEntry.getValue().getKey()));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key on policy entry key " + entryKey + " does not equal policy value key "
+                                            + policyEntry.getValue().getKey()));
         }
     }
 
@@ -286,8 +283,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
      * basicmodel.concepts.AxConcept)
      */
     @Override
@@ -379,8 +375,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.model
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.model
      * .basicmodel.concepts.AxArtifactKey)
      */
     @Override
@@ -401,13 +396,12 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String,
-     * java.lang.String)
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
      */
     @Override
     public AxPolicy get(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxPolicy>) policyMap).get(conceptKeyName,
-                conceptKeyVersion);
+                        conceptKeyVersion);
     }
 
     /*
@@ -423,12 +417,11 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String,
-     * java.lang.String)
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
      */
     @Override
     public Set<AxPolicy> getAll(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxPolicy>) policyMap).getAll(conceptKeyName,
-                conceptKeyVersion);
+                        conceptKeyVersion);
     }
 }

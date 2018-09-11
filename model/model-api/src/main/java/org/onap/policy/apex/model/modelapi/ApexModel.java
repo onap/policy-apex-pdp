@@ -28,7 +28,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public interface ApexModel extends ApexEditorAPI {
+public interface ApexModel extends ApexEditorApi {
     /**
      * Make a deep copy of the Model.
      *
@@ -42,7 +42,7 @@ public interface ApexModel extends ApexEditorAPI {
      * @param modelString the string with the model
      * @return the result of the operation
      */
-    ApexAPIResult loadFromString(String modelString);
+    ApexApiResult loadFromString(String modelString);
 
     /**
      * Load an Apex model from a file.
@@ -50,7 +50,7 @@ public interface ApexModel extends ApexEditorAPI {
      * @param fileName the file name of the file with the model
      * @return the result of the operation
      */
-    ApexAPIResult loadFromFile(String fileName);
+    ApexApiResult loadFromFile(String fileName);
 
     /**
      * Save an Apex model to a file.
@@ -59,26 +59,26 @@ public interface ApexModel extends ApexEditorAPI {
      * @param xmlFlag if true, save the file in XML format, otherwise save the file in the default JSON format
      * @return the result of the operation
      */
-    ApexAPIResult saveToFile(String fileName, boolean xmlFlag);
+    ApexApiResult saveToFile(String fileName, boolean xmlFlag);
 
     /**
      * Load an Apex model from a database.
      *
      * @param modelName the name of the model to load
-     * @param modelVersion the version of the model to load, loads the policy model from the database with this name, if more than one exist, an exception is
-     *            thrown
-     * @param DaoParameters the parameters to use to access the database over JDBC
+     * @param modelVersion the version of the model to load, loads the policy model from the database with this name, if
+     *        more than one exist, an exception is thrown
+     * @param daoParameters the parameters to use to access the database over JDBC
      * @return the result of the operation
      */
-    ApexAPIResult loadFromDatabase(String modelName, String modelVersion, DaoParameters DaoParameters);
+    ApexApiResult loadFromDatabase(String modelName, String modelVersion, DaoParameters daoParameters);
 
     /**
      * Save an Apex model to a database.
      *
-     * @param DaoParameters the parameters to use to access the database over JDBC
+     * @param daoParameters the parameters to use to access the database over JDBC
      * @return the result of the operation
      */
-    ApexAPIResult saveToDatabase(DaoParameters DaoParameters);
+    ApexApiResult saveToDatabase(DaoParameters daoParameters);
 
     /**
      * Read an APEX model from a location identified by a URL.
@@ -86,7 +86,7 @@ public interface ApexModel extends ApexEditorAPI {
      * @param urlString the url string
      * @return the result of the operation
      */
-    ApexAPIResult readFromURL(String urlString);
+    ApexApiResult readFromUrl(String urlString);
 
     /**
      * Write an APEX model to a location identified by a URL.
@@ -95,21 +95,21 @@ public interface ApexModel extends ApexEditorAPI {
      * @param xmlFlag if true, save the file in XML format, otherwise save the file in the default JSON format
      * @return the result of the operation
      */
-    ApexAPIResult writeToURL(String urlString, boolean xmlFlag);
+    ApexApiResult writeToUrl(String urlString, boolean xmlFlag);
 
     /**
      * Analyse an Apex model that shows the concept usage references of a policy model.
      *
      * @return the result of the operation
      */
-    ApexAPIResult analyse();
+    ApexApiResult analyse();
 
     /**
      * Validate an Apex model, checking all concepts and references in the model.
      *
      * @return the result of the operation
      */
-    ApexAPIResult validate();
+    ApexApiResult validate();
 
     /**
      * Compare to Apex models, returning the differences between the models.
@@ -119,7 +119,7 @@ public interface ApexModel extends ApexEditorAPI {
      * @param keysOnly only returns the keys that are different when set, when not set values are also returned
      * @return the result of the operation
      */
-    ApexAPIResult compare(String otherModelFileName, boolean diffsOnly, boolean keysOnly);
+    ApexApiResult compare(String otherModelFileName, boolean diffsOnly, boolean keysOnly);
 
     /**
      * Compare two Apex models, returning the differences between the models.
@@ -129,45 +129,50 @@ public interface ApexModel extends ApexEditorAPI {
      * @param keysOnly only returns the keys that are different when set, when not set values are also returned
      * @return the result of the operation
      */
-    ApexAPIResult compareWithString(String otherModelString, boolean diffsOnly, boolean keysOnly);
+    ApexApiResult compareWithString(String otherModelString, boolean diffsOnly, boolean keysOnly);
 
     /**
      * Split out a sub model from an Apex model that contains a given subset of the policies in the original model.
      *
-     * @param targetModelName the file name of the target model in which to store the model split out from the original model
-     * @param splitOutPolicies the policies form the original model to include in the split out model, specified as a comma delimited list of policy names
+     * @param targetModelName the file name of the target model in which to store the model split out from the original
+     *        model
+     * @param splitOutPolicies the policies form the original model to include in the split out model, specified as a
+     *        comma delimited list of policy names
      * @return the result of the operation
      */
-    ApexAPIResult split(String targetModelName, String splitOutPolicies);
+    ApexApiResult split(String targetModelName, String splitOutPolicies);
 
     /**
-     * Split out a sub model from an Apex model that contains a given subset of the policies in the original model, return the split model in the result as a
-     * string.
+     * Split out a sub model from an Apex model that contains a given subset of the policies in the original model,
+     * return the split model in the result as a string.
      *
-     * @param splitOutPolicies the policies form the original model to include in the split out model, specified as a comma delimited list of policy names
+     * @param splitOutPolicies the policies form the original model to include in the split out model, specified as a
+     *        comma delimited list of policy names
      * @return the result of the operation
      */
-    ApexAPIResult split(String splitOutPolicies);
+    ApexApiResult split(String splitOutPolicies);
 
     /**
      * Merge two Apex models together.
      *
      * @param mergeInModelName the file name of the model to merge into the current model
-     * @param keepOriginal if this flag is set to true, if a concept exists in both models, the original model copy of that concept is kept, if the flag is set
-     *            to false, then the copy of the concept from the mergeInModel overwrites the concept in the original model
+     * @param keepOriginal if this flag is set to true, if a concept exists in both models, the original model copy of
+     *        that concept is kept, if the flag is set to false, then the copy of the concept from the mergeInModel
+     *        overwrites the concept in the original model
      * @return the result of the operation
      */
-    ApexAPIResult merge(String mergeInModelName, boolean keepOriginal);
+    ApexApiResult merge(String mergeInModelName, boolean keepOriginal);
 
     /**
      * Merge two Apex models together.
      *
      * @param otherModelString the model to merge as a string
-     * @param keepOriginal if this flag is set to true, if a concept exists in both models, the original model copy of that concept is kept, if the flag is set
-     *            to false, then the copy of the concept from the mergeInModel overwrites the concept in the original model
+     * @param keepOriginal if this flag is set to true, if a concept exists in both models, the original model copy of
+     *        that concept is kept, if the flag is set to false, then the copy of the concept from the mergeInModel
+     *        overwrites the concept in the original model
      * @return the result of the operation
      */
-    ApexAPIResult mergeWithString(String otherModelString, boolean keepOriginal);
+    ApexApiResult mergeWithString(String otherModelString, boolean keepOriginal);
 
     /**
      * Get the raw policy model being used by this model.
@@ -182,7 +187,7 @@ public interface ApexModel extends ApexEditorAPI {
      * @param policyModel the policy model
      */
     void setPolicyModel(AxPolicyModel policyModel);
-    
+
     /**
      * Builds the raw policy model being used by this model.
      *

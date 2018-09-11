@@ -253,9 +253,9 @@ public class SequentialContextInstantiation {
         // Should return null
         assertNull(dateAlbum.get("ItemNull"));
         // Put should return the previous contextItem
-        tciA00.setDST(false);
+        tciA00.setDst(false);
         final TestContextDateLocaleItem tciA03_clone = new TestContextDateLocaleItem(tciA03);
-        tciA03_clone.setDST(true);
+        tciA03_clone.setDst(true);
         TestContextDateLocaleItem retItem = (TestContextDateLocaleItem) dateAlbum.put("Item03", tciA03_clone);
         assertEquals(tciA03, retItem);
         retItem = (TestContextDateLocaleItem) dateAlbum.put("Item03", tciA03);
@@ -332,17 +332,17 @@ public class SequentialContextInstantiation {
     private TestContextDateTzItem getTestContextDateTzItem(final Date testDate) {
         final TestContextDateTzItem tci9 = new TestContextDateTzItem();
         tci9.setDateValue(new TestContextDateItem(testDate));
-        tci9.setTZValue(TimeZone.getTimeZone("Europe/Dublin").getDisplayName());
-        tci9.setDST(true);
+        tci9.setTzValue(TimeZone.getTimeZone("Europe/Dublin").getDisplayName());
+        tci9.setDst(true);
         return tci9;
     }
 
     private TestContextDateLocaleItem getTestContextDateLocaleItem() {
         final TestContextDateLocaleItem tciA00 = new TestContextDateLocaleItem();
         tciA00.setDateValue(new TestContextDateItem(new Date()));
-        tciA00.setTZValue(TIME_ZONE.getDisplayName());
-        tciA00.setDST(true);
-        tciA00.setUTCOffset(-600);
+        tciA00.setTzValue(TIME_ZONE.getDisplayName());
+        tciA00.setDst(true);
+        tciA00.setUtcOffset(-600);
         tciA00.setLocale(Locale.ENGLISH);
         return tciA00;
     }

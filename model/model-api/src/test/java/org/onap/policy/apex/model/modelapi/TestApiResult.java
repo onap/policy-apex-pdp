@@ -29,34 +29,35 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.junit.Test;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult.RESULT;
+import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 
 /**
+ * Test API results.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestAPIResult {
+public class TestApiResult {
 
     @Test
-    public void testAPIResult() {
-        assertNotNull(new ApexAPIResult());
+    public void testApiResult() {
+        assertNotNull(new ApexApiResult());
 
-        for (final RESULT result : RESULT.values()) {
-            assertNotNull(new ApexAPIResult(result));
+        for (final Result result : Result.values()) {
+            assertNotNull(new ApexApiResult(result));
         }
 
-        assertNotNull(new ApexAPIResult(RESULT.SUCCESS, "Result Message"));
-        assertNotNull(new ApexAPIResult(RESULT.FAILED, new IOException("IO Exception message")));
-        assertNotNull(new ApexAPIResult(RESULT.FAILED, "Result Message", new IOException("IO Exception message")));
+        assertNotNull(new ApexApiResult(Result.SUCCESS, "Result Message"));
+        assertNotNull(new ApexApiResult(Result.FAILED, new IOException("IO Exception message")));
+        assertNotNull(new ApexApiResult(Result.FAILED, "Result Message", new IOException("IO Exception message")));
 
-        final ApexAPIResult result =
-                new ApexAPIResult(RESULT.FAILED, "Result Message", new IOException("IO Exception message"));
+        final ApexApiResult result =
+                new ApexApiResult(Result.FAILED, "Result Message", new IOException("IO Exception message"));
 
-        assertFalse(result.isOK());
-        assertTrue(result.isNOK());
-        assertEquals(RESULT.FAILED, result.getResult());
+        assertFalse(result.isOk());
+        assertTrue(result.isNok());
+        assertEquals(Result.FAILED, result.getResult());
         assertEquals("Result Message\nIO Exception message\njava.io.IOExce", result.getMessage().substring(0, 50));
 
-        final ApexAPIResult result2 = new ApexAPIResult(RESULT.SUCCESS);
+        final ApexApiResult result2 = new ApexApiResult(Result.SUCCESS);
         result2.addMessage(null);
         assertEquals("", result2.getMessage());
         result2.addMessage("");
@@ -64,8 +65,8 @@ public class TestAPIResult {
         result2.addMessage("funky message");
         assertEquals("funky message\n", result2.getMessage());
 
-        result2.setResult(RESULT.OTHER_ERROR);
-        assertEquals(RESULT.OTHER_ERROR, result2.getResult());
+        result2.setResult(Result.OTHER_ERROR);
+        assertEquals(Result.OTHER_ERROR, result2.getResult());
 
         final String[] messages = {"First Message", "Second Message", "Third Message"};
         result2.setMessages(Arrays.asList(messages));
@@ -75,6 +76,6 @@ public class TestAPIResult {
 
         assertEquals("result: OTHER_ERROR\nFirst Message\nSecond Message\nThird Message\n", result2.toString());
         assertEquals("{\n" + "\"result\": \"OTHER_ERROR\",\n" + "\"messages\": [\n" + "\"First Message\",\n"
-                + "\"Second Message\",\n" + "\"Third Message\"]\n" + "}\n", result2.toJSON());
+                + "\"Second Message\",\n" + "\"Third Message\"]\n" + "}\n", result2.toJson());
     }
 }

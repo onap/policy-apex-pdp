@@ -55,8 +55,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * models that use tasks must have an {@link AxTasks} field. The {@link AxTasks} class implements
  * the helper methods of the {@link AxConceptGetter} interface to allow {@link AxTask} instances to
  * be retrieved by calling methods directly on this class without referencing the contained map.
- * <p>
- * Validation checks that the container key is not null. An error is issued if no tasks are defined
+ * 
+ * <p>Validation checks that the container key is not null. An error is issued if no tasks are defined
  * in the container. Each task entry is checked to ensure that its key and value are not null and
  * that the key matches the key in the map value. Each task entry is then validated individually.
  */
@@ -92,7 +92,7 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -132,10 +132,10 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
      * hash map to a {@link NavigableMap} so that it will work with the {@link AxConceptGetter}
      * interface.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         // The map must be navigable to allow name and version searching, unmarshaling returns a
         // hash map
         final NavigableMap<AxArtifactKey, AxTask> navigableTaskMap = new TreeMap<>();

@@ -83,6 +83,9 @@ public class TestPersistentContextInstantiation {
         new File("derby.log").delete();
     }
 
+    /**
+     * Set up context for tests.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -104,6 +107,9 @@ public class TestPersistentContextInstantiation {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down context for tests.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -166,8 +172,8 @@ public class TestPersistentContextInstantiation {
         final TestContextDateItem testDate = new TestContextDateItem(new Date());
         final TestContextDateLocaleItem tci00A = new TestContextDateLocaleItem();
         tci00A.setDateValue(testDate);
-        tci00A.setTZValue(TimeZone.getTimeZone("Europe/Dublin").toString());
-        tci00A.setDST(true);
+        tci00A.setTzValue(TimeZone.getTimeZone("Europe/Dublin").toString());
+        tci00A.setDst(true);
 
         final Map<String, Object> valueMap1 = new HashMap<String, Object>();
         valueMap1.put("TestPolicyContextItem00A", tci00A);
@@ -176,7 +182,7 @@ public class TestPersistentContextInstantiation {
 
         assertEquals(((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A")).getDateValue(),
                 testDate);
-        assertEquals(((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A")).getDST(), true);
+        assertEquals(((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A")).getDst(), true);
 
         contextAlbumForDate.flush();
 

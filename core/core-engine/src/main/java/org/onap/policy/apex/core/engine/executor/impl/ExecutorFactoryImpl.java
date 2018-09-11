@@ -69,7 +69,7 @@ public class ExecutorFactoryImpl extends ExecutorFactory {
     public ExecutorFactoryImpl() throws StateMachineException {
         final EngineParameters engineParameters = ParameterService.get(EngineParameterConstants.MAIN_GROUP_NAME);
 
-        Assertions.argumentNotNull(engineParameters, StateMachineException.class,
+        Assertions.argumentOfClassNotNull(engineParameters, StateMachineException.class,
                         "Parameter \"engineParameters\" may not be null");
 
         // Instantiate each executor class map entry

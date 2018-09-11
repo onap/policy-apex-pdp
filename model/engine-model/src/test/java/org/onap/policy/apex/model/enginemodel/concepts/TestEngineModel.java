@@ -37,6 +37,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 /**
+ * Test engine models.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestEngineModel {

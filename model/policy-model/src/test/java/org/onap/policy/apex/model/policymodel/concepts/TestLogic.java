@@ -38,6 +38,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTaskLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 
 /**
+ * Test apex logic.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestLogic {
@@ -117,9 +119,8 @@ public class TestLogic {
             logic.setLogicFlavour("");
             fail("test shold throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "parameter \"logicFlavour\": value \"\", does not match regular expression \"[A-Za-z0-9\\-_]+\"",
-                    e.getMessage());
+            assertEquals("parameter \"logicFlavour\": value \"\", "
+                            + "does not match regular expression \"[A-Za-z0-9\\-_]+\"", e.getMessage());
         }
 
         logic.setLogicFlavour(AxLogic.LOGIC_FLAVOUR_UNDEFINED);
@@ -152,9 +153,9 @@ public class TestLogic {
         logic.clean();
 
         final AxLogic clonedLogic = new AxLogic(logic);
-        assertEquals(
-                "AxLogic:(key=AxReferenceKey:(parentKeyName=LogicParentName,parentKeyVersion=0.0.1,parentLocalName=PLN,localName=LN),logicFlavour=LogicFlavour,logic=Logic)",
-                clonedLogic.toString());
+        assertEquals("AxLogic:(key=AxReferenceKey:(parentKeyName=LogicParentName,parentKeyVersion=0.0.1,"
+                        + "parentLocalName=PLN,localName=LN),logicFlavour=LogicFlavour,logic=Logic)",
+                        clonedLogic.toString());
 
         assertFalse(logic.hashCode() == 0);
 

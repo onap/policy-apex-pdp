@@ -43,7 +43,8 @@ public class ApexDaoFactory {
      * @throws ApexException on invalid JPA plugins
      */
     public ApexDao createApexDao(final DaoParameters daoParameters) throws ApexException {
-        Assertions.argumentNotNull(daoParameters, ApexException.class, "Parameter \"daoParameters\" may not be null");
+        Assertions.argumentOfClassNotNull(daoParameters, ApexException.class,
+                        "Parameter \"daoParameters\" may not be null");
 
         // Get the class for the DAO using reflection
         Object apexDaoObject = null;
@@ -52,15 +53,15 @@ public class ApexDaoFactory {
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             LOGGER.error("Apex DAO class not found for DAO plugin \"" + daoParameters.getPluginClass() + "\"", e);
             throw new ApexException(
-                    "Apex DAO class not found for DAO plugin \"" + daoParameters.getPluginClass() + "\"", e);
+                            "Apex DAO class not found for DAO plugin \"" + daoParameters.getPluginClass() + "\"", e);
         }
 
         // Check the class is an Apex DAO
         if (!(apexDaoObject instanceof ApexDao)) {
             LOGGER.error("Specified Apex DAO plugin class \"" + daoParameters.getPluginClass()
-                    + "\" does not implement the ApexDao interface");
+                            + "\" does not implement the ApexDao interface");
             throw new ApexException("Specified Apex DAO plugin class \"" + daoParameters.getPluginClass()
-                    + "\" does not implement the ApexDao interface");
+                            + "\" does not implement the ApexDao interface");
         }
 
         return (ApexDao) apexDaoObject;

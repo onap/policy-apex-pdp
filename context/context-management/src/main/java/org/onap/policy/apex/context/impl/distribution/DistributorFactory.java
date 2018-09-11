@@ -49,7 +49,7 @@ public class DistributorFactory {
     public Distributor getDistributor(final AxArtifactKey key) throws ContextException {
         LOGGER.entry("Distributor factory, key=" + key);
 
-        Assertions.argumentNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
+        Assertions.argumentOfClassNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
         // Get the class for the distributor using reflection
         final DistributorParameters distributorParameters = ParameterService

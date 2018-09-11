@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.model.utilities;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +33,17 @@ public class CollectionUtilitiesTest {
     @Test
     public void testNullLists() {
         int result = 0;
-        
+
         result = CollectionUtils.compareLists(null, null);
         assertEquals(0, result);
 
-        List<String> leftList  = new ArrayList<String>();
+        List<String> leftList = new ArrayList<String>();
 
         result = CollectionUtils.compareLists(leftList, null);
         assertEquals(-1, result);
 
         List<String> rightList = new ArrayList<String>();
-        
+
         result = CollectionUtils.compareLists(null, rightList);
         assertEquals(1, result);
 
@@ -70,7 +70,7 @@ public class CollectionUtilitiesTest {
         rightList.add("CCB");
         result = CollectionUtils.compareLists(leftList, rightList);
         assertEquals(-1, result);
-        
+
         leftList.remove(leftList.size() - 1);
         rightList.remove(rightList.size() - 1);
         result = CollectionUtils.compareLists(leftList, rightList);
@@ -80,7 +80,7 @@ public class CollectionUtilitiesTest {
         rightList.add("CCA");
         result = CollectionUtils.compareLists(leftList, rightList);
         assertEquals(1, result);
-        
+
         leftList.remove(leftList.size() - 1);
         rightList.remove(rightList.size() - 1);
         result = CollectionUtils.compareLists(leftList, rightList);

@@ -29,6 +29,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 /**
+ * Test text file utilities.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TextFileUtilsTest {

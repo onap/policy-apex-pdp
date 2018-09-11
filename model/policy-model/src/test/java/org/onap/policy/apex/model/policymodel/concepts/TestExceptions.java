@@ -30,6 +30,7 @@ import org.onap.policy.apex.model.policymodel.concepts.PolicyException;
 import org.onap.policy.apex.model.policymodel.concepts.PolicyRuntimeException;
 
 /**
+ * Test model exceptions.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestExceptions {

@@ -51,39 +51,30 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class holds the definition of an Apex policy. A policy is made up of a tree of states, each
- * represented by an {@link AxState} instance. The states of a policy are held in a map in the
- * policy. The state tree is built up at policy design time by a policy editor and each state is
- * connected to its next state by an {@link AxStateOutput} instance.
- * <p>
- * Execution of a policy is triggered by an event. A policy starts execution from its first state so
- * the trigger event for the first sate is the trigger event for the entire policy. Execution from
- * that first state can continue to one or more subsequent states and so on down branches of states.
- * The state output of the final state in a branch has no next state, indicating the end of
- * execution of that branch. Therefore, the set of output events from final states in the policy are
- * the possible set of output events on the policy. A state may only be used once in the state tree
- * of a policy and recursive execution of states in the same execution branch is not allowed, so the
- * same state may not execute more than once on a single execution of a policy.
- * <p>
- * The template of a policy is a string that can be used by policy editors to store meta information
- * on the policy that can be used at design time. The policy template string is not used during
- * policy execution.
- * <p>
- * During validation of a policy, the validation checks listed below are executed:
- * <ol>
- * <li>The policy key must not be a null key
- * <li>The policy key must be valid
- * <li>If the policy template is not set, an observation is issued
- * <li>At least one state must be defined
- * <li>Keys and values must all be defined, that is not null
- * <li>The key on each entry in the state map must match the key in the entry's value
- * <li>The parent key of each state in the state map of a policy must be the key of that policy
- * <li>Each state must itself be valid, see validation in {@link AxState}
- * <li>The next state of the state output of each state must be defined as a state in the policy
- * <li>The first state of a policy must be set
- * <li>The first state of a policy must be defined in the policy
- * <li>If a state is defined but is not used in a policy,a warning is issued
- * <li>The state tree of the policy must be valid, see validation in {@link AxStateTree}
+ * This class holds the definition of an Apex policy. A policy is made up of a tree of states, each represented by an
+ * {@link AxState} instance. The states of a policy are held in a map in the policy. The state tree is built up at
+ * policy design time by a policy editor and each state is connected to its next state by an {@link AxStateOutput}
+ * instance.
+ * 
+ * <p>Execution of a policy is triggered by an event. A policy starts execution from its first state so the trigger
+ * event for the first sate is the trigger event for the entire policy. Execution from that first state can continue to
+ * one or more subsequent states and so on down branches of states. The state output of the final state in a branch has
+ * no next state, indicating the end of execution of that branch. Therefore, the set of output events from final states
+ * in the policy are the possible set of output events on the policy. A state may only be used once in the state tree of
+ * a policy and recursive execution of states in the same execution branch is not allowed, so the same state may not
+ * execute more than once on a single execution of a policy.
+ * 
+ * <p>The template of a policy is a string that can be used by policy editors to store meta information on the policy
+ * that can be used at design time. The policy template string is not used during policy execution.
+ * 
+ * <p>During validation of a policy, the validation checks listed below are executed: <ol> <li>The policy key must not
+ * be a null key <li>The policy key must be valid <li>If the policy template is not set, an observation is issued <li>At
+ * least one state must be defined <li>Keys and values must all be defined, that is not null <li>The key on each entry
+ * in the state map must match the key in the entry's value <li>The parent key of each state in the state map of a
+ * policy must be the key of that policy <li>Each state must itself be valid, see validation in {@link AxState} <li>The
+ * next state of the state output of each state must be defined as a state in the policy <li>The first state of a policy
+ * must be set <li>The first state of a policy must be defined in the policy <li>If a state is defined but is not used
+ * in a policy,a warning is issued <li>The state tree of the policy must be valid, see validation in {@link AxStateTree}
  * </ol>
  */
 
@@ -91,8 +82,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
 @Table(name = "AxPolicy")
 @XmlRootElement(name = "apexPolicy", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxPolicy", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "template", "stateMap", "firstState"})
+@XmlType(name = "AxPolicy", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "template", "stateMap", "firstState" })
 
 public class AxPolicy extends AxConcept {
     private static final long serialVersionUID = -1775614096390365941L;
@@ -118,15 +109,14 @@ public class AxPolicy extends AxConcept {
     private String firstState;
 
     /**
-     * The Default Constructor creates a policy instance with a null key, a blank template and
-     * undefined first state.
+     * The Default Constructor creates a policy instance with a null key, a blank template and undefined first state.
      */
     public AxPolicy() {
         this(new AxArtifactKey());
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -135,8 +125,7 @@ public class AxPolicy extends AxConcept {
     }
 
     /**
-     * The Key Constructor creates a policy instance with the given key, a blank template and
-     * undefined first state.
+     * The Key Constructor creates a policy instance with the given key, a blank template and undefined first state.
      *
      * @param key the key of the policy
      */
@@ -153,7 +142,7 @@ public class AxPolicy extends AxConcept {
      * @param firstState the first state that will execute on this policy
      */
     public AxPolicy(final AxArtifactKey key, final String template, final Map<String, AxState> stateMap,
-            final String firstState) {
+                    final String firstState) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
         Assertions.argumentNotNull(template, "template may not be null");
@@ -167,12 +156,10 @@ public class AxPolicy extends AxConcept {
     }
 
     /**
-     * Gets a tree that holds all the possible execution paths for this policy. This method may be
-     * used for verification of policies, to find the branches of policy execution and the final
-     * states of policies.
+     * Gets a tree that holds all the possible execution paths for this policy. This method may be used for verification
+     * of policies, to find the branches of policy execution and the final states of policies.
      *
-     * @return the state tree of the policy, a tree representing the execution branches of the
-     *         policy
+     * @return the state tree of the policy, a tree representing the execution branches of the policy
      */
     public AxStateTree getStateTree() {
         return new AxStateTree(this, stateMap.get(firstState), null);
@@ -272,8 +259,7 @@ public class AxPolicy extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -281,20 +267,20 @@ public class AxPolicy extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (template.trim().length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
-                    "a policy template has not been specified"));
+                            "a policy template has not been specified"));
         }
 
         if (stateMap.size() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "stateMap may not be empty"));
+                            "stateMap may not be empty"));
         } else {
             for (final Entry<String, AxState> stateEntry : stateMap.entrySet()) {
                 result = validateStateEntry(stateEntry, result);
@@ -310,11 +296,11 @@ public class AxPolicy extends AxConcept {
         // We only check the unused states on models validated this far
         if (firstState.trim().length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "no first state specified, first state may not be blank"));
+                            "no first state specified, first state may not be blank"));
         } else {
             if (!stateMap.containsKey(firstState)) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "first state not found in stateMap"));
+                                "first state not found in stateMap"));
             } else {
                 validateStateTree(result);
             }
@@ -324,7 +310,7 @@ public class AxPolicy extends AxConcept {
     }
 
     /**
-     * Validate a state entry
+     * Validate a state entry.
      * 
      * @param stateEntry the state entry to validate
      * @param result The validation result to append to
@@ -333,35 +319,37 @@ public class AxPolicy extends AxConcept {
     private AxValidationResult validateStateEntry(final Entry<String, AxState> stateEntry, AxValidationResult result) {
         if (stateEntry.getKey() == null || stateEntry.getKey().equals(AxKey.NULL_KEY_NAME)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key on state entry key " + stateEntry.getKey() + " may not be the null key"));
+                            "key on state entry key " + stateEntry.getKey() + " may not be the null key"));
             return result;
         }
 
         if (stateEntry.getValue() == null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "value on state entry value " + stateEntry.getKey() + " may not be null"));
+                            "value on state entry value " + stateEntry.getKey() + " may not be null"));
             return result;
         }
 
         if (!stateEntry.getKey().equals(stateEntry.getValue().getKey().getLocalName())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key on state entry key " + stateEntry.getKey() + " does not equal state entry value local name "
-                            + stateEntry.getValue().getKey().getLocalName()));
+                            "key on state entry key " + stateEntry.getKey()
+                                            + " does not equal state entry value local name "
+                                            + stateEntry.getValue().getKey().getLocalName()));
         }
 
         if (!stateEntry.getValue().getKey().getParentArtifactKey().equals(key)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "parent key on state entry key " + stateEntry.getValue().getKey() + " does not equal policy key"));
+                            "parent key on state entry key " + stateEntry.getValue().getKey()
+                                            + " does not equal policy key"));
         }
 
         result = stateEntry.getValue().validate(result);
 
         for (final AxStateOutput stateOutput : stateEntry.getValue().getStateOutputs().values()) {
             if (!stateOutput.getNextState().equals(AxReferenceKey.getNullKey())
-                    && !stateMap.containsKey(stateOutput.getNextState().getLocalName())) {
+                            && !stateMap.containsKey(stateOutput.getNextState().getLocalName())) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        " nextState of state " + stateEntry.getKey() + " not found in StateMap: "
-                                + stateOutput.getNextState().getId()));
+                                " nextState of state " + stateEntry.getKey() + " not found in StateMap: "
+                                                + stateOutput.getNextState().getId()));
             }
         }
 
@@ -369,7 +357,7 @@ public class AxPolicy extends AxConcept {
     }
 
     /**
-     * Validate a state tree to ensure there are no circular references in it
+     * Validate a state tree to ensure there are no circular references in it.
      * 
      * @param result The validation result to append to
      * @return The result of the validation
@@ -386,11 +374,12 @@ public class AxPolicy extends AxConcept {
 
             for (final AxState unreferencedState : unreferencedStateSet) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
-                        "state " + unreferencedState.getKey() + " is not referenced in the policy execution tree"));
+                                "state " + unreferencedState.getKey()
+                                                + " is not referenced in the policy execution tree"));
             }
         } catch (PolicyRuntimeException pre) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
-                    "state tree in policy is invalid"));
+                            "state tree in policy is invalid"));
         }
 
         return result;
@@ -432,8 +421,7 @@ public class AxPolicy extends AxConcept {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
      * basicmodel.concepts.AxConcept)
      */
     @Override

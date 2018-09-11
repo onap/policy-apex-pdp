@@ -30,7 +30,7 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.utilities.Assertions;
 
@@ -87,7 +87,7 @@ public class EventFacade {
      * @param description event description, set to null to generate a description
      * @return result of the operation
      */
-    public ApexAPIResult createEvent(final String name, final String version, final String nameSpace,
+    public ApexApiResult createEvent(final String name, final String version, final String nameSpace,
             final String source, final String target, final String uuid, final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
@@ -99,7 +99,7 @@ public class EventFacade {
             }
 
             if (apexModel.getPolicyModel().getEvents().getEventMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS, CONCEPT + key.getId() + ALREADY_EXISTS);
             }
 
             final AxEvent event = new AxEvent(key);
@@ -116,7 +116,7 @@ public class EventFacade {
                 return keyInformationFacade.createKeyInformation(name, version, uuid, description);
             }
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -132,12 +132,12 @@ public class EventFacade {
      * @param description event description, set to null to not update
      * @return result of the operation
      */
-    public ApexAPIResult updateEvent(final String name, final String version, final String nameSpace,
+    public ApexApiResult updateEvent(final String name, final String version, final String nameSpace,
             final String source, final String target, final String uuid, final String description) {
         try {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
@@ -153,7 +153,7 @@ public class EventFacade {
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -164,22 +164,22 @@ public class EventFacade {
      * @param version starting version of the event, set to null to list all versions
      * @return result of the operation
      */
-    public ApexAPIResult listEvent(final String name, final String version) {
+    public ApexApiResult listEvent(final String name, final String version) {
         try {
             final Set<AxEvent> eventSet = apexModel.getPolicyModel().getEvents().getAll(name, version);
             if (name != null && eventSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxEvent event : eventSet) {
                 result.addMessage(
                         new ApexModelStringWriter<AxEvent>(false).writeString(event, AxEvent.class, jsonMode));
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -190,27 +190,27 @@ public class EventFacade {
      * @param version version of the event, set to null to delete all versions
      * @return result of the operation
      */
-    public ApexAPIResult deleteEvent(final String name, final String version) {
+    public ApexApiResult deleteEvent(final String name, final String version) {
         try {
             if (version != null) {
                 final AxArtifactKey key = new AxArtifactKey(name, version);
                 final AxEvent removedEvent = apexModel.getPolicyModel().getEvents().getEventMap().remove(key);
                 if (removedEvent != null) {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.SUCCESS, new ApexModelStringWriter<AxEvent>(false)
+                    return new ApexApiResult(ApexApiResult.Result.SUCCESS, new ApexModelStringWriter<AxEvent>(false)
                             .writeString(removedEvent, AxEvent.class, jsonMode));
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxEvent> eventSet = apexModel.getPolicyModel().getEvents().getAll(name, version);
             if (eventSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxEvent event : eventSet) {
                 result.addMessage(
                         new ApexModelStringWriter<AxEvent>(false).writeString(event, AxEvent.class, jsonMode));
@@ -219,7 +219,7 @@ public class EventFacade {
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -230,15 +230,15 @@ public class EventFacade {
      * @param version starting version of the event, set to null to list all versions
      * @return result of the operation
      */
-    public ApexAPIResult validateEvent(final String name, final String version) {
+    public ApexApiResult validateEvent(final String name, final String version) {
         try {
             final Set<AxEvent> eventSet = apexModel.getPolicyModel().getEvents().getAll(name, version);
             if (eventSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxEvent event : eventSet) {
                 final AxValidationResult validationResult = event.validate(new AxValidationResult());
                 result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(event.getKey(),
@@ -247,7 +247,7 @@ public class EventFacade {
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -263,35 +263,35 @@ public class EventFacade {
      * @param optional true if the event parameter is optional, false otherwise
      * @return result of the operation
      */
-    public ApexAPIResult createEventPar(final String name, final String version, final String parName,
+    public ApexApiResult createEventPar(final String name, final String version, final String parName,
             final String contextSchemaName, final String contextSchemaVersion, final boolean optional) {
         try {
             Assertions.argumentNotNull(parName, "parName may not be null");
 
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final AxReferenceKey refKey = new AxReferenceKey(event.getKey(), parName);
 
             if (event.getParameterMap().containsKey(refKey.getLocalName())) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
                         CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxContextSchema schema =
                     apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
             if (schema == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
             }
 
             event.getParameterMap().put(refKey.getLocalName(), new AxField(refKey, schema.getKey(), optional));
-            return new ApexAPIResult();
+            return new ApexApiResult();
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -303,30 +303,30 @@ public class EventFacade {
      * @param parName name of the parameter, set to null to list all parameters of the event
      * @return result of the operation
      */
-    public ApexAPIResult listEventPar(final String name, final String version, final String parName) {
+    public ApexApiResult listEventPar(final String name, final String version, final String parName) {
         try {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (parName != null) {
                 final AxField eventField = event.getParameterMap().get(parName);
                 if (eventField != null) {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.SUCCESS,
+                    return new ApexApiResult(ApexApiResult.Result.SUCCESS,
                             new ApexModelStringWriter<AxField>(false).writeString(eventField, AxField.class, jsonMode));
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
                 }
             } else {
                 if (event.getParameterMap().size() == 0) {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             "no parameters defined on event " + event.getKey().getId());
                 }
 
-                final ApexAPIResult result = new ApexAPIResult();
+                final ApexApiResult result = new ApexApiResult();
                 for (final AxField eventPar : event.getParameterMap().values()) {
                     result.addMessage(
                             new ApexModelStringWriter<AxField>(false).writeString(eventPar, AxField.class, jsonMode));
@@ -334,7 +334,7 @@ public class EventFacade {
                 return result;
             }
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -346,15 +346,15 @@ public class EventFacade {
      * @param parName of the parameter, set to null to delete all parameters
      * @return result of the operation
      */
-    public ApexAPIResult deleteEventPar(final String name, final String version, final String parName) {
+    public ApexApiResult deleteEventPar(final String name, final String version, final String parName) {
         try {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             if (parName != null) {
                 if (event.getParameterMap().containsKey(parName)) {
                     result.addMessage(new ApexModelStringWriter<AxField>(false)
@@ -362,12 +362,12 @@ public class EventFacade {
                     event.getParameterMap().remove(parName);
                     return result;
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
                 }
             } else {
                 if (event.getParameterMap().size() == 0) {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             "no parameters defined on event " + event.getKey().getId());
                 }
 
@@ -379,7 +379,7 @@ public class EventFacade {
                 return result;
             }
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 }

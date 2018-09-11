@@ -28,7 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 
 /**
@@ -86,7 +86,7 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexAPIResult createContextAlbum(final String name, final String version, final String scope,
+    public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
             final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description) {
         try {
@@ -99,14 +99,14 @@ public class ContextAlbumFacade {
             }
 
             if (apexModel.getPolicyModel().getAlbums().getAlbumsMap().containsKey(key)) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
                         CONCEPT + key.getId() + " already exists");
             }
 
             final AxContextSchema schema =
                     apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
             if (schema == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
             }
 
@@ -129,7 +129,7 @@ public class ContextAlbumFacade {
                 return keyInformationFacade.createKeyInformation(name, version, uuid, description);
             }
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
@@ -150,13 +150,13 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexAPIResult updateContextAlbum(final String name, final String version, final String scope,
+    public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
             final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description) {
         try {
             final AxContextAlbum contextAlbum = apexModel.getPolicyModel().getAlbums().get(name, version);
             if (contextAlbum == null) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
@@ -175,7 +175,7 @@ public class ContextAlbumFacade {
                 final AxContextSchema schema =
                         apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
                 if (schema == null) {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
                 }
                 contextAlbum.setItemSchema(schema.getKey());
@@ -183,7 +183,7 @@ public class ContextAlbumFacade {
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
@@ -195,22 +195,22 @@ public class ContextAlbumFacade {
      * @param version starting version of the context album, set to null to list all versions
      * @return result of the operation
      */
-    public ApexAPIResult listContextAlbum(final String name, final String version) {
+    public ApexApiResult listContextAlbum(final String name, final String version) {
         try {
             final Set<AxContextAlbum> contextAlbumSet = apexModel.getPolicyModel().getAlbums().getAll(name, version);
             if (name != null && contextAlbumSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxContextAlbum contextAlbum : contextAlbumSet) {
                 result.addMessage(new ApexModelStringWriter<AxContextAlbum>(false).writeString(contextAlbum,
                         AxContextAlbum.class, jsonMode));
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -221,25 +221,25 @@ public class ContextAlbumFacade {
      * @param version version of the context album, set to null to delete versions
      * @return result of the operation
      */
-    public ApexAPIResult deleteContextAlbum(final String name, final String version) {
+    public ApexApiResult deleteContextAlbum(final String name, final String version) {
         try {
             if (version != null) {
                 final AxArtifactKey key = new AxArtifactKey(name, version);
                 if (apexModel.getPolicyModel().getAlbums().getAlbumsMap().remove(key) != null) {
-                    return new ApexAPIResult();
+                    return new ApexApiResult();
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxContextAlbum> contextAlbumSet = apexModel.getPolicyModel().getAlbums().getAll(name, version);
             if (contextAlbumSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxContextAlbum contextAlbum : contextAlbumSet) {
                 result.addMessage(new ApexModelStringWriter<AxContextAlbum>(false).writeString(contextAlbum,
                         AxContextAlbum.class, jsonMode));
@@ -248,7 +248,7 @@ public class ContextAlbumFacade {
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -259,15 +259,15 @@ public class ContextAlbumFacade {
      * @param version starting version of the context album, set to null to list all versions
      * @return result of the operation
      */
-    public ApexAPIResult validateContextAlbum(final String name, final String version) {
+    public ApexApiResult validateContextAlbum(final String name, final String version) {
         try {
             final Set<AxContextAlbum> contextAlbumSet = apexModel.getPolicyModel().getAlbums().getAll(name, version);
             if (contextAlbumSet.isEmpty()) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             for (final AxContextAlbum contextAlbum : contextAlbumSet) {
                 final AxValidationResult validationResult = contextAlbum.validate(new AxValidationResult());
                 result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(contextAlbum.getKey(),
@@ -276,7 +276,7 @@ public class ContextAlbumFacade {
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 }

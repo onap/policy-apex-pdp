@@ -36,6 +36,8 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 
 /**
+ * Test fields.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestField {
@@ -106,9 +108,9 @@ public class TestField {
         field.clean();
 
         final AxField clonedField = new AxField(field);
-        assertEquals(
-                "AxField:(key=AxReferenceKey:(parentKeyName=FieldName,parentKeyVersion=0.0.1,parentLocalName=PLN,localName=LN),fieldSchemaKey=AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)",
-                clonedField.toString());
+        assertEquals("AxField:(key=AxReferenceKey:(parentKeyName=FieldName,parentKeyVersion=0.0.1,"
+                        + "parentLocalName=PLN,localName=LN),fieldSchemaKey="
+                        + "AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)", clonedField.toString());
 
         assertFalse(field.hashCode() == 0);
 
@@ -126,7 +128,7 @@ public class TestField {
         assertNotEquals(0, field.compareTo(new AxArtifactKey()));
         assertNotEquals(0, field.compareTo(null));
         assertNotEquals(0,
-                field.compareTo(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
+                        field.compareTo(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
         assertNotEquals(0, field.compareTo(new AxField(fieldKey, AxArtifactKey.getNullKey(), false)));
         assertNotEquals(0, field.compareTo(new AxField(fieldKey, schemaKey, false)));
         assertEquals(0, field.compareTo(new AxField(fieldKey, schemaKey, true)));

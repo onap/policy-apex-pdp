@@ -24,7 +24,7 @@ import java.util.Properties;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
-import org.onap.policy.apex.model.modelapi.ApexAPIResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.utilities.Assertions;
@@ -80,7 +80,7 @@ public class ModelFacade {
      * @param description model description, set to null to generate a description
      * @return result of the operation
      */
-    public ApexAPIResult createModel(final String name, final String version, final String uuid,
+    public ApexApiResult createModel(final String name, final String version, final String uuid,
             final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
@@ -92,26 +92,26 @@ public class ModelFacade {
                 if (defaultVersion != null) {
                     key.setVersion(defaultVersion);
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, CONCEPT + name + NO_VERSION_SPECIFIED);
+                    return new ApexApiResult(ApexApiResult.Result.FAILED, CONCEPT + name + NO_VERSION_SPECIFIED);
                 }
             }
 
             if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_EXISTS,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
                         CONCEPT + apexModel.getPolicyModel().getKey().getId() + ALREADY_CREATED);
             }
 
             apexModel.setPolicyModel(new AxPolicyModel(key));
 
-            ApexAPIResult result;
+            ApexApiResult result;
 
             result = keyInformationFacade.createKeyInformation(name, version, uuid, description);
-            if (result.getResult().equals(ApexAPIResult.RESULT.SUCCESS)) {
+            if (result.getResult().equals(ApexApiResult.Result.SUCCESS)) {
                 apexModel.getPolicyModel().getKeyInformation().generateKeyInfo(apexModel.getPolicyModel());
             }
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -124,7 +124,7 @@ public class ModelFacade {
      * @param description policy description, set to null to not update
      * @return result of the operation
      */
-    public ApexAPIResult updateModel(final String name, final String version, final String uuid,
+    public ApexApiResult updateModel(final String name, final String version, final String uuid,
             final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
@@ -136,19 +136,19 @@ public class ModelFacade {
                 if (defaultVersion != null) {
                     key.setVersion(defaultVersion);
                 } else {
-                    return new ApexAPIResult(ApexAPIResult.RESULT.FAILED,
+                    return new ApexApiResult(ApexApiResult.Result.FAILED,
                             CONCEPT + apexModel.getPolicyModel().getKey().getId() + NO_VERSION_SPECIFIED);
                 }
             }
 
             if (apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
-                return new ApexAPIResult(ApexAPIResult.RESULT.CONCEPT_DOES_NOT_EXIST,
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + apexModel.getPolicyModel().getKey().getId() + DOES_NOT_EXIST);
             }
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -157,15 +157,15 @@ public class ModelFacade {
      *
      * @return the result of the operation
      */
-    public ApexAPIResult getModelKey() {
+    public ApexApiResult getModelKey() {
         try {
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             final AxArtifactKey modelkey = apexModel.getPolicyModel().getKey();
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(modelkey, AxArtifactKey.class,
                     jsonMode));
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -174,14 +174,14 @@ public class ModelFacade {
      *
      * @return the result of the operation
      */
-    public ApexAPIResult listModel() {
+    public ApexApiResult listModel() {
         try {
-            final ApexAPIResult result = new ApexAPIResult();
+            final ApexApiResult result = new ApexApiResult();
             result.addMessage(new ApexModelStringWriter<AxPolicyModel>(false).writeString(apexModel.getPolicyModel(),
                     AxPolicyModel.class, jsonMode));
             return result;
         } catch (final Exception e) {
-            return new ApexAPIResult(ApexAPIResult.RESULT.FAILED, e);
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
     }
 
@@ -190,7 +190,7 @@ public class ModelFacade {
      *
      * @return the result of the operation
      */
-    public ApexAPIResult deleteModel() {
+    public ApexApiResult deleteModel() {
         // @formatter:off
         apexModel.getPolicyModel().getSchemas()       .getSchemasMap() .clear();
         apexModel.getPolicyModel().getEvents()        .getEventMap()   .clear();
@@ -202,6 +202,6 @@ public class ModelFacade {
 
         apexModel.setPolicyModel(new AxPolicyModel());
 
-        return new ApexAPIResult();
+        return new ApexApiResult();
     }
 }

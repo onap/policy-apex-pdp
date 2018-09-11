@@ -59,9 +59,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * case of {@link AxStateTaskOutputType#LOGIC} output selection, the output reference key held in
  * this {@link AxStateTaskReference} instance to an instance of an {@link AxStateFinalizerLogic}
  * class. See the explanation in the {@link AxState} class for a full description of this handling.
- * <p>
- *
- * During validation of a state task reference, the validation checks listed below are executed:
+ * 
+ * <p>During validation of a state task reference, the validation checks listed below are executed:
  * <ol>
  * <li>The state task reference key must not be a null key and must be valid, see validation in
  * {@link AxReferenceKey}
@@ -111,7 +110,7 @@ public class AxStateTaskReference extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */

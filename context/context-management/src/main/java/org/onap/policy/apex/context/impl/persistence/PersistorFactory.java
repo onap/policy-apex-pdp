@@ -48,7 +48,7 @@ public class PersistorFactory {
      */
     public Persistor createPersistor(final AxArtifactKey key) throws ContextException {
         LOGGER.entry("persistor factory, key=" + key);
-        Assertions.argumentNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
+        Assertions.argumentOfClassNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
         final PersistorParameters persistorParameters = ParameterService
                         .get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
@@ -67,8 +67,8 @@ public class PersistorFactory {
 
         // Check the class is a persistor
         if (!(persistorObject instanceof Persistor)) {
-            LOGGER.error("Specified Apex context persistor plugin class \"{}\" does not implement the ContextDistributor interface",
-                            pluginClass);
+            LOGGER.error("Specified Apex context persistor plugin class \"{}\" "
+                            + "does not implement the ContextDistributor interface", pluginClass);
             throw new ContextException("Specified Apex context persistor plugin class \"" + pluginClass
                             + "\" does not implement the ContextDistributor interface");
         }

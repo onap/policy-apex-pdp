@@ -51,22 +51,22 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is a context album container and holds a map of the context albums for an entire Apex
- * model. All Apex models that use context albums must have an {@link AxContextAlbums} field. The
- * {@link AxContextAlbums} class implements the helper methods of the {@link AxConceptGetter}
- * interface to allow {@link AxContextAlbum} instances to be retrieved by calling methods directly
- * on this class without referencing the contained map.
- * <p>
- * Validation checks that the container key is not null. An observation is issued if no context
- * albums are defined in the container. If context albums do exist, they are checked to ensure that
- * keys and values are not null and that the map key matches the key in the map value for all album
- * entries. Each context album entry is then validated individually.
+ * This class is a context album container and holds a map of the context albums for an entire Apex model. All Apex
+ * models that use context albums must have an {@link AxContextAlbums} field. The {@link AxContextAlbums} class
+ * implements the helper methods of the {@link AxConceptGetter} interface to allow {@link AxContextAlbum} instances to
+ * be retrieved by calling methods directly on this class without referencing the contained map.
+ * 
+ * <p>Validation checks that the container key is not null. An observation is issued if no context albums are defined in
+ * the container. If context albums do exist, they are checked to ensure that keys and values are not null and that the
+ * map key matches the key in the map value for all album entries. Each context album entry is then validated
+ * individually.
  */
 @Entity
 @Table(name = "AxContextAlbums")
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxContextAlbums", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "albums"})
+@XmlType(name = "AxContextAlbums", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "albums" })
 
 public final class AxContextAlbums extends AxConcept implements AxConceptGetter<AxContextAlbum> {
     private static final long serialVersionUID = -4844259809024470975L;
@@ -84,15 +84,15 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     // @formatter:on
 
     /**
-     * The Default Constructor creates a {@link AxContextAlbums} object with a null artifact key and
-     * creates an empty context album map.
+     * The Default Constructor creates a {@link AxContextAlbums} object with a null artifact key and creates an empty
+     * context album map.
      */
     public AxContextAlbums() {
         this(new AxArtifactKey());
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -101,8 +101,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     /**
-     * The Key Constructor creates a {@link AxContextAlbums} object with the given artifact key and
-     * creates an empty context album map.
+     * The Key Constructor creates a {@link AxContextAlbums} object with the given artifact key and creates an empty
+     * context album map.
      *
      * @param key the key of the context album container
      */
@@ -127,15 +127,14 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the context album map is
-     * returned as a raw hash map. This method is called by JAXB after unmarshaling and is used to
-     * convert the hash map to a {@link NavigableMap} so that it will work with the
-     * {@link AxConceptGetter} interface.
+     * When a model is unmarshalled from disk or from the database, the context album map is returned as a raw hash map.
+     * This method is called by JAXB after unmarshaling and is used to convert the hash map to a {@link NavigableMap} so
+     * that it will work with the {@link AxConceptGetter} interface.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarsaller the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarsaller, final Object parent) {
         // The map must be navigable to allow name and version searching, unmarshaling returns a
         // hash map
         final NavigableMap<AxArtifactKey, AxContextAlbum> navigableAlbums = new TreeMap<>();
@@ -236,8 +235,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
     @Override
@@ -245,23 +243,24 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (albums.size() == 0) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION, "albums are empty"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
+                            "albums are empty"));
         } else {
             for (final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry : albums.entrySet()) {
                 if (contextAlbumEntry.getKey().equals(AxArtifactKey.getNullKey())) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key on context album entry " + contextAlbumEntry.getKey() + " may not be the null key"));
+                                    "key on context album entry " + contextAlbumEntry.getKey()
+                                                    + " may not be the null key"));
                 } else if (contextAlbumEntry.getValue() == null) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "value on context album entry " + contextAlbumEntry.getKey() + " may not be null"));
+                                    "value on context album entry " + contextAlbumEntry.getKey() + " may not be null"));
                 } else {
                     validateContextAlbumKey(result, contextAlbumEntry);
 
@@ -274,19 +273,19 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     private void validateContextAlbumKey(final AxValidationResult result,
-            final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry) {
+                    final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry) {
         if (!contextAlbumEntry.getKey().equals(contextAlbumEntry.getValue().getKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key on context album entry key " + contextAlbumEntry.getKey()
-                            + " does not equal context album value key " + contextAlbumEntry.getValue().getKey()));
+                            "key on context album entry key " + contextAlbumEntry.getKey()
+                                            + " does not equal context album value key "
+                                            + contextAlbumEntry.getValue().getKey()));
         }
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
      * basicmodel.concepts.AxConcept)
      */
     @Override
@@ -301,7 +300,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         final Map<AxArtifactKey, AxContextAlbum> newContextAlbum = new TreeMap<>();
         for (final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry : albums.entrySet()) {
             newContextAlbum.put(new AxArtifactKey(contextAlbumEntry.getKey()),
-                    new AxContextAlbum(contextAlbumEntry.getValue()));
+                            new AxContextAlbum(contextAlbumEntry.getValue()));
         }
         copy.setAlbumsMap(newContextAlbum);
 
@@ -399,13 +398,12 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String,
-     * java.lang.String)
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
      */
     @Override
     public AxContextAlbum get(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextAlbum>) albums).get(conceptKeyName,
-                conceptKeyVersion);
+                        conceptKeyVersion);
     }
 
     /*
@@ -421,12 +419,11 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String,
-     * java.lang.String)
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
      */
     @Override
     public Set<AxContextAlbum> getAll(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextAlbum>) albums).getAll(conceptKeyName,
-                conceptKeyVersion);
+                        conceptKeyVersion);
     }
 }

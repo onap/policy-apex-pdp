@@ -53,20 +53,20 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * This class defines an Apex event. An {@link AxEvent} is used to kick off execution of policies in Apex and is emitted
  * by policies when they completer execution. In addition, Apex uses {@link AxEvent} instances internally to pass
  * control from one Apex state to the next during execution.
- * <p>
- * The {@link AxArtifactKey} of an event uniquely identifies it in an Apex system and the name field in the key is the
- * name of the event.
- * <p>
- * Each {@link AxEvent} has a name space, which is usually set to identify the domain of application of an event. For
+ * 
+ * <p>The {@link AxArtifactKey} of an event uniquely identifies it in an Apex system and the name field in the key is
+ * the name of the event.
+ * 
+ * <p>Each {@link AxEvent} has a name space, which is usually set to identify the domain of application of an event. For
  * example a 4G cell power event might have the name space {@code org.onap.radio.4g} and the name {@code PowerEvent}.
  * The source and target of the event are reserved to hold an identifier that defines the sender and receiver of an
  * event respectively. The definition and structure of these fields is reserved for future use and their use by
  * applications is currently not recommended.
- * <p>
- * The parameters that an event has are defined as a map of {@link AxField} instances.
- * <p>
- * Validation checks that the event key is valid. If name space is a blank string, a warning is issued. Blank source or
- * target fields result in observations being issued. An event may not have any parameters. If it has parameters, the
+ * 
+ * <p>The parameters that an event has are defined as a map of {@link AxField} instances.
+ * 
+ * <p>Validation checks that the event key is valid. If name space is a blank string, a warning is issued. Blank source
+ * or target fields result in observations being issued. An event may not have any parameters. If it has parameters, the
  * name and value of each parameter entry is checked to ensure they are not null. Then the local name of each parameter
  * is checked to ensure it matches the event parameter key on the event. Finally, the parent key of each parameter is
  * checked to ensure it matches the event key.
@@ -76,8 +76,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEvent", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxEvent", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "nameSpace", "source", "target", "parameterMap" })
+@XmlType(name = "AxEvent", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "nameSpace", "source", "target", "parameterMap" })
 
 public class AxEvent extends AxConcept {
     private static final long serialVersionUID = -1460388382582984269L;
@@ -116,7 +116,7 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -168,7 +168,7 @@ public class AxEvent extends AxConcept {
      * @param parameterMap the map of parameters that the event has
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace, final String source, final String target,
-            final SortedMap<String, AxField> parameterMap) {
+                    final SortedMap<String, AxField> parameterMap) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
         Assertions.argumentNotNull(nameSpace, "nameSpace may not be null");
@@ -198,10 +198,10 @@ public class AxEvent extends AxConcept {
      * parameter map are not set. This method is called by JAXB after unmarshaling and is used to set the parent key of
      * the {@link AxField} instances in the parameter map to be the key of the event that contains them.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         for (final AxField parameter : parameterMap.values()) {
             parameter.getKey().setParentArtifactKey(key);
         }
@@ -343,34 +343,34 @@ public class AxEvent extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (nameSpace.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
-                    "nameSpace on event is blank"));
+                            "nameSpace on event is blank"));
         }
 
         if (source.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
-                    "source on event is blank"));
+                            "source on event is blank"));
         }
 
         if (target.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
-                    "target on event is blank"));
+                            "target on event is blank"));
         }
 
         for (final Entry<String, AxField> eventParameterEntry : parameterMap.entrySet()) {
             if (eventParameterEntry.getKey() == null || eventParameterEntry.getKey().equals(AxKey.NULL_KEY_NAME)) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "key on parameter " + eventParameterEntry.getKey() + " may not be the null key"));
+                                "key on parameter " + eventParameterEntry.getKey() + " may not be the null key"));
             } else if (eventParameterEntry.getValue() == null) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "value on parameter " + eventParameterEntry.getKey() + " may not be null"));
+                                "value on parameter " + eventParameterEntry.getKey() + " may not be null"));
             } else {
                 result = vaidateEventParameters(eventParameterEntry, result);
             }
@@ -380,24 +380,25 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Validate an event parameter entry
+     * Validate an event parameter entry.
      *
      * @param eventParameterEntry the event parameter entry
      * @param result the validation result to append to
      * @return The validation result
      */
     private AxValidationResult vaidateEventParameters(final Entry<String, AxField> eventParameterEntry,
-            final AxValidationResult result) {
+                    final AxValidationResult result) {
         if (!eventParameterEntry.getKey().equals(eventParameterEntry.getValue().getKey().getLocalName())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "key on parameter " + eventParameterEntry.getKey() + " does not equal parameter field local name "
-                            + eventParameterEntry.getValue().getKey().getLocalName()));
+                            "key on parameter " + eventParameterEntry.getKey()
+                                            + " does not equal parameter field local name "
+                                            + eventParameterEntry.getValue().getKey().getLocalName()));
         }
 
         if (!eventParameterEntry.getValue().getKey().getParentArtifactKey().equals(key)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "parent key on parameter field " + eventParameterEntry.getValue().getKey()
-                            + " does not equal event key"));
+                            "parent key on parameter field " + eventParameterEntry.getValue().getKey()
+                                            + " does not equal event key"));
         }
 
         return eventParameterEntry.getValue().validate(result);

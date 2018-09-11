@@ -43,7 +43,7 @@ public class JsonHandlerTest {
         final byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
         try (final InputStream inputStream = new ByteArrayInputStream(bytes);) {
 
-            final JSONHandler<OverTheMoonObject> objUnderTest = new JSONHandler<>();
+            final JsonHandler<OverTheMoonObject> objUnderTest = new JsonHandler<>();
 
             final OverTheMoonObject actualObject = objUnderTest.read(OverTheMoonObject.class, inputStream);
             assertEquals(VALUE, actualObject.name);

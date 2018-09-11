@@ -149,9 +149,9 @@ public class ContextUpdate {
     private TestContextDateLocaleItem getTestContextDateLocaleItem() {
         final TestContextDateLocaleItem tciA = new TestContextDateLocaleItem();
         tciA.setDateValue(new TestContextDateItem(new Date()));
-        tciA.setTZValue(TIME_ZONE.getDisplayName());
-        tciA.setDST(true);
-        tciA.setUTCOffset(-600);
+        tciA.setTzValue(TIME_ZONE.getDisplayName());
+        tciA.setDst(true);
+        tciA.setUtcOffset(-600);
         tciA.setLocale(Locale.ENGLISH);
         return tciA;
     }

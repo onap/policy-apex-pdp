@@ -91,7 +91,7 @@ public class TestContextDateTzItem implements Serializable {
      *
      * @return the TZ value
      */
-    public String getTZValue() {
+    public String getTzValue() {
         return timeZoneString;
     }
 
@@ -100,7 +100,7 @@ public class TestContextDateTzItem implements Serializable {
      *
      * @param tzValue the TZ value
      */
-    public void setTZValue(final String tzValue) {
+    public void setTzValue(final String tzValue) {
         this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
     }
 
@@ -109,7 +109,7 @@ public class TestContextDateTzItem implements Serializable {
      *
      * @return the dst
      */
-    public boolean getDST() {
+    public boolean getDst() {
         return dst;
     }
 
@@ -118,7 +118,7 @@ public class TestContextDateTzItem implements Serializable {
      *
      * @param newDst the dst
      */
-    public void setDST(final boolean newDst) {
+    public void setDst(final boolean newDst) {
         this.dst = newDst;
     }
 

@@ -24,7 +24,7 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -42,6 +42,9 @@ public class TestContextAlbumUpdate {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Set up context data.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -55,7 +58,7 @@ public class TestContextAlbumUpdate {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
@@ -63,6 +66,9 @@ public class TestContextAlbumUpdate {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down context data.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -74,17 +80,17 @@ public class TestContextAlbumUpdate {
     }
 
     @Test
-    public void testContextAlbumUpdateJVMLocalVarSet() throws ApexModelException, IOException, ApexException {
+    public void testContextAlbumUpdateJvmLocalVarSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextAlbumUpdateJVMLocalVarSet test . . .");
 
-        contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
         new ContextAlbumUpdate().testContextAlbumUpdate();
 
         logger.debug("Ran testContextAlbumUpdateJVMLocalVarSet test");
     }
 
     @Test
-    public void testContextAlbumUpdateJVMLocalVarNotSet() throws ApexModelException, IOException, ApexException {
+    public void testContextAlbumUpdateJvmLocalVarNotSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextAlbumUpdateJVMLocalVarNotSet test . . .");
 
         new ContextAlbumUpdate().testContextAlbumUpdate();

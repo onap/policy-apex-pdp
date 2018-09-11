@@ -41,18 +41,18 @@ public final class Assertions {
      * @param pattern The regular expression
      * @return null if the parameter is valid, the validation message otherwise
      */
-    public static String getStringParameterValidationMessage(final String parameterName, final String parameterValue, final String pattern) {
+    public static String getStringParameterValidationMessage(final String parameterName, final String parameterValue,
+                    final String pattern) {
         try {
             validateStringParameter(parameterName, parameterValue, pattern);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // This will cause a SONAR error but eliminates all SONAR messages in callers
             return e.getMessage();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Checks if a string parameter matches a regular expression.
      *
@@ -61,7 +61,8 @@ public final class Assertions {
      * @param pattern The regular expression
      * @return the trimmed string
      */
-    public static String validateStringParameter(final String parameterName, final String parameterValue, final String pattern) {
+    public static String validateStringParameter(final String parameterName, final String parameterValue,
+                    final String pattern) {
         argumentNotNull(parameterName, "parameter name is null");
         argumentNotNull(parameterValue, "parameter \"" + parameterName + "\" is null");
         argumentNotNull(pattern, "parameter pattern is null");
@@ -69,10 +70,9 @@ public final class Assertions {
         final String trimmedValue = parameterValue.trim();
         if (trimmedValue.matches(pattern)) {
             return trimmedValue;
-        }
-        else {
-            throw new IllegalArgumentException(
-                    "parameter \"" + parameterName + "\": value \"" + parameterValue + "\", does not match regular expression \"" + pattern + "\"");
+        } else {
+            throw new IllegalArgumentException("parameter \"" + parameterName + "\": value \"" + parameterValue
+                            + "\", does not match regular expression \"" + pattern + "\"");
         }
     }
 
@@ -102,7 +102,8 @@ public final class Assertions {
     }
 
     /**
-     * Used as a shorthand to check that method arguments are not null, throws an exception of the specified type on error.
+     * Used as a shorthand to check that method arguments are not null, throws an exception of the specified type on
+     * error.
      *
      * @param <T> the generic type of the argument to check
      * @param <E> the exception to throw if incoming value is null
@@ -111,20 +112,21 @@ public final class Assertions {
      * @param message the error message to issue
      * @throws E an instance of the passed Exception Class
      */
-    public static <T, E extends Exception> void argumentNotNull(final T value, final Class<E> exceptionClass, final String message) throws E {
+    public static <T, E extends Exception> void argumentOfClassNotNull(final T value, final Class<E> exceptionClass,
+                    final String message) throws E {
         if (value == null) {
             // Instantiate the exception and throw it
             try {
                 throw exceptionClass.getConstructor(String.class).newInstance(message);
-            }
-            catch (final Exception errorException) {
+            } catch (final Exception errorException) {
                 throw new IllegalArgumentException(message, errorException);
             }
         }
     }
 
     /**
-     * Used as a shorthand to check that method argument is not false, throws an exception of the specified type on error.
+     * Used as a shorthand to check that method argument is not false, throws an exception of the specified type on
+     * error.
      *
      * @param <E> the exception to throw if incoming value is false
      * @param value the value to check if false
@@ -132,20 +134,21 @@ public final class Assertions {
      * @param message the error message to issue
      * @throws E an instance of the passed Exception Class
      */
-    public static <E extends Exception> void argumentNotFalse(final boolean value, final Class<E> exceptionClass, final String message) throws E {
+    public static <E extends Exception> void argumentOfClassNotFalse(final boolean value, final Class<E> exceptionClass,
+                    final String message) throws E {
         if (!value) {
             // Instantiate the exception and throw it
             try {
                 throw exceptionClass.getConstructor(String.class).newInstance(message);
-            }
-            catch (final Exception errorException) {
+            } catch (final Exception errorException) {
                 throw new IllegalArgumentException(message, errorException);
             }
         }
     }
 
     /**
-     * Used as a shorthand to check that an object is an instance of a given class, throws IllegalArgumentException on error.
+     * Used as a shorthand to check that an object is an instance of a given class, throws IllegalArgumentException on
+     * error.
      *
      * @param <T> the generic type of the argument to check
      * @param objectInstance the object instance for which to check the class
@@ -154,12 +157,14 @@ public final class Assertions {
      */
     public static <T> void instanceOf(final Object objectInstance, final Class<T> requiredClass) {
         if (!requiredClass.isAssignableFrom(objectInstance.getClass())) {
-            throw new IllegalArgumentException(objectInstance.getClass().getCanonicalName() + " is not an instance of " + requiredClass.getCanonicalName());
+            throw new IllegalArgumentException(objectInstance.getClass().getCanonicalName() + " is not an instance of "
+                            + requiredClass.getCanonicalName());
         }
     }
 
     /**
-     * Used as a shorthand to check that an instance of a class can be an instance of a given class, throws IllegalArgumentException on error.
+     * Used as a shorthand to check that an instance of a class can be an instance of a given class, throws
+     * IllegalArgumentException on error.
      *
      * @param <T> the generic type of the argument to check
      * @param checkClass the class to check
@@ -168,7 +173,8 @@ public final class Assertions {
      */
     public static <T> void assignableFrom(final Class<?> checkClass, final Class<T> requiredClass) {
         if (!requiredClass.isAssignableFrom(checkClass)) {
-            throw new IllegalArgumentException(checkClass.getCanonicalName() + " is not an instance of " + requiredClass.getCanonicalName());
+            throw new IllegalArgumentException(checkClass.getCanonicalName() + " is not an instance of "
+                            + requiredClass.getCanonicalName());
         }
     }
 }

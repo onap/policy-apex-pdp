@@ -38,7 +38,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class analyses a policy model and shows what the usage of each context album, context item, data type, and event is.
+ * This class analyses a policy model and shows what the usage of each context album, context item, data type, and event
+ * is.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

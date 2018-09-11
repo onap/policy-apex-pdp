@@ -424,7 +424,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
         }
 
         // Sanity check on incoming context
-        Assertions.argumentNotNull(incomingContextAlbum, ContextRuntimeException.class,
+        Assertions.argumentOfClassNotNull(incomingContextAlbum, ContextRuntimeException.class,
                 "cannot update context, context album is null");
 
         // Iterate over the incoming context

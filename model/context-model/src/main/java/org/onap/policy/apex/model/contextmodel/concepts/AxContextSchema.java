@@ -50,24 +50,24 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * schema flavour defines the type of schema being defined and the schema itself defines the schema. The schema flavour
  * is used by Apex to look up and load a plugin class that understands and interprets the schema definition and can
  * create instances of classes for the schema.
- * <p>
- * An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that enter, exit, and are
+ * 
+ * <p>An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that enter, exit, and are
  * passed internally in Apex. In addition, an Apex {@link AxContextAlbum} instances hold a map of
  * {@link AxContextSchema} instances to represent the context being managed as an {@link AxContextAlbum}. For example,
  * the state of all cells in a mobile network might be represented as an {@link AxContextAlbum} with its
  * {@link AxContextSchema} being defined as @code cell} objects.
- * <p>
- * Validation checks that the schema key is not null. It also checks that the schema flavour is defined and matches the
- * regular expression SCHEMA_FLAVOUR_REGEXP. Finally, validation checks that the defined schema is not a blank
- * or empty string.
+ * 
+ * <p>Validation checks that the schema key is not null. It also checks that the schema flavour is defined and matches
+ * the regular expression SCHEMA_FLAVOUR_REGEXP. Finally, validation checks that the defined schema is not a blank or
+ * empty string.
  */
 @Entity
 @Table(name = "AxContextSchema")
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexContextSchema", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxContextSchema", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "schemaFlavour", "schemaDefinition" })
+@XmlType(name = "AxContextSchema", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "schemaFlavour", "schemaDefinition" })
 
 public class AxContextSchema extends AxConcept {
     private static final String SCHEMA_FLAVOUR = "schemaFlavour";
@@ -108,7 +108,7 @@ public class AxContextSchema extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -222,28 +222,28 @@ public class AxContextSchema extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (schemaFlavour.replaceAll(WHITESPACE_REGEXP, "").length() == 0
-                || schemaFlavour.equals(SCHEMA_FLAVOUR_UNDEFINED)) {
+                        || schemaFlavour.equals(SCHEMA_FLAVOUR_UNDEFINED)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "schema flavour is not defined"));
+                            "schema flavour is not defined"));
         }
 
         try {
             Assertions.validateStringParameter(SCHEMA_FLAVOUR, schemaFlavour, SCHEMA_FLAVOUR_REGEXP);
         } catch (final IllegalArgumentException e) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "schema flavour invalid-" + e.getMessage()));
+                            "schema flavour invalid-" + e.getMessage()));
         }
 
         if (schemaDefinition.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "no schemaDefinition specified, schemaDefinition may not be blank"));
+                            "no schemaDefinition specified, schemaDefinition may not be blank"));
         }
 
         return result;

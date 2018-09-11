@@ -66,8 +66,8 @@ public class LockManagerFactory {
 
         // Check the class is a lock manager
         if (!(lockManagerObject instanceof LockManager)) {
-            LOGGER.error("Specified Apex context lock manager plugin class \"{}\" does not implement the LockManager interface",
-                            pluginClass);
+            LOGGER.error("Specified Apex context lock manager plugin class \"{}\" "
+                            + "does not implement the LockManager interface", pluginClass);
             throw new ContextException("Specified Apex context lock manager plugin class \"" + pluginClass
                             + "\" does not implement the LockManager interface");
         }

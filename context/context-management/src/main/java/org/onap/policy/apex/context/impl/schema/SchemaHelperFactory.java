@@ -54,15 +54,16 @@ public class SchemaHelperFactory {
      */
     public SchemaHelper createSchemaHelper(final AxKey owningEntityKey, final AxArtifactKey schemaKey) {
         LOGGER.entry("schema helper factory, owningEntityKey=" + owningEntityKey);
-        Assertions.argumentNotNull(owningEntityKey, ContextRuntimeException.class,
-                "Parameter \"owningEntityKey\" may not be null");
-        Assertions.argumentNotNull(schemaKey, ContextRuntimeException.class, "Parameter \"schemaKey\" may not be null");
+        Assertions.argumentOfClassNotNull(owningEntityKey, ContextRuntimeException.class,
+                        "Parameter \"owningEntityKey\" may not be null");
+        Assertions.argumentOfClassNotNull(schemaKey, ContextRuntimeException.class,
+                        "Parameter \"schemaKey\" may not be null");
 
         // Get the schema for items in the album
         final AxContextSchema schema = ModelService.getModel(AxContextSchemas.class).get(schemaKey);
         if (schema == null) {
-            final String resultString =
-                    "schema \"" + schemaKey.getId() + "\" for entity " + owningEntityKey.getId() + " does not exist";
+            final String resultString = "schema \"" + schemaKey.getId() + "\" for entity " + owningEntityKey.getId()
+                            + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);
         }
@@ -71,11 +72,11 @@ public class SchemaHelperFactory {
         final SchemaParameters schemaParameters = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
         // Get the class for the schema helper from the schema parameters
-        final SchemaHelperParameters schemaHelperParameters =
-                schemaParameters.getSchemaHelperParameters(schema.getSchemaFlavour());
+        final SchemaHelperParameters schemaHelperParameters = schemaParameters
+                        .getSchemaHelperParameters(schema.getSchemaFlavour());
         if (schemaHelperParameters == null) {
             final String resultString = "context schema helper parameters not found for context schema  \""
-                    + schema.getSchemaFlavour() + "\"";
+                            + schema.getSchemaFlavour() + "\"";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);
         }
@@ -87,7 +88,7 @@ public class SchemaHelperFactory {
             schemaHelperObject = Class.forName(pluginClass).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             final String resultString = "Apex context schema helper class not found for context schema helper plugin \""
-                    + pluginClass + "\"";
+                            + pluginClass + "\"";
             LOGGER.warn(resultString, e);
             throw new ContextRuntimeException(resultString, e);
         }
@@ -95,7 +96,7 @@ public class SchemaHelperFactory {
         // Check the class is a schema helper
         if (!(schemaHelperObject instanceof SchemaHelper)) {
             final String resultString = "Specified Apex context schema helper plugin class \"" + pluginClass
-                    + "\" does not implement the SchemaHelper interface";
+                            + "\" does not implement the SchemaHelper interface";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);
         }
@@ -107,7 +108,7 @@ public class SchemaHelperFactory {
         schemaHelper.init(owningEntityKey.getKey(), schema);
 
         LOGGER.exit("Schema Helper factory, owningEntityKey=" + owningEntityKey + ", selected schema helper of class "
-                + schemaHelper.getClass());
+                        + schemaHelper.getClass());
         return schemaHelper;
     }
 }

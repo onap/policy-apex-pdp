@@ -34,10 +34,21 @@ import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 
+/**
+ * Apex context model tests.
+ * 
+ * @author liam
+ *
+ */
 public class TestApexContextModel {
     private Connection connection;
     TestApexModel<AxContextModel> testApexModel;
 
+    /**
+     * Set up tests.
+     * 
+     * @throws Exception a testing exception
+     */
     @Before
     public void setup() throws Exception {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -83,17 +94,17 @@ public class TestApexContextModel {
     }
 
     @Test
-    public void testModelWriteReadXML() throws Exception {
+    public void testModelWriteReadXml() throws Exception {
         testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
-    public void testModelWriteReadJSON() throws Exception {
+    public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 
     @Test
-    public void testModelWriteReadJPA() throws Exception {
+    public void testModelWriteReadJpa() throws Exception {
         final DaoParameters DaoParameters = new DaoParameters();
         DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
         DaoParameters.setPersistenceUnit("DAOTest");
@@ -104,24 +115,39 @@ public class TestApexContextModel {
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
 
     private static final String OBSERVATION_MODEL_STRING = "\n"
-            + "***observations noted during validation of model***\n"
-            + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:OBSERVATION:description is blank\n"
-            + "********************************";
+                    + "***observations noted during validation of model***\n"
+                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+                    + "org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:OBSERVATION:description is blank\n"
+                    + "********************************";
 
     private static final String WARNING_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-            + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+                    + "org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:"
+                    + "UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
+                    + "********************************";
 
     private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-            + "AxArtifactKey:(name=StringType,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema:INVALID:no schemaDefinition specified, schemaDefinition may not be blank\n"
-            + "AxArtifactKey:(name=contextAlbum0,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=StringType,version=0.0.1):"
+                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema:INVALID:"
+                    + "no schemaDefinition specified, schemaDefinition may not be blank\n"
+                    + "AxArtifactKey:(name=contextAlbum0,version=0.0.1):"
+                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:"
+                    + "scope is not defined\n" + "********************************";
 
     private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-            + "AxArtifactKey:(name=ContextModel,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:INVALID:key information not found for key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
-            + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:WARNING:key not found for key information entry\n"
-            + "AxArtifactKey:(name=ContextSchemas,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:key on schemas entry AxArtifactKey:(name=MapType,version=0.0.1) does not equal entry key AxArtifactKey:(name=MapType,version=0.0.2)\n"
-            + "AxArtifactKey:(name=contextAlbums,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:INVALID:key on context album entry key AxArtifactKey:(name=contextAlbum1,version=0.0.1) does not equal context album value key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
-            + "********************************";
+                    + "AxArtifactKey:(name=ContextModel,version=0.0.1):"
+                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:INVALID:"
+                    + "key information not found for key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
+                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:WARNING:"
+                    + "key not found for key information entry\n" + "AxArtifactKey:(name=ContextSchemas,version=0.0.1):"
+                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:"
+                    + "key on schemas entry AxArtifactKey:(name=MapType,version=0.0.1) "
+                    + "does not equal entry key AxArtifactKey:(name=MapType,version=0.0.2)\n"
+                    + "AxArtifactKey:(name=contextAlbums,version=0.0.1):"
+                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:INVALID:"
+                    + "key on context album entry key AxArtifactKey:(name=contextAlbum1,version=0.0.1) "
+                    + "does not equal context album value key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
+                    + "********************************";
 
 }

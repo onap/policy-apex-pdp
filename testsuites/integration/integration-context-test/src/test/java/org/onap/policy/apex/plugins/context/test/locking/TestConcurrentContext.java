@@ -36,8 +36,8 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
-import org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
+import org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
@@ -131,7 +131,7 @@ public class TestConcurrentContext {
         logger.debug("Running testConcurrentContextJVMLocalVarSet test . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalVarSet",
                 TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
@@ -173,8 +173,8 @@ public class TestConcurrentContext {
         logger.debug("Running testConcurrentContextMultiJVMNoLock test . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
-        contextParameters.getLockManagerParameters().setPluginClass(JVMLocalLockManager.class.getCanonicalName());
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("testConcurrentContextMultiJVMNoLock",
                 TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);

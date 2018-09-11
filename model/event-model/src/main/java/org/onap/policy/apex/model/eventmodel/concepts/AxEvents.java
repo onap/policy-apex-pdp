@@ -55,16 +55,17 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * events must have an {@link AxEvents} field. The {@link AxEvents} class implements the helper methods of the
  * {@link AxConceptGetter} interface to allow {@link AxEvents} instances to be retrieved by calling methods directly on
  * this class without referencing the contained map.
- * <p>
- * Validation checks that the container key is not null. An error is issued if no events are defined in the container.
- * Each event entry is checked to ensure that its key and value are not null and that the key matches the key in the map
- * value. Each event entry is then validated individually.
+ * 
+ * <p>Validation checks that the container key is not null. An error is issued if no events are defined in the
+ * container. Each event entry is checked to ensure that its key and value are not null and that the key matches the key
+ * in the map value. Each event entry is then validated individually.
  */
 @Entity
 @Table(name = "AxEvents")
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxEvents", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "key", "eventMap" })
+@XmlType(name = "AxEvents", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "eventMap" })
 
 public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     private static final long serialVersionUID = 4290442590545820316L;
@@ -93,7 +94,7 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -131,10 +132,10 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
      * method is called by JAXB after unmarshaling and is used to convert the hash map to a {@link NavigableMap} so that
      * it will work with the {@link AxConceptGetter} interface.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         // The map must be navigable to allow name and version searching, unmarshaling returns a hash map
         final NavigableMap<AxArtifactKey, AxEvent> navigableEventMap = new TreeMap<>();
         navigableEventMap.putAll(eventMap);
@@ -209,28 +210,30 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (eventMap.size() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "eventMap may not be empty"));
+                            "eventMap may not be empty"));
         } else {
             for (final Entry<AxArtifactKey, AxEvent> eventEntry : eventMap.entrySet()) {
                 if (eventEntry.getKey().equals(AxArtifactKey.getNullKey())) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key on event entry " + eventEntry.getKey() + " may not be the null key"));
+                                    "key on event entry " + eventEntry.getKey() + " may not be the null key"));
                 } else if (eventEntry.getValue() == null) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "value on event entry " + eventEntry.getKey() + " may not be null"));
+                                    "value on event entry " + eventEntry.getKey() + " may not be null"));
                 } else {
                     if (!eventEntry.getKey().equals(eventEntry.getValue().getKey())) {
-                        result.addValidationMessage(new AxValidationMessage(key, this.getClass(),
-                                ValidationResult.INVALID, "key on event entry key " + eventEntry.getKey()
-                                        + " does not equal event value key " + eventEntry.getValue().getKey()));
+                        result.addValidationMessage(
+                                        new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                                                        "key on event entry key " + eventEntry.getKey()
+                                                                        + " does not equal event value key "
+                                                                        + eventEntry.getValue().getKey()));
                     }
 
                     result = eventEntry.getValue().validate(result);
@@ -394,7 +397,7 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     @Override
     public AxEvent get(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxEvent>) eventMap).get(conceptKeyName,
-                conceptKeyVersion);
+                        conceptKeyVersion);
     }
 
     /*
@@ -415,6 +418,6 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     @Override
     public Set<AxEvent> getAll(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxEvent>) eventMap).getAll(conceptKeyName,
-                conceptKeyVersion);
+                        conceptKeyVersion);
     }
 }

@@ -49,6 +49,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 import org.onap.policy.apex.model.policymodel.handling.TestApexPolicyModelCreator;
 
 /**
+ * Test policy models.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestPolicyModel {
@@ -58,7 +60,7 @@ public class TestPolicyModel {
         assertNotNull(new AxPolicyModel());
         assertNotNull(new AxPolicyModel(new AxArtifactKey()));
         assertNotNull(new AxPolicyModel(new AxArtifactKey(), new AxContextSchemas(), new AxKeyInformation(),
-                new AxEvents(), new AxContextAlbums(), new AxTasks(), new AxPolicies()));
+                        new AxEvents(), new AxContextAlbums(), new AxTasks(), new AxPolicies()));
 
         final AxArtifactKey modelKey = new AxArtifactKey("ModelKey", "0.0.1");
         final AxArtifactKey schemasKey = new AxArtifactKey("SchemasKey", "0.0.1");
@@ -69,8 +71,8 @@ public class TestPolicyModel {
         final AxArtifactKey policiesKey = new AxArtifactKey("PoliciesKey", "0.0.1");
 
         AxPolicyModel model = new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                new AxTasks(tasksKey), new AxPolicies(policiesKey));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
+                        new AxTasks(tasksKey), new AxPolicies(policiesKey));
 
         model.register();
 
@@ -90,63 +92,59 @@ public class TestPolicyModel {
         assertFalse(model.equals("Hello"));
         assertFalse(model.equals(new AxPolicyModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                new AxTasks(tasksKey), new AxPolicies(policiesKey))));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
+                        new AxTasks(tasksKey), new AxPolicies(policiesKey))));
         assertFalse(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(), new AxKeyInformation(keyInfoKey),
-                new AxEvents(eventsKey), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
-                new AxPolicies(policiesKey))));
+                        new AxEvents(eventsKey), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
+                        new AxPolicies(policiesKey))));
         assertFalse(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey), new AxKeyInformation(),
-                new AxEvents(eventsKey), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
-                new AxPolicies(policiesKey))));
+                        new AxEvents(eventsKey), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
+                        new AxPolicies(policiesKey))));
         assertFalse(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
-                new AxPolicies(policiesKey))));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(), new AxContextAlbums(albumsKey),
+                        new AxTasks(tasksKey), new AxPolicies(policiesKey))));
         assertFalse(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(), new AxTasks(tasksKey),
-                new AxPolicies(policiesKey))));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(),
+                        new AxTasks(tasksKey), new AxPolicies(policiesKey))));
         assertFalse(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                new AxTasks(), new AxPolicies(policiesKey))));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
+                        new AxTasks(), new AxPolicies(policiesKey))));
         assertFalse(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                new AxTasks(tasksKey), new AxPolicies())));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
+                        new AxTasks(tasksKey), new AxPolicies())));
         assertTrue(model.equals(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                new AxTasks(tasksKey), new AxPolicies(policiesKey))));
+                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
+                        new AxTasks(tasksKey), new AxPolicies(policiesKey))));
 
         assertEquals(0, model.compareTo(model));
         assertEquals(0, model.compareTo(clonedModel));
         assertNotEquals(0, model.compareTo(new AxArtifactKey()));
-        assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
+        assertNotEquals(0, model.compareTo(new AxPolicyModel(AxArtifactKey.getNullKey(),
+                        new AxContextSchemas(schemasKey), new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey),
+                        new AxContextAlbums(albumsKey), new AxTasks(tasksKey), new AxPolicies(policiesKey))));
+        assertNotEquals(0, model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
                         new AxTasks(tasksKey), new AxPolicies(policiesKey))));
         assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(), new AxKeyInformation(keyInfoKey),
-                        new AxEvents(eventsKey), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
-                        new AxPolicies(policiesKey))));
-        assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey), new AxKeyInformation(),
-                        new AxEvents(eventsKey), new AxContextAlbums(albumsKey), new AxTasks(tasksKey),
-                        new AxPolicies(policiesKey))));
-        assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
+                        model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
+                                        new AxKeyInformation(), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
+                                        new AxTasks(tasksKey), new AxPolicies(policiesKey))));
+        assertNotEquals(0, model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(), new AxContextAlbums(albumsKey),
                         new AxTasks(tasksKey), new AxPolicies(policiesKey))));
         assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(),
-                        new AxTasks(tasksKey), new AxPolicies(policiesKey))));
+                        model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
+                                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey),
+                                        new AxContextAlbums(), new AxTasks(tasksKey), new AxPolicies(policiesKey))));
         assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                        new AxTasks(), new AxPolicies(policiesKey))));
+                        model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
+                                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey),
+                                        new AxContextAlbums(albumsKey), new AxTasks(), new AxPolicies(policiesKey))));
         assertNotEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
-                        new AxTasks(tasksKey), new AxPolicies())));
-        assertEquals(0,
-                model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
+                        model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
+                                        new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey),
+                                        new AxContextAlbums(albumsKey), new AxTasks(tasksKey), new AxPolicies())));
+        assertEquals(0, model.compareTo(new AxPolicyModel(modelKey, new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
                         new AxTasks(tasksKey), new AxPolicies(policiesKey))));
 
@@ -168,7 +166,7 @@ public class TestPolicyModel {
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         final AxField badField = new AxField(new AxReferenceKey(model.getEvents().get("inEvent").getKey(), "BadField"),
-                new AxArtifactKey("NonExistantSchema", "0.0.1"));
+                        new AxArtifactKey("NonExistantSchema", "0.0.1"));
         model.getEvents().get("inEvent").getParameterMap().put(badField.getKey().getLocalName(), badField);
         result = new AxValidationResult();
         result = model.validate(result);
@@ -180,7 +178,7 @@ public class TestPolicyModel {
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         final AxContextAlbum badAlbum = new AxContextAlbum(new AxArtifactKey("BadAlbum", "0.0.1"), "SomeScope", true,
-                new AxArtifactKey("NonExistantSchema", "0.0.1"));
+                        new AxArtifactKey("NonExistantSchema", "0.0.1"));
         model.getAlbums().getAlbumsMap().put(badAlbum.getKey(), badAlbum);
         result = new AxValidationResult();
         result = model.validate(result);
@@ -191,8 +189,8 @@ public class TestPolicyModel {
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxInputField badInField =
-                new AxInputField(new AxReferenceKey(model.getTasks().get("task").getKey(), "BadInField"),
+        final AxInputField badInField = new AxInputField(
+                        new AxReferenceKey(model.getTasks().get("task").getKey(), "BadInField"),
                         new AxArtifactKey("NonExistantSchema", "0.0.1"));
         model.getTasks().get("task").getInputFields().put(badInField.getKey().getLocalName(), badInField);
         result = new AxValidationResult();
@@ -204,8 +202,8 @@ public class TestPolicyModel {
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxOutputField badOutField =
-                new AxOutputField(new AxReferenceKey(model.getTasks().get("task").getKey(), "BadOutField"),
+        final AxOutputField badOutField = new AxOutputField(
+                        new AxReferenceKey(model.getTasks().get("task").getKey(), "BadOutField"),
                         new AxArtifactKey("NonExistantSchema", "0.0.1"));
         model.getTasks().get("task").getOutputFields().put(badOutField.getKey().getLocalName(), badOutField);
         result = new AxValidationResult();
@@ -218,32 +216,32 @@ public class TestPolicyModel {
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         model.getTasks().get("task").getContextAlbumReferences()
-                .add(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
+                        .add(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         model.getTasks().get("task").getContextAlbumReferences()
-                .remove(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
+                        .remove(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         model.getPolicies().get("policy").getStateMap().get("state").getContextAlbumReferences()
-                .add(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
+                        .add(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         model.getPolicies().get("policy").getStateMap().get("state").getContextAlbumReferences()
-                .remove(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
+                        .remove(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         final AxArtifactKey savedTrigger = model.getPolicies().get("policy").getStateMap().get("state").getTrigger();
         model.getPolicies().get("policy").getStateMap().get("state")
-                .setTrigger(new AxArtifactKey("NonExistantEvent", "0.0.1"));
+                        .setTrigger(new AxArtifactKey("NonExistantEvent", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
@@ -253,10 +251,10 @@ public class TestPolicyModel {
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxArtifactKey savedDefaultTask =
-                model.getPolicies().get("policy").getStateMap().get("state").getDefaultTask();
+        final AxArtifactKey savedDefaultTask = model.getPolicies().get("policy").getStateMap().get("state")
+                        .getDefaultTask();
         model.getPolicies().get("policy").getStateMap().get("state")
-                .setDefaultTask(new AxArtifactKey("NonExistantTask", "0.0.1"));
+                        .setDefaultTask(new AxArtifactKey("NonExistantTask", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
@@ -267,10 +265,10 @@ public class TestPolicyModel {
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         // It is OK not to have TSL
-        final AxTaskSelectionLogic savedTSL =
-                model.getPolicies().get("policy").getStateMap().get("state").getTaskSelectionLogic();
+        final AxTaskSelectionLogic savedTaskSelectionLogic = model.getPolicies().get("policy").getStateMap()
+                        .get("state").getTaskSelectionLogic();
         model.getPolicies().get("policy").getStateMap().get("state")
-                .setTaskSelectionLogic(new AxTaskSelectionLogic(AxReferenceKey.getNullKey()));
+                        .setTaskSelectionLogic(new AxTaskSelectionLogic(AxReferenceKey.getNullKey()));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
@@ -285,71 +283,72 @@ public class TestPolicyModel {
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        model.getPolicies().get("policy").getStateMap().get("state").setTaskSelectionLogic(savedTSL);
+        model.getPolicies().get("policy").getStateMap().get("state").setTaskSelectionLogic(savedTaskSelectionLogic);
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         final AxStateOutput badStateOutput = new AxStateOutput(
-                new AxReferenceKey(model.getPolicies().get("policy").getStateMap().get("state").getKey(), "BadSO"),
-                new AxArtifactKey("NonExistantEvent", "0.0.1"), AxReferenceKey.getNullKey());
+                        new AxReferenceKey(model.getPolicies().get("policy").getStateMap().get("state").getKey(),
+                                        "BadSO"),
+                        new AxArtifactKey("NonExistantEvent", "0.0.1"), AxReferenceKey.getNullKey());
         model.getPolicies().get("policy").getStateMap().get("state").getStateOutputs()
-                .put(badStateOutput.getKey().getLocalName(), badStateOutput);
+                        .put(badStateOutput.getKey().getLocalName(), badStateOutput);
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         model.getPolicies().get("policy").getStateMap().get("state").getStateOutputs()
-                .remove(badStateOutput.getKey().getLocalName());
+                        .remove(badStateOutput.getKey().getLocalName());
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxStateTaskReference badTR = new AxStateTaskReference(
-                new AxReferenceKey(model.getPolicies().get("policy").getStateMap().get("state").getKey(),
-                        "NonExistantTask"),
-                AxStateTaskOutputType.LOGIC, badStateOutput.getKey());
+        final AxStateTaskReference badTaskReference = new AxStateTaskReference(
+                        new AxReferenceKey(model.getPolicies().get("policy").getStateMap().get("state").getKey(),
+                                        "NonExistantTask"),
+                        AxStateTaskOutputType.LOGIC, badStateOutput.getKey());
         model.getPolicies().get("policy").getStateMap().get("state").getTaskReferences()
-                .put(new AxArtifactKey("NonExistantTask", "0.0.1"), badTR);
+                        .put(new AxArtifactKey("NonExistantTask", "0.0.1"), badTaskReference);
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        badTR.setStateTaskOutputType(AxStateTaskOutputType.DIRECT);
+        badTaskReference.setStateTaskOutputType(AxStateTaskOutputType.DIRECT);
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         model.getPolicies().get("policy").getStateMap().get("state").getTaskReferences()
-                .remove(new AxArtifactKey("NonExistantTask", "0.0.1"));
+                        .remove(new AxArtifactKey("NonExistantTask", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         final AxStateTaskReference tr = model.getPolicies().get("policy").getStateMap().get("state").getTaskReferences()
-                .get(new AxArtifactKey("task", "0.0.1"));
+                        .get(new AxArtifactKey("task", "0.0.1"));
 
-        final String savedSOName = tr.getOutput().getLocalName();
+        final String savedStateOutputName = tr.getOutput().getLocalName();
         tr.getOutput().setLocalName("NonExistantOutput");
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        tr.getOutput().setLocalName(savedSOName);
+        tr.getOutput().setLocalName(savedStateOutputName);
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxStateOutput so =
-                model.getPolicies().get("policy").getStateMap().get("state").getStateOutputs().get(savedSOName);
+        final AxStateOutput so = model.getPolicies().get("policy").getStateMap().get("state").getStateOutputs()
+                        .get(savedStateOutputName);
 
-        final AxArtifactKey savedOE = so.getOutgingEvent();
+        final AxArtifactKey savedOutEvent = so.getOutgingEvent();
         so.setOutgoingEvent(new AxArtifactKey("NonExistantEvent", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        so.setOutgoingEvent(savedOE);
+        so.setOutgoingEvent(savedOutEvent);
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());

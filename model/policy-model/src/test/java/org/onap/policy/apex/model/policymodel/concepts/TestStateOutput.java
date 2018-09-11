@@ -35,6 +35,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 
 /**
+ * Test state outputs.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestStateOutput {

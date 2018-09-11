@@ -67,30 +67,30 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * next state. The outputs of a state {@link AxStateOutput} are held as a map in the state. Each
  * state output contains the outgoing event of the state and optionally the next state to pass
  * control to.
- * <p>
- * A state uses tasks {@link AxTask} to execute its logic. A state holds its tasks in a map and must
+ * 
+ * <p>A state uses tasks {@link AxTask} to execute its logic. A state holds its tasks in a map and must
  * have at least one task. A state uses Task Selection Logic {@link AxTaskSelectionLogic} to select
  * which task should be executed in a given execution cycle. Optional Task Selection Logic can use
  * fields on the incoming event and information from the context albums available on the state to
  * decide what task to execute in a given context. The default task of a state is the task that is
  * executed when task Selection Logic is not specified. In cases where only a single task is
  * specified on a state, the default task must be that task and the state always executes that task.
- * <p>
- * What happens when a state completes its execution cycle depends on the task that is selected for
+ * 
+ * <p>What happens when a state completes its execution cycle depends on the task that is selected for
  * execution by the state. Therefore, the action to be performed a state on execution of each task
  * must be defined in the state as a {@link AxStateTaskReference} instance for each task defined in
  * the state. The {@link AxStateTaskReference} instance defines the action to be performed as either
  * a {@link AxStateTaskOutputType} of {@link AxStateTaskOutputType#DIRECT} or
  * {@link AxStateTaskOutputType#LOGIC} and contains an {@link AxReferenceKey} reference to the
  * instance that will complete the state output.
- * <p>
- * In the case of direct output, the {@link AxReferenceKey} reference in the
+ * 
+ * <p>In the case of direct output, the {@link AxReferenceKey} reference in the
  * {@link AxStateTaskReference} instance is a reference to an {@link AxStateOutput} instance. The
  * state output defines the event to be emitted by the state and the next state to pass control to
  * if any. All fields of the executed task are marshaled onto the outgoing event automatically by
  * Apex.
- * <p>
- * In the case of logic output, the {@link AxReferenceKey} reference in the
+ * 
+ * <p>In the case of logic output, the {@link AxReferenceKey} reference in the
  * {@link AxStateTaskReference} instance is a reference to State Finalizer Logic in an
  * {@link AxStateFinalizerLogic} instance, which selects the {@link AxStateOutput} that the state
  * will use. The state finalizer logic uses fields emitted by the executed task and information from
@@ -100,13 +100,13 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * the state. State Finalizer Logic must marshal the fields of the output event in whatever manner
  * it wishes; Apex does not automatically transfer the output fields from the task directly to the
  * output event.
- * <p>
- * The Task Selection Logic instance or State Finalizer Logic instances in a state may use
+ * 
+ * <p>The Task Selection Logic instance or State Finalizer Logic instances in a state may use
  * information in context albums to arrive at their task or state output selections. The context
  * albums that the state uses and that should be made available to the state by Apex policy
  * distribution are held as a set of references to context albums in the state.
- * <p>
- * During validation of a state, the validation checks listed below are executed:
+ * 
+ * <p>During validation of a state, the validation checks listed below are executed:
  * <ol>
  * <li>The policy key must not be a null key and must be valid, see validation in
  * {@link AxReferenceKey}
@@ -247,7 +247,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      * 
      * @param copyConcept the concept to copy from
      */
@@ -322,10 +322,10 @@ public class AxState extends AxConcept {
      * parent keys of all {@link AxTaskSelectionLogic}, {@link AxStateOutput}, and
      * {@link AxStateFinalizerLogic} instance in the state.
      *
-     * @param u the unmarshaler that is unmarshaling the model
+     * @param unmarshaler the unmarshaler that is unmarshaling the model
      * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller u, final Object parent) {
+    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         if (!taskSelectionLogic.getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
             taskSelectionLogic.getKey().setParentReferenceKey(key);
         }
@@ -623,7 +623,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Validate the state outputs of the state
+     * Validate the state outputs of the state.
      * 
      * @param result the validation result to append to
      */
@@ -659,7 +659,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Validate the context album references of the state
+     * Validate the context album references of the state.
      * 
      * @param result the validation result to append to
      */
@@ -676,7 +676,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Validate the task selection logic of the state
+     * Validate the task selection logic of the state.
      * 
      * @param result the validation result to append to
      * @return the result of the validation
@@ -694,7 +694,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Validate all the state finalizer logic of the state
+     * Validate all the state finalizer logic of the state.
      * 
      * @param result the validation result to append to
      */
@@ -717,7 +717,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Validate the tasks used the state
+     * Validate the tasks used the state.
      * 
      * @param result the validation result to append to
      */
@@ -762,7 +762,7 @@ public class AxState extends AxConcept {
     }
 
     /**
-     * Validate the references of a task used in a state
+     * Validate the references of a task used in a state.
      * 
      * @param taskKey The key of the task
      * @param taskReference the task reference of the task

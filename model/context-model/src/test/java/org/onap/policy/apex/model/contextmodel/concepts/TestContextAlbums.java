@@ -35,6 +35,8 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 
 /**
+ * Context album tests.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestContextAlbums {
@@ -62,7 +64,7 @@ public class TestContextAlbums {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("parameter \"scope\": value \"\", does not match regular expression \"[A-Za-z0-9\\-_]+\"",
-                    e.getMessage());
+                            e.getMessage());
         }
 
         album.setScope("NewAlbumScope");
@@ -114,9 +116,9 @@ public class TestContextAlbums {
         album.clean();
 
         final AxContextAlbum clonedAlbum = new AxContextAlbum(album);
-        assertEquals(
-                "AxContextAlbum:(key=AxArtifactKey:(name=NewAlbumName,version=0.0.1),scope=NewAlbumScope,isWritable=true,itemSchema=AxArtifactKey:(name=AlbumSchemaName,version=0.0.1))",
-                clonedAlbum.toString());
+        assertEquals("AxContextAlbum:(key=AxArtifactKey:(name=NewAlbumName,version=0.0.1),"
+                        + "scope=NewAlbumScope,isWritable=true,itemSchema="
+                        + "AxArtifactKey:(name=AlbumSchemaName,version=0.0.1))", clonedAlbum.toString());
 
         assertFalse(album.hashCode() == 0);
 
@@ -134,13 +136,13 @@ public class TestContextAlbums {
         assertEquals(0, album.compareTo(clonedAlbum));
         assertNotEquals(0, album.compareTo(null));
         assertNotEquals(0, album.compareTo(new AxArtifactKey()));
-        assertNotEquals(0,
-                album.compareTo(new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey())));
+        assertNotEquals(0, album.compareTo(
+                        new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey())));
         assertNotEquals(0, album.compareTo(new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey())));
+        assertNotEquals(0, album
+                        .compareTo(new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey())));
         assertNotEquals(0,
-                album.compareTo(new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey())));
-        assertNotEquals(0,
-                album.compareTo(new AxContextAlbum(newKey, "NewAlbumScope", true, AxArtifactKey.getNullKey())));
+                        album.compareTo(new AxContextAlbum(newKey, "NewAlbumScope", true, AxArtifactKey.getNullKey())));
         assertEquals(0, album.compareTo(new AxContextAlbum(newKey, "NewAlbumScope", true, albumSchemaKey)));
 
         final AxContextAlbums albums = new AxContextAlbums();
@@ -182,8 +184,8 @@ public class TestContextAlbums {
         albums.clean();
 
         final AxContextAlbums clonedAlbums = new AxContextAlbums(albums);
-        assertTrue(clonedAlbums.toString()
-                .startsWith("AxContextAlbums:(AxContextAlbums:(key=AxArtifactKey:(name=AlbumsKey,version=0.0.1)"));
+        assertTrue(clonedAlbums.toString().startsWith(
+                        "AxContextAlbums:(AxContextAlbums:(key=AxArtifactKey:(name=AlbumsKey,version=0.0.1)"));
 
         assertFalse(albums.hashCode() == 0);
 

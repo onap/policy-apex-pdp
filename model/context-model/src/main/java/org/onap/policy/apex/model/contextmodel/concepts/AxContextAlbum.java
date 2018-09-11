@@ -46,22 +46,22 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
  * This class is used to define an album of context.
- * <p>
- * A context album is a distributed map of context that will be distributed across all process instances that require
+ * 
+ * <p>A context album is a distributed map of context that will be distributed across all process instances that require
  * access to it. This class defines the schema (structure) of the items in the context album, whether the items on the
  * context album are writable or not, and what the scope of the context album is.
- * <p>
- * The structure of items (objects) the context album is defined as a schema, which is understood by whatever schema
+ * 
+ * <p>The structure of items (objects) the context album is defined as a schema, which is understood by whatever schema
  * implementation is being used for the context album.
- * <p>
- * The scope of a context album is a string field, understood by whatever distribution mechanism is being used for the
- * context album. The distribution mechanism uses the scope of the context album to decide to which executable entities
- * a given context album is distributed.
- * <p>
- * The writable flag on a context album defines whether users of a context album can write to the context album or just
- * read objects from the context album.
- * <p>
- * Validation checks that the album key and the context schema key are not null and that the scope field is not
+ * 
+ * <p>The scope of a context album is a string field, understood by whatever distribution mechanism is being used for
+ * the context album. The distribution mechanism uses the scope of the context album to decide to which executable
+ * entities a given context album is distributed.
+ * 
+ * <p>The writable flag on a context album defines whether users of a context album can write to the context album or
+ * just read objects from the context album.
+ * 
+ * <p>Validation checks that the album key and the context schema key are not null and that the scope field is not
  * undefined and matches the regular expression SCOPE_REGEXP.
  */
 @Entity
@@ -69,8 +69,8 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "scope", "isWritable", "itemSchema" })
+@XmlType(name = "AxContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
+    { "key", "scope", "isWritable", "itemSchema" })
 
 public class AxContextAlbum extends AxConcept {
     private static final String SCOPE_STRING = "scope";
@@ -113,8 +113,8 @@ public class AxContextAlbum extends AxConcept {
 
     /**
      * The default constructor creates a context album with a null artifact key. The scope of the context album is set
-     * as SCOPE_UNDEFINED, the album is writable, and the artifact key of the context schema is set to the null
-     * artifact key.
+     * as SCOPE_UNDEFINED, the album is writable, and the artifact key of the context schema is set to the null artifact
+     * key.
      */
     public AxContextAlbum() {
         this(new AxArtifactKey());
@@ -124,7 +124,7 @@ public class AxContextAlbum extends AxConcept {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param copyConcept the concept to copy from
      */
@@ -134,8 +134,8 @@ public class AxContextAlbum extends AxConcept {
 
     /**
      * The keyed constructor creates a context album with the specified artifact key. The scope of the context album is
-     * set as SCOPE_UNDEFINED, the album is writable, and the artifact key of the context schema is set to the
-     * null artifact key.
+     * set as SCOPE_UNDEFINED, the album is writable, and the artifact key of the context schema is set to the null
+     * artifact key.
      *
      * @param key the key of the context album
      */
@@ -152,7 +152,7 @@ public class AxContextAlbum extends AxConcept {
      * @param itemSchema the artifact key of the context schema to use for this context album
      */
     public AxContextAlbum(final AxArtifactKey key, final String scope, final boolean isWritable,
-            final AxArtifactKey itemSchema) {
+                    final AxArtifactKey itemSchema) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
         Assertions.argumentNotNull(scope, "scope may not be null");
@@ -264,26 +264,26 @@ public class AxContextAlbum extends AxConcept {
         AxValidationResult result = resultIn;
 
         if (key.equals(AxArtifactKey.getNullKey())) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "key is a null key"));
         }
         result = key.validate(result);
 
         if (scope.replaceAll("\\s+$", "").length() == 0 || scope.equals(SCOPE_UNDEFINED)) {
-            result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "scope is not defined"));
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                            "scope is not defined"));
         }
 
         try {
             Assertions.validateStringParameter(SCOPE_STRING, scope, SCOPE_REGEXP);
         } catch (final IllegalArgumentException e) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "scope invalid-" + e.getMessage()));
+                            "scope invalid-" + e.getMessage()));
         }
 
         if (itemSchema.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "itemSchema reference is a null key, an item schema must be specified"));
+                            "itemSchema reference is a null key, an item schema must be specified"));
         }
         result = itemSchema.validate(result);
 

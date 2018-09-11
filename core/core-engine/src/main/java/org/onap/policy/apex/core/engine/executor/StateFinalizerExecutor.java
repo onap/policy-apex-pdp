@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentNotNull;
+import static org.onap.policy.apex.model.utilities.Assertions.argumentOfClassNotNull;
 
 import java.util.Map;
 
@@ -97,7 +97,7 @@ public abstract class StateFinalizerExecutor
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + finalizerLogic.getId() + "," + finalizerLogic.getLogicFlavour() + ","
                 + finalizerLogic.getLogic());
-        argumentNotNull(finalizerLogic.getLogic(), StateMachineException.class, "task logic cannot be null.");
+        argumentOfClassNotNull(finalizerLogic.getLogic(), StateMachineException.class, "task logic cannot be null.");
     }
 
     /*

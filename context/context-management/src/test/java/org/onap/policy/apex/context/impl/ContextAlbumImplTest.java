@@ -34,7 +34,7 @@ import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.Distributor;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -57,7 +57,7 @@ public class ContextAlbumImplTest {
     public static void prepareForTest() {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters()
-                        .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JVMLocalLockManager");
+                        .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
         contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
@@ -76,6 +76,9 @@ public class ContextAlbumImplTest {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down the test data.
+     */
     @AfterClass
     public static void cleanUpAfterTest() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
@@ -107,7 +110,7 @@ public class ContextAlbumImplTest {
         }
 
         try {
-            new ContextAlbumImpl(new AxContextAlbum(), new JVMLocalDistributor(), null);
+            new ContextAlbumImpl(new AxContextAlbum(), new JvmLocalDistributor(), null);
             fail("this test should throw an exception");
         } catch (IllegalArgumentException e) {
             assertEquals("Album map may not be null", e.getMessage());
@@ -116,7 +119,7 @@ public class ContextAlbumImplTest {
         }
 
         try {
-            new ContextAlbumImpl(new AxContextAlbum(), new JVMLocalDistributor(), new LinkedHashMap<String, Object>());
+            new ContextAlbumImpl(new AxContextAlbum(), new JvmLocalDistributor(), new LinkedHashMap<String, Object>());
             fail("this test should throw an exception");
         } catch (ApexRuntimeException e) {
             assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas "
@@ -138,7 +141,7 @@ public class ContextAlbumImplTest {
                         true, AxArtifactKey.getNullKey());
 
         try {
-            new ContextAlbumImpl(axContextAlbum, new JVMLocalDistributor(), new LinkedHashMap<String, Object>());
+            new ContextAlbumImpl(axContextAlbum, new JvmLocalDistributor(), new LinkedHashMap<String, Object>());
             fail("this test should throw an exception");
         } catch (ContextException e) {
             assertEquals("could not initiate schema management for context album AxContextAlbum",
@@ -146,7 +149,7 @@ public class ContextAlbumImplTest {
         }
 
         axContextAlbum.setItemSchema(simpleStringSchema.getKey());
-        Distributor distributor = new JVMLocalDistributor();
+        Distributor distributor = new JvmLocalDistributor();
         distributor.init(axContextAlbum.getKey());
         ContextAlbum album = new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
 

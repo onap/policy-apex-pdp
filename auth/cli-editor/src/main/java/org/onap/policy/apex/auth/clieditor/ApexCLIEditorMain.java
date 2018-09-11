@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.onap.policy.apex.model.utilities.json.JSONHandler;
+import org.onap.policy.apex.model.utilities.json.JsonHandler;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -77,7 +77,7 @@ public class ApexCLIEditorMain {
 
         // Read the command definitions
         try {
-            commands = new JSONHandler<CLICommands>().read(CLICommands.class, parameters.getMetadataStream());
+            commands = new JsonHandler<CLICommands>().read(CLICommands.class, parameters.getMetadataStream());
         } catch (final Exception e) {
             LOGGER.error("start of Apex command line editor failed, error reading command metadata from {}",
                     parameters.getMetadataLocation(), e);
@@ -97,7 +97,7 @@ public class ApexCLIEditorMain {
 
         // Read the Apex properties
         try {
-            apexModelProperties = new JSONHandler<ApexModelProperties>().read(ApexModelProperties.class,
+            apexModelProperties = new JsonHandler<ApexModelProperties>().read(ApexModelProperties.class,
                     parameters.getApexPropertiesStream());
         } catch (final Exception e) {
             LOGGER.error("start of Apex command line editor failed, error reading Apex model properties from "

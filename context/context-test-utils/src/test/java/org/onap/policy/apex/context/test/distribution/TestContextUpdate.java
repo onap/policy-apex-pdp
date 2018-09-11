@@ -25,7 +25,7 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.impl.distribution.jvmlocal.JVMLocalDistributor;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -48,6 +48,9 @@ public class TestContextUpdate {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Set up context for tests.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -69,6 +72,9 @@ public class TestContextUpdate {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * Clear down context for tests.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -80,17 +86,17 @@ public class TestContextUpdate {
     }
 
     @Test
-    public void testContextUpdateJVMLocalVarSet() throws ApexModelException, IOException, ApexException {
+    public void testContextUpdateJvmLocalVarSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextUpdateJVMLocalVarSet test . . .");
 
-        contextParameters.getDistributorParameters().setPluginClass(JVMLocalDistributor.class.getCanonicalName());
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
         new ContextUpdate().testContextUpdate();
 
         logger.debug("Ran testContextUpdateJVMLocalVarSet test");
     }
 
     @Test
-    public void testContextUpdateJVMLocalVarNotSet() throws ApexModelException, IOException, ApexException {
+    public void testContextUpdateJvmLocalVarNotSet() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextUpdateJVMLocalVarNotSet test . . .");
 
         new ContextUpdate().testContextUpdate();

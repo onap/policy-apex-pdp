@@ -32,7 +32,7 @@ import org.onap.policy.apex.context.impl.locking.AbstractLockManager;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class JVMLocalLockManager extends AbstractLockManager {
+public class JvmLocalLockManager extends AbstractLockManager {
     /*
      * (non-Javadoc)
      *

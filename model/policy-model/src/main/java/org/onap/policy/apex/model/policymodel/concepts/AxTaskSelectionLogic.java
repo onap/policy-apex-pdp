@@ -34,12 +34,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 /**
  * This class holds Task Selection Logic for {@link AxState} states in Apex. It is a specialization
  * of the {@link AxLogic} class, so that Task Selection Logic in Apex states can be strongly typed.
- * <p>
- * Task Selection Logic is used to select the task {@link AxTask} that a state will execute. The
+ * 
+ * <p>Task Selection Logic is used to select the task {@link AxTask} that a state will execute. The
  * logic uses fields on the incoming trigger event and information from the context albums available
  * on a state to decide what task {@link AxTask} to select for execution in a given context.
- * <p>
- * Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
+ * 
+ * <p>Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
  */
 @Entity
 @Table(name = "AxTaskSelectionLogic")
