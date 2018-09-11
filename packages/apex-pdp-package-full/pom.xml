@@ -500,7 +500,7 @@
                                     <dst>lib</dst>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/lib</prefix>
+                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/lib</prefix>
                                         <filemode>755</filemode>
                                     </mapper>
                                 </data>
@@ -510,7 +510,7 @@
                                     <dst>etc</dst>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/bin</prefix>
+                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/bin</prefix>
                                     </mapper>
                                 </data>
                                 <data>
@@ -519,7 +519,7 @@
                                     <dst>etc</dst>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/etc</prefix>
+                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/etc</prefix>
                                     </mapper>
                                 </data>
                                 <data>
@@ -528,7 +528,7 @@
                                     <dst>etc</dst>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/opt/app/policy/apex-pdp/${install.package.name}-${project.version}/war</prefix>
+                                        <prefix>/opt/app/policy/${install.package.name}-${project.version}/war</prefix>
                                     </mapper>
                                 </data>
                                 <data>
@@ -537,7 +537,7 @@
                                     <dst>etc</dst>
                                     <mapper>
                                         <type>perm</type>
-                                        <prefix>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/examples</prefix>
+                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/examples</prefix>
                                     </mapper>
                                 </data>
                             </dataSet>
@@ -589,7 +589,7 @@
                             </defineStatements>
                             <mappings>
                                 <mapping>
-                                    <directory>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/lib</directory>
+                                    <directory>/opt/app/policy/${project.artifactId}-${project.version}/lib</directory>
                                     <username>root</username>
                                     <groupname>root</groupname>
                                     <sources>
@@ -599,7 +599,7 @@
                                     </sources>
                                 </mapping>
                                 <mapping>
-                                    <directory>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/bin</directory>
+                                    <directory>/opt/app/policy/${project.artifactId}-${project.version}/bin</directory>
                                     <username>root</username>
                                     <groupname>root</groupname>
                                     <sources>
@@ -609,7 +609,7 @@
                                     </sources>
                                 </mapping>
                                 <mapping>
-                                    <directory>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/etc</directory>
+                                    <directory>/opt/app/policy/${project.artifactId}-${project.version}/etc</directory>
                                     <username>root</username>
                                     <groupname>root</groupname>
                                     <sources>
@@ -619,7 +619,7 @@
                                     </sources>
                                 </mapping>
                                 <mapping>
-                                    <directory>/opt/app/policy/apex-pdp/${install.package.name}-${project.version}/war</directory>
+                                    <directory>/opt/app/policy/${install.package.name}-${project.version}/war</directory>
                                     <username>root</username>
                                     <groupname>root</groupname>
                                     <sources>
@@ -629,7 +629,7 @@
                                     </sources>
                                 </mapping>
                                 <mapping>
-                                    <directory>/opt/app/policy/apex-pdp/${project.artifactId}-${project.version}/examples</directory>
+                                    <directory>/opt/app/policy/${project.artifactId}-${project.version}/examples</directory>
                                     <username>root</username>
                                     <groupname>root</groupname>
                                     <sources>
