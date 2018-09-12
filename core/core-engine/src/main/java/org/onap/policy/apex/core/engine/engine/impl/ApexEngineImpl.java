@@ -247,8 +247,11 @@ public class ApexEngineImpl implements ApexEngine {
         // Clear everything
         stateMachineHandler = null;
         engineStats.clean();
-        internalContext.clear();
-        internalContext = null;
+
+        if (internalContext != null) {
+            internalContext.clear();
+            internalContext = null;
+        }
     }
 
     /*

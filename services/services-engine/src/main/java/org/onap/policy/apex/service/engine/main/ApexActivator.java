@@ -102,7 +102,6 @@ public class ApexActivator {
                         .getTextFileAsString(apexParameters.getEngineServiceParameters().getPolicyModelFileName());
                 apexEngineService.updateModel(apexParameters.getEngineServiceParameters().getEngineKey(),
                         policyModelString, true);
-                apexEngineService.startAll();
             }
 
             // Producer parameters specify what event marshalers to handle events leaving Apex are

@@ -50,9 +50,9 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class EngineServiceImpl controls a thread pool that runs a set of Apex engine workers, each
- * of which is running on an identical Apex model. This class handles the management of the engine
- * worker instances, their threads, and event forwarding to and from the engine workers.
+ * The Class EngineServiceImpl controls a thread pool that runs a set of Apex engine workers, each of which is running
+ * on an identical Apex model. This class handles the management of the engine worker instances, their threads, and
+ * event forwarding to and from the engine workers.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -72,8 +72,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     private AxArtifactKey engineServiceKey = null;
 
     // The Apex engine workers this engine service is handling
-    private final Map<AxArtifactKey, EngineService> engineWorkerMap =
-            Collections.synchronizedMap(new LinkedHashMap<AxArtifactKey, EngineService>());
+    private final Map<AxArtifactKey, EngineService> engineWorkerMap = Collections
+                    .synchronizedMap(new LinkedHashMap<AxArtifactKey, EngineService>());
 
     // Event queue for events being sent into the Apex engines, it used by all engines within a
     // group.
@@ -87,8 +87,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     private long periodicEventPeriod;
 
     /**
-     * This constructor instantiates engine workers and adds them to the set of engine workers to be
-     * managed. The constructor is private to prevent subclassing.
+     * This constructor instantiates engine workers and adds them to the set of engine workers to be managed. The
+     * constructor is private to prevent subclassing.
      *
      * @param engineServiceKey the engine service key
      * @param incomingThreadCount the thread count, the number of engine workers to start
@@ -96,7 +96,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
      * @throws ApexException on worker instantiation errors
      */
     private EngineServiceImpl(final AxArtifactKey engineServiceKey, final int incomingThreadCount,
-            final long periodicEventPeriod) throws ApexException {
+                    final long periodicEventPeriod) throws ApexException {
         LOGGER.entry(engineServiceKey, incomingThreadCount);
 
         this.engineServiceKey = engineServiceKey;
@@ -110,8 +110,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         // Start engine workers
         for (int engineCounter = 0; engineCounter < threadCount; engineCounter++) {
-            final AxArtifactKey engineWorkerKey =
-                    new AxArtifactKey(engineServiceKey.getName() + '-' + engineCounter, engineServiceKey.getVersion());
+            final AxArtifactKey engineWorkerKey = new AxArtifactKey(engineServiceKey.getName() + '-' + engineCounter,
+                            engineServiceKey.getVersion());
             engineWorkerMap.put(engineWorkerKey, new EngineWorker(engineWorkerKey, queue, atFactory));
             LOGGER.info("Created apex engine {} .", engineWorkerKey.getId());
         }
@@ -121,8 +121,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     }
 
     /**
-     * Create an Apex Engine Service instance. This method is deprecated and will be removed in the
-     * next version.
+     * Create an Apex Engine Service instance. This method is deprecated and will be removed in the next version.
      *
      * @param engineServiceKey the engine service key
      * @param threadCount the thread count, the number of engine workers to start
@@ -132,7 +131,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
      */
     @Deprecated
     public static EngineServiceImpl create(final AxArtifactKey engineServiceKey, final int threadCount)
-            throws ApexException {
+                    throws ApexException {
         // Check if the Apex model specified is sane
         if (engineServiceKey == null) {
             LOGGER.warn("engine service key is null");
@@ -144,9 +143,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /**
      * Create an Apex Engine Service instance. This method does not load the policy so
      * {@link #updateModel(AxArtifactKey, AxPolicyModel, boolean)} or
-     * {@link #updateModel(AxArtifactKey, AxPolicyModel, boolean)} must be used to load a model.
-     * This method does not start the Engine Service so {@link #start(AxArtifactKey)} or
-     * {@link #startAll()} must be used.
+     * {@link #updateModel(AxArtifactKey, AxPolicyModel, boolean)} must be used to load a model. This method does not
+     * start the Engine Service so {@link #start(AxArtifactKey)} or {@link #startAll()} must be used.
      *
      * @param config the configuration for this Apex Engine Service.
      * @return the Engine Service instance
@@ -177,8 +175,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      * 
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#registerActionListener(java.lang.
-     * String, com.ericsson.apex.service.engine.runtime.ApexEventListener)
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#registerActionListener(java.lang. String,
+     * org.onap.policy.apex.service.engine.runtime.ApexEventListener)
      */
     @Override
     public void registerActionListener(final String listenerName, final ApexEventListener apexEventListener) {
@@ -197,9 +195,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#deregisterActionListener(java.lang.
-     * String)
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#deregisterActionListener(java.lang. String)
      */
     @Override
     public void deregisterActionListener(final String listenerName) {
@@ -218,7 +214,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#getEngineServiceEventInterface()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getEngineServiceEventInterface()
      */
     @Override
     public EngineServiceEventInterface getEngineServiceEventInterface() {
@@ -228,7 +224,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#getKey()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getKey()
      */
     @Override
     public AxArtifactKey getKey() {
@@ -238,7 +234,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#getInfo()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getInfo()
      */
     @Override
     public Collection<AxArtifactKey> getEngineKeys() {
@@ -248,7 +244,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#getApexModelKey()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getApexModelKey()
      */
     @Override
     public AxArtifactKey getApexModelKey() {
@@ -262,19 +258,18 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#updateModel(com.ericsson.apex.model.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#updateModel(org.onap.policy.apex.model.
      * basicmodel.concepts.AxArtifactKey, java.lang.String, boolean)
      */
     @Override
     public void updateModel(final AxArtifactKey incomingEngineServiceKey, final String apexModelString,
-            final boolean forceFlag) throws ApexException {
+                    final boolean forceFlag) throws ApexException {
         // Check if the Apex model specified is sane
         if (apexModelString == null || apexModelString.trim().length() == 0) {
-            LOGGER.warn(
-                    "model for updating on engine service with key " + incomingEngineServiceKey.getId() + " is empty");
-            throw new ApexException(
-                    "model for updating on engine service with key " + incomingEngineServiceKey.getId() + " is empty");
+            LOGGER.warn("model for updating on engine service with key " + incomingEngineServiceKey.getId()
+                            + " is empty");
+            throw new ApexException("model for updating on engine service with key " + incomingEngineServiceKey.getId()
+                            + " is empty");
         }
 
         // Read the Apex model into memory using the Apex Model Reader
@@ -285,7 +280,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         } catch (final ApexModelException e) {
             LOGGER.error("failed to unmarshal the apex model on engine service " + incomingEngineServiceKey.getId(), e);
             throw new ApexException(
-                    "failed to unmarshal the apex model on engine service " + incomingEngineServiceKey.getId(), e);
+                            "failed to unmarshal the apex model on engine service " + incomingEngineServiceKey.getId(),
+                            e);
         }
 
         if (apexPolicyModel == null) {
@@ -302,30 +298,28 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#updateModel(com.ericsson.apex.model.
-     * basicmodel.concepts.AxArtifactKey,
-     * com.ericsson.apex.model.policymodel.concepts.AxPolicyModel, boolean)
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#updateModel(org.onap.policy.apex.model.
+     * basicmodel.concepts.AxArtifactKey, org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel, boolean)
      */
     @Override
     public void updateModel(final AxArtifactKey incomingEngineServiceKey, final AxPolicyModel apexModel,
-            final boolean forceFlag) throws ApexException {
+                    final boolean forceFlag) throws ApexException {
         LOGGER.entry(incomingEngineServiceKey);
 
         // Check if the Apex model specified is sane
         if (apexModel == null) {
-            LOGGER.warn(
-                    "model for updating on engine service with key " + incomingEngineServiceKey.getId() + " is null");
-            throw new ApexException(
-                    "model for updating on engine service with key " + incomingEngineServiceKey.getId() + " is null");
+            LOGGER.warn("model for updating on engine service with key " + incomingEngineServiceKey.getId()
+                            + " is null");
+            throw new ApexException("model for updating on engine service with key " + incomingEngineServiceKey.getId()
+                            + " is null");
         }
 
         // Check if the key on the update request is correct
         if (!this.engineServiceKey.equals(incomingEngineServiceKey)) {
             LOGGER.warn("engine service key " + incomingEngineServiceKey.getId() + " does not match the key"
-                    + engineServiceKey.getId() + " of this engine service");
+                            + engineServiceKey.getId() + " of this engine service");
             throw new ApexException("engine service key " + incomingEngineServiceKey.getId() + " does not match the key"
-                    + engineServiceKey.getId() + " of this engine service");
+                            + engineServiceKey.getId() + " of this engine service");
         }
 
         // Check model compatibility
@@ -335,20 +329,18 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             if (!currentModel.getKey().isCompatible(apexModel.getKey())) {
                 if (forceFlag) {
                     LOGGER.warn("apex model update forced, supplied model with key \"" + apexModel.getKey().getId()
-                            + "\" is not a compatible model update from the existing engine model with key \""
-                            + currentModel.getKey().getId() + "\"");
+                                    + "\" is not a compatible model update from the existing engine model with key \""
+                                    + currentModel.getKey().getId() + "\"");
                 } else {
-                    throw new ContextException(
-                            "apex model update failed, supplied model with key \"" + apexModel.getKey().getId()
+                    throw new ContextException("apex model update failed, supplied model with key \""
+                                    + apexModel.getKey().getId()
                                     + "\" is not a compatible model update from the existing engine model with key \""
                                     + currentModel.getKey().getId() + "\"");
                 }
             }
         }
 
-        final boolean wasstopped = isStopped();
-
-        if (!wasstopped) {
+        if (!isStopped()) {
             // Stop all engines on this engine service
             stop();
             final long stoptime = System.currentTimeMillis();
@@ -356,19 +348,19 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
                 ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
             }
             // Check if all engines are stopped
-            final StringBuilder notStoppedEngineIDBuilder = new StringBuilder();
+            final StringBuilder notStoppedEngineIdBuilder = new StringBuilder();
             for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
                 if (engineWorkerEntry.getValue().getState() != AxEngineState.STOPPED) {
-                    notStoppedEngineIDBuilder.append(engineWorkerEntry.getKey().getId());
-                    notStoppedEngineIDBuilder.append('(');
-                    notStoppedEngineIDBuilder.append(engineWorkerEntry.getValue().getState());
-                    notStoppedEngineIDBuilder.append(") ");
+                    notStoppedEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
+                    notStoppedEngineIdBuilder.append('(');
+                    notStoppedEngineIdBuilder.append(engineWorkerEntry.getValue().getState());
+                    notStoppedEngineIdBuilder.append(") ");
                 }
             }
-            if (notStoppedEngineIDBuilder.length() > 0) {
+            if (notStoppedEngineIdBuilder.length() > 0) {
                 final String errorString = "cannot update model on engine service with key "
-                        + incomingEngineServiceKey.getId() + ", engines not stopped after " + MAX_STOP_WAIT_TIME
-                        + "ms are: " + notStoppedEngineIDBuilder.toString().trim();
+                                + incomingEngineServiceKey.getId() + ", engines not stopped after " + MAX_STOP_WAIT_TIME
+                                + "ms are: " + notStoppedEngineIdBuilder.toString().trim();
                 LOGGER.warn(errorString);
                 throw new ApexException(errorString);
             }
@@ -380,31 +372,29 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             engineWorkerEntry.getValue().updateModel(engineWorkerEntry.getKey(), apexModel, forceFlag);
         }
 
-        if (!wasstopped) {
-            // start all engines on this engine service if it was not stopped before the update
-            startAll();
-            final long starttime = System.currentTimeMillis();
-            while (!isStarted() && System.currentTimeMillis() - starttime < MAX_START_WAIT_TIME) {
-                ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
+        // start all engines on this engine service if it was not stopped before the update
+        startAll();
+        final long starttime = System.currentTimeMillis();
+        while (!isStarted() && System.currentTimeMillis() - starttime < MAX_START_WAIT_TIME) {
+            ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
+        }
+        // Check if all engines are running
+        final StringBuilder notRunningEngineIdBuilder = new StringBuilder();
+        for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
+            if (engineWorkerEntry.getValue().getState() != AxEngineState.READY
+                            && engineWorkerEntry.getValue().getState() != AxEngineState.EXECUTING) {
+                notRunningEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
+                notRunningEngineIdBuilder.append('(');
+                notRunningEngineIdBuilder.append(engineWorkerEntry.getValue().getState());
+                notRunningEngineIdBuilder.append(") ");
             }
-            // Check if all engines are running
-            final StringBuilder notRunningEngineIDBuilder = new StringBuilder();
-            for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
-                if (engineWorkerEntry.getValue().getState() != AxEngineState.READY
-                        && engineWorkerEntry.getValue().getState() != AxEngineState.EXECUTING) {
-                    notRunningEngineIDBuilder.append(engineWorkerEntry.getKey().getId());
-                    notRunningEngineIDBuilder.append('(');
-                    notRunningEngineIDBuilder.append(engineWorkerEntry.getValue().getState());
-                    notRunningEngineIDBuilder.append(") ");
-                }
-            }
-            if (notRunningEngineIDBuilder.length() > 0) {
-                final String errorString = "engine start error on model update on engine service with key "
-                        + incomingEngineServiceKey.getId() + ", engines not running are: "
-                        + notRunningEngineIDBuilder.toString().trim();
-                LOGGER.warn(errorString);
-                throw new ApexException(errorString);
-            }
+        }
+        if (notRunningEngineIdBuilder.length() > 0) {
+            final String errorString = "engine start error on model update on engine service with key "
+                            + incomingEngineServiceKey.getId() + ", engines not running are: "
+                            + notRunningEngineIdBuilder.toString().trim();
+            LOGGER.warn(errorString);
+            throw new ApexException(errorString);
         }
 
         LOGGER.exit();
@@ -413,7 +403,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#getState()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getState()
      */
     @Override
     public AxEngineState getState() {
@@ -430,7 +420,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#startAll()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#startAll()
      */
     @Override
     public void startAll() throws ApexException {
@@ -447,8 +437,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#start(com.ericsson.apex.core.model.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#start(org.onap.policy.apex.core.model.
      * concepts.AxArtifactKey)
      */
     @Override
@@ -470,7 +459,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#stop()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stop()
      */
     @Override
     public void stop() throws ApexException {
@@ -489,8 +478,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#stop(com.ericsson.apex.core.model.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stop(org.onap.policy.apex.core.model.
      * concepts.AxArtifactKey)
      */
     @Override
@@ -505,6 +493,49 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         // Stop the engine
         engineWorkerMap.get(engineKey).stop(engineKey);
+
+        LOGGER.exit(engineKey);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#clear()
+     */
+    @Override
+    public void clear() throws ApexException {
+        LOGGER.entry();
+
+        // Stop each engine
+        for (final EngineService engine : engineWorkerMap.values()) {
+            if (engine.getState() == AxEngineState.STOPPED) {
+                engine.clear();
+            }
+        }
+
+        LOGGER.exit();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#clear(org.onap.policy.apex.core.model.
+     * concepts.AxArtifactKey)
+     */
+    @Override
+    public void clear(final AxArtifactKey engineKey) throws ApexException {
+        LOGGER.entry(engineKey);
+
+        // Check if we have this key on our map
+        if (!engineWorkerMap.containsKey(engineKey)) {
+            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
+            throw new ApexException("engine with key " + engineKey.getId() + " not found in engine service");
+        }
+
+        // Clear the engine
+        if (engineWorkerMap.get(engineKey).getState() == AxEngineState.STOPPED) {
+            engineWorkerMap.get(engineKey).stop(engineKey);
+        }
 
         LOGGER.exit(engineKey);
     }
@@ -528,8 +559,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#isStarted(com.ericsson.apex.model.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStarted(org.onap.policy.apex.model.
      * basicmodel.concepts.AxArtifactKey)
      */
     @Override
@@ -560,8 +590,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#isStopped(com.ericsson.apex.model.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStopped(org.onap.policy.apex.model.
      * basicmodel.concepts.AxArtifactKey)
      */
     @Override
@@ -576,16 +605,16 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#startPeriodicEvents(long)
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#startPeriodicEvents(long)
      */
     @Override
     public void startPeriodicEvents(final long period) throws ApexException {
         // Check if periodic events are already started
         if (periodicEventGenerator != null) {
             LOGGER.warn("Peiodic event geneation already running on engine " + engineServiceKey.getId() + ", "
-                    + periodicEventGenerator.toString());
+                            + periodicEventGenerator.toString());
             throw new ApexException("Peiodic event geneation already running on engine " + engineServiceKey.getId()
-                    + ", " + periodicEventGenerator.toString());
+                            + ", " + periodicEventGenerator.toString());
         }
 
         // Set up periodic event execution, its a Java Timer/TimerTask
@@ -599,7 +628,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.service.engine.runtime.EngineService#stopPeriodicEvents()
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stopPeriodicEvents()
      */
     @Override
     public void stopPeriodicEvents() throws ApexException {
@@ -617,8 +646,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#getStatus(com.ericsson.apex.core.model
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getStatus(org.onap.policy.apex.core.model
      * .concepts.AxArtifactKey)
      */
     @Override
@@ -636,8 +664,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineService#getRuntimeInfo(com.ericsson.apex.core.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getRuntimeInfo(org.onap.policy.apex.core.
      * model.concepts.AxArtifactKey)
      */
     @Override
@@ -655,8 +682,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     /*
      * (non-Javadoc)
      *
-     * @see
-     * com.ericsson.apex.service.engine.runtime.EngineServiceEventInterface#sendEvent(com.ericsson.
+     * @see org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface#sendEvent(org.onap.policy.
      * apex.service.engine.event.ApexEvent)
      */
     @Override
@@ -664,7 +690,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         // Check if we have this key on our map
         if (getState() == AxEngineState.STOPPED) {
             LOGGER.warn("event " + event.getName() + " not processed, no engines on engine service "
-                    + engineServiceKey.getId() + " are running");
+                            + engineServiceKey.getId() + " are running");
             return;
         }
 

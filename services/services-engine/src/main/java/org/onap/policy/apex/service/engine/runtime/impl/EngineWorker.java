@@ -20,6 +20,11 @@
 
 package org.onap.policy.apex.service.engine.runtime.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
@@ -54,11 +59,6 @@ import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 /**
  * The Class EngineWorker encapsulates a core {@link ApexEngine} instance, which runs policies
@@ -283,6 +283,7 @@ final class EngineWorker implements EngineService {
         }
 
         // Update the Apex model in the Apex engine
+        engine.clear();
         engine.updateModel(apexModel);
 
         LOGGER.debug("engine model {} added to the engine-{}", apexModel.getKey().getId(), engineWorkerKey);
@@ -394,9 +395,54 @@ final class EngineWorker implements EngineService {
 
         // Interrupt the thread that is handling events toward the engine
         processorThread.interrupt();
+        processorThread = null;
 
         // Stop the engine
         engine.stop();
+
+        LOGGER.exit(engineKey);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.service.engine.runtime.EngineService#clear()
+     */
+    @Override
+    public void clear() throws ApexException {
+        clear(this.getKey());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.service.engine.runtime.EngineService#clear(org.onap.policy.apex.core.
+     * model. concepts.AxArtifactKey)
+     */
+    @Override
+    public void clear(final AxArtifactKey engineKey) throws ApexException {
+        // Check if the key on the start request is correct
+        if (!engineWorkerKey.equals(engineKey)) {
+            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
+                    + " of this engine");
+            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
+                    + engineWorkerKey.getId() + " of this engine");
+        }
+
+        if (engine == null) {
+            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " null");
+            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId() + " null");
+        }
+
+        // Interrupt the worker to stop its thread
+        if (processorThread != null && !processorThread.isAlive()) {
+            LOGGER.warn("apex engine for engine key" + engineWorkerKey.getId() + " is not stopped with state "
+                    + getState());
+            return;
+        }
+
+        // Clear the engine
         engine.clear();
 
         LOGGER.exit(engineKey);
