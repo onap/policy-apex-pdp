@@ -36,9 +36,9 @@ import org.slf4j.ext.XLoggerFactory;
  * receive messages on the web socket.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type of message being handled
+ * @param <M> the generic type of message being handled
  */
-abstract class InternalMessageBusClient<MESSAGE> extends WebSocketClientImpl {
+abstract class InternalMessageBusClient<M> extends WebSocketClientImpl {
     private static final int THREAD_FACTORY_STACK_SIZE = 256;
 
     // The logger for this class
@@ -48,15 +48,15 @@ abstract class InternalMessageBusClient<MESSAGE> extends WebSocketClientImpl {
     private static final String RAW_EVENT_BUS = "Raw-Event-Bus";
 
     // This instance handles the raw data received from the web socket
-    private final RawMessageHandler<MESSAGE> rawMessageHandler = new RawMessageHandler<>();
+    private final RawMessageHandler<M> rawMessageHandler = new RawMessageHandler<>();
 
     // The message block handler to which to pass messages coming in on this client
-    private MessageBlockHandler<MESSAGE> messageBlockHandler = null;
+    private MessageBlockHandler<M> messageBlockHandler = null;
 
     // The raw message handler uses a thread to process incoming events off a queue, this class owns and controls that
     // thread. These fields hold the thread and
     // the thread factory for creating threads.
-    private ApplicationThreadFactory tFactory =
+    private ApplicationThreadFactory threadFactory =
             new ApplicationThreadFactory("ws-client-thread", THREAD_FACTORY_STACK_SIZE);
     private Thread forwarderThread = null;
 
@@ -75,7 +75,7 @@ abstract class InternalMessageBusClient<MESSAGE> extends WebSocketClientImpl {
         messageBlockHandler.registerMessageHandler(rawMessageHandler);
 
         // Create the thread that manages the queue in the data handler
-        forwarderThread = tFactory.newThread(rawMessageHandler);
+        forwarderThread = threadFactory.newThread(rawMessageHandler);
         forwarderThread.start();
 
         LOGGER.exit();
@@ -109,7 +109,7 @@ abstract class InternalMessageBusClient<MESSAGE> extends WebSocketClientImpl {
      *
      * @param listener a simple class, that listens for the events from Event
      */
-    public void addMessageListener(final MessageListener<MESSAGE> listener) {
+    public void addMessageListener(final MessageListener<M> listener) {
         rawMessageHandler.registerDataForwarder(listener);
     }
 
@@ -118,7 +118,7 @@ abstract class InternalMessageBusClient<MESSAGE> extends WebSocketClientImpl {
      *
      * @param listener the listener
      */
-    public void removeMessageListener(final MessageListener<MESSAGE> listener) {
+    public void removeMessageListener(final MessageListener<M> listener) {
         rawMessageHandler.unRegisterDataForwarder(listener);
     }
 

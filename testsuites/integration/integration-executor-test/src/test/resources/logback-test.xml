@@ -72,7 +72,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="com.ericsson.apex" level="INFO" additivity="false">
+    <logger name="org.onap.policy.apex" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>

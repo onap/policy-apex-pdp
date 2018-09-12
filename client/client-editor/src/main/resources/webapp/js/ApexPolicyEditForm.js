@@ -376,7 +376,7 @@ function editPolicyForm_activate(parent, operation, policy, tasks, events, conte
                             name : "PeriodicEvent",
                             version : "0.0.1"
                         },
-                        nameSpace : "com.ericsson.apex.domains.aadm.events",
+                        nameSpace : "org.onap.policy.apex.domains.aadm.events",
                         parameter : {
                             entry : [ {
                                 key : "PERIODIC_EVENT_COUNT",

@@ -131,7 +131,7 @@ public class InfinispanDistributorParameters extends DistributorParameters {
     /*
      * (non-Javadoc)
      * 
-     * @see com.ericsson.apex.context.parameters.DistributorParameters#toString()
+     * @see org.onap.policy.apex.context.parameters.DistributorParameters#toString()
      */
     @Override
     public String toString() {

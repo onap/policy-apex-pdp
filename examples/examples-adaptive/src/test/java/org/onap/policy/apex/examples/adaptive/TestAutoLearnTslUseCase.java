@@ -129,7 +129,7 @@ public class TestAutoLearnTslUseCase {
         apexEngine1.handleEvent(triggerEvent);
         final EnEvent result = listener1.getResult();
         LOGGER.info("Receiving action event {} ", result);
-        assertEquals("ExecutionIDs are different", triggerEvent.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", triggerEvent.getExecutionId(), result.getExecutionId());
         triggerEvent.clear();
         result.clear();
         Thread.sleep(1);

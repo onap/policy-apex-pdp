@@ -37,15 +37,18 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class WSStringMessageClient implements WSStringMessager {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(WSStringMessageClient.class);
+public class WsStringMessageClient implements WsStringMessager {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(WsStringMessageClient.class);
+
+    // Repeated string constants
+    private static final String MESSAGE_PREAMBLE = "web socket event consumer client to \"";
 
     // Message service factory and the message service itself
     private final MessagingServiceFactory<String> factory = new MessagingServiceFactory<>();
     private MessagingService<String> service = null;
 
     // The listener to use for reception of strings
-    private WSStringMessageListener wsStringMessageListener;
+    private WsStringMessageListener wsStringMessageListener;
 
     // Address of the server
     private final String host;
@@ -58,7 +61,7 @@ public class WSStringMessageClient implements WSStringMessager {
      * @param host the host of the server
      * @param port the port of the server
      */
-    public WSStringMessageClient(final String host, final int port) {
+    public WsStringMessageClient(final String host, final int port) {
         this.host = host;
         this.port = port;
     }
@@ -71,22 +74,24 @@ public class WSStringMessageClient implements WSStringMessager {
      * apex. core.infrastructure.messaging. stringmessaging.WSStringMessageListener)
      */
     @Override
-    public void start(final WSStringMessageListener newWsStringMessageListener) throws MessagingException {
+    public void start(final WsStringMessageListener newWsStringMessageListener) throws MessagingException {
         this.wsStringMessageListener = newWsStringMessageListener;
 
         uriString = "ws://" + host + ":" + port;
-        LOGGER.entry("web socket event consumer client to \"" + uriString + "\" starting . . .");
+        String messagePreamble = MESSAGE_PREAMBLE + uriString + "\" ";
+        LOGGER.entry(messagePreamble + "starting . . .");
 
         try {
             service = factory.createClient(new URI(uriString));
-            service.addMessageListener(new WSStringMessageClientListener());
+            service.addMessageListener(new WsStringMessageClientListener());
             service.startConnection();
         } catch (final Exception e) {
-            LOGGER.warn("web socket event consumer client to \"" + uriString + "\" start failed", e);
-            throw new MessagingException("web socket event consumer client to \"" + uriString + "\" start failed", e);
+            String message = messagePreamble + "start failed";
+            LOGGER.warn(message, e);
+            throw new MessagingException(message, e);
         }
 
-        LOGGER.exit("web socket event consumer client to \"" + uriString + "\" started");
+        LOGGER.exit(messagePreamble + "started");
     }
 
     /*
@@ -96,9 +101,9 @@ public class WSStringMessageClient implements WSStringMessager {
      */
     @Override
     public void stop() {
-        LOGGER.entry("web socket event consumer client to \"" + uriString + "\" stopping . . .");
+        LOGGER.entry(MESSAGE_PREAMBLE + uriString + "\" stopping . . .");
         service.stopConnection();
-        LOGGER.exit("web socket event consumer client to \"" + uriString + "\" stopped");
+        LOGGER.exit(MESSAGE_PREAMBLE + uriString + "\" stopped");
     }
 
     /*
@@ -113,14 +118,15 @@ public class WSStringMessageClient implements WSStringMessager {
         service.send(stringMessage);
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("message sent to server: " + stringMessage);
+            String message = "message sent to server: " + stringMessage;
+            LOGGER.debug(message);
         }
     }
 
     /**
      * The Class WSStringMessageClientListener.
      */
-    private class WSStringMessageClientListener implements MessageListener<String> {
+    private class WsStringMessageClientListener implements MessageListener<String> {
         /*
          * (non-Javadoc)
          *

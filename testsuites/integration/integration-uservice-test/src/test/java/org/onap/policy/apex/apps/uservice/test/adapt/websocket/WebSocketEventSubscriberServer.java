@@ -21,19 +21,19 @@
 package org.onap.policy.apex.apps.uservice.test.adapt.websocket;
 
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageServer;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
 
-public class WebSocketEventSubscriberServer implements WSStringMessageListener {
+public class WebSocketEventSubscriberServer implements WsStringMessageListener {
     private final int port;
     private long eventsReceivedCount = 0;
 
-    private final WSStringMessageServer server;
+    private final WsStringMessageServer server;
 
     public WebSocketEventSubscriberServer(final int port) throws MessagingException {
         this.port = port;
 
-        server = new WSStringMessageServer(port);
+        server = new WsStringMessageServer(port);
         server.start(this);
 
         System.out.println(

@@ -45,7 +45,7 @@ public class ApexPeriodicEventGenerator extends TimerTask {
     public static final String PERIODIC_EVENT_VERSION = "0.0.1";
 
     /** The name space of the periodic event. */
-    public static final String PERIODIC_EVENT_NAMESPACE = "com.ericsson.apex.service.engine.event";
+    public static final String PERIODIC_EVENT_NAMESPACE = "org.onap.policy.apex.service.engine.event";
 
     /** The source of the periodic event. */
     public static final String PERIODIC_EVENT_SOURCE = "internal";

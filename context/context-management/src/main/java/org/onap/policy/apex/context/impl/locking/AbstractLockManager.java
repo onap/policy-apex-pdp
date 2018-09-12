@@ -41,12 +41,15 @@ public abstract class AbstractLockManager implements LockManager {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AbstractLockManager.class);
 
+    // Recurring string constants
+    private static final String CONTEXT_ITEM = " context item ";
+
     // The key of this lock manager
     private AxArtifactKey key = null;
 
     // Map of locks in use on this distributor for each context map
-    private final Map<String, Map<String, ReadWriteLock>> lockMaps =
-            Collections.synchronizedMap(new HashMap<String, Map<String, ReadWriteLock>>());
+    private final Map<String, Map<String, ReadWriteLock>> lockMaps = Collections
+                    .synchronizedMap(new HashMap<String, Map<String, ReadWriteLock>>());
 
     /*
      * (non-Javadoc)
@@ -85,9 +88,9 @@ public abstract class AbstractLockManager implements LockManager {
             lock.readLock().lock();
             LOGGER.exit("lockForReading(" + lockTypeKey + "_" + lockKey + ")");
         } catch (final Exception e) {
-            LOGGER.warn("error acquiring read lock on context map " + lockTypeKey + " context item " + lockKey, e);
+            LOGGER.warn("error acquiring read lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
             throw new ContextException(
-                    "error acquiring read lock on context map " + lockTypeKey + " context item " + lockKey, e);
+                            "error acquiring read lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
         }
     }
 
@@ -107,9 +110,9 @@ public abstract class AbstractLockManager implements LockManager {
             lock.writeLock().lock();
             LOGGER.exit("lockForWriting(" + lockTypeKey + "_" + lockKey + ")");
         } catch (final Exception e) {
-            LOGGER.warn("error acquiring write lock on context map " + lockTypeKey + " context item " + lockKey, e);
+            LOGGER.warn("error acquiring write lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
             throw new ContextException(
-                    "error acquiring write lock on context map " + lockTypeKey + " context item " + lockKey, e);
+                            "error acquiring write lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
         }
     }
 
@@ -129,9 +132,9 @@ public abstract class AbstractLockManager implements LockManager {
             lock.readLock().unlock();
             LOGGER.exit("unlockForReading(" + lockTypeKey + "_" + lockKey + ")");
         } catch (final Exception e) {
-            LOGGER.warn("error releasing read lock on context map " + lockTypeKey + " context item " + lockKey, e);
+            LOGGER.warn("error releasing read lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
             throw new ContextException(
-                    "error releasing read lock on context map " + lockTypeKey + " context item " + lockKey, e);
+                            "error releasing read lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
         }
     }
 
@@ -151,19 +154,11 @@ public abstract class AbstractLockManager implements LockManager {
             lock.writeLock().unlock();
             LOGGER.exit("unlockForWriting(" + lockTypeKey + "_" + lockKey + ")");
         } catch (final Exception e) {
-            LOGGER.warn("error releasing write lock on context map " + lockTypeKey + " context item " + lockKey, e);
+            LOGGER.warn("error releasing write lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
             throw new ContextException(
-                    "error releasing write lock on context map " + lockTypeKey + " context item " + lockKey, e);
+                            "error releasing write lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey, e);
         }
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#shutdown()
-     */
-    @Override
-    public abstract void shutdown();
 
     /**
      * Get a reentrant read write lock from whatever locking mechanism is in use.
@@ -184,7 +179,7 @@ public abstract class AbstractLockManager implements LockManager {
      * @throws ContextException On errors getting the lock
      */
     private ReadWriteLock getLock(final String lockTypeKey, final String lockKey, final boolean createMode)
-            throws ContextException {
+                    throws ContextException {
         // Check if we have a lock type map for this lock type yet
         if (!lockMaps.containsKey(lockTypeKey)) {
             // Create a lock type map for the lock type
@@ -198,11 +193,11 @@ public abstract class AbstractLockManager implements LockManager {
         }
 
         // Should we create a lock?
+        String errorMessage = "error getting lock on context map " + lockTypeKey + CONTEXT_ITEM + lockKey;
         if (!createMode) {
-            LOGGER.warn("error getting lock on context map " + lockTypeKey + " context item " + lockKey
-                    + ", lock does not exist");
-            throw new ContextException("error getting lock on context map " + lockTypeKey + " context item " + lockKey
-                    + ", lock does not exist");
+            String message = errorMessage + ", lock does not exist";
+            LOGGER.warn(message);
+            throw new ContextException(message);
         }
 
         try {
@@ -213,13 +208,12 @@ public abstract class AbstractLockManager implements LockManager {
             lockMaps.get(lockTypeKey).put(lockKey, lock);
 
             if (LOGGER.isTraceEnabled()) {
-                LOGGER.trace("created lock " + lockTypeKey + "_" + lockKey);
+                LOGGER.trace("created lock {}_{}", lockTypeKey, lockKey);
             }
             return lock;
         } catch (final Exception e) {
-            LOGGER.warn("error getting lock on context map " + lockTypeKey + " context item " + lockKey, e);
-            throw new ContextException("error getting lock on context map " + lockTypeKey + " context item " + lockKey,
-                    e);
+            LOGGER.warn(errorMessage, e);
+            throw new ContextException(errorMessage, e);
         }
     }
 }

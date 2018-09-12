@@ -46,7 +46,7 @@ public class DistributorFlushTimerTask extends TimerTask {
     private final Distributor contextDistributor;
 
     // Timing information
-    private long period = 0;
+    private long flushPeriod = 0;
     private long flushCount = 0;
 
     /**
@@ -62,14 +62,14 @@ public class DistributorFlushTimerTask extends TimerTask {
         // Set the period for persistence flushing
         final PersistorParameters persistorParameters = ParameterService
                         .get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
-        period = persistorParameters.getFlushPeriod();
+        flushPeriod = persistorParameters.getFlushPeriod();
 
         // Set up the timer
         timer = new Timer(DistributorFlushTimerTask.class.getSimpleName(), true);
-        timer.schedule(this, period, period);
+        timer.schedule(this, flushPeriod, flushPeriod);
 
-        LOGGER.debug("context distributor " + contextDistributor.getKey().getId() + " flushing set up with interval: "
-                        + period + "ms");
+        LOGGER.debug("context distributor {} flushing set up with interval: {} ms", contextDistributor.getKey().getId(),
+                        flushPeriod);
     }
 
     /**
@@ -80,15 +80,15 @@ public class DistributorFlushTimerTask extends TimerTask {
         // Increment the flush counter
         flushCount++;
 
-        LOGGER.debug("context distributor " + contextDistributor.getKey().getId() + " flushing: period=" + period
-                        + ": count=" + flushCount);
+        LOGGER.debug("context distributor {} flushing: period={}: count={}", contextDistributor.getKey().getId(),
+                        flushPeriod, flushCount);
         try {
             contextDistributor.flush();
-            LOGGER.debug("context distributor " + contextDistributor.getKey().getId() + " flushed: period=" + period
-                            + ": count=" + flushCount);
+            LOGGER.debug("context distributor {} flushed: period={}: count={}", contextDistributor.getKey().getId(),
+                            flushPeriod, flushCount);
         } catch (final ContextException e) {
-            LOGGER.error("flush error on context distributor " + contextDistributor.getKey().getId() + ": period="
-                            + period + ": count=" + flushCount, e);
+            LOGGER.error("flush error on context distributor {}: period={}: count={}",
+                            contextDistributor.getKey().getId(), flushPeriod, flushCount, e);
         }
     }
 
@@ -113,6 +113,6 @@ public class DistributorFlushTimerTask extends TimerTask {
      */
     @Override
     public String toString() {
-        return "ContextDistributorFlushTimerTask [period=" + period + ", flushCount=" + flushCount + "]";
+        return "ContextDistributorFlushTimerTask [period=" + flushPeriod + ", flushCount=" + flushCount + "]";
     }
 }

@@ -31,4 +31,4 @@ timeNow = new JavaDate();
 executor.outFields.put("Test<STATE_NAME>StateTime", timeNow.getTime());
 executor.logger.debug(executor.eo);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

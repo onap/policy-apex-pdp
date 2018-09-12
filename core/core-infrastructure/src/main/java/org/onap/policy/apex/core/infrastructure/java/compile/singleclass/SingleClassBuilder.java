@@ -69,8 +69,8 @@ public class SingleClassBuilder {
      */
     public void compile() throws JavaHandlingException {
         // Get the list of compilation units, there is only one here
-        final List<? extends JavaFileObject> compilationUnits =
-                Arrays.asList(new SingleClassCompilationUnit(className, sourceCode));
+        final List<? extends JavaFileObject> compilationUnits = Arrays
+                        .asList(new SingleClassCompilationUnit(className, sourceCode));
 
         // Allows us to get diagnostics from the compilation
         final DiagnosticCollector<JavaFileObject> diagnosticListener = new DiagnosticCollector<>();
@@ -80,8 +80,8 @@ public class SingleClassBuilder {
 
         // Set up the target file manager and call the compiler
         singleFileManager = new SingleFileManager(compiler, new SingleClassByteCodeFileObject(className));
-        final JavaCompiler.CompilationTask task =
-                compiler.getTask(null, singleFileManager, diagnosticListener, null, null, compilationUnits);
+        final JavaCompiler.CompilationTask task = compiler.getTask(null, singleFileManager, diagnosticListener, null,
+                        null, compilationUnits);
 
         // Check if the compilation worked
         if (!task.call()) {
@@ -104,9 +104,9 @@ public class SingleClassBuilder {
                 builder.append("\n");
             }
 
-            LOGGER.warn("error compiling Java code for class \"" + className + "\": " + builder.toString());
-            throw new JavaHandlingException(
-                    "error compiling Java code for class \"" + className + "\": " + builder.toString());
+            String message = "error compiling Java code for class \"" + className + "\": " + builder.toString();
+            LOGGER.warn(message);
+            throw new JavaHandlingException(message);
         }
     }
 
@@ -120,12 +120,12 @@ public class SingleClassBuilder {
      * @throws ClassNotFoundException the byte code for the class is not found in the class loader
      * @throws JavaHandlingException the java handling exception if the Java class source code is not compiled
      */
-    public Object createObject()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, JavaHandlingException {
+    public Object createObject() throws InstantiationException, IllegalAccessException, ClassNotFoundException,
+                    JavaHandlingException {
         if (singleFileManager == null) {
-            LOGGER.warn("error instantiating instance for class \"" + className + "\": code may not be compiled");
-            throw new JavaHandlingException(
-                    "error instantiating instance for class \"" + className + "\": code may not be compiled");
+            String message = "error instantiating instance for class \"" + className + "\": code may not be compiled";
+            LOGGER.warn(message);
+            throw new JavaHandlingException(message);
         }
 
         return singleFileManager.getClassLoader(null).findClass(className).newInstance();

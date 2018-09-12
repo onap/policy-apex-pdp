@@ -1,5 +1,5 @@
 {
-	"type": "enum",
-	"name": "Suit",
-	"symbols" : ["SPADES", "HEARTS", "DIAMONDS", "CLUBS"]
+    "type": "enum",
+    "name": "Suit",
+    "symbols" : ["SPADES", "HEARTS", "DIAMONDS", "CLUBS"]
 }

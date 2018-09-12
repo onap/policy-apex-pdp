@@ -1,10 +1,10 @@
 {
-	"type": "map", "values": {
-		"type" : "record",
-		"name" : "AddressUSRecord",
-		"fields" : [
-			{"name": "street_DasH_address", "type": "string"},
-			{"name": "the_DoT_city", "type": "string"}
-			]
-	}
+    "type": "map", "values": {
+        "type" : "record",
+        "name" : "AddressUSRecord",
+        "fields" : [
+            {"name": "street_DasH_address", "type": "string"},
+            {"name": "the_DoT_city", "type": "string"}
+            ]
+    }
 }

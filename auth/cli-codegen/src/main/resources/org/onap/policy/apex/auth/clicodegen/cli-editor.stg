@@ -21,7 +21,7 @@
 /*
  * Template for creating APEX CLI Editor Commands.
  *
- * @package    com.ericsson.apex.apps.pdsls.base
+ * @package    org.onap.policy.apex.apps.pdsls.base
  * @author     Sven van der Meer &lt;sven.van.der.meer@ericsson.com&gt;
  */
 

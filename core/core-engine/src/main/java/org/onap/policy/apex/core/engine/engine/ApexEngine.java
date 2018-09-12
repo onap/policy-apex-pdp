@@ -46,7 +46,7 @@ public interface ApexEngine {
      * The amount of milliseconds to wait for the current Apex engine to timeout on engine stop
      * requests. If the timeout is exceeded, the stop aborts.
      */
-    int APEX_ENGINE_STOP_EXECUTION_WAIT_TIMEOUT = 3000;
+    int STOP_EXECUTION_WAIT_TIMEOUT = 3000;
 
     /** The wait increment (or pause time) when waiting for the Apex engine to stop. */
     int APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT = 100;

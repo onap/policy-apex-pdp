@@ -24,9 +24,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageClient;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageServer;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -40,22 +40,22 @@ public class EndToEndStringMessagingTest {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(EndToEndStringMessagingTest.class);
 
-    private WSStringMessageServer server;
-    private WSStringMessageClient client;
+    private WsStringMessageServer server;
+    private WsStringMessageClient client;
 
     private boolean finished = false;
 
     @Test
     public void testEndToEndMessaging() throws MessagingException {
         logger.debug("end to end messaging test starting . . .");
-        server = new WSStringMessageServer(44441);
+        server = new WsStringMessageServer(44441);
         assertNotNull(server);
-        server.start(new WSStringServerMessageListener());
+        server.start(new WsStringServerMessageListener());
 
         try {
-            client = new WSStringMessageClient("localhost", 44441);
+            client = new WsStringMessageClient("localhost", 44441);
             assertNotNull(client);
-            client.start(new WSStringClientMessageListener());
+            client.start(new WsStringClientMessageListener());
 
             client.sendString("Hello, client here");
 
@@ -74,7 +74,7 @@ public class EndToEndStringMessagingTest {
         logger.debug("end to end messaging test finished");
     }
 
-    private class WSStringServerMessageListener implements WSStringMessageListener {
+    private class WsStringServerMessageListener implements WsStringMessageListener {
         @Override
         public void receiveString(final String stringMessage) {
             logger.debug(stringMessage);
@@ -83,7 +83,7 @@ public class EndToEndStringMessagingTest {
         }
     }
 
-    private class WSStringClientMessageListener implements WSStringMessageListener {
+    private class WsStringClientMessageListener implements WsStringMessageListener {
         @Override
         public void receiveString(final String stringMessage) {
             logger.debug(stringMessage);

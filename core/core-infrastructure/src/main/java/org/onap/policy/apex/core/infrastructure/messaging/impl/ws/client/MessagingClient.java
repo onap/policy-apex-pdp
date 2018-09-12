@@ -33,9 +33,9 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
  * message reception on the client side of a web socket in Apex.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type
+ * @param <M> the generic type
  */
-public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> implements MessagingService<MESSAGE> {
+public class MessagingClient<M> extends InternalMessageBusClient<M> implements MessagingService<M> {
     // The length of time to wait for a connection to a web socket server before aborting
     private static final int CONNECTION_TIMEOUT_TIME_MS = 3000;
 
@@ -102,7 +102,7 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
      */
     private boolean waitforConnection(final WebSocket connection) {
         // The total time we have before timeout
-        int timeoutMSCounter = CONNECTION_TIMEOUT_TIME_MS;
+        int timeoutMsCounter = CONNECTION_TIMEOUT_TIME_MS;
 
         // Check the connection state
         do {
@@ -112,7 +112,7 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
                 case CLOSING:
                     // Not connected yet so wait for the try interval
                     ThreadUtilities.sleep(CONNECTION_TRY_INTERVAL_MS);
-                    timeoutMSCounter -= CONNECTION_TRY_INTERVAL_MS;
+                    timeoutMsCounter -= CONNECTION_TRY_INTERVAL_MS;
                     break;
                 case OPEN:
                     // Connection is open, happy days
@@ -125,7 +125,7 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
             }
         }
         // While the timeout value has not expired
-        while (timeoutMSCounter > 0);
+        while (timeoutMsCounter > 0);
 
         // We have timed out
         return false;
@@ -139,7 +139,7 @@ public class MessagingClient<MESSAGE> extends InternalMessageBusClient<MESSAGE> 
      * .core. infrastructure. messaging.MessageHolder)
      */
     @Override
-    public void send(final MessageHolder<MESSAGE> commands) {
+    public void send(final MessageHolder<M> commands) {
         // Get the connection and send the message
         final WebSocket connection = super.getConnection();
         connection.send(MessagingUtils.serializeObject(commands));

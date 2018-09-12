@@ -90,7 +90,7 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
                 axEvent.getNameSpace(), axEvent.getSource(), axEvent.getTarget());
 
         // Copy the ExecutionID from the EnEvent into the ApexEvent
-        apexEvent.setExecutionID(enEvent.getExecutionID());
+        apexEvent.setExecutionID(enEvent.getExecutionId());
 
         // Copy he exception message to the Apex event if it is set
         if (enEvent.getExceptionMessage() != null) {
@@ -136,7 +136,7 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         enEvent.putAll(apexEvent);
 
         // copy the ExecutionID from the ApexEvent into the EnEvent
-        enEvent.setExecutionID(apexEvent.getExecutionID());
+        enEvent.setExecutionId(apexEvent.getExecutionID());
 
         return enEvent;
     }

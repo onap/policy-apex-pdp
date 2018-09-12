@@ -52,18 +52,18 @@ public class TaskSelectionExecutionContext {
     // CHECKSTYLE:OFF: checkstyle:VisibilityModifier Logic has access to these field
 
     /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
-    public final Boolean TRUE = true;
+    public final Boolean isTrue = true;
 
     /**
      * A constant <code>boolean false</code> value available for reuse e.g., for the return value
      */
-    public final Boolean FALSE = false;
+    public final Boolean isFalse = false;
 
     /** A facade to the full state definition for the task selection logic being executed. */
     public final AxStateFacade subject;
 
     /** the execution ID for the current APEX policy execution instance. */
-    public final Long executionID;
+    public final Long executionId;
 
     /**
      * The incoming fields from the trigger event for the state. The task selection logic can access
@@ -96,21 +96,21 @@ public class TaskSelectionExecutionContext {
      * Instantiates a new task selection execution context.
      *
      * @param taskSelectExecutor the task selection executor that requires context
-     * @param executionID the execution identifier
+     * @param executionId the execution identifier
      * @param axState the state definition that is the subject of execution
      * @param incomingEvent the incoming event for the state
      * @param outgoingKey the outgoing key for the task to execute in this state
      * @param internalContext the execution context of the Apex engine in which the task is being
      *        executed
      */
-    public TaskSelectionExecutionContext(final TaskSelectExecutor taskSelectExecutor, final long executionID,
+    public TaskSelectionExecutionContext(final TaskSelectExecutor taskSelectExecutor, final long executionId,
             final AxState axState, final EnEvent incomingEvent, final AxArtifactKey outgoingKey,
             final ApexInternalContext internalContext) {
         // The subject is the state definition
         subject = new AxStateFacade(axState);
 
         // Execution ID is the current policy execution instance
-        this.executionID = executionID;
+        this.executionId = executionId;
 
         // The events
         inFields = incomingEvent;
@@ -153,7 +153,7 @@ public class TaskSelectionExecutionContext {
      * @throws ContextRuntimeException if the context album does not exist on the state for this
      *         executor
      */
-    public ContextAlbum getContextAlbum(final String contextAlbumName) throws ContextRuntimeException {
+    public ContextAlbum getContextAlbum(final String contextAlbumName) {
         // Find the context album
         final ContextAlbum foundContextAlbum = context.get(contextAlbumName);
 

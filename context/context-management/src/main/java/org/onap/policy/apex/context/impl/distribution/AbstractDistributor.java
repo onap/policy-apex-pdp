@@ -94,17 +94,33 @@ public abstract class AbstractDistributor implements Distributor {
 
         // Create the lock manager if it doesn't already exist
         if (lockManager == null) {
-            lockManager = new LockManagerFactory().createLockManager(key);
+            setLockManager(new LockManagerFactory().createLockManager(key));
         }
 
         // Set up flushing on the context distributor if its not set up already
         if (flushTimer == null) {
-            flushTimer = new DistributorFlushTimerTask(this);
+            setFlushTimer(new DistributorFlushTimerTask(this));
         }
 
         // Create a new persistor for this key
         persistor = new PersistorFactory().createPersistor(key);
         LOGGER.exit("init(" + key + ")");
+    }
+
+    /**
+     * Set the static lock manager
+     * @param incomingLockManager the lock manager value
+     */
+    private static void setLockManager(final LockManager incomingLockManager) {
+        lockManager = incomingLockManager;
+    }
+
+    /**
+     * Set the static flush timer
+     * @param incomingFlushTimer the flush timer value
+     */
+    private static void setFlushTimer(final DistributorFlushTimerTask incomingFlushTimer) {
+        flushTimer = incomingFlushTimer;
     }
 
     /*
@@ -191,8 +207,7 @@ public abstract class AbstractDistributor implements Distributor {
             // another process,
             // if not, we have to try to read the content from persistence
             if (newContextAlbumMap.isEmpty()) {
-                // Read entries from persistence
-                // TODO: READ ITEMS FROM PRESISTENCE!!!!
+                // Read entries from persistence, (Not implemented yet)
             }
 
             // Create the context album and put the context album object onto the distributor
@@ -232,8 +247,7 @@ public abstract class AbstractDistributor implements Distributor {
         for (final Entry<AxArtifactKey, ContextAlbum> distributorMapEntry : albumMaps.entrySet()) {
             // Let the persistor write each of the entries
             for (final Object contextItem : distributorMapEntry.getValue().values()) {
-                LOGGER.debug(contextItem.toString());
-                // persistor.writeContextItem((AxContextSchema) contextItem);
+                persistor.writeContextItem((AxContextSchema) contextItem);
             }
         }
     }
@@ -312,7 +326,7 @@ public abstract class AbstractDistributor implements Distributor {
         // Shut down the lock manager
         if (lockManager != null) {
             lockManager.shutdown();
-            lockManager = null;
+            setLockManager(null);
         }
 
         albumMaps.clear();

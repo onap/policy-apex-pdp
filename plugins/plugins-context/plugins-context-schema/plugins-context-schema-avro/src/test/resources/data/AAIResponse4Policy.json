@@ -1,20 +1,20 @@
 [
-	{
-		"model-name": "service-instance",
-		"generic-vnf": {
-			"vnf-id": "de7cc3ab-0212-47df-9e64-da1c79234deb",
-			"vnf-name": "ZRDM2MMEX39",
-			"vnf-type": "vMME Svc Jul 14/vMME VF Jul 14 1",
-			"service-id": "a9a77d5a-123e-4ca2-9eb9-0b015d2ee0fb",
-			"orchestration-status": "active",
-			"in-maint": false,
-			"is-closed-loop-disabled": false,
-			"resource-version": "1503082370097",
-			"model-invariant-id": "82194af1-3c2c-485a-8f44-420e22a9eaa4",
-			"model-version-id": "46b92144-923a-4d20-b85a-3cbd847668a9"
-		},
-		"extra-properties": {
-			
-		}
-	}
+    {
+        "model-name": "service-instance",
+        "generic-vnf": {
+            "vnf-id": "de7cc3ab-0212-47df-9e64-da1c79234deb",
+            "vnf-name": "ZRDM2MMEX39",
+            "vnf-type": "vMME Svc Jul 14/vMME VF Jul 14 1",
+            "service-id": "a9a77d5a-123e-4ca2-9eb9-0b015d2ee0fb",
+            "orchestration-status": "active",
+            "in-maint": false,
+            "is-closed-loop-disabled": false,
+            "resource-version": "1503082370097",
+            "model-invariant-id": "82194af1-3c2c-485a-8f44-420e22a9eaa4",
+            "model-version-id": "46b92144-923a-4d20-b85a-3cbd847668a9"
+        },
+        "extra-properties": {
+            
+        }
+    }
 ]

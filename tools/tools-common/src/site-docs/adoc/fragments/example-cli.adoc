@@ -19,8 +19,8 @@ First, add the dependency of the utility project to your POM file.
 [source,xml,subs="attributes+"]
 ----
 <dependency>
-  <groupId>com.ericsson.apex.apps</groupId>
-  <artifactId>apex-apps</artifactId>
+  <groupId>org.onap.policy.apex-pdp.tools</groupId>
+  <artifactId>tools-common</artifactId>
   <version>{release-version}</version>
 </dependency>
 ----

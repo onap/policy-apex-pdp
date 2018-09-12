@@ -1,5 +1,5 @@
 {
-	"type" : "fixed",
-	"name" : "binaryData",
-	"size" : 64
+    "type" : "fixed",
+    "name" : "binaryData",
+    "size" : 64
 }

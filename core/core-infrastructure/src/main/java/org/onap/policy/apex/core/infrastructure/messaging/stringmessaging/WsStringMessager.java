@@ -20,17 +20,32 @@
 
 package org.onap.policy.apex.core.infrastructure.messaging.stringmessaging;
 
+import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
+
 /**
- * This interface is used to call back the owner of a String Web socket message server or client.
+ * This interface is used to call a String Web socket message server or client to send a string.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public interface WSStringMessageListener {
+public interface WsStringMessager {
 
     /**
-     * Receive a string coming off a web socket.
+     * Start the string message sender.
      *
-     * @param stringMessage the string message
+     * @param wsStringMessageListener the listener to use for listening for string messages
+     * @throws MessagingException the messaging exception
      */
-    void receiveString(String stringMessage);
+    void start(WsStringMessageListener wsStringMessageListener) throws MessagingException;
+
+    /**
+     * Stop the string messaging sender.
+     */
+    void stop();
+
+    /**
+     * Send a string on a web socket.
+     *
+     * @param stringMessage the string message to send
+     */
+    void sendString(String stringMessage);
 }

@@ -40,19 +40,19 @@ public class JavaHandlingException extends Exception {
     /**
      * Instantiates a new Java handling exception.
      *
-     * @param e the exception to wrap
+     * @param exception the exception to wrap
      */
-    public JavaHandlingException(final Exception e) {
-        super(e);
+    public JavaHandlingException(final Exception exception) {
+        super(exception);
     }
 
     /**
      * Instantiates a new Java handling exception.
      *
      * @param message the message
-     * @param e the exception to wrap
+     * @param exception the exception to wrap
      */
-    public JavaHandlingException(final String message, final Exception e) {
-        super(message, e);
+    public JavaHandlingException(final String message, final Exception exception) {
+        super(message, exception);
     }
 }

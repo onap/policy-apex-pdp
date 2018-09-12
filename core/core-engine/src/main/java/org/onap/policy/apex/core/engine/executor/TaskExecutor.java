@@ -101,7 +101,8 @@ public abstract class TaskExecutor
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + axTask.getKey().getId() + "," + axTask.getTaskLogic().getLogicFlavour() + ","
                 + axTask.getTaskLogic().getLogic());
-        argumentOfClassNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class, "task logic cannot be null.");
+        argumentOfClassNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class,
+                        "task logic cannot be null.");
     }
 
     /*
@@ -111,7 +112,7 @@ public abstract class TaskExecutor
      * java.lang.Object)
      */
     @Override
-    public Map<String, Object> execute(final long executionID, final Map<String, Object> newIncomingFields)
+    public Map<String, Object> execute(final long executionId, final Map<String, Object> newIncomingFields)
             throws StateMachineException, ContextException {
         throw new StateMachineException(
                 "execute() not implemented on abstract TaskExecutor class, only on its subclasses");
@@ -124,7 +125,7 @@ public abstract class TaskExecutor
      * java.lang.Object)
      */
     @Override
-    public final void executePre(final long executionID, final Map<String, Object> newIncomingFields)
+    public final void executePre(final long executionId, final Map<String, Object> newIncomingFields)
             throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + getSubject().getTaskLogic().getLogicFlavour() + ","
                 + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
@@ -157,7 +158,7 @@ public abstract class TaskExecutor
 
         // Get task context object
         executionContext =
-                new TaskExecutionContext(this, executionID, getSubject(), getIncoming(), getOutgoing(), getContext());
+                new TaskExecutionContext(this, executionId, getSubject(), getIncoming(), getOutgoing(), getContext());
     }
 
     /*
@@ -228,7 +229,8 @@ public abstract class TaskExecutor
                     + "\" are unwanted for task \"" + axTask.getKey().getId() + "\"");
         }
 
-        LOGGER.debug("execute-post:" + axTask.getKey().getId() + ", returning fields " + outgoingFields.toString());
+        String message = "execute-post:" + axTask.getKey().getId() + ", returning fields " + outgoingFields.toString();
+        LOGGER.debug(message);
     }
 
     /*

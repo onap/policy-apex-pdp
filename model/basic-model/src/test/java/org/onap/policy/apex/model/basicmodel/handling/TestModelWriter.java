@@ -38,57 +38,54 @@ public class TestModelWriter {
     @Test
     public void testModelWriter() throws IOException, ApexException {
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
-        
+
         modelWriter.setValidateFlag(true);
         assertTrue(modelWriter.getValidateFlag());
         assertEquals(0, modelWriter.getCDataFieldSet().size());
-        
+
         assertFalse(modelWriter.isJsonOutput());
         modelWriter.setJsonOutput(true);
         assertTrue(modelWriter.isJsonOutput());
         modelWriter.setJsonOutput(false);
         assertFalse(modelWriter.isJsonOutput());
-        
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         AxModel model = new TestApexBasicModelCreator().getModel();
-        
+
         modelWriter.write(model, baos);
         modelWriter.setJsonOutput(true);
         modelWriter.write(model, baos);
         modelWriter.setJsonOutput(false);
-        
+
         modelWriter.setValidateFlag(false);
         modelWriter.write(model, baos);
         modelWriter.setJsonOutput(true);
         modelWriter.write(model, baos);
         modelWriter.setJsonOutput(false);
-        
+
         modelWriter.setValidateFlag(true);
         model.getKeyInformation().getKeyInfoMap().clear();
         try {
             modelWriter.write(model, baos);
             fail("Test should throw an exception here");
-        }
-        catch (Exception e) {
-            assertEquals("Apex concept xml (BasicModel:0.0.1) validation failed", e.getMessage());
+        } catch (Exception e) {
+            assertEquals("Apex concept xml (BasicModel:0.0.1) validation failed", e.getMessage().substring(0, 53));
         }
         model.getKeyInformation().generateKeyInfo(model);
 
         try {
             modelWriter.write(null, baos);
             fail("Test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("concept may not be null", e.getMessage());
         }
-        
+
         try {
             ByteArrayOutputStream nullBaos = null;
             modelWriter.write(model, nullBaos);
             fail("Test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("concept stream may not be null", e.getMessage());
         }
     }

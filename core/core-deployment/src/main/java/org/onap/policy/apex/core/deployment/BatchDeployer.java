@@ -33,8 +33,8 @@ import org.slf4j.ext.XLoggerFactory;
  * The Class {@link BatchDeployer} deploys an Apex model held as an XML or Json file onto an Apex engine. It uses the
  * EngDep protocol to communicate with the engine, with the EngDep protocol being carried on Java web sockets.
  *
- * This deployer is a simple command line deployer that reads the communication parameters and the location of the Apex
- * model file as arguments.
+ * <p>This deployer is a simple command line deployer that reads the communication parameters and the location of the
+ * Apex model file as arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -55,8 +55,9 @@ public class BatchDeployer {
      */
     public static void main(final String[] args) {
         if (args.length != NUM_ARGUMENTS) {
-            LOGGER.error("invalid arguments: " + Arrays.toString(args));
-            LOGGER.error("usage: Deployer <server address> <port address> <Apex Model file location>");
+            String message = "invalid arguments: " + Arrays.toString(args)
+                            + "usage: Deployer <server address> <port address> <Apex Model file location>";
+            LOGGER.error(message);
             return;
         }
 
@@ -112,7 +113,7 @@ public class BatchDeployer {
      * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-            throws ApexException, IOException {
+                    throws ApexException, IOException {
         engineServiceFacade.deployModel(modelFileName, ignoreConflicts, force);
     }
 
@@ -126,7 +127,7 @@ public class BatchDeployer {
      * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final AxPolicyModel policyModel, final boolean ignoreConflicts, final boolean force)
-            throws ApexException, IOException {
+                    throws ApexException, IOException {
         engineServiceFacade.deployModel(policyModel, ignoreConflicts, force);
     }
 

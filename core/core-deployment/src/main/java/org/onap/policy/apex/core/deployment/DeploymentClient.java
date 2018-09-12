@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.core.deployment;
 
+import com.google.common.eventbus.Subscribe;
+
 import java.net.URI;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -34,8 +36,6 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.core.protocols.Message;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * The Class DeploymentClient handles the client side of an EngDep communication session with an
@@ -84,7 +84,7 @@ public class DeploymentClient implements Runnable {
      */
     @Override
     public void run() {
-        LOGGER.debug("engine<-->deployment to \"ws://" + host + ":" + port + "\" thread starting . . .");
+        LOGGER.debug("engine<-->deployment to \"ws://{}:{}\" thread starting . . .", host, port);
 
         // Set up the thread name
         thisThread = Thread.currentThread();
@@ -104,7 +104,7 @@ public class DeploymentClient implements Runnable {
             return;
         }
         // Loop forever, sending messages as they appear on the queue
-        while (true) {
+        while (started) {
             try {
                 final Message messageForSending = sendQueue.take();
                 sendMessage(messageForSending);
@@ -143,9 +143,7 @@ public class DeploymentClient implements Runnable {
         thisThread.interrupt();
 
         // Wait for the thread to stop
-        while (thisThread != null && thisThread.isAlive()) {
-            ThreadUtilities.sleep(CLIENT_STOP_WAIT_INTERVAL);
-        }
+        ThreadUtilities.sleep(CLIENT_STOP_WAIT_INTERVAL);
 
         // Close the Web Services connection
         service.stopConnection();

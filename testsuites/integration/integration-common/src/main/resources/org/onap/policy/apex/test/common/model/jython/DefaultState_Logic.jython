@@ -24,4 +24,4 @@ executor.logger.debug('id: ' + executor.subject.id)
 executor.logger.debug('ctxt name: ' + executor.getContextAlbum("GlobalContextAlbum").name)
 executor.subject.defaultTaskKey.copyTo(executor.selectedTask)
 
-returnValue = executor.TRUE
+returnValue = executor.isTrue

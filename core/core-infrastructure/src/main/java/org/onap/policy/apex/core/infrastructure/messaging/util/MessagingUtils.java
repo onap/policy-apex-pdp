@@ -43,7 +43,7 @@ public final class MessagingUtils {
     private static final int LOWEST_USER_PORT = 1024;
 
     /**
-     * Port number is an unsigned 16-bit integer, so maximum port is 65535
+     * Port number is an unsigned 16-bit integer, so maximum port is 65535.
      */
     private static final int MAX_PORT_RANGE = 65535;
 
@@ -71,7 +71,7 @@ public final class MessagingUtils {
             return port;
         }
         LOGGER.debug("Port {} is not available", port);
-        throw new RuntimeException("could not allocate requested port: " + port);
+        throw new IllegalArgumentException("could not allocate requested port: " + port);
     }
 
     /**
@@ -96,7 +96,7 @@ public final class MessagingUtils {
             LOGGER.debug("Port {} is not available", availablePort);
             availablePort++;
         }
-        throw new RuntimeException("could not find free available");
+        throw new IllegalArgumentException("could not find free available");
     }
 
     /**
@@ -149,7 +149,7 @@ public final class MessagingUtils {
      * @return an Internet address
      * @throws UnknownHostException if the address of the local host cannot be found
      */
-    public static InetAddress getLocalHostLANAddress() throws UnknownHostException {
+    public static InetAddress getLocalHostLanAddress() throws UnknownHostException {
         try {
             InetAddress candidateAddress = null;
             // Iterate all NICs (network interface cards)...
@@ -225,8 +225,7 @@ public final class MessagingUtils {
         } finally {
             flushAndClose(oos, bytesOut);
         }
-        final byte[] bytes = bytesOut.toByteArray();
-        return bytes;
+        return bytesOut.toByteArray();
     }
 
     /**

@@ -86,7 +86,8 @@ public class ApexModelWriter<C extends AxConcept> {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
 
         try {
-            final JAXBContext jaxbContext = JAXBContextFactory.createContext(new Class[] {rootConceptClass}, null);
+            final JAXBContext jaxbContext = JAXBContextFactory.createContext(new Class[]
+                { rootConceptClass }, null);
 
             // Set up the unmarshaller to carry out validation
             marshaller = jaxbContext.createMarshaller();
@@ -173,10 +174,11 @@ public class ApexModelWriter<C extends AxConcept> {
         if (validateFlag) {
             // Validate the concept first
             final AxValidationResult validationResult = concept.validate(new AxValidationResult());
-            LOGGER.debug(validationResult.toString());
             if (!validationResult.isValid()) {
-                LOGGER.warn(validationResult.toString());
-                throw new ApexModelException("Apex concept xml (" + concept.getKey().getId() + ") validation failed");
+                String message = "Apex concept xml (" + concept.getKey().getId() + ") validation failed: "
+                                + validationResult.toString();
+                LOGGER.warn(message);
+                throw new ApexModelException(message);
             }
         }
 
@@ -212,7 +214,7 @@ public class ApexModelWriter<C extends AxConcept> {
 
             // Convert the cDataFieldSet into a space delimited string
             domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS,
-                    cdataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
+                            cdataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
             domTransformer.transform(new DOMSource(document), new StreamResult(apexConceptWriter));
         } catch (JAXBException | TransformerException | ParserConfigurationException e) {
             LOGGER.warn("Unable to marshal Apex concept XML", e);
@@ -220,7 +222,6 @@ public class ApexModelWriter<C extends AxConcept> {
         }
         LOGGER.debug("wrote Apex concept XML");
     }
-
 
     private Transformer getTransformer() throws TransformerConfigurationException {
         // Transform the DOM to the output stream

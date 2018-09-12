@@ -51,6 +51,9 @@ public class EnEvent extends HashMap<String, Object> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EnEvent.class);
 
+    // Repeasted string constants
+    private static final String NULL_KEYS_ILLEGAL = "null keys are illegal on method parameter \"key\"";
+
     // The definition of this event in the Apex model
     private final AxEvent axEvent;
 
@@ -65,7 +68,7 @@ public class EnEvent extends HashMap<String, Object> {
     // An identifier for the current event execution. The default value here will always be a random
     // number, and should
     // be reset
-    private long executionID = rand.nextLong();
+    private long executionId = rand.nextLong();
 
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;
@@ -122,7 +125,7 @@ public class EnEvent extends HashMap<String, Object> {
      *
      * @return the event key
      */
-    public String getID() {
+    public String getId() {
         return axEvent.getKey().getId();
     }
 
@@ -135,8 +138,8 @@ public class EnEvent extends HashMap<String, Object> {
      *
      * @return the currently set value for the ExecutionID for this event.
      */
-    public long getExecutionID() {
-        return executionID;
+    public long getExecutionId() {
+        return executionId;
     }
 
     /**
@@ -146,10 +149,10 @@ public class EnEvent extends HashMap<String, Object> {
      * particular input event. The default initialised value for the ExecutionID is always unique in
      * a single JVM.
      *
-     * @param executionID the new value for the ExecutionID for this event.
+     * @param executionId the new value for the ExecutionID for this event.
      */
-    public void setExecutionID(final long executionID) {
-        this.executionID = executionID;
+    public void setExecutionId(final long executionId) {
+        this.executionId = executionId;
     }
 
     /**
@@ -194,8 +197,9 @@ public class EnEvent extends HashMap<String, Object> {
         // Check if this key is a parameter on our event
         final AxField eventParameter = axEvent.getParameterMap().get(key);
         if (eventParameter == null) {
-            LOGGER.warn("parameter with key " + key + " not defined on this event");
-            throw new EnException("parameter with key " + key + " not defined on this event");
+            String message = "parameter with key " + key + " not defined on this event";
+            LOGGER.warn(message);
+            throw new EnException(message);
         }
 
         // Get the item
@@ -250,15 +254,17 @@ public class EnEvent extends HashMap<String, Object> {
     @Override
     public Object put(final String key, final Object incomingValue) {
         if (key == null) {
-            LOGGER.warn("null keys are illegal on method parameter \"key\"");
-            throw new EnException("null keys are illegal on method parameter \"key\"");
+            String message = NULL_KEYS_ILLEGAL;
+            LOGGER.warn(message);
+            throw new EnException(message);
         }
 
         // Check if this key is a parameter on our event
         final AxField eventParameter = axEvent.getParameterMap().get(key);
         if (eventParameter == null) {
-            LOGGER.warn("parameter with key \"" + key + "\" not defined on event \"" + getName() + "\"");
-            throw new EnException("parameter with key \"" + key + "\" not defined on event \"" + getName() + "\"");
+            String message = "parameter with key \"" + key + "\" not defined on event \"" + getName() + "\"";
+            LOGGER.warn(message);
+            throw new EnException(message);
         }
 
         // We allow null values
@@ -296,15 +302,16 @@ public class EnEvent extends HashMap<String, Object> {
     @Override
     public Object remove(final Object key) {
         if (key == null) {
-            LOGGER.warn("null keys are illegal on method parameter \"key\"");
-            throw new EnException("null keys are illegal on method parameter \"key\"");
+            LOGGER.warn(NULL_KEYS_ILLEGAL);
+            throw new EnException(NULL_KEYS_ILLEGAL);
         }
 
         // Check if this key is a parameter on our event
         final AxField eventParameter = axEvent.getParameterMap().get(key);
         if (eventParameter == null) {
-            LOGGER.warn("parameter with key " + key + " not defined on this event");
-            throw new EnException("parameter with key " + key + " not defined on this event");
+            String message = "parameter with key " + key + " not defined on this event";
+            LOGGER.warn(message);
+            throw new EnException(message);
         }
 
         final Object removedValue = super.remove(key);

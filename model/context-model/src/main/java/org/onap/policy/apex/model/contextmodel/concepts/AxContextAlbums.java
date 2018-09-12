@@ -135,6 +135,9 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
      * @param parent the parent object of this object in the unmarshaler
      */
     public void afterUnmarshal(final Unmarshaller unmarsaller, final Object parent) {
+        Assertions.argumentNotNull(unmarsaller, "unmarsaller should not be null");
+        Assertions.argumentNotNull(parent, "parent should not be null");
+
         // The map must be navigable to allow name and version searching, unmarshaling returns a
         // hash map
         final NavigableMap<AxArtifactKey, AxContextAlbum> navigableAlbums = new TreeMap<>();

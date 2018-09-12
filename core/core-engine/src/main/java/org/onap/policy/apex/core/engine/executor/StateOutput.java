@@ -34,8 +34,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 import org.onap.policy.apex.model.utilities.Assertions;
 
 /**
- * This class is the output of a state, and is used by the engine to decide what the next state for
- * execution is.
+ * This class is the output of a state, and is used by the engine to decide what the next state for execution is.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -104,14 +103,14 @@ public class StateOutput {
      * @throws StateMachineException on errors populating the event fields
      */
     public void setEventFields(final Map<String, AxField> incomingFieldDefinitionMap,
-            final Map<String, Object> eventFieldMap) throws StateMachineException {
+                    final Map<String, Object> eventFieldMap) throws StateMachineException {
         Assertions.argumentNotNull(incomingFieldDefinitionMap, "incomingFieldDefinitionMap may not be null");
         Assertions.argumentNotNull(eventFieldMap, "eventFieldMap may not be null");
 
         if (!incomingFieldDefinitionMap.keySet().equals(eventFieldMap.keySet())) {
             throw new StateMachineException(
-                    "field definitions and values do not match for event " + outputEventDef.getId() + '\n'
-                            + incomingFieldDefinitionMap.keySet() + '\n' + eventFieldMap.keySet());
+                            "field definitions and values do not match for event " + outputEventDef.getId() + '\n'
+                                            + incomingFieldDefinitionMap.keySet() + '\n' + eventFieldMap.keySet());
         }
         for (final Entry<String, Object> incomingFieldEntry : eventFieldMap.entrySet()) {
             final String fieldName = incomingFieldEntry.getKey();
@@ -119,8 +118,8 @@ public class StateOutput {
 
             // Check if this field is a field in the event
             if (!outputEventDef.getFields().contains(fieldDef)) {
-                throw new StateMachineException(
-                        "field \"" + fieldName + "\" does not exist on event \"" + outputEventDef.getId() + "\"");
+                throw new StateMachineException("field \"" + fieldName + "\" does not exist on event \""
+                                + outputEventDef.getId() + "\"");
             }
 
             // Set the value in the output event
@@ -129,8 +128,8 @@ public class StateOutput {
     }
 
     /**
-     * This method copies any fields that exist on the input event that also exist on the output
-     * event if they are not set on the output event.
+     * This method copies any fields that exist on the input event that also exist on the output event if they are not
+     * set on the output event.
      *
      * @param incomingEvent The incoming event to copy from
      */
@@ -141,18 +140,14 @@ public class StateOutput {
             final String fieldName = incomingField.getKey();
 
             // Check if the field exists on the outgoing event
-            if (!outputEventDef.getParameterMap().containsKey(fieldName)) {
-                continue;
-            }
+            if ((!outputEventDef.getParameterMap().containsKey(fieldName))
 
-            // Check if the field is set on the outgoing event
-            if (outputEvent.containsKey(fieldName)) {
-                continue;
-            }
+                            // Check if the field is set on the outgoing event
+                            || (outputEvent.containsKey(fieldName))
 
-            // Now, check the fields have the same type
-            if (!incomingEvent.getAxEvent().getParameterMap().get(fieldName)
-                    .equals(outputEvent.getAxEvent().getParameterMap().get(fieldName))) {
+                            // Now, check the fields have the same type
+                            || (!incomingEvent.getAxEvent().getParameterMap().get(fieldName)
+                                            .equals(outputEvent.getAxEvent().getParameterMap().get(fieldName)))) {
                 continue;
             }
 

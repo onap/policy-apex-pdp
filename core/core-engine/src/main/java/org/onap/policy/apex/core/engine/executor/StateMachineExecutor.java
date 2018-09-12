@@ -128,7 +128,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * java.lang.Object)
      */
     @Override
-    public EnEvent execute(final long executionID, final EnEvent incomingEvent)
+    public EnEvent execute(final long executionId, final EnEvent incomingEvent)
             throws StateMachineException, ContextException {
         // Check if there are any states on the state machine
         if (stateExecutorMap.size() == 0) {
@@ -147,7 +147,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
                 incomingEvent.getKey(), firstExecutor.getSubject().getKey()), incomingEvent);
         while (true) {
             // Execute the state
-            stateOutput = stateExecutor.execute(executionID, stateOutput.getOutputEvent());
+            stateOutput = stateExecutor.execute(executionId, stateOutput.getOutputEvent());
             if (stateOutput == null) {
                 throw new StateMachineException("state execution failed, invalid state output returned");
             }
@@ -175,7 +175,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * java.lang.Object)
      */
     @Override
-    public final void executePre(final long executionID, final EnEvent incomingEntity) throws StateMachineException {
+    public final void executePre(final long executionId, final EnEvent incomingEntity) throws StateMachineException {
         throw new StateMachineException("execution pre work not implemented on class");
     }
 
@@ -291,5 +291,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * engine. ExecutorParameters)
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+        // Not implemented in this class
+    }
 }
