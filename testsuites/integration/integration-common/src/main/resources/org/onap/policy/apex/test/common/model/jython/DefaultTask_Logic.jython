@@ -32,4 +32,4 @@ executor.outFields["Test<STATE_NAME>CaseSelected"] = Byte("<RANDOM_BYTE_VALUE>")
 timeValue = Long(Date().getTime());
 executor.outFields["Test<STATE_NAME>StateTime"] = timeValue
 executor.logger.debug('outFields: ' + executor.outFields.toString())
-returnValue = executor.TRUE
+returnValue = executor.isTrue

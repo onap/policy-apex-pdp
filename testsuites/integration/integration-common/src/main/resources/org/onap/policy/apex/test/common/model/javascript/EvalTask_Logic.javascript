@@ -26,4 +26,4 @@ timeNow = new JavaDate();
 executor.outFields.put("State<STATE_NUMBER>Timestamp", timeNow.getTime());
 executor.logger.debug(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

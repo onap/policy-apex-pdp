@@ -59,7 +59,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
      * (non-Javadoc)
      *
      * @see
-     * com.ericsson.apex.context.impl.distribution.AbstractContextDistributor#init(com.ericsson.apex
+     * org.onap.policy.apex.context.impl.distribution.AbstractContextDistributor#init(org.onap.policy.apex
      * .model.basicmodel.concepts.AxArtifactKey)
      */
     @Override
@@ -86,8 +86,8 @@ public class InfinispanContextDistributor extends AbstractDistributor {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.core.context.impl.distribution.AbstractContextDistributor#
-     * getContextAlbumMap(com.ericsson.apex.core.model.concepts.AxArtifactKey)
+     * @see org.onap.policy.apex.core.context.impl.distribution.AbstractContextDistributor#
+     * getContextAlbumMap(org.onap.policy.apex.core.model.concepts.AxArtifactKey)
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextAlbumKey) {
@@ -103,7 +103,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
     /*
      * (non-Javadoc)
      *
-     * @see com.ericsson.apex.core.context.impl.distribution.AbstractContextDistributor#shutdown()
+     * @see org.onap.policy.apex.core.context.impl.distribution.AbstractContextDistributor#shutdown()
      */
     @Override
     public void shutdown() {

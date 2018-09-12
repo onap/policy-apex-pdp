@@ -28,7 +28,7 @@ public abstract class EngineParameterConstants {
     public static final String EXECUTOR_GROUP_NAME = "EXECUTOR_PARAMETERS";
 
     /**
-     * Private default constructor to prevent subclassing
+     * Private default constructor to prevent subclassing.
      */
     private EngineParameterConstants() {
         // Prevents subclassing

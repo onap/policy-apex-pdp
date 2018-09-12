@@ -24,10 +24,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageClient;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageServer;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessager;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessager;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexWebSocketProducer implements ApexEventProducer, WSStringMessageListener {
+public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessageListener {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexWebSocketProducer.class);
 
@@ -50,7 +50,7 @@ public class ApexWebSocketProducer implements ApexEventProducer, WSStringMessage
     private WEBSOCKETCarrierTechnologyParameters webSocketProducerProperties;
 
     // The web socket messager, may be WS a server or a client
-    private WSStringMessager wsStringMessager;
+    private WsStringMessager wsStringMessager;
 
     // The name for this producer
     private String name = null;
@@ -75,10 +75,10 @@ public class ApexWebSocketProducer implements ApexEventProducer, WSStringMessage
         // Check if this is a server or a client Web Socket
         if (webSocketProducerProperties.isWsClient()) {
             // Create a WS client
-            wsStringMessager = new WSStringMessageClient(webSocketProducerProperties.getHost(),
+            wsStringMessager = new WsStringMessageClient(webSocketProducerProperties.getHost(),
                     webSocketProducerProperties.getPort());
         } else {
-            wsStringMessager = new WSStringMessageServer(webSocketProducerProperties.getPort());
+            wsStringMessager = new WsStringMessageServer(webSocketProducerProperties.getPort());
         }
 
         // Start reception of event strings on the web socket

@@ -211,13 +211,13 @@ public class ApexModelReader<C extends AxConcept> {
         if (validateFlag) {
             // Validate the configuration file
             final AxValidationResult validationResult = apexConcept.validate(new AxValidationResult());
-            LOGGER.debug(validationResult.toString());
             if (validationResult.isValid()) {
                 return apexConcept;
             }
             else {
-                LOGGER.error("Apex concept validation failed" + validationResult.toString());
-                throw new ApexModelException("Apex concept validation failed" + validationResult.toString());
+                String message = "Apex concept validation failed" + validationResult.toString();
+                LOGGER.error(message);
+                throw new ApexModelException(message);
             }
         }
         else {

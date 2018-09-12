@@ -1,7 +1,7 @@
 {
 	"type"      : "record",
 	"name"      : "VPNActEvent",
-	"namespace" : "com.ericsson.apex.domains.vpn.events",
+	"namespace" : "org.onap.policy.apex.domains.vpn.events",
 	"fields"    : [
 		{"name": "nameSpace", "type": "string"},
 		{"name": "name",      "type": "string"},
@@ -11,23 +11,23 @@
 		{"name": "LinkMap", "type": {
 			"type" : "record",
 			"name" : "LinkMap",
-			"namespace" : "com.ericsson.apex.domains.vpn",
+			"namespace" : "org.onap.policy.apex.domains.vpn",
 			"fields" : [ ]
 		}
 		},
 		{"name": "CustomerMap", "type": {
 			"type" : "record",
 			"name" : "CustomerMap",
-			"namespace" : "com.ericsson.apex.domains.vpn",
+			"namespace" : "org.onap.policy.apex.domains.vpn",
 			"fields" : [ ]
 		}
 		},
-		{"name": "CustomerMap1", "type": "com.ericsson.apex.domains.vpn.CustomerMap"},
+		{"name": "CustomerMap1", "type": "org.onap.policy.apex.domains.vpn.CustomerMap"},
 		{
 			"name" : "CustomerMapArray",
 			"type": {
 				"type": "array",
-				"items": "com.ericsson.apex.domains.vpn.CustomerMap"
+				"items": "org.onap.policy.apex.domains.vpn.CustomerMap"
 			}
 		}
 	]

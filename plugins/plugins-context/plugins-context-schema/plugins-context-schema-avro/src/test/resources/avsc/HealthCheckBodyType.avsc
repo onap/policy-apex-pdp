@@ -1,7 +1,7 @@
 {
 	"type"      : "record",
 	"name"      : "HealthCheckBody_Type",
-	"namespace" : "com.ericsson.apex.onap.tlgoal2017",
+	"namespace" : "org.onap.policy.apex.onap.tlgoal2017",
 	"fields"    : [
 		{
 			"name": "input",

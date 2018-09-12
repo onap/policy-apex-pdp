@@ -77,8 +77,9 @@ public final class PolicyModelSplitter {
             final AxValidationResult sourceValidationResult = new AxValidationResult();
             sourcePolicyModel.validate(sourceValidationResult);
             if (!sourceValidationResult.isValid()) {
-                LOGGER.warn("source model is invalid: " + sourceValidationResult.toString());
-                throw new ApexModelException("source model is invalid: " + sourceValidationResult.toString());
+                String message = "source model is invalid: " + sourceValidationResult.toString();
+                LOGGER.warn(message);
+                throw new ApexModelException(message);
             }
         }
 
@@ -103,7 +104,7 @@ public final class PolicyModelSplitter {
         for (final AxArtifactKey subPolicyKey : subPolicies) {
             final AxPolicy subPolicy = sourcePolicyModel.getPolicies().getPolicyMap().get(subPolicyKey);
             if (subPolicy == null) {
-                LOGGER.warn("source sub policy not found: " + subPolicyKey);
+                LOGGER.warn("source sub policy not found: {}", subPolicyKey);
                 continue;
             }
 

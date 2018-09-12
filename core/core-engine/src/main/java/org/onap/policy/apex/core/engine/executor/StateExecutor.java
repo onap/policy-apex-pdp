@@ -171,13 +171,13 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      * java.lang.Object)
      */
     @Override
-    public StateOutput execute(final long executionID, final EnEvent incomingEvent)
+    public StateOutput execute(final long executionId, final EnEvent incomingEvent)
             throws StateMachineException, ContextException {
         this.lastIncomingEvent = incomingEvent;
 
         // Check that the incoming event matches the trigger for this state
         if (!incomingEvent.getAxEvent().getKey().equals(axState.getTrigger())) {
-            throw new StateMachineException("incoming event \"" + incomingEvent.getID() + "\" does not match trigger \""
+            throw new StateMachineException("incoming event \"" + incomingEvent.getId() + "\" does not match trigger \""
                     + axState.getTrigger().getId() + "\" of state \"" + axState.getId() + "\"");
         }
 
@@ -188,7 +188,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             // There may be no task selection logic, in which case just return the default task
             if (taskSelectExecutor != null) {
                 // Fire the task selector to find the task to run
-                taskKey = taskSelectExecutor.execute(executionID, incomingEvent);
+                taskKey = taskSelectExecutor.execute(executionId, incomingEvent);
             }
 
             // If there's no task selection logic or the TSL returned no task, just use the default
@@ -201,7 +201,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             final TreeMap<String, Object> incomingValues = new TreeMap<>();
             incomingValues.putAll(incomingEvent);
             final Map<String, Object> taskExecutionResultMap =
-                    taskExecutorMap.get(taskKey).execute(executionID, incomingValues);
+                    taskExecutorMap.get(taskKey).execute(executionId, incomingValues);
             final AxTask task = taskExecutorMap.get(taskKey).getSubject();
 
             // Check if this task has direct output
@@ -220,7 +220,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
                 // Execute the state finalizer logic to select a state output and to adjust the
                 // taskExecutionResultMap
                 stateOutputName =
-                        finalizerLogicExecutor.execute(incomingEvent.getExecutionID(), taskExecutionResultMap);
+                        finalizerLogicExecutor.execute(incomingEvent.getExecutionId(), taskExecutionResultMap);
             }
 
             // Now look up the the actual state output
@@ -240,8 +240,8 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             stateOutput.copyUnsetFields(incomingEvent);
 
             // Set the ExecutionID for the outgoing event to the value in the incoming event.
-            if (stateOutput != null && stateOutput.getOutputEvent() != null) {
-                stateOutput.getOutputEvent().setExecutionID(incomingEvent.getExecutionID());
+            if (stateOutput.getOutputEvent() != null) {
+                stateOutput.getOutputEvent().setExecutionId(incomingEvent.getExecutionId());
             }
 
             // That's it, the state execution is complete
@@ -262,7 +262,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      * java.lang.Object)
      */
     @Override
-    public final void executePre(final long executionID, final EnEvent incomingEntity) throws StateMachineException {
+    public final void executePre(final long executionId, final EnEvent incomingEntity) throws StateMachineException {
         throw new StateMachineException("execution pre work not implemented on class");
     }
 
@@ -384,5 +384,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      * engine. ExecutorParameters)
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+        // Not implemented in this class
+    }
 }

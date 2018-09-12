@@ -27,16 +27,16 @@ import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.M
  * implements this interface.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> of message of any given type that is being listened for and handled
+ * @param <M> of message of any given type that is being listened for and handled
  */
-public interface MessageListener<MESSAGE> {
+public interface MessageListener<M> {
 
     /**
      * This method is called when a message block is received on a web socket and is to be forwarded to a listener.
      *
      * @param data the message data containing a message
      */
-    void onMessage(MessageBlock<MESSAGE> data);
+    void onMessage(MessageBlock<M> data);
 
     /**
      * This method is called when a string message is received on a web socket and is to be forwarded to a listener.

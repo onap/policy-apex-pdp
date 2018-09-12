@@ -28,12 +28,12 @@ import org.java_websocket.WebSocket;
  * This class encapsulate messages and the web socket on which they are handled.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type of message being handled
+ * @param <M> the generic type of message being handled
  */
-public final class MessageBlock<MESSAGE> {
+public final class MessageBlock<M> {
 
     // List of Messages received on a web socket
-    private final List<MESSAGE> messages;
+    private final List<M> messages;
 
     // The web socket on which the messages are handled
     private final WebSocket webSocket;
@@ -44,7 +44,7 @@ public final class MessageBlock<MESSAGE> {
      * @param messages the messages in the message block
      * @param webSocket the web socket used to handle the message block
      */
-    public MessageBlock(final List<MESSAGE> messages, final WebSocket webSocket) {
+    public MessageBlock(final List<M> messages, final WebSocket webSocket) {
         this.messages = messages;
         this.webSocket = webSocket;
     }
@@ -54,7 +54,7 @@ public final class MessageBlock<MESSAGE> {
      *
      * @return the messages
      */
-    public List<MESSAGE> getMessages() {
+    public List<M> getMessages() {
         return messages;
     }
 

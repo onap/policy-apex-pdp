@@ -34,7 +34,7 @@ import javax.tools.StandardJavaFileManager;
  * is an implementation of {@code JavaFileManager} that forwards the {@code JavaFileManager} methods to a given file
  * manager.
  *
- * This class instantiates and forwards those requests to a {@link StandardJavaFileManager} instance to act as a
+ * <p>This class instantiates and forwards those requests to a {@link StandardJavaFileManager} instance to act as a
  * {@code JavaFileManager} for a Java single file, managing class loading for the class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)

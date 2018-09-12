@@ -124,10 +124,11 @@ public class StateMachineHandler {
             try {
                 smExecutor.prepare();
             } catch (final StateMachineException e) {
-                final String stateMachineID = smExecutor.getContext().getKey().getId();
-                LOGGER.warn("start()<-" + key.getId() + ", start failed, state machine \"" + stateMachineID + "\"", e);
+                final String stateMachineId = smExecutor.getContext().getKey().getId();
+                String message = "start()<-" + key.getId() + ", start failed, state machine \"" + stateMachineId + "\"";
+                LOGGER.warn(message, e);
                 throw new StateMachineException(
-                        "start()<-" + key.getId() + ", start failed, state machine \"" + stateMachineID + "\"", e);
+                        message, e);
             }
         }
 
@@ -158,7 +159,7 @@ public class StateMachineHandler {
         // Run the state machine
         try {
             LOGGER.debug("execute(): state machine \"{}\" execution starting  . . .", stateMachineExecutor);
-            final EnEvent outputObject = stateMachineExecutor.execute(event.getExecutionID(), event);
+            final EnEvent outputObject = stateMachineExecutor.execute(event.getExecutionId(), event);
 
             LOGGER.debug("execute()<-: state machine \"{}\" execution completed", stateMachineExecutor);
             return outputObject;
@@ -180,8 +181,8 @@ public class StateMachineHandler {
             try {
                 smExecutor.cleanUp();
             } catch (final StateMachineException e) {
-                final String smID = smExecutor.getContext().getKey().getId();
-                LOGGER.warn("stop()<-clean up failed, state machine \"" + smID + "\" cleanup failed", e);
+                final String smId = smExecutor.getContext().getKey().getId();
+                LOGGER.warn("stop()<-clean up failed, state machine \"" + smId + "\" cleanup failed", e);
             }
         }
         LOGGER.exit("stop()<-");

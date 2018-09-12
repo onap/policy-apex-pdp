@@ -58,7 +58,7 @@ public class StateFinalizerExecutionContext {
     public final AxStateFacade subject;
 
     /** the execution ID for the current APEX policy execution instance. */
-    public final Long executionID;
+    public final Long executionId;
 
     /**
      * The list of state outputs for this state finalizer. The purpose of a state finalizer is to
@@ -99,7 +99,7 @@ public class StateFinalizerExecutionContext {
      * Instantiates a new state finalizer execution context.
      *
      * @param stateFinalizerExecutor the state finalizer executor that requires context
-     * @param executionID the execution ID for the current APEX policy execution instance
+     * @param executionId the execution ID for the current APEX policy execution instance
      * @param axState the state definition that is the subject of execution
      * @param fields the fields to be manipulated by the state finalizer
      * @param stateOutputNames the state output names, one of which will be selected by the state
@@ -107,13 +107,13 @@ public class StateFinalizerExecutionContext {
      * @param internalContext the execution context of the Apex engine in which the task is being
      *        executed
      */
-    public StateFinalizerExecutionContext(final StateFinalizerExecutor stateFinalizerExecutor, final long executionID,
+    public StateFinalizerExecutionContext(final StateFinalizerExecutor stateFinalizerExecutor, final long executionId,
             final AxState axState, final Map<String, Object> fields, final Set<String> stateOutputNames,
             final ApexInternalContext internalContext) {
         subject = new AxStateFacade(axState);
 
         // Execution ID is the current policy execution instance
-        this.executionID = executionID;
+        this.executionId = executionId;
 
         this.fields = fields;
         this.stateOutputNames = stateOutputNames;
@@ -150,7 +150,7 @@ public class StateFinalizerExecutionContext {
      * @throws ContextRuntimeException if the context album does not exist on the state for this
      *         executor
      */
-    public ContextAlbum getContextAlbum(final String contextAlbumName) throws ContextRuntimeException {
+    public ContextAlbum getContextAlbum(final String contextAlbumName) {
         // Find the context album
         final ContextAlbum foundContextAlbum = context.get(contextAlbumName);
 

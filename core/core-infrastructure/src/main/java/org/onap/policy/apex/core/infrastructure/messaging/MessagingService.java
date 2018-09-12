@@ -25,9 +25,9 @@ package org.onap.policy.apex.core.infrastructure.messaging;
  * messaging.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the type of message being passed by an implementation of Apex messaging
+ * @param <M> the type of message being passed by an implementation of Apex messaging
  */
-public interface MessagingService<MESSAGE> {
+public interface MessagingService<M> {
 
     /**
      * Start the messaging connection.
@@ -51,7 +51,7 @@ public interface MessagingService<MESSAGE> {
      *
      * @param messageHolder The message holder holding the messages to be sent
      */
-    void send(MessageHolder<MESSAGE> messageHolder);
+    void send(MessageHolder<M> messageHolder);
 
     /**
      * Send a string message on the connection.
@@ -65,12 +65,12 @@ public interface MessagingService<MESSAGE> {
      *
      * @param messageListener the message listener
      */
-    void addMessageListener(MessageListener<MESSAGE> messageListener);
+    void addMessageListener(MessageListener<M> messageListener);
 
     /**
      * Removes the message listener.
      *
      * @param messageListener the message listener
      */
-    void removeMessageListener(MessageListener<MESSAGE> messageListener);
+    void removeMessageListener(MessageListener<M> messageListener);
 }

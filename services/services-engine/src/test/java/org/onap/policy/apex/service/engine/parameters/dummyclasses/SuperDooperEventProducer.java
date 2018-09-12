@@ -43,8 +43,8 @@ public class SuperDooperEventProducer implements ApexEventProducer {
     /*
      * (non-Javadoc)
      * 
-     * @see com.ericsson.apex.service.engine.event.ApexEventProducer#init(java.lang.String,
-     * com.ericsson.apex.service.parameters.producer.ProducerParameters)
+     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#init(java.lang.String,
+     * org.onap.policy.apex.service.parameters.producer.ProducerParameters)
      */
     @Override
     public void init(final String name, final EventHandlerParameters producerParameters) throws ApexEventException {
@@ -54,7 +54,7 @@ public class SuperDooperEventProducer implements ApexEventProducer {
     /*
      * (non-Javadoc)
      * 
-     * @see com.ericsson.apex.service.engine.event.ApexEventProducer#getName()
+     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getName()
      */
     @Override
     public String getName() {
@@ -65,7 +65,7 @@ public class SuperDooperEventProducer implements ApexEventProducer {
      * (non-Javadoc)
      * 
      * @see
-     * com.ericsson.apex.service.engine.event.ApexEventProducer#getPeeredReference(com.ericsson.apex
+     * org.onap.policy.apex.service.engine.event.ApexEventProducer#getPeeredReference(org.onap.policy.apex
      * .service.parameters.eventhandler.EventHandlerPeeredMode)
      */
     @Override
@@ -77,9 +77,9 @@ public class SuperDooperEventProducer implements ApexEventProducer {
      * (non-Javadoc)
      * 
      * @see
-     * com.ericsson.apex.service.engine.event.ApexEventProducer#setPeeredReference(com.ericsson.apex
+     * org.onap.policy.apex.service.engine.event.ApexEventProducer#setPeeredReference(org.onap.policy.apex
      * .service.parameters.eventhandler.EventHandlerPeeredMode,
-     * com.ericsson.apex.service.engine.event.PeeredReference)
+     * org.onap.policy.apex.service.engine.event.PeeredReference)
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {}
@@ -88,7 +88,7 @@ public class SuperDooperEventProducer implements ApexEventProducer {
     /*
      * (non-Javadoc)
      * 
-     * @see com.ericsson.apex.service.engine.event.ApexEventProducer#sendEvent(long,
+     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#sendEvent(long,
      * java.lang.String, java.lang.Object)
      */
     @Override
@@ -100,7 +100,7 @@ public class SuperDooperEventProducer implements ApexEventProducer {
     /*
      * (non-Javadoc)
      * 
-     * @see com.ericsson.apex.service.engine.event.ApexEventProducer#stop()
+     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#stop()
      */
     @Override
     public void stop() {}

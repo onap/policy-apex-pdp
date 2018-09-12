@@ -30,10 +30,10 @@ import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.R
  * object's appropriate method is invoked.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type
+ * @param <M> the generic type
  * @see RawMessageBlock
  */
-public interface WebSocketMessageListener<MESSAGE> extends MessageListener<MESSAGE>, Runnable {
+public interface WebSocketMessageListener<M> extends MessageListener<M>, Runnable {
 
     /**
      * This method is called by the class with which this message listener has been registered.
@@ -47,12 +47,12 @@ public interface WebSocketMessageListener<MESSAGE> extends MessageListener<MESSA
      *
      * @param listener The listener to register
      */
-    void registerDataForwarder(MessageListener<MESSAGE> listener);
+    void registerDataForwarder(MessageListener<M> listener);
 
     /**
      * Unregister a data forwarder that was previously registered on the web socket listener.
      *
      * @param listener The listener to unregister
      */
-    void unRegisterDataForwarder(MessageListener<MESSAGE> listener);
+    void unRegisterDataForwarder(MessageListener<M> listener);
 }

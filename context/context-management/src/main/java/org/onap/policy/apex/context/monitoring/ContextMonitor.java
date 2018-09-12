@@ -46,7 +46,8 @@ public class ContextMonitor {
      */
     public void monitorInit(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value) {
-        LOGGER.trace(monitor("INIT", null, albumKey, schemaKey, name, value));
+        String monitorInitString = monitor("INIT", null, albumKey, schemaKey, name, value);
+        LOGGER.trace(monitorInitString);
     }
 
     /**
@@ -60,7 +61,8 @@ public class ContextMonitor {
      */
     public void monitorInit(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("INIT", userArtifactStack, albumKey, schemaKey, name, value));
+        String monitorInitString = monitor("INIT", userArtifactStack, albumKey, schemaKey, name, value);
+        LOGGER.trace(monitorInitString);
     }
 
     /**
@@ -74,7 +76,8 @@ public class ContextMonitor {
      */
     public void monitorDelete(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("DEL", userArtifactStack, albumKey, schemaKey, name, value));
+        String monitorDeleteString = monitor("DEL", userArtifactStack, albumKey, schemaKey, name, value);
+        LOGGER.trace(monitorDeleteString);
     }
 
     /**
@@ -88,7 +91,8 @@ public class ContextMonitor {
      */
     public void monitorGet(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("GET", userArtifactStack, albumKey, schemaKey, name, value));
+        String monitorGetString = monitor("GET", userArtifactStack, albumKey, schemaKey, name, value);
+        LOGGER.trace(monitorGetString);
     }
 
     /**
@@ -102,7 +106,8 @@ public class ContextMonitor {
      */
     public void monitorSet(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("SET", userArtifactStack, albumKey, schemaKey, name, value));
+        String monitorSetString = monitor("SET", userArtifactStack, albumKey, schemaKey, name, value);
+        LOGGER.trace(monitorSetString);
     }
 
     /**
@@ -115,7 +120,8 @@ public class ContextMonitor {
      */
     public void monitorReadLock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("READLOCK", userArtifactStack, albumKey, schemaKey, name, null));
+        String monitorReadLockString = monitor("READLOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        LOGGER.trace(monitorReadLockString);
     }
 
     /**
@@ -128,7 +134,8 @@ public class ContextMonitor {
      */
     public void monitorWriteLock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("WRITELOCK", userArtifactStack, albumKey, schemaKey, name, null));
+        String writeLockMonitorString = monitor("WRITELOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        LOGGER.trace(writeLockMonitorString);
     }
 
     /**
@@ -141,7 +148,8 @@ public class ContextMonitor {
      */
     public void monitorReadUnlock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("READUNLOCK", userArtifactStack, albumKey, schemaKey, name, null));
+        String monitorReadUnlockString = monitor("READUNLOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        LOGGER.trace(monitorReadUnlockString);
     }
 
     /**
@@ -154,7 +162,8 @@ public class ContextMonitor {
      */
     public void monitorWriteUnlock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("WRITEUNLOCK", userArtifactStack, albumKey, schemaKey, name, null));
+        String monitorWriteUnlockString = monitor("WRITEUNLOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        LOGGER.trace(monitorWriteUnlockString);
     }
 
     /**

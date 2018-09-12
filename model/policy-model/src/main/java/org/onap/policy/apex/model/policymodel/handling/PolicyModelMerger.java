@@ -80,8 +80,9 @@ public final class PolicyModelMerger {
             final AxValidationResult leftValidationResult = new AxValidationResult();
             leftPolicyModel.validate(leftValidationResult);
             if (!leftValidationResult.isValid()) {
-                LOGGER.warn("left model is invalid: " + leftValidationResult.toString());
-                throw new ApexModelException("left model is invalid: " + leftValidationResult.toString());
+                String message = "left model is invalid: " + leftValidationResult.toString(); 
+                LOGGER.warn(message);
+                throw new ApexModelException(message);
             }
         }
 
@@ -90,13 +91,14 @@ public final class PolicyModelMerger {
             final AxValidationResult rightValidationResult = new AxValidationResult();
             rightPolicyModel.validate(rightValidationResult);
             if (!rightValidationResult.isValid()) {
-                LOGGER.warn("right model is invalid: " + rightValidationResult.toString());
-                throw new ApexModelException("right model is invalid: " + rightValidationResult.toString());
+                String message = "right model is invalid: " + rightValidationResult.toString();
+                LOGGER.warn(message);
+                throw new ApexModelException(message);
             }
         }
 
         // The new policy model uses the favoured copy side as its base
-        final AxPolicyModel mergedPolicyModel = (AxPolicyModel) (useLeftOnMatches ? new AxPolicyModel(leftPolicyModel)
+        final AxPolicyModel mergedPolicyModel = (useLeftOnMatches ? new AxPolicyModel(leftPolicyModel)
                 : new AxPolicyModel(rightPolicyModel));
 
         // The Compared to policy model is the unfavoured side

@@ -104,7 +104,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
      * java.lang.Object)
      */
     @Override
-    public AxArtifactKey execute(final long executionID, final EnEvent newIncomingEvent)
+    public AxArtifactKey execute(final long executionId, final EnEvent newIncomingEvent)
             throws StateMachineException, ContextException {
         throw new StateMachineException("execute() not implemented on class");
     }
@@ -116,7 +116,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
      * java.lang.Object)
      */
     @Override
-    public final void executePre(final long executionID, final EnEvent newIncomingEvent) throws StateMachineException {
+    public final void executePre(final long executionId, final EnEvent newIncomingEvent) throws StateMachineException {
         LOGGER.debug("execute-pre:" + axState.getKey().getId() + "," + axState.getTaskSelectionLogic().getLogicFlavour()
                 + "," + axState.getTaskSelectionLogic().getLogic());
 
@@ -126,7 +126,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
         outgoingTaskKey = new AxArtifactKey();
 
         // Get task selection context object
-        executionContext = new TaskSelectionExecutionContext(this, executionID, getSubject(), getIncoming(),
+        executionContext = new TaskSelectionExecutionContext(this, executionId, getSubject(), getIncoming(),
                 getOutgoing(), getContext());
     }
 

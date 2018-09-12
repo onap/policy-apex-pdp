@@ -34,9 +34,9 @@ import org.slf4j.ext.XLoggerFactory;
  * A messaging server implementation using web socket.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type of message being passed
+ * @param <M> the generic type of message being passed
  */
-public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE> {
+public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
     // The logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(MessageServerImpl.class);
 
@@ -44,7 +44,7 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
     private static final String PROTOCOL = "ws://";
 
     // URI of this server
-    private final String connectionURI;
+    private final String connectionUri;
 
     // Indicates if the web socket server is started or not
     private boolean isStarted = false;
@@ -60,8 +60,8 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
         LOGGER.entry(address);
 
         // Compose the Web Socket URI
-        connectionURI = PROTOCOL + address.getHostString() + ":" + address.getPort();
-        LOGGER.debug("Server connection URI: {}", connectionURI);
+        connectionUri = PROTOCOL + address.getHostString() + ":" + address.getPort();
+        LOGGER.debug("Server connection URI: {}", connectionUri);
 
         LOGGER.exit();
     }
@@ -106,27 +106,25 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
     }
 
     /**
-     * This method returns the current connection URI , if the server started otherwise it throws
-     * {@link IllegalStateException}.
+     * Return the current connection URI.
      *
      * @return connection URI
      */
-    public String getConnectionURI() {
-        if (connectionURI == null) {
+    public String getConnectionUrl() {
+        if (connectionUri == null) {
             throw new IllegalStateException("URI not set - The server is not started");
         }
-        return connectionURI;
+        return connectionUri;
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex
-     * .core. infrastructure. messaging.MessageHolder)
+     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex .core.
+     * infrastructure. messaging.MessageHolder)
      */
     @Override
-    public void send(final MessageHolder<MESSAGE> message) {
+    public void send(final MessageHolder<M> message) {
         // Send the incoming message to all clients connected to this web socket
         final Collection<WebSocket> connections = getConnections();
         for (final WebSocket webSocket : connections) {
@@ -137,8 +135,7 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
+     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
      */
     @Override
     public void send(final String messageString) {
@@ -160,6 +157,6 @@ public class MessageServerImpl<MESSAGE> extends InternalMessageBusServer<MESSAGE
 
     @Override
     public void onStart() {
-        LOGGER.debug("started deployment server on URI: {}", connectionURI);
+        LOGGER.debug("started deployment server on URI: {}", connectionUri);
     }
 }

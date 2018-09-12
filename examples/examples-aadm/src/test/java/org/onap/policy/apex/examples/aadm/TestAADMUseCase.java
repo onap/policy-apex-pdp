@@ -150,7 +150,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         EnEvent result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         // no DOS_IN_eNodeB set so return probe action
         assertTrue(result.get("ACTTASK").equals("probe"));
         assertTrue((boolean) result.get("TCP_ON"));
@@ -188,7 +188,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         // DOS_IN_eNodeB set to be more than throughput so return act action
         assertTrue(result.get("ACTTASK").equals("act"));
         // only one imsi was sent to process, so stop probe and tcp
@@ -226,7 +226,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertTrue(result.get("ACTTASK").equals("probe"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
@@ -261,7 +261,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertTrue(result.get("ACTTASK").equals("act"));
         assertTrue(!(boolean) result.get("TCP_ON"));
         assertTrue(!(boolean) result.get("PROBE_ON"));
@@ -298,7 +298,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertTrue(result.get("ACTTASK").equals("act"));
         assertTrue(!(boolean) result.get("TCP_ON"));
         assertTrue(!(boolean) result.get("PROBE_ON"));
@@ -331,7 +331,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertTrue(result.get("ACTTASK").equals("probe"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
@@ -369,7 +369,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertTrue(result.get("ACTTASK").equals("probe"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
@@ -402,7 +402,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertTrue(result.get("ACTTASK").equals("probe"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
@@ -424,7 +424,7 @@ public class TestAADMUseCase {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("SAPCBlacklistSubscriberEvent"));
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), result.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertEquals(0L, result.get("IMSI"));
         assertTrue(result.get("PROFILE").equals("ServiceA"));
         assertTrue(result.get("BLACKLIST_ON").equals(false));

@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws;
 
+import com.google.common.eventbus.Subscribe;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,18 +40,19 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import com.google.common.eventbus.Subscribe;
-
 /**
- * The Class RawMessageHandler handles raw messages being received on a Java web socket and forwards
- * the messages to the DataHandler instance that has subscribed to the RawMessageHandler instance.
+ * The Class RawMessageHandler handles raw messages being received on a Java web socket and forwards the messages to the
+ * DataHandler instance that has subscribed to the RawMessageHandler instance.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type of message being received
+ * @param <M> the generic type of message being received
  */
-public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESSAGE>, Runnable {
+public class RawMessageHandler<M> implements WebSocketMessageListener<M>, Runnable {
     // The logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(RawMessageHandler.class);
+
+    // Repeated string constants
+    private static final String RAW_MESSAGE_LISTENING_INTERRUPTED = "raw message listening has been interrupted";
 
     // The amount of time to sleep during shutdown for the thread of this message handler to stop
     private static final int SHUTDOWN_WAIT_TIME = 10;
@@ -58,13 +61,13 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     private static final long QUEUE_POLL_TIMEOUT = 50;
 
     // A queue that temporarily holds message blocks
-    private final BlockingQueue<MessageBlock<MESSAGE>> messageBlockQueue = new LinkedBlockingDeque<>();
+    private final BlockingQueue<MessageBlock<M>> messageBlockQueue = new LinkedBlockingDeque<>();
 
     // A queue that temporarily holds message blocks
     private final BlockingQueue<String> stringMessageQueue = new LinkedBlockingDeque<>();
 
     // Client applications that have subscribed for messages
-    private final MessageBlockHandler<MESSAGE> dataHandler = new MessageBlockHandler<MESSAGE>("data-processor");
+    private final MessageBlockHandler<M> dataHandler = new MessageBlockHandler<>("data-processor");
 
     // The thread that the raw message handler is receiving messages on
     private Thread thisThread = null;
@@ -90,19 +93,19 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
         // processing thread
 
         try (final ByteArrayInputStream stream = new ByteArrayInputStream(dataByteBuffer.array());
-                final ObjectInputStream ois = new ObjectInputStream(stream);) {
+                        final ObjectInputStream ois = new ObjectInputStream(stream);) {
             @SuppressWarnings("unchecked")
-            final MessageHolder<MESSAGE> messageHolder = (MessageHolder<MESSAGE>) ois.readObject();
+            final MessageHolder<M> messageHolder = (MessageHolder<M>) ois.readObject();
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("message {} recieved from the client {} ", messageHolder,
-                        messageHolder == null ? "Apex Engine " : messageHolder.getSenderHostAddress());
+                                messageHolder == null ? "Apex Engine " : messageHolder.getSenderHostAddress());
             }
 
             if (messageHolder != null) {
-                final List<MESSAGE> messages = messageHolder.getMessages();
+                final List<M> messages = messageHolder.getMessages();
                 if (messages != null) {
-                    messageBlockQueue.add(new MessageBlock<MESSAGE>(messages, incomingData.getConn()));
+                    messageBlockQueue.add(new MessageBlock<M>(messages, incomingData.getConn()));
                 }
             }
         } catch (final IOException | ClassNotFoundException e) {
@@ -112,8 +115,7 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     }
 
     /**
-     * This method is called when a string message is received on a web socket and is to be
-     * forwarded to a listener.
+     * This method is called when a string message is received on a web socket and is to be forwarded to a listener.
      *
      * @param messageString the message string
      */
@@ -130,6 +132,16 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     }
 
     /**
+     * This method is called when a message is received on a web socket and is to be forwarded to a listener.
+     *
+     * @param data the message data containing a message
+     */
+    @Override
+    public void onMessage(final MessageBlock<M> data) {
+        throw new UnsupportedOperationException("this operation is not supported");
+    }
+
+    /**
      * This thread monitors the message queue and processes messages as they appear on the queue.
      *
      * @see java.lang.Runnable#run()
@@ -143,14 +155,14 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
         while (thisThread.isAlive() && !thisThread.isInterrupted()) {
             try {
                 // Read message block messages from the queue and pass it to the data handler
-                MessageBlock<MESSAGE> messageBlock = null;
+                MessageBlock<M> messageBlock = null;
                 while ((messageBlock = messageBlockQueue.poll(1, TimeUnit.MILLISECONDS)) != null) {
                     dataHandler.post(messageBlock);
                 }
             } catch (final InterruptedException e) {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();
-                LOGGER.debug("raw message listening has been interrupted");
+                LOGGER.debug(RAW_MESSAGE_LISTENING_INTERRUPTED);
                 break;
             }
 
@@ -163,7 +175,7 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
             } catch (final InterruptedException e) {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();
-                LOGGER.debug("raw message listening has been interrupted");
+                LOGGER.debug(RAW_MESSAGE_LISTENING_INTERRUPTED);
                 break;
             }
 
@@ -173,7 +185,7 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
             } catch (final InterruptedException e) {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();
-                LOGGER.debug("raw message listening has been interrupted");
+                LOGGER.debug(RAW_MESSAGE_LISTENING_INTERRUPTED);
                 break;
             }
         }
@@ -199,23 +211,12 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
     }
 
     /**
-     * This method is called when a message is received on a web socket and is to be forwarded to a
-     * listener.
-     *
-     * @param data the message data containing a message
-     */
-    @Override
-    public void onMessage(final MessageBlock<MESSAGE> data) {
-        throw new UnsupportedOperationException("this operation is not supported");
-    }
-
-    /**
      * Register a data forwarder to which messages coming in on the web socket will be forwarded.
      *
      * @param listener The listener to register
      */
     @Override
-    public void registerDataForwarder(final MessageListener<MESSAGE> listener) {
+    public void registerDataForwarder(final MessageListener<M> listener) {
         stateCheck(listener);
         dataHandler.registerMessageHandler(listener);
     }
@@ -226,7 +227,7 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
      * @param listener The listener to unregister
      */
     @Override
-    public void unRegisterDataForwarder(final MessageListener<MESSAGE> listener) {
+    public void unRegisterDataForwarder(final MessageListener<M> listener) {
         stateCheck(listener);
         dataHandler.unRegisterMessageHandler(listener);
     }
@@ -236,7 +237,7 @@ public class RawMessageHandler<MESSAGE> implements WebSocketMessageListener<MESS
      *
      * @param listener the listener to check
      */
-    private void stateCheck(final MessageListener<MESSAGE> listener) {
+    private void stateCheck(final MessageListener<M> listener) {
         if (listener == null) {
             throw new IllegalArgumentException("The listener object cannot be null");
         }

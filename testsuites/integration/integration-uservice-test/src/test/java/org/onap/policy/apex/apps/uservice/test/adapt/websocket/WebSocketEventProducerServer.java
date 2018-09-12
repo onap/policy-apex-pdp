@@ -22,18 +22,18 @@ package org.onap.policy.apex.apps.uservice.test.adapt.websocket;
 
 import org.onap.policy.apex.apps.uservice.test.adapt.events.EventGenerator;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageServer;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
-public class WebSocketEventProducerServer implements WSStringMessageListener {
+public class WebSocketEventProducerServer implements WsStringMessageListener {
     private final int port;
     private final int eventCount;
     private final boolean xmlEvents;
     private final long eventInterval;
     private long eventsSentCount = 0;
 
-    WSStringMessageServer server;
+    WsStringMessageServer server;
 
     public WebSocketEventProducerServer(final int port, final int eventCount, final boolean xmlEvents,
             final long eventInterval) throws MessagingException {
@@ -42,7 +42,7 @@ public class WebSocketEventProducerServer implements WSStringMessageListener {
         this.xmlEvents = xmlEvents;
         this.eventInterval = eventInterval;
 
-        server = new WSStringMessageServer(port);
+        server = new WsStringMessageServer(port);
         server.start(this);
 
         System.out.println(WebSocketEventProducerServer.class.getCanonicalName() + ": port " + port + ", event count "

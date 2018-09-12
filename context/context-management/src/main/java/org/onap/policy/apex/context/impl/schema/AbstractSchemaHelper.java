@@ -66,7 +66,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
      * org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
      */
     @Override
-    public void init(final AxKey incomingUserKey, final AxContextSchema incomingSchema) throws ContextRuntimeException {
+    public void init(final AxKey incomingUserKey, final AxContextSchema incomingSchema) {
         Assertions.argumentOfClassNotNull(incomingUserKey, ContextRuntimeException.class,
                         "incomingUserKey may not be null");
         Assertions.argumentOfClassNotNull(incomingSchema, ContextRuntimeException.class,

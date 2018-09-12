@@ -150,7 +150,7 @@ public class ContextInstantiation {
             assertDouble(contextItem.getTestPolicyContextItem002().getDoubleValue(), PI_VAL);
             assertTrue(contextItem.getTestPolicyContextItem003().getFlag());
             assertEquals(contextItem.getTestPolicyContextItem004().getLongValue(), testDate.getTime());
-            assertEquals(contextItem.getTestPolicyContextItem005().getMapValue(), TEST_HASH_MAP);
+            assertEquals(TEST_HASH_MAP, contextItem.getTestPolicyContextItem005().getMapValue());
 
             final TestGlobalContextItem globalContext =
                     getTestGlobalContextItem(contextDistributor, testDate, tci9, tciA);

@@ -38,9 +38,9 @@ import org.slf4j.ext.XLoggerFactory;
  * receive messages on the web socket.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type
+ * @param <M> the generic type
  */
-abstract class InternalMessageBusServer<MESSAGE> extends WebSocketServerImpl implements MessagingService<MESSAGE> {
+abstract class InternalMessageBusServer<M> extends WebSocketServerImpl implements MessagingService<M> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(InternalMessageBusServer.class);
 
@@ -50,15 +50,15 @@ abstract class InternalMessageBusServer<MESSAGE> extends WebSocketServerImpl imp
     private static final String RAW_EVENT_BUS = "Raw-Event-Bus";
 
     // This instance handles the raw data received from the web socket
-    private final RawMessageHandler<MESSAGE> rawMessageHandler = new RawMessageHandler<>();
+    private final RawMessageHandler<M> rawMessageHandler = new RawMessageHandler<>();
 
     // The message block handler to which to pass messages coming in on this client
-    private MessageBlockHandler<MESSAGE> messageBlockHandler = null;
+    private MessageBlockHandler<M> messageBlockHandler = null;
 
     // The raw message handler uses a thread to process incoming events off a queue, this class owns and controls that
     // thread. These fields hold the thread and
     // the thread factory for creating threads.
-    private ApplicationThreadFactory tFactory =
+    private ApplicationThreadFactory threadFactory =
             new ApplicationThreadFactory("ws-server-thread", THREAD_FACTORY_STACK_SIZE);
     private Thread forwarderThread = null;
 
@@ -77,7 +77,7 @@ abstract class InternalMessageBusServer<MESSAGE> extends WebSocketServerImpl imp
         messageBlockHandler.registerMessageHandler(rawMessageHandler);
 
         // Create the thread that manages the queue in the data handler
-        forwarderThread = tFactory.newThread(rawMessageHandler);
+        forwarderThread = threadFactory.newThread(rawMessageHandler);
         forwarderThread.start();
 
         LOGGER.exit();
@@ -95,13 +95,23 @@ abstract class InternalMessageBusServer<MESSAGE> extends WebSocketServerImpl imp
         messageBlockHandler.post(new RawMessageBlock(rawMessage, webSocket));
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.java_websocket.server.WebSocketServer#onMessage(org.java_websocket.WebSocket, java.lang.String)
+     */
+    @Override
+    public void onMessage(final WebSocket webSocket, final String stringMessage) {
+        messageBlockHandler.post(stringMessage);
+    }
+
     /**
      * Register a subscriber class to the raw message handler.
      *
      * @param subscriber the subscriber
      */
     @Override
-    public void addMessageListener(final MessageListener<MESSAGE> subscriber) {
+    public void addMessageListener(final MessageListener<M> subscriber) {
         rawMessageHandler.registerDataForwarder(subscriber);
     }
 
@@ -111,18 +121,8 @@ abstract class InternalMessageBusServer<MESSAGE> extends WebSocketServerImpl imp
      * @param subscriber the subscriber
      */
     @Override
-    public void removeMessageListener(final MessageListener<MESSAGE> subscriber) {
+    public void removeMessageListener(final MessageListener<M> subscriber) {
         rawMessageHandler.unRegisterDataForwarder(subscriber);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#onMessage(org.java_websocket.WebSocket, java.lang.String)
-     */
-    @Override
-    public void onMessage(final WebSocket webSocket, final String stringMessage) {
-        messageBlockHandler.post(stringMessage);
     }
 
     /**

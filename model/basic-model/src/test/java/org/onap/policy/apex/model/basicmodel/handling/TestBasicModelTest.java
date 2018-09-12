@@ -73,13 +73,13 @@ public class TestBasicModelTest {
             testApexModel.testApexModelVaidateInvalidModel();
             fail("Test should throw an exception");
         } catch (final Exception e) {
-            assertEquals("should not be valid ***validation of model successful***", e.getMessage());
+            assertEquals("model should not be valid ***validation of model successful***", e.getMessage());
         }
         try {
             testApexModel.testApexModelVaidateMalstructured();
             fail("Test should throw an exception");
         } catch (final Exception e) {
-            assertEquals("should not be valid ***validation of model successful***", e.getMessage());
+            assertEquals("model should not be valid ***validation of model successful***", e.getMessage());
         }
     }
 

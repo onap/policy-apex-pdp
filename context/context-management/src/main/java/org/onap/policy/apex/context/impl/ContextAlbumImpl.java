@@ -51,6 +51,12 @@ public final class ContextAlbumImpl implements ContextAlbum {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ContextAlbumImpl.class);
 
+    // Recurring string constants
+    private static final String NULL_VALUES_ILLEGAL = "null values are illegal on method parameter \"key\"";
+
+    // Recurring string constants
+    private static final String ALBUM = "album \"";
+
     // The definition of this context album
     private final AxContextAlbum albumDefinition;
 
@@ -259,8 +265,8 @@ public final class ContextAlbumImpl implements ContextAlbum {
     @Override
     public boolean containsKey(final Object key) {
         if (key == null) {
-            LOGGER.warn("null values are illegal on method parameter \"key\"");
-            throw new ContextRuntimeException("null values are illegal on method parameter \"key\"");
+            LOGGER.warn(NULL_VALUES_ILLEGAL);
+            throw new ContextRuntimeException(NULL_VALUES_ILLEGAL);
         }
 
         return albumMap.containsKey(key);
@@ -290,7 +296,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public Object get(final Object key) {
         if (key == null) {
             final String returnString =
-                    "album \"" + albumDefinition.getId() + "\" null keys are illegal on keys for get()";
+                    ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for get()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -365,20 +371,20 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public Object put(final String key, final Object incomingValue) {
         if (key == null) {
             final String returnString =
-                    "album \"" + albumDefinition.getId() + "\" null keys are illegal on keys for put()";
+                    ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (incomingValue == null) {
-            final String returnString = "album \"" + albumDefinition.getId() + "\" null values are illegal on key \""
+            final String returnString = ALBUM + albumDefinition.getId() + "\" null values are illegal on key \""
                     + key + "\" for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (!albumDefinition.isWritable()) {
-            final String returnString = "album \"" + albumDefinition.getId()
+            final String returnString = ALBUM + albumDefinition.getId()
                     + "\" put() not allowed on read only albums for key=\"" + key + "\", value=\"" + incomingValue;
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -418,7 +424,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public void putAll(final Map<? extends String, ? extends Object> incomingContextAlbum) {
         if (!albumDefinition.isWritable()) {
             final String returnString =
-                    "album \"" + albumDefinition.getId() + "\" putAll() not allowed on read only albums";
+                    ALBUM + albumDefinition.getId() + "\" putAll() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -454,14 +460,14 @@ public final class ContextAlbumImpl implements ContextAlbum {
     @Override
     public Object remove(final Object key) {
         if (!albumDefinition.isWritable()) {
-            final String returnString = "album \"" + albumDefinition.getId()
+            final String returnString = ALBUM + albumDefinition.getId()
                     + "\" remove() not allowed on read only albums for key=\"" + key + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (key == null) {
-            LOGGER.warn("null values are illegal on method parameter \"key\"");
+            LOGGER.warn(NULL_VALUES_ILLEGAL);
             throw new ContextRuntimeException("null values are illegal on method parameter \"keyID\"");
         }
 
@@ -483,7 +489,7 @@ public final class ContextAlbumImpl implements ContextAlbum {
     public void clear() {
         if (!albumDefinition.isWritable()) {
             final String returnString =
-                    "album \"" + albumDefinition.getId() + "\" clear() not allowed on read only albums";
+                    ALBUM + albumDefinition.getId() + "\" clear() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }

@@ -22,11 +22,11 @@ package org.onap.policy.apex.apps.uservice.test.adapt.websocket;
 
 import org.onap.policy.apex.apps.uservice.test.adapt.events.EventGenerator;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageClient;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
-public class WebSocketEventProducerClient implements WSStringMessageListener {
+public class WebSocketEventProducerClient implements WsStringMessageListener {
     private final String host;
     private final int port;
     private final int eventCount;
@@ -34,7 +34,7 @@ public class WebSocketEventProducerClient implements WSStringMessageListener {
     private final long eventInterval;
     private long eventsSentCount = 0;
 
-    WSStringMessageClient client;
+    WsStringMessageClient client;
 
     public WebSocketEventProducerClient(final String host, final int port, final int eventCount,
             final boolean xmlEvents, final long eventInterval) throws MessagingException {
@@ -44,7 +44,7 @@ public class WebSocketEventProducerClient implements WSStringMessageListener {
         this.xmlEvents = xmlEvents;
         this.eventInterval = eventInterval;
 
-        client = new WSStringMessageClient(host, port);
+        client = new WsStringMessageClient(host, port);
         client.start(this);
 
         System.out.println(WebSocketEventProducerClient.class.getCanonicalName() + ": host " + host + ", port " + port

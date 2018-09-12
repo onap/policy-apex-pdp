@@ -37,13 +37,13 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
  *
- * @param <IN> type of the incoming entity
- * @param <OUT> type of the outgoing entity
- * @param <SUBJECT> type that is the subject of execution
- * @param <CONTEXT> context holding the context of execution
+ * @param <I> type of the incoming entity
+ * @param <O> type of the outgoing entity
+ * @param <S> type that is the subject of execution
+ * @param <C> context holding the context of execution
  */
 
-public interface Executor<IN, OUT, SUBJECT, CONTEXT> {
+public interface Executor<I, O, S, C> {
     /**
      * Save the subject and context of the executor.
      *
@@ -52,7 +52,7 @@ public interface Executor<IN, OUT, SUBJECT, CONTEXT> {
      * @param executorSubject the executor subject, the subject of execution
      * @param executorContext the executor context, the context in which execution takes place
      */
-    void setContext(Executor<?, ?, ?, ?> parent, SUBJECT executorSubject, CONTEXT executorContext);
+    void setContext(Executor<?, ?, ?, ?> parent, S executorSubject, C executorContext);
 
     /**
      * Prepares the processing.
@@ -64,23 +64,23 @@ public interface Executor<IN, OUT, SUBJECT, CONTEXT> {
     /**
      * Executes the executor, running through its context in its natural order.
      *
-     * @param executionID the execution ID of the current APEX execution policy thread
+     * @param executionId the execution ID of the current APEX execution policy thread
      * @param incomingEntity the incoming entity that triggers execution
      * @return The outgoing entity that is the result of execution
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
-    OUT execute(long executionID, IN incomingEntity) throws StateMachineException, ContextException;
+    O execute(long executionId, I incomingEntity) throws StateMachineException, ContextException;
 
     /**
      * Carry out the preparatory work for execution.
      *
-     * @param executionID the execution ID of the current APEX execution policy thread
+     * @param executionId the execution ID of the current APEX execution policy thread
      * @param incomingEntity the incoming entity that triggers execution
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
-    void executePre(long executionID, IN incomingEntity) throws StateMachineException, ContextException;
+    void executePre(long executionId, I incomingEntity) throws StateMachineException, ContextException;
 
     /**
      * Carry out the post work for execution, the returning entity should be set by the child
@@ -119,42 +119,42 @@ public interface Executor<IN, OUT, SUBJECT, CONTEXT> {
      *
      * @return The subject for the executor
      */
-    SUBJECT getSubject();
+    S getSubject();
 
     /**
      * Get the context of the executor.
      *
      * @return The context for the executor
      */
-    CONTEXT getContext();
+    C getContext();
 
     /**
      * Get the incoming object of the executor.
      *
      * @return The incoming object for the executor
      */
-    IN getIncoming();
+    I getIncoming();
 
     /**
      * Get the outgoing object of the executor.
      *
      * @return The outgoing object for the executor
      */
-    OUT getOutgoing();
+    O getOutgoing();
 
     /**
      * Save the next executor for this executor.
      *
      * @param nextExecutor the next executor
      */
-    void setNext(Executor<IN, OUT, SUBJECT, CONTEXT> nextExecutor);
+    void setNext(Executor<I, O, S, C> nextExecutor);
 
     /**
      * Get the next executor to be run after this executor completes its execution.
      *
      * @return The next executor
      */
-    Executor<IN, OUT, SUBJECT, CONTEXT> getNext();
+    Executor<I, O, S, C> getNext();
 
     /**
      * Set parameters for this executor, overloaded by executors that use parameters.

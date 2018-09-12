@@ -225,8 +225,9 @@ public class TestApexModel<M extends AxModel> {
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (!result.isValid()) {
-            LOGGER.warn(MODEL_IS_INVALID + result.toString());
-            throw new ApexException(MODEL_IS_INVALID + result.toString());
+            String message = MODEL_IS_INVALID + result.toString();
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         LOGGER.debug("ran testApexModelVaid");
@@ -246,8 +247,9 @@ public class TestApexModel<M extends AxModel> {
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (result.isValid()) {
-            LOGGER.warn("model should not be valid " + result.toString());
-            throw new ApexException("should not be valid " + result.toString());
+            String message = "model should not be valid " + result.toString();
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         LOGGER.debug("ran testApexModelVaidateMalstructured");
@@ -267,8 +269,9 @@ public class TestApexModel<M extends AxModel> {
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (!result.isValid()) {
-            LOGGER.warn(MODEL_IS_INVALID + result.toString());
-            throw new ApexException(MODEL_IS_INVALID + result.toString());
+            String message = MODEL_IS_INVALID + result.toString();
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         if (!result.getValidationResult().equals(AxValidationResult.ValidationResult.OBSERVATION)) {
@@ -293,8 +296,9 @@ public class TestApexModel<M extends AxModel> {
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (!result.isValid()) {
-            LOGGER.warn(MODEL_IS_INVALID + result.toString());
-            throw new ApexException(MODEL_IS_INVALID + result.toString());
+            String message = MODEL_IS_INVALID + result.toString();
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         if (!result.getValidationResult().equals(AxValidationResult.ValidationResult.WARNING)) {
@@ -319,8 +323,9 @@ public class TestApexModel<M extends AxModel> {
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (result.isValid()) {
-            LOGGER.warn("model should not be valid " + result.toString());
-            throw new ApexException("should not be valid " + result.toString());
+            String message = "model should not be valid " + result.toString();
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         LOGGER.debug("ran testApexModelVaidateInvalidModel");

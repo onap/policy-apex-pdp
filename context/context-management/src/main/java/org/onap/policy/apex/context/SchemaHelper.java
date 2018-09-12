@@ -38,7 +38,7 @@ public interface SchemaHelper {
      * @param schema the schema
      * @throws ContextRuntimeException the context runtime exception
      */
-    void init(AxKey userKey, AxContextSchema schema) throws ContextRuntimeException;
+    void init(AxKey userKey, AxContextSchema schema);
 
     /**
      * Get the user key of the schema helper.

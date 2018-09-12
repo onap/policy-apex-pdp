@@ -22,6 +22,7 @@ package org.onap.policy.apex.core.infrastructure.java.classes;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -43,6 +44,9 @@ import org.slf4j.ext.XLoggerFactory;
 public abstract class ClassUtils {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ClassUtils.class);
+
+    // Repeated string constants
+    private static final String CLASS_PATTERN = "\\.class$";
 
     // The boot directory in Java for predefined JARs
     private static final String SUN_BOOT_LIBRARY_PATH = "sun.boot.library.path";
@@ -89,16 +93,13 @@ public abstract class ClassUtils {
             try {
                 final Class<?> nullclassloader = Class.forName("sun.misc.Launcher");
                 if (nullclassloader != null) {
-                    // There a long way and a short way, Short way: causes a warning that cannot be suppressed
-                    // URL[] moreurls = sun.misc.Launcher.getBootstrapClassPath().getURLs();
-                    // long way:
-                    Method m = nullclassloader.getMethod("getBootstrapClassPath");
-                    if (m != null) {
-                        final Object cp = m.invoke(null, (Object[]) null);
+                    Method mmethod = nullclassloader.getMethod("getBootstrapClassPath");
+                    if (mmethod != null) {
+                        final Object cp = mmethod.invoke(null, (Object[]) null);
                         if (cp != null) {
-                            m = cp.getClass().getMethod("getURLs");
-                            if (m != null) {
-                                final URL[] moreurls = (URL[]) (m.invoke(cp, (Object[]) null));
+                            mmethod = cp.getClass().getMethod("getURLs");
+                            if (mmethod != null) {
+                                final URL[] moreurls = (URL[]) (mmethod.invoke(cp, (Object[]) null));
                                 if (moreurls != null && moreurls.length > 0) {
                                     if (urls.length == 0) {
                                         urls = moreurls;
@@ -130,10 +131,8 @@ public abstract class ClassUtils {
                 // JARs are processed as well
                 else if (url.getFile().endsWith(".jar")) {
                     classNameSet.addAll(processJar(urlFile));
-                } else {
-                    // It's a resource or some other non-executable thing
-                    continue;
                 }
+                // It's a resource or some other non-executable thing
             }
         } catch (final Exception e) {
             LOGGER.warn("could not get the names of Java classes", e);
@@ -168,9 +167,7 @@ public abstract class ClassUtils {
             } else if (child.getName().endsWith(".class") && !child.getName().contains("$")) {
                 // Process the ".class" file
                 classNameSet.add(
-                        child.getAbsolutePath().replace(rootDir, "").replaceFirst("\\.class$", "").replace('/', '.'));
-            } else {
-                continue;
+                        child.getAbsolutePath().replace(rootDir, "").replaceFirst(CLASS_PATTERN, "").replace('/', '.'));
             }
         }
         return classNameSet;
@@ -194,7 +191,7 @@ public abstract class ClassUtils {
             fileName = fileName.substring(classesPos + CLASSES_TOKEN.length());
         }
 
-        return fileName.replaceFirst("\\.class$", "").replace('/', '.');
+        return fileName.replaceFirst(CLASS_PATTERN, "").replace('/', '.');
     }
 
     /**
@@ -202,9 +199,9 @@ public abstract class ClassUtils {
      *
      * @param jarFile the JAR file
      * @return a set of class names
-     * @throws Exception on errors processing JARs
+     * @throws IOException on errors processing JARs
      */
-    public static Set<String> processJar(final File jarFile) throws Exception {
+    public static Set<String> processJar(final File jarFile) throws IOException {
         // Pass the file as an input stream
         return processJar(new FileInputStream(jarFile.getAbsolutePath()));
     }
@@ -214,9 +211,9 @@ public abstract class ClassUtils {
      *
      * @param jarInputStream the JAR input stream
      * @return a set of class names
-     * @throws Exception on errors processing JARs
+     * @throws IOException on errors processing JARs
      */
-    public static Set<String> processJar(final InputStream jarInputStream) throws Exception {
+    public static Set<String> processJar(final InputStream jarInputStream) throws IOException {
         // The return set
         final TreeSet<String> classPathSet = new TreeSet<>();
 
@@ -229,7 +226,7 @@ public abstract class ClassUtils {
         // Iterate over each entry in the JAR
         for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
             if (!entry.isDirectory() && entry.getName().endsWith(".class") && !entry.getName().contains("$")) {
-                classPathSet.add(entry.getName().replaceFirst("\\.class$", "").replace('/', '.'));
+                classPathSet.add(entry.getName().replaceFirst(CLASS_PATTERN, "").replace('/', '.'));
             }
         }
         zip.close();
@@ -243,7 +240,7 @@ public abstract class ClassUtils {
      */
     public static void main(final String[] args) {
         for (final String clz : getClassNames()) {
-            System.out.println("Found class: " + clz);
+            LOGGER.info("Found class: {}", clz);
         }
     }
 }

@@ -149,7 +149,7 @@ public class TestMfpUseCase {
         resulexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
         assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json");
         apexEngine.handleEvent(event);
@@ -157,7 +157,7 @@ public class TestMfpUseCase {
         resulexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
         assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         apexEngine.stop();
     }
@@ -187,50 +187,50 @@ public class TestMfpUseCase {
         EnEvent event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_BoozeItem_084106GMT.json");
         apexEngine.handleEvent(event);
         EnEvent resultout = listener.getResult();
-        EnEvent resulexpected =
+        EnEvent resultexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals(resultexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_BoozeItem_201713GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
-        resulexpected =
+        resultexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals(resultexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
-        resulexpected =
+        resultexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals(resultexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/2/EventIn_BoozeItem_101433CET_thurs.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
-        resulexpected =
+        resultexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_BoozeItem_101433CET_thurs.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals(resultexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/2/EventIn_BoozeItem_171937CET_sun.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
-        resulexpected =
+        resultexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_BoozeItem_171937CET_sun.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals(resultexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/2/EventIn_NonBoozeItem_111309CET_mon.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
-        resulexpected =
+        resultexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_NonBoozeItem_111309CET_mon.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionID(), resultout.getExecutionID());
+        assertEquals(resultexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
         apexEngine.stop();
     }

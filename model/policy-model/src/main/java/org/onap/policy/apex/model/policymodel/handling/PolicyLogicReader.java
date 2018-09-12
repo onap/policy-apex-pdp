@@ -143,8 +143,9 @@ public class PolicyLogicReader implements AxLogicReader {
 
         // Check if the logic was found
         if (logicString == null || logicString.length() == 0) {
-            LOGGER.warn("logic not found for logic \"" + fullLogicFilePath + "\"");
-            throw new PolicyRuntimeException("logic not found for logic \"" + fullLogicFilePath + "\"");
+            String errorMessage = "logic not found for logic \"" + fullLogicFilePath + "\"";
+            LOGGER.warn(errorMessage);
+            throw new PolicyRuntimeException(errorMessage);
         }
 
         // Return the right trimmed logic string

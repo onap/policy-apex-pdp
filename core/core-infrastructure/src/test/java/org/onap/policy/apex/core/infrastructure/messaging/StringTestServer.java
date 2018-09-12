@@ -22,18 +22,29 @@ package org.onap.policy.apex.core.infrastructure.messaging;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageServer;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StringTestServer.
+ */
 public class StringTestServer {
-    private WSStringMessageServer server;
+    private WsStringMessageServer server;
 
+    /**
+     * Create a string test server.
+     *
+     * @param port port to use
+     * @param timeToLive time to live
+     * @throws MessagingException exceptions on messages
+     */
     public StringTestServer(final int port, long timeToLive) throws MessagingException {
         System.out.println("StringTestServer starting on port " + port + " for " + timeToLive + " seconds . . .");
-        server = new WSStringMessageServer(port);
+        server = new WsStringMessageServer(port);
         assertNotNull(server);
-        server.start(new WSStringServerMessageListener());
+        server.start(new WsStringServerMessageListener());
 
         System.out.println("StringTestServer started on port " + port + " for " + timeToLive + " seconds");
 
@@ -45,7 +56,23 @@ public class StringTestServer {
         System.out.println("StringTestServer completed");
     }
 
-    private class WSStringServerMessageListener implements WSStringMessageListener {
+    /**
+     * The listener interface for receiving WSStringServerMessage events. The class that is interested in processing a
+     * WSStringServerMessage event implements this interface, and the object created with that class is registered with
+     * a component using the component's <code>addWSStringServerMessageListener</code> method. When the
+     * WSStringServerMessage event occurs, that object's appropriate method is invoked.
+     *
+     * @see WSStringServerMessageEvent
+     */
+    private class WsStringServerMessageListener implements WsStringMessageListener {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener#receiveString(java
+         * .lang.String)
+         */
         @Override
         public void receiveString(final String stringMessage) {
             System.out.println("Server received string \"" + stringMessage + "\"");
@@ -53,6 +80,12 @@ public class StringTestServer {
         }
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws MessagingException the messaging exception
+     */
     public static void main(final String[] args) throws MessagingException {
         if (args.length != 2) {
             System.err.println("Usage: StringTestServer port timeToLive");

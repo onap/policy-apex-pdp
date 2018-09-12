@@ -24,10 +24,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageClient;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageServer;
-import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessager;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
+import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessager;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexWebSocketConsumer implements ApexEventConsumer, WSStringMessageListener, Runnable {
+public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessageListener, Runnable {
     private static final int WEB_SOCKET_WAIT_SLEEP_TIME = 100;
 
     // Get a reference to the logger
@@ -54,7 +54,7 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WSStringMessage
     private WEBSOCKETCarrierTechnologyParameters webSocketConsumerProperties;
 
     // The web socket messager, may be WS a server or a client
-    private WSStringMessager wsStringMessager;
+    private WsStringMessager wsStringMessager;
 
     // The event receiver that will receive events from this consumer
     private ApexEventReceiver eventReceiver;
@@ -89,10 +89,10 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WSStringMessage
         // Check if this is a server or a client Web Socket
         if (webSocketConsumerProperties.isWsClient()) {
             // Create a WS client
-            wsStringMessager = new WSStringMessageClient(webSocketConsumerProperties.getHost(),
+            wsStringMessager = new WsStringMessageClient(webSocketConsumerProperties.getHost(),
                     webSocketConsumerProperties.getPort());
         } else {
-            wsStringMessager = new WSStringMessageServer(webSocketConsumerProperties.getPort());
+            wsStringMessager = new WsStringMessageServer(webSocketConsumerProperties.getPort());
         }
 
         // Start reception of event strings on the web socket

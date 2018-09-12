@@ -63,7 +63,7 @@ public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> 
     private Distributor contextDistributor = null;
 
     // The key of the current policy, used to return the correct policy context album to the user
-    private final AxArtifactKey currentPolicyKey = null;
+    private AxArtifactKey currentPolicyKey = null;
 
     /**
      * Constructor, instantiate the context object from the Apex model.

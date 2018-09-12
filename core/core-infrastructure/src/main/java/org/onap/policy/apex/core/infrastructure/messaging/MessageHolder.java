@@ -33,9 +33,9 @@ import org.slf4j.ext.XLoggerFactory;
  * implementation.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type of message being handled by a message holder instance
+ * @param <M> the generic type of message being handled by a message holder instance
  */
-public class MessageHolder<MESSAGE> implements Serializable {
+public class MessageHolder<M> implements Serializable {
     private static final int HASH_PRIME = 31;
     private static final int FOUR_BYTES = 32;
 
@@ -50,7 +50,7 @@ public class MessageHolder<MESSAGE> implements Serializable {
     private final InetAddress senderHostAddress;
 
     // Sequence of message in the message holder
-    private final List<MESSAGE> messages;
+    private final List<M> messages;
 
     /**
      * Constructor, create the message holder.
@@ -69,7 +69,7 @@ public class MessageHolder<MESSAGE> implements Serializable {
      *
      * @return the messages
      */
-    public List<MESSAGE> getMessages() {
+    public List<M> getMessages() {
         return messages;
     }
 
@@ -78,7 +78,7 @@ public class MessageHolder<MESSAGE> implements Serializable {
      *
      * @param message the message to add
      */
-    public void addMessage(final MESSAGE message) {
+    public void addMessage(final M message) {
         if (!messages.contains(message)) {
             messages.add(message);
         } else {
@@ -160,9 +160,6 @@ public class MessageHolder<MESSAGE> implements Serializable {
         } else if (!messages.equals(other.messages)) {
             return false;
         }
-        if (creationTime != other.creationTime) {
-            return false;
-        }
-        return true;
+        return creationTime == other.creationTime;
     }
 }

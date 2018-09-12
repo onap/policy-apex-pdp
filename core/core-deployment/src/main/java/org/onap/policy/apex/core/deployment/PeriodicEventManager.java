@@ -48,8 +48,9 @@ public class PeriodicEventManager {
      */
     public static void main(final String[] args) {
         if (args.length != NUM_ARGUMENTS) {
-            LOGGER.error("invalid arguments: " + Arrays.toString(args));
-            LOGGER.error("usage: Deployer <server address> <port address> <start/stop> <periods in ms>");
+            String message = "invalid arguments: " + Arrays.toString(args)
+                            + "\nusage: Deployer <server address> <port address> <start/stop> <periods in ms>";
+            LOGGER.error(message);
             return;
         }
 

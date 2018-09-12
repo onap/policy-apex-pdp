@@ -30,9 +30,9 @@ import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.server.Message
  * A factory class to create a "server" or "client" type Messaging Service.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type of message to be handled by this messaging service
+ * @param <M> the generic type of message to be handled by this messaging service
  */
-public class MessagingServiceFactory<MESSAGE> {
+public class MessagingServiceFactory<M> {
 
     /**
      * Create a web socket server instance and returns to the caller.
@@ -40,7 +40,7 @@ public class MessagingServiceFactory<MESSAGE> {
      * @param address the address of the server machine
      * @return the messaging service
      */
-    public MessagingService<MESSAGE> createServer(final InetSocketAddress address) {
+    public MessagingService<M> createServer(final InetSocketAddress address) {
         return new MessageServerImpl<>(address);
     }
 
@@ -50,7 +50,7 @@ public class MessagingServiceFactory<MESSAGE> {
      * @param uri the URI of the server to connect to
      * @return an instance of {@link MessagingService}
      */
-    public MessagingService<MESSAGE> createClient(final URI uri) {
+    public MessagingService<M> createClient(final URI uri) {
         if (uri == null) {
             throw new IllegalArgumentException("URI cannot be null");
         }

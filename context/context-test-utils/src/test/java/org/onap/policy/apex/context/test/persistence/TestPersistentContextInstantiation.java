@@ -99,7 +99,7 @@ public class TestPersistentContextInstantiation {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
@@ -126,8 +126,9 @@ public class TestPersistentContextInstantiation {
         final AxArtifactKey distributorKey = new AxArtifactKey("AbstractDistributor", "0.0.1");
         final Distributor contextDistributor = new DistributorFactory().getDistributor(distributorKey);
 
-        final AxArtifactKey[] usedArtifactStackArray = {new AxArtifactKey("testC-top", "0.0.1"),
-            new AxArtifactKey("testC-next", "0.0.1"), new AxArtifactKey("testC-bot", "0.0.1")};
+        final AxArtifactKey[] usedArtifactStackArray =
+            { new AxArtifactKey("testC-top", "0.0.1"), new AxArtifactKey("testC-next", "0.0.1"),
+                            new AxArtifactKey("testC-bot", "0.0.1") };
 
         final DaoParameters DaoParameters = new DaoParameters();
         DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
@@ -138,8 +139,8 @@ public class TestPersistentContextInstantiation {
         final AxContextModel someContextModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
 
         // Context for Storing Map values
-        final AxContextAlbum axContextAlbumForMap =
-                someContextModel.getAlbums().getAlbumsMap().get(new AxArtifactKey("MapContextAlbum", "0.0.1"));
+        final AxContextAlbum axContextAlbumForMap = someContextModel.getAlbums().getAlbumsMap()
+                        .get(new AxArtifactKey("MapContextAlbum", "0.0.1"));
         apexDao.create(axContextAlbumForMap);
         contextDistributor.registerModel(someContextModel);
         final ContextAlbum contextAlbumForMap = contextDistributor.createContextAlbum(axContextAlbumForMap.getKey());
@@ -154,15 +155,15 @@ public class TestPersistentContextInstantiation {
 
         contextAlbumForMap.putAll(valueMap0);
 
-        assertEquals(
-                ((TestContextTreeMapItem) contextAlbumForMap.get("TestPolicyContextItem000")).getMapValue().get("key"),
-                "This is a policy context string");
+        assertEquals("This is a policy context string",
+                        ((TestContextTreeMapItem) contextAlbumForMap.get("TestPolicyContextItem000")).getMapValue()
+                                        .get("key"));
 
         contextAlbumForMap.flush();
 
         // Context for Storing Date values
-        final AxContextAlbum axContextAlbumForDate =
-                someContextModel.getAlbums().getAlbumsMap().get(new AxArtifactKey("DateContextAlbum", "0.0.1"));
+        final AxContextAlbum axContextAlbumForDate = someContextModel.getAlbums().getAlbumsMap()
+                        .get(new AxArtifactKey("DateContextAlbum", "0.0.1"));
         apexDao.create(axContextAlbumForDate);
         contextDistributor.registerModel(someContextModel);
         final ContextAlbum contextAlbumForDate = contextDistributor.createContextAlbum(axContextAlbumForDate.getKey());
@@ -180,15 +181,15 @@ public class TestPersistentContextInstantiation {
 
         contextAlbumForDate.putAll(valueMap1);
 
-        assertEquals(((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A")).getDateValue(),
-                testDate);
-        assertEquals(((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A")).getDst(), true);
+        assertEquals(testDate, ((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A"))
+                        .getDateValue());
+        assertEquals(true, ((TestContextDateLocaleItem) contextAlbumForDate.get("TestPolicyContextItem00A")).getDst());
 
         contextAlbumForDate.flush();
 
         // Context for Storing Long values
-        final AxContextAlbum axContextAlbumForLong =
-                someContextModel.getAlbums().getAlbumsMap().get(new AxArtifactKey("LTypeContextAlbum", "0.0.1"));
+        final AxContextAlbum axContextAlbumForLong = someContextModel.getAlbums().getAlbumsMap()
+                        .get(new AxArtifactKey("LTypeContextAlbum", "0.0.1"));
         apexDao.create(axContextAlbumForLong);
         contextDistributor.registerModel(someContextModel);
         final ContextAlbum contextAlbumForLong = contextDistributor.createContextAlbum(axContextAlbumForLong.getKey());
@@ -204,16 +205,16 @@ public class TestPersistentContextInstantiation {
 
         contextAlbumForLong.putAll(valueMap2);
 
-        assertEquals(((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0031")).getLongValue(),
-                0xFFFFFFFFFFFFFFFFL);
-        assertEquals(((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0032")).getLongValue(),
-                0xFFFFFFFFFFFFFFFEL);
-        assertEquals(((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0033")).getLongValue(),
-                0xFFFFFFFFFFFFFFFDL);
-        assertEquals(((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0034")).getLongValue(),
-                0xFFFFFFFFFFFFFFFCL);
-        assertEquals(((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0035")).getLongValue(),
-                0xFFFFFFFFFFFFFFFBL);
+        assertEquals(0xFFFFFFFFFFFFFFFFL,
+                        ((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0031")).getLongValue());
+        assertEquals(0xFFFFFFFFFFFFFFFEL,
+                        ((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0032")).getLongValue());
+        assertEquals(0xFFFFFFFFFFFFFFFDL,
+                        ((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0033")).getLongValue());
+        assertEquals(0xFFFFFFFFFFFFFFFCL,
+                        ((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0034")).getLongValue());
+        assertEquals(0xFFFFFFFFFFFFFFFBL,
+                        ((TestContextLongItem) contextAlbumForLong.get("TestPolicyContextItem0035")).getLongValue());
 
         contextAlbumForLong.flush();
         contextDistributor.clear();

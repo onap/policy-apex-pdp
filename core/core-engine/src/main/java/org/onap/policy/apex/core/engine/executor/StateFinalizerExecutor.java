@@ -36,16 +36,19 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This abstract class executes state finalizer logic in a state of an Apex policy and is
- * specialized by classes that implement execution of state finalizer logic.
+ * This abstract class executes state finalizer logic in a state of an Apex policy and is specialized by classes that
+ * implement execution of state finalizer logic.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class StateFinalizerExecutor
-        implements Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> {
+                implements Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(StateFinalizerExecutor.class);
+
+    // Repeated string constants
+    private static final String EXECUTE_POST_SFL = "execute-post: state finalizer logic \"";
 
     // Hold the state and context definitions
     private Executor<?, ?, ?, ?> parent = null;
@@ -81,7 +84,8 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent,
-            final AxStateFinalizerLogic incomingFinalizerLogic, final ApexInternalContext incomingInternalContext) {
+                    final AxStateFinalizerLogic incomingFinalizerLogic,
+                    final ApexInternalContext incomingInternalContext) {
         this.parent = incomingParent;
         axState = (AxState) parent.getSubject();
         this.finalizerLogic = incomingFinalizerLogic;
@@ -96,41 +100,39 @@ public abstract class StateFinalizerExecutor
     @Override
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + finalizerLogic.getId() + "," + finalizerLogic.getLogicFlavour() + ","
-                + finalizerLogic.getLogic());
+                        + finalizerLogic.getLogic());
         argumentOfClassNotNull(finalizerLogic.getLogic(), StateMachineException.class, "task logic cannot be null.");
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long,
-     * java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
      */
     @Override
-    public String execute(final long executionID, final Map<String, Object> newIncomingFields)
-            throws StateMachineException, ContextException {
-        throw new StateMachineException(
-                "execute() not implemented on abstract StateFinalizerExecutionContext class, only on its subclasses");
+    public String execute(final long executionId, final Map<String, Object> newIncomingFields)
+                    throws StateMachineException, ContextException {
+        throw new StateMachineException("execute() not implemented on abstract StateFinalizerExecutionContext class, "
+                        + "only on its subclasses");
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
-     * java.lang.Object)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
      */
     @Override
-    public final void executePre(final long executionID, final Map<String, Object> newIncomingFields)
-            throws StateMachineException, ContextException {
+    public final void executePre(final long executionId, final Map<String, Object> newIncomingFields)
+                    throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + finalizerLogic.getLogicFlavour() + "," + getSubject().getId() + ","
-                + finalizerLogic.getLogic());
+                        + finalizerLogic.getLogic());
 
         // Record the incoming fields
         this.incomingFields = newIncomingFields;
 
         // Get state finalizer context object
-        executionContext = new StateFinalizerExecutionContext(this, executionID, axState, getIncoming(),
-                axState.getStateOutputs().keySet(), getContext());
+        executionContext = new StateFinalizerExecutionContext(this, executionId, axState, getIncoming(),
+                        axState.getStateOutputs().keySet(), getContext());
     }
 
     /*
@@ -142,7 +144,7 @@ public abstract class StateFinalizerExecutor
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
             String errorMessage = "execute-post: state finalizer logic execution failure on state \"" + axState.getId()
-                    + "\" on finalizer logic " + finalizerLogic.getId();
+                            + "\" on finalizer logic " + finalizerLogic.getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -152,23 +154,20 @@ public abstract class StateFinalizerExecutor
 
         // Check a state output has been selected
         if (getOutgoing() == null) {
-            LOGGER.warn("execute-post: state finalizer logic \"" + finalizerLogic.getId()
-                    + "\" did not select an output state");
-            throw new StateMachineException("execute-post: state finalizer logic \"" + finalizerLogic.getId()
-                    + "\" did not select an output state");
+            String message = EXECUTE_POST_SFL + finalizerLogic.getId() + "\" did not select an output state";
+            LOGGER.warn(message);
+            throw new StateMachineException(message);
         }
 
         if (!axState.getStateOutputs().keySet().contains(getOutgoing())) {
-            LOGGER.warn(
-                    "execute-post: state finalizer logic \"" + finalizerLogic.getId() + "\" selected output state \""
-                            + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
-            throw new StateMachineException(
-                    "execute-post: state finalizer logic \"" + finalizerLogic.getId() + "\" selected output state \""
+            LOGGER.warn(EXECUTE_POST_SFL + finalizerLogic.getId() + "\" selected output state \"" + getOutgoing()
+                            + "\" that does not exsist on state \"" + axState.getId() + "\"");
+            throw new StateMachineException(EXECUTE_POST_SFL + finalizerLogic.getId() + "\" selected output state \""
                             + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
         }
 
-        LOGGER.debug("execute-post:" + finalizerLogic.getId() + ", returning  state output \"" + getOutgoing()
-                + " and fields " + incomingFields);
+        LOGGER.debug("execute-post:{}, returning  state output \"{}\" and fields {}", finalizerLogic.getId(),
+                        getOutgoing(), incomingFields);
     }
 
     /*
@@ -244,14 +243,13 @@ public abstract class StateFinalizerExecutor
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
      * executor.Executor)
      */
     @Override
-    public void setNext(final Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> 
-                        incomingNextExecutor) {
-        this.nextExecutor = incomingNextExecutor;
+    public void setNext(
+                    final Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> inNextEx) {
+        this.nextExecutor = inNextEx;
     }
 
     /*
@@ -267,10 +265,10 @@ public abstract class StateFinalizerExecutor
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
-     * engine. ExecutorParameters)
+     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core. engine.
+     * ExecutorParameters)
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+    }
 }

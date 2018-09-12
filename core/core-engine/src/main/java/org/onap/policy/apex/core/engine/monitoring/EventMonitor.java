@@ -44,7 +44,8 @@ public class EventMonitor {
      * @param userArtifactStack the keys of the artifacts using the event at the moment
      */
     public void monitorGet(final AxField eventParameter, final Object value, final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("GET", userArtifactStack, eventParameter, value));
+        String monitorGetString = monitor("GET", userArtifactStack, eventParameter, value);
+        LOGGER.trace(monitorGetString);
     }
 
     /**
@@ -55,7 +56,8 @@ public class EventMonitor {
      * @param userArtifactStack the keys of the artifacts using the event at the moment
      */
     public void monitorSet(final AxField eventParameter, final Object value, final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("SET", userArtifactStack, eventParameter, value));
+        String monitorSetString = monitor("SET", userArtifactStack, eventParameter, value);
+        LOGGER.trace(monitorSetString);
     }
 
     /**
@@ -67,7 +69,8 @@ public class EventMonitor {
      */
     public void monitorRemove(final AxField eventParameter, final Object removedValue,
             final AxConcept[] userArtifactStack) {
-        LOGGER.trace(monitor("REMOVE", userArtifactStack, eventParameter, removedValue));
+        String monitorRemoveString = monitor("REMOVE", userArtifactStack, eventParameter, removedValue);
+        LOGGER.trace(monitorRemoveString);
     }
 
     /**

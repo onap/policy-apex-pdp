@@ -35,7 +35,7 @@ import javax.tools.SimpleJavaFileObject;
  * basis for {@code JavaFileObject} implementations. Subclasses can override the implementation and specification of any
  * method of this class as long as the general contract of {@code JavaFileObject} is obeyed.
  *
- * This class holds the byte code for a single class in memory.
+ * <p>This class holds the byte code for a single class in memory.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */

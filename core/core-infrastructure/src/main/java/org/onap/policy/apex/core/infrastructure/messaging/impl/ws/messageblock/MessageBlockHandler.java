@@ -31,9 +31,9 @@ import org.slf4j.ext.XLoggerFactory;
  * event bus.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
- * @param <MESSAGE> the generic type
+ * @param <M> the generic type
  */
-public class MessageBlockHandler<MESSAGE> {
+public class MessageBlockHandler<M> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(MessageBlockHandler.class);
 
@@ -72,7 +72,7 @@ public class MessageBlockHandler<MESSAGE> {
      *
      * @param messageBlock the block containing typed messages
      */
-    public void post(final MessageBlock<MESSAGE> messageBlock) {
+    public void post(final MessageBlock<M> messageBlock) {
         if (messageBlock.getMessages() != null) {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("new data message recieved from {}", messageBlock.getConnection() == null ? "server"
@@ -90,7 +90,7 @@ public class MessageBlockHandler<MESSAGE> {
     public void post(final String messageString) {
         if (messageString != null) {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("new string message recieved from server: " + messageString);
+                LOGGER.debug("new string message recieved from server: {}", messageString);
             }
             eventBus.post(messageString);
         }
@@ -101,7 +101,7 @@ public class MessageBlockHandler<MESSAGE> {
      *
      * @param listener is an instance of WebSocketMessageListener
      */
-    public void registerMessageHandler(final MessageListener<MESSAGE> listener) {
+    public void registerMessageHandler(final MessageListener<M> listener) {
         LOGGER.entry(listener);
         if (listener == null) {
             throw new IllegalArgumentException("listener object cannot be null");
@@ -116,7 +116,7 @@ public class MessageBlockHandler<MESSAGE> {
      *
      * @param listener the listener
      */
-    public void unRegisterMessageHandler(final MessageListener<MESSAGE> listener) {
+    public void unRegisterMessageHandler(final MessageListener<M> listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener object cannot be null");
         }

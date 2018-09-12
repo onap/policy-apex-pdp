@@ -39,15 +39,15 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class WSStringMessageServer implements WSStringMessager {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(WSStringMessageServer.class);
+public class WsStringMessageServer implements WsStringMessager {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(WsStringMessageServer.class);
 
     // Message service factory and the message service itself
     private final MessagingServiceFactory<String> factory = new MessagingServiceFactory<>();
     private MessagingService<String> service = null;
 
     // The listener to use for reception of strings
-    private WSStringMessageListener wsStringMessageListener;
+    private WsStringMessageListener wsStringMessageListener;
 
     // Address of the server
     private final int port;
@@ -57,7 +57,7 @@ public class WSStringMessageServer implements WSStringMessager {
      *
      * @param port the port of the server
      */
-    public WSStringMessageServer(final int port) {
+    public WsStringMessageServer(final int port) {
         this.port = port;
     }
 
@@ -69,19 +69,19 @@ public class WSStringMessageServer implements WSStringMessager {
      * apex. core.infrastructure.messaging. stringmessaging.WSStringMessageListener)
      */
     @Override
-    public void start(final WSStringMessageListener newWsStringMessageListener) throws MessagingException {
+    public void start(final WsStringMessageListener newWsStringMessageListener) throws MessagingException {
         this.wsStringMessageListener = newWsStringMessageListener;
 
         LOGGER.entry("web socket event consumer server starting . . .");
 
         try {
-            final InetAddress addrLan = MessagingUtils.getLocalHostLANAddress();
+            final InetAddress addrLan = MessagingUtils.getLocalHostLanAddress();
             LOGGER.debug("web socket string message server LAN address=" + addrLan.getHostAddress());
             final InetAddress addr = InetAddress.getLocalHost();
             LOGGER.debug("web socket string message server host address=" + addr.getHostAddress());
 
             service = factory.createServer(new InetSocketAddress(port));
-            service.addMessageListener(new WSStringMessageServerListener());
+            service.addMessageListener(new WsStringMessageServerListener());
 
             service.startConnection();
         } catch (final Exception e) {
@@ -115,14 +115,14 @@ public class WSStringMessageServer implements WSStringMessager {
     public void sendString(final String stringMessage) {
         service.send(stringMessage);
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("server sent message: " + stringMessage);
+            LOGGER.debug("server sent message: {}", stringMessage);
         }
     }
 
     /**
      * The listener for strings coming into the server.
      */
-    private class WSStringMessageServerListener implements MessageListener<String> {
+    private class WsStringMessageServerListener implements MessageListener<String> {
 
         /*
          * (non-Javadoc)
