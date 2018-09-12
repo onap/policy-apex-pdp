@@ -83,6 +83,7 @@ public class ApexEngineServiceHandler {
         // Shut down each engine instance
         if (apexEngineService != null) {
             apexEngineService.stop();
+            apexEngineService.clear();
         }
     }
 }

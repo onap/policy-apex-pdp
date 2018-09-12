@@ -86,11 +86,7 @@ public class EventAlbumContextTest {
         final String[] cliArgs = new String[] { "-c", tempCommandFile.getCanonicalPath(), "-l",
                         tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath() };
 
-        ModelService.clear();
-
         new ApexCLIEditorMain(cliArgs);
-
-        ModelService.clear();
 
         final String[] args = new String[] { "-m", tempModelFile.getAbsolutePath(), "-c", configFile };
         final ApexMain apexMain = new ApexMain(args);
@@ -111,7 +107,6 @@ public class EventAlbumContextTest {
 
         // Shut down Apex
         apexMain.shutdown();
-        ParameterService.clear();
 
         assertTrue("Test failed, the output event file was not created", outputEventFile.exists());
         outputEventFile.delete();

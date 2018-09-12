@@ -138,6 +138,21 @@ public interface EngineService {
     void stop(AxArtifactKey engineKey) throws ApexException;
 
     /**
+     * This method clears and uninitializes all Apex engines in the engine service.
+     *
+     * @throws ApexException on clear errors
+     */
+    void clear() throws ApexException;
+
+    /**
+     * This method clears and uninitializes an Apex engine in the engine service.
+     *
+     * @param engineKey The key of the Apex engine to clear
+     * @throws ApexException on clear errors
+     */
+    void clear(AxArtifactKey engineKey) throws ApexException;
+
+    /**
      * This method checks if all Apex engines in the engine service are started.
      * 
      * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
