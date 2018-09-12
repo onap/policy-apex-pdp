@@ -55,7 +55,7 @@ public class TestKafka2Kafka {
 
     private static final long MAX_TEST_LENGTH = 20000;
 
-    private static final int EVENT_COUNT = 100;
+    private static final int EVENT_COUNT = 10;
     private static final int EVENT_INTERVAL = 20;
 
     private static final String ZKHOST = "127.0.0.1";

@@ -30,6 +30,7 @@ import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.plugins.executor.jruby.JrubyExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
@@ -87,6 +88,7 @@ public class TestApexEngineJRuby {
     @Test
     public void testApexEngineJRuby() throws ApexException, InterruptedException, IOException {
         new TestApexEngine("JRUBY", engineParameters);
+        ThreadUtilities.sleep(5000);
         new TestApexEngine("JRUBY", engineParameters);
     }
 }
