@@ -75,6 +75,13 @@ final class EngineWorker implements EngineService {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EngineService.class);
 
+    // Recurring string constants
+    private static final String IS_NULL_SUFFIX = " is  null";
+    private static final String ENGINE_FOR_KEY_PREFIX = "apex engine for engine key ";
+    private static final String ENGINE_SUFFIX = " of this engine";
+    private static final String BAD_KEY_MATCH_TAG = " does not match the key";
+    private static final String ENGINE_KEY_PREFIX = "engine key ";
+
     // The ID of this engine
     private final AxArtifactKey engineWorkerKey;
 
@@ -102,7 +109,7 @@ final class EngineWorker implements EngineService {
      * @throws ApexException thrown on errors on worker instantiation
      */
     EngineWorker(final AxArtifactKey engineWorkerKey, final BlockingQueue<ApexEvent> queue,
-            final ApplicationThreadFactory threadFactory) throws ApexException {
+            final ApplicationThreadFactory threadFactory) {
         LOGGER.entry(engineWorkerKey);
 
         this.engineWorkerKey = engineWorkerKey;
@@ -252,10 +259,10 @@ final class EngineWorker implements EngineService {
 
         // Check if the key on the update request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
-                    + " of this engine");
-            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
-                    + engineWorkerKey.getId() + " of this engine");
+            String message = ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX;
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         // Sanity checks on the Apex model
@@ -323,23 +330,24 @@ final class EngineWorker implements EngineService {
 
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
-                    + " of this engine");
-            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
-                    + engineWorkerKey.getId() + " of this engine");
+            LOGGER.warn(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG
+                    + engineWorkerKey.getId() + ENGINE_SUFFIX);
         }
 
         if (engine == null) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " null");
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId() + " null");
+            String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is null";
+            LOGGER.error(message);
+            throw new ApexException(message);
         }
 
         // Starts the event processing thread that handles incoming events
         if (processorThread != null && processorThread.isAlive()) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " is already running with state "
-                    + getState());
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId()
-                    + " is already running with state " + getState());
+            String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already running with state "
+                    + getState();
+            LOGGER.error(message);
+            throw new ApexException(message);
         }
 
         // Start the engine
@@ -373,22 +381,23 @@ final class EngineWorker implements EngineService {
     public void stop(final AxArtifactKey engineKey) throws ApexException {
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
-                    + " of this engine");
-            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
-                    + engineWorkerKey.getId() + " of this engine");
+            LOGGER.warn(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG
+                    + engineWorkerKey.getId() + ENGINE_SUFFIX);
         }
 
         if (engine == null) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " null");
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId() + " null");
+            String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is null";
+            LOGGER.error(message);
+            throw new ApexException(message);
         }
 
         // Interrupt the worker to stop its thread
         if (processorThread == null || !processorThread.isAlive()) {
             processorThread = null;
 
-            LOGGER.warn("apex engine for engine key" + engineWorkerKey.getId() + " is already stopped with state "
+            LOGGER.warn(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already stopped with state "
                     + getState());
             return;
         }
@@ -424,20 +433,20 @@ final class EngineWorker implements EngineService {
     public void clear(final AxArtifactKey engineKey) throws ApexException {
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn("engine key " + engineKey.getId() + " does not match the key" + engineWorkerKey.getId()
-                    + " of this engine");
-            throw new ApexException("engine key " + engineKey.getId() + " does not match the key"
-                    + engineWorkerKey.getId() + " of this engine");
+            LOGGER.warn(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG
+                    + engineWorkerKey.getId() + ENGINE_SUFFIX);
         }
 
         if (engine == null) {
-            LOGGER.error("apex engine for engine key" + engineWorkerKey.getId() + " null");
-            throw new ApexException("apex engine for engine key" + engineWorkerKey.getId() + " null");
+            LOGGER.error(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + IS_NULL_SUFFIX);
+            throw new ApexException(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + IS_NULL_SUFFIX);
         }
 
         // Interrupt the worker to stop its thread
         if (processorThread != null && !processorThread.isAlive()) {
-            LOGGER.warn("apex engine for engine key" + engineWorkerKey.getId() + " is not stopped with state "
+            LOGGER.warn(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is not stopped with state "
                     + getState());
             return;
         }
@@ -653,7 +662,7 @@ final class EngineWorker implements EngineService {
         final JsonElement jsonElement = jsonParser.parse(runtimeJsonStringBuilder.toString());
         final String tidiedRuntimeString = gson.toJson(jsonElement);
 
-        LOGGER.debug("runtime information=" + tidiedRuntimeString);
+        LOGGER.debug("runtime information={}", tidiedRuntimeString);
 
         return tidiedRuntimeString;
     }
@@ -691,7 +700,8 @@ final class EngineWorker implements EngineService {
 
             // Take events from the event processing queue of the worker and pass them to the engine
             // for processing
-            while (!processorThread.isInterrupted()) {
+            boolean stopFlag = false;
+            while (!processorThread.isInterrupted() && ! stopFlag) {
                 ApexEvent event = null;
                 try {
                     event = eventProcessingQueue.take();
@@ -714,7 +724,7 @@ final class EngineWorker implements EngineService {
                     LOGGER.warn("Engine {} failed to process event {}", engineWorkerKey, event.toString(), e);
                 } catch (final Exception e) {
                     LOGGER.warn("Engine {} terminated processing event {}", engineWorkerKey, event.toString(), e);
-                    break;
+                    stopFlag = true;
                 }
             }
             LOGGER.debug("Engine {} completed processing", engineWorkerKey);

@@ -40,9 +40,12 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class TestAvroSchemaArray.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * @version 
  */
 public class TestAvroSchemaArray {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
@@ -50,6 +53,11 @@ public class TestAvroSchemaArray {
     private String longArraySchema;
     private String addressArraySchema;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
@@ -58,6 +66,9 @@ public class TestAvroSchemaArray {
         addressArraySchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/ArrayExampleAddress.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
@@ -67,11 +78,19 @@ public class TestAvroSchemaArray {
         
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test array init.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testArrayInit() throws IOException {
         final AxContextSchema avroSchema =
@@ -90,6 +109,11 @@ public class TestAvroSchemaArray {
                 newArrayFull.get(0).toString());
     }
 
+    /**
+     * Test long array unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testLongArrayUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
@@ -102,6 +126,11 @@ public class TestAvroSchemaArray {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/ArrayExampleLongFull.json");
     }
 
+    /**
+     * Test address array unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testAddressArrayUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
@@ -114,6 +143,13 @@ public class TestAvroSchemaArray {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/ArrayExampleAddressFull.json");
     }
 
+    /**
+     * Test unmarshal marshal.
+     *
+     * @param schemaHelper the schema helper
+     * @param fileName the file name
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final Array<?> schemaObject = (Array<?>) schemaHelper.unmarshal(inString);

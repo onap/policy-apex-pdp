@@ -187,19 +187,19 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
                 // Process the next Apex event from the queue
                 final Object event = converter.fromApexEvent(apexEvent);
 
-                producer.sendEvent(apexEvent.getExecutionID(), apexEvent.getName(), event);
+                producer.sendEvent(apexEvent.getExecutionId(), apexEvent.getName(), event);
 
                 if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("event sent : " + apexEvent.toString());
+                    String message = "event sent : " + apexEvent.toString();
+                    LOGGER.trace(message);
                 }
             } catch (final InterruptedException e) {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();
                 LOGGER.debug("Thread interrupted, Reason {}", e.getMessage());
-                break;
+                stopOrderedFlag = true;
             } catch (final Exception e) {
                 LOGGER.warn("Error while forwarding events for " + marshallerThread.getName(), e);
-                continue;
             }
         }
 

@@ -47,7 +47,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexKafkaConsumer.class);
 
     // The Kafka parameters read from the parameter service
-    private KAFKACarrierTechnologyParameters kafkaConsumerProperties;
+    private KafkaCarrierTechnologyParameters kafkaConsumerProperties;
 
     // The event receiver that will receive events from this consumer
     private ApexEventReceiver eventReceiver;
@@ -79,7 +79,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
         this.name = consumerName;
 
         // Check and get the Kafka Properties
-        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof KAFKACarrierTechnologyParameters)) {
+        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof KafkaCarrierTechnologyParameters)) {
             LOGGER.warn("specified consumer properties of type \""
                     + consumerParameters.getCarrierTechnologyParameters().getClass().getCanonicalName()
                     + "\" are not applicable to a Kafka consumer");
@@ -88,10 +88,10 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
                     + "\" are not applicable to a Kafka consumer");
         }
         kafkaConsumerProperties =
-                (KAFKACarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+                (KafkaCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Kick off the Kafka consumer
-        kafkaConsumer = new KafkaConsumer<String, String>(kafkaConsumerProperties.getKafkaConsumerProperties());
+        kafkaConsumer = new KafkaConsumer<>(kafkaConsumerProperties.getKafkaConsumerProperties());
         kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicList());
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("event receiver for " + this.getClass().getName() + ":" + this.name + " subscribed to topics: "
@@ -153,7 +153,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
     @Override
     public void run() {
         // Kick off the Kafka consumer
-        kafkaConsumer = new KafkaConsumer<String, String>(kafkaConsumerProperties.getKafkaConsumerProperties());
+        kafkaConsumer = new KafkaConsumer<>(kafkaConsumerProperties.getKafkaConsumerProperties());
         kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicList());
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("event receiver for " + this.getClass().getName() + ":" + this.name + " subscribed to topics: "

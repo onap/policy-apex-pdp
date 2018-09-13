@@ -45,7 +45,7 @@ public class InfinispanManager {
      * @throws ContextException On errors connecting to Infinispan
      */
     public InfinispanManager(final InfinispanDistributorParameters infinispanDistributorParameters)
-            throws ContextException {
+                    throws ContextException {
         LOGGER.entry("Creating Infinispan Manager: " + infinispanDistributorParameters);
 
         setSystemProperties(infinispanDistributorParameters);
@@ -55,8 +55,8 @@ public class InfinispanManager {
             cacheManager = new DefaultCacheManager(infinispanDistributorParameters.getConfigFile());
             LOGGER.debug("started infinispan cache manager using specified configuration");
         } catch (final IOException ioException) {
-            final String errorMessage =
-                    "failed to start infinispan cache manager, no infinispan configuration found on local file system or in classpath, "
+            final String errorMessage = "failed to start infinispan cache manager, "
+                            + "no infinispan configuration found on local file system or in classpath, "
                             + "try setting Infinspan \"configFile\" parameter";
             LOGGER.error(errorMessage);
             throw new ContextException(errorMessage, ioException);
@@ -101,7 +101,7 @@ public class InfinispanManager {
      */
     private void setSystemProperties(final InfinispanDistributorParameters infinispanDistributorParameters) {
         System.setProperty("java.net.preferIPv4Stack",
-                Boolean.toString(infinispanDistributorParameters.preferIPv4Stack()));
+                        Boolean.toString(infinispanDistributorParameters.preferIPv4Stack()));
         System.setProperty("jgroups.bind_addr", infinispanDistributorParameters.getjGroupsBindAddress());
     }
 

@@ -44,8 +44,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This event unmarshaler handles events coming into Apex, handles threading, event queuing,
- * transformation and receiving using the configured receiving technology.
+ * This event unmarshaler handles events coming into Apex, handles threading, event queuing, transformation and
+ * receiving using the configured receiving technology.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -88,7 +88,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      * @param consumerParameters the consumer parameters for this specific unmarshaler
      */
     public ApexEventUnmarshaller(final String name, final EngineServiceParameters engineServiceParameters,
-            final EventHandlerParameters consumerParameters) {
+                    final EventHandlerParameters consumerParameters) {
         this.name = name;
         this.engineServiceParameters = engineServiceParameters;
         this.consumerParameters = consumerParameters;
@@ -97,8 +97,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
     /**
      * Configure the consumer and initialize the thread for event sending.
      *
-     * @param incomingEngineServiceHandler the Apex engine service handler for passing events to
-     *        Apex
+     * @param incomingEngineServiceHandler the Apex engine service handler for passing events to Apex
      * @throws ApexEventException on errors initializing event handling
      */
     public void init(final ApexEngineServiceHandler incomingEngineServiceHandler) throws ApexEventException {
@@ -119,8 +118,8 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         consumer.start();
 
         // Configure and start the event reception thread
-        final String threadName =
-                engineServiceParameters.getEngineKey().getName() + ":" + this.getClass().getName() + ":" + name;
+        final String threadName = engineServiceParameters.getEngineKey().getName() + ":" + this.getClass().getName()
+                        + ":" + name;
         unmarshallerThread = new ApplicationThreadFactory(threadName).newThread(this);
         unmarshallerThread.setDaemon(true);
         unmarshallerThread.start();
@@ -165,7 +164,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 // To connect a synchronous unmarshaler and marshaler, we create a synchronous event
                 // cache on the consumer/producer pair
                 new SynchronousEventCache(peeredMode, consumer, peeredMarshaller.getProducer(),
-                        consumerParameters.getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
+                                consumerParameters.getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
                 return;
 
             case REQUESTOR:
@@ -180,8 +179,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventReceiver#receiveEvent(java.lang.Object)
+     * @see org.onap.policy.apex.service.engine.event.ApexEventReceiver#receiveEvent(java.lang.Object)
      */
     @Override
     public void receiveEvent(final Object event) throws ApexEventException {
@@ -191,8 +189,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
     /*
      * (non-Javadoc)
      * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventReceiver#receiveEvent(long,
-     * java.lang.Object)
+     * @see org.onap.policy.apex.service.engine.event.ApexEventReceiver#receiveEvent(long, java.lang.Object)
      */
     @Override
     public void receiveEvent(final long executionId, final Object event) throws ApexEventException {
@@ -204,15 +201,15 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      *
      * @param executionId the execution id the incoming execution ID
      * @param event the event in its native format
-     * @param generateExecutionId if true, let Apex generate the execution ID, if false, use the
-     *        incoming execution ID
+     * @param generateExecutionId if true, let Apex generate the execution ID, if false, use the incoming execution ID
      * @throws ApexEventException on unmarshaling errors on events
      */
     private void receiveEvent(final long executionId, final Object event, final boolean generateExecutionId)
-            throws ApexEventException {
+                    throws ApexEventException {
         // Push the event onto the queue
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("onMessage(): event received: {}", event.toString());
+            String eventString = "onMessage(): event received: " + event.toString();
+            LOGGER.trace(eventString);
         }
 
         // Convert the incoming events to Apex events
@@ -222,10 +219,10 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 // Check if we are filtering events on this unmarshaler, if so check the event name
                 // against the filter
                 if (consumerParameters.isSetEventNameFilter()
-                        && !apexEvent.getName().matches(consumerParameters.getEventNameFilter())) {
+                                && !apexEvent.getName().matches(consumerParameters.getEventNameFilter())) {
                     if (LOGGER.isTraceEnabled()) {
                         LOGGER.trace("onMessage(): event {} not processed, filtered  out by filter", apexEvent,
-                                consumerParameters.getEventNameFilter());
+                                        consumerParameters.getEventNameFilter());
                     }
 
                     // Ignore this event
@@ -233,7 +230,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 }
 
                 if (!generateExecutionId) {
-                    apexEvent.setExecutionID(executionId);
+                    apexEvent.setExecutionId(executionId);
                 }
 
                 // Enqueue the event
@@ -241,22 +238,22 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
                 // Cache synchronized events that are sent
                 if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
-                    final SynchronousEventCache synchronousEventCache =
-                            (SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
-                    synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionID(), apexEvent);
+                    final SynchronousEventCache synchronousEventCache = (SynchronousEventCache) consumer
+                                    .getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
+                    synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
                 }
             }
         } catch (final ApexException e) {
             final String errorMessage = "Error while converting event into an ApexEvent for " + name + ": "
-                    + e.getMessage() + ", Event=" + event;
+                            + e.getMessage() + ", Event=" + event;
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
     }
 
     /**
-     * Run a thread that runs forever (well until system termination anyway) and listens for
-     * incoming events on the queue.
+     * Run a thread that runs forever (well until system termination anyway) and listens for incoming events on the
+     * queue.
      */
     @Override
     public void run() {
@@ -270,7 +267,8 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 }
 
                 if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("event received {}", apexEvent.toString());
+                    String message = apexEvent.toString();
+                    LOGGER.trace("event received {}", message);
                 }
 
                 // Pass the event to the activator for forwarding to Apex
@@ -279,10 +277,9 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();
                 LOGGER.warn("BatchProcessor thread interrupted, Reason {}", e.getMessage());
-                break;
+                stopOrderedFlag = true;
             } catch (final Exception e) {
                 LOGGER.warn("Error while forwarding events for " + unmarshallerThread.getName(), e);
-                continue;
             }
         }
 
@@ -309,10 +306,9 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         stopOrderedFlag = true;
 
         // Order a stop on the synchronous cache if one exists
-        if (consumerParameters != null && consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
-            if (consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
-                ((SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS)).stop();
-            }
+        if (consumerParameters != null && consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)
+                        && consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
+            ((SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS)).stop();
         }
 
         // Wait for thread shutdown

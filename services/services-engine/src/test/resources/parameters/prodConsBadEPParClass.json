@@ -35,7 +35,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "SUPER_TOK_DEL",
-                "parameterClassName": "org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters"
             }
         }
     }

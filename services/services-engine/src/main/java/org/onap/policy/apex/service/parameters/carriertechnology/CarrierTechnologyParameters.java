@@ -29,14 +29,10 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * The default carrier technology parameter class that may be specialized by carrier technology plugins that require
  * plugin specific parameters.
  * 
- * <p>The following parameters are defined:
- * <ol>
- * <li>label: The label of the carrier technology.
+ * <p>The following parameters are defined: <ol> <li>label: The label of the carrier technology.
  * <li>eventProducerPluginClass: The name of the plugin class that will be used by Apex to produce and emit output
- * events for this carrier technology
- * <li>eventConsumerPluginClass: The name of the plugin class that will be used by Apex to receive and process input
- * events from this carrier technology carrier technology
- * </ol>
+ * events for this carrier technology <li>eventConsumerPluginClass: The name of the plugin class that will be used by
+ * Apex to receive and process input events from this carrier technology carrier technology </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -160,7 +156,7 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
 
         return result;
     }
-    
+
     @Override
     public String getName() {
         return this.getLabel();
@@ -168,7 +164,8 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
 
     @Override
     public void setName(final String name) {
-        throw new ParameterRuntimeException("the name/label of this carrier technology is always \"" + getLabel() + "\"");
+        throw new ParameterRuntimeException(
+                        "the name/label of this carrier technology is always \"" + getLabel() + "\"");
     }
 
 }

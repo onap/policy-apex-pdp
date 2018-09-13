@@ -33,26 +33,20 @@ import org.onap.policy.common.parameters.ValidationStatus;
 /**
  * The parameters for a single event producer, event consumer or synchronous event handler.
  * 
- * <p>Event producers, consumers, and synchronous event handlers all use a carrier technology and an event protocol so the
- * actual parameters for each one are the same. Therefore, we use the same class for the parameters of each one.
+ * <p>Event producers, consumers, and synchronous event handlers all use a carrier technology and an event protocol so
+ * the actual parameters for each one are the same. Therefore, we use the same class for the parameters of each one.
  * 
- * <p>The following parameters are defined:
- * <ol>
- * <li>carrierTechnologyParameters: The carrier technology is the type of messaging infrastructure used to carry events.
- * Examples are File, Kafka or REST.
- * <li>eventProtocolParameters: The format that the events are in when being carried. Examples are JSON, XML, or Java
- * Beans. carrier technology
- * <li>synchronousMode: true if the event handler is working in synchronous mode, defaults to false
- * <li>synchronousPeer: the peer event handler (consumer for producer or producer for consumer) of this event handler in
- * synchronous mode
+ * <p>The following parameters are defined: <ol> <li>carrierTechnologyParameters: The carrier technology is the type of
+ * messaging infrastructure used to carry events. Examples are File, Kafka or REST. <li>eventProtocolParameters: The
+ * format that the events are in when being carried. Examples are JSON, XML, or Java Beans. carrier technology
+ * <li>synchronousMode: true if the event handler is working in synchronous mode, defaults to false <li>synchronousPeer:
+ * the peer event handler (consumer for producer or producer for consumer) of this event handler in synchronous mode
  * <li>synchronousTimeout: the amount of time to wait for the reply to synchronous events before they are timed out
- * <li>requestorMode: true if the event handler is working in requestor mode, defaults to false
- * <li>requestorPeer: the peer event handler (consumer for producer or producer for consumer) of this event handler in
- * requestor mode
+ * <li>requestorMode: true if the event handler is working in requestor mode, defaults to false <li>requestorPeer: the
+ * peer event handler (consumer for producer or producer for consumer) of this event handler in requestor mode
  * <li>requestorTimeout: the amount of time to wait for the reply to synchronous events before they are timed out
  * <li>eventNameFilter: a regular expression to apply to events on this event handler. If specified, events not matching
- * the given regular expression are ignored. If it is null, all events are handledDefaults to null.
- * </ol>
+ * the given regular expression are ignored. If it is null, all events are handledDefaults to null. </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -340,7 +334,7 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Check if we're using synchronous mode
+     * Check if we're using synchronous mode.
      * 
      * @return true if if we're using synchronous mode
      */
@@ -349,7 +343,8 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * The synchronous peer for this event handler
+     * The synchronous peer for this event handler.
+     * 
      * @return the synchronous peer for this event handler
      */
     public String getSynchronousPeer() {
@@ -357,7 +352,8 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Get the timeout for synchronous operations
+     * Get the timeout for synchronous operations.
+     * 
      * @return the timeout for synchronous operations
      */
     public long getSynchronousTimeout() {
@@ -365,7 +361,8 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Check if this event handler will use requestor mode
+     * Check if this event handler will use requestor mode.
+     * 
      * @return true if this event handler will use requestor mode
      */
     public boolean isRequestorMode() {
@@ -373,7 +370,8 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * The requestor peer for this event handler
+     * The requestor peer for this event handler.
+     * 
      * @return the requestor peer for this event handler
      */
     public String getRequestorPeer() {
@@ -381,7 +379,8 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * @return the requestorTimeout
+     * Get the requestor timeout.
+     * @return the requestorTimeout.
      */
     public long getRequestorTimeout() {
         return requestorTimeout;

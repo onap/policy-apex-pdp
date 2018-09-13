@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FILECarrierTechnologyParameters;
+import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
@@ -117,7 +117,7 @@ public class ProducerConsumerTests {
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
                             + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
                             + "\"org.onap.policy.apex.service.engine.event.impl."
-                            + "filecarrierplugin.FILECarrierTechnologyParameters\" INVALID, "
+                            + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
                             + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
                             + "fileName not specified or is blank or null, "
@@ -156,8 +156,8 @@ public class ProducerConsumerTests {
                             + "(ParameterRuntimeException):carrier technology \"SUPER_LOOPER\" "
                             + "does not match plugin \"SUPER_DOOPER\" in \"" + "org.onap.policy.apex.service.engine."
                             + "parameters.dummyclasses.SuperDooperCarrierTechnologyParameters"
-                            + "\", specify correct carrier technology parameter plugin in parameter \"parameterClassName\"",
-                            e.getMessage());
+                            + "\", specify correct carrier technology parameter plugin "
+                            + "in parameter \"parameterClassName\"", e.getMessage());
         }
     }
 
@@ -189,11 +189,11 @@ public class ProducerConsumerTests {
 
         try {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            final FILECarrierTechnologyParameters fileParams = (FILECarrierTechnologyParameters) parameters
+            final FileCarrierTechnologyParameters fileParams = (FileCarrierTechnologyParameters) parameters
                             .getEventOutputParameters().get("aProducer").getCarrierTechnologyParameters();
             assertEquals("/tmp/aaa.json", fileParams.getFileName());
             assertEquals(false, fileParams.isStandardError());
-            assertEquals(false, fileParams.isStandardIO());
+            assertEquals(false, fileParams.isStandardIo());
             assertEquals(false, fileParams.isStreamingMode());
         } catch (final ParameterException e) {
             fail("This test should not throw an exception");
@@ -210,18 +210,20 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertEquals("validation error(s) on parameters from \"src/test/resources/parameters/prodConsBadFileName.json\"\n"
+            assertEquals("validation error(s) on parameters from "
+                            + "\"src/test/resources/parameters/prodConsBadFileName.json\"\n"
                             + "parameter group \"APEX_PARAMETERS\" type "
                             + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
-                            + "  parameter group map \"eventOutputParameters\" INVALID, parameter group has status INVALID\n"
-                            + "    parameter group \"aProducer\" type "
-                            + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID, "
-                            + "parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
+                            + "  parameter group map \"eventOutputParameters\" INVALID, "
+                            + "parameter group has status INVALID\n" + "    parameter group \"aProducer\" type "
+                            + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
+                            + "INVALID, parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
                             + "\"org.onap.policy.apex.service.engine.event.impl."
-                            + "filecarrierplugin.FILECarrierTechnologyParameters\" INVALID, "
+                            + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n" + "        field \"fileName\" type "
-                            + "\"java.lang.String\" value \"null\" INVALID, fileName not specified or is blank or null, "
+                            + "\"java.lang.String\" value \"null\" INVALID, "
+                            + "fileName not specified or is blank or null, "
                             + "it must be specified as a valid file location\n", e.getMessage());
         }
     }
@@ -237,8 +239,9 @@ public class ProducerConsumerTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from \"src/test/resources/parameters/prodConsBadEPParClass.json\"\n"
-                            + "(ParameterRuntimeException):event protocol \"SUPER_TOK_DEL\" does not match plugin \"JSON\" in "
-                            + "\"org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters"
+                            + "(ParameterRuntimeException):event protocol \"SUPER_TOK_DEL\" "
+                            + "does not match plugin \"JSON\" in \"org.onap.policy.apex.service.engine.event.impl"
+                            + ".jsonprotocolplugin.JsonEventProtocolParameters"
                             + "\", specify correct event protocol parameter plugin in parameter \"parameterClassName\"",
                             e.getMessage());
         }
@@ -270,7 +273,8 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertEquals("error reading parameters from \"src/test/resources/parameters/prodConsMismatchEPParClass.json\"\n"
+            assertEquals("error reading parameters from "
+                            + "\"src/test/resources/parameters/prodConsMismatchEPParClass.json\"\n"
                             + "(ParameterRuntimeException):event protocol \"SUPER_TOK_BEL\" "
                             + "does not match plugin \"SUPER_TOK_DEL\" in "
                             + "\"org.onap.policy.apex.service.engine.parameters.dummyclasses."

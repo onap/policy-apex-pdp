@@ -43,9 +43,9 @@ public class ApexDeploymentException extends ApexException {
      * Instantiates a new apex deployment exception.
      *
      * @param message the message
-     * @param e the e
+     * @param exception the e
      */
-    public ApexDeploymentException(final String message, final Exception e) {
-        super(message, e);
+    public ApexDeploymentException(final String message, final Exception exception) {
+        super(message, exception);
     }
 }

@@ -50,7 +50,6 @@ public class ApexMain {
      * @param args the commaind line arguments
      */
     public ApexMain(final String[] args) {
-        System.out.println("Starting Apex service with parameters " + Arrays.toString(args) + " . . .");
         LOGGER.entry("Starting Apex service with parameters " + Arrays.toString(args) + " . . .");
 
         // Check the arguments
@@ -60,16 +59,13 @@ public class ApexMain {
             final String argumentMessage = arguments.parse(args);
             if (argumentMessage != null) {
                 LOGGER.info(argumentMessage);
-                System.out.println(argumentMessage);
                 return;
             }
 
             // Validate that the arguments are sane
             arguments.validate();
         } catch (final ApexException e) {
-            System.err.println("start of Apex service failed: " + e.getMessage());
             LOGGER.error("start of Apex service failed", e);
-            System.err.println(arguments.help(ApexMain.class.getCanonicalName()));
             return;
         }
 
@@ -77,7 +73,6 @@ public class ApexMain {
         try {
             parameters = new ApexParameterHandler().getParameters(arguments);
         } catch (final Exception e) {
-            System.err.println("start of Apex service failed\n" + e.getMessage());
             LOGGER.error("start of Apex service failed", e);
             return;
         }
@@ -103,8 +98,6 @@ public class ApexMain {
         try {
             activator.initialize();
         } catch (final ApexActivatorException e) {
-            System.err.println("start of Apex service failed, used parameters are " + Arrays.toString(args));
-            e.printStackTrace(System.err);
             LOGGER.error("start of Apex service failed, used parameters are " + Arrays.toString(args), e);
             return;
         }
@@ -112,7 +105,6 @@ public class ApexMain {
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new ApexMainShutdownHookClass());
         LOGGER.exit("Started Apex");
-        System.out.println("Started Apex service");
     }
 
     /**

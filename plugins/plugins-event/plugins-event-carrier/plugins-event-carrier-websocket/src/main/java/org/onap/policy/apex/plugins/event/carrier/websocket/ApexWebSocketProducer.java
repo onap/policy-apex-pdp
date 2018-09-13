@@ -46,9 +46,6 @@ public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessage
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexWebSocketProducer.class);
 
-    // The Web Socket properties
-    private WEBSOCKETCarrierTechnologyParameters webSocketProducerProperties;
-
     // The web socket messager, may be WS a server or a client
     private WsStringMessager wsStringMessager;
 
@@ -60,23 +57,25 @@ public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessage
 
     @Override
     public void init(final String producerName, final EventHandlerParameters producerParameters)
-            throws ApexEventException {
+                    throws ApexEventException {
         this.name = producerName;
 
         // Check and get the web socket Properties
-        if (!(producerParameters.getCarrierTechnologyParameters() instanceof WEBSOCKETCarrierTechnologyParameters)) {
-            LOGGER.warn(
-                    "specified producer properties for " + this.name + "are not applicable to a web socket producer");
+        if (!(producerParameters.getCarrierTechnologyParameters() instanceof WebSocketCarrierTechnologyParameters)) {
+            String message = "specified producer properties for " + this.name
+                            + "are not applicable to a web socket producer";
+            LOGGER.warn(message);
             throw new ApexEventException("specified producer properties are not applicable to a web socket producer");
         }
-        webSocketProducerProperties =
-                (WEBSOCKETCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+        // The Web Socket properties
+        WebSocketCarrierTechnologyParameters webSocketProducerProperties =
+                        (WebSocketCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
         // Check if this is a server or a client Web Socket
         if (webSocketProducerProperties.isWsClient()) {
             // Create a WS client
             wsStringMessager = new WsStringMessageClient(webSocketProducerProperties.getHost(),
-                    webSocketProducerProperties.getPort());
+                            webSocketProducerProperties.getPort());
         } else {
             wsStringMessager = new WsStringMessageServer(webSocketProducerProperties.getPort());
         }
@@ -85,7 +84,8 @@ public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessage
         try {
             wsStringMessager.start(this);
         } catch (final MessagingException e) {
-            LOGGER.warn("could not start web socket producer (" + this.name + ")");
+            String message = "could not start web socket producer (" + this.name + ")";
+            LOGGER.warn(message);
         }
     }
 
@@ -130,8 +130,8 @@ public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessage
     @Override
     public void sendEvent(final long executionId, final String eventName, final Object event) {
         // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache =
-                (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
+        final SynchronousEventCache synchronousEventCache = (SynchronousEventCache) peerReferenceMap
+                        .get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);
         }
@@ -160,7 +160,8 @@ public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessage
      */
     @Override
     public void receiveString(final String messageString) {
-        LOGGER.warn("received message \"" + messageString + "\" on web socket producer (" + this.name
-                + ") , no messages should be received on a web socket producer");
+        String message = "received message \"" + messageString + "\" on web socket producer (" + this.name
+                        + ") , no messages should be received on a web socket producer";
+        LOGGER.warn(message);
     }
 }

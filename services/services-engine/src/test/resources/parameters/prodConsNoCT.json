@@ -31,7 +31,7 @@
         "aConsumer": {
             "carrierParameters": {
                 "carrierTechnology": "SUPER_DOOPER",
-                "parameterClassName": "org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FILECarrierTechnologyParameters"
+                "parameterClassName": "org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "SUPER_TOK_DEL",

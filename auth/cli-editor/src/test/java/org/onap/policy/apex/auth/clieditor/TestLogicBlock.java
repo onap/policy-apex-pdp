@@ -34,6 +34,10 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestLogicBlock.
+ */
 public class TestLogicBlock {
     private String[] logicBlockArgs;
     private String[] avroSchemaArgs;
@@ -41,6 +45,11 @@ public class TestLogicBlock {
     private File tempLogicModelFile;
     private File tempAvroModelFile;
 
+    /**
+     * Creates the temp files.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void createTempFiles() throws IOException {
         tempLogicModelFile = File.createTempFile("TestLogicPolicyModel", ".json");
@@ -53,6 +62,9 @@ public class TestLogicBlock {
                 tempAvroModelFile.getCanonicalPath(), "-nl"};
     }
 
+    /**
+     * Removes the temp files.
+     */
     @After
     public void removeTempFiles() {
         tempLogicModelFile.delete();
@@ -67,18 +79,18 @@ public class TestLogicBlock {
      */
     @Test
     public void testLogicBlock() throws IOException, ApexModelException {
-        new ApexCLIEditorMain(logicBlockArgs);
+        new ApexCommandLineEditorMain(logicBlockArgs);
 
         // Read the file from disk
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
 
-        final URL writtenModelURL = ResourceUtils.getLocalFile(tempLogicModelFile.getCanonicalPath());
-        final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
+        final URL writtenModelUrl = ResourceUtils.getLocalFile(tempLogicModelFile.getCanonicalPath());
+        final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
-        final URL compareModelURL =
+        final URL compareModelUrl =
                 ResourceUtils.getLocalFile("src/test/resources/compare/LogicBlockModel_Compare.json");
-        final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
+        final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs
         writtenModel.getKeyInformation().getKeyInfoMap().clear();
@@ -95,18 +107,18 @@ public class TestLogicBlock {
      */
     @Test
     public void testAvroSchema() throws IOException, ApexModelException {
-        new ApexCLIEditorMain(avroSchemaArgs);
+        new ApexCommandLineEditorMain(avroSchemaArgs);
 
         // Read the file from disk
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
 
-        final URL writtenModelURL = ResourceUtils.getLocalFile(tempAvroModelFile.getCanonicalPath());
-        final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
+        final URL writtenModelUrl = ResourceUtils.getLocalFile(tempAvroModelFile.getCanonicalPath());
+        final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
-        final URL compareModelURL =
+        final URL compareModelUrl =
                 ResourceUtils.getLocalFile("src/test/resources/compare/AvroSchemaModel_Compare.json");
-        final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
+        final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs
         writtenModel.getKeyInformation().getKeyInfoMap().clear();

@@ -44,7 +44,7 @@ import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.plugins.executor.test.script.engine.TestApexActionListener;
 import org.onap.policy.apex.test.common.model.SampleDomainModelFactory;
 import org.onap.policy.common.parameters.ParameterService;
@@ -86,7 +86,7 @@ public class TestContextUpdateModel {
         ParameterService.register(contextParameters.getPersistorParameters());
         
         engineParameters = new EngineParameters();
-        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         ParameterService.register(engineParameters);
     }
 

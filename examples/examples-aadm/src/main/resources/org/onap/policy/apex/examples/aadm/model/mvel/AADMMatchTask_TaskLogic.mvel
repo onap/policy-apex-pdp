@@ -18,8 +18,8 @@
  * ============LICENSE_END=========================================================
  */
 import org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus;
-import org.onap.policy.apex.examples.aadm.concepts.IPAddressStatus;
-import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.IpAddressStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ImsiStatus;
 
 logger.debug(subject.id + ":" + subject.taskName + " execution logic");
 logger.debug(inFields);
@@ -46,22 +46,22 @@ if (eNodeBID == null ) {
     return false;
 }
 
-IPAddressStatus ipAddressStatus = getContextAlbum("IPAddressStatusAlbum").get(ipAddress);
+IpAddressStatus ipAddressStatus = getContextAlbum("IPAddressStatusAlbum").get(ipAddress);
 if (ipAddressStatus == null) {
-    ipAddressStatus = new IPAddressStatus(ipAddress); 
-    ipAddressStatus.setIMSI(imsi);
-    getContextAlbum("IPAddressStatusAlbum").put(ipAddressStatus.getIPAddress(), ipAddressStatus);
+    ipAddressStatus = new IpAddressStatus(ipAddress); 
+    ipAddressStatus.setImsi(imsi);
+    getContextAlbum("IPAddressStatusAlbum").put(ipAddressStatus.getIpAddress(), ipAddressStatus);
     logger.debug("added new IP address " + getContextAlbum("IPAddressStatusAlbum").get(ipAddress));
 }
 else {
     logger.debug("found IP address " + ipAddressStatus);
 }
 
-IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)imsi);
+ImsiStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)imsi);
 if (imsiStatus == null) {
-    imsiStatus = new IMSIStatus(imsi);
-    imsiStatus.setENodeBID(eNodeBID);
-    getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getIMSI(), imsiStatus);
+    imsiStatus = new ImsiStatus(imsi);
+    imsiStatus.setENodeBId(eNodeBID);
+    getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getImsi(), imsiStatus);
     logger.debug("added new IMSI " + imsi + " to IMSI status map")
 }
 

@@ -38,6 +38,9 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+/**
+ * The Class HazelcastContextDistributorTest.
+ */
 public class HazelcastContextDistributorTest {
     private static final String HAZEL_CAST_PLUGIN_CLASS = HazelcastContextDistributor.class.getCanonicalName();
     // Logger for this class
@@ -46,6 +49,9 @@ public class HazelcastContextDistributorTest {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Before test.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -69,6 +75,9 @@ public class HazelcastContextDistributorTest {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * After test.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -78,6 +87,14 @@ public class HazelcastContextDistributorTest {
         ParameterService.deregister(contextParameters.getPersistorParameters());
         ParameterService.deregister(contextParameters);
     }
+    
+    /**
+     * Test context album update hazelcast.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testContextAlbumUpdateHazelcast() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextAlbumUpdateHazelcast test . . .");
@@ -87,6 +104,13 @@ public class HazelcastContextDistributorTest {
         logger.debug("Ran testContextAlbumUpdateHazelcast test");
     }
 
+    /**
+     * Test context instantiation hazelcast.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testContextInstantiationHazelcast() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationHazelcast test . . .");
@@ -96,6 +120,13 @@ public class HazelcastContextDistributorTest {
         logger.debug("Ran testContextInstantiationHazelcast test");
     }
 
+    /**
+     * Test context update hazelcast.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testContextUpdateHazelcast() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextUpdateHazelcast test . . .");

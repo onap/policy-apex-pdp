@@ -37,6 +37,9 @@ public class CuratorLockFacade implements Lock {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(CuratorLockFacade.class);
 
+    // Recurring string constants
+    private static final String FAILED_TO_ACQUIRE_LOCK_TAG = "failed to acquire lock for \"{}\"";
+
     // The Lock ID
     private final String lockId;
 
@@ -64,7 +67,7 @@ public class CuratorLockFacade implements Lock {
         try {
             lockMutex.acquire();
         } catch (final Exception e) {
-            LOGGER.warn("failed to acquire lock for \"" + lockId, e);
+            LOGGER.warn(FAILED_TO_ACQUIRE_LOCK_TAG, lockId, e);
         }
     }
 
@@ -75,7 +78,7 @@ public class CuratorLockFacade implements Lock {
      */
     @Override
     public void lockInterruptibly() throws InterruptedException {
-        LOGGER.warn("lockInterruptibly() not supported for \"" + lockId);
+        LOGGER.warn("lockInterruptibly() not supported for \"{}\"", lockId);
     }
 
     /*
@@ -131,7 +134,7 @@ public class CuratorLockFacade implements Lock {
      */
     @Override
     public Condition newCondition() {
-        LOGGER.warn("newCondition() not supported for \"" + lockId);
+        LOGGER.warn("newCondition() not supported for \"{} \"", lockId);
         return null;
     }
 }

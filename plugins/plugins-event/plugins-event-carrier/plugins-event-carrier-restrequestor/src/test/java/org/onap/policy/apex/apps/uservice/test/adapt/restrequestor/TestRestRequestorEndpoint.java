@@ -34,6 +34,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+/**
+ * The Class TestRestRequestorEndpoint.
+ */
 @Path("/apex")
 public class TestRestRequestorEndpoint {
 
@@ -50,6 +53,9 @@ public class TestRestRequestorEndpoint {
             + "\"TestMatchCase\": 2,\n" + "\"TestTimestamp\": " + System.currentTimeMillis() + ",\n"
             + "\"TestTemperature\": 9080.866\n" + "}";
 
+    /**
+     * Reset counters.
+     */
     public static void resetCounters() {
         postMessagesReceived = 0;
         putMessagesReceived = 0;
@@ -58,6 +64,11 @@ public class TestRestRequestorEndpoint {
         deleteMessagesReceived = 0;
     }
 
+    /**
+     * Service get stats.
+     *
+     * @return the response
+     */
     @Path("/event/Stats")
     @GET
     public Response serviceGetStats() {
@@ -71,6 +82,11 @@ public class TestRestRequestorEndpoint {
                 .build();
     }
 
+    /**
+     * Service get event.
+     *
+     * @return the response
+     */
     @Path("/event/GetEvent")
     @GET
     public Response serviceGetEvent() {
@@ -81,18 +97,34 @@ public class TestRestRequestorEndpoint {
         return Response.status(200).entity(EVENT_STRING).build();
     }
 
+    /**
+     * Service get empty event.
+     *
+     * @return the response
+     */
     @Path("/event/GetEmptyEvent")
     @GET
     public Response serviceGetEmptyEvent() {
         return Response.status(200).build();
     }
 
+    /**
+     * Service get event bad response.
+     *
+     * @return the response
+     */
     @Path("/event/GetEventBadResponse")
     @GET
     public Response serviceGetEventBadResponse() {
         return Response.status(400).build();
     }
 
+    /**
+     * Service post request.
+     *
+     * @param jsonString the json string
+     * @return the response
+     */
     @Path("/event/PostEvent")
     @POST
     public Response servicePostRequest(final String jsonString) {
@@ -111,12 +143,24 @@ public class TestRestRequestorEndpoint {
         return Response.status(200).entity(EVENT_STRING).build();
     }
 
+    /**
+     * Service post request bad response.
+     *
+     * @param jsonString the json string
+     * @return the response
+     */
     @Path("/event/PostEventBadResponse")
     @POST
     public Response servicePostRequestBadResponse(final String jsonString) {
         return Response.status(400).build();
     }
 
+    /**
+     * Service put request.
+     *
+     * @param jsonString the json string
+     * @return the response
+     */
     @Path("/event/PutEvent")
     @PUT
     public Response servicePutRequest(final String jsonString) {
@@ -135,6 +179,12 @@ public class TestRestRequestorEndpoint {
         return Response.status(200).entity(EVENT_STRING).build();
     }
 
+    /**
+     * Service delete request.
+     *
+     * @param jsonString the json string
+     * @return the response
+     */
     @Path("/event/DeleteEvent")
     @DELETE
     public Response serviceDeleteRequest(final String jsonString) {
@@ -145,6 +195,12 @@ public class TestRestRequestorEndpoint {
         return Response.status(200).entity(EVENT_STRING).build();
     }
 
+    /**
+     * Service delete request bad response.
+     *
+     * @param jsonString the json string
+     * @return the response
+     */
     @Path("/event/DeleteEventBadResponse")
     @DELETE
     public Response serviceDeleteRequestBadResponse(final String jsonString) {

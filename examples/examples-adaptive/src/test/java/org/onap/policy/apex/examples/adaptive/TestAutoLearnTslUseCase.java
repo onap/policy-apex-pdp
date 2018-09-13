@@ -44,11 +44,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * Test Auto learning in TSL.
  *
@@ -64,6 +65,9 @@ public class TestAutoLearnTslUseCase {
     private ContextParameters contextParameters;
     private EngineParameters engineParameters;
 
+    /**
+     * Before test.
+     */
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
@@ -86,11 +90,14 @@ public class TestAutoLearnTslUseCase {
         ParameterService.register(contextParameters.getPersistorParameters());
         
         engineParameters = new EngineParameters();
-        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         engineParameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
         ParameterService.register(engineParameters);
     }
 
+    /**
+     * After test.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
@@ -103,6 +110,13 @@ public class TestAutoLearnTslUseCase {
         ParameterService.deregister(schemaParameters);
     }
 
+    /**
+     * Test auto learn tsl.
+     *
+     * @throws ApexException the apex exception
+     * @throws InterruptedException the interrupted exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     // once through the long running test below
     public void testAutoLearnTsl() throws ApexException, InterruptedException, IOException {
@@ -167,7 +181,7 @@ public class TestAutoLearnTslUseCase {
 
         final AxArtifactKey key = new AxArtifactKey("AADMApexEngine", "0.0.1");
         final EngineParameters parameters = new EngineParameters();
-        parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        parameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         parameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
 
         final ApexEngine apexEngine1 = new ApexEngineFactory().createApexEngine(key);
@@ -228,6 +242,14 @@ public class TestAutoLearnTslUseCase {
 
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws ApexException the apex exception
+     * @throws InterruptedException the interrupted exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
         new TestAutoLearnTslUseCase().testAutoLearnTslMain();
     }

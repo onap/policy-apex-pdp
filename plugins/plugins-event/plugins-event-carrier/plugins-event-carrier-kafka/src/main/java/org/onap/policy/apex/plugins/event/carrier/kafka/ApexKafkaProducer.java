@@ -46,7 +46,7 @@ public class ApexKafkaProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexKafkaProducer.class);
 
     // The Kafka parameters read from the parameter service
-    private KAFKACarrierTechnologyParameters kafkaProducerProperties;
+    private KafkaCarrierTechnologyParameters kafkaProducerProperties;
 
     // The Kafka Producer used to send events using Kafka
     private Producer<String, Object> kafkaProducer;
@@ -63,13 +63,14 @@ public class ApexKafkaProducer implements ApexEventProducer {
         this.name = producerName;
 
         // Check and get the Kafka Properties
-        if (!(producerParameters.getCarrierTechnologyParameters() instanceof KAFKACarrierTechnologyParameters)) {
-            LOGGER.warn("specified producer properties are not applicable to a Kafka producer (" + this.name + ")");
+        if (!(producerParameters.getCarrierTechnologyParameters() instanceof KafkaCarrierTechnologyParameters)) {
+            String message = "specified producer properties are not applicable to a Kafka producer (" + this.name + ")";
+            LOGGER.warn(message);
             throw new ApexEventException(
-                    "specified producer properties are not applicable to a Kafka producer (" + this.name + ")");
+                    message);
         }
         kafkaProducerProperties =
-                (KAFKACarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+                (KafkaCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
     }
 
     /*
@@ -122,7 +123,7 @@ public class ApexKafkaProducer implements ApexEventProducer {
         // Kafka producer must be started in the same thread as it is stopped, so we must start it here
         if (kafkaProducer == null) {
             // Kick off the Kafka producer
-            kafkaProducer = new KafkaProducer<String, Object>(kafkaProducerProperties.getKafkaProducerProperties());
+            kafkaProducer = new KafkaProducer<>(kafkaProducerProperties.getKafkaProducerProperties());
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("event producer " + this.name + " is ready to send to topics: "
                         + kafkaProducerProperties.getProducerTopic());

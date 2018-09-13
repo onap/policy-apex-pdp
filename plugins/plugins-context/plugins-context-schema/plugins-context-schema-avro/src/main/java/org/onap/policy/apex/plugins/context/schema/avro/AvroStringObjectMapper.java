@@ -42,7 +42,7 @@ public class AvroStringObjectMapper implements AvroObjectMapper {
     private Type avroType;
 
     // The Apex compatible class
-    private final Class<String> schemaClass = String.class;
+    private static final Class<String> schemaClass = String.class;
 
     /*
      * (non-Javadoc)

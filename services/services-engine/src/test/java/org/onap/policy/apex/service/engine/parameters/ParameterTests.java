@@ -156,7 +156,7 @@ public class ParameterTests {
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
                             + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
                             + "\"org.onap.policy.apex.service.engine.event.impl."
-                            + "filecarrierplugin.FILECarrierTechnologyParameters\" INVALID, "
+                            + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
                             + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
                             + "fileName not specified or is blank or null, "
@@ -166,7 +166,7 @@ public class ParameterTests {
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
                             + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
                             + "\"org.onap.policy.apex.service.engine.event.impl."
-                            + "filecarrierplugin.FILECarrierTechnologyParameters\" INVALID, "
+                            + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
                             + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
                             + "fileName not specified or is blank or null, "
@@ -241,23 +241,24 @@ public class ParameterTests {
             assertEquals(345, parameters.getEngineServiceParameters().getInstanceCount());
             assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
 
-            final CarrierTechnologyParameters prodCT = parameters.getEventOutputParameters().get("FirstProducer")
-                            .getCarrierTechnologyParameters();
-            final EventProtocolParameters prodEP = parameters.getEventOutputParameters().get("FirstProducer")
+            final CarrierTechnologyParameters prodCarrierTech = parameters.getEventOutputParameters()
+                            .get("FirstProducer").getCarrierTechnologyParameters();
+            final EventProtocolParameters prodEventProt = parameters.getEventOutputParameters().get("FirstProducer")
                             .getEventProtocolParameters();
-            final CarrierTechnologyParameters consCT = parameters.getEventInputParameters()
+            final CarrierTechnologyParameters consCarrierTech = parameters.getEventInputParameters()
                             .get("MySuperDooperConsumer1").getCarrierTechnologyParameters();
-            final EventProtocolParameters consEP = parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                            .getEventProtocolParameters();
+            final EventProtocolParameters consEventProt = parameters.getEventInputParameters()
+                            .get("MySuperDooperConsumer1").getEventProtocolParameters();
 
-            assertEquals("SUPER_DOOPER", prodCT.getLabel());
-            assertEquals("SUPER_TOK_DEL", prodEP.getLabel());
-            assertEquals("SUPER_DOOPER", consCT.getLabel());
-            assertEquals("JSON", consEP.getLabel());
+            assertEquals("SUPER_DOOPER", prodCarrierTech.getLabel());
+            assertEquals("SUPER_TOK_DEL", prodEventProt.getLabel());
+            assertEquals("SUPER_DOOPER", consCarrierTech.getLabel());
+            assertEquals("JSON", consEventProt.getLabel());
 
-            assertTrue(prodCT instanceof SuperDooperCarrierTechnologyParameters);
+            assertTrue(prodCarrierTech instanceof SuperDooperCarrierTechnologyParameters);
 
-            final SuperDooperCarrierTechnologyParameters superDooperParameters = (SuperDooperCarrierTechnologyParameters) prodCT;
+            final SuperDooperCarrierTechnologyParameters superDooperParameters =
+                            (SuperDooperCarrierTechnologyParameters) prodCarrierTech;
             assertEquals("somehost:12345", superDooperParameters.getBootstrapServers());
             assertEquals("0", superDooperParameters.getAcks());
             assertEquals(25, superDooperParameters.getRetries());

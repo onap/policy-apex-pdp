@@ -20,6 +20,10 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+
 import java.io.ByteArrayOutputStream;
 
 import org.apache.avro.Schema;
@@ -38,19 +42,17 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-
 /**
- * This class is the implementation of the {@link org.onap.policy.apex.context.SchemaHelper}
- * interface for Avro schemas.
+ * This class is the implementation of the {@link org.onap.policy.apex.context.SchemaHelper} interface for Avro schemas.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class AvroSchemaHelper extends AbstractSchemaHelper {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AvroSchemaHelper.class);
+
+    // Recurring string constants
+    private static final String OBJECT_TAG = ": object \"";
 
     // The Avro schema for this context schema
     private Schema avroSchema;
@@ -59,7 +61,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     private AvroObjectMapper avroObjectMapper;
 
     @Override
-    public void init(final AxKey userKey, final AxContextSchema schema) throws ContextRuntimeException {
+    public void init(final AxKey userKey, final AxContextSchema schema) {
         super.init(userKey, schema);
 
         // Configure the Avro schema
@@ -67,7 +69,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             avroSchema = new Schema.Parser().parse(schema.getSchema());
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": avro context schema \"" + schema.getId()
-                    + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
+                            + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
             LOGGER.warn(resultSting);
             throw new ContextRuntimeException(resultSting);
         }
@@ -91,7 +93,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
     @Override
     public Object getSchemaObject() {
-        return avroSchema;
+        return getAvroSchema();
     }
 
     @Override
@@ -119,10 +121,9 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             final String elementJsonString = gson.toJson((JsonElement) incomingObject);
 
             return createNewInstance(elementJsonString);
-        }
-        else {
+        } else {
             final String returnString = getUserKey().getId() + ": the object \"" + incomingObject
-            + "\" is not an instance of JsonObject";
+                            + "\" is not an instance of JsonObject";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -146,8 +147,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             final JsonDecoder jsonDecoder = DecoderFactory.get().jsonDecoder(avroSchema, objectString);
             decodedObject = new GenericDatumReader<GenericRecord>(avroSchema).read(null, jsonDecoder);
         } catch (final Exception e) {
-            final String returnString = getUserKey().getId() + ": object \"" + objectString
-                    + "\" Avro unmarshalling failed: " + e.getMessage();
+            final String returnString = getUserKey().getId() + OBJECT_TAG + objectString
+                            + "\" Avro unmarshalling failed: " + e.getMessage();
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -157,8 +158,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     }
 
     /**
-     * Check that the incoming object is a string, the incoming object must be a string containing
-     * Json
+     * Check that the incoming object is a string, the incoming object must be a string containing Json.
      * 
      * @param object incoming object
      * @return object as String
@@ -185,10 +185,10 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
                 return (String) object;
             }
         } catch (final ClassCastException e) {
-            final String returnString = getUserKey().getId() + ": object \"" + object + "\" of type \""
-                    + (object != null ? object.getClass().getCanonicalName() : "null") + "\" must be assignable to \""
-                    + getSchemaClass().getCanonicalName()
-                    + "\" or be a Json string representation of it for Avro unmarshalling";
+            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
+                            + (object != null ? object.getClass().getCanonicalName() : "null")
+                            + "\" must be assignable to \"" + getSchemaClass().getCanonicalName()
+                            + "\" or be a Json string representation of it for Avro unmarshalling";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -217,8 +217,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             jsonEncoder.flush();
             return new String(output.toByteArray());
         } catch (final Exception e) {
-            final String returnString =
-                    getUserKey().getId() + ": object \"" + object + "\" Avro marshalling failed: " + e.getMessage();
+            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed: "
+                            + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -239,8 +239,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     }
 
     /**
-     * Check if we can pass this object straight through encoding or decoding, is it an object
-     * native to the schema.
+     * Check if we can pass this object straight through encoding or decoding, is it an object native to the schema.
      *
      * @param object the object to check
      * @return true if it's a straight pass through

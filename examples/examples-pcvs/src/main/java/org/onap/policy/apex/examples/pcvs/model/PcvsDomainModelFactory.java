@@ -22,7 +22,7 @@ package org.onap.policy.apex.examples.pcvs.model;
 
 import java.io.File;
 
-import org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain;
+import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -54,7 +54,7 @@ public class PcvsDomainModelFactory {
                 new String[] {"-c", "src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/vpnsla.apex", "-wd",
                     workingDirectory, "-o", full};
 
-        final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(args);
+        final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(args);
         if (cliEditor.getErrorCount() > 0) {
             throw new ApexRuntimeException(
                     "Apex CLI editor execution failed with " + cliEditor.getErrorCount() + " errors");

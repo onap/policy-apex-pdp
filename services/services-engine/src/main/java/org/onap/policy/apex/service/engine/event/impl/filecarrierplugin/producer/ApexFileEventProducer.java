@@ -32,7 +32,7 @@ import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
-import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FILECarrierTechnologyParameters;
+import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
@@ -74,20 +74,20 @@ public class ApexFileEventProducer implements ApexEventProducer {
         }
 
         // Check and get the file Properties
-        if (!(producerParameters.getCarrierTechnologyParameters() instanceof FILECarrierTechnologyParameters)) {
+        if (!(producerParameters.getCarrierTechnologyParameters() instanceof FileCarrierTechnologyParameters)) {
             final String errorMessage = "specified producer properties for ApexFileProducer \"" + producerName
                     + "\" are not applicable to a FILE producer";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        final FILECarrierTechnologyParameters fileCarrierTechnologyParameters =
-                (FILECarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+        final FileCarrierTechnologyParameters fileCarrierTechnologyParameters =
+                (FileCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
         // Now we create a writer for events
         try {
             if (fileCarrierTechnologyParameters.isStandardError()) {
                 eventOutputStream = System.err;
-            } else if (fileCarrierTechnologyParameters.isStandardIO()) {
+            } else if (fileCarrierTechnologyParameters.isStandardIo()) {
                 eventOutputStream = System.out;
             } else {
                 eventOutputStream =

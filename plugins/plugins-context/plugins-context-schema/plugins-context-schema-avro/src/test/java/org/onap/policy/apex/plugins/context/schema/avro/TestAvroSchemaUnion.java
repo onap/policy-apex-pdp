@@ -42,14 +42,21 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
+ * The Class TestAvroSchemaUnion.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * @version 
  */
 public class TestAvroSchemaUnion {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
     private String uinionSchema;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
@@ -57,25 +64,36 @@ public class TestAvroSchemaUnion {
         uinionSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/UnionExample.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
         ParameterService.register(schemaParameters);
-        
+
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test union all fields.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Ignore
     @Test
     public void testUnionAllFields() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", uinionSchema);
+                        new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", uinionSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -88,17 +106,22 @@ public class TestAvroSchemaUnion {
         assertEquals("red", user.get("favourite_colour").toString());
     }
 
+    /**
+     * Test union optional field.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Ignore
     @Test
     public void testUnionOptionalField() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", uinionSchema);
+                        new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", uinionSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
         final String inString =
-                TextFileUtils.getTextFileAsString("src/test/resources/data/UnionExampleOptionalField.json");
+                        TextFileUtils.getTextFileAsString("src/test/resources/data/UnionExampleOptionalField.json");
         final GenericRecord user = (GenericRecord) schemaHelper.createNewInstance(inString);
 
         assertEquals("Ben", user.get("name").toString());
@@ -106,11 +129,16 @@ public class TestAvroSchemaUnion {
         assertEquals("red", user.get("favourite_colour").toString());
     }
 
+    /**
+     * Test union null field.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Ignore
     @Test
     public void testUnionNullField() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", uinionSchema);
+                        new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", uinionSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());

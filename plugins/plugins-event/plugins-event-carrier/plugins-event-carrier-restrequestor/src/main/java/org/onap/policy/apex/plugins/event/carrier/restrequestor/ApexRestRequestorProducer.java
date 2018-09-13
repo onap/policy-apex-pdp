@@ -44,7 +44,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestRequestorProducer.class);
 
     // The REST carrier properties
-    private RESTRequestorCarrierTechnologyParameters restProducerProperties;
+    private RestRequestorCarrierTechnologyParameters restProducerProperties;
 
     // The name for this producer
     private String name = null;
@@ -68,14 +68,14 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
 
         // Check and get the REST Properties
         if (!(producerParameters
-                .getCarrierTechnologyParameters() instanceof RESTRequestorCarrierTechnologyParameters)) {
+                .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
             final String errorMessage =
                     "specified consumer properties are not applicable to REST requestor producer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
         restProducerProperties =
-                (RESTRequestorCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+                (RestRequestorCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
         // Check if we are in peered mode
         if (!producerParameters.isPeeredMode(EventHandlerPeeredMode.REQUESTOR)) {

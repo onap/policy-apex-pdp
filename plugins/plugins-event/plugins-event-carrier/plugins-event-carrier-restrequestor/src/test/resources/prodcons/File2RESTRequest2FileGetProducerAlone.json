@@ -9,7 +9,7 @@
 		"engineParameters": {
 			"executorParameters": {
 				"MVEL": {
-					"parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+					"parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
 				}
 			}
 		}
@@ -31,7 +31,7 @@
 		"RestRequestorProducer": {
 			"carrierTechnologyParameters": {
 				"carrierTechnology": "RESTREQUESTOR",
-				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters"
+				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
 			},
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"

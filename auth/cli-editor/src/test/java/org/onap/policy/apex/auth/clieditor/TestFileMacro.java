@@ -46,6 +46,11 @@ public class TestFileMacro {
     private File tempModelFile;
     private File tempLogFile;
 
+    /**
+     * Creates the temp files.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void createTempFiles() throws IOException {
         tempModelFile = File.createTempFile("TestPolicyModel", ".json");
@@ -55,6 +60,9 @@ public class TestFileMacro {
                 tempLogFile.getCanonicalPath(), "-o", tempModelFile.getCanonicalPath(), "-if", "true"};
     }
 
+    /**
+     * Removes the generated models.
+     */
     @After
     public void removeGeneratedModels() {
         tempModelFile.delete();
@@ -68,7 +76,7 @@ public class TestFileMacro {
      */
     @Test
     public void testLogicBlock() throws IOException, ApexModelException {
-        final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(fileMacroArgs);
+        final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(fileMacroArgs);
         // We expect eight errors
         assertEquals(8, cliEditor.getErrorCount());
 
@@ -76,12 +84,12 @@ public class TestFileMacro {
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
 
-        final URL writtenModelURL = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
-        final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
+        final URL writtenModelUrl = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
+        final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
-        final URL compareModelURL =
+        final URL compareModelUrl =
                 ResourceUtils.getLocalFile("src/test/resources/compare/FileMacroModel_Compare.json");
-        final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
+        final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs
         writtenModel.getKeyInformation().getKeyInfoMap().clear();

@@ -56,9 +56,6 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
     // The amount of time to wait in milliseconds between checks that the consumer thread has stopped
     private static final long REST_SERVER_CONSUMER_WAIT_SLEEP_TIME = 50;
 
-    // The REST parameters read from the parameter service
-    private RESTServerCarrierTechnologyParameters restConsumerProperties;
-
     // The event receiver that will receive events from this consumer
     private ApexEventReceiver eventReceiver;
 
@@ -84,7 +81,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
      *
      * @return the next candidate value for a Execution ID
      */
-    private static synchronized long getNextExecutionID() {
+    private static synchronized long getNextExecutionId() {
         return nextExecutionID.getAndIncrement();
     }
 
@@ -102,14 +99,16 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
         this.name = consumerName;
 
         // Check and get the REST Properties
-        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RESTServerCarrierTechnologyParameters)) {
+        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RestServerCarrierTechnologyParameters)) {
             final String errorMessage =
                     "specified consumer properties are not applicable to REST Server consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        restConsumerProperties =
-                (RESTServerCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+        
+        // The REST parameters read from the parameter service
+        RestServerCarrierTechnologyParameters restConsumerProperties =
+                (RestServerCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Check if we are in synchronous mode
         if (!consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
@@ -131,12 +130,12 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
             }
 
             // Compose the URI for the standalone server
-            final String baseURI = String.format(BASE_URI_TEMPLATE, restConsumerProperties.getHost(),
+            final String baseUrl = String.format(BASE_URI_TEMPLATE, restConsumerProperties.getHost(),
                     restConsumerProperties.getPort());
 
             // Instantiate the standalone server
             final ResourceConfig rc = new ResourceConfig(RestServerEndpoint.class, AccessControlFilter.class);
-            server = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseURI), rc);
+            server = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseUrl), rc);
 
             while (!server.isStarted()) {
                 ThreadUtilities.sleep(REST_SERVER_CONSUMER_WAIT_SLEEP_TIME);
@@ -201,10 +200,11 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
      */
     public Response receiveEvent(final String event) {
         // Get an execution ID for the event
-        final long executionId = getNextExecutionID();
+        final long executionId = getNextExecutionId();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(name + ": sending event " + name + '_' + executionId + " to Apex, event=" + event);
+            String message = name + ": sending event " + name + '_' + executionId + " to Apex, event=" + event;
+            LOGGER.debug(message);
         }
 
         try {
@@ -222,7 +222,8 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
         // Wait until the event is in the cache of events sent to apex
         do {
             ThreadUtilities.sleep(REST_SERVER_CONSUMER_WAIT_SLEEP_TIME);
-        } while (!synchronousEventCache.existsEventToApex(executionId));
+        }
+        while (!synchronousEventCache.existsEventToApex(executionId));
 
         // Now wait for the reply or for the event to time put
         do {
@@ -238,7 +239,8 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
                 // Return the event as a response to the call
                 return Response.status(Response.Status.OK.getStatusCode()).entity(responseEvent.toString()).build();
             }
-        } while (synchronousEventCache.existsEventToApex(executionId));
+        }
+        while (synchronousEventCache.existsEventToApex(executionId));
 
         // The event timed out
         final String errorMessage = "processing of event on event consumer " + name + " timed out, event=" + event;

@@ -86,7 +86,7 @@ public class ApexPeriodicEventGenerator extends TimerTask {
     private final EngineServiceEventInterface engineServiceEventInterface;
 
     // Timing information
-    private long period = 0;
+    private long eventGeneratorPeriod = 0;
     private long firstEventTime = 0;
     private long lastEventTime = 0;
     private long eventCount = 0;
@@ -102,7 +102,7 @@ public class ApexPeriodicEventGenerator extends TimerTask {
             final long period) {
         // Save the engine service reference and delay
         this.engineServiceEventInterface = engineServiceEventInterface;
-        this.period = period;
+        this.eventGeneratorPeriod = period;
 
         timer = new Timer(ApexPeriodicEventGenerator.class.getSimpleName(), true);
         timer.schedule(this, period, period);
@@ -128,7 +128,7 @@ public class ApexPeriodicEventGenerator extends TimerTask {
         eventCount++;
 
         // Set the fields in the periodic event
-        periodicEventMap.put(PERIODIC_DELAY, period);
+        periodicEventMap.put(PERIODIC_DELAY, eventGeneratorPeriod);
         periodicEventMap.put(PERIODIC_FIRST_TIME, firstEventTime);
         periodicEventMap.put(PERIODIC_LAST_TIME, lastEventTime);
         periodicEventMap.put(PERIODIC_CURRENT_TIME, currentEventTime);
@@ -170,7 +170,7 @@ public class ApexPeriodicEventGenerator extends TimerTask {
      */
     @Override
     public String toString() {
-        return "ApexPeriodicEventGenerator [period=" + period + ", firstEventTime=" + firstEventTime
+        return "ApexPeriodicEventGenerator [period=" + eventGeneratorPeriod + ", firstEventTime=" + firstEventTime
                 + ", lastEventTime=" + lastEventTime + ", eventCount=" + eventCount + "]";
     }
 }

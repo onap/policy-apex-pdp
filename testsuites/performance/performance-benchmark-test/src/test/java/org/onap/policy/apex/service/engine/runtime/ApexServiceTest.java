@@ -36,7 +36,7 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
 import org.onap.policy.apex.service.engine.utils.Utils;
@@ -58,8 +58,8 @@ public class ApexServiceTest {
     private static final long MAX_START_WAIT = 5000; // 5 sec
     private static final long MAX_RECV_WAIT = 5000; // 5 sec
 
-    private final static AxArtifactKey engineServiceKey = new AxArtifactKey("Machine-1_process-1_engine-1", "0.0.0");
-    private final static EngineServiceParameters parameters = new EngineServiceParameters();
+    private static final AxArtifactKey engineServiceKey = new AxArtifactKey("Machine-1_process-1_engine-1", "0.0.0");
+    private static final EngineServiceParameters parameters = new EngineServiceParameters();
     private static EngineService service = null;
     private static TestListener listener = null;
     private static AxPolicyModel apexPolicyModel = null;
@@ -81,7 +81,7 @@ public class ApexServiceTest {
         parameters.setName(engineServiceKey.getName());
         parameters.setVersion(engineServiceKey.getVersion());
         parameters.setId(100);
-        parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         service = EngineServiceImpl.create(parameters);
 
 
@@ -130,13 +130,13 @@ public class ApexServiceTest {
 
         final ApexEvent event =
                 new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
-        event.setExecutionID(System.nanoTime());
+        event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
         final ApexEvent event2 =
                 new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
-        event2.setExecutionID(System.nanoTime());
+        event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
 
@@ -193,13 +193,13 @@ public class ApexServiceTest {
         final ApexEvent event1 =
                 new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event1.putAll(eventDataMap);
-        event1.setExecutionID(System.nanoTime());
+        event1.setExecutionId(System.nanoTime());
 
         final ApexEventListener myEventListener1 = new ApexEventListener() {
             @Override
             public void onApexEvent(final ApexEvent responseEvent) {
                 assertNotNull("Synchronous sendEventWait failed", responseEvent);
-                assertEquals(event1.getExecutionID(), responseEvent.getExecutionID());
+                assertEquals(event1.getExecutionId(), responseEvent.getExecutionId());
                 waitFlag = false;
             }
         };
@@ -214,14 +214,14 @@ public class ApexServiceTest {
 
         final ApexEvent event2 =
                 new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
-        event2.setExecutionID(System.nanoTime());
+        event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
 
         final ApexEventListener myEventListener2 = new ApexEventListener() {
             @Override
             public void onApexEvent(final ApexEvent responseEvent) {
                 assertNotNull("Synchronous sendEventWait failed", responseEvent);
-                assertEquals(event2.getExecutionID(), responseEvent.getExecutionID());
+                assertEquals(event2.getExecutionId(), responseEvent.getExecutionId());
                 assertEquals(2, actionEventsReceived);
                 waitFlag = false;
             }
@@ -283,13 +283,13 @@ public class ApexServiceTest {
 
         final ApexEvent event =
                 new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
-        event.setExecutionID(System.nanoTime());
+        event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
         final ApexEvent event2 =
                 new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
-        event2.setExecutionID(System.nanoTime());
+        event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
 
@@ -350,7 +350,7 @@ public class ApexServiceTest {
             @Override
             public void onApexEvent(final ApexEvent responseEvent) {
                 assertNotNull("Synchronous sendEventWait failed", responseEvent);
-                assertEquals(event1.getExecutionID(), responseEvent.getExecutionID());
+                assertEquals(event1.getExecutionId(), responseEvent.getExecutionId());
                 waitFlag = false;
             }
         };
@@ -371,7 +371,7 @@ public class ApexServiceTest {
             @Override
             public void onApexEvent(final ApexEvent responseEvent) {
                 assertNotNull("Synchronous sendEventWait failed", responseEvent);
-                assertEquals(event2.getExecutionID(), responseEvent.getExecutionID());
+                assertEquals(event2.getExecutionId(), responseEvent.getExecutionId());
                 waitFlag = false;
             }
         };
@@ -429,7 +429,7 @@ public class ApexServiceTest {
      *
      * @see TestEvent
      */
-    private final static class TestListener implements ApexEventListener {
+    private static final class TestListener implements ApexEventListener {
 
         /*
          * (non-Javadoc)

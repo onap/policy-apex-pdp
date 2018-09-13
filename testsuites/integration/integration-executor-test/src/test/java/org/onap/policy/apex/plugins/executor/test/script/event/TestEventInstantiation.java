@@ -45,7 +45,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.test.common.model.SampleDomainModelFactory;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
@@ -86,7 +86,7 @@ public class TestEventInstantiation {
         ParameterService.register(contextParameters.getPersistorParameters());
         
         engineParameters = new EngineParameters();
-        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         ParameterService.register(engineParameters);
     }
 

@@ -41,9 +41,9 @@ public class MessagingException extends Exception {
      * Instantiates a new messaging exception.
      *
      * @param message the message
-     * @param e the e
+     * @param exception the e
      */
-    public MessagingException(final String message, final Exception e) {
-        super(message, e);
+    public MessagingException(final String message, final Exception exception) {
+        super(message, exception);
     }
 }

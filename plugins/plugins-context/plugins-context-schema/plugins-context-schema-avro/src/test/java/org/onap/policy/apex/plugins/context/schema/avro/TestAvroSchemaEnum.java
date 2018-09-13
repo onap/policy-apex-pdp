@@ -41,15 +41,23 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class TestAvroSchemaEnum.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * @version 
  */
 public class TestAvroSchemaEnum {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
     private String enumSchema;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
@@ -57,6 +65,9 @@ public class TestAvroSchemaEnum {
         enumSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/EnumSchema.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
@@ -66,11 +77,19 @@ public class TestAvroSchemaEnum {
         
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test enum init.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testEnumInit() throws IOException {
         final AxContextSchema avroSchema =
@@ -86,6 +105,11 @@ public class TestAvroSchemaEnum {
         assertEquals("HEARTS", newEnumFull.toString());
     }
 
+    /**
+     * Test enum unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testEnumUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
@@ -127,6 +151,13 @@ public class TestAvroSchemaEnum {
         }
     }
 
+    /**
+     * Test unmarshal marshal.
+     *
+     * @param schemaHelper the schema helper
+     * @param fileName the file name
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final EnumSymbol decodedObject = (EnumSymbol) schemaHelper.unmarshal(inString);

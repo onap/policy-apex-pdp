@@ -33,7 +33,7 @@ import org.apache.curator.framework.recipes.locks.InterProcessReadWriteLock;
  */
 public class CuratorReentrantReadWriteLock implements ReadWriteLock {
     // The Lock ID
-    private final String lockID;
+    private final String lockId;
 
     // The Curator lock
     private final InterProcessReadWriteLock curatorReadWriteLock;
@@ -49,7 +49,7 @@ public class CuratorReentrantReadWriteLock implements ReadWriteLock {
      * @param lockId The unique ID of the lock.
      */
     public CuratorReentrantReadWriteLock(final CuratorFramework curatorFramework, final String lockId) {
-        lockID = lockId;
+        this.lockId = lockId;
 
         // Create the Curator lock
         curatorReadWriteLock = new InterProcessReadWriteLock(curatorFramework, lockId);
@@ -64,8 +64,8 @@ public class CuratorReentrantReadWriteLock implements ReadWriteLock {
      *
      * @return the lock ID
      */
-    public String getLockID() {
-        return lockID;
+    public String getLockId() {
+        return lockId;
     }
 
     /*

@@ -151,8 +151,8 @@ public class SyncParameterTests {
                             + "specify a non-negative timeout value in milliseconds\n"
                             + "  parameter group map \"eventInputParameters\" INVALID, "
                             + "parameter group has status INVALID\n" + "    parameter group \"SyncConsumer0\" type "
-                            + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID, "
-                            + "specified peered mode \"SYNCHRONOUS\" timeout value \"-1\" is illegal, "
+                            + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
+                            + "INVALID, specified peered mode \"SYNCHRONOUS\" timeout value \"-1\" is illegal, "
                             + "specify a non-negative timeout value in milliseconds\n"
                             + "    parameter group \"SyncConsumer1\" type "
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
@@ -371,8 +371,8 @@ public class SyncParameterTests {
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
                             + ", peer \"SyncConsumer0 for peered mode SYNCHRONOUS, value \"SyncProducer1\" on peer "
                             + "\"SyncConsumer0\" does not equal event handler \"SyncProducer0\"\n"
-                            + "  parameter group map \"eventInputParameters\" INVALID, parameter group has status INVALID\n"
-                            + "    parameter group \"SyncConsumer0\" type "
+                            + "  parameter group map \"eventInputParameters\" INVALID, parameter group has status "
+                            + "INVALID\n    parameter group \"SyncConsumer0\" type "
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
                             + ", peer \"SyncProducer1 for peered mode SYNCHRONOUS, value \"SyncConsumer1\" on peer "
                             + "\"SyncProducer1\" does not equal event handler \"SyncConsumer0\"\n", e.getMessage());
@@ -454,7 +454,8 @@ public class SyncParameterTests {
             assertTrue(consCT1 instanceof SuperDooperCarrierTechnologyParameters);
             assertTrue(consEP1 instanceof SuperTokenDelimitedEventProtocolParameters);
 
-            final SuperDooperCarrierTechnologyParameters superDooperParameters = (SuperDooperCarrierTechnologyParameters) consCT1;
+            final SuperDooperCarrierTechnologyParameters superDooperParameters =
+                            (SuperDooperCarrierTechnologyParameters) consCT1;
             assertEquals("localhost:9092", superDooperParameters.getBootstrapServers());
             assertEquals("all", superDooperParameters.getAcks());
             assertEquals(0, superDooperParameters.getRetries());

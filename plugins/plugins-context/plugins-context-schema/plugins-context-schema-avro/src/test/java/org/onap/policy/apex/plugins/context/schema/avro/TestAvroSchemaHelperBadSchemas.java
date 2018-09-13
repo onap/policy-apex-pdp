@@ -37,19 +37,27 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
+ * The Class TestAvroSchemaHelperBadSchemas.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * @version 
  */
 public class TestAvroSchemaHelperBadSchemas {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
 
+    /**
+     * Inits the test.
+     */
     @Before
     public void initTest() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
@@ -59,11 +67,17 @@ public class TestAvroSchemaHelperBadSchemas {
         
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Bad schema test.
+     */
     @Test
     public void badSchemaTest() {
         final AxContextSchema avroBadSchema0 = new AxContextSchema(new AxArtifactKey("AvroBad0", "0.0.1"), "AVRO", "}");

@@ -22,7 +22,6 @@ package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import java.util.Map;
 
-import org.infinispan.Cache;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -32,8 +31,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This context distributor distributes context across threads in multiple JVMs on multiple hosts.
- * It uses Infinispan to distribute maps.
+ * This context distributor distributes context across threads in multiple JVMs on multiple hosts. It uses Infinispan to
+ * distribute maps.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -58,8 +57,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.context.impl.distribution.AbstractContextDistributor#init(org.onap.policy.apex
+     * @see org.onap.policy.apex.context.impl.distribution.AbstractContextDistributor#init(org.onap.policy.apex
      * .model.basicmodel.concepts.AxArtifactKey)
      */
     @Override
@@ -71,16 +69,24 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         // Create the infinispan manager if it does not already exist
         if (infinispanManager == null) {
             // Get the parameters from the parameter service
-            final InfinispanDistributorParameters parameters =
-                    ParameterService.get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+            final InfinispanDistributorParameters parameters = ParameterService
+                            .get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
 
-            LOGGER.debug("initiating Infinispan with the parameters: " + parameters);
+            LOGGER.debug("initiating Infinispan with the parameters: {}", parameters);
 
             // Create the manager
-            infinispanManager = new InfinispanManager(parameters);
+            setInfinispanManager(new InfinispanManager(parameters));
         }
 
         LOGGER.exit("init(" + key + ")");
+    }
+
+    /**
+     * Set the infinispan manager statically.
+     * @param newInfinispanManager the new infinspan manager instance
+     */
+    private static void setInfinispanManager(InfinispanManager newInfinispanManager) {
+        infinispanManager = newInfinispanManager;
     }
 
     /*
@@ -94,10 +100,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         LOGGER.info("InfinispanContextDistributor: create album: " + contextAlbumKey.getId());
 
         // Get the Cache from Infinispan
-        final Cache<String, Object> infinispanCache =
-                infinispanManager.getCacheManager().getCache(contextAlbumKey.getId().replace(':', '_'));
-
-        return infinispanCache;
+        return infinispanManager.getCacheManager().getCache(contextAlbumKey.getId().replace(':', '_'));
     }
 
     /*
@@ -111,6 +114,6 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         if (infinispanManager != null) {
             infinispanManager.shutdown();
         }
-        infinispanManager = null;
+        setInfinispanManager(null);
     }
 }

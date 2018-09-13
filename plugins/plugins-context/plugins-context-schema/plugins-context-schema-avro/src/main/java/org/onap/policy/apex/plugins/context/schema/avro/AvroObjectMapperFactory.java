@@ -75,12 +75,12 @@ public class AvroObjectMapperFactory {
         if (Schema.Type.UNION.equals(schema.getType())) {
 
             final List<Schema> types = schema.getTypes();
-            // TODO: properly support UNIONS
+
             // currently only support unions with 2 types, one of which is NULL
             final Schema nullschema = Schema.create(Schema.Type.NULL);
             if (types.size() != 2 || !types.contains(nullschema)) {
                 final String resultSting = userKey.getId()
-                        + ": Apex currently only supports UNION schemas with 2 options, one must be NULL";
+                                + ": Apex currently only supports UNION schemas with 2 options, one must be NULL";
                 LOGGER.warn(resultSting);
                 throw new ContextRuntimeException(resultSting);
             }
@@ -92,7 +92,8 @@ public class AvroObjectMapperFactory {
             }
             if (Schema.Type.NULL.equals(schema.getType())) {
                 final String resultSting = userKey.getId()
-                        + ": Apex currently only supports UNION schema2 with 2 options, only one can be NULL, and the other cannot be another UNION";
+                                + ": Apex currently only supports UNION schema2 with 2 options, "
+                                + "only one can be NULL, and the other cannot be another UNION";
                 LOGGER.warn(resultSting);
                 throw new ContextRuntimeException(resultSting);
             }
@@ -102,8 +103,8 @@ public class AvroObjectMapperFactory {
 
         // Check that there is a definition for the mapper for this type
         if (!AVRO_OBJECT_MAPPER_MAP.containsKey(avroType) || AVRO_OBJECT_MAPPER_MAP.get(avroType) == null) {
-            final String resultSting =
-                    userKey.getId() + ": no Avro object mapper defined for Avro type \"" + avroType + "\"";
+            final String resultSting = userKey.getId() + ": no Avro object mapper defined for Avro type \"" + avroType
+                            + "\"";
             LOGGER.warn(resultSting);
             throw new ContextRuntimeException(resultSting);
         }
@@ -118,7 +119,7 @@ public class AvroObjectMapperFactory {
 
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": could not create an Avro object mapper of type \""
-                    + AVRO_OBJECT_MAPPER_MAP.get(avroType) + "\" for Avro type \"" + avroType + "\" : " + e;
+                            + AVRO_OBJECT_MAPPER_MAP.get(avroType) + "\" for Avro type \"" + avroType + "\" : " + e;
             LOGGER.warn(resultSting, e);
             throw new ContextRuntimeException(resultSting, e);
         }

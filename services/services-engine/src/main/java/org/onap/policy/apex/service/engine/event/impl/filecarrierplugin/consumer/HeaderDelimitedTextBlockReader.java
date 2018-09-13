@@ -162,7 +162,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
 
         // Condition the text block and return it
         final String textBlock = textBlockBuilder.toString().trim();
-        final boolean endOfText = (eofOnInputStream && textLineQueue.isEmpty() ? true : false);
+        final boolean endOfText = eofOnInputStream && textLineQueue.isEmpty();
 
         if (textBlock.length() > 0) {
             return new TextBlock(endOfText, textBlock);

@@ -9,7 +9,7 @@
 		"engineParameters": {
 			"executorParameters": {
 				"MVEL": {
-					"parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+					"parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
 				}
 			}
 		}
@@ -29,7 +29,7 @@
 		"RestRequestorConsumer": {
 			"carrierTechnologyParameters": {
 				"carrierTechnology": "RESTREQUESTOR",
-				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters",
+				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
 				"parameters": {
 					"url": "http://localhost:32801/TestRESTRequestor/apex/event/PostEvent",
 					"httpMethod": "POST",
@@ -49,7 +49,7 @@
 		"RestRequestorProducer": {
 			"carrierTechnologyParameters": {
 				"carrierTechnology": "RESTREQUESTOR",
-				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters"
+				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
 			},
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"

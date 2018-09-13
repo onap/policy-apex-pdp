@@ -43,14 +43,14 @@ import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineImpl;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-import org.onap.policy.apex.examples.myfirstpolicy.model.MFPDomainModelFactory;
+import org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
@@ -75,6 +75,9 @@ public class TestMfpUseCase {
     private static SchemaParameters schemaParameters;
     private static EngineParameters engineParameters;
 
+    /**
+     * Before test.
+     */
     @BeforeClass
     public static void beforeTest() {
         schemaParameters = new SchemaParameters();
@@ -97,11 +100,14 @@ public class TestMfpUseCase {
         ParameterService.register(contextParameters.getPersistorParameters());
         
         engineParameters = new EngineParameters();
-        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
         ParameterService.register(engineParameters);
     }
 
+    /**
+     * After test.
+     */
     @AfterClass
     public static void afterTest() {
         ParameterService.deregister(engineParameters);
@@ -123,7 +129,7 @@ public class TestMfpUseCase {
      */
     @Test
     public void testMfp1Case() throws ApexException, InterruptedException, IOException {
-        final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP1PolicyModel();
+        final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1PolicyModel();
         assertNotNull(apexPolicyModel);
 
         final TestSaleAuthListener listener = new TestSaleAuthListener("Test");
@@ -171,7 +177,7 @@ public class TestMfpUseCase {
      */
     @Test
     public void testMfp2Case() throws ApexException, InterruptedException, IOException {
-        final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP2PolicyModel();
+        final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp2PolicyModel();
         assertNotNull(apexPolicyModel);
 
         final TestSaleAuthListener listener = new TestSaleAuthListener("Test");

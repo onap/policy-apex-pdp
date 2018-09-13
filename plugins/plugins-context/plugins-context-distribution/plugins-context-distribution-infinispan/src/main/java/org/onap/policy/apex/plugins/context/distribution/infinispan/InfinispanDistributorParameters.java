@@ -46,7 +46,7 @@ public class InfinispanDistributorParameters extends DistributorParameters {
     private String configFile         = DEFAULT_INFINISPAN_DISTRIBUTION_CONFIG_FILE;
     private String jgroupsFile        = DEFAULT_INFINISPAN_DISTRIBUTION_JGROUPS_FILE;
     private boolean preferIPv4Stack   = DEFAULT_INFINISPAN_JAVA_NET_PREFER_IPV4_STACK;
-    private String jGroupsBindAddress = DEFAULT_INFINSPAN_JGROUPS_BIND_ADDRESS;
+    private String jgroupsBindAddress = DEFAULT_INFINSPAN_JGROUPS_BIND_ADDRESS;
     // @formatter:on
 
     /**
@@ -116,16 +116,16 @@ public class InfinispanDistributorParameters extends DistributorParameters {
      * @return the j groups bind address
      */
     public String getjGroupsBindAddress() {
-        return jGroupsBindAddress;
+        return jgroupsBindAddress;
     }
 
     /**
      * Setj groups bind address.
      *
-     * @param jGroupsBindAddress the j groups bind address
+     * @param jgroupsBindAddress the j groups bind address
      */
-    public void setjGroupsBindAddress(final String jGroupsBindAddress) {
-        this.jGroupsBindAddress = jGroupsBindAddress;
+    public void setjGroupsBindAddress(final String jgroupsBindAddress) {
+        this.jgroupsBindAddress = jgroupsBindAddress;
     }
 
     /*
@@ -136,6 +136,6 @@ public class InfinispanDistributorParameters extends DistributorParameters {
     @Override
     public String toString() {
         return "InfinispanDistributorParameters [configFile=" + configFile + ", jgroupsFile=" + jgroupsFile
-                + ", preferIPv4Stack=" + preferIPv4Stack + ", jGroupsBindAddress=" + jGroupsBindAddress + "]";
+                + ", preferIPv4Stack=" + preferIPv4Stack + ", jGroupsBindAddress=" + jgroupsBindAddress + "]";
     }
 }

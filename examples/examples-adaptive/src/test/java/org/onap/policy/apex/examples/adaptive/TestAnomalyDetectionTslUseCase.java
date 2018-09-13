@@ -44,7 +44,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -66,6 +66,9 @@ public class TestAnomalyDetectionTslUseCase {
     private ContextParameters contextParameters;
     private EngineParameters engineParameters;
 
+    /**
+     * Before test.
+     */
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
@@ -88,11 +91,14 @@ public class TestAnomalyDetectionTslUseCase {
         ParameterService.register(contextParameters.getPersistorParameters());
         
         engineParameters = new EngineParameters();
-        engineParameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         engineParameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
         ParameterService.register(engineParameters);
     }
 
+    /**
+     * After test.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
@@ -105,6 +111,13 @@ public class TestAnomalyDetectionTslUseCase {
         ParameterService.deregister(schemaParameters);
     }
 
+    /**
+     * Test anomaly detection tsl.
+     *
+     * @throws ApexException the apex exception
+     * @throws InterruptedException the interrupted exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     // once through the long running test below
     public void testAnomalyDetectionTsl() throws ApexException, InterruptedException, IOException {
@@ -170,7 +183,7 @@ public class TestAnomalyDetectionTslUseCase {
 
         final AxArtifactKey key = new AxArtifactKey("AnomalyTSLApexEngine", "0.0.1");
         final EngineParameters parameters = new EngineParameters();
-        parameters.getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        parameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         parameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
 
         final ApexEngine apexEngine1 = new ApexEngineFactory().createApexEngine(key);
@@ -205,6 +218,14 @@ public class TestAnomalyDetectionTslUseCase {
         Thread.sleep(1000);
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws ApexException the apex exception
+     * @throws InterruptedException the interrupted exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
         new TestAnomalyDetectionTslUseCase().testAnomalyDetectionTslmain();
     }

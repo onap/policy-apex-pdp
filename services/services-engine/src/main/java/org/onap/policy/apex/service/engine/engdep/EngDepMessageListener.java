@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.service.engine.engdep;
 
+import com.google.common.eventbus.Subscribe;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -50,17 +52,14 @@ import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import com.google.common.eventbus.Subscribe;
-
 /**
- * The listener interface for receiving engDepMessage events. The class that is interested in
- * processing a engDepMessage event implements this interface, and the object created with that
- * class is registered with a component using the component's <code>addEngDepMessageListener</code>
- * method. When the engDepMessage event occurs, that object's appropriate method is invoked.
+ * The listener interface for receiving engDepMessage events. The class that is interested in processing a engDepMessage
+ * event implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addEngDepMessageListener</code> method. When the engDepMessage event occurs, that object's
+ * appropriate method is invoked.
  * 
- * <p>This class uses a queue to buffer incoming messages. When the listener is called, it places the
- * incoming message on the queue. A thread runs which removes the messages from the queue and
- * forwards them to the Apex engine.
+ * <p>This class uses a queue to buffer incoming messages. When the listener is called, it places the incoming message
+ * on the queue. A thread runs which removes the messages from the queue and forwards them to the Apex engine.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
@@ -83,9 +82,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     private final BlockingQueue<MessageBlock<Message>> messageQueue = new LinkedBlockingDeque<>();
 
     /**
-     * Instantiates a new EngDep message listener for listening for messages coming in from the
-     * Deployment client. The <code>apexService</code> is the Apex service to send the messages
-     * onto.
+     * Instantiates a new EngDep message listener for listening for messages coming in from the Deployment client. The
+     * <code>apexService</code> is the Apex service to send the messages onto.
      *
      * @param apexService the Apex engine service
      */
@@ -94,8 +92,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     }
 
     /**
-     * This method is an implementation of the message listener. It receives a message and places it
-     * on the queue for processing by the message listening thread.
+     * This method is an implementation of the message listener. It receives a message and places it on the queue for
+     * processing by the message listening thread.
      *
      * @param data the data
      * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage
@@ -106,8 +104,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     public void onMessage(final MessageBlock<Message> data) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("message received from client application {} port {}",
-                    data.getConnection().getRemoteSocketAddress().getAddress(),
-                    data.getConnection().getRemoteSocketAddress().getPort());
+                            data.getConnection().getRemoteSocketAddress().getAddress(),
+                            data.getConnection().getRemoteSocketAddress().getPort());
         }
         messageQueue.add(data);
     }
@@ -115,8 +113,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     /*
      * (non-Javadoc)
      *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang.
-     * String)
+     * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang. String)
      */
     @Override
     public void onMessage(final String messageString) {
@@ -148,8 +145,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     }
 
     /**
-     * Runs the message listening thread. Here, the messages come in on the message queue and are
-     * processed one by one
+     * Runs the message listening thread. Here, the messages come in on the message queue and are processed one by one
      */
     @Override
     public void run() {
@@ -173,8 +169,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     }
 
     /**
-     * This method handles EngDep messages as they come in. It uses the inevitable switch statement
-     * to handle the messages.
+     * This method handles EngDep messages as they come in. It uses the inevitable switch statement to handle the
+     * messages.
      *
      * @param message the incoming EngDep message
      * @param webSocket the web socket on which the message came in
@@ -195,7 +191,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                 enDepAction = (EngDepAction) message.getAction();
             } else {
                 throw new ApexException(message.getAction().getClass().getName()
-                        + "action on received message invalid, action must be of type \"EnDepAction\"");
+                                + "action on received message invalid, action must be of type \"EnDepAction\"");
             }
 
             // Handle each incoming message using the inevitable switch statement for the EngDep
@@ -204,12 +200,12 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                 case GET_ENGINE_SERVICE_INFO:
                     final GetEngineServiceInfo engineServiceInformationMessage = (GetEngineServiceInfo) message;
                     LOGGER.debug("getting engine service information for engine service " + apexService.getKey().getId()
-                            + " . . .");
+                                    + " . . .");
                     // Send a reply with the engine service information
                     sendServiceInfoReply(webSocket, engineServiceInformationMessage, apexService.getKey(),
-                            apexService.getEngineKeys(), apexService.getApexModelKey());
-                    LOGGER.debug(
-                            "returned engine service information for engine service " + apexService.getKey().getId());
+                                    apexService.getEngineKeys(), apexService.getApexModelKey());
+                    LOGGER.debug("returned engine service information for engine service "
+                                    + apexService.getKey().getId());
                     break;
 
                 case UPDATE_MODEL:
@@ -217,10 +213,10 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                     LOGGER.debug("updating model in engine {} . . .", updateModelMessage.getTarget().getId());
                     // Update the model
                     apexService.updateModel(updateModelMessage.getTarget(), updateModelMessage.getMessageData(),
-                            updateModelMessage.isForceInstall());
+                                    updateModelMessage.isForceInstall());
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, updateModelMessage, true,
-                            "updated model in engine " + updateModelMessage.getTarget().getId());
+                                    "updated model in engine " + updateModelMessage.getTarget().getId());
                     LOGGER.debug("updated model in engine service {}", updateModelMessage.getTarget().getId());
                     break;
 
@@ -231,7 +227,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                     apexService.start(startEngineMessage.getTarget());
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, startEngineMessage, true,
-                            "started engine " + startEngineMessage.getTarget().getId());
+                                    "started engine " + startEngineMessage.getTarget().getId());
                     LOGGER.debug("started engine {}", startEngineMessage.getTarget().getId());
                     break;
 
@@ -242,33 +238,33 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                     apexService.stop(stopEngineMessage.getTarget());
                     // Send a reply indicating the message action worked
                     sendReply(webSocket, stopEngineMessage, true,
-                            "stopped engine " + stopEngineMessage.getTarget().getId());
+                                    "stopped engine " + stopEngineMessage.getTarget().getId());
                     LOGGER.debug("stopping engine {}", stopEngineMessage.getTarget().getId());
                     break;
 
                 case START_PERIODIC_EVENTS:
                     final StartPeriodicEvents startPeriodicEventsMessage = (StartPeriodicEvents) message;
                     LOGGER.debug("starting periodic events on engine {} . . .",
-                            startPeriodicEventsMessage.getTarget().getId());
+                                    startPeriodicEventsMessage.getTarget().getId());
                     // Start periodic events with the period specified in the message
                     final Long period = Long.parseLong(startPeriodicEventsMessage.getMessageData());
                     apexService.startPeriodicEvents(period);
                     // Send a reply indicating the message action worked
-                    sendReply(webSocket, startPeriodicEventsMessage, true, "started periodic events on engine "
-                            + startPeriodicEventsMessage.getTarget().getId() + " with period " + period);
-                    LOGGER.debug("started periodic events on engine " + startPeriodicEventsMessage.getTarget().getId()
-                            + " with period " + period);
+                    String periodicStartedMessage = "started periodic events on engine "
+                                    + startPeriodicEventsMessage.getTarget().getId() + " with period " + period;
+                    sendReply(webSocket, startPeriodicEventsMessage, true, periodicStartedMessage);
+                    LOGGER.debug(periodicStartedMessage);
                     break;
 
                 case STOP_PERIODIC_EVENTS:
                     final StopPeriodicEvents stopPeriodicEventsMessage = (StopPeriodicEvents) message;
                     LOGGER.debug("stopping periodic events on engine {} . . .",
-                            stopPeriodicEventsMessage.getTarget().getId());
+                                    stopPeriodicEventsMessage.getTarget().getId());
                     // Stop periodic events
                     apexService.stopPeriodicEvents();
                     // Send a reply indicating the message action worked
-                    sendReply(webSocket, stopPeriodicEventsMessage, true,
-                            "stopped periodic events on engine " + stopPeriodicEventsMessage.getTarget().getId());
+                    sendReply(webSocket, stopPeriodicEventsMessage, true, "stopped periodic events on engine "
+                                    + stopPeriodicEventsMessage.getTarget().getId());
                     LOGGER.debug("stopped periodic events on engine " + stopPeriodicEventsMessage.getTarget().getId());
                     break;
 
@@ -277,7 +273,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                     LOGGER.debug("getting status for engine{} . . .", getEngineStatusMessage.getTarget().getId());
                     // Send a reply with the engine status
                     sendReply(webSocket, getEngineStatusMessage, true,
-                            apexService.getStatus(getEngineStatusMessage.getTarget()));
+                                    apexService.getStatus(getEngineStatusMessage.getTarget()));
                     LOGGER.debug("returned status for engine {}", getEngineStatusMessage.getTarget().getId());
                     break;
 
@@ -313,7 +309,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
      * @param messageData the message data
      */
     private void sendReply(final WebSocket client, final Message requestMessage, final boolean result,
-            final String messageData) {
+                    final String messageData) {
         LOGGER.entry(result, messageData);
 
         if (client == null || !client.isOpen()) {
@@ -321,8 +317,9 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
             return;
         }
 
-        LOGGER.debug("sending {} to web socket {}", requestMessage.getAction(),
-                client.getRemoteSocketAddress().toString());
+        String replyString = "sending " + requestMessage.getAction() + " to web socket "
+                        + client.getRemoteSocketAddress().toString();
+        LOGGER.debug(replyString);
 
         final Response responseMessage = new Response(requestMessage.getTarget(), result, requestMessage);
         responseMessage.setMessageData(messageData);
@@ -344,14 +341,15 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
      * @param apexModelKey the apex model key
      */
     private void sendServiceInfoReply(final WebSocket client, final Message requestMessage,
-            final AxArtifactKey engineServiceKey, final Collection<AxArtifactKey> engineKeyCollection,
-            final AxArtifactKey apexModelKey) {
+                    final AxArtifactKey engineServiceKey, final Collection<AxArtifactKey> engineKeyCollection,
+                    final AxArtifactKey apexModelKey) {
         LOGGER.entry();
-        LOGGER.debug("sending {} to web socket {}", requestMessage.getAction(),
-                client.getRemoteSocketAddress().toString());
+        String sendingMessage = "sending " + requestMessage.getAction() + " to web socket "
+                        + client.getRemoteSocketAddress().toString();
+        LOGGER.debug(sendingMessage);
 
-        final EngineServiceInfoResponse responseMessage =
-                new EngineServiceInfoResponse(requestMessage.getTarget(), true, requestMessage);
+        final EngineServiceInfoResponse responseMessage = new EngineServiceInfoResponse(requestMessage.getTarget(),
+                        true, requestMessage);
         responseMessage.setMessageData("engine service information");
         responseMessage.setEngineServiceKey(engineServiceKey);
         responseMessage.setEngineKeyArray(engineKeyCollection);

@@ -47,11 +47,12 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private static final int DEFAULT_SESSION_TIMEOUT = 30000;
     private static final String DEFAULT_PRODUCER_TOPIC = "apex-out";
     private static final int DEFAULT_CONSUMER_POLL_TIME = 100;
-    private static final String[] DEFAULT_CONSUMER_TOPIC_LIST = { "apex-in" };
-    private static final String DEFAULT_KEY_SERIALIZER = "org.apache.superDooper.common.serialization.StringSerializer";
-    private static final String DEFAULT_VALUE_SERIALIZER = "org.apache.superDooper.common.serialization.StringSerializer";
-    private static final String DEFAULT_KEY_DESERIALIZER = "org.apache.superDooper.common.serialization.StringDeserializer";
-    private static final String DEFAULT_VALUE_DESERIALIZER = "org.apache.superDooper.common.serialization.StringDeserializer";
+    private static final String[] DEFAULT_CONSUMER_TOPIC_LIST =
+        { "apex-in" };
+    private static final String DEFAULT_KEYSERZER = "org.apache.superDooper.common.serialization.StringSerializer";
+    private static final String DEFAULT_VALSERZER = "org.apache.superDooper.common.serialization.StringSerializer";
+    private static final String DEFAULT_KEYDESZER = "org.apache.superDooper.common.serialization.StringDeserializer";
+    private static final String DEFAULT_VALDESZER = "org.apache.superDooper.common.serialization.StringDeserializer";
 
     // Parameter property map tokens
     private static final String PROPERTY_BOOTSTRAP_SERVERS = "bootstrap.servers";
@@ -83,10 +84,10 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private String producerTopic = DEFAULT_PRODUCER_TOPIC;
     private int consumerPollTime = DEFAULT_CONSUMER_POLL_TIME;
     private String[] consumerTopicList = DEFAULT_CONSUMER_TOPIC_LIST;
-    private String keySerializer = DEFAULT_KEY_SERIALIZER;
-    private String valueSerializer = DEFAULT_VALUE_SERIALIZER;
-    private String keyDeserializer = DEFAULT_KEY_DESERIALIZER;
-    private String valueDeserializer = DEFAULT_VALUE_DESERIALIZER;
+    private String keySerializer = DEFAULT_KEYSERZER;
+    private String valueSerializer = DEFAULT_VALSERZER;
+    private String keyDeserializer = DEFAULT_KEYDESZER;
+    private String valueDeserializer = DEFAULT_VALDESZER;
 
     /**
      * Constructor to create a file carrier technology parameters instance and register the instance with the parameter
@@ -478,19 +479,23 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         }
 
         if (retries < 0) {
-            result.setResult("retries", ValidationStatus.INVALID, "[" + retries + "] invalid, must be specified as retries >= 0");
+            result.setResult("retries", ValidationStatus.INVALID,
+                            "[" + retries + "] invalid, must be specified as retries >= 0");
         }
 
         if (batchSize < 0) {
-            result.setResult("batchSize", ValidationStatus.INVALID, "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
+            result.setResult("batchSize", ValidationStatus.INVALID,
+                            "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
         }
 
         if (lingerTime < 0) {
-            result.setResult("lingerTime", ValidationStatus.INVALID, "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
+            result.setResult("lingerTime", ValidationStatus.INVALID,
+                            "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
         }
 
         if (bufferMemory < 0) {
-            result.setResult("bufferMemory", ValidationStatus.INVALID, "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
+            result.setResult("bufferMemory", ValidationStatus.INVALID,
+                            "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
         }
 
         if (groupId == null || groupId.trim().length() == 0) {
@@ -498,8 +503,8 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         }
 
         if (autoCommitTime < 0) {
-            result.setResult("autoCommitTime", ValidationStatus.INVALID, "[" + autoCommitTime
-                            + "] invalid, must be specified as autoCommitTime >= 0");
+            result.setResult("autoCommitTime", ValidationStatus.INVALID,
+                            "[" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0");
         }
 
         if (sessionTimeout < 0) {
@@ -508,16 +513,18 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         }
 
         if (producerTopic == null || producerTopic.trim().length() == 0) {
-            result.setResult("producerTopic", ValidationStatus.INVALID, "producerTopic not specified, must be specified as a string");
+            result.setResult("producerTopic", ValidationStatus.INVALID,
+                            "producerTopic not specified, must be specified as a string");
         }
 
         if (consumerPollTime < 0) {
-            result.setResult("consumerPollTime", ValidationStatus.INVALID, "[" + consumerPollTime
-                            + "] invalid, must be specified as consumerPollTime >= 0");
+            result.setResult("consumerPollTime", ValidationStatus.INVALID,
+                            "[" + consumerPollTime + "] invalid, must be specified as consumerPollTime >= 0");
         }
 
         if (consumerTopicList == null || consumerTopicList.length == 0) {
-            result.setResult("consumerTopicList", ValidationStatus.INVALID, "not specified, must be specified as a list of strings");
+            result.setResult("consumerTopicList", ValidationStatus.INVALID,
+                            "not specified, must be specified as a list of strings");
         }
 
         StringBuilder consumerTopicMessageBuilder = new StringBuilder();
@@ -527,7 +534,7 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
                                 + "\" specified on consumerTopicList, consumer topics must be specified as strings");
             }
         }
-        
+
         if (consumerTopicMessageBuilder.length() > 0) {
             result.setResult("consumerTopicList", ValidationStatus.INVALID, consumerTopicMessageBuilder.toString());
         }
@@ -537,11 +544,13 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         }
 
         if (valueSerializer == null || valueSerializer.trim().length() == 0) {
-            result.setResult("valueSerializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
+            result.setResult("valueSerializer", ValidationStatus.INVALID,
+                            "not specified, must be specified as a string");
         }
 
         if (keyDeserializer == null || keyDeserializer.trim().length() == 0) {
-            result.setResult("keyDeserializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
+            result.setResult("keyDeserializer", ValidationStatus.INVALID,
+                            "not specified, must be specified as a string");
         }
 
         if (valueDeserializer == null || valueDeserializer.trim().length() == 0) {

@@ -71,17 +71,17 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
     /**
      * Executes the executor for the task in a sequential manner.
      *
-     * @param executionID the execution ID for the current APEX policy execution
+     * @param executionId the execution ID for the current APEX policy execution
      * @param incomingEvent the incoming event
      * @return The outgoing event
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public AxArtifactKey execute(final long executionID, final EnEvent incomingEvent)
+    public AxArtifactKey execute(final long executionId, final EnEvent incomingEvent)
             throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionID, incomingEvent);
+        executePre(executionId, incomingEvent);
 
         // Check and execute the JRuby logic
         container.put("executor", getExecutionContext());

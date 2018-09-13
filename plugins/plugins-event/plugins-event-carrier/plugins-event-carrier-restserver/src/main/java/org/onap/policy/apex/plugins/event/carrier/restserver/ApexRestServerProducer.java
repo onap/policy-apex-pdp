@@ -41,9 +41,6 @@ import org.slf4j.LoggerFactory;
 public class ApexRestServerProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestServerProducer.class);
 
-    // The REST carrier properties
-    private RESTServerCarrierTechnologyParameters restProducerProperties;
-
     // The name for this producer
     private String name = null;
 
@@ -62,14 +59,16 @@ public class ApexRestServerProducer implements ApexEventProducer {
         this.name = producerName;
 
         // Check and get the REST Properties
-        if (!(producerParameters.getCarrierTechnologyParameters() instanceof RESTServerCarrierTechnologyParameters)) {
+        if (!(producerParameters.getCarrierTechnologyParameters() instanceof RestServerCarrierTechnologyParameters)) {
             final String errorMessage =
                     "specified producer properties are not applicable to REST Server producer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        restProducerProperties =
-                (RESTServerCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+        
+        // The REST carrier properties
+        RestServerCarrierTechnologyParameters restProducerProperties =
+                (RestServerCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
         // Check if host and port are defined
         if (restProducerProperties.getHost() != null || restProducerProperties.getPort() != -1
@@ -131,7 +130,8 @@ public class ApexRestServerProducer implements ApexEventProducer {
     @Override
     public void sendEvent(final long executionId, final String eventName, final Object event) {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(name + ": event " + executionId + ':' + eventName + " recevied from Apex, event=" + event);
+            String message = name + ": event " + executionId + ':' + eventName + " recevied from Apex, event=" + event;
+            LOGGER.debug(message);
         }
 
         // If we are not synchronized, then exit
@@ -163,5 +163,7 @@ public class ApexRestServerProducer implements ApexEventProducer {
      * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#stop()
      */
     @Override
-    public void stop() {}
+    public void stop() {
+        // Implementation not required on this class
+    }
 }

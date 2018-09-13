@@ -20,12 +20,12 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
-import java.util.Map.Entry;
-
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.util.Map.Entry;
 
 /**
  * This static final class contains utility methods for Avro schemas.

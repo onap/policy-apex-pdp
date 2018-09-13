@@ -66,17 +66,17 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
     /**
      * Executes the executor for the task in a sequential manner.
      *
-     * @param executionID the execution ID for the current APEX policy execution
+     * @param executionId the execution ID for the current APEX policy execution
      * @param incomingEvent the incoming event
      * @return The outgoing event
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public AxArtifactKey execute(final long executionID, final EnEvent incomingEvent)
+    public AxArtifactKey execute(final long executionId, final EnEvent incomingEvent)
             throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionID, incomingEvent);
+        executePre(executionId, incomingEvent);
 
         // Check and execute the Java logic
         boolean returnValue = false;
@@ -84,7 +84,7 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             // Find and call the method with the signature "public boolean getTask(final TaskSelectionExecutionContext
             // executor)" to invoke the task selection
             // logic in the Java class
-            final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask",
+            final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask", (Class[])
                     new Class[] { TaskSelectionExecutionContext.class });
             returnValue = (boolean) method.invoke(taskSelectionLogicObject, getExecutionContext());
         } catch (final Exception e) {

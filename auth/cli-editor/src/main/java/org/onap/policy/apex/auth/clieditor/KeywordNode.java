@@ -37,7 +37,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
 public class KeywordNode implements Comparable<KeywordNode> {
     private final String keyword;
     private final TreeMap<String, KeywordNode> children;
-    private CLICommand command;
+    private CommandLineCommand command;
 
     /**
      * This Constructor creates a keyword node with the given keyword and no command.
@@ -54,7 +54,7 @@ public class KeywordNode implements Comparable<KeywordNode> {
      * @param keyword the keyword of the keyword node
      * @param command the command associated with this keyword
      */
-    public KeywordNode(final String keyword, final CLICommand command) {
+    public KeywordNode(final String keyword, final CommandLineCommand command) {
         Assertions.argumentNotNull(keyword, "commands may not be null");
 
         this.keyword = keyword;
@@ -70,7 +70,7 @@ public class KeywordNode implements Comparable<KeywordNode> {
      * @param keywordList the list of keywords to process on this keyword node
      * @param incomingCommand the command
      */
-    public void processKeywords(final List<String> keywordList, final CLICommand incomingCommand) {
+    public void processKeywords(final List<String> keywordList, final CommandLineCommand incomingCommand) {
         if (keywordList.isEmpty()) {
             this.command = incomingCommand;
             return;
@@ -128,7 +128,7 @@ public class KeywordNode implements Comparable<KeywordNode> {
      *
      * @return the command of this keyword node
      */
-    public CLICommand getCommand() {
+    public CommandLineCommand getCommand() {
         return command;
     }
 
@@ -147,8 +147,8 @@ public class KeywordNode implements Comparable<KeywordNode> {
      *
      * @return the commands
      */
-    public Set<CLICommand> getCommands() {
-        final Set<CLICommand> commandSet = new TreeSet<>();
+    public Set<CommandLineCommand> getCommands() {
+        final Set<CommandLineCommand> commandSet = new TreeSet<>();
 
         for (final KeywordNode child : children.values()) {
             if (child.getCommand() != null) {

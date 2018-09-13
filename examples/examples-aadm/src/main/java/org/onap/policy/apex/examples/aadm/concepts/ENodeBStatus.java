@@ -56,7 +56,7 @@ public class ENodeBStatus implements Serializable {
      *
      * @return the number of Denial Of Service incidents on the eNodeB
      */
-    public long getDOSCount() {
+    public long getDosCount() {
         return dosCount;
     }
 
@@ -65,7 +65,7 @@ public class ENodeBStatus implements Serializable {
      *
      * @param incomingDosCount the number of Denial Of Service incidents on the eNodeB
      */
-    public void setDOSCount(final long incomingDosCount) {
+    public void setDosCount(final long incomingDosCount) {
         this.dosCount = incomingDosCount;
     }
 
@@ -74,7 +74,7 @@ public class ENodeBStatus implements Serializable {
      *
      * @return the long
      */
-    public long incrementDOSCount() {
+    public long incrementDosCount() {
         return ++dosCount;
     }
 
@@ -83,7 +83,7 @@ public class ENodeBStatus implements Serializable {
      *
      * @return the long
      */
-    public long decrementDOSCount() {
+    public long decrementDosCount() {
         return --dosCount;
     }
 

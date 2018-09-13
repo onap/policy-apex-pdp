@@ -37,11 +37,6 @@ public class EventProducerFactory {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EventProducerFactory.class);
 
     /**
-     * Empty constructor with no generic overloading.
-     */
-    public EventProducerFactory() {}
-
-    /**
      * Create an event producer of the required type for the specified producer technology.
      *
      * @param name the name of the producer

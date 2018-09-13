@@ -63,6 +63,10 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EngineServiceImpl.class);
     private static final boolean DEBUG_ENABLED = LOGGER.isDebugEnabled();
 
+    // Recurring string constants
+    private static final String ENGINE_KEY_PREAMBLE = "engine with key ";
+    private static final String NOT_FOUND_SUFFIX = " not found in engine service";
+
     // Constants for timing
     private static final long MAX_START_WAIT_TIME = 5000; // 5 seconds
     private static final long MAX_STOP_WAIT_TIME = 5000; // 5 seconds
@@ -96,7 +100,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
      * @throws ApexException on worker instantiation errors
      */
     private EngineServiceImpl(final AxArtifactKey engineServiceKey, final int incomingThreadCount,
-                    final long periodicEventPeriod) throws ApexException {
+                    final long periodicEventPeriod) {
         LOGGER.entry(engineServiceKey, incomingThreadCount);
 
         this.engineServiceKey = engineServiceKey;
@@ -118,26 +122,6 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         LOGGER.info("APEX service created.");
         LOGGER.exit();
-    }
-
-    /**
-     * Create an Apex Engine Service instance. This method is deprecated and will be removed in the next version.
-     *
-     * @param engineServiceKey the engine service key
-     * @param threadCount the thread count, the number of engine workers to start
-     * @return the Engine Service instance
-     * @throws ApexException on worker instantiation errors
-     * @deprecated Do not use this version. Use {@link #create(EngineServiceParameters)}
-     */
-    @Deprecated
-    public static EngineServiceImpl create(final AxArtifactKey engineServiceKey, final int threadCount)
-                    throws ApexException {
-        // Check if the Apex model specified is sane
-        if (engineServiceKey == null) {
-            LOGGER.warn("engine service key is null");
-            throw new ApexException("engine service key is null");
-        }
-        return new EngineServiceImpl(engineServiceKey, threadCount, 0);
     }
 
     /**
@@ -266,10 +250,10 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
                     final boolean forceFlag) throws ApexException {
         // Check if the Apex model specified is sane
         if (apexModelString == null || apexModelString.trim().length() == 0) {
-            LOGGER.warn("model for updating on engine service with key " + incomingEngineServiceKey.getId()
-                            + " is empty");
-            throw new ApexException("model for updating on engine service with key " + incomingEngineServiceKey.getId()
-                            + " is empty");
+            String emptyModelMessage = "model for updating engine service with key "
+                            + incomingEngineServiceKey.getId() + " is empty";
+            LOGGER.warn(emptyModelMessage);
+            throw new ApexException(emptyModelMessage);
         }
 
         // Read the Apex model into memory using the Apex Model Reader
@@ -278,15 +262,15 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
             apexPolicyModel = modelReader.read(new ByteArrayInputStream(apexModelString.getBytes()));
         } catch (final ApexModelException e) {
-            LOGGER.error("failed to unmarshal the apex model on engine service " + incomingEngineServiceKey.getId(), e);
-            throw new ApexException(
-                            "failed to unmarshal the apex model on engine service " + incomingEngineServiceKey.getId(),
-                            e);
+            String message = "failed to unmarshal the apex model on engine service " + incomingEngineServiceKey.getId();
+            LOGGER.error(message, e);
+            throw new ApexException(message, e);
         }
 
         if (apexPolicyModel == null) {
-            LOGGER.error("apex model null on engine service " + incomingEngineServiceKey.getId());
-            throw new ApexException("apex model null on engine service " + incomingEngineServiceKey.getId());
+            String message = "apex model null on engine service " + incomingEngineServiceKey.getId();
+            LOGGER.error(message);
+            throw new ApexException(message);
         }
 
         // Update the model
@@ -327,43 +311,12 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             // The current policy model may or may not be defined
             final AxPolicyModel currentModel = ModelService.getModel(AxPolicyModel.class);
             if (!currentModel.getKey().isCompatible(apexModel.getKey())) {
-                if (forceFlag) {
-                    LOGGER.warn("apex model update forced, supplied model with key \"" + apexModel.getKey().getId()
-                                    + "\" is not a compatible model update from the existing engine model with key \""
-                                    + currentModel.getKey().getId() + "\"");
-                } else {
-                    throw new ContextException("apex model update failed, supplied model with key \""
-                                    + apexModel.getKey().getId()
-                                    + "\" is not a compatible model update from the existing engine model with key \""
-                                    + currentModel.getKey().getId() + "\"");
-                }
+                handleIncompatibility(apexModel, forceFlag, currentModel);
             }
         }
 
         if (!isStopped()) {
-            // Stop all engines on this engine service
-            stop();
-            final long stoptime = System.currentTimeMillis();
-            while (!isStopped() && System.currentTimeMillis() - stoptime < MAX_STOP_WAIT_TIME) {
-                ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
-            }
-            // Check if all engines are stopped
-            final StringBuilder notStoppedEngineIdBuilder = new StringBuilder();
-            for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
-                if (engineWorkerEntry.getValue().getState() != AxEngineState.STOPPED) {
-                    notStoppedEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
-                    notStoppedEngineIdBuilder.append('(');
-                    notStoppedEngineIdBuilder.append(engineWorkerEntry.getValue().getState());
-                    notStoppedEngineIdBuilder.append(") ");
-                }
-            }
-            if (notStoppedEngineIdBuilder.length() > 0) {
-                final String errorString = "cannot update model on engine service with key "
-                                + incomingEngineServiceKey.getId() + ", engines not stopped after " + MAX_STOP_WAIT_TIME
-                                + "ms are: " + notStoppedEngineIdBuilder.toString().trim();
-                LOGGER.warn(errorString);
-                throw new ApexException(errorString);
-            }
+            stopEngines(incomingEngineServiceKey);
         }
 
         // Update the engines
@@ -398,6 +351,58 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
 
         LOGGER.exit();
+    }
+
+    /**
+     * Stop engines for a model update.
+     * @param incomingEngineServiceKey the engine service key for the engines that are to be stopped
+     * @throws ApexException on errors stopping engines
+     */
+    private void stopEngines(final AxArtifactKey incomingEngineServiceKey) throws ApexException {
+        // Stop all engines on this engine service
+        stop();
+        final long stoptime = System.currentTimeMillis();
+        while (!isStopped() && System.currentTimeMillis() - stoptime < MAX_STOP_WAIT_TIME) {
+            ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
+        }
+        // Check if all engines are stopped
+        final StringBuilder notStoppedEngineIdBuilder = new StringBuilder();
+        for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
+            if (engineWorkerEntry.getValue().getState() != AxEngineState.STOPPED) {
+                notStoppedEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
+                notStoppedEngineIdBuilder.append('(');
+                notStoppedEngineIdBuilder.append(engineWorkerEntry.getValue().getState());
+                notStoppedEngineIdBuilder.append(") ");
+            }
+        }
+        if (notStoppedEngineIdBuilder.length() > 0) {
+            final String errorString = "cannot update model on engine service with key "
+                            + incomingEngineServiceKey.getId() + ", engines not stopped after " + MAX_STOP_WAIT_TIME
+                            + "ms are: " + notStoppedEngineIdBuilder.toString().trim();
+            LOGGER.warn(errorString);
+            throw new ApexException(errorString);
+        }
+    }
+
+    /**
+     * Issue compatibility warning or error message.
+     * @param apexModel The model name
+     * @param forceFlag true if we are forcing the update
+     * @param currentModel the existing model that is loaded
+     * @throws ContextException on compatibility errors
+     */
+    private void handleIncompatibility(final AxPolicyModel apexModel, final boolean forceFlag,
+                    final AxPolicyModel currentModel) throws ContextException {
+        if (forceFlag) {
+            LOGGER.warn("apex model update forced, supplied model with key \"" + apexModel.getKey().getId()
+                            + "\" is not a compatible model update from the existing engine model with key \""
+                            + currentModel.getKey().getId() + "\"");
+        } else {
+            throw new ContextException("apex model update failed, supplied model with key \""
+                            + apexModel.getKey().getId()
+                            + "\" is not a compatible model update from the existing engine model with key \""
+                            + currentModel.getKey().getId() + "\"");
+        }
     }
 
     /*
@@ -446,8 +451,9 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
-            throw new ApexException("engine with key " + engineKey.getId() + " not found in engine service");
+            String message = ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX;
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         // Start the engine
@@ -487,8 +493,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
-            throw new ApexException("engine with key " + engineKey.getId() + " not found in engine service");
+            LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
 
         // Stop the engine
@@ -528,8 +534,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
-            throw new ApexException("engine with key " + engineKey.getId() + " not found in engine service");
+            LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
 
         // Clear the engine
@@ -566,7 +572,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public boolean isStarted(final AxArtifactKey engineKey) {
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
+            LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
         return engineWorkerMap.get(engineKey).isStarted();
     }
@@ -597,7 +603,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public boolean isStopped(final AxArtifactKey engineKey) {
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
+            LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
         return engineWorkerMap.get(engineKey).isStopped();
     }
@@ -611,10 +617,10 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public void startPeriodicEvents(final long period) throws ApexException {
         // Check if periodic events are already started
         if (periodicEventGenerator != null) {
-            LOGGER.warn("Peiodic event geneation already running on engine " + engineServiceKey.getId() + ", "
-                            + periodicEventGenerator.toString());
-            throw new ApexException("Peiodic event geneation already running on engine " + engineServiceKey.getId()
-                            + ", " + periodicEventGenerator.toString());
+            String message = "Peiodic event geneation already running on engine " + engineServiceKey.getId() + ", "
+                            + periodicEventGenerator.toString();
+            LOGGER.warn(message);
+            throw new ApexException(message);
         }
 
         // Set up periodic event execution, its a Java Timer/TimerTask
@@ -653,8 +659,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public String getStatus(final AxArtifactKey engineKey) throws ApexException {
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
-            throw new ApexException("engine with key " + engineKey.getId() + " not found in engine service");
+            LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
 
         // Return the information for this worker
@@ -671,8 +677,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public String getRuntimeInfo(final AxArtifactKey engineKey) throws ApexException {
         // Check if we have this key on our map
         if (!engineWorkerMap.containsKey(engineKey)) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not found in engine service");
-            throw new ApexException("engine with key " + engineKey.getId() + " not found in engine service");
+            LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
 
         // Return the information for this worker

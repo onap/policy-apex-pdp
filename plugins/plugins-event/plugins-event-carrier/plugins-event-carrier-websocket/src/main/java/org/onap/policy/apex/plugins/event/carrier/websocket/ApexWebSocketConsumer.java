@@ -50,9 +50,6 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexWebSocketConsumer.class);
 
-    // The Web Socket properties
-    private WEBSOCKETCarrierTechnologyParameters webSocketConsumerProperties;
-
     // The web socket messager, may be WS a server or a client
     private WsStringMessager wsStringMessager;
 
@@ -79,12 +76,14 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         this.name = consumerName;
 
         // Check and get the Kafka Properties
-        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof WEBSOCKETCarrierTechnologyParameters)) {
+        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof WebSocketCarrierTechnologyParameters)) {
             LOGGER.warn("specified consumer properties are not applicable to a web socket consumer");
             throw new ApexEventException("specified consumer properties are not applicable to a web socket consumer");
         }
-        webSocketConsumerProperties =
-                (WEBSOCKETCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+        
+        // The Web Socket properties
+        WebSocketCarrierTechnologyParameters webSocketConsumerProperties =
+                (WebSocketCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Check if this is a server or a client Web Socket
         if (webSocketConsumerProperties.isWsClient()) {

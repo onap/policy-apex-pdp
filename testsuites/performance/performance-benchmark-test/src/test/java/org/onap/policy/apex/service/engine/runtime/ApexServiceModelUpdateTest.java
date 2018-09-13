@@ -38,7 +38,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
@@ -80,7 +80,7 @@ public class ApexServiceModelUpdateTest {
         parameters.setName(engineServiceKey.getName());
         parameters.setVersion(engineServiceKey.getVersion());
         parameters.setId(100);
-        parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         service = EngineServiceImpl.create(parameters);
 
         LOGGER.debug("Running TestApexEngine. . .");

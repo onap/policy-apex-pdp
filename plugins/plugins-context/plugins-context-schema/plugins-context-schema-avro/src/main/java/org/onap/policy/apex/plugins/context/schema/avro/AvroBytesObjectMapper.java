@@ -43,7 +43,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
     private Type avroType;
 
     // The Apex compatible class
-    private final Class<Byte[]> schemaClass = Byte[].class;
+    private static final Class<Byte[]> schemaClass = Byte[].class;
 
     /*
      * (non-Javadoc)
@@ -142,8 +142,6 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
         }
 
         // Create a ByteBuffer object to serialize the bytes
-        final ByteBuffer byteBuffer = ByteBuffer.wrap((byte[]) object);
-
-        return byteBuffer;
+        return ByteBuffer.wrap((byte[]) object);
     }
 }

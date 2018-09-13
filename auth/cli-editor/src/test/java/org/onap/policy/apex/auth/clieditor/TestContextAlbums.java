@@ -36,11 +36,19 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
+/**
+ * The Class TestContextAlbums.
+ */
 public class TestContextAlbums {
     private String[] logicBlockArgs;
 
     private File tempModelFile;
 
+    /**
+     * Creates the temp files.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void createTempFiles() throws IOException {
         tempModelFile = File.createTempFile("TestPolicyModel", ".json");
@@ -65,20 +73,20 @@ public class TestContextAlbums {
      */
     @Test
     public void testLogicBlock() throws IOException, ApexModelException {
-        final ApexCLIEditorMain cliEditor = new ApexCLIEditorMain(logicBlockArgs);
+        final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(logicBlockArgs);
         assertEquals(1, cliEditor.getErrorCount());
 
         // Read the file from disk
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
 
-        final URL writtenModelURL = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
-        final AxPolicyModel writtenModel = modelReader.read(writtenModelURL.openStream());
+        final URL writtenModelUrl = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
+        final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
         assertNotNull(writtenModel);
 
-        final URL compareModelURL =
+        final URL compareModelUrl =
                 ResourceUtils.getLocalFile("src/test/resources/compare/ContextAlbumsModel_Compare.json");
-        final AxPolicyModel compareModel = modelReader.read(compareModelURL.openStream());
+        final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs
         writtenModel.getKeyInformation().getKeyInfoMap().clear();

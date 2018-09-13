@@ -29,13 +29,11 @@ import java.io.IOException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain;
+import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
-import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
 public class EventAlbumContextTest {
@@ -86,7 +84,7 @@ public class EventAlbumContextTest {
         final String[] cliArgs = new String[] { "-c", tempCommandFile.getCanonicalPath(), "-l",
                         tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath() };
 
-        new ApexCLIEditorMain(cliArgs);
+        new ApexCommandLineEditorMain(cliArgs);
 
         final String[] args = new String[] { "-m", tempModelFile.getAbsolutePath(), "-c", configFile };
         final ApexMain apexMain = new ApexMain(args);

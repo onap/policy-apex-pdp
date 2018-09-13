@@ -30,7 +30,7 @@ import java.util.Map.Entry;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.examples.myfirstpolicy.model.MFPDomainModelFactory;
+import org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -59,7 +59,7 @@ public class TestMfpLogic {
      */
     @Test
     public void testMfp1TaskLogic() {
-        final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP1PolicyModel();
+        final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1PolicyModel();
         assertNotNull(apexPolicyModel);
 
         final Map<String, String> logics = new LinkedHashMap<>();
@@ -85,7 +85,7 @@ public class TestMfpLogic {
      */
     @Test
     public void testMfp1AltTaskLogic() {
-        final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP1AltPolicyModel();
+        final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1AltPolicyModel();
         assertNotNull(apexPolicyModel);
 
         final Map<String, String> logics = new LinkedHashMap<>();
@@ -110,7 +110,7 @@ public class TestMfpLogic {
      */
     @Test
     public void testMfp2TaskLogic() {
-        final AxPolicyModel apexPolicyModel = new MFPDomainModelFactory().getMFP2PolicyModel();
+        final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp2PolicyModel();
         assertNotNull(apexPolicyModel);
 
         final Map<String, String> logics = new LinkedHashMap<>();

@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import java.io.IOException;
@@ -38,6 +39,9 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+/**
+ * The Class InfinispanContextDistributorTest.
+ */
 public class InfinispanContextDistributorTest {
     private static final XLogger logger = XLoggerFactory.getXLogger(InfinispanContextDistributorTest.class);
 
@@ -46,6 +50,9 @@ public class InfinispanContextDistributorTest {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
 
+    /**
+     * Before test.
+     */
     @Before
     public void beforeTest() {
         contextParameters = new ContextParameters();
@@ -70,6 +77,9 @@ public class InfinispanContextDistributorTest {
         ParameterService.register(schemaParameters);
     }
 
+    /**
+     * After test.
+     */
     @After
     public void afterTest() {
         ParameterService.deregister(schemaParameters);
@@ -80,6 +90,13 @@ public class InfinispanContextDistributorTest {
         ParameterService.deregister(contextParameters);
     }
 
+    /**
+     * Test context album update infinispan.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testContextAlbumUpdateInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextAlbumUpdateInfinispan test . . .");
@@ -89,6 +106,13 @@ public class InfinispanContextDistributorTest {
         logger.debug("Ran testContextAlbumUpdateInfinispan test");
     }
 
+    /**
+     * Test context instantiation infinispan.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testContextInstantiationInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextInstantiationInfinispan test . . .");
@@ -98,6 +122,13 @@ public class InfinispanContextDistributorTest {
         logger.debug("Ran testContextInstantiationInfinispan test");
     }
 
+    /**
+     * Test context update infinispan.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testContextUpdateInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testContextUpdateInfinispan test . . .");
@@ -107,6 +138,13 @@ public class InfinispanContextDistributorTest {
         logger.debug("Ran testContextUpdateInfinispan test");
     }
 
+    /**
+     * Test sequential context instantiation infinispan.
+     *
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testSequentialContextInstantiationInfinispan() throws ApexModelException, IOException, ApexException {
         logger.debug("Running testSequentialContextInstantiationInfinispan test . . .");

@@ -36,7 +36,7 @@ import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
 import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.plugins.executor.jruby.JrubyExecutorParameters;
 import org.onap.policy.apex.plugins.executor.jython.JythonExecutorParameters;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.ApexServiceModelUpdateTest;
@@ -74,7 +74,7 @@ public class ApexBaseBenchMarkTest {
 
         final EngineParameters engineParameters = parameters.getEngineParameters();
         final Map<String, ExecutorParameters> executorParameterMap = engineParameters.getExecutorParameterMap();
-        executorParameterMap.put("MVEL", new MVELExecutorParameters());
+        executorParameterMap.put("MVEL", new MvelExecutorParameters());
         executorParameterMap.put("JAVASCRIPT", new JavascriptExecutorParameters());
         executorParameterMap.put("JYTHON", new JythonExecutorParameters());
         executorParameterMap.put("JAVA", new JavaExecutorParameters());

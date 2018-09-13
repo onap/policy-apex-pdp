@@ -9,7 +9,7 @@
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
                 }
             }
         }
@@ -18,7 +18,7 @@
         "FirstConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters",
                 "parameters": {
                     "standalone": true,
                     "host": "localhost",
@@ -37,7 +37,7 @@
         "FirstProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters",
                 "parameters": {
                     "standalone": true
                 }

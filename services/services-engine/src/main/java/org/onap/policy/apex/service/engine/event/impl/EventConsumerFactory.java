@@ -37,11 +37,6 @@ public class EventConsumerFactory {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EventConsumerFactory.class);
 
     /**
-     * Empty constructor with no generic overloading.
-     */
-    public EventConsumerFactory() {}
-
-    /**
      * Create an event consumer of the required type for the specified consumer technology.
      *
      * @param name the name of the consumer

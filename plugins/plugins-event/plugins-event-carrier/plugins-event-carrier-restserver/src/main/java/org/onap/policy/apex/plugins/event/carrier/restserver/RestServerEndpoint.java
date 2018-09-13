@@ -57,21 +57,21 @@ public class RestServerEndpoint {
     // This map is used to hold all the REST server event inputs. This is used to determine which consumer to send input
     // events to
     private static Map<String, ApexRestServerConsumer> consumerMap =
-            new LinkedHashMap<String, ApexRestServerConsumer>();
+            new LinkedHashMap<>();
 
     // The ID of this event input. This gets injected from the URL.
     @PathParam("eventInput")
-    private String eventInputID = null;
+    private String eventInputId = null;
 
     /**
      * Register an Apex consumer with the REST server end point.
      *
-     * @param consumerEventInputID The event input ID that indicates this consumer shoud be used
+     * @param consumerEventInputId The event input ID that indicates this consumer shoud be used
      * @param consumer The consumer to register
      */
-    public static void registerApexRestServerConsumer(final String consumerEventInputID,
+    public static void registerApexRestServerConsumer(final String consumerEventInputId,
             final ApexRestServerConsumer consumer) {
-        consumerMap.put(consumerEventInputID, consumer);
+        consumerMap.put(consumerEventInputId, consumer);
     }
 
     /**
@@ -102,7 +102,8 @@ public class RestServerEndpoint {
         postEventMessagesReceived++;
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("event input " + eventInputID + ", received POST of event \"" + jsonString + "\"");
+            String message = "event input " + eventInputId + ", received POST of event \"" + jsonString + "\"";
+            LOGGER.debug(message);
         }
 
         // Common handler method for POST and PUT requests
@@ -121,7 +122,8 @@ public class RestServerEndpoint {
         putEventMessagesReceived++;
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("event input \"" + eventInputID + "\", received PUT of event \"" + jsonString + "\"");
+            String message = "event input \"" + eventInputId + "\", received PUT of event \"" + jsonString + "\"";
+            LOGGER.debug(message);
         }
 
         // Common handler method for POST and PUT requests
@@ -136,10 +138,10 @@ public class RestServerEndpoint {
      */
     private Response handleEvent(final String jsonString) {
         // Find the correct consumer for this REST message
-        final ApexRestServerConsumer eventConsumer = consumerMap.get(eventInputID);
+        final ApexRestServerConsumer eventConsumer = consumerMap.get(eventInputId);
         if (eventConsumer == null) {
             final String errorMessage =
-                    "event input " + eventInputID + " is not defined in the Apex configuration file";
+                    "event input " + eventInputId + " is not defined in the Apex configuration file";
             LOGGER.warn(errorMessage);
             return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
                     .entity("{'errorMessage', '" + errorMessage + "'}").build();

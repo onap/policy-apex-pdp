@@ -24,7 +24,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
-import java.util.TreeMap;
+import java.util.SortedMap;
 
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
@@ -64,7 +64,7 @@ public class ApexModelHandler {
 
         final ApexApiResult result = apexModel.loadFromFile(modelFileName);
         if (result.isNok()) {
-            throw new CLIException(result.getMessages().get(0));
+            throw new CommandLineException(result.getMessages().get(0));
         }
     }
 
@@ -76,8 +76,8 @@ public class ApexModelHandler {
      * @param writer A writer to which to write output
      * @return the result of the executed command
      */
-    public ApexApiResult executeCommand(final CLICommand command,
-            final TreeMap<String, CLIArgumentValue> argumentValues, final PrintWriter writer) {
+    public ApexApiResult executeCommand(final CommandLineCommand command,
+                    final SortedMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
         // Get the method
         final Method apiMethod = getCommandMethod(command);
 
@@ -92,22 +92,22 @@ public class ApexModelHandler {
                 writer.println(result);
                 return result;
             } else {
-                throw new CLIException(
-                        INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                                + command.getName() + "\" the returned object is not an instance of ApexAPIResult");
+                throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
+                                + FAILED_FOR_COMMAND + command.getName()
+                                + "\" the returned object is not an instance of ApexAPIResult");
             }
         } catch (IllegalAccessException | IllegalArgumentException e) {
             writer.println(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                    + command.getName() + "\"");
+                            + command.getName() + "\"");
             e.printStackTrace(writer);
-            throw new CLIException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
-                    + FAILED_FOR_COMMAND + command.getName() + "\"", e);
+            throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
+                            + command.getName() + "\"", e);
         } catch (final InvocationTargetException e) {
             writer.println(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                    + command.getName() + "\"");
+                            + command.getName() + "\"");
             e.getCause().printStackTrace(writer);
-            throw new CLIException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
-                    + FAILED_FOR_COMMAND + command.getName() + "\"", e);
+            throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
+                            + command.getName() + "\"", e);
         }
     }
 
@@ -117,9 +117,9 @@ public class ApexModelHandler {
      * @param command The command
      * @return the API method
      */
-    private Method getCommandMethod(final CLICommand command) {
-        final String className = command.getAPIClassName();
-        final String methodName = command.getAPIMethodName();
+    private Method getCommandMethod(final CommandLineCommand command) {
+        final String className = command.getApiClassName();
+        final String methodName = command.getApiMethodName();
 
         try {
             final Class<? extends Object> apiClass = Class.forName(className);
@@ -128,11 +128,11 @@ public class ApexModelHandler {
                     return apiMethod;
                 }
             }
-            throw new CLIException("specified method \"" + command.getApiMethod() + "\" not found for command \""
-                    + command.getName() + "\"");
+            throw new CommandLineException("specified method \"" + command.getApiMethod()
+                            + "\" not found for command \"" + command.getName() + "\"");
         } catch (final ClassNotFoundException e) {
-            throw new CLIException("specified class \"" + command.getApiMethod() + "\" not found for command \""
-                    + command.getName() + "\"");
+            throw new CommandLineException("specified class \"" + command.getApiMethod() + "\" not found for command \""
+                            + command.getName() + "\"");
         }
     }
 
@@ -144,26 +144,26 @@ public class ApexModelHandler {
      * @param apiMethod the method itself
      * @return the argument list
      */
-    private Object[] getParameterArray(final CLICommand command, final TreeMap<String, CLIArgumentValue> argumentValues,
-            final Method apiMethod) {
+    private Object[] getParameterArray(final CommandLineCommand command,
+                    final SortedMap<String, CommandLineArgumentValue> argumentValues, final Method apiMethod) {
         final Object[] parameterArray = new Object[argumentValues.size()];
 
-        int i = 0;
+        int item = 0;
         try {
             for (final Class<?> parametertype : apiMethod.getParameterTypes()) {
-                final String parameterValue =
-                        argumentValues.get(command.getArgumentList().get(i).getArgumentName()).getValue();
+                final String parameterValue = argumentValues.get(command.getArgumentList().get(item).getArgumentName())
+                                .getValue();
 
                 if (parametertype.equals(boolean.class)) {
-                    parameterArray[i] = Boolean.valueOf(parameterValue);
+                    parameterArray[item] = Boolean.valueOf(parameterValue);
                 } else {
-                    parameterArray[i] = parameterValue;
+                    parameterArray[item] = parameterValue;
                 }
-                i++;
+                item++;
             }
         } catch (final Exception e) {
-            throw new CLIException("number of argument mismatch on method \"" + command.getApiMethod()
-                    + "\" for command \"" + command.getName() + "\"");
+            throw new CommandLineException("number of argument mismatch on method \"" + command.getApiMethod()
+                            + "\" for command \"" + command.getName() + "\"");
         }
 
         return parameterArray;

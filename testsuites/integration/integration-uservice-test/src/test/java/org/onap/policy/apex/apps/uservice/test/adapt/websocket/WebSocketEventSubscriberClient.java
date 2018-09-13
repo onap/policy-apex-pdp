@@ -24,12 +24,22 @@ import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
 
+/**
+ * The Class WebSocketEventSubscriberClient.
+ */
 public class WebSocketEventSubscriberClient implements WsStringMessageListener {
     private final int port;
     private long eventsReceivedCount = 0;
 
     private final WsStringMessageClient client;
 
+    /**
+     * Instantiates a new web socket event subscriber client.
+     *
+     * @param host the host
+     * @param port the port
+     * @throws MessagingException the messaging exception
+     */
     public WebSocketEventSubscriberClient(final String host, final int port) throws MessagingException {
         this.port = port;
 
@@ -51,15 +61,29 @@ public class WebSocketEventSubscriberClient implements WsStringMessageListener {
         eventsReceivedCount++;
     }
 
+    /**
+     * Gets the events received count.
+     *
+     * @return the events received count
+     */
     public long getEventsReceivedCount() {
         return eventsReceivedCount;
     }
 
+    /**
+     * Shutdown.
+     */
     public void shutdown() {
         client.stop();
         System.out.println(WebSocketEventSubscriberServer.class.getCanonicalName() + ": stopped");
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws MessagingException the messaging exception
+     */
     public static void main(final String[] args) throws MessagingException {
         if (args.length != 2) {
             System.err.println("usage WebSocketEventSubscriberClient host port");

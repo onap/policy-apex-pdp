@@ -108,7 +108,7 @@ public abstract class AbstractDistributor implements Distributor {
     }
 
     /**
-     * Set the static lock manager
+     * Set the static lock manager.
      * @param incomingLockManager the lock manager value
      */
     private static void setLockManager(final LockManager incomingLockManager) {
@@ -116,7 +116,7 @@ public abstract class AbstractDistributor implements Distributor {
     }
 
     /**
-     * Set the static flush timer
+     * Set the static flush timer.
      * @param incomingFlushTimer the flush timer value
      */
     private static void setFlushTimer(final DistributorFlushTimerTask incomingFlushTimer) {

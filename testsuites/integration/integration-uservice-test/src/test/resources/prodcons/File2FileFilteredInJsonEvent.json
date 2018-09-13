@@ -9,7 +9,7 @@
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
                 }
             }
         }

@@ -9,7 +9,7 @@
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
                 }
             }
         }
@@ -18,7 +18,7 @@
         "aProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "WEBSOCKET",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.websocket.WebSocketCarrierTechnologyParameters",
                 "parameters": {
                     "wsClient": false,
                     "port": 42452
@@ -26,7 +26,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "XML",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XMLEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XmlEventProtocolParameters"
             }
         }
     },
@@ -34,7 +34,7 @@
         "aConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "WEBSOCKET",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.websocket.WEBSOCKETCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.websocket.WebSocketCarrierTechnologyParameters",
                 "parameters": {
                     "wsClient": false,
                     "port": 42450
@@ -42,7 +42,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "XML",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XMLEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XmlEventProtocolParameters"
             }
         }
     }

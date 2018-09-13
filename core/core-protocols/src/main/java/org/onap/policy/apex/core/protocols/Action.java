@@ -29,7 +29,7 @@ package org.onap.policy.apex.core.protocols;
 public interface Action {
 
     /**
-     * This method returns a string representation of each action.
+     * Return a string representation of each action.
      *
      * @return the action string
      */

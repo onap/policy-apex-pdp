@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.examples.myfirstpolicy;
 
-import org.onap.policy.apex.examples.myfirstpolicy.model.MFPDomainModelFactory;
+import org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
@@ -83,7 +83,7 @@ public abstract class TestMfpModelCreator implements TestApexModelCreator<AxPoli
          */
         @Override
         public AxPolicyModel getModel() {
-            return new MFPDomainModelFactory().getMFP1PolicyModel();
+            return new MfpDomainModelFactory().getMfp1PolicyModel();
         }
     }
 
@@ -99,7 +99,7 @@ public abstract class TestMfpModelCreator implements TestApexModelCreator<AxPoli
          */
         @Override
         public AxPolicyModel getModel() {
-            return new MFPDomainModelFactory().getMFP2PolicyModel();
+            return new MfpDomainModelFactory().getMfp2PolicyModel();
         }
     }
 

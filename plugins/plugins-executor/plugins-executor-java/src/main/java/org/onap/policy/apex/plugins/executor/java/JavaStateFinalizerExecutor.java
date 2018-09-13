@@ -65,17 +65,17 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
     /**
      * Executes the executor for the state finalizer logic in a sequential manner.
      *
-     * @param executionID the execution ID for the current APEX policy execution
+     * @param executionId the execution ID for the current APEX policy execution
      * @param incomingFields the incoming fields for finalisation
      * @return The state output for the state
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public String execute(final long executionID, final Map<String, Object> incomingFields)
+    public String execute(final long executionId, final Map<String, Object> incomingFields)
             throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionID, incomingFields);
+        executePre(executionId, incomingFields);
 
         // Check and execute the Java logic
         boolean returnValue = false;
@@ -84,7 +84,7 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
             // StateFinalizerExecutionContext executor) throws ApexException"
             // to invoke the
             // task logic in the Java class
-            final Method method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput",
+            final Method method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput", (Class[])
                     new Class[] { StateFinalizerExecutionContext.class });
             returnValue = (boolean) method.invoke(stateFinalizerLogicObject, getExecutionContext());
         } catch (final Exception e) {

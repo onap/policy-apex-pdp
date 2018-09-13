@@ -31,32 +31,67 @@ public class ApexRestRequest {
     private Object event;
     private long timestamp;
 
+    /**
+     * Instantiates a new apex rest request.
+     *
+     * @param executionId the execution id
+     * @param eventName the event name
+     * @param event the event
+     */
     public ApexRestRequest(final long executionId, final String eventName, final Object event) {
         this.executionId = executionId;
         this.eventName = eventName;
         this.event = event;
     }
 
+    /**
+     * Gets the execution id.
+     *
+     * @return the execution id
+     */
     public long getExecutionId() {
         return executionId;
     }
 
+    /**
+     * Gets the event name.
+     *
+     * @return the event name
+     */
     public String getEventName() {
         return eventName;
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public Object getEvent() {
         return event;
     }
 
+    /**
+     * Gets the timestamp.
+     *
+     * @return the timestamp
+     */
     public long getTimestamp() {
         return timestamp;
     }
 
+    /**
+     * Sets the timestamp.
+     *
+     * @param timestamp the new timestamp
+     */
     public void setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "ApexRestRequest [executionId=" + executionId + ", eventName=" + eventName + ", event=" + event

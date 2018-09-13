@@ -23,6 +23,7 @@ package org.onap.policy.apex.service.parameters.engineservice;
 import java.io.File;
 import java.net.URL;
 
+import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.service.parameters.ApexParameterConstants;
@@ -30,8 +31,6 @@ import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.resources.ResourceUtils;
-
-import org.onap.policy.apex.core.engine.EngineParameters;
 
 /**
  * This class holds the parameters for an Apex Engine Service with multiple engine threads running multiple engines.
@@ -315,7 +314,7 @@ public class EngineServiceParameters implements ParameterGroup {
     }
 
     /**
-     * Validate the policy model file name parameter
+     * Validate the policy model file name parameter.
      * @param result the variable in which to store the result of the validation
      */
     private void validatePolicyModelFileName(final GroupValidationResult result) {
@@ -327,11 +326,11 @@ public class EngineServiceParameters implements ParameterGroup {
         
         // The file name can refer to a resource on the local file system or on the class
         // path
-        final URL fileURL = ResourceUtils.getUrl4Resource(policyModelFileName);
-        if (fileURL == null) {
+        final URL fileUrl = ResourceUtils.getUrl4Resource(policyModelFileName);
+        if (fileUrl == null) {
             result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found or is not a plain file");
         } else {
-            final File policyModelFile = new File(fileURL.getPath());
+            final File policyModelFile = new File(fileUrl.getPath());
             if (!policyModelFile.isFile()) {
                 result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found or is not a plain file");
             }

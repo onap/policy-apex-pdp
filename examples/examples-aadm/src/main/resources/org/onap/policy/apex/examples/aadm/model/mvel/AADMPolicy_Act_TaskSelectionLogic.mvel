@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ImsiStatus;
 import org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus;
 
 logger.debug(subject.id + ":" + subject.stateName + " execution logic");
@@ -25,7 +25,7 @@ logger.debug(inFields);
 
 logger.debug("inFields[SERVICE_REQUEST_COUNT]=" + inFields["SERVICE_REQUEST_COUNT"]);
 
-IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
+ImsiStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
 
 if (imsiStatus.getBlockingCount() > 1) {
     subject.getTaskKey("AADMNoActTask").copyTo(selectedTask);
@@ -33,7 +33,7 @@ if (imsiStatus.getBlockingCount() > 1) {
     return false;
 }
 
-logger.debug("imsi: " + imsiStatus.getIMSI() + " anamalous " + imsiStatus.getAnomalous());
+logger.debug("imsi: " + imsiStatus.getImsi() + " anamalous " + imsiStatus.getAnomalous());
 
 // check if this is second iteration
 if (inFields["TCP_UE_SIDE_AVG_THROUGHPUT"] != null && inFields["TCP_UE_SIDE_AVG_THROUGHPUT"] > 100 && imsiStatus.getAnomalous()) {
@@ -49,7 +49,7 @@ ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get((String)inF
 if (inFields["SERVICE_REQUEST_COUNT"] != null &&
         inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] != null &&
         inFields["SERVICE_REQUEST_COUNT"] > inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] &&
-        eNodeBStatus != null && eNodeBStatus.getDOSCount() > 100 &&
+        eNodeBStatus != null && eNodeBStatus.getDosCount() > 100 &&
         inFields["NUM_SUBSCRIBERS"] != null && inFields["NUM_SUBSCRIBERS"]  > 100) {
     logger.debug("inside NUM_SUBSCRIBERS");
     subject.getTaskKey("AADMDoSProvenActTask").copyTo(selectedTask);

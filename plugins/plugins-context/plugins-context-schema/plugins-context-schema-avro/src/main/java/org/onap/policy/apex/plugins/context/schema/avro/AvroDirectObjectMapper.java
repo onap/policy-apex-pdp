@@ -132,7 +132,7 @@ public class AvroDirectObjectMapper implements AvroObjectMapper {
         // the decoded object is always returned as a null
         if (!schemaClass.isAssignableFrom(avroObject.getClass())) {
             final String returnString =
-                    userKey.getId() + ": object \"" + avroObject + "\" of class \"" + avroObject.getClass()
+                            userKey.getId() + ": object \"" + avroObject + "\" of class \"" + avroObject.getClass()
                             + "\" cannot be decoded to an object of class \"" + schemaClass.getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -150,13 +150,11 @@ public class AvroDirectObjectMapper implements AvroObjectMapper {
     @Override
     public Object mapToAvro(final Object object) {
         // Null values are only allowed if the schema class is null
-        if (object == null) {
-            if (schemaClass != null) {
-                final String returnString = userKey.getId() + ": cannot encode a null object of class \""
-                        + schemaClass.getCanonicalName() + "\"";
-                LOGGER.warn(returnString);
-                throw new ContextRuntimeException(returnString);
-            }
+        if (object == null && schemaClass != null) {
+            final String returnString = userKey.getId() + ": cannot encode a null object of class \""
+                            + schemaClass.getCanonicalName() + "\"";
+            LOGGER.warn(returnString);
+            throw new ContextRuntimeException(returnString);
         }
 
         // For direct mappings, just work directly with the Java objects

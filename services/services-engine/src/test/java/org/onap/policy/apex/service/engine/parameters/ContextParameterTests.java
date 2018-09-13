@@ -65,8 +65,8 @@ public class ContextParameterTests {
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from \"src/test/resources/parameters/serviceContextBadParams.json\""
                             + "\n(ParameterRuntimeException):failed to deserialize the parameters for "
-                            + "\"contextParameters\" to parameter class \"hello\"\njava.lang.ClassNotFoundException: hello",
-                            e.getMessage());
+                            + "\"contextParameters\" to parameter class "
+                            + "\"hello\"\njava.lang.ClassNotFoundException: hello", e.getMessage());
         }
     }
 
@@ -97,8 +97,10 @@ public class ContextParameterTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertEquals("error reading parameters from \"src/test/resources/parameters/serviceContextBadClassParams.json\""
-                            + "\n(ParameterRuntimeException):failed to deserialize the parameters for \"contextParameters\""
+            assertEquals("error reading parameters from "
+                            + "\"src/test/resources/parameters/serviceContextBadClassParams.json\""
+                            + "\n(ParameterRuntimeException):failed to deserialize "
+                            + "the parameters for \"contextParameters\""
                             + " to parameter class \"java.lang.Integer\"\ncom.google.gson.JsonSyntaxException: "
                             + "java.lang.IllegalStateException: Expected NUMBER but was BEGIN_OBJECT at path $",
                             e.getMessage());
@@ -253,7 +255,8 @@ public class ContextParameterTests {
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
                             + "\"src/test/resources/parameters/serviceContextBadClassDistParams.json\"\n"
-                            + "(ClassCastException):org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to"
+                            + "(ClassCastException):"
+                            + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to"
                             + " org.onap.policy.apex.context.parameters.DistributorParameters", e.getMessage());
         }
     }
@@ -270,7 +273,8 @@ public class ContextParameterTests {
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
                             + "\"src/test/resources/parameters/serviceContextBadClassLockParams.json\"\n"
-                            + "(ClassCastException):org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to"
+                            + "(ClassCastException):"
+                            + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to"
                             + " org.onap.policy.apex.context.parameters.LockManagerParameters", e.getMessage());
         }
     }
@@ -287,7 +291,8 @@ public class ContextParameterTests {
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
                             + "\"src/test/resources/parameters/serviceContextBadClassPersistParams.json\"\n"
-                            + "(ClassCastException):org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to"
+                            + "(ClassCastException):"
+                            + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to"
                             + " org.onap.policy.apex.context.parameters.PersistorParameters", e.getMessage());
         }
     }

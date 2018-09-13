@@ -52,7 +52,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
     private static final long REST_CLIENT_WAIT_SLEEP_TIME = 50;
 
     // The REST parameters read from the parameter service
-    private RESTClientCarrierTechnologyParameters restConsumerProperties;
+    private RestClientCarrierTechnologyParameters restConsumerProperties;
 
     // The event receiver that will receive events from this consumer
     private ApexEventReceiver eventReceiver;
@@ -77,22 +77,22 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
         this.name = consumerName;
 
         // Check and get the REST Properties
-        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RESTClientCarrierTechnologyParameters)) {
+        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RestClientCarrierTechnologyParameters)) {
             final String errorMessage = "specified consumer properties are not applicable to REST client consumer ("
                             + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        restConsumerProperties = (RESTClientCarrierTechnologyParameters) consumerParameters
+        restConsumerProperties = (RestClientCarrierTechnologyParameters) consumerParameters
                         .getCarrierTechnologyParameters();
 
         // Check if the HTTP method has been set
         if (restConsumerProperties.getHttpMethod() == null) {
-            restConsumerProperties.setHttpMethod(RESTClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD);
+            restConsumerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD);
         }
 
         if (!restConsumerProperties.getHttpMethod()
-                        .equalsIgnoreCase(RESTClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD)) {
+                        .equalsIgnoreCase(RestClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD)) {
             final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
                             + "\" is invalid, only HTTP method \"GET\" "
                             + "is supported for event reception on REST client consumer (" + this.name + ")";
@@ -214,17 +214,17 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 }
 
                 // Get the event we received
-                final String eventJSONString = response.readEntity(String.class);
+                final String eventJsonString = response.readEntity(String.class);
 
                 // Check there is content
-                if (eventJSONString == null || eventJSONString.trim().length() == 0) {
+                if (eventJsonString == null || eventJsonString.trim().length() == 0) {
                     final String errorMessage = "received an empty event from URL \"" + restConsumerProperties.getUrl()
                                     + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
                 // Send the event into Apex
-                eventReceiver.receiveEvent(eventJSONString);
+                eventReceiver.receiveEvent(eventJsonString);
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }

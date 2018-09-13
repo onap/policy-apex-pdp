@@ -37,6 +37,9 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEvent extends HashMap<String, Object> implements Serializable {
+    // Recurring string constants
+    private static final String EVENT_PREAMBLE = "event \"";
+
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEvent.class);
 
     private static final long serialVersionUID = -4451918242101961685L;
@@ -111,7 +114,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
 
     // An identifier for the current event execution. The default value here will always be unique
     // in a single JVM
-    private long executionID = ApexEvent.getNextExecutionID();
+    private long executionId = ApexEvent.getNextExecutionId();
 
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;
@@ -122,7 +125,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * 
      * @return the next candidate value for a Execution ID
      */
-    private static synchronized long getNextExecutionID() {
+    private static synchronized long getNextExecutionId() {
         return nextExecutionID.getAndIncrement();
     }
 
@@ -139,11 +142,11 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     public ApexEvent(final String name, final String version, final String nameSpace, final String source,
             final String target) throws ApexEventException {
         // @formatter:off
-        this.name      = validateField("name",      name,      NAME_REGEXP);
-        this.version   = validateField("version",   version,   VERSION_REGEXP);
-        this.nameSpace = validateField("nameSpace", nameSpace, NAMESPACE_REGEXP);
-        this.source    = validateField("source",    source,    SOURCE_REGEXP);
-        this.target    = validateField("target",    target,    TARGET_REGEXP);
+        this.name      = validateField(NAME_HEADER_FIELD,      name,      NAME_REGEXP);
+        this.version   = validateField(VERSION_HEADER_FIELD,   version,   VERSION_REGEXP);
+        this.nameSpace = validateField(NAMESPACE_HEADER_FIELD, nameSpace, NAMESPACE_REGEXP);
+        this.source    = validateField(SOURCE_HEADER_FIELD,    source,    SOURCE_REGEXP);
+        this.target    = validateField(TARGET_HEADER_FIELD,    target,    TARGET_REGEXP);
         // @formatter:on
     }
 
@@ -161,10 +164,10 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         if (fieldValue.matches(fieldRegexp)) {
             return fieldValue;
         } else {
-            LOGGER.warn("event \"" + name + ": field \"" + fieldName + "=" + fieldValue
-                    + "\"  is illegal. It doesn't match regex '" + fieldRegexp + "'");
-            throw new ApexEventException(
-                    "event \"" + name + ": field \"" + fieldName + "=" + fieldValue + "\"  is illegal");
+            String message = EVENT_PREAMBLE + name + ": field \"" + fieldName + "=" + fieldValue
+                    + "\"  is illegal. It doesn't match regex '" + fieldRegexp + "'";
+            LOGGER.warn(message);
+            throw new ApexEventException(message);
         }
     }
 
@@ -179,8 +182,9 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         if (key.matches(AxReferenceKey.LOCAL_NAME_REGEXP)) {
             return key;
         } else {
-            LOGGER.warn("event \"" + name + ": key \"" + key + "\" is illegal");
-            throw new ApexEventException("event \"" + name + ": key \"" + key + "\" is illegal");
+            String message = EVENT_PREAMBLE + name + ": key \"" + key + "\" is illegal";
+            LOGGER.warn(message);
+            throw new ApexEventException(message);
         }
     }
 
@@ -234,8 +238,8 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      *
      * @return the executionID
      */
-    public long getExecutionID() {
-        return executionID;
+    public long getExecutionId() {
+        return executionId;
     }
 
     /**
@@ -243,10 +247,10 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * unique in the current JVM. For some applications/deployments this executionID may need to
      * globally unique
      *
-     * @param executionID the executionID
+     * @param executionId the executionID
      */
-    public void setExecutionID(final long executionID) {
-        this.executionID = executionID;
+    public void setExecutionId(final long executionId) {
+        this.executionId = executionId;
     }
 
     /**
@@ -330,7 +334,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         builder.append(",target=");
         builder.append(target);
         builder.append(",executionID=");
-        builder.append(executionID);
+        builder.append(executionId);
         builder.append(",exceptionMessage=");
         builder.append(exceptionMessage);
         builder.append(",");

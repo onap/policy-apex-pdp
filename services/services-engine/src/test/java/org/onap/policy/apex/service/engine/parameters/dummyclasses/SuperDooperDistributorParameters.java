@@ -74,8 +74,8 @@ public class SuperDooperDistributorParameters extends DistributorParameters {
         return jgroupsBindAddress;
     }
 
-    public void setjGroupsBindAddress(final String jGroupsBindAddress) {
-        this.jgroupsBindAddress = jGroupsBindAddress;
+    public void setjGroupsBindAddress(final String jgroupsBindAddress) {
+        this.jgroupsBindAddress = jgroupsBindAddress;
     }
 
     @Override

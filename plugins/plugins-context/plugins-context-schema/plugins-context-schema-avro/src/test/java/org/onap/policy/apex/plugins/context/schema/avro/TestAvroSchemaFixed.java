@@ -43,6 +43,8 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
+ * The Class TestAvroSchemaFixed.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @version
  */
@@ -51,6 +53,11 @@ public class TestAvroSchemaFixed {
     private AxContextSchemas schemas;
     private String fixedSchema;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
@@ -58,24 +65,35 @@ public class TestAvroSchemaFixed {
         fixedSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/FixedSchema.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
         ParameterService.register(schemaParameters);
-        
+
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test fixed init.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testFixedInit() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", fixedSchema);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        fixedSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -84,9 +102,9 @@ public class TestAvroSchemaFixed {
             schemaHelper.createNewInstance();
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: could not create an instance of class \"org.apache.avro.generic.GenericData.Fixed\" using the default constructor \"Fixed()\"",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: could not create an instance "
+                            + "of class \"org.apache.avro.generic.GenericData.Fixed\" "
+                            + "using the default constructor \"Fixed()\"", e.getMessage());
         }
 
         final String inString = TextFileUtils.getTextFileAsString("src/test/resources/data/FixedExampleGood.json");
@@ -95,10 +113,15 @@ public class TestAvroSchemaFixed {
         assertTrue(newFixedFull.toString().endsWith("53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70]"));
     }
 
+    /**
+     * Test fixed unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testFixedUnmarshalMarshal() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", fixedSchema);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO",
+                        fixedSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -110,33 +133,39 @@ public class TestAvroSchemaFixed {
             fail("This test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                    e.getMessage());
+                            e.getMessage());
         }
         try {
             testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json");
             fail("This test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                    e.getMessage());
+                            e.getMessage());
         }
         try {
             testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad0.json");
             fail("This test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: object \"\"BADBAD\"\" Avro unmarshalling failed: Expected fixed length 64, but got6",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: object \"\"BADBAD\"\" "
+                            + "Avro unmarshalling failed: Expected fixed length 64, but got6", e.getMessage());
         }
         try {
             testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad1.json");
             fail("This test should throw an exception here");
         } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: object \"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" Avro unmarshalling failed: Expected fixed length 64, but got65",
-                    e.getMessage());
+            assertEquals("AvroTest:0.0.1: object "
+                            + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
+                            + "Avro unmarshalling failed: Expected fixed length 64, but got65", e.getMessage());
         }
     }
 
+    /**
+     * Test unmarshal marshal.
+     *
+     * @param schemaHelper the schema helper
+     * @param fileName the file name
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final Fixed decodedObject = (Fixed) schemaHelper.unmarshal(inString);

@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 import org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus;
-import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ImsiStatus;
 
 logger.debug(subject.id + ":" + subject.taskName + " execution logic");
 logger.debug(inFields);
@@ -44,10 +44,10 @@ else{
     outFields["NW_IP"] = inFields["SGW_IP_ADDRESS"];
 }
 
-IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
+ImsiStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
 logger.debug(imsiStatus);
 
-ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID());
+ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBId());
 eNodeBStatus.setBeingProbed(false);
 
 leaveProbingOn = false;
@@ -62,14 +62,14 @@ if (!leaveProbingOn) {
     outFields["TCP_ON"] = false;
 }
 
-eNodeBStatus.decrementDOSCount();
-logger.debug(eNodeBStatus.getENodeB() + ": dosCount is " + eNodeBStatus.getDOSCount());
+eNodeBStatus.decrementDosCount();
+logger.debug(eNodeBStatus.getENodeB() + ": dosCount is " + eNodeBStatus.getDosCount());
 
 imsiStatus.setAnomalous(false);
 
-logger.debug("imsi: " + imsiStatus.getIMSI() + " anamalous " + imsiStatus.getAnomalous());
+logger.debug("imsi: " + imsiStatus.getImsi() + " anamalous " + imsiStatus.getAnomalous());
 
-getContextAlbum("IMSIStatusAlbum")  .put(imsiStatus.getIMSI(),     imsiStatus);
+getContextAlbum("IMSIStatusAlbum")  .put(imsiStatus.getImsi(),     imsiStatus);
 getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);
 
 outFields["THRESHOLD"]    = 0;

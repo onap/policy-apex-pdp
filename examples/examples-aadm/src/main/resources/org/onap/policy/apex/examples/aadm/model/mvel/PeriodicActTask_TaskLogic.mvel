@@ -17,15 +17,15 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ImsiStatus;
 
 logger.debug(subject.id + ":" + subject.taskName + " execution logic");
 logger.debug(inFields);
 
-for (IMSIStatus imsiStatus : getContextAlbum("IMSIStatusAlbum").values()) {
+for (ImsiStatus imsiStatus : getContextAlbum("IMSIStatusAlbum").values()) {
     if ((System.currentTimeMillis() - imsiStatus.getBlacklistedTime()) > 180000) {
         imsiStatus.setBlacklistedTime(0);
-        getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getIMSI(), imsiStatus);
+        getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getImsi(), imsiStatus);
     }
 }
 

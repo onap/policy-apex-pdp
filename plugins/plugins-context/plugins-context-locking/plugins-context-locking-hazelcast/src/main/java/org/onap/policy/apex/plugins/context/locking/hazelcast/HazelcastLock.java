@@ -20,11 +20,11 @@
 
 package org.onap.policy.apex.plugins.context.locking.hazelcast;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * This class maps a Hazelcast {@link ILock} to a Java {@link ReadWriteLock}.
@@ -33,7 +33,7 @@ import com.hazelcast.core.ILock;
  */
 public class HazelcastLock implements ReadWriteLock {
     // The Lock ID
-    private final String lockID;
+    private final String lockId;
 
     // The hazelcast lock
     private final ILock readLock;
@@ -46,7 +46,7 @@ public class HazelcastLock implements ReadWriteLock {
      * @param lockId The unique ID of the lock.
      */
     public HazelcastLock(final HazelcastInstance hazelcastInstance, final String lockId) {
-        lockID = lockId;
+        this.lockId = lockId;
 
         // Create the Hazelcast read and write locks
         readLock = hazelcastInstance.getLock(lockId + "_READ");
@@ -58,8 +58,8 @@ public class HazelcastLock implements ReadWriteLock {
      *
      * @return the lock ID
      */
-    public String getLockID() {
-        return lockID;
+    public String getLockId() {
+        return lockId;
     }
 
     /*

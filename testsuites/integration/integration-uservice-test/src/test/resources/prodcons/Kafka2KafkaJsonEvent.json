@@ -9,7 +9,7 @@
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
                 }
             }
         }
@@ -18,7 +18,7 @@
         "aProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "KAFKA",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
                 "parameters": {
                     "bootstrapServers": "localhost:39902",
                     "acks": "all",
@@ -40,7 +40,7 @@
         "aConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "KAFKA",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
                 "parameters": {
                     "bootstrapServers": "localhost:39902",
                     "groupId": "apex-group-id",

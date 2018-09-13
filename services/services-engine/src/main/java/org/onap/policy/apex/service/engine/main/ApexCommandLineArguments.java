@@ -42,6 +42,8 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexCommandLineArguments {
+    // Recurring string constants
+    private static final String FILE_PREAMBLE = " file \"";
     private static final int HELP_LINE_LENGTH = 120;
 
     // Apache Commons CLI options
@@ -181,12 +183,11 @@ public class ApexCommandLineArguments {
      * @return the help string
      */
     public String help(final String mainClassName) {
-        final HelpFormatter helpFormatter = new HelpFormatter();
         final StringWriter stringWriter = new StringWriter();
-        final PrintWriter stringPW = new PrintWriter(stringWriter);
+        final PrintWriter stringPrintWriter = new PrintWriter(stringWriter);
 
-        helpFormatter.printHelp(stringPW, HELP_LINE_LENGTH, mainClassName + " [options...]", "options", options, 0, 0,
-                "");
+        new HelpFormatter().printHelp(stringPrintWriter, HELP_LINE_LENGTH, mainClassName + " [options...]", "options",
+                        options, 0, 0, "");
 
         return stringWriter.toString();
     }
@@ -268,20 +269,20 @@ public class ApexCommandLineArguments {
         }
 
         // The file name can refer to a resource on the local file system or on the class path
-        final URL fileURL = ResourceUtils.getUrl4Resource(fileName);
-        if (fileURL == null) {
-            throw new ApexException(fileTag + " file \"" + fileName + "\" does not exist");
+        final URL fileUrl = ResourceUtils.getUrl4Resource(fileName);
+        if (fileUrl == null) {
+            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" does not exist");
         }
 
-        final File theFile = new File(fileURL.getPath());
+        final File theFile = new File(fileUrl.getPath());
         if (!theFile.exists()) {
-            throw new ApexException(fileTag + " file \"" + fileName + "\" does not exist");
+            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" does not exist");
         }
         if (!theFile.isFile()) {
-            throw new ApexException(fileTag + " file \"" + fileName + "\" is not a normal file");
+            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" is not a normal file");
         }
         if (!theFile.canRead()) {
-            throw new ApexException(fileTag + " file \"" + fileName + "\" is ureadable");
+            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" is ureadable");
         }
     }
 }

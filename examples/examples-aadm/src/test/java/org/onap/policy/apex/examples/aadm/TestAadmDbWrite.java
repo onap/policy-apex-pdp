@@ -44,7 +44,7 @@ public class TestAadmDbWrite {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
         connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
 
-        testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new TestAADMModelCreator());
+        testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new TestAadmModelCreator());
     }
 
     @After

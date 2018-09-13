@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ImsiStatus;
 
 logger.debug(subject.id + ":" + subject.taskName + " execution logic");
 logger.debug(inFields);
@@ -38,7 +38,7 @@ if (outFields["IMSI"] == 0 && inFields["IMSI_IP"] != null && inFields["IMSI_IP"]
     return true;
 }
 
-IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
+ImsiStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
 logger.debug(imsiStatus);
 
 if (imsiStatus.getBlockingCount() > 1) {
@@ -62,8 +62,8 @@ if (imsiStatus.getBlockingCount() > 0 && imsiStatus.getBlacklistedTime() != 0) {
 imsiStatus.incrementBlockingCount();
 imsiStatus.setBlacklistedTime(System.currentTimeMillis());
 
-logger.debug("Bocking count for IMSI: " + imsiStatus.getIMSI() + " is: " + imsiStatus.getBlockingCount());
-getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getIMSI(), imsiStatus);
+logger.debug("Bocking count for IMSI: " + imsiStatus.getImsi() + " is: " + imsiStatus.getBlockingCount());
+getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getImsi(), imsiStatus);
 
 outFields["PROFILE"] = "ServiceA";
 outFields["BLACKLIST_ON"] = true;

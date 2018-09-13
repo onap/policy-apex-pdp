@@ -40,29 +40,40 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class TestAvroSchemaRecord.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * @version 
  */
 public class TestAvroSchemaRecord {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
     private String recordSchema;
-    private String recordSchemaVPN;
-    private String recordSchemaVPNReuse;
+    private String recordSchemaVpn;
+    private String recordSchemaVpnReuse;
     private String recordSchemaInvalidFields;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
         recordSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExample.avsc");
-        recordSchemaVPN = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleVPN.avsc");
-        recordSchemaVPNReuse = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleVPNReuse.avsc");
+        recordSchemaVpn = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleVPN.avsc");
+        recordSchemaVpnReuse = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleVPNReuse.avsc");
         recordSchemaInvalidFields =
                 TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleInvalidFields.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
@@ -72,11 +83,19 @@ public class TestAvroSchemaRecord {
         
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test record init.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testRecordInit() throws IOException {
         final AxContextSchema avroSchema =
@@ -93,6 +112,11 @@ public class TestAvroSchemaRecord {
         assertEquals("gobbledygook", newRecordFull.get("passwordHash").toString());
     }
 
+    /**
+     * Test record unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testRecordUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
@@ -105,6 +129,11 @@ public class TestAvroSchemaRecord {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/RecordExampleFull.json");
     }
 
+    /**
+     * Test record unmarshal marshal invalid.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testRecordUnmarshalMarshalInvalid() throws IOException {
         final AxContextSchema avroSchema =
@@ -116,10 +145,15 @@ public class TestAvroSchemaRecord {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/RecordExampleInvalidFields.json");
     }
 
+    /**
+     * Test VPN record unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
-    public void testVPNRecordUnmarshalMarshal() throws IOException {
+    public void testVpnRecordUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVPN);
+                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVpn);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -127,16 +161,28 @@ public class TestAvroSchemaRecord {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/RecordExampleVPNFull.json");
     }
 
+    /**
+     * Test VPN record reuse.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
-    public void testVPNRecordReuse() throws IOException {
+    public void testVpnRecordReuse() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVPNReuse);
+                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVpnReuse);
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
     }
 
+    /**
+     * Test unmarshal marshal.
+     *
+     * @param schemaHelper the schema helper
+     * @param fileName the file name
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final GenericRecord decodedObject = (GenericRecord) schemaHelper.unmarshal(inString);

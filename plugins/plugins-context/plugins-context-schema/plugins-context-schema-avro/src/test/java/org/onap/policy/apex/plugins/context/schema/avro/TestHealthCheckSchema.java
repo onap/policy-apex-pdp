@@ -44,6 +44,8 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
+ * The Class TestHealthCheckSchema.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestHealthCheckSchema {
@@ -51,6 +53,11 @@ public class TestHealthCheckSchema {
     private AxContextSchemas schemas;
     private String healthCheckSchema;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
@@ -59,24 +66,35 @@ public class TestHealthCheckSchema {
         healthCheckSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/HealthCheckBodyType.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
         ParameterService.register(schemaParameters);
-        
+
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test health check.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testHealthCheck() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", healthCheckSchema);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        healthCheckSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -89,15 +107,15 @@ public class TestHealthCheckSchema {
         final GenericRecord inputRecord = new GenericData.Record(healthCheckRecordSchema.getField("input").schema());
         final Schema inputRecordRecordSchema = inputRecord.getSchema();
 
-        final GenericRecord actionIndentifiersRecord =
-                new GenericData.Record(inputRecordRecordSchema.getField("action_DasH_identifiers").schema());
+        final GenericRecord actionIndentifiersRecord = new GenericData.Record(
+                        inputRecordRecordSchema.getField("action_DasH_identifiers").schema());
 
-        final GenericRecord commonHeaderRecord =
-                new GenericData.Record(inputRecordRecordSchema.getField("common_DasH_header").schema());
+        final GenericRecord commonHeaderRecord = new GenericData.Record(
+                        inputRecordRecordSchema.getField("common_DasH_header").schema());
         final Schema commonHeaderRecordSchema = commonHeaderRecord.getSchema();
 
-        final GenericRecord commonHeaderFlagsRecord =
-                new GenericData.Record(commonHeaderRecordSchema.getField("flags").schema());
+        final GenericRecord commonHeaderFlagsRecord = new GenericData.Record(
+                        commonHeaderRecordSchema.getField("flags").schema());
 
         healthCheckRecord.put("input", inputRecord);
         inputRecord.put("action_DasH_identifiers", actionIndentifiersRecord);
@@ -105,8 +123,8 @@ public class TestHealthCheckSchema {
         commonHeaderRecord.put("flags", commonHeaderFlagsRecord);
 
         inputRecord.put("action", "HealthCheck");
-        inputRecord.put("payload",
-                "{\"host-ip-address\":\"131.160.203.125\",\"input.url\":\"131.160.203.125/afr\",\"request-action-type\":\"GET\",\"request-action\":\"AFR\"}");
+        inputRecord.put("payload", "{\"host-ip-address\":\"131.160.203.125\",\"input.url\":\"131.160.203.125/afr\","
+                        + "\"request-action-type\":\"GET\",\"request-action\":\"AFR\"}");
 
         actionIndentifiersRecord.put("vnf_DasH_id", "49414df5-3482-4fd8-9952-c463dff2770b");
 
@@ -125,6 +143,13 @@ public class TestHealthCheckSchema {
         assertEquals(eventString.toString().replaceAll("\\s+", ""), outString.replaceAll("\\s+", ""));
     }
 
+    /**
+     * Test unmarshal marshal.
+     *
+     * @param schemaHelper the schema helper
+     * @param fileName the file name
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String inString = TextFileUtils.getTextFileAsString(fileName);
         final GenericRecord decodedObject = (GenericRecord) schemaHelper.unmarshal(inString);

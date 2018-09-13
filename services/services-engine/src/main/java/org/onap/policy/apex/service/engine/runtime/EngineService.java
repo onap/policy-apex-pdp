@@ -101,7 +101,7 @@ public interface EngineService {
     void updateModel(AxArtifactKey engineServiceKey, AxPolicyModel apexModel, boolean forceFlag) throws ApexException;
 
     /**
-     * This method returns the state of an engine service or engine.
+     * Return the state of an engine service or engine.
      *
      * @return The engine service or engine state
      */

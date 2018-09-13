@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 import org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus;
-import org.onap.policy.apex.examples.aadm.concepts.IMSIStatus;
+import org.onap.policy.apex.examples.aadm.concepts.ImsiStatus;
 
 logger.debug(subject.id + ":" + subject.taskName + " execution logic");
 logger.debug(inFields);
@@ -42,16 +42,16 @@ else {
     outFields["NW_IP"] = inFields["SGW_IP_ADDRESS"];
 }
 
-IMSIStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
+ImsiStatus imsiStatus = getContextAlbum("IMSIStatusAlbum").get((String)inFields["IMSI"]);
 logger.debug(imsiStatus);
 
-ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID());
+ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBId());
 logger.debug(eNodeBStatus);
 
-if (imsiStatus.getENodeBID() != null && !imsiStatus.getENodeBID().equals(inFields["ENODEB_ID"]) || inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] == null) {
+if (imsiStatus.getENodeBId() != null && !imsiStatus.getENodeBId().equals(inFields["ENODEB_ID"]) || inFields["AVG_SUBSCRIBER_SERVICE_REQUEST"] == null) {
     // if user moved enodeB remove him from previous one
-    if (imsiStatus.getENodeBID() != null) {
-        eNodeBStatus.decrementDOSCount();
+    if (imsiStatus.getENodeBId() != null) {
+        eNodeBStatus.decrementDosCount();
     }
 
     // if user became non anomalous return action
@@ -79,20 +79,20 @@ if (imsiStatus.getENodeBID() != null && !imsiStatus.getENodeBID().equals(inField
 
 imsiStatus.setAnomalous(true);
 imsiStatus.setAnomolousTime(System.currentTimeMillis());
-imsiStatus.setENodeBID(inFields["ENODEB_ID"]);
-getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getIMSI(), imsiStatus);
-logger.debug(imsiStatus.getENodeBID() + ": enodeb added to imsi ip added " + outFields["IMSI_IP"]);
+imsiStatus.setENodeBId(inFields["ENODEB_ID"]);
+getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getImsi(), imsiStatus);
+logger.debug(imsiStatus.getENodeBId() + ": enodeb added to imsi ip added " + outFields["IMSI_IP"]);
 
-ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID());
+ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBId());
 if (eNodeBStatus == null) {
-    eNodeBStatus = new ENodeBStatus(imsiStatus.getENodeBID());
+    eNodeBStatus = new ENodeBStatus(imsiStatus.getENodeBId());
     getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);
-    logger.debug("new eNodeB added " + getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBID()));
+    logger.debug("new eNodeB added " + getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBId()));
 }
 
-eNodeBStatus.incrementDOSCount();
+eNodeBStatus.incrementDosCount();
 getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);
-logger.debug(eNodeBStatus.getENodeB() + ": dosCount incremented to " + eNodeBStatus.getDOSCount());
+logger.debug(eNodeBStatus.getENodeB() + ": dosCount incremented to " + eNodeBStatus.getDosCount());
 
 outFields["PROBE_ON"]     = true;
 outFields["TCP_ON"]       = true;

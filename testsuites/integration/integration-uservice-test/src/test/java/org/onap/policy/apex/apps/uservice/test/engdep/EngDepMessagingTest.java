@@ -42,7 +42,7 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters;
+import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.test.common.model.SampleDomainModelFactory;
@@ -94,7 +94,7 @@ public class EngDepMessagingTest {
         engineServiceParameters.setDeploymentPort(58820);
         engineServiceParameters.setInstanceCount(3);
         engineServiceParameters.setId(100);
-        engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MVELExecutorParameters());
+        engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
 
         ParameterService.register(engineServiceParameters);
         ParameterService.register(engineServiceParameters.getEngineParameters());

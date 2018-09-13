@@ -45,7 +45,7 @@ public class XPathReader {
     private String xmlFileName = null;
     private InputStream xmlStream = null;
     private Document xmlDocument;
-    private XPath xPath;
+    private XPath xpath;
 
     /**
      * Construct Reader for the file passed in.
@@ -89,7 +89,7 @@ public class XPathReader {
                 return;
             }
 
-            xPath = XPathFactory.newInstance().newXPath();
+            xpath = XPathFactory.newInstance().newXPath();
             LOGGER.info("Initialized XPath reader");
         } catch (final Exception ex) {
             LOGGER.error("Error parsing XML file/stream from XPath reading, reason :\n" + ex.getMessage());
@@ -105,7 +105,7 @@ public class XPathReader {
      */
     public Object read(final String expression, final QName returnType) {
         try {
-            final XPathExpression xPathExpression = xPath.compile(expression);
+            final XPathExpression xPathExpression = xpath.compile(expression);
             return xPathExpression.evaluate(xmlDocument, returnType);
         } catch (final XPathExpressionException ex) {
             LOGGER.error("Failed to read XML file for XPath processing, reason:\n" + ex.getMessage());

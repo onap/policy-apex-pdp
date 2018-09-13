@@ -93,12 +93,29 @@ public class CharacterDelimitedTextBlockReader implements TextBlockReader {
             return new TextBlock(eofOnInputStream, null);
         }
 
-        // The initial nesting level of incoming text blocks is always zero
-        int nestingLevel = 0;
+        // Read the block of text
+        final StringBuilder textBlockBuilder = readTextBlockText();
 
+        // Condition the text block and return it
+        final String textBlock = textBlockBuilder.toString().trim();
+        if (textBlock.length() > 0) {
+            return new TextBlock(eofOnInputStream, textBlock);
+        } else {
+            return new TextBlock(eofOnInputStream, null);
+        }
+    }
+
+    /**
+     * Read a block of text.
+     * @return A string builder containing the text
+     * @throws IOException on read errors
+     */
+    private StringBuilder readTextBlockText() throws IOException {
         // Holder for the text block
         final StringBuilder textBlockBuilder = new StringBuilder();
 
+        int nestingLevel = 0;
+        
         // Read the next text block
         while (true) {
             final char nextChar = (char) inputStream.read();
@@ -106,13 +123,13 @@ public class CharacterDelimitedTextBlockReader implements TextBlockReader {
             // Check for EOF
             if (nextChar == (char) -1) {
                 eofOnInputStream = true;
-                break;
+                return textBlockBuilder;
             }
 
             if (nextChar == startTagChar) {
                 nestingLevel++;
             } else if (nestingLevel == 0 && !Character.isWhitespace(nextChar)) {
-                LOGGER.warn("invalid input on consumer: " + nextChar);
+                LOGGER.warn("invalid input on consumer: {}", nextChar);
                 continue;
             }
 
@@ -125,17 +142,9 @@ public class CharacterDelimitedTextBlockReader implements TextBlockReader {
                 }
 
                 if (nestingLevel == 0) {
-                    break;
+                    return textBlockBuilder;
                 }
             }
-        }
-
-        // Condition the text block and return it
-        final String textBlock = textBlockBuilder.toString().trim();
-        if (textBlock.length() > 0) {
-            return new TextBlock(eofOnInputStream, textBlock);
-        } else {
-            return new TextBlock(eofOnInputStream, null);
         }
     }
 }

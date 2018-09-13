@@ -146,15 +146,15 @@ public abstract class Message implements Serializable {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
 
-        final Message message = (Message) o;
+        final Message message = (Message) object;
 
         if (action != null ? !action.equals(message.action) : message.action != null) {
             return false;

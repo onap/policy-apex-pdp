@@ -78,12 +78,12 @@ public class ApplicationThreadFactory implements ThreadFactory {
      * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
      */
     @Override
-    public Thread newThread(final Runnable r) {
+    public Thread newThread(final Runnable runnable) {
         final Thread thisThread;
         if (stackSize > 0) {
-            thisThread = new Thread(group, r, name + ':' + nextThreadNumber.getAndIncrement(), stackSize);
+            thisThread = new Thread(group, runnable, name + ':' + nextThreadNumber.getAndIncrement(), stackSize);
         } else {
-            thisThread = new Thread(group, r, name + ':' + nextThreadNumber.getAndIncrement());
+            thisThread = new Thread(group, runnable, name + ':' + nextThreadNumber.getAndIncrement());
         }
         if (thisThread.isDaemon()) {
             thisThread.setDaemon(false);

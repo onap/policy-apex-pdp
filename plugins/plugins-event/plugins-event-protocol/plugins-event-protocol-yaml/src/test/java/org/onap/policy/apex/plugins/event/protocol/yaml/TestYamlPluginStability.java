@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.plugins.event.protocol.yaml;
 
 import static org.junit.Assert.assertEquals;
@@ -44,9 +45,17 @@ import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.common.parameters.ParameterService;
 
+/**
+ * The Class TestYamlPluginStability.
+ */
 public class TestYamlPluginStability {
     static AxEvent testEvent;
 
+    /**
+     * Register test events and schemas.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @BeforeClass
     public static void registerTestEventsAndSchemas() throws IOException {
         SchemaParameters schemaParameters = new SchemaParameters();
@@ -69,8 +78,6 @@ public class TestYamlPluginStability {
 
         ModelService.registerModel(AxContextSchemas.class, schemas);
 
-        AxEvents events = new AxEvents();
-
         testEvent = new AxEvent(new AxArtifactKey("TestEvent", "0.0.1"));
         testEvent.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
         AxField teField0 = new AxField(new AxReferenceKey(testEvent.getKey(), "intValue"), simpleIntSchema.getKey());
@@ -81,17 +88,27 @@ public class TestYamlPluginStability {
         AxField teField2 = new AxField(new AxReferenceKey(testEvent.getKey(), "stringValue"),
                         simpleStringSchema.getKey(), true);
         testEvent.getParameterMap().put("stringValue", teField2);
+
+        AxEvents events = new AxEvents();
         events.getEventMap().put(testEvent.getKey(), testEvent);
 
         ModelService.registerModel(AxEvents.class, events);
     }
 
+    /**
+     * Unregister test events and schemas.
+     */
     @AfterClass
     public static void unregisterTestEventsAndSchemas() {
         ModelService.clear();
         ParameterService.clear();
     }
 
+    /**
+     * Test stability.
+     *
+     * @throws ApexEventException the apex event exception
+     */
     @Test
     public void testStability() throws ApexEventException {
         Apex2YamlEventConverter converter = new Apex2YamlEventConverter();
@@ -220,7 +237,8 @@ public class TestYamlPluginStability {
                             e.getMessage().substring(0, 77));
         }
 
-        yamlInputString = "doubleValue: 123.45\n" + "intValue: 123\n" + "stringValue: org.onap.policy.apex.plugins.event.protocol.yaml";
+        yamlInputString = "doubleValue: 123.45\n" + "intValue: 123\n"
+                        + "stringValue: org.onap.policy.apex.plugins.event.protocol.yaml";
         eventList = converter.toApexEvent("TestEvent", yamlInputString);
         assertEquals("org.onap.policy.apex.plugins.event.protocol.yaml", eventList.get(0).getNameSpace());
 
@@ -249,7 +267,7 @@ public class TestYamlPluginStability {
         }
         pars.setTargetAlias(null);
 
-        yamlInputString = "doubleValue: 123.45\n" + "intValue: ~\n"+ "stringValue: MyString";
+        yamlInputString = "doubleValue: 123.45\n" + "intValue: ~\n" + "stringValue: MyString";
         try {
             converter.toApexEvent("TestEvent", yamlInputString);
             fail("this test should throw an exception");

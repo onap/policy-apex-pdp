@@ -33,9 +33,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class holds a cache of the synchronous events sent into Apex and that have not yet been
- * replied to. It runs a thread to time out events that have not been replied to in the specified
- * timeout.
+ * This class holds a cache of the synchronous events sent into Apex and that have not yet been replied to. It runs a
+ * thread to time out events that have not been replied to in the specified timeout.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -55,11 +54,10 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
     private long synchronousEventTimeout = DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT;
 
     // Map holding outstanding synchronous events
-    private final Map<Long, SimpleEntry<Long, Object>> toApexEventMap = new HashMap<Long, SimpleEntry<Long, Object>>();
+    private final Map<Long, SimpleEntry<Long, Object>> toApexEventMap = new HashMap<>();
 
     // Map holding reply events
-    private final Map<Long, SimpleEntry<Long, Object>> fromApexEventMap =
-            new HashMap<Long, SimpleEntry<Long, Object>>();
+    private final Map<Long, SimpleEntry<Long, Object>> fromApexEventMap = new HashMap<>();
 
     // The message listener thread and stopping flag
     private final Thread synchronousEventCacheThread;
@@ -71,11 +69,10 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
      * @param peeredMode the peered mode for which to return the reference
      * @param consumer the consumer that is populating the cache
      * @param producer the producer that is emptying the cache
-     * @param synchronousEventTimeout the time in milliseconds to wait for the reply to a sent
-     *        synchronous event
+     * @param synchronousEventTimeout the time in milliseconds to wait for the reply to a sent synchronous event
      */
     public SynchronousEventCache(final EventHandlerPeeredMode peeredMode, final ApexEventConsumer consumer,
-            final ApexEventProducer producer, final long synchronousEventTimeout) {
+                    final ApexEventProducer producer, final long synchronousEventTimeout) {
         super(peeredMode, consumer, producer);
 
         if (synchronousEventTimeout != 0) {
@@ -211,7 +208,8 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
         // Check if there are any unprocessed events
         if (!toApexEventMap.isEmpty()) {
-            LOGGER.warn(toApexEventMap.size() + " synchronous events dropped due to system shutdown");
+            String message = toApexEventMap.size() + " synchronous events dropped due to system shutdown";
+            LOGGER.warn(message);
         }
 
         toApexEventMap.clear();
@@ -226,7 +224,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
      * @param event the event to cache
      */
     private void cacheSynchronizedEvent(final Map<Long, SimpleEntry<Long, Object>> eventCacheMap,
-            final long executionId, final Object event) {
+                    final long executionId, final Object event) {
         LOGGER.entry("Adding event with execution ID: " + executionId);
 
         // Check if the event is already in the cache
@@ -234,7 +232,8 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
             // If there was no sent event then the event timed out or some unexpected event was
             // received
             final String errorMessage = "an event with ID " + executionId
-                    + " already exists in the synchronous event cache, execution IDs must be unique in the system";
+                            + " already exists in the synchronous event cache, "
+                            + "execution IDs must be unique in the system";
             LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
@@ -243,7 +242,8 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
         eventCacheMap.put(executionId, new SimpleEntry<Long, Object>(System.currentTimeMillis(), event));
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("event has been cached:" + event);
+            String message = "event has been cached:" + event;
+            LOGGER.debug(message);
         }
 
         LOGGER.exit("Added: " + executionId);
@@ -257,7 +257,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
      * @return The removed event
      */
     private Object removeCachedEventIfExists(final Map<Long, SimpleEntry<Long, Object>> eventCacheMap,
-            final long executionId) {
+                    final long executionId) {
         LOGGER.entry("Removing: " + executionId);
 
         final SimpleEntry<Long, Object> removedEventEntry = eventCacheMap.remove(executionId);
@@ -273,8 +273,8 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
     }
 
     /**
-     * Time out events on an event cache map. Events that have a timeout longer than the configured
-     * timeout are timed out.
+     * Time out events on an event cache map. Events that have a timeout longer than the configured timeout are timed
+     * out.
      * 
      * @param eventCacheMap the event cache to operate on
      */
@@ -293,12 +293,13 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
         }
 
         // Remove timed out events from the map
-        for (final long timedoutEventExecutionID : timedOutEventSet) {
+        for (final long timedoutEventExecutionId : timedOutEventSet) {
             // Remove the map entry and issue a warning
-            final SimpleEntry<Long, Object> timedOutEventEntry = eventCacheMap.remove(timedoutEventExecutionID);
+            final SimpleEntry<Long, Object> timedOutEventEntry = eventCacheMap.remove(timedoutEventExecutionId);
 
-            LOGGER.warn("synchronous event timed out, reply not received in " + synchronousEventTimeout
-                    + " milliseconds on event " + timedOutEventEntry.getValue());
+            String message = "synchronous event timed out, reply not received in " + synchronousEventTimeout
+                            + " milliseconds on event " + timedOutEventEntry.getValue();
+            LOGGER.warn(message);
         }
     }
 }

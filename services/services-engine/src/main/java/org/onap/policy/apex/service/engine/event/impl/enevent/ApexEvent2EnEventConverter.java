@@ -23,19 +23,18 @@ package org.onap.policy.apex.service.engine.event.impl.enevent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.onap.policy.apex.service.engine.event.ApexEvent;
-import org.onap.policy.apex.service.engine.event.ApexEventConverter;
-import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
-
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
+import org.onap.policy.apex.service.engine.event.ApexEvent;
+import org.onap.policy.apex.service.engine.event.ApexEventConverter;
+import org.onap.policy.apex.service.engine.event.ApexEventException;
+import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class ApexEvent2EnEventConverter converts externally facing {@link ApexEvent} instances to
@@ -90,7 +89,7 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
                 axEvent.getNameSpace(), axEvent.getSource(), axEvent.getTarget());
 
         // Copy the ExecutionID from the EnEvent into the ApexEvent
-        apexEvent.setExecutionID(enEvent.getExecutionId());
+        apexEvent.setExecutionId(enEvent.getExecutionId());
 
         // Copy he exception message to the Apex event if it is set
         if (enEvent.getExceptionMessage() != null) {
@@ -101,7 +100,7 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         apexEvent.putAll(enEvent);
 
         // Return the event in a single element
-        final ArrayList<ApexEvent> eventList = new ArrayList<ApexEvent>();
+        final ArrayList<ApexEvent> eventList = new ArrayList<>();
         eventList.add(apexEvent);
         return eventList;
     }
@@ -136,7 +135,7 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         enEvent.putAll(apexEvent);
 
         // copy the ExecutionID from the ApexEvent into the EnEvent
-        enEvent.setExecutionId(apexEvent.getExecutionID());
+        enEvent.setExecutionId(apexEvent.getExecutionId());
 
         return enEvent;
     }

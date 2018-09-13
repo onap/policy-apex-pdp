@@ -20,6 +20,9 @@
 
 package org.onap.policy.apex.plugins.context.distribution.hazelcast;
 
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+
 import java.util.Map;
 
 import org.onap.policy.apex.context.ContextException;
@@ -27,9 +30,6 @@ import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
 
 /**
  * This context distributor distributes context across threads in multiple JVMs on multiple hosts.
@@ -70,10 +70,18 @@ public class HazelcastContextDistributor extends AbstractDistributor {
 
         // Create the hazelcast instance if it does not already exist
         if (hazelcastInstance == null) {
-            hazelcastInstance = Hazelcast.newHazelcastInstance();
+            setHazelcastInstance(Hazelcast.newHazelcastInstance());
         }
 
         LOGGER.exit("init(" + key + ")");
+    }
+
+    /**
+     * Set the hazelcast instance statically.
+     * @param newHazelcastInstance the hazelcast instance
+     */
+    private static void setHazelcastInstance(HazelcastInstance newHazelcastInstance) {
+        hazelcastInstance = newHazelcastInstance;
     }
 
     /*
@@ -101,6 +109,6 @@ public class HazelcastContextDistributor extends AbstractDistributor {
         if (hazelcastInstance != null) {
             hazelcastInstance.shutdown();
         }
-        hazelcastInstance = null;
+        setHazelcastInstance(null);
     }
 }

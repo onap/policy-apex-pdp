@@ -20,6 +20,9 @@
 
 package org.onap.policy.apex.plugins.context.locking.hazelcast;
 
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.onap.policy.apex.context.ContextException;
@@ -27,9 +30,6 @@ import org.onap.policy.apex.context.impl.locking.AbstractLockManager;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
 
 /**
  * The Class HazelcastLockManager manages Hazelcast locks for locks on items in Apex context albums.

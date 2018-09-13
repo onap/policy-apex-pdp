@@ -9,7 +9,7 @@
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
                 }
             }
         }
@@ -18,7 +18,7 @@
         "aProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "JMS",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JmsCarrierTechnologyParameters",
                 "parameters": {
                     "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
@@ -31,7 +31,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JMSTEXT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JMSTextEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JmsTextEventProtocolParameters"
             }
         }
     },
@@ -39,7 +39,7 @@
         "aConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "JMS",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JmsCarrierTechnologyParameters",
                 "parameters": {
                     "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
@@ -51,7 +51,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JMSTEXT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JMSTextEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JmsTextEventProtocolParameters"
             }
         }
     }

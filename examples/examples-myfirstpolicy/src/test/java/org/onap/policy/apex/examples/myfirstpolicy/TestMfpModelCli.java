@@ -27,7 +27,7 @@ import java.io.IOException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.auth.clieditor.ApexCLIEditorMain;
+import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -71,8 +71,8 @@ public class TestMfpModelCli {
             { "-c", "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex", "-l",
                         tempLogFile2.getAbsolutePath(), "-o", tempModelFile2.getAbsolutePath() };
 
-        new ApexCLIEditorMain(testApexModel1CliArgs);
-        new ApexCLIEditorMain(testApexModel2CliArgs);
+        new ApexCommandLineEditorMain(testApexModel1CliArgs);
+        new ApexCommandLineEditorMain(testApexModel2CliArgs);
 
         final ApexModelReader<AxPolicyModel> reader = new ApexModelReader<>(AxPolicyModel.class);
         AxPolicyModel generatedmodel = reader.read(TextFileUtils.getTextFileAsString(tempModelFile1.getAbsolutePath()));

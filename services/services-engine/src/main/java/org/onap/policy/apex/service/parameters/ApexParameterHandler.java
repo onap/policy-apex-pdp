@@ -20,18 +20,18 @@
 
 package org.onap.policy.apex.service.parameters;
 
-import java.io.FileReader;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.FileReader;
 
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParametersJSONAdapter;
-import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParametersJSONAdapter;
+import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParametersJsonAdapter;
+import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParametersJsonAdapter;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
-import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParametersJSONAdapter;
+import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParametersJsonAdapter;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterException;
 import org.onap.policy.common.parameters.ParameterService;
@@ -56,7 +56,7 @@ public class ApexParameterHandler {
     public ApexParameters getParameters(final ApexCommandLineArguments arguments) throws ParameterException {
         // Clear all existing parameters
         ParameterService.clear();
-        
+
         ApexParameters parameters = null;
 
         // Read the parameters
@@ -65,11 +65,11 @@ public class ApexParameterHandler {
             // @formatter:off
             final Gson gson = new GsonBuilder()
                             .registerTypeAdapter(EngineParameters           .class, 
-                                            new EngineServiceParametersJSONAdapter())
+                                            new EngineServiceParametersJsonAdapter())
                             .registerTypeAdapter(CarrierTechnologyParameters.class, 
-                                            new CarrierTechnologyParametersJSONAdapter())
+                                            new CarrierTechnologyParametersJsonAdapter())
                             .registerTypeAdapter(EventProtocolParameters    .class, 
-                                            new EventProtocolParametersJSONAdapter())
+                                            new EventProtocolParametersJsonAdapter())
                             .create();
             // @formatter:on
             parameters = gson.fromJson(new FileReader(arguments.getFullConfigurationFilePath()), ApexParameters.class);
@@ -114,12 +114,13 @@ public class ApexParameterHandler {
 
         // Register the parameters with the parameter service
         registerParameters(parameters);
-        
+
         return parameters;
     }
 
     /**
-     * Register all the incoming parameters with the parameter service
+     * Register all the incoming parameters with the parameter service.
+     * 
      * @param parameters The parameters to register
      */
     private void registerParameters(ApexParameters parameters) {
@@ -127,9 +128,13 @@ public class ApexParameterHandler {
         ParameterService.register(parameters.getEngineServiceParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters());
-        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters().getSchemaParameters());
-        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters().getDistributorParameters());
-        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters().getLockManagerParameters());
-        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters().getPersistorParameters());
+        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getSchemaParameters());
+        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getDistributorParameters());
+        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getLockManagerParameters());
+        ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getPersistorParameters());
     }
 }

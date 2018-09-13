@@ -25,7 +25,7 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextTo
 /**
  * Event protocol parameters for YAML as an event protocol.
  *
- * The parameters for this plugin are:
+ * <p>The parameters for this plugin are:
  * <ol>
  * <li>nameAlias: The field in a YAML event to use as an alias for the event name. This parameter is
  * optional.

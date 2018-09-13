@@ -26,6 +26,9 @@ import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStri
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
+/**
+ * The Class WebSocketEventProducerClient.
+ */
 public class WebSocketEventProducerClient implements WsStringMessageListener {
     private final String host;
     private final int port;
@@ -36,6 +39,16 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
 
     WsStringMessageClient client;
 
+    /**
+     * Instantiates a new web socket event producer client.
+     *
+     * @param host the host
+     * @param port the port
+     * @param eventCount the event count
+     * @param xmlEvents the xml events
+     * @param eventInterval the event interval
+     * @throws MessagingException the messaging exception
+     */
     public WebSocketEventProducerClient(final String host, final int port, final int eventCount,
             final boolean xmlEvents, final long eventInterval) throws MessagingException {
         this.host = host;
@@ -51,6 +64,9 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
                 + ", event count " + eventCount + ", xmlEvents " + xmlEvents);
     }
 
+    /**
+     * Send events.
+     */
     public void sendEvents() {
         System.out.println(WebSocketEventProducerClient.class.getCanonicalName() + ": sending events on host " + host
                 + ", port " + port + ", event count " + eventCount + ", xmlEvents " + xmlEvents);
@@ -74,10 +90,18 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
         System.out.println(WebSocketEventProducerClient.class.getCanonicalName() + ": completed");
     }
 
+    /**
+     * Gets the events sent count.
+     *
+     * @return the events sent count
+     */
     public long getEventsSentCount() {
         return eventsSentCount;
     }
 
+    /**
+     * Shutdown.
+     */
     public void shutdown() {
         client.stop();
         System.out.println(WebSocketEventProducerClient.class.getCanonicalName() + ": stopped");
@@ -96,6 +120,12 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
                 + ", received event " + eventString);
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws MessagingException the messaging exception
+     */
     public static void main(final String[] args) throws MessagingException {
         if (args.length != 5) {
             System.err.println("usage WebSocketEventProducerClient host port #events XML|JSON eventInterval");

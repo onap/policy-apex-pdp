@@ -28,7 +28,6 @@ import java.util.Properties;
 
 import kafka.admin.AdminUtils;
 import kafka.admin.RackAwareMode;
-import kafka.server.BrokerState;
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
 import kafka.utils.TestUtils;
@@ -48,6 +47,9 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
 
+/**
+ * The Class TestKafka2Kafka.
+ */
 public class TestKafka2Kafka {
     // The method of starting an embedded Kafka server used in this example is based on the method
     // on stack overflow at
@@ -66,6 +68,11 @@ public class TestKafka2Kafka {
     private static ZkClient zkClient;
     private static KafkaServer kafkaServer;
 
+    /**
+     * Setup dummy kafka server.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @BeforeClass
     public static void setupDummyKafkaServer() throws IOException {
         // setup Zookeeper
@@ -95,6 +102,11 @@ public class TestKafka2Kafka {
         
     }
 
+    /**
+     * Shutdown dummy kafka server.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @AfterClass
     public static void shutdownDummyKafkaServer() throws IOException {
         if (kafkaServer != null) {
@@ -108,18 +120,39 @@ public class TestKafka2Kafka {
         }
     }
 
+    /**
+     * Test json kafka events.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     */
     @Test
     public void testJsonKafkaEvents() throws MessagingException, ApexException {
         final String[] args = {"src/test/resources/prodcons/Kafka2KafkaJsonEvent.json"};
         testKafkaEvents(args, false, "json");
     }
 
+    /**
+     * Test XML kafka events.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     */
     @Test
-    public void testXMLKafkaEvents() throws MessagingException, ApexException {
+    public void testXmlKafkaEvents() throws MessagingException, ApexException {
         final String[] args = {"src/test/resources/prodcons/Kafka2KafkaXmlEvent.json"};
         testKafkaEvents(args, true, "xml");
     }
 
+    /**
+     * Test kafka events.
+     *
+     * @param args the args
+     * @param xmlEvents the xml events
+     * @param topicSuffix the topic suffix
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     */
     private void testKafkaEvents(final String[] args, final Boolean xmlEvents, final String topicSuffix)
             throws MessagingException, ApexException {
         final KafkaEventSubscriber subscriber =

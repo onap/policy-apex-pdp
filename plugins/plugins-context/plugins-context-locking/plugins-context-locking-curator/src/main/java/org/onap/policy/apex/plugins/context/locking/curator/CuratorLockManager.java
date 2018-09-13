@@ -81,9 +81,10 @@ public class CuratorLockManager extends AbstractLockManager {
         // Check if the curator address has been set
         curatorZookeeperAddress = lockParameters.getZookeeperAddress();
         if (curatorZookeeperAddress == null || curatorZookeeperAddress.trim().length() == 0) {
-            LOGGER.warn("could not set up Curator locking, check if the curator Zookeeper address parameter is set correctly");
-            throw new ContextException(
-                            "could not set up Curator locking, check if the curator Zookeeper address parameter is set correctly");
+            String message = "could not set up Curator locking, "
+                            + "check if the curator Zookeeper address parameter is set correctly";
+            LOGGER.warn(message);
+            throw new ContextException(message);
         }
 
         // Set up the curator framework we'll use

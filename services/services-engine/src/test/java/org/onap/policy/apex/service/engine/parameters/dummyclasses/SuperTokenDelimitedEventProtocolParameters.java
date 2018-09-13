@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 
-import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JSONEventProtocolParameters;
+import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextTokenDelimitedParameters;
 
 /**
@@ -38,7 +38,7 @@ public class SuperTokenDelimitedEventProtocolParameters extends EventProtocolTex
      * the parameter service.
      */
     public SuperTokenDelimitedEventProtocolParameters() {
-        super(JSONEventProtocolParameters.class.getCanonicalName());
+        super(JsonEventProtocolParameters.class.getCanonicalName());
 
         // Set the event protocol properties for the JSON carrier technology
         this.setLabel(SUPER_TOKEN_EVENT_PROTOCOL_LABEL);

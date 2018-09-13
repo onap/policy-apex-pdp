@@ -38,9 +38,8 @@ import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-import org.yaml.snakeyaml.Yaml;
-
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * The Class Apex2YamlEventConverter converts {@link ApexEvent} instances to and from YAML string representations of
@@ -104,11 +103,10 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         // If the incoming YAML did not create a map it is a primitive type or a collection so we
         // convert it into a map for processing
         Map<?, ?> yamlMap;
-        if (yamlObject != null && yamlObject instanceof Map) {
+        if (yamlObject instanceof Map) {
             // We already have a map so just cast the object
             yamlMap = (Map<?, ?>) yamlObject;
-        }
-        else {
+        } else {
             // Create a single entry map, new map creation and assignment is to avoid a
             // type checking warning
             LinkedHashMap<String, Object> newYamlMap = new LinkedHashMap<>();
@@ -173,7 +171,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
                 continue;
             }
 
-            yamlMap.put(fieldName,  apexEvent.get(fieldName));
+            yamlMap.put(fieldName, apexEvent.get(fieldName));
         }
 
         // Use Snake YAML to convert the APEX event to YAML
@@ -187,11 +185,9 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      * @param eventName the name of the event
      * @param yamlMap the YAML map that holds the event
      * @return the apex event that we have converted the JSON object into
-     * @throws ApexEventException
-     *         thrown on unmarshaling exceptions
+     * @throws ApexEventException thrown on unmarshaling exceptions
      */
-    private ApexEvent yamlMap2ApexEvent(final String eventName, final Map<?, ?> yamlMap)
-                    throws ApexEventException {
+    private ApexEvent yamlMap2ApexEvent(final String eventName, final Map<?, ?> yamlMap) throws ApexEventException {
         // Process the mandatory Apex header
         final ApexEvent apexEvent = processApexEventHeader(eventName, yamlMap);
 
@@ -236,16 +232,10 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      * @throws ApexEventRuntimeException the apex event runtime exception
      * @throws ApexEventException on invalid events with missing header fields
      */
-    private ApexEvent processApexEventHeader(final String eventName,  final Map<?, ?> yamlMap)
+    private ApexEvent processApexEventHeader(final String eventName, final Map<?, ?> yamlMap)
                     throws ApexEventException {
-        // Get the event header fields
-        // @formatter:off
-        String name      = getYamlStringField(yamlMap, ApexEvent.NAME_HEADER_FIELD,      yamlPars.getNameAlias(),      ApexEvent.NAME_REGEXP,      false);
-        String version   = getYamlStringField(yamlMap, ApexEvent.VERSION_HEADER_FIELD,   yamlPars.getVersionAlias(),   ApexEvent.VERSION_REGEXP,   false);
-        String namespace = getYamlStringField(yamlMap, ApexEvent.NAMESPACE_HEADER_FIELD, yamlPars.getNameSpaceAlias(), ApexEvent.NAMESPACE_REGEXP, false);
-        String source    = getYamlStringField(yamlMap, ApexEvent.SOURCE_HEADER_FIELD,    yamlPars.getSourceAlias(),    ApexEvent.SOURCE_REGEXP,    false);
-        String target    = getYamlStringField(yamlMap, ApexEvent.TARGET_HEADER_FIELD,    yamlPars.getTargetAlias(),    ApexEvent.TARGET_REGEXP,    false);
-        // @formatter:on
+        String name = getYamlStringField(yamlMap, ApexEvent.NAME_HEADER_FIELD, yamlPars.getNameAlias(),
+                        ApexEvent.NAME_REGEXP, false);
 
         // Check that an event name has been specified
         if (name == null && eventName == null) {
@@ -256,14 +246,16 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         // Check if an event name was specified on the event parameters
         if (eventName != null) {
             if (name != null && !eventName.equals(name)) {
-                LOGGER.warn("The incoming event name \"{}\" does not match the configured event name \"{}\", using configured event name",
-                                name, eventName);
+                LOGGER.warn("The incoming event name \"{}\" does not match the configured event name \"{}\", "
+                                + "using configured event name", name, eventName);
             }
             name = eventName;
         }
 
         // Now, find the event definition in the model service. If version is null, the newest event
         // definition in the model service is used
+        String version = getYamlStringField(yamlMap, ApexEvent.VERSION_HEADER_FIELD, yamlPars.getVersionAlias(),
+                        ApexEvent.VERSION_REGEXP, false);
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(name, version);
         if (eventDefinition == null) {
             throw new ApexEventRuntimeException("an event definition for an event named \"" + name
@@ -276,6 +268,8 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         }
 
         // Check the name space is OK if it is defined, if not, use the name space from the model
+        String namespace = getYamlStringField(yamlMap, ApexEvent.NAMESPACE_HEADER_FIELD, yamlPars.getNameSpaceAlias(),
+                        ApexEvent.NAMESPACE_REGEXP, false);
         if (namespace != null) {
             if (!namespace.equals(eventDefinition.getNameSpace())) {
                 throw new ApexEventRuntimeException("namespace \"" + namespace + "\" on event \"" + name
@@ -287,11 +281,15 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         }
 
         // For source, use the defined source only if the source is not found on the incoming event
+        String source = getYamlStringField(yamlMap, ApexEvent.SOURCE_HEADER_FIELD, yamlPars.getSourceAlias(),
+                        ApexEvent.SOURCE_REGEXP, false);
         if (source == null) {
             source = eventDefinition.getSource();
         }
 
         // For target, use the defined source only if the source is not found on the incoming event
+        String target = getYamlStringField(yamlMap, ApexEvent.TARGET_HEADER_FIELD, yamlPars.getTargetAlias(),
+                        ApexEvent.TARGET_REGEXP, false);
         if (target == null) {
             target = eventDefinition.getTarget();
         }
@@ -302,22 +300,16 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
     /**
      * This method gets an event string field from a JSON object.
      *
-     * @param yamlMap
-     *        the YAML containing the YAML representation of the incoming event
-     * @param fieldName
-     *        the field name to find in the event
-     * @param fieldAlias
-     *        the alias for the field to find in the event, overrides the field name if it is not null
-     * @param fieldRE
-     *        the regular expression to check the field against for validity
-     * @param mandatory
-     *        true if the field is mandatory
+     * @param yamlMap the YAML containing the YAML representation of the incoming event
+     * @param fieldName the field name to find in the event
+     * @param fieldAlias the alias for the field to find in the event, overrides the field name if it is not null
+     * @param fieldRegexp the regular expression to check the field against for validity
+     * @param mandatory true if the field is mandatory
      * @return the value of the field in the JSON object or null if the field is optional
-     * @throws ApexEventRuntimeException
-     *         the apex event runtime exception
+     * @throws ApexEventRuntimeException the apex event runtime exception
      */
     private String getYamlStringField(final Map<?, ?> yamlMap, final String fieldName, final String fieldAlias,
-                    final String fieldRE, final boolean mandatory) {
+                    final String fieldRegexp, final boolean mandatory) {
         // Get the YAML field for the string field
         final Object yamlField = getYamlField(yamlMap, fieldName, fieldAlias, mandatory);
 
@@ -335,12 +327,12 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         final String fieldValueString = (String) yamlField;
 
         // Is regular expression checking required
-        if (fieldRE == null) {
+        if (fieldRegexp == null) {
             return fieldValueString;
         }
 
         // Check the event field against its regular expression
-        if (!fieldValueString.matches(fieldRE)) {
+        if (!fieldValueString.matches(fieldRegexp)) {
             throw new ApexEventRuntimeException(
                             "field \"" + fieldName + "\" with value \"" + fieldValueString + "\" is invalid");
         }
@@ -351,17 +343,12 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
     /**
      * This method gets an event field from a YAML object.
      *
-     * @param yamlMap
-     *        the YAML containing the YAML representation of the incoming event
-     * @param fieldName
-     *        the field name to find in the event
-     * @param fieldAlias
-     *        the alias for the field to find in the event, overrides the field name if it is not null
-     * @param mandatory
-     *        true if the field is mandatory
+     * @param yamlMap the YAML containing the YAML representation of the incoming event
+     * @param fieldName the field name to find in the event
+     * @param fieldAlias the alias for the field to find in the event, overrides the field name if it is not null
+     * @param mandatory true if the field is mandatory
      * @return the value of the field in the YAML object or null if the field is optional
-     * @throws ApexEventRuntimeException
-     *         the apex event runtime exception
+     * @throws ApexEventRuntimeException the apex event runtime exception
      */
     private Object getYamlField(final Map<?, ?> yamlMap, final String fieldName, final String fieldAlias,
                     final boolean mandatory) {

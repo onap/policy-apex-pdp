@@ -43,8 +43,10 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
+ * The Class TestAvroSchemaMap.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
+ * @version 
  */
 public class TestAvroSchemaMap {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
@@ -53,6 +55,11 @@ public class TestAvroSchemaMap {
     private String addressMapSchema;
     private String addressMapSchemaInvalidFields;
 
+    /**
+     * Inits the test.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Before
     public void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
@@ -63,6 +70,9 @@ public class TestAvroSchemaMap {
                 TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleAddressInvalidFields.avsc");
     }
 
+    /**
+     * Inits the context.
+     */
     @Before
     public void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
@@ -72,11 +82,19 @@ public class TestAvroSchemaMap {
         
     }
 
+    /**
+     * Clear context.
+     */
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
+    /**
+     * Test map init.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testMapInit() throws IOException {
         final AxContextSchema avroSchema =
@@ -95,6 +113,11 @@ public class TestAvroSchemaMap {
                 newMapFull.get(new Utf8("address2")).toString());
     }
 
+    /**
+     * Test long map unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testLongMapUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
@@ -107,6 +130,11 @@ public class TestAvroSchemaMap {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/MapExampleLongFull.json");
     }
 
+    /**
+     * Test address map unmarshal marshal.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testAddressMapUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
@@ -119,6 +147,11 @@ public class TestAvroSchemaMap {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/MapExampleAddressFull.json");
     }
 
+    /**
+     * Test address map unmarshal marshal invalid fields.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Test
     public void testAddressMapUnmarshalMarshalInvalidFields() throws IOException {
         final AxContextSchema avroSchema =
@@ -130,6 +163,13 @@ public class TestAvroSchemaMap {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/MapExampleAddressInvalidFields.json");
     }
 
+    /**
+     * Test unmarshal marshal.
+     *
+     * @param schemaHelper the schema helper
+     * @param fileName the file name
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
         final String originalInString = TextFileUtils.getTextFileAsString(fileName);
         final HashMap<?, ?> firstDecodedMap = (HashMap<?, ?>) schemaHelper.unmarshal(originalInString);

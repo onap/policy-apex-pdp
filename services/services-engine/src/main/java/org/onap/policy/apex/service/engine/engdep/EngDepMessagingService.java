@@ -22,14 +22,13 @@ package org.onap.policy.apex.service.engine.engdep;
 
 import java.net.InetSocketAddress;
 
-import org.onap.policy.apex.service.engine.runtime.EngineService;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingServiceFactory;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.core.protocols.Message;
+import org.onap.policy.apex.service.engine.runtime.EngineService;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class EngDepMessagingService is used to encapsulate the server side of EngDep communication.
