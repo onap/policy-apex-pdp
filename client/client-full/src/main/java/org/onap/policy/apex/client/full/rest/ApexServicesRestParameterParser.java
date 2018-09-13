@@ -81,7 +81,7 @@ public class ApexServicesRestParameterParser {
         }
         try {
             if (commandLine.hasOption('p')) {
-                parameters.setRESTPort(((Number) commandLine.getParsedOptionValue("port")).intValue());
+                parameters.setRestPort(((Number) commandLine.getParsedOptionValue("port")).intValue());
             }
         } catch (final ParseException e) {
             throw new ApexServicesRestParameterException("error parsing argument \"port\" :" + e.getMessage(), e);

@@ -55,6 +55,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 import org.onap.policy.apex.tools.common.OutputFile;
 import org.onap.policy.apex.tools.model.generator.KeyInfoGetter;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 import org.stringtemplate.v4.ST;
 
 /**
@@ -63,6 +65,8 @@ import org.stringtemplate.v4.ST;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public class Model2Cli {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(Model2Cli.class);
 
     /** Application name, used as prompt. */
     private final String appName;
@@ -111,7 +115,8 @@ public class Model2Cli {
 
         final ApexApiResult result = model.loadFromFile(modelFile);
         if (result.isNok()) {
-            System.err.println(appName + ": " + result.getMessage());
+            String message = appName + ": " + result.getMessage();
+            LOGGER.error(message);
             return -1;
         }
 
@@ -122,7 +127,8 @@ public class Model2Cli {
             final AxValidationResult val = new AxValidationResult();
             policyModel.validate(val);
             if (!val.isOk()) {
-                System.err.println("Cannot translate the model. The model is not valid: \n" + val.toString());
+                String message = "Cannot translate the model. The model is not valid: \n" + val.toString();
+                LOGGER.error(message);
                 return -1;
             }
         }
@@ -132,13 +138,13 @@ public class Model2Cli {
         // Order is important. 0: model, 1: context schemas, 2: tasks, 3: events, 4: ContextAlbums, 5: Policies
         // 0: model
         final AxArtifactKey pmkey = policyModel.getKey();
-        codeGen.addModelParams(kig.getName(pmkey), kig.getVersion(pmkey), kig.getUUID(pmkey), kig.getDesc(pmkey));
+        codeGen.addModelParams(kig.getName(pmkey), kig.getVersion(pmkey), kig.getUuid(pmkey), kig.getDesc(pmkey));
 
         // 1: Context Schemas
         for (final AxContextSchema s : policyModel.getSchemas().getSchemasMap().values()) {
             final AxArtifactKey key = s.getKey();
 
-            codeGen.addSchemaDeclaration(kig.getName(key), kig.getVersion(key), kig.getUUID(key), kig.getDesc(key),
+            codeGen.addSchemaDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
                     s.getSchemaFlavour(), s.getSchema());
         }
 
@@ -151,7 +157,7 @@ public class Model2Cli {
             final List<ST> parameters = getParametersForTask(codeGen, t);
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
-            codeGen.addTaskDeclaration(kig.getName(key), kig.getVersion(key), kig.getUUID(key), kig.getDesc(key),
+            codeGen.addTaskDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
                     infields, outfields, logic, parameters, contextRefs);
         }
 
@@ -160,7 +166,7 @@ public class Model2Cli {
             final AxArtifactKey key = e.getKey();
             final List<ST> fields = getParametersForEvent(codeGen, e);
 
-            codeGen.addEventDeclaration(kig.getName(key), kig.getVersion(key), kig.getUUID(key), kig.getDesc(key),
+            codeGen.addEventDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
                     e.getNameSpace(), e.getSource(), e.getTarget(), fields);
         }
 
@@ -168,7 +174,7 @@ public class Model2Cli {
         for (final AxContextAlbum a : policyModel.getAlbums().getAlbumsMap().values()) {
             final AxArtifactKey key = a.getKey();
 
-            codeGen.addContextAlbumDeclaration(kig.getName(key), kig.getVersion(key), kig.getUUID(key),
+            codeGen.addContextAlbumDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key),
                     kig.getDesc(key), a.getScope(), a.isWritable(), kig.getName(a.getItemSchema()),
                     kig.getVersion(a.getItemSchema()));
         }
@@ -177,26 +183,27 @@ public class Model2Cli {
         for (final AxPolicy p : policyModel.getPolicies().getPolicyMap().values()) {
             final AxArtifactKey key = p.getKey();
             final List<ST> states = getStatesForPolicy(codeGen, p);
-            codeGen.addPolicyDefinition(kig.getName(key), kig.getVersion(key), kig.getUUID(key), kig.getDesc(key),
+            codeGen.addPolicyDefinition(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
                     p.getTemplate(), p.getFirstState(), states);
         }
 
         final String out = codeGen.getModel().render();
         if (outFile != null) {
+            String message = "Error writing output to file " + outFile;
             try {
                 final Writer w = outFile.toWriter();
                 if (w == null) {
-                    System.err.println("Error writing output to file " + outFile);
+                    LOGGER.error(message);
                     return -1;
                 }
                 w.write(out);
                 w.close();
             } catch (final IOException e) {
-                System.err.println("Error writing output to file " + outFile + ": " + e.getMessage());
+                LOGGER.error(message, e);
                 return -1;
             }
         } else {
-            System.err.println(out);
+            LOGGER.error(out);
         }
         return 0;
     }
@@ -275,10 +282,7 @@ public class Model2Cli {
         final AxArtifactKey tkey = task.getKey();
         final AxTaskLogic tl = task.getTaskLogic();
 
-        final ST val =
-                cg.createTaskDefLogic(kig.getName(tkey), kig.getVersion(tkey), tl.getLogicFlavour(), tl.getLogic());
-
-        return val;
+        return cg.createTaskDefLogic(kig.getName(tkey), kig.getVersion(tkey), tl.getLogicFlavour(), tl.getLogic());
     }
 
     /**
@@ -338,7 +342,7 @@ public class Model2Cli {
             final List<ST> outputs = getStateOutputsForState(cg, st);
             final List<ST> finalizerLogics = getFinalizersForState(cg, st);
             final List<ST> tasks = getTaskRefsForState(cg, st);
-            final List<ST> tsLogic = getTSLForState(cg, st);
+            final List<ST> tsLogic = getTslForState(cg, st);
             final List<ST> ctxRefs = getCtxtRefsForState(cg, st);
 
             final ST val = cg.createPolicyStateDef(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
@@ -400,7 +404,7 @@ public class Model2Cli {
      * @param st the state
      * @return the TSL for state (if any) in a list
      */
-    private List<ST> getTSLForState(final CodeGeneratorCliEditor cg, final AxState st) {
+    private List<ST> getTslForState(final CodeGeneratorCliEditor cg, final AxState st) {
         final AxReferenceKey skey = st.getKey();
         if (st.checkSetTaskSelectionLogic()) {
             final AxTaskSelectionLogic tsl = st.getTaskSelectionLogic();

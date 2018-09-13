@@ -63,7 +63,7 @@ public class TestPolicyLogicReader {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("logic not found for logic "
-                            + "\"somewhere/over/the/rainbow/funkylogic/LogicParent_LogicInstanceName.funkylogic\"",
+                            + "\"somewhere/over/the/rainbow/funkylogic/LogicParentLogicInstanceName.funkylogic\"",
                             e.getMessage());
         }
 
@@ -73,7 +73,7 @@ public class TestPolicyLogicReader {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("logic not found for logic " + "\"somewhere/over/the/rainbow/funkylogic/"
-                            + "LogicParent_LogicParentLocalName_LogicInstanceName.funkylogic\"", e.getMessage());
+                            + "LogicParentLogicParentLocalNameLogicInstanceName.funkylogic\"", e.getMessage());
         }
 
         plReader.setLogicPackage("path.to.apex.logic");
@@ -97,7 +97,7 @@ public class TestPolicyLogicReader {
         plReader.setDefaultLogic(null);
         try {
             final AxLogic logic = new AxLogic(logicKey, "JAVA", plReader);
-            assertEquals("somewhere.over.the.rainbow.java.LogicParent_LogicParentLocalName_LogicInstanceName",
+            assertEquals("somewhere.over.the.rainbow.java.LogicParentLogicParentLocalNameLogicInstanceName",
                             logic.getLogic());
         } catch (final Exception e) {
             fail("test should not throw an exception");
@@ -106,7 +106,7 @@ public class TestPolicyLogicReader {
         logicKey.setParentLocalName(AxKey.NULL_KEY_NAME);
         try {
             final AxLogic logic = new AxLogic(logicKey, "JAVA", plReader);
-            assertEquals("somewhere.over.the.rainbow.java.LogicParent_LogicInstanceName", logic.getLogic());
+            assertEquals("somewhere.over.the.rainbow.java.LogicParentLogicInstanceName", logic.getLogic());
         } catch (final Exception e) {
             fail("test should not throw an exception");
         }

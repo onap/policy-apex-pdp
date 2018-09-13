@@ -120,7 +120,7 @@ public class AnomalyDetection implements Serializable {
      *
      * @param anomalyScores the anomaly score values of the algorithm
      */
-    public void setAnomalyScores(final LinkedList<Double> anomalyScores) {
+    public void setAnomalyScores(final List<Double> anomalyScores) {
         this.anomalyScores = anomalyScores;
     }
 

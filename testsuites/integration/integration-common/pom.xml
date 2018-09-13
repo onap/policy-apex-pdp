@@ -88,7 +88,7 @@
                                 <argument>-classpath</argument>
                                 <!-- automatically creates the classpath using all project dependencies, also adding the project build directory -->
                                 <classpath />
-                                <argument>org.onap.policy.apex.test.common.model.SampleDomainModelSaver</argument>
+                                <argument>org.onap.policy.apex.testsuites.integration.common.model.SampleDomainModelSaver</argument>
                                 <argument>${project.build.directory}/classes/examples/models/SampleDomain</argument>
                             </arguments>
                         </configuration>

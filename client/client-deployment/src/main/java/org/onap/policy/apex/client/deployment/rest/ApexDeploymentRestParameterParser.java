@@ -81,7 +81,7 @@ public class ApexDeploymentRestParameterParser {
         }
         try {
             if (commandLine.hasOption('p')) {
-                parameters.setRESTPort(((Number) commandLine.getParsedOptionValue("port")).intValue());
+                parameters.setRestPort(((Number) commandLine.getParsedOptionValue("port")).intValue());
             }
         } catch (final ParseException e) {
             throw new ApexDeploymentRestParameterException("error parsing argument \"port\" :" + e.getMessage(), e);

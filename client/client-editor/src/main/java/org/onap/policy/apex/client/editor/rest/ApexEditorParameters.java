@@ -75,7 +75,7 @@ public class ApexEditorParameters {
      *
      * @return the base URI
      */
-    public URI getBaseURI() {
+    public URI getBaseUri() {
         return URI.create(DEFAULT_SERVER_URI_PREFIX + listenAddress + ':' + restPort + DEFAULT_REST_PATH);
     }
 
@@ -84,7 +84,7 @@ public class ApexEditorParameters {
      *
      * @return the REST packages
      */
-    public String[] getRESTPackages() {
+    public String[] getRestPackages() {
         return DEFAULT_PACKAGES;
     }
 
@@ -117,7 +117,7 @@ public class ApexEditorParameters {
      */
     private String validateUrl() {
         try {
-            new URI(getBaseURI().toString()).parseServerAuthority();
+            new URI(getBaseUri().toString()).parseServerAuthority();
             return "";
         } catch (final URISyntaxException e) {
             return "listen address is not valid. " + e.getMessage() + "\n";
@@ -160,7 +160,7 @@ public class ApexEditorParameters {
      *
      * @return the REST port
      */
-    public int getRESTPort() {
+    public int getRestPort() {
         return restPort;
     }
 
@@ -169,7 +169,7 @@ public class ApexEditorParameters {
      *
      * @param incomingRestPort the REST port
      */
-    public void setRESTPort(final int incomingRestPort) {
+    public void setRestPort(final int incomingRestPort) {
         this.restPort = incomingRestPort;
     }
 
@@ -199,7 +199,7 @@ public class ApexEditorParameters {
     @Override
     public String toString() {
         final StringBuilder ret = new StringBuilder();
-        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseURI()).append(", TTL=")
+        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseUri()).append(", TTL=")
                 .append(this.getTimeToLive()).append("sec");
         return ret.toString();
     }

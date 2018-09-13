@@ -107,11 +107,11 @@ public class PolicyLogicReader implements AxLogicReader {
             } else {
                 // Return the java class name for the logic
                 if (axLogic.getKey().getParentLocalName().equals(AxKey.NULL_KEY_NAME)) {
-                    return logicPackage + DOT_JAVA + axLogic.getKey().getParentKeyName() + '_'
+                    return logicPackage + DOT_JAVA + axLogic.getKey().getParentKeyName()
                             + axLogic.getKey().getLocalName();
                 } else {
-                    return logicPackage + DOT_JAVA + axLogic.getKey().getParentKeyName() + '_'
-                            + axLogic.getKey().getParentLocalName() + '_' + axLogic.getKey().getLocalName();
+                    return logicPackage + DOT_JAVA + axLogic.getKey().getParentKeyName()
+                            + axLogic.getKey().getParentLocalName()  + axLogic.getKey().getLocalName();
                 }
             }
         }
@@ -129,10 +129,10 @@ public class PolicyLogicReader implements AxLogicReader {
             fullLogicFilePath += "/" + defaultLogic;
         } else {
             if (axLogic.getKey().getParentLocalName().equals(AxKey.NULL_KEY_NAME)) {
-                fullLogicFilePath += "/" + axLogic.getKey().getParentKeyName() + "_" + axLogic.getKey().getLocalName();
+                fullLogicFilePath += "/" + axLogic.getKey().getParentKeyName() + axLogic.getKey().getLocalName();
             } else {
-                fullLogicFilePath += "/" + axLogic.getKey().getParentKeyName() + "_"
-                        + axLogic.getKey().getParentLocalName() + "_" + axLogic.getKey().getLocalName();
+                fullLogicFilePath += "/" + axLogic.getKey().getParentKeyName()
+                        + axLogic.getKey().getParentLocalName() + axLogic.getKey().getLocalName();
             }
         }
 

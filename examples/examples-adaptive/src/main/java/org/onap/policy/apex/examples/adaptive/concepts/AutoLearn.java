@@ -36,11 +36,6 @@ public class AutoLearn implements Serializable {
     private List<Long> counts = null;
 
     /**
-     * The Constructor creates an AutoLearn concept.
-     */
-    public AutoLearn() {}
-
-    /**
      * Checks if the Autolearn instance is initialized.
      *
      * @return true, if the Autolearn instance is initialized
@@ -55,14 +50,14 @@ public class AutoLearn implements Serializable {
      * @param size the number of convergent variables to use
      */
     public void init(final int size) {
-        if (avDiffs == null || avDiffs.size() == 0) {
+        if (avDiffs == null || avDiffs.isEmpty()) {
             avDiffs = new ArrayList<>(size);
             for (int i = 0; i < size; i++) {
                 avDiffs.add(i, Double.NaN);
             }
         }
 
-        if (counts == null || counts.size() == 0) {
+        if (counts == null || counts.isEmpty()) {
             counts = new ArrayList<>(size);
             for (int i = 0; i < size; i++) {
                 counts.add(i, 0L);

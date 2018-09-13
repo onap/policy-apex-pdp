@@ -342,7 +342,7 @@
                             "taskLogic": {
                                 "key": "TaskLogic",
                                 "logicFlavour": "JAVASCRIPT",
-                                "logic": "var outFieldType = Java.type(\"org.onap.policy.apex.apps.uservice.test.adapt.jms.TestPing\");\nvar outValue = new outFieldType();\n\nvar inValue = executor.inFields.get(\"TestPing\");\n\nexecutor.logger.info(inValue);\n\noutValue.setPingTime(inValue.getPingTime());\noutValue.setPongTime(new Date().getTime());\noutValue.setName(inValue.getName() + \"_out\");\n\noutValue.setDescription(\ninValue.getDescription() +\n\". So Romeo would, were he not Romeo call'd,\" +\n\" retain that dear perfection which he owes, without that title.\");\n\nexecutor.logger.info(outValue);\nexecutor.outFields.put(\"TestPing\", outValue)\n\nvar returnValueType = Java.type(\"java.lang.Boolean\");\nvar returnValue = new returnValueType(true);"
+                                "logic": "var outFieldType = Java.type(\"org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestPing\");\nvar outValue = new outFieldType();\n\nvar inValue = executor.inFields.get(\"TestPing\");\n\nexecutor.logger.info(inValue);\n\noutValue.setPingTime(inValue.getPingTime());\noutValue.setPongTime(new Date().getTime());\noutValue.setName(inValue.getName() + \"_out\");\n\noutValue.setDescription(\ninValue.getDescription() +\n\". So Romeo would, were he not Romeo call'd,\" +\n\" retain that dear perfection which he owes, without that title.\");\n\nexecutor.logger.info(outValue);\nexecutor.outFields.put(\"TestPing\", outValue)\n\nvar returnValueType = Java.type(\"java.lang.Boolean\");\nvar returnValue = new returnValueType(true);"
                             }
                         }
                     }
@@ -366,7 +366,7 @@
                                 "name": "TestPingIncomingEvent",
                                 "version": "0.0.1"
                             },
-                            "nameSpace": "org.onap.policy.apex.apps.uservice.test.adapt.jms",
+                            "nameSpace": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms",
                             "source": "JMS",
                             "target": "Apex",
                             "parameter": {
@@ -396,7 +396,7 @@
                                 "name": "TestPingOutgoingEvent",
                                 "version": "0.0.1"
                             },
-                            "nameSpace": "org.onap.policy.apex.apps.uservice.test.adapt.jms",
+                            "nameSpace": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms",
                             "source": "Apex",
                             "target": "JMS",
                             "parameter": {
@@ -446,7 +446,7 @@
                                 "version": "0.0.1"
                             },
                             "schemaFlavour": "Java",
-                            "schemaDefinition": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestPing"
+                            "schemaDefinition": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestPing"
                         }
                     }
                 ]

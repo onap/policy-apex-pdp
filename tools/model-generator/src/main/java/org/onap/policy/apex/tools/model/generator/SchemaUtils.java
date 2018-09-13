@@ -129,11 +129,6 @@ public final class SchemaUtils {
                     + " of type " + parameter.getSchema().getId() + " using Schema type " + schemaname, e);
         }
         if (alreadyseen != null) {
-            // logger.warn("parameter "+ parameter.getKey().getLocalName() + " of type " + parameter.getSchema().getID()
-            // + " tries to redfine AVRO type
-            // "+schemaname+", but it was previously defined. This parameter will use the previously defined version
-            // because AVRO does not support redefinition
-            // of types that have already been defined");
             parameterSchema = alreadyseen;
         }
 

@@ -336,7 +336,7 @@ public class TestApexEditorStartup {
      * @throws InterruptedException if the test is interrupted
      */
     @Test
-    public void testTTLArg0() throws IOException, InterruptedException {
+    public void testTtlArg0() throws IOException, InterruptedException {
         final String[] args = new String[] { "-t10" };
 
         final String outString = runEditor(args);
@@ -359,7 +359,7 @@ public class TestApexEditorStartup {
      * @throws InterruptedException if the test is interrupted
      */
     @Test
-    public void testTTLArg1() throws IOException, InterruptedException {
+    public void testTtlArg1() throws IOException, InterruptedException {
         final String[] args = new String[] { "-t", "10", "-l", "localhost" };
 
         final String outString = runEditor(args);
@@ -382,7 +382,7 @@ public class TestApexEditorStartup {
      * @throws InterruptedException if the test is interrupted
      */
     @Test
-    public void testPortTTLArg0() throws IOException, InterruptedException {
+    public void testPortTtlArg0() throws IOException, InterruptedException {
         final String[] args = new String[] { "-t", "10", "-p", "12321" };
 
         final String outString = runEditor(args);
@@ -406,7 +406,7 @@ public class TestApexEditorStartup {
      * @throws InterruptedException if the test is interrupted
      */
     @Test
-    public void testPortTTLArg1() throws IOException, InterruptedException {
+    public void testPortTtlArg1() throws IOException, InterruptedException {
         final String[] args = new String[] { "--time-to-live", "10", "--port", "12321", "--listen", "127.0.0.1" };
 
         final String outString = runEditor(args);
@@ -430,8 +430,8 @@ public class TestApexEditorStartup {
      * @throws InterruptedException if the test is interrupted
      */
     private String runEditor(final String[] args) throws InterruptedException {
-        final ByteArrayOutputStream outBAStream = new ByteArrayOutputStream();
-        final PrintStream outStream = new PrintStream(outBAStream);
+        final ByteArrayOutputStream outBaStream = new ByteArrayOutputStream();
+        final PrintStream outStream = new PrintStream(outBaStream);
 
         final ApexEditorMain editorMain = new ApexEditorMain(args, outStream);
 
@@ -450,7 +450,7 @@ public class TestApexEditorStartup {
         }
 
         editorMain.shutdown();
-        final String outString = outBAStream.toString();
+        final String outString = outBaStream.toString();
         System.out.println(outString);
         return outString;
     }

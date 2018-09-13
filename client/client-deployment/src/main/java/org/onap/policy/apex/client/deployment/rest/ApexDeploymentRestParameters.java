@@ -44,6 +44,11 @@ public class ApexDeploymentRestParameters {
     private int restPort = DEFAULT_REST_PORT;
     private long timeToLive = INFINITY_TIME_TO_LIVE;
 
+    /**
+     * Validate the parameters.
+     *
+     * @return the result of the validation
+     */
     public String validate() {
         String validationMessage = "";
         validationMessage += validatePort();
@@ -52,18 +57,38 @@ public class ApexDeploymentRestParameters {
         return validationMessage;
     }
 
-    public URI getBaseURI() {
+    /**
+     * Gets the base uri.
+     *
+     * @return the base uri
+     */
+    public URI getBaseUri() {
         return URI.create(DEFAULT_SERVER_URI_ROOT + restPort + DEFAULT_REST_PATH);
     }
 
-    public String[] getRESTPackages() {
+    /**
+     * Gets the rest packages.
+     *
+     * @return the rest packages
+     */
+    public String[] getRestPackages() {
         return DEFAULT_PACKAGES;
     }
 
+    /**
+     * Gets the static path.
+     *
+     * @return the static path
+     */
     public String getStaticPath() {
         return DEFAULT_STATIC_PATH;
     }
 
+    /**
+     * Validate port.
+     *
+     * @return the string
+     */
     private String validatePort() {
         if (restPort < 1024 || restPort > 65535) {
             return "port must be greater than 1023 and less than 65536\n";
@@ -72,6 +97,11 @@ public class ApexDeploymentRestParameters {
         }
     }
 
+    /**
+     * Validate time to live.
+     *
+     * @return the string
+     */
     private String validateTimeToLive() {
         if (timeToLive < -1) {
             return "time to live must be greater than -1 (set to -1 to wait forever)\n";
@@ -80,34 +110,67 @@ public class ApexDeploymentRestParameters {
         }
     }
 
+    /**
+     * Checks if is help set.
+     *
+     * @return true, if is help set
+     */
     public boolean isHelpSet() {
         return helpSet;
     }
 
+    /**
+     * Sets the help.
+     *
+     * @param helpSet the new help
+     */
     public void setHelp(final boolean helpSet) {
         this.helpSet = helpSet;
     }
 
-    public int getRESTPort() {
+    /**
+     * Gets the rest port.
+     *
+     * @return the rest port
+     */
+    public int getRestPort() {
         return restPort;
     }
 
-    public void setRESTPort(final int restPort) {
+    /**
+     * Sets the rest port.
+     *
+     * @param restPort the new rest port
+     */
+    public void setRestPort(final int restPort) {
         this.restPort = restPort;
     }
 
+    /**
+     * Gets the time to live.
+     *
+     * @return the time to live
+     */
     public long getTimeToLive() {
         return timeToLive;
     }
 
+    /**
+     * Sets the time to live.
+     *
+     * @param timeToLive the new time to live
+     */
     public void setTimeToLive(final long timeToLive) {
         this.timeToLive = timeToLive;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         final StringBuilder ret = new StringBuilder();
-        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseURI()).append(", TTL=")
+        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseUri()).append(", TTL=")
                 .append(this.getTimeToLive()).append("sec");
         return ret.toString();
     }

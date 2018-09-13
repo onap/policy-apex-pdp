@@ -116,7 +116,7 @@ public class KeyInfoGetter {
      * @param key the key to process
      * @return local name of the parent, null if key was null
      */
-    public String getPLName(final AxReferenceKey key) {
+    public String getPlName(final AxReferenceKey key) {
         if (key == null) {
             return null;
         }
@@ -129,7 +129,7 @@ public class KeyInfoGetter {
      * @param key the key to extract version from
      * @return UUID of the key, null if key was null
      */
-    public String getUUID(final AxArtifactKey key) {
+    public String getUuid(final AxArtifactKey key) {
         final AxKeyInfo ki = model.getKeyInformation().get(key);
         if (ki == null || ki.getUuid() == null) {
             return null;
@@ -148,6 +148,6 @@ public class KeyInfoGetter {
         if (ki == null || ki.getDescription() == null) {
             return null;
         }
-        return ki.getDescription().toString();
+        return ki.getDescription();
     }
 }

@@ -37,14 +37,21 @@ public class ApexServicesRestParameters {
     private static final String DEFAULT_STATIC_PATH = "/";
 
     // Package that will field REST requests
-    private static final String[] DEFAULT_PACKAGES = new String[] { "org.onap.policy.apex.client.deployment.rest",
-            "org.onap.policy.apex.client.editor.rest", "org.onap.policy.apex.client.monitoring.rest" };
+    private static final String[] DEFAULT_PACKAGES = new String[] {
+        "org.onap.policy.apex.client.deployment.rest",
+        "org.onap.policy.apex.client.editor.rest",
+        "org.onap.policy.apex.client.monitoring.rest"
+    };
 
     // The services parameters
     private boolean helpSet = false;
     private int restPort = DEFAULT_REST_PORT;
     private long timeToLive = INFINITY_TIME_TO_LIVE;
 
+    /**
+     * Validate the parameters.
+     * @return the result of the validation
+     */
     public String validate() {
         String validationMessage = "";
         validationMessage += validatePort();
@@ -53,11 +60,11 @@ public class ApexServicesRestParameters {
         return validationMessage;
     }
 
-    public URI getBaseURI() {
+    public URI getBaseUri() {
         return URI.create(DEFAULT_SERVER_URI_ROOT + restPort + DEFAULT_REST_PATH);
     }
 
-    public String[] getRESTPackages() {
+    public String[] getRestPackages() {
         return DEFAULT_PACKAGES;
     }
 
@@ -89,11 +96,11 @@ public class ApexServicesRestParameters {
         this.helpSet = helpSet;
     }
 
-    public int getRESTPort() {
+    public int getRestPort() {
         return restPort;
     }
 
-    public void setRESTPort(final int restPort) {
+    public void setRestPort(final int restPort) {
         this.restPort = restPort;
     }
 
@@ -108,7 +115,7 @@ public class ApexServicesRestParameters {
     @Override
     public String toString() {
         final StringBuilder ret = new StringBuilder();
-        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseURI()).append(", TTL=")
+        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseUri()).append(", TTL=")
                 .append(this.getTimeToLive()).append("sec");
         return ret.toString();
     }

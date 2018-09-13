@@ -60,11 +60,6 @@ public class ApexDeploymentRestResource {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexDeploymentRestResource.class);
 
     /**
-     * Constructor, a new resource director is created for each request.
-     */
-    public ApexDeploymentRestResource() {}
-
-    /**
      * Query the engine service for data.
      *
      * @param hostName the host name of the engine service to connect to.

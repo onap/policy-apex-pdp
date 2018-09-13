@@ -23,6 +23,8 @@ package org.onap.policy.apex.examples.myfirstpolicy.model;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class MFPDomainModelSaver.
@@ -30,6 +32,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author John Keeney (john.keeney@ericsson.com)
  */
 public final class MfpDomainModelSaver {
+    // Get a reference to the logger
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(MfpDomainModelSaver.class);
 
     /** Private constructor to prevent instantiation. */
     private MfpDomainModelSaver() {}
@@ -42,7 +46,7 @@ public final class MfpDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 1) {
-            System.err.println("usage: " + MfpDomainModelSaver.class.getCanonicalName() + " modelDirectory");
+            LOGGER.error("usage: " + MfpDomainModelSaver.class.getCanonicalName() + " modelDirectory");
             return;
         }
 

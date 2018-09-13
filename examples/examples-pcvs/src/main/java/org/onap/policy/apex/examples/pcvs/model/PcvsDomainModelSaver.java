@@ -23,6 +23,8 @@ package org.onap.policy.apex.examples.pcvs.model;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class PcvsDomainModelSaver.
@@ -30,9 +32,12 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public final class PcvsDomainModelSaver {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(PcvsDomainModelSaver.class);
 
     /** Private constructor to prevent instantiation. */
-    private PcvsDomainModelSaver() {}
+    private PcvsDomainModelSaver() {
+    }
 
     /**
      * Write all PCVS models to args[0].
@@ -42,14 +47,14 @@ public final class PcvsDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 2) {
-            System.err.println(
-                    "usage: " + PcvsDomainModelSaver.class.getCanonicalName() + " workingDirectory modelDirectory");
+            LOGGER.error("usage: " + PcvsDomainModelSaver.class.getCanonicalName()
+                            + " workingDirectory modelDirectory");
             return;
         }
 
         final AxPolicyModel pcvsPolicyModel = new PcvsDomainModelFactory().getPcvsVpnSlaSPolicyModel(args[0]);
-        final ApexModelSaver<AxPolicyModel> pcvsModelSaver =
-                new ApexModelSaver<>(AxPolicyModel.class, pcvsPolicyModel, args[1] + "vpnsla/");
+        final ApexModelSaver<AxPolicyModel> pcvsModelSaver = new ApexModelSaver<>(AxPolicyModel.class, pcvsPolicyModel,
+                        args[1] + "vpnsla/");
         pcvsModelSaver.apexModelWriteJson();
         pcvsModelSaver.apexModelWriteXml();
 

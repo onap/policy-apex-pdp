@@ -23,6 +23,8 @@ package org.onap.policy.apex.examples.aadm.model;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * This class saves sample domain models to disk in XML and JSON format.
@@ -30,6 +32,9 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class AadmDomainModelSaver {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(AadmDomainModelSaver.class);
+
     /**
      * Private default constructor to prevent subclassing.
      */
@@ -43,7 +48,7 @@ public final class AadmDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 1) {
-            System.err.println("usage: " + AadmDomainModelSaver.class.getCanonicalName() + " modelDirectory");
+            LOGGER.error("usage: " + AadmDomainModelSaver.class.getCanonicalName() + " modelDirectory");
             return;
         }
 

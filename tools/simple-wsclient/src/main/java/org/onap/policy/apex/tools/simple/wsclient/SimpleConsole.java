@@ -112,7 +112,7 @@ public class SimpleConsole extends WebSocketClient {
      * @throws NotYetConnectedException if not connected to server when sending events
      * @throws IOException on an IO problem on standard in
      */
-    public void runClient() throws NotYetConnectedException, IOException {
+    public void runClient() throws IOException {
         final Thread thread = new Thread() {
             @Override
             public void run() {
