@@ -18,7 +18,7 @@
         "FirstConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.219.142:3904/events/apexDMaaP/apexCG/apexC?timeout=10000"
                 }
@@ -32,7 +32,7 @@
         "FirstProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.219.142:3904/events/apexDMaaPOut"
                 }

@@ -18,7 +18,7 @@
         "aProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "JMS",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JmsCarrierTechnologyParameters",
                 "parameters": {
                     "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
@@ -30,7 +30,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JMSOBJECT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JMSObjectEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JmsObjectEventProtocolParameters"
             }
         }
     },
@@ -38,7 +38,7 @@
         "aConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "JMS",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JMSCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JmsCarrierTechnologyParameters",
                 "parameters": {
                     "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
@@ -50,7 +50,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JMSOBJECT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JMSObjectEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.jms.JmsObjectEventProtocolParameters"
             }
         }
     }

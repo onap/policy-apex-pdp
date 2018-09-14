@@ -18,7 +18,7 @@
         "FirstConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters",
                 "parameters": {
                     "standalone": true,
                     "host": "localhost",
@@ -35,7 +35,7 @@
         "SecondConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters",
                 "parameters": {
                     "standalone": true,
                     "host": "localhost",
@@ -54,7 +54,7 @@
         "FirstProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON"
@@ -66,7 +66,7 @@
         "SecondProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON"

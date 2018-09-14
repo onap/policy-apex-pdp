@@ -24,7 +24,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "XML",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XMLEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XmlEventProtocolParameters"
             }
         }
     },
@@ -38,7 +38,7 @@
             },
             "eventProtocolParameters": {
                 "eventProtocol": "XML",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XMLEventProtocolParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.protocol.xml.XmlEventProtocolParameters"
             }
         }
     }
