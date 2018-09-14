@@ -43,8 +43,10 @@ import org.slf4j.LoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 @Path("/{eventInput}")
-@Produces({ MediaType.APPLICATION_JSON })
-@Consumes({ MediaType.APPLICATION_JSON })
+@Produces(
+    { MediaType.APPLICATION_JSON })
+@Consumes(
+    { MediaType.APPLICATION_JSON })
 public class RestServerEndpoint {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(RestServerEndpoint.class);
@@ -56,8 +58,7 @@ public class RestServerEndpoint {
 
     // This map is used to hold all the REST server event inputs. This is used to determine which consumer to send input
     // events to
-    private static Map<String, ApexRestServerConsumer> consumerMap =
-            new LinkedHashMap<>();
+    private static Map<String, ApexRestServerConsumer> consumerMap = new LinkedHashMap<>();
 
     // The ID of this event input. This gets injected from the URL.
     @PathParam("eventInput")
@@ -70,7 +71,7 @@ public class RestServerEndpoint {
      * @param consumer The consumer to register
      */
     public static void registerApexRestServerConsumer(final String consumerEventInputId,
-            final ApexRestServerConsumer consumer) {
+                    final ApexRestServerConsumer consumer) {
         consumerMap.put(consumerEventInputId, consumer);
     }
 
@@ -82,12 +83,12 @@ public class RestServerEndpoint {
     @Path("/Status")
     @GET
     public Response serviceGetStats() {
-        getMessagesReceived++;
+        incrementGetMessages();
         return Response.status(Response.Status.OK.getStatusCode())
-                .entity("{\n" + "\"INPUTS\": \"" + consumerMap.keySet() + "\",\n" + "\"STAT\": " + getMessagesReceived
-                        + ",\n" + "\"POST\": " + postEventMessagesReceived + ",\n" + "\"PUT\":  "
-                        + putEventMessagesReceived + "\n}")
-                .build();
+                        .entity("{\n" + "\"INPUTS\": \"" + consumerMap.keySet() + "\",\n" + "\"STAT\": "
+                                        + getMessagesReceived + ",\n" + "\"POST\": " + postEventMessagesReceived + ",\n"
+                                        + "\"PUT\":  " + putEventMessagesReceived + "\n}")
+                        .build();
     }
 
     /**
@@ -99,7 +100,7 @@ public class RestServerEndpoint {
     @Path("/EventIn")
     @POST
     public Response servicePostRequest(final String jsonString) {
-        postEventMessagesReceived++;
+        incrementPostEventMessages();
 
         if (LOGGER.isDebugEnabled()) {
             String message = "event input " + eventInputId + ", received POST of event \"" + jsonString + "\"";
@@ -119,7 +120,7 @@ public class RestServerEndpoint {
     @Path("/EventIn")
     @PUT
     public Response servicePutRequest(final String jsonString) {
-        putEventMessagesReceived++;
+        incrementPutEventMessages();
 
         if (LOGGER.isDebugEnabled()) {
             String message = "event input \"" + eventInputId + "\", received PUT of event \"" + jsonString + "\"";
@@ -140,13 +141,34 @@ public class RestServerEndpoint {
         // Find the correct consumer for this REST message
         final ApexRestServerConsumer eventConsumer = consumerMap.get(eventInputId);
         if (eventConsumer == null) {
-            final String errorMessage =
-                    "event input " + eventInputId + " is not defined in the Apex configuration file";
+            final String errorMessage = "event input " + eventInputId
+                            + " is not defined in the Apex configuration file";
             LOGGER.warn(errorMessage);
             return Response.status(Response.Status.BAD_REQUEST.getStatusCode())
-                    .entity("{'errorMessage', '" + errorMessage + "'}").build();
+                            .entity("{'errorMessage', '" + errorMessage + "'}").build();
         }
 
         return eventConsumer.receiveEvent(jsonString);
+    }
+
+    /**
+     * Increment number of get messages received.
+     */
+    private static void incrementGetMessages() {
+        getMessagesReceived++;
+    }
+
+    /**
+     * Increment number of get messages received.
+     */
+    private static void incrementPutEventMessages() {
+        putEventMessagesReceived++;
+    }
+
+    /**
+     * Increment number of get messages received.
+     */
+    private static void incrementPostEventMessages() {
+        postEventMessagesReceived++;
     }
 }

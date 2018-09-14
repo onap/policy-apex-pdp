@@ -20,7 +20,7 @@
                 "carrierTechnology": "JMS",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JmsCarrierTechnologyParameters",
                 "parameters": {
-                    "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
+                    "initialContextFactory": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
                     "providerURL": "remote://localhost:5445",
                     "securityPrincipal": "guest",
@@ -41,7 +41,7 @@
                 "carrierTechnology": "JMS",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.jms.JmsCarrierTechnologyParameters",
                 "parameters": {
-                    "initialContextFactory": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestInitialContextFactory",
+                    "initialContextFactory": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
                     "providerURL": "remote://localhost:5445",
                     "securityPrincipal": "guest",

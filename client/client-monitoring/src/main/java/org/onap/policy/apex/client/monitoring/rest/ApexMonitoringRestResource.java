@@ -48,9 +48,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The class represents the root resource exposed at the base URL<br>
- * The url to access this resource would be in the form {@code <baseURL>/rest/....} <br>
- * For example: a GET request to the following URL
+ * The class represents the root resource exposed at the base URL<br> The url to access this resource would be in the
+ * form {@code <baseURL>/rest/....} <br> For example: a GET request to the following URL
  * {@code http://localhost:18989/apexservices/rest/?hostName=localhost&port=12345}
  *
  * <b>Note:</b> An allocated {@code hostName} and {@code port} query parameter must be included in all requests.
@@ -58,27 +57,26 @@ import org.slf4j.ext.XLoggerFactory;
  *
  */
 @Path("monitoring/")
-@Produces({ MediaType.APPLICATION_JSON })
-@Consumes({ MediaType.APPLICATION_JSON })
+@Produces(
+    { MediaType.APPLICATION_JSON })
+@Consumes(
+    { MediaType.APPLICATION_JSON })
 
 public class ApexMonitoringRestResource {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexMonitoringRestResource.class);
 
+    // Recurring string constants
+    private static final String ERROR_CONNECTING_PREFIX = "Error connecting to Apex Engine Service at ";
+
     // Set the maximum number of stored data entries to be stored for each engine
-    private static final int maxCachedEntries = 50;
+    private static final int MAX_CACHED_ENTITIES = 50;
 
     // Set up a map separated by host and engine for the data
-    private static final HashMap<String, HashMap<String, List<Counter>>> cache =
-            new HashMap<String, HashMap<String, List<Counter>>>();
+    private static final HashMap<String, HashMap<String, List<Counter>>> cache = new HashMap<>();
 
     // Set up a map separated by host for storing the state of periodic events
-    private static final HashMap<String, Boolean> periodicEventsStateCache = new HashMap<String, Boolean>();
-
-    /**
-     * Constructor, a new resource director is created for each request.
-     */
-    public ApexMonitoringRestResource() {}
+    private static final HashMap<String, Boolean> periodicEventsStateCache = new HashMap<>();
 
     /**
      * Query the engine service for data.
@@ -96,10 +94,10 @@ public class ApexMonitoringRestResource {
         try {
             engineServiceFacade.init();
         } catch (final ApexDeploymentException e) {
-            final String errorMessage = "Error connecting to Apex Engine Service at " + host;
+            final String errorMessage = ERROR_CONNECTING_PREFIX + host;
             LOGGER.warn(errorMessage + "<br>", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage + "\n" + e.getMessage())
-                    .build();
+                            .build();
         }
 
         final JsonObject responseObject = new JsonObject();
@@ -107,8 +105,8 @@ public class ApexMonitoringRestResource {
         // Engine Service data
         responseObject.addProperty("engine_id", engineServiceFacade.getKey().getId());
         responseObject.addProperty("model_id",
-                engineServiceFacade.getApexModelKey() != null ? engineServiceFacade.getApexModelKey().getId()
-                        : "Not Set");
+                        engineServiceFacade.getApexModelKey() != null ? engineServiceFacade.getApexModelKey().getId()
+                                        : "Not Set");
         responseObject.addProperty("server", hostName);
         responseObject.addProperty("port", Integer.toString(port));
         responseObject.addProperty("periodic_events", getPeriodicEventsState(host));
@@ -127,14 +125,16 @@ public class ApexMonitoringRestResource {
                 engineStatusObject.addProperty("up_time", axEngineModel.getStats().getUpTime() / 1000L);
                 engineStatusObject.addProperty("policy_executions", axEngineModel.getStats().getEventCount());
                 engineStatusObject.addProperty("last_policy_duration",
-                        gson.toJson(
-                                getValuesFromCache(host, engineKey.getId() + "_last_policy_duration",
-                                        axEngineModel.getTimestamp(), axEngineModel.getStats().getLastExecutionTime()),
-                                List.class));
-                engineStatusObject.addProperty("average_policy_duration",
-                        gson.toJson(getValuesFromCache(host, engineKey.getId() + "_average_policy_duration",
-                                axEngineModel.getTimestamp(),
-                                (long) axEngineModel.getStats().getAverageExecutionTime()), List.class));
+                                gson.toJson(getValuesFromCache(host, engineKey.getId() + "_last_policy_duration",
+                                                axEngineModel.getTimestamp(),
+                                                axEngineModel.getStats().getLastExecutionTime()), List.class));
+                engineStatusObject
+                                .addProperty("average_policy_duration", gson.toJson(
+                                                getValuesFromCache(host, engineKey.getId() + "_average_policy_duration",
+                                                                axEngineModel.getTimestamp(),
+                                                                (long) axEngineModel.getStats()
+                                                                                .getAverageExecutionTime()),
+                                                List.class));
                 engineStatusList.add(engineStatusObject);
             } catch (final ApexException e) {
                 LOGGER.warn("Error getting status of engine with ID " + engineKey.getId() + "<br>", e);
@@ -174,23 +174,26 @@ public class ApexMonitoringRestResource {
     @GET
     @Path("startstop/")
     public Response startStop(@QueryParam("hostName") final String hostName, @QueryParam("port") final int port,
-            @QueryParam("engineId") final String engineId, @QueryParam("startstop") final String startStop) {
+                    @QueryParam("engineId") final String engineId, @QueryParam("startstop") final String startStop) {
         final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
 
         try {
             engineServiceFacade.init();
         } catch (final ApexDeploymentException e) {
-            final String errorMessage = "Error connecting to Apex Engine Service at " + hostName + ":" + port;
+            final String errorMessage = ERROR_CONNECTING_PREFIX + hostName + ":" + port;
             LOGGER.warn(errorMessage + "<br>", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage + "\n" + e.getMessage())
-                    .build();
+                            .build();
         }
 
         try {
-            final Map<String, String[]> parameterMap = new HashMap<String, String[]>();
-            parameterMap.put("hostname", new String[] { hostName });
-            parameterMap.put("port", new String[] { Integer.toString(port) });
-            parameterMap.put("AxArtifactKey#" + engineId, new String[] { startStop });
+            final Map<String, String[]> parameterMap = new HashMap<>();
+            parameterMap.put("hostname", new String[]
+                { hostName });
+            parameterMap.put("port", new String[]
+                { Integer.toString(port) });
+            parameterMap.put("AxArtifactKey#" + engineId, new String[]
+                { startStop });
             final AxArtifactKey engineKey = ParameterCheck.getEngineKey(parameterMap);
             if (startStop.equals("Start")) {
                 engineServiceFacade.startEngine(engineKey);
@@ -203,7 +206,7 @@ public class ApexMonitoringRestResource {
             final StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage + "\n" + sw.toString())
-                    .build();
+                            .build();
         }
 
         return Response.ok("{}").build();
@@ -222,17 +225,21 @@ public class ApexMonitoringRestResource {
     @GET
     @Path("periodiceventstartstop/")
     public Response periodiceventStartStop(@QueryParam("hostName") final String hostName,
-            @QueryParam("port") final int port, @QueryParam("engineId") final String engineId,
-            @QueryParam("startstop") final String startStop, @QueryParam("period") final long period) {
+                    @QueryParam("port") final int port, @QueryParam("engineId") final String engineId,
+                    @QueryParam("startstop") final String startStop, @QueryParam("period") final long period) {
         final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
         final String host = hostName + ":" + port;
         try {
             engineServiceFacade.init();
-            final Map<String, String[]> parameterMap = new HashMap<String, String[]>();
-            parameterMap.put("hostname", new String[] { hostName });
-            parameterMap.put("port", new String[] { Integer.toString(port) });
-            parameterMap.put("AxArtifactKey#" + engineId, new String[] { startStop });
-            parameterMap.put("period", new String[] { Long.toString(period) });
+            final Map<String, String[]> parameterMap = new HashMap<>();
+            parameterMap.put("hostname", new String[]
+                { hostName });
+            parameterMap.put("port", new String[]
+                { Integer.toString(port) });
+            parameterMap.put("AxArtifactKey#" + engineId, new String[]
+                { startStop });
+            parameterMap.put("period", new String[]
+                { Long.toString(period) });
             final AxArtifactKey engineKey = ParameterCheck.getEngineKey(parameterMap);
             if (startStop.equals("Start")) {
                 engineServiceFacade.startPerioidicEvents(engineKey, period);
@@ -242,10 +249,10 @@ public class ApexMonitoringRestResource {
                 setPeriodicEventsState(host, false);
             }
         } catch (final ApexDeploymentException e) {
-            final String errorMessage = "Error connecting to Apex Engine Service at " + host;
+            final String errorMessage = ERROR_CONNECTING_PREFIX + host;
             LOGGER.warn(errorMessage + "<br>", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorMessage + "\n" + e.getMessage())
-                    .build();
+                            .build();
         }
 
         return Response.ok("{}").build();
@@ -258,7 +265,11 @@ public class ApexMonitoringRestResource {
      * @return a boolean stating if periodic events are running for a given host
      */
     private Boolean getPeriodicEventsState(final String host) {
-        return periodicEventsStateCache.containsKey(host) ? periodicEventsStateCache.get(host) : false;
+        if (periodicEventsStateCache.containsKey(host)) {
+            return periodicEventsStateCache.get(host);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -282,7 +293,7 @@ public class ApexMonitoringRestResource {
      * @return a list of {@code Counter} objects for that engine
      */
     private List<Counter> getValuesFromCache(final String host, final String id, final long timestamp,
-            final long latestValue) {
+                    final long latestValue) {
         SlidingWindowList<Counter> valueList;
 
         if (!cache.containsKey(host)) {
@@ -292,7 +303,7 @@ public class ApexMonitoringRestResource {
         if (cache.get(host).containsKey(id)) {
             valueList = (SlidingWindowList<Counter>) cache.get(host).get(id);
         } else {
-            valueList = new SlidingWindowList<Counter>(maxCachedEntries);
+            valueList = new SlidingWindowList<>(MAX_CACHED_ENTITIES);
         }
         valueList.add(new Counter(timestamp, latestValue));
 

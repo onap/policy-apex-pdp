@@ -59,14 +59,14 @@ public class ApexDeploymentRest {
 
         // Create a resource configuration that scans for JAX-RS resources and providers
         // in org.onap.policy.apex.client.deployment.rest package
-        final ResourceConfig rc = new ResourceConfig().packages(parameters.getRESTPackages());
+        final ResourceConfig rc = new ResourceConfig().packages(parameters.getRestPackages());
 
         // Add MultiPartFeature class for jersey-media-multipart
         rc.register(MultiPartFeature.class);
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        server = GrizzlyHttpServerFactory.createHttpServer(parameters.getBaseURI(), rc);
+        server = GrizzlyHttpServerFactory.createHttpServer(parameters.getBaseUri(), rc);
 
         // Add static content
         server.getServerConfiguration().addHttpHandler(new org.glassfish.grizzly.http.server.CLStaticHttpHandler(

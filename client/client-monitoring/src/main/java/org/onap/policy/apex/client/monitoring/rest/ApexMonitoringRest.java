@@ -56,11 +56,11 @@ public class ApexMonitoringRest {
 
         // Create a resource configuration that scans for JAX-RS resources and providers
         // in org.onap.policy.apex.services.client.monitoring.rest package
-        final ResourceConfig rc = new ResourceConfig().packages(parameters.getRESTPackages());
+        final ResourceConfig rc = new ResourceConfig().packages(parameters.getRestPackages());
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        server = GrizzlyHttpServerFactory.createHttpServer(parameters.getBaseURI(), rc);
+        server = GrizzlyHttpServerFactory.createHttpServer(parameters.getBaseUri(), rc);
 
         // Add static content
         server.getServerConfiguration().addHttpHandler(new org.glassfish.grizzly.http.server.CLStaticHttpHandler(

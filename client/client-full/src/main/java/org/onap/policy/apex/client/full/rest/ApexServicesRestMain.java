@@ -22,11 +22,20 @@ package org.onap.policy.apex.client.full.rest;
 
 import java.io.PrintStream;
 
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 /**
  * This class is the main class that is used to launch the Apex editor from the command line.
  *
  */
 public class ApexServicesRestMain {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexServicesRestMain.class);
+
+    // Recurring string constants
+    private static final String REST_ENDPOINT_PREFIX = "Apex Editor REST endpoint (";
+
     /**
      * The Enum EditorState holds the current state of the editor.
      */
@@ -65,7 +74,7 @@ public class ApexServicesRestMain {
             final ApexServicesRestMain editorMain = new ApexServicesRestMain(args, System.out);
             editorMain.init();
         } catch (final Exception e) {
-            System.err.println(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -87,7 +96,7 @@ public class ApexServicesRestMain {
             parameters = parser.parse(args);
         } catch (final ApexServicesRestParameterException e) {
             throw new ApexServicesRestParameterException(
-                    "Apex Editor REST endpoint (" + this.toString() + ") parameter error, " + e.getMessage() + '\n'
+                    REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, " + e.getMessage() + '\n'
                             + parser.getHelp(ApexServicesRestMain.class.getCanonicalName()));
         }
 
@@ -99,7 +108,7 @@ public class ApexServicesRestMain {
         final String validationMessage = parameters.validate();
         if (validationMessage.length() > 0) {
             throw new ApexServicesRestParameterException(
-                    "Apex Editor REST endpoint (" + this.toString() + ") parameters invalid, " + validationMessage
+                    REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage
                             + '\n' + parser.getHelp(ApexServicesRestMain.class.getCanonicalName()));
         }
 
@@ -110,8 +119,8 @@ public class ApexServicesRestMain {
      * Initialize the Apex editor.
      */
     public void init() {
-        outStream.println("Apex Editor REST endpoint (" + this.toString() + ") starting at "
-                + parameters.getBaseURI().toString() + " . . .");
+        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") starting at "
+                + parameters.getBaseUri().toString() + " . . .");
 
         try {
             state = EditorState.INITIALIZING;
@@ -125,10 +134,10 @@ public class ApexServicesRestMain {
             state = EditorState.RUNNING;
 
             if (parameters.getTimeToLive() == ApexServicesRestParameters.INFINITY_TIME_TO_LIVE) {
-                outStream.println("Apex Editor REST endpoint (" + this.toString() + ") started at "
-                        + parameters.getBaseURI().toString());
+                outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started at "
+                        + parameters.getBaseUri().toString());
             } else {
-                outStream.println("Apex Editor REST endpoint (" + this.toString() + ") started");
+                outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started");
             }
 
             // Find out how long is left to wait
@@ -144,7 +153,7 @@ public class ApexServicesRestMain {
             }
         } catch (final Exception e) {
             outStream.println(
-                    "Apex Editor REST endpoint (" + this.toString() + ") failed at with error: " + e.getMessage());
+                    REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage());
         } finally {
             if (apexServices != null) {
                 apexServices.shutdown();
@@ -181,11 +190,11 @@ public class ApexServicesRestMain {
      */
     public void shutdown() {
         if (apexServices != null) {
-            outStream.println("Apex Editor REST endpoint (" + this.toString() + ") shutting down");
+            outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") shutting down");
             apexServices.shutdown();
         }
         state = EditorState.STOPPED;
-        outStream.println("Apex Editor REST endpoint (" + this.toString() + ") shut down");
+        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") shut down");
     }
 
     /**

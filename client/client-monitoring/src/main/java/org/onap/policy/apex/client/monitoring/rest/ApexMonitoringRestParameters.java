@@ -44,6 +44,10 @@ public class ApexMonitoringRestParameters {
     private int restPort = DEFAULT_REST_PORT;
     private long timeToLive = INFINITY_TIME_TO_LIVE;
 
+    /**
+     * Validate the parameters.
+     * @return the result of the validation
+     */
     public String validate() {
         String validationMessage = "";
         validationMessage += validatePort();
@@ -52,11 +56,11 @@ public class ApexMonitoringRestParameters {
         return validationMessage;
     }
 
-    public URI getBaseURI() {
+    public URI getBaseUri() {
         return URI.create(DEFAULT_SERVER_URI_ROOT + restPort + DEFAULT_REST_PATH);
     }
 
-    public String[] getRESTPackages() {
+    public String[] getRestPackages() {
         return DEFAULT_PACKAGES;
     }
 
@@ -88,11 +92,11 @@ public class ApexMonitoringRestParameters {
         this.helpSet = helpSet;
     }
 
-    public int getRESTPort() {
+    public int getRestPort() {
         return restPort;
     }
 
-    public void setRESTPort(final int restPort) {
+    public void setRestPort(final int restPort) {
         this.restPort = restPort;
     }
 
@@ -107,7 +111,7 @@ public class ApexMonitoringRestParameters {
     @Override
     public String toString() {
         final StringBuilder ret = new StringBuilder();
-        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseURI()).append(", TTL=")
+        ret.append(this.getClass().getSimpleName()).append(": URI=").append(this.getBaseUri()).append(", TTL=")
                 .append(this.getTimeToLive()).append("sec");
         return ret.toString();
     }

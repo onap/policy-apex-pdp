@@ -41,6 +41,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 import org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters;
 import org.onap.policy.apex.tools.model.generator.SchemaUtils;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
@@ -51,6 +53,14 @@ import org.stringtemplate.v4.STGroupFile;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public class Model2JsonEventSchema {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(Model2JsonEventSchema.class);
+
+    // Recurring string constants
+    private static final String TARGET = "target";
+    private static final String SOURCE = "source";
+    private static final String VERSION = "version";
+    private static final String NAME_SPACE = "nameSpace";
 
     /** Application name, used as prompt. */
     private final String appName;
@@ -150,7 +160,8 @@ public class Model2JsonEventSchema {
 
         final ApexApiResult result = model.loadFromFile(modelFile);
         if (result.isNok()) {
-            System.err.println(appName + ": " + result.getMessage());
+            String message = appName + ": " + result.getMessage();
+            LOGGER.error(message);
             return -1;
         }
 
@@ -200,7 +211,7 @@ public class Model2JsonEventSchema {
                 }
                 break;
             default:
-                System.err.println(appName + ": unknown type <" + type + ">, cannot proceed");
+                LOGGER.error("{}: unknown type <{}>, cannot proceed", appName, type);
                 return -1;
         }
 
@@ -215,20 +226,20 @@ public class Model2JsonEventSchema {
         for (final AxEvent event : events) {
             final ST stEvent = stg.getInstanceOf("event");
             stEvent.add("name", event.getKey().getName());
-            stEvent.add("nameSpace", event.getNameSpace());
-            stEvent.add("version", event.getKey().getVersion());
-            stEvent.add("source", event.getSource());
-            stEvent.add("target", event.getTarget());
+            stEvent.add(NAME_SPACE, event.getNameSpace());
+            stEvent.add(VERSION, event.getKey().getVersion());
+            stEvent.add(SOURCE, event.getSource());
+            stEvent.add(TARGET, event.getTarget());
 
             final Schema avro = SchemaUtils.getEventSchema(event);
             for (final Field field : avro.getFields()) {
                 // filter magic names
                 switch (field.name()) {
                     case "name":
-                    case "nameSpace":
-                    case "version":
-                    case "source":
-                    case "target":
+                    case NAME_SPACE:
+                    case VERSION:
+                    case SOURCE:
+                    case TARGET:
                         break;
                     default:
                         stEvent.add("fields", this.setField(field, stg));
@@ -236,7 +247,8 @@ public class Model2JsonEventSchema {
             }
             stEvents.add("event", stEvent);
         }
-        System.err.println(stEvents.render());
+        String renderMessage = stEvents.render();
+        LOGGER.error(renderMessage);
         return 0;
     }
 
@@ -251,10 +263,10 @@ public class Model2JsonEventSchema {
         final ST st = stg.getInstanceOf("field");
         switch (field.name()) {
             case "name":
-            case "nameSpace":
-            case "version":
-            case "source":
-            case "target":
+            case NAME_SPACE:
+            case VERSION:
+            case SOURCE:
+            case TARGET:
                 break;
             default:
                 st.add("name", field.name());

@@ -103,7 +103,7 @@ public abstract class RestUtils {
      * @param jsonString the incoming JSON string
      * @return a map of the JSON strings
      */
-    public static Map<String, String> getJSONParameters(final String jsonString) {
+    public static Map<String, String> getJsonParameters(final String jsonString) {
         final GsonBuilder gb = new GsonBuilder();
         gb.serializeNulls().enableComplexMapKeySerialization();
         final JsonObject jsonObject = gb.create().fromJson(jsonString, JsonObject.class);
@@ -120,12 +120,12 @@ public abstract class RestUtils {
      * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings
      * into a map.
      *
-     * @param <CLZ> the generic type
+     * @param <C> the generic type
      * @param jsonString the incoming JSON string
      * @param clz the clz
      * @return a map of the JSON strings
      */
-    public static <CLZ extends BeanBase> CLZ getJSONParameters(final String jsonString, final Class<CLZ> clz) {
+    public static <C extends BeanBase> C getJsonParameters(final String jsonString, final Class<C> clz) {
         final GsonBuilder gb = new GsonBuilder();
         gb.serializeNulls().enableComplexMapKeySerialization();
         final JsonObject jsonObject = gb.create().fromJson(jsonString, JsonObject.class);
@@ -134,8 +134,7 @@ public abstract class RestUtils {
             final JsonElement val = jsonEntry.getValue();
             jsonEntry.setValue(blank2null(val));
         }
-        final CLZ ret = gb.create().fromJson(jsonObject, clz);
-        return ret;
+        return gb.create().fromJson(jsonObject, clz);
     }
 
     // Regular expressions for checking input types
@@ -148,13 +147,13 @@ public abstract class RestUtils {
     /**
      * Gets the concept from JSON.
      *
-     * @param <CLZ> the generic type
+     * @param <C> the generic type
      * @param jsonString the json string
      * @param clz the clz
      * @return the concept from JSON
      * @throws JAXBException the JAXB exception
      */
-    public static <CLZ extends AxConcept> CLZ getConceptFromJSON(final String jsonString, final Class<CLZ> clz)
+    public static <C extends AxConcept> C getConceptFromJson(final String jsonString, final Class<C> clz)
             throws JAXBException {
         Unmarshaller unmarshaller = null;
         final JAXBContext jaxbContext = JAXBContext.newInstance(clz);
@@ -168,10 +167,8 @@ public abstract class RestUtils {
             return null;
         }
         final StreamSource source = new StreamSource(new StringReader(jsonString));
-        final JAXBElement<CLZ> rootElement = unmarshaller.unmarshal(source, clz);
-        final CLZ apexConcept = rootElement.getValue();
-        return apexConcept;
-
+        final JAXBElement<C> rootElement = unmarshaller.unmarshal(source, clz);
+        return rootElement.getValue();
     }
 
     /**
@@ -180,11 +177,9 @@ public abstract class RestUtils {
      * @param object the object
      * @return the JSO nfrom concept
      */
-    public static String getJSONfromConcept(final Object object) {
+    public static String getJsonfromConcept(final Object object) {
         final GsonBuilder gb = new GsonBuilder();
         gb.serializeNulls().enableComplexMapKeySerialization();
-        final String jsonObject = gb.create().toJson(object);
-        return jsonObject;
+        return gb.create().toJson(object);
     }
-
 }

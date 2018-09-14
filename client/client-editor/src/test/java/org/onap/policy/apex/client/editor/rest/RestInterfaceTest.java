@@ -102,7 +102,7 @@ public class RestInterfaceTest {
         // create the client
         final Client c = ClientBuilder.newClient();
         // Create the web target
-        target = c.target(new ApexEditorParameters().getBaseURI());
+        target = c.target(new ApexEditorParameters().getBaseUri());
 
         // load a test model locally
         localmodel = new ApexModelReader<>(AxPolicyModel.class, false)
@@ -149,7 +149,7 @@ public class RestInterfaceTest {
      */
     private static int createNewSession() {
         final ApexApiResult responseMsg = target.path("editor/-1/Session/Create").request().get(ApexApiResult.class);
-        assertEquals(responseMsg.getResult(), ApexApiResult.Result.SUCCESS);
+        assertEquals(ApexApiResult.Result.SUCCESS, responseMsg.getResult());
         assertTrue(responseMsg.getMessages().size() == 1);
         return Integer.parseInt(responseMsg.getMessages().get(0));
     }
@@ -157,11 +157,11 @@ public class RestInterfaceTest {
     /**
      * Upload policy.
      *
-     * @param sessionID the session ID
+     * @param sessionId the session ID
      * @param modelAsJsonString the model as json string
      */
-    private void uploadPolicy(final int sessionID, final String modelAsJsonString) {
-        final Builder requestbuilder = target.path("editor/" + sessionID + "/Model/Load").request();
+    private void uploadPolicy(final int sessionId, final String modelAsJsonString) {
+        final Builder requestbuilder = target.path("editor/" + sessionId + "/Model/Load").request();
         final ApexApiResult responseMsg = requestbuilder.put(Entity.json(modelAsJsonString), ApexApiResult.class);
         assertTrue(responseMsg.isOk());
     }
@@ -176,11 +176,11 @@ public class RestInterfaceTest {
     @Test
     public void testUploadThenGet() throws ApexException, JAXBException {
 
-        final int sessionID = createNewSession();
+        final int sessionId = createNewSession();
 
-        uploadPolicy(sessionID, localmodelString);
+        uploadPolicy(sessionId, localmodelString);
 
-        final ApexApiResult responseMsg = target.path("editor/" + sessionID + "/Policy/Get")
+        final ApexApiResult responseMsg = target.path("editor/" + sessionId + "/Policy/Get")
                 .queryParam("name", "Policy0").queryParam("version", "0.0.1").request().get(ApexApiResult.class);
         assertTrue(responseMsg.isOk());
 

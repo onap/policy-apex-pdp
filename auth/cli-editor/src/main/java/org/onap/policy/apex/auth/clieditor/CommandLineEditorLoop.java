@@ -51,6 +51,9 @@ import org.onap.policy.apex.model.utilities.TreeMapUtils;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class CommandLineEditorLoop {
+    // Recurring string constants
+    private static final String COMMAND = "command ";
+
     // The model handler that is handling the API towards the Apex model being editied
     private final ApexModelHandler modelHandler;
 
@@ -325,11 +328,11 @@ public class CommandLineEditorLoop {
         for (final Entry<String, String> argument : getCommandArguments(commandWords)) {
             final List<Entry<String, CommandLineArgumentValue>> foundArguments = TreeMapUtils
                             .findMatchingEntries(argumentValues, argument.getKey());
-            if (foundArguments.size() == 0) {
-                throw new CommandLineException("command " + stringAL2String(commandWords) + ": " + " argument \""
+            if (foundArguments.isEmpty()) {
+                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument \""
                                 + argument.getKey() + "\" not allowed on command");
             } else if (foundArguments.size() > 1) {
-                throw new CommandLineException("command " + stringAL2String(commandWords) + ": " + " argument "
+                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument "
                                 + argument + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
             }
 
@@ -343,7 +346,7 @@ public class CommandLineEditorLoop {
             // Argument values are null by default so if this argument is not nullable it is
             // mandatory
             if (!argumentValue.isSpecified() && !argumentValue.getCliArgument().isNullable()) {
-                throw new CommandLineException("command " + stringAL2String(commandWords) + ": "
+                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": "
                                 + " mandatory argument \"" + argumentValue.getCliArgument().getArgumentName()
                                 + "\" not specified");
             }

@@ -22,12 +22,21 @@ package org.onap.policy.apex.client.monitoring.rest;
 
 import java.io.PrintStream;
 
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 /**
  * The main class for Apex Restful Monitoring.
  *
  * @author Michael Watkins (michael.watkins@ericsson.com)
  */
 public class ApexMonitoringRestMain {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexMonitoringRestMain.class);
+
+    // Recurring string constants
+    private static final String REST_ENDPOINT_PREFIX = "Apex Services REST endpoint (";
+
     // Services state
     public enum ServicesState {
         STOPPED, READY, INITIALIZING, RUNNING
@@ -54,7 +63,7 @@ public class ApexMonitoringRestMain {
             final ApexMonitoringRestMain restMain = new ApexMonitoringRestMain(args, System.out);
             restMain.init();
         } catch (final Exception e) {
-            System.err.println(e.getMessage());
+            LOGGER.error("start failed", e);
         }
     }
 
@@ -76,7 +85,7 @@ public class ApexMonitoringRestMain {
             parameters = parser.parse(args);
         } catch (final ApexMonitoringRestParameterException e) {
             throw new ApexMonitoringRestParameterException(
-                    "Apex Services REST endpoint (" + this.toString() + ") parameter error, " + e.getMessage() + '\n'
+                    REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, " + e.getMessage() + '\n'
                             + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
         }
 
@@ -89,7 +98,7 @@ public class ApexMonitoringRestMain {
         final String validationMessage = parameters.validate();
         if (validationMessage.length() > 0) {
             throw new ApexMonitoringRestParameterException(
-                    "Apex Services REST endpoint (" + this.toString() + ") parameters invalid, " + validationMessage
+                    REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage
                             + '\n' + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
         }
 
@@ -100,8 +109,8 @@ public class ApexMonitoringRestMain {
      * Initialize the rest service.
      */
     public void init() {
-        outStream.println("Apex Services REST endpoint (" + this.toString() + ") starting at "
-                + parameters.getBaseURI().toString() + " . . .");
+        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") starting at "
+                + parameters.getBaseUri().toString() + " . . .");
 
         try {
             state = ServicesState.INITIALIZING;
@@ -115,10 +124,10 @@ public class ApexMonitoringRestMain {
             state = ServicesState.RUNNING;
 
             if (parameters.getTimeToLive() == ApexMonitoringRestParameters.INFINITY_TIME_TO_LIVE) {
-                outStream.println("Apex Services REST endpoint (" + this.toString() + ") started at "
-                        + parameters.getBaseURI().toString());
+                outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started at "
+                        + parameters.getBaseUri().toString());
             } else {
-                outStream.println("Apex Services REST endpoint (" + this.toString() + ") started");
+                outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started");
             }
 
             // Find out how long is left to wait
@@ -134,7 +143,7 @@ public class ApexMonitoringRestMain {
             }
         } catch (final Exception e) {
             outStream.println(
-                    "Apex Services REST endpoint (" + this.toString() + ") failed at with error: " + e.getMessage());
+                    REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage());
         } finally {
             if (apexMonitoringRest != null) {
                 apexMonitoringRest.shutdown();
@@ -167,11 +176,11 @@ public class ApexMonitoringRestMain {
      */
     public void shutdown() {
         if (apexMonitoringRest != null) {
-            outStream.println("Apex Services REST endpoint (" + this.toString() + ") shutting down");
+            outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") shutting down");
             apexMonitoringRest.shutdown();
         }
         state = ServicesState.STOPPED;
-        outStream.println("Apex Services REST endpoint (" + this.toString() + ") shut down");
+        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") shut down");
     }
 
     /**

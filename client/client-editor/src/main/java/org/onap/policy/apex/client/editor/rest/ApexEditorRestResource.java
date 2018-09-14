@@ -70,39 +70,51 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The class represents the root resource exposed at the base URL<br>
- * The url to access this resource would be in the form {@code <baseURL>/rest/<session>/....} <br>
- * For example: a PUT request to the following URL
- * {@code http://localhost:8080/apex/rest/109/ContextSchema/Update}, with a JSON string payload
- * containing the new {@code Schema} in the body, can be explained as:
- * <ul>
- * <li>The server or servlet is running at the base URL {@code http://localhost:8080/apex}
- * <li>This resource {@code ApexRestEditorResource} is used because the path {@code rest/109}
- * matches the {@code Path} filter specification for this Resource
- * ({@code @Path("rest/{session}")}), where the {@code int} path parameter {@code session} is
- * assigned the {@code int} value {@code 109}
- * <li>The path {@code ContextSchema/Update} redirects this call to the method
- * {@link #updateContextSchema(String)}, which should be a {@link javax.ws.rs.PUT}, with a single
- * String in the body/payload which gets mapped to the single String parameter for the method.
- * <li>So, in summary, the REST request updates a {@code ContextSchema} as specified in the payload
- * for {@code session} number {@code 109}
- * </ul>
+ * The class represents the root resource exposed at the base URL<br> The url to access this resource would be in the
+ * form {@code <baseURL>/rest/<session>/....} <br> For example: a PUT request to the following URL
+ * {@code http://localhost:8080/apex/rest/109/ContextSchema/Update}, with a JSON string payload containing the new
+ * {@code Schema} in the body, can be explained as: <ul> <li>The server or servlet is running at the base URL
+ * {@code http://localhost:8080/apex} <li>This resource {@code ApexRestEditorResource} is used because the path
+ * {@code rest/109} matches the {@code Path} filter specification for this Resource ({@code @Path("rest/{session}")}),
+ * where the {@code int} path parameter {@code session} is assigned the {@code int} value {@code 109} <li>The path
+ * {@code ContextSchema/Update} redirects this call to the method {@link #updateContextSchema(String)}, which should be
+ * a {@link javax.ws.rs.PUT}, with a single String in the body/payload which gets mapped to the single String parameter
+ * for the method. <li>So, in summary, the REST request updates a {@code ContextSchema} as specified in the payload for
+ * {@code session} number {@code 109} </ul>
  *
- * <b>Note:</b> An allocated {@code Session} identifier must be included in (almost) all requests.
- * Models for different {@code Session} identifiers are completely isolated from one another.
+ * <b>Note:</b> An allocated {@code Session} identifier must be included in (almost) all requests. Models for different
+ * {@code Session} identifiers are completely isolated from one another.
  *
- * <b>Note:</b> To create a new {@code Session}, and have a new session ID allocated use
- * {@link javax.ws.rs.GET} request to {@code <baseURL>/rest/-1/Session/Create} (for example:
- * {@code http://localhost:8080/apex/rest/-1/Session/Create} )
+ * <b>Note:</b> To create a new {@code Session}, and have a new session ID allocated use {@link javax.ws.rs.GET} request
+ * to {@code <baseURL>/rest/-1/Session/Create} (for example: {@code http://localhost:8080/apex/rest/-1/Session/Create} )
  *
  */
 @Path("editor/{session}")
-@Produces({MediaType.APPLICATION_JSON})
-@Consumes({MediaType.APPLICATION_JSON})
+@Produces(
+    { MediaType.APPLICATION_JSON })
+@Consumes(
+    { MediaType.APPLICATION_JSON })
 
 public class ApexEditorRestResource {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEditorRestResource.class);
+
+    // Recurring string constants
+    private static final String IN_TASK = "\" in task ";
+    private static final String POLICY_STATE_CREATED_OTHER_ERROR =
+                    "\". The policy and state were created, but there was an error adding the";
+    private static final String IN_STATE = "\" in state \"";
+    private static final String POLICY_CREATED_STATE_ERROR =
+                    "\". The policy was created, but there was an error adding the state.";
+    private static final String FOR_POLICY = "\" for policy \"";
+    private static final String NOT_OK = ": Not OK";
+    private static final String TASK_PARTIALLY_DEFINED = " The task has only been partially defined.";
+    private static final String POLICY_PARTIALLY_DEFINED = " The policy has only been partially defined.";
+    private static final String POLICY_WAS_CREATED = "\". The policy was created, ";
+    private static final String VERSION = "version";
+    private static final String POLICY_KEY = "policyKey";
+    private static final String DESCRIPTION = "description";
+    private static final String APEX_KEY_INFO = "apexKeyInfo";
 
     // The next session will have this number, stating at 0
     private static int nextSession = 0;
@@ -112,79 +124,77 @@ public class ApexEditorRestResource {
 
     // The ID of this session. This gets injected from the URL.
     @PathParam("session")
-    private int sessionID = -1;
+    private int sessionId = -1;
 
     // The Apex model for the session
     private ApexModel sessionApexModel = null;
 
     /**
-     * This method sets the Apex model for the current editor session. Don't forget to call
-     * {@link #commitChanges()} when finished! This makes requests atomic.
+     * This method sets the Apex model for the current editor session. Don't forget to call {@link #commitChanges()}
+     * when finished! This makes requests atomic.
      *
      * @return the result of finding the session Apex model and setting it
      */
     private ApexApiResult initialiseSessionForChanges() {
-        if (sessionID < 0) {
-            return new ApexApiResult(Result.FAILED, "Session ID  \"" + sessionID + "\" is negative");
+        if (sessionId < 0) {
+            return new ApexApiResult(Result.FAILED, "Session ID  \"" + sessionId + "\" is negative");
         }
 
-        if (!SESSIONMODELMAP.containsKey(sessionID)) {
-            return new ApexApiResult(Result.FAILED, "A session with session ID \"" + sessionID + "\" does not exist");
+        if (!SESSIONMODELMAP.containsKey(sessionId)) {
+            return new ApexApiResult(Result.FAILED, "A session with session ID \"" + sessionId + "\" does not exist");
         }
 
         if (sessionApexModel == null) {
-            sessionApexModel = SESSIONMODELMAP.get(sessionID).clone();
+            sessionApexModel = SESSIONMODELMAP.get(sessionId).clone();
         }
         return new ApexApiResult();
     }
 
     /**
-     * This method sets the Apex model for the current editor session. Don't make any changes to the
-     * model.
+     * This method sets the Apex model for the current editor session. Don't make any changes to the model.
      *
      * @return the result of finding the session Apex model and setting it
      */
     private ApexApiResult initialiseSessionForReadOnly() {
-        if (sessionID < 0) {
-            return new ApexApiResult(Result.FAILED, "Session ID  \"" + sessionID + "\" is negative");
+        if (sessionId < 0) {
+            return new ApexApiResult(Result.FAILED, "Session ID  \"" + sessionId + "\" is negative");
         }
 
-        if (!SESSIONMODELMAP.containsKey(sessionID)) {
-            return new ApexApiResult(Result.FAILED, "A session with session ID \"" + sessionID + "\" does not exist");
+        if (!SESSIONMODELMAP.containsKey(sessionId)) {
+            return new ApexApiResult(Result.FAILED, "A session with session ID \"" + sessionId + "\" does not exist");
         }
 
         if (sessionApexModel == null) {
-            sessionApexModel = SESSIONMODELMAP.get(sessionID);
+            sessionApexModel = SESSIONMODELMAP.get(sessionId);
         }
         return new ApexApiResult();
     }
 
     /**
-     * This method commits changes to the Apex model for the current editor session. This should
-     * only be called once, at the end of a successful change to the model for this session
+     * This method commits changes to the Apex model for the current editor session. This should only be called once, at
+     * the end of a successful change to the model for this session
      *
      * @return the result of committing the session Apex model
      */
     private ApexApiResult commitChanges() {
 
         if (sessionApexModel == null) {
-            return new ApexApiResult(Result.FAILED, "Cannot commit a changes for Session ID  \"" + sessionID
-                    + "\", because it has not been initialised / started");
+            return new ApexApiResult(Result.FAILED, "Cannot commit a changes for Session ID  \"" + sessionId
+                            + "\", because it has not been initialised / started");
         }
 
-        SESSIONMODELMAP.put(sessionID, sessionApexModel);
+        SESSIONMODELMAP.put(sessionId, sessionApexModel);
 
         return new ApexApiResult();
     }
 
     /**
-     * Creates a new session. Always call this method with sessionID -1, whereby a new sessionID
-     * will be allocated. If successful the new sessionID will be available in the first message in
-     * the result.
+     * Creates a new session. Always call this method with sessionID -1, whereby a new sessionID will be allocated. If
+     * successful the new sessionID will be available in the first message in the result.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}.
-     *         This includes the session id for this session.
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}. This includes the session id
+     *         for this session.
      */
     @GET
     @Path("Session/Create")
@@ -192,39 +202,39 @@ public class ApexEditorRestResource {
         ApexApiResult ret = null;
         LOGGER.entry();
         try {
-            if (sessionID != -1) {
-                ret = new ApexApiResult(Result.FAILED, "Session ID must be set to -1 to create sessions: " + sessionID);
+            if (sessionId != -1) {
+                ret = new ApexApiResult(Result.FAILED, "Session ID must be set to -1 to create sessions: " + sessionId);
                 return ret;
             }
 
-            final int newSessionID = nextSession;
+            final int newSessionId = nextSession;
 
-            if (SESSIONMODELMAP.containsKey(newSessionID)) {
-                ret = new ApexApiResult(Result.FAILED, "Session already exists for session: " + newSessionID);
+            if (SESSIONMODELMAP.containsKey(newSessionId)) {
+                ret = new ApexApiResult(Result.FAILED, "Session already exists for session: " + newSessionId);
                 return ret;
             }
 
-            SESSIONMODELMAP.put(newSessionID, new ApexModelFactory().createApexModel(null, true));
-            nextSession++;
+            SESSIONMODELMAP.put(newSessionId, new ApexModelFactory().createApexModel(null, true));
+            incrementNextSession();
 
-            ret = new ApexApiResult(Result.SUCCESS, Integer.toString(newSessionID));
+            ret = new ApexApiResult(Result.SUCCESS, Integer.toString(newSessionId));
             return ret;
         } catch (final Exception e) {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Session/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            String result = "Session/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK);
+            LOGGER.exit(result);
         }
     }
 
     /**
      * Load the model from a JSON string for this session.
      *
-     * @param jsonString the JSON string to be parsed. The returned value(s) will be similar to
-     *        {@link AxPolicyModel}, with merged {@linkplain AxKeyInfo} for the root object.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @param jsonString the JSON string to be parsed. The returned value(s) will be similar to {@link AxPolicyModel},
+     *        with merged {@linkplain AxKeyInfo} for the root object.
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("/Model/Load")
@@ -246,17 +256,17 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Load" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            String result = "Model/Load" + (ret != null && ret.isOk() ? ": OK" : NOT_OK);
+            LOGGER.exit(result);
         }
     }
 
     /**
-     * Analyse the model and return analysis results. If successful the analysis results will be
-     * available in the messages in the result.
+     * Analyse the model and return analysis results. If successful the analysis results will be available in the
+     * messages in the result.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Model/Analyse")
@@ -275,17 +285,16 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Analyse" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/Analyse" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Validate the model and return validation results. If successful the validation results will
-     * be available in the messages in the result.
+     * Validate the model and return validation results. If successful the validation results will be available in the
+     * messages in the result.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Model/Validate")
@@ -306,18 +315,16 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Validate" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/Validate" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
      * Creates the new model model for this session.
      *
-     * @param jsonString the JSON string to be parsed containing the new model. See
-     *        {@linkplain BeanModel}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @param jsonString the JSON string to be parsed containing the new model. See {@linkplain BeanModel}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @POST
     @Path("Model/Create")
@@ -330,9 +337,9 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanModel jsonbean = RestUtils.getJSONParameters(jsonString, BeanModel.class);
+            final BeanModel jsonbean = RestUtils.getJsonParameters(jsonString, BeanModel.class);
             ret = sessionApexModel.createModel(jsonbean.getName(), jsonbean.getVersion(), jsonbean.getUuid(),
-                    jsonbean.getDescription());
+                            jsonbean.getDescription());
 
             if (ret.isOk()) {
                 ret = addKeyInfo2Messages(ret);
@@ -345,18 +352,16 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
      * Update the model for this session.
      *
-     * @param jsonString the JSON string to be parsed containing the updated model. See
-     *        {@linkplain BeanModel}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @param jsonString the JSON string to be parsed containing the updated model. See {@linkplain BeanModel}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("Model/Update")
@@ -369,9 +374,9 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanModel jsonbean = RestUtils.getJSONParameters(jsonString, BeanModel.class);
+            final BeanModel jsonbean = RestUtils.getJsonParameters(jsonString, BeanModel.class);
             ret = sessionApexModel.updateModel(jsonbean.getName(), jsonbean.getVersion(), jsonbean.getUuid(),
-                    jsonbean.getDescription());
+                            jsonbean.getDescription());
             if (ret.isOk()) {
                 commitChanges();
             }
@@ -380,17 +385,16 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Update" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/Update" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Gets the key for the model for this session. If successful the model key will be available in
-     * the first message in the result. See {@linkplain AxKey}
+     * Gets the key for the model for this session. If successful the model key will be available in the first message
+     * in the result. See {@linkplain AxKey}
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Model/GetKey")
@@ -409,18 +413,17 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/GetKey" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/GetKey" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Retrieve the model for this session. If successful the model will be available in the first
-     * message in the result. The returned value will be similar to a {@link AxPolicyModel}, with
-     * merged {@linkplain AxKeyInfo} for the root object.
+     * Retrieve the model for this session. If successful the model will be available in the first message in the
+     * result. The returned value will be similar to a {@link AxPolicyModel}, with merged {@linkplain AxKeyInfo} for the
+     * root object.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Model/Get")
@@ -444,8 +447,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -476,18 +478,16 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            if (ret != null) {
-                LOGGER.exit(ret.isOk());
-            }
-            LOGGER.info("Model/Download" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            String result = "Model/Download" + (ret != null && ret.isOk() ? ": OK" : NOT_OK);
+            LOGGER.exit(result);
         }
     }
 
     /**
      * Delete the model for this session.
      *
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @DELETE
     @Path("Model/Delete")
@@ -509,24 +509,23 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Model/Delete" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Model/Delete" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * List key information with the given key names/versions. If successful the result(s) will be
-     * available in the result messages. See {@linkplain AxKeyInfo}
+     * List key information with the given key names/versions. If successful the result(s) will be available in the
+     * result messages. See {@linkplain AxKeyInfo}
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("KeyInformation/Get")
     public ApexApiResult listKeyInformation(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -550,8 +549,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("KeyInformation/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("KeyInformation/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -559,8 +557,8 @@ public class ApexEditorRestResource {
      * Creates a context schema with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextSchema}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @POST
     @Path("ContextSchema/Create")
@@ -573,10 +571,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanContextSchema jsonbean = RestUtils.getJSONParameters(jsonString, BeanContextSchema.class);
+            final BeanContextSchema jsonbean = RestUtils.getJsonParameters(jsonString, BeanContextSchema.class);
             ret = sessionApexModel.createContextSchema(jsonbean.getName(), jsonbean.getVersion(),
-                    jsonbean.getSchemaFlavour(), jsonbean.getSchemaDefinition(), jsonbean.getUuid(),
-                    jsonbean.getDescription());
+                            jsonbean.getSchemaFlavour(), jsonbean.getSchemaDefinition(), jsonbean.getUuid(),
+                            jsonbean.getDescription());
             if (ret.isOk()) {
                 commitChanges();
             }
@@ -585,8 +583,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextSchema/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextSchema/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -594,8 +591,8 @@ public class ApexEditorRestResource {
      * Update a context schema with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextSchema}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("ContextSchema/Update")
@@ -608,11 +605,11 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanContextSchema jsonbean = RestUtils.getJSONParameters(jsonString, BeanContextSchema.class);
+            final BeanContextSchema jsonbean = RestUtils.getJsonParameters(jsonString, BeanContextSchema.class);
 
             ret = sessionApexModel.updateContextSchema(jsonbean.getName(), jsonbean.getVersion(),
-                    jsonbean.getSchemaFlavour(), jsonbean.getSchemaDefinition(), jsonbean.getUuid(),
-                    jsonbean.getDescription());
+                            jsonbean.getSchemaFlavour(), jsonbean.getSchemaDefinition(), jsonbean.getUuid(),
+                            jsonbean.getDescription());
             if (ret.isOk()) {
                 commitChanges();
             }
@@ -621,25 +618,24 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextSchema/Update" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextSchema/Update" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * List context schemas with the given key names/versions. If successful the result(s) will be
-     * available in the result messages. The returned value(s) will be similar to
-     * {@link AxContextSchema}, with merged {@linkplain AxKeyInfo} for the root object.
+     * List context schemas with the given key names/versions. If successful the result(s) will be available in the
+     * result messages. The returned value(s) will be similar to {@link AxContextSchema}, with merged
+     * {@linkplain AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("ContextSchema/Get")
     public ApexApiResult listContextSchemas(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -668,8 +664,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextSchema/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextSchema/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -678,13 +673,13 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @DELETE
     @Path("ContextSchema/Delete")
     public ApexApiResult deleteContextSchema(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -711,24 +706,23 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextSchema/Delete" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextSchema/Delete" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Validate context schemas with the given key names/versions. The result(s) will be available
-     * in the result messages.
+     * Validate context schemas with the given key names/versions. The result(s) will be available in the result
+     * messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Validate/ContextSchema")
     public ApexApiResult validateContextSchemas(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -757,8 +751,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Validate/ContextSchema" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Validate/ContextSchema" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -766,8 +759,8 @@ public class ApexEditorRestResource {
      * Creates a context album with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextAlbum}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @POST
     @Path("ContextAlbum/Create")
@@ -780,11 +773,11 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanContextAlbum jsonbean = RestUtils.getJSONParameters(jsonString, BeanContextAlbum.class);
+            final BeanContextAlbum jsonbean = RestUtils.getJsonParameters(jsonString, BeanContextAlbum.class);
 
             ret = sessionApexModel.createContextAlbum(jsonbean.getName(), jsonbean.getVersion(), jsonbean.getScope(),
-                    Boolean.toString(jsonbean.getWriteable()), jsonbean.getItemSchema().getName(),
-                    jsonbean.getItemSchema().getVersion(), jsonbean.getUuid(), jsonbean.getDescription());
+                            Boolean.toString(jsonbean.getWriteable()), jsonbean.getItemSchema().getName(),
+                            jsonbean.getItemSchema().getVersion(), jsonbean.getUuid(), jsonbean.getDescription());
             if (ret.isOk()) {
                 commitChanges();
             }
@@ -793,8 +786,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextAlbum/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextAlbum/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -802,8 +794,8 @@ public class ApexEditorRestResource {
      * Update a context album with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextAlbum}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("ContextAlbum/Update")
@@ -816,11 +808,11 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanContextAlbum jsonbean = RestUtils.getJSONParameters(jsonString, BeanContextAlbum.class);
+            final BeanContextAlbum jsonbean = RestUtils.getJsonParameters(jsonString, BeanContextAlbum.class);
 
             ret = sessionApexModel.updateContextAlbum(jsonbean.getName(), jsonbean.getVersion(), jsonbean.getScope(),
-                    Boolean.toString(jsonbean.getWriteable()), jsonbean.getItemSchema().getName(),
-                    jsonbean.getItemSchema().getVersion(), jsonbean.getUuid(), jsonbean.getDescription());
+                            Boolean.toString(jsonbean.getWriteable()), jsonbean.getItemSchema().getName(),
+                            jsonbean.getItemSchema().getVersion(), jsonbean.getUuid(), jsonbean.getDescription());
             if (ret.isOk()) {
                 commitChanges();
             }
@@ -829,25 +821,24 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextAlbum/Update" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextAlbum/Update" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * List context albums with the given key names/versions. If successful the result(s) will be
-     * available in the result messages. The returned value(s) will be similar to
-     * {@link AxContextAlbum}, with merged {@linkplain AxKeyInfo} for the root object.
+     * List context albums with the given key names/versions. If successful the result(s) will be available in the
+     * result messages. The returned value(s) will be similar to {@link AxContextAlbum}, with merged
+     * {@linkplain AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("ContextAlbum/Get")
     public ApexApiResult listContextAlbums(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -876,8 +867,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextAlbum/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextAlbum/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -886,13 +876,13 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @DELETE
     @Path("ContextAlbum/Delete")
     public ApexApiResult deleteContextAlbum(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -919,24 +909,23 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("ContextAlbum/Delete" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("ContextAlbum/Delete" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Validate context albums with the given key names/versions. The result(s) will be available in
-     * the result messages.
+     * Validate context albums with the given key names/versions. The result(s) will be available in the result
+     * messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Validate/ContextAlbum")
     public ApexApiResult validateContextAlbums(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -965,8 +954,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Validate/ContextAlbum" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Validate/ContextAlbum" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -974,8 +962,8 @@ public class ApexEditorRestResource {
      * Creates an event with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanEvent}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @POST
     @Path("Event/Create")
@@ -988,10 +976,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanEvent jsonbean = RestUtils.getJSONParameters(jsonString, BeanEvent.class);
+            final BeanEvent jsonbean = RestUtils.getJsonParameters(jsonString, BeanEvent.class);
 
             ret = sessionApexModel.createEvent(jsonbean.getName(), jsonbean.getVersion(), jsonbean.getNameSpace(),
-                    jsonbean.getSource(), jsonbean.getTarget(), jsonbean.getUuid(), jsonbean.getDescription());
+                            jsonbean.getSource(), jsonbean.getTarget(), jsonbean.getUuid(), jsonbean.getDescription());
             if (ret.isNok()) {
                 return ret;
             }
@@ -999,19 +987,19 @@ public class ApexEditorRestResource {
                 for (final Entry<String, BeanField> p : jsonbean.getParameters().entrySet()) {
                     if (p.getValue() == null) {
                         ret = new ApexApiResult(Result.FAILED, "Null event parameter information for parameter \""
-                                + p.getKey() + "\" in event " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The event was created, but there was an error adding the event parameters."
-                                + " The event has only been partially defined.");
+                                        + p.getKey() + "\" in event " + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The event was created, but there was an error adding the event parameters."
+                                        + " The event has only been partially defined.");
                         return ret;
                     }
-                    final ApexApiResult rettmp =
-                            sessionApexModel.createEventPar(jsonbean.getName(), jsonbean.getVersion(), p.getKey(),
-                                    p.getValue().getName(), p.getValue().getVersion(), p.getValue().getOptional());
+                    final ApexApiResult rettmp = sessionApexModel.createEventPar(jsonbean.getName(),
+                                    jsonbean.getVersion(), p.getKey(), p.getValue().getName(),
+                                    p.getValue().getVersion(), p.getValue().getOptional());
                     if (rettmp.isNok()) {
                         rettmp.addMessage("Failed to add event parameter information for parameter \"" + p.getKey()
-                                + "\" in event " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The event was created, but there was an error adding the event parameters."
-                                + " The event has only been partially defined.");
+                                        + "\" in event " + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The event was created, but there was an error adding the event parameters."
+                                        + " The event has only been partially defined.");
                         ret = rettmp;
                         return ret;
                     }
@@ -1025,8 +1013,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Event/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Event/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1034,8 +1021,8 @@ public class ApexEditorRestResource {
      * Update an event with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanEvent}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("Event/Update")
@@ -1048,12 +1035,12 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanEvent jsonbean = RestUtils.getJSONParameters(jsonString, BeanEvent.class);
+            final BeanEvent jsonbean = RestUtils.getJsonParameters(jsonString, BeanEvent.class);
 
             if (jsonbean.getName() == null || jsonbean.getName().equals("") || jsonbean.getVersion() == null
-                    || jsonbean.getVersion().equals("")) {
+                            || jsonbean.getVersion().equals("")) {
                 ret = new ApexApiResult(Result.FAILED, "Null/Empty event name/version (\"" + jsonbean.getName() + ":"
-                        + jsonbean.getVersion() + "\" passed to UpdateEvent");
+                                + jsonbean.getVersion() + "\" passed to UpdateEvent");
                 return ret;
             }
 
@@ -1071,24 +1058,23 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Event/Update" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Event/Update" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * List events with the given key names/versions. If successful the result(s) will be available
-     * in the result messages. The returned value(s) will be similar to {@link AxEvent}, with merged
-     * {@linkplain AxKeyInfo} for the root object.
+     * List events with the given key names/versions. If successful the result(s) will be available in the result
+     * messages. The returned value(s) will be similar to {@link AxEvent}, with merged {@linkplain AxKeyInfo} for the
+     * root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Event/Get")
-    public ApexApiResult listEvent(@QueryParam("name") final String name, @QueryParam("version") final String version) {
+    public ApexApiResult listEvent(@QueryParam("name") final String name, @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1117,8 +1103,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Event/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Event/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1127,13 +1112,13 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @DELETE
     @Path("Event/Delete")
     public ApexApiResult deleteEvent(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1160,24 +1145,22 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Event/Delete" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Event/Delete" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Validate events with the given key names/versions. The result(s) will be available in the
-     * result messages.
+     * Validate events with the given key names/versions. The result(s) will be available in the result messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Validate/Event")
     public ApexApiResult validateEvent(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1206,8 +1189,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Validate/Event" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Validate/Event" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1215,8 +1197,8 @@ public class ApexEditorRestResource {
      * Creates a task with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @POST
     @Path("Task/Create")
@@ -1230,10 +1212,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanTask jsonbean = RestUtils.getJSONParameters(jsonString, BeanTask.class);
+            final BeanTask jsonbean = RestUtils.getJsonParameters(jsonString, BeanTask.class);
 
             ret = sessionApexModel.createTask(jsonbean.getName(), jsonbean.getVersion(), jsonbean.getUuid(),
-                    jsonbean.getDescription());
+                            jsonbean.getDescription());
             if (ret.isNok()) {
                 return ret;
             }
@@ -1241,28 +1223,28 @@ public class ApexEditorRestResource {
                 for (final Entry<String, BeanField> fin : jsonbean.getInputFields().entrySet()) {
                     if (fin.getValue() == null) {
                         ret = new ApexApiResult(Result.FAILED, "Null task input field information for field \""
-                                + fin.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the input fields."
-                                + " The task has only been partially defined.");
+                                        + fin.getKey() + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The task was created, but there was an error adding the input fields."
+                                        + TASK_PARTIALLY_DEFINED);
                         return ret;
                     }
                     if (fin.getKey() == null || !fin.getKey().equals(fin.getValue().getLocalName())) {
                         ret = new ApexApiResult(Result.FAILED, "Invalid task input field information for field \""
-                                + fin.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The localName of the field (\"" + fin.getValue().getLocalName()
-                                + "\") is not the same as the field name. "
-                                + "The task was created, but there was an error adding the input fields."
-                                + " The task has only been partially defined.");
+                                        + fin.getKey() + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The localName of the field (\"" + fin.getValue().getLocalName()
+                                        + "\") is not the same as the field name. "
+                                        + "The task was created, but there was an error adding the input fields."
+                                        + TASK_PARTIALLY_DEFINED);
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskInputField(jsonbean.getName(), jsonbean.getVersion(),
-                            fin.getKey(), fin.getValue().getName(), fin.getValue().getVersion(),
-                            fin.getValue().getOptional());
+                                    fin.getKey(), fin.getValue().getName(), fin.getValue().getVersion(),
+                                    fin.getValue().getOptional());
                     if (tempres.isNok()) {
                         tempres.addMessage("Failed to add task input field information for field \"" + fin.getKey()
-                                + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the input fields."
-                                + " The task has only been partially defined.");
+                                        + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The task was created, but there was an error adding the input fields."
+                                        + TASK_PARTIALLY_DEFINED);
                         ret = tempres;
                         return ret;
                     }
@@ -1272,28 +1254,28 @@ public class ApexEditorRestResource {
                 for (final Entry<String, BeanField> fout : jsonbean.getOutputFields().entrySet()) {
                     if (fout.getValue() == null) {
                         ret = new ApexApiResult(Result.FAILED, "Null task output field information for field \""
-                                + fout.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the output fields."
-                                + " The task has only been partially defined.");
+                                        + fout.getKey() + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The task was created, but there was an error adding the output fields."
+                                        + TASK_PARTIALLY_DEFINED);
                         return ret;
                     }
                     if (fout.getKey() == null || !fout.getKey().equals(fout.getValue().getLocalName())) {
                         ret = new ApexApiResult(Result.FAILED, "Invalid task output field information for field \""
-                                + fout.getKey() + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The localName of the field (\"" + fout.getValue().getLocalName()
-                                + "\") is not the same as the field name. "
-                                + "The task was created, but there was an error adding the output fields."
-                                + " The task has only been partially defined.");
+                                        + fout.getKey() + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The localName of the field (\"" + fout.getValue().getLocalName()
+                                        + "\") is not the same as the field name. "
+                                        + "The task was created, but there was an error adding the output fields."
+                                        + TASK_PARTIALLY_DEFINED);
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskOutputField(jsonbean.getName(), jsonbean.getVersion(),
-                            fout.getKey(), fout.getValue().getName(), fout.getValue().getVersion(),
-                            fout.getValue().getOptional());
+                                    fout.getKey(), fout.getValue().getName(), fout.getValue().getVersion(),
+                                    fout.getValue().getOptional());
                     if (tempres.isNok()) {
                         tempres.addMessage("Failed to add task output field information for field \"" + fout.getKey()
-                                + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the output fields."
-                                + " The task has only been partially defined.");
+                                        + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The task was created, but there was an error adding the output fields."
+                                        + TASK_PARTIALLY_DEFINED);
                         ret = tempres;
                         return ret;
                     }
@@ -1302,12 +1284,12 @@ public class ApexEditorRestResource {
             if (jsonbean.getTaskLogic() != null) {
                 final BeanLogic logic = jsonbean.getTaskLogic();
                 tempres = sessionApexModel.createTaskLogic(jsonbean.getName(), jsonbean.getVersion(),
-                        logic.getLogicFlavour(), logic.getLogic());
+                                logic.getLogicFlavour(), logic.getLogic());
                 if (tempres.isNok()) {
                     tempres.addMessage("Failed to add task logic in task " + jsonbean.getName() + ":"
-                            + jsonbean.getVersion()
-                            + ". The task was created, but there was an error adding the logic."
-                            + " The task has only been partially defined.");
+                                    + jsonbean.getVersion()
+                                    + ". The task was created, but there was an error adding the logic."
+                                    + TASK_PARTIALLY_DEFINED);
                     ret = tempres;
                     return ret;
                 }
@@ -1315,21 +1297,22 @@ public class ApexEditorRestResource {
             if (jsonbean.getParameters() != null) {
                 for (final Entry<String, BeanTaskParameter> param : jsonbean.getParameters().entrySet()) {
                     if (param.getKey() == null || param.getValue() == null
-                            || !param.getKey().equals(param.getValue().getParameterName())) {
+                                    || !param.getKey().equals(param.getValue().getParameterName())) {
                         ret = new ApexApiResult(Result.FAILED,
-                                "Null or invalid task parameter information for parameter \"" + param.getKey()
-                                        + "\" in task " + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                        + ". The task was created, but there was an error adding the parameters."
-                                        + " The task has only been partially defined.");
+                                        "Null or invalid task parameter information for parameter \"" + param.getKey()
+                                                        + IN_TASK + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                                        + ". The task was created, "
+                                                        + "but there was an error adding the parameters."
+                                                        + TASK_PARTIALLY_DEFINED);
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskParameter(jsonbean.getName(), jsonbean.getVersion(),
-                            param.getValue().getParameterName(), param.getValue().getDefaultValue());
+                                    param.getValue().getParameterName(), param.getValue().getDefaultValue());
                     if (tempres.isNok()) {
-                        tempres.addMessage("Failed to add task parameter \"" + param.getKey() + "\" in task "
-                                + jsonbean.getName() + ":" + jsonbean.getVersion()
-                                + ". The task was created, but there was an error adding the parameters."
-                                + " The task has only been partially defined.");
+                        tempres.addMessage("Failed to add task parameter \"" + param.getKey() + IN_TASK
+                                        + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                        + ". The task was created, but there was an error adding the parameters."
+                                        + TASK_PARTIALLY_DEFINED);
                         ret = tempres;
                         return ret;
                     }
@@ -1339,20 +1322,22 @@ public class ApexEditorRestResource {
                 for (final BeanKeyRef contextalbum : jsonbean.getContexts()) {
                     if (contextalbum.getName() == null || contextalbum.getVersion() == null) {
                         ret = new ApexApiResult(Result.FAILED,
-                                "Null or invalid context album reference information in task " + jsonbean.getName()
-                                        + ":" + jsonbean.getVersion()
-                                        + ". The task was created, but there was an error adding the"
-                                        + " context album reference. The task has only been partially defined.");
+                                        "Null or invalid context album reference information in task "
+                                                        + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                                        + ". The task was created, but there was an error adding the"
+                                                        + " context album reference. "
+                                                        + "The task has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createTaskContextRef(jsonbean.getName(), jsonbean.getVersion(),
-                            contextalbum.getName(), contextalbum.getVersion());
+                                    contextalbum.getName(), contextalbum.getVersion());
                     if (tempres.isNok()) {
                         ret = new ApexApiResult(Result.FAILED,
-                                "Failed to add context album reference information in task " + jsonbean.getName() + ":"
-                                        + jsonbean.getVersion()
-                                        + ". The task was created, but there was an error adding the"
-                                        + " context album reference. The task has only been partially defined.");
+                                        "Failed to add context album reference information in task "
+                                                        + jsonbean.getName() + ":" + jsonbean.getVersion()
+                                                        + ". The task was created, but there was an error adding the"
+                                                        + " context album reference. "
+                                                        + "The task has only been partially defined.");
                         return ret;
                     }
                 }
@@ -1365,8 +1350,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Task/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Task/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1374,8 +1358,8 @@ public class ApexEditorRestResource {
      * Update a task with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("Task/Update")
@@ -1388,12 +1372,12 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanTask jsonbean = RestUtils.getJSONParameters(jsonString, BeanTask.class);
+            final BeanTask jsonbean = RestUtils.getJsonParameters(jsonString, BeanTask.class);
 
             if (jsonbean.getName() == null || jsonbean.getName().equals("") || jsonbean.getVersion() == null
-                    || jsonbean.getVersion().equals("")) {
+                            || jsonbean.getVersion().equals("")) {
                 ret = new ApexApiResult(Result.FAILED, "Null/Empty task name/version (\"" + jsonbean.getName() + ":"
-                        + jsonbean.getVersion() + "\" passed to UpdateTask");
+                                + jsonbean.getVersion() + "\" passed to UpdateTask");
                 return ret;
             }
 
@@ -1411,24 +1395,23 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Task/Update" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Task/Update" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * List tasks with the given key names/versions. If successful the result(s) will be available
-     * in the result messages. The returned value(s) will be similar to {@link AxTask}, with merged
-     * {@linkplain AxKeyInfo} for the root object.
+     * List tasks with the given key names/versions. If successful the result(s) will be available in the result
+     * messages. The returned value(s) will be similar to {@link AxTask}, with merged {@linkplain AxKeyInfo} for the
+     * root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Task/Get")
-    public ApexApiResult listTask(@QueryParam("name") final String name, @QueryParam("version") final String version) {
+    public ApexApiResult listTask(@QueryParam("name") final String name, @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1457,8 +1440,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Task/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Task/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1467,13 +1449,13 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @DELETE
     @Path("Task/Delete")
     public ApexApiResult deleteTask(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1503,24 +1485,22 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Task/Delete" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Task/Delete" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * Validate tasks with the given key names/versions. The result(s) will be available in the
-     * result messages.
+     * Validate tasks with the given key names/versions. The result(s) will be available in the result messages.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Validate/Task")
     public ApexApiResult validateTask(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1549,8 +1529,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Validate/Task" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Validate/Task" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1559,8 +1538,8 @@ public class ApexEditorRestResource {
      * Creates a policy with the information in the JSON string passed.
      *
      * @param jsonString the JSON string to be parsed See {@linkplain BeanPolicy}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @POST
     @Path("Policy/Create")
@@ -1575,21 +1554,22 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanPolicy jsonbean = RestUtils.getJSONParameters(jsonString, BeanPolicy.class);
+            final BeanPolicy jsonbean = RestUtils.getJsonParameters(jsonString, BeanPolicy.class);
             final String policyname = jsonbean.getName();
             final String policyversion = jsonbean.getVersion();
 
             ret = sessionApexModel.createPolicy(policyname, policyversion, jsonbean.getTemplate(),
-                    jsonbean.getFirstState(), jsonbean.getUuid(), jsonbean.getDescription());
+                            jsonbean.getFirstState(), jsonbean.getUuid(), jsonbean.getDescription());
             if (ret.isNok()) {
                 return ret;
             }
 
             if (jsonbean.getStates() == null || jsonbean.getStates().isEmpty()) {
-                ret = new ApexApiResult(Result.FAILED, "Null or empty state map; no states defined for policy \""
-                        + policyname + ":" + policyversion
-                        + "\". The policy was created, but there was an error adding states."
-                        + " The policy has only been partially defined.");
+                ret = new ApexApiResult(Result.FAILED,
+                                "Null or empty state map; no states defined for policy \"" + policyname + ":"
+                                                + policyversion
+                                                + "\". The policy was created, but there was an error adding states."
+                                                + POLICY_PARTIALLY_DEFINED);
                 return ret;
             }
 
@@ -1599,29 +1579,29 @@ public class ApexEditorRestResource {
                 final String statename = e.getKey();
                 final BeanState state = e.getValue();
                 if (state == null) {
-                    ret = new ApexApiResult(Result.FAILED, "Null or invalid state information for state \"" + statename
-                            + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy was created, but there was an error adding the state."
-                            + " The policy has only been partially defined.");
+                    ret = new ApexApiResult(Result.FAILED,
+                                    "Null or invalid state information for state \"" + statename + FOR_POLICY
+                                                    + policyname + ":" + policyversion + POLICY_CREATED_STATE_ERROR
+                                                    + POLICY_PARTIALLY_DEFINED);
                     return ret;
                 }
                 if (state.getTrigger() == null) {
-                    ret = new ApexApiResult(Result.FAILED, "Null or invalid state trigger for state \"" + statename
-                            + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy was created, but there was an error adding the state."
-                            + " The policy has only been partially defined.");
+                    ret = new ApexApiResult(Result.FAILED,
+                                    "Null or invalid state trigger for state \"" + statename + FOR_POLICY + policyname
+                                                    + ":" + policyversion + POLICY_CREATED_STATE_ERROR
+                                                    + POLICY_PARTIALLY_DEFINED);
                     return ret;
                 }
                 if (state.getDefaultTask() == null) {
-                    ret = new ApexApiResult(Result.FAILED, "Null or invalid default task for state \"" + statename
-                            + "\" for policy \"" + policyname + ":" + policyversion
-                            + "\". The policy was created, but there was an error adding the state."
-                            + " The policy has only been partially defined.");
+                    ret = new ApexApiResult(Result.FAILED,
+                                    "Null or invalid default task for state \"" + statename + FOR_POLICY + policyname
+                                                    + ":" + policyversion + POLICY_CREATED_STATE_ERROR
+                                                    + POLICY_PARTIALLY_DEFINED);
                     return ret;
                 }
                 tempres = sessionApexModel.createPolicyState(policyname, policyversion, statename,
-                        state.getTrigger().getName(), state.getTrigger().getVersion(), state.getDefaultTask().getName(),
-                        state.getDefaultTask().getVersion());
+                                state.getTrigger().getName(), state.getTrigger().getVersion(),
+                                state.getDefaultTask().getName(), state.getDefaultTask().getVersion());
                 if (tempres.isNok()) {
                     ret = tempres;
                     return ret;
@@ -1635,12 +1615,13 @@ public class ApexEditorRestResource {
                 final BeanLogic tsl = state.getTaskSelectionLogic();
                 if (tsl != null) {
                     tempres = sessionApexModel.createPolicyStateTaskSelectionLogic(policyname, policyversion, statename,
-                            tsl.getLogicFlavour(), tsl.getLogic());
+                                    tsl.getLogicFlavour(), tsl.getLogic());
                     if (tempres.isNok()) {
                         tempres.addMessage("Failed to add task selection logic for state \"" + statename + "\" for"
-                                + " policy \"" + policyname + ":" + policyversion
-                                + "\". The policy was created, but there was an error adding the task selection logic "
-                                + "for the state. The policy has only been partially defined.");
+                                        + " policy \"" + policyname + ":" + policyversion
+                                        + POLICY_WAS_CREATED
+                                        + "but there was an error adding the task selection logic "
+                                        + "for the state. The policy has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1650,20 +1631,20 @@ public class ApexEditorRestResource {
                 if (contexts != null) {
                     for (final BeanKeyRef c : contexts) {
                         if (c == null) {
-                            ret = new ApexApiResult(Result.FAILED,
-                                    "Null or invalid context reference \"" + c + "\" for" + " state \"" + statename
-                                            + "\" for policy \"" + policyname + ":" + policyversion
+                            ret = new ApexApiResult(Result.FAILED, "Null or invalid context reference \"" + c + "\" for"
+                                            + " state \"" + statename + FOR_POLICY + policyname + ":" + policyversion
                                             + "\". The policy was created, but there was an error adding the context "
                                             + "reference for the state. The policy has only been partially defined.");
                             return ret;
                         }
                         tempres = sessionApexModel.createPolicyStateContextRef(policyname, policyversion, statename,
-                                c.getName(), c.getVersion());
+                                        c.getName(), c.getVersion());
                         if (tempres.isNok()) {
                             tempres.addMessage("Failed to add context reference \"" + c + "\" for state \"" + statename
-                                    + "\" for policy \"" + policyname + ":" + policyversion
-                                    + "\". The policy was created, but there was an error adding the context reference "
-                                    + "for the state. The policy has only been partially defined.");
+                                            + FOR_POLICY + policyname + ":" + policyversion
+                                            + POLICY_WAS_CREATED
+                                            + "but there was an error adding the context reference "
+                                            + "for the state. The policy has only been partially defined.");
                             ret = tempres;
                             return ret;
                         }
@@ -1677,21 +1658,21 @@ public class ApexEditorRestResource {
                         final BeanLogic finalizer = f.getValue();
                         if (finalizername == null || finalizer == null) {
                             ret = new ApexApiResult(Result.FAILED,
-                                    "Null or invalid finalizer information for finalizer " + "named \"" + finalizername
-                                            + "\" in state \"" + statename + "\" for policy \"" + policyname + ":" 
-                                            + policyversion
-                                            + "\". The policy and state were created, but there was an error adding the"
-                                            + " finalizer. The policy has only been partially defined.");
+                                            "Null or invalid finalizer information for finalizer " + "named \""
+                                                            + finalizername + IN_STATE + statename + FOR_POLICY
+                                                            + policyname + ":" + policyversion
+                                                            + POLICY_STATE_CREATED_OTHER_ERROR
+                                                            + " finalizer. The policy has only "
+                                                            + "been partially defined.");
                             return ret;
                         }
                         tempres = sessionApexModel.createPolicyStateFinalizerLogic(policyname, policyversion, statename,
-                                finalizername, finalizer.getLogicFlavour(), finalizer.getLogic());
+                                        finalizername, finalizer.getLogicFlavour(), finalizer.getLogic());
                         if (tempres.isNok()) {
                             tempres.addMessage("Failed to add finalizer information for finalizer named \""
-                                    + finalizername + "\" in" + " state \"" + statename + "\" for policy \""
-                                    + policyname + ":" + policyversion
-                                    + "\". The policy and state were created, but there was an error adding the"
-                                    + " finalizer. The policy has only been partially defined.");
+                                            + finalizername + "\" in" + " state \"" + statename + FOR_POLICY
+                                            + policyname + ":" + policyversion + POLICY_STATE_CREATED_OTHER_ERROR
+                                            + " finalizer. The policy has only been partially defined.");
                             ret = tempres;
                             return ret;
                         }
@@ -1699,9 +1680,8 @@ public class ApexEditorRestResource {
                 }
                 final Map<String, BeanStateOutput> outputs = state.getStateOutputs();
                 if (outputs == null || outputs.isEmpty()) {
-                    ret = new ApexApiResult(Result.FAILED,
-                            "No state outputs have been defined in state \"" + statename + "\" for policy \""
-                                    + policyname + ":" + policyversion
+                    ret = new ApexApiResult(Result.FAILED, "No state outputs have been defined in state \"" + statename
+                                    + FOR_POLICY + policyname + ":" + policyversion
                                     + "\". The policy and state were created, but there was an error adding state"
                                     + " outputs. The policy has only been partially defined.");
                     return ret;
@@ -1711,19 +1691,19 @@ public class ApexEditorRestResource {
                     final BeanStateOutput output = o.getValue();
                     if (outputname == null || output == null || output.getEvent() == null) {
                         ret = new ApexApiResult(Result.FAILED,
-                                "Null or invalid output information for output named \"" + outputname + "\" in state \""
-                                        + statename + "\" for policy \"" + policyname + ":" + policyversion
-                                        + "\". The policy and state were created, but there was an error adding the"
-                                        + " output. The policy has only been partially defined.");
+                                        "Null or invalid output information for output named \"" + outputname + IN_STATE
+                                                        + statename + FOR_POLICY + policyname + ":" + policyversion
+                                                        + POLICY_STATE_CREATED_OTHER_ERROR
+                                                        + " output. The policy has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createPolicyStateOutput(policyname, policyversion, statename, outputname,
-                            output.getEvent().getName(), output.getEvent().getVersion(), output.getNextState());
+                                    output.getEvent().getName(), output.getEvent().getVersion(), output.getNextState());
                     if (tempres.isNok()) {
                         tempres.addMessage("Failed to add output information for output named \"" + outputname
-                                + "\" in state \"" + statename + "\" for policy \"" + policyname + ":" + policyversion
-                                + "\". The policy and state were created, but there was an error adding the output."
-                                + " The policy has only been partially defined.");
+                                        + IN_STATE + statename + FOR_POLICY + policyname + ":" + policyversion
+                                        + "\". The policy and state were created, "
+                                        + "but there was an error adding the output." + POLICY_PARTIALLY_DEFINED);
                         ret = tempres;
                         return ret;
                     }
@@ -1731,32 +1711,31 @@ public class ApexEditorRestResource {
 
                 final Map<String, BeanStateTaskRef> taskmap = state.getTasks();
                 if (taskmap == null || taskmap.isEmpty()) {
-                    ret = new ApexApiResult(Result.FAILED,
-                            "No tasks have been defined in state \"" + statename + "\" for policy \"" + policyname + ":"
-                                    + policyversion
+                    ret = new ApexApiResult(Result.FAILED, "No tasks have been defined in state \"" + statename
+                                    + FOR_POLICY + policyname + ":" + policyversion
                                     + "\". The policy and state were created, but there was an error adding tasks."
-                                    + " The policy has only been partially defined.");
+                                    + POLICY_PARTIALLY_DEFINED);
                     return ret;
                 }
                 for (final Map.Entry<String, BeanStateTaskRef> t : taskmap.entrySet()) {
                     final String tasklocalname = t.getKey();
                     final BeanStateTaskRef taskref = t.getValue();
                     if (tasklocalname == null || taskref == null || taskref.getTask() == null) {
-                        ret = new ApexApiResult(Result.FAILED,
-                                "Null or invalid task information for task named \"" + tasklocalname + "\" in state \""
-                                        + statename + "\" for for policy \"" + policyname + ":" + policyversion
+                        ret = new ApexApiResult(Result.FAILED, "Null or invalid task information for task named \""
+                                        + tasklocalname + IN_STATE + statename + "\" for for policy \"" + policyname
+                                        + ":" + policyversion
                                         + "\". The policy and state were created, but there was an error adding the "
                                         + "task. The policy has only been partially defined.");
                         return ret;
                     }
                     tempres = sessionApexModel.createPolicyStateTaskRef(policyname, policyversion, statename,
-                            tasklocalname, taskref.getTask().getName(), taskref.getTask().getVersion(),
-                            taskref.getOutputType(), taskref.getOutputName());
+                                    tasklocalname, taskref.getTask().getName(), taskref.getTask().getVersion(),
+                                    taskref.getOutputType(), taskref.getOutputName());
                     if (tempres.isNok()) {
                         tempres.addMessage("Failed to add task reference \"" + t + "\" for state \"" + statename
-                                + "\" for policy \"" + policyname + ":" + policyversion
-                                + "\". The policy was created, but there was an error adding the task reference for"
-                                + " the state. The policy has only been partially defined.");
+                                        + FOR_POLICY + policyname + ":" + policyversion + POLICY_WAS_CREATED
+                                        + "but there was an error adding the task reference for"
+                                        + " the state. The policy has only been partially defined.");
                         ret = tempres;
                         return ret;
                     }
@@ -1771,8 +1750,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Policy/Create" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Policy/Create" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
     // CHECKSTYLE:ON: MethodLength
@@ -1782,13 +1760,13 @@ public class ApexEditorRestResource {
      *
      * @param firstStatePeriodic indicates if periodic event should be created and added to model
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanPolicy}
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @PUT
     @Path("Policy/Update")
     public ApexApiResult updatePolicy(@QueryParam("firstStatePeriodic") final boolean firstStatePeriodic,
-            final String jsonString) {
+                    final String jsonString) {
         ApexApiResult ret = null;
         LOGGER.entry(jsonString);
         try {
@@ -1797,12 +1775,12 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            final BeanPolicy jsonbean = RestUtils.getJSONParameters(jsonString, BeanPolicy.class);
+            final BeanPolicy jsonbean = RestUtils.getJsonParameters(jsonString, BeanPolicy.class);
 
             if (jsonbean.getName() == null || jsonbean.getName().equals("") || jsonbean.getVersion() == null
-                    || jsonbean.getVersion().equals("")) {
+                            || jsonbean.getVersion().equals("")) {
                 ret = new ApexApiResult(Result.FAILED, "Null/Empty Policy name/version (\"" + jsonbean.getName() + ":"
-                        + jsonbean.getVersion() + "\" passed to UpdatePolicy");
+                                + jsonbean.getVersion() + "\" passed to UpdatePolicy");
                 return ret;
             }
 
@@ -1813,12 +1791,11 @@ public class ApexEditorRestResource {
             if (firstStatePeriodic) {
                 final ApexApiResult existingPeriodicEvent = sessionApexModel.listEvent("PeriodicEvent", null);
                 if (existingPeriodicEvent.isNok()) {
-                    final String periodicEventString =
-                            "{\"name\":\"PeriodicEvent\",\"version\":\"0.0.1\","
-                            + "\"uuid\":\"44236da1-3d47-4988-8033-b6fee9d6a0f4\","
-                            + "\"description\":\"Generated description for concept referred to by key "
-                            + "'PeriodicEvent:0.0.1'\",\"source\":\"System\",\"target\":\"Apex\","
-                            + "\"nameSpace\":\"org.onap.policy.apex.domains.aadm.events\",\"parameters\":{}}";
+                    final String periodicEventString = "{\"name\":\"PeriodicEvent\",\"version\":\"0.0.1\","
+                                    + "\"uuid\":\"44236da1-3d47-4988-8033-b6fee9d6a0f4\","
+                                    + "\"description\":\"Generated description for concept referred to by key "
+                                    + "'PeriodicEvent:0.0.1'\",\"source\":\"System\",\"target\":\"Apex\","
+                                    + "\"nameSpace\":\"org.onap.policy.apex.domains.aadm.events\",\"parameters\":{}}";
                     ret = createEvent(periodicEventString);
                     if (ret.isNok()) {
                         return ret;
@@ -1834,25 +1811,24 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Policy/Update" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Policy/Update" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
     /**
-     * List policies with the given key names/versions. If successful the result(s) will be
-     * available in the result messages. The returned value(s) will be similar to {@link AxPolicy},
-     * with merged {@linkplain AxKey Info} for the root object.
+     * List policies with the given key names/versions. If successful the result(s) will be available in the result
+     * messages. The returned value(s) will be similar to {@link AxPolicy}, with merged {@linkplain AxKey Info} for the
+     * root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @GET
     @Path("Policy/Get")
     public ApexApiResult listPolicy(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1882,8 +1858,7 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Policy/Get" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            LOGGER.exit("Policy/Get" + (ret != null && ret.isOk() ? ": OK" : NOT_OK));
         }
     }
 
@@ -1892,13 +1867,13 @@ public class ApexEditorRestResource {
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
-     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return
-     *         true. Any messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
+     * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
+     *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
     @DELETE
     @Path("Policy/Delete")
     public ApexApiResult deletePolicy(@QueryParam("name") final String name,
-            @QueryParam("version") final String version) {
+                    @QueryParam(VERSION) final String version) {
         ApexApiResult ret = null;
         String name1 = name;
         String version1 = version;
@@ -1928,20 +1903,18 @@ public class ApexEditorRestResource {
             LOGGER.catching(e);
             throw e;
         } finally {
-            LOGGER.exit((ret == null ? false : ret.isOk()));
-            LOGGER.info("Policy/Delete" + (ret != null && ret.isOk() ? ": OK" : ": Not OK"));
+            String result = "Policy/Delete" + (ret != null && ret.isOk() ? ": OK" : NOT_OK);
+            LOGGER.exit(result);
         }
     }
 
     /**
-     * The json strings representing the objects listed, stored in result.messages[], does not
-     * contain the AxKeyInformation for that object. This utility method retrieves the AxKeyInfo for
-     * each object and adds it to the json for the object.
+     * The json strings representing the objects listed, stored in result.messages[], does not contain the
+     * AxKeyInformation for that object. This utility method retrieves the AxKeyInfo for each object and adds it to the
+     * json for the object.
      *
-     * @param result The list result, containing json representations of objects stored in its
-     *        "messages" array
-     * @return The list result, containing json augmented representations of objects stored in its
-     *         "messages" array
+     * @param result The list result, containing json representations of objects stored in its "messages" array
+     * @return The list result, containing json augmented representations of objects stored in its "messages" array
      */
     private ApexApiResult addKeyInfo2Messages(final ApexApiResult result) {
         if (result.isNok()) {
@@ -1962,43 +1935,43 @@ public class ApexEditorRestResource {
                 JsonObject objecttochange = jsonObject;
                 String name = null;
                 if (jsonObject != null && jsonObject.get("key") != null && jsonObject.get("key").isJsonObject()
-                        && jsonObject.getAsJsonObject("key").get("name") != null) {
+                                && jsonObject.getAsJsonObject("key").get("name") != null) {
                     name = jsonObject.getAsJsonObject("key").get("name").getAsString();
-                } else if (jsonObject != null && jsonObject.get("policyKey") != null
-                        && jsonObject.get("policyKey").isJsonObject()
-                        && jsonObject.getAsJsonObject("policyKey").get("name") != null) {
-                    name = jsonObject.getAsJsonObject("policyKey").get("name").getAsString();
+                } else if (jsonObject != null && jsonObject.get(POLICY_KEY) != null
+                                && jsonObject.get(POLICY_KEY).isJsonObject()
+                                && jsonObject.getAsJsonObject(POLICY_KEY).get("name") != null) {
+                    name = jsonObject.getAsJsonObject(POLICY_KEY).get("name").getAsString();
                 }
                 String version = null;
                 if (jsonObject != null && jsonObject.get("key") != null && jsonObject.get("key").isJsonObject()
-                        && jsonObject.getAsJsonObject("key").get("version") != null) {
-                    version = jsonObject.getAsJsonObject("key").get("version").getAsString();
-                } else if (jsonObject != null && jsonObject.get("policyKey") != null
-                        && jsonObject.get("policyKey").isJsonObject()
-                        && jsonObject.getAsJsonObject("policyKey").get("version") != null) {
-                    version = jsonObject.getAsJsonObject("policyKey").get("version").getAsString();
+                                && jsonObject.getAsJsonObject("key").get(VERSION) != null) {
+                    version = jsonObject.getAsJsonObject("key").get(VERSION).getAsString();
+                } else if (jsonObject != null && jsonObject.get(POLICY_KEY) != null
+                                && jsonObject.get(POLICY_KEY).isJsonObject()
+                                && jsonObject.getAsJsonObject(POLICY_KEY).get(VERSION) != null) {
+                    version = jsonObject.getAsJsonObject(POLICY_KEY).get(VERSION).getAsString();
                 }
 
                 if (name == null && version == null && jsonObject.entrySet() != null
-                        && jsonObject.entrySet().size() > 0) {
+                                && !jsonObject.entrySet().isEmpty()) {
                     objecttochange = (JsonObject) jsonObject.entrySet().iterator().next().getValue();
                     if (objecttochange != null && objecttochange.get("key") != null
-                            && objecttochange.get("key").isJsonObject()
-                            && objecttochange.getAsJsonObject("key").get("name") != null) {
+                                    && objecttochange.get("key").isJsonObject()
+                                    && objecttochange.getAsJsonObject("key").get("name") != null) {
                         name = objecttochange.getAsJsonObject("key").get("name").getAsString();
-                    } else if (objecttochange != null && objecttochange.get("policyKey") != null
-                            && objecttochange.get("policyKey").isJsonObject()
-                            && objecttochange.getAsJsonObject("policyKey").get("name") != null) {
-                        name = objecttochange.getAsJsonObject("policyKey").get("name").getAsString();
+                    } else if (objecttochange != null && objecttochange.get(POLICY_KEY) != null
+                                    && objecttochange.get(POLICY_KEY).isJsonObject()
+                                    && objecttochange.getAsJsonObject(POLICY_KEY).get("name") != null) {
+                        name = objecttochange.getAsJsonObject(POLICY_KEY).get("name").getAsString();
                     }
                     if (objecttochange != null && objecttochange.get("key") != null
-                            && objecttochange.get("key").isJsonObject()
-                            && objecttochange.getAsJsonObject("key").get("version") != null) {
-                        version = objecttochange.getAsJsonObject("key").get("version").getAsString();
-                    } else if (objecttochange != null && objecttochange.get("policyKey") != null
-                            && objecttochange.get("policyKey").isJsonObject()
-                            && objecttochange.getAsJsonObject("policyKey").get("version") != null) {
-                        version = objecttochange.getAsJsonObject("policyKey").get("version").getAsString();
+                                    && objecttochange.get("key").isJsonObject()
+                                    && objecttochange.getAsJsonObject("key").get(VERSION) != null) {
+                        version = objecttochange.getAsJsonObject("key").get(VERSION).getAsString();
+                    } else if (objecttochange != null && objecttochange.get(POLICY_KEY) != null
+                                    && objecttochange.get(POLICY_KEY).isJsonObject()
+                                    && objecttochange.getAsJsonObject(POLICY_KEY).get(VERSION) != null) {
+                        version = objecttochange.getAsJsonObject(POLICY_KEY).get(VERSION).getAsString();
                     }
                 }
 
@@ -2008,22 +1981,23 @@ public class ApexEditorRestResource {
                 if (name != null && version != null) {
                     final ApexApiResult keyInfoResult = sessionApexModel.listKeyInformation(name, version);
                     final List<String> keyInfoMessages = keyInfoResult.getMessages();
-                    if (keyInfoResult.isOk() && keyInfoMessages != null && keyInfoMessages.size() > 0) {
+                    if (keyInfoResult.isOk() && keyInfoMessages != null && !keyInfoMessages.isEmpty()) {
                         final String keyInfoJson = keyInfoMessages.get(0);
                         final JsonObject keyInfoJsonObject = gson.fromJson(keyInfoJson, JsonObject.class);
-                        if (keyInfoJsonObject != null && keyInfoJsonObject.get("apexKeyInfo") != null
-                                && keyInfoJsonObject.get("apexKeyInfo").getAsJsonObject().get("UUID") != null) {
-                            uuid = keyInfoJsonObject.get("apexKeyInfo").getAsJsonObject().get("UUID").getAsString();
+                        if (keyInfoJsonObject != null && keyInfoJsonObject.get(APEX_KEY_INFO) != null
+                                        && keyInfoJsonObject.get(APEX_KEY_INFO).getAsJsonObject().get("UUID") != null) {
+                            uuid = keyInfoJsonObject.get(APEX_KEY_INFO).getAsJsonObject().get("UUID").getAsString();
                         }
-                        if (keyInfoJsonObject != null && keyInfoJsonObject.get("apexKeyInfo") != null
-                                && keyInfoJsonObject.get("apexKeyInfo").getAsJsonObject().get("description") != null) {
-                            desc = keyInfoJsonObject.get("apexKeyInfo").getAsJsonObject().get("description")
-                                    .getAsString();
+                        if (keyInfoJsonObject != null && keyInfoJsonObject.get(APEX_KEY_INFO) != null
+                                        && keyInfoJsonObject.get(APEX_KEY_INFO).getAsJsonObject()
+                                                        .get(DESCRIPTION) != null) {
+                            desc = keyInfoJsonObject.get(APEX_KEY_INFO).getAsJsonObject().get(DESCRIPTION)
+                                            .getAsString();
                         }
                     }
                 }
                 objecttochange.addProperty("uuid", uuid);
-                objecttochange.addProperty("description", desc);
+                objecttochange.addProperty(DESCRIPTION, desc);
                 augmessages.add(gson.toJson(jsonObject));
             } catch (final Exception e) {
                 augmessages.add(message);
@@ -2040,16 +2014,24 @@ public class ApexEditorRestResource {
     }
 
     /*
-     * This method is used only for testing and is used to cause an exception on calls from unit
-     * test to test exception handling.
+     * This method is used only for testing and is used to cause an exception on calls from unit test to test exception
+     * handling.
      */
     protected static int createCorruptSession() {
         final ApexEditorRestResource apexEditorRestResource = new ApexEditorRestResource();
         final ApexApiResult result = apexEditorRestResource.createSession();
-        final int corruptSessionId = new Integer(result.getMessages().get(0));
+        final int corruptSessionId = Integer.parseInt(result.getMessages().get(0));
 
         SESSIONMODELMAP.put(corruptSessionId, null);
 
         return corruptSessionId;
     }
+
+    /**
+     * Increment the session number.
+     */
+    private static void incrementNextSession() {
+        nextSession++;
+    }
+
 }
