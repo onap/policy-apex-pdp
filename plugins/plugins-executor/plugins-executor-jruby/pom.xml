@@ -33,36 +33,8 @@
     <dependencies>
         <dependency>
             <groupId>org.jruby</groupId>
-            <artifactId>jruby</artifactId>
-            <version>9.1.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jruby</groupId>
-                    <artifactId>dirgra</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jruby</groupId>
-                    <artifactId>jruby-stdlib</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.jnr</groupId>
-                    <artifactId>jnr-posix</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.jnr</groupId>
-                    <artifactId>jffi</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jnr</groupId>
-            <artifactId>jnr-posix</artifactId>
-            <version>3.0.45</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jnr</groupId>
-            <artifactId>jffi</artifactId>
-            <version>1.2.10</version>
+            <artifactId>jruby-core</artifactId>
+            <version>9.2.0.0</version>
         </dependency>
     </dependencies>
 
