@@ -20,12 +20,16 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
+import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
+
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
@@ -35,8 +39,9 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class KafkaEventSubscriber implements Runnable {
+    private static final Duration POLL_DURATION = Duration.ofMillis(100);
+
     private final String topic;
-    private final String kafkaServerAddress;
     private long eventsReceivedCount = 0;
 
     KafkaConsumer<String, String> consumer;
@@ -47,40 +52,39 @@ public class KafkaEventSubscriber implements Runnable {
      * Instantiates a new kafka event subscriber.
      *
      * @param topic the topic
-     * @param kafkaServerAddress the kafka server address
+     * @param sharedKafkaTestResource the kafka server address
      * @throws MessagingException the messaging exception
      */
-    public KafkaEventSubscriber(final String topic, final String kafkaServerAddress) throws MessagingException {
+    public KafkaEventSubscriber(final String topic, final SharedKafkaTestResource sharedKafkaTestResource)
+                    throws MessagingException {
         this.topic = topic;
-        this.kafkaServerAddress = kafkaServerAddress;
 
-        final Properties props = new Properties();
-        props.put("bootstrap.servers", kafkaServerAddress);
-        props.put("group.id", "test");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "1000");
-        props.put("session.timeout.ms", "30000");
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 
-        consumer = new KafkaConsumer<String, String>(props);
+        final Properties consumerProperties = new Properties();
+        consumerProperties.put("group.id", "test");
+
+
+        consumer = sharedKafkaTestResource.getKafkaTestUtils().getKafkaConsumer(StringDeserializer.class,
+                        StringDeserializer.class, consumerProperties);
         consumer.subscribe(Arrays.asList(topic));
 
         subscriberThread = new Thread(this);
         subscriberThread.start();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Runnable#run()
      */
     @Override
     public void run() {
-        System.out.println(KafkaEventSubscriber.class.getCanonicalName() + ": receiving events from Kafka server at "
-                + kafkaServerAddress + " on topic " + topic);
+        System.out.println(KafkaEventSubscriber.class.getCanonicalName()
+                        + ": receiving events from Kafka server  on topic " + topic);
 
         while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
             try {
-                final ConsumerRecords<String, String> records = consumer.poll(100);
+                final ConsumerRecords<String, String> records = consumer.poll(POLL_DURATION);
                 for (final ConsumerRecord<String, String> record : records) {
                     System.out.println("******");
                     System.out.println("offset=" + record.offset());
@@ -118,20 +122,5 @@ public class KafkaEventSubscriber implements Runnable {
 
         consumer.close();
         System.out.println(KafkaEventSubscriber.class.getCanonicalName() + ": stopped");
-    }
-
-
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     * @throws MessagingException the messaging exception
-     */
-    public static void main(final String[] args) throws MessagingException {
-        if (args.length != 2) {
-            System.err.println("usage KafkaEventSubscriber topic kafkaServerAddress");
-            return;
-        }
-        new KafkaEventSubscriber(args[0], args[1]);
     }
 }
