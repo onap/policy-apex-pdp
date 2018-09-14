@@ -23,12 +23,18 @@ package org.onap.policy.apex.client.editor.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 /**
  * This class reads and handles command line parameters to the Apex CLI editor.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEditorParameters {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEditorParameters.class);
+
     /** The default port for connecting to the Web editor on. */
     public static final int DEFAULT_REST_PORT = 18989;
 
@@ -120,7 +126,9 @@ public class ApexEditorParameters {
             new URI(getBaseUri().toString()).parseServerAuthority();
             return "";
         } catch (final URISyntaxException e) {
-            return "listen address is not valid. " + e.getMessage() + "\n";
+            String message = "listen address is not valid. " + e.getMessage() + "\n";
+            LOGGER.warn(message, e);
+            return message;
         }
     }
 

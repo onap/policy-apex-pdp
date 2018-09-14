@@ -24,6 +24,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 //CHECKSTYLE:OFF: checkstyle:IllegalImport
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 //CHECKSTYLE:ON: checkstyle:IllegalImport
@@ -38,6 +41,9 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
  */
 @SuppressWarnings("restriction")
 public class ClassBuilder {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ClassBuilder.class);
+
     private final Class<?> clazz;
     private final List<ClassBuilder> parameters = new ArrayList<>();
 
@@ -62,7 +68,8 @@ public class ClassBuilder {
         } catch (ClassNotFoundException e) {
             try {
                 return new ClassBuilder(Class.forName("java.lang." + className));
-            } catch (Exception ignore) {
+            } catch (Exception classFindException) {
+                LOGGER.warn("class nout found", classFindException);
                 throw new IllegalArgumentException("Class '" + className
                                 + "' not found. Also looked for a class called 'java.lang." + className + "'", e);
             }

@@ -271,11 +271,11 @@ public class AxLogic extends AxConcept {
                             "logic flavour is not defined"));
         }
 
-        try {
-            Assertions.validateStringParameter(LOGIC_FLAVOUR_TOKEN, logicFlavour, LOGIC_FLAVOUR_REGEXP);
-        } catch (final IllegalArgumentException e) {
+        String flavourValidationString = Assertions.getStringParameterValidationMessage(LOGIC_FLAVOUR_TOKEN,
+                        logicFlavour, LOGIC_FLAVOUR_REGEXP);
+        if (flavourValidationString != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "logic flavour invalid-" + e.getMessage()));
+                            "logic flavour invalid-" + flavourValidationString));
         }
 
         if (logic.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {

@@ -27,6 +27,9 @@ import java.lang.reflect.Method;
  * The base class for Beans.
  */
 public abstract class BeanBase {
+    // Recurring string constants
+    private static final String PROBLEM_RETRIEVING_FIELD_PREFIX = "Problem retrieving field called ('";
+    private static final String JSON_BEAN_SUFFIX = "') from JSON bean ";
 
     /**
      * Gets a named field from the bean.
@@ -44,7 +47,7 @@ public abstract class BeanBase {
                         return (String) method.invoke(this);
                     } catch (final Exception e) {
                         throw new IllegalArgumentException(
-                                "Problem retrieving field called ('" + field + "') from JSON bean " + this, e);
+                                PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this, e);
                     }
                 }
             }
@@ -59,9 +62,9 @@ public abstract class BeanBase {
                 }
             } catch (final Exception e) {
                 throw new IllegalArgumentException(
-                        "Problem retrieving field called ('" + field + "') from JSON bean " + this, e);
+                        PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this, e);
             }
         }
-        throw new IllegalArgumentException("Problem retrieving field called ('" + field + "') from JSON bean " + this);
+        throw new IllegalArgumentException(PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this);
     }
 }

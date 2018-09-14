@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class ApexEvent is an event class that external systems use to send events to and receive
@@ -37,12 +37,13 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEvent extends HashMap<String, Object> implements Serializable {
+    private static final long serialVersionUID = -4451918242101961685L;
+
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApexEvent.class);
+
     // Recurring string constants
     private static final String EVENT_PREAMBLE = "event \"";
-
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEvent.class);
-
-    private static final long serialVersionUID = -4451918242101961685L;
 
     // Holds the next identifier for event execution.
     private static AtomicLong nextExecutionID = new AtomicLong(0L);
@@ -286,6 +287,9 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         try {
             return super.put(validKey(key), value);
         } catch (final ApexEventException e) {
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("put failed", e);
+            }
             return null;
         }
     }
@@ -303,6 +307,10 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
                 validKey(key);
             }
         } catch (final ApexEventException e) {
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("putAll failed", e);
+            }
+
             // One of the keys is invalid
             return;
         }

@@ -32,6 +32,8 @@ import java.nio.file.Path;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Standard output file handling and tests.
@@ -39,6 +41,8 @@ import org.apache.commons.lang3.Validate;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public class OutputFile {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(OutputFile.class);
 
     /** The output file name. */
     private final String fileName;
@@ -86,6 +90,7 @@ public class OutputFile {
         try {
             return new BufferedWriter(new FileWriter(toFile()));
         } catch (final IOException e) {
+            LOGGER.warn("write error", e);
             return null;
         }
     }
@@ -99,6 +104,7 @@ public class OutputFile {
         try {
             return new FileOutputStream(toFile());
         } catch (final IOException e) {
+            LOGGER.warn("stream creation error", e);
             return null;
         }
     }
@@ -123,7 +129,9 @@ public class OutputFile {
             try {
                 file.createNewFile();
             } catch (final IOException e) {
-                return "could not create output file: " + e.getMessage();
+                String message = "could not create output file: " + e.getMessage();
+                LOGGER.warn(message, e);
+                return message;
             }
         }
 

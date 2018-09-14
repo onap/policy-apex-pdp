@@ -29,6 +29,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.lang3.Validate;
 import org.onap.policy.apex.tools.common.CliOptions;
 import org.onap.policy.apex.tools.common.CliParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Simple console application with main method.
@@ -36,6 +38,8 @@ import org.onap.policy.apex.tools.common.CliParser;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public final class Application {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     /**
      * Private constructor prevents subclassing.
@@ -133,11 +137,17 @@ public final class Application {
             final SimpleEcho simpleEcho = new SimpleEcho(server, port, appName);
             simpleEcho.connect();
         } catch (final URISyntaxException uex) {
-            System.err.println(appName + ": URI exception, could not create URI from server and port settings");
+            String message = appName + ": URI exception, could not create URI from server and port settings";
+            System.err.println(message);
+            LOGGER.warn(message, uex);
         } catch (final NullPointerException nex) {
-            System.err.println(appName + ": null pointer, server or port were null");
+            String message = appName + ": null pointer, server or port were null";
+            System.err.println(message);
+            LOGGER.warn(message, nex);
         } catch (final IllegalArgumentException iex) {
-            System.err.println(appName + ": illegal argument, server or port were blank");
+            String message = appName + ": illegal argument, server or port were blank";
+            System.err.println(message);
+            LOGGER.warn(message, iex);
         }
     }
 
@@ -167,15 +177,25 @@ public final class Application {
             final SimpleConsole simpleConsole = new SimpleConsole(server, port, appName);
             simpleConsole.runClient();
         } catch (final URISyntaxException uex) {
-            System.err.println(appName + ": URI exception, could not create URI from server and port settings");
+            String message = appName + ": URI exception, could not create URI from server and port settings";
+            System.err.println(message);
+            LOGGER.warn(message, uex);
         } catch (final NullPointerException nex) {
-            System.err.println(appName + ": null pointer, server or port were null");
+            String message = appName + ": null pointer, server or port were null";
+            System.err.println(message);
+            LOGGER.warn(message, nex);
         } catch (final IllegalArgumentException iex) {
-            System.err.println(appName + ": illegal argument, server or port were blank");
+            String message = appName + ": illegal argument, server or port were blank";
+            System.err.println(message);
+            LOGGER.warn(message, iex);
         } catch (final NotYetConnectedException nex) {
-            System.err.println(appName + ": not yet connected, connection to server took too long");
+            String message = appName + ": not yet connected, connection to server took too long";
+            System.err.println(message);
+            LOGGER.warn(message, nex);
         } catch (final IOException ioe) {
-            System.err.println(appName + ": IO exception, something went wrong on the standard input");
+            String message = appName + ": IO exception, something went wrong on the standard input";
+            System.err.println(message);
+            LOGGER.warn(message, ioe);
         }
     }
 }

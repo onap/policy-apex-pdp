@@ -85,21 +85,21 @@ public class ApexMonitoringRestMain {
             parameters = parser.parse(args);
         } catch (final ApexMonitoringRestParameterException e) {
             throw new ApexMonitoringRestParameterException(
-                    REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, " + e.getMessage() + '\n'
-                            + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
+                            REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, " + e.getMessage() + '\n'
+                                            + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()), e);
         }
 
         if (parameters.isHelpSet()) {
             throw new ApexMonitoringRestParameterException(
-                    parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
+                            parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
         }
 
         // Validate the parameters
         final String validationMessage = parameters.validate();
         if (validationMessage.length() > 0) {
             throw new ApexMonitoringRestParameterException(
-                    REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage
-                            + '\n' + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
+                            REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage + '\n'
+                                            + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
         }
 
         state = ServicesState.READY;
@@ -109,8 +109,8 @@ public class ApexMonitoringRestMain {
      * Initialize the rest service.
      */
     public void init() {
-        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") starting at "
-                + parameters.getBaseUri().toString() + " . . .");
+        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") starting at " + parameters.getBaseUri().toString()
+                        + " . . .");
 
         try {
             state = ServicesState.INITIALIZING;
@@ -125,7 +125,7 @@ public class ApexMonitoringRestMain {
 
             if (parameters.getTimeToLive() == ApexMonitoringRestParameters.INFINITY_TIME_TO_LIVE) {
                 outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started at "
-                        + parameters.getBaseUri().toString());
+                                + parameters.getBaseUri().toString());
             } else {
                 outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started");
             }
@@ -142,8 +142,9 @@ public class ApexMonitoringRestMain {
                 Thread.sleep(1000);
             }
         } catch (final Exception e) {
-            outStream.println(
-                    REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage());
+            String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
+            outStream.println(message);
+            LOGGER.warn(message, e);
         } finally {
             if (apexMonitoringRest != null) {
                 apexMonitoringRest.shutdown();
@@ -167,7 +168,7 @@ public class ApexMonitoringRestMain {
     public String toString() {
         final StringBuilder ret = new StringBuilder();
         ret.append(this.getClass().getSimpleName()).append(": Config=[").append(this.parameters).append("], State=")
-                .append(this.getState());
+                        .append(this.getState());
         return ret.toString();
     }
 

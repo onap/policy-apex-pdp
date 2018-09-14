@@ -20,6 +20,9 @@
 
 package org.onap.policy.apex.model.utilities;
 
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 /**
  * The Class Assertions is a template class that is used as a shorthand for assertions in the source code.
  *
@@ -27,6 +30,9 @@ package org.onap.policy.apex.model.utilities;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class Assertions {
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(Assertions.class);
+
     /**
      * Private constructor used to prevent sub class instantiation.
      */
@@ -46,8 +52,13 @@ public final class Assertions {
         try {
             validateStringParameter(parameterName, parameterValue, pattern);
         } catch (IllegalArgumentException e) {
-            // This will cause a SONAR error but eliminates all SONAR messages in callers
-            return e.getMessage();
+            String message = "parameter " + parameterName + " with value " + parameterValue
+                            + " does not match regular expression " + pattern;
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace(message, e);
+            }
+
+            return message;
         }
 
         return null;

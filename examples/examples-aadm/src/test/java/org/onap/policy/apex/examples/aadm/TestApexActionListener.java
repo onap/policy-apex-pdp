@@ -69,11 +69,8 @@ public class TestApexActionListener implements EnEventListener {
      */
     @Override
     public void onEnEvent(final EnEvent actionEvent) {
-        try {
-            Thread.sleep(100);
-        } catch (final InterruptedException e) {
-            e.printStackTrace();
-        }
+        ThreadUtilities.sleep(100);
+
         if (actionEvent != null) {
             System.out.println("Action event from engine:" + actionEvent.getName());
             resultEvents.add(actionEvent);

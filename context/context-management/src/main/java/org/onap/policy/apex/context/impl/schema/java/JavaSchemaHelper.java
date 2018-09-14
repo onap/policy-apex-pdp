@@ -235,7 +235,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             final String returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
                     + object.getClass().getCanonicalName() + "\" not compatible with class \""
                     + getSchemaClass().getCanonicalName() + "\"";
-            LOGGER.warn(returnString);
+            LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
     }

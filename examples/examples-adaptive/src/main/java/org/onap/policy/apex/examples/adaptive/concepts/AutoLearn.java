@@ -31,9 +31,9 @@ import java.util.List;
 public class AutoLearn implements Serializable {
     private static final long serialVersionUID = 3825970380434170754L;
 
-    private List<Double> avDiffs = null;
+    private transient List<Double> avDiffs = null;
 
-    private List<Long> counts = null;
+    private transient List<Long> counts = null;
 
     /**
      * Checks if the Autolearn instance is initialized.

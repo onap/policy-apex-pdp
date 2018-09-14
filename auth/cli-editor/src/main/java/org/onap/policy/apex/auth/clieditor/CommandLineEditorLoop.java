@@ -43,6 +43,8 @@ import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.model.utilities.TreeMapUtils;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * This class implements the editor loop, the loop of execution that continuously executes commands until the quit
@@ -51,6 +53,9 @@ import org.onap.policy.apex.model.utilities.TreeMapUtils;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class CommandLineEditorLoop {
+    // Get a reference to the logger
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(CommandLineEditorLoop.class);
+
     // Recurring string constants
     private static final String COMMAND = "command ";
 
@@ -129,6 +134,7 @@ public class CommandLineEditorLoop {
             catch (final CommandLineException e) {
                 writer.println(e.getMessage());
                 errorCount++;
+                LOGGER.debug("command line error", e);
                 continue;
             }
 
@@ -157,6 +163,7 @@ public class CommandLineEditorLoop {
                     catch (final CommandLineException e) {
                         writer.println(e.getMessage());
                         errorCount++;
+                        LOGGER.debug("command line error", e);
                         continue;
                     }
 
@@ -197,8 +204,10 @@ public class CommandLineEditorLoop {
             catch (final CommandLineException e) {
                 writer.println(e.getMessage());
                 errorCount++;
+                LOGGER.debug("command line error", e);
             } catch (final Exception e) {
                 e.printStackTrace(writer);
+                LOGGER.error("command line error", e);
             }
         }
 
@@ -255,7 +264,7 @@ public class CommandLineEditorLoop {
             final KeywordNode searchKeywordNode = keywordNodeDeque.peek();
 
             // We have got to the arguments, time to stop looking
-            if (commandWords.get(i).indexOf('=') > 0) {
+            if (commandWords.get(i).indexOf('=') >= 0) {
                 unwindStack(startKeywordNode);
                 throw new CommandLineException("command not found: " + stringAL2String(commandWords));
             }

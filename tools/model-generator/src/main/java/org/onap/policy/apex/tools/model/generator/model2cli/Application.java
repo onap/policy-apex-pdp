@@ -26,6 +26,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.tools.common.CliOptions;
 import org.onap.policy.apex.tools.common.CliParser;
 import org.onap.policy.apex.tools.common.OutputFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Process an Apex Policy Model file to generate the CLI commands to generate an equivalent Apex Policy Model.
@@ -33,6 +35,8 @@ import org.onap.policy.apex.tools.common.OutputFile;
  * @author Sven van der Meer &lt;sven.van.der.meer@ericsson.com&gt;
  */
 public final class Application {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     /** The name of the application. */
     public static final String APP_NAME = "gen-model2cli";
@@ -118,7 +122,9 @@ public final class Application {
             final Model2Cli app = new Model2Cli(modelFile, outfile, !cmd.hasOption("sv"), APP_NAME);
             app.runApp();
         } catch (final ApexException aex) {
-            System.err.println(APP_NAME + ": caught APEX exception with message: " + aex.getMessage());
+            String message = APP_NAME + ": caught APEX exception with message: " + aex.getMessage();
+            System.err.println(message);
+            LOGGER.warn(message, aex);
         }
     }
 }

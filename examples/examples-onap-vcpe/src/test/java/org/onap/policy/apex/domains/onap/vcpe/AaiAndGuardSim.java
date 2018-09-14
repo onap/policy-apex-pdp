@@ -32,6 +32,7 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
  */
 public class AaiAndGuardSim {
     private static final String BASE_URI = "http://localhost:54321/AAIAndGuardSim";
+    private static final int MAX_LOOPS = 100000;
     private HttpServer server;
 
     /**
@@ -64,13 +65,10 @@ public class AaiAndGuardSim {
     public static void main(final String[] args) throws Exception {
         final AaiAndGuardSim sim = new AaiAndGuardSim();
 
-        while (true) {
-            try {
-                Thread.sleep(100);
-            } catch (final InterruptedException e) {
-                break;
-            }
+        for (int index = 0; index < MAX_LOOPS; index++) {
+            ThreadUtilities.sleep(100);
         }
+        
         sim.tearDown();
     }
 }

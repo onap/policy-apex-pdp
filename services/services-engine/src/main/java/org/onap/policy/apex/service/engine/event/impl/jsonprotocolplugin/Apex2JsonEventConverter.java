@@ -376,7 +376,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         } catch (final Exception e) {
             // The element is not a string so throw an error
             throw new ApexEventRuntimeException("field \"" + fieldName + "\" with type \""
-                            + jsonField.getClass().getCanonicalName() + "\" is not a string value");
+                            + jsonField.getClass().getCanonicalName() + "\" is not a string value", e);
         }
 
         // Is regular expression checking required

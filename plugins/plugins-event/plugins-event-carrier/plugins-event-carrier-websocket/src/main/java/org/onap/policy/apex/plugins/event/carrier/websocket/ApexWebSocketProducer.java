@@ -85,7 +85,7 @@ public class ApexWebSocketProducer implements ApexEventProducer, WsStringMessage
             wsStringMessager.start(this);
         } catch (final MessagingException e) {
             String message = "could not start web socket producer (" + this.name + ")";
-            LOGGER.warn(message);
+            LOGGER.warn(message, e);
         }
     }
 

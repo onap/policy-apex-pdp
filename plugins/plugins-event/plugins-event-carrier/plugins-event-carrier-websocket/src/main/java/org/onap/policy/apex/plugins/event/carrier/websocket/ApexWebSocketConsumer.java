@@ -98,7 +98,7 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         try {
             wsStringMessager.start(this);
         } catch (final MessagingException e) {
-            LOGGER.warn("could not start web socket consumer");
+            LOGGER.warn("could not start web socket consumer", e);
         }
     }
 
@@ -188,7 +188,7 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         } catch (final Exception e) {
             final String errorMessage = "Error sending event " + name + '_' + eventsRead + ", " + e.getMessage()
                     + ", event:\n" + eventString;
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
         }
     }
 }

@@ -29,6 +29,8 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The parameters for a single event producer, event consumer or synchronous event handler.
@@ -51,6 +53,9 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class EventHandlerParameters implements ParameterGroup {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventHandlerParameters.class);
+
     private String name = null;
     private CarrierTechnologyParameters carrierTechnologyParameters = null;
     private EventProtocolParameters eventProtocolParameters = null;
@@ -325,8 +330,9 @@ public class EventHandlerParameters implements ParameterGroup {
             try {
                 Pattern.compile(eventNameFilter);
             } catch (final PatternSyntaxException pse) {
-                result.setResult("eventNameFilter", ValidationStatus.INVALID,
-                                "event handler eventNameFilter is not a valid regular expression: " + pse.getMessage());
+                String message = "event handler eventNameFilter is not a valid regular expression: " + pse.getMessage();
+                LOGGER.trace(message, pse);
+                result.setResult("eventNameFilter", ValidationStatus.INVALID, message);
             }
         }
 
@@ -380,6 +386,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Get the requestor timeout.
+     * 
      * @return the requestorTimeout.
      */
     public long getRequestorTimeout() {

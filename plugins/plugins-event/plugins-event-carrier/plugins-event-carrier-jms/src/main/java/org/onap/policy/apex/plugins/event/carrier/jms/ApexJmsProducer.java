@@ -233,7 +233,7 @@ public class ApexJmsProducer implements ApexEventProducer {
             } catch (final Exception e) {
                 final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG
                                 + this.name + ", could not create JMS Object Message for object \"" + eventObject;
-                LOGGER.warn(errorMessage);
+                LOGGER.warn(errorMessage, e);
                 throw new ApexEventRuntimeException(errorMessage);
             }
         } else {
@@ -243,7 +243,7 @@ public class ApexJmsProducer implements ApexEventProducer {
             } catch (final Exception e) {
                 final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG
                                 + this.name + ", could not create JMS Text Message for object \"" + eventObject;
-                LOGGER.warn(errorMessage);
+                LOGGER.warn(errorMessage, e);
                 throw new ApexEventRuntimeException(errorMessage);
             }
         }
@@ -253,7 +253,7 @@ public class ApexJmsProducer implements ApexEventProducer {
         } catch (final Exception e) {
             final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG + this.name
                             + ", send failed for object \"" + eventObject;
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
     }

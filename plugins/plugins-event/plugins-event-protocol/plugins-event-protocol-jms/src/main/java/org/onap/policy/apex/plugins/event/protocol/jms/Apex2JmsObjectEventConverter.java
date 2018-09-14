@@ -84,7 +84,7 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         } catch (Exception e) {
             final String errorMessage = "message \"" + eventObject
                             + "\" received from JMS does not have a \"getObject()\" method";
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
 

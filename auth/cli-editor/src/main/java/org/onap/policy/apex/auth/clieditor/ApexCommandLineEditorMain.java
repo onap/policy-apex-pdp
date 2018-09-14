@@ -104,8 +104,7 @@ public class ApexCommandLineEditorMain {
                             parameters.getApexPropertiesStream());
         } catch (final Exception e) {
             LOGGER.error("start of Apex command line editor failed, error reading Apex model properties from "
-                            + parameters.getApexPropertiesLocation());
-            LOGGER.error(e.getMessage());
+                            + parameters.getApexPropertiesLocation(), e);
             errorCount++;
             return;
         }
@@ -160,7 +159,7 @@ public class ApexCommandLineEditorMain {
                                 errorCount);
             }
         } catch (final IOException e) {
-            LOGGER.error("execution of Apex command line editor failed: " + e.getMessage());
+            LOGGER.error("execution of Apex command line editor failed: " + e.getMessage(), e);
         }
     }
 

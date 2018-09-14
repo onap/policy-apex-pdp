@@ -95,9 +95,8 @@ public class ApexEditorMain {
             // Get and check the parameters
             parameters = parser.parse(args);
         } catch (final ApexEditorParameterException e) {
-            throw new ApexEditorParameterException(
-                    REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, " + e.getMessage() + '\n'
-                            + parser.getHelp(ApexEditorMain.class.getCanonicalName()));
+            throw new ApexEditorParameterException(REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, "
+                            + e.getMessage() + '\n' + parser.getHelp(ApexEditorMain.class.getCanonicalName()), e);
         }
 
         if (parameters.isHelpSet()) {
@@ -107,9 +106,8 @@ public class ApexEditorMain {
         // Validate the parameters
         final String validationMessage = parameters.validate();
         if (validationMessage.length() > 0) {
-            throw new ApexEditorParameterException(
-                    REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage
-                            + '\n' + parser.getHelp(ApexEditorMain.class.getCanonicalName()));
+            throw new ApexEditorParameterException(REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, "
+                            + validationMessage + '\n' + parser.getHelp(ApexEditorMain.class.getCanonicalName()));
         }
 
         state = EditorState.READY;
@@ -119,8 +117,8 @@ public class ApexEditorMain {
      * Initialize the Apex editor.
      */
     public void init() {
-        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") starting at "
-                + parameters.getBaseUri().toString() + " . . .");
+        outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") starting at " + parameters.getBaseUri().toString()
+                        + " . . .");
 
         try {
             state = EditorState.INITIALIZING;
@@ -135,7 +133,7 @@ public class ApexEditorMain {
 
             if (parameters.getTimeToLive() == ApexEditorParameters.INFINITY_TIME_TO_LIVE) {
                 outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started at "
-                        + parameters.getBaseUri().toString());
+                                + parameters.getBaseUri().toString());
             } else {
                 outStream.println(REST_ENDPOINT_PREFIX + this.toString() + ") started");
             }
@@ -152,8 +150,9 @@ public class ApexEditorMain {
                 Thread.sleep(EDITOR_RNNING_CHECK_TIMEOUT);
             }
         } catch (final Exception e) {
-            outStream.println(
-                    REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage());
+            String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
+            outStream.println(message);
+            LOGGER.warn(message, e);
         } finally {
             if (apexEditor != null) {
                 apexEditor.shutdown();
@@ -181,7 +180,7 @@ public class ApexEditorMain {
     public String toString() {
         final StringBuilder ret = new StringBuilder();
         ret.append(this.getClass().getSimpleName()).append(": Config=[").append(parameters).append("], State=")
-                .append(this.getState());
+                        .append(this.getState());
         return ret.toString();
     }
 

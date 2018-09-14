@@ -212,7 +212,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
             eventReceiver.receiveEvent(executionId, event);
         } catch (final Exception e) {
             final String errorMessage = "error receiving events on event consumer " + name + ", " + e.getMessage();
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
                     .entity("{'errorMessage', '" + errorMessage + "'}").build();
         }

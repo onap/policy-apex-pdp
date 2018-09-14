@@ -110,7 +110,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         } catch (final Exception e) {
             final String errorMessage =
                     "could not queue request \"" + eventObject + "\" on event Requestor consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
     }

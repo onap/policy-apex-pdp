@@ -38,6 +38,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestEngineStats {
+    private static final Object WAIT_LOCK = new Object();
 
     @Test
     public void testEngineStats() {
@@ -98,11 +99,15 @@ public class TestEngineStats {
         stats.engineStart();
         stats.setEventCount(4);
         stats.executionEnter(new AxArtifactKey());
-        try {
-            Thread.sleep(10);
-        } catch (final Exception e) {
-            fail("test should not throw an exeption");
+        
+        synchronized (WAIT_LOCK) {
+            try {
+                WAIT_LOCK.wait(10);
+            } catch (InterruptedException e) {
+                fail("test should not throw an exception");
+            }
         }
+
         stats.executionExit();
         final double avExecutionTime = stats.getAverageExecutionTime();
         assertTrue(avExecutionTime >= 2.0 && avExecutionTime < 10.0);

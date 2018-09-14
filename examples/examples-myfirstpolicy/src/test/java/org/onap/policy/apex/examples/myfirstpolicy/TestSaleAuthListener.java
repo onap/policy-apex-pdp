@@ -71,11 +71,8 @@ public class TestSaleAuthListener implements EnEventListener {
      */
     @Override
     public void onEnEvent(final EnEvent saleauthEvent) {
-        try {
-            Thread.sleep(100);
-        } catch (final InterruptedException e) {
-            e.printStackTrace();
-        }
+        ThreadUtilities.sleep(100);
+
         if (saleauthEvent != null) {
             System.out.println("SaleAuth event from engine:" + saleauthEvent.getName());
             resultEvents.add(saleauthEvent);

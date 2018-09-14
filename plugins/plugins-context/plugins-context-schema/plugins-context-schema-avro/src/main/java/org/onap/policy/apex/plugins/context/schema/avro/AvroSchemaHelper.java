@@ -70,7 +70,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": avro context schema \"" + schema.getId()
                             + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
-            LOGGER.warn(resultSting);
+            LOGGER.warn(resultSting, e);
             throw new ContextRuntimeException(resultSting);
         }
 
@@ -189,7 +189,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
                             + (object != null ? object.getClass().getCanonicalName() : "null")
                             + "\" must be assignable to \"" + getSchemaClass().getCanonicalName()
                             + "\" or be a Json string representation of it for Avro unmarshalling";
-            LOGGER.warn(returnString);
+            LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
     }

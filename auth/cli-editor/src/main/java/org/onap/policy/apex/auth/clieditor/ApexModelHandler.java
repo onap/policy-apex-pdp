@@ -132,7 +132,7 @@ public class ApexModelHandler {
                             + "\" not found for command \"" + command.getName() + "\"");
         } catch (final ClassNotFoundException e) {
             throw new CommandLineException("specified class \"" + command.getApiMethod() + "\" not found for command \""
-                            + command.getName() + "\"");
+                            + command.getName() + "\"", e);
         }
     }
 
@@ -163,7 +163,7 @@ public class ApexModelHandler {
             }
         } catch (final Exception e) {
             throw new CommandLineException("number of argument mismatch on method \"" + command.getApiMethod()
-                            + "\" for command \"" + command.getName() + "\"");
+                            + "\" for command \"" + command.getName() + "\"", e);
         }
 
         return parameterArray;

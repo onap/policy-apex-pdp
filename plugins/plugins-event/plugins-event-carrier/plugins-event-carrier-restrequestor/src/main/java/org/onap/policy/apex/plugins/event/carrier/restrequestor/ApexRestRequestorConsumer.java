@@ -166,7 +166,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         } catch (final Exception e) {
             final String errorMessage = "could not queue request \"" + restRequest + "\" on REST Requestor consumer ("
                             + this.name + ")";
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
     }

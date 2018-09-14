@@ -32,12 +32,17 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class ParameterCheck {
+    // Recurring string constants
+    private static final String PARAMETER = "parameter \"";
+    private static final String NOT_FOUND = "\" not found";
+
     private static final int MAX_PORT = 65535;
 
     /**
      * private constructor to prevent subclassing of this utility class.
      */
-    private ParameterCheck() {}
+    private ParameterCheck() {
+    }
 
     /**
      * The Enum StartStop is used to hold.
@@ -65,14 +70,14 @@ public final class ParameterCheck {
      */
     public static String getHostName(final Map<String, String[]> parameterMap) {
         if (!parameterMap.containsKey(HOSTNAME_PAR)) {
-            LOGGER.warn("parameter \"" + HOSTNAME_PAR + "\" not found");
+            LOGGER.warn(PARAMETER + HOSTNAME_PAR + NOT_FOUND);
             return null;
         }
 
         final String[] hostNameValue = parameterMap.get(HOSTNAME_PAR);
 
         if (hostNameValue.length == 0 || hostNameValue[0].trim().length() == 0) {
-            LOGGER.warn("value of parameter \"" + HOSTNAME_PAR + "\" not found");
+            LOGGER.warn("value of parameter \"" + HOSTNAME_PAR + NOT_FOUND);
             return null;
         }
 
@@ -87,14 +92,14 @@ public final class ParameterCheck {
      */
     public static int getPort(final Map<String, String[]> parameterMap) {
         if (!parameterMap.containsKey(PORT_PAR)) {
-            LOGGER.warn("parameter \"" + PORT_PAR + "\" not found");
+            LOGGER.warn(PARAMETER + PORT_PAR + NOT_FOUND);
             return -1;
         }
 
         final String[] portValue = parameterMap.get(PORT_PAR);
 
         if (portValue.length == 0 || portValue[0].trim().length() == 0) {
-            LOGGER.warn("value of parameter \"" + PORT_PAR + "\" not found");
+            LOGGER.warn("value of parameter \"" + PORT_PAR + NOT_FOUND);
             return -1;
         }
 
@@ -102,13 +107,13 @@ public final class ParameterCheck {
         try {
             port = Integer.parseInt(portValue[0]);
         } catch (final Exception e) {
-            LOGGER.warn("value \"" + portValue[0] + "\"of parameter \"" + PORT_PAR + "\" not a valid integer", e);
+            LOGGER.warn("value \"{}\"of parameter \"" + PORT_PAR + "\" not a valid integer", portValue[0], e);
             return -1;
         }
 
         if (port <= 0 || port > MAX_PORT) {
-            LOGGER.warn("value \"" + portValue[0] + "\"of parameter \"" + PORT_PAR
-                    + "\" not a valid port between 0 and 65535");
+            LOGGER.warn("value \"{}\"of parameter \"" + PORT_PAR + "\" not a valid port between 0 and 65535",
+                            portValue[0]);
             return -1;
         }
 
@@ -131,14 +136,14 @@ public final class ParameterCheck {
             }
         }
         if (artifactKeyParameter == null) {
-            LOGGER.warn("parameter \"" + AXARTIFACTKEY_PAR + "\" not found");
+            LOGGER.warn(PARAMETER + AXARTIFACTKEY_PAR + NOT_FOUND);
             return null;
         }
 
         final String[] axArtifactKeyArray = artifactKeyParameter.split("#");
 
         if (axArtifactKeyArray.length != 2) {
-            LOGGER.warn("value \"" + artifactKeyParameter + "\" of parameter \"" + AXARTIFACTKEY_PAR + "\" not valid");
+            LOGGER.warn("value \"{}\" of parameter \"" + AXARTIFACTKEY_PAR + "\" not valid", artifactKeyParameter);
             return null;
         }
 
@@ -153,17 +158,17 @@ public final class ParameterCheck {
      * @return the start stop
      */
     public static ParameterCheck.StartStop getStartStop(final Map<String, String[]> parameterMap,
-            final AxArtifactKey engineKey) {
+                    final AxArtifactKey engineKey) {
         final String startStopPar = AXARTIFACTKEY_PAR + '#' + engineKey.getId();
         if (!parameterMap.containsKey(startStopPar)) {
-            LOGGER.warn("parameter \"" + startStopPar + "\" not found");
+            LOGGER.warn("parameter \"{}\" not found", startStopPar);
             return null;
         }
 
         final String[] startStopValue = parameterMap.get(startStopPar);
 
         if (startStopValue.length == 0 || startStopValue[0].trim().length() == 0) {
-            LOGGER.warn("value of parameter \"" + startStopPar + "\" not found");
+            LOGGER.warn("value of parameter \"{}\" not found", startStopPar);
             return null;
         }
 
@@ -173,8 +178,7 @@ public final class ParameterCheck {
         } else if (startStopValue[0].equalsIgnoreCase("stop")) {
             startStop = ParameterCheck.StartStop.STOP;
         } else {
-            LOGGER.warn("value \"" + startStopValue[0] + "\"of parameter \"" + startStopPar
-                    + "\" not \"start\" or \"stop\"");
+            LOGGER.warn("value \"{}\" of parameter \"{}\" not \"start\" or \"stop\"", startStopValue[0], startStopPar);
             return null;
         }
 
@@ -190,21 +194,21 @@ public final class ParameterCheck {
      */
     public static long getLong(final Map<String, String[]> parameterMap, final String longName) {
         if (!parameterMap.containsKey(longName)) {
-            LOGGER.warn("parameter \"" + longName + "\" not found");
+            LOGGER.warn("parameter \"{}\" not found", longName);
             return -1;
         }
 
         final String[] longValue = parameterMap.get(longName);
 
         if (longValue.length == 0 || longValue[0].trim().length() == 0) {
-            LOGGER.warn("value of parameter \"" + longName + "\" not found");
+            LOGGER.warn("value of parameter \"{}\" not found", longName);
             return -1;
         }
 
         try {
             return Long.parseLong(longValue[0]);
         } catch (final Exception e) {
-            LOGGER.warn("value \"" + longValue[0] + "\"of parameter \"" + longName + "\" not a valid long", e);
+            LOGGER.warn("value \"{}\"of parameter \"{}\" not a valid long", longValue[0], longName, e);
             return -1;
         }
     }

@@ -274,11 +274,10 @@ public class AxContextAlbum extends AxConcept {
                             "scope is not defined"));
         }
 
-        try {
-            Assertions.validateStringParameter(SCOPE_STRING, scope, SCOPE_REGEXP);
-        } catch (final IllegalArgumentException e) {
+        String stringCheckResult = Assertions.getStringParameterValidationMessage(SCOPE_STRING, scope, SCOPE_REGEXP);
+        if (stringCheckResult != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "scope invalid-" + e.getMessage()));
+                            "scope invalid-" + stringCheckResult));
         }
 
         if (itemSchema.equals(AxArtifactKey.getNullKey())) {

@@ -210,7 +210,7 @@ public class EvalDomainModelFactory {
      * @return the sample policy model
      */
     public AxPolicyModel getOodaPolicyModel() {
-        final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", "0.0.1"));
+        final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
 
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalTask_Logic");

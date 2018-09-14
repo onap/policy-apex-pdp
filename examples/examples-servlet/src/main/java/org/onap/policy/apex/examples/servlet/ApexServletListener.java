@@ -57,7 +57,7 @@ public class ApexServletListener implements ServletContextListener {
         final String configFileName = servletContextEvent.getServletContext().getInitParameter("config-file");
         final String modelFileName = servletContextEvent.getServletContext().getInitParameter("model-file");
 
-        LOGGER.info("Apex Servliet has been started, config-file= " + configFileName + ", model-file=" + modelFileName);
+        LOGGER.info("Apex Servliet has been started, config-file={}, model-file={}", configFileName, modelFileName);
 
         // Check that a configuration file have been specified
         if (servletContextEvent.getServletContext().getInitParameter("config-file") == null) {
@@ -68,7 +68,7 @@ public class ApexServletListener implements ServletContextListener {
         }
 
         // Construct the Apex command line arguments
-        final List<String> argsList = new ArrayList<String>();
+        final List<String> argsList = new ArrayList<>();
         argsList.add("-config-file");
         argsList.add(configFileName);
 

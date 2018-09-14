@@ -25,6 +25,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.tools.common.CliOptions;
 import org.onap.policy.apex.tools.common.CliParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Model 2 event generator with main method.
@@ -32,6 +34,8 @@ import org.onap.policy.apex.tools.common.CliParser;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 public final class Application {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     /** The name of the application. */
     public static final String APP_NAME = "gen-model2event";
@@ -105,7 +109,9 @@ public final class Application {
             final Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
             app.runApp();
         } catch (final ApexException aex) {
-            System.err.println(APP_NAME + ": caught APEX exception with message: " + aex.getMessage());
+            String message = APP_NAME + ": caught APEX exception with message: " + aex.getMessage();
+            System.err.println(message);
+            LOGGER.warn(message, aex);
         }
     }
 }

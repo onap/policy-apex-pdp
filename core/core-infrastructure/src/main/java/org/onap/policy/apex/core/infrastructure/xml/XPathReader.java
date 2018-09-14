@@ -92,7 +92,7 @@ public class XPathReader {
             xpath = XPathFactory.newInstance().newXPath();
             LOGGER.info("Initialized XPath reader");
         } catch (final Exception ex) {
-            LOGGER.error("Error parsing XML file/stream from XPath reading, reason :\n" + ex.getMessage());
+            LOGGER.error("Error parsing XML file/stream from XPath reading, reason :\n" + ex.getMessage(), ex);
         }
     }
 
@@ -108,7 +108,7 @@ public class XPathReader {
             final XPathExpression xPathExpression = xpath.compile(expression);
             return xPathExpression.evaluate(xmlDocument, returnType);
         } catch (final XPathExpressionException ex) {
-            LOGGER.error("Failed to read XML file for XPath processing, reason:\n" + ex.getMessage());
+            LOGGER.error("Failed to read XML file for XPath processing, reason:\n" + ex.getMessage(), ex);
             return null;
         }
     }

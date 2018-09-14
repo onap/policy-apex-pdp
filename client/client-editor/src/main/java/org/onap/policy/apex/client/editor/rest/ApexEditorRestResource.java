@@ -2000,6 +2000,7 @@ public class ApexEditorRestResource {
                 objecttochange.addProperty(DESCRIPTION, desc);
                 augmessages.add(gson.toJson(jsonObject));
             } catch (final Exception e) {
+                LOGGER.debug("error adding key information", e);
                 augmessages.add(message);
             }
         }

@@ -38,6 +38,7 @@ import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.event.EnEvent;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.examples.adaptive.model.AdaptiveDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -148,7 +149,7 @@ public class TestAnomalyDetectionTslUseCase {
         assertEquals("ExecutionIDs are different", triggerEvent.getExecutionId(), result.getExecutionId());
         triggerEvent.clear();
         result.clear();
-        Thread.sleep(1);
+        ThreadUtilities.sleep(1);
         apexEngine1.stop();
     }
 
@@ -215,7 +216,7 @@ public class TestAnomalyDetectionTslUseCase {
             result.clear();
         }
         apexEngine1.stop();
-        Thread.sleep(1000);
+        ThreadUtilities.sleep(1000);
     }
 
     /**

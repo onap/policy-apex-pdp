@@ -101,7 +101,7 @@ public class ApexCommandLineArguments {
         try {
             parse(args);
         } catch (final ApexException e) {
-            throw new ApexRuntimeException("parse error on Apex parameters");
+            throw new ApexRuntimeException("parse error on Apex parameters", e);
         }
     }
 

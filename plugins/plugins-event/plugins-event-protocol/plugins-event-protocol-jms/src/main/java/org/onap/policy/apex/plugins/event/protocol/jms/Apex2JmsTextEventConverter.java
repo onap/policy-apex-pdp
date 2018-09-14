@@ -55,7 +55,7 @@ public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
         } catch (Exception e) {
             final String errorMessage = "message \"" + eventObject
                             + "\" received from JMS does not have a \"getText()\" method";
-            LOGGER.warn(errorMessage);
+            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
 

@@ -234,11 +234,11 @@ public class AxContextSchema extends AxConcept {
                             "schema flavour is not defined"));
         }
 
-        try {
-            Assertions.validateStringParameter(SCHEMA_FLAVOUR, schemaFlavour, SCHEMA_FLAVOUR_REGEXP);
-        } catch (final IllegalArgumentException e) {
+        String flavourValidationResult = Assertions.getStringParameterValidationMessage(SCHEMA_FLAVOUR, schemaFlavour,
+                        SCHEMA_FLAVOUR_REGEXP);
+        if (flavourValidationResult != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "schema flavour invalid-" + e.getMessage()));
+                            "schema flavour invalid-" + flavourValidationResult));
         }
 
         if (schemaDefinition.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {

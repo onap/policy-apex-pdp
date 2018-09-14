@@ -49,6 +49,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.utilities.Assertions;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * This class holds the definition of an Apex policy. A policy is made up of a tree of states, each represented by an
@@ -87,6 +89,9 @@ import org.onap.policy.apex.model.utilities.Assertions;
 
 public class AxPolicy extends AxConcept {
     private static final long serialVersionUID = -1775614096390365941L;
+
+    // Logger for this class
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(AxPolicy.class);
 
     @EmbeddedId
     @XmlElement(name = "policyKey", required = true)
@@ -364,7 +369,7 @@ public class AxPolicy extends AxConcept {
      */
     private AxValidationResult validateStateTree(AxValidationResult result) {
         try {
-            // Cpnstructor validates policy state tree
+            // Constructor validates policy state tree
             AxStateTree policyStateTree = getStateTree();
 
             // Check for unused states
@@ -378,8 +383,10 @@ public class AxPolicy extends AxConcept {
                                                 + " is not referenced in the policy execution tree"));
             }
         } catch (PolicyRuntimeException pre) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
-                            "state tree in policy is invalid"));
+            AxValidationMessage validationMessage = new AxValidationMessage(key, this.getClass(),
+                            ValidationResult.WARNING, "state tree in policy is invalid");
+            LOGGER.trace(validationMessage.getMessage(), pre);
+            result.addValidationMessage(validationMessage);
         }
 
         return result;

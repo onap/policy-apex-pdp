@@ -147,6 +147,9 @@ public class EnField implements Serializable {
             schemaHelper.unmarshal(value);
             return true;
         } catch (final Exception e) {
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("value {} is not assignable to this field", value, e);
+            }
             return false;
         }
     }
