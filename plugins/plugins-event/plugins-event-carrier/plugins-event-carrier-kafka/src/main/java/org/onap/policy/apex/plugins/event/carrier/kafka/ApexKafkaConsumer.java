@@ -164,7 +164,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
         while (consumerThread.isAlive() && !stopOrderedFlag) {
             try {
                 final ConsumerRecords<String, String> records =
-                        kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollTime());
+                        kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration());
                 for (final ConsumerRecord<String, String> record : records) {
                     if (LOGGER.isTraceEnabled()) {
                         LOGGER.trace("event received for {} for forwarding to Apex engine : {} {}",
