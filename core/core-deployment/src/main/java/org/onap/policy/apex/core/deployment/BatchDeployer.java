@@ -127,7 +127,7 @@ public class BatchDeployer {
      * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final AxPolicyModel policyModel, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException, IOException {
+                    throws ApexException {
         engineServiceFacade.deployModel(policyModel, ignoreConflicts, force);
     }
 

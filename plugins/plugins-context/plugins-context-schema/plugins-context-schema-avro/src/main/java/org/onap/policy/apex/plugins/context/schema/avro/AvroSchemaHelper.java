@@ -210,7 +210,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
     private String getJsonString(final Object object, final Object conditionedObject) {
 
-        try (final ByteArrayOutputStream output = new ByteArrayOutputStream();) {
+        try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
             final DatumWriter<Object> writer = new GenericDatumWriter<>(avroSchema);
             final JsonEncoder jsonEncoder = EncoderFactory.get().jsonEncoder(avroSchema, output, true);
             writer.write(conditionedObject, jsonEncoder);

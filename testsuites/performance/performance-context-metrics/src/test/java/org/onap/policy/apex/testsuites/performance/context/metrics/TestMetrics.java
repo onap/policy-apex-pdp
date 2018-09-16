@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -62,7 +62,7 @@ public class TestMetrics {
         final String hazelCastfileLocation = ResourceUtils.getFilePath4Resource(HAZELCAST_XML_FILE);
         System.setProperty(HAZELCAST_CONFIG, hazelCastfileLocation);
 
-        final TreeSet<String> ipAddressSet = NetworkUtils.getIPv4NonLoopAddresses();
+        final SortedSet<String> ipAddressSet = NetworkUtils.getIPv4NonLoopAddresses();
 
         if (ipAddressSet.size() == 0) {
             throw new Exception("cound not find real IP address for test");

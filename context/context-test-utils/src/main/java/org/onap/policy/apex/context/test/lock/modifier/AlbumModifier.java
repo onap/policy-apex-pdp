@@ -26,6 +26,7 @@ import org.onap.policy.apex.context.ContextException;
 /**
  * The Interface AlbumModifier defines the interface to allow context albums be modified during context tests.
  */
+@FunctionalInterface
 public interface AlbumModifier {
 
     /**

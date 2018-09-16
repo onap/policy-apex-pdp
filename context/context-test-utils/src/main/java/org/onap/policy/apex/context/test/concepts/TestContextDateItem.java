@@ -239,10 +239,7 @@ public class TestContextDateItem implements Serializable {
         if (time != other.time) {
             return false;
         }
-        if (year != other.year) {
-            return false;
-        }
-        return true;
+        return year == other.year;
     }
 
     /*

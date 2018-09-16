@@ -94,10 +94,7 @@ public class TestContextByteItem implements Serializable {
             return false;
         }
         final TestContextByteItem other = (TestContextByteItem) obj;
-        if (byteValue != other.byteValue) {
-            return false;
-        }
-        return true;
+        return byteValue == other.byteValue;
     }
 
     /*

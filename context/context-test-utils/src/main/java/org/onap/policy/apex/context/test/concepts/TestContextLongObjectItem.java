@@ -30,7 +30,7 @@ public class TestContextLongObjectItem implements Serializable {
 
     private static final int HASH_PRIME_1 = 31;
 
-    private Long longValue = new Long(0);
+    private Long longValue = 0L;
 
     /**
      * The Constructor.

@@ -536,10 +536,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -646,10 +646,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -690,10 +690,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -728,10 +728,10 @@ public class ApexEditorRestResource {
         String version1 = version;
         LOGGER.entry(name1, version1);
         try {
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -849,10 +849,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -893,10 +893,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -931,10 +931,10 @@ public class ApexEditorRestResource {
         String version1 = version;
         LOGGER.entry(name1, version1);
         try {
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1037,8 +1037,8 @@ public class ApexEditorRestResource {
 
             final BeanEvent jsonbean = RestUtils.getJsonParameters(jsonString, BeanEvent.class);
 
-            if (jsonbean.getName() == null || jsonbean.getName().equals("") || jsonbean.getVersion() == null
-                            || jsonbean.getVersion().equals("")) {
+            if (jsonbean.getName() == null || "".equals(jsonbean.getName()) || jsonbean.getVersion() == null
+                            || "".equals(jsonbean.getVersion())) {
                 ret = new ApexApiResult(Result.FAILED, "Null/Empty event name/version (\"" + jsonbean.getName() + ":"
                                 + jsonbean.getVersion() + "\" passed to UpdateEvent");
                 return ret;
@@ -1085,10 +1085,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1124,10 +1124,10 @@ public class ApexEditorRestResource {
         String version1 = version;
         LOGGER.entry(name1, version1);
         try {
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1171,10 +1171,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1374,8 +1374,8 @@ public class ApexEditorRestResource {
 
             final BeanTask jsonbean = RestUtils.getJsonParameters(jsonString, BeanTask.class);
 
-            if (jsonbean.getName() == null || jsonbean.getName().equals("") || jsonbean.getVersion() == null
-                            || jsonbean.getVersion().equals("")) {
+            if (jsonbean.getName() == null || "".equals(jsonbean.getName()) || jsonbean.getVersion() == null
+                            || "".equals(jsonbean.getVersion())) {
                 ret = new ApexApiResult(Result.FAILED, "Null/Empty task name/version (\"" + jsonbean.getName() + ":"
                                 + jsonbean.getVersion() + "\" passed to UpdateTask");
                 return ret;
@@ -1422,10 +1422,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1466,10 +1466,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1511,10 +1511,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1777,8 +1777,8 @@ public class ApexEditorRestResource {
 
             final BeanPolicy jsonbean = RestUtils.getJsonParameters(jsonString, BeanPolicy.class);
 
-            if (jsonbean.getName() == null || jsonbean.getName().equals("") || jsonbean.getVersion() == null
-                            || jsonbean.getVersion().equals("")) {
+            if (jsonbean.getName() == null || "".equals(jsonbean.getName()) || jsonbean.getVersion() == null
+                            || "".equals(jsonbean.getVersion())) {
                 ret = new ApexApiResult(Result.FAILED, "Null/Empty Policy name/version (\"" + jsonbean.getName() + ":"
                                 + jsonbean.getVersion() + "\" passed to UpdatePolicy");
                 return ret;
@@ -1839,10 +1839,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 
@@ -1884,10 +1884,10 @@ public class ApexEditorRestResource {
                 return ret;
             }
 
-            if (name1 == null || name1.equals("")) {
+            if (name1 == null || "".equals(name1)) {
                 name1 = null;
             }
-            if (version1 == null || version1.equals("")) {
+            if (version1 == null || "".equals(version1)) {
                 version1 = null;
             }
 

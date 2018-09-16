@@ -64,7 +64,7 @@ public enum LockType {
      *
      * @param value the value
      */
-    private LockType(final int value) {
+    LockType(final int value) {
         this.value = value;
     }
 

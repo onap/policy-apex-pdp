@@ -101,7 +101,7 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
 
             // Check if we actually got a connection factory
             if (connectionFactory == null) {
-                throw new NullPointerException(
+                throw new IllegalArgumentException(
                         "JMS context lookup of \"" + jmsConsumerProperties.getConnectionFactory() + "\" returned null");
             }
         } catch (final Exception e) {
@@ -118,7 +118,7 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
 
             // Check if we actually got a topic
             if (jmsIncomingTopic == null) {
-                throw new NullPointerException(
+                throw new IllegalArgumentException(
                         "JMS context lookup of \"" + jmsConsumerProperties.getConsumerTopic() + "\" returned null");
             }
         } catch (final Exception e) {

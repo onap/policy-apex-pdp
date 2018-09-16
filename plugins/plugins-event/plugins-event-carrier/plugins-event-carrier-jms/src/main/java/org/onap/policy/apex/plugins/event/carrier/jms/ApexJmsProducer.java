@@ -103,7 +103,7 @@ public class ApexJmsProducer implements ApexEventProducer {
 
             // Check if we actually got a connection factory
             if (connectionFactory == null) {
-                throw new NullPointerException("JMS context lookup of \"" + jmsProducerProperties.getConnectionFactory()
+                throw new IllegalArgumentException("JMS context lookup of \"" + jmsProducerProperties.getConnectionFactory()
                                 + "\" returned null for producer (" + this.name + ")");
             }
         } catch (final Exception e) {
@@ -121,7 +121,7 @@ public class ApexJmsProducer implements ApexEventProducer {
 
             // Check if we actually got a topic
             if (jmsOutgoingTopic == null) {
-                throw new NullPointerException("JMS context lookup of \"" + jmsProducerProperties.getProducerTopic()
+                throw new IllegalArgumentException("JMS context lookup of \"" + jmsProducerProperties.getProducerTopic()
                                 + "\" returned null for producer (" + this.name + ")");
             }
         } catch (final Exception e) {

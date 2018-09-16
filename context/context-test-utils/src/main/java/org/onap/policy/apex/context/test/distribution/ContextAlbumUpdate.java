@@ -54,7 +54,7 @@ public class ContextAlbumUpdate {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    public void testContextAlbumUpdate() throws ApexModelException, IOException, ApexException {
+    public void testContextAlbumUpdate() throws IOException, ApexException {
         LOGGER.debug("Running TestContextAlbumUpdate test . . .");
 
         final AxArtifactKey distributorKey = new AxArtifactKey(APEX_DISTRIBUTOR, VERSION);

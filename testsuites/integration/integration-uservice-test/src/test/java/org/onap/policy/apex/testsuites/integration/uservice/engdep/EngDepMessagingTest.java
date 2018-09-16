@@ -87,9 +87,9 @@ public class EngDepMessagingTest {
         contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
 
         ParameterService.register(contextParameters, true);
-        ParameterService.register(contextParameters.getDistributorParameters());
-        ParameterService.register(contextParameters.getLockManagerParameters());
-        ParameterService.register(contextParameters.getPersistorParameters());
+        ParameterService.register(contextParameters.getDistributorParameters(), true);
+        ParameterService.register(contextParameters.getLockManagerParameters(), true);
+        ParameterService.register(contextParameters.getPersistorParameters(), true);
 
         engineServiceParameters = new EngineServiceParameters();
         engineServiceParameters.setName("EngDepMessagingTest");
@@ -100,8 +100,8 @@ public class EngDepMessagingTest {
         engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("MVEL",
                         new MvelExecutorParameters());
 
-        ParameterService.register(engineServiceParameters);
-        ParameterService.register(engineServiceParameters.getEngineParameters());
+        ParameterService.register(engineServiceParameters, true);
+        ParameterService.register(engineServiceParameters.getEngineParameters(), true);
     }
 
     /**

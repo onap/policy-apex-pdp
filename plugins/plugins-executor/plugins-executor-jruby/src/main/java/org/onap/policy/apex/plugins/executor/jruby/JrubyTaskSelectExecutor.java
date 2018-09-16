@@ -90,7 +90,7 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
         boolean returnValue = false;
         final IRubyObject ret = parsedjruby.run();
         if (ret != null) {
-            final Boolean retbool = (Boolean) ret.toJava(java.lang.Boolean.class);
+            final Boolean retbool = ret.toJava(java.lang.Boolean.class);
             if (retbool != null) {
                 returnValue = true;
             }

@@ -32,7 +32,7 @@ public class TestContextTreeMapItem implements Serializable {
 
     private static final int HASH_PRIME_1 = 31;
 
-    private Map<String, String> mapValue = new TreeMap<String, String>();
+    private Map<String, String> mapValue = new TreeMap<>();
 
     /**
      * The Constructor.
@@ -55,7 +55,7 @@ public class TestContextTreeMapItem implements Serializable {
      */
     public Map<String, String> getMapValue() {
         if (mapValue == null) {
-            mapValue = new TreeMap<String, String>();
+            mapValue = new TreeMap<>();
         }
         return mapValue;
     }

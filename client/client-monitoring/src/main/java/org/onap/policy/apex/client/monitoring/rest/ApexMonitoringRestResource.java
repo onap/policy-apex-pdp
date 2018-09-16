@@ -195,9 +195,9 @@ public class ApexMonitoringRestResource {
             parameterMap.put("AxArtifactKey#" + engineId, new String[]
                 { startStop });
             final AxArtifactKey engineKey = ParameterCheck.getEngineKey(parameterMap);
-            if (startStop.equals("Start")) {
+            if ("Start".equals(startStop)) {
                 engineServiceFacade.startEngine(engineKey);
-            } else if (startStop.equals("Stop")) {
+            } else if ("Stop".equals(startStop)) {
                 engineServiceFacade.stopEngine(engineKey);
             }
         } catch (final Exception e) {
@@ -241,10 +241,10 @@ public class ApexMonitoringRestResource {
             parameterMap.put("period", new String[]
                 { Long.toString(period) });
             final AxArtifactKey engineKey = ParameterCheck.getEngineKey(parameterMap);
-            if (startStop.equals("Start")) {
+            if ("Start".equals(startStop)) {
                 engineServiceFacade.startPerioidicEvents(engineKey, period);
                 setPeriodicEventsState(host, true);
-            } else if (startStop.equals("Stop")) {
+            } else if ("Stop".equals(startStop)) {
                 engineServiceFacade.stopPerioidicEvents(engineKey);
                 setPeriodicEventsState(host, false);
             }

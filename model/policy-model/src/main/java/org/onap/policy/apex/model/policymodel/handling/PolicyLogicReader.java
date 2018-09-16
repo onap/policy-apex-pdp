@@ -99,7 +99,7 @@ public class PolicyLogicReader implements AxLogicReader {
     @Override
     public String readLogic(final AxLogic axLogic) {
         // Java uses compiled logic, other executor types run scripts
-        if (axLogic.getLogicFlavour().equals("JAVA")) {
+        if ("JAVA".equals(axLogic.getLogicFlavour())) {
             // Check if we're using the default logic
             if (defaultLogic != null) {
                 // Return the java class name for the default logic

@@ -72,11 +72,11 @@ public class ConcurrentContextJvmThread implements Runnable, Closeable {
         commandList.add(System.getProperty("java.class.path"));
         commandList.add(ConcurrentContextJvm.class.getCanonicalName());
         commandList.add(configrationProvider.getTestName());
-        commandList.add(new Integer(jvm).toString());
-        commandList.add(new Integer(configrationProvider.getThreadCount()).toString());
-        commandList.add(new Integer(configrationProvider.getLoopSize()).toString());
-        commandList.add(new Integer(configrationProvider.getAlbumSize()).toString());
-        commandList.add(new Integer(configrationProvider.getLockType().getValue()).toString());
+        commandList.add(Integer.toString(jvm));
+        commandList.add(Integer.toString(configrationProvider.getThreadCount()));
+        commandList.add(Integer.toString(configrationProvider.getLoopSize()));
+        commandList.add(Integer.toString(configrationProvider.getAlbumSize()));
+        commandList.add(Integer.toString(configrationProvider.getLockType().getValue()));
         commandList.add(System.getProperty("hazelcast.config", ""));
 
         for (final Entry<String, ParameterGroup> parameterServiceEntry : ParameterService.getAll()) {

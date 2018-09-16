@@ -58,7 +58,7 @@ public class EnEvent extends HashMap<String, Object> {
     private final AxEvent axEvent;
 
     // The event monitor for this event
-    private final EventMonitor eventMonitor = new EventMonitor();
+    private final transient EventMonitor eventMonitor = new EventMonitor();
 
     // The stack of execution of this event, used for monitoring
     private AxConcept[] userArtifactStack;
@@ -289,7 +289,7 @@ public class EnEvent extends HashMap<String, Object> {
     @Override
     public void putAll(final Map<? extends String, ? extends Object> incomingMap) {
         // Override the generic "putAll()" call as we want to monitor the puts
-        for (final java.util.Map.Entry<? extends String, ? extends Object> incomingEntry : incomingMap.entrySet()) {
+        for (final Map.Entry<? extends String, ? extends Object> incomingEntry : incomingMap.entrySet()) {
             put(incomingEntry.getKey(), incomingEntry.getValue());
         }
     }

@@ -164,7 +164,7 @@ public class ContextAlbumFacade {
                 contextAlbum.setScope(scope);
             }
             if (writable != null) {
-                if (writable.trim().equalsIgnoreCase("true") || writable.trim().equalsIgnoreCase("t")) {
+                if ("true".equalsIgnoreCase(writable.trim()) || "t".equalsIgnoreCase(writable.trim())) {
                     contextAlbum.setWritable(true);
                 } else {
                     contextAlbum.setWritable(false);

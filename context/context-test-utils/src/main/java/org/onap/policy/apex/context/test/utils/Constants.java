@@ -45,7 +45,7 @@ public class Constants {
     public static final String EXCEPTION_MESSAGE = "Test should throw an exception";
     public static final byte BYTE_VAL = (byte) 0xFF;
     public static final double PI_VAL = Math.PI;
-    public static final float FLOAT_VAL = 3.14159265359f;
+    public static final float FLOAT_VAL = 3.14159265359F;
     public static final String EXTERNAL_CONTEXT = "externalContext";
     public static final String GLOBAL_CONTEXT_KEY = "globalContext";
     public static final String STRING_GLOBAL_VAL = "This is a global context string";

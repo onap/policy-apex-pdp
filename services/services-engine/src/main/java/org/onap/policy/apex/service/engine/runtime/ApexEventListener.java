@@ -30,6 +30,7 @@ import org.onap.policy.apex.service.engine.event.ApexEvent;
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
+@FunctionalInterface
 public interface ApexEventListener {
 
     /**

@@ -22,6 +22,7 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
@@ -32,7 +33,7 @@ public class TestContextTreeSetItem implements Serializable {
 
     private static final int HASH_PRIME_1 = 31;
 
-    private TreeSet<String> setValue = new TreeSet<String>();
+    private SortedSet<String> setValue = new TreeSet<>();
 
     /**
      * The Constructor.
@@ -51,7 +52,7 @@ public class TestContextTreeSetItem implements Serializable {
      *
      * @param setValue the set value
      */
-    public TestContextTreeSetItem(final TreeSet<String> setValue) {
+    public TestContextTreeSetItem(final SortedSet<String> setValue) {
         this.setValue = setValue;
     }
 
@@ -62,7 +63,7 @@ public class TestContextTreeSetItem implements Serializable {
      */
     public Set<String> getSetValue() {
         if (setValue == null) {
-            setValue = new TreeSet<String>();
+            setValue = new TreeSet<>();
         }
         return setValue;
     }
@@ -72,7 +73,7 @@ public class TestContextTreeSetItem implements Serializable {
      *
      * @param setValue the sets the value
      */
-    public void setSetValue(final TreeSet<String> setValue) {
+    public void setSetValue(final SortedSet<String> setValue) {
         this.setValue = setValue;
     }
 

@@ -97,10 +97,7 @@ public class TestContextDoubleItem implements Serializable {
             return false;
         }
         final TestContextDoubleItem other = (TestContextDoubleItem) obj;
-        if (Double.doubleToLongBits(doubleValue) != Double.doubleToLongBits(other.doubleValue)) {
-            return false;
-        }
-        return true;
+        return Double.doubleToLongBits(doubleValue) == Double.doubleToLongBits(other.doubleValue);
     }
 
     /*

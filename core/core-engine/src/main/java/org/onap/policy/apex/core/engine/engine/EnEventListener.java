@@ -29,6 +29,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
  * @author Liam Fallon
  *
  */
+@FunctionalInterface
 public interface EnEventListener {
 
     /**

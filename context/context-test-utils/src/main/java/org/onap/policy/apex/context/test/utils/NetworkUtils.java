@@ -25,6 +25,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
@@ -45,8 +46,8 @@ public class NetworkUtils {
      * @return Set of IPv4 addresses
      * @throws SocketException throw socket exception if error occurs
      */
-    public static TreeSet<String> getIPv4NonLoopAddresses() throws SocketException {
-        final TreeSet<String> ipAddressSet = new TreeSet<String>();
+    public static SortedSet<String> getIPv4NonLoopAddresses() throws SocketException {
+        final TreeSet<String> ipAddressSet = new TreeSet<>();
 
         final Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
         for (final NetworkInterface netint : Collections.list(nets)) {

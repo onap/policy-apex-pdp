@@ -45,10 +45,10 @@ public class EnField implements Serializable {
     private final AxField axField;
 
     // The schema helper for this field
-    private SchemaHelper schemaHelper;
+    private transient SchemaHelper schemaHelper;
 
     // The value of this field
-    private final Object value;
+    private final transient Object value;
 
     /**
      * Instantiates a new EnField, an Engine Field.

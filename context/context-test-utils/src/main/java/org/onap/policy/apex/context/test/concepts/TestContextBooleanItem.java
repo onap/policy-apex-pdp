@@ -96,10 +96,7 @@ public class TestContextBooleanItem implements Serializable {
             return false;
         }
         final TestContextBooleanItem other = (TestContextBooleanItem) obj;
-        if (flag != other.flag) {
-            return false;
-        }
-        return true;
+        return flag == other.flag;
     }
 
     /*

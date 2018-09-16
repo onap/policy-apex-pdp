@@ -54,7 +54,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
     private boolean blockEndTokenUsed = false;
 
     // The thread used to read the text from the stream
-    Thread textConsumputionThread;
+    private Thread textConsumputionThread;
 
     // The input stream for text
     private InputStream inputStream;

@@ -38,7 +38,7 @@ import org.apache.commons.cli.ParseException;
  */
 public class ApexDeploymentRestParameterParser {
     // Apache Commons CLI options
-    Options options;
+    private Options options;
 
     /**
      * Construct the options for the CLI RESTful services.

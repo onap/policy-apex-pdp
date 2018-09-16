@@ -178,9 +178,9 @@ public final class ParameterCheck {
         }
 
         ParameterCheck.StartStop startStop;
-        if (startStopValue[0].equalsIgnoreCase("start")) {
+        if ("start".equalsIgnoreCase(startStopValue[0])) {
             startStop = ParameterCheck.StartStop.START;
-        } else if (startStopValue[0].equalsIgnoreCase("stop")) {
+        } else if ("stop".equalsIgnoreCase(startStopValue[0])) {
             startStop = ParameterCheck.StartStop.STOP;
         } else {
             LOGGER.warn("value \"{}\"of parameter \"{}\" not \"start\" or \"stop\"", startStopValue[0], startStopPar);

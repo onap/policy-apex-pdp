@@ -95,10 +95,7 @@ public class TestContextLongItem implements Serializable {
             return false;
         }
         final TestContextLongItem other = (TestContextLongItem) obj;
-        if (longValue != other.longValue) {
-            return false;
-        }
-        return true;
+        return longValue == other.longValue;
     }
 
     /*

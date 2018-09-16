@@ -67,7 +67,7 @@ public class ConcurrentContext {
      * @throws ApexException the Apex exception occurs in handling Apex
      */
     public Map<String, TestContextLongItem> testConcurrentContext()
-            throws ApexModelException, IOException, ApexException {
+            throws IOException, ApexException {
 
         try {
             setupAndVerifyContext();
@@ -140,7 +140,7 @@ public class ConcurrentContext {
      *
      * @throws ContextException the context exception
      */
-    private void setupAndVerifyContext() throws ContextException {
+    private void setupAndVerifyContext() {
         contextDistributor = configrationProvider.getDistributor();
         ltypeAlbum = configrationProvider.getContextAlbum(contextDistributor);
         final Map<String, Object> initValues = configrationProvider.getContextAlbumInitValues();

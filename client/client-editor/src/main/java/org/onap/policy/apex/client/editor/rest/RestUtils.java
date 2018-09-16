@@ -49,6 +49,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class RestUtils {
+    // Regular expressions for checking input types
+    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; //starts with <?xml...>
+    /**
+     * starts with some kind of bracket [ or ( or {, then has something, then has bracket.
+     */
+    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]";
 
     /**
      * Constructor, block inheritance.
@@ -77,7 +83,7 @@ public abstract class RestUtils {
         }
         if (val.isJsonPrimitive() && ((JsonPrimitive) val).isString()) {
             final String v = ((JsonPrimitive) val).getAsString();
-            if (v == null || v.equals("")) {
+            if (v == null || "".equals(v)) {
                 return JsonNull.INSTANCE;
             }
         }
@@ -136,13 +142,6 @@ public abstract class RestUtils {
         }
         return gb.create().fromJson(jsonObject, clz);
     }
-
-    // Regular expressions for checking input types
-    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; //starts with <?xml...>
-    /**
-     * starts with some kind of bracket [ or ( or {, then has something, then has bracket.
-     */
-    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s+\\S]*[\\)\\}\\]]";
 
     /**
      * Gets the concept from JSON.

@@ -30,7 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Map;
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -106,7 +106,7 @@ public class TestConcurrentContext {
         final String hazelCastfileLocation = ResourceUtils.getFilePath4Resource(HAZELCAST_XML_FILE);
         System.setProperty(HAZELCAST_CONFIG, hazelCastfileLocation);
 
-        final TreeSet<String> ipAddressSet = NetworkUtils.getIPv4NonLoopAddresses();
+        final SortedSet<String> ipAddressSet = NetworkUtils.getIPv4NonLoopAddresses();
 
         if (ipAddressSet.size() == 0) {
             throw new Exception("cound not find real IP address for test");

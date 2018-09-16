@@ -129,8 +129,7 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
     public ExecutorService getExecutorService() {
         final String name = getThreadFactoryName(jvmCount, testType);
         final IntegrationThreadFactory threadFactory = new IntegrationThreadFactory(name);
-        final ExecutorService executorService = Executors.newFixedThreadPool(threadCount, threadFactory);
-        return executorService;
+        return Executors.newFixedThreadPool(threadCount, threadFactory);
     }
 
     /*
@@ -141,8 +140,7 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
     @Override
     public ExecutorService getExecutorService(final String threadFactoryName, final int threadPoolSize) {
         final IntegrationThreadFactory threadFactory = new IntegrationThreadFactory(threadFactoryName);
-        final ExecutorService executorService = Executors.newFixedThreadPool(threadPoolSize, threadFactory);
-        return executorService;
+        return Executors.newFixedThreadPool(threadPoolSize, threadFactory);
     }
 
     /*

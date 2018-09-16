@@ -241,10 +241,7 @@ public class TestContextDateLocaleItem implements Serializable {
         } else if (!timeZoneString.equals(other.timeZoneString)) {
             return false;
         }
-        if (utcOffset != other.utcOffset) {
-            return false;
-        }
-        return true;
+        return utcOffset == other.utcOffset;
     }
 
     /*

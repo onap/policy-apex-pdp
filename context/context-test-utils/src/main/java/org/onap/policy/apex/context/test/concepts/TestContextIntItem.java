@@ -103,10 +103,7 @@ public class TestContextIntItem implements Serializable {
             return false;
         }
         final TestContextIntItem other = (TestContextIntItem) obj;
-        if (intValue != other.intValue) {
-            return false;
-        }
-        return true;
+        return intValue == other.intValue;
     }
 
     /*

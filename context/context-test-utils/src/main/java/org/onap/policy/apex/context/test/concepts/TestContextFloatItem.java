@@ -94,10 +94,7 @@ public class TestContextFloatItem implements Serializable {
             return false;
         }
         final TestContextFloatItem other = (TestContextFloatItem) obj;
-        if (Float.floatToIntBits(floatValue) != Float.floatToIntBits(other.floatValue)) {
-            return false;
-        }
-        return true;
+        return Float.floatToIntBits(floatValue) == Float.floatToIntBits(other.floatValue);
     }
 
     /*

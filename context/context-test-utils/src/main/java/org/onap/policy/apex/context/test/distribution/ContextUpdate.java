@@ -62,8 +62,11 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
  */
 public class ContextUpdate {
+    // Recurring string constants.
+    private static final String NORMAL_TEST_EXCEPTION = "normal test exception";
+
     private static final String ZERO = "zero";
-    private static final String _0 = "0";
+    private static final String NUMBER_ZERO = "0";
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ContextUpdate.class);
 
@@ -74,7 +77,7 @@ public class ContextUpdate {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    public void testContextUpdate() throws ApexModelException, IOException, ApexException {
+    public void testContextUpdate() throws IOException, ApexException {
         LOGGER.debug("Running TestContextUpdate test . . .");
 
         final Distributor contextDistributor = getDistributor();
@@ -86,35 +89,38 @@ public class ContextUpdate {
         final TestContextDateLocaleItem tciA = getTestContextDateLocaleItem();
         final TestContextTreeMapItem tciC = getTestContextTreeMapItem();
 
-        longContextAlbum.put(_0, (long) 0);
-        longContextAlbum.put(_0, 0);
-        longContextAlbum.put(_0, _0);
+        longContextAlbum.put(NUMBER_ZERO, (long) 0);
+        longContextAlbum.put(NUMBER_ZERO, 0);
+        longContextAlbum.put(NUMBER_ZERO, NUMBER_ZERO);
 
         try {
-            longContextAlbum.put(_0, ZERO);
+            longContextAlbum.put(NUMBER_ZERO, ZERO);
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals("Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\":"
                     + " LongContextAlbum:0.0.1: object \"zero\" of class \"java.lang.String\" not compatible with"
                     + " class \"java.lang.Long\"", e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
         try {
-            longContextAlbum.put(_0, "");
+            longContextAlbum.put(NUMBER_ZERO, "");
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals(
                     "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum"
                     + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
                     e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
         try {
-            longContextAlbum.put(_0, null);
+            longContextAlbum.put(NUMBER_ZERO, null);
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals("album \"LongContextAlbum:0.0.1\" null values are illegal on key \"0\" for put()",
                     e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
         try {
@@ -122,6 +128,7 @@ public class ContextUpdate {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals("album \"LongContextAlbum:0.0.1\" null keys are illegal on keys for put()", e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
         assertNull(dateContextAlbum.put("date0", tciA));
@@ -136,14 +143,13 @@ public class ContextUpdate {
 
     private TestContextTreeMapItem getTestContextTreeMapItem() {
         final Map<String, String> testHashMap = new HashMap<>();
-        testHashMap.put(_0, ZERO);
+        testHashMap.put(NUMBER_ZERO, ZERO);
         testHashMap.put("1", "one");
         testHashMap.put("2", "two");
         testHashMap.put("3", "three");
         testHashMap.put("4", "four");
 
-        final TestContextTreeMapItem tciC = new TestContextTreeMapItem(testHashMap);
-        return tciC;
+        return new TestContextTreeMapItem(testHashMap);
     }
 
     private TestContextDateLocaleItem getTestContextDateLocaleItem() {

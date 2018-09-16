@@ -119,7 +119,7 @@ public final class ConcurrentContextJvm {
     public static void main(final String[] args) throws Exception {
         configure();
 
-        System.out.println("JVM Arguments: " + Arrays.toString(args));
+        LOGGER.info("JVM Arguments: " + Arrays.toString(args));
         // CHECKSTYLE:OFF: checkstyle:magicNumber
 
         // An even number of arguments greater than 3
@@ -137,7 +137,7 @@ public final class ConcurrentContextJvm {
         final int threadLoops = getIntValue("threadLoops", args, 3);
         final int albumSize = getIntValue("albumSize", args, 4);
         final int lockType = getIntValue("lockType", args, 5);
-        final String hazelCastfileLocation = getStringValue("hazelcast file location", args, 6);;
+        final String hazelCastfileLocation = getStringValue("hazelcast file location", args, 6);
 
         System.setProperty("hazelcast.config", hazelCastfileLocation);
 
@@ -162,10 +162,8 @@ public final class ConcurrentContextJvm {
 
         } catch (final Exception e) {
             LOGGER.error("error running test in JVM", e);
-            return;
         }
         // CHECKSTYLE:ON: checkstyle:magicNumber
-
     }
 
     private static String getStringValue(final String key, final String[] args, final int position) {
@@ -204,7 +202,7 @@ public final class ConcurrentContextJvm {
         // first non-loopback
         // IPv4 address
         // on a host
-        final TreeSet<String> ipAddressSet = new TreeSet<String>();
+        final TreeSet<String> ipAddressSet = new TreeSet<>();
 
         final Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
         for (final NetworkInterface netint : Collections.list(nets)) {
@@ -217,10 +215,10 @@ public final class ConcurrentContextJvm {
             }
         }
 
-        if (ipAddressSet.size() == 0) {
+        if (ipAddressSet.isEmpty()) {
             throw new Exception("cound not find real IP address for test");
         }
-        System.out.println("Setting jgroups.tcp.address to: " + ipAddressSet.first());
+        LOGGER.info("Setting jgroups.tcp.address to: " + ipAddressSet.first());
         System.setProperty("jgroups.tcp.address", ipAddressSet.first());
     }
 }

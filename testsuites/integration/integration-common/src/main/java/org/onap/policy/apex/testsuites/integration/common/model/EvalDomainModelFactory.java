@@ -215,7 +215,7 @@ public class EvalDomainModelFactory {
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalTask_Logic");
 
-        final AxTask obTask = new AxTask(new AxArtifactKey("Task_Observe_0", "0.0.1"));
+        final AxTask obTask = new AxTask(new AxArtifactKey("Task_Observe_0", DEFAULT_VERSION));
         obTask.duplicateInputFields(event0000.getParameterMap());
         obTask.duplicateOutputFields(event0001.getParameterMap());
         final AxTaskLogic obAxLogic = new AxTaskLogic(obTask.getKey(), TASK_LOGIC,

@@ -85,8 +85,8 @@ public class ApexRestClientProducer implements ApexEventProducer {
             restProducerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.DEFAULT_PRODUCER_HTTP_METHOD);
         }
 
-        if (!restProducerProperties.getHttpMethod().equalsIgnoreCase("POST")
-                        && !restProducerProperties.getHttpMethod().equalsIgnoreCase("PUT")) {
+        if (!"POST".equalsIgnoreCase(restProducerProperties.getHttpMethod())
+                        && !"PUT".equalsIgnoreCase(restProducerProperties.getHttpMethod())) {
             final String errorMessage = "specified HTTP method of \"" + restProducerProperties.getHttpMethod()
                             + "\" is invalid, only HTTP methods \"POST\" and \"PUT\" are supproted "
                             + "for event sending on REST client producer (" + this.name + ")";
@@ -183,7 +183,7 @@ public class ApexRestClientProducer implements ApexEventProducer {
      */
     public Response sendEventAsRestRequest(final String event) {
         // We have already checked that it is a PUT or POST request
-        if (restProducerProperties.getHttpMethod().equalsIgnoreCase("POST")) {
+        if ("POST".equalsIgnoreCase(restProducerProperties.getHttpMethod())) {
             return client.target(restProducerProperties.getUrl()).request("application/json").post(Entity.json(event));
         } else {
             return client.target(restProducerProperties.getUrl()).request("application/json").put(Entity.json(event));
