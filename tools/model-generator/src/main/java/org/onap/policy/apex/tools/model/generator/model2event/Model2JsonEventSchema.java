@@ -82,6 +82,7 @@ public class Model2JsonEventSchema {
         Validate.notNull(modelFile, "Model2JsonEvent: given model file name was blank");
         Validate.notNull(type, "Model2JsonEvent: given type was blank");
         Validate.notNull(appName, "Model2JsonEvent: given application name was blank");
+
         this.modelFile = modelFile;
         this.type = type;
         this.appName = appName;
@@ -124,13 +125,7 @@ public class Model2JsonEventSchema {
                 break;
 
             case RECORD:
-                ret = stg.getInstanceOf("fieldTypeRecord");
-                for (final Field field : schema.getFields()) {
-                    final ST st = stg.getInstanceOf("field");
-                    st.add("name", field.name());
-                    st.add("type", this.addFieldType(field.schema(), stg));
-                    ret.add("fields", st);
-                }
+                ret = processRecord(schema, stg);
                 break;
 
             case NULL:
@@ -144,11 +139,29 @@ public class Model2JsonEventSchema {
     }
 
     /**
+     * Process a record entry.
+     * @param schema the schema to add a type for
+     * @param stg the STG
+     * @return a template with the type
+     */
+    private ST processRecord(final Schema schema, final STGroup stg) {
+        ST ret;
+        ret = stg.getInstanceOf("fieldTypeRecord");
+        for (final Field field : schema.getFields()) {
+            final ST st = stg.getInstanceOf("field");
+            st.add("name", field.name());
+            st.add("type", this.addFieldType(field.schema(), stg));
+            ret.add("fields", st);
+        }
+        return ret;
+    }
+
+    /**
      * Runs the application.
      *
      *
-     * @return status of the application execution, 0 for success, positive integer for exit
-     *         condition (such as help or version), negative integer for errors
+     * @return status of the application execution, 0 for success, positive integer for exit condition (such as help or
+     *         version), negative integer for errors
      * @throws ApexException if any problem occurred in the model
      */
     public int runApp() throws ApexException {
@@ -174,41 +187,13 @@ public class Model2JsonEventSchema {
         final AxPolicies policies = policyModel.getPolicies();
         switch (type) {
             case "stimuli":
-                for (final AxPolicy policy : policies.getPolicyMap().values()) {
-                    final String firsState = policy.getFirstState();
-                    for (final AxState state : policy.getStateMap().values()) {
-                        if (state.getKey().getLocalName().equals(firsState)) {
-                            eventKeys.add(state.getTrigger());
-                        }
-                    }
-                }
+                processStimuli(eventKeys, policies);
                 break;
             case "response":
-                for (final AxPolicy policy : policies.getPolicyMap().values()) {
-                    for (final AxState state : policy.getStateMap().values()) {
-                        if (state.getNextStateSet().iterator().next().equals("NULL")) {
-                            for (final AxStateOutput output : state.getStateOutputs().values()) {
-                                eventKeys.add(output.getOutgingEvent());
-                            }
-                        }
-                    }
-                }
+                processResponse(eventKeys, policies);
                 break;
             case "internal":
-                for (final AxPolicy policy : policies.getPolicyMap().values()) {
-                    final String firsState = policy.getFirstState();
-                    for (final AxState state : policy.getStateMap().values()) {
-                        if (state.getKey().getLocalName().equals(firsState)) {
-                            continue;
-                        }
-                        if (state.getNextStateSet().iterator().next().equals("NULL")) {
-                            continue;
-                        }
-                        for (final AxStateOutput output : state.getStateOutputs().values()) {
-                            eventKeys.add(output.getOutgingEvent());
-                        }
-                    }
-                }
+                processInternal(eventKeys, policies);
                 break;
             default:
                 LOGGER.error("{}: unknown type <{}>, cannot proceed", appName, type);
@@ -250,6 +235,79 @@ public class Model2JsonEventSchema {
         String renderMessage = stEvents.render();
         LOGGER.error(renderMessage);
         return 0;
+    }
+
+    /**
+     * Process the "stimuli" keyword.
+     * @param eventKeys the event keys
+     * @param policies the policies to process
+     */
+    private void processStimuli(final Set<AxArtifactKey> eventKeys, final AxPolicies policies) {
+        for (final AxPolicy policy : policies.getPolicyMap().values()) {
+            final String firsState = policy.getFirstState();
+            for (final AxState state : policy.getStateMap().values()) {
+                if (state.getKey().getLocalName().equals(firsState)) {
+                    eventKeys.add(state.getTrigger());
+                }
+            }
+        }
+    }
+
+    /**
+     * Process the "response" keyword.
+     * @param eventKeys the event keys
+     * @param policies the policies to process
+     */
+    private void processResponse(final Set<AxArtifactKey> eventKeys, final AxPolicies policies) {
+        for (final AxPolicy policy : policies.getPolicyMap().values()) {
+            processState(eventKeys, policy);
+        }
+    }
+
+    /**
+     * Process the state in the response.
+     * @param eventKeys the event keys
+     * @param policies the policies to process
+     */
+    private void processState(final Set<AxArtifactKey> eventKeys, final AxPolicy policy) {
+        for (final AxState state : policy.getStateMap().values()) {
+            if ("NULL".equals(state.getNextStateSet().iterator().next())) {
+                for (final AxStateOutput output : state.getStateOutputs().values()) {
+                    eventKeys.add(output.getOutgingEvent());
+                }
+            }
+        }
+    }
+
+    /**
+     * Process the "internal" keyword.
+     * @param eventKeys the event keys
+     * @param policies the policies to process
+     */
+    private void processInternal(final Set<AxArtifactKey> eventKeys, final AxPolicies policies) {
+        for (final AxPolicy policy : policies.getPolicyMap().values()) {
+            final String firsState = policy.getFirstState();
+            for (final AxState state : policy.getStateMap().values()) {
+                processInternalState(eventKeys, firsState, state);
+            }
+        }
+    }
+
+    /**
+     * Process the internal state.
+     * @param eventKeys the event keys
+     * @param policies the policies to process
+     */
+    private void processInternalState(final Set<AxArtifactKey> eventKeys, final String firsState, final AxState state) {
+        if (state.getKey().getLocalName().equals(firsState)) {
+            return;
+        }
+        if ("NULL".equals(state.getNextStateSet().iterator().next())) {
+            return;
+        }
+        for (final AxStateOutput output : state.getStateOutputs().values()) {
+            eventKeys.add(output.getOutgingEvent());
+        }
     }
 
     /**

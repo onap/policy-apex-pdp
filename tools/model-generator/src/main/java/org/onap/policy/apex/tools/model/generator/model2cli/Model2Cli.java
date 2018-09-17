@@ -94,6 +94,7 @@ public class Model2Cli {
     public Model2Cli(final String modelFile, final OutputFile outFile, final boolean validate, final String appName) {
         Validate.notNull(modelFile, "Model2Cli: given model file name was blank");
         Validate.notNull(appName, "Model2Cli: given application name was blank");
+        
         this.modelFile = modelFile;
         this.outFile = outFile;
         this.appName = appName;
@@ -133,6 +134,15 @@ public class Model2Cli {
             }
         }
 
+        return generateCli(codeGen, policyModel);
+    }
+
+    /**
+     * Generate the CLI from the model.
+     * @param codeGen the code generator
+     * @param policyModel the policy model
+     */
+    private int generateCli(final CodeGeneratorCliEditor codeGen, final AxPolicyModel policyModel) {
         kig = new KeyInfoGetter(policyModel);
 
         // Order is important. 0: model, 1: context schemas, 2: tasks, 3: events, 4: ContextAlbums, 5: Policies
@@ -145,7 +155,7 @@ public class Model2Cli {
             final AxArtifactKey key = s.getKey();
 
             codeGen.addSchemaDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                    s.getSchemaFlavour(), s.getSchema());
+                            s.getSchemaFlavour(), s.getSchema());
         }
 
         // 2: tasks
@@ -158,7 +168,7 @@ public class Model2Cli {
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
             codeGen.addTaskDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                    infields, outfields, logic, parameters, contextRefs);
+                            infields, outfields, logic, parameters, contextRefs);
         }
 
         // 3: events
@@ -167,7 +177,7 @@ public class Model2Cli {
             final List<ST> fields = getParametersForEvent(codeGen, e);
 
             codeGen.addEventDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                    e.getNameSpace(), e.getSource(), e.getTarget(), fields);
+                            e.getNameSpace(), e.getSource(), e.getTarget(), fields);
         }
 
         // 4: context albums
@@ -175,8 +185,8 @@ public class Model2Cli {
             final AxArtifactKey key = a.getKey();
 
             codeGen.addContextAlbumDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key),
-                    kig.getDesc(key), a.getScope(), a.isWritable(), kig.getName(a.getItemSchema()),
-                    kig.getVersion(a.getItemSchema()));
+                            kig.getDesc(key), a.getScope(), a.isWritable(), kig.getName(a.getItemSchema()),
+                            kig.getVersion(a.getItemSchema()));
         }
 
         // 5: policies
@@ -184,7 +194,7 @@ public class Model2Cli {
             final AxArtifactKey key = p.getKey();
             final List<ST> states = getStatesForPolicy(codeGen, p);
             codeGen.addPolicyDefinition(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                    p.getTemplate(), p.getFirstState(), states);
+                            p.getTemplate(), p.getFirstState(), states);
         }
 
         final String out = codeGen.getModel().render();
@@ -205,6 +215,7 @@ public class Model2Cli {
         } else {
             LOGGER.error(out);
         }
+        
         return 0;
     }
 
@@ -222,7 +233,7 @@ public class Model2Cli {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createEventFieldDefinition(kig.getPName(fkey), kig.getPVersion(fkey), kig.getLName(fkey),
-                    kig.getName(f.getSchema()), kig.getVersion(f.getSchema()), f.getOptional());
+                            kig.getName(f.getSchema()), kig.getVersion(f.getSchema()), f.getOptional());
 
             ret.add(val);
         }
@@ -243,7 +254,7 @@ public class Model2Cli {
         for (final AxArtifactKey ckey : ctxs) {
 
             final ST val = cg.createTaskDefinitionContextRef(kig.getName(tkey), kig.getVersion(tkey), kig.getName(ckey),
-                    kig.getVersion(ckey));
+                            kig.getVersion(ckey));
 
             ret.add(val);
         }
@@ -264,7 +275,7 @@ public class Model2Cli {
             final AxReferenceKey pkey = p.getKey();
 
             final ST val = cg.createTaskDefinitionParameters(kig.getPName(pkey), kig.getPVersion(pkey),
-                    kig.getLName(pkey), p.getTaskParameterValue());
+                            kig.getLName(pkey), p.getTaskParameterValue());
 
             ret.add(val);
         }
@@ -299,7 +310,7 @@ public class Model2Cli {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createTaskDefinitionOutfields(kig.getPName(fkey), kig.getPVersion(fkey),
-                    kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
+                            kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
 
             ret.add(val);
         }
@@ -320,7 +331,7 @@ public class Model2Cli {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createTaskDefinitionInfields(kig.getPName(fkey), kig.getPVersion(fkey),
-                    kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
+                            kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
 
             ret.add(val);
         }
@@ -346,8 +357,9 @@ public class Model2Cli {
             final List<ST> ctxRefs = getCtxtRefsForState(cg, st);
 
             final ST val = cg.createPolicyStateDef(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                    kig.getName(st.getTrigger()), kig.getVersion(st.getTrigger()), kig.getName(st.getDefaultTask()),
-                    kig.getVersion(st.getDefaultTask()), outputs, tasks, tsLogic, finalizerLogics, ctxRefs);
+                            kig.getName(st.getTrigger()), kig.getVersion(st.getTrigger()),
+                            kig.getName(st.getDefaultTask()), kig.getVersion(st.getDefaultTask()), outputs, tasks,
+                            tsLogic, finalizerLogics, ctxRefs);
 
             ret.add(val);
         }
@@ -369,7 +381,7 @@ public class Model2Cli {
             final AxReferenceKey finkey = fin.getKey();
 
             final ST val = cg.createPolicyStateDefFinalizerLogic(kig.getPName(skey), kig.getPVersion(skey),
-                    kig.getLName(skey), kig.getLName(finkey), fin.getLogicFlavour(), fin.getLogic());
+                            kig.getLName(skey), kig.getLName(finkey), fin.getLogicFlavour(), fin.getLogic());
 
             ret.add(val);
         }
@@ -390,7 +402,7 @@ public class Model2Cli {
         for (final AxArtifactKey ctx : ctxs) {
 
             final ST val = cg.createPolicyStateDefContextRef(kig.getPName(skey), kig.getPVersion(skey),
-                    kig.getLName(skey), kig.getName(ctx), kig.getVersion(ctx));
+                            kig.getLName(skey), kig.getName(ctx), kig.getVersion(ctx));
 
             ret.add(val);
         }
@@ -409,7 +421,7 @@ public class Model2Cli {
         if (st.checkSetTaskSelectionLogic()) {
             final AxTaskSelectionLogic tsl = st.getTaskSelectionLogic();
             final ST val = cg.createPolicyStateDefTaskSelLogic(kig.getPName(skey), kig.getPVersion(skey),
-                    kig.getLName(skey), tsl.getLogicFlavour(), tsl.getLogic());
+                            kig.getLName(skey), tsl.getLogicFlavour(), tsl.getLogic());
             return Collections.singletonList(val);
         } else {
             return Collections.emptyList();
@@ -433,8 +445,8 @@ public class Model2Cli {
             final AxReferenceKey trkey = tr.getKey();
 
             final ST val = cg.createPolicyStateTask(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                    kig.getLName(trkey), kig.getName(tkey), kig.getVersion(tkey), tr.getStateTaskOutputType().name(),
-                    kig.getLName(tr.getOutput()));
+                            kig.getLName(trkey), kig.getName(tkey), kig.getVersion(tkey),
+                            tr.getStateTaskOutputType().name(), kig.getLName(tr.getOutput()));
 
             ret.add(val);
         }
@@ -456,8 +468,8 @@ public class Model2Cli {
             final AxReferenceKey outkey = out.getKey();
 
             final ST val = cg.createPolicyStateOutput(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                    kig.getLName(outkey), kig.getName(out.getOutgingEvent()), kig.getVersion(out.getOutgingEvent()),
-                    kig.getLName(out.getNextState()));
+                            kig.getLName(outkey), kig.getName(out.getOutgingEvent()),
+                            kig.getVersion(out.getOutgingEvent()), kig.getLName(out.getNextState()));
 
             ret.add(val);
         }

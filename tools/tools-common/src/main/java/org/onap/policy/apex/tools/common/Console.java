@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.tools.common;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,9 @@ public final class Console {
 
     /** Configuration for a collecting warning messages. */
     public static final int CONFIG_COLLECT_WARNINGS = 0b0010;
+
+    // Input and output streams
+    private static final PrintStream ERR_STREAM = System.err;
 
     /** The setting for message types, set using type flags. */
     private int types;
@@ -193,7 +197,7 @@ public final class Console {
         err.append(MessageFormatter.arrayFormat(message, objects).getMessage());
 
         if ((types & TYPE_ERROR) == TYPE_ERROR) {
-            System.err.println(err.build());
+            ERR_STREAM.println(err.build());
         }
         if ((configuration & CONFIG_COLLECT_ERRORS) == CONFIG_COLLECT_ERRORS) {
             errors.add(err.build());
@@ -222,7 +226,7 @@ public final class Console {
         warn.append(MessageFormatter.arrayFormat(message, objects).getMessage());
 
         if ((types & TYPE_WARNING) == TYPE_WARNING) {
-            System.err.println(warn.build());
+            ERR_STREAM.println(warn.build());
         }
         if ((configuration & CONFIG_COLLECT_WARNINGS) == CONFIG_COLLECT_WARNINGS) {
             warnings.add(warn.build());
@@ -243,9 +247,9 @@ public final class Console {
 
         if ((types & TYPE_INFO) == TYPE_INFO) {
             if (appName != null) {
-                System.err.print(appName + ": ");
+                ERR_STREAM.print(appName + ": ");
             }
-            System.err.println(MessageFormatter.arrayFormat(message, objects).getMessage());
+            ERR_STREAM.println(MessageFormatter.arrayFormat(message, objects).getMessage());
         }
     }
 
@@ -263,10 +267,10 @@ public final class Console {
 
         if ((types & TYPE_PROGRESS) == TYPE_PROGRESS) {
             if (appName != null) {
-                System.err.print(appName + ": ");
+                ERR_STREAM.print(appName + ": ");
             }
-            System.err.print("progress: ");
-            System.err.println(MessageFormatter.arrayFormat(message, objects).getMessage());
+            ERR_STREAM.print("progress: ");
+            ERR_STREAM.println(MessageFormatter.arrayFormat(message, objects).getMessage());
         }
     }
 
@@ -284,10 +288,10 @@ public final class Console {
 
         if ((types & TYPE_DEBUG) == TYPE_DEBUG) {
             if (appName != null) {
-                System.err.print(appName + ": ");
+                ERR_STREAM.print(appName + ": ");
             }
-            System.err.print("debug: ");
-            System.err.println(MessageFormatter.arrayFormat(message, objects).getMessage());
+            ERR_STREAM.print("debug: ");
+            ERR_STREAM.println(MessageFormatter.arrayFormat(message, objects).getMessage());
         }
     }
 
@@ -305,10 +309,10 @@ public final class Console {
 
         if ((types & TYPE_TRACE) == TYPE_TRACE) {
             if (appName != null) {
-                System.err.print(appName + ": ");
+                ERR_STREAM.print(appName + ": ");
             }
-            System.err.print("trace: ");
-            System.err.println(MessageFormatter.arrayFormat(message, objects).getMessage());
+            ERR_STREAM.print("trace: ");
+            ERR_STREAM.println(MessageFormatter.arrayFormat(message, objects).getMessage());
         }
     }
 
@@ -324,13 +328,13 @@ public final class Console {
 
         if ((types & TYPE_STACKTRACE) == TYPE_STACKTRACE) {
             if (appName != null) {
-                System.err.print(appName + ": ");
+                ERR_STREAM.print(appName + ": ");
             }
-            System.err.println(" exception message: " + exception.getMessage());
+            ERR_STREAM.println(" exception message: " + exception.getMessage());
             if (exception.getCause() != null) {
-                System.err.println(" exception cause: " + exception.getCause());
+                ERR_STREAM.println(" exception cause: " + exception.getCause());
             }
-            System.err.println("for exception stack trace, please refer logs.");
+            ERR_STREAM.println("for exception stack trace, please refer logs.");
             XLoggerFactory.getXLogger(Console.class).error("stacktrace", exception);
         }
     }

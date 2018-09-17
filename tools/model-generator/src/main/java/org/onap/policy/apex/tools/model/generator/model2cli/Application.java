@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.tools.model.generator.model2cli;
 
+import java.io.PrintStream;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -44,10 +46,15 @@ public final class Application {
     /** The description 1-liner of the application. */
     public static final String APP_DESCRIPTION = "generates CLI Editor Commands from a policy model";
 
+    // Input and output streams
+    private static final PrintStream OUT_STREAM = System.out;
+    private static final PrintStream ERR_STREAM = System.err;
+
     /**
      * Private constructor to prevent instantiation.
      */
-    private Application() {}
+    private Application() {
+    }
 
     /**
      * Main method to start the application.
@@ -68,16 +75,16 @@ public final class Application {
         // help is an exit option, print usage and exit
         if (cmd.hasOption(CliOptions.HELP.getOpt())) {
             final HelpFormatter formatter = new HelpFormatter();
-            System.out.println(APP_NAME + " v" + cli.getAppVersion() + " - " + APP_DESCRIPTION);
+            OUT_STREAM.println(APP_NAME + " v" + cli.getAppVersion() + " - " + APP_DESCRIPTION);
             formatter.printHelp(APP_NAME, cli.getOptions());
-            System.out.println();
+            OUT_STREAM.println();
             return;
         }
 
         // version is an exit option, print version and exit
         if (cmd.hasOption(CliOptions.VERSION.getOpt())) {
-            System.out.println(APP_NAME + " " + cli.getAppVersion());
-            System.out.println();
+            OUT_STREAM.println(APP_NAME + " " + cli.getAppVersion());
+            OUT_STREAM.println();
             return;
         }
 
@@ -86,8 +93,8 @@ public final class Application {
             modelFile = cmd.getOptionValue("model");
         }
         if (modelFile == null) {
-            System.err.println(APP_NAME + ": no '-" + CliOptions.MODELFILE.getOpt()
-                    + "' model file given, cannot proceed (try -h for help)");
+            ERR_STREAM.println(APP_NAME + ": no '-" + CliOptions.MODELFILE.getOpt()
+                            + "' model file given, cannot proceed (try -h for help)");
             return;
         }
 
@@ -95,27 +102,27 @@ public final class Application {
         final String of = cmd.getOptionValue(CliOptions.FILEOUT.getOpt());
         final boolean overwrite = cmd.hasOption(CliOptions.OVERWRITE.getOpt());
         if (overwrite && of == null) {
-            System.err.println(APP_NAME + ": error with '-" + CliOptions.OVERWRITE.getOpt()
-                    + "' option. This option is only valid if a '-" + CliOptions.FILEOUT.getOpt()
-                    + "' option is also used. Cannot proceed (try -h for help)");
+            ERR_STREAM.println(APP_NAME + ": error with '-" + CliOptions.OVERWRITE.getOpt()
+                            + "' option. This option is only valid if a '-" + CliOptions.FILEOUT.getOpt()
+                            + "' option is also used. Cannot proceed (try -h for help)");
             return;
         }
         if (of != null) {
             outfile = new OutputFile(of, overwrite);
             final String isoutfileok = outfile.validate();
             if (isoutfileok != null) {
-                System.err.println(APP_NAME + ": error with '-" + CliOptions.FILEOUT.getOpt() + "' option: \""
-                        + isoutfileok + "\". Cannot proceed (try -h for help)");
+                ERR_STREAM.println(APP_NAME + ": error with '-" + CliOptions.FILEOUT.getOpt() + "' option: \""
+                                + isoutfileok + "\". Cannot proceed (try -h for help)");
                 return;
             }
         }
 
         if (outfile == null) {
-            System.out.println();
-            System.out.println(APP_NAME + ": starting CLI generator");
-            System.out.println(" --> model file: " + modelFile);
-            System.out.println();
-            System.out.println();
+            OUT_STREAM.println();
+            OUT_STREAM.println(APP_NAME + ": starting CLI generator");
+            OUT_STREAM.println(" --> model file: " + modelFile);
+            OUT_STREAM.println();
+            OUT_STREAM.println();
         }
 
         try {
@@ -123,7 +130,7 @@ public final class Application {
             app.runApp();
         } catch (final ApexException aex) {
             String message = APP_NAME + ": caught APEX exception with message: " + aex.getMessage();
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, aex);
         }
     }

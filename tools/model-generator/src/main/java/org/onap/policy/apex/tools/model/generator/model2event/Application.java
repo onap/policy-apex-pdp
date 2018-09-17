@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.tools.model.generator.model2event;
 
+import java.io.PrintStream;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -44,7 +46,12 @@ public final class Application {
     public static final String APP_DESCRIPTION = "generates JSON templates for events generated from a policy model";
 
     /** Private constructor to prevent instantiation. */
-    private Application() {}
+    private Application() {
+    }
+
+    // Input and output streams
+    private static final PrintStream OUT_STREAM = System.out;
+    private static final PrintStream ERR_STREAM = System.err;
 
     /**
      * Main method to start the application.
@@ -63,25 +70,34 @@ public final class Application {
         // help is an exit option, print usage and exit
         if (cmd.hasOption('h') || cmd.hasOption("help")) {
             final HelpFormatter formatter = new HelpFormatter();
-            System.out.println(APP_NAME + " v" + cli.getAppVersion() + " - " + APP_DESCRIPTION);
+            OUT_STREAM.println(APP_NAME + " v" + cli.getAppVersion() + " - " + APP_DESCRIPTION);
             formatter.printHelp(APP_NAME, cli.getOptions());
-            System.out.println();
+            OUT_STREAM.println();
             return;
         }
 
         // version is an exit option, print version and exit
         if (cmd.hasOption('v') || cmd.hasOption("version")) {
-            System.out.println(APP_NAME + " " + cli.getAppVersion());
-            System.out.println();
+            OUT_STREAM.println(APP_NAME + " " + cli.getAppVersion());
+            OUT_STREAM.println();
             return;
         }
 
+        generateJsonEventScheam(cmd);
+    }
+
+    /**
+     * Generate the JSON event schema.
+     * 
+     * @param cmd the command to run
+     */
+    private static void generateJsonEventScheam(final CommandLine cmd) {
         String modelFile = cmd.getOptionValue('m');
         if (modelFile == null) {
             modelFile = cmd.getOptionValue("model");
         }
         if (modelFile == null) {
-            System.err.println(APP_NAME + ": no model file given, cannot proceed (try -h for help)");
+            ERR_STREAM.println(APP_NAME + ": no model file given, cannot proceed (try -h for help)");
             return;
         }
 
@@ -90,27 +106,27 @@ public final class Application {
             type = cmd.getOptionValue("type");
         }
         if (type == null) {
-            System.err.println(APP_NAME + ": no event type given, cannot proceed (try -h for help)");
+            ERR_STREAM.println(APP_NAME + ": no event type given, cannot proceed (try -h for help)");
             return;
         }
-        if (!type.equals("stimuli") && !type.equals("response") && !type.equals("internal")) {
-            System.err.println(APP_NAME + ": unknown type <" + type + ">, cannot proceed (try -h for help)");
+        if (!"stimuli".equals(type) && !"response".equals(type) && !"internal".equals(type)) {
+            ERR_STREAM.println(APP_NAME + ": unknown type <" + type + ">, cannot proceed (try -h for help)");
             return;
         }
 
-        System.out.println();
-        System.out.println(APP_NAME + ": starting Event generator");
-        System.out.println(" --> model file: " + modelFile);
-        System.out.println(" --> type: " + type);
-        System.out.println();
-        System.out.println();
+        OUT_STREAM.println();
+        OUT_STREAM.println(APP_NAME + ": starting Event generator");
+        OUT_STREAM.println(" --> model file: " + modelFile);
+        OUT_STREAM.println(" --> type: " + type);
+        OUT_STREAM.println();
+        OUT_STREAM.println();
 
         try {
             final Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
             app.runApp();
         } catch (final ApexException aex) {
             String message = APP_NAME + ": caught APEX exception with message: " + aex.getMessage();
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, aex);
         }
     }

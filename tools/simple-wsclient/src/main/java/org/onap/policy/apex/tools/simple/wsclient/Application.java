@@ -21,6 +21,7 @@
 package org.onap.policy.apex.tools.simple.wsclient;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.nio.channels.NotYetConnectedException;
 
@@ -41,10 +42,16 @@ public final class Application {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
+    // Input and output streams
+    private static final PrintStream OUT_STREAM = System.out;
+    private static final PrintStream ERR_STREAM = System.err;
+    
     /**
      * Private constructor prevents subclassing.
      */
-    private Application() {}
+    private Application() {
+        // Prevent subclassing
+    }
 
     /**
      * The main method for the WS applications.
@@ -74,19 +81,29 @@ public final class Application {
         // help is an exit option, print usage and exit
         if (cmd.hasOption('h') || cmd.hasOption("help")) {
             final HelpFormatter formatter = new HelpFormatter();
-            System.out.println(appName + " v" + cli.getAppVersion() + " - " + appDescr);
+            OUT_STREAM.println(appName + " v" + cli.getAppVersion() + " - " + appDescr);
             formatter.printHelp(appName, cli.getOptions());
-            System.out.println();
+            OUT_STREAM.println();
             return;
         }
 
         // version is an exit option, print version and exit
         if (cmd.hasOption('v') || cmd.hasOption("version")) {
-            System.out.println(appName + " " + cli.getAppVersion());
-            System.out.println();
+            OUT_STREAM.println(appName + " " + cli.getAppVersion());
+            OUT_STREAM.println();
             return;
         }
 
+        runConsoleOrEcho(appName, console, cmd);
+    }
+
+    /**
+     * Run the console or echo.
+     * @param appName the application name
+     * @param console if true, run the console otherwise run echo
+     * @param cmd the command line to run
+     */
+    private static void runConsoleOrEcho(String appName, boolean console, final CommandLine cmd) {
         String server = cmd.getOptionValue('s');
         if (server == null) {
             server = cmd.getOptionValue("server");
@@ -108,7 +125,6 @@ public final class Application {
         } else {
             runEcho(server, port, appName);
         }
-
     }
 
     /**
@@ -123,30 +139,30 @@ public final class Application {
         Validate.notBlank(port);
         Validate.notBlank(appName);
 
-        System.out.println();
-        System.out.println(appName + ": starting simple event echo");
-        System.out.println(" --> server: " + server);
-        System.out.println(" --> port: " + port);
-        System.out.println();
-        System.out.println("Once started, the application will simply print out all received events to standard out.");
-        System.out.println("Each received event will be prefixed by '---' and suffixed by '===='");
-        System.out.println();
-        System.out.println();
+        OUT_STREAM.println();
+        OUT_STREAM.println(appName + ": starting simple event echo");
+        OUT_STREAM.println(" --> server: " + server);
+        OUT_STREAM.println(" --> port: " + port);
+        OUT_STREAM.println();
+        OUT_STREAM.println("Once started, the application will simply print out all received events to standard out.");
+        OUT_STREAM.println("Each received event will be prefixed by '---' and suffixed by '===='");
+        OUT_STREAM.println();
+        OUT_STREAM.println();
 
         try {
-            final SimpleEcho simpleEcho = new SimpleEcho(server, port, appName);
+            final SimpleEcho simpleEcho = new SimpleEcho(server, port, appName, OUT_STREAM, ERR_STREAM);
             simpleEcho.connect();
         } catch (final URISyntaxException uex) {
             String message = appName + ": URI exception, could not create URI from server and port settings";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, uex);
         } catch (final NullPointerException nex) {
             String message = appName + ": null pointer, server or port were null";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, nex);
         } catch (final IllegalArgumentException iex) {
             String message = appName + ": illegal argument, server or port were blank";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, iex);
         }
     }
@@ -163,38 +179,38 @@ public final class Application {
         Validate.notBlank(port);
         Validate.notBlank(appName);
 
-        System.out.println();
-        System.out.println(appName + ": starting simple event console");
-        System.out.println(" --> server: " + server);
-        System.out.println(" --> port: " + port);
-        System.out.println();
-        System.out.println(" - terminate the application typing 'exit<enter>' or using 'CTRL+C'");
-        System.out.println(" - events are created by a non-blank starting line and terminated by a blank line");
-        System.out.println();
-        System.out.println();
+        OUT_STREAM.println();
+        OUT_STREAM.println(appName + ": starting simple event console");
+        OUT_STREAM.println(" --> server: " + server);
+        OUT_STREAM.println(" --> port: " + port);
+        OUT_STREAM.println();
+        OUT_STREAM.println(" - terminate the application typing 'exit<enter>' or using 'CTRL+C'");
+        OUT_STREAM.println(" - events are created by a non-blank starting line and terminated by a blank line");
+        OUT_STREAM.println();
+        OUT_STREAM.println();
 
         try {
-            final SimpleConsole simpleConsole = new SimpleConsole(server, port, appName);
+            final SimpleConsole simpleConsole = new SimpleConsole(server, port, appName, OUT_STREAM, ERR_STREAM);
             simpleConsole.runClient();
         } catch (final URISyntaxException uex) {
             String message = appName + ": URI exception, could not create URI from server and port settings";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, uex);
         } catch (final NullPointerException nex) {
             String message = appName + ": null pointer, server or port were null";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, nex);
         } catch (final IllegalArgumentException iex) {
             String message = appName + ": illegal argument, server or port were blank";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, iex);
         } catch (final NotYetConnectedException nex) {
             String message = appName + ": not yet connected, connection to server took too long";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, nex);
         } catch (final IOException ioe) {
             String message = appName + ": IO exception, something went wrong on the standard input";
-            System.err.println(message);
+            ERR_STREAM.println(message);
             LOGGER.warn(message, ioe);
         }
     }
