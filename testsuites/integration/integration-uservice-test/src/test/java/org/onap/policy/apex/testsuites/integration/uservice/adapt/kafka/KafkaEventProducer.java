@@ -20,12 +20,13 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
-import java.util.Properties;
+import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
+
 import java.util.concurrent.TimeUnit;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.testsuites.integration.uservice.adapt.events.EventGenerator;
 
@@ -36,7 +37,7 @@ import org.onap.policy.apex.testsuites.integration.uservice.adapt.events.EventGe
  */
 public class KafkaEventProducer implements Runnable {
     private final String topic;
-    private final String kafkaServerAddress;
+    private final SharedKafkaTestResource sharedKafkaTestResource;
     private final int eventCount;
     private final boolean xmlEvents;
     private final long eventInterval;
@@ -50,15 +51,15 @@ public class KafkaEventProducer implements Runnable {
      * Instantiates a new kafka event producer.
      *
      * @param topic the topic
-     * @param kafkaServerAddress the kafka server address
+     * @param sharedKafkaTestResource the kafka server address
      * @param eventCount the event count
      * @param xmlEvents the xml events
      * @param eventInterval the event interval
      */
-    public KafkaEventProducer(final String topic, final String kafkaServerAddress, final int eventCount,
-                    final boolean xmlEvents, final long eventInterval) {
+    public KafkaEventProducer(final String topic, final SharedKafkaTestResource sharedKafkaTestResource,
+                    final int eventCount, final boolean xmlEvents, final long eventInterval) {
         this.topic = topic;
-        this.kafkaServerAddress = kafkaServerAddress;
+        this.sharedKafkaTestResource = sharedKafkaTestResource;
         this.eventCount = eventCount;
         this.xmlEvents = xmlEvents;
         this.eventInterval = eventInterval;
@@ -67,22 +68,15 @@ public class KafkaEventProducer implements Runnable {
         producerThread.start();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Runnable#run()
      */
     @Override
     public void run() {
-        final Properties kafkaProducerProperties = new Properties();
-        kafkaProducerProperties.put("bootstrap.servers", kafkaServerAddress);
-        kafkaProducerProperties.put("acks", "all");
-        kafkaProducerProperties.put("retries", 0);
-        kafkaProducerProperties.put("batch.size", 16384);
-        kafkaProducerProperties.put("linger.ms", 1);
-        kafkaProducerProperties.put("buffer.memory", 33554432);
-        kafkaProducerProperties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        kafkaProducerProperties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
-        final Producer<String, String> producer = new KafkaProducer<String, String>(kafkaProducerProperties);
+        final Producer<String, String> producer = sharedKafkaTestResource.getKafkaTestUtils()
+                        .getKafkaProducer(StringSerializer.class, StringSerializer.class);
 
         while (producerThread.isAlive() && !stopFlag) {
             ThreadUtilities.sleep(50);
@@ -109,8 +103,8 @@ public class KafkaEventProducer implements Runnable {
      * @param producer the producer
      */
     private void sendEventsToTopic(final Producer<String, String> producer) {
-        System.out.println(KafkaEventProducer.class.getCanonicalName() + ": sending events to Kafka server at "
-                        + kafkaServerAddress + ", event count " + eventCount + ", xmlEvents " + xmlEvents);
+        System.out.println(KafkaEventProducer.class.getCanonicalName()
+                        + ": sending events to Kafka server , event count " + eventCount + ", xmlEvents " + xmlEvents);
 
         for (int i = 0; i < eventCount; i++) {
             System.out.println(KafkaEventProducer.class.getCanonicalName() + ": waiting " + eventInterval
@@ -126,7 +120,7 @@ public class KafkaEventProducer implements Runnable {
             producer.send(new ProducerRecord<String, String>(topic, "Event" + i + "Of" + eventCount, eventString));
             producer.flush();
             eventsSentCount++;
-            System.out.println(KafkaEventProducer.class.getCanonicalName() + ": sent event " + eventString);
+            System.out.println("****** Sent event No. " + eventsSentCount + " ******");
         }
         System.out.println(KafkaEventProducer.class.getCanonicalName() + ": completed");
     }
@@ -153,49 +147,5 @@ public class KafkaEventProducer implements Runnable {
         }
 
         System.out.println(KafkaEventProducer.class.getCanonicalName() + ": stopped");
-    }
-
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     */
-    public static void main(final String[] args) {
-        if (args.length != 5) {
-            System.err.println("usage KafkaEventProducer topic kafkaServerAddress #events XML|JSON eventInterval");
-            return;
-        }
-
-        int eventCount = 0;
-        try {
-            eventCount = Integer.parseInt(args[2]);
-        } catch (final Exception e) {
-            System.err.println("usage KafkaEventProducer topic kafkaServerAddress #events XML|JSON eventInterval");
-            e.printStackTrace();
-            return;
-        }
-
-        long eventInterval = 0;
-        try {
-            eventInterval = Long.parseLong(args[4]);
-        } catch (final Exception e) {
-            System.err.println("usage KafkaEventProducer topic kafkaServerAddress #events XML|JSON eventInterval");
-            e.printStackTrace();
-            return;
-        }
-
-        boolean xmlEvents = false;
-        if (args[3].equalsIgnoreCase("XML")) {
-            xmlEvents = true;
-        } else if (!args[3].equalsIgnoreCase("JSON")) {
-            System.err.println("usage KafkaEventProducer topic kafkaServerAddress #events XML|JSON eventInterval");
-            return;
-        }
-
-        final KafkaEventProducer producer = new KafkaEventProducer(args[0], args[1], eventCount, xmlEvents,
-                        eventInterval);
-
-        producer.sendEvents();
-        producer.shutdown();
     }
 }

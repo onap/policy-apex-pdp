@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
@@ -260,6 +261,14 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
      */
     public long getConsumerPollTime() {
         return consumerPollTime;
+    }
+
+    /**
+     * Gets the consumer poll duration.
+     * @return The poll duration
+     */
+    public Duration getConsumerPollDuration() {
+        return Duration.ofMillis(consumerPollTime);
     }
 
     /**
