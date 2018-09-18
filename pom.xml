@@ -41,7 +41,7 @@
         <file.encoding>UTF-8</file.encoding>
         <version.derby>10.13.1.1</version.derby>
         <version.commons-cli>1.4</version.commons-cli>
-        <version.kafka>2.0.0</version.kafka>
+        <version.kafka>1.1.1</version.kafka>
         <version.jersey>2.26</version.jersey>
         <version.eclipselink>2.6.5</version.eclipselink>
         <version.hibernate>5.3.6.Final</version.hibernate>
