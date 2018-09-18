@@ -84,7 +84,7 @@ public class KafkaEventSubscriber implements Runnable {
 
         while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
             try {
-                final ConsumerRecords<String, String> records = consumer.poll(POLL_DURATION);
+                final ConsumerRecords<String, String> records = consumer.poll(POLL_DURATION.toMillis());
                 for (final ConsumerRecord<String, String> record : records) {
                     eventsReceivedCount++;
                     System.out.println("****** Received event No. " + eventsReceivedCount + " ******");

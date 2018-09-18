@@ -103,8 +103,9 @@ public class ApexJmsProducer implements ApexEventProducer {
 
             // Check if we actually got a connection factory
             if (connectionFactory == null) {
-                throw new IllegalArgumentException("JMS context lookup of \"" + jmsProducerProperties.getConnectionFactory()
-                                + "\" returned null for producer (" + this.name + ")");
+                throw new IllegalArgumentException(
+                                "JMS context lookup of \"" + jmsProducerProperties.getConnectionFactory()
+                                                + "\" returned null for producer (" + this.name + ")");
             }
         } catch (final Exception e) {
             final String errorMessage = "lookup of JMS connection factory  \""
@@ -231,8 +232,8 @@ public class ApexJmsProducer implements ApexEventProducer {
             try {
                 jmsMessage = jmsSession.createObjectMessage((Serializable) eventObject);
             } catch (final Exception e) {
-                final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG
-                                + this.name + ", could not create JMS Object Message for object \"" + eventObject;
+                final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG + this.name
+                                + ", could not create JMS Object Message for object \"" + eventObject;
                 LOGGER.warn(errorMessage, e);
                 throw new ApexEventRuntimeException(errorMessage);
             }
@@ -241,8 +242,8 @@ public class ApexJmsProducer implements ApexEventProducer {
             try {
                 jmsMessage = jmsSession.createTextMessage(eventObject.toString());
             } catch (final Exception e) {
-                final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG
-                                + this.name + ", could not create JMS Text Message for object \"" + eventObject;
+                final String errorMessage = COULD_NOT_SEND_PREFIX + eventname + JMS_MESSAGE_PRODUCER_TAG + this.name
+                                + ", could not create JMS Text Message for object \"" + eventObject;
                 LOGGER.warn(errorMessage, e);
                 throw new ApexEventRuntimeException(errorMessage);
             }
