@@ -183,7 +183,7 @@ function pageControl_successStatus(data) {
     $('#statusString').html(data.result);
     $("#statusMessageTable").empty();
 
-    if (data.OK) {
+    if (data.ok) {
         $('#statusString').css("color", "green");
         $('#ebInlineMessage-iconHolder-icon').attr("class", "ebIcon ebIcon_big ebIcon_tick");
     } else {
@@ -208,7 +208,7 @@ function pageControl_status(data) {
     $('#statusString').html(data.result);
     $("#statusMessageTable").empty();
 
-    if (data.OK) {
+    if (data.ok) {
         $('#statusString').css("color", "green");
         $('#ebInlineMessage-iconHolder-icon').attr("class", "ebIcon ebIcon_big ebIcon_tick");
     } else {
