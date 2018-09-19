@@ -27,7 +27,7 @@
             "carrierTechnologyParameters" : {
                 "carrierTechnology" : "FILE",
                 "parameters" : {
-                    "standardIO" : true
+                    "standardIo" : true
                 }
             },
             "eventProtocolParameters" : {
@@ -40,7 +40,7 @@
             "carrierTechnologyParameters" : {
                 "carrierTechnology" : "FILE",
                 "parameters" : {
-                    "standardIO" : true
+                    "standardIo" : true
                 }
             },
             "eventProtocolParameters" : {

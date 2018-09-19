@@ -9,7 +9,7 @@
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MVELExecutorParameters"
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
                 },
                 "JAVA": {
                     "parameterClassName": "org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters"
@@ -22,7 +22,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "standardIO": true
+                    "standardIo": true
                 }
             },
             "eventProtocolParameters": {
@@ -35,7 +35,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "standardIO": true
+                    "standardIo": true
                 }
             },
             "eventProtocolParameters": {

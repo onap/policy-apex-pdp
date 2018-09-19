@@ -29,7 +29,7 @@
         "DMaaPConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://localhost:3904/events/toApex/APEX/1?timeout=60000"
                 }
@@ -54,7 +54,7 @@
         "DMaapProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://localhost:3904/events/fromApex"
                 }

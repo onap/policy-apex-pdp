@@ -42,7 +42,7 @@
         "GuardRequestorConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTREQUESTOR",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.144.235:54321/AAIAndGuardSim/sim/pdp/api/getDecision",
                     "httpMethod": "POST",
@@ -61,7 +61,7 @@
         "DCAEConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.144.235:3904/events/unauthenticated.DCAE_CL_OUTPUT/APEX/1?timeout=60000"
                 }
@@ -78,7 +78,7 @@
         "APPCConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.144.235:3904/events/APPC_LCM_WRITE/APEX/1?timeout=60000"
                 }
@@ -105,7 +105,7 @@
         "GuardRequestorProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTREQUESTOR",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RESTRequestorCarrierTechnologyParameters"
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON"
@@ -118,7 +118,7 @@
         "APPCProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.144.235:3904/events/APPC-LCM-READ"
                 }
@@ -131,7 +131,7 @@
         "PolicyLogProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RESTClientCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://192.168.144.235:3904/events/POLICY_CL_MGT"
                 }
