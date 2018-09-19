@@ -30,6 +30,7 @@ import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
@@ -97,6 +98,7 @@ public class TestApexEngineJavascript {
     public void testApexEngineJavascript() throws ApexException, InterruptedException, IOException {
 
         new TestApexEngine("JAVASCRIPT", engineParameters);
+        ThreadUtilities.sleep(5000);
         new TestApexEngine("JAVASCRIPT", engineParameters);
     }
 }

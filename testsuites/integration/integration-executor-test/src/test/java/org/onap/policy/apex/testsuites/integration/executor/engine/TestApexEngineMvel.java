@@ -30,6 +30,7 @@ import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
@@ -48,12 +49,12 @@ public class TestApexEngineMvel {
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
@@ -65,7 +66,7 @@ public class TestApexEngineMvel {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         ParameterService.register(engineParameters);
@@ -77,7 +78,7 @@ public class TestApexEngineMvel {
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
@@ -96,6 +97,7 @@ public class TestApexEngineMvel {
     @Test
     public void testApexEngineMvel() throws ApexException, InterruptedException, IOException {
         new TestApexEngine("MVEL", engineParameters);
+        ThreadUtilities.sleep(5000);
         new TestApexEngine("MVEL", engineParameters);
     }
 }

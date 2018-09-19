@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

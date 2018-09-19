@@ -18,21 +18,17 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The ContextSchema Bean.
+ * The Key Reference Bean.
  */
 @XmlType
-public class BeanContextSchema extends BeanBase {
+public class BeanKeyRef extends BeanBase {
     private String name = null;
     private String version = null;
-    private String schemaFlavour = null;
-    private String schemaDefinition = null;
-    private String uuid = null;
-    private String description = null;
 
     /**
      * Gets the name.
@@ -52,42 +48,6 @@ public class BeanContextSchema extends BeanBase {
         return version;
     }
 
-    /**
-     * Gets the uuid.
-     *
-     * @return the uuid
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Gets the description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Gets the schema flavour.
-     *
-     * @return the schema flavour
-     */
-    public String getSchemaFlavour() {
-        return schemaFlavour;
-    }
-
-    /**
-     * Gets the schema definition.
-     *
-     * @return the schema definition
-     */
-    public String getSchemaDefinition() {
-        return schemaDefinition;
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -95,7 +55,7 @@ public class BeanContextSchema extends BeanBase {
      */
     @Override
     public String toString() {
-        return "ContextSchema [name=" + name + ", version=" + version + ", schemaFlavour=" + schemaFlavour
-                + ", schemaDefinition=" + schemaDefinition + ", uuid=" + uuid + ", description=" + description + "]";
+        return "KeyRef [name=" + name + ", version=" + version + "]";
     }
+
 }

@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

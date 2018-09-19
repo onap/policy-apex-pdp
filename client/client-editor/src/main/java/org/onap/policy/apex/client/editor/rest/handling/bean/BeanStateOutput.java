@@ -18,34 +18,35 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The Logic Bean.
+ * The StateOutput Bean.
  */
 @XmlType
-public class BeanLogic extends BeanBase {
-    private String logic = null;
-    private String logicFlavour = null;
+public class BeanStateOutput extends BeanBase {
+
+    private BeanKeyRef event = null;
+    private String nextState = null;
 
     /**
-     * Gets the logic flavour.
+     * Gets the event.
      *
-     * @return the logic flavour
+     * @return the event
      */
-    public String getLogicFlavour() {
-        return logicFlavour;
+    public BeanKeyRef getEvent() {
+        return event;
     }
 
     /**
-     * Gets the logic.
+     * Gets the next state.
      *
-     * @return the logic
+     * @return the next state
      */
-    public String getLogic() {
-        return logic;
+    public String getNextState() {
+        return nextState;
     }
 
     /*
@@ -55,6 +56,7 @@ public class BeanLogic extends BeanBase {
      */
     @Override
     public String toString() {
-        return "Logic [logicFlavour=" + logicFlavour + ", logic=" + logic + "]";
+        return "StateOutput [event=" + event + ", nextState=" + nextState + "]";
     }
+
 }
