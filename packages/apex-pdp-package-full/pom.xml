@@ -331,8 +331,8 @@
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/examples/models/DecisionMaker</outputDirectory>
-                                    <includes>/DecisionMakerPolicyModel.json</includes>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>etc/**/*,examples/**/*</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -340,8 +340,8 @@
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/examples/models/Periodic</outputDirectory>
-                                    <includes>/PeriodicPolicyModel.json</includes>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>etc/**/*,examples/**/*</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -349,8 +349,8 @@
                                     <version>${project.version}</version>
                                     <type>jar</type>
                                     <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/examples/models/ONAPvCPE</outputDirectory>
-                                    <includes>/ONAPvCPEPolicyModel.json</includes>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>etc/**/*,examples/**/*</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -358,8 +358,8 @@
                                     <version>${project.version}</version>
                                     <type>war</type>
                                     <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/etc</outputDirectory>
-                                    <includes>/readme_examples-servlet.txt</includes>
+                                    <outputDirectory>${project.build.directory}/examples/servlet</outputDirectory>
+                                    <includes>readme_examples-servlet.txt</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.tools</groupId>

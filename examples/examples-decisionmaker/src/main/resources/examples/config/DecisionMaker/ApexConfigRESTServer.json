@@ -29,7 +29,7 @@
         "RESTConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTSERVER",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters",
                 "parameters": {
                     "standalone": true,
                     "host": "0.0.0.0",
@@ -59,7 +59,7 @@
         "RESTProducer": {
             "carrierTechnologyParameters":{
                 "carrierTechnology" : "RESTSERVER",
-                "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.restserver.RESTServerCarrierTechnologyParameters"
+                "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.restserver.RestServerCarrierTechnologyParameters"
             },
             "eventProtocolParameters":{
                 "eventProtocol" : "JSON"

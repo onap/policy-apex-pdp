@@ -26,7 +26,7 @@
         "aProducer": {
             "carrierTechnologyParameters":{
                 "carrierTechnology" : "KAFKA",
-                "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+                "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
                 "parameters" : {
                     'bootstrapServers'  : 'localhost:9092',
                     'acks'              : 'all',
@@ -48,7 +48,7 @@
         "aConsumer": {
             "carrierTechnologyParameters":{
                 "carrierTechnology" : "KAFKA",
-                "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+                "parameterClassName" : "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
                 "parameters" : {
                     'bootstrapServers'  : 'localhost:9092',
                     'groupId'           : 'apex-group-id',
