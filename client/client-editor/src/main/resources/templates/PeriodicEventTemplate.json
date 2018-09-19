@@ -1,0 +1,11 @@
+{
+    "name": "PeriodicEvent",
+    "version": "0.0.1",
+    "uuid": "40f28ab0-bc27-11e8-a355-529269fb1459",
+    "description": "Default Periodic Event",
+    "source": "System",
+    "target": "Apex",
+    "nameSpace": "org.onap.policy.apex.domains.aadm.events",
+    "parameters": {
+    }
+}

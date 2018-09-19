@@ -18,46 +18,10 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
-
-import javax.xml.bind.annotation.XmlType;
-
 /**
- * The Field Bean.
+ * Contains JSON/XML serializable beans for use with the REST interface.
+ *
+ * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-@XmlType
-public class BeanField extends BeanKeyRef {
 
-    private boolean optional = true;
-    private String localName = null;
-
-    /**
-     * Gets the local name for this field.
-     *
-     * @return the local name for this field.
-     */
-    public String getLocalName() {
-        return localName;
-    }
-
-    /**
-     * Gets the optional flag.
-     *
-     * @return the optional flag
-     */
-    public boolean getOptional() {
-        return optional;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.client.editor.rest.bean.Bean_KeyRef#toString()
-     */
-    @Override
-    public String toString() {
-        return "Field [localName=" + getLocalName() + ", name=" + getName() + ", version=" + getVersion()
-                + ", optional=" + getOptional() + "]";
-    }
-
-}
+package org.onap.policy.apex.client.editor.rest.handling.bean;

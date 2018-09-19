@@ -18,25 +18,21 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
-
-import java.util.Map;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The Event Bean.
+ * The ContextSchema Bean.
  */
 @XmlType
-public class BeanEvent extends BeanBase {
+public class BeanContextSchema extends BeanBase {
     private String name = null;
     private String version = null;
-    private String nameSpace = null;
-    private String source = null;
-    private String target = null;
+    private String schemaFlavour = null;
+    private String schemaDefinition = null;
     private String uuid = null;
     private String description = null;
-    private Map<String, BeanField> parameters = null;
 
     /**
      * Gets the name.
@@ -54,33 +50,6 @@ public class BeanEvent extends BeanBase {
      */
     public String getVersion() {
         return version;
-    }
-
-    /**
-     * Gets the name space.
-     *
-     * @return the name space
-     */
-    public String getNameSpace() {
-        return nameSpace;
-    }
-
-    /**
-     * Gets the source.
-     *
-     * @return the source
-     */
-    public String getSource() {
-        return source;
-    }
-
-    /**
-     * Gets the target.
-     *
-     * @return the target
-     */
-    public String getTarget() {
-        return target;
     }
 
     /**
@@ -102,25 +71,21 @@ public class BeanEvent extends BeanBase {
     }
 
     /**
-     * Gets the parameters.
+     * Gets the schema flavour.
      *
-     * @return the parameters
+     * @return the schema flavour
      */
-    public Map<String, BeanField> getParameters() {
-        return parameters;
+    public String getSchemaFlavour() {
+        return schemaFlavour;
     }
 
     /**
-     * Gets the parameter.
+     * Gets the schema definition.
      *
-     * @param ps the parameter string
-     * @return the parameter
+     * @return the schema definition
      */
-    public BeanField getParameter(final String ps) {
-        if (parameters != null) {
-            return parameters.get(ps);
-        }
-        return null;
+    public String getSchemaDefinition() {
+        return schemaDefinition;
     }
 
     /*
@@ -130,9 +95,7 @@ public class BeanEvent extends BeanBase {
      */
     @Override
     public String toString() {
-        return "Event [name=" + name + ", version=" + version + ", nameSpace=" + nameSpace + ", source=" + source
-                + ", target=" + target + ", uuid=" + uuid + ", description=" + description + ", parameters="
-                + getParameters() + "]";
+        return "ContextSchema [name=" + name + ", version=" + version + ", schemaFlavour=" + schemaFlavour
+                + ", schemaDefinition=" + schemaDefinition + ", uuid=" + uuid + ", description=" + description + "]";
     }
-
 }

@@ -18,20 +18,25 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
+
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The Model Bean.
+ * The Event Bean.
  */
 @XmlType
-public class BeanModel extends BeanBase {
-
+public class BeanEvent extends BeanBase {
     private String name = null;
     private String version = null;
+    private String nameSpace = null;
+    private String source = null;
+    private String target = null;
     private String uuid = null;
     private String description = null;
+    private Map<String, BeanField> parameters = null;
 
     /**
      * Gets the name.
@@ -52,6 +57,33 @@ public class BeanModel extends BeanBase {
     }
 
     /**
+     * Gets the name space.
+     *
+     * @return the name space
+     */
+    public String getNameSpace() {
+        return nameSpace;
+    }
+
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * Gets the target.
+     *
+     * @return the target
+     */
+    public String getTarget() {
+        return target;
+    }
+
+    /**
      * Gets the uuid.
      *
      * @return the uuid
@@ -69,6 +101,28 @@ public class BeanModel extends BeanBase {
         return description;
     }
 
+    /**
+     * Gets the parameters.
+     *
+     * @return the parameters
+     */
+    public Map<String, BeanField> getParameters() {
+        return parameters;
+    }
+
+    /**
+     * Gets the parameter.
+     *
+     * @param ps the parameter string
+     * @return the parameter
+     */
+    public BeanField getParameter(final String ps) {
+        if (parameters != null) {
+            return parameters.get(ps);
+        }
+        return null;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -76,7 +130,9 @@ public class BeanModel extends BeanBase {
      */
     @Override
     public String toString() {
-        return "Model [name=" + name + ", version=" + version + ", uuid=" + uuid + ", description=" + description + "]";
+        return "Event [name=" + name + ", version=" + version + ", nameSpace=" + nameSpace + ", source=" + source
+                + ", target=" + target + ", uuid=" + uuid + ", description=" + description + ", parameters="
+                + getParameters() + "]";
     }
 
 }

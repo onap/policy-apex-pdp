@@ -18,27 +18,20 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
-
-import java.util.Arrays;
-import java.util.Map;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The Task Bean.
+ * The Model Bean.
  */
 @XmlType
-public class BeanTask extends BeanBase {
+public class BeanModel extends BeanBase {
+
     private String name = null;
     private String version = null;
     private String uuid = null;
     private String description = null;
-    private BeanLogic taskLogic = null;
-    private Map<String, BeanField> inputFields = null;
-    private Map<String, BeanField> outputFields = null;
-    private Map<String, BeanTaskParameter> parameters = null;
-    private BeanKeyRef[] contexts = null;
 
     /**
      * Gets the name.
@@ -76,51 +69,6 @@ public class BeanTask extends BeanBase {
         return description;
     }
 
-    /**
-     * Gets the task logic.
-     *
-     * @return the task logic
-     */
-    public BeanLogic getTaskLogic() {
-        return taskLogic;
-    }
-
-    /**
-     * Gets the input fields.
-     *
-     * @return the input fields
-     */
-    public Map<String, BeanField> getInputFields() {
-        return inputFields;
-    }
-
-    /**
-     * Gets the output fields.
-     *
-     * @return the output fields
-     */
-    public Map<String, BeanField> getOutputFields() {
-        return outputFields;
-    }
-
-    /**
-     * Gets the parameters.
-     *
-     * @return the parameters
-     */
-    public Map<String, BeanTaskParameter> getParameters() {
-        return parameters;
-    }
-
-    /**
-     * Gets the contexts.
-     *
-     * @return the contexts
-     */
-    public BeanKeyRef[] getContexts() {
-        return contexts;
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -128,8 +76,7 @@ public class BeanTask extends BeanBase {
      */
     @Override
     public String toString() {
-        return "BeanTask [name=" + name + ", version=" + version + ", uuid=" + uuid + ", description=" + description
-                + ", taskLogic=" + taskLogic + ", inputFields=" + inputFields + ", outputFields=" + outputFields
-                + ", parameters=" + parameters + ", contexts=" + Arrays.toString(contexts) + "]";
+        return "Model [name=" + name + ", version=" + version + ", uuid=" + uuid + ", description=" + description + "]";
     }
+
 }
