@@ -18,10 +18,10 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest;
+package org.onap.policy.apex.client.editor.rest.handling;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -146,26 +146,17 @@ public class TestApexEditorRestResource extends JerseyTest {
         result = target("editor/12345/Model/Get").request().get(ApexApiResult.class);
         assertEquals(Result.FAILED, result.getResult());
 
-        try {
-            result = target("editor/" + corruptSessionId + "/Model/Download").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        String resultString = target("editor/" + corruptSessionId + "/Model/Download").request().get(String.class);
+        assertEquals("", resultString);
 
-        result = target("editor/" + sessionId + "/Model/Download").request().get(ApexApiResult.class);
-        assertEquals(Result.SUCCESS, result.getResult());
-        try {
-            target("editor/-12345/Model/Download").request().get(ApexApiResult.class);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
-        try {
-            target("editor/12345/Model/Download").request().get(ApexApiResult.class);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        resultString = target("editor/" + sessionId + "/Model/Download").request().get(String.class);
+        assertNotNull(resultString);
+
+        resultString = target("editor/-12345/Model/Download").request().get(String.class);
+        assertEquals("", resultString);
+
+        resultString = target("editor/12345/Model/Download").request().get(String.class);
+        assertEquals("", resultString);
 
         try {
             result = target("editor/" + corruptSessionId + "/KeyInformation/Get").request().get(ApexApiResult.class);
@@ -347,11 +338,11 @@ public class TestApexEditorRestResource extends JerseyTest {
         }
 
         result = target("editor/" + sessionId + "/Validate/ContextAlbum").request().get(ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = target("editor/" + sessionId + "/Validate/ContextAlbum").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = target("editor/" + sessionId + "/Validate/ContextAlbum").queryParam("name", "%%%$£")
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -471,7 +462,7 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = target("editor/" + sessionId + "/Validate/Event").request().get(ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         try {
             target("editor/" + corruptSessionId + "/Validate/Event").request().get(ApexApiResult.class);
@@ -481,7 +472,7 @@ public class TestApexEditorRestResource extends JerseyTest {
 
         result = target("editor/" + sessionId + "/Validate/Event").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = target("editor/" + sessionId + "/Validate/Event").queryParam("name", "%%%$£")
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -666,7 +657,7 @@ public class TestApexEditorRestResource extends JerseyTest {
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = target("editor/" + sessionId + "/Validate/Task").request().get(ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         try {
             target("editor/" + corruptSessionId + "/Validate/Task").request().get(ApexApiResult.class);
@@ -676,7 +667,7 @@ public class TestApexEditorRestResource extends JerseyTest {
 
         result = target("editor/" + sessionId + "/Validate/Task").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = target("editor/" + sessionId + "/Validate/Task").queryParam("name", "%%%$£")
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -885,7 +876,7 @@ public class TestApexEditorRestResource extends JerseyTest {
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
         result = target("editor/" + sessionId + "/Task/Create").request().post(entity, ApexApiResult.class);
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
+        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         entityString = "{" + "\"name\"             : \"Howdy5\"," + "\"version\"          : \"0.0.2\","
                 + "\"contexts\"         : [{\"name\" : null, \"version\" : \"0.0.1\"}],"

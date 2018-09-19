@@ -18,44 +18,34 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The State Task Reference Bean.
+ * The Logic Bean.
  */
 @XmlType
-public class BeanStateTaskRef extends BeanBase {
-    private BeanKeyRef task = null;
-    private String outputType = null;
-    private String outputName = null;
+public class BeanLogic extends BeanBase {
+    private String logic = null;
+    private String logicFlavour = null;
 
     /**
-     * Gets the task.
+     * Gets the logic flavour.
      *
-     * @return the task
+     * @return the logic flavour
      */
-    public BeanKeyRef getTask() {
-        return task;
+    public String getLogicFlavour() {
+        return logicFlavour;
     }
 
     /**
-     * Gets the output type.
+     * Gets the logic.
      *
-     * @return the output type
+     * @return the logic
      */
-    public String getOutputType() {
-        return outputType;
-    }
-
-    /**
-     * Gets the output name.
-     *
-     * @return the output name
-     */
-    public String getOutputName() {
-        return outputName;
+    public String getLogic() {
+        return logic;
     }
 
     /*
@@ -65,7 +55,6 @@ public class BeanStateTaskRef extends BeanBase {
      */
     @Override
     public String toString() {
-        return "StateTaskRef [task=" + task + ", outputType=" + outputType + ", outputName=" + outputName + "]";
+        return "Logic [logicFlavour=" + logicFlavour + ", logic=" + logic + "]";
     }
-
 }

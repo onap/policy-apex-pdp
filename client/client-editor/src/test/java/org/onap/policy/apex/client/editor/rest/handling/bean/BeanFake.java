@@ -18,45 +18,32 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.bean;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * The Task Parameter Bean.
+ * The Event Bean.
  */
 @XmlType
-public class BeanTaskParameter extends BeanBase {
+public class BeanFake extends BeanBase {
+    private String name = null;
+    private String version = null;
+    private String field1 = null;
+    private int field2 = 0;
+    private int field3 = 0;
 
-    private String parameterName = null;
-    private String defaultValue = null;
-
-    /**
-     * Gets the parameter name.
-     *
-     * @return the parameter name
-     */
-    public String getParameterName() {
-        return parameterName;
+    public String getName() {
+        field1 = name;
+        return field1;
     }
 
-    /**
-     * Gets the default value.
-     *
-     * @return the default value
-     */
-    public String getDefaultValue() {
-        return defaultValue;
+    public String getVersion() {
+        return version;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "TaskParameter [parameterName=" + parameterName + ", defaultValue=" + defaultValue + "]";
+    public int getField2() {
+        field3 = field2;
+        return field3;
     }
-
 }

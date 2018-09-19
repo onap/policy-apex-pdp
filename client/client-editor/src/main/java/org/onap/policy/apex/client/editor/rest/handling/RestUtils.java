@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest;
+package org.onap.policy.apex.client.editor.rest.handling;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -40,7 +40,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
 import org.eclipse.persistence.jaxb.MarshallerProperties;
-import org.onap.policy.apex.client.editor.rest.bean.BeanBase;
+import org.onap.policy.apex.client.editor.rest.handling.bean.BeanBase;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 
 /**

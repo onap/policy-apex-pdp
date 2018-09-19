@@ -30,6 +30,7 @@ import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
@@ -98,6 +99,7 @@ public class TestApexEngineJava {
     @Test
     public void testApexEngineJava() throws InterruptedException, IOException, ApexException {
         new TestApexEngine("JAVA", engineParameters);
+        ThreadUtilities.sleep(5000);
         new TestApexEngine("JAVA", engineParameters);
     }
 }
