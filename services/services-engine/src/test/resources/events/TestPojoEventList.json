@@ -1,0 +1,77 @@
+[
+    {
+        "anInt": 1,
+        "anInteger": 2,
+        "someString": "a string",
+        "testSubPojo": {
+            "anInt": 10,
+            "anInteger": 20,
+            "someString": "a sub string",
+            "testSubSubPojo": {
+                "anInt": 100,
+                "anInteger": 200,
+                "someString": "a sub sub string"
+            }
+        }
+    },
+    {
+        "anInt": 1,
+        "anInteger": 2,
+        "someString": "a string",
+        "testSubPojo": {
+            "anInt": 10,
+            "anInteger": 20,
+            "someString": "a sub string",
+            "testSubSubPojo": {
+                "anInt": 100,
+                "anInteger": 200,
+                "someString": "a sub sub string"
+            }
+        }
+    },
+    {
+        "anInt": 1,
+        "anInteger": 2,
+        "someString": "a string",
+        "testSubPojo": {
+            "anInt": 10,
+            "anInteger": 20,
+            "someString": "a sub string",
+            "testSubSubPojo": {
+                "anInt": 100,
+                "anInteger": 200,
+                "someString": "a sub sub string"
+            }
+        }
+    },
+    {
+        "anInt": 1,
+        "anInteger": 2,
+        "someString": "a string",
+        "testSubPojo": {
+            "anInt": 10,
+            "anInteger": 20,
+            "someString": "a sub string",
+            "testSubSubPojo": {
+                "anInt": 100,
+                "anInteger": 200,
+                "someString": "a sub sub string"
+            }
+        }
+    },
+    {
+        "anInt": 1,
+        "anInteger": 2,
+        "someString": "a string",
+        "testSubPojo": {
+            "anInt": 10,
+            "anInteger": 20,
+            "someString": "a sub string",
+            "testSubSubPojo": {
+                "anInt": 100,
+                "anInteger": 200,
+                "someString": "a sub sub string"
+            }
+        }
+    }
+]

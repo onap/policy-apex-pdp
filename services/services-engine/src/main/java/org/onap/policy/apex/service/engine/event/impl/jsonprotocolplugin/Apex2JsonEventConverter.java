@@ -26,6 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.onap.policy.apex.context.SchemaHelper;
@@ -50,6 +51,10 @@ import org.slf4j.ext.XLoggerFactory;
  */
 public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(Apex2JsonEventConverter.class);
+
+    // Recurring string constants
+    private static final String ERROR_PARSING = "error parsing ";
+    private static final String ERROR_CODING = "error coding ";
 
     // The parameters for the JSON event protocol
     private JsonEventProtocolParameters jsonPars;
@@ -106,21 +111,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
             // Check if we have a list of objects
             if (decodedJsonObject instanceof List) {
-                // Check if it's a list of JSON objects or a list of strings
-                @SuppressWarnings("unchecked")
-                final List<Object> decodedJsonList = (List<Object>) decodedJsonObject;
-
-                // Decode each of the list elements in sequence
-                for (final Object jsonListObject : decodedJsonList) {
-                    if (jsonListObject instanceof String) {
-                        eventList.add(jsonStringApexEvent(eventName, (String) jsonListObject));
-                    } else if (jsonListObject instanceof JsonObject) {
-                        eventList.add(jsonObject2ApexEvent(eventName, (JsonObject) jsonListObject));
-                    } else {
-                        throw new ApexEventException("incoming event (" + jsonEventString
-                                        + ") is a JSON object array containing an invalid object " + jsonListObject);
-                    }
-                }
+                eventList.addAll(decodeEventList(eventName, jsonEventString, decodedJsonObject));
             } else {
                 eventList.add(jsonStringApexEvent(eventName, jsonEventString));
             }
@@ -132,6 +123,39 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         }
 
         // Return the list of events we have unmarshalled
+        return eventList;
+    }
+
+    /**
+     * Decode a list of Apex events.
+     * 
+     * @param eventName the name of the incoming events
+     * @param jsonEventString the JSON representation of the event list
+     * @param decodedJsonObject The JSON list object
+     * @return a list of decoded Apex events
+     * @throws ApexEventException on event decoding errors
+     */
+    private Collection<? extends ApexEvent> decodeEventList(final String eventName, String jsonEventString,
+                    final Object decodedJsonObject) throws ApexEventException {
+
+        final List<ApexEvent> eventList = new ArrayList<>();
+
+        // Check if it's a list of JSON objects or a list of strings
+        @SuppressWarnings("unchecked")
+        final List<Object> decodedJsonList = (List<Object>) decodedJsonObject;
+
+        // Decode each of the list elements in sequence
+        for (final Object jsonListObject : decodedJsonList) {
+            if (jsonListObject instanceof String) {
+                eventList.add(jsonStringApexEvent(eventName, (String) jsonListObject));
+            } else if (jsonListObject instanceof JsonObject) {
+                eventList.add(jsonObject2ApexEvent(eventName, (JsonObject) jsonListObject));
+            } else {
+                throw new ApexEventException("incoming event (" + jsonEventString
+                                + ") is a JSON object array containing an invalid object " + jsonListObject);
+            }
+        }
+
         return eventList;
     }
 
@@ -149,6 +173,22 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             throw new ApexEventException("event processing failed, Apex event is null");
         }
 
+        if (jsonPars.getPojoField() == null) {
+            return fromApexEventWithFields(apexEvent);
+        } else {
+            return fromApexEventPojo(apexEvent);
+        }
+    }
+
+    /**
+    /**
+     * Serialise an Apex event to a JSON string field by field.
+     * 
+     * @param apexEvent the event to Serialise
+     * @return the Serialise event as JSON
+     * @throws ApexEventException exceptions on marshaling to JSON
+     */
+    private Object fromApexEventWithFields(final ApexEvent apexEvent) {
         // Get the event definition for the event from the model service
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(apexEvent.getName(),
                         apexEvent.getVersion());
@@ -172,7 +212,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
             if (!apexEvent.containsKey(fieldName)) {
                 if (!eventField.getOptional()) {
-                    final String errorMessage = "error parsing " + eventDefinition.getId() + " event to Json. "
+                    final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
                     LOGGER.debug(errorMessage);
                     throw new ApexEventRuntimeException(errorMessage);
@@ -190,6 +230,52 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
         // Output JSON string in a pretty format
         return gson.toJson(jsonObject);
+    }
+
+    /**
+     * Serialise an Apex event to a JSON string as a single POJO.
+     * 
+     * @param apexEvent the event to Serialise
+     * @return the Serialise event as JSON
+     * @throws ApexEventException exceptions on marshaling to JSON
+     */
+    private Object fromApexEventPojo(ApexEvent apexEvent) throws ApexEventException {
+        // Get the event definition for the event from the model service
+        final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(apexEvent.getName(),
+                        apexEvent.getVersion());
+
+        if (eventDefinition.getFields().isEmpty()) {
+            final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json, Field "
+                            + jsonPars.getPojoField() + " not found, no fields defined on event" + apexEvent.getName()
+                            + ".";
+            LOGGER.debug(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        if (eventDefinition.getFields().size() != 1) {
+            final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json, Field "
+                            + jsonPars.getPojoField() + ", "
+                            + " one and only one field may be defined on a POJO event definition.";
+            LOGGER.debug(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        AxField pojoFieldDefinition = eventDefinition.getFields().iterator().next();
+
+        if (!jsonPars.getPojoField().equals(pojoFieldDefinition.getKey().getLocalName())) {
+            final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. Field "
+                            + jsonPars.getPojoField() + " not found on POJO event definition.";
+            LOGGER.debug(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        final Object fieldValue = apexEvent.get(jsonPars.getPojoField());
+
+        // Get the schema helper
+        final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory()
+                        .createSchemaHelper(pojoFieldDefinition.getKey(), pojoFieldDefinition.getSchema());
+        
+        return fieldSchemaHelper.marshal2String(fieldValue);
     }
 
     /**
@@ -231,12 +317,31 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(apexEvent.getName(),
                         apexEvent.getVersion());
 
+        if (jsonPars.getPojoField() == null) {
+            jsonObject2ApexEventWithFields(jsonObject, apexEvent, eventDefinition);
+        } else {
+            jsonObject2ApexEventPojo(jsonObject, apexEvent, eventDefinition);
+        }
+
+        return apexEvent;
+    }
+
+    /**
+     * Decode an Apex event field by field.
+     * 
+     * @param jsonObject the JSON representation of the event
+     * @param apexEvent the incoming event header
+     * @param eventDefinition the definition of the event from the model
+     * @throws ApexEventException on decode errors
+     */
+    private void jsonObject2ApexEventWithFields(final JsonObject jsonObject, final ApexEvent apexEvent,
+                    final AxEvent eventDefinition) throws ApexEventException {
         // Iterate over the input fields in the event
         for (final AxField eventField : eventDefinition.getFields()) {
             final String fieldName = eventField.getKey().getLocalName();
             if (!hasJsonField(jsonObject, fieldName)) {
                 if (!eventField.getOptional()) {
-                    final String errorMessage = "error parsing " + eventDefinition.getId() + " event from Json. "
+                    final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory.";
                     LOGGER.debug(errorMessage);
                     throw new ApexEventException(errorMessage);
@@ -255,53 +360,141 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                 apexEvent.put(fieldName, null);
             }
         }
-        return apexEvent;
+    }
 
+    /**
+     * Decode an Apex event as a single POJO.
+     * 
+     * @param jsonObject the JSON representation of the event
+     * @param apexEvent the incoming event header
+     * @param eventDefinition the definition of the event from the model
+     * @throws ApexEventException on decode errors
+     */
+    private void jsonObject2ApexEventPojo(JsonObject jsonObject, ApexEvent apexEvent, AxEvent eventDefinition)
+                    throws ApexEventException {
+
+        if (eventDefinition.getFields().isEmpty()) {
+            final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json, Field "
+                            + jsonPars.getPojoField() + " not found, no fields defined on event" + apexEvent.getName()
+                            + ".";
+            LOGGER.debug(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        if (eventDefinition.getFields().size() != 1) {
+            final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json, Field "
+                            + jsonPars.getPojoField() + ", "
+                            + " one and only one field may be defined on a POJO event definition.";
+            LOGGER.debug(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        AxField pojoFieldDefinition = eventDefinition.getFields().iterator().next();
+
+        if (!jsonPars.getPojoField().equals(pojoFieldDefinition.getKey().getLocalName())) {
+            final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json. Field "
+                            + jsonPars.getPojoField() + " not found on POJO event definition.";
+            LOGGER.debug(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        // Get the schema helper
+        final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory()
+                        .createSchemaHelper(pojoFieldDefinition.getKey(), pojoFieldDefinition.getSchema());
+        apexEvent.put(jsonPars.getPojoField(), fieldSchemaHelper.createNewInstance(jsonObject));
     }
 
     /**
      * This method processes the event header of an Apex event.
      *
-     * @param eventName the name of the event
+     * @param parameterEventName the name of the event from the parameters
      * @param jsonObject the JSON object containing the JSON representation of the incoming event
      * @return an apex event constructed using the header fields of the event
      * @throws ApexEventRuntimeException the apex event runtime exception
      * @throws ApexEventException on invalid events with missing header fields
      */
-    private ApexEvent processApexEventHeader(final String eventName, final JsonObject jsonObject)
+    private ApexEvent processApexEventHeader(final String parameterEventName, final JsonObject jsonObject)
                     throws ApexEventException {
-        String name = getJsonStringField(jsonObject, ApexEvent.NAME_HEADER_FIELD, jsonPars.getNameAlias(),
-                        ApexEvent.NAME_REGEXP, false);
+
+        final String eventName = getHeaderName(jsonObject, parameterEventName);
+
+        String eventVersion = getHeaderVersion(jsonObject);
+
+        final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(eventName, eventVersion);
+
+        if (eventDefinition == null) {
+            if (eventVersion == null) {
+                throw new ApexEventRuntimeException(
+                                "an event definition for an event named \"" + eventName + "\" not found in Apex model");
+            } else {
+                throw new ApexEventRuntimeException("an event definition for an event named \"" + eventName
+                                + "\" with version \"" + eventVersion + "\" not found in Apex model");
+            }
+        }
+
+        // Use the defined event version if no version is specified on the incoming fields
+        if (eventVersion == null) {
+            eventVersion = eventDefinition.getKey().getVersion();
+        }
+
+        final String eventNamespace = getHeaderNamespace(jsonObject, eventName, eventDefinition);
+        final String eventSource = getHeaderSource(jsonObject, eventDefinition);
+        final String eventTarget = getHeaderTarget(jsonObject, eventDefinition);
+
+        return new ApexEvent(eventName, eventVersion, eventNamespace, eventSource, eventTarget);
+    }
+
+    /**
+     * Determine the name field of the event header.
+     * 
+     * @param jsonObject the event in JSON format
+     * @param parameterEventName the configured event name from the parameters
+     * @return the event name to use on the event header
+     */
+    private String getHeaderName(final JsonObject jsonObject, final String parameterEventName) {
+        final String jsonEventName = getJsonStringField(jsonObject, ApexEvent.NAME_HEADER_FIELD,
+                        jsonPars.getNameAlias(), ApexEvent.NAME_REGEXP, false);
 
         // Check that an event name has been specified
-        if (name == null && eventName == null) {
+        if (jsonEventName == null && parameterEventName == null) {
             throw new ApexEventRuntimeException(
                             "event received without mandatory parameter \"name\" on configuration or on event");
         }
 
         // Check if an event name was specified on the event parameters
-        if (eventName != null) {
-            if (name != null && !eventName.equals(name)) {
+        if (jsonEventName != null) {
+            if (parameterEventName != null && !parameterEventName.equals(jsonEventName)) {
                 LOGGER.warn("The incoming event name \"{}\" does not match the configured event name \"{}\","
-                                + " using configured event name", name, eventName);
+                                + " using configured event name", jsonEventName, parameterEventName);
             }
-            name = eventName;
+            return jsonEventName;
+        } else {
+            return parameterEventName;
         }
+    }
 
-        // Now, find the event definition in the model service. If version is null, the newest event
+    /**
+     * Determine the version field of the event header.
+     * 
+     * @param jsonObject the event in JSON format
+     * @return the event version
+     */
+    private String getHeaderVersion(final JsonObject jsonObject) {
+        // Find the event definition in the model service. If version is null, the newest event
         // definition in the model service is used
-        String version = getJsonStringField(jsonObject, ApexEvent.VERSION_HEADER_FIELD, jsonPars.getVersionAlias(),
+        return getJsonStringField(jsonObject, ApexEvent.VERSION_HEADER_FIELD, jsonPars.getVersionAlias(),
                         ApexEvent.VERSION_REGEXP, false);
-        final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(name, version);
-        if (eventDefinition == null) {
-            throwVersionException(name, version);
-        }
+    }
 
-        // Use the defined event version if no version is specified on the incoming fields
-        if (version == null) {
-            version = eventDefinition.getKey().getVersion();
-        }
-
+    /**
+     * Determine the name space field of the event header.
+     * 
+     * @param jsonObject the event in JSON format
+     * @param eventName the name of the event
+     * @param eventDefinition the definition of the event structure
+     * @return the event version
+     */
+    private String getHeaderNamespace(final JsonObject jsonObject, final String name, final AxEvent eventDefinition) {
         // Check the name space is OK if it is defined, if not, use the name space from the model
         String namespace = getJsonStringField(jsonObject, ApexEvent.NAMESPACE_HEADER_FIELD,
                         jsonPars.getNameSpaceAlias(), ApexEvent.NAMESPACE_REGEXP, false);
@@ -314,38 +507,41 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         } else {
             namespace = eventDefinition.getNameSpace();
         }
+        return namespace;
+    }
 
+    /**
+     * Determine the source field of the event header.
+     * 
+     * @param jsonObject the event in JSON format
+     * @param eventDefinition the definition of the event structure
+     * @return the event version
+     */
+    private String getHeaderSource(final JsonObject jsonObject, final AxEvent eventDefinition) {
         // For source, use the defined source only if the source is not found on the incoming event
         String source = getJsonStringField(jsonObject, ApexEvent.SOURCE_HEADER_FIELD, jsonPars.getSourceAlias(),
                         ApexEvent.SOURCE_REGEXP, false);
         if (source == null) {
             source = eventDefinition.getSource();
         }
+        return source;
+    }
 
+    /**
+     * Determine the target field of the event header.
+     * 
+     * @param jsonObject the event in JSON format
+     * @param eventDefinition the definition of the event structure
+     * @return the event version
+     */
+    private String getHeaderTarget(final JsonObject jsonObject, final AxEvent eventDefinition) {
         // For target, use the defined source only if the source is not found on the incoming event
         String target = getJsonStringField(jsonObject, ApexEvent.TARGET_HEADER_FIELD, jsonPars.getTargetAlias(),
                         ApexEvent.TARGET_REGEXP, false);
         if (target == null) {
             target = eventDefinition.getTarget();
         }
-
-        return new ApexEvent(name, version, namespace, source, target);
-    }
-
-    /**
-     * Throw an exception on event name and/or version with the correct text.
-     * @param name The event name
-     * @param version The event version
-     */
-    private void throwVersionException(String name, String version) {
-        if (version == null) {
-            throw new ApexEventRuntimeException(
-                            "an event definition for an event named \"" + name + "\" not found in Apex model");
-        }
-        else {
-            throw new ApexEventRuntimeException("an event definition for an event named \"" + name
-                            + "\" with version \"" + version + "\" not found in Apex model");
-        }
+        return target;
     }
 
     /**
