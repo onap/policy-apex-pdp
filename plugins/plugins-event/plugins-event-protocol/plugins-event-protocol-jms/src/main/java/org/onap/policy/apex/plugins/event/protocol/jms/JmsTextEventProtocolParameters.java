@@ -45,7 +45,7 @@ public class JmsTextEventProtocolParameters extends JsonEventProtocolParameters 
      * service.
      */
     public JmsTextEventProtocolParameters() {
-        super(JmsTextEventProtocolParameters.class.getCanonicalName(), JMS_TEXT_EVENT_PROTOCOL_LABEL);
+        super(JMS_TEXT_EVENT_PROTOCOL_LABEL);
 
         // Set the event protocol properties for the JMS Text event protocol
         this.setLabel(JMS_TEXT_EVENT_PROTOCOL_LABEL);

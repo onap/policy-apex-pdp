@@ -47,12 +47,9 @@ public abstract class EventProtocolTextTokenDelimitedParameters extends EventPro
 
     /**
      * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
-     *
-     * @param parameterClassName
-     *        the class name of a sub class of this class
      */
-    public EventProtocolTextTokenDelimitedParameters(final String parameterClassName) {
-        super(parameterClassName);
+    public EventProtocolTextTokenDelimitedParameters() {
+        super();
     }
 
     /**

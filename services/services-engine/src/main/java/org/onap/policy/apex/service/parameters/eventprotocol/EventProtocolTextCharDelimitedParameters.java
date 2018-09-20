@@ -42,11 +42,9 @@ public abstract class EventProtocolTextCharDelimitedParameters extends EventProt
 
     /**
      * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
-     *
-     * @param parameterClassName the class name of a sub class of this class
      */
-    public EventProtocolTextCharDelimitedParameters(final String parameterClassName) {
-        super(parameterClassName);
+    public EventProtocolTextCharDelimitedParameters() {
+        super();
     }
 
     /**

@@ -48,10 +48,8 @@ public abstract class EventProtocolParameters implements ParameterGroup {
     /**
      * Constructor to create an event protocol parameters instance with the name of a sub class of this class and
      * register the instance with the parameter service.
-     *
-     * @param parameterClassName the class name of a sub class of this class
      */
-    public EventProtocolParameters(final String parameterClassName) {
+    public EventProtocolParameters() {
         super();
     }
 

@@ -80,7 +80,7 @@ public class JmsObjectEventProtocolParameters extends EventProtocolParameters {
      *  parameter service.
      */
     public JmsObjectEventProtocolParameters() {
-        super(JmsObjectEventProtocolParameters.class.getCanonicalName());
+        super();
 
         // Set the event protocol properties for the JMS Text event protocol
         this.setLabel(JMS_OBJECT_EVENT_PROTOCOL_LABEL);

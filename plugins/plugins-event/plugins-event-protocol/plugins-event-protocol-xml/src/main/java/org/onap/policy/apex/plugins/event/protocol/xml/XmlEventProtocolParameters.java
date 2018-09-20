@@ -39,7 +39,7 @@ public class XmlEventProtocolParameters extends EventProtocolTextTokenDelimitedP
      * service.
      */
     public XmlEventProtocolParameters() {
-        super(XmlEventProtocolParameters.class.getCanonicalName());
+        super();
 
         // Set the event protocol properties for the XML event protocol
         this.setLabel(XML_EVENT_PROTOCOL_LABEL);

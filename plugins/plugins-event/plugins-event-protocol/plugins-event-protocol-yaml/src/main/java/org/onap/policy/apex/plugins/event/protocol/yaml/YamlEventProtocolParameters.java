@@ -69,18 +69,17 @@ public class YamlEventProtocolParameters extends EventProtocolTextTokenDelimited
      * the parameter service.
      */
     public YamlEventProtocolParameters() {
-        this(YamlEventProtocolParameters.class.getCanonicalName(), YAML_EVENT_PROTOCOL_LABEL);
+        this(YAML_EVENT_PROTOCOL_LABEL);
     }
 
     /**
      * Constructor to create an event protocol parameters instance with the name of a sub class of
      * this class.
      *
-     * @param parameterClassName the class name of a sub class of this class
      * @param eventProtocolLabel the name of the event protocol for this plugin
      */
-    public YamlEventProtocolParameters(final String parameterClassName, final String eventProtocolLabel) {
-        super(parameterClassName);
+    public YamlEventProtocolParameters(final String eventProtocolLabel) {
+        super();
 
         // Set the event protocol properties for the YAML event protocol
         this.setLabel(eventProtocolLabel);

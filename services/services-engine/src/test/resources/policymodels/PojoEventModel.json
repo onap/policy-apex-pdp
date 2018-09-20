@@ -1,0 +1,365 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "PojoEventModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "PojoEventModel_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "PojoEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "60411084-d846-3681-9ba7-093bacfd78d2",
+                  "description" : "Generated description for concept referred to by key \"PojoEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "1a77f36c-7dd2-3188-91d1-5839114f3a3f",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b8fe7c9c-2445-3cb0-a671-da2d380e418a",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "fb9f68f9-f5b7-361a-8b8e-df1fe987084e",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "2156f4d7-cfb2-3e15-ab78-4aced50730bf",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "45fd6cff-59de-3511-8398-8a88ad01cd1a",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "9081b534-62db-384a-b7cc-4e5fc1d781b3",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoEventModel_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEventModel_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "1e917c60-b5e5-3849-83ca-27d795a633a9",
+                  "description" : "Generated description for concept referred to by key \"PojoEventModel_Tasks:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoListEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoListEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d9627e71-18ac-38d7-b033-33a704132afc",
+                  "description" : "Generated description for concept referred to by key \"PojoListEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoNoFieldEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoNoFieldEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d42ab6d1-9b39-3d94-9a65-d47c116a478f",
+                  "description" : "Generated description for concept referred to by key \"PojoNoFieldEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoTooManyFieldsEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoTooManyFieldsEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "1d33d978-297f-3253-b9c6-f0bc9dc63e24",
+                  "description" : "Generated description for concept referred to by key \"PojoTooManyFieldsEvent:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TestPojoListType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TestPojoListType",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "ad74efe5-833f-30e5-837c-0d9ae607e4a2",
+                  "description" : "Generated description for concept referred to by key \"TestPojoListType:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "TestPojoType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TestPojoType",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "254c248e-f172-3871-83aa-4de45f01b6c7",
+                  "description" : "Generated description for concept referred to by key \"TestPojoType:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "PojoEventModel_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "PojoEventModel_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "PojoEventModel_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "PojoEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.service.engine.event.testpojos",
+                  "source" : "Outside",
+                  "target" : "Apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "POJO_PAR",
+                        "value" : {
+                           "key" : "POJO_PAR",
+                           "fieldSchemaKey" : {
+                              "name" : "TestPojoType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoListEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoListEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.service.engine.event.testpojos",
+                  "source" : "Outside",
+                  "target" : "Apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "POJO_LIST_PAR",
+                        "value" : {
+                           "key" : "POJO_LIST_PAR",
+                           "fieldSchemaKey" : {
+                              "name" : "TestPojoListType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoNoFieldEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoNoFieldEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.service.engine.event.testpojos",
+                  "source" : "Outside",
+                  "target" : "Apex",
+                  "parameter" : {
+                     "entry" : [ ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "PojoTooManyFieldsEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "PojoTooManyFieldsEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.service.engine.event.testpojos",
+                  "source" : "Outside",
+                  "target" : "Apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "POJO_LIST_PAR0",
+                        "value" : {
+                           "key" : "POJO_LIST_PAR0",
+                           "fieldSchemaKey" : {
+                              "name" : "TestPojoListType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     }, {
+                        "key" : "POJO_LIST_PAR1",
+                        "value" : {
+                           "key" : "POJO_LIST_PAR1",
+                           "fieldSchemaKey" : {
+                              "name" : "TestPojoListType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            } ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "PojoEventModel_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "PojoEventModel_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "TestPojoListType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TestPojoListType",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "org.onap.policy.apex.service.engine.event.testpojos.TestPojoList"
+               }
+            }, {
+               "key" : {
+                  "name" : "TestPojoType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "TestPojoType",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "org.onap.policy.apex.service.engine.event.testpojos.TestPojo"
+               }
+            } ]
+         }
+      }
+   }
+}

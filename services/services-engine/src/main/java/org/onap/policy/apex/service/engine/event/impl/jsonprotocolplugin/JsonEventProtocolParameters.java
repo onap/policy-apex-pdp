@@ -22,6 +22,7 @@ package org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin;
 
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextCharDelimitedParameters;
 
+// @formatter:off
 /**
  * Event protocol parameters for JSON as an event protocol.
  *
@@ -37,10 +38,14 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextCh
  * parameter is optional.
  * <li>targetAlias: The field in a JSON event to use as an alias for the event target. This
  * parameter is optional.
+ * <li>pojoField: The event is received and sent as a single POJO using the event field
+ * definition in this field name in the schema, there must be one and only one field in the
+ * event definition, the event has a single parameter whose type is the Pojo. This parameter is optional.
  * </ol>
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+//@formatter:on
 public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedParameters {
     /** The label of this event protocol. */
     public static final String JSON_EVENT_PROTOCOL_LABEL = "JSON";
@@ -58,23 +63,23 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
     private String targetAlias    = null;
     // @formatter:on
 
+    // Flag indicating POJO decoding and encoding and parameter indicating the name of the Pojo field
+    private String pojoField = null;
+
     /**
-     * Constructor to create a JSON event protocol parameter instance and register the instance with
-     * the parameter service.
+     * Constructor to create a JSON event protocol parameter instance and register the instance with the parameter
+     * service.
      */
     public JsonEventProtocolParameters() {
-        this(JsonEventProtocolParameters.class.getCanonicalName(), JSON_EVENT_PROTOCOL_LABEL);
+        this(JSON_EVENT_PROTOCOL_LABEL);
     }
 
     /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of
-     * this class.
-     *
-     * @param parameterClassName the class name of a sub class of this class
+     * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
      * @param eventProtocolLabel the name of the event protocol for this plugin
      */
-    public JsonEventProtocolParameters(final String parameterClassName, final String eventProtocolLabel) {
-        super(parameterClassName);
+    public JsonEventProtocolParameters(final String eventProtocolLabel) {
+        super();
 
         // Set the event protocol properties for the JSON event protocol
         this.setLabel(eventProtocolLabel);
@@ -87,7 +92,9 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
         this.setEventProtocolPluginClass(Apex2JsonEventConverter.class.getCanonicalName());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.onap.policy.common.parameters.ParameterGroup#getName()
      */
     @Override
@@ -139,7 +146,16 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
     public String getTargetAlias() {
         return targetAlias;
     }
-    
+
+    /**
+     * Return the name of the POJO field to use for POJO decoding and encoding.
+     * 
+     * @return the name of the POJO field
+     */
+    public String getPojoField() {
+        return pojoField;
+    }
+
     /**
      * Sets the name alias.
      *
@@ -183,5 +199,14 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
      */
     public void setTargetAlias(String targetAlias) {
         this.targetAlias = targetAlias;
+    }
+
+    /**
+     * Sets the POJO field that name for POJO decoding and encoding.
+     * 
+     * @param pojoField The name of the POJO field to use on the event
+     */
+    public void setPojoField(final String pojoField) {
+        this.pojoField = pojoField;
     }
 }

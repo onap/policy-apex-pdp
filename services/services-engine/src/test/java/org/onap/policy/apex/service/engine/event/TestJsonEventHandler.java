@@ -96,7 +96,7 @@ public class TestJsonEventHandler {
     }
 
     /**
-     * Test JSO nto apex event.
+     * Test JSON to apex event.
      *
      * @throws ApexException the apex exception
      */
@@ -134,7 +134,7 @@ public class TestJsonEventHandler {
     }
 
     /**
-     * Test JSO nto apex bad event.
+     * Test JSON to apex bad event.
      *
      * @throws ApexException the apex exception
      */
@@ -292,6 +292,7 @@ public class TestJsonEventHandler {
     public void testApexEventToJson() throws ApexException {
         try {
             final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
+            jsonEventConverter.init(new JsonEventProtocolParameters());
             assertNotNull(jsonEventConverter);
 
             final Date event0000StartTime = new Date();
