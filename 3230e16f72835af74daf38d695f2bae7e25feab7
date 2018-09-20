@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_7615389a",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ApexEditorRestResource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "We can\u0027t because this is called by the test case to create a corrupt session.",
+      "parentUuid": "1a76adc5_dbf55551",
+      "range": {
+        "startLine": 804,
+        "startChar": 0,
+        "endLine": 816,
+        "endChar": 5
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_7bbf6161",
         "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ContextAlbumHandler.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-20T09:52:11Z",
       "side": 1,
       "message": "may be we can add a utility method in RestUtils for this to prevent code duplication.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 9
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_368260c8",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ContextAlbumHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_7bbf6161",
       "range": {
         "startLine": 187,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_56859ccc",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ContextSchemaHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_3bb5697d",
+      "range": {
+        "startLine": 135,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 9
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_bba89920",
         "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/EventHandler.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-20T09:52:11Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 9
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f66f0829",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/EventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_bba89920",
       "range": {
         "startLine": 119,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_166ba41e",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ModelHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_3b6c8907",
+      "range": {
+        "startLine": 133,
+        "startChar": 7,
+        "endLine": 137,
+        "endChar": 9
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_5b6f05fc",
         "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/PolicyHandler.java",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2018-09-20T09:52:11Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7663f841",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/PolicyHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_5b6f05fc",
       "range": {
         "startLine": 131,
         "startChar": 8,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_1652c466",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/TaskHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_1b5c2d4a",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 9
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_3be7a9ad",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineJava.java",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2018-09-20T09:52:11Z",
       "side": 1,
       "message": "this may result in sonar code smell.",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 36
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_56d35cd4",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineJava.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "The code smell will be in Threadutilities, lets fix in Dublin",
+      "parentUuid": "1a76adc5_3be7a9ad",
       "range": {
         "startLine": 102,
         "startChar": 8,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_96cd7433",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineJavascript.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "The code smell will be in Threadutilities, lets fix in Dublin",
+      "parentUuid": "1a76adc5_5beaa574",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 36
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_fb04d14a",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineJython.java",
         "patchSetId": 1
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_76ca181c",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineJython.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "The code smell will be in Threadutilities, lets fix in Dublin",
+      "parentUuid": "1a76adc5_fb04d14a",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_1b00ad32",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineMvel.java",
         "patchSetId": 1
@@ -243,6 +483,30 @@
       "writtenOn": "2018-09-20T09:52:11Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "3230e16f72835af74daf38d695f2bae7e25feab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b64c30c9",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/engine/TestApexEngineMvel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-20T11:18:53Z",
+      "side": 1,
+      "message": "The code smell will be in Threadutilities, lets fix in Dublin",
+      "parentUuid": "1a76adc5_1b00ad32",
       "range": {
         "startLine": 100,
         "startChar": 8,
