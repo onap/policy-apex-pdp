@@ -51,7 +51,7 @@ public class ApexPeriodicEventGenerator extends TimerTask {
     public static final String PERIODIC_EVENT_SOURCE = "internal";
 
     /** The target of the periodic event. */
-    public static final String PERIODIC_EVENT_TARGET = "internal";
+    public static final String PERIODIC_EVENT_TARGET = PERIODIC_EVENT_SOURCE;
 
     /**
      * The field name in the periodic event for the delay between occurrences of the periodic event.

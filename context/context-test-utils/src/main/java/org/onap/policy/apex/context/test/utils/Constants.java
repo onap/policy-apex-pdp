@@ -65,6 +65,11 @@ public class Constants {
     private static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = new AxArtifactKey[] {KEY, KEY2, KEY3};
 
     /**
+     * Instantiates a new constants.
+     */
+    private Constants() {}
+
+    /**
      * Gets the ax artifact key array.
      *
      * @return the ax artifact key array
@@ -72,10 +77,4 @@ public class Constants {
     public static final AxArtifactKey[] getAxArtifactKeyArray() {
         return USED_ARTIFACT_STACK_ARRAY;
     }
-
-    /**
-     * Instantiates a new constants.
-     */
-    private Constants() {}
-
 }

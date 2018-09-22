@@ -328,38 +328,38 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     public GroupValidationResult validate() {
         final GroupValidationResult result = super.validate();
 
-        if (initialContextFactory == null || initialContextFactory.trim().length() == 0) {
+        if (isNullOrBlank(initialContextFactory)) {
             result.setResult("initialContextFactory", ValidationStatus.INVALID,
                             "initialContextFactory must be specified as a string that is a class that implements the "
                                             + "interface org.jboss.naming.remote.client.InitialContextFactory");
         }
 
-        if (providerUrl == null || providerUrl.trim().length() == 0) {
+        if (isNullOrBlank(providerUrl)) {
             result.setResult("providerUrl", ValidationStatus.INVALID,
                             "providerUrl must be specified as a URL string that specifies the location of "
                                             + "configuration information for the service provider to use "
                                             + "such as remote://localhost:4447");
         }
 
-        if (securityPrincipal == null || securityPrincipal.trim().length() == 0) {
+        if (isNullOrBlank(securityPrincipal)) {
             result.setResult("securityPrincipal", ValidationStatus.INVALID,
                             "securityPrincipal must be specified the identity of the principal for authenticating "
                                             + "the caller to the service");
         }
 
-        if (securityCredentials == null || securityCredentials.trim().length() == 0) {
+        if (isNullOrBlank(securityCredentials)) {
             result.setResult("securityCredentials", ValidationStatus.INVALID,
                             "  securityCredentials must be specified as the credentials of the "
                                             + "principal for authenticating the caller to the service");
         }
 
-        if (producerTopic == null || producerTopic.trim().length() == 0) {
+        if (isNullOrBlank(producerTopic)) {
             result.setResult("producerTopic", ValidationStatus.INVALID,
                             "  producerTopic must be a string that identifies the JMS topic "
                                             + "on which Apex will send events");
         }
 
-        if (consumerTopic == null || consumerTopic.trim().length() == 0) {
+        if (isNullOrBlank(consumerTopic)) {
             result.setResult("consumerTopic", ValidationStatus.INVALID,
                             "  consumerTopic must be a string that identifies the JMS topic "
                                             + "on which Apex will recieve events");
@@ -371,5 +371,15 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         }
 
         return result;
+    }
+
+    /**
+     * Check if the string is null or blank.
+     * 
+     * @param stringValue the string value 
+     * @return
+     */
+    private boolean isNullOrBlank(final String stringValue) {
+        return stringValue == null || stringValue.trim().length() == 0;
     }
 }

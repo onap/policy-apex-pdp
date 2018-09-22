@@ -186,4 +186,31 @@ public class KeywordNode implements Comparable<KeywordNode> {
         }
         return command.compareTo(otherKeywordNode.command);
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((children == null) ? 0 : children.hashCode());
+        result = prime * result + ((command == null) ? 0 : command.hashCode());
+        result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        
+        if (obj == null) {
+            return false;
+        }
+        
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        return this.compareTo((KeywordNode) obj) == 0;
+    }
 }

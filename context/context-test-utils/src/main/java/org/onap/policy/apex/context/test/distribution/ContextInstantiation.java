@@ -133,218 +133,211 @@ public class ContextInstantiation {
 
         final Distributor contextDistributor = getDistributor();
 
+        final ContextAlbum policyContextAlbum = contextDistributor
+                        .createContextAlbum(new AxArtifactKey(POLICY_CONTEXT_ALBUM, VERSION));
+
+        assertNotNull(policyContextAlbum);
+        policyContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
+
+        final Date testDate = new Date();
+
+        final TestContextDateTzItem tci9 = getTestContextDateTzItem(testDate);
+        final TestContextDateLocaleItem tciA = getTestContextDateLocaleItem(testDate);
+
+        final TestPolicyContextItem policyContext = getTestPolicyContextItem(policyContextAlbum, testDate);
+
+        final Map<String, Object> valueMap0 = new HashMap<>();
+        valueMap0.put(TEST_POLICY_CONTEXT_ITEM, policyContext);
+
+        policyContextAlbum.putAll(valueMap0);
+
+        final TestPolicyContextItem contextItem = (TestPolicyContextItem) policyContextAlbum
+                        .get(TEST_POLICY_CONTEXT_ITEM);
+        assertEquals(STRING_VAL, contextItem.getTestPolicyContextItem000().getStringValue());
+
+        assertEquals(LONG_VAL, contextItem.getTestPolicyContextItem001().getLongValue());
+        assertDouble(contextItem.getTestPolicyContextItem002().getDoubleValue(), PI_VAL);
+        assertTrue(contextItem.getTestPolicyContextItem003().getFlag());
+        assertEquals(contextItem.getTestPolicyContextItem004().getLongValue(), testDate.getTime());
+        assertEquals(TEST_HASH_MAP, contextItem.getTestPolicyContextItem005().getMapValue());
+
+        final TestGlobalContextItem globalContext = getTestGlobalContextItem(contextDistributor, testDate, tci9,
+                        tciA);
+
+        final Map<String, Object> valueMap1 = new HashMap<>();
+        valueMap1.put(GLOBAL_CONTEXT_KEY, globalContext);
+
+        final ContextAlbum globalContextAlbum = getContextAlbum(contextDistributor);
+
+        globalContextAlbum.putAll(valueMap1);
+
+        final TestGlobalContextItem globalContextItem = (TestGlobalContextItem) globalContextAlbum
+                        .get(GLOBAL_CONTEXT_KEY);
+
+        assertFalse(globalContextItem.getTestGlobalContextItem000().getFlag());
+
+        assertEquals(BYTE_VAL, globalContextItem.getTestGlobalContextItem001().getByteValue());
+
+        assertEquals(INT_VAL, globalContextItem.getTestGlobalContextItem002().getIntValue());
+        assertEquals(LONG_VAL, globalContextItem.getTestGlobalContextItem003().getLongValue());
+        assertFloat(FLOAT_VAL, globalContextItem.getTestGlobalContextItem004().getFloatValue());
+
+        assertDouble(PI_VAL, globalContextItem.getTestGlobalContextItem005().getDoubleValue());
+        assertEquals(STRING_GLOBAL_VAL, globalContextItem.getTestGlobalContextItem006().getStringValue());
+
+        assertEquals((Long) testDate.getTime(), globalContextItem.getTestGlobalContextItem007().getLongValue());
+        assertEquals(testDate, globalContextItem.getTestGlobalContextItem008().getDateValue());
+        assertEquals(tci9.getDateValue().getTime(),
+                        globalContextItem.getTestGlobalContextItem009().getDateValue().getTime());
+
+        assertEquals(tciA.getDateValue().getTime(),
+                        globalContextItem.getTestGlobalContextItem00A().getDateValue().getTime());
+
+        assertEquals(TEST_TREE_SET, globalContextItem.getTestGlobalContextItem00B().getSetValue());
+        assertEquals(TEST_HASH_MAP, globalContextItem.getTestGlobalContextItem00C().getMapValue());
+
+        final AxContextModel externalContextModel = TestContextAlbumFactory.createExternalContextModel();
+
+        final TestContextDateTzItem tci9A = new TestContextDateTzItem(tci9);
+        final TestContextDateLocaleItem tciAa = new TestContextDateLocaleItem(tciA);
+        final TestExternalContextItem externalContext = getTestExternalContextItem(testDate, tci9A, tciAa);
+
+        final Map<String, Object> valueMap2 = new HashMap<>();
+        valueMap2.put(EXTERNAL_CONTEXT, externalContext);
+
+        contextDistributor.clear();
+        contextDistributor.init(new AxArtifactKey("ClearedandInittedDistributor", VERSION));
+        contextDistributor.registerModel(externalContextModel);
+
+        final AxArtifactKey axContextAlbumKey = new AxArtifactKey(EXTERNAL_CONTEXT_ALBUM, VERSION);
+        final ContextAlbum externalContextAlbum = contextDistributor.createContextAlbum(axContextAlbumKey);
+        assertNotNull(externalContextAlbum);
+        externalContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
+
+        externalContextAlbum.putAll(valueMap2);
+        externalContextAlbum.getAlbumDefinition().setWritable(false);
+
+        TestExternalContextItem externalContextItem = (TestExternalContextItem) externalContextAlbum
+                        .get(EXTERNAL_CONTEXT);
+
+        assertFalse(externalContextItem.getTestExternalContextItem000().getFlag());
+        assertEquals(BYTE_VAL, externalContextItem.getTestExternalContextItem001().getByteValue());
+        assertEquals(INT_VAL, externalContextItem.getTestExternalContextItem002().getIntValue());
+
+        assertFloat(LONG_VAL, externalContextItem.getTestExternalContextItem003().getLongValue());
+        assertFloat(FLOAT_VAL, externalContextItem.getTestExternalContextItem004().getFloatValue());
+
+        assertDouble(PI_VAL, externalContextItem.getTestExternalContextItem005().getDoubleValue());
+        assertEquals(STRING_EXT_VAL, externalContextItem.getTestExternalContextItem006().getStringValue());
+        assertEquals((Long) testDate.getTime(), externalContextItem.getTestExternalContextItem007().getLongValue());
+        assertEquals(testDate, externalContextItem.getTestExternalContextItem008().getDateValue());
+        assertEquals(tci9A.getDateValue().getTime(),
+                        externalContextItem.getTestExternalContextItem009().getDateValue().getTime());
+
+        assertEquals(tciAa.getDateValue().getTime(),
+                        externalContextItem.getTestExternalContextItem00A().getDateValue().getTime());
+        assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
+        assertEquals(TEST_HASH_MAP, externalContextItem.getTestExternalContextItem00C().getMapValue());
+
+        final Collection<Object> mapValues = externalContextAlbum.values();
+        assertTrue(externalContextAlbum.values().containsAll(mapValues));
+
+        // Check that clearing does not work
         try {
-
-            final ContextAlbum policyContextAlbum = contextDistributor
-                            .createContextAlbum(new AxArtifactKey(POLICY_CONTEXT_ALBUM, VERSION));
-
-            assertNotNull(policyContextAlbum);
-            policyContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
-
-            final Date testDate = new Date();
-
-            final TestContextDateTzItem tci9 = getTestContextDateTzItem(testDate);
-            final TestContextDateLocaleItem tciA = getTestContextDateLocaleItem(testDate);
-
-            final TestPolicyContextItem policyContext = getTestPolicyContextItem(policyContextAlbum, testDate);
-
-            final Map<String, Object> valueMap0 = new HashMap<>();
-            valueMap0.put(TEST_POLICY_CONTEXT_ITEM, policyContext);
-
-            policyContextAlbum.putAll(valueMap0);
-
-            final TestPolicyContextItem contextItem = (TestPolicyContextItem) policyContextAlbum
-                            .get(TEST_POLICY_CONTEXT_ITEM);
-            assertEquals(STRING_VAL, contextItem.getTestPolicyContextItem000().getStringValue());
-
-            assertEquals(LONG_VAL, contextItem.getTestPolicyContextItem001().getLongValue());
-            assertDouble(contextItem.getTestPolicyContextItem002().getDoubleValue(), PI_VAL);
-            assertTrue(contextItem.getTestPolicyContextItem003().getFlag());
-            assertEquals(contextItem.getTestPolicyContextItem004().getLongValue(), testDate.getTime());
-            assertEquals(TEST_HASH_MAP, contextItem.getTestPolicyContextItem005().getMapValue());
-
-            final TestGlobalContextItem globalContext = getTestGlobalContextItem(contextDistributor, testDate, tci9,
-                            tciA);
-
-            final Map<String, Object> valueMap1 = new HashMap<>();
-            valueMap1.put(GLOBAL_CONTEXT_KEY, globalContext);
-
-            final ContextAlbum globalContextAlbum = getContextAlbum(contextDistributor);
-
-            globalContextAlbum.putAll(valueMap1);
-
-            final TestGlobalContextItem globalContextItem = (TestGlobalContextItem) globalContextAlbum
-                            .get(GLOBAL_CONTEXT_KEY);
-
-            assertFalse(globalContextItem.getTestGlobalContextItem000().getFlag());
-
-            assertEquals(BYTE_VAL, globalContextItem.getTestGlobalContextItem001().getByteValue());
-
-            assertEquals(INT_VAL, globalContextItem.getTestGlobalContextItem002().getIntValue());
-            assertEquals(LONG_VAL, globalContextItem.getTestGlobalContextItem003().getLongValue());
-            assertFloat(FLOAT_VAL, globalContextItem.getTestGlobalContextItem004().getFloatValue());
-
-            assertDouble(PI_VAL, globalContextItem.getTestGlobalContextItem005().getDoubleValue());
-            assertEquals(STRING_GLOBAL_VAL, globalContextItem.getTestGlobalContextItem006().getStringValue());
-
-            assertEquals((Long) testDate.getTime(), globalContextItem.getTestGlobalContextItem007().getLongValue());
-            assertEquals(testDate, globalContextItem.getTestGlobalContextItem008().getDateValue());
-            assertEquals(tci9.getDateValue().getTime(),
-                            globalContextItem.getTestGlobalContextItem009().getDateValue().getTime());
-
-            assertEquals(tciA.getDateValue().getTime(),
-                            globalContextItem.getTestGlobalContextItem00A().getDateValue().getTime());
-
-            assertEquals(TEST_TREE_SET, globalContextItem.getTestGlobalContextItem00B().getSetValue());
-            assertEquals(TEST_HASH_MAP, globalContextItem.getTestGlobalContextItem00C().getMapValue());
-
-            final AxContextModel externalContextModel = TestContextAlbumFactory.createExternalContextModel();
-
-            final TestContextDateTzItem tci9A = new TestContextDateTzItem(tci9);
-            final TestContextDateLocaleItem tciAa = new TestContextDateLocaleItem(tciA);
-            final TestExternalContextItem externalContext = getTestExternalContextItem(testDate, tci9A, tciAa);
-
-            final Map<String, Object> valueMap2 = new HashMap<>();
-            valueMap2.put(EXTERNAL_CONTEXT, externalContext);
-
-            contextDistributor.clear();
-            contextDistributor.init(new AxArtifactKey("ClearedandInittedDistributor", VERSION));
-            contextDistributor.registerModel(externalContextModel);
-
-            final AxArtifactKey axContextAlbumKey = new AxArtifactKey(EXTERNAL_CONTEXT_ALBUM, VERSION);
-            final ContextAlbum externalContextAlbum = contextDistributor.createContextAlbum(axContextAlbumKey);
-            assertNotNull(externalContextAlbum);
-            externalContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
-
-            externalContextAlbum.putAll(valueMap2);
-            externalContextAlbum.getAlbumDefinition().setWritable(false);
-
-            TestExternalContextItem externalContextItem = (TestExternalContextItem) externalContextAlbum
-                            .get(EXTERNAL_CONTEXT);
-
-            assertFalse(externalContextItem.getTestExternalContextItem000().getFlag());
-            assertEquals(BYTE_VAL, externalContextItem.getTestExternalContextItem001().getByteValue());
-            assertEquals(INT_VAL, externalContextItem.getTestExternalContextItem002().getIntValue());
-
-            assertFloat(LONG_VAL, externalContextItem.getTestExternalContextItem003().getLongValue());
-            assertFloat(FLOAT_VAL, externalContextItem.getTestExternalContextItem004().getFloatValue());
-
-            assertDouble(PI_VAL, externalContextItem.getTestExternalContextItem005().getDoubleValue());
-            assertEquals(STRING_EXT_VAL, externalContextItem.getTestExternalContextItem006().getStringValue());
-            assertEquals((Long) testDate.getTime(), externalContextItem.getTestExternalContextItem007().getLongValue());
-            assertEquals(testDate, externalContextItem.getTestExternalContextItem008().getDateValue());
-            assertEquals(tci9A.getDateValue().getTime(),
-                            externalContextItem.getTestExternalContextItem009().getDateValue().getTime());
-
-            assertEquals(tciAa.getDateValue().getTime(),
-                            externalContextItem.getTestExternalContextItem00A().getDateValue().getTime());
-            assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
-            assertEquals(TEST_HASH_MAP, externalContextItem.getTestExternalContextItem00C().getMapValue());
-
-            final Collection<Object> mapValues = externalContextAlbum.values();
-            assertTrue(externalContextAlbum.values().containsAll(mapValues));
-
-            // Check that clearing does not work
-            try {
-                externalContextAlbum.clear();
-                fail(EXCEPTION_MESSAGE);
-            } catch (final ContextRuntimeException e) {
-                assertEquals("album \"ExternalContextAlbum:0.0.1\" clear() not allowed on read only albums",
-                                e.getMessage());
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-
-            assertEquals(1, externalContextAlbum.size());
-
-            assertContextAlbumContains(externalContext, externalContextAlbum);
-
-            final Set<Entry<String, Object>> entrySet = externalContextAlbum.entrySet();
-            assertEquals(1, entrySet.size());
-
-            try {
-                externalContextAlbum.get(null);
-            } catch (final ContextRuntimeException e) {
-                assertEquals("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for get()",
-                                e.getMessage());
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-
-            final Object aObject = externalContextAlbum.get(EXTERNAL_CONTEXT);
-            assertEquals(aObject, externalContext);
-
-            // put null keys should fail, throws a runtime exception
-            try {
-                externalContextAlbum.put(null, null);
-            } catch (final ContextRuntimeException e) {
-                assertEquals("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for put()",
-                                e.getMessage());
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-
-            try {
-                externalContextAlbum.put("TestExternalContextItem00A", null);
-            } catch (final ContextRuntimeException e) {
-                assertEquals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()", e.getMessage());
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-            assertEquals(tciAa, externalContextItem.getTestExternalContextItem00A());
-
-            // Should return the hash set
-            assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
-
-            assertTrue(externalContextAlbum.values().containsAll(mapValues));
-
-            // Set the write flag back as it should be
-            externalContextAlbum.getAlbumDefinition().setWritable(true);
-
-            // Put should return the previous contextItem
-            final TestExternalContextItem externalContextOther = new TestExternalContextItem();
-            externalContextOther.setTestExternalContextItem002(new TestContextIntItem());
-            externalContextOther.getTestExternalContextItem002().setIntValue(INT_VAL_2);
-
-            assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContextOther).equals(externalContext));
-            externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
-            assertEquals(INT_VAL_2, externalContextItem.getTestExternalContextItem002().getIntValue());
-            assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContext).equals(externalContextOther));
-            externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
-            assertEquals(INT_VAL_3, externalContextItem.getTestExternalContextItem002().getIntValue());
-
-            try {
-                externalContextAlbum.put("TestExternalContextItem00A", null);
-            } catch (final ContextRuntimeException e) {
-                assert (e.getMessage().equals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()"));
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-            assertTrue(externalContextAlbum.get(EXTERNAL_CONTEXT).equals(externalContext));
-
-            try {
-                externalContextAlbum.put("TestExternalContextItemFFF", null);
-            } catch (final ContextRuntimeException e) {
-                assert (e.getMessage().equals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()"));
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-            assertEquals(1, externalContextAlbum.size());
-
-            try {
-                externalContextAlbum.put("TestExternalContextItemFFF", null);
-            } catch (final ContextRuntimeException e) {
-                assertEquals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()", e.getMessage());
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
-            assertEquals(1, externalContextAlbum.size());
-
-            // Should ignore remove
-            externalContextAlbum.remove("TestExternalContextItem017");
-            assertEquals(1, externalContextAlbum.size());
-            assertEquals(1, externalContextAlbum.values().size());
-            assertTrue(externalContextAlbum.values().containsAll(mapValues));
-        } catch (final Exception exception) {
-            LOGGER.error("Unexpected Error:", exception);
-            throw exception;
-        } finally {
-            contextDistributor.clear();
+            externalContextAlbum.clear();
+            fail(EXCEPTION_MESSAGE);
+        } catch (final ContextRuntimeException e) {
+            assertEquals("album \"ExternalContextAlbum:0.0.1\" clear() not allowed on read only albums",
+                            e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
+        assertEquals(1, externalContextAlbum.size());
+
+        assertContextAlbumContains(externalContext, externalContextAlbum);
+
+        final Set<Entry<String, Object>> entrySet = externalContextAlbum.entrySet();
+        assertEquals(1, entrySet.size());
+
+        try {
+            externalContextAlbum.get(null);
+        } catch (final ContextRuntimeException e) {
+            assertEquals("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for get()",
+                            e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
+        }
+
+        final Object aObject = externalContextAlbum.get(EXTERNAL_CONTEXT);
+        assertEquals(aObject, externalContext);
+
+        // put null keys should fail, throws a runtime exception
+        try {
+            externalContextAlbum.put(null, null);
+        } catch (final ContextRuntimeException e) {
+            assertEquals("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for put()",
+                            e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
+        }
+
+        try {
+            externalContextAlbum.put("TestExternalContextItem00A", null);
+        } catch (final ContextRuntimeException e) {
+            assertEquals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()", e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
+        }
+        assertEquals(tciAa, externalContextItem.getTestExternalContextItem00A());
+
+        // Should return the hash set
+        assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
+
+        assertTrue(externalContextAlbum.values().containsAll(mapValues));
+
+        // Set the write flag back as it should be
+        externalContextAlbum.getAlbumDefinition().setWritable(true);
+
+        // Put should return the previous contextItem
+        final TestExternalContextItem externalContextOther = new TestExternalContextItem();
+        externalContextOther.setTestExternalContextItem002(new TestContextIntItem());
+        externalContextOther.getTestExternalContextItem002().setIntValue(INT_VAL_2);
+
+        assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContextOther).equals(externalContext));
+        externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
+        assertEquals(INT_VAL_2, externalContextItem.getTestExternalContextItem002().getIntValue());
+        assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContext).equals(externalContextOther));
+        externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
+        assertEquals(INT_VAL_3, externalContextItem.getTestExternalContextItem002().getIntValue());
+
+        try {
+            externalContextAlbum.put("TestExternalContextItem00A", null);
+        } catch (final ContextRuntimeException e) {
+            assert (e.getMessage().equals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()"));
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
+        }
+        assertTrue(externalContextAlbum.get(EXTERNAL_CONTEXT).equals(externalContext));
+
+        try {
+            externalContextAlbum.put("TestExternalContextItemFFF", null);
+        } catch (final ContextRuntimeException e) {
+            assert (e.getMessage().equals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()"));
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
+        }
+        assertEquals(1, externalContextAlbum.size());
+
+        try {
+            externalContextAlbum.put("TestExternalContextItemFFF", null);
+        } catch (final ContextRuntimeException e) {
+            assertEquals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()", e.getMessage());
+            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
+        }
+        assertEquals(1, externalContextAlbum.size());
+
+        // Should ignore remove
+        externalContextAlbum.remove("TestExternalContextItem017");
+        assertEquals(1, externalContextAlbum.size());
+        assertEquals(1, externalContextAlbum.values().size());
+        assertTrue(externalContextAlbum.values().containsAll(mapValues));
+
+        contextDistributor.clear();
     }
 
     private void assertContextAlbumContains(final TestExternalContextItem externalContext,

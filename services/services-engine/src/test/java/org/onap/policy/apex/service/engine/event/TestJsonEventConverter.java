@@ -33,7 +33,6 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  *
  */
 public class TestJsonEventConverter {
-
     @Test
     public void testJsonEventConverter() {
         Apex2JsonEventConverter converter = new Apex2JsonEventConverter();
@@ -100,6 +99,7 @@ public class TestJsonEventConverter {
             converter.fromApexEvent(new ApexEvent("Event", "0.0.1", "a.name.space", "here", "there"));
             fail("test should throw an exception");
         } catch (Exception tae) {
+            tae.printStackTrace();
             assertEquals("Model for org.onap.policy.apex.model.eventmodel.concepts.AxEvents not found in model service",
                             tae.getMessage());
         }

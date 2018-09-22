@@ -161,8 +161,7 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.entry("start()" + key);
 
         if (state != AxEngineState.STOPPED) {
-            String message = START + key.getId() + "," + state
-                            + ", cannot start engine, engine not in state STOPPED";
+            String message = START + key.getId() + "," + state + ", cannot start engine, engine not in state STOPPED";
             LOGGER.warn(message);
             throw new ApexException(message);
         }
@@ -203,7 +202,9 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.entry("stop()->" + key);
 
         // Stop the engine if it is in state READY, if it is in state EXECUTING, wait for execution to finish
-        for (int increment = STOP_EXECUTION_WAIT_TIMEOUT; increment > 0; increment = STOP_EXECUTION_WAIT_TIMEOUT) {
+        for (int increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT;
+                        increment > 0;
+                        increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT) {
             synchronized (state) {
                 switch (state) {
                     // Already stopped

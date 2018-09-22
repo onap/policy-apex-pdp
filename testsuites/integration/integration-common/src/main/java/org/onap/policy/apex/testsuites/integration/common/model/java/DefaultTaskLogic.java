@@ -39,7 +39,7 @@ public class DefaultTaskLogic {
      * @return the event
      * @throws ApexException the apex exception
      */
-    public boolean getEvent(final TaskExecutionContext executor) throws ApexException {
+    public boolean getEvent(final TaskExecutionContext executor) {
         String idString = executor.subject.getId();
         executor.logger.debug(idString);
         

@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -193,7 +194,7 @@ public final class ConcurrentContextJvm {
      *
      * @throws Exception on configuration errors
      */
-    public static void configure() throws Exception {
+    public static void configure() throws ApexException {
         System.setProperty("java.net.preferIPv4Stack", "true");
         // The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to
         // work. IN order to
@@ -204,7 +205,13 @@ public final class ConcurrentContextJvm {
         // on a host
         final TreeSet<String> ipAddressSet = new TreeSet<>();
 
-        final Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+        Enumeration<NetworkInterface> nets;
+        try {
+            nets = NetworkInterface.getNetworkInterfaces();
+        } catch (SocketException e) {
+            throw new ApexException("cound not get network interfaces for test", e);
+        }
+        
         for (final NetworkInterface netint : Collections.list(nets)) {
             final Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
             for (final InetAddress inetAddress : Collections.list(inetAddresses)) {
@@ -216,7 +223,7 @@ public final class ConcurrentContextJvm {
         }
 
         if (ipAddressSet.isEmpty()) {
-            throw new Exception("cound not find real IP address for test");
+            throw new ApexException("cound not find real IP address for test");
         }
         LOGGER.info("Setting jgroups.tcp.address to: " + ipAddressSet.first());
         System.setProperty("jgroups.tcp.address", ipAddressSet.first());

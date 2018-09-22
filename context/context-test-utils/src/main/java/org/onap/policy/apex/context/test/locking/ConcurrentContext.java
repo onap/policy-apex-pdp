@@ -67,7 +67,7 @@ public class ConcurrentContext {
      * @throws ApexException the Apex exception occurs in handling Apex
      */
     public Map<String, TestContextLongItem> testConcurrentContext()
-            throws IOException, ApexException {
+            throws ApexException {
 
         try {
             setupAndVerifyContext();

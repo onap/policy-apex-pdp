@@ -55,6 +55,15 @@ public class ApexParameters implements ParameterGroup {
     private static final String EVENT_OUTPUT_PARAMETERS_STRING = "eventOutputParameters";
     private static final String FOR_PEERED_MODE_STRING = " for peered mode ";
 
+    // Parameters for the engine service and the engine threads in the engine service
+    private EngineServiceParameters engineServiceParameters;
+
+    // Parameters for the event outputs that Apex will use to send events on its outputs
+    private Map<String, EventHandlerParameters> eventOutputParameters = new LinkedHashMap<>();
+
+    // Parameters for the event inputs that Apex will use to receive events on its inputs
+    private Map<String, EventHandlerParameters> eventInputParameters = new LinkedHashMap<>();
+
     /**
      * Constructor to create an apex parameters instance and register the instance with the parameter service.
      */
@@ -64,15 +73,6 @@ public class ApexParameters implements ParameterGroup {
         // Set the name for the parameters
         this.name = ApexParameterConstants.MAIN_GROUP_NAME;
     }
-
-    // Parameters for the engine service and the engine threads in the engine service
-    private EngineServiceParameters engineServiceParameters;
-
-    // Parameters for the event outputs that Apex will use to send events on its outputs
-    private Map<String, EventHandlerParameters> eventOutputParameters = new LinkedHashMap<>();
-
-    // Parameters for the event inputs that Apex will use to receive events on its inputs
-    private Map<String, EventHandlerParameters> eventInputParameters = new LinkedHashMap<>();
 
     /**
      * Gets the parameters for the Apex engine service.

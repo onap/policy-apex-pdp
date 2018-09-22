@@ -94,7 +94,7 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
      * @throws ApexActivatorException on errors initializing the producer
      * @throws ApexEventException on errors initializing event handling
      */
-    public void init() throws ApexActivatorException, ApexEventException {
+    public void init() throws ApexEventException {
         // Create the producer for sending events and the converter for transforming events
         producer = new EventProducerFactory().createProducer(name, producerParameters);
 

@@ -23,6 +23,7 @@ package org.onap.policy.apex.core.engine.executor;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 
 /**
@@ -70,7 +71,7 @@ public interface Executor<I, O, S, C> {
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
-    O execute(long executionId, I incomingEntity) throws StateMachineException, ContextException;
+    O execute(long executionId, I incomingEntity) throws ApexException;
 
     /**
      * Carry out the preparatory work for execution.
@@ -80,7 +81,7 @@ public interface Executor<I, O, S, C> {
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
-    void executePre(long executionId, I incomingEntity) throws StateMachineException, ContextException;
+    void executePre(long executionId, I incomingEntity) throws ApexException;
 
     /**
      * Carry out the post work for execution, the returning entity should be set by the child
@@ -91,7 +92,7 @@ public interface Executor<I, O, S, C> {
      * @throws StateMachineException on an execution error
      * @throws ContextException On context errors
      */
-    void executePost(boolean returnValue) throws StateMachineException, ContextException;
+    void executePost(boolean returnValue) throws ApexException;
 
     /**
      * Cleans up after processing.

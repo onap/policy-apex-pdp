@@ -32,6 +32,12 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class ParameterCheck {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ParameterCheck.class);
+
+    private static final String HOSTNAME_PAR = "hostname";
+    private static final String PORT_PAR = "port";
+    private static final String AXARTIFACTKEY_PAR = "AxArtifactKey";
+
     // Recurring string constants
     private static final String PARAMETER = "parameter \"";
     private static final String NOT_FOUND = "\" not found";
@@ -55,12 +61,6 @@ public final class ParameterCheck {
         /** Stop of an Apex engine has been ordered. */
         STOP
     }
-
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ParameterCheck.class);
-
-    private static final String HOSTNAME_PAR = "hostname";
-    private static final String PORT_PAR = "port";
-    private static final String AXARTIFACTKEY_PAR = "AxArtifactKey";
 
     /**
      * Gets the host name.

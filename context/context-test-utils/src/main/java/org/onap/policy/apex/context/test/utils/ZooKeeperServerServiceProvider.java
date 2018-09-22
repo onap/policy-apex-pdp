@@ -26,7 +26,7 @@ import java.net.InetSocketAddress;
 
 import org.apache.zookeeper.server.NIOServerCnxnFactory;
 import org.apache.zookeeper.server.ZooKeeperServer;
-
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -68,12 +68,30 @@ public class ZooKeeperServerServiceProvider {
      * @throws IOException the IO exception occurs while setting up Zookeeper server
      * @throws InterruptedException the interrupted exception occurs while setting up Zookeeper server
      */
-    public void startZookeeperServer() throws IOException, InterruptedException {
+    public void startZookeeperServer() throws ApexException {
         LOGGER.info("Starting up ZooKeeperServer using address: {} and port: {}", addr.getAddress(), addr.getPort());
-        final ZooKeeperServer server = new ZooKeeperServer(zookeeperDirectory, zookeeperDirectory, 5000);
-        zookeeperFactory = new NIOServerCnxnFactory();
-        zookeeperFactory.configure(addr, 100);
-        zookeeperFactory.startup(server);
+
+        ZooKeeperServer server;
+        try {
+            server = new ZooKeeperServer(zookeeperDirectory, zookeeperDirectory, 5000);
+            zookeeperFactory = new NIOServerCnxnFactory();
+            zookeeperFactory.configure(addr, 100);
+        }
+        catch (IOException ioe) {
+            String message = "exception on starting Zookeeper server";
+            LOGGER.warn(message, ioe);
+            throw new ApexException(message, ioe);
+        }
+        
+        try {
+            zookeeperFactory.startup(server);
+        }
+        catch (InterruptedException | IOException ie) {
+            String message = "Zookeeper server start failed";
+            LOGGER.warn(message, ie);
+            throw new ApexException(message, ie);
+        }
+        
     }
 
     /**

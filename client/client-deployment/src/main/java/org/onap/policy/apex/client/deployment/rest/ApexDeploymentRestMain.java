@@ -54,20 +54,6 @@ public class ApexDeploymentRestMain {
     private ApexDeploymentRest apexDeploymentRest = null;
 
     /**
-     * Main method, main entry point for command.
-     *
-     * @param args The command line arguments for the client
-     */
-    public static void main(final String[] args) {
-        try {
-            final ApexDeploymentRestMain restMain = new ApexDeploymentRestMain(args, System.out);
-            restMain.init();
-        } catch (final Exception e) {
-            LOGGER.error("start failed", e);
-        }
-    }
-
-    /**
      * Constructor, kicks off the rest service.
      *
      * @param args The command line arguments for the RESTful service
@@ -201,4 +187,17 @@ public class ApexDeploymentRestMain {
         }
     }
 
+    /**
+     * Main method, main entry point for command.
+     *
+     * @param args The command line arguments for the client
+     */
+    public static void main(final String[] args) {
+        try {
+            final ApexDeploymentRestMain restMain = new ApexDeploymentRestMain(args, System.out);
+            restMain.init();
+        } catch (final Exception e) {
+            LOGGER.error("start failed", e);
+        }
+    }
 }

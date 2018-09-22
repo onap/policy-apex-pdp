@@ -267,6 +267,23 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
             version = eventDefinition.getKey().getVersion();
         }
 
+        String namespace = getEventHeaderNamespace(yamlMap, name, eventDefinition);
+
+        String source = getEventHeaderSource(yamlMap, eventDefinition);
+
+        String target = getHeaderTarget(yamlMap, eventDefinition);
+
+        return new ApexEvent(name, version, namespace, source, target);
+    }
+
+    /**
+     * Get the event header name space.
+     * 
+     * @param yamlMap the YAML map to read from
+     * @param eventDefinition the event definition
+     * @return the event header name space
+     */
+    private String getEventHeaderNamespace(final Map<?, ?> yamlMap, String name, final AxEvent eventDefinition) {
         // Check the name space is OK if it is defined, if not, use the name space from the model
         String namespace = getYamlStringField(yamlMap, ApexEvent.NAMESPACE_HEADER_FIELD, yamlPars.getNameSpaceAlias(),
                         ApexEvent.NAMESPACE_REGEXP, false);
@@ -279,22 +296,41 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         } else {
             namespace = eventDefinition.getNameSpace();
         }
+        return namespace;
+    }
 
+    /**
+     * Get the event header source.
+     * 
+     * @param yamlMap the YAML map to read from
+     * @param eventDefinition the event definition
+     * @return the event header source
+     */
+    private String getEventHeaderSource(final Map<?, ?> yamlMap, final AxEvent eventDefinition) {
         // For source, use the defined source only if the source is not found on the incoming event
         String source = getYamlStringField(yamlMap, ApexEvent.SOURCE_HEADER_FIELD, yamlPars.getSourceAlias(),
                         ApexEvent.SOURCE_REGEXP, false);
         if (source == null) {
             source = eventDefinition.getSource();
         }
+        return source;
+    }
 
+    /**
+     * Get the event header target.
+     * 
+     * @param yamlMap the YAML map to read from
+     * @param eventDefinition the event definition
+     * @return the event header target
+     */
+    private String getHeaderTarget(final Map<?, ?> yamlMap, final AxEvent eventDefinition) {
         // For target, use the defined source only if the source is not found on the incoming event
         String target = getYamlStringField(yamlMap, ApexEvent.TARGET_HEADER_FIELD, yamlPars.getTargetAlias(),
                         ApexEvent.TARGET_REGEXP, false);
         if (target == null) {
             target = eventDefinition.getTarget();
         }
-
-        return new ApexEvent(name, version, namespace, source, target);
+        return target;
     }
 
     /**

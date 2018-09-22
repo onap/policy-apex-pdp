@@ -54,20 +54,6 @@ public class ApexMonitoringRestMain {
     private ApexMonitoringRest apexMonitoringRest = null;
 
     /**
-     * Main method, main entry point for command.
-     *
-     * @param args The command line arguments for the client
-     */
-    public static void main(final String[] args) {
-        try {
-            final ApexMonitoringRestMain restMain = new ApexMonitoringRestMain(args, System.out);
-            restMain.init();
-        } catch (final Exception e) {
-            LOGGER.error("start failed", e);
-        }
-    }
-
-    /**
      * Constructor, kicks off the rest service.
      *
      * @param args The command line arguments for the RESTful service
@@ -201,4 +187,17 @@ public class ApexMonitoringRestMain {
         }
     }
 
+    /**
+     * Main method, main entry point for command.
+     *
+     * @param args The command line arguments for the client
+     */
+    public static void main(final String[] args) {
+        try {
+            final ApexMonitoringRestMain restMain = new ApexMonitoringRestMain(args, System.out);
+            restMain.init();
+        } catch (final Exception e) {
+            LOGGER.error("start failed", e);
+        }
+    }
 }

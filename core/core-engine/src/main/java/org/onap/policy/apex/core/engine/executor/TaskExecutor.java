@@ -181,23 +181,7 @@ public abstract class TaskExecutor
         // Copy any unset fields from the input to the output if their data type and names are
         // identical
         for (final String field : axTask.getOutputFields().keySet()) {
-            // Check if the field exists and is not set on the output
-            if (!getOutgoing().containsKey(field) || getOutgoing().get(field) != null) {
-                continue;
-            }
-
-            // This field is not in the output, check if it's on the input and is the same type
-            // (Note here, the output
-            // field definition has to exist so it's not
-            // null checked)
-            final AxInputField inputFieldDef = axTask.getInputFields().get(field);
-            final AxOutputField outputFieldDef = axTask.getOutputFields().get(field);
-            if (inputFieldDef == null || !inputFieldDef.getSchema().equals(outputFieldDef.getSchema())) {
-                continue;
-            }
-
-            // We have an input field that matches our output field, copy the value across
-            getOutgoing().put(field, getIncoming().get(field));
+            copyInputField2Output(field);
         }
 
         // Finally, check that the outgoing fields have all the output fields defined for this state
@@ -231,6 +215,32 @@ public abstract class TaskExecutor
 
         String message = "execute-post:" + axTask.getKey().getId() + ", returning fields " + outgoingFields.toString();
         LOGGER.debug(message);
+    }
+
+    /**
+     * If the input field exists on the output and it is not set in the task, then it should
+     * be copied to the output.
+     * 
+     * @param field the input field 
+     */
+    private void copyInputField2Output(String field) {
+        // Check if the field exists and is not set on the output
+        if (!getOutgoing().containsKey(field) || getOutgoing().get(field) != null) {
+            return;
+        }
+
+        // This field is not in the output, check if it's on the input and is the same type
+        // (Note here, the output
+        // field definition has to exist so it's not
+        // null checked)
+        final AxInputField inputFieldDef = axTask.getInputFields().get(field);
+        final AxOutputField outputFieldDef = axTask.getOutputFields().get(field);
+        if (inputFieldDef == null || !inputFieldDef.getSchema().equals(outputFieldDef.getSchema())) {
+            return;
+        }
+
+        // We have an input field that matches our output field, copy the value across
+        getOutgoing().put(field, getIncoming().get(field));
     }
 
     /*

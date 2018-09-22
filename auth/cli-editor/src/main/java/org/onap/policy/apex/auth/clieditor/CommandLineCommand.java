@@ -214,12 +214,33 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
             return this.hashCode() - otherCommand.hashCode();
         }
 
-        final CommandLineCommand other = otherCommand;
+        int result = compareKeywordList(otherCommand);
+        if (result != 0) {
+            return result;
+        }
+        
+        if (!argumentList.equals(otherCommand.argumentList)) {
+            return (argumentList.hashCode() - otherCommand.argumentList.hashCode());
+        }
+        
+        if (systemCommand != otherCommand.systemCommand) {
+            return (this.hashCode() - otherCommand.hashCode());
+        }
+        
+        return apiMethod.compareTo(otherCommand.apiMethod);
+    }
 
+    /**
+     * Compare the keyword lists of the commands.
+     *
+     * @param otherCommand the command to compare with
+     * @return the int
+     */
+    private int compareKeywordList(final CommandLineCommand otherCommand) {
         for (int i = 0, j = 0;; i++, j++) {
             if (i < keywordlist.size() && j < otherCommand.keywordlist.size()) {
-                if (!keywordlist.get(i).equals(other.keywordlist.get(j))) {
-                    return keywordlist.get(i).compareTo(other.keywordlist.get(j));
+                if (!keywordlist.get(i).equals(otherCommand.keywordlist.get(j))) {
+                    return keywordlist.get(i).compareTo(otherCommand.keywordlist.get(j));
                 }
             } else if (i == keywordlist.size() && j == otherCommand.keywordlist.size()) {
                 break;
@@ -229,12 +250,43 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
                 return 1;
             }
         }
-        if (!argumentList.equals(other.argumentList)) {
-            return (argumentList.hashCode() - other.argumentList.hashCode());
+        
+        return 0;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((apiMethod == null) ? 0 : apiMethod.hashCode());
+        result = prime * result + argumentList.hashCode();
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + keywordlist.hashCode();
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + (systemCommand ? 1231 : 1237);
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
         }
-        if (systemCommand != other.systemCommand) {
-            return (this.hashCode() - other.hashCode());
+        
+        if (obj == null) {
+            return false;
         }
-        return apiMethod.compareTo(other.apiMethod);
+        
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        return this.compareTo((CommandLineCommand) obj) == 0;
     }
 }

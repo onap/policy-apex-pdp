@@ -36,6 +36,7 @@ import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
+import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
@@ -89,6 +90,7 @@ public class TestJsonEventHandlerForPojo {
     @AfterClass
     public static void teardownDefaultSchemaParameters() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ModelService.clear();
     }
 
     /**

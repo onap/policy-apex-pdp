@@ -103,25 +103,7 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
                 // Set up the Jython engine
                 interpreter.set("executor", getExecutionContext());
                 interpreter.exec(compiled);
-
-                try {
-                    final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
-                    if (ret == null) {
-                        LOGGER.error(TSL_FAILED_PREFIX
-                                + getSubject().getKey().getId() + "\"");
-                        throw new StateMachineException(
-                                TSL_FAILED_PREFIX
-                                        + getSubject().getKey().getId() + "\"");
-                    }
-                    returnValue = (Boolean) ret;
-                } catch (NullPointerException | ClassCastException e) {
-                    LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                            + getSubject().getKey().getId() + "\"", e);
-                    throw new StateMachineException(
-                            TSL_FAILED_PREFIX
-                                    + getSubject().getKey().getId() + "\"",
-                            e);
-                }
+                returnValue = handleInterpreterResult();
             }
             /* */
         } catch (final Exception e) {
@@ -140,6 +122,36 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Handle the result returned by the interpreter.
+     * 
+     * @return true if the result was successful
+     * @throws StateMachineException on interpreter errors
+     */
+    private boolean handleInterpreterResult() throws StateMachineException {
+        boolean returnValue = false;
+        
+        try {
+            final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
+            if (ret == null) {
+                LOGGER.error(TSL_FAILED_PREFIX
+                        + getSubject().getKey().getId() + "\"");
+                throw new StateMachineException(
+                        TSL_FAILED_PREFIX
+                                + getSubject().getKey().getId() + "\"");
+            }
+            returnValue = (Boolean) ret;
+        } catch (NullPointerException | ClassCastException e) {
+            LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
+                    + getSubject().getKey().getId() + "\"", e);
+            throw new StateMachineException(
+                    TSL_FAILED_PREFIX
+                            + getSubject().getKey().getId() + "\"",
+                    e);
+        }
+        return returnValue;
     }
 
     /**

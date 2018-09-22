@@ -216,15 +216,10 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         try {
             final List<ApexEvent> apexEventList = converter.toApexEvent(consumerParameters.getEventName(), event);
             for (final ApexEvent apexEvent : apexEventList) {
-                // Check if we are filtering events on this unmarshaler, if so check the event name
-                // against the filter
-                if (consumerParameters.isSetEventNameFilter()
-                                && !apexEvent.getName().matches(consumerParameters.getEventNameFilter())) {
-                    if (LOGGER.isTraceEnabled()) {
-                        LOGGER.trace("onMessage(): event {} not processed, filtered  out by filter", apexEvent,
-                                        consumerParameters.getEventNameFilter());
-                    }
+                isEventFilteredOut(apexEvent);
 
+                // Check if this event is filtered out by the incoming filter
+                if (isEventFilteredOut(apexEvent)) {
                     // Ignore this event
                     continue;
                 }
@@ -248,6 +243,29 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                             + e.getMessage() + ", Event=" + event;
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
+        }
+    }
+
+    /**
+     * Check if an event is filtered out and ignored.
+     * 
+     * @param apexEvent the event to check
+     */
+    private boolean isEventFilteredOut(final ApexEvent apexEvent) {
+        // Check if we are filtering events on this unmarshaler, if so check the event name
+        // against the filter
+        if (consumerParameters.isSetEventNameFilter()
+                        && !apexEvent.getName().matches(consumerParameters.getEventNameFilter())) {
+            
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("onMessage(): event {} not processed, filtered  out by filter", apexEvent,
+                                consumerParameters.getEventNameFilter());
+            }
+            
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
