@@ -100,23 +100,7 @@ public class JythonTaskExecutor extends TaskExecutor {
                 // Set up the Jython engine
                 interpreter.set("executor", getExecutionContext());
                 interpreter.exec(compiled);
-                try {
-                    final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
-                    if (ret == null) {
-                        LOGGER.error("execute: task logic failed to set a return value for task  \""
-                                + getSubject().getKey().getId() + "\"");
-                        throw new StateMachineException("execute: task logic failed to set a return value for task  \""
-                                + getSubject().getKey().getId() + "\"");
-                    }
-                    returnValue = (Boolean) ret;
-                } catch (NullPointerException | ClassCastException e) {
-                    LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                            + getSubject().getKey().getId() + "\"", e);
-                    throw new StateMachineException(
-                            "execute: task selection logic failed to set a return value for state  \""
-                                    + getSubject().getKey().getId() + "\"",
-                            e);
-                }
+                returnValue = handleInterpreterResult();
             }
             /* */
         } catch (final Exception e) {
@@ -134,6 +118,35 @@ public class JythonTaskExecutor extends TaskExecutor {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Handle the result returned by the interpreter.
+     * 
+     * @return true if the result was successful
+     * @throws StateMachineException on interpreter failures
+     */
+    private boolean handleInterpreterResult() throws StateMachineException {
+        boolean returnValue = false;
+        
+        try {
+            final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
+            if (ret == null) {
+                LOGGER.error("execute: task logic failed to set a return value for task  \""
+                        + getSubject().getKey().getId() + "\"");
+                throw new StateMachineException("execute: task logic failed to set a return value for task  \""
+                        + getSubject().getKey().getId() + "\"");
+            }
+            returnValue = (Boolean) ret;
+        } catch (NullPointerException | ClassCastException e) {
+            LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
+                    + getSubject().getKey().getId() + "\"", e);
+            throw new StateMachineException(
+                    "execute: task selection logic failed to set a return value for state  \""
+                            + getSubject().getKey().getId() + "\"",
+                    e);
+        }
+        return returnValue;
     }
 
     /**

@@ -23,7 +23,6 @@ package org.onap.policy.apex.client.editor.rest.handling;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 
-// TODO: Auto-generated Javadoc
 /**
  * This interface defines the methods that a REST handler must implement to handle REST editor commands.
  *

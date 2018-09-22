@@ -102,16 +102,24 @@ public class ConcurrentContextJvmThread implements Runnable, Closeable {
                 LOGGER.info(line);
             }
 
-            // Wait to get exit value
-            try {
-                final int exitValue = process.waitFor();
-                LOGGER.info("\n\nJVM " + jvm + " finished, exit value is " + exitValue);
-            } catch (final InterruptedException e) {
-                LOGGER.warn("Thread was interrupted");
-                Thread.currentThread().interrupt();
-            }
+            waitForExitValue();
+            
         } catch (final Exception ioException) {
             LOGGER.error("Error occured while writing JVM Output for command ", ioException);
+        }
+    }
+
+    /**
+     * Wait for an exit value from the the JVM.
+     */
+    private void waitForExitValue() {
+        // Wait to get exit value
+        try {
+            final int exitValue = process.waitFor();
+            LOGGER.info("\n\nJVM " + jvm + " finished, exit value is " + exitValue);
+        } catch (final InterruptedException e) {
+            LOGGER.warn("Thread was interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 

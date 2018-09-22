@@ -65,6 +65,8 @@ public class EvalDomainModelFactory {
     private static final String EVENT = "Event";
     private static final String TASK_SELECTION_LOGIC = "TaskSelectionLogic";
     private static final String JYTHON = "JYTHON";
+    private static final String JRUBY = "JRUBY";
+    private static final String MVEL = "MVEL";
     private static final String ORIENT = "Orient";
     private static final String STATE_NAME = "<STATE_NAME>";
     private static final String OBSERVE = "Observe";
@@ -219,12 +221,12 @@ public class EvalDomainModelFactory {
         obTask.duplicateInputFields(event0000.getParameterMap());
         obTask.duplicateOutputFields(event0001.getParameterMap());
         final AxTaskLogic obAxLogic = new AxTaskLogic(obTask.getKey(), TASK_LOGIC,
-                        (justOneLang == null ? "JRUBY" : justOneLang), logicReader);
+                        (justOneLang == null ? JRUBY : justOneLang), logicReader);
         obAxLogic.setLogic(obAxLogic.getLogic().replaceAll(STATE_NAME, OBSERVE)
                         .replaceAll(TASK_NAME, obTask.getKey().getName()).replaceAll(STATE_NUMBER, "1"));
         obTask.setTaskLogic(obAxLogic);
 
-        final AxTask orTask = new AxTask(new AxArtifactKey("Task_Orient_0", "0.0.1"));
+        final AxTask orTask = new AxTask(new AxArtifactKey("Task_Orient_0", DEFAULT_VERSION));
         orTask.duplicateInputFields(event0001.getParameterMap());
         orTask.duplicateOutputFields(event0002.getParameterMap());
         final AxTaskLogic orAxLogic = new AxTaskLogic(orTask.getKey(), TASK_LOGIC,
@@ -233,16 +235,16 @@ public class EvalDomainModelFactory {
                         .replaceAll(TASK_NAME, orTask.getKey().getName()).replaceAll(STATE_NUMBER, "2"));
         orTask.setTaskLogic(orAxLogic);
 
-        final AxTask dTask = new AxTask(new AxArtifactKey("Task_Decide_0", "0.0.1"));
+        final AxTask dTask = new AxTask(new AxArtifactKey("Task_Decide_0", DEFAULT_VERSION));
         dTask.duplicateInputFields(event0002.getParameterMap());
         dTask.duplicateOutputFields(event0003.getParameterMap());
         final AxTaskLogic dAxLogic = new AxTaskLogic(dTask.getKey(), TASK_LOGIC,
-                        (justOneLang == null ? "MVEL" : justOneLang), logicReader);
+                        (justOneLang == null ? MVEL : justOneLang), logicReader);
         dAxLogic.setLogic(dAxLogic.getLogic().replaceAll(STATE_NAME, ORIENT)
                         .replaceAll(TASK_NAME, dTask.getKey().getName()).replaceAll(STATE_NUMBER, "3"));
         dTask.setTaskLogic(dAxLogic);
 
-        final AxTask aTask = new AxTask(new AxArtifactKey("Task_Act_0", "0.0.1"));
+        final AxTask aTask = new AxTask(new AxArtifactKey("Task_Act_0", DEFAULT_VERSION));
         aTask.duplicateInputFields(event0003.getParameterMap());
         aTask.duplicateOutputFields(event0004.getParameterMap());
         final AxTaskLogic aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
@@ -261,20 +263,8 @@ public class EvalDomainModelFactory {
         final Set<AxArtifactKey> decTasks = new TreeSet<>();
         final Set<AxArtifactKey> actTasks = new TreeSet<>();
 
-        for (final AxTask task : tasks.getTaskMap().values()) {
-            if (task.getKey().getName().contains(OBSERVE)) {
-                obTasks.add(task.getKey());
-            }
-            if (task.getKey().getName().contains(ORIENT)) {
-                orTasks.add(task.getKey());
-            }
-            if (task.getKey().getName().contains("Decide")) {
-                decTasks.add(task.getKey());
-            }
-            if (task.getKey().getName().contains("Act")) {
-                actTasks.add(task.getKey());
-            }
-        }
+        addOodaTasks(tasks, obTasks, orTasks, decTasks, actTasks);
+        
         final List<Set<AxArtifactKey>> taskReferenceList = new ArrayList<>();
         taskReferenceList.add(obTasks);
         taskReferenceList.add(orTasks);
@@ -299,23 +289,24 @@ public class EvalDomainModelFactory {
         p0defaultTaskList.add(tasks.get("Task_Decide_0").getKey());
         p0defaultTaskList.add(tasks.get("Task_Act_0").getKey());
 
-        final AxPolicy policy0 = new AxPolicy(new AxArtifactKey("OODAPolicy_0", "0.0.1"));
-        final List<String> axLogicExecutorTypeList = Arrays.asList((justOneLang == null ? JAVASCRIPT : justOneLang),
-                        (justOneLang == null ? "MVEL" : justOneLang), (justOneLang == null ? JYTHON : justOneLang),
-                        (justOneLang == null ? "JRUBY" : justOneLang));
+        final AxPolicy policy0 = new AxPolicy(new AxArtifactKey("OODAPolicy_0", DEFAULT_VERSION));
+        final List<String> axLogicExecutorTypeList = initAxLogicExecutorTypeList(justOneLang);
+
         policy0.setStateMap(getOodaStateMap(policy0.getKey(), p0InEventList, p0OutEventList, axLogicExecutorTypeList,
                         p0defaultTaskList, taskReferenceList));
         policy0.setFirstState(policy0.getStateMap().get(OBSERVE).getKey().getLocalName());
 
-        final AxPolicies policies = new AxPolicies(new AxArtifactKey("OODAPolicies", "0.0.1"));
+        final AxPolicies policies = new AxPolicies(new AxArtifactKey("OODAPolicies", DEFAULT_VERSION));
         policies.getPolicyMap().put(policy0.getKey(), policy0);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey("KeyInformation", "0.0.1"));
-        final AxPolicyModel policyModel = new AxPolicyModel(new AxArtifactKey("EvaluationPolicyModel_OODA", "0.0.1"));
+        final AxKeyInformation keyInformation = new AxKeyInformation(
+                        new AxArtifactKey("KeyInformation", DEFAULT_VERSION));
+        final AxPolicyModel policyModel = new AxPolicyModel(
+                        new AxArtifactKey("EvaluationPolicyModel_OODA", DEFAULT_VERSION));
         policyModel.setPolicies(policies);
         policyModel.setEvents(events);
         policyModel.setTasks(tasks);
-        policyModel.setAlbums(new AxContextAlbums(new AxArtifactKey("Albums", "0.0.1")));
+        policyModel.setAlbums(new AxContextAlbums(new AxArtifactKey("Albums", DEFAULT_VERSION)));
         policyModel.setSchemas(schemas);
         policyModel.setKeyInformation(keyInformation);
         policyModel.getKeyInformation().generateKeyInfo(policyModel);
@@ -325,6 +316,54 @@ public class EvalDomainModelFactory {
             throw new ApexRuntimeException("model " + policyModel.getId() + " is not valid" + result);
         }
         return policyModel;
+    }
+
+    /**
+     * Add OODA tasks to the policy.
+     * 
+     * @param tasks the policy tasks
+     * @param obTasks observe tasks
+     * @param orTasks orient tasks
+     * @param decTasks decide tasks
+     * @param actTasks act tasks
+     */
+    private void addOodaTasks(final AxTasks tasks, final Set<AxArtifactKey> obTasks, final Set<AxArtifactKey> orTasks,
+                    final Set<AxArtifactKey> decTasks, final Set<AxArtifactKey> actTasks) {
+        for (final AxTask task : tasks.getTaskMap().values()) {
+            if (task.getKey().getName().contains(OBSERVE)) {
+                obTasks.add(task.getKey());
+            }
+            if (task.getKey().getName().contains(ORIENT)) {
+                orTasks.add(task.getKey());
+            }
+            if (task.getKey().getName().contains("Decide")) {
+                decTasks.add(task.getKey());
+            }
+            if (task.getKey().getName().contains("Act")) {
+                actTasks.add(task.getKey());
+            }
+        }
+    }
+
+    /**
+     * Initialize the logic executor list.
+     * 
+     * @param justOneLang the language to use
+     * @return the list of languages
+     */
+    private List<String> initAxLogicExecutorTypeList(final String justOneLang) {
+        List<String> axLogicExecutorTypeList = new ArrayList<>();
+
+        if (justOneLang != null) {
+            axLogicExecutorTypeList.add(justOneLang);
+        } else {
+            axLogicExecutorTypeList.add(JAVASCRIPT);
+            axLogicExecutorTypeList.add(JYTHON);
+            axLogicExecutorTypeList.add(JYTHON);
+            axLogicExecutorTypeList.add(MVEL);
+            axLogicExecutorTypeList.add(JRUBY);
+        }
+        return axLogicExecutorTypeList;
     }
 
     /**
@@ -417,12 +456,12 @@ public class EvalDomainModelFactory {
      */
     public AxPolicyModel getEcaPolicyModel() {
 
-        final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", "0.0.1"));
+        final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
 
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalTask_Logic");
 
-        final AxTask eTask = new AxTask(new AxArtifactKey("Task_Event_0", "0.0.1"));
+        final AxTask eTask = new AxTask(new AxArtifactKey("Task_Event_0", DEFAULT_VERSION));
         eTask.duplicateInputFields(event0000.getParameterMap());
         eTask.duplicateOutputFields(event0001.getParameterMap());
         final AxTaskLogic eAxLogic = new AxTaskLogic(eTask.getKey(), TASK_LOGIC,
@@ -431,7 +470,7 @@ public class EvalDomainModelFactory {
                         .replaceAll(TASK_NAME, eTask.getKey().getName()).replaceAll(STATE_NUMBER, "1"));
         eTask.setTaskLogic(eAxLogic);
 
-        final AxTask cTask = new AxTask(new AxArtifactKey("Task_Condition_0", "0.0.1"));
+        final AxTask cTask = new AxTask(new AxArtifactKey("Task_Condition_0", DEFAULT_VERSION));
         cTask.duplicateInputFields(event0001.getParameterMap());
         cTask.duplicateOutputFields(event0002.getParameterMap());
         final AxTaskLogic cAxLogic = new AxTaskLogic(cTask.getKey(), TASK_LOGIC,
@@ -440,7 +479,7 @@ public class EvalDomainModelFactory {
                         .replaceAll(TASK_NAME, cTask.getKey().getName()).replaceAll(STATE_NUMBER, "2"));
         cTask.setTaskLogic(cAxLogic);
 
-        final AxTask aTask = new AxTask(new AxArtifactKey("Task_Action_0", "0.0.1"));
+        final AxTask aTask = new AxTask(new AxArtifactKey("Task_Action_0", DEFAULT_VERSION));
         aTask.duplicateInputFields(event0002.getParameterMap());
         aTask.duplicateOutputFields(event0003.getParameterMap());
         final AxTaskLogic aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
@@ -457,17 +496,7 @@ public class EvalDomainModelFactory {
         final Set<AxArtifactKey> conditionTasks = new TreeSet<>();
         final Set<AxArtifactKey> actionTasks = new TreeSet<>();
 
-        for (final AxTask task : tasks.getTaskMap().values()) {
-            if (task.getKey().getName().contains(EVENT)) {
-                eventTasks.add(task.getKey());
-            }
-            if (task.getKey().getName().contains(CONDITION)) {
-                conditionTasks.add(task.getKey());
-            }
-            if (task.getKey().getName().contains(ACTION)) {
-                actionTasks.add(task.getKey());
-            }
-        }
+        addEcaTasks(tasks, eventTasks, conditionTasks, actionTasks);
         final List<Set<AxArtifactKey>> taskReferenceList = new ArrayList<>();
         taskReferenceList.add(eventTasks);
         taskReferenceList.add(conditionTasks);
@@ -488,22 +517,24 @@ public class EvalDomainModelFactory {
         p0defaultTaskList.add(tasks.get("Task_Condition_0").getKey());
         p0defaultTaskList.add(tasks.get("Task_Action_0").getKey());
 
-        final AxPolicy policy0 = new AxPolicy(new AxArtifactKey("ECAPolicy_0", "0.0.1"));
+        final AxPolicy policy0 = new AxPolicy(new AxArtifactKey("ECAPolicy_0", DEFAULT_VERSION));
         final List<String> axLogicExecutorTypeList = Arrays.asList((justOneLang == null ? JAVASCRIPT : justOneLang),
-                        (justOneLang == null ? "MVEL" : justOneLang), (justOneLang == null ? JYTHON : justOneLang));
+                        (justOneLang == null ? MVEL : justOneLang), (justOneLang == null ? JYTHON : justOneLang));
         policy0.setStateMap(getEcaStateMap(policy0.getKey(), p0InEventList, p0OutEventList, axLogicExecutorTypeList,
                         p0defaultTaskList, taskReferenceList));
         policy0.setFirstState(policy0.getStateMap().get(EVENT).getKey().getLocalName());
 
-        final AxPolicies policies = new AxPolicies(new AxArtifactKey("ECAPolicies", "0.0.1"));
+        final AxPolicies policies = new AxPolicies(new AxArtifactKey("ECAPolicies", DEFAULT_VERSION));
         policies.getPolicyMap().put(policy0.getKey(), policy0);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey("KeyInformation", "0.0.1"));
-        final AxPolicyModel policyModel = new AxPolicyModel(new AxArtifactKey("EvaluationPolicyModel_ECA", "0.0.1"));
+        final AxKeyInformation keyInformation = new AxKeyInformation(
+                        new AxArtifactKey("KeyInformation", DEFAULT_VERSION));
+        final AxPolicyModel policyModel = new AxPolicyModel(
+                        new AxArtifactKey("EvaluationPolicyModel_ECA", DEFAULT_VERSION));
         policyModel.setPolicies(policies);
         policyModel.setEvents(events);
         policyModel.setTasks(tasks);
-        policyModel.setAlbums(new AxContextAlbums(new AxArtifactKey("Albums", "0.0.1")));
+        policyModel.setAlbums(new AxContextAlbums(new AxArtifactKey("Albums", DEFAULT_VERSION)));
         policyModel.setSchemas(schemas);
         policyModel.setKeyInformation(keyInformation);
         policyModel.getKeyInformation().generateKeyInfo(policyModel);
@@ -513,6 +544,29 @@ public class EvalDomainModelFactory {
             throw new ApexRuntimeException("model " + policyModel.getId() + " is not valid" + result);
         }
         return policyModel;
+    }
+
+    /**
+     * Add ECA tasks.
+     * 
+     * @param tasks the tasks
+     * @param eventTasks event tasks
+     * @param conditionTasks condition tasks
+     * @param actionTasks action tasks
+     */
+    private void addEcaTasks(final AxTasks tasks, final Set<AxArtifactKey> eventTasks,
+                    final Set<AxArtifactKey> conditionTasks, final Set<AxArtifactKey> actionTasks) {
+        for (final AxTask task : tasks.getTaskMap().values()) {
+            if (task.getKey().getName().contains(EVENT)) {
+                eventTasks.add(task.getKey());
+            }
+            if (task.getKey().getName().contains(CONDITION)) {
+                conditionTasks.add(task.getKey());
+            }
+            if (task.getKey().getName().contains(ACTION)) {
+                actionTasks.add(task.getKey());
+            }
+        }
     }
 
     /**

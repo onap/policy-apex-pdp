@@ -45,13 +45,13 @@ public final class Application {
     /** The description 1-liner of the application. */
     public static final String APP_DESCRIPTION = "generates JSON templates for events generated from a policy model";
 
-    /** Private constructor to prevent instantiation. */
-    private Application() {
-    }
-
     // Input and output streams
     private static final PrintStream OUT_STREAM = System.out;
     private static final PrintStream ERR_STREAM = System.err;
+
+    /** Private constructor to prevent instantiation. */
+    private Application() {
+    }
 
     /**
      * Main method to start the application.

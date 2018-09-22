@@ -77,7 +77,7 @@ public class ContextUpdate {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    public void testContextUpdate() throws IOException, ApexException {
+    public void testContextUpdate() throws ApexException {
         LOGGER.debug("Running TestContextUpdate test . . .");
 
         final Distributor contextDistributor = getDistributor();

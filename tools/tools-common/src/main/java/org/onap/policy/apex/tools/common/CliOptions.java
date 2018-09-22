@@ -29,9 +29,6 @@ import org.apache.commons.cli.Option;
  */
 public final class CliOptions {
 
-    /** Private constructor to prevent instantiation. */
-    private CliOptions() {}
-
     /** A console option with "-c" and "--console". */
     public static final Option CONSOLE =
             Option.builder("c").longOpt("console").desc("application as console with input from standard in").build();
@@ -103,4 +100,7 @@ public final class CliOptions {
     /** A skip validation option with "-sv" and "--skip-validation". */
     public static final Option SKIPVALIDATION = Option.builder("sv").longOpt("skip-validation")
             .desc("switch of validation of the input file").required(false).type(boolean.class).build();
+    
+    /** Private constructor to prevent instantiation. */
+    private CliOptions() {}
 }

@@ -47,6 +47,13 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
     private static final double ANOMALY_SENSITIVITY = 0.05;
     private static final int FREQUENCY = 360;
 
+    /*
+     * Some utility methods
+     */
+    // exponential = 2(n+1)
+    private static final double EMA_EXPONENT = 2.0 / (7.0 + 1.0);
+    private static final double EMA_EXPONENT_1 = (1.0 - EMA_EXPONENT);
+
     /**
      * A map to hold the Anomaly degree/levels/probabilities required for each task.<br>
      * If there is no task defined for a calculated anomaly-degree, then the default task is
@@ -294,13 +301,6 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         }
         return pvalue;
     }
-
-    /*
-     * Some utility methods
-     */
-    // exponential = 2(n+1)
-    private static final double EMA_EXPONENT = 2.0 / (7.0 + 1.0);
-    private static final double EMA_EXPONENT_1 = (1.0 - EMA_EXPONENT);
 
     /**
      * exponential moving average.

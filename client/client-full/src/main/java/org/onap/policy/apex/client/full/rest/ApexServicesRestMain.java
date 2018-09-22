@@ -65,20 +65,6 @@ public class ApexServicesRestMain {
     private final PrintStream outStream;
 
     /**
-     * Main method, main entry point for command.
-     *
-     * @param args The command line arguments for the editor
-     */
-    public static void main(final String[] args) {
-        try {
-            final ApexServicesRestMain editorMain = new ApexServicesRestMain(args, System.out);
-            editorMain.init();
-        } catch (final Exception e) {
-            LOGGER.error("error starting REST client", e);
-        }
-    }
-
-    /**
      * Constructor, kicks off the editor.
      *
      * @param args The command line arguments for the editor
@@ -211,6 +197,19 @@ public class ApexServicesRestMain {
             if (apexServices != null) {
                 apexServices.shutdown();
             }
+        }
+    }
+    /**
+     * Main method, main entry point for command.
+     *
+     * @param args The command line arguments for the editor
+     */
+    public static void main(final String[] args) {
+        try {
+            final ApexServicesRestMain editorMain = new ApexServicesRestMain(args, System.out);
+            editorMain.init();
+        } catch (final Exception e) {
+            LOGGER.error("error starting REST client", e);
         }
     }
 }

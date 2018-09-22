@@ -108,7 +108,7 @@ public class Model2Cli {
      *         version), negative integer for errors
      * @throws ApexException if any problem occurred in the model
      */
-    public int runApp() throws ApexException {
+    public int runApp() {
         final CodeGeneratorCliEditor codeGen = new CodeGeneratorCliEditor();
 
         final ApexModelFactory factory = new ApexModelFactory();

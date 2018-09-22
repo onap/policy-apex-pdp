@@ -43,15 +43,6 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  */
 public interface ApexEngine {
     /**
-     * The amount of milliseconds to wait for the current Apex engine to timeout on engine stop
-     * requests. If the timeout is exceeded, the stop aborts.
-     */
-    int STOP_EXECUTION_WAIT_TIMEOUT = 3000;
-
-    /** The wait increment (or pause time) when waiting for the Apex engine to stop. */
-    int APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT = 100;
-
-    /**
      * Update the Apex model to be used by the Apex engine. The engine must be in state "STOPPED"
      * when the model is updated. The engine will replace the current model with the incoming model
      * if the model of the engine was previously updated and the value of common context is

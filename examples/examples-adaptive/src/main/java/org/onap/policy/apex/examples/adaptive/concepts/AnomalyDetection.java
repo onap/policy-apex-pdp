@@ -38,6 +38,9 @@ public class AnomalyDetection implements Serializable {
     private boolean firstRound = true;
     private int frequency = 0;
 
+    private List<Double> anomalyScores = new LinkedList<>();
+    private List<Double> frequencyForecasted;
+
     /**
      * The Constructor creates an AnomalyDetection instance.
      */
@@ -45,9 +48,6 @@ public class AnomalyDetection implements Serializable {
         firstRound = true;
         frequency = 0;
     }
-
-    private List<Double> anomalyScores = new LinkedList<>();
-    private List<Double> frequencyForecasted;
 
     /**
      * Checks if the AnomalyDetection instance is initialized.

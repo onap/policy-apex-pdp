@@ -166,21 +166,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     private String getStringObject(final Object object) {
         try {
             if (isObjectString(object)) {
-                String objectString = object.toString().trim();
-                if (objectString.length() == 0) {
-                    return "\"\"";
-                } else if (objectString.length() == 1) {
-                    return "\"" + objectString + "\"";
-                } else {
-                    // All strings must be quoted for decoding
-                    if (objectString.charAt(0) != '"') {
-                        objectString = '"' + objectString;
-                    }
-                    if (objectString.charAt(objectString.length() - 1) != '"') {
-                        objectString += '"';
-                    }
-                }
-                return objectString;
+                return getObjectString(object);
             } else {
                 return (String) object;
             }
@@ -192,6 +178,30 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
+    }
+
+    /**
+     * Get a string object.
+     * 
+     * @param object the string object
+     * @return the string
+     */
+    private String getObjectString(final Object object) {
+        String objectString = object.toString().trim();
+        if (objectString.length() == 0) {
+            return "\"\"";
+        } else if (objectString.length() == 1) {
+            return "\"" + objectString + "\"";
+        } else {
+            // All strings must be quoted for decoding
+            if (objectString.charAt(0) != '"') {
+                objectString = '"' + objectString;
+            }
+            if (objectString.charAt(objectString.length() - 1) != '"') {
+                objectString += '"';
+            }
+        }
+        return objectString;
     }
 
     private boolean isObjectString(final Object object) {

@@ -33,7 +33,6 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  *
  */
 public class TestJsonEventConverter {
-
     @Test
     public void testJsonEventConverter() {
         Apex2JsonEventConverter converter = new Apex2JsonEventConverter();

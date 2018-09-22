@@ -166,10 +166,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
                 final ConsumerRecords<String, String> records =
                         kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration().toMillis());
                 for (final ConsumerRecord<String, String> record : records) {
-                    if (LOGGER.isTraceEnabled()) {
-                        LOGGER.trace("event received for {} for forwarding to Apex engine : {} {}",
-                                this.getClass().getName() + ":" + this.name, record.key(), record.value());
-                    }
+                    traceIfTraceEnabled(record);
                     eventReceiver.receiveEvent(record.value());
                 }
             } catch (final Exception e) {
@@ -179,6 +176,18 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
 
         if (!consumerThread.isInterrupted()) {
             kafkaConsumer.close();
+        }
+    }
+
+    /**
+     * Trace a record if trace is enabled.
+     * 
+     * @param record the record to trace
+     */
+    private void traceIfTraceEnabled(final ConsumerRecord<String, String> record) {
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("event received for {} for forwarding to Apex engine : {} {}",
+                    this.getClass().getName() + ":" + this.name, record.key(), record.value());
         }
     }
 

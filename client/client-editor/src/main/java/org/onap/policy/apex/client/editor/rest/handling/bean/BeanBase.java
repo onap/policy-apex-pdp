@@ -31,6 +31,9 @@ public abstract class BeanBase {
     private static final String PROBLEM_RETRIEVING_FIELD_PREFIX = "Problem retrieving field called ('";
     private static final String JSON_BEAN_SUFFIX = "') from JSON bean ";
 
+    // Magic numbers
+    private static final int GET_LENGTH = 3;
+
     /**
      * Gets a named field from the bean.
      *
@@ -38,20 +41,14 @@ public abstract class BeanBase {
      * @return the value for the field
      */
     public String get(final String field) {
-        // CHECKSTYLE:OFF: MagicNumber
         // use getter preferably
         for (final Method method : this.getClass().getMethods()) {
-            if ((method.getName().startsWith("get")) && (method.getName().length() == (field.length() + 3))) {
-                if (method.getName().toLowerCase().endsWith(field.toLowerCase())) {
-                    try {
-                        return (String) method.invoke(this);
-                    } catch (final Exception e) {
-                        throw new IllegalArgumentException(
-                                PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this, e);
-                    }
-                }
+            if (method.getName().startsWith("get") && method.getName().length() == (field.length() + GET_LENGTH)
+                            && method.getName().toLowerCase().endsWith(field.toLowerCase())) {
+                return invokeGetterMethod(field, method);
             }
         }
+
         // Use field approach
         if (field != null) {
             try {
@@ -61,10 +58,24 @@ public abstract class BeanBase {
                     return (String) (f.get(this));
                 }
             } catch (final Exception e) {
-                throw new IllegalArgumentException(
-                        PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this, e);
+                throw new IllegalArgumentException(PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this,
+                                e);
             }
         }
         throw new IllegalArgumentException(PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this);
+    }
+
+    /**
+     * Invoke a getter method on a bean.
+     * 
+     * @param field the field that the getter gets a value for
+     * @param method the method to invoke
+     */
+    private String invokeGetterMethod(final String field, final Method method) {
+        try {
+            return (String) method.invoke(this);
+        } catch (final Exception e) {
+            throw new IllegalArgumentException(PROBLEM_RETRIEVING_FIELD_PREFIX + field + JSON_BEAN_SUFFIX + this, e);
+        }
     }
 }

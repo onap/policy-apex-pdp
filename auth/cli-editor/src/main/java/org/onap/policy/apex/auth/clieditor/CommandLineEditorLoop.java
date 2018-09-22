@@ -58,6 +58,7 @@ public class CommandLineEditorLoop {
 
     // Recurring string constants
     private static final String COMMAND = "command ";
+    private static final String COMMAND_LINE_ERROR = "command line error";
 
     // The model handler that is handling the API towards the Apex model being editied
     private final ApexModelHandler modelHandler;
@@ -134,7 +135,7 @@ public class CommandLineEditorLoop {
             catch (final CommandLineException e) {
                 writer.println(e.getMessage());
                 errorCount++;
-                LOGGER.debug("command line error", e);
+                LOGGER.debug(COMMAND_LINE_ERROR, e);
                 continue;
             }
 
@@ -163,7 +164,7 @@ public class CommandLineEditorLoop {
                     catch (final CommandLineException e) {
                         writer.println(e.getMessage());
                         errorCount++;
-                        LOGGER.debug("command line error", e);
+                        LOGGER.debug(COMMAND_LINE_ERROR, e);
                         continue;
                     }
 
@@ -204,10 +205,10 @@ public class CommandLineEditorLoop {
             catch (final CommandLineException e) {
                 writer.println(e.getMessage());
                 errorCount++;
-                LOGGER.debug("command line error", e);
+                LOGGER.debug(COMMAND_LINE_ERROR, e);
             } catch (final Exception e) {
                 e.printStackTrace(writer);
-                LOGGER.error("command line error", e);
+                LOGGER.error(COMMAND_LINE_ERROR, e);
             }
         }
 

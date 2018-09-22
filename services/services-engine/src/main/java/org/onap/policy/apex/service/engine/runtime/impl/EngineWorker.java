@@ -714,9 +714,8 @@ final class EngineWorker implements EngineService {
 
                 try {
                     if (event != null) {
-                        if (debugEnabled) {
-                            LOGGER.debug("Trigger Event {} forwarded to the Apex engine", event);
-                        }
+                        debugEventIfDebugEnabled(event);
+                        
                         final EnEvent enevent = apexEnEventConverter.fromApexEvent(event);
                         engine.handleEvent(enevent);
                     }
@@ -728,6 +727,17 @@ final class EngineWorker implements EngineService {
                 }
             }
             LOGGER.debug("Engine {} completed processing", engineWorkerKey);
+        }
+
+        /**
+         * Debug the event if debug is enabled.
+         * 
+         * @param event the event to debug
+         */
+        private void debugEventIfDebugEnabled(ApexEvent event) {
+            if (debugEnabled) {
+                LOGGER.debug("Trigger Event {} forwarded to the Apex engine", event);
+            }
         }
     }
 }

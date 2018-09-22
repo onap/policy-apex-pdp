@@ -93,6 +93,7 @@ public class TestJsonEventHandler {
     @AfterClass
     public static void teardownDefaultSchemaParameters() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ModelService.clear();
     }
 
     /**

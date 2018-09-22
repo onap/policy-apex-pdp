@@ -107,6 +107,45 @@ public class CommandLineParameterParser {
                             "too many command line arguments specified : " + Arrays.toString(remainingArgs));
         }
 
+        parseSIngleLetterOptions(commandLine, parameters);
+        parseDoubleLetterOptions(commandLine, parameters);
+
+        return parameters;
+    }
+
+    /**
+     * Parse options with just a single letter.
+     * 
+     * @param commandLine the command line
+     * @param parameters the parsed parameters
+     */
+    private void parseDoubleLetterOptions(CommandLine commandLine, final CommandLineParameters parameters) {
+        if (commandLine.hasOption("nl")) {
+            parameters.setSuppressLog(true);
+        }
+        if (commandLine.hasOption("nm")) {
+            parameters.setSuppressModelOutput(true);
+        }
+        if (commandLine.hasOption("if")) {
+            parameters.setIgnoreCommandFailuresSet(true);
+            parameters.setIgnoreCommandFailures(Boolean.valueOf(commandLine.getOptionValue("if")));
+        } else {
+            parameters.setIgnoreCommandFailuresSet(false);
+        }
+        if (commandLine.hasOption("wd")) {
+            parameters.setWorkingDirectory(commandLine.getOptionValue("wd"));
+        } else {
+            parameters.setWorkingDirectory(Paths.get("").toAbsolutePath().toString());
+        }
+    }
+
+    /**
+     * Parse options with two letters.
+     * 
+     * @param commandLine the command line
+     * @param parameters the parsed parameters
+     */
+    private void parseSIngleLetterOptions(CommandLine commandLine, final CommandLineParameters parameters) {
         if (commandLine.hasOption('h')) {
             parameters.setHelp(true);
         }
@@ -122,31 +161,12 @@ public class CommandLineParameterParser {
         if (commandLine.hasOption('l')) {
             parameters.setLogFileName(commandLine.getOptionValue('l'));
         }
-        if (commandLine.hasOption("nl")) {
-            parameters.setSuppressLog(true);
-        }
-        if (commandLine.hasOption("nm")) {
-            parameters.setSuppressModelOutput(true);
-        }
         if (commandLine.hasOption('i')) {
             parameters.setInputModelFileName(commandLine.getOptionValue('i'));
         }
         if (commandLine.hasOption('o')) {
             parameters.setOutputModelFileName(commandLine.getOptionValue('o'));
         }
-        if (commandLine.hasOption("if")) {
-            parameters.setIgnoreCommandFailuresSet(true);
-            parameters.setIgnoreCommandFailures(Boolean.valueOf(commandLine.getOptionValue("if")));
-        } else {
-            parameters.setIgnoreCommandFailuresSet(false);
-        }
-        if (commandLine.hasOption("wd")) {
-            parameters.setWorkingDirectory(commandLine.getOptionValue("wd"));
-        } else {
-            parameters.setWorkingDirectory(Paths.get("").toAbsolutePath().toString());
-        }
-
-        return parameters;
     }
 
     /**

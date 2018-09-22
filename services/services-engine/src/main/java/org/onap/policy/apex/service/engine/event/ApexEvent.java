@@ -102,7 +102,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     public static final String SOURCE_REGEXP = "^$|[A-Za-z0-9\\.\\-_:]+";
 
     /** The target of an Apex event must match this regular expression. */
-    public static final String TARGET_REGEXP = "^$|[A-Za-z0-9\\.\\-_:]+";
+    public static final String TARGET_REGEXP = SOURCE_REGEXP;
 
     // The fields of the event
     // @formatter:off
@@ -119,16 +119,6 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
 
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;
-
-    /**
-     * Private utility to get the next candidate value for a Execution ID. This value will always be
-     * unique in a single JVM
-     * 
-     * @return the next candidate value for a Execution ID
-     */
-    private static synchronized long getNextExecutionId() {
-        return nextExecutionID.getAndIncrement();
-    }
 
     /**
      * Instantiates a new apex event.
@@ -149,6 +139,16 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         this.source    = validateField(SOURCE_HEADER_FIELD,    source,    SOURCE_REGEXP);
         this.target    = validateField(TARGET_HEADER_FIELD,    target,    TARGET_REGEXP);
         // @formatter:on
+    }
+
+    /**
+     * Private utility to get the next candidate value for a Execution ID. This value will always be
+     * unique in a single JVM
+     * 
+     * @return the next candidate value for a Execution ID
+     */
+    private static synchronized long getNextExecutionId() {
+        return nextExecutionID.getAndIncrement();
     }
 
     /**
