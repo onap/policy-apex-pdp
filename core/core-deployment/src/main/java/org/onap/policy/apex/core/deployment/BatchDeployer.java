@@ -48,36 +48,6 @@ public class BatchDeployer {
     private EngineServiceFacade engineServiceFacade = null;
 
     /**
-     * The main method, reads the Apex server host address, port and location of the Apex model file from the command
-     * line arguments.
-     *
-     * @param args the arguments that specify the Apex engine and the Apex model file
-     */
-    public static void main(final String[] args) {
-        if (args.length != NUM_ARGUMENTS) {
-            String message = "invalid arguments: " + Arrays.toString(args)
-                            + "usage: Deployer <server address> <port address> <Apex Model file location>";
-            LOGGER.error(message);
-            return;
-        }
-
-        BatchDeployer deployer = null;
-        try {
-            // Use a Deployer object to handle model deployment
-            deployer = new BatchDeployer(args[0], Integer.parseInt(args[1]));
-            deployer.init();
-            deployer.deployModel(args[2], false, false);
-            deployer.startEngines();
-        } catch (final ApexException | IOException e) {
-            LOGGER.error("model deployment failed on parameters {}", args, e);
-        } finally {
-            if (deployer != null) {
-                deployer.close();
-            }
-        }
-    }
-
-    /**
      * Instantiates a new deployer.
      *
      * @param hostName the host name of the host running the Apex Engine
@@ -150,6 +120,36 @@ public class BatchDeployer {
     public void stopEngines() throws ApexDeploymentException {
         for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
             engineServiceFacade.stopEngine(engineKey);
+        }
+    }
+
+    /**
+     * The main method, reads the Apex server host address, port and location of the Apex model file from the command
+     * line arguments.
+     *
+     * @param args the arguments that specify the Apex engine and the Apex model file
+     */
+    public static void main(final String[] args) {
+        if (args.length != NUM_ARGUMENTS) {
+            String message = "invalid arguments: " + Arrays.toString(args)
+                            + "usage: Deployer <server address> <port address> <Apex Model file location>";
+            LOGGER.error(message);
+            return;
+        }
+
+        BatchDeployer deployer = null;
+        try {
+            // Use a Deployer object to handle model deployment
+            deployer = new BatchDeployer(args[0], Integer.parseInt(args[1]));
+            deployer.init();
+            deployer.deployModel(args[2], false, false);
+            deployer.startEngines();
+        } catch (final ApexException | IOException e) {
+            LOGGER.error("model deployment failed on parameters {}", args, e);
+        } finally {
+            if (deployer != null) {
+                deployer.close();
+            }
         }
     }
 }
