@@ -27,6 +27,7 @@ import java.util.Properties;
 import java.util.SortedMap;
 
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.modelapi.ApexModelFactory;
 
@@ -76,7 +77,7 @@ public class ApexModelHandler {
      * @param writer A writer to which to write output
      * @return the result of the executed command
      */
-    public ApexApiResult executeCommand(final CommandLineCommand command,
+    public Result executeCommand(final CommandLineCommand command,
                     final SortedMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
         // Get the method
         final Method apiMethod = getCommandMethod(command);
@@ -90,7 +91,7 @@ public class ApexModelHandler {
             if (returnObject instanceof ApexApiResult) {
                 final ApexApiResult result = (ApexApiResult) returnObject;
                 writer.println(result);
-                return result;
+                return result.getResult();
             } else {
                 throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
                                 + FAILED_FOR_COMMAND + command.getName()

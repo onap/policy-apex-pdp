@@ -39,6 +39,8 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
@@ -108,108 +110,13 @@ public class CommandLineEditorLoop {
         // The parser parses the input lines into commands and arguments
         final CommandLineParser parser = new CommandLineParser();
 
+        // The execution status has the result of the latest command and a cumulative error count
+        MutablePair<Result, Integer> executionStatus = new MutablePair<>(Result.SUCCESS, 0);
+
         // The main loop for command handing, it continues until EOF on the input stream or until a
         // quit command
-        int errorCount = 0;
-        ApexApiResult result = new ApexApiResult();
-        while (result.getResult() != Result.FINISHED) {
-            if (!parameters.isIgnoreCommandFailures() && errorCount > 0) {
-                break;
-            }
-
-            // Output prompt and get a line of input
-            writer.print(getPrompt());
-            writer.flush();
-            String line = reader.readLine();
-            if (line == null) {
-                break;
-            }
-
-            // Expand any macros in the script
-            try {
-                while (line.contains(macroFileTag)) {
-                    line = expandMacroFile(parameters, line);
-                }
-            }
-            // Print any error messages from command parsing and finding
-            catch (final CommandLineException e) {
-                writer.println(e.getMessage());
-                errorCount++;
-                LOGGER.debug(COMMAND_LINE_ERROR, e);
-                continue;
-            }
-
-            if (parameters.isEchoSet()) {
-                writer.println(line);
-            }
-
-            String logicBlock = null;
-            if (line.trim().endsWith(logicBlockStartTag)) {
-                line = line.replace(logicBlockStartTag, "").trim();
-
-                logicBlock = "";
-                while (true) {
-                    String logicLine = reader.readLine();
-                    if (logicLine == null) {
-                        logicBlock = null;
-                        break;
-                    }
-
-                    try {
-                        while (logicLine.contains(macroFileTag)) {
-                            logicLine = expandMacroFile(parameters, logicLine);
-                        }
-                    }
-                    // Print any error messages from command parsing and finding
-                    catch (final CommandLineException e) {
-                        writer.println(e.getMessage());
-                        errorCount++;
-                        LOGGER.debug(COMMAND_LINE_ERROR, e);
-                        continue;
-                    }
-
-                    if (parameters.isEchoSet()) {
-                        writer.println(logicLine);
-                    }
-
-                    if (logicLine.trim().endsWith(logicBlockEndTag)) {
-                        logicBlock += logicLine.replace(logicBlockEndTag, "").trim() + "\n";
-                        break;
-                    } else {
-                        logicBlock += logicLine + "\n";
-                    }
-                }
-            }
-
-            try {
-                // Parse the line into a list of commands and arguments
-                final List<String> commandWords = parser.parse(line, logicBlock);
-
-                // Find the command, if the command is null, then we are simply changing position in
-                // the hierarchy
-                final CommandLineCommand command = findCommand(commandWords);
-                if (command != null) {
-                    // Check the arguments of the command
-                    final TreeMap<String, CommandLineArgumentValue> argumentValues = getArgumentValues(command,
-                                    commandWords);
-
-                    // Execute the command, a FINISHED result means a command causes the loop to
-                    // leave execution
-                    result = executeCommand(command, argumentValues, writer);
-                    if (result.isNok()) {
-                        errorCount++;
-                    }
-                }
-            }
-            // Print any error messages from command parsing and finding
-            catch (final CommandLineException e) {
-                writer.println(e.getMessage());
-                errorCount++;
-                LOGGER.debug(COMMAND_LINE_ERROR, e);
-            } catch (final Exception e) {
-                e.printStackTrace(writer);
-                LOGGER.error(COMMAND_LINE_ERROR, e);
-            }
+        while (!endOfCommandExecution(executionStatus, parameters)) {
+            processIncomingCommands(parameters, reader, writer, parser, executionStatus);
         }
 
         // Get the output model
@@ -226,7 +133,139 @@ public class CommandLineEditorLoop {
         reader.close();
         writer.close();
 
-        return errorCount;
+        return executionStatus.getRight();
+    }
+
+    /**
+     * Check if the command processing loop has come to an end.
+     * 
+     * @param executionStatus a pair containing the result of the last command and the accumulated error count
+     * @param parameters the input parameters for command execution
+     * @return true if the command processing loop should exit
+     */
+    private boolean endOfCommandExecution(Pair<Result, Integer> executionStatus, CommandLineParameters parameters) {
+        if (executionStatus.getLeft() == Result.FINISHED) {
+            return true;
+        }
+
+        return executionStatus.getRight() > 0 && !parameters.isIgnoreCommandFailures();
+    }
+
+    /**
+     * Process the incoming commands one by one.
+     * 
+     * @param parameters the parameters to the CLI editor
+     * @param reader the reader to read the logic block from
+     * @param writer the writer to write results and error messages on
+     * @param executionStatus the status of the logic block read
+     */
+    private void processIncomingCommands(final CommandLineParameters parameters, final BufferedReader reader,
+                    final PrintWriter writer, final CommandLineParser parser,
+                    MutablePair<Result, Integer> executionStatus) {
+
+        try {
+            // Output prompt and get a line of input
+            writer.print(getPrompt());
+            writer.flush();
+            String line = reader.readLine();
+            if (line == null) {
+                executionStatus.setLeft(Result.FINISHED);
+                return;
+            }
+
+            // Expand any macros in the script
+            while (line.contains(macroFileTag)) {
+                line = expandMacroFile(parameters, line);
+            }
+
+            if (parameters.isEchoSet()) {
+                writer.println(line);
+            }
+
+            String logicBlock = null;
+            if (line.trim().endsWith(logicBlockStartTag)) {
+                line = line.replace(logicBlockStartTag, "").trim();
+
+                logicBlock = readLogicBlock(parameters, reader, writer, executionStatus);
+            }
+
+            // Parse the line into a list of commands and arguments
+            final List<String> commandWords = parser.parse(line, logicBlock);
+
+            // Find the command, if the command is null, then we are simply changing position in
+            // the hierarchy
+            final CommandLineCommand command = findCommand(commandWords);
+            if (command != null) {
+                // Check the arguments of the command
+                final TreeMap<String, CommandLineArgumentValue> argumentValues = getArgumentValues(command,
+                                commandWords);
+
+                // Execute the command, a FINISHED result means a command causes the loop to
+                // leave execution
+                executionStatus.setLeft(executeCommand(command, argumentValues, writer));
+                if (ApexApiResult.Result.isNok(executionStatus.getLeft())) {
+                    executionStatus.setRight(executionStatus.getRight() + 1);
+                }
+            }
+        }
+        // Print any error messages from command parsing and finding
+        catch (final CommandLineException e) {
+            writer.println(e.getMessage());
+            executionStatus.setRight(executionStatus.getRight() + 1);
+            LOGGER.debug(COMMAND_LINE_ERROR, e);
+        } catch (final Exception e) {
+            e.printStackTrace(writer);
+            LOGGER.error(COMMAND_LINE_ERROR, e);
+        }
+    }
+
+    /**
+     * Read a logic block, a block of program logic for a policy.
+     * 
+     * @param parameters the parameters to the CLI editor
+     * @param reader the reader to read the logic block from
+     * @param writer the writer to write results and error messages on
+     * @param executionStatus the status of the logic block read
+     * @return the result of the logic block read
+     */
+    private String readLogicBlock(final CommandLineParameters parameters, final BufferedReader reader,
+                    final PrintWriter writer, MutablePair<Result, Integer> executionStatus) {
+        String logicBlock;
+        logicBlock = "";
+
+        while (true) {
+            try {
+                String logicLine = reader.readLine();
+                if (logicLine == null) {
+                    return null;
+                }
+
+                while (logicLine.contains(macroFileTag)) {
+                    logicLine = expandMacroFile(parameters, logicLine);
+                }
+
+                if (parameters.isEchoSet()) {
+                    writer.println(logicLine);
+                }
+
+                if (logicLine.trim().endsWith(logicBlockEndTag)) {
+                    logicBlock += logicLine.replace(logicBlockEndTag, "").trim() + "\n";
+                    return logicBlock;
+                } else {
+                    logicBlock += logicLine + "\n";
+                }
+            }
+            // Print any error messages from command parsing and finding
+            catch (final CommandLineException e) {
+                writer.println(e.getMessage());
+                executionStatus.setRight(executionStatus.getRight() + 1);
+                LOGGER.debug(COMMAND_LINE_ERROR, e);
+                continue;
+            } catch (final Exception e) {
+                e.printStackTrace(writer);
+                LOGGER.error(COMMAND_LINE_ERROR, e);
+            }
+        }
     }
 
     /**
@@ -342,8 +381,8 @@ public class CommandLineEditorLoop {
                 throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument \""
                                 + argument.getKey() + "\" not allowed on command");
             } else if (foundArguments.size() > 1) {
-                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument "
-                                + argument + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
+                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument " + argument
+                                + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
             }
 
             // Set the value of the argument, stripping off any quotes
@@ -356,9 +395,8 @@ public class CommandLineEditorLoop {
             // Argument values are null by default so if this argument is not nullable it is
             // mandatory
             if (!argumentValue.isSpecified() && !argumentValue.getCliArgument().isNullable()) {
-                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": "
-                                + " mandatory argument \"" + argumentValue.getCliArgument().getArgumentName()
-                                + "\" not specified");
+                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " mandatory argument \""
+                                + argumentValue.getCliArgument().getArgumentName() + "\" not specified");
             }
         }
 
@@ -395,7 +433,7 @@ public class CommandLineEditorLoop {
      * @param writer The writer to use for any output from the command
      * @return the result of execution of the command
      */
-    private ApexApiResult executeCommand(final CommandLineCommand command,
+    private Result executeCommand(final CommandLineCommand command,
                     final TreeMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
         if (command.isSystemCommand()) {
             return exceuteSystemCommand(command, writer);
@@ -411,7 +449,7 @@ public class CommandLineEditorLoop {
      * @param writer The writer to use for any output from the command
      * @return the result of execution of the command
      */
-    private ApexApiResult exceuteSystemCommand(final CommandLineCommand command, final PrintWriter writer) {
+    private Result exceuteSystemCommand(final CommandLineCommand command, final PrintWriter writer) {
         if ("back".equals(command.getName())) {
             return executeBackCommand();
         } else if ("help".equals(command.getName())) {
@@ -419,7 +457,7 @@ public class CommandLineEditorLoop {
         } else if ("quit".equals(command.getName())) {
             return executeQuitCommand();
         } else {
-            return new ApexApiResult(Result.SUCCESS);
+            return Result.SUCCESS;
         }
     }
 
@@ -428,11 +466,11 @@ public class CommandLineEditorLoop {
      *
      * @return the result of execution of the command
      */
-    private ApexApiResult executeBackCommand() {
+    private Result executeBackCommand() {
         if (keywordNodeDeque.size() > 1) {
             keywordNodeDeque.pop();
         }
-        return new ApexApiResult(Result.SUCCESS);
+        return Result.SUCCESS;
     }
 
     /**
@@ -440,8 +478,8 @@ public class CommandLineEditorLoop {
      *
      * @return the result of execution of the command
      */
-    private ApexApiResult executeQuitCommand() {
-        return new ApexApiResult(Result.FINISHED);
+    private Result executeQuitCommand() {
+        return Result.FINISHED;
     }
 
     /**
@@ -450,11 +488,11 @@ public class CommandLineEditorLoop {
      * @param writer The writer to use for output from the command
      * @return the result of execution of the command
      */
-    private ApexApiResult executeHelpCommand(final PrintWriter writer) {
+    private Result executeHelpCommand(final PrintWriter writer) {
         for (final CommandLineCommand command : keywordNodeDeque.peek().getCommands()) {
             writer.println(command.getHelp());
         }
-        return new ApexApiResult(Result.SUCCESS);
+        return Result.SUCCESS;
     }
 
     /**

@@ -21,6 +21,7 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -31,10 +32,9 @@ import java.util.List;
 public class CommandLineParser {
 
     /**
-     * This method breaks a line of input up into commands, parameters, and arguments. Commands are
-     * standalone words at the beginning of the line, of which there may be multiple Parameters are
-     * single words followed by an '=' character Arguments are single words or a block of quoted
-     * text following an '=' character.
+     * This method breaks a line of input up into commands, parameters, and arguments. Commands are standalone words at
+     * the beginning of the line, of which there may be multiple Parameters are single words followed by an '='
+     * character Arguments are single words or a block of quoted text following an '=' character.
      *
      * <p>Format: command [command....] parameter=argument [parameter = argument]
      *
@@ -46,9 +46,9 @@ public class CommandLineParser {
      */
     public List<String> parse(final String line, final String logicBlock) {
         return checkFormat(
-                mergeArguments(mergeEquals(
-                        splitOnEquals(stripAndSplitWords(mergeQuotes(splitOnChar(stripComments(line), '\"')))))),
-                logicBlock);
+                        mergeArguments(mergeEquals(splitOnEquals(
+                                        stripAndSplitWords(mergeQuotes(splitOnChar(stripComments(line), '\"')))))),
+                        logicBlock);
     }
 
     /**
@@ -67,10 +67,9 @@ public class CommandLineParser {
     }
 
     /**
-     * This method merges an array with separate quotes into an array with quotes delimiting the
-     * start and end of quoted words Example [Humpty ],["],[Dumpty sat on the wall],["],[, Humpty
-     * Dumpty had ],["],["],a ["],[great],["],[ fall] becomes [Humpty ],["Dumpty sat on the
-     * wall"],[, Humpty Dumpty had ],[""],[a],["great"],[ fall].
+     * This method merges an array with separate quotes into an array with quotes delimiting the start and end of quoted
+     * words Example [Humpty ],["],[Dumpty sat on the wall],["],[, Humpty Dumpty had ],["],["],a ["],[great],["],[ fall]
+     * becomes [Humpty ],["Dumpty sat on the wall"],[, Humpty Dumpty had ],[""],[a],["great"],[ fall].
      *
      * @param wordsSplitOnQuotes the words split on quotes
      * @return the merged array list
@@ -78,35 +77,51 @@ public class CommandLineParser {
     private ArrayList<String> mergeQuotes(final ArrayList<String> wordsSplitOnQuotes) {
         final ArrayList<String> wordsWithQuotesMerged = new ArrayList<>();
 
-        for (int i = 0; i < wordsSplitOnQuotes.size();) {
-            if ("\"".equals(wordsSplitOnQuotes.get(i))) {
-                StringBuilder quotedWord = new StringBuilder(wordsSplitOnQuotes.get(i++));
-
-                for (; i < wordsSplitOnQuotes.size(); i++) {
-                    quotedWord.append(wordsSplitOnQuotes.get(i));
-                    if ("\"".equals(wordsSplitOnQuotes.get(i))) {
-                        i++;
-                        break;
-                    }
-                }
-                String quotedWordToString = quotedWord.toString();
-                if (quotedWordToString.matches("^\".*\"$")) {
-                    wordsWithQuotesMerged.add(quotedWordToString);
-                } else {
-                    throw new CommandLineException("trailing quote found in input " + wordsSplitOnQuotes);
-                }
-            } else {
-                wordsWithQuotesMerged.add(wordsSplitOnQuotes.get(i++));
-            }
+        int loopWordIndex = 0;
+        for (int wordIndex = 0; wordIndex < wordsSplitOnQuotes.size(); wordIndex = loopWordIndex) {
+            loopWordIndex = mergeQuote(wordsSplitOnQuotes, wordsWithQuotesMerged, wordIndex);
         }
 
         return wordsWithQuotesMerged;
     }
 
     /**
-     * This method splits the words on an array list into an array list where each portion of the
-     * line is split into words by '=', quoted words are ignored Example: aaa = bbb = ccc=ddd=eee =
-     * becomes [aaa ],[=],[bbb ],[=],[ccc],[=],[ddd],[=],[eee ],[=].
+     * This method merges the next set of quotes.
+     * 
+     * @param wordsSplitOnQuotes the words split on quotes
+     * @param wordsWithQuotesMerged the merged words
+     * @param wordIndex the current word index
+     * @return the next word index
+     */
+    private int mergeQuote(final ArrayList<String> wordsSplitOnQuotes, final ArrayList<String> wordsWithQuotesMerged,
+                    int wordIndex) {
+
+        if ("\"".equals(wordsSplitOnQuotes.get(wordIndex))) {
+            StringBuilder quotedWord = new StringBuilder(wordsSplitOnQuotes.get(wordIndex++));
+
+            for (; wordIndex < wordsSplitOnQuotes.size(); wordIndex++) {
+                quotedWord.append(wordsSplitOnQuotes.get(wordIndex));
+                if ("\"".equals(wordsSplitOnQuotes.get(wordIndex))) {
+                    wordIndex++;
+                    break;
+                }
+            }
+            String quotedWordToString = quotedWord.toString();
+            if (quotedWordToString.matches("^\".*\"$")) {
+                wordsWithQuotesMerged.add(quotedWordToString);
+            } else {
+                throw new CommandLineException("trailing quote found in input " + wordsSplitOnQuotes);
+            }
+        } else {
+            wordsWithQuotesMerged.add(wordsSplitOnQuotes.get(wordIndex++));
+        }
+        return wordIndex;
+    }
+
+    /**
+     * This method splits the words on an array list into an array list where each portion of the line is split into
+     * words by '=', quoted words are ignored Example: aaa = bbb = ccc=ddd=eee = becomes [aaa ],[=],[bbb
+     * ],[=],[ccc],[=],[ddd],[=],[eee ],[=].
      *
      * @param words the words
      * @return the merged array list
@@ -132,9 +147,8 @@ public class CommandLineParser {
     }
 
     /**
-     * This method merges an array with separate equals into an array with equals delimiting the
-     * start of words Example: [aaa ],[=],[bbb ],[=],[ccc],[=],[ddd],[=],[eee ],[=] becomes [aaa
-     * ],[= bbb ],[= ccc],[=ddd],[=eee ],[=].
+     * This method merges an array with separate equals into an array with equals delimiting the start of words Example:
+     * [aaa ],[=],[bbb ],[=],[ccc],[=],[ddd],[=],[eee ],[=] becomes [aaa ],[= bbb ],[= ccc],[=ddd],[=eee ],[=].
      *
      * @param wordsSplitOnEquals the words split on equals
      * @return the merged array list
@@ -142,22 +156,27 @@ public class CommandLineParser {
     private ArrayList<String> mergeEquals(final ArrayList<String> wordsSplitOnEquals) {
         final ArrayList<String> wordsWithEqualsMerged = new ArrayList<>();
 
-        for (int i = 0; i < wordsSplitOnEquals.size();) {
+        int loopWordIndex = 0;
+        for (int wordIndex = 0; wordIndex < wordsSplitOnEquals.size(); wordIndex = loopWordIndex) {
+            loopWordIndex = wordIndex;
+
             // Is this a quoted word ?
-            if (wordsSplitOnEquals.get(i).startsWith("\"")) {
-                wordsWithEqualsMerged.add(wordsSplitOnEquals.get(i));
+            if (wordsSplitOnEquals.get(loopWordIndex).startsWith("\"")) {
+                wordsWithEqualsMerged.add(wordsSplitOnEquals.get(loopWordIndex));
                 continue;
             }
 
-            if ("=".equals(wordsSplitOnEquals.get(i))) {
-                if (i < wordsSplitOnEquals.size() - 1 && !wordsSplitOnEquals.get(i + 1).startsWith("=")) {
-                    wordsWithEqualsMerged.add(wordsSplitOnEquals.get(i) + wordsSplitOnEquals.get(i + 1));
-                    i += 2;
+            if ("=".equals(wordsSplitOnEquals.get(loopWordIndex))) {
+                if (loopWordIndex < wordsSplitOnEquals.size() - 1
+                                && !wordsSplitOnEquals.get(loopWordIndex + 1).startsWith("=")) {
+                    wordsWithEqualsMerged.add(
+                                    wordsSplitOnEquals.get(loopWordIndex) + wordsSplitOnEquals.get(loopWordIndex + 1));
+                    loopWordIndex += 2;
                 } else {
-                    wordsWithEqualsMerged.add(wordsSplitOnEquals.get(i++));
+                    wordsWithEqualsMerged.add(wordsSplitOnEquals.get(loopWordIndex++));
                 }
             } else {
-                wordsWithEqualsMerged.add(wordsSplitOnEquals.get(i++));
+                wordsWithEqualsMerged.add(wordsSplitOnEquals.get(loopWordIndex++));
             }
         }
 
@@ -165,8 +184,8 @@ public class CommandLineParser {
     }
 
     /**
-     * This method merges words that start with an '=' character with the previous word if that word
-     * does not start with an '='.
+     * This method merges words that start with an '=' character with the previous word if that word does not start with
+     * an '='.
      *
      * @param words the words
      * @return the merged array list
@@ -197,8 +216,8 @@ public class CommandLineParser {
     }
 
     /**
-     * This method strips all non quoted white space down to single spaces and splits non-quoted
-     * words into separate words.
+     * This method strips all non quoted white space down to single spaces and splits non-quoted words into separate
+     * words.
      *
      * @param words the words
      * @return the array list with white space stripped and words split
@@ -210,21 +229,9 @@ public class CommandLineParser {
             // Is this a quoted word
             if (word.startsWith("\"")) {
                 strippedAndSplitWords.add(word);
-                continue;
-            }
-
-            // Strip white space by replacing all white space with blanks and then removing leading
-            // and trailing blanks
-            word = word.replaceAll("\\s+", " ").trim();
-
-            if (word.length() == 0) {
-                continue;
-            }
-
-            // Split on space characters
-            final String[] splitWords = word.split(" ");
-            for (final String splitWord : splitWords) {
-                strippedAndSplitWords.add(splitWord);
+            } else {
+                // Split the word on blanks
+                strippedAndSplitWords.addAll(stripAndSplitWord(word));
             }
         }
 
@@ -232,10 +239,36 @@ public class CommandLineParser {
     }
 
     /**
-     * This method splits a line of text into an array list where each portion of the line is split
-     * into words by a character, with the characters themselves as separate words Example: Humpty
-     * "Dumpty sat on the wall", Humpty Dumpty had ""a "great" fall becomes [Humpty ],["],[Dumpty
-     * sat on the wall],["],[, Humpty Dumpty had ],["],["],a ["],[great],["],[ fall].
+     * Strip and split a word on blanks into an array of words split on blanks.
+     * 
+     * @param word the word to split
+     * @return the array of split words
+     */
+    private Collection<? extends String> stripAndSplitWord(final String word) {
+        final ArrayList<String> strippedAndSplitWords = new ArrayList<>();
+
+        // Strip white space by replacing all white space with blanks and then removing leading
+        // and trailing blanks
+        String singleSpaceWord = word.replaceAll("\\s+", " ").trim();
+
+        if (singleSpaceWord.length() == 0) {
+            return strippedAndSplitWords;
+        }
+
+        // Split on space characters
+        final String[] splitWords = singleSpaceWord.split(" ");
+        for (final String splitWord : splitWords) {
+            strippedAndSplitWords.add(splitWord);
+        }
+
+        return strippedAndSplitWords;
+    }
+
+    /**
+     * This method splits a line of text into an array list where each portion of the line is split into words by a
+     * character, with the characters themselves as separate words Example: Humpty "Dumpty sat on the wall", Humpty
+     * Dumpty had ""a "great" fall becomes [Humpty ],["],[Dumpty sat on the wall],["],[, Humpty Dumpty had ],["],["],a
+     * ["],[great],["],[ fall].
      *
      * @param line the input line
      * @param splitChar the split char
@@ -282,7 +315,7 @@ public class CommandLineParser {
         // The first word must be alphanumeric, that is a command
         if (!commandWords.get(0).matches("^[a-zA-Z0-9]*$")) {
             throw new CommandLineException(
-                    "first command word is not alphanumeric or is not a command: " + commandWords.get(0));
+                            "first command word is not alphanumeric or is not a command: " + commandWords.get(0));
         }
 
         // Now check that we have a sequence of commands at the beginning
@@ -304,7 +337,7 @@ public class CommandLineParser {
                     currentWordPos++;
                 } else {
                     throw new CommandLineException(
-                            "command argument is not properly formed: " + commandWords.get(currentWordPos));
+                                    "command argument is not properly formed: " + commandWords.get(currentWordPos));
                 }
             } else {
                 // Logic block
@@ -313,7 +346,7 @@ public class CommandLineParser {
                     currentWordPos++;
                 } else {
                     throw new CommandLineException(
-                            "command argument is not properly formed: " + commandWords.get(currentWordPos));
+                                    "command argument is not properly formed: " + commandWords.get(currentWordPos));
                 }
             }
         }

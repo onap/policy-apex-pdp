@@ -70,7 +70,25 @@ public class ApexApiResult {
          * The method call failed for another reason such as the method call is not implemented yet
          * on the concept on which it was called.
          */
-        OTHER_ERROR
+        OTHER_ERROR;
+
+        /**
+         * Check if a result is OK.
+         * 
+         * @return true if the result is not OK
+         */
+        public static boolean isOk(final Result result) {
+            return result == Result.SUCCESS || result == Result.FINISHED;
+        }
+
+        /**
+         * Check if a result is not OK.
+         * 
+         * @return true if the result is not OK
+         */
+        public static boolean isNok(final Result result) {
+            return !isOk(result);
+        }
     }
 
     private Result result;
@@ -139,7 +157,7 @@ public class ApexApiResult {
      */
     @XmlAttribute(required = true)
     public boolean isOk() {
-        return result == Result.SUCCESS || result == Result.FINISHED;
+        return Result.isOk(result);
     }
 
     /**
@@ -149,7 +167,7 @@ public class ApexApiResult {
      * @return true, if the result indicates the API operation did not succeed
      */
     public boolean isNok() {
-        return !isOk();
+        return Result.isNok(result);
     }
 
     /**
