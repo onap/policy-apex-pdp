@@ -76,7 +76,6 @@ final class EngineWorker implements EngineService {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EngineService.class);
 
     // Recurring string constants
-    private static final String IS_NULL_SUFFIX = " is  null";
     private static final String ENGINE_FOR_KEY_PREFIX = "apex engine for engine key ";
     private static final String ENGINE_SUFFIX = " of this engine";
     private static final String BAD_KEY_MATCH_TAG = " does not match the key";
@@ -108,7 +107,7 @@ final class EngineWorker implements EngineService {
      * @param threadFactory the thread factory to use for creating the event processing thread
      * @throws ApexException thrown on errors on worker instantiation
      */
-    EngineWorker(final AxArtifactKey engineWorkerKey, final BlockingQueue<ApexEvent> queue,
+    protected EngineWorker(final AxArtifactKey engineWorkerKey, final BlockingQueue<ApexEvent> queue,
             final ApplicationThreadFactory threadFactory) {
         LOGGER.entry(engineWorkerKey);
 
@@ -136,13 +135,6 @@ final class EngineWorker implements EngineService {
      */
     @Override
     public void registerActionListener(final String listenerName, final ApexEventListener apexEventListener) {
-        // Sanity checks on the Apex model
-        if (engine == null) {
-            LOGGER.warn("listener registration on engine with key " + engineWorkerKey.getId()
-                    + ", failed, listener is null");
-            return;
-        }
-
         engine.addEventListener(listenerName, new EnEventListenerImpl(apexEventListener, apexEnEventConverter));
     }
 
@@ -155,13 +147,6 @@ final class EngineWorker implements EngineService {
      */
     @Override
     public void deregisterActionListener(final String listenerName) {
-        // Sanity checks on the Apex model
-        if (engine == null) {
-            LOGGER.warn("listener deregistration on engine with key " + engineWorkerKey.getId()
-                    + ", failed, listener is null");
-            return;
-        }
-
         engine.removeEventListener(listenerName);
     }
 
@@ -233,11 +218,6 @@ final class EngineWorker implements EngineService {
             throw new ApexException("failed to unmarshal the apex model on engine " + engineKey.getId(), e);
         }
 
-        if (apexPolicyModel == null) {
-            LOGGER.error("apex model null on engine " + engineKey.getId());
-            throw new ApexException("apex model null on engine " + engineKey.getId());
-        }
-
         // Update the Apex model in the Apex engine
         updateModel(engineKey, apexPolicyModel, forceFlag);
 
@@ -263,12 +243,6 @@ final class EngineWorker implements EngineService {
                     + ENGINE_SUFFIX;
             LOGGER.warn(message);
             throw new ApexException(message);
-        }
-
-        // Sanity checks on the Apex model
-        if (engine == null) {
-            LOGGER.warn("engine with key " + engineKey.getId() + " not initialized");
-            throw new ApexException("engine with key " + engineKey.getId() + " not initialized");
         }
 
         // Check model compatibility
@@ -336,12 +310,6 @@ final class EngineWorker implements EngineService {
                     + engineWorkerKey.getId() + ENGINE_SUFFIX);
         }
 
-        if (engine == null) {
-            String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is null";
-            LOGGER.error(message);
-            throw new ApexException(message);
-        }
-
         // Starts the event processing thread that handles incoming events
         if (processorThread != null && processorThread.isAlive()) {
             String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already running with state "
@@ -385,12 +353,6 @@ final class EngineWorker implements EngineService {
                     + ENGINE_SUFFIX);
             throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG
                     + engineWorkerKey.getId() + ENGINE_SUFFIX);
-        }
-
-        if (engine == null) {
-            String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is null";
-            LOGGER.error(message);
-            throw new ApexException(message);
         }
 
         // Interrupt the worker to stop its thread
@@ -437,11 +399,6 @@ final class EngineWorker implements EngineService {
                     + ENGINE_SUFFIX);
             throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG
                     + engineWorkerKey.getId() + ENGINE_SUFFIX);
-        }
-
-        if (engine == null) {
-            LOGGER.error(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + IS_NULL_SUFFIX);
-            throw new ApexException(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + IS_NULL_SUFFIX);
         }
 
         // Interrupt the worker to stop its thread
@@ -562,6 +519,7 @@ final class EngineWorker implements EngineService {
         try {
             final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
             final ApexModelWriter<AxEngineModel> modelWriter = new ApexModelWriter<>(AxEngineModel.class);
+            modelWriter.setJsonOutput(true);
             modelWriter.write(apexEngineModel, baOutputStream);
             return baOutputStream.toString();
         } catch (final Exception e) {
