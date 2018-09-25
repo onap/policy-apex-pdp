@@ -5,7 +5,7 @@
         "id": 45,
         "instanceCount": 4,
         "deploymentPort": 12561,
-        "policyModelFileName": "policy/ONAPTLGoalPolicyModel.json",
+        "policyModelFileName": "policy/ONAPvCPEPolicyModel.json",
         "engineParameters": {
             "executorParameters": {
                 "JAVASCRIPT": {

@@ -21,7 +21,7 @@
                                 "name": "Context",
                                 "version": "0.0.1"
                             },
-                            "UUID": "ca36bfd8-6042-3633-8c85-89c66507c3bf",
+                            "UUID": "2708db15-3117-4ef5-ae06-44ad4bc72756",
                             "description": "Generated description for concept referred to by key \"Context:0.0.1\""
                         }
                     },
@@ -35,7 +35,7 @@
                                 "name": "Event0000",
                                 "version": "0.0.1"
                             },
-                            "UUID": "465a81cc-885f-3a4d-bc4e-1508da92b236",
+                            "UUID": "20f7f2d0-36e1-4134-93d9-8978e0ebb916",
                             "description": "Generated description for concept referred to by key \"Event0000:0.0.1\""
                         }
                     },
@@ -49,7 +49,7 @@
                                 "name": "Event0001",
                                 "version": "0.0.1"
                             },
-                            "UUID": "36b2d570-fff7-3a4b-bab2-6bf492f5129a",
+                            "UUID": "bfa262fc-f59d-4b05-af44-a5b5c218b314",
                             "description": "Generated description for concept referred to by key \"Event0001:0.0.1\""
                         }
                     },
@@ -63,7 +63,7 @@
                                 "name": "Event0002",
                                 "version": "0.0.1"
                             },
-                            "UUID": "ff6160a7-fb5e-379c-a6d2-2cd28053eacf",
+                            "UUID": "84eeac88-5031-4487-b67a-5a3ae13c1a89",
                             "description": "Generated description for concept referred to by key \"Event0002:0.0.1\""
                         }
                     },
@@ -77,7 +77,7 @@
                                 "name": "Event0003",
                                 "version": "0.0.1"
                             },
-                            "UUID": "5899e216-2abf-3781-abc4-2c257b92721e",
+                            "UUID": "7a46a411-1715-48d8-9e70-9b5d14bbbed4",
                             "description": "Generated description for concept referred to by key \"Event0003:0.0.1\""
                         }
                     },
@@ -91,7 +91,7 @@
                                 "name": "Event0004",
                                 "version": "0.0.1"
                             },
-                            "UUID": "7c2692a7-4587-3d09-abf9-d96b339a316f",
+                            "UUID": "da0ba1b4-f654-4e99-97b5-595de84cb3dc",
                             "description": "Generated description for concept referred to by key \"Event0004:0.0.1\""
                         }
                     },
@@ -105,7 +105,7 @@
                                 "name": "Event0100",
                                 "version": "0.0.1"
                             },
-                            "UUID": "b696048c-c0b0-34c1-8dbe-32ab6c8bc0c7",
+                            "UUID": "1267b311-60e2-48a7-8d0e-23c4ea21d863",
                             "description": "Generated description for concept referred to by key \"Event0100:0.0.1\""
                         }
                     },
@@ -119,7 +119,7 @@
                                 "name": "Event0101",
                                 "version": "0.0.1"
                             },
-                            "UUID": "edbfa868-2ab2-30fd-8078-4c7f67ca6122",
+                            "UUID": "84013070-ff2e-4295-acbd-4128f0509040",
                             "description": "Generated description for concept referred to by key \"Event0101:0.0.1\""
                         }
                     },
@@ -133,7 +133,7 @@
                                 "name": "Event0102",
                                 "version": "0.0.1"
                             },
-                            "UUID": "6b6ad2ff-ef63-3f7b-aabb-fba44f8de9d4",
+                            "UUID": "6fb7761e-b86f-47fc-8e19-6a116600764e",
                             "description": "Generated description for concept referred to by key \"Event0102:0.0.1\""
                         }
                     },
@@ -147,7 +147,7 @@
                                 "name": "Event0103",
                                 "version": "0.0.1"
                             },
-                            "UUID": "c2550912-10d9-3000-8826-377288cd6cb1",
+                            "UUID": "141cc707-009c-4e3b-a0f8-c346f074f590",
                             "description": "Generated description for concept referred to by key \"Event0103:0.0.1\""
                         }
                     },
@@ -161,7 +161,7 @@
                                 "name": "Event0104",
                                 "version": "0.0.1"
                             },
-                            "UUID": "f6d75b71-c8a7-3337-a121-88d68c389f5a",
+                            "UUID": "98f4d09f-ff73-4385-8876-df6d04b552cc",
                             "description": "Generated description for concept referred to by key \"Event0104:0.0.1\""
                         }
                     },
@@ -175,7 +175,7 @@
                                 "name": "Events",
                                 "version": "0.0.1"
                             },
-                            "UUID": "0215644c-4531-375c-8335-d558b4de8c03",
+                            "UUID": "889f6414-bc4d-4f29-b7af-175e63d23ac5",
                             "description": "Generated description for concept referred to by key \"Events:0.0.1\""
                         }
                     },
@@ -189,7 +189,7 @@
                                 "name": "ExternalContextAlbum",
                                 "version": "0.0.1"
                             },
-                            "UUID": "976a79e7-5c80-3c03-9503-da3f41fec395",
+                            "UUID": "64e4911c-5aed-467f-be19-277fb6170857",
                             "description": "Generated description for concept referred to by key \"ExternalContextAlbum:0.0.1\""
                         }
                     },
@@ -203,7 +203,7 @@
                                 "name": "GlobalContextAlbum",
                                 "version": "0.0.1"
                             },
-                            "UUID": "c95e9e5f-d2c7-3ac7-a205-ea3574530cb7",
+                            "UUID": "cb6a1892-8c3c-44df-b8a7-0e5a333ff9eb",
                             "description": "Generated description for concept referred to by key \"GlobalContextAlbum:0.0.1\""
                         }
                     },
@@ -217,7 +217,7 @@
                                 "name": "KeyInformation",
                                 "version": "0.0.1"
                             },
-                            "UUID": "1ff2f905-685c-3caf-95bc-0bbc90345888",
+                            "UUID": "f3126983-e26c-491f-8738-c57784ca4026",
                             "description": "Generated description for concept referred to by key \"KeyInformation:0.0.1\""
                         }
                     },
@@ -231,7 +231,7 @@
                                 "name": "Policies",
                                 "version": "0.0.1"
                             },
-                            "UUID": "f54c3b2b-be76-31c4-adfc-87c494c06808",
+                            "UUID": "b20a18d5-c419-4e90-8519-9c8f8b3ce2ab",
                             "description": "Generated description for concept referred to by key \"Policies:0.0.1\""
                         }
                     },
@@ -245,7 +245,7 @@
                                 "name": "Policy0",
                                 "version": "0.0.1"
                             },
-                            "UUID": "3410e939-30ca-32c4-a2d8-c30b6fee6eec",
+                            "UUID": "28943e99-871b-482b-953f-cfa7138da02c",
                             "description": "Generated description for concept referred to by key \"Policy0:0.0.1\""
                         }
                     },
@@ -259,7 +259,7 @@
                                 "name": "Policy0ContextAlbum",
                                 "version": "0.0.1"
                             },
-                            "UUID": "e27564c4-3cbf-3db2-9bf3-83ae80a2f907",
+                            "UUID": "2b1b738b-70f6-4b45-9d3c-a7e889b49993",
                             "description": "Generated description for concept referred to by key \"Policy0ContextAlbum:0.0.1\""
                         }
                     },
@@ -273,7 +273,7 @@
                                 "name": "Policy1",
                                 "version": "0.0.1"
                             },
-                            "UUID": "d0b2b585-f344-33b8-af9e-250e7f4cfbce",
+                            "UUID": "798ee6ea-f349-41bb-a281-7e4c22184e8c",
                             "description": "Generated description for concept referred to by key \"Policy1:0.0.1\""
                         }
                     },
@@ -287,7 +287,7 @@
                                 "name": "Policy1ContextAlbum",
                                 "version": "0.0.1"
                             },
-                            "UUID": "815d74ae-6fc0-3221-87b9-2bb1dfdfa7f0",
+                            "UUID": "eb9568d5-d95f-4713-9622-d95ef4cf81c3",
                             "description": "Generated description for concept referred to by key \"Policy1ContextAlbum:0.0.1\""
                         }
                     },
@@ -301,7 +301,7 @@
                                 "name": "SamplePolicyModelMVEL",
                                 "version": "0.0.1"
                             },
-                            "UUID": "a4cc4860-0bbc-389c-b270-e1bf7daffbe2",
+                            "UUID": "10979d21-947f-4920-83ae-63b827e8e80f",
                             "description": "Generated description for concept referred to by key \"SamplePolicyModelMVEL:0.0.1\""
                         }
                     },
@@ -315,7 +315,7 @@
                                 "name": "Task_Act0",
                                 "version": "0.0.1"
                             },
-                            "UUID": "0589ff20-adcc-3ce5-95fe-8d7978ed54ed",
+                            "UUID": "cb65d7fe-8d86-463c-aa16-0f4e6138d705",
                             "description": "Generated description for concept referred to by key \"Task_Act0:0.0.1\""
                         }
                     },
@@ -329,7 +329,7 @@
                                 "name": "Task_Act1",
                                 "version": "0.0.1"
                             },
-                            "UUID": "095b126d-ca8b-32c9-ad52-d744e817a79c",
+                            "UUID": "ea2b4e7a-1a79-440c-9cf0-6fddaad64c0c",
                             "description": "Generated description for concept referred to by key \"Task_Act1:0.0.1\""
                         }
                     },
@@ -343,7 +343,7 @@
                                 "name": "Task_Act2",
                                 "version": "0.0.1"
                             },
-                            "UUID": "3d786b4c-d9ee-3367-ab71-c67271a4ea2f",
+                            "UUID": "269e1d08-9ab4-48b8-8854-b65deb9d41b1",
                             "description": "Generated description for concept referred to by key \"Task_Act2:0.0.1\""
                         }
                     },
@@ -357,7 +357,7 @@
                                 "name": "Task_Act3",
                                 "version": "0.0.1"
                             },
-                            "UUID": "9231753e-20c5-3436-982f-9100340cc570",
+                            "UUID": "f9c4a91d-92aa-49ce-9b65-ab2378f6b048",
                             "description": "Generated description for concept referred to by key \"Task_Act3:0.0.1\""
                         }
                     },
@@ -371,7 +371,7 @@
                                 "name": "Task_Decide0",
                                 "version": "0.0.1"
                             },
-                            "UUID": "502383d3-483f-3a56-a426-2f0406674c8d",
+                            "UUID": "7fde2446-ce2a-4bc2-a675-96496c387c88",
                             "description": "Generated description for concept referred to by key \"Task_Decide0:0.0.1\""
                         }
                     },
@@ -385,7 +385,7 @@
                                 "name": "Task_Decide1",
                                 "version": "0.0.1"
                             },
-                            "UUID": "16598106-41c8-3b5a-99c6-5fcf6d1a5ddf",
+                            "UUID": "bc185db6-f18f-4fdd-b5b4-37d14b57f463",
                             "description": "Generated description for concept referred to by key \"Task_Decide1:0.0.1\""
                         }
                     },
@@ -399,7 +399,7 @@
                                 "name": "Task_Decide2",
                                 "version": "0.0.1"
                             },
-                            "UUID": "ad3a89f5-e369-3c66-b22c-669f7b3653b8",
+                            "UUID": "2c1e2ede-d67c-4845-90ac-a4d53311bfbb",
                             "description": "Generated description for concept referred to by key \"Task_Decide2:0.0.1\""
                         }
                     },
@@ -413,7 +413,7 @@
                                 "name": "Task_Decide3",
                                 "version": "0.0.1"
                             },
-                            "UUID": "56815939-1164-3867-9ed1-0a27ff8aafb3",
+                            "UUID": "1d1645a2-2852-4296-9f22-8f31ebe5386a",
                             "description": "Generated description for concept referred to by key \"Task_Decide3:0.0.1\""
                         }
                     },
@@ -427,7 +427,7 @@
                                 "name": "Task_Establish0",
                                 "version": "0.0.1"
                             },
-                            "UUID": "0db0c566-ecd7-3e27-9865-4b82c893abdb",
+                            "UUID": "f3739d83-a029-4ad8-a0b9-e5a028b369b2",
                             "description": "Generated description for concept referred to by key \"Task_Establish0:0.0.1\""
                         }
                     },
@@ -441,7 +441,7 @@
                                 "name": "Task_Establish1",
                                 "version": "0.0.1"
                             },
-                            "UUID": "6944a4c1-6201-317c-8d7e-eaa7f2ee0ea0",
+                            "UUID": "5351a5a5-4134-44fd-9a6f-fd37dbfc8aa7",
                             "description": "Generated description for concept referred to by key \"Task_Establish1:0.0.1\""
                         }
                     },
@@ -455,7 +455,7 @@
                                 "name": "Task_Establish2",
                                 "version": "0.0.1"
                             },
-                            "UUID": "0f766ea9-11cd-3e7d-a8c8-28c8dee6a85a",
+                            "UUID": "4206bb68-e710-4a01-aade-3e34771da63b",
                             "description": "Generated description for concept referred to by key \"Task_Establish2:0.0.1\""
                         }
                     },
@@ -469,7 +469,7 @@
                                 "name": "Task_Establish3",
                                 "version": "0.0.1"
                             },
-                            "UUID": "c3237a38-cc6d-3418-b1e1-0dc8b4bdcc66",
+                            "UUID": "cbaab234-b586-4f63-986e-ed0b317b6c66",
                             "description": "Generated description for concept referred to by key \"Task_Establish3:0.0.1\""
                         }
                     },
@@ -483,7 +483,7 @@
                                 "name": "Task_Match0",
                                 "version": "0.0.1"
                             },
-                            "UUID": "051bcfd5-cf73-3c89-8ee7-ea6e005ec059",
+                            "UUID": "24dbc71b-8773-4393-9c36-a5f4991e0f55",
                             "description": "Generated description for concept referred to by key \"Task_Match0:0.0.1\""
                         }
                     },
@@ -497,7 +497,7 @@
                                 "name": "Task_Match1",
                                 "version": "0.0.1"
                             },
-                            "UUID": "3754fe19-98f2-34a1-9f45-db31052208d8",
+                            "UUID": "42ecd25d-e8cb-48e4-890a-b0616528cf10",
                             "description": "Generated description for concept referred to by key \"Task_Match1:0.0.1\""
                         }
                     },
@@ -511,7 +511,7 @@
                                 "name": "Task_Match2",
                                 "version": "0.0.1"
                             },
-                            "UUID": "8c200709-a180-3c8b-916f-275ff49ce194",
+                            "UUID": "7e691294-a816-42f8-b124-9b5eac70b116",
                             "description": "Generated description for concept referred to by key \"Task_Match2:0.0.1\""
                         }
                     },
@@ -525,7 +525,7 @@
                                 "name": "Task_Match3",
                                 "version": "0.0.1"
                             },
-                            "UUID": "a1a879c6-4510-33b0-bbd0-ad6256189a37",
+                            "UUID": "bc7cad3c-85a5-40b4-9eda-51ac2387af05",
                             "description": "Generated description for concept referred to by key \"Task_Match3:0.0.1\""
                         }
                     },
@@ -539,7 +539,7 @@
                                 "name": "Tasks",
                                 "version": "0.0.1"
                             },
-                            "UUID": "a7fab96b-ce1c-37ce-bbb2-556b6db524a5",
+                            "UUID": "4386403d-b23c-4c3e-bc14-5d581f9de2f5",
                             "description": "Generated description for concept referred to by key \"Tasks:0.0.1\""
                         }
                     },
@@ -553,7 +553,7 @@
                                 "name": "TestCase",
                                 "version": "0.0.1"
                             },
-                            "UUID": "0a652886-c88d-3f8c-8994-ae9161e7c963",
+                            "UUID": "901a80ab-dd46-4697-b818-f669b9f9bce9",
                             "description": "Generated description for concept referred to by key \"TestCase:0.0.1\""
                         }
                     },
@@ -567,7 +567,7 @@
                                 "name": "TestContextItem000",
                                 "version": "0.0.1"
                             },
-                            "UUID": "8efba9fa-371e-33df-a7d6-88b0284e7fd0",
+                            "UUID": "cfd19e5d-ab54-4e54-b4e5-1c5eaa832622",
                             "description": "Generated description for concept referred to by key \"TestContextItem000:0.0.1\""
                         }
                     },
@@ -581,7 +581,7 @@
                                 "name": "TestContextItem001",
                                 "version": "0.0.1"
                             },
-                            "UUID": "3740077c-a2b3-356b-81dc-5ded2118a951",
+                            "UUID": "42c27d27-878d-4e9d-a139-e60c98f1c747",
                             "description": "Generated description for concept referred to by key \"TestContextItem001:0.0.1\""
                         }
                     },
@@ -595,7 +595,7 @@
                                 "name": "TestContextItem002",
                                 "version": "0.0.1"
                             },
-                            "UUID": "b5c7df95-9af5-322f-9ea8-eb440a2bf926",
+                            "UUID": "83919fa0-ed4d-4981-908f-79913734a0f5",
                             "description": "Generated description for concept referred to by key \"TestContextItem002:0.0.1\""
                         }
                     },
@@ -609,7 +609,7 @@
                                 "name": "TestContextItem003",
                                 "version": "0.0.1"
                             },
-                            "UUID": "b36f0aa5-0fb9-3e2c-8fa2-fddb7fd05f4b",
+                            "UUID": "194882b0-d987-4200-b82a-2c015605279b",
                             "description": "Generated description for concept referred to by key \"TestContextItem003:0.0.1\""
                         }
                     },
@@ -623,7 +623,7 @@
                                 "name": "TestContextItem004",
                                 "version": "0.0.1"
                             },
-                            "UUID": "093cda11-eaeb-3a46-a5b6-d5e30c00935b",
+                            "UUID": "948d345b-39c3-4436-8036-ac9e5c561977",
                             "description": "Generated description for concept referred to by key \"TestContextItem004:0.0.1\""
                         }
                     },
@@ -637,7 +637,7 @@
                                 "name": "TestContextItem005",
                                 "version": "0.0.1"
                             },
-                            "UUID": "569a758d-ba40-37c0-aebb-7ad138df25ac",
+                            "UUID": "fdad8cb5-4375-4bbf-9ffc-1e5ed8f4bae6",
                             "description": "Generated description for concept referred to by key \"TestContextItem005:0.0.1\""
                         }
                     },
@@ -651,7 +651,7 @@
                                 "name": "TestContextItem006",
                                 "version": "0.0.1"
                             },
-                            "UUID": "252818d9-b61f-3962-a905-8865fb00fb04",
+                            "UUID": "5243c0ba-5c50-4835-a885-6cd988252bb7",
                             "description": "Generated description for concept referred to by key \"TestContextItem006:0.0.1\""
                         }
                     },
@@ -665,7 +665,7 @@
                                 "name": "TestContextItem007",
                                 "version": "0.0.1"
                             },
-                            "UUID": "fe1a5f7c-c083-377b-a797-752b01fc6c73",
+                            "UUID": "29f0b15f-f7c3-46e5-98d7-59a34a677968",
                             "description": "Generated description for concept referred to by key \"TestContextItem007:0.0.1\""
                         }
                     },
@@ -679,7 +679,7 @@
                                 "name": "TestContextItem008",
                                 "version": "0.0.1"
                             },
-                            "UUID": "aa87d007-d07e-3f67-8c6d-0ebc3d85479d",
+                            "UUID": "aac96de5-9f3c-452c-855f-e556cc807351",
                             "description": "Generated description for concept referred to by key \"TestContextItem008:0.0.1\""
                         }
                     },
@@ -693,7 +693,7 @@
                                 "name": "TestContextItem009",
                                 "version": "0.0.1"
                             },
-                            "UUID": "126e7a3a-11b6-3f88-9397-c21d8819f859",
+                            "UUID": "7fdc1cc3-08c7-42a4-92a9-39e172fe2f1f",
                             "description": "Generated description for concept referred to by key \"TestContextItem009:0.0.1\""
                         }
                     },
@@ -707,7 +707,7 @@
                                 "name": "TestContextItem00A",
                                 "version": "0.0.1"
                             },
-                            "UUID": "0e0e3dec-e03d-3379-a87b-1ecd4aa3d8cc",
+                            "UUID": "cf60cca6-a2e8-4371-b0e5-85ecaae44acc",
                             "description": "Generated description for concept referred to by key \"TestContextItem00A:0.0.1\""
                         }
                     },
@@ -721,7 +721,7 @@
                                 "name": "TestContextItem00B",
                                 "version": "0.0.1"
                             },
-                            "UUID": "dbdc98df-3ff4-360c-b8d3-a7a836ac3de6",
+                            "UUID": "1671f996-e14e-407d-a503-f4de09f0785b",
                             "description": "Generated description for concept referred to by key \"TestContextItem00B:0.0.1\""
                         }
                     },
@@ -735,7 +735,7 @@
                                 "name": "TestContextItem00C",
                                 "version": "0.0.1"
                             },
-                            "UUID": "32a2f355-77f3-3b25-ace6-7a9c5763a5ad",
+                            "UUID": "814c4c28-9027-4516-9598-adc75fafa92a",
                             "description": "Generated description for concept referred to by key \"TestContextItem00C:0.0.1\""
                         }
                     },
@@ -749,7 +749,7 @@
                                 "name": "TestDatatypes",
                                 "version": "0.0.1"
                             },
-                            "UUID": "3f95472c-973e-30e2-95f1-bf00cbef909a",
+                            "UUID": "33e81d08-a62b-40ce-b7ff-50734427ebf9",
                             "description": "Generated description for concept referred to by key \"TestDatatypes:0.0.1\""
                         }
                     },
@@ -763,7 +763,7 @@
                                 "name": "TestExternalContextItem",
                                 "version": "0.0.1"
                             },
-                            "UUID": "610dbbd4-9149-3b3c-9af4-819056f0e169",
+                            "UUID": "5cd74351-8e27-4dee-a379-86124db50383",
                             "description": "Generated description for concept referred to by key \"TestExternalContextItem:0.0.1\""
                         }
                     },
@@ -777,7 +777,7 @@
                                 "name": "TestGlobalContextItem",
                                 "version": "0.0.1"
                             },
-                            "UUID": "07fa8f68-55f1-3fd0-81c1-749a379753a7",
+                            "UUID": "e8c9a056-5e95-4e14-bc96-0c0d13a34b18",
                             "description": "Generated description for concept referred to by key \"TestGlobalContextItem:0.0.1\""
                         }
                     },
@@ -791,7 +791,7 @@
                                 "name": "TestPolicyContextItem",
                                 "version": "0.0.1"
                             },
-                            "UUID": "d9c93cd1-539e-35c5-aaec-bb711ceb1251",
+                            "UUID": "92489659-02f3-4cb2-b25f-a6234ad71d36",
                             "description": "Generated description for concept referred to by key \"TestPolicyContextItem:0.0.1\""
                         }
                     },
@@ -805,7 +805,7 @@
                                 "name": "TestSlogan",
                                 "version": "0.0.1"
                             },
-                            "UUID": "683fe492-7eae-3ac7-9924-bb7850208d05",
+                            "UUID": "1c3b9345-32c2-4f7e-94ce-be36d0775e9e",
                             "description": "Generated description for concept referred to by key \"TestSlogan:0.0.1\""
                         }
                     },
@@ -819,7 +819,7 @@
                                 "name": "TestTemperature",
                                 "version": "0.0.1"
                             },
-                            "UUID": "bba25b6f-e3cd-3060-9022-4ef3a79f8eb0",
+                            "UUID": "9e719a99-1d73-4d40-b097-c9622b9ea2b4",
                             "description": "Generated description for concept referred to by key \"TestTemperature:0.0.1\""
                         }
                     },
@@ -833,7 +833,7 @@
                                 "name": "TestTimestamp",
                                 "version": "0.0.1"
                             },
-                            "UUID": "97b73937-c344-33c0-924c-4d26b6449564",
+                            "UUID": "3bcc8ef1-4cc5-4b7f-9dc4-83046d4a2a5d",
                             "description": "Generated description for concept referred to by key \"TestTimestamp:0.0.1\""
                         }
                     }
@@ -2124,8 +2124,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2135,8 +2134,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2146,8 +2144,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2157,8 +2154,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2168,8 +2164,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2179,8 +2174,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2190,8 +2184,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2201,8 +2194,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2212,8 +2204,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2223,8 +2214,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -2238,8 +2228,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2249,8 +2238,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2260,8 +2248,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2271,8 +2258,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2282,8 +2268,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2293,8 +2278,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2304,8 +2288,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2315,8 +2298,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2326,8 +2308,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2337,8 +2318,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2348,8 +2328,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2359,8 +2338,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -2449,8 +2427,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2460,8 +2437,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2471,8 +2447,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2482,8 +2457,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2493,8 +2467,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2504,8 +2477,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2515,8 +2487,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2526,8 +2497,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2537,8 +2507,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2548,8 +2517,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -2563,8 +2531,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2574,8 +2541,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2585,8 +2551,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2596,8 +2561,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2607,8 +2571,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2618,8 +2581,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2629,8 +2591,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2640,8 +2601,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2651,8 +2611,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2662,8 +2621,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2673,8 +2631,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2684,8 +2641,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -2754,8 +2710,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2765,8 +2720,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2776,8 +2730,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2787,8 +2740,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2798,8 +2750,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2809,8 +2760,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2820,8 +2770,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2831,8 +2780,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2842,8 +2790,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2853,8 +2800,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -2868,8 +2814,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2879,8 +2824,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2890,8 +2834,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2901,8 +2844,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2912,8 +2854,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2923,8 +2864,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2934,8 +2874,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2945,8 +2884,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2956,8 +2894,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2967,8 +2904,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2978,8 +2914,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -2989,8 +2924,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3047,8 +2981,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3058,8 +2991,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3069,8 +3001,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3080,8 +3011,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3091,8 +3021,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3102,8 +3031,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3113,8 +3041,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3124,8 +3051,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3135,8 +3061,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3146,8 +3071,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3161,8 +3085,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3172,8 +3095,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3183,8 +3105,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3194,8 +3115,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3205,8 +3125,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3216,8 +3135,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3227,8 +3145,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3238,8 +3155,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3249,8 +3165,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3260,8 +3175,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3271,8 +3185,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3282,8 +3195,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3340,8 +3252,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3351,8 +3262,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3362,8 +3272,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3373,8 +3282,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3384,8 +3292,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3395,8 +3302,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3406,8 +3312,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3417,8 +3322,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3432,8 +3336,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3443,8 +3346,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3454,8 +3356,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3465,8 +3366,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3476,8 +3376,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3487,8 +3386,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3498,8 +3396,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3509,8 +3406,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3520,8 +3416,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3531,8 +3426,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3621,8 +3515,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3632,8 +3525,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3643,8 +3535,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3654,8 +3545,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3665,8 +3555,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3676,8 +3565,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3687,8 +3575,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3698,8 +3585,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3713,8 +3599,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3724,8 +3609,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3735,8 +3619,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3746,8 +3629,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3757,8 +3639,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3768,8 +3649,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3779,8 +3659,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3790,8 +3669,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3801,8 +3679,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3812,8 +3689,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3882,8 +3758,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3893,8 +3768,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3904,8 +3778,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3915,8 +3788,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3926,8 +3798,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3937,8 +3808,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3948,8 +3818,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3959,8 +3828,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -3974,8 +3842,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3985,8 +3852,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -3996,8 +3862,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4007,8 +3872,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4018,8 +3882,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4029,8 +3892,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4040,8 +3902,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4051,8 +3912,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4062,8 +3922,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4073,8 +3932,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4131,8 +3989,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4142,8 +3999,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4153,8 +4009,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4164,8 +4019,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4175,8 +4029,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4186,8 +4039,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4197,8 +4049,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4208,8 +4059,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4223,8 +4073,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4234,8 +4083,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4245,8 +4093,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4256,8 +4103,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4267,8 +4113,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4278,8 +4123,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4289,8 +4133,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4300,8 +4143,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4311,8 +4153,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4322,8 +4163,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4380,8 +4220,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4391,8 +4230,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4402,8 +4240,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4413,8 +4250,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4424,8 +4260,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4435,8 +4270,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4450,8 +4284,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4461,8 +4294,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4472,8 +4304,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4483,8 +4314,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4494,8 +4324,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4505,8 +4334,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4516,8 +4344,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4527,8 +4354,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4617,8 +4443,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4628,8 +4453,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4639,8 +4463,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4650,8 +4473,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4661,8 +4483,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4672,8 +4493,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4687,8 +4507,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4698,8 +4517,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4709,8 +4527,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4720,8 +4537,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4731,8 +4547,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4742,8 +4557,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4753,8 +4567,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4764,8 +4577,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4834,8 +4646,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4845,8 +4656,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4856,8 +4666,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4867,8 +4676,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4878,8 +4686,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4889,8 +4696,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -4904,8 +4710,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4915,8 +4720,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4926,8 +4730,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4937,8 +4740,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4948,8 +4750,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4959,8 +4760,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4970,8 +4770,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -4981,8 +4780,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5039,8 +4837,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5050,8 +4847,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5061,8 +4857,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5072,8 +4867,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5083,8 +4877,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5094,8 +4887,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5109,8 +4901,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5120,8 +4911,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5131,8 +4921,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5142,8 +4931,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5153,8 +4941,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5164,8 +4951,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5175,8 +4961,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5186,8 +4971,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5244,8 +5028,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5255,8 +5038,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5266,8 +5048,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5277,8 +5058,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5292,8 +5072,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5303,8 +5082,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5314,8 +5092,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5325,8 +5102,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5336,8 +5112,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5347,8 +5122,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5437,8 +5211,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5448,8 +5221,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5459,8 +5231,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5470,8 +5241,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5485,8 +5255,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5496,8 +5265,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5507,8 +5275,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5518,8 +5285,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5529,8 +5295,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5540,8 +5305,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5610,8 +5374,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5621,8 +5384,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5632,8 +5394,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5643,8 +5404,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5658,8 +5418,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5669,8 +5428,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5680,8 +5438,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5691,8 +5448,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5702,8 +5458,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5713,8 +5468,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5771,8 +5525,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5782,8 +5535,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5793,8 +5545,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5804,8 +5555,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5819,8 +5569,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5830,8 +5579,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5841,8 +5589,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5852,8 +5599,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5863,8 +5609,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5874,8 +5619,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -5945,8 +5689,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5956,8 +5699,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5967,8 +5709,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -5978,8 +5719,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6008,8 +5748,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6019,8 +5758,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6030,8 +5768,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6041,8 +5778,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6052,8 +5788,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6063,8 +5798,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6093,8 +5827,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6104,8 +5837,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6115,8 +5847,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6126,8 +5857,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6137,8 +5867,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6148,8 +5877,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6159,8 +5887,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6170,8 +5897,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6200,8 +5926,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6211,8 +5936,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6222,8 +5946,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6233,8 +5956,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6244,8 +5966,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6255,8 +5976,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6266,8 +5986,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6277,8 +5996,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6288,8 +6006,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6299,8 +6016,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6329,8 +6045,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6340,8 +6055,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6351,8 +6065,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6362,8 +6075,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6373,8 +6085,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6384,8 +6095,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6395,8 +6105,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6406,8 +6115,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6417,8 +6125,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6428,8 +6135,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6439,8 +6145,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6450,8 +6155,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6480,8 +6184,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6491,8 +6194,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6502,8 +6204,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6513,8 +6214,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6543,8 +6243,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6554,8 +6253,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6565,8 +6263,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6576,8 +6273,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6587,8 +6283,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6598,8 +6293,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6628,8 +6322,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6639,8 +6332,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6650,8 +6342,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6661,8 +6352,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6672,8 +6362,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6683,8 +6372,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6694,8 +6382,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6705,8 +6392,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6735,8 +6421,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6746,8 +6431,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6757,8 +6441,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6768,8 +6451,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6779,8 +6461,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6790,8 +6471,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6801,8 +6481,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6812,8 +6491,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6823,8 +6501,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6834,8 +6511,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]
@@ -6864,8 +6540,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6875,8 +6550,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6886,8 +6560,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6897,8 +6570,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6908,8 +6580,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6919,8 +6590,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6930,8 +6600,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6941,8 +6610,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestCase",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6952,8 +6620,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6963,8 +6630,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestSlogan",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6974,8 +6640,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTemperature",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     },
                                     {
@@ -6985,8 +6650,7 @@
                                             "fieldSchemaKey": {
                                                 "name": "TestTimestamp",
                                                 "version": "0.0.1"
-                                            },
-                                            "optional": false
+                                            }
                                         }
                                     }
                                 ]

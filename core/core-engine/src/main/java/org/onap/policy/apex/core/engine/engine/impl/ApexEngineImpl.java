@@ -408,6 +408,10 @@ public class ApexEngineImpl implements ApexEngine {
     public Map<AxArtifactKey, Map<String, Object>> getEngineContext() {
         final Map<AxArtifactKey, Map<String, Object>> currentContext = new LinkedHashMap<>();
 
+        if (internalContext == null) {
+            return currentContext;
+        }
+        
         for (final Entry<AxArtifactKey, ContextAlbum> contextAlbumEntry : internalContext.getContextAlbums()
                         .entrySet()) {
             currentContext.put(contextAlbumEntry.getKey(), contextAlbumEntry.getValue());

@@ -108,7 +108,7 @@ final class EngineWorker implements EngineService {
      * @param threadFactory the thread factory to use for creating the event processing thread
      * @throws ApexException thrown on errors on worker instantiation
      */
-    EngineWorker(final AxArtifactKey engineWorkerKey, final BlockingQueue<ApexEvent> queue,
+    protected EngineWorker(final AxArtifactKey engineWorkerKey, final BlockingQueue<ApexEvent> queue,
             final ApplicationThreadFactory threadFactory) {
         LOGGER.entry(engineWorkerKey);
 
@@ -562,6 +562,7 @@ final class EngineWorker implements EngineService {
         try {
             final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
             final ApexModelWriter<AxEngineModel> modelWriter = new ApexModelWriter<>(AxEngineModel.class);
+            modelWriter.setJsonOutput(true);
             modelWriter.write(apexEngineModel, baOutputStream);
             return baOutputStream.toString();
         } catch (final Exception e) {
