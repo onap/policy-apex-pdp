@@ -215,7 +215,7 @@ public class EvalDomainModelFactory {
         final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
 
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
-                        .setDefaultLogic("EvalTask_Logic");
+                        .setDefaultLogic("EvalTaskLogic");
 
         final AxTask obTask = new AxTask(new AxArtifactKey("Task_Observe_0", DEFAULT_VERSION));
         obTask.duplicateInputFields(event0000.getParameterMap());
@@ -382,7 +382,7 @@ public class EvalDomainModelFactory {
                     final List<String> axLogicExecutorTypeList, final List<AxArtifactKey> defaultTaskList,
                     final List<Set<AxArtifactKey>> taskKeySetList) {
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
-                        .setDefaultLogic("EvalState_Logic");
+                        .setDefaultLogic("EvalStateLogic");
 
         final AxState actState = new AxState(new AxReferenceKey(policyKey, "Act"));
         actState.setTrigger(inEventKeyList.get(THIRD_MEMBER));
@@ -459,7 +459,7 @@ public class EvalDomainModelFactory {
         final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
 
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
-                        .setDefaultLogic("EvalTask_Logic");
+                        .setDefaultLogic("EvalTaskLogic");
 
         final AxTask eTask = new AxTask(new AxArtifactKey("Task_Event_0", DEFAULT_VERSION));
         eTask.duplicateInputFields(event0000.getParameterMap());
@@ -584,7 +584,7 @@ public class EvalDomainModelFactory {
                     final List<AxArtifactKey> outEventKeyList, final List<String> axLogicExecutorTypeList,
                     final List<AxArtifactKey> defaultTaskList, final List<Set<AxArtifactKey>> taskKeySetList) {
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
-                        .setDefaultLogic("EvalState_Logic");
+                        .setDefaultLogic("EvalStateLogic");
 
         final AxState actionState = new AxState(new AxReferenceKey(policyKey, ACTION));
         actionState.setTrigger(inEventKeyList.get(2));
