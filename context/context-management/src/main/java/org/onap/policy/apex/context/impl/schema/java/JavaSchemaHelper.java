@@ -21,6 +21,7 @@
 package org.onap.policy.apex.context.impl.schema.java;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import java.lang.reflect.Constructor;
@@ -29,16 +30,19 @@ import java.util.Map;
 
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.utilities.typeutils.TypeBuilder;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class implements translation to and from Apex distributed objects and Java objects when a
- * Java schema is used. It creates schema items as Java objects and marshals and unmarshals these
- * objects in various formats. All objects must be of the type of Java class defined in the schema.
+ * This class implements translation to and from Apex distributed objects and Java objects when a Java schema is used.
+ * It creates schema items as Java objects and marshals and unmarshals these objects in various formats. All objects
+ * must be of the type of Java class defined in the schema.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -66,10 +70,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     /*
      * (non-Javadoc)
      *
-     * @see
-     * org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper#init(org.onap.policy.apex.model
-     * .basicmodel. concepts. AxKey,
-     * org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
+     * @see org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper#init(org.onap.policy.apex.model .basicmodel.
+     * concepts. AxKey, org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
      */
     @Override
     public void init(final AxKey userKey, final AxContextSchema schema) {
@@ -83,7 +85,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         } catch (final IllegalArgumentException e) {
 
             String resultSting = userKey.getId() + ": class/type " + schema.getSchema() + " for context schema \""
-                    + schema.getId() + "\" not found.";
+                            + schema.getId() + "\" not found.";
             if (JavaSchemaHelper.BUILT_IN_MAP.get(javatype) != null) {
                 resultSting += " Primitive types are not supported. Use the appropriate Java boxing type instead.";
             } else {
@@ -106,15 +108,15 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         if (getSchemaClass() == null) {
-            final String returnString =
-                    getUserKey().getId() + ": could not create an instance, schema class for the schema is null";
+            final String returnString = getUserKey().getId()
+                            + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (incomingObject instanceof JsonElement) {
-            final String elementJsonString = new Gson().toJson((JsonElement) incomingObject);
-            return new Gson().fromJson(elementJsonString, this.getSchemaClass());
+            final String elementJsonString = getGson().toJson((JsonElement) incomingObject);
+            return getGson().fromJson(elementJsonString, this.getSchemaClass());
         }
 
         if (getSchemaClass().isAssignableFrom(incomingObject.getClass())) {
@@ -122,9 +124,9 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         final String returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
-                + incomingObject.getClass().getCanonicalName()
-                + "\" is not an instance of JsonObject and is not assignable to \""
-                + getSchemaClass().getCanonicalName() + "\"";
+                        + incomingObject.getClass().getCanonicalName()
+                        + "\" is not an instance of JsonObject and is not assignable to \""
+                        + getSchemaClass().getCanonicalName() + "\"";
         LOGGER.warn(returnString);
         throw new ContextRuntimeException(returnString);
     }
@@ -171,11 +173,11 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         // Check the incoming object is of a correct class
         if (getSchemaClass().isAssignableFrom(schemaObject.getClass())) {
             // Use Gson to translate the object
-            return new Gson().toJson(schemaObject);
+            return getGson().toJson(schemaObject);
         } else {
             final String returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
-                    + "\" of class \"" + schemaObject.getClass().getCanonicalName() + "\" not compatible with class \""
-                    + getSchemaClass().getCanonicalName() + "\"";
+                            + "\" of class \"" + schemaObject.getClass().getCanonicalName()
+                            + "\" not compatible with class \"" + getSchemaClass().getCanonicalName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -189,7 +191,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     @Override
     public Object marshal2Object(final Object schemaObject) {
         // Use Gson to marshal the schema object into a Json element to return
-        return new Gson().toJsonTree(schemaObject, getSchemaClass());
+        return getGson().toJsonTree(schemaObject, getSchemaClass());
     }
 
     /**
@@ -233,10 +235,49 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
             final String returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
-                    + object.getClass().getCanonicalName() + "\" not compatible with class \""
-                    + getSchemaClass().getCanonicalName() + "\"";
+                            + object.getClass().getCanonicalName() + "\" not compatible with class \""
+                            + getSchemaClass().getCanonicalName() + "\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
     }
+
+    /**
+     * Get a GSON instance that has the correct adaptation included.
+     * 
+     * @return the GSON instance
+     */
+    private Gson getGson() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        // Get the Java schema helper parameters from the parameter service
+        SchemaParameters schemaParameters = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
+
+        JavaSchemaHelperParameters javaSchemaHelperParmeters = (JavaSchemaHelperParameters) schemaParameters
+                        .getSchemaHelperParameterMap().get("Java");
+        
+        if (javaSchemaHelperParmeters == null) {
+            javaSchemaHelperParmeters = new JavaSchemaHelperParameters();
+        }
+        
+        for (JavaSchemaHelperJsonAdapterParameters jsonAdapterEntry : javaSchemaHelperParmeters.getJsonAdapters()
+                        .values()) {
+
+            Object adapterObject;
+            try {
+                adapterObject = jsonAdapterEntry.getAdaptorClazz().newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                final String returnString = getUserKey().getId() + ": instantiation of adapter class \""
+                                + jsonAdapterEntry.getAdaptorClass() + "\"  to decode and encode class \""
+                                + jsonAdapterEntry.getAdaptedClass() + "\" failed: " + e.getMessage();
+                LOGGER.warn(returnString, e);
+                throw new ContextRuntimeException(returnString);
+            }
+
+            gsonBuilder.registerTypeAdapter(jsonAdapterEntry.getAdaptedClazz(), adapterObject);
+        }
+
+        return gsonBuilder.create();
+    }
+
 }

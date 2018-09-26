@@ -21,6 +21,7 @@
 package org.onap.policy.apex.context.parameters;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
@@ -28,10 +29,9 @@ import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
- * Bean class holding schema parameters for schemas and their helpers. As more than one schema can
- * be used in Apex simultaneously, this class is used to hold the schemas that are defined in a
- * given Apex system and to get the schema helper plugin parameters {@link SchemaHelperParameters}
- * for each schema.
+ * Bean class holding schema parameters for schemas and their helpers. As more than one schema can be used in Apex
+ * simultaneously, this class is used to hold the schemas that are defined in a given Apex system and to get the schema
+ * helper plugin parameters {@link SchemaHelperParameters} for each schema.
  *
  * <p>The default {@code Java} schema is always defined and its parameters are held in a
  * {@link JavaSchemaHelperParameters} instance.
@@ -48,8 +48,7 @@ public class SchemaParameters implements ParameterGroup {
     private Map<String, SchemaHelperParameters> schemaHelperParameterMap;
 
     /**
-     * Constructor to create a distributor parameters instance and register the instance with the
-     * parameter service.
+     * Constructor to create a distributor parameters instance and register the instance with the parameter service.
      */
     public SchemaParameters() {
         super();
@@ -90,7 +89,7 @@ public class SchemaParameters implements ParameterGroup {
     public SchemaHelperParameters getSchemaHelperParameters(final String schemaFlavour) {
         return schemaHelperParameterMap.get(schemaFlavour);
     }
-    
+
     @Override
     public String getName() {
         return name;
@@ -103,6 +102,12 @@ public class SchemaParameters implements ParameterGroup {
 
     @Override
     public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+        final GroupValidationResult result = new GroupValidationResult(this);
+
+        for (Entry<String, SchemaHelperParameters> schemaHelperEntry : schemaHelperParameterMap.entrySet()) {
+            result.setResult("schemaHelperParameterMap", schemaHelperEntry.getKey(),
+                            schemaHelperEntry.getValue().validate());
+        }
+        return result;
     }
 }

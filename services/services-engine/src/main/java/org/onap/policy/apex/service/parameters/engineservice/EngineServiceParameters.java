@@ -310,6 +310,8 @@ public class EngineServiceParameters implements ParameterGroup {
                             + periodicEventPeriod + "] invalid, must be specified in milliseconds as >=0");
         }
 
+        result.setResult("engineParameters", engineParameters.validate());
+        
         return result;
     }
 

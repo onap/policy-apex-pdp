@@ -22,7 +22,9 @@ package org.onap.policy.apex.core.engine;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperJsonAdapterParameters;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
@@ -111,6 +113,13 @@ public class EngineParameters implements ParameterGroup {
 
     @Override
     public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+        final GroupValidationResult result = new GroupValidationResult(this);
+
+        result.setResult("contextParameters", contextParameters.validate());
+        
+        for (Entry<String, ExecutorParameters> executorParEntry : executorParameterMap.entrySet()) {
+            result.setResult("executorParameterMap", executorParEntry.getKey(), executorParEntry.getValue().validate());
+        }
+        return result;
     }
 }

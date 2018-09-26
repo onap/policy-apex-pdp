@@ -28,16 +28,44 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-
+import org.onap.policy.common.parameters.ParameterService;
 
 public class JavaSchemaHelperTest {
+    /**
+     * Initialize JSON adapters.
+     */
+    @BeforeClass
+    public static void registerParameters() {
+        JavaSchemaHelperParameters javaSchemaHelperPars = new JavaSchemaHelperParameters();
+
+        JavaSchemaHelperJsonAdapterParameters stringAdapterPars = new JavaSchemaHelperJsonAdapterParameters();
+        stringAdapterPars.setAdaptedClass("java.lang.String");
+        stringAdapterPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.TestJsonAdapter");
+
+        javaSchemaHelperPars.getJsonAdapters().put("String", stringAdapterPars);
+        
+        SchemaParameters schemaPars = new SchemaParameters();
+        schemaPars.getSchemaHelperParameterMap().put("Java", javaSchemaHelperPars);
+
+        ParameterService.register(schemaPars);
+    }
+
+    @AfterClass
+    public static void deregisterParameters() {
+        ParameterService.clear();
+    }
 
     @Test
     public void testJavaSchemaHelperInit() {
@@ -51,7 +79,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: class/type java.lang.Rubbish for context schema"
-                    + " \"SchemaKey:0.0.1\" not found. Check the class path of the JVM", e.getMessage());
+                            + " \"SchemaKey:0.0.1\" not found. Check the class path of the JVM", e.getMessage());
         }
 
         AxContextSchema builtInJavaTypeSchema = new AxContextSchema(schemaKey, "Java", "short");
@@ -61,8 +89,8 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: class/type short for context schema "
-                    + "\"SchemaKey:0.0.1\" not found. Primitive types are not supported."
-                    + " Use the appropriate Java boxing type instead.", e.getMessage());
+                            + "\"SchemaKey:0.0.1\" not found. Primitive types are not supported."
+                            + " Use the appropriate Java boxing type instead.", e.getMessage());
         }
     }
 
@@ -80,7 +108,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("NULL:0.0.0: could not create an instance, schema class for the schema is null",
-                    e.getMessage());
+                            e.getMessage());
         }
 
         try {
@@ -88,7 +116,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("NULL:0.0.0: could not create an instance, schema class for the schema is null",
-                    e.getMessage());
+                            e.getMessage());
         }
 
         try {
@@ -96,7 +124,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("NULL:0.0.0: could not create an instance, schema class for the schema is null",
-                    e.getMessage());
+                            e.getMessage());
         }
 
         AxArtifactKey schemaKey = new AxArtifactKey("SchemaKey", "0.0.1");
@@ -114,7 +142,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: could not create an instance of class "
-                    + "\"java.lang.Integer\" using the default constructor \"Integer()\"", e.getMessage());
+                            + "\"java.lang.Integer\" using the default constructor \"Integer()\"", e.getMessage());
         }
 
         try {
@@ -122,8 +150,8 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: the object \"1.23\" of type "
-                    + "\"java.lang.Float\" is not an instance of JsonObject and is not "
-                    + "assignable to \"java.lang.Integer\"", e.getMessage());
+                            + "\"java.lang.Float\" is not an instance of JsonObject and is not "
+                            + "assignable to \"java.lang.Integer\"", e.getMessage());
         }
 
         try {
@@ -131,7 +159,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: could not create an instance of class \"java.lang.Integer\" "
-                    + "using the string constructor \"Integer(String)\"", e.getMessage());
+                            + "using the string constructor \"Integer(String)\"", e.getMessage());
         }
 
         JsonElement jsonIntElement = null;
@@ -183,8 +211,8 @@ public class JavaSchemaHelperTest {
         doubleSchemaHelper.init(userKey, doubleSchema);
         stringSchemaHelper.init(userKey, stringSchema);
 
-        AxContextSchema myBaseClassSchema =
-                new AxContextSchema(schemaKey, "Java", "org.onap.policy.apex.context.impl.schema.java.MyBaseClass");
+        AxContextSchema myBaseClassSchema = new AxContextSchema(schemaKey, "Java",
+                        "org.onap.policy.apex.context.impl.schema.java.MyBaseClass");
         SchemaHelper myBaseClassSchemaHelper = new JavaSchemaHelper();
         myBaseClassSchemaHelper.init(userKey, myBaseClassSchema);
 
@@ -201,7 +229,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                    + "compatible with class \"java.lang.Byte\"", e.getMessage());
+                            + "compatible with class \"java.lang.Byte\"", e.getMessage());
         }
 
         assertEquals(null, shortSchemaHelper.unmarshal(null));
@@ -217,7 +245,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                    + "compatible with class \"java.lang.Short\"", e.getMessage());
+                            + "compatible with class \"java.lang.Short\"", e.getMessage());
         }
 
         assertEquals(null, intSchemaHelper.unmarshal(null));
@@ -233,7 +261,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                    + "compatible with class \"java.lang.Integer\"", e.getMessage());
+                            + "compatible with class \"java.lang.Integer\"", e.getMessage());
         }
 
         assertEquals(null, longSchemaHelper.unmarshal(null));
@@ -249,7 +277,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                    + "compatible with class \"java.lang.Long\"", e.getMessage());
+                            + "compatible with class \"java.lang.Long\"", e.getMessage());
         }
 
         assertEquals(null, floatSchemaHelper.unmarshal(null));
@@ -265,7 +293,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                    + "compatible with class \"java.lang.Float\"", e.getMessage());
+                            + "compatible with class \"java.lang.Float\"", e.getMessage());
         }
 
         assertEquals(null, doubleSchemaHelper.unmarshal(null));
@@ -282,7 +310,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                    + "compatible with class \"java.lang.Double\"", e.getMessage());
+                            + "compatible with class \"java.lang.Double\"", e.getMessage());
         }
 
         assertEquals("123", stringSchemaHelper.unmarshal(123));
@@ -307,10 +335,74 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"123.45\" of class \"java.lang.Double\" not "
-                    + "compatible with class \"java.lang.Integer\"", e.getMessage());
+                            + "compatible with class \"java.lang.Integer\"", e.getMessage());
         }
 
         JsonPrimitive intJsonPrimitive = (JsonPrimitive) intSchemaHelper.marshal2Object(123);
         assertEquals(123, intJsonPrimitive.getAsInt());
+    }
+
+    @Test
+    public void testJavaSchemaHelperAdapters() {
+        AxArtifactKey schemaKey = new AxArtifactKey("SchemaKey", "0.0.1");
+        AxArtifactKey userKey = new AxArtifactKey("UserKey", "0.0.1");
+
+        AxContextSchema stringSchema = new AxContextSchema(schemaKey, "Java", "java.lang.String");
+        SchemaHelper stringSchemaHelper = new JavaSchemaHelper();
+        stringSchemaHelper.init(userKey, stringSchema);
+
+        assertEquals("null", stringSchemaHelper.marshal2String(null));
+        assertEquals("\"Hello\"", stringSchemaHelper.marshal2String("Hello"));
+        try {
+            stringSchemaHelper.marshal2String(Instant.ofEpochMilli(1000));
+            fail("test should throw an exception here");
+        } catch (ContextRuntimeException e) {
+            assertEquals("UserKey:0.0.1: object \"1970-01-01T00:00:01Z\" of class \"java.time.Instant\" "
+                            + "not compatible with class \"java.lang.String\"", e.getMessage());
+        }
+
+        JsonPrimitive stringJsonPrimitive = (JsonPrimitive) stringSchemaHelper.marshal2Object("Another String");
+        assertEquals("Another String", stringJsonPrimitive.getAsString());
+    }
+
+    @Test
+    public void testJavaSchemaHelperBadAdapter() {
+        AxArtifactKey schemaKey = new AxArtifactKey("SchemaKey", "0.0.1");
+        AxArtifactKey userKey = new AxArtifactKey("UserKey", "0.0.1");
+
+        SchemaParameters pars = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        
+        JavaSchemaHelperParameters javaShPars = (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap()
+                        .get("Java");
+        javaShPars.getJsonAdapters().get("String")
+                        .setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.BadJsonAdapter");
+
+        AxContextSchema stringSchema = new AxContextSchema(schemaKey, "Java", "java.lang.String");
+        SchemaHelper stringSchemaHelper = new JavaSchemaHelper();
+        stringSchemaHelper.init(userKey, stringSchema);
+
+        try {
+            stringSchemaHelper.marshal2String("Hello");
+            fail("test should throw an exception");
+        } catch (ContextRuntimeException pre) {
+            assertEquals("UserKey:0.0.1: instantiation of adapter class "
+                            + "\"org.onap.policy.apex.context.impl.schema.java.BadJsonAdapter\"  "
+                            + "to decode and encode class \"java.lang.String\" failed: Test for Bad Adapter",
+                            pre.getMessage());
+        }
+    }
+
+    @Test
+    public void testJavaSchemaHelperDefaultAdapter() {
+        SchemaParameters pars = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
+
+        JavaSchemaHelperParameters javaShPars = (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap()
+                        .get("Java");
+        
+        pars.getSchemaHelperParameterMap().clear();
+        
+        testJavaSchemaHelperAdapters();
+
+        pars.getSchemaHelperParameterMap().put("Java", javaShPars);
     }
 }

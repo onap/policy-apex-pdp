@@ -24,21 +24,16 @@ import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
- * Bean class to hold parameters for context handling in Apex. This class contains all the context
- * parameters for schema handling, distribution, locking, and persistence of context albums.
+ * Bean class to hold parameters for context handling in Apex. This class contains all the context parameters for schema
+ * handling, distribution, locking, and persistence of context albums.
  *
- * <p>The following parameters are defined:
- * <ol>
- * <li>flushPeriod: Context is flushed to any persistor plugin that is defined periodically, and the
- * period for flushing is the flush period.
- * <li>distributorParameters: The parameters (a {@link DistributorParameters} instance) for the
- * distributor plugin that is being used for context album distribution
- * <li>schemaParameters: The parameters (a {@link SchemaParameters} instance) for the schema plugin
- * that is being used for context album schemas
- * <li>lockManagerParameters: The parameters (a {@link LockManagerParameters} instance) for the
- * locking mechanism plugin that is being used for context album locking
- * <li>persistorParameters: The parameters (a {@link PersistorParameters} instance) for the
- * persistence plugin that is being used for context album persistence
+ * <p>The following parameters are defined: <ol> <li>flushPeriod: Context is flushed to any persistor plugin that is
+ * defined periodically, and the period for flushing is the flush period. <li>distributorParameters: The parameters (a
+ * {@link DistributorParameters} instance) for the distributor plugin that is being used for context album distribution
+ * <li>schemaParameters: The parameters (a {@link SchemaParameters} instance) for the schema plugin that is being used
+ * for context album schemas <li>lockManagerParameters: The parameters (a {@link LockManagerParameters} instance) for
+ * the locking mechanism plugin that is being used for context album locking <li>persistorParameters: The parameters (a
+ * {@link PersistorParameters} instance) for the persistence plugin that is being used for context album persistence
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -54,8 +49,7 @@ public class ContextParameters implements ParameterGroup {
     // @formatter:on
 
     /**
-     * Constructor to create a context parameters instance and register the instance with the
-     * parameter service.
+     * Constructor to create a context parameters instance and register the instance with the parameter service.
      */
     public ContextParameters() {
         super();
@@ -135,7 +129,7 @@ public class ContextParameters implements ParameterGroup {
     public void setPersistorParameters(final PersistorParameters persistorParameters) {
         this.persistorParameters = persistorParameters;
     }
-    
+
     @Override
     public String toString() {
         return "ContextParameters [name=" + name + ", distributorParameters=" + distributorParameters
@@ -155,6 +149,15 @@ public class ContextParameters implements ParameterGroup {
 
     @Override
     public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+        GroupValidationResult result = new GroupValidationResult(this);
+
+        // @formatter:off
+        result.setResult("distributorParameters", distributorParameters.validate());
+        result.setResult("schemaParameters",      schemaParameters.validate());
+        result.setResult("lockManagerParameters", lockManagerParameters.validate());
+        result.setResult("persistorParameters",   persistorParameters.validate());
+        // @formatter:on
+
+        return result;
     }
 }
