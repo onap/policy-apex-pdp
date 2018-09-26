@@ -21,6 +21,7 @@
 package org.onap.policy.apex.core.engine;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -28,18 +29,18 @@ import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 
 /**
- * This class holds the parameters for a single Apex engine. This parameter class holds parameters
- * for context schemas and context albums for the engine and a map of the logic flavour executors
- * defined for the engine and the parameters for each of those executors.
+ * This class holds the parameters for a single Apex engine. This parameter class holds parameters for context schemas
+ * and context albums for the engine and a map of the logic flavour executors defined for the engine and the parameters
+ * for each of those executors.
  *
- * <p>The context parameters for the engine are held in a {@link ContextParameters} instance. This
- * instance holds the parameters for context schema handling that will be used by the engine as well
- * as the context album distribution, locking, and persistence parameters.
+ * <p>The context parameters for the engine are held in a {@link ContextParameters} instance. This instance holds the
+ * parameters for context schema handling that will be used by the engine as well as the context album distribution,
+ * locking, and persistence parameters.
  *
- * <p>In Apex, an engine can be configured to use many logic flavours. The executors for each logic
- * flavour are identified by their name. Each logic flavour executor must have an instance of
- * {@link ExecutorParameters} defined for it, which specifies the executor plugins to use for that
- * logic flavour executor and specific parameters for those executor plugins.
+ * <p>In Apex, an engine can be configured to use many logic flavours. The executors for each logic flavour are
+ * identified by their name. Each logic flavour executor must have an instance of {@link ExecutorParameters} defined for
+ * it, which specifies the executor plugins to use for that logic flavour executor and specific parameters for those
+ * executor plugins.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -53,12 +54,11 @@ public class EngineParameters implements ParameterGroup {
     private Map<String, ExecutorParameters> executorParameterMap = new TreeMap<>();
 
     /**
-     * Constructor to create an engine parameters instance and register the instance with the
-     * parameter service.
+     * Constructor to create an engine parameters instance and register the instance with the parameter service.
      */
     public EngineParameters() {
         super();
-        
+
         // Set the name for the parameters
         this.name = EngineParameterConstants.MAIN_GROUP_NAME;
     }
@@ -98,7 +98,7 @@ public class EngineParameters implements ParameterGroup {
     public void setExecutorParameterMap(final Map<String, ExecutorParameters> executorParameterMap) {
         this.executorParameterMap = executorParameterMap;
     }
-    
+
     @Override
     public String getName() {
         return name;
@@ -111,6 +111,13 @@ public class EngineParameters implements ParameterGroup {
 
     @Override
     public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+        final GroupValidationResult result = new GroupValidationResult(this);
+
+        result.setResult("contextParameters", contextParameters.validate());
+
+        for (Entry<String, ExecutorParameters> executorParEntry : executorParameterMap.entrySet()) {
+            result.setResult("executorParameterMap", executorParEntry.getKey(), executorParEntry.getValue().validate());
+        }
+        return result;
     }
 }

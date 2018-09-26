@@ -20,7 +20,12 @@
 
 package org.onap.policy.apex.context.impl.schema.java;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
 
 /**
  * The Schema helper parameter class for the Java schema helper is an empty parameter class that acts as a placeholder.
@@ -28,11 +33,48 @@ import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JavaSchemaHelperParameters extends SchemaHelperParameters {
+    // Map of specific type adapters for this event
+    private Map<String, JavaSchemaHelperJsonAdapterParameters> jsonAdapters = new LinkedHashMap<>();
 
     /**
-     * The Constructor.
+     * Constructor for Java schema helper parameters.
      */
     public JavaSchemaHelperParameters() {
+        this.setName("Java");
         this.setSchemaHelperPluginClass(JavaSchemaHelper.class.getCanonicalName());
     }
+    
+    /**
+     * Get the JSON adapters.
+     * 
+     * @return the JSON adapters
+     */
+    public Map<String, JavaSchemaHelperJsonAdapterParameters> getJsonAdapters() {
+        return jsonAdapters;
+    }
+
+    /**
+     * Set JSON adapters for the schema helper.
+     * 
+     * @param jsonAdapters the JSON adapters
+     */
+    public void setJsonAdapters(Map<String, JavaSchemaHelperJsonAdapterParameters> jsonAdapters) {
+        this.jsonAdapters = jsonAdapters;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
+     */
+    @Override
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = new GroupValidationResult(this);
+
+        for (Entry<String, JavaSchemaHelperJsonAdapterParameters> typeAdapterEntry : jsonAdapters.entrySet()) {
+            result.setResult("jsonAdapters", typeAdapterEntry.getKey(), typeAdapterEntry.getValue().validate());
+        }
+        return result;
+    }
+
 }
