@@ -27,7 +27,7 @@ var integerType = Java.type("java.lang.Integer");
 var requestID = uuidType.fromString(executor.inFields.get("correlation-id"));
 var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestID.toString());
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;
 
 if (vnfID != null) {
     var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(vnfID.toString());
@@ -44,7 +44,7 @@ if (vnfID != null) {
     executor.outFields.put("vnfID", vnfID);
 } else {
     executor.message = "VNF ID not found in context album for request ID " + requestID;
-    returnValue = executor.FALSE
+    returnValue = executor.isFalse
 }
 
 executor.logger.info(executor.outFields);

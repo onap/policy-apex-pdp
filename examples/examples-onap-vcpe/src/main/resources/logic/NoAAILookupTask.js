@@ -23,4 +23,4 @@ executor.logger.info(executor.inFields);
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

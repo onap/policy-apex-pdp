@@ -34,4 +34,4 @@ executor.outFields.put("decision", executor.getContextAlbum("AnswerAlbum").get(s
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

@@ -21,23 +21,23 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;
 
 var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
 
 var status = vcpeClosedLoopStatus.get("closedLoopEventStatus");
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;
 
 if (status === "ONSET") {
     executor.subject.getTaskKey("GuardRequestTask").copyTo(executor.selectedTask);
 } else if (status === "ABATED") {
     executor.subject.getTaskKey("AbatedTask").copyTo(executor.selectedTask);
-    onsetFlag = executor.FALSE;
+    onsetFlag = executor.isFalse;
 } else {
     executor.message = "closedLoopEventStatus must be either \"ONSET\" or \"ABATED\"";
-    returnValue = executor.FALSE;
+    returnValue = executor.isFalse;
 }
 
 executor.logger.info("ReceiveEventPolicyOnsetOrAbatedStateTSL State Selected Task:" + executor.selectedTask);

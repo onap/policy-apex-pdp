@@ -841,7 +841,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -983,7 +983,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -1125,7 +1125,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -1264,7 +1264,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -1416,7 +1416,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -1558,7 +1558,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -1700,7 +1700,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -1842,7 +1842,7 @@
                            "taskSelectionLogic" : {
                               "key" : "TaskSelectionLigic",
                               "logicFlavour" : "JAVASCRIPT",
-                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.TRUE;"
+                              "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.subject.defaultTaskKey.copyTo(executor.selectedTask)\n\nvar returnValue = executor.isTrue;"
                            },
                            "stateFinalizerLogicMap" : {
                               "entry" : [ ]
@@ -2236,7 +2236,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -2510,7 +2510,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -2773,7 +2773,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -3036,7 +3036,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestActCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestActStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -3287,7 +3287,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -3521,7 +3521,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -3744,7 +3744,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -3967,7 +3967,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestDecideCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestDecideStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -4178,7 +4178,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -4372,7 +4372,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -4555,7 +4555,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -4738,7 +4738,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestEstablishCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestEstablishStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -4909,7 +4909,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(2));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -5063,7 +5063,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(3));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -5206,7 +5206,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(0));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             }, {
@@ -5349,7 +5349,7 @@
                   "taskLogic" : {
                      "key" : "_TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.TRUE;"
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"GlobalContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nvar caseSelectedType = Java.type(\"java.lang.Byte\");\nexecutor.outFields.put(\"TestMatchCaseSelected\", new caseSelectedType(1));\n\nvar JavaDate = Java.type(\"java.util.Date\");\ntimeNow = new JavaDate();\nexecutor.outFields.put(\"TestMatchStateTime\", timeNow.getTime());\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
                   }
                }
             } ]

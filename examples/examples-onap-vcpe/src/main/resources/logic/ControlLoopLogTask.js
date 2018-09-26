@@ -45,4 +45,4 @@ executor.outFields.put("notificationTime", vcpeClosedLoopStatus.get("notificatio
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

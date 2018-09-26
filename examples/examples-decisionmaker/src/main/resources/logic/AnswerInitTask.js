@@ -44,4 +44,4 @@ executor.outFields.put("a6", answerAlbum.get("a6"));
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

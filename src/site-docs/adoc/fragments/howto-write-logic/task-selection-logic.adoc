@@ -113,7 +113,7 @@ executor.logger.info("Executing TSL: "
 *Example:*
 [source,javascript,options="nowrap"]
 ----
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;
 // functionally equivalent to: 
 var returnValueType = Java.type("java.lang.Boolean");
 var returnValue = new returnValueType(true);

@@ -21,7 +21,7 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var vnfID = executor.getContextAlbum("ControlLoopExecutionIDAlbum").remove(executor.executionID.toString());
+var vnfID = executor.getContextAlbum("ControlLoopExecutionIDAlbum").remove(executor.executionId.toString());
 
 executor.logger.info("Continuing execution with VNF ID: " + vnfID);
 
@@ -36,7 +36,7 @@ if (guardResult === "PERMIT") {
     vcpeClosedLoopStatus.put("notification", "OPERATION: GUARD_DENY");
 } else {
     executor.message = "guard result must be either \"PERMIT\" or \"DENY\"";
-    returnValue = executor.FALSE;
+    returnValue = executor.isFalse;
 }
 
 var uuidType = Java.type("java.util.UUID");
@@ -47,4 +47,4 @@ executor.outFields.put("vnfID", vnfID);
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

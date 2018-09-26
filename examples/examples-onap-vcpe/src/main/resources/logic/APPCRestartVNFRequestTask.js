@@ -73,4 +73,4 @@ vcpeClosedLoopStatus.put("notification", "OPERATION: RESTART REQUESTED");
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

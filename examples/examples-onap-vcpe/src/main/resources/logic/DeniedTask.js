@@ -29,4 +29,4 @@ vcpeClosedLoopStatus.put("notificationTime", new Date().toISOString());
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

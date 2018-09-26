@@ -36,9 +36,9 @@ executor.logger.info(guardDecisionAttributes);
 executor.outFields.put("decisionAttributes", guardDecisionAttributes);
 executor.outFields.put("onapName", "APEX");
 
-executor.getContextAlbum("ControlLoopExecutionIDAlbum").put(executor.executionID.toString(),
+executor.getContextAlbum("ControlLoopExecutionIDAlbum").put(executor.executionId.toString(),
         executor.inFields.get("vnfID"));
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

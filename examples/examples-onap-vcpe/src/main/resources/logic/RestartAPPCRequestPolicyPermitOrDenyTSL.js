@@ -34,4 +34,4 @@ if (guardResult === "OPERATION: GUARD_PERMIT") {
 
 executor.logger.info("RestartAPPCRequestPolicyPermitOrDenyTSL State Selected Task:" + executor.selectedTask);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;

@@ -66,4 +66,4 @@ executor.outFields.put("vnfID", vnfID);
 
 executor.logger.info(executor.outFields);
 
-returnValue = executor.TRUE;
+returnValue = executor.isTrue;

@@ -21,7 +21,7 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;
 
 if (executor.inFields.get("mode").equals("random")) {
     executor.subject.getTaskKey("RandomAnswerTask").copyTo(executor.selectedTask);

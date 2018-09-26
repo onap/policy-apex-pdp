@@ -21,7 +21,7 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var returnValue = executor.TRUE;
+var returnValue = executor.isTrue;
 
 var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
