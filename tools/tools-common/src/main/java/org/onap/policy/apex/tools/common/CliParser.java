@@ -34,7 +34,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
 /**
  * Application CLI parser.
@@ -80,7 +79,7 @@ public class CliParser {
         final CommandLineParser parser = new DefaultParser();
         try {
             cmd = parser.parse(options, args);
-        } catch (final ParseException ex) {
+        } catch (final Exception ex) {
             Console.CONSOLE.error("Parsing failed, see reason and cause below");
             Console.CONSOLE.stacktrace(ex);
         }

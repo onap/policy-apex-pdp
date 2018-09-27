@@ -130,6 +130,9 @@ public class KeyInfoGetter {
      * @return UUID of the key, null if key was null
      */
     public String getUuid(final AxArtifactKey key) {
+        if (key == null) {
+            return null;
+        }
         final AxKeyInfo ki = model.getKeyInformation().get(key);
         if (ki == null || ki.getUuid() == null) {
             return null;
@@ -144,6 +147,9 @@ public class KeyInfoGetter {
      * @return description of the key, null if key was null
      */
     public String getDesc(final AxArtifactKey key) {
+        if (key == null) {
+            return null;
+        }
         final AxKeyInfo ki = model.getKeyInformation().get(key);
         if (ki == null || ki.getDescription() == null) {
             return null;

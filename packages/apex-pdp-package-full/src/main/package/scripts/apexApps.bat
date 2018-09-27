@@ -73,8 +73,8 @@ set CLASSPATH=%APEX_HOME%\etc%cpsep%%APEX_HOME%\etc\hazelcast%cpsep%%APEX_HOME%\
 :: declare -A APEX_APP_MAP
 set APEX_APP_MAP[ws-console]=java -jar %APEX_HOME%\lib\applications\simple-wsclient-%_VERSION%-jar-with-dependencies.jar -c
 set APEX_APP_MAP[ws-echo]=java -jar %APEX_HOME%\lib\applications\simple-wsclient-%_VERSION%-jar-with-dependencies.jar
-set APEX_APP_MAP[tpl-event-json]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.tools.model.generator.model2event.Application
-set APEX_APP_MAP[model-2-cli]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.tools.model.generator.model2cli.Application
+set APEX_APP_MAP[tpl-event-json]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.tools.model.generator.model2event.Model2EventMain
+set APEX_APP_MAP[model-2-cli]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.tools.model.generator.model2cli.Model2CliMain
 set APEX_APP_MAP[rest-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-editor-%_VERSION%-editor.jar
 set APEX_APP_MAP[cli-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain
 set APEX_APP_MAP[engine]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.service.engine.main.ApexMain

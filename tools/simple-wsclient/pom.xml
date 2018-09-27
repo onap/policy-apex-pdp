@@ -59,7 +59,7 @@
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>org.onap.policy.apex.tools.simple.wsclient.Application</mainClass>
+                                    <mainClass>org.onap.policy.apex.tools.simple.wsclient.WsClient</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

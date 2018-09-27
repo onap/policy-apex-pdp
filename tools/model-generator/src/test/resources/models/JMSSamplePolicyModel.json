@@ -1,0 +1,456 @@
+{
+    "apexPolicyModel": {
+        "key": {
+            "name": "JMSTestModel",
+            "version": "0.0.1"
+        },
+        "keyInformation": {
+            "key": {
+                "name": "JMSTestModel_KeyInfo",
+                "version": "0.0.1"
+            },
+            "keyInfoMap": {
+                "entry": [
+                    {
+                        "key": {
+                            "name": "JMSCopyInOutTask",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSCopyInOutTask",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "b59815ef-fc5b-4e44-9f6e-2f6212bb7296",
+                            "description": "Generated description for a concept called \"JMSCopyInOutTask\" with version \"null\" and UUID \"b59815ef-fc5b-4e44-9f6e-2f6212bb7296\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "a731a845-f984-46a9-adf4-c6c7ca0baa0d",
+                            "description": "Generated description for a concept called \"JMSTestModel\" with version \"null\" and UUID \"a731a845-f984-46a9-adf4-c6c7ca0baa0d\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel_Albums",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel_Albums",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "b580c2e2-067e-452c-8410-d69344fa718c",
+                            "description": "Generated description for concept referred to by key \"JMSTestModel_Albums:0.0.1\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel_Events",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel_Events",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "463f3fa6-2be3-4ded-a015-1f045ee8991e",
+                            "description": "Generated description for concept referred to by key \"JMSTestModel_Events:0.0.1\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel_KeyInfo",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel_KeyInfo",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "b14d97fb-f215-4b70-9cd6-cbfb3ed085ee",
+                            "description": "Generated description for concept referred to by key \"JMSTestModel_KeyInfo:0.0.1\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel_Policies",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel_Policies",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "9ae9047f-e0d8-42c4-b3a6-e32954ace3b6",
+                            "description": "Generated description for concept referred to by key \"JMSTestModel_Policies:0.0.1\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel_Schemas",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel_Schemas",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "adc30c29-d4b9-4408-9213-6d86b051d59c",
+                            "description": "Generated description for concept referred to by key \"JMSTestModel_Schemas:0.0.1\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestModel_Tasks",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestModel_Tasks",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "c3545f15-710c-4339-9a4e-e0eacffac52e",
+                            "description": "Generated description for concept referred to by key \"JMSTestModel_Tasks:0.0.1\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "JMSTestPolicy",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSTestPolicy",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "fdda6a40-6767-45b0-8703-3b5b3bafaf19",
+                            "description": "Generated description for a concept called \"JMSTestPolicy\" with version \"null\" and UUID \"fdda6a40-6767-45b0-8703-3b5b3bafaf19\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "TestPingIncomingEvent",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "TestPingIncomingEvent",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "6cdd11f3-5fe8-4510-81b9-af3be303ebae",
+                            "description": "Generated description for a concept called \"TestPingIncomingEvent\" with version \"null\" and UUID \"6cdd11f3-5fe8-4510-81b9-af3be303ebae\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "TestPingOutgoingEvent",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "TestPingOutgoingEvent",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "dc04de01-2284-4461-9fe2-da58a2122a73",
+                            "description": "Generated description for a concept called \"TestPingOutgoingEvent\" with version \"0.0.1\" and UUID \"dc04de01-2284-4461-9fe2-da58a2122a73\""
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "TestPingType",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "TestPingType",
+                                "version": "0.0.1"
+                            },
+                            "UUID": "bdc2f70a-de52-4127-8012-b9593657da3c",
+                            "description": "Generated description for a concept called \"TestPingType\" with version \"null\" and UUID \"bdc2f70a-de52-4127-8012-b9593657da3c\""
+                        }
+                    }
+                ]
+            }
+        },
+        "policies": {
+            "key": {
+                "name": "JMSTestModel_Policies",
+                "version": "0.0.1"
+            },
+            "policyMap": {
+                "entry": [
+                    {
+                        "key": {
+                            "name": "JMSTestPolicy",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "policyKey": {
+                                "name": "JMSTestPolicy",
+                                "version": "0.0.1"
+                            },
+                            "template": "FREEFORM",
+                            "state": {
+                                "entry": [
+                                    {
+                                        "key": "TestJMSState",
+                                        "value": {
+                                            "stateKey": {
+                                                "parentKeyName": "JMSTestPolicy",
+                                                "parentKeyVersion": "0.0.1",
+                                                "parentLocalName": "NULL",
+                                                "localName": "TestJMSState"
+                                            },
+                                            "trigger": {
+                                                "name": "TestPingIncomingEvent",
+                                                "version": "0.0.1"
+                                            },
+                                            "stateOutputs": {
+                                                "entry": [
+                                                    {
+                                                        "key": "InOutOutputMapping",
+                                                        "value": {
+                                                            "key": {
+                                                                "parentKeyName": "JMSTestPolicy",
+                                                                "parentKeyVersion": "0.0.1",
+                                                                "parentLocalName": "TestJMSState",
+                                                                "localName": "InOutOutputMapping"
+                                                            },
+                                                            "outgoingEvent": {
+                                                                "name": "TestPingOutgoingEvent",
+                                                                "version": "0.0.1"
+                                                            },
+                                                            "nextState": {
+                                                                "parentKeyName": "NULL",
+                                                                "parentKeyVersion": "0.0.0",
+                                                                "parentLocalName": "NULL",
+                                                                "localName": "NULL"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "contextAlbumReference": [],
+                                            "taskSelectionLogic": {
+                                                "key": "NULL",
+                                                "logicFlavour": "UNDEFINED",
+                                                "logic": ""
+                                            },
+                                            "stateFinalizerLogicMap": {
+                                                "entry": []
+                                            },
+                                            "defaultTask": {
+                                                "name": "JMSCopyInOutTask",
+                                                "version": "0.0.1"
+                                            },
+                                            "taskReferences": {
+                                                "entry": [
+                                                    {
+                                                        "key": {
+                                                            "name": "JMSCopyInOutTask",
+                                                            "version": "0.0.1"
+                                                        },
+                                                        "value": {
+                                                            "key": {
+                                                                "parentKeyName": "JMSTestPolicy",
+                                                                "parentKeyVersion": "0.0.1",
+                                                                "parentLocalName": "TestJMSState",
+                                                                "localName": "InOutTask"
+                                                            },
+                                                            "outputType": "DIRECT",
+                                                            "output": {
+                                                                "parentKeyName": "JMSTestPolicy",
+                                                                "parentKeyVersion": "0.0.1",
+                                                                "parentLocalName": "TestJMSState",
+                                                                "localName": "InOutOutputMapping"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "firstState": "TestJMSState"
+                        }
+                    }
+                ]
+            }
+        },
+        "tasks": {
+            "key": {
+                "name": "JMSTestModel_Tasks",
+                "version": "0.0.1"
+            },
+            "taskMap": {
+                "entry": [
+                    {
+                        "key": {
+                            "name": "JMSCopyInOutTask",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "JMSCopyInOutTask",
+                                "version": "0.0.1"
+                            },
+                            "inputFields": {
+                                "entry": [
+                                    {
+                                        "key": "TestPing",
+                                        "value": {
+                                            "key": "TestPing",
+                                            "fieldSchemaKey": {
+                                                "name": "TestPingType",
+                                                "version": "0.0.1"
+                                            },
+                                            "optional": false
+                                        }
+                                    }
+                                ]
+                            },
+                            "outputFields": {
+                                "entry": [
+                                    {
+                                        "key": "TestPing",
+                                        "value": {
+                                            "key": "TestPing",
+                                            "fieldSchemaKey": {
+                                                "name": "TestPingType",
+                                                "version": "0.0.1"
+                                            },
+                                            "optional": false
+                                        }
+                                    }
+                                ]
+                            },
+                            "taskParameters": {
+                                "entry": []
+                            },
+                            "contextAlbumReference": [],
+                            "taskLogic": {
+                                "key": "TaskLogic",
+                                "logicFlavour": "JAVASCRIPT",
+                                "logic": "var outFieldType = Java.type(\"org.onap.policy.apex.apps.uservice.test.adapt.jms.TestPing\");\nvar outValue = new outFieldType();\n\nvar inValue = executor.inFields.get(\"TestPing\");\n\nexecutor.logger.info(inValue);\n\noutValue.setPingTime(inValue.getPingTime());\noutValue.setPongTime(new Date().getTime());\noutValue.setName(inValue.getName() + \"_out\");\n\noutValue.setDescription(\ninValue.getDescription() +\n\". So Romeo would, were he not Romeo call'd,\" +\n\" retain that dear perfection which he owes, without that title.\");\n\nexecutor.logger.info(outValue);\nexecutor.outFields.put(\"TestPing\", outValue)\n\nvar returnValueType = Java.type(\"java.lang.Boolean\");\nvar returnValue = new returnValueType(true);"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "events": {
+            "key": {
+                "name": "JMSTestModel_Events",
+                "version": "0.0.1"
+            },
+            "eventMap": {
+                "entry": [
+                    {
+                        "key": {
+                            "name": "TestPingIncomingEvent",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "TestPingIncomingEvent",
+                                "version": "0.0.1"
+                            },
+                            "nameSpace": "org.onap.policy.apex.apps.uservice.test.adapt.jms",
+                            "source": "JMS",
+                            "target": "Apex",
+                            "parameter": {
+                                "entry": [
+                                    {
+                                        "key": "TestPing",
+                                        "value": {
+                                            "key": "TestPing",
+                                            "fieldSchemaKey": {
+                                                "name": "TestPingType",
+                                                "version": "0.0.1"
+                                            },
+                                            "optional": false
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "key": {
+                            "name": "TestPingOutgoingEvent",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "TestPingOutgoingEvent",
+                                "version": "0.0.1"
+                            },
+                            "nameSpace": "org.onap.policy.apex.apps.uservice.test.adapt.jms",
+                            "source": "Apex",
+                            "target": "JMS",
+                            "parameter": {
+                                "entry": [
+                                    {
+                                        "key": "TestPing",
+                                        "value": {
+                                            "key": "TestPing",
+                                            "fieldSchemaKey": {
+                                                "name": "TestPingType",
+                                                "version": "0.0.1"
+                                            },
+                                            "optional": false
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "albums": {
+            "key": {
+                "name": "JMSTestModel_Albums",
+                "version": "0.0.1"
+            },
+            "albums": {
+                "entry": []
+            }
+        },
+        "schemas": {
+            "key": {
+                "name": "JMSTestModel_Schemas",
+                "version": "0.0.1"
+            },
+            "schemas": {
+                "entry": [
+                    {
+                        "key": {
+                            "name": "TestPingType",
+                            "version": "0.0.1"
+                        },
+                        "value": {
+                            "key": {
+                                "name": "TestPingType",
+                                "version": "0.0.1"
+                            },
+                            "schemaFlavour": "Java",
+                            "schemaDefinition": "org.onap.policy.apex.apps.uservice.test.adapt.jms.TestPing"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

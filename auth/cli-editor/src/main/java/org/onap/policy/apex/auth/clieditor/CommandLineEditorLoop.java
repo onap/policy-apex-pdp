@@ -126,7 +126,7 @@ public class CommandLineEditorLoop {
             if (parameters.checkSetOutputModelFileName()) {
                 TextFileUtils.putStringAsTextFile(modelString, parameters.getOutputModelFileName());
             } else {
-                System.out.println(modelString);
+                writer.println(modelString);
             }
         }
 

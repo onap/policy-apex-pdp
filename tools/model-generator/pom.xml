@@ -56,6 +56,12 @@
             <artifactId>cli-codegen</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
+            <artifactId>integration-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
