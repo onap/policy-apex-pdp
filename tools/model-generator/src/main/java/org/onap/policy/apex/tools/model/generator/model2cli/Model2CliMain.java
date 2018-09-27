@@ -121,12 +121,12 @@ public final class Model2CliMain {
      */
     private String getHelpString(final CliParser cli) {
         HelpFormatter formatter = new HelpFormatter();
-      
+
         final StringWriter helpStringWriter = new StringWriter();
         final PrintWriter helpPrintWriter = new PrintWriter(helpStringWriter);
 
         formatter.printHelp(helpPrintWriter, 120, APP_NAME, APP_DESCRIPTION, cli.getOptions(), 2, 4, "");
-        
+
         return helpStringWriter.toString();
     }
 
