@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
+import org.apache.avro.Schema.Type;
 import org.apache.commons.lang3.Validate;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -40,6 +41,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 import org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters;
+import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.tools.model.generator.SchemaUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -97,19 +99,14 @@ public class Model2JsonEventSchema {
      */
     protected ST addFieldType(final Schema schema, final STGroup stg) {
         ST ret = null;
-        switch (schema.getType()) {
-            case BOOLEAN:
-            case BYTES:
-            case DOUBLE:
-            case FIXED:
-            case FLOAT:
-            case INT:
-            case LONG:
-            case STRING:
-                ret = stg.getInstanceOf("fieldTypeAtomic");
-                ret.add("type", schema.getType());
-                break;
 
+        if (isSimpleType(schema.getType())) {
+            ret = stg.getInstanceOf("fieldTypeAtomic");
+            ret.add("type", schema.getType());
+            return ret;
+        }
+        
+        switch (schema.getType()) {
             case ARRAY:
                 ret = stg.getInstanceOf("fieldTypeArray");
                 ret.add("array", this.addFieldType(schema.getElementType(), stg));
@@ -136,6 +133,31 @@ public class Model2JsonEventSchema {
                 break;
         }
         return ret;
+    }
+
+    /**
+     * Check if a schema is a simple type.
+     * 
+     * @param schemaType the type of the schema
+     * @return true if the schema is a simple type
+     */
+    private boolean isSimpleType(Type schemaType) {
+        switch (schemaType) {
+            case BOOLEAN:
+            case BYTES:
+            case DOUBLE:
+            case FIXED:
+            case FLOAT:
+            case INT:
+            case LONG:
+            case STRING: {
+                return true;
+            }
+            
+            default: {
+                return false;
+            }
+        }
     }
 
     /**
@@ -208,6 +230,22 @@ public class Model2JsonEventSchema {
             }
         }
 
+        String renderMessage = renderEvents(stg, stEvents, events);
+        LOGGER.error(renderMessage);
+        return 0;
+    }
+
+    /**
+     * Render the events.
+     * 
+     * @param stg the string template
+     * @param stEvents the event template
+     * @param events the events to render
+     * @return the rendered events
+     * @throws ApexEventException on rendering exceptions
+     */
+    private String renderEvents(final STGroupFile stg, final ST stEvents, final Set<AxEvent> events)
+                    throws ApexEventException {
         for (final AxEvent event : events) {
             final ST stEvent = stg.getInstanceOf("event");
             stEvent.add("name", event.getKey().getName());
@@ -232,9 +270,7 @@ public class Model2JsonEventSchema {
             }
             stEvents.add("event", stEvent);
         }
-        String renderMessage = stEvents.render();
-        LOGGER.error(renderMessage);
-        return 0;
+        return stEvents.render();
     }
 
     /**

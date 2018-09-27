@@ -195,7 +195,7 @@ public class EngineServiceFacade {
      * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException, IOException {
+                    throws ApexException {
         if (engineServiceKey == null || engineKeyArray == null || engineKeyArray.length == 0) {
             LOGGER.error("cound not deploy apex model, deployer is not initialized");
             throw new ApexDeploymentException("cound not deploy apex model, deployer is not initialized");
@@ -212,7 +212,13 @@ public class EngineServiceFacade {
             }
         }
 
-        deployModel(modelFileName, apexModelUrl.openStream(), ignoreConflicts, force);
+        try {
+            deployModel(modelFileName, apexModelUrl.openStream(), ignoreConflicts, force);
+        } catch (Exception deployException) {
+            String errorMessage = "could not deploy apex model from " + modelFileName;
+            LOGGER.error(errorMessage, deployException);
+            throw new ApexDeploymentException(errorMessage, deployException);
+        }
     }
 
     /**

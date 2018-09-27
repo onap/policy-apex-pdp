@@ -83,7 +83,7 @@ public class BatchDeployer {
      * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException, IOException {
+                    throws ApexException {
         engineServiceFacade.deployModel(modelFileName, ignoreConflicts, force);
     }
 
@@ -144,7 +144,7 @@ public class BatchDeployer {
             deployer.init();
             deployer.deployModel(args[2], false, false);
             deployer.startEngines();
-        } catch (final ApexException | IOException e) {
+        } catch (final ApexException e) {
             LOGGER.error("model deployment failed on parameters {}", args, e);
         } finally {
             if (deployer != null) {

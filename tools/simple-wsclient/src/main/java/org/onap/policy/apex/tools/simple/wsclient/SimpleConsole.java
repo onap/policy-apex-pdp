@@ -130,8 +130,9 @@ public class SimpleConsole extends WebSocketClient {
                 connect();
             }
         };
+        thread.setName("ClientThread");
         thread.start();
-
+        
         final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String event = "";
         String line;
