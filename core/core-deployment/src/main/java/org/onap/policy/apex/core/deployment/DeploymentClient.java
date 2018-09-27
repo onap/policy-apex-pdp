@@ -25,6 +25,7 @@ import com.google.common.eventbus.Subscribe;
 import java.net.URI;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
@@ -38,10 +39,9 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class DeploymentClient handles the client side of an EngDep communication session with an
- * Apex server. It runs a thread to handle message sending and session monitoring. It uses a sending
- * queue to queue messages for sending by the client thread and a receiving queue to queue messages
- * received from the Apex engine.
+ * The Class DeploymentClient handles the client side of an EngDep communication session with an Apex server. It runs a
+ * thread to handle message sending and session monitoring. It uses a sending queue to queue messages for sending by the
+ * client thread and a receiving queue to queue messages received from the Apex engine.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -49,6 +49,7 @@ public class DeploymentClient implements Runnable {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(DeploymentClient.class);
 
     private static final int CLIENT_STOP_WAIT_INTERVAL = 100;
+    private static final int CLIENT_SEND_QUEUE_TIMEOUT = 50;
 
     // Host and port to use for EngDep messaging
     private String host = null;
@@ -65,6 +66,10 @@ public class DeploymentClient implements Runnable {
     // Thread management fields
     private boolean started = false;
     private Thread thisThread = null;
+    
+    // Number of messages processed
+    private long messagesSent = 0;
+    private long messagesReceived = 0;
 
     /**
      * Instantiates a new deployment client.
@@ -104,10 +109,18 @@ public class DeploymentClient implements Runnable {
             return;
         }
         // Loop forever, sending messages as they appear on the queue
-        while (started) {
+        while (started && !thisThread.isInterrupted()) {
             try {
-                final Message messageForSending = sendQueue.take();
-                sendMessage(messageForSending);
+                final Message messageForSending = sendQueue.poll(CLIENT_SEND_QUEUE_TIMEOUT, TimeUnit.MILLISECONDS);
+                if (messageForSending == null) {
+                    continue;
+                }
+
+                // Send the message in its message holder
+                final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
+                messageHolder.addMessage(messageForSending);
+                service.send(messageHolder);
+                messagesSent++;
             } catch (final InterruptedException e) {
                 // Message sending has been interrupted, we are finished
                 LOGGER.debug("engine<-->deployment client interrupted");
@@ -128,11 +141,7 @@ public class DeploymentClient implements Runnable {
      * @param message the message to send to the Apex server
      */
     public void sendMessage(final Message message) {
-        final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
-
-        // Send the message in its message holder
-        messageHolder.addMessage(message);
-        service.send(messageHolder);
+        sendQueue.add(message);
     }
 
     /**
@@ -146,7 +155,9 @@ public class DeploymentClient implements Runnable {
         ThreadUtilities.sleep(CLIENT_STOP_WAIT_INTERVAL);
 
         // Close the Web Services connection
-        service.stopConnection();
+        if (service != null) {
+            service.stopConnection();
+        }
         started = false;
         LOGGER.debug("engine<-->deployment test client stopped . . .");
     }
@@ -170,11 +181,26 @@ public class DeploymentClient implements Runnable {
     }
 
     /**
-     * The listener interface for receiving deploymentClient events. The class that is interested in
-     * processing a deploymentClient event implements this interface, and the object created with
-     * that class is registered with a component using the component's
-     * {@code addDeploymentClientListener} method. When the deploymentClient event occurs, that
-     * object's appropriate method is invoked.
+     * Get the number of messages received by the client.
+     * @return the number of messages received by the client
+     */
+    public long getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    /**
+     * Get the number of messages sent by the client.
+     * @return the number of messages sent by the client
+     */
+    public long getMessagesSent() {
+        return messagesSent;
+    }
+
+    /**
+     * The listener interface for receiving deploymentClient events. The class that is interested in processing a
+     * deploymentClient event implements this interface, and the object created with that class is registered with a
+     * component using the component's {@code addDeploymentClientListener} method. When the deploymentClient event
+     * occurs, that object's appropriate method is invoked.
      *
      * @see DeploymentClientEvent
      */
@@ -182,25 +208,24 @@ public class DeploymentClient implements Runnable {
         /*
          * (non-Javadoc)
          *
-         * @see
-         * org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(org.onap.
-         * policy.apex.core. infrastructure.messaging.impl.ws.messageblock. MessageBlock)
+         * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(org.onap. policy.apex.core.
+         * infrastructure.messaging.impl.ws.messageblock. MessageBlock)
          */
         @Subscribe
         @Override
         public void onMessage(final MessageBlock<Message> messageData) {
+            messagesReceived++;
             receiveQueue.addAll(messageData.getMessages());
         }
 
         /*
          * (non-Javadoc)
          *
-         * @see
-         * org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang.
-         * String)
+         * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang. String)
          */
         @Override
         public void onMessage(final String messageString) {
+            messagesReceived++;
             throw new UnsupportedOperationException("String mesages are not supported on the EngDep protocol");
         }
     }

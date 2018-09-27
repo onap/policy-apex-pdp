@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.core.deployment;
 
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -35,19 +36,39 @@ public class PeriodicEventManager {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(BatchDeployer.class);
 
     private static final int NUM_ARGUMENTS = 4;
-    private static final int PERIODIC_EVENT_INTERVAL = 3;
 
     // The facade that is handling messaging to the engine service
     private EngineServiceFacade engineServiceFacade = null;
 
+    // Host name and port of the Apex service
+    private String hostName;
+    private int port;
+
+    // Should we start or stop periodic events
+    private boolean startFlag;
+
+    // The period for periodic events
+    private long period;
+
     /**
-     * Instantiates a new deployer.
-     *
-     * @param hostName the host name of the host running the Apex Engine
-     * @param port the port to use for EngDep communication with the Apex engine
+     * Instantiates a new periodic event manager.
+     * 
+     * @param args the command parameters
+     * @param outputStream the output stream
      */
-    public PeriodicEventManager(final String hostName, final int port) {
-        engineServiceFacade = new EngineServiceFacade(hostName, port);
+    public PeriodicEventManager(final String[] args, final PrintStream outputStream)  {
+        if (args.length != NUM_ARGUMENTS) {
+            String message = "invalid arguments: " + Arrays.toString(args)
+                            + "\nusage: Deployer <server address> <port address> <start/stop> <periods in ms>";
+            LOGGER.error(message);
+            outputStream.println(message);
+            return;
+        }
+
+        this.hostName = args[0];
+        this.port = Integer.parseInt(args[1]);
+        this.startFlag = "start".equalsIgnoreCase(args[2]);
+        this.period = Long.parseLong(args[3]);
     }
 
     /**
@@ -56,13 +77,27 @@ public class PeriodicEventManager {
      * @throws ApexDeploymentException thrown on deployment and communication errors
      */
     public void init() throws ApexDeploymentException {
-        engineServiceFacade.init();
+        try {
+            // Use an engine service facade to handle model deployment
+            engineServiceFacade = new EngineServiceFacade(hostName, port);
+            engineServiceFacade.init();
+
+            if (startFlag) {
+                startPerioidicEvents(period);
+            } else {
+                stopPerioidicEvents();
+            }
+        } catch (final ApexException e) {
+            LOGGER.error("model deployment failed on parameters {} {} {}", hostName, port, startFlag, e);
+        } finally {
+            close();
+        }
     }
 
     /**
      * Close the EngDep connection to the Apex server.
      */
-    public void close() {
+    private void close() {
         engineServiceFacade.close();
     }
 
@@ -72,7 +107,7 @@ public class PeriodicEventManager {
      * @param period the interval in milliseconds between periodic events
      * @throws ApexDeploymentException on messaging errors
      */
-    public void startPerioidicEvents(final long period) throws ApexDeploymentException {
+    private void startPerioidicEvents(final long period) throws ApexDeploymentException {
         for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
             engineServiceFacade.startPerioidicEvents(engineKey, period);
         }
@@ -83,7 +118,7 @@ public class PeriodicEventManager {
      *
      * @throws ApexDeploymentException on messaging errors
      */
-    public void stopPerioidicEvents() throws ApexDeploymentException {
+    private void stopPerioidicEvents() throws ApexDeploymentException {
         for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
             engineServiceFacade.stopPerioidicEvents(engineKey);
         }
@@ -94,31 +129,10 @@ public class PeriodicEventManager {
      * command line arguments.
      *
      * @param args the arguments that specify the Apex engine and the Apex model file
+     * @throws ApexDeploymentException on deployment errors
      */
-    public static void main(final String[] args) {
-        if (args.length != NUM_ARGUMENTS) {
-            String message = "invalid arguments: " + Arrays.toString(args)
-                            + "\nusage: Deployer <server address> <port address> <start/stop> <periods in ms>";
-            LOGGER.error(message);
-            return;
-        }
-
-        PeriodicEventManager deployer = null;
-        try {
-            // Use a Deployer object to handle model deployment
-            deployer = new PeriodicEventManager(args[0], Integer.parseInt(args[1]));
-            deployer.init();
-            if ("start".equalsIgnoreCase(args[2])) {
-                deployer.startPerioidicEvents(Long.parseLong(args[PERIODIC_EVENT_INTERVAL]));
-            } else {
-                deployer.stopPerioidicEvents();
-            }
-        } catch (final ApexException e) {
-            LOGGER.error("model deployment failed on parameters {}", args, e);
-        } finally {
-            if (deployer != null) {
-                deployer.close();
-            }
-        }
+    public static void main(final String[] args) throws ApexDeploymentException {
+        PeriodicEventManager peManager = new PeriodicEventManager(args, System.out);
+        peManager.init();
     }
 }

@@ -26,7 +26,6 @@ import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStri
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class StringTestServer.
  */
