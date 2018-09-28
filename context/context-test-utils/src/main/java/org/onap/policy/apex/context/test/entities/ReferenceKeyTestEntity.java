@@ -244,6 +244,9 @@ public class ReferenceKeyTestEntity extends AxConcept {
         if (this == otherObj) {
             return 0;
         }
+        if (getClass() != otherObj.getClass()) {
+            return -1;
+        }
         final ReferenceKeyTestEntity other = (ReferenceKeyTestEntity) otherObj;
         if (key == null) {
             if (other.key != null) {

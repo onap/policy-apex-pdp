@@ -213,7 +213,7 @@ public class ApexMonitoringRestResource {
     }
 
     /**
-     * Start/Stop and Apex engine.
+     * Start/Stop Apex engine Periodic Events.
      *
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.
@@ -332,6 +332,41 @@ public class ApexMonitoringRestResource {
             return super.add(elm);
         }
 
+        private ApexMonitoringRestResource getOuterType() {
+            return ApexMonitoringRestResource.this;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + getOuterType().hashCode();
+            result = prime * result + maxEntries;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            
+            if (!super.equals(obj)) {
+                return false;
+            }
+            
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            
+            @SuppressWarnings("unchecked")
+            SlidingWindowList<V> other = (SlidingWindowList<V>) obj;
+            if (!getOuterType().equals(other.getOuterType())) {
+                return false;
+            }
+            
+            return maxEntries == other.maxEntries;
+        }
     }
 
     /**

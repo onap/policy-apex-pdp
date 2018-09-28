@@ -241,6 +241,9 @@ public class ArtifactKeyTestEntity extends AxConcept {
         if (this == otherObj) {
             return 0;
         }
+        if (getClass() != otherObj.getClass()) {
+            return -1;
+        }
         final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) otherObj;
         if (key == null) {
             if (other.key != null) {
