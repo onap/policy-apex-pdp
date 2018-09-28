@@ -38,6 +38,13 @@
             <artifactId>ST4</artifactId>
             <version>4.0.8</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.model</groupId>
+            <artifactId>model-api</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>
