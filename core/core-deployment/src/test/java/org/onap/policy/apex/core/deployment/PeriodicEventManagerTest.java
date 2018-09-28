@@ -36,82 +36,225 @@ import org.junit.Test;
  */
 public class PeriodicEventManagerTest {
     @Test
-    public void testPeroidicEventManager() {
+    public void testPeroidicEventManagerBad() {
         try {
-            final String[] EventArgs =
+            final String[] eventArgs =
                 { "-h" };
 
-            PeriodicEventManager.main(EventArgs);
+            PeriodicEventManager.main(eventArgs);
+            fail("test should throw an exception");
         } catch (Exception exc) {
-            fail("test should not throw an exception");
+            assertEquals("invalid arguments: [-h]", exc.getMessage().substring(0, 23));
+        }
+    }
+
+    @Test
+    public void testPeroidicEventManagerOk() {
+        try {
+            final String[] eventArgs =
+                { "Host", "43443", "start", "1000" };
+
+            PeriodicEventManager.main(eventArgs);
+            fail("test should throw an exception");
+        } catch (Exception exc) {
+            assertEquals("periodic event setting failed on parameters Host 43443 true", exc.getMessage());
         }
     }
 
     @Test
     public void testPeroidicEventManagerNoOptions() {
-        final String[] EventArgs = new String[]
+        final String[] eventArgs = new String[]
             {};
 
-        final String outputString = runPeriodicEventManager(EventArgs);
+        final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
-        assertTrue(outputString
-                        .contains("usage: Deployer <server address> <port address> <start/stop> <periods in ms>"));
+        assertTrue(outputString.contains(
+                        "usage: PeriodicEventManager <server address> <port address> <start/stop> <periods in ms>"));
     }
 
     @Test
     public void testPeroidicEventManagerBadOptions() {
-        final String[] EventArgs =
+        final String[] eventArgs =
             { "-zabbu" };
 
-        final String outputString = runPeriodicEventManager(EventArgs);
+        final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
-        assertTrue(outputString
-                        .contains("usage: Deployer <server address> <port address> <start/stop> <periods in ms>"));
+        assertTrue(outputString.contains(
+                        "usage: PeriodicEventManager <server address> <port address> <start/stop> <periods in ms>"));
     }
 
     @Test
     public void testPeroidicEventManagerNonNumeric3() {
-        final String[] EventArgs =
+        final String[] eventArgs =
             { "aaa", "bbb", "ccc", "ddd" };
 
-        try {
-            runPeriodicEventManager(EventArgs);
-        } catch (NumberFormatException nfe) {
-            assertEquals("For input string: \"bbb\"", nfe.getMessage());
-        }
+        final String outputString = testPeriodicEventManagerConstructor(eventArgs);
+
+        assertTrue(outputString.contains("argument port is invalid"));
     }
 
     @Test
     public void testPeroidicEventManagerNonNumeric2() {
-        final String[] EventArgs =
-            { "aaa", "12345", "ccc", "1000" };
+        final String[] eventArgs =
+            { "aaa", "12345", "start", "stop" };
 
-        try {
-            runPeriodicEventManager(EventArgs);
-        } catch (NumberFormatException nfe) {
-            assertEquals("For input string: \"ddd\"", nfe.getMessage());
-        }
+        final String outputString = testPeriodicEventManagerConstructor(eventArgs);
+
+        assertTrue(outputString.contains("argument period is invalid"));
+    }
+
+    @Test
+    public void testPeroidicEventManagerNotStartStop() {
+        final String[] eventArgs =
+            { "aaa", "12345", "1000", "1000" };
+
+        final String outputString = testPeriodicEventManagerConstructor(eventArgs);
+
+        assertTrue(outputString.contains("argument 1000 must be \"start\" or \"stop\""));
     }
 
     @Test
     public void testPeroidicEventManagerStart() {
-        final String[] EventArgs =
+        final String[] eventArgs =
             { "localhost", "12345", "start", "1000" };
 
-        final String outputString = runPeriodicEventManager(EventArgs);
+        final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
-        assertTrue(outputString.contains("\n*** StdErr ***\n\n*** exception ***"));
+        PeriodicEventManager peManager = null;
+        try {
+            peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
+            peManager.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
+        } catch (ApexDeploymentException ade) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            peManager.init();
+        } catch (ApexDeploymentException ade) {
+            assertEquals("model deployment failed on parameters localhost 12345 true", ade.getMessage());
+        }
+        
+        try {
+            peManager.init();
+        } catch (ApexDeploymentException ade) {
+            ade.printStackTrace();
+            fail("test should not throw an exception");
+        }
+        
+        try {
+            peManager.runCommand();
+        } catch (ApexDeploymentException ade) {
+            assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
+        }
+        
+        try {
+            peManager.runCommand();
+        } catch (ApexDeploymentException ade) {
+            fail("test should not throw an exception");
+        }
+        
+        peManager.close();
     }
-
 
     @Test
     public void testPeroidicEventManagerStop() {
-        final String[] EventArgs =
+        final String[] eventArgs =
             { "localhost", "12345", "stop", "1000" };
 
-        final String outputString = runPeriodicEventManager(EventArgs);
+        final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
-        assertTrue(outputString.contains("\n*** StdErr ***\n\n*** exception ***"));
+        PeriodicEventManager peManager = null;
+        try {
+            peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
+            peManager.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
+        } catch (ApexDeploymentException ade) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            peManager.init();
+        } catch (ApexDeploymentException ade) {
+            assertEquals("model deployment failed on parameters localhost 12345 true", ade.getMessage());
+        }
+        
+        try {
+            peManager.init();
+        } catch (ApexDeploymentException ade) {
+            ade.printStackTrace();
+            fail("test should not throw an exception");
+        }
+        
+        try {
+            peManager.runCommand();
+        } catch (ApexDeploymentException ade) {
+            assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
+        }
+        
+        try {
+            peManager.runCommand();
+        } catch (ApexDeploymentException ade) {
+            fail("test should not throw an exception");
+        }
+        
+        peManager.close();
+    }
+
+    @Test
+    public void testPeroidicEventManagerStartUninitialized() {
+        final String[] eventArgs =
+            { "localhost", "12345", "start", "1000" };
+
+        final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
+
+        PeriodicEventManager peManager = null;
+        try {
+            peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
+            peManager.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
+        } catch (ApexDeploymentException ade) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            peManager.runCommand();
+            fail("test should throw an exception");
+        } catch (ApexDeploymentException ade) {
+            assertEquals("connection to apex is not initialized", ade.getMessage());
+        }
+        
+        try {
+            peManager.runCommand();
+            fail("test should throw an exception");
+        } catch (ApexDeploymentException ade) {
+            assertEquals("connection to apex is not initialized", ade.getMessage());
+            ade.printStackTrace();
+        }
+        
+        peManager.close();
+    }
+
+    @Test
+    public void testPeroidicEventManagerStopUninitialized() {
+        final String[] eventArgs =
+            { "localhost", "12345", "stop", "1000" };
+
+        final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
+
+        PeriodicEventManager peManager = null;
+        try {
+            peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
+            peManager.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
+        } catch (ApexDeploymentException ade) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            peManager.runCommand();
+            fail("test should throw an exception");
+        } catch (ApexDeploymentException ade) {
+            assertEquals("connection to apex is not initialized", ade.getMessage());
+        }
+        
+        peManager.close();
     }
 
     /**
@@ -120,15 +263,14 @@ public class PeriodicEventManagerTest {
      * @param eventArgs the command arguments
      * @return a string containing the command output
      */
-    private String runPeriodicEventManager(final String[] eventArgs) {
+    private String testPeriodicEventManagerConstructor(final String[] eventArgs) {
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
         final ByteArrayOutputStream baosErr = new ByteArrayOutputStream();
 
-        PeriodicEventManager peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
-
         String exceptionString = "";
         try {
-            peManager.init();
+            PeriodicEventManager peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
+            peManager.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
         } catch (ApexDeploymentException ade) {
             exceptionString = ade.getCascadedMessage();
         }

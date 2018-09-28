@@ -55,59 +55,92 @@ public class PeriodicEventManager {
      * 
      * @param args the command parameters
      * @param outputStream the output stream
+     * @throws ApexDeploymentException on messaging exceptions
      */
-    public PeriodicEventManager(final String[] args, final PrintStream outputStream)  {
+    public PeriodicEventManager(final String[] args, final PrintStream outputStream) throws ApexDeploymentException {
         if (args.length != NUM_ARGUMENTS) {
             String message = "invalid arguments: " + Arrays.toString(args)
-                            + "\nusage: Deployer <server address> <port address> <start/stop> <periods in ms>";
+                            + "\nusage: PeriodicEventManager <server address> <port address> "
+                            + "<start/stop> <periods in ms>";
             LOGGER.error(message);
             outputStream.println(message);
-            return;
+            throw new ApexDeploymentException(message);
         }
 
         this.hostName = args[0];
-        this.port = Integer.parseInt(args[1]);
-        this.startFlag = "start".equalsIgnoreCase(args[2]);
-        this.period = Long.parseLong(args[3]);
+
+        try {
+            this.port = Integer.parseInt(args[1]);
+        } catch (NumberFormatException nfe) {
+            throw new ApexDeploymentException("argument port is invalid", nfe);
+        }
+
+        if ("start".equalsIgnoreCase(args[2])) {
+            startFlag = true;
+        } else if ("stop".equalsIgnoreCase(args[2])) {
+            startFlag = false;
+        } else {
+            throw new ApexDeploymentException("argument " + args[2] + " must be \"start\" or \"stop\"");
+        }
+
+        try {
+            this.period = Long.parseLong(args[3]);
+        } catch (NumberFormatException nfe) {
+            throw new ApexDeploymentException("argument period is invalid", nfe);
+        }
+
+        // Use an engine service facade to handle periodic event setting
+        engineServiceFacade = new EngineServiceFacade(hostName, port);
     }
 
     /**
-     * Initializes the deployer, opens an EngDep communication session with the Apex engine.
+     * Initializes the manager, opens an EngDep communication session with the Apex engine.
      *
-     * @throws ApexDeploymentException thrown on deployment and communication errors
+     * @throws ApexDeploymentException thrown on messaging and communication errors
      */
     public void init() throws ApexDeploymentException {
         try {
-            // Use an engine service facade to handle model deployment
-            engineServiceFacade = new EngineServiceFacade(hostName, port);
             engineServiceFacade.init();
-
-            if (startFlag) {
-                startPerioidicEvents(period);
-            } else {
-                stopPerioidicEvents();
-            }
         } catch (final ApexException e) {
-            LOGGER.error("model deployment failed on parameters {} {} {}", hostName, port, startFlag, e);
-        } finally {
-            close();
+            String errorMessage = "periodic event setting failed on parameters " + hostName + " " + port + " "
+                            + startFlag;
+            LOGGER.error(errorMessage, e);
+            throw new ApexDeploymentException(errorMessage);
         }
     }
 
     /**
      * Close the EngDep connection to the Apex server.
      */
-    private void close() {
-        engineServiceFacade.close();
+    public void close() {
+        if (engineServiceFacade != null) {
+            engineServiceFacade.close();
+        }
+    }
+
+    /**
+     * Execute the periodic event command.
+     * 
+     * @throws ApexDeploymentException on periodic event exceptions
+     */
+    public void runCommand() throws ApexDeploymentException {
+        if (startFlag) {
+            startPerioidicEvents();
+        } else {
+            stopPerioidicEvents();
+        }
     }
 
     /**
      * Start the Apex engines on the engine service.
      *
-     * @param period the interval in milliseconds between periodic events
      * @throws ApexDeploymentException on messaging errors
      */
-    private void startPerioidicEvents(final long period) throws ApexDeploymentException {
+    private void startPerioidicEvents() throws ApexDeploymentException {
+        if (engineServiceFacade.getEngineKeyArray() == null) {
+            throw new ApexDeploymentException("connection to apex is not initialized");
+        }
+
         for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
             engineServiceFacade.startPerioidicEvents(engineKey, period);
         }
@@ -119,9 +152,22 @@ public class PeriodicEventManager {
      * @throws ApexDeploymentException on messaging errors
      */
     private void stopPerioidicEvents() throws ApexDeploymentException {
+        if (engineServiceFacade.getEngineKeyArray() == null) {
+            throw new ApexDeploymentException("connection to apex is not initialized");
+        }
+
         for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
             engineServiceFacade.stopPerioidicEvents(engineKey);
         }
+    }
+
+    /**
+     * Get the engine service facade of the event manager. This method is used for testing only.
+     * 
+     * @return the engine service facade
+     */
+    protected EngineServiceFacade getEngineServiceFacade() {
+        return engineServiceFacade;
     }
 
     /**
@@ -129,10 +175,12 @@ public class PeriodicEventManager {
      * command line arguments.
      *
      * @param args the arguments that specify the Apex engine and the Apex model file
-     * @throws ApexDeploymentException on deployment errors
+     * @throws ApexDeploymentException on messaging errors
      */
     public static void main(final String[] args) throws ApexDeploymentException {
         PeriodicEventManager peManager = new PeriodicEventManager(args, System.out);
         peManager.init();
+        peManager.runCommand();
+        peManager.close();
     }
 }

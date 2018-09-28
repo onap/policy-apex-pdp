@@ -21,10 +21,10 @@
 package org.onap.policy.apex.core.deployment;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -47,13 +47,20 @@ public class BatchDeployer {
     // The facade that is handling messaging to the engine service
     private EngineServiceFacade engineServiceFacade = null;
 
+    private String hostName;
+    private int port;
+
     /**
      * Instantiates a new deployer.
      *
-     * @param hostName the host name of the host running the Apex Engine
-     * @param port the port to use for EngDep communication with the Apex engine
+     * @param hostName the apex host name
+     * @param port the apex EngDep port
+     * @param outputStream the output stream
      */
-    public BatchDeployer(final String hostName, final int port) {
+    public BatchDeployer(final String hostName, final int port, final PrintStream outputStream) {
+        this.hostName = hostName;
+        this.port = port;
+
         engineServiceFacade = new EngineServiceFacade(hostName, port);
     }
 
@@ -63,14 +70,22 @@ public class BatchDeployer {
      * @throws ApexDeploymentException thrown on deployment and communication errors
      */
     public void init() throws ApexDeploymentException {
-        engineServiceFacade.init();
+        try {
+            engineServiceFacade.init();
+        } catch (final ApexException e) {
+            String errorMessage = "model deployment failed on parameters " + hostName + " " + port;
+            LOGGER.error(errorMessage, e);
+            throw new ApexDeploymentException(errorMessage);
+        }
     }
 
     /**
      * Close the EngDep connection to the Apex server.
      */
     public void close() {
-        engineServiceFacade.close();
+        if (engineServiceFacade != null) {
+            engineServiceFacade.close();
+        }
     }
 
     /**
@@ -102,25 +117,12 @@ public class BatchDeployer {
     }
 
     /**
-     * Start the Apex engines on the engine service.
-     *
-     * @throws ApexDeploymentException on messaging errors
+     * Get the engine service facade of the event manager. This method is used for testing only.
+     * 
+     * @return the engine service facade
      */
-    public void startEngines() throws ApexDeploymentException {
-        for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
-            engineServiceFacade.startEngine(engineKey);
-        }
-    }
-
-    /**
-     * Stop the Apex engines on the engine service.
-     *
-     * @throws ApexDeploymentException on messaging errors
-     */
-    public void stopEngines() throws ApexDeploymentException {
-        for (final AxArtifactKey engineKey : engineServiceFacade.getEngineKeyArray()) {
-            engineServiceFacade.stopEngine(engineKey);
-        }
+    protected EngineServiceFacade getEngineServiceFacade() {
+        return engineServiceFacade;
     }
 
     /**
@@ -128,28 +130,26 @@ public class BatchDeployer {
      * line arguments.
      *
      * @param args the arguments that specify the Apex engine and the Apex model file
+     * @throws ApexException on deployment errors
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws ApexException {
         if (args.length != NUM_ARGUMENTS) {
             String message = "invalid arguments: " + Arrays.toString(args)
-                            + "usage: Deployer <server address> <port address> <Apex Model file location>";
+                            + "\nusage: BatchDeployer <server address> <port address> <model file path";
             LOGGER.error(message);
-            return;
+            throw new ApexDeploymentException(message);
         }
 
-        BatchDeployer deployer = null;
+        int port;
         try {
-            // Use a Deployer object to handle model deployment
-            deployer = new BatchDeployer(args[0], Integer.parseInt(args[1]));
-            deployer.init();
-            deployer.deployModel(args[2], false, false);
-            deployer.startEngines();
-        } catch (final ApexException e) {
-            LOGGER.error("model deployment failed on parameters {}", args, e);
-        } finally {
-            if (deployer != null) {
-                deployer.close();
-            }
+            port = Integer.parseInt(args[1]);
+        } catch (NumberFormatException nfe) {
+            throw new ApexDeploymentException("argument port is invalid", nfe);
         }
+        
+        BatchDeployer deployer = new BatchDeployer(args[0], port, System.out);
+        deployer.init();
+        deployer.deployModel(args[2], false, false);
+        deployer.close();
     }
 }

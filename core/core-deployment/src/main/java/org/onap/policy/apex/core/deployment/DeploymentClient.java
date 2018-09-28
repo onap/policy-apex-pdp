@@ -110,29 +110,56 @@ public class DeploymentClient implements Runnable {
         }
         // Loop forever, sending messages as they appear on the queue
         while (started && !thisThread.isInterrupted()) {
-            try {
-                final Message messageForSending = sendQueue.poll(CLIENT_SEND_QUEUE_TIMEOUT, TimeUnit.MILLISECONDS);
-                if (messageForSending == null) {
-                    continue;
-                }
-
-                // Send the message in its message holder
-                final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
-                messageHolder.addMessage(messageForSending);
-                service.send(messageHolder);
-                messagesSent++;
-            } catch (final InterruptedException e) {
-                // Message sending has been interrupted, we are finished
-                LOGGER.debug("engine<-->deployment client interrupted");
-                // restore the interrupt status
-                thisThread.interrupt();
-                break;
-            }
+            started = sendMessages();
         }
 
         // Thread has been interrupted
         thisThread = null;
         LOGGER.debug("engine<-->deployment client thread finished");
+    }
+
+    /**
+     * Send messages off the queue.
+     */
+    private boolean sendMessages() {
+        try {
+            final Message messageForSending = sendQueue.poll(CLIENT_SEND_QUEUE_TIMEOUT, TimeUnit.MILLISECONDS);
+            if (messageForSending == null) {
+                return true;
+            }
+
+            // Send the message in its message holder
+            final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
+            messageHolder.addMessage(messageForSending);
+            service.send(messageHolder);
+            messagesSent++;
+        } catch (final InterruptedException e) {
+            // Message sending has been interrupted, we are finished
+            LOGGER.debug("engine<-->deployment client interrupted");
+            // restore the interrupt status
+            thisThread.interrupt();
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Gets the host.
+     *
+     * @return the host
+     */
+    public String getHost() {
+        return host;
+    }
+
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
+    public int getPort() {
+        return port;
     }
 
     /**

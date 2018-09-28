@@ -94,6 +94,9 @@ public class EngineServiceFacade {
     public EngineServiceFacade(final String hostName, final int port) {
         this.hostName = hostName;
         this.port = port;
+
+        // Use the deployment client to handle the EngDep communication towards the Apex server.
+        client = new DeploymentClient(hostName, port);
     }
 
     /**
@@ -106,10 +109,7 @@ public class EngineServiceFacade {
             LOGGER.debug("handshaking with server {}:{} . . .", hostName, port);
 
             // Use the deployment client to handle the EngDep communication towards the Apex server.
-            // It runs a thread to
-            // monitor the session and to send
-            // messages
-            client = new DeploymentClient(hostName, port);
+            // The deployment client runs a thread to monitor the session and to send messages
             clientThread = new Thread(client);
             clientThread.start();
 
@@ -206,9 +206,9 @@ public class EngineServiceFacade {
         if (apexModelUrl == null) {
             apexModelUrl = ResourceUtils.getUrlResource(modelFileName);
             if (apexModelUrl == null) {
-                LOGGER.error("cound not create apex model, could not read from XML file {}", modelFileName);
+                LOGGER.error("cound not create apex model, could not read from file {}", modelFileName);
                 throw new ApexDeploymentException(
-                                "cound not create apex model, could not read XML file " + modelFileName);
+                                "cound not create apex model, could not read from file " + modelFileName);
             }
         }
 
@@ -236,10 +236,6 @@ public class EngineServiceFacade {
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(!ignoreConflicts);
         final AxPolicyModel apexPolicyModel = modelReader.read(modelInputStream);
-        if (apexPolicyModel == null) {
-            LOGGER.error("cound not create apex model, could not read model stream");
-            throw new ApexDeploymentException("cound not create apex model, could not read model stream");
-        }
 
         // Deploy the model
         deployModel(apexPolicyModel, ignoreConflicts, force);
@@ -486,5 +482,13 @@ public class EngineServiceFacade {
         }
 
         return responseMessage;
+    }
+    
+    /**
+     * Set a deployment client for this facade. This method is for testing.
+     * @param deploymentClient the deployment client to set
+     */
+    protected void setDeploymentClient(final DeploymentClient deploymentClient) {
+        this.client = deploymentClient;
     }
 }

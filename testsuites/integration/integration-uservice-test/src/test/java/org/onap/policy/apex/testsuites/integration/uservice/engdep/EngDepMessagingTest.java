@@ -148,13 +148,11 @@ public class EngDepMessagingTest {
 
         final AxPolicyModel apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
 
-        final BatchDeployer deployer1 = new BatchDeployer("localhost", 58820);
+        final BatchDeployer deployer1 = new BatchDeployer("localhost", 58820, System.out);
         assertNotNull(deployer1);
 
         deployer1.init();
         deployer1.deployModel(apexPolicyModel, false, false);
-        deployer1.stopEngines();
-        deployer1.startEngines();
         deployer1.close();
 
         // Send events
@@ -184,17 +182,14 @@ public class EngDepMessagingTest {
         assertEquals(2, server.getTotalActionEventsReceived());
 
         deployer1.init();
-        deployer1.stopEngines();
         deployer1.close();
 
         // Test re-initialization of model
-        final BatchDeployer deployer2 = new BatchDeployer("localhost", 58820);
+        final BatchDeployer deployer2 = new BatchDeployer("localhost", 58820, System.out);
         assertNotNull(deployer2);
 
         deployer2.init();
         deployer2.deployModel(apexPolicyModel, true, true);
-        deployer2.stopEngines();
-        deployer2.startEngines();
         deployer2.close();
 
         server.sendEvent(event0);
@@ -209,7 +204,6 @@ public class EngDepMessagingTest {
         assertEquals(4, server.getTotalActionEventsReceived());
 
         deployer2.init();
-        deployer2.stopEngines();
         deployer2.close();
 
         server.stopServer();
