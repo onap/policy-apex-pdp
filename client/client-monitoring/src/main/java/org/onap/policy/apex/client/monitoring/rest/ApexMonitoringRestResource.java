@@ -89,7 +89,7 @@ public class ApexMonitoringRestResource {
     public Response createSession(@QueryParam("hostName") final String hostName, @QueryParam("port") final int port) {
         final Gson gson = new Gson();
         final String host = hostName + ":" + port;
-        final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
+        final EngineServiceFacade engineServiceFacade = getEngineServiceFacade(hostName, port);
 
         try {
             engineServiceFacade.init();
@@ -175,7 +175,7 @@ public class ApexMonitoringRestResource {
     @Path("startstop/")
     public Response startStop(@QueryParam("hostName") final String hostName, @QueryParam("port") final int port,
                     @QueryParam("engineId") final String engineId, @QueryParam("startstop") final String startStop) {
-        final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
+        final EngineServiceFacade engineServiceFacade = getEngineServiceFacade(hostName, port);
 
         try {
             engineServiceFacade.init();
@@ -227,7 +227,7 @@ public class ApexMonitoringRestResource {
     public Response periodiceventStartStop(@QueryParam("hostName") final String hostName,
                     @QueryParam("port") final int port, @QueryParam("engineId") final String engineId,
                     @QueryParam("startstop") final String startStop, @QueryParam("period") final long period) {
-        final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
+        final EngineServiceFacade engineServiceFacade = getEngineServiceFacade(hostName, port);
         final String host = hostName + ":" + port;
         try {
             engineServiceFacade.init();
@@ -310,6 +310,18 @@ public class ApexMonitoringRestResource {
         cache.get(host).put(id, valueList);
 
         return valueList;
+    }
+
+
+    /**
+     * Get an engine service facade for sending REST requests. This method is package because it is used by unit test.
+     * 
+     * @param hostName the host name of the Apex engine
+     * @param port the port of the Apex engine
+     * @return the engine service facade
+     */
+    protected EngineServiceFacade getEngineServiceFacade(final String hostName, final int port) {
+        return new EngineServiceFacade(hostName, port);
     }
 
     /**
