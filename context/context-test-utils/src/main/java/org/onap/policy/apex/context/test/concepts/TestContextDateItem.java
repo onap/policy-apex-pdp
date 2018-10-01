@@ -57,7 +57,12 @@ public class TestContextDateItem implements Serializable {
      * @param dateValue the date value
      */
     public TestContextDateItem(final Date dateValue) {
-        setDateValue(dateValue.getTime());
+        if (dateValue != null) {
+            setDateValue(dateValue.getTime());
+        }
+        else {
+            new Date(0);
+        }
     }
 
     /**
@@ -156,7 +161,9 @@ public class TestContextDateItem implements Serializable {
      * @param dateValue the date value
      */
     public void setDateValue(final Date dateValue) {
-        setDateValue(dateValue.getTime());
+        if (dateValue != null) {
+            setDateValue(dateValue.getTime());
+        }
     }
 
     /**
@@ -218,28 +225,7 @@ public class TestContextDateItem implements Serializable {
             return false;
         }
         final TestContextDateItem other = (TestContextDateItem) obj;
-        if (day != other.day) {
-            return false;
-        }
-        if (hour != other.hour) {
-            return false;
-        }
-        if (milliSecond != other.milliSecond) {
-            return false;
-        }
-        if (minute != other.minute) {
-            return false;
-        }
-        if (month != other.month) {
-            return false;
-        }
-        if (second != other.second) {
-            return false;
-        }
-        if (time != other.time) {
-            return false;
-        }
-        return year == other.year;
+        return time == other.time;
     }
 
     /*
