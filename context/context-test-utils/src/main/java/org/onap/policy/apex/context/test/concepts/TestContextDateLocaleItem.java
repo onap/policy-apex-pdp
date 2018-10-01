@@ -38,13 +38,13 @@ public class TestContextDateLocaleItem implements Serializable {
     private String timeZoneString = TimeZone.getTimeZone("Europe/Dublin").getDisplayName();
     private boolean dst = false;
     private int utcOffset = 0;
-    private String localeLanguage = Locale.ENGLISH.getLanguage();
-    private String localeCountry = Locale.ENGLISH.getCountry();
+    private Locale locale = Locale.ENGLISH;
 
     /**
      * The Constructor.
      */
-    public TestContextDateLocaleItem() {}
+    public TestContextDateLocaleItem() {
+    }
 
     /**
      * The Constructor.
@@ -57,15 +57,13 @@ public class TestContextDateLocaleItem implements Serializable {
      * @param country the country
      */
     public TestContextDateLocaleItem(final TestContextDateItem dateValue, final String tzValue, final boolean dst,
-            final int utcOffset, final String language, final String country) {
+                    final int utcOffset, final String language, final String country) {
         this.dateValue = dateValue;
         this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
         this.dst = dst;
         this.utcOffset = utcOffset;
 
-        final Locale locale = new Locale(language, country);
-        this.localeLanguage = locale.getLanguage();
-        this.localeCountry = locale.getCountry();
+        this.locale = new Locale(language, country);
     }
 
     /**
@@ -79,9 +77,7 @@ public class TestContextDateLocaleItem implements Serializable {
         this.dst = original.dst;
         this.utcOffset = original.utcOffset;
 
-        final Locale locale = new Locale(original.localeLanguage, original.localeCountry);
-        this.localeLanguage = locale.getLanguage();
-        this.localeCountry = locale.getCountry();
+        this.locale = new Locale(original.getLocale().getCountry(), original.getLocale().getLanguage());
     }
 
     /**
@@ -117,7 +113,11 @@ public class TestContextDateLocaleItem implements Serializable {
      * @param tzValue the TZ value
      */
     public void setTzValue(final String tzValue) {
-        this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+        if (tzValue != null) {
+            this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+        } else {
+            this.timeZoneString = null;
+        }
     }
 
     /**
@@ -162,7 +162,7 @@ public class TestContextDateLocaleItem implements Serializable {
      * @return the locale
      */
     public Locale getLocale() {
-        return new Locale(localeLanguage, localeCountry);
+        return locale;
     }
 
     /**
@@ -171,8 +171,12 @@ public class TestContextDateLocaleItem implements Serializable {
      * @param locale the locale
      */
     public void setLocale(final Locale locale) {
-        this.localeLanguage = locale.getLanguage();
-        this.localeCountry = locale.getCountry();
+        if (locale != null) {
+            this.locale = locale;
+        }
+        else { 
+            this.locale = null;
+        }
     }
 
     /*
@@ -186,8 +190,7 @@ public class TestContextDateLocaleItem implements Serializable {
         int result = 1;
         result = prime * result + ((dateValue == null) ? 0 : dateValue.hashCode());
         result = prime * result + (dst ? HASH_PRIME_2 : HASH_PRIME_3);
-        result = prime * result + ((localeCountry == null) ? 0 : localeCountry.hashCode());
-        result = prime * result + ((localeLanguage == null) ? 0 : localeLanguage.hashCode());
+        result = prime * result + ((locale == null) ? 0 : locale.hashCode());
         result = prime * result + ((timeZoneString == null) ? 0 : timeZoneString.hashCode());
         result = prime * result + utcOffset;
         return result;
@@ -220,18 +223,11 @@ public class TestContextDateLocaleItem implements Serializable {
         if (dst != other.dst) {
             return false;
         }
-        if (localeCountry == null) {
-            if (other.localeCountry != null) {
+        if (locale == null) {
+            if (other.locale != null) {
                 return false;
             }
-        } else if (!localeCountry.equals(other.localeCountry)) {
-            return false;
-        }
-        if (localeLanguage == null) {
-            if (other.localeLanguage != null) {
-                return false;
-            }
-        } else if (!localeLanguage.equals(other.localeLanguage)) {
+        } else if (!locale.equals(other.locale)) {
             return false;
         }
         if (timeZoneString == null) {
@@ -252,7 +248,6 @@ public class TestContextDateLocaleItem implements Serializable {
     @Override
     public String toString() {
         return "TestContextItem00A [dateValue=" + dateValue + ", timeZoneString=" + timeZoneString + ", dst=" + dst
-                + ", utcOffset=" + utcOffset + ", localeLanguage=" + localeLanguage + ", localeCountry=" + localeCountry
-                + "]";
+                        + ", utcOffset=" + utcOffset + ", locale=" + locale + "]";
     }
 }

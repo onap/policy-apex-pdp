@@ -101,7 +101,12 @@ public class TestContextDateTzItem implements Serializable {
      * @param tzValue the TZ value
      */
     public void setTzValue(final String tzValue) {
-        this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+        if (tzValue != null) {
+            this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+        }
+        else {
+            this.timeZoneString = null;
+        }
     }
 
     /**
@@ -168,7 +173,8 @@ public class TestContextDateTzItem implements Serializable {
             if (other.timeZoneString != null) {
                 return false;
             }
-        } else if (!timeZoneString.equals(other.timeZoneString)) {
+        }
+        else if (!timeZoneString.equals(other.timeZoneString)) {
             return false;
         }
         return true;

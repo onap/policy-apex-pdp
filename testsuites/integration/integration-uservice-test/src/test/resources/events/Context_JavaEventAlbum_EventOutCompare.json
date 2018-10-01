@@ -48,8 +48,7 @@
         "timeZoneString": "Greenwich Mean Time",
         "dst": false,
         "utcOffset": 0,
-        "localeLanguage": "en",
-        "localeCountry": ""
+        "locale": "en"
     },
     "CustomDouble": {
         "doubleValue": 6.71000001E8
