@@ -97,4 +97,35 @@ public class UpdateModel extends Message {
     public String toString() {
         return "UpdateModel {" + super.toString() + "}[]";
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + (forceInstall ? 1231 : 1237);
+        result = prime * result + (ignoreConflicts ? 1231 : 1237);
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+
+        UpdateModel other = (UpdateModel) obj;
+        if (forceInstall != other.forceInstall) {
+            return false;
+        }
+        return ignoreConflicts == other.ignoreConflicts;
+    }
 }

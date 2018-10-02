@@ -31,8 +31,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class Response extends Message {
-    private static final int HASH_PRIME = 31;
-
     private static final long serialVersionUID = -4162385039044294476L;
 
     private boolean successful = false;
@@ -82,54 +80,39 @@ public class Response extends Message {
         return responseTo;
     }
 
-    /**
-     * Compare this message to another Response message.
-     *
-     * @param otherMessage the other message
-     * @return true, if successful
-     */
-    public boolean equals(final Response otherMessage) {
-        return super.equals(otherMessage) && successful == otherMessage.successful
-                && responseTo.equals(otherMessage.responseTo);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.protocols.Message#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(final Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        if (!super.equals(object)) {
-            return false;
-        }
-
-        final Response response = (Response) object;
-
-        if (successful != response.successful) {
-            return false;
-        }
-        return !(responseTo != null ? !responseTo.equals(response.responseTo) : response.responseTo != null);
-
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.protocols.Message#hashCode()
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
+        final int prime = 31;
         int result = super.hashCode();
-        result = HASH_PRIME * result + (successful ? 1 : 0);
-        result = HASH_PRIME * result + (responseTo != null ? responseTo.hashCode() : 0);
+        result = prime * result + ((responseTo == null) ? 0 : responseTo.hashCode());
+        result = prime * result + (successful ? 1231 : 1237);
         return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+
+        Response other = (Response) obj;
+        if (responseTo == null) {
+            if (other.responseTo != null) {
+                return false;
+            }
+        } else if (!responseTo.equals(other.responseTo)) {
+            return false;
+        }
+        return successful == other.successful;
     }
 
     /*

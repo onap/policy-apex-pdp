@@ -18,48 +18,41 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.core.protocols.engdep;
+package org.onap.policy.apex.core.protocols.engdep.messages;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.UnknownHostException;
 
 import org.junit.Test;
-import org.onap.policy.apex.core.protocols.engdep.messages.Response;
-import org.onap.policy.apex.core.protocols.engdep.messages.UpdateModel;
+import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class ResponseTest.
+ * The Class GetExecutionStatusTest.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ResponseTest {
+public class GetEngineStatusTest {
     // Logger for this class
-    private static final XLogger logger = XLoggerFactory.getXLogger(ResponseTest.class);
+    private static final XLogger logger = XLoggerFactory.getXLogger(GetEngineStatusTest.class);
 
-    Response message = null;
+    GetEngineStatus message = null;
 
     /**
-     * Test response.
+     * Test register entity.
      *
      * @throws UnknownHostException the unknown host exception
      */
     @Test
-    public void testResponse() throws UnknownHostException {
-        final AxArtifactKey responseKey = new AxArtifactKey("ResponseTest", "0.0.1");
-        final AxArtifactKey responseToKey = new AxArtifactKey("ResponseTestTO", "0.0.1");
-        message = new Response(responseKey, false, new UpdateModel(responseToKey));
+    public void testRegisterEntity() throws UnknownHostException {
+        final AxArtifactKey targetKey = new AxArtifactKey("UpdateModelTest", "0.0.1");
+        message = new GetEngineStatus(targetKey);
+        assertNotNull(message);
         logger.debug(message.toString());
-        assertTrue(message.toString().contains("ResponseTest"));
-        assertFalse(message.isSuccessful());
-
-        message = new Response(responseKey, true, new UpdateModel(responseToKey));
-        logger.debug(message.toString());
-        assertTrue(message.toString().contains("ResponseTest"));
-        assertTrue(message.isSuccessful());
+        assertTrue((message.toString()).contains("UpdateModelTest"));
     }
 }
