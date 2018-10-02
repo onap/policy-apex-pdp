@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,9 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.core.protocols.engdep;
+package org.onap.policy.apex.core.protocols.engdep.messages;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -41,25 +42,56 @@ public class ResponseTest {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(ResponseTest.class);
 
-    Response message = null;
-
     /**
      * Test response.
      *
      * @throws UnknownHostException the unknown host exception
      */
+    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testResponse() throws UnknownHostException {
         final AxArtifactKey responseKey = new AxArtifactKey("ResponseTest", "0.0.1");
-        final AxArtifactKey responseToKey = new AxArtifactKey("ResponseTestTO", "0.0.1");
-        message = new Response(responseKey, false, new UpdateModel(responseToKey));
+        final AxArtifactKey responseToKey = new AxArtifactKey("ResponseTestTo", "0.0.1");
+        UpdateModel responseTo = new UpdateModel(responseToKey);
+        
+        Response message = new Response(responseKey, false, responseTo);
         logger.debug(message.toString());
         assertTrue(message.toString().contains("ResponseTest"));
         assertFalse(message.isSuccessful());
 
-        message = new Response(responseKey, true, new UpdateModel(responseToKey));
+        message = new Response(responseKey, true, responseTo);
         logger.debug(message.toString());
         assertTrue(message.toString().contains("ResponseTest"));
         assertTrue(message.isSuccessful());
+        assertEquals(responseTo, message.getResponseTo());
+
+        message = new Response(null, false, null);
+        assertTrue(message.hashCode() != 0);
+        message = new Response(responseKey, false, null);
+        assertTrue(message.hashCode() != 0);
+        message = new Response(responseKey, true, null);
+        assertTrue(message.hashCode() != 0);
+        message = new Response(responseKey, true, new UpdateModel(null));
+        assertTrue(message.hashCode() != 0);
+        
+        assertTrue(message.equals(message));
+        assertFalse(message.equals(null));
+        assertFalse(message.equals(new StartEngine(new AxArtifactKey())));
+
+        message = new Response(null, false, responseTo);
+        Response otherMessage = new Response(null, false, null);
+        assertFalse(message.equals(otherMessage));
+        otherMessage = new Response(null, false, responseTo);
+        assertTrue(message.equals(otherMessage));
+        message = new Response(null, false, null);
+        assertFalse(message.equals(otherMessage));
+        otherMessage = new Response(null, false, null);
+        assertTrue(message.equals(otherMessage));
+        
+        message = new Response(null, false, null);
+        otherMessage = new Response(null, true, null);
+        assertFalse(message.equals(otherMessage));
+        otherMessage = new Response(null, false, null);
+        assertTrue(message.equals(otherMessage));
     }
 }

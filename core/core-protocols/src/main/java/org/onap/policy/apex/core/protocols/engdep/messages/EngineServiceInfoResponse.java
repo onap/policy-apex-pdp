@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.core.protocols.engdep.messages;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.onap.policy.apex.core.protocols.Message;
@@ -101,7 +102,12 @@ public class EngineServiceInfoResponse extends Response {
      * @param engineKeyCollection the engine key array
      */
     public void setEngineKeyArray(final Collection<AxArtifactKey> engineKeyCollection) {
-        engineKeyArray = engineKeyCollection.toArray(new AxArtifactKey[engineKeyCollection.size()]);
+        if (engineKeyCollection != null) {
+            engineKeyArray = engineKeyCollection.toArray(new AxArtifactKey[engineKeyCollection.size()]);
+        }
+        else {
+            engineKeyArray = null;
+        }
     }
 
     /**
@@ -120,5 +126,51 @@ public class EngineServiceInfoResponse extends Response {
      */
     public void setApexModelKey(final AxArtifactKey apexModelKey) {
         this.apexModelKey = apexModelKey;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((apexModelKey == null) ? 0 : apexModelKey.hashCode());
+        result = prime * result + Arrays.hashCode(engineKeyArray);
+        result = prime * result + ((engineServiceKey == null) ? 0 : engineServiceKey.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+
+        EngineServiceInfoResponse other = (EngineServiceInfoResponse) obj;
+        if (apexModelKey == null) {
+            if (other.apexModelKey != null) {
+                return false;
+            }
+        } else if (!apexModelKey.equals(other.apexModelKey)) {
+            return false;
+        }
+        if (!Arrays.equals(engineKeyArray, other.engineKeyArray)) {
+            return false;
+        }
+        if (engineServiceKey == null) {
+            if (other.engineServiceKey != null) {
+                return false;
+            }
+        } else if (!engineServiceKey.equals(other.engineServiceKey)) {
+            return false;
+        }
+        return true;
     }
 }

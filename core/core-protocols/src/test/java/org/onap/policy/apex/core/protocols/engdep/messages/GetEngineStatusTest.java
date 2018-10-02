@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.core.protocols.engdep;
+package org.onap.policy.apex.core.protocols.engdep.messages;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -32,13 +32,13 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class GetPolicyStatusTest.
+ * The Class GetExecutionStatusTest.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class GetPolicyStatusTest {
+public class GetEngineStatusTest {
     // Logger for this class
-    private static final XLogger logger = XLoggerFactory.getXLogger(GetPolicyStatusTest.class);
+    private static final XLogger logger = XLoggerFactory.getXLogger(GetEngineStatusTest.class);
 
     GetEngineStatus message = null;
 
@@ -49,10 +49,10 @@ public class GetPolicyStatusTest {
      */
     @Test
     public void testRegisterEntity() throws UnknownHostException {
-        final AxArtifactKey targetKey = new AxArtifactKey("PolicyStatusTest", "0.0.1");
+        final AxArtifactKey targetKey = new AxArtifactKey("UpdateModelTest", "0.0.1");
         message = new GetEngineStatus(targetKey);
         assertNotNull(message);
         logger.debug(message.toString());
-        assertTrue((message.toString()).contains("PolicyStatusTest"));
+        assertTrue((message.toString()).contains("UpdateModelTest"));
     }
 }
