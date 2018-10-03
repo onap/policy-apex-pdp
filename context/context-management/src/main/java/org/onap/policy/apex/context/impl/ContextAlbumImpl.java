@@ -47,7 +47,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public final class ContextAlbumImpl implements ContextAlbum {
+public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextAlbumImpl> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ContextAlbumImpl.class);
 
@@ -501,5 +501,46 @@ public final class ContextAlbumImpl implements ContextAlbum {
 
         // Clear the map
         albumMap.clear();
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(ContextAlbumImpl otherContextAlbumImpl) {
+        return (equals(otherContextAlbumImpl) ? 0 : 1);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + albumDefinition.hashCode();
+        result = prime * result + albumMap.hashCode();
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ContextAlbumImpl)) {
+            return false;
+        }
+        ContextAlbumImpl other = (ContextAlbumImpl) obj;
+        if (!albumDefinition.equals(other.albumDefinition)) {
+            return false;
+        }
+        return albumMap.equals(other.albumMap);
     }
 }

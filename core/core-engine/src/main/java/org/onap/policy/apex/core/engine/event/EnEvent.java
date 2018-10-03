@@ -89,6 +89,10 @@ public class EnEvent extends HashMap<String, Object> {
      */
     public EnEvent(final AxEvent axEvent) {
         super();
+        
+        if (axEvent == null) {
+            throw new EnException("event definition is null or was not found in model service");
+        }
         // Save the event definition from the Apex model
         this.axEvent = axEvent;
     }
@@ -171,6 +175,16 @@ public class EnEvent extends HashMap<String, Object> {
      */
     public void setExceptionMessage(final String exceptionMessage) {
         this.exceptionMessage = exceptionMessage;
+    }
+
+
+    /**
+     * Get the user artifact stack of the event.
+     *
+     * @return the event user artifact stack
+     */
+    public AxConcept[] getUserArtifactStack() {
+        return userArtifactStack;
     }
 
     /**
@@ -344,5 +358,41 @@ public class EnEvent extends HashMap<String, Object> {
     public String toString() {
         return "EnEvent [axEvent=" + axEvent + ", userArtifactStack=" + Arrays.toString(userArtifactStack) + ", map="
                 + super.toString() + "]";
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + axEvent.hashCode();
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof EnEvent)) {
+            return false;
+        }
+        EnEvent other = (EnEvent) obj;
+        if (axEvent == null) {
+            if (other.axEvent != null) {
+                return false;
+            }
+        } else if (!axEvent.equals(other.axEvent)) {
+            return false;
+        }
+        return true;
     }
 }

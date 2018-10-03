@@ -53,7 +53,7 @@ import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
  */
 public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
     // The key of the currently running Apex model
-    private final AxArtifactKey key;
+    private AxArtifactKey key;
 
     // The context albums being used in this engine
     private final NavigableMap<AxArtifactKey, ContextAlbum> contextAlbums =
@@ -72,6 +72,9 @@ public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> 
      * @throws ContextException On errors on context setting
      */
     public ApexInternalContext(final AxPolicyModel apexPolicyModel) throws ContextException {
+        if (apexPolicyModel == null) {
+            throw new ContextException("internal context update failed, supplied model is null");
+        }
         apexPolicyModel.register();
 
         // The context distributor used to distribute context across policy engine instances
@@ -121,6 +124,26 @@ public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> 
         final KeyedMapDifference<AxArtifactKey, AxContextAlbum> contextDifference =
                 new ContextComparer().compare(ModelService.getModel(AxContextAlbums.class), newPolicyModel.getAlbums());
 
+
+        // Handle the updated maps
+        for (final Entry<AxArtifactKey, List<AxContextAlbum>> contextAlbumEntry : contextDifference.getDifferentValues()
+                .entrySet()) {
+            // Compare the updated maps
+            final AxContextAlbum currentContextAlbum = contextAlbumEntry.getValue().get(0);
+            final AxContextAlbum newContextAlbum = contextAlbumEntry.getValue().get(1);
+
+            // Check that the schemas are the same on the old and new context albums
+            if (!currentContextAlbum.getItemSchema().equals(newContextAlbum.getItemSchema())) {
+                // The schema is different, throw an exception because the schema should not change if the key of the
+                // album has not changed
+                throw new ContextException("internal context update failed on context album \""
+                        + contextAlbumEntry.getKey().getId() + "\" in model \"" + key.getId() + "\", schema \""
+                        + currentContextAlbum.getItemSchema().getId()
+                        + "\" on existing context model does not equal schema \""
+                        + newContextAlbum.getItemSchema().getId() + "\" on incoming model");
+            }
+        }
+        
         // Remove maps that are no longer used
         for (final Entry<AxArtifactKey, AxContextAlbum> removedContextAlbumEntry : contextDifference.getLeftOnly()
                 .entrySet()) {
@@ -136,25 +159,8 @@ public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> 
             contextAlbums.put(contextAlbumKey, contextDistributor.createContextAlbum(contextAlbumKey));
         }
 
-        // Handle the updated maps
-        for (final Entry<AxArtifactKey, List<AxContextAlbum>> contextAlbumEntry : contextDifference.getDifferentValues()
-                .entrySet()) {
-            // Compare the updated maps
-            final AxContextAlbum currentContextAlbum = contextAlbumEntry.getValue().get(0);
-            final AxContextAlbum newContextAlbum = contextAlbumEntry.getValue().get(1);
-
-            // Check that the schemas are the same on the old and new context albums
-            if (currentContextAlbum.getItemSchema().equals(newContextAlbum.getItemSchema())) {
-                // The schema is different, throw an exception because the schema should not change if the key of the
-                // album has not changed
-                throw new ContextException("internal context update failed on context album \""
-                        + contextAlbumEntry.getKey().getId() + "\" in model \"" + key.getId() + "\", schema \""
-                        + currentContextAlbum.getItemSchema().getId()
-                        + "\" on existing context model does not equal schema \""
-                        + newContextAlbum.getItemSchema().getId() + "\" on incoming model");
-            }
-        }
-
+        // Record the key of the current model
+        key = newPolicyModel.getKey();
     }
 
     /**

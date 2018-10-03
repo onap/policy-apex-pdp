@@ -21,6 +21,7 @@
 package org.onap.policy.apex.context.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -45,6 +46,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.common.parameters.ParameterService;
@@ -123,7 +125,7 @@ public class ContextAlbumImplTest {
             fail("this test should throw an exception");
         } catch (ApexRuntimeException e) {
             assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas "
-                    + "not found in model service", e.getMessage());
+                            + "not found in model service", e.getMessage());
         } catch (ContextException e) {
             fail("this test should throw an ApexRuntimeException");
         }
@@ -154,7 +156,7 @@ public class ContextAlbumImplTest {
         ContextAlbum album = new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
 
         AxContextAlbum axContextAlbumRo = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                false, simpleStringSchema.getKey());
+                        false, simpleStringSchema.getKey());
         ContextAlbum albumRo = new ContextAlbumImpl(axContextAlbumRo, distributor, new LinkedHashMap<String, Object>());
 
         assertEquals("TestContextAlbum", album.getName());
@@ -224,9 +226,8 @@ public class ContextAlbumImplTest {
             albumRo.remove("AllKey0");
             fail("test should throw an exception");
         } catch (ContextRuntimeException e) {
-            assertEquals(
-                    "album \"TestContextAlbum:0.0.1\" remove() not allowed on read only albums for key=\"AllKey0\"",
-                    e.getMessage());
+            assertEquals("album \"TestContextAlbum:0.0.1\" remove() not allowed "
+                            + "on read only albums for key=\"AllKey0\"", e.getMessage());
         }
 
         try {
@@ -273,7 +274,8 @@ public class ContextAlbumImplTest {
         AxArtifactKey somePolicyKey = new AxArtifactKey("MyPolicy", "0.0.1");
         AxReferenceKey somePolicyState = new AxReferenceKey(somePolicyKey, "SomeState");
 
-        AxConcept[] userArtifactStack = { somePolicyKey, somePolicyState };
+        AxConcept[] userArtifactStack =
+            { somePolicyKey, somePolicyState };
         album.setUserArtifactStack(userArtifactStack);
         assertEquals("MyPolicy:0.0.1", album.getUserArtifactStack()[0].getId());
         assertEquals("MyPolicy:0.0.1:NULL:SomeState", album.getUserArtifactStack()[1].getId());
@@ -309,10 +311,78 @@ public class ContextAlbumImplTest {
         }
 
         assertEquals("New value of Key0", album.remove("Key0"));
-        
+
         album.clear();
         assertTrue(album.isEmpty());
+
+        ModelService.clear();
+    }
+
+    @SuppressWarnings("unlikely-arg-type")
+    @Test
+    public void testCompareToEqualsHash() throws ContextException {
+        AxContextSchemas schemas = new AxContextSchemas();
+        AxContextSchema simpleIntSchema = new AxContextSchema(new AxArtifactKey("SimpleIntSchema", "0.0.1"), "JAVA",
+                        "java.lang.Integer");
+        schemas.getSchemasMap().put(simpleIntSchema.getKey(), simpleIntSchema);
+        AxContextSchema simpleStringSchema = new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"),
+                        "JAVA", "java.lang.String");
+        schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
+        ModelService.registerModel(AxContextSchemas.class, schemas);
+
+        AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
+                        true, AxArtifactKey.getNullKey());
+
+        axContextAlbum.setItemSchema(simpleIntSchema.getKey());
+        Distributor distributor = new JvmLocalDistributor();
+        distributor.init(axContextAlbum.getKey());
+        ContextAlbumImpl album = new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
+
+        assertTrue(album.hashCode() != 0);
+
+        assertEquals(0, album.compareTo(album));
+        assertEquals(1, album.compareTo(null));
+
+        assertTrue(album.equals(album));
+        assertFalse(album.equals(new DummyContextAlbumImpl()));
+
+        ContextAlbumImpl otherAlbum = new ContextAlbumImpl(axContextAlbum, distributor,
+                        new LinkedHashMap<String, Object>());
+        assertTrue(album.equals(otherAlbum));
+
+        otherAlbum.put("Key", 123);
+        assertFalse(album.equals(otherAlbum));
+
+        try {
+            otherAlbum.put("Key", "BadValue");
+            fail("test should throw an exception here");
+        } catch (ContextRuntimeException cre) {
+            assertEquals("Failed to set context value for key \"Key\" in album \"TestContextAlbum:0.0.1\": "
+                            + "TestContextAlbum:0.0.1: object \"BadValue\" of class \"java.lang.String\" "
+                            + "not compatible with class \"java.lang.Integer\"", cre.getMessage());
+        }
+
+        AxContextAlbum otherAxContextAlbum = new AxContextAlbum(new AxArtifactKey("OtherTestContextAlbum", "0.0.1"),
+                        "Policy", true, AxArtifactKey.getNullKey());
+
+        otherAxContextAlbum.setItemSchema(simpleStringSchema.getKey());
+        otherAlbum = new ContextAlbumImpl(otherAxContextAlbum, distributor, new LinkedHashMap<String, Object>());
+        assertFalse(album.equals(otherAlbum));
+
+        try {
+            album.flush();
+            fail("test should throw an exception here");
+        } catch (ContextException ce) {
+            assertEquals("map flush failed, supplied map is null", ce.getMessage());
+        }
+
+        AxContextAlbums albums = new AxContextAlbums();
+        ModelService.registerModel(AxContextAlbums.class, albums);
+        albums.getAlbumsMap().put(axContextAlbum.getKey(), axContextAlbum);
+        distributor.createContextAlbum(album.getKey());
         
+        album.flush();
+
         ModelService.clear();
     }
 }
