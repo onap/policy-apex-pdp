@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_cd8fbecb",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/ResponseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-10-03T10:47:16Z",
+      "side": 1,
+      "message": "new file don\u0027t need this",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "b26e8b3105327b8af2491a2a2247db3b2f197d10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_4dbbce72",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/UpdateModelTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-10-03T10:47:16Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "b26e8b3105327b8af2491a2a2247db3b2f197d10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
