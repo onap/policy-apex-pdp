@@ -27,6 +27,8 @@ import com.google.gson.JsonElement;
 import java.io.ByteArrayOutputStream;
 
 import org.apache.avro.Schema;
+import org.apache.avro.Schema.Field;
+import org.apache.avro.Schema.Type;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
@@ -37,6 +39,7 @@ import org.apache.avro.io.JsonDecoder;
 import org.apache.avro.io.JsonEncoder;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.slf4j.ext.XLogger;
@@ -101,7 +104,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         // Create a new instance using the Avro object mapper
         final Object newInstance = avroObjectMapper.createNewInstance(avroSchema);
 
-        // If no new instance is created, use default schema handler behavior
+        // If no new instance is created, use default schema handler behaviour
         if (newInstance != null) {
             return newInstance;
         } else {
@@ -127,6 +130,60 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
+    }
+
+    @Override
+    public Object createNewSubInstance(final String subInstanceType) {
+        return createNewSubInstance(avroSchema, subInstanceType);
+    }
+
+    /**
+     * Create an instance of a sub type of this type.
+     * 
+     * @param schema the Avro schema of the the type
+     * @param subInstanceType the sub type
+     * @return the sub type schema or null if it is not created
+     */
+    private Object createNewSubInstance(Schema schema, String subInstanceType) {
+        // Try Array element types
+        if (Type.ARRAY == schema.getType()) {
+            Object newInstance = instantiateSubInstance(subInstanceType, schema.getElementType());
+            if (newInstance != null) {
+                return newInstance;
+            }
+        }
+
+        if (Type.MAP == schema.getType()) {
+            Object newInstance = instantiateSubInstance(subInstanceType, schema.getValueType());
+            if (newInstance != null) {
+                return newInstance;
+            }
+        }
+
+        if (Type.RECORD == schema.getType()) {
+            for (Field field : schema.getFields()) {
+                Object newInstance = instantiateSubInstance(subInstanceType, field.schema());
+                if (newInstance != null) {
+                    return newInstance;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Instantiate a sub instance of a type.
+     * 
+     * @param subInstanceType the type of the sub instance to create
+     * @param subSchema the sub schema we have received
+     * @return an instance of the type or null if it is the incorrect type
+     */
+    private Object instantiateSubInstance(String subInstanceType, Schema subSchema) {
+        if (subSchema != null && subSchema.getName().equals(subInstanceType)) {
+            return new AvroObjectMapperFactory().get(AxArtifactKey.getNullKey(), subSchema)
+                            .createNewInstance(subSchema);
+        }
+        return createNewSubInstance(subSchema, subInstanceType);
     }
 
     @Override

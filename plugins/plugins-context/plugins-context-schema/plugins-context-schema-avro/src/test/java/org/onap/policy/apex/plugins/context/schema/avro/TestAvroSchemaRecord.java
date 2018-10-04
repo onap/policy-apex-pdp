@@ -124,9 +124,29 @@ public class TestAvroSchemaRecord {
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
-
+        
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/RecordExampleNull.json");
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/RecordExampleFull.json");
+    }
+
+    /**
+     * Test record create.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testRecordCreateRecord() throws IOException {
+        final AxContextSchema avroSchema =
+                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchema);
+
+        schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
+        final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
+        
+        GenericRecord subRecord = (GenericRecord)schemaHelper.createNewSubInstance("AddressUSRecord");
+        assertEquals(null, subRecord.get("streetAddress"));
+        
+        subRecord = (GenericRecord)schemaHelper.createNewSubInstance("EmailAddress");
+        assertEquals(null, subRecord.get("address"));
     }
 
     /**
