@@ -46,6 +46,30 @@
       "revId": "e95c4317029a672c64213aebe0441f36685ef6ea",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_42ff1435",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-10-04T15:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bada0100_82edfc8d",
+      "range": {
+        "startLine": 171,
+        "startChar": 1,
+        "endLine": 172,
+        "endChar": 1
+      },
+      "revId": "e95c4317029a672c64213aebe0441f36685ef6ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
