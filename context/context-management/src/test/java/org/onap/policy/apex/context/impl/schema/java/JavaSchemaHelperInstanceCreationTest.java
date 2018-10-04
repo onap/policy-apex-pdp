@@ -96,7 +96,6 @@ public class JavaSchemaHelperInstanceCreationTest {
         }
         assertEquals(true, schemaHelper0.createNewInstance("true"));
 
-
         try {
             schemaHelper1.createNewInstance();
             fail("this test should throw an exception here");
@@ -108,5 +107,12 @@ public class JavaSchemaHelperInstanceCreationTest {
 
         assertEquals("", schemaHelper2.createNewInstance());
         assertEquals("true", schemaHelper2.createNewInstance("true"));
+
+        try {
+            schemaHelper1.createNewSubInstance("SomeSubtype");
+            fail("this test should throw an exception here");
+        } catch (final Exception e) {
+            assertEquals("sub types are not supported on this schema helper", e.getMessage());
+        }
     }
 }

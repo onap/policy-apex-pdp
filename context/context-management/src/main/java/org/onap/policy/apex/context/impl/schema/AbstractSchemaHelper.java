@@ -22,6 +22,7 @@ package org.onap.policy.apex.context.impl.schema;
 
 import java.lang.reflect.Constructor;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -168,5 +169,13 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see org.onap.policy.apex.context.SchemaHelper#createNewSubInstance(java.lang.String)
+     */
+    @Override
+    public Object createNewSubInstance(String subType) {
+        throw new NotImplementedException("sub types are not supported on this schema helper");
     }
 }

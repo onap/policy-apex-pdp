@@ -21,6 +21,7 @@
 package org.onap.policy.apex.plugins.context.schema.avro;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
@@ -28,6 +29,7 @@ import org.apache.avro.generic.GenericRecord;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -45,7 +47,7 @@ import org.onap.policy.common.parameters.ParameterService;
  * The Class TestAvroSchemaRecord.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version 
+ * @version
  */
 public class TestAvroSchemaRecord {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
@@ -67,8 +69,8 @@ public class TestAvroSchemaRecord {
         recordSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExample.avsc");
         recordSchemaVpn = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleVPN.avsc");
         recordSchemaVpnReuse = TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleVPNReuse.avsc");
-        recordSchemaInvalidFields =
-                TextFileUtils.getTextFileAsString("src/test/resources/avsc/RecordExampleInvalidFields.avsc");
+        recordSchemaInvalidFields = TextFileUtils
+                        .getTextFileAsString("src/test/resources/avsc/RecordExampleInvalidFields.avsc");
     }
 
     /**
@@ -80,7 +82,7 @@ public class TestAvroSchemaRecord {
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
         ParameterService.register(schemaParameters);
-        
+
     }
 
     /**
@@ -98,8 +100,8 @@ public class TestAvroSchemaRecord {
      */
     @Test
     public void testRecordInit() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchema);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        recordSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -119,8 +121,8 @@ public class TestAvroSchemaRecord {
      */
     @Test
     public void testRecordUnmarshalMarshal() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchema);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        recordSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -130,14 +132,42 @@ public class TestAvroSchemaRecord {
     }
 
     /**
+     * Test record create.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testRecordCreateRecord() throws IOException {
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        recordSchema);
+
+        schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
+        final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
+
+        GenericRecord subRecord = (GenericRecord) schemaHelper.createNewSubInstance("AddressUSRecord");
+        assertEquals(null, subRecord.get("streetAddress"));
+
+        subRecord = (GenericRecord) schemaHelper.createNewSubInstance("EmailAddress");
+        assertEquals(null, subRecord.get("address"));
+
+        try {
+            subRecord = (GenericRecord) schemaHelper.createNewSubInstance("IDontExist");
+            fail("test should throw an exception here");
+        } catch (ContextRuntimeException cre) {
+            assertEquals("AvroTest:0.0.1: the schema \"User\" does not have a subtype of type \"IDontExist\"",
+                            cre.getMessage());
+        }
+    }
+
+    /**
      * Test record unmarshal marshal invalid.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
     public void testRecordUnmarshalMarshalInvalid() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaInvalidFields);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        recordSchemaInvalidFields);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -152,8 +182,8 @@ public class TestAvroSchemaRecord {
      */
     @Test
     public void testVpnRecordUnmarshalMarshal() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVpn);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        recordSchemaVpn);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -168,8 +198,8 @@ public class TestAvroSchemaRecord {
      */
     @Test
     public void testVpnRecordReuse() throws IOException {
-        final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVpnReuse);
+        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
+                        recordSchemaVpnReuse);
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);

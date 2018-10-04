@@ -279,5 +279,4 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
 
         return gsonBuilder.create();
     }
-
 }

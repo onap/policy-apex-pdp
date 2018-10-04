@@ -25,8 +25,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import java.io.ByteArrayOutputStream;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.apache.avro.Schema;
+import org.apache.avro.Schema.Field;
+import org.apache.avro.Schema.Type;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
@@ -37,6 +41,7 @@ import org.apache.avro.io.JsonDecoder;
 import org.apache.avro.io.JsonEncoder;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.slf4j.ext.XLogger;
@@ -101,7 +106,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         // Create a new instance using the Avro object mapper
         final Object newInstance = avroObjectMapper.createNewInstance(avroSchema);
 
-        // If no new instance is created, use default schema handler behavior
+        // If no new instance is created, use default schema handler behaviour
         if (newInstance != null) {
             return newInstance;
         } else {
@@ -127,6 +132,87 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
+    }
+
+    @Override
+    public Object createNewSubInstance(final String subInstanceType) {
+        final Set<String> foundTypes = new LinkedHashSet<>();
+
+        Object subInstance = createNewSubInstance(avroSchema, subInstanceType, foundTypes);
+
+        if (subInstance != null) {
+            return subInstance;
+        } else {
+            final String returnString = getUserKey().getId() + ": the schema \"" + avroSchema.getName()
+                            + "\" does not have a subtype of type \"" + subInstanceType + "\"";
+            LOGGER.warn(returnString);
+            throw new ContextRuntimeException(returnString);
+        }
+    }
+
+    /**
+     * Create an instance of a sub type of this type.
+     * 
+     * @param schema the Avro schema of the the type
+     * @param subInstanceType the sub type
+     * @param foundTypes types we have already found
+     * @return the sub type schema or null if it is not created
+     */
+    private Object createNewSubInstance(Schema schema, String subInstanceType, final Set<String> foundTypes) {
+        // Try Array element types
+        if (Type.ARRAY == schema.getType()) {
+            Object newInstance = instantiateSubInstance(subInstanceType, schema.getElementType(), foundTypes);
+            if (newInstance != null) {
+                return newInstance;
+            }
+        }
+
+        if (Type.MAP == schema.getType()) {
+            Object newInstance = instantiateSubInstance(subInstanceType, schema.getValueType(), foundTypes);
+            if (newInstance != null) {
+                return newInstance;
+            }
+        }
+
+        if (Type.RECORD == schema.getType()) {
+            for (Field field : schema.getFields()) {
+                Object newInstance = instantiateSubInstance(subInstanceType, field.schema(), foundTypes);
+                if (newInstance != null) {
+                    return newInstance;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Instantiate a sub instance of a type.
+     * 
+     * @param subInstanceType the type of the sub instance to create
+     * @param subSchema the sub schema we have received
+     * @param foundTypes types we have already found
+     * @return an instance of the type or null if it is the incorrect type
+     */
+    private Object instantiateSubInstance(final String subInstanceType, final Schema subSchema,
+                    final Set<String> foundTypes) {
+        if (subSchema == null) {
+            return null;
+        }
+
+        // Check for recursive use of field names in records, if we have already checked a field name
+        // skip it this time.
+        if (foundTypes.contains(subSchema.getName())) {
+            return null;
+        }
+
+        foundTypes.add(subSchema.getName());
+
+        if (subSchema.getName().equals(subInstanceType)) {
+            return new AvroObjectMapperFactory().get(AxArtifactKey.getNullKey(), subSchema)
+                            .createNewInstance(subSchema);
+        }
+        return createNewSubInstance(subSchema, subInstanceType, foundTypes);
     }
 
     @Override

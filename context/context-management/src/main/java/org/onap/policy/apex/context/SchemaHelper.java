@@ -92,6 +92,14 @@ public interface SchemaHelper {
     Object createNewInstance(Object incomingObject);
 
     /**
+     * Create an object of a sub type of this object.
+     * 
+     * @param subType the sub type definition of this type
+     * @return a new object of the sub type
+     */
+    Object createNewSubInstance(String subType);
+
+    /**
      * Unmarshal an object in schema format into a Java object.
      *
      * @param object the object as a Java object
