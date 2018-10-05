@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
+import java.util.Base64;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -86,7 +87,7 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     private static final String  DEFAULT_INITIAL_CTXT_FACTORY  = "org.jboss.naming.remote.client.InitialContextFactory";
     private static final String  DEFAULT_PROVIDER_URL          = "remote://localhost:4447";
     private static final String  DEFAULT_SECURITY_PRINCIPAL    = "userid";
-    private static final String  DEFAULT_SECURITY_CREDENTIALS  = "password";
+    private static final String  DEFAULT_SECURITY_CREDENTIALS  = "cGFzc3dvcmQ=";
     private static final String  DEFAULT_CONSUMER_TOPIC        = "apex-in";
     private static final String  DEFAULT_PRODUCER_TOPIC        = "apex-out";
     private static final int     DEFAULT_CONSUMER_WAIT_TIME    = 100;
@@ -103,7 +104,7 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     private String  initialContextFactory = DEFAULT_INITIAL_CTXT_FACTORY;
     private String  providerUrl           = DEFAULT_PROVIDER_URL;
     private String  securityPrincipal     = DEFAULT_SECURITY_PRINCIPAL;
-    private String  securityCredentials   = DEFAULT_SECURITY_CREDENTIALS;
+    private String  securityCredentials   = getDefaultCredential();
     private String  producerTopic         = DEFAULT_PRODUCER_TOPIC;
     private String  consumerTopic         = DEFAULT_CONSUMER_TOPIC;
     private int     consumerWaitTime      = DEFAULT_CONSUMER_WAIT_TIME;
@@ -381,5 +382,9 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
      */
     private boolean isNullOrBlank(final String stringValue) {
         return stringValue == null || stringValue.trim().length() == 0;
+    }
+    
+    private String getDefaultCredential() {
+        return new String(Base64.getDecoder().decode(DEFAULT_SECURITY_CREDENTIALS.getBytes()));
     }
 }

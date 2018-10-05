@@ -89,6 +89,7 @@ public class ZooKeeperServerServiceProvider {
         catch (InterruptedException | IOException ie) {
             String message = "Zookeeper server start failed";
             LOGGER.warn(message, ie);
+            Thread.currentThread().interrupt();
             throw new ApexException(message, ie);
         }
         
