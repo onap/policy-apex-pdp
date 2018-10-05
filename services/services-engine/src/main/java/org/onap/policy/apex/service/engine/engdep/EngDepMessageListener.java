@@ -256,11 +256,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
                 handleEngineInfoMessage(message, webSocket);
                 break;
                 
-            case RESPONSE:
-                throw new ApexException("RESPONSE action on received message not handled by engine");
-
             default:
-                break;
+                throw new ApexException("action " + enDepAction + " on received message not handled by engine");
         }
     }
 

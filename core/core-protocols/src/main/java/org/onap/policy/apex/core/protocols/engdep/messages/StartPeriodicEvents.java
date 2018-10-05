@@ -33,7 +33,7 @@ public class StartPeriodicEvents extends Message {
     private static final long serialVersionUID = -9172376034035242135L;
 
     /**
-     * Instantiates a new StartEngine message.
+     * Instantiates a new StartPeriodiEvents message.
      *
      * @param engineKey the key of the engine to start
      */

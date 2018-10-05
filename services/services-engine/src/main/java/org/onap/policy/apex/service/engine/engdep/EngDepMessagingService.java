@@ -31,25 +31,22 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class EngDepMessagingService is used to encapsulate the server side of EngDep communication.
- * This class allows users to create and start an EngDep server.
+ * The Class EngDepMessagingService is used to encapsulate the server side of EngDep communication. This class allows
+ * users to create and start an EngDep server.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class EngDepMessagingService {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EngDepMessagingService.class);
 
-    // Messaging service is used to transmit and receive messages over a communication protocol
-    private static MessagingServiceFactory<Message> messageServiceFactory = new MessagingServiceFactory<>();
     private final MessagingService<Message> messageService;
 
     // The listener that is listening for messages coming in on the EngDep protocol from clients
     private final EngDepMessageListener messageListener;
 
     /**
-     * Instantiates a new EngDep messaging service. It creates the message service instance, a
-     * listener for incoming messages, and starts the message listener thread for handling incoming
-     * messages.
+     * Instantiates a new EngDep messaging service. It creates the message service instance, a listener for incoming
+     * messages, and starts the message listener thread for handling incoming messages.
      *
      * @param service the Apex engine service that this EngDep service is running for
      * @param port the port The port to use for EngDep communication
@@ -58,7 +55,7 @@ public class EngDepMessagingService {
         LOGGER.entry(service);
 
         // Create the service and listener and add the listener.
-        messageService = messageServiceFactory.createServer(new InetSocketAddress(MessagingUtils.checkPort(port)));
+        messageService = getMessageService(port);
         messageListener = new EngDepMessageListener(service);
         messageService.addMessageListener(messageListener);
 
@@ -102,5 +99,16 @@ public class EngDepMessagingService {
      */
     public boolean isStopped() {
         return !messageService.isStarted();
+    }
+
+    /**
+     * Get a message service instance. This method is protected so that it can be intercepted in unit test.
+     * @param port the message service port
+     * @return the message service
+     */
+    protected MessagingService<Message> getMessageService(final int port) {
+        // Messaging service is used to transmit and receive messages over a communication protocol
+        MessagingServiceFactory<Message> factory = new MessagingServiceFactory<>();
+        return factory.createServer(new InetSocketAddress(MessagingUtils.checkPort(port)));
     }
 }
