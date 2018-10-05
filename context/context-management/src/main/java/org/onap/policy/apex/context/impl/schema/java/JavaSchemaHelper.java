@@ -248,7 +248,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      * @return the GSON instance
      */
     private Gson getGson() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
+        GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
         // Get the Java schema helper parameters from the parameter service
         SchemaParameters schemaParameters = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
