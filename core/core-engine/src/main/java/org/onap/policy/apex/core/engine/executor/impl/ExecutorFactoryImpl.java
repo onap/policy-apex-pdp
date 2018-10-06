@@ -49,7 +49,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ExecutorFactoryImpl extends ExecutorFactory {
+public class ExecutorFactoryImpl implements ExecutorFactory {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ExecutorFactoryImpl.class);
 
@@ -220,7 +220,7 @@ public class ExecutorFactoryImpl extends ExecutorFactory {
             throw new StateMachineRuntimeException(errorMessage, e);
         }
 
-        // Check the class is a Task Selection Executor
+        // Check the class is the correct type of executor
         if (!(executorSuperClass.isAssignableFrom(executorObject.getClass()))) {
             final String errorMessage = "Executor on \"" + logicFlavour + "\" of type \"" + executorClass
                             + "\" is not an instance of \"" + executorSuperClass.getCanonicalName() + "\"";

@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.core.engine.executor.context;
 
-import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.core.engine.event.EnException;
@@ -120,7 +119,7 @@ public class AxTaskFacade {
         // Get a schema helper to handle translations of fields to and from the schema
         try {
             return new SchemaHelperFactory().createSchemaHelper(field.getKey(), field.getSchema());
-        } catch (final ContextRuntimeException e) {
+        } catch (final Exception e) {
             final String message = "schema helper cannot be created for task field \"" + fieldName + "\" with key \""
                     + field.getId() + "\" with schema \"" + field.getSchema() + "\"";
             LOGGER.warn(message, e);
