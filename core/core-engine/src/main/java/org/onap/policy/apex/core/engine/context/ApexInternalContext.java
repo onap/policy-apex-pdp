@@ -51,7 +51,7 @@ import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
  *
  * @author Liam Fallon
  */
-public final class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
+public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
     // The key of the currently running Apex model
     private AxArtifactKey key;
 

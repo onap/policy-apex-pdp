@@ -171,7 +171,13 @@ public class EngineServiceImplTest {
         esImpl.registerActionListener(null, new DummyApexEventListener());
 
         esImpl.registerActionListener("DummyListener", new DummyApexEventListener());
-        esImpl.deregisterActionListener(null);
+        try {
+            esImpl.deregisterActionListener(null);
+            fail("test should throw an exception");
+        } catch (Exception apEx) {
+            assertEquals("removeEventListener()<-Engine-0:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
+        }
+            
         esImpl.deregisterActionListener("DummyListener");
 
         assertEquals(esImpl, esImpl.getEngineServiceEventInterface());

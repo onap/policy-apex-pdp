@@ -143,7 +143,7 @@ public class EngineWorkerTest {
         ParameterService.deregister(ContextParameterConstants.MAIN_GROUP_NAME);
         ParameterService.deregister(EngineParameterConstants.MAIN_GROUP_NAME);
     }
-    
+
     @After
     public void cleardownTest() {
         ModelService.clear();
@@ -155,12 +155,31 @@ public class EngineWorkerTest {
 
         EngineWorker worker = new EngineWorker(new AxArtifactKey("Worker", "0.0.1"), eventQueue, atFactory);
 
-        worker.registerActionListener(null, null);
+        try {
+            worker.registerActionListener(null, null);
+            fail("test should throw an exception");
+        } catch (Exception apEx) {
+            assertEquals("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
+        }
+        
         worker.registerActionListener("DummyListener", null);
-        worker.registerActionListener(null, new DummyApexEventListener());
+        
+        try {
+            worker.registerActionListener(null, new DummyApexEventListener());
+            fail("test should throw an exception");
+        } catch (Exception apEx) {
+            assertEquals("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
+        }
 
         worker.registerActionListener("DummyListener", new DummyApexEventListener());
-        worker.deregisterActionListener(null);
+        
+        try {
+            worker.deregisterActionListener(null);
+            fail("test should throw an exception");
+        } catch (Exception apEx) {
+            assertEquals("removeEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
+        }
+
         worker.deregisterActionListener("DummyListener");
 
         try {
@@ -308,7 +327,6 @@ public class EngineWorkerTest {
                             apEx.getMessage());
         }
     }
-    
 
     @Test
     public void testApexImplModelWIthModel() throws ApexException {
@@ -322,7 +340,7 @@ public class EngineWorkerTest {
         } catch (ApexException apEx) {
             fail("test should not throw an exception");
         }
-        
+
         eventQueue.add(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget"));
 
         try {
@@ -352,7 +370,7 @@ public class EngineWorkerTest {
 
         assertEquals(AxEngineState.STOPPED, worker.getState());
         worker.startAll();
-        
+
         assertEquals(AxEngineState.READY, worker.getState());
 
         String status = worker.getStatus(worker.getEngineKeys().iterator().next());
@@ -425,7 +443,7 @@ public class EngineWorkerTest {
         } catch (ApexException apEx) {
             fail("test should not throw an exception");
         }
-        
+
         assertNotNull(worker.getApexModelKey());
     }
 }
