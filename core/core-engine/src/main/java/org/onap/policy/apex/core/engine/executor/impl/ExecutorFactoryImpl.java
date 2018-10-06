@@ -49,7 +49,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ExecutorFactoryImpl extends ExecutorFactory {
+public class ExecutorFactoryImpl implements ExecutorFactory {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ExecutorFactoryImpl.class);
 
