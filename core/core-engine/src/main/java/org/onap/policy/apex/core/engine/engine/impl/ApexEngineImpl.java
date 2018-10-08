@@ -33,7 +33,9 @@ import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
@@ -201,30 +203,37 @@ public class ApexEngineImpl implements ApexEngine {
     public void stop() throws ApexException {
         LOGGER.entry("stop()->" + key);
 
+        // Check if the engine is already stopped
+        if (state == AxEngineState.STOPPED) {
+            throw new ApexException(
+                            STOP + key.getId() + "," + state + ", cannot stop engine, engine is already stopped");
+        }
+
         // Stop the engine if it is in state READY, if it is in state EXECUTING, wait for execution to finish
         for (int increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT;
-                        increment > 0;
-                        increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT) {
+                        increment > 0; increment -= ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT) {
+            ThreadUtilities.sleep(ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT);
+            
             synchronized (state) {
                 switch (state) {
-                    // Already stopped
-                    case STOPPED:
-
-                        throw new ApexException(STOP + key.getId() + "," + state
-                                        + ", cannot stop engine, engine is already stopped");
-                        // The normal case, the engine wasn't doing anything or it was executing
+                    // Engine is OK to stop or has been stopped on return of an event
                     case READY:
-                    case STOPPING:
-
+                    case STOPPED:
                         state = AxEngineState.STOPPED;
                         stateMachineHandler.stop();
                         engineStats.engineStop();
                         LOGGER.exit("stop()" + key);
                         return;
+
                     // Engine is executing a policy, wait for it to stop
                     case EXECUTING:
                         state = AxEngineState.STOPPING;
                         break;
+
+                    // Wait for the engine to stop
+                    case STOPPING:
+                        break;
+
                     default:
                         throw new ApexException(STOP + key.getId() + "," + state
                                         + ", cannot stop engine, engine is in an undefined state");
@@ -232,7 +241,12 @@ public class ApexEngineImpl implements ApexEngine {
             }
         }
 
-        throw new ApexException(STOP + key.getId() + "," + state + ", cannot stop engine, engine stop timed out");
+        // Force the engine to STOPPED state
+        synchronized (state) {
+            state = AxEngineState.STOPPED;
+        }
+        
+        throw new ApexException(STOP + key.getId() + "," + state + ", error stopping engine, engine stop timed out");
     }
 
     /*
@@ -336,9 +350,11 @@ public class ApexEngineImpl implements ApexEngine {
             ret = false;
         }
         synchronized (state) {
-            // Only go to READY if we are still in state EXECUTING, we could be in state STOPPING
+            // Only go to READY if we are still in state EXECUTING, we go to state STOPPED if we were STOPPING
             if (state == AxEngineState.EXECUTING) {
                 state = AxEngineState.READY;
+            } else if (state == AxEngineState.STOPPING) {
+                state = AxEngineState.STOPPED;
             }
         }
         return ret;
@@ -352,6 +368,18 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public void addEventListener(final String listenerName, final EnEventListener listener) {
+        if (listenerName == null) {
+            String message = "addEventListener()<-" + key.getId() + "," + state + ", listenerName is null";
+            LOGGER.warn(message);
+            throw new ApexRuntimeException(message);
+        }
+
+        if (listener == null) {
+            String message = "addEventListener()<-" + key.getId() + "," + state + ", listener is null";
+            LOGGER.warn(message);
+            throw new ApexRuntimeException(message);
+        }
+
         eventListeners.put(listenerName, listener);
     }
 
@@ -362,6 +390,12 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public void removeEventListener(final String listenerName) {
+        if (listenerName == null) {
+            String message = "removeEventListener()<-" + key.getId() + "," + state + ", listenerName is null";
+            LOGGER.warn(message);
+            throw new ApexRuntimeException(message);
+        }
+
         eventListeners.remove(listenerName);
     }
 
@@ -411,7 +445,7 @@ public class ApexEngineImpl implements ApexEngine {
         if (internalContext == null) {
             return currentContext;
         }
-        
+
         for (final Entry<AxArtifactKey, ContextAlbum> contextAlbumEntry : internalContext.getContextAlbums()
                         .entrySet()) {
             currentContext.put(contextAlbumEntry.getKey(), contextAlbumEntry.getValue());

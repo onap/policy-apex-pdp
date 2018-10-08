@@ -32,7 +32,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
  * @author Liam Fallon
  */
 
-public abstract class ExecutorFactory {
+public interface ExecutorFactory {
     /**
      * Get an executor for task selection logic.
      *

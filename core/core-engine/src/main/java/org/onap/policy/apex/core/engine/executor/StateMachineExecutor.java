@@ -146,11 +146,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         StateOutput stateOutput = new StateOutput(new AxStateOutput(firstExecutor.getSubject().getKey(),
                 incomingEvent.getKey(), firstExecutor.getSubject().getKey()), incomingEvent);
         while (true) {
-            // Execute the state
+            // Execute the state, it returns an output or throws an exception
             stateOutput = stateExecutor.execute(executionId, stateOutput.getOutputEvent());
-            if (stateOutput == null) {
-                throw new StateMachineException("state execution failed, invalid state output returned");
-            }
 
             // Use the next state of the state output to find if all the states have executed
             if (stateOutput.getNextState().equals(AxReferenceKey.getNullKey())) {

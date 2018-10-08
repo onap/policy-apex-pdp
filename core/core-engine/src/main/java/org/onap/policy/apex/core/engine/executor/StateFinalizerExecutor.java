@@ -101,7 +101,8 @@ public abstract class StateFinalizerExecutor
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + finalizerLogic.getId() + "," + finalizerLogic.getLogicFlavour() + ","
                         + finalizerLogic.getLogic());
-        argumentOfClassNotNull(finalizerLogic.getLogic(), StateMachineException.class, "task logic cannot be null.");
+        argumentOfClassNotNull(finalizerLogic.getLogic(), StateMachineException.class,
+                        "state finalizer logic cannot be null.");
     }
 
     /*
@@ -237,7 +238,11 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public String getOutgoing() {
-        return executionContext.getSelectedStateOutputName();
+        if (executionContext != null) {
+            return executionContext.getSelectedStateOutputName();
+        } else {
+            return null;
+        }
     }
 
     /*
