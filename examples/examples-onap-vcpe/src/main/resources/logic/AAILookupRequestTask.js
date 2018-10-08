@@ -24,17 +24,24 @@ executor.logger.info(executor.inFields);
 var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
 
-var guardDecisionAttributes = executor.subject.getOutFieldSchemaHelper("decisionAttributes").createNewInstance();
+var aaiRequest = new org.onap.policy.aai.AaiNqRequest;
+aaiRequest.setQueryParameters(new org.onap.policy.aai.AaiNqQueryParameters);
+aaiRequest.setInstanceFilters(new org.onap.policy.aai.AaiNqInstanceFilters);
 
-guardDecisionAttributes.put("actor", "APPC");
-guardDecisionAttributes.put("recipe", "Restart");
-guardDecisionAttributes.put("target", executor.inFields.get("vnfID").toString());
-guardDecisionAttributes.put("clname", "APEXvCPEImplementation");
+aaiRequest.getQueryParameters().setNamedQuery(new org.onap.policy.aai.AaiNqNamedQuery);
+aaiRequest.getQueryParameters().getNamedQuery().setNamedQueryUuid(executor.inFields.get("requestID"));
 
-executor.logger.info(guardDecisionAttributes);
+var genericVnfInstanceFilterMap = new java.util.HashMap();
+genericVnfInstanceFilterMap.put("vnf-id", vcpeClosedLoopStatus.get("AAI").get("genericVnfVnfId"));
 
-executor.outFields.put("decisionAttributes", guardDecisionAttributes);
-executor.outFields.put("onapName", "APEX");
+var genericVnfFilterMap = new java.util.HashMap();
+genericVnfFilterMap.put("generic-vnf", genericVnfInstanceFilterMap);
+
+aaiRequest.getInstanceFilters().getInstanceFilter().add(genericVnfFilterMap);
+
+executor.logger.info(aaiRequest);
+
+executor.outFields.put("AAINamedQueryRequest", aaiRequest);
 
 executor.getContextAlbum("ControlLoopExecutionIDAlbum").put(executor.executionId.toString(),
         executor.inFields.get("vnfID"));
