@@ -24,8 +24,9 @@ executor.logger.info(executor.inFields);
 var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
 
-vcpeClosedLoopStatus.put("notification", "VCPE NOTIFICATION HAS BEEN ABATED");
-vcpeClosedLoopStatus.put("notificationTime", new Date().toISOString());
+vcpeClosedLoopStatus.put("notification",     org.onap.policy.controlloop.ControlLoopNotificationType.FINAL_SUCCESS);
+vcpeClosedLoopStatus.put("notificationTime", java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC));
+vcpeClosedLoopStatus.put("message",          "situation has been abated");
 
 executor.logger.info(executor.outFields);
 

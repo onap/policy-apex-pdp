@@ -30,16 +30,17 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 /**
  * The Class AaiAndGuardSim.
  */
-public class AaiAndGuardSim {
-    private static final String BASE_URI = "http://localhost:54321/AAIAndGuardSim";
+public class OnapVCpeSim {
     private static final int MAX_LOOPS = 100000;
     private HttpServer server;
 
     /**
      * Instantiates a new aai and guard sim.
      */
-    public AaiAndGuardSim() {
-        final ResourceConfig rc = new ResourceConfig(AaiAndGuardSimEndpoint.class);
+    public OnapVCpeSim(final String[] args) {
+	final String BASE_URI = "http://" + args[0] + ':' + args[1] + "/OnapVCpeSim";
+
+	final ResourceConfig rc = new ResourceConfig(OnapVCpeSimEndpoint.class);
         server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 
         while (!server.isStarted()) {
@@ -63,7 +64,7 @@ public class AaiAndGuardSim {
      * @throws Exception the exception
      */
     public static void main(final String[] args) throws Exception {
-        final AaiAndGuardSim sim = new AaiAndGuardSim();
+        final OnapVCpeSim sim = new OnapVCpeSim(args);
 
         for (int index = 0; index < MAX_LOOPS; index++) {
             ThreadUtilities.sleep(100);

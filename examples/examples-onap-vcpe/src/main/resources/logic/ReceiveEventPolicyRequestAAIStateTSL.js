@@ -29,18 +29,18 @@ var aaiInfo = vcpeClosedLoopStatus.get("AAI");
 
 executor.logger.info(aaiInfo);
 
-if (aaiInfo.get("generic_DasH_vnf.resource_DasH_version") != null
-        && aaiInfo.get("generic_DasH_vnf.vnf_DasH_name") != null
-        && aaiInfo.get("generic_DasH_vnf.prov_DasH_status") != null
-        && aaiInfo.get("generic_DasH_vnf.is_DasH_closed_DasH_loop_DasH_disabled") != null
-        && aaiInfo.get("generic_DasH_vnf.orchestration_DasH_status") != null
-        && aaiInfo.get("generic_DasH_vnf.vnf_DasH_type") != null
-        && aaiInfo.get("generic_DasH_vnf.in_DasH_maint") != null
-        && aaiInfo.get("generic_DasH_vnf.service_DasH_id") != null
-        && aaiInfo.get("generic_DasH_vnf.vnf_DasH_id") != null) {
-    executor.subject.getTaskKey("AAILookupRequestTask").copyTo(executor.selectedTask);
-} else {
+if (aaiInfo.get("genericVnfResourceVersion") != null
+        && aaiInfo.get("genericVnfVnfName") != null
+        && aaiInfo.get("genericVnfProvStatus") != null
+        && aaiInfo.get("genericVnfIsClosedLoopDisabled") != null
+        && aaiInfo.get("genericVnfOrchestrationStatus") != null
+        && aaiInfo.get("genericVnfVnfType") != null
+        && aaiInfo.get("genericVnfInMaint") != null
+        && aaiInfo.get("genericVnfServiceId") != null
+        && aaiInfo.get("genericVnfVnfId") != null) {
     executor.subject.getTaskKey("NoAAILookupTask").copyTo(executor.selectedTask);
+} else {
+    executor.subject.getTaskKey("AAILookupRequestTask").copyTo(executor.selectedTask);
 }
 
 executor.logger.info("ReceiveEventPolicyOnsetOrAbatedStateTSL State Selected Task:" + executor.selectedTask);

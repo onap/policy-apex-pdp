@@ -1,0 +1,3 @@
+Run simulator from command line using Maven:
+mvn exec:java  -Dexec.classpathScope="test" -Dexec.mainClass=org.onap.policy.apex.domains.onap.vcpe.OnapVCpeSim
+
