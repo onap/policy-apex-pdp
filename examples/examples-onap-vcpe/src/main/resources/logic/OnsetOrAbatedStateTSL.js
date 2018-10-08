@@ -22,11 +22,19 @@ executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
 var returnValue = executor.isTrue;
+var status = null;
 
-var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
+if( executor.inFields.get("vnfID") == null) {
+   executor.logger.info("OnsetOrAbatedStateTSL: vnfID is null");
+   var vnfName = executor.inFields.get("vnfName");
+   var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
+        executor.inFields.get("vnfName"));
+   status = vcpeClosedLoopStatus.get("closedLoopEventStatus").toString();
+} else {
+   var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
-
-var status = vcpeClosedLoopStatus.get("closedLoopEventStatus");
+   status = vcpeClosedLoopStatus.get("closedLoopEventStatus").toString();
+}
 
 var returnValue = executor.isTrue;
 
@@ -36,7 +44,7 @@ if (status === "ONSET") {
     executor.subject.getTaskKey("AbatedTask").copyTo(executor.selectedTask);
     onsetFlag = executor.isFalse;
 } else {
-    executor.message = "closedLoopEventStatus must be either \"ONSET\" or \"ABATED\"";
+    executor.message = "closedLoopEventStatus is \"" + status + "\", it must be either \"ONSET\" or \"ABATED\"";
     returnValue = executor.isFalse;
 }
 

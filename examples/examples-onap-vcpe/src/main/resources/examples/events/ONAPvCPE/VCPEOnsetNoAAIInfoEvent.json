@@ -1,5 +1,5 @@
 {
-    "closedLoopControlName": "ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e",
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
     "closedLoopAlarmStart": 1519638197324,
     "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
     "closedLoopEventStatus": "ONSET",
