@@ -14,6 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
+ * APPC LCM Response code: 100 ACCEPTED
+ *                         200 ERROR UNEXPECTED ERROR means failure
+ *                         312 REJECTED DUPLICATE REQUEST
+ *                         400 SUCCESS 
+ *
+ * Note: Sometimes the corelationId has a -1 at the tail, need to get rid of it when present.
+ * 
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,30 +28,43 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var uuidType = Java.type("java.util.UUID");
-var integerType = Java.type("java.lang.Integer");
+var appcResponse = executor.inFields.get("APPCLCMResponseEvent");
 
-var requestID = uuidType.fromString(executor.inFields.get("correlation-id"));
-var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestID.toString());
+var requestIDString = appcResponse.getCorrelationId().substr(0, 36);
+executor.logger.info("requestIDString = " + requestIDString);
+var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").get(requestIDString);
+executor.logger.info("Size of RequestIDVNFIDAlbum = " + executor.getContextAlbum("RequestIDVNFIDAlbum").size());
+executor.logger.info("vnfID = " + vnfID);
 
 var returnValue = executor.isTrue;
 
 if (vnfID != null) {
     var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(vnfID.toString());
+    var requestId = java.util.UUID.fromString(vcpeClosedLoopStatus.get("requestID"));
 
-    var notification = "OPERATION: VNF RESTART WITH RETURN CODE "
-            + executor.inFields.get("body").get("output").get("status").get("code") + ", "
-            + executor.inFields.get("body").get("output").get("status").get("message");
+    vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
 
-    vcpeClosedLoopStatus.put("notification", notification);
-    vcpeClosedLoopStatus.put("notificationTime", executor.inFields.get("body").get("output").get("common_DasH_header")
-            .get("timestamp"));
+    executor.logger.info("Got from APPC code: " + org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()));
 
-    executor.outFields.put("requestID", requestID);
+    if (org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == org.onap.policy.appclcm.LcmResponseCode.SUCCESS) {
+        vcpeClosedLoopStatus.put("notification", "OPERATION_SUCCESS");
+        vcpeClosedLoopStatus.put("message", "vCPE restarted");
+        executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestIDString);
+    } else if (org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == "ACCEPTED" ||
+               org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == "REJECT" ) {
+        executor.logger.info("Got ACCEPTED 100 or REJECT 312, keep the context, wait for next response. Code is: " + org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()));
+    }
+    else {
+        executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestIDString);
+        vcpeClosedLoopStatus.put("notification", "OPERATION_FAILURE");
+        vcpeClosedLoopStatus.put("message", "vCPE restart failed");
+    }
+
+    executor.outFields.put("requestID", requestId);
     executor.outFields.put("vnfID", vnfID);
 } else {
-    executor.message = "VNF ID not found in context album for request ID " + requestID;
-    returnValue = executor.isFalse
+    executor.message = "VNF ID not found in context album for request ID " + requestIDString;
+    returnValue = executor.isFalse;
 }
 
 executor.logger.info(executor.outFields);

@@ -5,7 +5,7 @@
         "id": 45,
         "instanceCount": 4,
         "deploymentPort": 12561,
-        "policyModelFileName": "/home/apexuser/examples/models/ONAPvCPE/ONAPvCPEPolicyModel.json",
+        "policyModelFileName": "examples/models/ONAPvCPE/ONAPvCPEPolicyModel.json",
         "engineParameters": {
             "executorParameters": {
                 "JAVASCRIPT": {
@@ -40,15 +40,31 @@
         }
     },
     "eventInputParameters": {
+        "VCPEInitConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "standardIo": true
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "versionAlias": "version",
+                    "sourceAlias": "from",
+                    "pojoField": "VirtualControlLoopEvent"
+                }
+            },
+            "eventName": "ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e"
+        },
         "GuardRequestorConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTREQUESTOR",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://172.18.0.6:8081/pdp/api/getDecision",
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/pdp/api/getDecision",
                     "httpMethod": "POST",
-                    "restRequestTimeout": 2000,
-                    "httpHeader": "Authorization:dGVzdHBkcDphbHBoYTEyMw== ClientAuth:cHl0aG9uOnRlc3Q="
+                    "restRequestTimeout": 2000
                 }
             },
             "eventProtocolParameters": {
@@ -65,7 +81,7 @@
                 "carrierTechnology": "RESTREQUESTOR",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://10.0.1.1:8443/aai/search/named-query",
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/aai/search/named-query",
                     "httpMethod": "POST",
                     "restRequestTimeout": 2000
                 }
@@ -87,7 +103,7 @@
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://10.0.11.1:3904/events/unauthenticated.DCAE_CL_OUTPUT/APEX/1?timeout=60000"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/unauthenticated.DCAE_CL_OUTPUT/APEX/1?timeout=60000"
                 }
             },
             "eventProtocolParameters": {
@@ -95,18 +111,16 @@
                 "parameters": {
                     "nameAlias": "closedLoopControlName",
                     "versionAlias": "version",
-                    "sourceAlias": "from",
-                    "pojoField": "VirtualControlLoopEvent" 
+                    "sourceAlias": "from"
                 }
-            },
-            "eventName": "ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e" 
+            }
         },
         "APPCConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://10.0.11.1:3904/events/APPC-LCM-WRITE/APEX/1?timeout=60000"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/APPC_LCM_WRITE/APEX/1?timeout=60000"
                 }
             },
             "eventProtocolParameters": {
@@ -166,7 +180,7 @@
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://10.0.11.1:3904/events/APPC-LCM-READ"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/APPC-LCM-READ"
                 }
             },
             "eventProtocolParameters": {
@@ -184,7 +198,7 @@
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://10.0.11.1:3904/events/POLICY-CL-MGT"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/POLICY_CL_MGT"
                 }
             },
             "eventProtocolParameters": {
