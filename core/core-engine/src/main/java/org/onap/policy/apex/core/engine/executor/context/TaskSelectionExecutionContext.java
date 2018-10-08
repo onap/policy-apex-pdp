@@ -76,7 +76,7 @@ public class TaskSelectionExecutionContext {
      * sets this field in its logic prior to executing and the Apex engine executes this task as the
      * task for this state.
      */
-    public AxArtifactKey selectedTask;
+    public final AxArtifactKey selectedTask;
 
     /**
      * Logger for task selection execution, task selection logic can use this field to access and
