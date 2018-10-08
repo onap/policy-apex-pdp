@@ -21,26 +21,29 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var uuidType = Java.type("java.util.UUID");
-var integerType = Java.type("java.lang.Integer");
+var appcResponse = executor.inFields.get("APPCLCMResponseEvent");
 
-var requestID = uuidType.fromString(executor.inFields.get("correlation-id"));
-var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestID.toString());
+var requestIDString = appcResponse.getCorrelationId();
+var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestIDString);
 
 var returnValue = executor.isTrue;
 
 if (vnfID != null) {
     var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(vnfID.toString());
+    var requestId = java.util.UUID.fromString(vcpeClosedLoopStatus.get("requestID"));
 
-    var notification = "OPERATION: VNF RESTART WITH RETURN CODE "
-            + executor.inFields.get("body").get("output").get("status").get("code") + ", "
-            + executor.inFields.get("body").get("output").get("status").get("message");
+    vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
 
-    vcpeClosedLoopStatus.put("notification", notification);
-    vcpeClosedLoopStatus.put("notificationTime", executor.inFields.get("body").get("output").get("common_DasH_header")
-            .get("timestamp"));
+    if (org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == org.onap.policy.appclcm.LcmResponseCode.SUCCESS) {
+        vcpeClosedLoopStatus.put("notification", "OPERATION_SUCCESS");
+        vcpeClosedLoopStatus.put("message", "vCPE restarted");
+    }
+    else {
+        vcpeClosedLoopStatus.put("notification", "OPERATION_FAILURE");
+        vcpeClosedLoopStatus.put("message", "vCPE restart failed");
+    }
 
-    executor.outFields.put("requestID", requestID);
+    executor.outFields.put("requestID", requestId);
     executor.outFields.put("vnfID", vnfID);
 } else {
     executor.message = "VNF ID not found in context album for request ID " + requestID;

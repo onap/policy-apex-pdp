@@ -67,6 +67,26 @@
             <artifactId>plugins-event-carrier-restrequestor</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
+            <artifactId>plugins-event-carrier-restclient</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.drools-applications.controlloop.common.model-impl</groupId>
+            <artifactId>aai</artifactId>
+            <version>1.3.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.drools-applications.controlloop.common.model-impl</groupId>
+            <artifactId>appclcm</artifactId>
+            <version>1.3.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.drools-applications.controlloop.common.model-impl</groupId>
+            <artifactId>events</artifactId>
+            <version>1.3.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

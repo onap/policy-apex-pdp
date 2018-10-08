@@ -28,16 +28,35 @@ executor.logger.info("Continuing execution with VNF ID: " + vnfID);
 var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(vnfID.toString());
 executor.logger.info(vcpeClosedLoopStatus);
 
-var guardResult = executor.inFields.get("decision");
+var aaiResponse = executor.inFields.get("AAINamedQueryResponse");
 
-if (guardResult === "PERMIT") {
-    vcpeClosedLoopStatus.put("notification", "OPERATION: GUARD_PERMIT");
-} else if (guardResult === "DENY") {
-    vcpeClosedLoopStatus.put("notification", "OPERATION: GUARD_DENY");
-} else {
-    executor.message = "guard result must be either \"PERMIT\" or \"DENY\"";
-    returnValue = executor.isFalse;
+for (var iterator = aaiResponse.getInventoryResponseItems().iterator(); iterator.hasNext(); ) {
+    var responseItem = iterator.next();
+    
+    if (responseItem.getModelName() != "vCPE") {
+        continue;
+    }
+    
+    var aaiInfo = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").getSchemaHelper().createNewSubInstance("VCPE_AAI_Type");
+
+    aaiInfo.put("genericVnfResourceVersion",      responseItem.getGenericVnf().getResourceVersion());
+    aaiInfo.put("genericVnfVnfName",              responseItem.getGenericVnf().getVnfName());
+    aaiInfo.put("genericVnfProvStatus",           responseItem.getGenericVnf().getProvStatus());
+    aaiInfo.put("genericVnfIsClosedLoopDisabled", responseItem.getGenericVnf().getIsClosedLoopDisabled().toString());
+    aaiInfo.put("genericVnfVnfType",              responseItem.getGenericVnf().getVnfType());
+    aaiInfo.put("genericVnfInMaint",              responseItem.getGenericVnf().getInMaint().toString());
+    aaiInfo.put("genericVnfServiceId",            responseItem.getGenericVnf().getServiceId());
+    aaiInfo.put("genericVnfVnfId",                responseItem.getGenericVnf().getVnfId());
+
+    aaiInfo.put("genericVnfOrchestrationStatus",  responseItem.getVfModule().getOrchestrationStatus());
+
+    vcpeClosedLoopStatus.put("AAI", aaiInfo);
+    
+    break;
 }
+
+// We should check here for the case where AAI returns an error or no data for the query
+
 
 var uuidType = Java.type("java.util.UUID");
 var requestID = uuidType.fromString(vcpeClosedLoopStatus.get("requestID"));
