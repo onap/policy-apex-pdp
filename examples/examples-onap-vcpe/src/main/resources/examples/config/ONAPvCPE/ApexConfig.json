@@ -5,7 +5,7 @@
         "id": 45,
         "instanceCount": 4,
         "deploymentPort": 12561,
-        "policyModelFileName": "policy/ONAPvCPEPolicyModel.json",
+        "policyModelFileName": "src/test/resources/model/ONAPvCPEPolicyModel.json",
         "engineParameters": {
             "executorParameters": {
                 "JAVASCRIPT": {
@@ -17,6 +17,23 @@
                 "schemaParameters": {
                     "Avro": {
                         "parameterClassName": "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+                    },
+                    "Java": {
+                        "parameterClassName": "org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters",
+                        "jsonAdapters": {
+                            "Instant": {
+                                "adaptedClass": "java.time.Instant",
+                                "adaptorClass": "org.onap.policy.controlloop.util.Serialization$GsonInstantAdapter"
+                            },
+                            "APPC_LCM_REQUEST": {
+                                "adaptedClass": "org.onap.policy.appclcm.LcmRequest",
+                                "adaptorClass": "org.onap.policy.appclcm.util.Serialization$RequestAdapter"
+                            },
+                            "APPC_LCM_RESPONSE": {
+                                "adaptedClass": "org.onap.policy.appclcm.LcmResponse",
+                                "adaptorClass": "org.onap.policy.appclcm.util.Serialization$ResponseAdapter"
+                            }
+                        }
                     }
                 }
             }
@@ -27,24 +44,25 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "config/VCPEInitiationEvent.json"
+                    "fileName": "src/main/resources/examples/events/ONAPvCPE/MultiEvents.json"
                 }
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON",
                 "parameters": {
-                    "nameAlias": "closedLoopControlName",
                     "versionAlias": "version",
-                    "sourceAlias": "from"
+                    "sourceAlias": "from",
+                    "pojoField": "VirtualControlLoopEvent"
                 }
-            }
+            },
+            "eventName": "VirtualControlLoopEvent"
         },
         "GuardRequestorConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTREQUESTOR",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://192.168.144.235:54321/AAIAndGuardSim/sim/pdp/api/getDecision",
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/pdp/api/getDecision",
                     "httpMethod": "POST",
                     "restRequestTimeout": 2000
                 }
@@ -58,12 +76,34 @@
             "requestorPeer": "GuardRequestorProducer",
             "requestorTimeout": 500
         },
+        "AAIRequestorConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/aai/search/named-query",
+                    "httpMethod": "POST",
+                    "restRequestTimeout": 2000
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "pojoField": "AAINamedQueryResponse"
+                }
+            },
+            "eventName": "AAINamedQueryResponseEvent",
+            "eventNameFilter": "AAINamedQueryResponseEvent",
+            "requestorMode": true,
+            "requestorPeer": "AAIRequestorProducer",
+            "requestorTimeout": 500
+        },
         "DCAEConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://192.168.144.235:3904/events/unauthenticated.DCAE_CL_OUTPUT/APEX/1?timeout=60000"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/unauthenticated.DCAE_CL_OUTPUT/APEX/1?timeout=60000"
                 }
             },
             "eventProtocolParameters": {
@@ -80,11 +120,15 @@
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://192.168.144.235:3904/events/APPC_LCM_WRITE/APEX/1?timeout=60000"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/APPC_LCM_WRITE/APEX/1?timeout=60000"
                 }
             },
             "eventProtocolParameters": {
-                "eventProtocol": "JSON"
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "versionAlias": "version",
+                    "pojoField": "APPCLCMResponseEvent"
+                }
             },
             "eventName": "APPCRestartVNFResponseEvent",
             "eventNameFilter": "APPCRestartVNFResponseEvent"
@@ -115,16 +159,37 @@
             "requestorPeer": "GuardRequestorConsumer",
             "requestorTimeout": 500
         },
+        "AAIRequestorProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "pojoField": "AAINamedQueryRequest"
+                }
+            },
+            "eventNameFilter": "AAINamedQueryRequestEvent",
+            "requestorMode": true,
+            "requestorPeer": "AAIRequestorConsumer",
+            "requestorTimeout": 500
+        },
         "APPCProducer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://192.168.144.235:3904/events/APPC-LCM-READ"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/APPC-LCM-READ"
                 }
             },
             "eventProtocolParameters": {
-                "eventProtocol": "JSON"
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "versionAlias": "version",
+                    "sourceAlias": "from",
+                    "pojoField": "APPCLCMRequestEvent"
+                }
             },
             "eventNameFilter": "APPCRestartVNFRequestEvent"
         },
@@ -133,11 +198,16 @@
                 "carrierTechnology": "RESTCLIENT",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://192.168.144.235:3904/events/POLICY_CL_MGT"
+                    "url": "http://localhost:54321/OnapVCpeSim/sim/events/POLICY_CL_MGT"
                 }
             },
             "eventProtocolParameters": {
-                "eventProtocol": "JSON"
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "versionAlias": "version",
+                    "sourceAlias": "from",
+                    "pojoField": "VirtualControlLoopNotification"
+                }
             },
             "eventNameFilter": "ControlLoopLogEvent"
         }
