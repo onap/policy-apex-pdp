@@ -1,0 +1,31 @@
+Check out Draft Review
+
+Build the source
+mvn clean install
+
+Build the docker image for the demo
+cd packages/apex-pdp-docker/src/main/
+cp ../../../apex-pdp-package-full/target/apex-pdp-package-full-2.0.0-SNAPSHOT-tarball.tar.gz docker/apex-pdp-package-full.tar.gz
+docker build -t apex-onap-vcpe docker
+
+Run the Docker container
+docker run -it --rm -p 12561:12561 apex-onap-vcpe
+
+Find the address of the host containter
+ip route list
+
+Update the configuration file REST URLs with the IP address of the source container
+vi examples/config/ONAPvCPE/ApexConfig.json
+examples/config/ONAPvCPE/ApexConfigStdin.json
+
+Run simulator from command line on host machine using Maven, replacing xxx.xxx.xxx.xxx with the IP address of the local host
+mvn exec:java  -Dexec.classpathScope="test" -Dexec.mainClass=org.onap.policy.apex.domains.onap.vcpe.OnapVCpeSim -Dexec.args="xxx.xxx.xxx.xxx 54321"
+
+Run the engine in Docker, running the full example
+/opt/app/policy/apex-pdp/bin/apexApps.sh engine -c examples/config/ONAPvCPE/ApexConfig.json
+
+Run the engine in Docker, running with pasting into console using standard input
+/opt/app/policy/apex-pdp/bin/apexApps.sh engine -c examples/config/ONAPvCPE/ApexConfigStdin.json
+
+On an extraction of the Apex tarball, run the Apex client
+bin/apexApps.sh full-client
