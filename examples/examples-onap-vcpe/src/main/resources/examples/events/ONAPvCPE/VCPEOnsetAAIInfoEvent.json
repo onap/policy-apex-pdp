@@ -12,7 +12,7 @@
         "generic-vnf.prov-status": "PREPROV",
         "generic-vnf.is-closed-loop-disabled": "false",
         "generic-vnf.orchestration-status": "Created",
-        "generic-vnf.vnf-type": "cCPEInfraService10/vCPEInfraService10 0",
+        "generic-vnf.vnf-type": "vCPEInfraService10/vCPEInfraService10 0",
         "generic-vnf.in-maint": "false",
         "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f",
         "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1"
