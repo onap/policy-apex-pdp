@@ -10,39 +10,39 @@
                 "namespace": "org.onap.policy.apex.onap.vcpe",
                 "fields": [
                     {
-                        "name": "generic_DasH_vnf_DoT_resource_DasH_version",
+                        "name": "genericVnfResourceVersion",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_vnf_DasH_name",
+                        "name": "genericVnfVnfName",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_prov_DasH_status",
+                        "name": "genericVnfProvStatus",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_is_DasH_closed_DasH_loop_DasH_disabled",
+                        "name": "genericVnfIsClosedLoopDisabled",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_orchestration_DasH_status",
+                        "name": "genericVnfOrchestrationStatus",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_vnf_DasH_type",
+                        "name": "genericVnfVnfType",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_in_DasH_maint",
+                        "name": "genericVnfInMaint",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_service_DasH_id",
+                        "name": "genericVnfServiceId",
                         "type": "string"
                     },
                     {
-                        "name": "generic_DasH_vnf_DoT_vnf_DasH_id",
+                        "name": "genericVnfVnfId",
                         "type": "string"
                     }
                 ]
@@ -106,6 +106,10 @@
         },
         {
             "name": "notificationTime",
+            "type": "long"
+        },
+        {
+            "name": "message",
             "type": "string"
         }
     ]
