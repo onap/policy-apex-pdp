@@ -36,7 +36,7 @@ if (guardResult === "PERMIT") {
     vcpeClosedLoopStatus.put("notification", "OPERATION: GUARD_DENY");
 } else {
     executor.message = "guard result must be either \"PERMIT\" or \"DENY\"";
-    returnValue = executor.isFalse;
+    returnValue = executor.FALSE;
 }
 
 var uuidType = Java.type("java.util.UUID");
