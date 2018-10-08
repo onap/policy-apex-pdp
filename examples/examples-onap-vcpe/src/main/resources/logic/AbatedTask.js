@@ -21,11 +21,20 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
+var vcpeClosedLoopStatus = null; 
+if( executor.inFields.get("vnfID") == null) {
+   executor.logger.info("AbatedTask: vnfID is null");
+   var vnfName = executor.inFields.get("vnfName");
+   vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
+        executor.inFields.get("vnfName"));
+} else {
+   vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
+}
 
-vcpeClosedLoopStatus.put("notification", "VCPE NOTIFICATION HAS BEEN ABATED");
-vcpeClosedLoopStatus.put("notificationTime", new Date().toISOString());
+vcpeClosedLoopStatus.put("notification",     "FINAL_SUCCESS");
+vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+vcpeClosedLoopStatus.put("message",          "situation has been abated");
 
 executor.logger.info(executor.outFields);
 
