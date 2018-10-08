@@ -1,0 +1,150 @@
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ONSET",
+    "requestID": "4a68f8a5-0db9-4070-a132-adede51e0000",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "AAI": {
+        "generic-vnf.resource-version": "1",
+        "generic-vnf.vnf-name": "vCPEInfraVNF0000",
+        "generic-vnf.prov-status": "PREPROV",
+        "generic-vnf.is-closed-loop-disabled": "false",
+        "generic-vnf.orchestration-status": "Created",
+        "generic-vnf.vnf-type": "vCPEInfraService10/vCPEInfraService10 0",
+        "generic-vnf.in-maint": "false",
+        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f",
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0000"
+    },
+    "from": "DCAE",
+    "version": "1.0.2"
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ONSET",
+    "requestID": "4a68f8a5-0db9-4070-a132-adede51e0001",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "AAI": {
+        "generic-vnf.resource-version": "1",
+        "generic-vnf.vnf-name": "vCPEInfraVNF0001",
+        "generic-vnf.prov-status": "PREPROV",
+        "generic-vnf.is-closed-loop-disabled": "false",
+        "generic-vnf.orchestration-status": "Created",
+        "generic-vnf.vnf-type": "vCPEInfraService10/vCPEInfraService10 0",
+        "generic-vnf.in-maint": "false",
+        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f",
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0001"
+    },
+    "from": "DCAE",
+    "version": "1.0.2"
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ONSET",
+    "requestID": "664be3d2-6c12-4f4b-a3e7-c349acce0002",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "AAI": {
+        "vserver.is-closed-loop-disabled": "false",
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0002"
+    },
+    "from": "DCAE",
+    "version": "1.0.2"
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ONSET",
+    "requestID": "664be3d2-6c12-4f4b-a3e7-c349acce0003",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "AAI": {
+        "vserver.is-closed-loop-disabled": "false",
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0003"
+    },
+    "from": "DCAE",
+    "version": "1.0.2"
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638001326,
+    "closedLoopAlarmEnd": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ABATED",
+    "requestID": "4a68f8a5-0db9-4070-a132-adede51e0005",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "version": "1.0.2",
+    "from": "DCAE",
+    "AAI": {
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+        "generic-vnf.resource-version": "1",
+        "generic-vnf.vnf-name": "vCPEInfraVNF0005",
+        "generic-vnf.prov-status": "PREPROV",
+        "generic-vnf.is-closed-loop-disabled": "false",
+        "generic-vnf.orchestration-status": "Created",
+        "generic-vnf.vnf-type": "cCPEInfraService10/vCPEInfraService10 0",
+        "generic-vnf.in-maint": "false",
+        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03b0005"
+    }
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638001326,
+    "closedLoopAlarmEnd": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ABATED",
+    "requestID": "4a68f8a5-0db9-4070-a132-adede51e0006",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "version": "1.0.2",
+    "from": "DCAE",
+    "AAI": {
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+        "generic-vnf.resource-version": "1",
+        "generic-vnf.vnf-name": "vCPEInfraVNF0006",
+        "generic-vnf.prov-status": "PREPROV",
+        "generic-vnf.is-closed-loop-disabled": "false",
+        "generic-vnf.orchestration-status": "Created",
+        "generic-vnf.vnf-type": "cCPEInfraService10/vCPEInfraService10 0",
+        "generic-vnf.in-maint": "false",
+        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03b0006"
+    }
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638001326,
+    "closedLoopAlarmEnd": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ABATED",
+    "requestID": "4a68f8a5-0db9-4070-a132-adede51e0006",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "version": "1.0.2",
+    "from": "DCAE",
+    "AAI": {
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0006"
+    }
+}
+{
+    "closedLoopControlName": "ControlLoop-vCPE-85317438-861d-42a9-979e-9d96dc0a9ef1",
+    "closedLoopAlarmStart": 1519638001326,
+    "closedLoopAlarmEnd": 1519638197324,
+    "closedLoopEventClient": "DCAE_INSTANCE_ID.dcae-tca",
+    "closedLoopEventStatus": "ABATED",
+    "requestID": "4a68f8a5-0db9-4070-a132-adede51e0007",
+    "target_type": "VNF",
+    "target": "generic-vnf.vnf-id",
+    "version": "1.0.2",
+    "from": "DCAE",
+    "AAI": {
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0007"
+    }
+}

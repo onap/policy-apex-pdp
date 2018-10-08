@@ -24,8 +24,8 @@ executor.logger.info(executor.inFields);
 var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(
         executor.inFields.get("vnfID").toString());
 
-vcpeClosedLoopStatus.put("notification", "VCPE VNF RESTART HAS BEEN DENIED BY GUARD");
-vcpeClosedLoopStatus.put("notificationTime", new Date().toISOString());
+vcpeClosedLoopStatus.put("notification",     org.onap.policy.controlloop.ControlLoopNotificationType.REJECTED);
+vcpeClosedLoopStatus.put("notificationTime", java.time.ZonedDateTime.now(java.time.ZoneOffset.UTC));
 
 executor.logger.info(executor.outFields);
 

@@ -26,7 +26,7 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>examples-onap-vcpe</artifactId>
+    <artifactId>examples-onap-vcpe-vz</artifactId>
     <name>${project.artifactId}</name>
     <description>Specific code for the APEX ONAP vCPE Example</description>
 
@@ -66,6 +66,26 @@
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
             <artifactId>plugins-event-carrier-restrequestor</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
+            <artifactId>plugins-event-carrier-restclient</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.drools-applications.controlloop.common.model-impl</groupId>
+            <artifactId>aai</artifactId>
+            <version>1.3.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.drools-applications.controlloop.common.model-impl</groupId>
+            <artifactId>appclcm</artifactId>
+            <version>1.3.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.drools-applications.controlloop.common.model-impl</groupId>
+            <artifactId>events</artifactId>
+            <version>1.3.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -26,22 +26,37 @@ var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum")
 
 executor.logger.info("Logging context information for VNF \"" + executor.inFields.get("vnfID") + "\"");
 
-executor.outFields.put("AAI", vcpeClosedLoopStatus.get("AAI"));
-executor.outFields.put("closedLoopControlName", vcpeClosedLoopStatus.get("closedLoopControlName"));
-executor.outFields.put("closedLoopAlarmStart", vcpeClosedLoopStatus.get("closedLoopAlarmStart"));
-executor.outFields.put("closedLoopAlarmEnd", vcpeClosedLoopStatus.get("closedLoopAlarmEnd"));
-executor.outFields.put("closedLoopEventClient", vcpeClosedLoopStatus.get("closedLoopEventClient"));
-executor.outFields.put("closedLoopEventStatus", vcpeClosedLoopStatus.get("closedLoopEventStatus"));
-executor.outFields.put("version", vcpeClosedLoopStatus.get("version"));
-executor.outFields.put("requestID", vcpeClosedLoopStatus.get("requestID"));
-executor.outFields.put("target_type", vcpeClosedLoopStatus.get("target_type"));
-executor.outFields.put("target", vcpeClosedLoopStatus.get("target"));
-executor.outFields.put("from", vcpeClosedLoopStatus.get("from"));
-executor.outFields.put("policyScope", vcpeClosedLoopStatus.get("policyScope"));
-executor.outFields.put("policyName", vcpeClosedLoopStatus.get("policyName"));
-executor.outFields.put("policyVersion", vcpeClosedLoopStatus.get("policyVersion"));
-executor.outFields.put("notification", vcpeClosedLoopStatus.get("notification"));
-executor.outFields.put("notificationTime", vcpeClosedLoopStatus.get("notificationTime"));
+var clNotification = new org.onap.policy.controlloop.VirtualControlLoopNotification();
+
+clNotification.setClosedLoopControlName(vcpeClosedLoopStatus.get("closedLoopControlName"));
+clNotification.setClosedLoopAlarmStart(vcpeClosedLoopStatus.get("closedLoopAlarmStart"));
+clNotification.setClosedLoopAlarmEnd(vcpeClosedLoopStatus.get("closedLoopAlarmEnd"));
+clNotification.setClosedLoopEventClient(vcpeClosedLoopStatus.get("closedLoopEventClient"));
+clNotification.setVersion(vcpeClosedLoopStatus.get("version"));
+clNotification.setRequestId(vcpeClosedLoopStatus.get("requestID"));
+clNotification.setTargetType(vcpeClosedLoopStatus.get("target_type"));
+clNotification.setTarget(vcpeClosedLoopStatus.get("target"));
+clNotification.setFrom(vcpeClosedLoopStatus.get("from"));
+clNotification.setPolicyScope(vcpeClosedLoopStatus.get("policyScope"));
+clNotification.setPolicyName(vcpeClosedLoopStatus.get("policyName"));
+clNotification.setPolicyVersion(vcpeClosedLoopStatus.get("policyVersion"));
+clNotification.setNotification(vcpeClosedLoopStatus.get("notification"));
+clNotification.setNotificationTime(vcpeClosedLoopStatus.get("notificationTime"));
+clNotification.setMessage(vcpeClosedLoopStatus.get("message"));
+
+var aaiInfo = vcpeClosedLoopStatus.get("AAI");
+
+clNotification.getAai().put("generic-vnf.resource-version",        aaiInfo.get("genericVnfResourceVersion"));      
+clNotification.getAai().put("generic-vnf.vnf-name",                aaiInfo.get("genericVnfVnfName"));              
+clNotification.getAai().put("generic-vnf.prov-status",             aaiInfo.get("genericVnfProvStatus"));           
+clNotification.getAai().put("generic-vnf.is-closed-loop-disabled", aaiInfo.get("genericVnfIsClosedLoopDisabled")); 
+clNotification.getAai().put("generic-vnf.orchestration-status",    aaiInfo.get("genericVnfOrchestrationStatus"));  
+clNotification.getAai().put("generic-vnf.vnf-type",                aaiInfo.get("genericVnfVnfType"));              
+clNotification.getAai().put("generic-vnf.in-maint",                aaiInfo.get("genericVnfInMaint"));              
+clNotification.getAai().put("generic-vnf.service-id",              aaiInfo.get("genericVnfServiceId"));            
+clNotification.getAai().put("generic-vnf.vnf-id",                  aaiInfo.get("genericVnfVnfId"));                
+
+executor.outFields.put("VirtualControlLoopNotification", clNotification);
 
 executor.logger.info(executor.outFields);
 
