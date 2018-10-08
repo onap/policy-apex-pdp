@@ -34,7 +34,7 @@ guardDecisionAttributes.put("clname", "APEXvCPEImplementation");
 executor.logger.info(guardDecisionAttributes);
 
 executor.outFields.put("decisionAttributes", guardDecisionAttributes);
-executor.outFields.put("onapName", "APEX");
+executor.outFields.put("onapName", "PDPD");
 
 executor.getContextAlbum("ControlLoopExecutionIDAlbum").put(executor.executionId.toString(),
         executor.inFields.get("vnfID"));
