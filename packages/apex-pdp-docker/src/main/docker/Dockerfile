@@ -5,6 +5,7 @@ FROM ubuntu:16.04
 
 RUN apt-get update && \
         apt-get upgrade -y && \
+        apt-get install -y zip unzip curl wget ssh iproute2 iputils-ping vim && \
         apt-get install -y software-properties-common && \
         add-apt-repository ppa:openjdk-r/ppa -y && \
         apt-get update && \
