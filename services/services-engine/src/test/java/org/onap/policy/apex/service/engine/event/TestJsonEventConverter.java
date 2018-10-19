@@ -75,9 +75,8 @@ public class TestJsonEventConverter {
             converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]");
             fail("test should throw an exception");
         } catch (Exception tae) {
-            assertEquals("Failed to unmarshal JSON event: incoming event ([{\"aKey\": 1},{\"aKey\": 2}]) "
-                            + "is a JSON object array containing an invalid object "
-                            + "{aKey=1.0}, event=[{\"aKey\": 1},{\"aKey\": 2}]", tae.getMessage());
+            assertEquals("Failed to unmarshal JSON event: event received without mandatory parameter \"name\" "
+                            + "on configuration or on event, event=[{\"aKey\": 1},{\"aKey\": 2}]", tae.getMessage());
         }
 
         try {

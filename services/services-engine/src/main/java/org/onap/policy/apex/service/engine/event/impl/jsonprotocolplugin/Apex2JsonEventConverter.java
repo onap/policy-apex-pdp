@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -150,6 +151,8 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                 eventList.add(jsonStringApexEvent(eventName, (String) jsonListObject));
             } else if (jsonListObject instanceof JsonObject) {
                 eventList.add(jsonObject2ApexEvent(eventName, (JsonObject) jsonListObject));
+            } else if (jsonListObject instanceof LinkedTreeMap) {
+                eventList.add(jsonObject2ApexEvent(eventName, new Gson().toJsonTree(jsonListObject).getAsJsonObject()));
             } else {
                 throw new ApexEventException("incoming event (" + jsonEventString
                                 + ") is a JSON object array containing an invalid object " + jsonListObject);
