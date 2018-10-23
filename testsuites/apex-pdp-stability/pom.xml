@@ -17,39 +17,43 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.onap.policy.apex-pdp</groupId>
-        <artifactId>apex-pdp</artifactId>
+        <groupId>org.onap.policy.apex-pdp.testsuites</groupId>
+        <artifactId>testsuites</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.policy.apex-pdp.testsuites</groupId>
-    <artifactId>testsuites</artifactId>
-    <packaging>pom</packaging>
+    <groupId>org.onap.policy.apex-pdp.testsuites.stability</groupId>
+    <artifactId>apex-pdp-stability</artifactId>
 
-    <modules>
-        <module>integration</module>
-        <module>performance</module>
-        <module>apex-pdp-stability</module>
-    </modules>
+    <name>${project.artifactId}</name>
+    <description>This module contains test plan for running stability test of apex-pdp</description>
 
-    <profiles>
-        <profile>
-            <id>apexSite</id>
-            <activation>
-                <property>
-                    <name>apexSite</name>
-                </property>
-            </activation>
-            <distributionManagement>
-                <site>
-                    <id>${project.artifactId}-site</id>
-                    <url>${apex.adsite.prefix}/modules/${project.artifactId}/</url>
-                </site>
-            </distributionManagement>
-        </profile>
-    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
