@@ -24,13 +24,13 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.0.0</version>
         <relativePath />
     </parent>
 
     <groupId>org.onap.policy.apex-pdp</groupId>
     <artifactId>apex-pdp</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>policy-apex-pdp</name>
@@ -45,8 +45,7 @@
         <version.jersey>2.26</version.jersey>
         <version.eclipselink>2.6.5</version.eclipselink>
         <version.hibernate>5.3.6.Final</version.hibernate>
-        <version.policy.common>1.3.0</version.policy.common>
-        <version.policy.parameters>1.3.0</version.policy.parameters>
+        <version.policy.common>1.3.1</version.policy.common>
 
         <!-- sonar/jacoco overrides -->
         <!-- Overriding oparent default sonar/jacoco settings Combine all our reports
@@ -98,7 +97,7 @@
             <dependency>
                 <groupId>org.onap.policy.common</groupId>
                 <artifactId>common-parameters</artifactId>
-                <version>${version.policy.parameters}</version>
+                <version>${version.policy.common}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
