@@ -13,6 +13,13 @@
 
 == Configure the Jython Executor
 
+WARNING: The Jython plugin allows you to use extra Python packages installed with *_pip_* or at
+startup using the *_setup.py_* or *_build_py.py_* configuration files. Extra modules must be checked
+by developers prior to installation to ensure that they are not malicious and do not exploit the
+Python Path Traversal vulnerability. the Jython plugin does *NOT* check extra modules for security
+vulnerabilities.
+
+
 The Jython executor is added to the configuration as follows:
 
 [source%nowrap,json]
@@ -27,4 +34,3 @@ The Jython executor is added to the configuration as follows:
     }
   }
 }
-----
