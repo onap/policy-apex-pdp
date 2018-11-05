@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Pamela Dragosh <pdragosh@research.att.com>
+Code-Review+2: Jorge Hernandez <jorge.hernandez-herrero@att.com>
+Submitted-by: Jorge Hernandez <jorge.hernandez-herrero@att.com>
+Submitted-at: Mon, 05 Nov 2018 13:51:47 +0000
+Reviewed-on: https://gerrit.onap.org/r/71753
+Project: policy/apex-pdp
+Branch: refs/heads/casablanca
