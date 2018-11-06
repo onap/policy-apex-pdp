@@ -5,10 +5,10 @@
         "id": 45,
         "instanceCount": 19,
         "deploymentPort": 65522,
-        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+        "policyModelFileName": "src/test/resources/policymodels/SmallModel.json",
         "engineParameters": {
             "executorParameters": {
-                "MVEL": {
+                "JAVASCRIPT": {
                     "parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters"
                 }
             }
@@ -19,7 +19,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "/tmp/aaa.json"
+                    "fileName": "target/aaa.json"
                 }
             },
             "eventParameters": {

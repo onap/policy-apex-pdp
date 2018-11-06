@@ -21,6 +21,7 @@
 package org.onap.policy.apex.service.engine.parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -120,8 +121,7 @@ public class ProducerConsumerTests {
                             + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
                             + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                            + "fileName not specified or is blank or null, "
-                            + "it must be specified as a valid file location\n", e.getMessage());
+                            + "\"null\" invalid, must be specified as a non-empty string\n", e.getMessage());
         }
     }
 
@@ -191,7 +191,7 @@ public class ProducerConsumerTests {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
             final FileCarrierTechnologyParameters fileParams = (FileCarrierTechnologyParameters) parameters
                             .getEventOutputParameters().get("aProducer").getCarrierTechnologyParameters();
-            assertEquals("/tmp/aaa.json", fileParams.getFileName());
+            assertTrue(fileParams.getFileName().endsWith("target/aaa.json"));
             assertEquals(false, fileParams.isStandardError());
             assertEquals(false, fileParams.isStandardIo());
             assertEquals(false, fileParams.isStreamingMode());
@@ -223,8 +223,7 @@ public class ProducerConsumerTests {
                             + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n" + "        field \"fileName\" type "
                             + "\"java.lang.String\" value \"null\" INVALID, "
-                            + "fileName not specified or is blank or null, "
-                            + "it must be specified as a valid file location\n", e.getMessage());
+                            + "\"null\" invalid, must be specified as a non-empty string\n", e.getMessage());
         }
     }
 
