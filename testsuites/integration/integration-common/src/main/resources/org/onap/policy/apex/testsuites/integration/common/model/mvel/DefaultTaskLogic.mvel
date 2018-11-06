@@ -18,13 +18,11 @@
  * ============LICENSE_END=========================================================
  */
 
-import java.util.Date;
 logger.debug(subject.id);
 gc = getContextAlbum("GlobalContextAlbum");
 logger.debug(gc);
 logger.debug(inFields);
 outFields["Test<STATE_NAME>CaseSelected"] = (byte)<RANDOM_BYTE_VALUE>;
-timeNow = new Date();
-outFields["Test<STATE_NAME>StateTime"] = timeNow.getTime();
+outFields["Test<STATE_NAME>StateTime"] = java.lang.System.nanoTime();
 logger.debug(outFields);
 return true;
