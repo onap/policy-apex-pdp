@@ -28,6 +28,7 @@ import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
@@ -45,6 +46,14 @@ public class TestKafka2Kafka {
     private static final int EVENT_COUNT = 100;
     private static final int EVENT_INTERVAL = 20;
 
+    /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
     @ClassRule
     public static final SharedKafkaTestResource sharedKafkaTestResource = new SharedKafkaTestResource()
                     // Start a cluster with 1 brokers.
@@ -60,8 +69,10 @@ public class TestKafka2Kafka {
      */
     @Test
     public void testJsonKafkaEvents() throws MessagingException, ApexException {
+        final String conditionedConfigFile = getConditionedConfigFile(
+                        "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
         final String[] args =
-            { "src/test/resources/prodcons/Kafka2KafkaJsonEvent.json" };
+            { "-rfr", "target", "-c", conditionedConfigFile };
         testKafkaEvents(args, false, "json");
     }
 
@@ -73,8 +84,11 @@ public class TestKafka2Kafka {
      */
     @Test
     public void testXmlKafkaEvents() throws MessagingException, ApexException {
+        final String conditionedConfigFile = getConditionedConfigFile(
+                        "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
         final String[] args =
-            { "src/test/resources/prodcons/Kafka2KafkaXmlEvent.json" };
+            { "-rfr", "target", "-c", conditionedConfigFile };
+
         testKafkaEvents(args, true, "xml");
     }
 
@@ -90,18 +104,6 @@ public class TestKafka2Kafka {
     private void testKafkaEvents(String[] args, final Boolean xmlEvents, final String topicSuffix)
                     throws MessagingException, ApexException {
 
-        try {
-            File tempConfigFile = File.createTempFile("Kafka_", ".json");
-            tempConfigFile.deleteOnExit();
-            String configAsString = TextFileUtils.getTextFileAsString(args[0]).replaceAll("localhost:39902",
-                            sharedKafkaTestResource.getKafkaConnectString());
-            TextFileUtils.putStringAsFile(configAsString, tempConfigFile.getCanonicalFile());
-            args[0] = tempConfigFile.getCanonicalPath();
-
-        } catch (IOException e) {
-            fail("test should not throw an exception");
-        }
-
         sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-out-" + topicSuffix, 1, (short) 1);
         sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-in-" + topicSuffix, 1, (short) 1);
 
@@ -115,7 +117,7 @@ public class TestKafka2Kafka {
                         EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
 
         producer.sendEvents();
-        
+
         final long testStartTime = System.currentTimeMillis();
 
         // Wait for the producer to send all tis events
@@ -137,5 +139,20 @@ public class TestKafka2Kafka {
         subscriber.shutdown();
         producer.shutdown();
         ThreadUtilities.sleep(1000);
+    }
+
+    private String getConditionedConfigFile(final String configurationFileName) {
+        try {
+            File tempConfigFile = File.createTempFile("Kafka_", ".json");
+            tempConfigFile.deleteOnExit();
+            String configAsString = TextFileUtils.getTextFileAsString(configurationFileName)
+                            .replaceAll("localhost:39902", sharedKafkaTestResource.getKafkaConnectString());
+            TextFileUtils.putStringAsFile(configAsString, tempConfigFile.getCanonicalFile());
+
+            return tempConfigFile.getCanonicalPath();
+        } catch (IOException e) {
+            fail("test should not throw an exception");
+            return null;
+        }
     }
 }

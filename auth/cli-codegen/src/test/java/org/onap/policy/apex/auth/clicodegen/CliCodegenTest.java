@@ -80,7 +80,7 @@ public class CliCodegenTest {
         AxPolicyModel apexPolicyModel = null;
         try {
             apexPolicyModel = modelReader
-                            .read(new FileInputStream(new File("src/test/resources/models/SamplePolicyModel.json")));
+                            .read(new FileInputStream(new File("src/test/resources/models/TestPolicyModel.json")));
         } catch (ApexModelException | FileNotFoundException e) {
             fail("test should not throw an exception");
         }

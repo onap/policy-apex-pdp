@@ -35,6 +35,7 @@ import org.apache.commons.cli.ParseException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.common.utils.resources.ResourceUtils;
+import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 
 /**
  * This class reads and handles command line parameters for the Apex main program.
@@ -42,6 +43,9 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexCommandLineArguments {
+    // A system property holding the root directory for relative paths in the configuration file
+    public static final String RELATIVE_FILE_ROOT = "APEX_RELATIVE_FILE_ROOT";
+
     // Recurring string constants
     private static final String FILE_PREAMBLE = " file \"";
     private static final int HELP_LINE_LENGTH = 120;
@@ -52,6 +56,7 @@ public class ApexCommandLineArguments {
     // The command line options
     private String modelFilePath = null;
     private String configurationFilePath = null;
+    private String relativeFileRoot = null;
 
     /**
      * Construct the options for the CLI editor.
@@ -66,20 +71,30 @@ public class ApexCommandLineArguments {
                 .type(Boolean.class)
                 .build());
         options.addOption(Option.builder("v")
-                .longOpt("version")
-                .desc("outputs the version of Apex")
-                .required(false)
-                .type(Boolean.class)
-                .build());
+                        .longOpt("version")
+                        .desc("outputs the version of Apex")
+                        .required(false)
+                        .type(Boolean.class)
+                        .build());
         options.addOption(Option.builder("c")
-                .longOpt("config-file")
-                .desc("the full path to the configuration file to use, the configuration file must be a Json file "
-                        + "containing the Apex configuration parameters")
-                .hasArg()
-                .argName("CONFIG_FILE")
-                .required(false)
-                .type(String.class)
-                .build());
+                        .longOpt("config-file")
+                        .desc("the full path to the configuration file to use, "
+                                        + "the configuration file must be a Json file "
+                                        + "containing the Apex configuration parameters")
+                        .hasArg()
+                        .argName("CONFIG_FILE")
+                        .required(false)
+                        .type(String.class)
+                        .build());
+        options.addOption(Option.builder("rfr")
+                        .longOpt("relative-file-root")
+                        .desc("the root file path for relative file paths specified in the Apex configuration file, "
+                                        + "defaults to the current directory from where Apex is executed")
+                        .hasArg()
+                        .argName(RELATIVE_FILE_ROOT)
+                        .required(false)
+                        .type(String.class)
+                        .build());
         options.addOption(Option.builder("m").longOpt("model-file")
                 .desc("the full path to the model file to use, if set it overrides the model file set in the "
                         + "configuration file").hasArg().argName("MODEL_FILE")
@@ -147,6 +162,12 @@ public class ApexCommandLineArguments {
             setConfigurationFilePath(commandLine.getOptionValue('c'));
         }
 
+        if (commandLine.hasOption("rfr")) {
+            setRelativeFileRoot(commandLine.getOptionValue("rfr"));
+        } else {
+            setRelativeFileRoot(null);
+        }
+
         if (commandLine.hasOption('m')) {
             setModelFilePath(commandLine.getOptionValue('m'));
         }
@@ -165,6 +186,8 @@ public class ApexCommandLineArguments {
         if (checkSetModelFilePath()) {
             validateReadableFile("Apex model", modelFilePath);
         }
+
+        validateRelativeFileRoot();
     }
 
     /**
@@ -229,6 +252,15 @@ public class ApexCommandLineArguments {
     }
 
     /**
+     * Gets the root file path for relative file paths in the configuration file.
+     *
+     * @return the root file path
+     */
+    public String getRelativeFileRoot() {
+        return relativeFileRoot;
+    }
+
+    /**
      * Gets the full expanded configuration file path.
      *
      * @return the configuration file path
@@ -245,6 +277,29 @@ public class ApexCommandLineArguments {
     public void setConfigurationFilePath(final String configurationFilePath) {
         this.configurationFilePath = configurationFilePath;
 
+    }
+
+    /**
+     * Sets the root file path for relative file paths in the configuration file.
+     *
+     * @param relativeFileRoot the configuration file path
+     */
+    public void setRelativeFileRoot(final String relativeFileRoot) {
+        String relativeFileRootValue = relativeFileRoot;
+
+        if (!ParameterValidationUtils.validateStringParameter(relativeFileRoot)) {
+            relativeFileRootValue = System.getProperty(RELATIVE_FILE_ROOT);
+        }
+
+        if (!ParameterValidationUtils.validateStringParameter(relativeFileRootValue)) {
+            relativeFileRootValue = System.getProperty("user.dir");
+        }
+        else if (!(new File(relativeFileRootValue).isAbsolute())) {
+            relativeFileRootValue = System.getProperty("user.dir") + File.separator + relativeFileRootValue;
+        }
+
+        this.relativeFileRoot = relativeFileRootValue;
+        System.setProperty(RELATIVE_FILE_ROOT, relativeFileRootValue);
     }
 
     /**
@@ -285,4 +340,21 @@ public class ApexCommandLineArguments {
             throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" is ureadable");
         }
     }
+
+    /**
+     * Validate the relative file root.
+     */
+    private void validateRelativeFileRoot() throws ApexException {
+        File relativeFileRootPath = new File(relativeFileRoot);
+        if (!relativeFileRootPath.isDirectory()) {
+            throw new ApexException(
+                            "relative file root \"" + relativeFileRoot + "\" does not exist or is not a directory");
+        }
+
+        if (!relativeFileRootPath.canWrite()) {
+            throw new ApexException(
+                            "relative file root \"" + relativeFileRoot + "\" does not exist or is not a directory");
+        }
+    }
+
 }
