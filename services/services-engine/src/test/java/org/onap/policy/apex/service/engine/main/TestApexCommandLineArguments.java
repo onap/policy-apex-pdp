@@ -24,20 +24,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**
  * Test Apex Command Line Arguments.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestApexCommandLineArguments {
+    @After
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
 
     @Test
     public void testCommandLineArguments() {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
-        final String[] args00 = {""};
+        final String[] args00 =
+            { "" };
         try {
             apexArguments.parse(args00);
             apexArguments.validate();
@@ -46,7 +53,8 @@ public class TestApexCommandLineArguments {
             assertEquals("Apex configuration file was not specified as an argument", e.getMessage());
         }
 
-        final String[] args01 = {"-h"};
+        final String[] args01 =
+            { "-h" };
         try {
             final String result = apexArguments.parse(args01);
             assertTrue(result.startsWith("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
@@ -55,7 +63,8 @@ public class TestApexCommandLineArguments {
             fail("Test should not throw an exception");
         }
 
-        final String[] args02 = {"-v"};
+        final String[] args02 =
+            { "-v" };
         try {
             final String result = apexArguments.parse(args02);
             assertTrue(result.startsWith("Apex Adaptive Policy Engine"));
@@ -64,7 +73,8 @@ public class TestApexCommandLineArguments {
             fail("Test should not throw an exception");
         }
 
-        final String[] args03 = {"-v", "-h"};
+        final String[] args03 =
+            { "-v", "-h" };
         try {
             final String result = apexArguments.parse(args03);
             assertTrue(result.startsWith("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
@@ -73,7 +83,8 @@ public class TestApexCommandLineArguments {
             fail("Test should not throw an exception");
         }
 
-        final String[] args04 = {"-h", "-v"};
+        final String[] args04 =
+            { "-h", "-v" };
         try {
             final String result = apexArguments.parse(args04);
             assertTrue(result.startsWith("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
@@ -82,14 +93,16 @@ public class TestApexCommandLineArguments {
             fail("Test should not throw an exception");
         }
 
-        final String[] args05 = {"-a"};
+        final String[] args05 =
+            { "-a" };
         try {
             apexArguments.parse(args05);
         } catch (final ApexException e) {
             assertEquals("invalid command line arguments specified : Unrecognized option: -a", e.getMessage());
         }
 
-        final String[] args06 = {"-c", "hello", "-m", "goodbye", "-h", "-v"};
+        final String[] args06 =
+            { "-c", "hello", "-m", "goodbye", "-h", "-v" };
         try {
             final String result = apexArguments.parse(args06);
             assertTrue(result.startsWith("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
@@ -97,13 +110,14 @@ public class TestApexCommandLineArguments {
             assertEquals("invalid command line arguments specified : Unrecognized option: -a", e.getMessage());
         }
 
-        final String[] args07 = {"-c", "hello", "-m", "goodbye", "-h", "aaa"};
+        final String[] args07 =
+            { "-c", "hello", "-m", "goodbye", "-h", "aaa" };
         try {
             final String result = apexArguments.parse(args07);
             assertTrue(result.startsWith("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
         } catch (final ApexException e) {
             assertEquals("too many command line arguments specified : [-c, hello, -m, goodbye, -h, aaa]",
-                    e.getMessage());
+                            e.getMessage());
         }
     }
 
@@ -111,7 +125,8 @@ public class TestApexCommandLineArguments {
     public void testCommandLineFileParameters() {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
-        final String[] args00 = {"-c", "zooby"};
+        final String[] args00 =
+            { "-c", "zooby" };
         try {
             apexArguments.parse(args00);
             apexArguments.validate();
@@ -120,7 +135,8 @@ public class TestApexCommandLineArguments {
             assertEquals("Apex configuration file \"zooby\" does not exist", e.getMessage());
         }
 
-        final String[] args01 = {"-c"};
+        final String[] args01 =
+            { "-c" };
         try {
             apexArguments.parse(args01);
             apexArguments.validate();
@@ -129,7 +145,8 @@ public class TestApexCommandLineArguments {
             assertEquals("invalid command line arguments specified : Missing argument for option: c", e.getMessage());
         }
 
-        final String[] args02 = {"-c", "src/test/resources/parameters/goodParams.json"};
+        final String[] args02 =
+            { "-c", "src/test/resources/parameters/goodParams.json" };
         try {
             apexArguments.parse(args02);
             apexArguments.validate();
@@ -138,7 +155,8 @@ public class TestApexCommandLineArguments {
             fail("Test should not throw an exception");
         }
 
-        final String[] args03 = {"-c", "src/test/resources/parameters/goodParams.json", "-m", "zooby"};
+        final String[] args03 =
+            { "-c", "src/test/resources/parameters/goodParams.json", "-m", "zooby" };
         try {
             apexArguments.parse(args03);
             apexArguments.validate();
@@ -147,7 +165,8 @@ public class TestApexCommandLineArguments {
             assertEquals("Apex model file \"zooby\" does not exist", e.getMessage());
         }
 
-        final String[] args04 = {"-m"};
+        final String[] args04 =
+            { "-m" };
         try {
             apexArguments.parse(args04);
             apexArguments.validate();
@@ -156,7 +175,8 @@ public class TestApexCommandLineArguments {
             assertEquals("invalid command line arguments specified : Missing argument for option: m", e.getMessage());
         }
 
-        final String[] args05 = {"-c", "src/test/resources/parameters/goodParams.json", "-m"};
+        final String[] args05 =
+            { "-c", "src/test/resources/parameters/goodParams.json", "-m" };
         try {
             apexArguments.parse(args05);
             apexArguments.validate();
@@ -165,8 +185,9 @@ public class TestApexCommandLineArguments {
             assertEquals("invalid command line arguments specified : Missing argument for option: m", e.getMessage());
         }
 
-        final String[] args06 = {"-c", "src/test/resources/parameters/goodParams.json", "-m",
-                                 "src/test/resources/main/DummyModelFile.json"};
+        final String[] args06 =
+            { "-c", "src/test/resources/parameters/goodParams.json", "-m",
+                "src/test/resources/main/DummyModelFile.json" };
         try {
             apexArguments.parse(args06);
             apexArguments.validate();
@@ -175,13 +196,67 @@ public class TestApexCommandLineArguments {
             fail("Test should not throw an exception");
         }
 
-        final String[] args07 = {"-c", "parameters/goodParams.json", "-m", "main/DummyModelFile.json"};
+        final String[] args07 =
+            { "-c", "parameters/goodParams.json", "-m", "main/DummyModelFile.json" };
         try {
             apexArguments.parse(args07);
             apexArguments.validate();
         } catch (final ApexException e) {
             e.printStackTrace();
             fail("Test should not throw an exception");
+        }
+    }
+
+    @Test
+    public void testCommandLineRelativeRootParameters() {
+        final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
+
+        final String[] args00 =
+            { "-c", "src/test/resources/parameters/goodParams.json", "-rfr", "zooby" };
+        try {
+            apexArguments.parse(args00);
+            apexArguments.validate();
+            fail("Test should throw an exception here");
+        } catch (final ApexException e) {
+            assertTrue(e.getMessage().contains("zooby\" does not exist or is not a directory"));
+        }
+
+        final String[] args01 =
+            { "-rfr" };
+        try {
+            apexArguments.parse(args01);
+            apexArguments.validate();
+            fail("Test should throw an exception here");
+        } catch (final ApexException e) {
+            assertEquals("invalid command line arguments specified : Missing argument for option: rfr", e.getMessage());
+        }
+
+        final String[] args02 =
+            { "-c", "src/test/resources/parameters/goodParams.json", "-rfr", "pom.xml" };
+        try {
+            apexArguments.parse(args02);
+            apexArguments.validate();
+            fail("Test should throw an exception here");
+        } catch (final ApexException e) {
+            assertTrue(e.getMessage().contains("pom.xml\" does not exist or is not a directory"));
+        }
+
+        final String[] args03 =
+            { "-c", "src/test/resources/parameters/goodParams.json", "-rfr", "target" };
+        try {
+            apexArguments.parse(args03);
+            apexArguments.validate();
+        } catch (final ApexException e) {
+            fail("Test should not throw an exception here");
+        }
+
+        final String[] args04 =
+            { "-c", "src/test/resources/parameters/goodParamsRelative.json", "-rfr", "src/test/resources" };
+        try {
+            apexArguments.parse(args04);
+            apexArguments.validate();
+        } catch (final ApexException e) {
+            fail("Test should not throw an exception here");
         }
     }
 }

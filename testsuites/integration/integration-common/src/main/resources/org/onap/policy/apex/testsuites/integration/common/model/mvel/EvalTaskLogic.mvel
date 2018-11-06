@@ -18,9 +18,8 @@
  * ============LICENSE_END=========================================================
  */
 
-import java.util.Date;
 logger.debug(subject.id);
 logger.debug(inFields);
-timeNow = new Date();
-outFields["State<STATE_NUMBER>Timestamp"] = timeNow.getTime();
+
+outFields["State<STATE_NUMBER>Timestamp"] = java.lang.System.nanoTime();
 return true;
