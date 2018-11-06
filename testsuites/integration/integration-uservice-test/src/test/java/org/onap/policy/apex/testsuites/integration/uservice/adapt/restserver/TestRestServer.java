@@ -36,16 +36,21 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class TestRestServer.
  */
 public class TestRestServer {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestRestServer.class);
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
@@ -55,34 +60,53 @@ public class TestRestServer {
     private static int eventsSent = 0;
 
     /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
+    /**
      * Test rest server put.
      *
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testRestServerPut() throws MessagingException, ApexException, IOException {
+        LOGGER.info("testRestServerPut start");
+
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
 
-        for (int i = 0; i < 20; i++) {
-            final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").put(Entity.json(getEvent()));
+        Response response = null;
+        Map<String, Object> jsonMap = null;
 
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        for (int i = 0; i < 20; i++) {
+            response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                            .put(Entity.json(getEvent()));
+
+            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
+                break;
+            }
+
             final String responseString = response.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
-            assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
+            jsonMap = new Gson().fromJson(responseString, Map.class);
         }
 
         apexMain.shutdown();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
+        assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
+        LOGGER.info("testRestServerPut end");
     }
 
     /**
@@ -92,28 +116,36 @@ public class TestRestServer {
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testRestServerPost() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
 
-        for (int i = 0; i < 20; i++) {
-            final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").post(Entity.json(getEvent()));
+        Response response = null;
+        Map<String, Object> jsonMap = null;
 
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        for (int i = 0; i < 20; i++) {
+            response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                            .post(Entity.json(getEvent()));
+
+            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
+                break;
+            }
+
             final String responseString = response.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
-            assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
+            jsonMap = new Gson().fromJson(responseString, Map.class);
         }
 
         apexMain.shutdown();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
+        assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
     }
 
     /**
@@ -126,35 +158,47 @@ public class TestRestServer {
     @Test
     public void testRestServerGetStatus() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
 
+        Response postResponse = null;
+        Response putResponse = null;
+
         // trigger 10 POST & PUT events
         for (int i = 0; i < 10; i++) {
-            final Response postResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
+            postResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                             .request("application/json").post(Entity.json(getEvent()));
-            final Response putResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").put(Entity.json(getEvent()));
-            assertEquals(Response.Status.OK.getStatusCode(), postResponse.getStatus());
-            assertEquals(Response.Status.OK.getStatusCode(), putResponse.getStatus());
+            if (Response.Status.OK.getStatusCode() != postResponse.getStatus()) {
+                break;
+            }
+            putResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
+                            .put(Entity.json(getEvent()));
+
+            if (Response.Status.OK.getStatusCode() != putResponse.getStatus()) {
+                break;
+            }
         }
 
         final Response statResponse = client.target("http://localhost:23324/apex/FirstConsumer/Status")
                         .request("application/json").get();
 
-        assertEquals(Response.Status.OK.getStatusCode(), statResponse.getStatus());
         final String responseString = statResponse.readEntity(String.class);
+
+        apexMain.shutdown();
+
+        assertEquals(Response.Status.OK.getStatusCode(), postResponse.getStatus());
+        assertEquals(Response.Status.OK.getStatusCode(), putResponse.getStatus());
+        assertEquals(Response.Status.OK.getStatusCode(), statResponse.getStatus());
 
         @SuppressWarnings("unchecked")
         final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-        assertEquals("[FirstConsumer", ((String)jsonMap.get("INPUTS")).substring(0, 14));
+        assertEquals("[FirstConsumer", ((String) jsonMap.get("INPUTS")).substring(0, 14));
         assertEquals(1.0, jsonMap.get("STAT"));
-        assertTrue((double)jsonMap.get("POST") >= 10.0);
-        assertTrue((double)jsonMap.get("PUT") >= 10.0);
+        assertTrue((double) jsonMap.get("POST") >= 10.0);
+        assertTrue((double) jsonMap.get("PUT") >= 10.0);
 
-        apexMain.shutdown();
     }
 
     /**
@@ -164,39 +208,54 @@ public class TestRestServer {
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testRestServerMultiInputs() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventMultiIn.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
 
+        Response firstResponse = null;
+        Response secondResponse = null;
+
+        Map<String, Object> firstJsonMap = null;
+        Map<String, Object> secondJsonMap = null;
+
         for (int i = 0; i < 20; i++) {
-            final Response firstResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
+            firstResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
                             .request("application/json").post(Entity.json(getEvent()));
 
-            assertEquals(Response.Status.OK.getStatusCode(), firstResponse.getStatus());
+            if (Response.Status.OK.getStatusCode() != firstResponse.getStatus()) {
+                break;
+            }
+            
             final String firstResponseString = firstResponse.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> firstJsonMap = new Gson().fromJson(firstResponseString, Map.class);
-            assertEquals("org.onap.policy.apex.sample.events", firstJsonMap.get("nameSpace"));
-            assertEquals("Test slogan for External Event0", firstJsonMap.get("TestSlogan"));
+            firstJsonMap = new Gson().fromJson(firstResponseString, Map.class);
 
-            final Response secondResponse = client.target("http://localhost:23324/apex/SecondConsumer/EventIn")
+            secondResponse = client.target("http://localhost:23324/apex/SecondConsumer/EventIn")
                             .request("application/json").post(Entity.json(getEvent()));
 
-            assertEquals(Response.Status.OK.getStatusCode(), secondResponse.getStatus());
+            if (Response.Status.OK.getStatusCode() != secondResponse.getStatus()) {
+                break;
+            }
+
             final String secondResponseString = secondResponse.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> secondJsonMap = new Gson().fromJson(secondResponseString, Map.class);
-            assertEquals("org.onap.policy.apex.sample.events", secondJsonMap.get("nameSpace"));
-            assertEquals("Test slogan for External Event0", secondJsonMap.get("TestSlogan"));
+            secondJsonMap = new Gson().fromJson(secondResponseString, Map.class);
         }
 
         apexMain.shutdown();
+
+        assertEquals(Response.Status.OK.getStatusCode(), firstResponse.getStatus());
+        assertEquals("org.onap.policy.apex.sample.events", firstJsonMap.get("nameSpace"));
+        assertEquals("Test slogan for External Event0", firstJsonMap.get("TestSlogan"));
+        
+        assertEquals(Response.Status.OK.getStatusCode(), secondResponse.getStatus());
+        assertEquals("org.onap.policy.apex.sample.events", secondJsonMap.get("nameSpace"));
+        assertEquals("Test slogan for External Event0", secondJsonMap.get("TestSlogan"));
     }
 
     /**
@@ -392,38 +451,6 @@ public class TestRestServer {
         assertTrue(outString
                         .contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
                                         + "with the same peered mode"));
-    }
-
-    /**
-     * Test rest server divide by zero.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    @Test
-    public void testRestServerDivideByZero() throws MessagingException, ApexException, IOException {
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventDivideByZero.json" };
-        final ApexMain apexMain = new ApexMain(args);
-
-        final Client client = ClientBuilder.newClient();
-
-        for (int i = 0; i < 20; i++) {
-            final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").put(Entity.json(getEvent()));
-
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
-            assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
-            assertTrue(((String) jsonMap.get("exceptionMessage")).contains("caused by: / by zero"));
-        }
-
-        apexMain.shutdown();
     }
 
     /**

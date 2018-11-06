@@ -35,9 +35,10 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
  * The Class TestFile2FileIgnore.
  */
 public class TestFile2FileIgnore {
-
     // This test is used just to bring up an instance of Apex for manual testing and demonstrations
     // It should always be ignored in automated testing because it holds Apex up for a very long
+    // time
+
     /**
      * The main method.
      *
@@ -46,9 +47,8 @@ public class TestFile2FileIgnore {
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    // time
     public static void main(final String[] args) throws MessagingException, ApexException, IOException {
-        final String[] apexArgs = {"src/test/resources/prodcons/File2FileJsonEvent.json"};
+        final String[] apexArgs = {"-rfr", "target", "-c", "examples/config/SampleDomain/File2FileJsonEvent.json"};
 
         testFileEvents(apexArgs, "src/test/resources/events/EventsOut.json", 48656);
     }
@@ -76,7 +76,7 @@ public class TestFile2FileIgnore {
         // Wait for the file to be filled
         long outFileSize = 0;
         while (true) {
-            final String fileString = TextFileUtils.getTextFileAsString(outFilePath).replaceAll("\\s+", "");
+            final String fileString = stripVariableLengthText(outFilePath);
             outFileSize = fileString.length();
             if (outFileSize > 0 && outFileSize >= expectedFileSize) {
                 break;
@@ -90,6 +90,22 @@ public class TestFile2FileIgnore {
         apexMain.shutdown();
         outFile.delete();
         assertEquals(outFileSize, expectedFileSize);
+    }
+    
+
+    /**
+     * Strip variable length text from file string.
+     * 
+     * @param textFileAsString the file to read and strip
+     * @return the stripped string
+     * @throws IOException on out file read exceptions
+     */
+    private static String stripVariableLengthText(final String outFile) throws IOException {
+        return TextFileUtils.getTextFileAsString(outFile)
+                        .replaceAll("\\s+", "")
+                        .replaceAll(":\\d*\\.?\\d*,", ":0,")
+                        .replaceAll(":\\d*}", ":0}")
+                        .replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
     }
 }
 

@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.testsuites.integration.common.model.java;
 
-import java.util.Date;
 import java.util.Random;
 
 import org.onap.policy.apex.core.engine.executor.context.TaskExecutionContext;
@@ -49,24 +48,23 @@ public class DefaultTaskLogic {
         String inFieldsString = executor.inFields.toString();
         executor.logger.debug(inFieldsString);
 
-        final Date timeNow = new Date();
         final Random rand = new Random();
 
         if (executor.inFields.containsKey("TestDecideCaseSelected")) {
             executor.outFields.put("TestActCaseSelected", (byte) rand.nextInt(BOUND_FOR_RANDOM_INT));
-            executor.outFields.put("TestActStateTime", timeNow.getTime());
+            executor.outFields.put("TestActStateTime", java.lang.System.nanoTime());
         }
         else if (executor.inFields.containsKey("TestEstablishCaseSelected")) {
             executor.outFields.put("TestDecideCaseSelected", (byte) rand.nextInt(BOUND_FOR_RANDOM_INT));
-            executor.outFields.put("TestDecideStateTime", timeNow.getTime());
+            executor.outFields.put("TestDecideStateTime", java.lang.System.nanoTime());
         }
         else if (executor.inFields.containsKey("TestMatchCaseSelected")) {
             executor.outFields.put("TestEstablishCaseSelected", (byte) rand.nextInt(BOUND_FOR_RANDOM_INT));
-            executor.outFields.put("TestEstablishStateTime", timeNow.getTime());
+            executor.outFields.put("TestEstablishStateTime", java.lang.System.nanoTime());
         }
         else {
             executor.outFields.put("TestMatchCaseSelected", (byte) rand.nextInt(BOUND_FOR_RANDOM_INT));
-            executor.outFields.put("TestMatchStateTime", timeNow.getTime());
+            executor.outFields.put("TestMatchStateTime", java.lang.System.nanoTime());
         }
 
         return true;

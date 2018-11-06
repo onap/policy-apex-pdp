@@ -69,7 +69,7 @@ public class ClassBuilder {
             try {
                 return new ClassBuilder(Class.forName("java.lang." + className));
             } catch (Exception classFindException) {
-                LOGGER.warn("class nout found", classFindException);
+                LOGGER.warn("class not found", classFindException);
                 throw new IllegalArgumentException("Class '" + className
                                 + "' not found. Also looked for a class called 'java.lang." + className + "'", e);
             }

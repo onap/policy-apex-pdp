@@ -68,7 +68,8 @@ public class SchemaUtilsTest {
      */
     @BeforeClass
     public static void readSimpleModel() throws IOException, ApexModelException {
-        String avroModelString = TextFileUtils.getTextFileAsString("src/test/resources/models/AvroModel.json");
+        String avroModelString = TextFileUtils
+                        .getTextFileAsString("target/examples/models/pcvs/vpnsla/PCVS-VpnSla.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         avroModel = modelReader.read(new ByteArrayInputStream(avroModelString.getBytes()));
