@@ -22,6 +22,7 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.google.gson.Gson;
 
@@ -39,6 +40,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
@@ -81,7 +83,16 @@ public class TestFile2Rest {
      */
     @AfterClass
     public static void tearDown() throws Exception {
+        ThreadUtilities.sleep(500);
         server.shutdown();
+    }
+
+    /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     /**
@@ -96,7 +107,7 @@ public class TestFile2Rest {
         final Client client = ClientBuilder.newClient();
 
         final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPost.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPost.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -128,7 +139,7 @@ public class TestFile2Rest {
     @Test
     public void testFileEventsPut() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPut.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPut.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -260,7 +271,10 @@ public class TestFile2Rest {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains(
-                        "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\" using HTTP \"POST\" failed with status code 400"));
+        if (!outString.contains(
+                        "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\" "
+                                        + "using HTTP \"POST\" failed with status code 400")) {
+            fail("Bad Response: response=[" + outString + "]");
+        }
     }
 }

@@ -36,6 +36,7 @@ import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.security.AuthenticationUser;
 import org.apache.activemq.security.SimpleAuthenticationPlugin;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -55,7 +56,7 @@ public class TestJms2Jms {
 
     private static final int SLEEP_TIME = 1500;
     private static final String GROUP_ROLE = "guests";
-    private static final String PACKAGE_NAME = "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms";
+    private static final String PACKAGE_NAME = "org.onap.policy.apex.testsuites.integration.common.testclasses";
     private static final String USERNAME = "guest";
     private static final String PASSWORD = "IAmAGuest";
     private static final String URL = "tcp://" + HOST + ":" + PORT;
@@ -71,7 +72,6 @@ public class TestJms2Jms {
     private static BrokerService broker;
 
     public static ActiveMQConnectionFactory connectionFactory;
-
 
     /**
      * Setup embedded jms server.
@@ -95,6 +95,14 @@ public class TestJms2Jms {
         broker.waitUntilStarted();
         connectionFactory = new ActiveMQConnectionFactory(URL);
         connectionFactory.setTrustedPackages(Arrays.asList(PACKAGE_NAME));
+    }
+
+    /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     /**
@@ -134,7 +142,7 @@ public class TestJms2Jms {
      */
     @Test
     public void testJmsObjectEvents() throws ApexException, JMSException {
-        final String[] args = { "src/test/resources/prodcons/JMS2JMSObjectEvent.json" };
+        final String[] args = { "-rfr", "target", "-c", "target/examples/config/JMS/JMS2JMSObjectEvent.json" };
         testJmsEvents(args, true);
     }
 
@@ -146,7 +154,7 @@ public class TestJms2Jms {
      */
     @Test
     public void testJmsJsonEvents() throws ApexException, JMSException {
-        final String[] args = { "src/test/resources/prodcons/JMS2JMSJsonEvent.json" };
+        final String[] args = { "-rfr", "target", "-c", "target/examples/config/JMS/JMS2JMSJsonEvent.json" };
         testJmsEvents(args, false);
     }
 

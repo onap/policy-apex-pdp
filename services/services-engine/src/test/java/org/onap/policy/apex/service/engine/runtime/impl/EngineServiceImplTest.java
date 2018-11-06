@@ -59,7 +59,7 @@ import org.onap.policy.common.parameters.ParameterService;
 public class EngineServiceImplTest {
 
     private static String simpleModelString;
-    private static String mfpModelString;
+    private static String differentModelString;
     private static AxPolicyModel simpleModel;
 
     /**
@@ -71,9 +71,10 @@ public class EngineServiceImplTest {
     @BeforeClass
     public static void readSimpleModel() throws IOException, ApexModelException {
         simpleModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SamplePolicyModelJAVASCRIPT.json");
+                        .getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
-        mfpModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/MyFirstPolicyModel.json");
+        differentModelString = TextFileUtils
+                        .getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         simpleModel = modelReader.read(new ByteArrayInputStream(simpleModelString.getBytes()));
@@ -177,7 +178,7 @@ public class EngineServiceImplTest {
         } catch (Exception apEx) {
             assertEquals("removeEventListener()<-Engine-0:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
         }
-            
+
         esImpl.deregisterActionListener("DummyListener");
 
         assertEquals(esImpl, esImpl.getEngineServiceEventInterface());
@@ -425,17 +426,17 @@ public class EngineServiceImplTest {
         }
 
         try {
-            esImpl.updateModel(config.getEngineKey(), mfpModelString, false);
+            esImpl.updateModel(config.getEngineKey(), differentModelString, false);
             fail("test should throw an exception");
         } catch (ApexException apEx) {
-            assertEquals("apex model update failed, supplied model with key \"MyFirstPolicyModel:0.0.1\" is not a "
+            assertEquals("apex model update failed, supplied model with key \"SmallModelDifferent:0.0.1\" is not a "
                             + "compatible model update "
-                            + "from the existing engine model with key \"SamplePolicyModelJAVASCRIPT:0.0.1\"",
+                            + "from the existing engine model with key \"SmallModel:0.0.1\"",
                             apEx.getMessage());
         }
 
         try {
-            esImpl.updateModel(config.getEngineKey(), mfpModelString, true);
+            esImpl.updateModel(config.getEngineKey(), differentModelString, true);
         } catch (ApexException apEx) {
             fail("test should not throw an exception");
         }
