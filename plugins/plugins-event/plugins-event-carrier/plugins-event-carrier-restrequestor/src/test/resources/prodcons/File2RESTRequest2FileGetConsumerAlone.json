@@ -1,71 +1,71 @@
 {
-	"engineServiceParameters": {
-		"name": "MyApexEngine",
-		"version": "0.0.1",
-		"id": 45,
-		"instanceCount": 4,
-		"deploymentPort": 12561,
-		"policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
-		"engineParameters": {
-			"executorParameters": {
-				"MVEL": {
-					"parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
-				}
-			}
-		}
-	},
-	"eventInputParameters": {
-		"FileConsumer": {
-			"carrierTechnologyParameters": {
-				"carrierTechnology": "FILE",
-				"parameters": {
-					"fileName": "src/test/resources/events/EventsIn.json"
-				}
-			},
-			"eventProtocolParameters": {
-				"eventProtocol": "JSON"
-			}
-		},
-		"RestRequestorConsumer": {
-			"carrierTechnologyParameters": {
-				"carrierTechnology": "RESTREQUESTOR",
-				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
-				"parameters": {
-					"url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
-					"httpMethod": "GET",
-					"restRequestTimeout": 2000
-				}
-			},
-			"eventProtocolParameters": {
-				"eventProtocol": "JSON"
-			},
-			"eventNameFilter": "Event0100",
-			"requestorMode": true,
-			"requestorPeer": "RestRequestorProducer",
-			"requestorTimeout": 500
-		}
-	},
-	"eventOutputParameters": {
-		"RestRequestorProducer": {
-			"carrierTechnologyParameters": {
-				"carrierTechnology": "RESTREQUESTOR",
-				"parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
-			},
-			"eventProtocolParameters": {
-				"eventProtocol": "JSON"
-			}
-		},
-		"FileProducer": {
-			"carrierTechnologyParameters": {
-				"carrierTechnology": "FILE",
-				"parameters": {
-					"fileName": "src/test/resources/events/EventsOut.json"
-				}
-			},
-			"eventProtocolParameters": {
-				"eventProtocol": "JSON"
-			},
-			"eventNameFilter": "Event0104"
-		}
-	}
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "src/test/resources/policymodels/RequestorModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "FileConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsIn.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "RestRequestorConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
+                    "restRequestTimeout": 2000
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "ResponseEvent",
+            "requestorMode": true,
+            "requestorPeer": "RestRequestorProducer",
+            "requestorTimeout": 500
+        }
+    },
+    "eventOutputParameters": {
+        "RestRequestorProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "FileProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "src/test/resources/events/EventsOut.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "BasicEvent"
+        }
+    }
 }

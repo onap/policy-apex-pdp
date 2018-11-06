@@ -64,7 +64,7 @@ public class EngineWorkerTest {
     private final ApplicationThreadFactory atFactory = new ApplicationThreadFactory("apex-engine-service", 512);
 
     private static String simpleModelString;
-    private static String mfpModelString;
+    private static String differentModelString;
     private static AxPolicyModel simpleModel;
 
     /**
@@ -75,10 +75,10 @@ public class EngineWorkerTest {
      */
     @BeforeClass
     public static void readSimpleModel() throws IOException, ApexModelException {
-        simpleModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SamplePolicyModelJAVASCRIPT.json");
+        simpleModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
-        mfpModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/MyFirstPolicyModel.json");
+        differentModelString = TextFileUtils
+                        .getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         simpleModel = modelReader.read(new ByteArrayInputStream(simpleModelString.getBytes()));
@@ -161,9 +161,9 @@ public class EngineWorkerTest {
         } catch (Exception apEx) {
             assertEquals("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
         }
-        
+
         worker.registerActionListener("DummyListener", null);
-        
+
         try {
             worker.registerActionListener(null, new DummyApexEventListener());
             fail("test should throw an exception");
@@ -172,7 +172,7 @@ public class EngineWorkerTest {
         }
 
         worker.registerActionListener("DummyListener", new DummyApexEventListener());
-        
+
         try {
             worker.deregisterActionListener(null);
             fail("test should throw an exception");
@@ -344,17 +344,16 @@ public class EngineWorkerTest {
         eventQueue.add(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget"));
 
         try {
-            worker.updateModel(worker.getKey(), mfpModelString, false);
+            worker.updateModel(worker.getKey(), differentModelString, false);
             fail("test should throw an exception");
         } catch (ApexException apEx) {
-            assertEquals("apex model update failed, supplied model with key \"MyFirstPolicyModel:0.0.1\" is not a "
+            assertEquals("apex model update failed, supplied model with key \"SmallModelDifferent:0.0.1\" is not a "
                             + "compatible model update "
-                            + "from the existing engine model with key \"SamplePolicyModelJAVASCRIPT:0.0.1\"",
-                            apEx.getMessage());
+                            + "from the existing engine model with key \"SmallModel:0.0.1\"", apEx.getMessage());
         }
 
         try {
-            worker.updateModel(worker.getKey(), mfpModelString, true);
+            worker.updateModel(worker.getKey(), differentModelString, true);
         } catch (ApexException apEx) {
             fail("test should not throw an exception");
         }
