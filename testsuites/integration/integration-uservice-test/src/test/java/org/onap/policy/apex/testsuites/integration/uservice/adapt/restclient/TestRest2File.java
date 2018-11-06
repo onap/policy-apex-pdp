@@ -56,6 +56,14 @@ public class TestRest2File {
     private final PrintStream stderr = System.err;
 
     /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
+    /**
      * Sets the up.
      *
      * @throws Exception the exception
@@ -98,14 +106,15 @@ public class TestRest2File {
     @Test
     public void testRestEventsIn() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/REST2FileJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/REST2FileJsonEvent.json" };
 
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
         apexMain.shutdown();
 
-        final String outputEventText = TextFileUtils.getTextFileAsString("src/test/resources/events/EventsOut.json");
+        final String outputEventText = TextFileUtils
+                        .getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
         assertTrue(outputEventText.contains("04\",\n" + "  \"version\": \"0.0.1\",\n"
                         + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\""));
     }

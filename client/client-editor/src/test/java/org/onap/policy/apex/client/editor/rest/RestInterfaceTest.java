@@ -54,7 +54,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
 public class RestInterfaceTest {
     // CHECKSTYLE:OFF: MagicNumber
 
-    private static final String TESTMODELFILE = "models/SamplePolicyModelMVEL.json";
+    private static final String TESTMODELFILE = "models/PolicyModel.json";
     private static final String TESTPORTNUM = "18989";
     private static final long MAX_WAIT = 15000; // 15 sec
     private static final InputStream SYSIN = System.in;
@@ -181,7 +181,7 @@ public class RestInterfaceTest {
         uploadPolicy(sessionId, localmodelString);
 
         final ApexApiResult responseMsg = target.path("editor/" + sessionId + "/Policy/Get")
-                .queryParam("name", "Policy0").queryParam("version", "0.0.1").request().get(ApexApiResult.class);
+                .queryParam("name", "policy").queryParam("version", "0.0.1").request().get(ApexApiResult.class);
         assertTrue(responseMsg.isOk());
 
         // The string in responseMsg.Messages[0] is a JSON representation of a AxPolicy object. Lets parse it
@@ -191,7 +191,7 @@ public class RestInterfaceTest {
         // AxPolicy returnedpolicy = RestUtils.getConceptFromJSON(returnedPolicyAsString, AxPolicy.class);
 
         // Extract the local copy of that policy from the local Apex Policy Model
-        final AxPolicy localpolicy = localmodel.getPolicies().get("Policy0", "0.0.1");
+        final AxPolicy localpolicy = localmodel.getPolicies().get("policy", "0.0.1");
 
         // Write that local copy of the AxPolicy object to a Json String, ten parse it again
         final ApexModelStringWriter<AxPolicy> apexModelWriter = new ApexModelStringWriter<>(false);
