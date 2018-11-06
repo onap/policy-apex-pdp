@@ -36,6 +36,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -55,6 +56,14 @@ public class TestRestServer {
     private static int eventsSent = 0;
 
     /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
+    /**
      * Test rest server put.
      *
      * @throws MessagingException the messaging exception
@@ -64,7 +73,7 @@ public class TestRestServer {
     @Test
     public void testRestServerPut() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -95,7 +104,7 @@ public class TestRestServer {
     @Test
     public void testRestServerPost() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -126,7 +135,7 @@ public class TestRestServer {
     @Test
     public void testRestServerGetStatus() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEvent.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -167,7 +176,7 @@ public class TestRestServer {
     @Test
     public void testRestServerMultiInputs() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventMultiIn.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -392,38 +401,6 @@ public class TestRestServer {
         assertTrue(outString
                         .contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
                                         + "with the same peered mode"));
-    }
-
-    /**
-     * Test rest server divide by zero.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    @Test
-    public void testRestServerDivideByZero() throws MessagingException, ApexException, IOException {
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventDivideByZero.json" };
-        final ApexMain apexMain = new ApexMain(args);
-
-        final Client client = ClientBuilder.newClient();
-
-        for (int i = 0; i < 20; i++) {
-            final Response response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").put(Entity.json(getEvent()));
-
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
-            assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
-            assertTrue(((String) jsonMap.get("exceptionMessage")).contains("caused by: / by zero"));
-        }
-
-        apexMain.shutdown();
     }
 
     /**

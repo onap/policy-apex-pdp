@@ -5,7 +5,7 @@
         "id": 45,
         "instanceCount": 345,
         "deploymentPort": 65522,
-        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+        "policyModelFileName": "src/test/resources/policymodels/SmallModel.json",
         "engineParameters": {
             "contextParameters": {
                 "parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters",
@@ -14,7 +14,7 @@
                 }
             },
             "executorParameters": {
-                "MVEL": {
+                "JAVASCRIPT": {
                     "parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters"
                 }
             }

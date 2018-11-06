@@ -39,17 +39,22 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class TestFile2Rest.
  */
 public class TestFile2Rest {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestFile2Rest.class);
+
     private static final String BASE_URI = "http://localhost:32801/TestFile2Rest";
     private static HttpServer server;
 
@@ -85,6 +90,14 @@ public class TestFile2Rest {
     }
 
     /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
+    /**
      * Test file events post.
      *
      * @throws MessagingException the messaging exception
@@ -96,7 +109,7 @@ public class TestFile2Rest {
         final Client client = ClientBuilder.newClient();
 
         final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPost.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPost.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -128,7 +141,7 @@ public class TestFile2Rest {
     @Test
     public void testFileEventsPut() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPut.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPut.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -176,6 +189,7 @@ public class TestFile2Rest {
         System.setOut(stdout);
         System.setErr(stderr);
 
+        LOGGER.info(outString);
         assertTrue(outString.contains(" no URL has been set for event sending on REST client"));
     }
 
@@ -203,6 +217,7 @@ public class TestFile2Rest {
         System.setOut(stdout);
         System.setErr(stderr);
 
+        LOGGER.info(outString);
         assertTrue(outString.contains(
                         "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/Bad\" using HTTP \"POST\" failed with status code 404"));
     }
@@ -231,6 +246,7 @@ public class TestFile2Rest {
         System.setOut(stdout);
         System.setErr(stderr);
 
+        LOGGER.info(outString);
         assertTrue(outString.contains(
                         "specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
                                         + "are supproted for event sending on REST client producer"));
@@ -260,7 +276,9 @@ public class TestFile2Rest {
         System.setOut(stdout);
         System.setErr(stderr);
 
+        LOGGER.info(outString);
         assertTrue(outString.contains(
-                        "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\" using HTTP \"POST\" failed with status code 400"));
+                        "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\""
+                                        + " using HTTP \"POST\" failed with status code 400"));
     }
 }
