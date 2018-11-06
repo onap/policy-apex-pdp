@@ -20,7 +20,7 @@
 
 from java.lang import Byte
 from java.lang import Long
-from java.util import Date
+from java.lang import System
 
 executor.logger.debug('id: ' + executor.subject.id)
 
@@ -29,7 +29,7 @@ executor.logger.debug('inFields: ' + executor.inFields.toString())
 
 executor.outFields["Test<STATE_NAME>CaseSelected"] = Byte("<RANDOM_BYTE_VALUE>")
 
-timeValue = Long(Date().getTime());
+timeValue = Long(System.nanoTime());
 executor.outFields["Test<STATE_NAME>StateTime"] = timeValue
 executor.logger.debug('outFields: ' + executor.outFields.toString())
 returnValue = executor.isTrue

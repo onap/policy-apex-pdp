@@ -26,8 +26,7 @@ executor.logger.debug("inFields: " + executor.inFields.toString())
 
 executor.outFields.put("Test<STATE_NAME>CaseSelected", <RANDOM_BYTE_VALUE>.to_java(:byte))
 
-timeNow = java.util.Date.new()
-executor.outFields.put("Test<STATE_NAME>StateTime", timeNow.getTime())
+executor.outFields.put("Test<STATE_NAME>StateTime",  java.lang.System.nanoTime())
 executor.logger.debug("outFields: " + executor.outFields.toString())
 
 return true

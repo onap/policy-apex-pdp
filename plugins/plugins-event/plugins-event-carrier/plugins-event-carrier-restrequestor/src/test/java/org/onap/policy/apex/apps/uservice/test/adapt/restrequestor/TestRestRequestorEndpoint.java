@@ -47,11 +47,9 @@ public class TestRestRequestorEndpoint {
     private static int getMessagesReceived = 0;
     private static int deleteMessagesReceived = 0;
 
-    private static String EVENT_STRING = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.sample.events\",\n"
-            + "\"name\": \"Event0100\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_" + getMessagesReceived
-            + "\",\n" + "\"target\": \"apex\",\n" + "\"TestSlogan\": \"Test slogan for External Event0\",\n"
-            + "\"TestMatchCase\": 2,\n" + "\"TestTimestamp\": " + System.currentTimeMillis() + ",\n"
-            + "\"TestTemperature\": 9080.866\n" + "}";
+    private static String EVENT_STRING = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.events\",\n"
+                    + "\"name\": \"ResponseEvent\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_"
+                    + getMessagesReceived + "\",\n" + "\"target\": \"apex\",\n" + "\"intPar\": 9080\n" + "}";
 
     /**
      * Reset counters.
@@ -76,10 +74,10 @@ public class TestRestRequestorEndpoint {
             statMessagesReceived++;
         }
         return Response.status(200)
-                .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
-                        + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + ",\"DELETE\": "
-                        + deleteMessagesReceived + "}")
-                .build();
+                        .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived
+                                        + ",\"POST\": " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived
+                                        + ",\"DELETE\": " + deleteMessagesReceived + "}")
+                        .build();
     }
 
     /**

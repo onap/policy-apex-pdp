@@ -150,7 +150,7 @@ public class ParameterTests {
                             + "    field \"deploymentPort\" type \"int\" value \"65536\" INVALID, "
                             + "deploymentPort [65536] invalid, must be specified as 1024 <= port <= 65535\n"
                             + "    field \"policyModelFileName\" type \"java.lang.String\" "
-                            + "value \"/some/file/name.xml\" INVALID, not found or is not a plain file\n"
+                            + "value \"/some/file/name.xml\" INVALID, not found\n"
                             + "  parameter group map \"eventOutputParameters\" INVALID, "
                             + "parameter group has status INVALID\n" + "    parameter group \"FirstProducer\" type "
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
@@ -159,8 +159,7 @@ public class ParameterTests {
                             + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
                             + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                            + "fileName not specified or is blank or null, "
-                            + "it must be specified as a valid file location\n"
+                            + "\"null\" invalid, must be specified as a non-empty string\n"
                             + "  parameter group map \"eventInputParameters\" INVALID, "
                             + "parameter group has status INVALID\n" + "    parameter group \"TheFileConsumer1\" type "
                             + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
@@ -169,8 +168,29 @@ public class ParameterTests {
                             + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
                             + "parameter group has status INVALID\n"
                             + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                            + "fileName not specified or is blank or null, "
-                            + "it must be specified as a valid file location\n", e.getMessage());
+                            + "\"null\" invalid, must be specified as a non-empty string\n", e.getMessage());
+        }
+    }
+
+    @Test
+    public void modelNotFileTest() {
+        final String[] args =
+            { "-c", "src/test/resources/parameters/badParamsModelNotFile.json" };
+        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
+
+        try {
+            new ApexParameterHandler().getParameters(arguments);
+            fail("This test should throw an exception");
+        } catch (final ParameterException e) {
+            assertEquals("validation error(s) on parameters from "
+                            + "\"src/test/resources/parameters/badParamsModelNotFile.json\"\n"
+                            + "parameter group \"APEX_PARAMETERS\" type "
+                            + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
+                            + "parameter group has status INVALID\n" + "  parameter group \"MyApexEngine\" type "
+                            + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
+                            + "INVALID, parameter group has status INVALID\n" + "    field \"policyModelFileName\" "
+                            + "type \"java.lang.String\" value \"src/test\" INVALID, is not a plain file\n",
+                            e.getMessage());
         }
     }
 
@@ -257,8 +277,8 @@ public class ParameterTests {
 
             assertTrue(prodCarrierTech instanceof SuperDooperCarrierTechnologyParameters);
 
-            final SuperDooperCarrierTechnologyParameters superDooperParameters =
-                            (SuperDooperCarrierTechnologyParameters) prodCarrierTech;
+            final SuperDooperCarrierTechnologyParameters superDooperParameters
+                = (SuperDooperCarrierTechnologyParameters) prodCarrierTech;
             assertEquals("somehost:12345", superDooperParameters.getBootstrapServers());
             assertEquals("0", superDooperParameters.getAcks());
             assertEquals(25, superDooperParameters.getRetries());
