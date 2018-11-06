@@ -94,15 +94,15 @@ public class EngineServiceFacadeTest {
         }
 
         try {
-            facade.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
+            facade.deployModel("src/test/resources/models/SmallModel.json", false, false);
             fail("test should throw an exception here");
         } catch (final Exception ade) {
-            assertEquals("could not deploy apex model from src/test/resources/models/SamplePolicyModelJAVASCRIPT.json",
+            assertEquals("could not deploy apex model from src/test/resources/models/SmallModel.json",
                             ade.getMessage());
         }
 
         try {
-            facade.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
+            facade.deployModel("src/test/resources/models/SmallModel.json", false, false);
         } catch (final Exception ade) {
             fail("test should not throw an exception here");
         }

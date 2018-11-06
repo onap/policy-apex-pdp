@@ -659,7 +659,7 @@ final class EngineWorker implements EngineService {
             // Take events from the event processing queue of the worker and pass them to the engine
             // for processing
             boolean stopFlag = false;
-            while (!processorThread.isInterrupted() && ! stopFlag) {
+            while (processorThread != null && !processorThread.isInterrupted() && ! stopFlag) {
                 ApexEvent event = null;
                 try {
                     event = eventProcessingQueue.take();

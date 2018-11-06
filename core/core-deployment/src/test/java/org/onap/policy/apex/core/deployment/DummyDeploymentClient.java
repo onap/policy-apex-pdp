@@ -162,7 +162,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
         if (successFlag) {
             try {
                 response.setMessageData(TextFileUtils
-                                .getTextFileAsString("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json"));
+                                .getTextFileAsString("src/test/resources/models/SmallModel.json"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
