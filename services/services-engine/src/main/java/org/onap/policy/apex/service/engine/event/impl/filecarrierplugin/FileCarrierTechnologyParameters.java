@@ -20,12 +20,13 @@
 
 package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin;
 
+import java.io.File;
+
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer.ApexFileEventProducer;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
  * This class holds the parameters that allows transport of events into and out of Apex using files and standard input
@@ -51,6 +52,9 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
 
     /** The consumer plugin class for the FILE carrier technology. */
     public static final String FILE_EVENT_CONSUMER_PLUGIN_CLASS = ApexFileEventConsumer.class.getCanonicalName();
+
+    // Recurring strings
+    private static final String FILE_NAME_TOKEN = "fileName";
 
     private String fileName;
     private boolean standardIo = false;
@@ -78,7 +82,7 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
      * @return the file name from which to read or to which to write events
      */
     public String getFileName() {
-        return ResourceUtils.getFilePath4Resource(fileName);
+        return fileName;
     }
 
     /**
@@ -193,9 +197,8 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
     public GroupValidationResult validate() {
         final GroupValidationResult result = super.validate();
 
-        if (!standardIo && !standardError && (fileName == null || fileName.trim().length() == 0)) {
-            result.setResult("fileName", ValidationStatus.INVALID, "fileName not specified or is blank or null, "
-                            + "it must be specified as a valid file location");
+        if (!standardIo && !standardError) {
+            validateFileName(result);
         }
 
         if (standardIo || standardError) {
@@ -208,5 +211,85 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
         }
 
         return result;
+    }
+    
+
+    /**
+     * Validate the file name parameter.
+     * 
+     * @param result the variable in which to store the result of the validation
+     */
+    private void validateFileName(final GroupValidationResult result) {
+        if (fileName == null || fileName.trim().length() == 0) {
+            result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID,
+                            "\"" + fileName + "\" invalid, must be specified as a non-empty string");
+            return;
+        }
+
+        String absoluteFileName = null;
+
+        // Resolve the file name if it is a relative file name
+        File theFile = new File(fileName);
+        if (theFile.isAbsolute()) {
+            absoluteFileName = fileName;
+        } else {
+            absoluteFileName = System.getProperty("APEX_RELATIVE_FILE_ROOT") + File.separator + fileName;
+            theFile = new File(absoluteFileName);
+        }
+
+        // Check if the file exists, the file should be a regular file and should be readable
+        if (theFile.exists()) {
+            validateExistingFile(result, absoluteFileName, theFile);
+        }
+        // The path to the file should exist and should be writable
+        else {
+            validateNewFileParent(result, absoluteFileName, theFile);
+        }
+    }
+
+    /**
+     * Validate an existing file is OK.
+     * 
+     * @param result the result of the validation
+     * @param absoluteFileName the absolute file name of the file
+     * @param theFile the file that exists
+     */
+    private void validateExistingFile(final GroupValidationResult result, String absoluteFileName, File theFile) {
+        // Check that the file is a regular file
+        if (!theFile.isFile()) {
+            result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "is not a plain file");
+        }
+        else {
+            fileName = absoluteFileName;
+
+            if (!theFile.canRead()) {
+                result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "is not readable");
+            }
+        }
+    }
+
+    /**
+     * Validate the parent of a new file is OK.
+     * 
+     * @param result the result of the validation
+     * @param absoluteFileName the absolute file name of the file
+     * @param theFile the file that exists
+     */
+    private void validateNewFileParent(final GroupValidationResult result, String absoluteFileName, File theFile) {
+        // Check that the parent of the file is a directory
+        if (!theFile.getParentFile().exists()) {
+            result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "parent of file does not exist");
+        }
+        // Check that the parent of the file is a directory
+        else if (!theFile.getParentFile().isDirectory()) {
+            result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "parent of file is not directory");
+        }
+        else {
+            fileName = absoluteFileName;
+
+            if (!theFile.getParentFile().canRead()) {
+                result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "is not readable");
+            }
+        }
     }
 }

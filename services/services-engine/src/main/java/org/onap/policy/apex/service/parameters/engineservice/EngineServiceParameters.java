@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.parameters.engineservice;
 
 import java.io.File;
-import java.net.URL;
 
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -30,7 +29,6 @@ import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.resources.ResourceUtils;
 
 // @formatter:off
 /**
@@ -218,7 +216,7 @@ public class EngineServiceParameters implements ParameterGroup {
      * @return the file name of the policy engine for deployment on the engine service
      */
     public String getPolicyModelFileName() {
-        return ResourceUtils.getFilePath4Resource(policyModelFileName);
+        return policyModelFileName;
     }
 
     /**
@@ -344,15 +342,32 @@ public class EngineServiceParameters implements ParameterGroup {
             return;
         }
 
-        // The file name can refer to a resource on the local file system or on the class
-        // path
-        final URL fileUrl = ResourceUtils.getUrl4Resource(policyModelFileName);
-        if (fileUrl == null) {
-            result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found or is not a plain file");
+        String absolutePolicyFileName = null;
+
+        // Resolve the file name if it is a relative file name
+        File policyModelFile = new File(policyModelFileName);
+        if (policyModelFile.isAbsolute()) {
+            absolutePolicyFileName = policyModelFileName;
         } else {
-            final File policyModelFile = new File(fileUrl.getPath());
-            if (!policyModelFile.isFile()) {
-                result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found or is not a plain file");
+            absolutePolicyFileName = System.getProperty("APEX_RELATIVE_FILE_ROOT") + File.separator
+                            + policyModelFileName;
+            policyModelFile = new File(absolutePolicyFileName);
+        }
+
+        // Check that the file exists
+        if (!policyModelFile.exists()) {
+            result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found");
+        }
+        // Check that the file is a regular file
+        else if (!policyModelFile.isFile()) {
+            result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "is not a plain file");
+        } else {
+            // OK, we found the file and it's OK, so reset the file name
+            policyModelFileName = absolutePolicyFileName;
+
+            // Check that the file is readable
+            if (!policyModelFile.canRead()) {
+                result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "is not readable");
             }
         }
     }

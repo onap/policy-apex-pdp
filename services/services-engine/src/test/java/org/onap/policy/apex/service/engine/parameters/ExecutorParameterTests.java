@@ -21,8 +21,10 @@
 package org.onap.policy.apex.service.engine.parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
@@ -35,16 +37,21 @@ import org.onap.policy.common.parameters.ParameterException;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ExecutorParameterTests {
+    @After
+    public void resetRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
 
     @Test
     public void noParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorNoParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorNoParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertEquals(0,
-                    parameters.getEngineServiceParameters().getEngineParameters().getExecutorParameterMap().size());
+            assertEquals(0, parameters.getEngineServiceParameters().getEngineParameters().getExecutorParameterMap()
+                            .size());
         } catch (final ParameterException e) {
             fail("This test should not throw any exception: " + e.getMessage());
         }
@@ -52,24 +59,25 @@ public class ExecutorParameterTests {
 
     @Test
     public void badParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorBadParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertEquals(
-                    "error reading parameters from \"src/test/resources/parameters/serviceExecutorBadParams.json\"\n"
+            assertEquals("error reading parameters from "
+                            + "\"src/test/resources/parameters/serviceExecutorBadParams.json\"\n"
                             + "(ParameterRuntimeException):value of \"executorParameters:ZOOBY\" entry is not "
-                            + "a parameter JSON object",
-                    e.getMessage());
+                            + "a parameter JSON object", e.getMessage());
         }
     }
 
     @Test
     public void noExecutorParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorNoExecutorParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorNoExecutorParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -77,15 +85,16 @@ public class ExecutorParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceExecutorNoExecutorParams.json\"\n"
-                    + "(ParameterRuntimeException):no \"executorParameters\" entry found in parameters,"
-                    + " at least one executor parameter entry must be specified", e.getMessage());
+                            + "\"src/test/resources/parameters/serviceExecutorNoExecutorParams.json\"\n"
+                            + "(ParameterRuntimeException):no \"executorParameters\" entry found in parameters,"
+                            + " at least one executor parameter entry must be specified", e.getMessage());
         }
     }
 
     @Test
     public void emptyParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorEmptyParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorEmptyParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -93,15 +102,16 @@ public class ExecutorParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceExecutorEmptyParams.json\"\n"
-                    + "(ParameterRuntimeException):could not find field \"parameterClassName\" "
-                    + "in \"executorParameters:ZOOBY\" entry", e.getMessage());
+                            + "\"src/test/resources/parameters/serviceExecutorEmptyParams.json\"\n"
+                            + "(ParameterRuntimeException):could not find field \"parameterClassName\" "
+                            + "in \"executorParameters:ZOOBY\" entry", e.getMessage());
         }
     }
 
     @Test
     public void badPluginParamNameTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginNameParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorBadPluginNameParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -109,15 +119,16 @@ public class ExecutorParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceExecutorBadPluginNameParams.json\"\n"
-                    + "(ParameterRuntimeException):could not find field \"parameterClassName\" "
-                    + "in \"executorParameters:ZOOBY\" entry", e.getMessage());
+                            + "\"src/test/resources/parameters/serviceExecutorBadPluginNameParams.json\"\n"
+                            + "(ParameterRuntimeException):could not find field \"parameterClassName\" "
+                            + "in \"executorParameters:ZOOBY\" entry", e.getMessage());
         }
     }
 
     @Test
     public void badPluginParamObjectTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -125,15 +136,16 @@ public class ExecutorParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json\"\n"
-                    + "(ParameterRuntimeException):value for field \"parameterClassName\" "
-                    + "of \"executorParameters:LOOBY\" entry is not a plain string", e.getMessage());
+                            + "\"src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json\"\n"
+                            + "(ParameterRuntimeException):value for field \"parameterClassName\" "
+                            + "of \"executorParameters:LOOBY\" entry is not a plain string", e.getMessage());
         }
     }
 
     @Test
     public void badPluginParamBlankTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -141,16 +153,16 @@ public class ExecutorParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json\"\n"
-                    + "(ParameterRuntimeException):value for field \"parameterClassName\" "
-                    + "in \"executorParameters:LOOBY\" entry is not specified or is blank", e.getMessage());
+                            + "\"src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json\"\n"
+                            + "(ParameterRuntimeException):value for field \"parameterClassName\" "
+                            + "in \"executorParameters:LOOBY\" entry is not specified or is blank", e.getMessage());
         }
     }
 
-
     @Test
     public void badPluginParamValueTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/serviceExecutorBadPluginValueParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -158,16 +170,17 @@ public class ExecutorParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("error reading parameters from"
-                    + " \"src/test/resources/parameters/serviceExecutorBadPluginValueParams.json\"\n"
-                    + "(ParameterRuntimeException):failed to deserialize the parameters "
-                    + "for \"executorParameters:LOOBY\" to parameter class \"helloworld\"\n"
-                    + "java.lang.ClassNotFoundException: helloworld", e.getMessage());
+                            + " \"src/test/resources/parameters/serviceExecutorBadPluginValueParams.json\"\n"
+                            + "(ParameterRuntimeException):failed to deserialize the parameters "
+                            + "for \"executorParameters:LOOBY\" to parameter class \"helloworld\"\n"
+                            + "java.lang.ClassNotFoundException: helloworld", e.getMessage());
         }
     }
 
     @Test
     public void goodParametersTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
+        final String[] args =
+            { "-c", "src/test/resources/parameters/goodParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -178,6 +191,27 @@ public class ExecutorParameterTests {
             assertEquals(45, parameters.getEngineServiceParameters().getId());
             assertEquals(19, parameters.getEngineServiceParameters().getInstanceCount());
             assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
+        } catch (final ParameterException e) {
+            fail("This test should not throw any exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void relativeParametersTest() {
+        final String[] args =
+            { "-rfr", "src/test/resources", "-c", "src/test/resources/parameters/goodParamsRelative.json" };
+        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
+
+        try {
+            final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+            assertEquals("MyApexEngine", parameters.getEngineServiceParameters().getName());
+            assertEquals("0.0.1", parameters.getEngineServiceParameters().getVersion());
+            assertEquals(45, parameters.getEngineServiceParameters().getId());
+            assertEquals(19, parameters.getEngineServiceParameters().getInstanceCount());
+            assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
+            assertTrue(parameters.getEngineServiceParameters().getPolicyModelFileName()
+                            .endsWith("/src/test/resources/policymodels/SmallModel.json"));
         } catch (final ParameterException e) {
             fail("This test should not throw any exception: " + e.getMessage());
         }

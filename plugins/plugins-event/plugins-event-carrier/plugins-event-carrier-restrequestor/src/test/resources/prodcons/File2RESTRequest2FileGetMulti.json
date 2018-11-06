@@ -5,11 +5,11 @@
 		"id": 45,
 		"instanceCount": 4,
 		"deploymentPort": 12561,
-		"policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+		"policyModelFileName": "src/test/resources/policymodels/RequestorModel.json",
 		"engineParameters": {
 			"executorParameters": {
-				"MVEL": {
-					"parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
+				"JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
 				}
 			}
 		}
@@ -39,7 +39,7 @@
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"
 			},
-			"eventNameFilter": "Event0100",
+			"eventNameFilter": "ResponseEvent",
 			"requestorMode": true,
 			"requestorPeer": "RestRequestorProducer0",
 			"requestorTimeout": 500
@@ -68,7 +68,7 @@
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"
 			},
-			"eventNameFilter": "Event0100",
+			"eventNameFilter": "ResponseEvent",
 			"requestorMode": true,
 			"requestorPeer": "RestRequestorProducer1",
 			"requestorTimeout": 500
@@ -83,7 +83,7 @@
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"
 			},
-			"eventNameFilter": "Event0004",
+			"eventNameFilter": "RequestEvent",
 			"requestorMode": true,
 			"requestorPeer": "RestRequestorConsumer0",
 			"requestorTimeout": 500
@@ -98,7 +98,7 @@
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"
 			},
-			"eventNameFilter": "Event0104"
+			"eventNameFilter": "BasicEvent"
 		},
 		"RestRequestorProducer1": {
 			"carrierTechnologyParameters": {
@@ -108,7 +108,7 @@
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"
 			},
-			"eventNameFilter": "Event0004",
+			"eventNameFilter": "RequestEvent",
 			"requestorMode": true,
 			"requestorPeer": "RestRequestorConsumer1",
 			"requestorTimeout": 500
@@ -123,7 +123,7 @@
 			"eventProtocolParameters": {
 				"eventProtocol": "JSON"
 			},
-			"eventNameFilter": "Event0104"
+			"eventNameFilter": "BasicEvent"
 		}
 	}
 }
