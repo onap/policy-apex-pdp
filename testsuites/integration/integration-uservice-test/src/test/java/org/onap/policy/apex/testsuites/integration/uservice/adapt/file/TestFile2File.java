@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -33,19 +34,26 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
 public class TestFile2File {
+    /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
 
     @Test
     public void testJsonFileEvents() throws MessagingException, ApexException, IOException {
-        final String[] args = {"src/test/resources/prodcons/File2FileJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileJsonEvent.json"};
 
-        testFileEvents(args, "src/test/resources/events/EventsOut.json", 48956);
+        testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.json", 49356);
     }
 
     @Test
     public void testXmlFileEvents() throws MessagingException, ApexException, IOException {
-        final String[] args = {"src/test/resources/prodcons/File2FileXmlEvent.json"};
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileXmlEvent.json"};
 
-        testFileEvents(args, "src/test/resources/events/EventsOut.xmlfile", 106739);
+        testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.xmlfile", 107139);
     }
 
     private void testFileEvents(final String[] args, final String outFilePath, final long expectedFileSize)
@@ -70,8 +78,7 @@ public class TestFile2File {
         }
 
         apexMain.shutdown();
-        outFile.delete();
-        assertEquals(outFileSize, expectedFileSize);
+        assertEquals(expectedFileSize, outFileSize);
     }
 }
 

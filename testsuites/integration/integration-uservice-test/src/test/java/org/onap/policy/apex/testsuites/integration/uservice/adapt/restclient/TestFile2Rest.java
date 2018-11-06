@@ -39,6 +39,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
@@ -85,6 +86,14 @@ public class TestFile2Rest {
     }
 
     /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
+    /**
      * Test file events post.
      *
      * @throws MessagingException the messaging exception
@@ -96,7 +105,7 @@ public class TestFile2Rest {
         final Client client = ClientBuilder.newClient();
 
         final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPost.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPost.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -128,7 +137,7 @@ public class TestFile2Rest {
     @Test
     public void testFileEventsPut() throws MessagingException, ApexException, IOException {
         final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPut.json" };
+            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPut.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();

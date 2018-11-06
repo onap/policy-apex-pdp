@@ -35,9 +35,10 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
  * The Class TestFile2FileIgnore.
  */
 public class TestFile2FileIgnore {
-
     // This test is used just to bring up an instance of Apex for manual testing and demonstrations
     // It should always be ignored in automated testing because it holds Apex up for a very long
+    // time
+
     /**
      * The main method.
      *
@@ -46,9 +47,8 @@ public class TestFile2FileIgnore {
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    // time
     public static void main(final String[] args) throws MessagingException, ApexException, IOException {
-        final String[] apexArgs = {"src/test/resources/prodcons/File2FileJsonEvent.json"};
+        final String[] apexArgs = {"-rfr", "target", "-c", "examples/config/SampleDomain/File2FileJsonEvent.json"};
 
         testFileEvents(apexArgs, "src/test/resources/events/EventsOut.json", 48656);
     }
