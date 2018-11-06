@@ -5,11 +5,11 @@
         "id": 45,
         "instanceCount": 4,
         "deploymentPort": 12561,
-        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMVEL.json",
+        "policyModelFileName": "target/examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.json",
         "engineParameters": {
             "executorParameters": {
-                "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
                 }
             }
         }
@@ -30,7 +30,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "src/test/resources/events/EventsIn.json"
+                    "fileName": "target/examples/events/SampleDomain/EventsIn.json"
                 }
             },
             "eventProtocolParameters": {

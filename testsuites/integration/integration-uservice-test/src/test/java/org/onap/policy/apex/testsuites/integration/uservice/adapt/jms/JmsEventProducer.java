@@ -31,6 +31,7 @@ import javax.jms.Topic;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
+import org.onap.policy.apex.testsuites.integration.common.testclasses.PingTestClass;
 import org.onap.policy.apex.testsuites.integration.uservice.adapt.events.EventGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,7 +88,7 @@ public class JmsEventProducer implements Runnable {
     public void run() {
         final Topic jmsTopic = new ActiveMQTopic(topic);
         try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic);) {
+                final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic)) {
 
             while (producerThread.isAlive() && !stopFlag) {
                 ThreadUtilities.sleep(50);
@@ -127,7 +128,7 @@ public class JmsEventProducer implements Runnable {
 
             Message jmsMessage = null;
             if (sendObjects) {
-                jmsMessage = jmsSession.createObjectMessage(new TestPing());
+                jmsMessage = jmsSession.createObjectMessage(new PingTestClass());
             } else {
                 jmsMessage = jmsSession.createTextMessage(EventGenerator.jsonEvent());
             }

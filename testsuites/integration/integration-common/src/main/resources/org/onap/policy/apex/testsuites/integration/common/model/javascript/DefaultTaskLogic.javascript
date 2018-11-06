@@ -26,9 +26,7 @@ executor.logger.debug(executor.inFields);
 var caseSelectedType = Java.type("java.lang.Byte");
 executor.outFields.put("Test<STATE_NAME>CaseSelected", new caseSelectedType(<RANDOM_BYTE_VALUE>));
 
-var JavaDate = Java.type("java.util.Date");
-timeNow = new JavaDate();
-executor.outFields.put("Test<STATE_NAME>StateTime", timeNow.getTime());
+executor.outFields.put("Test<STATE_NAME>StateTime", java.lang.System.nanoTime());
 executor.logger.debug(executor.eo);
 
 var returnValue = executor.isTrue;

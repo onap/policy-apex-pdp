@@ -22,6 +22,7 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.websocket;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -38,6 +39,14 @@ public class TestWs2WsServer {
     private static final int EVENT_INTERVAL = 20;
 
     /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
+
+    /**
      * Test json ws events.
      *
      * @throws MessagingException the messaging exception
@@ -45,7 +54,7 @@ public class TestWs2WsServer {
      */
     @Test
     public void testJsonWsEvents() throws MessagingException, ApexException {
-        final String[] args = {"src/test/resources/prodcons/Ws2WsServerJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/Ws2WsServerJsonEvent.json"};
         testWsEvents(args, false);
     }
 
@@ -57,7 +66,7 @@ public class TestWs2WsServer {
      */
     @Test
     public void testXmlWsEvents() throws MessagingException, ApexException {
-        final String[] args = {"src/test/resources/prodcons/Ws2WsServerXMLEvent.json"};
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/Ws2WsServerXMLEvent.json"};
         testWsEvents(args, true);
     }
 

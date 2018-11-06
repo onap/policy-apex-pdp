@@ -19,7 +19,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "src/test/resources/events/Context_JavaEventAlbum_EventOut.json"
+                    "fileName": "target/Context_JavaEventAlbum_EventOut.json"
                 }
             },
             "eventProtocolParameters": {

@@ -20,60 +20,27 @@
 
 package org.onap.policy.apex.service.engine.event;
 
-import java.util.Random;
-
 /**
  * This class generates JSON event used for the test cases.
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JsonEventGenerator {
-    private static int nextEventNo = 0;
-
-    /**
-     * Json events.
-     *
-     * @param eventCount the event count
-     * @return the string
-     */
-    public static String jsonEvents(final int eventCount) {
-        final StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i < eventCount; i++) {
-            if (i > 0) {
-                builder.append("\n");
-            }
-            builder.append(jsonEvent());
-        }
-
-        return builder.toString();
-    }
-
     /**
      * Json event.
      *
      * @return the string
      */
     public static String jsonEvent() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12345\n");
         builder.append("}");
 
         return builder.toString();
@@ -85,25 +52,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoName() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"namez\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"namez\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12346\n");
         builder.append("}");
 
         return builder.toString();
@@ -115,24 +72,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventBadName() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
         builder.append("  \"name\": \"%%%%\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12347\n");
         builder.append("}");
 
         return builder.toString();
@@ -144,23 +92,14 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoExName() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
         builder.append("  \"name\": \"I_DONT_EXIST\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12348\n");
         builder.append("}");
 
         return builder.toString();
@@ -172,25 +111,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoVersion() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"versiion\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12349\n");
         builder.append("}");
 
         return builder.toString();
@@ -202,25 +131,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventBadVersion() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"#####\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12350\n");
         builder.append("}");
 
         return builder.toString();
@@ -232,24 +151,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoExVersion() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"Event0000\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"1.2.3\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12351\n");
         builder.append("}");
 
         return builder.toString();
@@ -261,25 +171,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoNamespace() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpacee\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpacee\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12352\n");
         builder.append("}");
 
         return builder.toString();
@@ -291,25 +191,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventBadNamespace() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
-
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
 
         builder.append("{\n");
         builder.append("  \"nameSpace\": \"hello.&&&&\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12353\n");
         builder.append("}");
 
         return builder.toString();
@@ -321,24 +211,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoExNamespace() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
-
-        int nextEventNo = rand.nextInt(2);
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
 
         builder.append("{\n");
         builder.append("  \"nameSpace\": \"pie.in.the.sky\",\n");
-        builder.append("  \"name\": \"Event0000\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12354\n");
         builder.append("}");
 
         return builder.toString();
@@ -350,25 +231,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoSource() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"sourcee\": \"test\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12355\n");
         builder.append("}");
 
         return builder.toString();
@@ -380,25 +251,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventBadSource() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"%!@**@!\",\n");
         builder.append("  \"target\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12356\n");
         builder.append("}");
 
         return builder.toString();
@@ -410,25 +271,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventNoTarget() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"targett\": \"apex\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12357\n");
         builder.append("}");
 
         return builder.toString();
@@ -440,25 +291,15 @@ public class JsonEventGenerator {
      * @return the string
      */
     public static String jsonEventBadTarget() {
-        final Random rand = new Random();
-
         final StringBuilder builder = new StringBuilder();
 
-        int nextEventNo = rand.nextInt(2);
-        final String eventName = (nextEventNo == 0 ? "Event0000" : "Event0100");
-        final int nextMatchCase = rand.nextInt(4);
-        final float nextTestTemperature = rand.nextFloat() * 10000;
-
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"" + eventName + "\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"KNIO(*S)A(S)D\",\n");
-        builder.append("  \"TestSlogan\": \"Test slogan for External Event" + (nextEventNo++) + "\",\n");
-        builder.append("  \"TestMatchCase\": " + nextMatchCase + ",\n");
-        builder.append("  \"TestTimestamp\": " + System.currentTimeMillis() + ",\n");
-        builder.append("  \"TestTemperature\": " + nextTestTemperature + "\n");
+        builder.append("  \"intPar\": 12358\n");
         builder.append("}");
 
         return builder.toString();
@@ -473,8 +314,8 @@ public class JsonEventGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"Event0000\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"apex\"\n");
@@ -492,49 +333,14 @@ public class JsonEventGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("{\n");
-        builder.append("  \"nameSpace\": \"org.onap.policy.apex.sample.events\",\n");
-        builder.append("  \"name\": \"Event0000\",\n");
+        builder.append("  \"nameSpace\": \"org.onap.policy.apex.events\",\n");
+        builder.append("  \"name\": \"BasicEvent\",\n");
         builder.append("  \"version\": \"0.0.1\",\n");
         builder.append("  \"source\": \"test\",\n");
         builder.append("  \"target\": \"Apex\",\n");
-        builder.append("  \"TestSlogan\": null,\n");
-        builder.append("  \"TestMatchCase\": -1,\n");
-        builder.append("  \"TestTimestamp\": -1,\n");
-        builder.append("  \"TestTemperature\": -1.0\n");
+        builder.append("  \"intPar\": -1\n");
         builder.append("}");
 
         return builder.toString();
-    }
-
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     */
-    public static void main(final String[] args) {
-        if (args.length != 1) {
-            System.err.println("usage EventGenerator #events");
-            return;
-        }
-
-        int eventCount = 0;
-        try {
-            eventCount = Integer.parseInt(args[0]);
-        } catch (final Exception e) {
-            System.err.println("usage EventGenerator #events");
-            e.printStackTrace();
-            return;
-        }
-
-        System.out.println(jsonEvents(eventCount));
-    }
-
-    /**
-     * Gets the next event no.
-     *
-     * @return the next event no
-     */
-    public static int getNextEventNo() {
-        return nextEventNo;
     }
 }
