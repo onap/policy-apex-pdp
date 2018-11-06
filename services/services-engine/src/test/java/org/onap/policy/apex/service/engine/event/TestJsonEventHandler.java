@@ -22,12 +22,12 @@ package org.onap.policy.apex.service.engine.event;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +68,7 @@ public class TestJsonEventHandler {
     @BeforeClass
     public static void setupEventModel() throws IOException, ApexModelException {
         final String policyModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SamplePolicyModelMVEL.json");
+                        .getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<AxPolicyModel>(AxPolicyModel.class);
         final AxPolicyModel apexPolicyModel = modelReader.read(new ByteArrayInputStream(policyModelString.getBytes()));
 
@@ -118,15 +118,15 @@ public class TestJsonEventHandler {
 
                 logger.debug(apexEvent.toString());
 
-                assertTrue(apexEvent.getName().equals("Event0000") || apexEvent.getName().equals("Event0100"));
-                assertTrue(apexEvent.getVersion().equals("0.0.1"));
-                assertTrue(apexEvent.getNameSpace().equals("org.onap.policy.apex.sample.events"));
-                assertTrue(apexEvent.getSource().equals("test"));
-                assertTrue(apexEvent.getTarget().equals("apex"));
-                assertTrue(apexEvent.get("TestSlogan").toString().startsWith("Test slogan for External Event"));
+                assertEquals("BasicEvent", apexEvent.getName());
+                assertEquals("0.0.1", apexEvent.getVersion());
+                assertEquals("org.onap.policy.apex.events", apexEvent.getNameSpace());
+                assertEquals("test", apexEvent.getSource());
+                assertEquals("apex", apexEvent.getTarget());
+                assertEquals(12345, apexEvent.get("intPar"));
 
                 final Object testMatchCaseSelected = apexEvent.get("TestMatchCaseSelected");
-                assertTrue(testMatchCaseSelected == null);
+                assertNull(testMatchCaseSelected);
             }
         } catch (final Exception e) {
             e.printStackTrace();
@@ -162,8 +162,8 @@ public class TestJsonEventHandler {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage().startsWith(
-                                "Failed to unmarshal JSON event: field \"name\" with value \"%%%%\" is invalid"));
+                assertEquals("Failed to unmarshal JSON event: field \"name\" with value \"%%%%\" is invalid",
+                                e.getMessage().substring(0, 73));
             }
 
             try {
@@ -184,8 +184,8 @@ public class TestJsonEventHandler {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage().startsWith(
-                                "Failed to unmarshal JSON event: field \"version\" with value \"#####\" is invalid"));
+                assertEquals("Failed to unmarshal JSON event: field \"version\" with value \"#####\" is invalid",
+                                e.getMessage().substring(0, 77));
             }
 
             try {
@@ -193,22 +193,23 @@ public class TestJsonEventHandler {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage()
-                                .startsWith("Failed to unmarshal JSON event: an event definition for an event named "
-                                                + "\"Event0000\" with version \"1.2.3\" not found in Apex model"));
+                assertEquals("Failed to unmarshal JSON event: an event definition for an event named "
+                                + "\"BasicEvent\" with version \"1.2.3\" not found in Apex model",
+                                e.getMessage().substring(0, 128));
             }
 
             apexEventJsonStringIn = JsonEventGenerator.jsonEventNoNamespace();
             event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn).get(0);
-            assertEquals("org.onap.policy.apex.sample.events", event.getNameSpace());
+            assertEquals("org.onap.policy.apex.events", event.getNameSpace());
 
             try {
                 apexEventJsonStringIn = JsonEventGenerator.jsonEventBadNamespace();
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage().startsWith("Failed to unmarshal JSON event: field \"nameSpace\" "
-                                + "with value \"hello.&&&&\" is invalid"));
+                assertEquals("Failed to unmarshal JSON event: "
+                                + "field \"nameSpace\" with value \"hello.&&&&\" is invalid",
+                                e.getMessage().substring(0, 84));
             }
 
             try {
@@ -216,37 +217,36 @@ public class TestJsonEventHandler {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage()
-                                .startsWith("Failed to unmarshal JSON event: namespace \"pie.in.the.sky\" "
-                                                + "on event \"Event0000\" does not"
-                                                + " match namespace \"org.onap.policy.apex.sample.events\" "
-                                                + "for that event in the Apex model"));
+                assertEquals("Failed to unmarshal JSON event: namespace \"pie.in.the.sky\" "
+                                + "on event \"BasicEvent\" does not"
+                                + " match namespace \"org.onap.policy.apex.events\" "
+                                + "for that event in the Apex model", e.getMessage().substring(0, 168));
             }
 
             apexEventJsonStringIn = JsonEventGenerator.jsonEventNoSource();
             event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn).get(0);
-            assertEquals("Outside", event.getSource());
+            assertEquals("source", event.getSource());
 
             try {
                 apexEventJsonStringIn = JsonEventGenerator.jsonEventBadSource();
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage().startsWith(
-                                "Failed to unmarshal JSON event: field \"source\" with value \"%!@**@!\" is invalid"));
+                assertEquals("Failed to unmarshal JSON event: field \"source\" with value \"%!@**@!\" is invalid",
+                                e.getMessage().substring(0, 78));
             }
 
             apexEventJsonStringIn = JsonEventGenerator.jsonEventNoTarget();
             event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn).get(0);
-            assertEquals("Match", event.getTarget());
+            assertEquals("target", event.getTarget());
 
             try {
                 apexEventJsonStringIn = JsonEventGenerator.jsonEventBadTarget();
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage().startsWith("Failed to unmarshal JSON event: field \"target\" "
-                                + "with value \"KNIO(*S)A(S)D\" is invalid"));
+                assertEquals("Failed to unmarshal JSON event: field \"target\" with value \"KNIO(*S)A(S)D\" is invalid",
+                                e.getMessage().substring(0, 84));
             }
 
             try {
@@ -254,30 +254,24 @@ public class TestJsonEventHandler {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertTrue(e.getMessage().startsWith("Failed to unmarshal JSON event: error parsing Event0000:0.0.1 "
-                                + "event from Json. Field \"TestMatchCase\" is missing, but is mandatory."));
+                assertEquals("Failed to unmarshal JSON event: error parsing BasicEvent:0.0.1 "
+                                + "event from Json. Field \"intPar\" is missing, but is mandatory.",
+                                e.getMessage().substring(0, 124));
             }
 
             apexEventJsonStringIn = JsonEventGenerator.jsonEventNullFields();
             event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn).get(0);
             assertEquals(null, event.get("TestSlogan"));
-            assertEquals((byte) -1, event.get("TestMatchCase"));
-            assertEquals((long) -1, event.get("TestTimestamp"));
-            assertEquals(-1.0, event.get("TestTemperature"));
+            assertEquals(-1, event.get("intPar"));
 
             // Set the missing fields as optional in the model
-            final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get("Event0000");
-            eventDefinition.getParameterMap().get("TestSlogan").setOptional(true);
-            eventDefinition.getParameterMap().get("TestMatchCase").setOptional(true);
-            eventDefinition.getParameterMap().get("TestTimestamp").setOptional(true);
-            eventDefinition.getParameterMap().get("TestTemperature").setOptional(true);
+            final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get("BasicEvent");
+            eventDefinition.getParameterMap().get("intPar").setOptional(true);
 
             apexEventJsonStringIn = JsonEventGenerator.jsonEventMissingFields();
             event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn).get(0);
             assertEquals(null, event.get("TestSlogan"));
-            assertEquals(null, event.get("TestMatchCase"));
-            assertEquals(null, event.get("TestTimestamp"));
-            assertEquals(null, event.get("TestTemperature"));
+            assertEquals(null, event.get("intPar"));
         } catch (final Exception e) {
             e.printStackTrace();
             throw new ApexException("Exception reading Apex event JSON file", e);
@@ -296,62 +290,23 @@ public class TestJsonEventHandler {
             jsonEventConverter.init(new JsonEventProtocolParameters());
             assertNotNull(jsonEventConverter);
 
-            final Date event0000StartTime = new Date();
-            final Map<String, Object> event0000DataMap = new HashMap<String, Object>();
-            event0000DataMap.put("TestSlogan", "This is a test slogan");
-            event0000DataMap.put("TestMatchCase", 12345);
-            event0000DataMap.put("TestTimestamp", event0000StartTime.getTime());
-            event0000DataMap.put("TestTemperature", 34.5445667);
+            final Map<String, Object> basicEventMap = new HashMap<String, Object>();
+            basicEventMap.put("intPar", 12345);
 
-            final ApexEvent apexEvent0000 = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.sample.events",
-                            "test", "apex");
-            apexEvent0000.putAll(event0000DataMap);
+            final ApexEvent basicEvent = new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test",
+                            "apex");
+            basicEvent.putAll(basicEventMap);
 
-            final String apexEvent0000JsonString = (String) jsonEventConverter.fromApexEvent(apexEvent0000);
+            final String apexEvent0000JsonString = (String) jsonEventConverter.fromApexEvent(basicEvent);
 
             logger.debug(apexEvent0000JsonString);
 
-            assertTrue(apexEvent0000JsonString.contains("\"name\": \"Event0000\""));
+            assertTrue(apexEvent0000JsonString.contains("\"name\": \"BasicEvent\""));
             assertTrue(apexEvent0000JsonString.contains("\"version\": \"0.0.1\""));
-            assertTrue(apexEvent0000JsonString.contains("\"nameSpace\": \"org.onap.policy.apex.sample.events\""));
+            assertTrue(apexEvent0000JsonString.contains("\"nameSpace\": \"org.onap.policy.apex.events\""));
             assertTrue(apexEvent0000JsonString.contains("\"source\": \"test\""));
             assertTrue(apexEvent0000JsonString.contains("\"target\": \"apex\""));
-            assertTrue(apexEvent0000JsonString.contains("\"TestSlogan\": \"This is a test slogan\""));
-            assertTrue(apexEvent0000JsonString.contains("\"TestMatchCase\": 12345"));
-            assertTrue(apexEvent0000JsonString.contains("\"TestTimestamp\": " + event0000StartTime.getTime()));
-            assertTrue(apexEvent0000JsonString.contains("\"TestTemperature\": 34.5445667"));
-
-            final Date event0004StartTime = new Date(1434363272000L);
-            final Map<String, Object> event0004DataMap = new HashMap<String, Object>();
-            event0004DataMap.put("TestSlogan", "Test slogan for External Event");
-            event0004DataMap.put("TestMatchCase", new Integer(2));
-            event0004DataMap.put("TestTimestamp", new Long(event0004StartTime.getTime()));
-            event0004DataMap.put("TestTemperature", new Double(1064.43));
-            event0004DataMap.put("TestMatchCaseSelected", new Integer(2));
-            event0004DataMap.put("TestMatchStateTime", new Long(1434370506078L));
-            event0004DataMap.put("TestEstablishCaseSelected", new Integer(0));
-            event0004DataMap.put("TestEstablishStateTime", new Long(1434370506085L));
-            event0004DataMap.put("TestDecideCaseSelected", new Integer(3));
-            event0004DataMap.put("TestDecideStateTime", new Long(1434370506092L));
-            event0004DataMap.put("TestActCaseSelected", new Integer(2));
-            event0004DataMap.put("TestActStateTime", new Long(1434370506095L));
-
-            final ApexEvent apexEvent0004 = new ApexEvent("Event0004", "0.0.1", "org.onap.policy.apex.sample.events",
-                            "test", "apex");
-            apexEvent0004.putAll(event0004DataMap);
-
-            final String apexEvent0004JsonString = (String) jsonEventConverter.fromApexEvent(apexEvent0004);
-
-            logger.debug(apexEvent0004JsonString);
-
-            assertTrue(apexEvent0004JsonString.contains("\"name\": \"Event0004\""));
-            assertTrue(apexEvent0004JsonString.contains("\"version\": \"0.0.1\""));
-            assertTrue(apexEvent0004JsonString.contains("\"nameSpace\": \"org.onap.policy.apex.sample.events\""));
-            assertTrue(apexEvent0004JsonString.contains("\"source\": \"test\""));
-            assertTrue(apexEvent0004JsonString.contains("\"target\": \"apex\""));
-            assertTrue(apexEvent0004JsonString.contains("\"TestSlogan\": \"Test slogan for External Event\""));
-            assertTrue(apexEvent0004JsonString.contains("1434370506078"));
-            assertTrue(apexEvent0004JsonString.contains("1064.43"));
+            assertTrue(apexEvent0000JsonString.contains("\"intPar\": 12345"));
         } catch (final Exception e) {
             e.printStackTrace();
             throw new ApexException("Exception reading Apex event JSON file", e);

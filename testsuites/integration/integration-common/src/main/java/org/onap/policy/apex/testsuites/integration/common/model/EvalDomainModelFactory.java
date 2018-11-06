@@ -65,7 +65,6 @@ public class EvalDomainModelFactory {
     private static final String EVENT = "Event";
     private static final String TASK_SELECTION_LOGIC = "TaskSelectionLogic";
     private static final String JYTHON = "JYTHON";
-    private static final String JRUBY = "JRUBY";
     private static final String MVEL = "MVEL";
     private static final String ORIENT = "Orient";
     private static final String STATE_NAME = "<STATE_NAME>";
@@ -221,7 +220,7 @@ public class EvalDomainModelFactory {
         obTask.duplicateInputFields(event0000.getParameterMap());
         obTask.duplicateOutputFields(event0001.getParameterMap());
         final AxTaskLogic obAxLogic = new AxTaskLogic(obTask.getKey(), TASK_LOGIC,
-                        (justOneLang == null ? JRUBY : justOneLang), logicReader);
+                        (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         obAxLogic.setLogic(obAxLogic.getLogic().replaceAll(STATE_NAME, OBSERVE)
                         .replaceAll(TASK_NAME, obTask.getKey().getName()).replaceAll(STATE_NUMBER, "1"));
         obTask.setTaskLogic(obAxLogic);
@@ -361,7 +360,6 @@ public class EvalDomainModelFactory {
             axLogicExecutorTypeList.add(JYTHON);
             axLogicExecutorTypeList.add(JYTHON);
             axLogicExecutorTypeList.add(MVEL);
-            axLogicExecutorTypeList.add(JRUBY);
         }
         return axLogicExecutorTypeList;
     }

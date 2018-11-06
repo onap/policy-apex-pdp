@@ -20,8 +20,6 @@
 
 package org.onap.policy.apex.testsuites.integration.common.model.java;
 
-import java.util.Date;
-
 import org.onap.policy.apex.core.engine.executor.context.TaskExecutionContext;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
@@ -46,8 +44,7 @@ public class EvalTaskLogic {
         
         executor.outFields.putAll(executor.inFields);
 
-        final Date timeNow = new Date();
-        executor.outFields.put("State3Timestamp", timeNow.getTime());
+        executor.outFields.put("State3Timestamp", java.lang.System.nanoTime());
         
         String outFieldString = executor.outFields.toString();
         executor.logger.debug(outFieldString);

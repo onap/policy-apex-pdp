@@ -5,11 +5,11 @@
         "id": 102,
         "instanceCount": 1,
         "deploymentPort": 12549,
-        "policyModelFileName": "src/test/resources/policymodels/SamplePolicyModelMvel.json",
+        "policyModelFileName": "target/examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.json",
         "engineParameters": {
             "executorParameters": {
-                "MVEL": {
-                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
                 }
             }
         }

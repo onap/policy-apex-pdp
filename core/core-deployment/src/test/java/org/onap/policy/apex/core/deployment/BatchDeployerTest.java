@@ -98,14 +98,14 @@ public class BatchDeployerTest {
         }
 
         try {
-            deployer.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
+            deployer.deployModel("src/test/resources/models/SmallModel.json", false, false);
         } catch (ApexException ade) {
-            assertEquals("could not deploy apex model from src/test/resources/models/SamplePolicyModelJAVASCRIPT.json",
+            assertEquals("could not deploy apex model from src/test/resources/models/SmallModel.json",
                             ade.getMessage());
         }
 
         try {
-            deployer.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
+            deployer.deployModel("src/test/resources/models/SmallModel.json", false, false);
         } catch (ApexException ade) {
             fail("test should not throw an exception");
         }
@@ -137,7 +137,7 @@ public class BatchDeployerTest {
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
         final AxPolicyModel apexPolicyModel = modelReader.read(
-                        new FileInputStream(new File("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json")));
+                        new FileInputStream(new File("src/test/resources/models/SmallModel.json")));
 
         try {
             deployer.deployModel(apexPolicyModel, false, false);
@@ -188,7 +188,7 @@ public class BatchDeployerTest {
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
         final AxPolicyModel apexPolicyModel = modelReader.read(
-                        new FileInputStream(new File("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json")));
+                        new FileInputStream(new File("src/test/resources/models/SmallModel.json")));
 
         try {
             deployer.deployModel(apexPolicyModel, false, false);

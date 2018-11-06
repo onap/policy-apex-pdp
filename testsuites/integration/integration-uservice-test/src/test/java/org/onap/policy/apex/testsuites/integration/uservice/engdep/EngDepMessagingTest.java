@@ -42,7 +42,7 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
+import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.testsuites.integration.common.model.SampleDomainModelFactory;
@@ -66,6 +66,14 @@ public class EngDepMessagingTest {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
     private EngineServiceParameters engineServiceParameters;
+
+    /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
 
     /**
      * Before test.
@@ -97,8 +105,8 @@ public class EngDepMessagingTest {
         engineServiceParameters.setDeploymentPort(58820);
         engineServiceParameters.setInstanceCount(3);
         engineServiceParameters.setId(100);
-        engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("MVEL",
-                        new MvelExecutorParameters());
+        engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("JAVASCRIPT",
+                        new JavascriptExecutorParameters());
 
         ParameterService.register(engineServiceParameters, true);
         ParameterService.register(engineServiceParameters.getEngineParameters(), true);
@@ -146,7 +154,7 @@ public class EngDepMessagingTest {
             fail("Test server failed to start after " + MAX_START_WAIT + " ms");
         }
 
-        final AxPolicyModel apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
+        final AxPolicyModel apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
 
         final BatchDeployer deployer1 = new BatchDeployer("localhost", 58820, System.out);
         assertNotNull(deployer1);

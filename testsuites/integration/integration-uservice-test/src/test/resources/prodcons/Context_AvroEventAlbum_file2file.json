@@ -27,7 +27,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "src/test/resources/events/Context_AvroEventAlbum_EventOut.json"
+                    "fileName": "target/Context_AvroEventAlbum_EventOut.json"
                 }
             },
             "eventProtocolParameters": {

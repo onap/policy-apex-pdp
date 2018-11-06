@@ -102,37 +102,37 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliAvro() throws IOException {
-        testModel2CliModel("AvroModel");
+        testModel2CliModel("target/examples/models/pcvs/vpnsla", "PCVS-VpnSla");
     }
 
     @Test
     public void testModel2CliAadm() throws IOException {
-        testModel2CliModel("AADMPolicyModel");
+        testModel2CliModel("target/examples/models/AADM", "AADMPolicyModel");
     }
 
     @Test
     public void testModel2CliAnomaly() {
-        testModel2CliModel("AnomalyDetectionPolicyModel");
+        testModel2CliModel("target/examples/models/Adaptive", "AnomalyDetectionPolicyModel");
     }
 
     @Test
     public void testModel2CliAutoLearn() {
-        testModel2CliModel("AutoLearnPolicyModel");
+        testModel2CliModel("target/examples/models/Adaptive", "AutoLearnPolicyModel");
     }
 
     @Test
     public void testModel2CliJms() {
-        testModel2CliModel("JMSSamplePolicyModel");
+        testModel2CliModel("target/examples/models/JMS", "JMSTestModel");
     }
 
     @Test
     public void testModel2CliMfp() {
-        testModel2CliModel("MyFirstPolicyModel");
+        testModel2CliModel("target/examples/models/MyFirstPolicy/2", "MyFirstPolicyModel");
     }
 
     @Test
     public void testModel2CliSample() {
-        testModel2CliModel("SamplePolicyModelJAVASCRIPT");
+        testModel2CliModel("target/examples/models/SampleDomain", "SamplePolicyModelJAVASCRIPT");
     }
 
     /**
@@ -158,13 +158,13 @@ public class Model2CliTest {
      * 
      * @param modelName the name of the model file
      */
-    private void testModel2CliModel(String modelName) {
+    private void testModel2CliModel(final String modelPath, final String modelName) {
         try {
             File tempFile = File.createTempFile(modelName, ".apex");
             tempFile.deleteOnExit();
 
             final String[] cliArgs =
-                { "-m", "src/test/resources/models/" + modelName + ".json", "-o", tempFile.getCanonicalPath(), "-ow" };
+                { "-m", modelPath + "/" + modelName + ".json", "-o", tempFile.getCanonicalPath(), "-ow" };
             runModel2Cli(cliArgs);
 
             assertTrue(tempFile.isFile());
