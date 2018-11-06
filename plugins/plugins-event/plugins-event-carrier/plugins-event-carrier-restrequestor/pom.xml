@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-mvel</artifactId>
+            <artifactId>plugins-executor-javascript</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

@@ -25,8 +25,7 @@ executor.logger.debug("inFields: " + executor.inFields.toString());
 
 executor.outFields.putAll(executor.inFields);
 
-timeNow = java.util.Date.new();
-executor.outFields.put("State<STATE_NUMBER>Timestamp", timeNow.getTime());
+executor.outFields.put("State<STATE_NUMBER>Timestamp",  java.lang.System.nanoTime());
 executor.logger.debug("outFields: " + executor.outFields.toString());
 
 return true;

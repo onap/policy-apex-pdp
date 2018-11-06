@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -47,6 +48,14 @@ public class EventAlbumContextTest {
 
     @Rule
     public TemporaryFolder tempTestDir = new TemporaryFolder();
+    
+    /**
+     * Clear relative file root environment variable.
+     */
+    @Before
+    public void clearRelativeFileRoot() {
+        System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+    }
 
     @Test
     public void testJavaEventAlbumContextTest() throws IOException, ApexException {
@@ -57,7 +66,7 @@ public class EventAlbumContextTest {
         eventContextString = ResourceUtils.getResourceAsString("examples/scripts/TestPolicyJavaEventContext.apex");
 
         configFile = "src/test/resources/prodcons/Context_JavaEventAlbum_file2file.json";
-        outputFile = "src/test/resources/events/Context_JavaEventAlbum_EventOut.json";
+        outputFile = "target/Context_JavaEventAlbum_EventOut.json";
         compareFile = "src/test/resources/events/Context_JavaEventAlbum_EventOutCompare.json";
         
         testEventAlbumContextTest();
@@ -72,7 +81,7 @@ public class EventAlbumContextTest {
         eventContextString = ResourceUtils.getResourceAsString("examples/scripts/TestPolicyAvroEventContext.apex");
 
         configFile = "src/test/resources/prodcons/Context_AvroEventAlbum_file2file.json";
-        outputFile = "src/test/resources/events/Context_AvroEventAlbum_EventOut.json";
+        outputFile = "target/Context_AvroEventAlbum_EventOut.json";
         compareFile = "src/test/resources/events/Context_AvroEventAlbum_EventOutCompare.json";
         
         testEventAlbumContextTest();
