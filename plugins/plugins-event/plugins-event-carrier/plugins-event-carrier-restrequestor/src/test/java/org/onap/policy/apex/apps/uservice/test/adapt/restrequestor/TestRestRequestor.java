@@ -113,15 +113,20 @@ public class TestRestRequestor {
             { "src/test/resources/prodcons/File2RESTRequest2FileGet.json" };
         final ApexMain apexMain = new ApexMain(args);
 
+        Response response = null;
+
         // Wait for the required amount of events to be received or for 10 seconds
         Double getsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
             ThreadUtilities.sleep(100);
 
-            final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
+            response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
 
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
+                break;
+            }
+
             final String responseString = response.readEntity(String.class);
 
             @SuppressWarnings("unchecked")
@@ -135,6 +140,8 @@ public class TestRestRequestor {
 
         apexMain.shutdown();
         client.close();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 
         assertEquals(Double.valueOf(50.0), getsSoFar);
     }
@@ -156,13 +163,18 @@ public class TestRestRequestor {
 
         // Wait for the required amount of events to be received or for 10 seconds
         Double putsSoFar = 0.0;
+
+        Response response = null;
         for (int i = 0; i < 40; i++) {
             ThreadUtilities.sleep(100);
 
-            final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
+            response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
 
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
+                break;
+            }
+
             final String responseString = response.readEntity(String.class);
 
             @SuppressWarnings("unchecked")
@@ -177,6 +189,7 @@ public class TestRestRequestor {
         apexMain.shutdown();
         client.close();
 
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertEquals(Double.valueOf(50.0), putsSoFar);
     }
 

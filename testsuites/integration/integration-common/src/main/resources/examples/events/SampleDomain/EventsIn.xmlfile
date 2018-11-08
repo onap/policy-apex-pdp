@@ -20,11 +20,11 @@
 -->
 
 <!-- This file contains multiple XML documents containing events, it is used to represent a stream of events as contiguous XML documents-->
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
+	<!-- This is the first event-->
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -48,7 +48,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -72,7 +72,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -96,7 +96,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -120,7 +120,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -144,7 +144,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -168,7 +168,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -192,7 +192,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -216,7 +216,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -240,7 +240,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -264,7 +264,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -288,7 +288,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -312,7 +312,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -336,7 +336,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -360,7 +360,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -384,7 +384,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -408,7 +408,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -432,7 +432,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -456,7 +456,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -480,7 +480,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -504,7 +504,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -528,7 +528,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -552,7 +552,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -576,7 +576,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -600,7 +600,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -624,7 +624,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -648,7 +648,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -672,7 +672,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -696,7 +696,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -720,7 +720,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -744,7 +744,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -768,7 +768,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -792,7 +792,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -816,7 +816,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -840,7 +840,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -864,7 +864,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -888,7 +888,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -912,7 +912,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -936,7 +936,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -960,7 +960,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -984,7 +984,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1008,7 +1008,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1032,7 +1032,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1056,7 +1056,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1080,7 +1080,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1104,7 +1104,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1128,7 +1128,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1152,7 +1152,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1176,7 +1176,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1200,7 +1200,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1224,7 +1224,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1248,7 +1248,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1272,7 +1272,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1296,7 +1296,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1320,7 +1320,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1344,7 +1344,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1368,7 +1368,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1392,7 +1392,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1416,7 +1416,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1440,7 +1440,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1464,7 +1464,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1488,7 +1488,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1512,7 +1512,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1536,7 +1536,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1560,7 +1560,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1584,7 +1584,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1608,7 +1608,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1632,7 +1632,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1656,7 +1656,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1680,7 +1680,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1704,7 +1704,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1728,7 +1728,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1752,7 +1752,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1776,7 +1776,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1800,7 +1800,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1824,7 +1824,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1848,7 +1848,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1872,7 +1872,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1896,7 +1896,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1920,7 +1920,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1944,7 +1944,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1968,7 +1968,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -1992,7 +1992,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2016,7 +2016,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2040,7 +2040,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2064,7 +2064,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2088,7 +2088,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2112,7 +2112,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2136,7 +2136,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2160,7 +2160,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2184,7 +2184,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2208,7 +2208,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2232,7 +2232,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2256,7 +2256,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2280,7 +2280,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0100</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2304,7 +2304,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2328,7 +2328,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2352,7 +2352,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2376,7 +2376,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>
@@ -2400,7 +2400,7 @@
 <xmlApexEvent xmlns="http://www.onap.org/policy/apex-pdp/apexevent">
   <name>Event0000</name>
   <version>0.0.1</version>
-  <nameSpace>org.onap.policy.apex.sample.events</nameSpace>
+  <nameSpace>org.onap.policy.apex.domains.sample.events</nameSpace>
   <source>test</source>
   <target>apex</target>
   <data>

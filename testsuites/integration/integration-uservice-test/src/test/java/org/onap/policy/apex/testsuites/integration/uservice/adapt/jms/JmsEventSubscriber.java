@@ -34,6 +34,7 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
+import org.onap.policy.apex.testsuites.integration.common.testclasses.PingTestClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,6 @@ public class JmsEventSubscriber implements Runnable {
     private final Thread subscriberThread;
     private final Connection connection;
 
-
     /**
      * Instantiates a new jms event subscriber.
      *
@@ -62,7 +62,7 @@ public class JmsEventSubscriber implements Runnable {
      * @throws JMSException the JMS exception
      */
     public JmsEventSubscriber(final String topic, final ConnectionFactory connectionFactory, final String username,
-            final String password) throws JMSException {
+                    final String password) throws JMSException {
         this.topic = topic;
         connection = connectionFactory.createConnection(username, password);
         connection.start();
@@ -71,14 +71,16 @@ public class JmsEventSubscriber implements Runnable {
         subscriberThread.start();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Runnable#run()
      */
     @Override
     public void run() {
         final Topic jmsTopic = new ActiveMQTopic(topic);
         try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                final MessageConsumer jmsConsumer = jmsSession.createConsumer(jmsTopic);) {
+                        final MessageConsumer jmsConsumer = jmsSession.createConsumer(jmsTopic)) {
 
             while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
                 try {
@@ -88,13 +90,13 @@ public class JmsEventSubscriber implements Runnable {
                     }
 
                     if (message instanceof ObjectMessage) {
-                        final TestPing testPing = (TestPing) ((ObjectMessage) message).getObject();
+                        final PingTestClass testPing = (PingTestClass) ((ObjectMessage) message).getObject();
                         testPing.verify();
                     } else if (message instanceof TextMessage) {
                         ((TextMessage) message).getText();
                     } else {
                         throw new ApexEventException("unknowm message \"" + message + "\" of type \""
-                                + message.getClass().getCanonicalName() + "\" received");
+                                        + message.getClass().getCanonicalName() + "\" received");
                     }
                     eventsReceivedCount++;
                 } catch (final Exception e) {
