@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-persistence.plugins-persistence-jpa</groupId>
         <artifactId>plugins-persistence-jpa</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-persistence-jpa-hibernate</artifactId>
