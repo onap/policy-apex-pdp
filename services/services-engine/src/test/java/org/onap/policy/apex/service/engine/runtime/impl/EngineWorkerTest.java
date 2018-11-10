@@ -209,12 +209,12 @@ public class EngineWorkerTest {
         assertNull(worker.getApexModelKey());
 
         String runtimeInfo = worker.getRuntimeInfo(worker.getEngineKeys().iterator().next());
-        assertEquals("{\n  \"TimeStamp\":", runtimeInfo.substring(0, 16));
+        assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
 
         assertEquals(AxEngineState.STOPPED, worker.getState());
 
         String status = worker.getStatus(worker.getEngineKeys().iterator().next());
-        assertEquals("{\n   \"apexEngineModel\" :", status.substring(0, 24));
+        assertEquals("{\"apexEngineModel\":{\"key\":", status.replaceAll("\\s+", "").substring(0, 26));
 
         assertFalse(worker.isStarted());
         assertFalse(worker.isStarted(null));
@@ -365,7 +365,7 @@ public class EngineWorkerTest {
         }
 
         String runtimeInfo = worker.getRuntimeInfo(worker.getEngineKeys().iterator().next());
-        assertEquals("{\n  \"TimeStamp\":", runtimeInfo.substring(0, 16));
+        assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
 
         assertEquals(AxEngineState.STOPPED, worker.getState());
         worker.startAll();
@@ -373,7 +373,7 @@ public class EngineWorkerTest {
         assertEquals(AxEngineState.READY, worker.getState());
 
         String status = worker.getStatus(worker.getEngineKeys().iterator().next());
-        assertEquals("{\n   \"apexEngineModel\" :", status.substring(0, 24));
+        assertEquals("{\"apexEngineModel\":{\"key\":", status.replaceAll("\\s+", "").substring(0, 26));
 
         assertTrue(worker.isStarted());
         assertTrue(worker.isStarted(worker.getEngineKeys().iterator().next()));
