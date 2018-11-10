@@ -122,8 +122,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Load the model from a JSON string for this session.
      *
-     * @param jsonString the JSON string to be parsed. The returned value(s) will be similar to {@link AxPolicyModel},
-     *        with merged {@linkplain AxKeyInfo} for the root object.
+     * @param jsonString the JSON string to be parsed. The returned value(s) will be similar to {@code AxPolicyModel},
+     *        with merged {@code AxKeyInfo} for the root object.
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -162,7 +162,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Creates the new model model for this session.
      *
-     * @param jsonString the JSON string to be parsed containing the new model. See {@linkplain BeanModel}
+     * @param jsonString the JSON string to be parsed containing the new model. See {@code BeanModel}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -175,7 +175,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Update the model for this session.
      *
-     * @param jsonString the JSON string to be parsed containing the updated model. See {@linkplain BeanModel}
+     * @param jsonString the JSON string to be parsed containing the updated model. See {@code BeanModel}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -187,7 +187,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * Gets the key for the model for this session. If successful the model key will be available in the first message
-     * in the result. See {@linkplain AxKey}
+     * in the result. See {@code AxKey}
      *
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
@@ -200,7 +200,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * Retrieve the model for this session. If successful the model will be available in the first message in the
-     * result. The returned value will be similar to a {@link AxPolicyModel}, with merged {@linkplain AxKeyInfo} for the
+     * result. The returned value will be similar to a {@code AxPolicyModel}, with merged {@code AxKeyInfo} for the
      * root object.
      *
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
@@ -215,7 +215,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Download the model for this session as a String.
      *
-     * @return the model represented as a JSON string. See {@linkplain AxPolicyModel}
+     * @return the model represented as a JSON string. See {@code AxPolicyModel}
      */
     @GET
     @Path("Model/Download")
@@ -242,7 +242,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List key information with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. See {@linkplain AxKeyInfo}
+     * result messages. See {@code AxKeyInfo}
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -259,7 +259,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Creates a context schema with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextSchema}
+     * @param jsonString the JSON string to be parsed. See {@code BeanContextSchema}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -272,7 +272,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Update a context schema with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextSchema}
+     * @param jsonString the JSON string to be parsed. See {@code BeanContextSchema}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -284,8 +284,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List context schemas with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. The returned value(s) will be similar to {@link AxContextSchema}, with merged
-     * {@linkplain AxKeyInfo} for the root object.
+     * result messages. The returned value(s) will be similar to {@code AxContextSchema}, with merged
+     * {@code AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -333,7 +333,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Creates a context album with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextAlbum}
+     * @param jsonString the JSON string to be parsed. See {@code BeanContextAlbum}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -346,7 +346,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Update a context album with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanContextAlbum}
+     * @param jsonString the JSON string to be parsed. See {@code BeanContextAlbum}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -358,8 +358,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List context albums with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. The returned value(s) will be similar to {@link AxContextAlbum}, with merged
-     * {@linkplain AxKeyInfo} for the root object.
+     * result messages. The returned value(s) will be similar to {@code AxContextAlbum}, with merged
+     * {@code AxKeyInfo} for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -407,7 +407,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Creates an event with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanEvent}
+     * @param jsonString the JSON string to be parsed. See {@code BeanEvent}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -420,7 +420,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Update an event with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanEvent}
+     * @param jsonString the JSON string to be parsed. See {@code BeanEvent}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -432,7 +432,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List events with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@link AxEvent}, with merged {@linkplain AxKeyInfo} for the
+     * messages. The returned value(s) will be similar to {@code AxEvent}, with merged {@code AxKeyInfo} for the
      * root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
@@ -477,7 +477,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Creates a task with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
+     * @param jsonString the JSON string to be parsed. See {@code BeanTask}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -490,7 +490,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Update a task with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
+     * @param jsonString the JSON string to be parsed. See {@code BeanTask}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -502,7 +502,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List tasks with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@link AxTask}, with merged {@linkplain AxKeyInfo} for the
+     * messages. The returned value(s) will be similar to {@code AxTask}, with merged {@code AxKeyInfo} for the
      * root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
@@ -548,7 +548,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     /**
      * Creates a policy with the information in the JSON string passed.
      *
-     * @param jsonString the JSON string to be parsed See {@linkplain BeanPolicy}
+     * @param jsonString the JSON string to be parsed See {@code BeanPolicy}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -562,7 +562,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
      * Update a policy with the information in the JSON string passed.
      *
      * @param firstStatePeriodic indicates if periodic event should be created and added to model
-     * @param jsonString the JSON string to be parsed. See {@linkplain BeanPolicy}
+     * @param jsonString the JSON string to be parsed. See {@code BeanPolicy}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
      */
@@ -580,7 +580,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List policies with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@link AxPolicy}, with merged {@linkplain AxKey Info} for the
+     * messages. The returned value(s) will be similar to {@code AxPolicy}, with merged {@code AxKeyInfo} for the
      * root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
