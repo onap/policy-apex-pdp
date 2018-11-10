@@ -199,6 +199,7 @@ public class ApexServicesRestMain {
             }
         }
     }
+    
     /**
      * Main method, main entry point for command.
      *

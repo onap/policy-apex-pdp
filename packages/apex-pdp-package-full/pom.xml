@@ -744,7 +744,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>org.apache.maven.plugins</groupId>
                                                 <artifactId>maven-dependency-plugin</artifactId>
-                                                <versionRange>${maven-dependency-plugin.version}</versionRange>
+                                                <versionRange>[2.0,)</versionRange>
                                                 <goals>
                                                     <goal>unpack</goal>
                                                     <goal>copy</goal>
