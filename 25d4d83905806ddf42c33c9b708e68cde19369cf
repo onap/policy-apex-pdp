@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_faba59e0",
+        "filename": "client/client-deployment/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-12T07:47:11Z",
+      "side": 1,
+      "message": "May be we can add this in the main pom.xml of apex-pdp where other plugins are handled to avoid duplicates and for broader availability.",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 18
+      },
+      "revId": "25d4d83905806ddf42c33c9b708e68cde19369cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_bab4d1f2",
+        "filename": "client/client-editor/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-12T07:47:11Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 221,
+        "startChar": 8,
+        "endLine": 258,
+        "endChar": 18
+      },
+      "revId": "25d4d83905806ddf42c33c9b708e68cde19369cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_dab995ea",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-12T07:47:11Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 245,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 18
+      },
+      "revId": "25d4d83905806ddf42c33c9b708e68cde19369cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9acb0d72",
+        "filename": "client/client-monitoring/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-12T07:47:11Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 231,
+        "endChar": 18
+      },
+      "revId": "25d4d83905806ddf42c33c9b708e68cde19369cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3ac8e173",
+        "filename": "testsuites/integration/integration-uservice-test/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-12T07:47:11Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 18
+      },
+      "revId": "25d4d83905806ddf42c33c9b708e68cde19369cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_5ac5a559",
+        "filename": "tools/model-generator/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-12T07:47:11Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 18
+      },
+      "revId": "25d4d83905806ddf42c33c9b708e68cde19369cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
