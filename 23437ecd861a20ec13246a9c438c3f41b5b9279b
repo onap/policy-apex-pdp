@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_80dba0ec",
+        "filename": "examples/examples-onap-vcpe/pom.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-12T19:20:25Z",
+      "side": 1,
+      "message": "Maybe now go to 1.4.0-SNAPSHOT",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "23437ecd861a20ec13246a9c438c3f41b5b9279b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
