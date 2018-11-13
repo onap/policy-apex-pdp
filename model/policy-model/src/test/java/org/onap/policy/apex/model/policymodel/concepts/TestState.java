@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -37,16 +37,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.policymodel.concepts.AxState;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 
 /**
  * Test policy states.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestState {
@@ -65,8 +59,11 @@ public class TestState {
 
         assertNotNull(new AxState());
         assertNotNull(new AxState(new AxReferenceKey()));
-        assertNotNull(new AxState(new AxReferenceKey(), new AxArtifactKey(), soEmptyMap, ctxtEmptySet,
-                        new AxTaskSelectionLogic(), sflEmptyMap, new AxArtifactKey(), trEmptyMap));
+        assertNotNull(new AxState(
+                new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(new AxArtifactKey())
+                        .stateOutputs(soEmptyMap).contextAlbumReferenceSet(ctxtEmptySet)
+                        .taskSelectionLogic(new AxTaskSelectionLogic()).stateFinalizerLogicMap(sflEmptyMap)
+                        .defaultTask(new AxArtifactKey()).taskReferenceMap(trEmptyMap)));
 
         final AxState state = new AxState();
 
@@ -92,27 +89,27 @@ public class TestState {
         assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKeys().get(0).getId());
 
         final AxStateOutput so0 = new AxStateOutput(new AxReferenceKey(stateKey, "SO0"), triggerKey,
-                        new AxReferenceKey());
+                new AxReferenceKey());
         final AxStateOutput soU = new AxStateOutput(new AxReferenceKey(stateKey, "SOU"), triggerKey, stateKeyNext);
         final AxStateOutput soSame = new AxStateOutput(new AxReferenceKey(stateKey, "SOU"), triggerKey, stateKey);
         final AxArtifactKey cr0 = new AxArtifactKey("ContextReference", "0.0.1");
         final AxStateFinalizerLogic sfl = new AxStateFinalizerLogic(stateKey, "SFLogicName", "LogicFlavour", "Logic");
         final AxStateFinalizerLogic sflU = new AxStateFinalizerLogic(stateKey, "UnusedSFLogicName", "LogicFlavour",
-                        "Logic");
+                "Logic");
         final AxStateTaskReference str0 = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR0"),
-                        AxStateTaskOutputType.DIRECT, so0.getKey());
+                AxStateTaskOutputType.DIRECT, so0.getKey());
         final AxStateTaskReference str1 = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR1"),
-                        AxStateTaskOutputType.DIRECT, so0.getKey());
+                AxStateTaskOutputType.DIRECT, so0.getKey());
         final AxStateTaskReference str2 = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR2"),
-                        AxStateTaskOutputType.LOGIC, sfl.getKey());
+                AxStateTaskOutputType.LOGIC, sfl.getKey());
 
         final AxStateTaskReference strBadState = new AxStateTaskReference(new AxReferenceKey(stateKeyBad, "STR2"),
-                        AxStateTaskOutputType.LOGIC, sfl.getKey());
+                AxStateTaskOutputType.LOGIC, sfl.getKey());
         final AxStateTaskReference strBadStateOutput = new AxStateTaskReference(new AxReferenceKey(stateKey, "STR2"),
-                        AxStateTaskOutputType.UNDEFINED, sfl.getKey());
+                AxStateTaskOutputType.UNDEFINED, sfl.getKey());
         final AxStateTaskReference strBadStateFinalizerLogic = new AxStateTaskReference(
-                        new AxReferenceKey(stateKeyBad, "STR2"), AxStateTaskOutputType.LOGIC,
-                        new AxReferenceKey(stateKey, "SomeSFL"));
+                new AxReferenceKey(stateKeyBad, "STR2"), AxStateTaskOutputType.LOGIC,
+                new AxReferenceKey(stateKey, "SomeSFL"));
 
         soMap.put(so0.getKey().getLocalName(), so0);
         ctxtSet.add(cr0);
@@ -435,45 +432,101 @@ public class TestState {
         assertFalse(state.equals(null));
         assertFalse(state.equals("Hello"));
         assertFalse(state.equals(
-                        new AxState(new AxReferenceKey(), triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
+                        .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertFalse(state.equals(
-                        new AxState(stateKey, new AxArtifactKey(), soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(new AxArtifactKey())
+                        .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertFalse(state.equals(
-                        new AxState(stateKey, triggerKey, soEmptyMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs
+                        (soEmptyMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertFalse(state.equals(
-                        new AxState(stateKey, triggerKey, soMap, ctxtEmptySet, tsl, sflMap, defTaskKey, trMap)));
-        assertFalse(state.equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, new AxTaskSelectionLogic(), sflMap,
-                        defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs
+                        (soMap).contextAlbumReferenceSet(ctxtEmptySet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
+        assertFalse(state.equals(new AxState(
+                new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                        .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(new AxTaskSelectionLogic())
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertFalse(state.equals(
-                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflEmptyMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs
+                        (soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflEmptyMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertFalse(state.equals(
-                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, new AxArtifactKey(), trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs
+                        (soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(new AxArtifactKey())
+                        .taskReferenceMap(trMap))));
         assertFalse(state.equals(
-                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trEmptyMap)));
-        assertTrue(state.equals(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs
+                        (soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trEmptyMap)
+                        )));
+        assertTrue(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                )));
 
         assertEquals(0, state.compareTo(state));
         assertEquals(0, state.compareTo(clonedState));
         assertNotEquals(0, state.compareTo(new AxArtifactKey()));
         assertNotEquals(0, state.compareTo(null));
         assertNotEquals(0, state.compareTo(
-                        new AxState(new AxReferenceKey(), triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
+                        .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertNotEquals(0, state.compareTo(
-                        new AxState(stateKey, new AxArtifactKey(), soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(
+                        new AxStateParamsBuilder().key(stateKey).trigger(new AxArtifactKey()).stateOutputs(soMap)
+                                .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                                .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                                )));
         assertNotEquals(0, state.compareTo(
-                        new AxState(stateKey, triggerKey, soEmptyMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soEmptyMap)
+                        .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertNotEquals(0, state.compareTo(
-                        new AxState(stateKey, triggerKey, soMap, ctxtEmptySet, tsl, sflMap, defTaskKey, trMap)));
-        assertNotEquals(0, state.compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, new AxTaskSelectionLogic(),
-                        sflMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                        .contextAlbumReferenceSet(ctxtEmptySet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
+        assertNotEquals(0, state.compareTo(new AxState(
+                new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                        .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(new AxTaskSelectionLogic())
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertNotEquals(0, state.compareTo(
-                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflEmptyMap, defTaskKey, trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                        .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflEmptyMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                        )));
         assertNotEquals(0, state.compareTo(
-                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, new AxArtifactKey(), trMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                        .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(new AxArtifactKey())
+                        .taskReferenceMap(trMap))));
         assertNotEquals(0, state.compareTo(
-                        new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trEmptyMap)));
+                new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                        .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trEmptyMap)
+                        )));
         assertEquals(0, state
-                        .compareTo(new AxState(stateKey, triggerKey, soMap, ctxtSet, tsl, sflMap, defTaskKey, trMap)));
+                .compareTo(new AxState(
+                        new AxStateParamsBuilder().key(stateKey).trigger(triggerKey).stateOutputs(soMap)
+                                .contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                                .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)
+                                )));
 
         assertNotNull(state.getKeys());
     }

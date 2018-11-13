@@ -10,3 +10,6 @@ target
 bin/
 derby.log
 .checkstyle
+*.iml
+*.ipr
+*.iws

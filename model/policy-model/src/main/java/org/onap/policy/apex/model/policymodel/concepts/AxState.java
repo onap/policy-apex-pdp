@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2018 Samsung Electronics Co., Ltd.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -67,7 +68,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * next state. The outputs of a state {@link AxStateOutput} are held as a map in the state. Each
  * state output contains the outgoing event of the state and optionally the next state to pass
  * control to.
- * 
+ *
  * <p>A state uses tasks {@link AxTask} to execute its logic. A state holds its tasks in a map and must
  * have at least one task. A state uses Task Selection Logic {@link AxTaskSelectionLogic} to select
  * which task should be executed in a given execution cycle. Optional Task Selection Logic can use
@@ -75,7 +76,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * decide what task to execute in a given context. The default task of a state is the task that is
  * executed when task Selection Logic is not specified. In cases where only a single task is
  * specified on a state, the default task must be that task and the state always executes that task.
- * 
+ *
  * <p>What happens when a state completes its execution cycle depends on the task that is selected for
  * execution by the state. Therefore, the action to be performed a state on execution of each task
  * must be defined in the state as a {@link AxStateTaskReference} instance for each task defined in
@@ -83,13 +84,13 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * a {@link AxStateTaskOutputType} of {@link AxStateTaskOutputType#DIRECT} or
  * {@link AxStateTaskOutputType#LOGIC} and contains an {@link AxReferenceKey} reference to the
  * instance that will complete the state output.
- * 
+ *
  * <p>In the case of direct output, the {@link AxReferenceKey} reference in the
  * {@link AxStateTaskReference} instance is a reference to an {@link AxStateOutput} instance. The
  * state output defines the event to be emitted by the state and the next state to pass control to
  * if any. All fields of the executed task are marshaled onto the outgoing event automatically by
  * Apex.
- * 
+ *
  * <p>In the case of logic output, the {@link AxReferenceKey} reference in the
  * {@link AxStateTaskReference} instance is a reference to State Finalizer Logic in an
  * {@link AxStateFinalizerLogic} instance, which selects the {@link AxStateOutput} that the state
@@ -100,12 +101,12 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * the state. State Finalizer Logic must marshal the fields of the output event in whatever manner
  * it wishes; Apex does not automatically transfer the output fields from the task directly to the
  * output event.
- * 
+ *
  * <p>The Task Selection Logic instance or State Finalizer Logic instances in a state may use
  * information in context albums to arrive at their task or state output selections. The context
  * albums that the state uses and that should be made available to the state by Apex policy
  * distribution are held as a set of references to context albums in the state.
- * 
+ *
  * <p>During validation of a state, the validation checks listed below are executed:
  * <ol>
  * <li>The policy key must not be a null key and must be valid, see validation in
@@ -248,7 +249,7 @@ public class AxState extends AxConcept {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxState(final AxState copyConcept) {
@@ -262,57 +263,49 @@ public class AxState extends AxConcept {
      * @param key the reference key of the state
      */
     public AxState(final AxReferenceKey key) {
-        this(key, // Key
-                AxArtifactKey.getNullKey(), // Trigger Reference
-                new TreeMap<String, AxStateOutput>(), // State Outputs
-                new TreeSet<AxArtifactKey>(), // Context Album References
-                new AxTaskSelectionLogic(), // Task Selection Logic
-                new TreeMap<String, AxStateFinalizerLogic>(), // State Finalizer Logics
-                AxArtifactKey.getNullKey(), // Default Task
-                new TreeMap<AxArtifactKey, AxStateTaskReference>() // Task References
-        );
+        this( // Key
+                // Trigger Reference
+                // State Outputs
+                // Context Album References
+                // Task Selection Logic
+                // State Finalizer Logics
+                // Default Task
+                // Task References
+                new AxStateParamsBuilder().key(key).trigger(AxArtifactKey.getNullKey())
+                        .stateOutputs(new TreeMap<String, AxStateOutput>())
+                        .contextAlbumReferenceSet(new TreeSet<AxArtifactKey>())
+                        .taskSelectionLogic(new AxTaskSelectionLogic())
+                        .stateFinalizerLogicMap(new TreeMap<String, AxStateFinalizerLogic>())
+                        .defaultTask(AxArtifactKey.getNullKey())
+                        .taskReferenceMap(new TreeMap<AxArtifactKey, AxStateTaskReference>()));
     }
 
     /**
      * This Constructor creates a state with all its fields defined.
      *
-     * @param key the reference key of the state
-     * @param trigger the event that triggers the state
-     * @param stateOutputs the possible state outputs for the state
-     * @param contextAlbumReferenceSet the context album reference set defines the context that may
-     *        be used by Task Selection Logic and State Finalizer Logic in the state
-     * @param taskSelectionLogic the task selection logic that selects the task a state executes in
-     *        an execution cycle
-     * @param stateFinalizerLogicMap the state finalizer logic instances that selects the state
-     *        output to use after a task executes in a state execution cycle
-     * @param defaultTask the default task that will execute in a state if Task Selection Logic is
-     *        not specified
-     * @param taskReferenceMap the task reference map that defines the tasks for the state and how
-     *        the task outputs are handled
+     * @param axStateParams
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public AxState(final AxReferenceKey key, final AxArtifactKey trigger, final Map<String, AxStateOutput> stateOutputs,
-            final Set<AxArtifactKey> contextAlbumReferenceSet, final AxTaskSelectionLogic taskSelectionLogic,
-            final Map<String, AxStateFinalizerLogic> stateFinalizerLogicMap, final AxArtifactKey defaultTask,
-            final Map<AxArtifactKey, AxStateTaskReference> taskReferenceMap) {
+    public AxState(AxStateParamsBuilder axStateParams) {
         super();
-        Assertions.argumentNotNull(key, "key may not be null");
-        Assertions.argumentNotNull(trigger, "trigger may not be null");
-        Assertions.argumentNotNull(stateOutputs, "stateOutputs may not be null");
-        Assertions.argumentNotNull(contextAlbumReferenceSet, "contextAlbumReferenceSet may not be null");
-        Assertions.argumentNotNull(taskSelectionLogic, "taskSelectionLogic may not be null");
-        Assertions.argumentNotNull(stateFinalizerLogicMap, "stateFinalizerLogicMap may not be null");
-        Assertions.argumentNotNull(defaultTask, "defaultTask may not be null");
-        Assertions.argumentNotNull(taskReferenceMap, "taskReferenceMap may not be null");
+        Assertions.argumentNotNull(axStateParams.getKey(), "key may not be null");
+        Assertions.argumentNotNull(axStateParams.getTrigger(), "trigger may not be null");
+        Assertions.argumentNotNull(axStateParams.getStateOutputs(), "stateOutputs may not be null");
+        Assertions.argumentNotNull(axStateParams.getContextAlbumReferenceSet(),
+                "contextAlbumReferenceSet may not be null");
+        Assertions.argumentNotNull(axStateParams.getTaskSelectionLogic(), "taskSelectionLogic may not be null");
+        Assertions.argumentNotNull(axStateParams.getStateFinalizerLogicMap(), "stateFinalizerLogicMap may not be null");
+        Assertions.argumentNotNull(axStateParams.getDefaultTask(), "defaultTask may not be null");
+        Assertions.argumentNotNull(axStateParams.getTaskReferenceMap(), "taskReferenceMap may not be null");
 
-        this.key = key;
-        this.trigger = trigger;
-        this.stateOutputs = stateOutputs;
-        this.contextAlbumReferenceSet = contextAlbumReferenceSet;
-        this.taskSelectionLogic = taskSelectionLogic;
-        this.stateFinalizerLogicMap = stateFinalizerLogicMap;
-        this.defaultTask = defaultTask;
-        this.taskReferenceMap = taskReferenceMap;
+        this.key = axStateParams.getKey();
+        this.trigger = axStateParams.getTrigger();
+        this.stateOutputs = axStateParams.getStateOutputs();
+        this.contextAlbumReferenceSet = axStateParams.getContextAlbumReferenceSet();
+        this.taskSelectionLogic = axStateParams.getTaskSelectionLogic();
+        this.stateFinalizerLogicMap = axStateParams.getStateFinalizerLogicMap();
+        this.defaultTask = axStateParams.getDefaultTask();
+        this.taskReferenceMap = axStateParams.getTaskReferenceMap();
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
@@ -323,7 +316,7 @@ public class AxState extends AxConcept {
      * {@link AxStateFinalizerLogic} instance in the state.
      *
      * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
+     * @param parent      the parent object of this object in the unmarshaler
      */
     public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         if (!taskSelectionLogic.getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
@@ -347,7 +340,7 @@ public class AxState extends AxConcept {
      * Gets the names of all the states that this state may pass control to.
      *
      * @return the list of possible states that may receive control when this state completes
-     *         execution
+     * execution
      */
     public Set<String> getNextStateSet() {
         final Set<String> nextStateSet = new TreeSet<>();
@@ -457,7 +450,7 @@ public class AxState extends AxConcept {
      * Logic and State Finalizer Logic in the state.
      *
      * @return the context album reference set defines the context that may be used by Task
-     *         Selection Logic and State Finalizer Logic in the state
+     * Selection Logic and State Finalizer Logic in the state
      */
     public Set<AxArtifactKey> getContextAlbumReferences() {
         return contextAlbumReferenceSet;
@@ -468,7 +461,7 @@ public class AxState extends AxConcept {
      * Logic and State Finalizer Logic in the state.
      *
      * @param contextAlbumReferences the context album reference set defines the context that may be
-     *        used by Task Selection Logic and State Finalizer Logic in the state
+     *                               used by Task Selection Logic and State Finalizer Logic in the state
      */
     public void setContextAlbumReferences(final Set<AxArtifactKey> contextAlbumReferences) {
         Assertions.argumentNotNull(contextAlbumReferences, "contextAlbumReferenceSet may not be null");
@@ -488,7 +481,7 @@ public class AxState extends AxConcept {
      * Sets the task selection logic that selects the task a state executes in an execution cycle.
      *
      * @param taskSelectionLogic the task selection logic that selects the task a state executes in
-     *        an execution cycle
+     *                           an execution cycle
      */
     public void setTaskSelectionLogic(final AxTaskSelectionLogic taskSelectionLogic) {
         Assertions.argumentNotNull(taskSelectionLogic, "taskSelectionLogic may not be null");
@@ -509,7 +502,7 @@ public class AxState extends AxConcept {
      * executes in a state execution cycle.
      *
      * @return the state finalizer logic instances that selects the state output to use after a task
-     *         executes in a state execution cycle
+     * executes in a state execution cycle
      */
     public Map<String, AxStateFinalizerLogic> getStateFinalizerLogicMap() {
         return stateFinalizerLogicMap;
@@ -520,7 +513,7 @@ public class AxState extends AxConcept {
      * executes in a state execution cycle.
      *
      * @param stateFinalizerLogicMap the state finalizer logic instances that selects the state
-     *        output to use after a task executes in a state execution cycle
+     *                               output to use after a task executes in a state execution cycle
      */
     public void setStateFinalizerLogicMap(final Map<String, AxStateFinalizerLogic> stateFinalizerLogicMap) {
         Assertions.argumentNotNull(stateFinalizerLogicMap, "stateFinalizerLogic may not be null");
@@ -531,7 +524,7 @@ public class AxState extends AxConcept {
      * Gets the default task that will execute in a state if Task Selection Logic is not specified.
      *
      * @return the default task that will execute in a state if Task Selection Logic is not
-     *         specified
+     * specified
      */
     public AxArtifactKey getDefaultTask() {
         return defaultTask;
@@ -541,7 +534,7 @@ public class AxState extends AxConcept {
      * Sets the default task that will execute in a state if Task Selection Logic is not specified.
      *
      * @param defaultTask the default task that will execute in a state if Task Selection Logic is
-     *        not specified
+     *                    not specified
      */
     public void setDefaultTask(final AxArtifactKey defaultTask) {
         Assertions.argumentNotNull(defaultTask, "defaultTask may not be null");
@@ -553,7 +546,7 @@ public class AxState extends AxConcept {
      * handled.
      *
      * @return the task reference map that defines the tasks for the state and how the task outputs
-     *         are handled
+     * are handled
      */
     public Map<AxArtifactKey, AxStateTaskReference> getTaskReferences() {
         return taskReferenceMap;
@@ -564,7 +557,7 @@ public class AxState extends AxConcept {
      * handled.
      *
      * @param taskReferences the task reference map that defines the tasks for the state and how the
-     *        task outputs are handled
+     *                       task outputs are handled
      */
     public void setTaskReferences(final Map<AxArtifactKey, AxStateTaskReference> taskReferences) {
         Assertions.argumentNotNull(taskReferences, "taskReferenceMap may not be null");
@@ -624,7 +617,7 @@ public class AxState extends AxConcept {
 
     /**
      * Validate the state outputs of the state.
-     * 
+     *
      * @param result the validation result to append to
      */
     private void validateStateOutputs(AxValidationResult result) {
@@ -660,7 +653,7 @@ public class AxState extends AxConcept {
 
     /**
      * Validate the context album references of the state.
-     * 
+     *
      * @param result the validation result to append to
      */
     private void validateContextAlbumReferences(AxValidationResult result) {
@@ -677,7 +670,7 @@ public class AxState extends AxConcept {
 
     /**
      * Validate the task selection logic of the state.
-     * 
+     *
      * @param result the validation result to append to
      * @return the result of the validation
      */
@@ -695,7 +688,7 @@ public class AxState extends AxConcept {
 
     /**
      * Validate all the state finalizer logic of the state.
-     * 
+     *
      * @param result the validation result to append to
      */
     private void validateStateFinalizerLogics(AxValidationResult result) {
@@ -718,7 +711,7 @@ public class AxState extends AxConcept {
 
     /**
      * Validate the tasks used the state.
-     * 
+     *
      * @param result the validation result to append to
      */
     private void validateStateTaskReferences(AxValidationResult result) {
@@ -763,14 +756,14 @@ public class AxState extends AxConcept {
 
     /**
      * Validate the references of a task used in a state.
-     * 
-     * @param taskKey The key of the task
-     * @param taskReference the task reference of the task
-     * @param stateOutputNameSet State outputs that have been used so far, will be appended for this
-     *        task reference
+     *
+     * @param taskKey                    The key of the task
+     * @param taskReference              the task reference of the task
+     * @param stateOutputNameSet         State outputs that have been used so far, will be appended for this
+     *                                   task reference
      * @param stateFinalizerLogicNameSet State finalizers that have been used so far, may be
-     *        appended if this task reference uses a finalzier
-     * @param result the validation result to append to
+     *                                   appended if this task reference uses a finalzier
+     * @param result                     the validation result to append to
      * @return the result of the validation
      */
     private AxValidationResult validateStateTaskReference(final AxArtifactKey taskKey,
