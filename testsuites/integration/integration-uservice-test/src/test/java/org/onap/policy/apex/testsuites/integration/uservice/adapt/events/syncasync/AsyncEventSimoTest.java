@@ -18,16 +18,41 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.main;
+package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
+import java.io.File;
+
+import org.junit.After;
 import org.junit.Test;
 
-public class TestAsyncEventSiso extends BaseTest {
+public class AsyncEventSimoTest extends BaseEventTest {
+    private final String[] outFilePaths = {
+        "target/examples/events/SampleDomain/EventsOutMulti0.json",
+        "target/examples/events/SampleDomain/EventsOutMulti1.json",
+        "target/examples/events/SampleDomain/EventsOutMulti2.json"
+    };
 
-    @Test
-    public void testJsonFileAsyncSiso() throws Exception {
-        final String[] args = {"-c", "src/test/resources/parameters/File2FileJsonEventAsyncSISO.json"};
-
-        testFileEvents(args, new String[] {"src/test/resources/events/EventsOutSingle.json"}, 48956);
+    /**
+     * Delete output files.
+     */
+    @After
+    public void deleteOutputFiles() {
+        for (String filePath : outFilePaths) {
+            new File(filePath).delete();
+        }
     }
+    
+    @Test
+    public void testJsonFileAsyncSimo() throws Exception {
+        final String[] args = {
+            "-rfr",
+            "target",
+            "-c",
+            "target/examples/config/SampleDomain/File2FileJsonEventAsyncSIMO.json"
+        };
+        
+
+        testFileEvents(args, outFilePaths, 100);
+    }
+
 }
