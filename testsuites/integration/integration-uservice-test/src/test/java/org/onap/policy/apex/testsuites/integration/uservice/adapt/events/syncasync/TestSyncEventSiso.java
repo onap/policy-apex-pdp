@@ -18,16 +18,36 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.main;
+package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
+import java.io.File;
+
+import org.junit.After;
 import org.junit.Test;
 
-public class TestAsyncEventMiso extends BaseTest {
+public class TestSyncEventSiso extends BaseTest {
+    private final String[] outFilePaths = {
+        "target/examples/events/SampleDomain/EventsOutSingle.json"
+    };
+    
+    /**
+     * Delete output files.
+     */
+    @After
+    public void deleteOutputFiles() {
+        for (String filePath : outFilePaths) {
+            new File(filePath).delete();
+        }
+    }
 
     @Test
-    public void testJsonFileAsyncMiso() throws Exception {
-        final String[] args = {"-c", "src/test/resources/parameters/File2FileJsonEventAsyncMISO.json"};
+    public void testJsonFileAsyncSiso() throws Exception {
+        final String[] args = {
+            "-rfr",
+            "target",
+            "-c",
+            "target/examples/config/SampleDomain/File2FileJsonEventSyncSISO.json"};
 
-        testFileEvents(args, new String[] {"src/test/resources/events/EventsOutSingle.json"}, 48956 * 3);
+        testFileEvents(args, outFilePaths, 100);
     }
 }
