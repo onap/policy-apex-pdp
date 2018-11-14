@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.main;
+package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
 import org.junit.Test;
 
@@ -26,8 +26,12 @@ public class TestAsyncEventSiso extends BaseTest {
 
     @Test
     public void testJsonFileAsyncSiso() throws Exception {
-        final String[] args = {"-c", "src/test/resources/parameters/File2FileJsonEventAsyncSISO.json"};
+        final String[] args = {
+            "-rfr",
+            "target",
+            "-c",
+            "target/examples/config/SampleDomain/File2FileJsonEventAsyncSISO.json"};
 
-        testFileEvents(args, new String[] {"src/test/resources/events/EventsOutSingle.json"}, 48956);
+        testFileEvents(args, new String[] {"target/examples/events/SampleDomain/EventsOutSingle.json"}, 48956);
     }
 }

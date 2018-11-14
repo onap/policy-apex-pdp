@@ -18,26 +18,21 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.main;
+package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
 import org.junit.Test;
 
-public class TestAsyncEventMimo extends BaseTest {
+public class TestAsyncEventMiso extends BaseTest {
 
     @Test
-    public void testJsonFileAsyncMimo() throws Exception {
+    public void testJsonFileAsyncMiso() throws Exception {
         final String[] args = {
+            "-rfr",
+            "target",
             "-c",
-            "src/test/resources/parameters/File2FileJsonEventAsyncMIMO.json"
-        };
-        
-        final String[] outFilePaths = {
-            "src/test/resources/events/EventsOutMulti0.json",
-            "src/test/resources/events/EventsOutMulti1.json",
-            "src/test/resources/events/EventsOutMulti2.json"
+            "target/examples/config/SampleDomain/File2FileJsonEventAsyncMISO.json"
         };
 
-        testFileEvents(args, outFilePaths, 48956 * 3);
+        testFileEvents(args, new String[] {"target/examples/events/SampleDomain/EventsOutSingle.json"}, 48956 * 3);
     }
-
 }

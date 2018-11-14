@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.main;
+package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
 import org.junit.Test;
 
@@ -27,14 +27,16 @@ public class TestAsyncEventSimo extends BaseTest {
     @Test
     public void testJsonFileAsyncSimo() throws Exception {
         final String[] args = {
+            "-rfr",
+            "target",
             "-c",
-            "src/test/resources/parameters/File2FileJsonEventAsyncSIMO.json"
+            "target/examples/config/SampleDomain/File2FileJsonEventAsyncSIMO.json"
         };
         
         final String[] outFilePaths = {
-            "src/test/resources/events/EventsOutMulti0.json",
-            "src/test/resources/events/EventsOutMulti1.json",
-            "src/test/resources/events/EventsOutMulti2.json"
+            "target/examples/events/SampleDomain/EventsOutMulti0.json",
+            "target/examples/events/SampleDomain/EventsOutMulti1.json",
+            "target/examples/events/SampleDomain/EventsOutMulti2.json"
         };
 
         testFileEvents(args, outFilePaths, 48956);
