@@ -17,13 +17,14 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-package org.onap.policy.apex.model.policymodel.concepts;
 
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
+package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.Map;
 import java.util.Set;
+
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
 public class AxStateParamsBuilder {
     private AxReferenceKey key;
@@ -68,7 +69,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param key the reference key of the state
      * @return builder object
@@ -79,7 +80,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param trigger the event that triggers the state
      * @return builder object
@@ -90,7 +91,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param stateOutputs the possible state outputs for the state
      * @return builder object
@@ -101,7 +102,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param contextAlbumReferenceSet the context album reference set defines the context that may
      *                                 be used by Task Selection Logic and State Finalizer Logic in the state
@@ -113,7 +114,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param taskSelectionLogic the task selection logic that selects the task a state executes in
      *                           an execution cycle
@@ -125,7 +126,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param stateFinalizerLogicMap the state finalizer logic instances that selects the state
      *                               output to use after a task executes in a state execution cycle
@@ -138,7 +139,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param defaultTask the default task that will execute in a state if Task Selection Logic is
      *                    not specified
@@ -150,7 +151,7 @@ public class AxStateParamsBuilder {
     }
 
     /**
-     * Setter method
+     * Setter method.
      *
      * @param taskReferenceMap the task reference map that defines the tasks for the state and how
      * @return builder object
