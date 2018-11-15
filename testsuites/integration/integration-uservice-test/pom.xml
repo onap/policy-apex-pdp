@@ -68,6 +68,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
+            <artifactId>plugins-executor-mvel</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
             <artifactId>plugins-context-distribution-infinispan</artifactId>
             <version>${project.version}</version>

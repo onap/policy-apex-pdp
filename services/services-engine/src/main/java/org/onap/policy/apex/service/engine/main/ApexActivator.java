@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.engdep.EngDepMessagingService;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
@@ -32,6 +33,7 @@ import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -179,6 +181,10 @@ public class ApexActivator {
             engineServiceHandler.terminate();
             engineServiceHandler = null;
         }
+
+        // Clear the services
+        ModelService.clear();
+        ParameterService.clear();
     }
 
     /**

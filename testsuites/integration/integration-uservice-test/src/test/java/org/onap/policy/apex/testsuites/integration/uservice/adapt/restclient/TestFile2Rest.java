@@ -156,8 +156,8 @@ public class TestFile2Rest {
         Response response = null;
 
         // Wait for the required amount of events to be received or for 10 seconds
-        for (int i = 0; i < 100; i++) {
-            ThreadUtilities.sleep(100);
+        for (int i = 0; i < 20; i++) {
+            ThreadUtilities.sleep(300);
             response = client.target("http://localhost:32801/TestFile2Rest/apex/event/Stats")
                             .request("application/json").get();
 
@@ -169,7 +169,7 @@ public class TestFile2Rest {
 
             @SuppressWarnings("unchecked")
             final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            if ((double) jsonMap.get("PUT") == 100) {
+            if ((double) jsonMap.get("PUT") == 20) {
                 break;
             }
         }

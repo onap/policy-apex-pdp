@@ -41,9 +41,9 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
  * The Class TestKafka2Kafka tests Kafka event sending and reception.
  */
 public class TestKafka2Kafka {
-    private static final long MAX_TEST_LENGTH = 60000;
+    private static final long MAX_TEST_LENGTH = 300000;
 
-    private static final int EVENT_COUNT = 100;
+    private static final int EVENT_COUNT = 25;
     private static final int EVENT_INTERVAL = 20;
 
     /**
@@ -131,7 +131,7 @@ public class TestKafka2Kafka {
             ThreadUtilities.sleep(EVENT_INTERVAL);
         }
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(3000);
 
         apexMain.shutdown();
         subscriber.shutdown();

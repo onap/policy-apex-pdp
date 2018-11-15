@@ -18,33 +18,49 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.runtime;
+package org.onap.policy.apex.testsuites.integration.uservice.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.DistributorParameters;
+import org.onap.policy.apex.context.parameters.LockManagerParameters;
+import org.onap.policy.apex.context.parameters.PersistorParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
+import org.onap.policy.apex.core.engine.EngineParameterConstants;
+import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
+import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.testsuites.integration.common.model.SampleDomainModelFactory;
-import org.onap.policy.apex.testsuites.performance.benchmark.engine.utils.Utils;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -90,16 +106,47 @@ public class ApexServiceTest {
 
         LOGGER.debug("Running TestApexEngine. . .");
 
-        apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
+        apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
         assertNotNull(apexPolicyModel);
 
-        apexModelString = Utils.getModelString(apexPolicyModel);
+        apexModelString = getModelString(apexPolicyModel);
 
         // create engine
         listener = new TestListener();
         service.registerActionListener("Listener", listener);
     }
 
+    /**
+     * Set up parameters.
+     */
+    @Before
+    public void setupParameters() {
+        ParameterService.register(new SchemaParameters());
+        ParameterService.register(new ContextParameters());
+        ParameterService.register(new DistributorParameters());
+        ParameterService.register(new LockManagerParameters());
+        ParameterService.register(new PersistorParameters());
+        ParameterService.register(new EngineServiceParameters());
+        
+        EngineParameters engineParameters = new EngineParameters();
+        engineParameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
+        ParameterService.register(engineParameters);
+    }
+    
+    /**
+     * Clear down parameters.
+     */
+    @After
+    public void teardownParameters() {
+        ParameterService.deregister(EngineParameterConstants.MAIN_GROUP_NAME);
+        ParameterService.deregister(ApexParameterConstants.ENGINE_SERVICE_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.MAIN_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+    }
+    
     /**
      * Update the engine then test the engine with 2 sample events.
      *
@@ -108,8 +155,7 @@ public class ApexServiceTest {
     @Test
     public void testExecutionSet1() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexModelString, true);
-        // Start the service
-        service.startAll();
+
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
             LOGGER.info("{}", service.getStatus(engineKey));
@@ -172,8 +218,7 @@ public class ApexServiceTest {
     @Test
     public void testExecutionSet1Sync() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexModelString, true);
-        // Start the service
-        service.startAll();
+
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
             LOGGER.info("{}", service.getStatus(engineKey));
@@ -261,8 +306,7 @@ public class ApexServiceTest {
     @Test
     public void testExecutionSet2() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexModelString, true);
-        // Start the service
-        service.startAll();
+
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
             LOGGER.info("{}", service.getStatus(engineKey));
@@ -324,8 +368,7 @@ public class ApexServiceTest {
     @Test
     public void testExecutionSet2Sync() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexModelString, true);
-        // Start the service
-        service.startAll();
+
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
             LOGGER.info("{}", service.getStatus(engineKey));
@@ -472,6 +515,21 @@ public class ApexServiceTest {
                     && ((byte) result.get("TestDecideCaseSelected") <= 3));
             assertTrue(
                     ((byte) result.get("TestActCaseSelected")) >= 0 && ((byte) result.get("TestActCaseSelected") <= 3));
+        }
+    }
+
+    /**
+     * Gets the model string.
+     *
+     * @param policyModel the eca policy model
+     * @return the model string
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    private static String getModelString(final AxPolicyModel policyModel) throws ApexModelException, IOException {
+        try (final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream()) {
+            new ApexModelWriter<AxPolicyModel>(AxPolicyModel.class).write(policyModel, baOutputStream);
+            return baOutputStream.toString();
         }
     }
 }
