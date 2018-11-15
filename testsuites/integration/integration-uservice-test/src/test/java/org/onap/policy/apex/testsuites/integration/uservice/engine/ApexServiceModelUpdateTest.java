@@ -18,13 +18,14 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.performance.benchmark.engine.runtime;
+package org.onap.policy.apex.testsuites.integration.uservice.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,11 +34,22 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.DistributorParameters;
+import org.onap.policy.apex.context.parameters.LockManagerParameters;
+import org.onap.policy.apex.context.parameters.PersistorParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
+import org.onap.policy.apex.core.engine.EngineParameterConstants;
+import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -45,9 +57,10 @@ import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
+import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.testsuites.integration.common.model.SampleDomainModelFactory;
-import org.onap.policy.apex.testsuites.performance.benchmark.engine.utils.Utils;
+import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -70,6 +83,37 @@ public class ApexServiceModelUpdateTest {
     private String apexSampleModelString;
 
     /**
+     * Set up parameters.
+     */
+    @Before
+    public void setupParameters() {
+        ParameterService.register(new SchemaParameters());
+        ParameterService.register(new ContextParameters());
+        ParameterService.register(new DistributorParameters());
+        ParameterService.register(new LockManagerParameters());
+        ParameterService.register(new PersistorParameters());
+        ParameterService.register(new EngineServiceParameters());
+
+        EngineParameters engineParameters = new EngineParameters();
+        engineParameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
+        ParameterService.register(engineParameters);
+    }
+
+    /**
+     * Clear down parameters.
+     */
+    @After
+    public void teardownParameters() {
+        ParameterService.deregister(EngineParameterConstants.MAIN_GROUP_NAME);
+        ParameterService.deregister(ApexParameterConstants.ENGINE_SERVICE_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.MAIN_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+    }
+
+    /**
      * Sets up the test by creating an engine and reading in the test policy.
      *
      * @throws ApexException if something goes wrong
@@ -87,10 +131,10 @@ public class ApexServiceModelUpdateTest {
 
         LOGGER.debug("Running TestApexEngine. . .");
 
-        apexSamplePolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
+        apexSamplePolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
         assertNotNull(apexSamplePolicyModel);
 
-        apexSampleModelString = Utils.getModelString(apexSamplePolicyModel);
+        apexSampleModelString = getModelString(apexSamplePolicyModel);
 
         // create engine
         listener = new TestListener();
@@ -133,7 +177,7 @@ public class ApexServiceModelUpdateTest {
     @Test
     public void testModelUpdateStringNewNoForce() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexSampleModelString, false);
-        service.startAll();
+
         assertEquals(apexSamplePolicyModel.getKey(), ModelService.getModel(AxPolicyModel.class).getKey());
     }
 
@@ -145,7 +189,7 @@ public class ApexServiceModelUpdateTest {
     @Test
     public void testModelUpdateStringNewForce() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexSampleModelString, true);
-        service.startAll();
+
         assertEquals(apexSamplePolicyModel.getKey(), ModelService.getModel(AxPolicyModel.class).getKey());
     }
 
@@ -157,7 +201,7 @@ public class ApexServiceModelUpdateTest {
     @Test
     public void testModelUpdateStringNewNewNoForce() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexSampleModelString, false);
-        service.startAll();
+
         assertEquals(apexSamplePolicyModel.getKey(), ModelService.getModel(AxPolicyModel.class).getKey());
 
         sendEvents();
@@ -176,7 +220,7 @@ public class ApexServiceModelUpdateTest {
     @Test
     public void testModelUpdateIncoNoForce() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexSamplePolicyModel, false);
-        service.startAll();
+
         assertEquals(apexSamplePolicyModel.getKey(), ModelService.getModel(AxPolicyModel.class).getKey());
 
         // Different model name, incompatible
@@ -189,8 +233,8 @@ public class ApexServiceModelUpdateTest {
         } catch (final Exception e) {
             System.err.println(e.getMessage());
             assertEquals("apex model update failed, supplied model with key \"INCOMPATIBLE:0.0.1\" is not a compatible "
-                            + "model update from the existing engine model with key \"SamplePolicyModelMVEL:0.0.1\"",
-                            e.getMessage());
+                            + "model update from the existing engine model "
+                            + "with key \"SamplePolicyModelJAVASCRIPT:0.0.1\"", e.getMessage());
         }
 
         // Still on old model
@@ -206,9 +250,9 @@ public class ApexServiceModelUpdateTest {
         } catch (final Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
-            assertEquals("apex model update failed, supplied model with key \"SamplePolicyModelMVEL:1.0.1\" is not "
-                            + "a compatible model update from the existing engine model with key "
-                            + "\"SamplePolicyModelMVEL:0.0.1\"", e.getMessage());
+            assertEquals("apex model update failed, supplied model with key \"SamplePolicyModelJAVASCRIPT:1.0.1\" "
+                            + "is not a compatible model update from the existing engine model with key "
+                            + "\"SamplePolicyModelJAVASCRIPT:0.0.1\"", e.getMessage());
         }
 
         // Still on old model
@@ -240,7 +284,7 @@ public class ApexServiceModelUpdateTest {
     @Test
     public void testModelUpdateIncoForce() throws ApexException {
         service.updateModel(parameters.getEngineKey(), apexSamplePolicyModel, false);
-        service.startAll();
+
         assertEquals(apexSamplePolicyModel.getKey(), ModelService.getModel(AxPolicyModel.class).getKey());
 
         // Different model name, incompatible
@@ -357,6 +401,22 @@ public class ApexServiceModelUpdateTest {
                             && ((byte) result.get("TestDecideCaseSelected") <= 3));
             assertTrue(((byte) result.get("TestActCaseSelected")) >= 0
                             && ((byte) result.get("TestActCaseSelected") <= 3));
+        }
+    }
+    
+
+    /**
+     * Gets the model string.
+     *
+     * @param policyModel the eca policy model
+     * @return the model string
+     * @throws ApexModelException the apex model exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    private String getModelString(final AxPolicyModel policyModel) throws ApexModelException, IOException {
+        try (final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream()) {
+            new ApexModelWriter<AxPolicyModel>(AxPolicyModel.class).write(policyModel, baOutputStream);
+            return baOutputStream.toString();
         }
     }
 }
