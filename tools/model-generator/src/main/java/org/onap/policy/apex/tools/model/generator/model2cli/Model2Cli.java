@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.commons.lang3.Validate;
+import org.onap.policy.apex.auth.clicodegen.CodeGenCliEditorBuilder;
 import org.onap.policy.apex.auth.clicodegen.CodeGeneratorCliEditor;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -184,9 +185,16 @@ public class Model2Cli {
         for (final AxContextAlbum a : policyModel.getAlbums().getAlbumsMap().values()) {
             final AxArtifactKey key = a.getKey();
 
-            codeGen.addContextAlbumDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key),
-                            kig.getDesc(key), a.getScope(), a.isWritable(), kig.getName(a.getItemSchema()),
-                            kig.getVersion(a.getItemSchema()));
+            codeGen.addContextAlbumDeclaration(
+                    new CodeGenCliEditorBuilder()
+                            .setName(kig.getName(key))
+                            .setVersion(kig.getVersion(key))
+                            .setUuid(kig.getUuid(key))
+                            .setDescription(kig.getDesc(key))
+                            .setScope(a.getScope())
+                            .setWritable(a.isWritable())
+                            .setSchemaName(kig.getName(a.getItemSchema()))
+                            .setSchemaVersion(kig.getVersion(a.getItemSchema())));
         }
 
         // 5: policies
