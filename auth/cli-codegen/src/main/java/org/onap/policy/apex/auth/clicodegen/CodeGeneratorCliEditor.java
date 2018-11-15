@@ -175,28 +175,20 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new context album declaration to the model.
-     * 
-     * @param name the name of the context album
-     * @param version the version of the context album
-     * @param uuid a UUID for the declaration
-     * @param description a description for the context album
-     * @param scope the scope
-     * @param writable a flag for writable context
-     * @param schemaName the name of the schema
-     * @param schemaVersion the version of the declaration
+     *
+     * @param codeGenCliEditorBuilder
      */
-    public void addContextAlbumDeclaration(final String name, final String version, final String uuid,
-            final String description, final String scope, final boolean writable, final String schemaName,
-            final String schemaVersion) {
+    public void addContextAlbumDeclaration(
+            CodeGenCliEditorBuilder codeGenCliEditorBuilder) {
         final ST st = stg.getInstanceOf("ctxAlbumDecl");
-        st.add(NAME, name);
-        st.add(VERSION, version);
-        st.add(UUID, uuid);
-        st.add(DESCRIPTION, description);
-        st.add(SCOPE, scope);
-        st.add(WRITABLE, writable);
-        st.add(SCHEMA_NAME, schemaName);
-        st.add(SCHEMA_VERSION, schemaVersion);
+        st.add(NAME, codeGenCliEditorBuilder.getName());
+        st.add(VERSION, codeGenCliEditorBuilder.getVersion());
+        st.add(UUID, codeGenCliEditorBuilder.getUuid());
+        st.add(DESCRIPTION, codeGenCliEditorBuilder.getDescription());
+        st.add(SCOPE, codeGenCliEditorBuilder.getScope());
+        st.add(WRITABLE, codeGenCliEditorBuilder.isWritable());
+        st.add(SCHEMA_NAME, codeGenCliEditorBuilder.getSchemaName());
+        st.add(SCHEMA_VERSION, codeGenCliEditorBuilder.getSchemaVersion());
         model.add(DECLARATION, st);
     }
 
