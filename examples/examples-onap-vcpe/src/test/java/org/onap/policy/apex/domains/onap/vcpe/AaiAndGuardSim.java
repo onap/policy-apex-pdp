@@ -39,7 +39,7 @@ public class AaiAndGuardSim {
      * Instantiates a new aai and guard sim.
      */
     public AaiAndGuardSim() {
-        final ResourceConfig rc = new ResourceConfig(AaiAndGuardSimEndpoint.class);
+        final ResourceConfig rc = new ResourceConfig(AaiAndGuardSimEndpointTest.class);
         server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 
         while (!server.isStarted()) {
