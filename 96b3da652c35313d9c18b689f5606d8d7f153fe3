@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_d2adec32",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/concepts/AxStateParamsBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2543
+      },
+      "writtenOn": "2018-11-16T00:58:36Z",
+      "side": 1,
+      "message": "I remember in another project may be drool-application, maven fails when a period is missing, i guess it didnt fail here., \nso i missed it., \nthanks for fixing these.,",
+      "revId": "96b3da652c35313d9c18b689f5606d8d7f153fe3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
