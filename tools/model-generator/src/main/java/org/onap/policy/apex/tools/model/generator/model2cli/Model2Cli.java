@@ -33,6 +33,7 @@ import java.util.Properties;
 import org.apache.commons.lang3.Validate;
 import org.onap.policy.apex.auth.clicodegen.CodeGenCliEditorBuilder;
 import org.onap.policy.apex.auth.clicodegen.CodeGeneratorCliEditor;
+import org.onap.policy.apex.auth.clicodegen.EventDeclarationBuilder;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -177,8 +178,10 @@ public class Model2Cli {
             final AxArtifactKey key = e.getKey();
             final List<ST> fields = getParametersForEvent(codeGen, e);
 
-            codeGen.addEventDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            e.getNameSpace(), e.getSource(), e.getTarget(), fields);
+            codeGen.addEventDeclaration(
+                    new EventDeclarationBuilder().setName(kig.getName(key)).setVersion(kig.getVersion(key))
+                            .setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key)).setNameSpace(e.getNameSpace())
+                            .setSource(e.getSource()).setTarget(e.getTarget()).setFields(fields));
         }
 
         // 4: context albums

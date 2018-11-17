@@ -129,8 +129,10 @@ public class CliCodegenTest {
             final AxArtifactKey key = e.getKey();
             final List<ST> fields = getParametersForEvent(codeGen, e);
 
-            codeGen.addEventDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            e.getNameSpace(), e.getSource(), e.getTarget(), fields);
+            codeGen.addEventDeclaration(
+                    new EventDeclarationBuilder().setName(kig.getName(key)).setVersion(kig.getVersion(key))
+                            .setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key)).setNameSpace(e.getNameSpace())
+                            .setSource(e.getSource()).setTarget(e.getTarget()).setFields(fields));
         }
 
         // 4: context albums
