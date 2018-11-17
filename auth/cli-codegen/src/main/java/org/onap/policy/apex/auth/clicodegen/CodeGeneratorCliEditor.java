@@ -235,7 +235,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new event declaration to the model.
-     * 
+     *
      * @param name the event name
      * @param version the event version
      * @param uuid a UUID for the definition

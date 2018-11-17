@@ -52,12 +52,12 @@ public class TaskSelectionExecutionContext {
     // CHECKSTYLE:OFF: checkstyle:VisibilityModifier Logic has access to these field
 
     /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
-    public final Boolean isTrue = true;
+    public static final Boolean isTrue = true;
 
     /**
      * A constant <code>boolean false</code> value available for reuse e.g., for the return value
      */
-    public final Boolean isFalse = false;
+    public static final Boolean isFalse = false;
 
     /** A facade to the full state definition for the task selection logic being executed. */
     public final AxStateFacade subject;
@@ -82,7 +82,7 @@ public class TaskSelectionExecutionContext {
      * Logger for task selection execution, task selection logic can use this field to access and
      * log to Apex logging.
      */
-    public final XLogger logger = EXECUTION_LOGGER;
+    public static final XLogger logger = EXECUTION_LOGGER;
 
     // CHECKSTYLE:ON: checkstyle:VisibilityModifier
 

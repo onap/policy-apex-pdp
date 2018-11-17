@@ -88,7 +88,7 @@ public class StateFinalizerExecutionContext {
      * Logger for state finalizer execution, state finalizer logic can use this field to access and
      * log to Apex logging.
      */
-    public final XLogger logger = EXCEUTION_LOGGER;
+    public static final XLogger logger = EXCEUTION_LOGGER;
 
     // CHECKSTYLE:ON: checkstyle:visibilityModifier
 
