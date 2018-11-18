@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_f55d75ea",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/StateFinalizerExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-18T18:23:26Z",
+      "side": 1,
+      "message": "We can\u0027t make this static because it is used in script engines that are called by Apex. If you make it static, the output of the engines deadlocks and the engines crash.\n\nI will override this in Sonar when I figure out how to do it.",
+      "range": {
+        "startLine": 91,
+        "startChar": 11,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "aef019376a437327d9899d8813517619c754788c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9572e97a",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-18T18:23:26Z",
+      "side": 1,
+      "message": "It\u0027s the same with these two, we can\u0027t make them static.",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 58
+      },
+      "revId": "aef019376a437327d9899d8813517619c754788c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_b56fed91",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskSelectionExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-18T18:23:26Z",
+      "side": 1,
+      "message": "And again here.",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "aef019376a437327d9899d8813517619c754788c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
