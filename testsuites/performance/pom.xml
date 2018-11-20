@@ -17,7 +17,8 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.testsuites</groupId>
@@ -31,14 +32,11 @@
 
     <profiles>
         <profile>
-            <id>apexMetrics</id>
+            <id>apexDefault</id>
             <activation>
-                <property>
-                    <name>apexMetrics</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>performance-context-metrics</module>
                 <module>performance-benchmark-test</module>
             </modules>
         </profile>
