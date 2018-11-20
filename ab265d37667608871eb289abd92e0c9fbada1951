@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_164cba41",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/runBenchmark.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-20T17:27:25Z",
+      "side": 1,
+      "message": "JRuby commented out because shutdown of the JRuby interpreter does not work correctly for second and subsequent attempts. See:\nhttps://jira.onap.org/browse/POLICY-1276",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 43
+      },
+      "revId": "ab265d37667608871eb289abd92e0c9fbada1951",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
