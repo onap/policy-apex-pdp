@@ -25,7 +25,7 @@
     <contextName>Apex</contextName>
     <property name="VAR_LOG" value="/var/log/onap/policy/apex-pdp/" />
 
-	<!-- USE FOR STD OUT ONLY -->
+    <!-- USE FOR STD OUT ONLY -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <Pattern>%d %contextName [%t] %level %logger{36} - %msg%n</Pattern>
