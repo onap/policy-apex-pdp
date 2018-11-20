@@ -1,0 +1,5 @@
+{
+    "name": "ValidPars",
+    "host": "FileHost",
+    "port": 54321
+}
