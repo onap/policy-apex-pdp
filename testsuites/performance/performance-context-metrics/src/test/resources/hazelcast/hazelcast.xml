@@ -36,15 +36,15 @@
             </tcp-ip>
         </join>
         <interfaces enabled="false">
-			<!-- This value will allow hazelcast to run locally from the IDE -->
+            <!-- This value will allow hazelcast to run locally from the IDE -->
             <interface>127.0.0.*</interface>
         </interfaces>
     </network>
     <properties>
         <property name="hazelcast.icmp.enabled">false</property>
         <property name="hazelcast.logging.type">slf4j</property>
-		<!-- disable the hazelcast shutdown hook - prefer to control the shutdown 
-			in code -->
+        <!-- disable the hazelcast shutdown hook - prefer to control the shutdown 
+            in code -->
         <property name="hazelcast.shutdownhook.enabled">false</property>
         <property name="hazelcast.graceful.shutdown.max.wait">60</property>
         <property name="hazelcast.operation.generic.thread.count">1</property>
