@@ -1,0 +1,9 @@
+{
+    "name": "EventGenerator",
+    "host": "localhost",
+    "port": 32801,
+    "batchCount": 20,
+    "batchSize": 50,
+    "delayBetweenBatches": 2000,
+    "outFile": null
+}

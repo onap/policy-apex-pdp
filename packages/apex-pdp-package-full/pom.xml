@@ -17,7 +17,8 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.packages</groupId>
@@ -167,6 +168,13 @@
             <artifactId>plugins-event-carrier-restrequestor</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <!-- Benchmark test event generator -->
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.testsuites.performance</groupId>
+            <artifactId>performance-benchmark-test</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- Plugins for event protocols -->
         <dependency>
@@ -287,6 +295,15 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <includes>etc/**/*,examples/**/*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.testsuites.performance</groupId>
+                                    <artifactId>performance-benchmark-test</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>examples/**/*</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -481,7 +498,9 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <untar src="${project.build.directory}/${project.artifactId}-${project.version}-tarball.tar.gz" dest="${project.build.directory}/install_hierarchy" compression="gzip" />
+                                <untar
+                                    src="${project.build.directory}/${project.artifactId}-${project.version}-tarball.tar.gz"
+                                    dest="${project.build.directory}/install_hierarchy" compression="gzip" />
                             </tasks>
                         </configuration>
                         <goals>

@@ -90,6 +90,7 @@ APEX_APP_MAP["engine"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.
 APEX_APP_MAP["eng-deployment"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-deployment-$_version-deployment.jar"
 APEX_APP_MAP["eng-monitoring"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-monitoring-$_version-monitoring.jar"
 APEX_APP_MAP["full-client"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-full-$_version-full.jar"
+APEX_APP_MAP["event-gen"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator"
 
 ## array of applications with name=description
 declare -A APEX_APP_DESCR_MAP
@@ -103,6 +104,7 @@ APEX_APP_DESCR_MAP["engine"]="starts the APEX engine"
 APEX_APP_DESCR_MAP["eng-deployment"]="starts the APEX deployment client in a simple webserver"
 APEX_APP_DESCR_MAP["eng-monitoring"]="starts the APEX engine monitoring client in a simple webserver"
 APEX_APP_DESCR_MAP["full-client"]="starts the full APEX client (rest editor, deployment, monitoring) in a simple webserver"
+APEX_APP_DESCR_MAP["event-generator"]="starts the event generator in a simple webserver for performance testing"
 
 ##
 ## Help screen and exit condition (i.e. too few arguments)
