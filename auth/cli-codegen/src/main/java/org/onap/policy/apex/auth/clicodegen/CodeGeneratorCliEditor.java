@@ -235,30 +235,22 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new event declaration to the model.
-     * 
-     * @param name the event name
-     * @param version the event version
-     * @param uuid a UUID for the definition
-     * @param description a description of the event
-     * @param nameSpace the name space for the event
-     * @param source a source sending the event
-     * @param target a target receiving the event
-     * @param fields any event fields
+     *
+     * @param eventDeclarationBuilder
      */
-    public void addEventDeclaration(final String name, final String version, final String uuid,
-                    final String description, final String nameSpace, final String source, final String target,
-                    final List<ST> fields) {
+    public void addEventDeclaration(
+            EventDeclarationBuilder eventDeclarationBuilder) {
         final ST st = stg.getInstanceOf("eventDecl");
-        st.add(NAME, name);
-        st.add(VERSION, version);
-        st.add(UUID, uuid);
-        st.add(DESCRIPTION, description);
-        st.add(SOURCE, source);
-        st.add(TARGET, target);
-        st.add(FIELDS, fields);
+        st.add(NAME, eventDeclarationBuilder.getName());
+        st.add(VERSION, eventDeclarationBuilder.getVersion());
+        st.add(UUID, eventDeclarationBuilder.getUuid());
+        st.add(DESCRIPTION, eventDeclarationBuilder.getDescription());
+        st.add(SOURCE, eventDeclarationBuilder.getSource());
+        st.add(TARGET, eventDeclarationBuilder.getTarget());
+        st.add(FIELDS, eventDeclarationBuilder.getFields());
 
-        if (nameSpace != null) {
-            st.add(NAME_SPACE, nameSpace);
+        if (eventDeclarationBuilder.getNameSpace() != null) {
+            st.add(NAME_SPACE, eventDeclarationBuilder.getNameSpace());
         } else if (defaultNamespace != null) {
             st.add(NAME_SPACE, defaultNamespace);
         }
