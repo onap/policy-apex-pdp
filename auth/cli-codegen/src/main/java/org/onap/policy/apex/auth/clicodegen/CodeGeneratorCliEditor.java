@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -88,16 +88,24 @@ public class CodeGeneratorCliEditor {
 
     // CHECKSTYLE:OFF: ParameterNumber
 
-    /** The name of the STG file for the code generator. */
+    /**
+     * The name of the STG file for the code generator.
+     */
     public static final String STG_FILE = "org/onap/policy/apex/auth/clicodegen/cli-editor.stg";
 
-    /** The String Template Group, taken from the context. */
+    /**
+     * The String Template Group, taken from the context.
+     */
     private final STGroupFile stg;
 
-    /** The ST for the model, loaded from the STG. */
+    /**
+     * The ST for the model, loaded from the STG.
+     */
     private final ST model;
 
-    /** A default name space, set from specification. */
+    /**
+     * A default name space, set from specification.
+     */
     private String defaultNamespace;
 
     /**
@@ -111,7 +119,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds model parameters to the template.
-     * 
+     *
      * @param name the name of the mode, must not be blank
      * @param version a version, can be null
      * @param uuid a UUID, can be null
@@ -133,7 +141,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Returns the model.
-     * 
+     *
      * @return the model
      */
     public ST getModel() {
@@ -142,7 +150,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Sets the default name space.
-     * 
+     *
      * @param nameSpace new name space, ignored if blank
      */
     public void setDefaultNamespace(final String nameSpace) {
@@ -153,7 +161,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new schema declaration to the model.
-     * 
+     *
      * @param name the name of the schema
      * @param version the version of the declaration
      * @param uuid the UUID for the declaration
@@ -162,7 +170,7 @@ public class CodeGeneratorCliEditor {
      * @param schema the actual schema declaration, either a string or as <code>LS schema LE</code>
      */
     public void addSchemaDeclaration(final String name, final String version, final String uuid,
-                    final String description, final String flavour, final String schema) {
+            final String description, final String flavour, final String schema) {
         final ST st = stg.getInstanceOf("schemaDecl");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -193,7 +201,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new event field definition which belongs to an event.
-     * 
+     *
      * @param eventName the event name
      * @param version the event version
      * @param fieldName the name for the field in the event
@@ -203,7 +211,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for event field definition
      */
     public ST createEventFieldDefinition(final String eventName, final String version, final String fieldName,
-                    final String fieldSchema, final String fieldSchemaVersion, final boolean optional) {
+            final String fieldSchema, final String fieldSchemaVersion, final boolean optional) {
         final ST st = stg.getInstanceOf("eventDefField");
         st.add(EVENT_NAME, eventName);
         st.add(VERSION, version);
@@ -216,7 +224,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new task logic definition which belongs to a task.
-     * 
+     *
      * @param taskName the name of the task
      * @param version the task version
      * @param flavour the flavour, e.g. JAVA or JAVASCRIPT
@@ -224,7 +232,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for task definition, logic
      */
     public ST createTaskDefLogic(final String taskName, final String version, final String flavour,
-                    final String logic) {
+            final String logic) {
         final ST st = stg.getInstanceOf("taskDefLogic");
         st.add(TASK_NAME, taskName);
         st.add(VERSION, version);
@@ -235,30 +243,21 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new event declaration to the model.
-     * 
-     * @param name the event name
-     * @param version the event version
-     * @param uuid a UUID for the definition
-     * @param description a description of the event
-     * @param nameSpace the name space for the event
-     * @param source a source sending the event
-     * @param target a target receiving the event
-     * @param fields any event fields
+     *
+     * @param eventDeclarationBuilder param object for event declaration
      */
-    public void addEventDeclaration(final String name, final String version, final String uuid,
-                    final String description, final String nameSpace, final String source, final String target,
-                    final List<ST> fields) {
+    public void addEventDeclaration(EventDeclarationBuilder eventDeclarationBuilder) {
         final ST st = stg.getInstanceOf("eventDecl");
-        st.add(NAME, name);
-        st.add(VERSION, version);
-        st.add(UUID, uuid);
-        st.add(DESCRIPTION, description);
-        st.add(SOURCE, source);
-        st.add(TARGET, target);
-        st.add(FIELDS, fields);
+        st.add(NAME, eventDeclarationBuilder.getName());
+        st.add(VERSION, eventDeclarationBuilder.getVersion());
+        st.add(UUID, eventDeclarationBuilder.getUuid());
+        st.add(DESCRIPTION, eventDeclarationBuilder.getDescription());
+        st.add(SOURCE, eventDeclarationBuilder.getSource());
+        st.add(TARGET, eventDeclarationBuilder.getTarget());
+        st.add(FIELDS, eventDeclarationBuilder.getFields());
 
-        if (nameSpace != null) {
-            st.add(NAME_SPACE, nameSpace);
+        if (eventDeclarationBuilder.getNameSpace() != null) {
+            st.add(NAME_SPACE, eventDeclarationBuilder.getNameSpace());
         } else if (defaultNamespace != null) {
             st.add(NAME_SPACE, defaultNamespace);
         }
@@ -268,7 +267,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new task declaration to the model.
-     * 
+     *
      * @param name the name of the task
      * @param version the version of the task
      * @param uuid a UUID for the definition
@@ -280,8 +279,8 @@ public class CodeGeneratorCliEditor {
      * @param contextRefs any context reference
      */
     public void addTaskDeclaration(final String name, final String version, final String uuid, final String description,
-                    final List<ST> infields, final List<ST> outfields, final ST logic, final List<ST> parameters,
-                    final List<ST> contextRefs) {
+            final List<ST> infields, final List<ST> outfields, final ST logic, final List<ST> parameters,
+            final List<ST> contextRefs) {
         final ST st = stg.getInstanceOf("taskDecl");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -297,7 +296,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Adds a new policy definition to the model.
-     * 
+     *
      * @param name the name of the policy
      * @param version the version of the policy
      * @param uuid a UUID for the definition
@@ -307,7 +306,7 @@ public class CodeGeneratorCliEditor {
      * @param states all policy states
      */
     public void addPolicyDefinition(final String name, final String version, final String uuid,
-                    final String description, final String template, final String firstState, final List<ST> states) {
+            final String description, final String template, final String firstState, final List<ST> states) {
         final ST st = stg.getInstanceOf("policyDef");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -321,7 +320,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new task infield definition.
-     * 
+     *
      * @param taskName the name of the task
      * @param version the version of the task
      * @param fieldName the name of the infield
@@ -330,7 +329,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for task infield definition
      */
     public ST createTaskDefinitionInfields(final String taskName, final String version, final String fieldName,
-                    final String fieldSchema, final String fieldSchemaVersion) {
+            final String fieldSchema, final String fieldSchemaVersion) {
         final ST st = stg.getInstanceOf("taskDefInputFields");
         st.add(TASK_NAME, taskName);
         st.add(VERSION, version);
@@ -342,7 +341,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new task outfield definition.
-     * 
+     *
      * @param taskName the name of the task
      * @param version the version of the task
      * @param fieldName the name of the outfield
@@ -351,7 +350,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for task outfield definition
      */
     public ST createTaskDefinitionOutfields(final String taskName, final String version, final String fieldName,
-                    final String fieldSchema, final String fieldSchemaVersion) {
+            final String fieldSchema, final String fieldSchemaVersion) {
         final ST st = stg.getInstanceOf("taskDefOutputFields");
         st.add(TASK_NAME, taskName);
         st.add(VERSION, version);
@@ -363,7 +362,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new task parameter definition belonging to a task.
-     * 
+     *
      * @param name the name of the task
      * @param version the version of the task
      * @param parName the parameter name
@@ -371,7 +370,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a task parameter definition
      */
     public ST createTaskDefinitionParameters(final String name, final String version, final String parName,
-                    final String defaultValue) {
+            final String defaultValue) {
         final ST st = stg.getInstanceOf("taskDefParameter");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -382,7 +381,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new task definition context reference which belongs to a task.
-     * 
+     *
      * @param name the name of the task
      * @param version the version of the task
      * @param albumName the name of the context album
@@ -390,7 +389,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a task context reference definition
      */
     public ST createTaskDefinitionContextRef(final String name, final String version, final String albumName,
-                    final String albumVersion) {
+            final String albumVersion) {
         final ST st = stg.getInstanceOf("taskDefCtxRef");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -401,7 +400,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new policy state task definition for a task which belongs to a state which belongs to a policy.
-     * 
+     *
      * @param policyName the name of the policy
      * @param version the version of the policy
      * @param stateName the name of the new state
@@ -413,8 +412,8 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a policy state task definition
      */
     public ST createPolicyStateTask(final String policyName, final String version, final String stateName,
-                    final String taskLocalName, final String taskName, final String taskVersion,
-                    final String outputType, final String outputName) {
+            final String taskLocalName, final String taskName, final String taskVersion,
+            final String outputType, final String outputName) {
         final ST st = stg.getInstanceOf("policyStateTask");
         st.add(POLICY_NAME, policyName);
         st.add(VERSION, version);
@@ -429,7 +428,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new policy state output definition for a state which belongs to a policy.
-     * 
+     *
      * @param policyName the name of the policy
      * @param version the version of the policy
      * @param stateName the name of the new state
@@ -440,8 +439,8 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a state output definition
      */
     public ST createPolicyStateOutput(final String policyName, final String version, final String stateName,
-                    final String outputName, final String eventName, final String eventVersion,
-                    final String nextState) {
+            final String outputName, final String eventName, final String eventVersion,
+            final String nextState) {
         final ST st = stg.getInstanceOf("policyStateOutput");
         st.add(POLICY_NAME, policyName);
         st.add(VERSION, version);
@@ -455,7 +454,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new policy state definition for a state which belongs to a policy.
-     * 
+     *
      * @param policyName the name of the policy
      * @param version the version of the policy
      * @param stateName the name of the new state
@@ -471,9 +470,9 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a policy state definition
      */
     public ST createPolicyStateDef(final String policyName, final String version, final String stateName,
-                    final String triggerName, final String triggerVersion, final String defaultTask,
-                    final String defaultTaskVersion, final List<ST> outputs, final List<ST> tasks,
-                    final List<ST> tsLogic, final List<ST> finalizerLogics, final List<ST> ctxRefs) {
+            final String triggerName, final String triggerVersion, final String defaultTask,
+            final String defaultTaskVersion, final List<ST> outputs, final List<ST> tasks,
+            final List<ST> tsLogic, final List<ST> finalizerLogics, final List<ST> ctxRefs) {
         final ST st = stg.getInstanceOf("policyStateDef");
         st.add(POLICY_NAME, policyName);
         st.add(VERSION, version);
@@ -492,7 +491,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new task selection logic definition for a state which belongs to a policy.
-     * 
+     *
      * @param name the name of the policy
      * @param version the version of the policy
      * @param stateName the name of the state
@@ -501,7 +500,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for task selection logic definition
      */
     public ST createPolicyStateDefTaskSelLogic(final String name, final String version, final String stateName,
-                    final String logicFlavour, final String logic) {
+            final String logicFlavour, final String logic) {
         final ST st = stg.getInstanceOf("policyStateTaskSelectionLogic");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -513,7 +512,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new state finalizer definition for a state which belongs to a policy.
-     * 
+     *
      * @param name the name of the policy
      * @param version the version of the policy
      * @param stateName the name of the state
@@ -523,7 +522,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for finalizer definition
      */
     public ST createPolicyStateDefFinalizerLogic(final String name, final String version, final String stateName,
-                    final String finalizerLogicName, final String logicFlavour, final String logic) {
+            final String finalizerLogicName, final String logicFlavour, final String logic) {
         final ST st = stg.getInstanceOf("policyStateFinalizerLogic");
         st.add(NAME, name);
         st.add(VERSION, version);
@@ -536,7 +535,7 @@ public class CodeGeneratorCliEditor {
 
     /**
      * Creates a new policy state context reference for a state which belongs to a policy.
-     * 
+     *
      * @param name the name of the policy
      * @param version the version of the policy
      * @param stateName the name of the state
@@ -545,7 +544,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for state context reference
      */
     public ST createPolicyStateDefContextRef(final String name, final String version, final String stateName,
-                    final String albumName, final String albumVersion) {
+            final String albumName, final String albumVersion) {
         final ST st = stg.getInstanceOf("policyStateContextRef");
         st.add(NAME, name);
         st.add(VERSION, version);
