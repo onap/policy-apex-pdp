@@ -31,7 +31,7 @@ import java.io.PrintStream;
 
 import org.junit.Test;
 
-public class SchemaGeneratorTest {
+public class ApexSchemaGeneratorTest {
 
     @Test
     public void test() throws IOException {

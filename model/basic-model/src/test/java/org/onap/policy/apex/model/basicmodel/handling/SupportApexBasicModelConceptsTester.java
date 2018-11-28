@@ -43,12 +43,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-public class ApexBasicModelConceptsTest {
+public class SupportApexBasicModelConceptsTester {
     TestApexModel<AxModel> testApexModel;
 
     @Before
     public void setup() throws Exception {
-        testApexModel = new TestApexModel<AxModel>(AxModel.class, new TestApexBasicModelCreator());
+        testApexModel = new TestApexModel<AxModel>(AxModel.class, new DummyApexBasicModelCreator());
     }
 
     @Test
@@ -203,7 +203,7 @@ public class ApexBasicModelConceptsTest {
 
     @Test
     public void testModelConceptsWithReferences() {
-        final AxModelWithReferences mwr = new TestApexBasicModelCreator().getModelWithReferences();
+        final DummyAxModelWithReferences mwr = new DummyApexBasicModelCreator().getModelWithReferences();
         assertNotNull(mwr);
         mwr.getKeyInformation().getKeyInfoMap().clear();
         mwr.getKeyInformation().generateKeyInfo(mwr);

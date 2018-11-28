@@ -39,12 +39,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 
-public class ModelReaderTest {
+public class ApexModelReaderTest {
 
     @Test
     public void testModelReader() throws IOException, ApexException {
-        AxModel model = new TestApexBasicModelCreator().getModel();
-        AxModel invalidModel = new TestApexBasicModelCreator().getInvalidModel();
+        AxModel model = new DummyApexBasicModelCreator().getModel();
+        AxModel invalidModel = new DummyApexBasicModelCreator().getInvalidModel();
         
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
         modelWriter.setValidateFlag(true);

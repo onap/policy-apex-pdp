@@ -29,12 +29,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-public class BasicModelTest {
+public class SupportBasicModelTester {
 
     @Test
     public void testNormalModelCreator() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexBasicModelCreator());
+                        new DummyApexBasicModelCreator());
 
         testApexModel.testApexModelValid();
         try {
@@ -54,7 +54,7 @@ public class BasicModelTest {
     @Test
     public void testModelCreator0() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexTestModelCreator0());
+                        new TestApexModelCreator0Test());
 
         testApexModel.testApexModelValid();
         try {
@@ -86,7 +86,7 @@ public class BasicModelTest {
     @Test
     public void testModelCreator1() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexTestModelCreator1());
+                        new TestApexModelCreator1Test());
 
         try {
             testApexModel.testApexModelValid();
@@ -113,7 +113,7 @@ public class BasicModelTest {
     @Test
     public void testModelCreator2() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexTestModelCreator2());
+                        new TestApexModelCreator2Test());
 
         testApexModel.testApexModelValid();
         testApexModel.testApexModelVaidateObservation();
@@ -128,7 +128,7 @@ public class BasicModelTest {
     @Test
     public void testModelCreator1XmlJson() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexTestModelCreator1());
+                        new TestApexModelCreator1Test());
 
         try {
             testApexModel.testApexModelWriteReadJson();

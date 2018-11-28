@@ -33,11 +33,11 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 
-public class ModelStringWriterTest {
+public class ApexModelStringWriterTest {
 
     @Test
     public void testModelStringWriter() throws IOException, ApexException {
-        AxModel basicModel = new TestApexBasicModelCreator().getModel();
+        AxModel basicModel = new DummyApexBasicModelCreator().getModel();
         assertNotNull(basicModel);
        
         AxKeyInfo intKeyInfo   = basicModel.getKeyInformation().get("IntegerKIKey");

@@ -33,7 +33,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyUse;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 
-public class KeyUseTest {
+public class AxKeyUseTest {
 
     @Test
     public void test() {

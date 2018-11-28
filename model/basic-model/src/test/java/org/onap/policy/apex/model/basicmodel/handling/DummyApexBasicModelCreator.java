@@ -28,7 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 
-public class TestApexBasicModelCreator implements TestApexModelCreator<AxModel> {
+public class DummyApexBasicModelCreator implements TestApexModelCreator<AxModel> {
 
     @Override
     public AxModel getModel() {
@@ -112,10 +112,10 @@ public class TestApexBasicModelCreator implements TestApexModelCreator<AxModel> 
      * Get the model with its references.
      * @return the model with its references
      */
-    public final AxModelWithReferences getModelWithReferences() {
+    public final DummyAxModelWithReferences getModelWithReferences() {
         AxModel model = getModel();
 
-        AxModelWithReferences modelWithReferences = new AxModelWithReferences(model.getKey());
+        DummyAxModelWithReferences modelWithReferences = new DummyAxModelWithReferences(model.getKey());
         modelWithReferences.setKeyInformation(model.getKeyInformation());
         modelWithReferences.setReferenceKeyList();
 

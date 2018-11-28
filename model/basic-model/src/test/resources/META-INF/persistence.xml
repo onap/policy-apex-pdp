@@ -30,7 +30,7 @@
         <class>org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo</class>
         <class>org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation</class>
         <class>org.onap.policy.apex.model.basicmodel.concepts.AxModel</class>
-        <class>org.onap.policy.apex.model.basicmodel.concepts.TestEntity</class>
+        <class>org.onap.policy.apex.model.basicmodel.concepts.DummyEntity</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:apex_test" />
