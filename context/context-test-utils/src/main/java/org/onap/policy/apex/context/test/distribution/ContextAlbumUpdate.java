@@ -25,8 +25,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.onap.policy.apex.context.test.utils.Constants.APEX_DISTRIBUTOR;
 import static org.onap.policy.apex.context.test.utils.Constants.VERSION;
 
-import java.io.IOException;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
@@ -51,7 +49,6 @@ public class ContextAlbumUpdate {
      * Test context album update.
      *
      * @throws ApexModelException the apex model exception
-     * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
     public void testContextAlbumUpdate() throws ApexException {
