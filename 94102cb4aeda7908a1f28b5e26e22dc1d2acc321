@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_fd8453d5",
+        "filename": "client/client-deployment/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-29T14:28:46Z",
+      "side": 1,
+      "message": "Indentation",
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1d8837e6",
+        "filename": "client/client-deployment/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-29T14:28:46Z",
+      "side": 1,
+      "message": "More indentation",
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_3d141b9f",
         "filename": "client/client-editor/pom.xml",
         "patchSetId": 1
@@ -47,6 +81,52 @@
       "writtenOn": "2018-11-29T14:23:36Z",
       "side": 1,
       "message": "formatting",
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3d62db3e",
+        "filename": "client/client-monitoring/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-29T14:28:46Z",
+      "side": 1,
+      "message": "Indentation",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_bd556b51",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/EngineServiceFacade.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-29T14:28:46Z",
+      "side": 1,
+      "message": "I think the \u003cp\u003e has to be on the same line for Checkstyle/Sonar Also correct spelling of \"his\"...",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 56,
+        "endChar": 5
+      },
       "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
