@@ -33,7 +33,6 @@ public class EvalTaskLogic {
      *
      * @param executor the executor
      * @return the event
-     * @throws ApexException the apex exception
      */
     public boolean getEvent(final TaskExecutionContext executor) {
         String idString = executor.subject.getId();
