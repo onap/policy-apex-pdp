@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_fd0d3391",
+        "filename": "client/client-deployment/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-29T14:23:36Z",
+      "side": 1,
+      "message": "formatting",
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3d141b9f",
+        "filename": "client/client-editor/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-29T14:23:36Z",
+      "side": 1,
+      "message": "formatting",
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1d1117ac",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-29T14:23:36Z",
+      "side": 1,
+      "message": "formatting",
+      "revId": "94102cb4aeda7908a1f28b5e26e22dc1d2acc321",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
