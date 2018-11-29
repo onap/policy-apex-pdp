@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -80,7 +80,7 @@ public class CliCodegenTest {
         AxPolicyModel apexPolicyModel = null;
         try {
             apexPolicyModel = modelReader
-                            .read(new FileInputStream(new File("src/test/resources/models/TestPolicyModel.json")));
+                    .read(new FileInputStream(new File("src/test/resources/models/TestPolicyModel.json")));
         } catch (ApexModelException | FileNotFoundException e) {
             fail("test should not throw an exception");
         }
@@ -90,10 +90,10 @@ public class CliCodegenTest {
 
     /**
      * Generate the CLI from the model.
-     * 
+     *
      * @param codeGen the code generator
      * @param policyModel the policy model
-     * @throws IOException  on generation exceptions
+     * @throws IOException on generation exceptions
      */
     private int generateCli(final CodeGeneratorCliEditor codeGen, final AxPolicyModel policyModel) throws IOException {
         kig = new KeyInfoGetter(policyModel);
@@ -108,7 +108,7 @@ public class CliCodegenTest {
             final AxArtifactKey key = s.getKey();
 
             codeGen.addSchemaDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            s.getSchemaFlavour(), s.getSchema());
+                    s.getSchemaFlavour(), s.getSchema());
         }
 
         // 2: tasks
@@ -120,8 +120,11 @@ public class CliCodegenTest {
             final List<ST> parameters = getParametersForTask(codeGen, t);
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
-            codeGen.addTaskDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            infields, outfields, logic, parameters, contextRefs);
+            codeGen.addTaskDeclaration(
+                    new TaskDeclarationBuilder().setName(kig.getName(key)).setVersion(kig.getVersion(key))
+                            .setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key)).setInfields(infields)
+                            .setOutfields(outfields).setLogic(logic).setParameters(parameters)
+                            .setContextRefs(contextRefs));
         }
 
         // 3: events
@@ -162,7 +165,7 @@ public class CliCodegenTest {
             final AxArtifactKey key = p.getKey();
             final List<ST> states = getStatesForPolicy(codeGen, p);
             codeGen.addPolicyDefinition(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            p.getTemplate(), p.getFirstState(), states);
+                    p.getTemplate(), p.getFirstState(), states);
         }
 
         final String out = codeGen.getModel().render();
@@ -188,7 +191,7 @@ public class CliCodegenTest {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createEventFieldDefinition(kig.getPName(fkey), kig.getPVersion(fkey), kig.getLName(fkey),
-                            kig.getName(f.getSchema()), kig.getVersion(f.getSchema()), f.getOptional());
+                    kig.getName(f.getSchema()), kig.getVersion(f.getSchema()), f.getOptional());
 
             ret.add(val);
         }
@@ -209,7 +212,7 @@ public class CliCodegenTest {
         for (final AxArtifactKey ckey : ctxs) {
 
             final ST val = cg.createTaskDefinitionContextRef(kig.getName(tkey), kig.getVersion(tkey), kig.getName(ckey),
-                            kig.getVersion(ckey));
+                    kig.getVersion(ckey));
 
             ret.add(val);
         }
@@ -230,7 +233,7 @@ public class CliCodegenTest {
             final AxReferenceKey pkey = p.getKey();
 
             final ST val = cg.createTaskDefinitionParameters(kig.getPName(pkey), kig.getPVersion(pkey),
-                            kig.getLName(pkey), p.getTaskParameterValue());
+                    kig.getLName(pkey), p.getTaskParameterValue());
 
             ret.add(val);
         }
@@ -265,7 +268,7 @@ public class CliCodegenTest {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createTaskDefinitionOutfields(kig.getPName(fkey), kig.getPVersion(fkey),
-                            kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
+                    kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
 
             ret.add(val);
         }
@@ -286,7 +289,7 @@ public class CliCodegenTest {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createTaskDefinitionInfields(kig.getPName(fkey), kig.getPVersion(fkey),
-                            kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
+                    kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
 
             ret.add(val);
         }
@@ -312,9 +315,9 @@ public class CliCodegenTest {
             final List<ST> ctxRefs = getCtxtRefsForState(cg, st);
 
             final ST val = cg.createPolicyStateDef(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                            kig.getName(st.getTrigger()), kig.getVersion(st.getTrigger()),
-                            kig.getName(st.getDefaultTask()), kig.getVersion(st.getDefaultTask()), outputs, tasks,
-                            tsLogic, finalizerLogics, ctxRefs);
+                    kig.getName(st.getTrigger()), kig.getVersion(st.getTrigger()),
+                    kig.getName(st.getDefaultTask()), kig.getVersion(st.getDefaultTask()), outputs, tasks,
+                    tsLogic, finalizerLogics, ctxRefs);
 
             ret.add(val);
         }
@@ -336,7 +339,7 @@ public class CliCodegenTest {
             final AxReferenceKey finkey = fin.getKey();
 
             final ST val = cg.createPolicyStateDefFinalizerLogic(kig.getPName(skey), kig.getPVersion(skey),
-                            kig.getLName(skey), kig.getLName(finkey), fin.getLogicFlavour(), fin.getLogic());
+                    kig.getLName(skey), kig.getLName(finkey), fin.getLogicFlavour(), fin.getLogic());
 
             ret.add(val);
         }
@@ -357,7 +360,7 @@ public class CliCodegenTest {
         for (final AxArtifactKey ctx : ctxs) {
 
             final ST val = cg.createPolicyStateDefContextRef(kig.getPName(skey), kig.getPVersion(skey),
-                            kig.getLName(skey), kig.getName(ctx), kig.getVersion(ctx));
+                    kig.getLName(skey), kig.getName(ctx), kig.getVersion(ctx));
 
             ret.add(val);
         }
@@ -376,7 +379,7 @@ public class CliCodegenTest {
         if (st.checkSetTaskSelectionLogic()) {
             final AxTaskSelectionLogic tsl = st.getTaskSelectionLogic();
             final ST val = cg.createPolicyStateDefTaskSelLogic(kig.getPName(skey), kig.getPVersion(skey),
-                            kig.getLName(skey), tsl.getLogicFlavour(), tsl.getLogic());
+                    kig.getLName(skey), tsl.getLogicFlavour(), tsl.getLogic());
             return Collections.singletonList(val);
         } else {
             return Collections.emptyList();
@@ -400,8 +403,8 @@ public class CliCodegenTest {
             final AxReferenceKey trkey = tr.getKey();
 
             final ST val = cg.createPolicyStateTask(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                            kig.getLName(trkey), kig.getName(tkey), kig.getVersion(tkey),
-                            tr.getStateTaskOutputType().name(), kig.getLName(tr.getOutput()));
+                    kig.getLName(trkey), kig.getName(tkey), kig.getVersion(tkey),
+                    tr.getStateTaskOutputType().name(), kig.getLName(tr.getOutput()));
 
             ret.add(val);
         }
@@ -423,8 +426,8 @@ public class CliCodegenTest {
             final AxReferenceKey outkey = out.getKey();
 
             final ST val = cg.createPolicyStateOutput(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                            kig.getLName(outkey), kig.getName(out.getOutgingEvent()),
-                            kig.getVersion(out.getOutgingEvent()), kig.getLName(out.getNextState()));
+                    kig.getLName(outkey), kig.getName(out.getOutgingEvent()),
+                    kig.getVersion(out.getOutgingEvent()), kig.getLName(out.getNextState()));
 
             ret.add(val);
         }

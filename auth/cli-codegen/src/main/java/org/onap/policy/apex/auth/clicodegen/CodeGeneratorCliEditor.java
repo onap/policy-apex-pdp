@@ -268,29 +268,19 @@ public class CodeGeneratorCliEditor {
     /**
      * Adds a new task declaration to the model.
      *
-     * @param name the name of the task
-     * @param version the version of the task
-     * @param uuid a UUID for the definition
-     * @param description a description of the task
-     * @param infields all infields for the task
-     * @param outfields all outfields for the task
-     * @param logic the logic for the task
-     * @param parameters any task parameter
-     * @param contextRefs any context reference
+     * @param taskDeclarationBuilder params object for task declaration
      */
-    public void addTaskDeclaration(final String name, final String version, final String uuid, final String description,
-            final List<ST> infields, final List<ST> outfields, final ST logic, final List<ST> parameters,
-            final List<ST> contextRefs) {
+    public void addTaskDeclaration(TaskDeclarationBuilder taskDeclarationBuilder) {
         final ST st = stg.getInstanceOf("taskDecl");
-        st.add(NAME, name);
-        st.add(VERSION, version);
-        st.add(UUID, uuid);
-        st.add(DESCRIPTION, description);
-        st.add(INFIELDS, infields);
-        st.add(OUTFIELDS, outfields);
-        st.add(LOGIC, logic);
-        st.add(PARAMS, parameters);
-        st.add(CONTEXT_REFS, contextRefs);
+        st.add(NAME, taskDeclarationBuilder.getName());
+        st.add(VERSION, taskDeclarationBuilder.getVersion());
+        st.add(UUID, taskDeclarationBuilder.getUuid());
+        st.add(DESCRIPTION, taskDeclarationBuilder.getDescription());
+        st.add(INFIELDS, taskDeclarationBuilder.getInfields());
+        st.add(OUTFIELDS, taskDeclarationBuilder.getOutfields());
+        st.add(LOGIC, taskDeclarationBuilder.getLogic());
+        st.add(PARAMS, taskDeclarationBuilder.getParameters());
+        st.add(CONTEXT_REFS, taskDeclarationBuilder.getContextRefs());
         model.add(DECLARATION, st);
     }
 
