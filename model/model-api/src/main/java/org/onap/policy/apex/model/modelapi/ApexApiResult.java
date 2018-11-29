@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -34,16 +34,15 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * The Class ApexEditorAPIResult return the result of and messages from all model API method calls
- * on the {@link ApexModel} API.
+ * The Class ApexEditorAPIResult return the result of and messages from all model API method calls on the
+ * {@link ApexModel} API.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class ApexApiResult {
 
     /**
-     * This enumeration is used to represent the result status of a call on the {@link ApexModel}
-     * API.
+     * This enumeration is used to represent the result status of a call on the {@link ApexModel} API.
      */
     @XmlEnum(value = String.class)
     public enum Result {
@@ -62,19 +61,19 @@ public class ApexApiResult {
         /** The method call failed because no action was specified on the method call. */
         NO_ACTION_SPECIFIED,
         /**
-         * The method call failed because of a structural error, a missing reference, or other error
-         * on the model.
+         * The method call failed because of a structural error, a missing reference, or other error on the model.
          */
         FAILED,
         /**
-         * The method call failed for another reason such as the method call is not implemented yet
-         * on the concept on which it was called.
+         * The method call failed for another reason such as the method call is not implemented yet on the concept on
+         * which it was called.
          */
         OTHER_ERROR;
 
         /**
          * Check if a result is OK.
-         * 
+         *
+         * @param result the result
          * @return true if the result is not OK
          */
         public static boolean isOk(final Result result) {
@@ -83,7 +82,8 @@ public class ApexApiResult {
 
         /**
          * Check if a result is not OK.
-         * 
+         *
+         * @param result the result
          * @return true if the result is not OK
          */
         public static boolean isNok(final Result result) {
@@ -122,9 +122,8 @@ public class ApexApiResult {
     }
 
     /**
-     * This Constructor creates a result with the given result status and {@link Throwable} object
-     * such as an exception. The message and stack trace from the {@link Throwable} object are added
-     * to the message list of this message.
+     * This Constructor creates a result with the given result status and {@link Throwable} object such as an exception.
+     * The message and stack trace from the {@link Throwable} object are added to the message list of this message.
      *
      * @param result the result status to use on this result
      * @param throwable the throwable object from which to add the message and stack trace
@@ -135,9 +134,9 @@ public class ApexApiResult {
     }
 
     /**
-     * This Constructor creates a result with the given result status, message, and
-     * {@link Throwable} object such as an exception. The message and stack trace from the
-     * {@link Throwable} object are added to the message list of this message.
+     * This Constructor creates a result with the given result status, message, and {@link Throwable} object such as an
+     * exception. The message and stack trace from the {@link Throwable} object are added to the message list of this
+     * message.
      *
      * @param result the result status to use on this result
      * @param message the message to return with the result
@@ -150,8 +149,7 @@ public class ApexApiResult {
     }
 
     /**
-     * This message is a utility message that checks if the result of an operation on the API was
-     * OK.
+     * This message is a utility message that checks if the result of an operation on the API was OK.
      *
      * @return true, if the result indicates the API operation succeeded
      */
@@ -161,8 +159,7 @@ public class ApexApiResult {
     }
 
     /**
-     * This message is a utility message that checks if the result of an operation on the API was
-     * not OK.
+     * This message is a utility message that checks if the result of an operation on the API was not OK.
      *
      * @return true, if the result indicates the API operation did not succeed
      */
@@ -228,8 +225,7 @@ public class ApexApiResult {
     /**
      * Adds a message from an API operation to the bottom of the list of messages to be returned.
      *
-     * @param message the message from an API operation to add to the bottom of the list of messages
-     *        to be returned
+     * @param message the message from an API operation to add to the bottom of the list of messages to be returned
      */
     public void addMessage(final String message) {
         if (message != null && message.trim().length() > 0) {
@@ -238,12 +234,11 @@ public class ApexApiResult {
     }
 
     /**
-     * Adds the message and stack trace from a {@link Throwable} object such as an exception from an
-     * API operation to the bottom of the list of messages to be returned.
+     * Adds the message and stack trace from a {@link Throwable} object such as an exception from an API operation to
+     * the bottom of the list of messages to be returned.
      *
-     * @param throwable the {@link Throwable} object such as an exception from an API operation from
-     *        which the message and stack trace are to be extracted and placed at the bottom of the
-     *        list of messages to be returned
+     * @param throwable the {@link Throwable} object such as an exception from an API operation from which the message
+     *        and stack trace are to be extracted and placed at the bottom of the list of messages to be returned
      */
     public void addThrowable(final Throwable throwable) {
         final StringWriter throwableStringWriter = new StringWriter();

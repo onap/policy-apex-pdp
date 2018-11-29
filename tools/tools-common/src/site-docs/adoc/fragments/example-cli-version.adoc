@@ -22,14 +22,14 @@ First, create a new CLI Parser object, add some options (in the example an optio
 
 [source,java,linenums,subs="attributes+"]
 ----
-include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleAppVersion.java[tags=setupParser,indent=0]
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleAppVersionTest.java[tags=setupParser,indent=0]
 ----
 
 Next, we check if the version option was used in the command line and print application name and version if it was used:
 
 [source,java,linenums,subs="attributes+"]
 ----
-include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleAppVersion.java[tags=processCliVersion,indent=0]
+include::{adsite-tools-common-dir}/test/java/org/onap/policy/apex/tools/common/docs/ExampleAppVersionTest.java[tags=processCliVersion,indent=0]
 ----
 
 The output will be:

@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -65,8 +65,8 @@ public class ZooKeeperServerServiceProvider {
 
     /**
      * Start the Zookeeper server.
-     * @throws IOException the IO exception occurs while setting up Zookeeper server
-     * @throws InterruptedException the interrupted exception occurs while setting up Zookeeper server
+     *
+     * @throws ApexException on configuration errors
      */
     public void startZookeeperServer() throws ApexException {
         LOGGER.info("Starting up ZooKeeperServer using address: {} and port: {}", addr.getAddress(), addr.getPort());
@@ -76,23 +76,21 @@ public class ZooKeeperServerServiceProvider {
             server = new ZooKeeperServer(zookeeperDirectory, zookeeperDirectory, 5000);
             zookeeperFactory = new NIOServerCnxnFactory();
             zookeeperFactory.configure(addr, 100);
-        }
-        catch (IOException ioe) {
-            String message = "exception on starting Zookeeper server";
+        } catch (final IOException ioe) {
+            final String message = "exception on starting Zookeeper server";
             LOGGER.warn(message, ioe);
             throw new ApexException(message, ioe);
         }
-        
+
         try {
             zookeeperFactory.startup(server);
-        }
-        catch (InterruptedException | IOException ie) {
-            String message = "Zookeeper server start failed";
+        } catch (InterruptedException | IOException ie) {
+            final String message = "Zookeeper server start failed";
             LOGGER.warn(message, ie);
             Thread.currentThread().interrupt();
             throw new ApexException(message, ie);
         }
-        
+
     }
 
     /**
