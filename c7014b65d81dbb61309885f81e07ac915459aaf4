@@ -1,0 +1,12 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Liam Fallon <liam.fallon@est.tech>
+Code-Review+1: Jorge Hernandez <jorge.hernandez-herrero@att.com>
+Code-Review+1: Ram Krishna Verma <ram.krishna.verma@ericsson.com>
+Code-Review+1: Krishnakumar Jinka <kris.jinka@samsung.com>
+Code-Review+1: Jim Hahn <jrh3@att.com>
+Code-Review+2: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-by: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-at: Thu, 29 Nov 2018 14:16:14 +0000
+Reviewed-on: https://gerrit.onap.org/r/73769
+Project: policy/apex-pdp
+Branch: refs/heads/master
