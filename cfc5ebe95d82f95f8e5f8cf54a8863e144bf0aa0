@@ -22,6 +22,30 @@
       "revId": "cfc5ebe95d82f95f8e5f8cf54a8863e144bf0aa0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9d02e709",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/EngineServiceFacade.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-11-29T14:45:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_5d68fff4",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 121
+      },
+      "revId": "cfc5ebe95d82f95f8e5f8cf54a8863e144bf0aa0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
