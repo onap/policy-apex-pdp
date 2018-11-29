@@ -33,7 +33,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 
-public class ModelWriterTest {
+public class ApexModelWriterTest {
 
     @Test
     public void testModelWriter() throws IOException, ApexException {
@@ -51,7 +51,7 @@ public class ModelWriterTest {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        AxModel model = new TestApexBasicModelCreator().getModel();
+        AxModel model = new DummyApexBasicModelCreator().getModel();
 
         modelWriter.write(model, baos);
         modelWriter.setJsonOutput(true);

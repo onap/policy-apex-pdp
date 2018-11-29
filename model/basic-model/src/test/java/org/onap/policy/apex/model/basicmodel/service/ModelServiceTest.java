@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
-import org.onap.policy.apex.model.basicmodel.handling.TestApexBasicModelCreator;
+import org.onap.policy.apex.model.basicmodel.handling.DummyApexBasicModelCreator;
 
 public class ModelServiceTest {
 
@@ -44,7 +44,7 @@ public class ModelServiceTest {
         }
 
         ModelService.registerModel(AxKeyInformation.class,
-                        new TestApexBasicModelCreator().getModel().getKeyInformation());
+                        new DummyApexBasicModelCreator().getModel().getKeyInformation());
         assertTrue(ModelService.existsModel(AxKeyInformation.class));
         assertNotNull(ModelService.getModel(AxKeyInformation.class));
 
@@ -59,7 +59,7 @@ public class ModelServiceTest {
         }
 
         ModelService.registerModel(AxKeyInformation.class,
-                        new TestApexBasicModelCreator().getModel().getKeyInformation());
+                        new DummyApexBasicModelCreator().getModel().getKeyInformation());
         assertTrue(ModelService.existsModel(AxKeyInformation.class));
         assertNotNull(ModelService.getModel(AxKeyInformation.class));
 

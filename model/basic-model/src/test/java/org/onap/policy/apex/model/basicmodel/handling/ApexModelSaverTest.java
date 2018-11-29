@@ -20,22 +20,32 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 
-public class ExceptionsTest {
+public class ApexModelSaverTest {
 
     @Test
-    public void test() {
-        assertNotNull(new ApexModelException("Message"));
-        assertNotNull(new ApexModelException("Message", new IOException()));
+    public void testModelSaver() throws IOException, ApexException {
+        AxModel model = new DummyApexBasicModelCreator().getModel();
 
-        ApexModelException ame = new ApexModelException("Message", new IOException("IO exception message"));
-        assertEquals("Message\ncaused by: Message\ncaused by: IO exception message", ame.getCascadedMessage());
+        Path tempPath = Files.createTempDirectory("ApexTest");
+
+        ApexModelSaver<AxModel> modelSaver = new ApexModelSaver<AxModel>(AxModel.class, model,
+                        tempPath.toAbsolutePath().toString());
+
+        modelSaver.apexModelWriteXml();
+        modelSaver.apexModelWriteJson();
+
+        Files.deleteIfExists(new File(tempPath.toAbsolutePath() + "/BasicModel.json").toPath());
+        Files.deleteIfExists(new File(tempPath.toAbsolutePath() + "/BasicModel.xml").toPath());
+        Files.deleteIfExists(tempPath);
     }
 }

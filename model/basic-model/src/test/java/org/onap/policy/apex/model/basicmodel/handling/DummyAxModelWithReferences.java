@@ -28,12 +28,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
-public class AxModelWithReferences extends AxModel {
+public class DummyAxModelWithReferences extends AxModel {
     private static final long serialVersionUID = -8194956638511120008L;
 
     private List<AxKey> extrakeyList = new ArrayList<>();
     
-    public AxModelWithReferences(final AxArtifactKey key) {
+    public DummyAxModelWithReferences(final AxArtifactKey key) {
         super(key);
     }
     

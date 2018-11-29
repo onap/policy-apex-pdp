@@ -37,11 +37,11 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 
-public class ConceptGetterTest {
+public class SupportConceptGetterTester {
 
     @Test
     public void testConceptGetter() throws IOException, ApexException {
-        AxModel basicModel = new TestApexBasicModelCreator().getModel();
+        AxModel basicModel = new DummyApexBasicModelCreator().getModel();
         assertNotNull(basicModel);
 
         AxKeyInfo intKI01 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey01", "0.0.1"), UUID.randomUUID(),

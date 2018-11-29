@@ -38,7 +38,7 @@ import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 @Entity
 @Table(name = "TestEntity")
 
-public class TestEntity extends AxConcept {
+public class DummyEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067894L;
 
     @EmbeddedId()
@@ -48,17 +48,17 @@ public class TestEntity extends AxConcept {
 
     private double doubleValue;
 
-    public TestEntity() {
+    public DummyEntity() {
         this.key = new AxReferenceKey();
         this.doubleValue = 0;
     }
 
-    public TestEntity(Double doubleValue) {
+    public DummyEntity(Double doubleValue) {
         this.key = new AxReferenceKey();
         this.doubleValue = doubleValue;
     }
 
-    public TestEntity(AxReferenceKey key, Double doubleValue) {
+    public DummyEntity(AxReferenceKey key, Double doubleValue) {
         this.key = key;
         this.doubleValue = doubleValue;
     }
@@ -107,9 +107,9 @@ public class TestEntity extends AxConcept {
 
     @Override
     public AxConcept copyTo(AxConcept target) {
-        final Object copyObject = ((target == null) ? new TestEntity() : target);
-        if (copyObject instanceof TestEntity) {
-            final TestEntity copy = ((TestEntity) copyObject);
+        final Object copyObject = ((target == null) ? new DummyEntity() : target);
+        if (copyObject instanceof DummyEntity) {
+            final DummyEntity copy = ((DummyEntity) copyObject);
             if (this.checkSetKey()) {
                 copy.setKey(new AxReferenceKey(key));
             } else {
@@ -141,7 +141,7 @@ public class TestEntity extends AxConcept {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        TestEntity other = (TestEntity) obj;
+        DummyEntity other = (DummyEntity) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -163,7 +163,7 @@ public class TestEntity extends AxConcept {
         if (this == otherObj) {
             return 0;
         }
-        TestEntity other = (TestEntity) otherObj;
+        DummyEntity other = (DummyEntity) otherObj;
         if (key == null) {
             if (other.key != null) {
                 return 1;

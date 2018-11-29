@@ -26,7 +26,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 
-public class TestApexTestModelCreator0 implements TestApexModelCreator<AxModel> {
+public class TestApexModelCreator2Test implements TestApexModelCreator<AxModel> {
 
     @Override
     public AxModel getModel() {
@@ -38,7 +38,7 @@ public class TestApexTestModelCreator0 implements TestApexModelCreator<AxModel> 
         basicModel.getKeyInformation().getKeyInfoMap().put(basicModel.getKey(), new AxKeyInfo(basicModel.getKey()));
         basicModel.getKeyInformation().getKeyInfoMap().put(basicModel.getKeyInformation().getKey(),
                         new AxKeyInfo(basicModel.getKeyInformation().getKey()));
-
+        basicModel.getKeyInformation().get("BasicModel").setDescription("");
         return basicModel;
     }
 

@@ -36,7 +36,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-public class ApexBasicModelTest {
+public class SupportApexBasicModelTester {
     private Connection connection;
     TestApexModel<AxModel> testApexModel;
 
@@ -50,7 +50,7 @@ public class ApexBasicModelTest {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
         connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
 
-        testApexModel = new TestApexModel<AxModel>(AxModel.class, new TestApexBasicModelCreator());
+        testApexModel = new TestApexModel<AxModel>(AxModel.class, new DummyApexBasicModelCreator());
     }
 
     @After

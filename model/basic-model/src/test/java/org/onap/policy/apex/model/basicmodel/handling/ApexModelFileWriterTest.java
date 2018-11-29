@@ -31,7 +31,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 
-public class ModelFileWriterTest {
+public class ApexModelFileWriterTest {
 
     @Test
     public void testModelFileWriter() throws IOException, ApexException {
@@ -47,7 +47,7 @@ public class ModelFileWriterTest {
         File jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/ApexFileWriterTest.json");
         File xmlTempFile = new File(tempDir.getAbsolutePath() + "/ccc/ApexFileWriterTest.xml");
         
-        AxModel model = new TestApexBasicModelCreator().getModel();
+        AxModel model = new DummyApexBasicModelCreator().getModel();
 
         modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
         modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, xmlTempFile.getAbsolutePath());

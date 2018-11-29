@@ -42,7 +42,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.onap.policy.apex.model.basicmodel.concepts.TestEntity;
+import org.onap.policy.apex.model.basicmodel.concepts.DummyEntity;
 
 /**
  * JUnit test class.
@@ -240,57 +240,57 @@ public class EntityTest {
         final AxArtifactKey owner4Key = new AxArtifactKey("Owner4", "0.0.1");
         final AxArtifactKey owner5Key = new AxArtifactKey("Owner5", "0.0.1");
 
-        apexDao.create(new TestEntity(new AxReferenceKey(owner0Key, "Entity0"), 100.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner0Key, "Entity1"), 101.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner0Key, "Entity2"), 102.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner0Key, "Entity3"), 103.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner0Key, "Entity4"), 104.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner1Key, "Entity5"), 105.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner1Key, "Entity6"), 106.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner1Key, "Entity7"), 107.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner2Key, "Entity8"), 108.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner2Key, "Entity9"), 109.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner3Key, "EntityA"), 110.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner4Key, "EntityB"), 111.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner5Key, "EntityC"), 112.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner5Key, "EntityD"), 113.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner5Key, "EntityE"), 114.0));
-        apexDao.create(new TestEntity(new AxReferenceKey(owner5Key, "EntityF"), 115.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner0Key, "Entity0"), 100.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner0Key, "Entity1"), 101.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner0Key, "Entity2"), 102.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner0Key, "Entity3"), 103.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner0Key, "Entity4"), 104.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner1Key, "Entity5"), 105.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner1Key, "Entity6"), 106.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner1Key, "Entity7"), 107.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner2Key, "Entity8"), 108.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner2Key, "Entity9"), 109.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner3Key, "EntityA"), 110.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner4Key, "EntityB"), 111.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner5Key, "EntityC"), 112.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner5Key, "EntityD"), 113.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner5Key, "EntityE"), 114.0));
+        apexDao.create(new DummyEntity(new AxReferenceKey(owner5Key, "EntityF"), 115.0));
 
-        TreeSet<TestEntity> testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class));
+        TreeSet<DummyEntity> testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class));
         assertEquals(16, testEntitySetOut.size());
 
-        testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class, owner0Key));
+        testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class, owner0Key));
         assertEquals(5, testEntitySetOut.size());
 
-        testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class, owner1Key));
+        testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class, owner1Key));
         assertEquals(3, testEntitySetOut.size());
 
-        testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class, owner2Key));
+        testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class, owner2Key));
         assertEquals(2, testEntitySetOut.size());
 
-        testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class, owner3Key));
+        testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class, owner3Key));
         assertEquals(1, testEntitySetOut.size());
 
-        testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class, owner4Key));
+        testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class, owner4Key));
         assertEquals(1, testEntitySetOut.size());
 
-        testEntitySetOut = new TreeSet<TestEntity>(apexDao.getAll(TestEntity.class, owner5Key));
+        testEntitySetOut = new TreeSet<DummyEntity>(apexDao.getAll(DummyEntity.class, owner5Key));
         assertEquals(4, testEntitySetOut.size());
 
-        assertNotNull(apexDao.get(TestEntity.class, new AxReferenceKey(owner0Key, "Entity0")));
-        assertNotNull(apexDao.getArtifact(TestEntity.class, new AxReferenceKey(owner0Key, "Entity0")));
-        assertNull(apexDao.get(TestEntity.class, new AxReferenceKey(owner0Key, "Entity1000")));
-        assertNull(apexDao.getArtifact(TestEntity.class, new AxReferenceKey(owner0Key, "Entity1000")));
-        apexDao.delete(TestEntity.class, new AxReferenceKey(owner0Key, "Entity0"));
+        assertNotNull(apexDao.get(DummyEntity.class, new AxReferenceKey(owner0Key, "Entity0")));
+        assertNotNull(apexDao.getArtifact(DummyEntity.class, new AxReferenceKey(owner0Key, "Entity0")));
+        assertNull(apexDao.get(DummyEntity.class, new AxReferenceKey(owner0Key, "Entity1000")));
+        assertNull(apexDao.getArtifact(DummyEntity.class, new AxReferenceKey(owner0Key, "Entity1000")));
+        apexDao.delete(DummyEntity.class, new AxReferenceKey(owner0Key, "Entity0"));
 
         final Set<AxReferenceKey> rKeySetIn = new TreeSet<AxReferenceKey>();
         rKeySetIn.add(new AxReferenceKey(owner4Key, "EntityB"));
         rKeySetIn.add(new AxReferenceKey(owner5Key, "EntityD"));
 
-        final int deletedRCount = apexDao.deleteByReferenceKey(TestEntity.class, rKeySetIn);
+        final int deletedRCount = apexDao.deleteByReferenceKey(DummyEntity.class, rKeySetIn);
         assertEquals(2, deletedRCount);
 
-        apexDao.update(new TestEntity(new AxReferenceKey(owner5Key, "EntityF"), 120.0));
+        apexDao.update(new DummyEntity(new AxReferenceKey(owner5Key, "EntityF"), 120.0));
     }
 }
