@@ -76,6 +76,7 @@ public final class ConcurrentContextJvm {
 
     /**
      * This method executes the test of concurrent use of context in a single JVM.
+     * 
      * @throws ApexException the Apex exception occurs while running the test
      */
     public void execute() throws ApexException {
@@ -145,14 +146,12 @@ public final class ConcurrentContextJvm {
         for (int p = 7; p < args.length - 1; p += 2) {
             @SuppressWarnings("rawtypes")
             final Class parametersClass = Class.forName(args[p]);
-            final ParameterGroup parameters =
-                    (ParameterGroup) new Gson().fromJson(args[p + 1], parametersClass);
+            final ParameterGroup parameters = (ParameterGroup) new Gson().fromJson(args[p + 1], parametersClass);
             ParameterService.register(parameters);
         }
 
         for (final Entry<String, ParameterGroup> parameterEntry : ParameterService.getAll()) {
-            LOGGER.info("Parameter class " + parameterEntry.getKey() + "="
-                    + parameterEntry.getValue().toString());
+            LOGGER.info("Parameter class " + parameterEntry.getKey() + "=" + parameterEntry.getValue().toString());
         }
 
         try {
@@ -192,7 +191,7 @@ public final class ConcurrentContextJvm {
     /**
      * This method sets up any static configuration required by the JVM.
      *
-     * @throws Exception on configuration errors
+     * @throws ApexException on configuration errors
      */
     public static void configure() throws ApexException {
         System.setProperty("java.net.preferIPv4Stack", "true");
@@ -208,10 +207,10 @@ public final class ConcurrentContextJvm {
         Enumeration<NetworkInterface> nets;
         try {
             nets = NetworkInterface.getNetworkInterfaces();
-        } catch (SocketException e) {
+        } catch (final SocketException e) {
             throw new ApexException("cound not get network interfaces for test", e);
         }
-        
+
         for (final NetworkInterface netint : Collections.list(nets)) {
             final Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
             for (final InetAddress inetAddress : Collections.list(inetAddresses)) {

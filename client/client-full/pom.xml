@@ -51,9 +51,40 @@
             <artifactId>jersey-container-grizzly2-http</artifactId>
             <version>${version.jersey}</version>
         </dependency>
+
+
+<dependency>
+    <groupId>org.onap.policy.apex-pdp.client</groupId>
+    <artifactId>client-monitoring</artifactId>
+    <version>${project.version}</version>
+    <classifier>resources</classifier>
+    <type>zip</type>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>org.onap.policy.apex-pdp.client</groupId>
+    <artifactId>client-deployment</artifactId>
+    <version>${project.version}</version>
+    <classifier>resources</classifier>
+    <type>zip</type>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>org.onap.policy.apex-pdp.client</groupId>
+    <artifactId>client-editor</artifactId>
+    <version>${project.version}</version>
+    <classifier>resources</classifier>
+    <type>zip</type>
+    <scope>provided</scope>
+</dependency>
+
+
+
+
     </dependencies>
 
     <build>
+<!--
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -62,90 +93,35 @@
                 </includes>
             </resource>
         </resources>
-
+-->
         <defaultGoal>install</defaultGoal>
         <outputDirectory>${project.build.directory}/classes</outputDirectory>
         <plugins>
-             <!-- Copy sub-clients this client's webapp directory -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-examples</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>client-monitoring</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes/webapp/monitoring-temp</outputDirectory>
-                                    <excludes>META-INF/, org/</excludes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>client-deployment</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes/webapp/deployment-temp</outputDirectory>
-                                    <excludes>META-INF/, org/</excludes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>client-editor</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes/webapp/editor-temp</outputDirectory>
-                                    <excludes>META-INF/, org/</excludes>
-                                </artifactItem>
-                            </artifactItems>
-                            <overWriteReleases>true</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <target>
-                                <copy todir="${project.build.directory}/classes/webapp/deployment">
-                                    <fileset dir="${project.build.directory}/classes/webapp/deployment-temp/webapp"
-                                        includes="**" />
-                                </copy>
-                                <copy todir="${project.build.directory}/classes/webapp/monitoring">
-                                    <fileset dir="${project.build.directory}/classes/webapp/monitoring-temp/webapp"
-                                        includes="**" />
-                                </copy>
-                                <copy todir="${project.build.directory}/classes/webapp/editor">
-                                    <fileset dir="${project.build.directory}/classes/webapp/editor-temp/webapp"
-                                        includes="**" />
-                                </copy>
-                                <delete dir="${project.build.directory}/classes/webapp/deployment-temp"/>
-                                <delete dir="${project.build.directory}/classes/webapp/monitoring-temp"/>
-                                <delete dir="${project.build.directory}/classes/webapp/editor-temp"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!-- https://blog.sonatype.com/2008/04/how-to-share-resources-across-projects-in-maven/ -->
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>unpack-MONITOR-resources</id>
+      <goals>
+        <goal>unpack-dependencies</goal>
+      </goals>
+      <phase>generate-resources</phase>
+      <configuration>
+       <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
+       <!--use as much as needed to be specific...also scope,type,classifier etc-->
+       <includeGroupIds>org.onap.policy.apex-pdp.client</includeGroupIds>
+       <includeArtifacIds>client-monitoring, client-deployment, client-editor</includeArtifacIds>
+       <excludeTransitive>true</excludeTransitive>
+       <excludeTypes>jar</excludeTypes>
+       <includeTypes>zip</includeTypes>
+       <scope>provided</scope>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -265,20 +241,7 @@
                                                 <artifactId>maven-dependency-plugin</artifactId>
                                                 <versionRange>[2.0,)</versionRange>
                                                 <goals>
-                                                    <goal>unpack</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.apache.maven.plugins</groupId>
-                                                <artifactId>maven-antrun-plugin</artifactId>
-                                                <versionRange>[1.0,)</versionRange>
-                                                <goals>
-                                                    <goal>run</goal>
+                                                    <goal>unpack-dependencies</goal>
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>

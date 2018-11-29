@@ -45,11 +45,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
             <version>${version.jersey}</version>
@@ -90,42 +85,66 @@
             <version>${version.jersey}</version>
             <scope>test</scope>
         </dependency>
+
+<dependency>
+    <groupId>org.onap.policy.apex-pdp.client</groupId>
+    <artifactId>client-common</artifactId>
+    <version>${project.version}</version>
+    <classifier>resources</classifier>
+    <type>zip</type>
+    <scope>provided</scope>
+</dependency>
+
     </dependencies>
 
     <build>
         <defaultGoal>install</defaultGoal>
         <outputDirectory>${project.build.directory}/classes</outputDirectory>
         <plugins>
-             <!-- Copy common resources to this client's webapp directory -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-examples</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>client-common</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
-                                    <excludes>META-INF/</excludes>
-                                    <excludes>webapp/css/styles.css, webapp/css/interfaceAssets.css</excludes>
-                                </artifactItem>
-                            </artifactItems>
-                            <overWriteReleases>true</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
+<!-- https://blog.sonatype.com/2008/04/how-to-share-resources-across-projects-in-maven/ -->
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>unpack-shared-resources</id>
+      <goals>
+        <goal>unpack-dependencies</goal>
+      </goals>
+      <phase>generate-resources</phase>
+      <configuration>
+       <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
+       <!--use as much as needed to be specific...also scope,type,classifier etc-->
+       <includeArtifacIds>client-common</includeArtifacIds>
+       <includeGroupIds>org.onap.policy.apex-pdp.client</includeGroupIds>
+       <excludeTransitive>true</excludeTransitive>
+       <excludeTransitive>true</excludeTransitive>
+       <excludeTypes>jar</excludeTypes>
+       <includeTypes>zip</includeTypes>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>make shared resources</id>
+            <goals>
+                <goal>single</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+                <descriptors>
+                    <descriptor>src/main/assembly/resources.xml</descriptor>
+                </descriptors>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -218,45 +237,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>only-eclipse</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.eclipse.m2e</groupId>
-                            <artifactId>lifecycle-mapping</artifactId>
-                            <version>1.0.0</version>
-                            <configuration>
-                                <lifecycleMappingMetadata>
-                                    <pluginExecutions>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>org.apache.maven.plugins</groupId>
-                                                <artifactId>maven-dependency-plugin</artifactId>
-                                                <versionRange>[2.0,)</versionRange>
-                                                <goals>
-                                                    <goal>unpack</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore />
-                                            </action>
-                                        </pluginExecution>
-                                    </pluginExecutions>
-                                </lifecycleMappingMetadata>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-
         <profile>
             <id>apexSite</id>
             <activation>

@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -38,7 +38,7 @@ public interface RestCommandHandler {
      * @return the apex api result the result of the execution
      */
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
-                    final RestCommand command);
+            final RestCommand command);
 
     /**
      * Process a REST command.
@@ -50,7 +50,7 @@ public interface RestCommandHandler {
      * @return the apex api result the result of the execution
      */
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
-                    final RestCommand command, final String jsonString);
+            final RestCommand command, final String jsonString);
 
     /**
      * Process a REST command.
@@ -63,7 +63,7 @@ public interface RestCommandHandler {
      * @return the apex api result the result of the execution
      */
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
-                    final RestCommand command, final String name, final String version);
+            final RestCommand command, final String name, final String version);
 
     /**
      * Get an unsupported command result message.
@@ -71,16 +71,17 @@ public interface RestCommandHandler {
      * @param session the Apex editor session
      * @param commandType the type of REST command to execute
      * @param command the REST command to execute
+     * @return the apex api result the result of the execution
      */
     public default ApexApiResult getUnsupportedCommandResultMessage(final RestSession session,
-                    final RestCommandType commandType, final RestCommand command) {
+            final RestCommandType commandType, final RestCommand command) {
         return new ApexApiResult(Result.FAILED, "session " + session.getSessionId() + ", command type " + commandType
-                        + ", command" + command + " invalid");
+                + ", command" + command + " invalid");
     }
-    
+
     /**
      * Convert blank incoming fields to nulls.
-     * 
+     *
      * @param incomingField the field to check
      * @return null if the field is blank, otherwise, the field trimmed
      */
@@ -88,13 +89,12 @@ public interface RestCommandHandler {
         if (incomingField == null) {
             return null;
         }
-        
-        String trimmedField = incomingField.trim();
-        
+
+        final String trimmedField = incomingField.trim();
+
         if (trimmedField.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return trimmedField;
         }
     }

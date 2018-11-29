@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.core.deployment;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
 
@@ -33,8 +32,9 @@ import org.slf4j.ext.XLoggerFactory;
  * The Class {@link BatchDeployer} deploys an Apex model held as an XML or Json file onto an Apex engine. It uses the
  * EngDep protocol to communicate with the engine, with the EngDep protocol being carried on Java web sockets.
  *
- * <p>This deployer is a simple command line deployer that reads the communication parameters and the location of the
- * Apex model file as arguments.
+ * <p>
+ * This deployer is a simple command line deployer that reads the communication parameters and the location of the Apex
+ * model file as arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -73,7 +73,7 @@ public class BatchDeployer {
         try {
             engineServiceFacade.init();
         } catch (final ApexException e) {
-            String errorMessage = "model deployment failed on parameters " + hostName + " " + port;
+            final String errorMessage = "model deployment failed on parameters " + hostName + " " + port;
             LOGGER.error(errorMessage, e);
             throw new ApexDeploymentException(errorMessage);
         }
@@ -95,10 +95,9 @@ public class BatchDeployer {
      * @param ignoreConflicts true if conflicts between context in polices is to be ignored
      * @param force true if the model is to be applied even if it is incompatible with the existing model
      * @throws ApexException on Apex errors
-     * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException {
+            throws ApexException {
         engineServiceFacade.deployModel(modelFileName, ignoreConflicts, force);
     }
 
@@ -109,16 +108,15 @@ public class BatchDeployer {
      * @param ignoreConflicts true if conflicts between context in polices is to be ignored
      * @param force true if the model is to be applied even if it is incompatible with the existing model
      * @throws ApexException on Apex errors
-     * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final AxPolicyModel policyModel, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException {
+            throws ApexException {
         engineServiceFacade.deployModel(policyModel, ignoreConflicts, force);
     }
 
     /**
      * Get the engine service facade of the event manager. This method is used for testing only.
-     * 
+     *
      * @return the engine service facade
      */
     protected EngineServiceFacade getEngineServiceFacade() {
@@ -134,8 +132,8 @@ public class BatchDeployer {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != NUM_ARGUMENTS) {
-            String message = "invalid arguments: " + Arrays.toString(args)
-                            + "\nusage: BatchDeployer <server address> <port address> <model file path";
+            final String message = "invalid arguments: " + Arrays.toString(args)
+                    + "\nusage: BatchDeployer <server address> <port address> <model file path";
             LOGGER.error(message);
             throw new ApexDeploymentException(message);
         }
@@ -143,11 +141,11 @@ public class BatchDeployer {
         int port;
         try {
             port = Integer.parseInt(args[1]);
-        } catch (NumberFormatException nfe) {
+        } catch (final NumberFormatException nfe) {
             throw new ApexDeploymentException("argument port is invalid", nfe);
         }
-        
-        BatchDeployer deployer = new BatchDeployer(args[0], port, System.out);
+
+        final BatchDeployer deployer = new BatchDeployer(args[0], port, System.out);
         deployer.init();
         deployer.deployModel(args[2], false, false);
         deployer.close();
