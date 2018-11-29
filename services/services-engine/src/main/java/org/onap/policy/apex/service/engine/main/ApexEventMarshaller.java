@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -39,8 +39,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This event marshaler handles events coming out of Apex and sends them on, handles threading,
- * event queuing, transformations and sending using the configured sending technology.
+ * This event marshaler handles events coming out of Apex and sends them on, handles threading, event queuing,
+ * transformations and sending using the configured sending technology.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -88,10 +88,9 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
     }
 
     /**
-     * Configure the marshaler by setting up the producer and event converter and initialize the
-     * thread for event sending.
+     * Configure the marshaler by setting up the producer and event converter and initialize the thread for event
+     * sending.
      *
-     * @throws ApexActivatorException on errors initializing the producer
      * @throws ApexEventException on errors initializing event handling
      */
     public void init() throws ApexEventException {
@@ -170,8 +169,8 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
     }
 
     /**
-     * Run a thread that runs forever (well until system termination anyway) and listens for
-     * outgoing events on the queue.
+     * Run a thread that runs forever (well until system termination anyway) and listens for outgoing events on the
+     * queue.
      */
     @Override
     public void run() {
@@ -190,7 +189,7 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
                 producer.sendEvent(apexEvent.getExecutionId(), apexEvent.getName(), event);
 
                 if (LOGGER.isTraceEnabled()) {
-                    String message = "event sent : " + apexEvent.toString();
+                    final String message = "event sent : " + apexEvent.toString();
                     LOGGER.trace(message);
                 }
             } catch (final InterruptedException e) {
