@@ -61,13 +61,12 @@ public class ConcurrentContext {
 
     /**
      * The method tests concurrent use of context.
+     * 
      * @return the verified context
      * @throws ApexModelException the exception occurs in model handling
-     * @throws IOException the IO exception occurs in handling IO
      * @throws ApexException the Apex exception occurs in handling Apex
      */
-    public Map<String, TestContextLongItem> testConcurrentContext()
-            throws ApexException {
+    public Map<String, TestContextLongItem> testConcurrentContext() throws ApexException {
 
         try {
             setupAndVerifyContext();
@@ -154,7 +153,7 @@ public class ConcurrentContext {
         final Map<String, TestContextLongItem> values = new HashMap<>();
         try {
 
-            for (Entry<String, Object> entry : ltypeAlbum.entrySet()) {
+            for (final Entry<String, Object> entry : ltypeAlbum.entrySet()) {
                 values.put(entry.getKey(), (TestContextLongItem) entry.getValue());
             }
         } catch (final Exception exception) {

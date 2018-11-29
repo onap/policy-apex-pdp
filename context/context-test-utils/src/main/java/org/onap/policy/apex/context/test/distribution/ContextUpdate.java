@@ -34,7 +34,6 @@ import static org.onap.policy.apex.context.test.utils.Constants.TIME_ZONE;
 import static org.onap.policy.apex.context.test.utils.Constants.VERSION;
 import static org.onap.policy.apex.context.test.utils.Constants.getAxArtifactKeyArray;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -74,7 +73,6 @@ public class ContextUpdate {
      * Test context update.
      *
      * @throws ApexModelException the apex model exception
-     * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
     public void testContextUpdate() throws ApexException {
@@ -109,7 +107,7 @@ public class ContextUpdate {
         } catch (final ContextRuntimeException e) {
             assertEquals(
                     "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum"
-                    + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
+                            + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
                     e.getMessage());
             LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }

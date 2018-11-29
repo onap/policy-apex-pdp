@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.deployment;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +52,8 @@ import org.slf4j.ext.XLoggerFactory;
  * The Class Deployer deploys an Apex model held as an XML file onto an Apex engine. It uses the EngDep protocol to
  * communicate with the engine, with the EngDep protocol being carried on Java web sockets.
  *
- * <p>his deployer is a simple command line deployer that reads the communication parameters and the location of the XML
+ * <p>
+ * his deployer is a simple command line deployer that reads the communication parameters and the location of the XML
  * model file as arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -128,12 +128,12 @@ public class EngineServiceFacade {
             // Get engine service information to see what engines we're dealing with
             final GetEngineServiceInfo engineServiceInfo = new GetEngineServiceInfo(null);
             LOGGER.debug("sending get engine service info message {} to server {}:{} . . .", engineServiceInfo,
-                            hostName, port);
+                    hostName, port);
             client.sendMessage(engineServiceInfo);
             LOGGER.debug("sent get engine service info message to server {}:{} . . .", hostName, port);
 
-            final EngineServiceInfoResponse engineServiceInfoResponse = (EngineServiceInfoResponse) getResponse(
-                            engineServiceInfo);
+            final EngineServiceInfoResponse engineServiceInfoResponse =
+                    (EngineServiceInfoResponse) getResponse(engineServiceInfo);
             if (engineServiceInfoResponse.isSuccessful()) {
                 engineServiceKey = engineServiceInfoResponse.getEngineServiceKey();
                 engineKeyArray = engineServiceInfoResponse.getEngineKeyArray();
@@ -192,10 +192,9 @@ public class EngineServiceFacade {
      * @param ignoreConflicts true if conflicts between context in polices is to be ignored
      * @param force true if the model is to be applied even if it is incompatible with the existing model
      * @throws ApexException on Apex errors
-     * @throws IOException on IO exceptions from the operating system
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException {
+            throws ApexException {
         if (engineServiceKey == null || engineKeyArray == null || engineKeyArray.length == 0) {
             LOGGER.error("cound not deploy apex model, deployer is not initialized");
             throw new ApexDeploymentException("cound not deploy apex model, deployer is not initialized");
@@ -208,14 +207,14 @@ public class EngineServiceFacade {
             if (apexModelUrl == null) {
                 LOGGER.error("cound not create apex model, could not read from file {}", modelFileName);
                 throw new ApexDeploymentException(
-                                "cound not create apex model, could not read from file " + modelFileName);
+                        "cound not create apex model, could not read from file " + modelFileName);
             }
         }
 
         try {
             deployModel(modelFileName, apexModelUrl.openStream(), ignoreConflicts, force);
-        } catch (Exception deployException) {
-            String errorMessage = "could not deploy apex model from " + modelFileName;
+        } catch (final Exception deployException) {
+            final String errorMessage = "could not deploy apex model from " + modelFileName;
             LOGGER.error(errorMessage, deployException);
             throw new ApexDeploymentException(errorMessage, deployException);
         }
@@ -231,7 +230,7 @@ public class EngineServiceFacade {
      * @throws ApexException on model deployment errors
      */
     public void deployModel(final String modelFileName, final InputStream modelInputStream,
-                    final boolean ignoreConflicts, final boolean force) throws ApexException {
+            final boolean ignoreConflicts, final boolean force) throws ApexException {
         // Read the policy model from the stream
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(!ignoreConflicts);
@@ -250,15 +249,15 @@ public class EngineServiceFacade {
      * @throws ApexException on model deployment errors
      */
     public void deployModel(final AxPolicyModel apexPolicyModel, final boolean ignoreConflicts, final boolean force)
-                    throws ApexException {
+            throws ApexException {
         // Write the model into a byte array
         final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         final ApexModelWriter<AxPolicyModel> modelWriter = new ApexModelWriter<>(AxPolicyModel.class);
         modelWriter.write(apexPolicyModel, baOutputStream);
 
         // Create and send Update message
-        final UpdateModel umMessage = new UpdateModel(engineServiceKey, baOutputStream.toString(), ignoreConflicts,
-                        force);
+        final UpdateModel umMessage =
+                new UpdateModel(engineServiceKey, baOutputStream.toString(), ignoreConflicts, force);
 
         LOGGER.debug("sending update message {} to server {}:{} . . .", umMessage, hostName, port);
         client.sendMessage(umMessage);
@@ -268,8 +267,8 @@ public class EngineServiceFacade {
         final Response response = getResponse(umMessage);
         if (!response.isSuccessful()) {
             LOGGER.warn(FAILED_RESPONSE + "{} received from server {}:{}", response.getMessageData(), hostName, port);
-            throw new ApexException(FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName
-                            + ':' + port);
+            throw new ApexException(
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port);
         }
     }
 
@@ -288,8 +287,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(startEngineMessage);
         if (!response.isSuccessful()) {
-            String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER
-                            + hostName + ':' + port;
+            final String message =
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
             LOGGER.warn(message);
             throw new ApexDeploymentException(message);
         }
@@ -310,8 +309,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(stopEngineMessage);
         if (!response.isSuccessful()) {
-            String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER
-                            + hostName + ':' + port;
+            final String message =
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
             LOGGER.warn(message);
             throw new ApexDeploymentException(message);
         }
@@ -328,15 +327,15 @@ public class EngineServiceFacade {
         final StartPeriodicEvents startPerioidicEventsMessage = new StartPeriodicEvents(engineKey);
         startPerioidicEventsMessage.setMessageData(Long.toString(period));
         LOGGER.debug("sending start perioidic events {} to server {}:{} . . .", startPerioidicEventsMessage, hostName,
-                        port);
+                port);
         client.sendMessage(startPerioidicEventsMessage);
         LOGGER.debug("sent start perioidic events message to server {}:{} . . .", hostName, port);
 
         // Check if we got a response
         final Response response = getResponse(startPerioidicEventsMessage);
         if (!response.isSuccessful()) {
-            String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER
-                            + hostName + ':' + port;
+            final String message =
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
             LOGGER.warn(message);
             throw new ApexDeploymentException(message);
         }
@@ -351,15 +350,15 @@ public class EngineServiceFacade {
     public void stopPerioidicEvents(final AxArtifactKey engineKey) throws ApexDeploymentException {
         final StopPeriodicEvents stopPerioidicEventsMessage = new StopPeriodicEvents(engineKey);
         LOGGER.debug("sending stop perioidic events {} to server {}:{} . . .", stopPerioidicEventsMessage, hostName,
-                        port);
+                port);
         client.sendMessage(stopPerioidicEventsMessage);
         LOGGER.debug("sent stop perioidic events message to server {}:{} . . .", hostName, port);
 
         // Check if we got a response
         final Response response = getResponse(stopPerioidicEventsMessage);
         if (!response.isSuccessful()) {
-            String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER
-                            + hostName + ':' + port;
+            final String message =
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
             LOGGER.warn(message);
             throw new ApexDeploymentException(message);
         }
@@ -381,8 +380,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(engineStatusMessage);
         if (!response.isSuccessful()) {
-            String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName
-                            + ':' + port;
+            final String message =
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
             LOGGER.warn(message);
             throw new ApexException(message);
         }
@@ -403,15 +402,15 @@ public class EngineServiceFacade {
     public String getEngineInfo(final AxArtifactKey engineKey) throws ApexException {
         final GetEngineInfo engineInfoMessage = new GetEngineInfo(engineKey);
         LOGGER.debug("sending get engine information message {} to server {}:{} . . .", engineInfoMessage, hostName,
-                        port);
+                port);
         client.sendMessage(engineInfoMessage);
         LOGGER.debug("sent get engine information message to server {}:{} . . .", hostName, port);
 
         // Check if we got a response
         final Response response = getResponse(engineInfoMessage);
         if (!response.isSuccessful()) {
-            String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName
-                            + ':' + port;
+            final String message =
+                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
             LOGGER.warn(message);
             throw new ApexException(message);
         }
@@ -435,8 +434,8 @@ public class EngineServiceFacade {
 
         // Wait for the required amount of milliseconds for the response from the Apex server
         Message receivedMessage = null;
-        for (int timeWaitedSoFar = 0; receivedMessage == null
-                        && timeWaitedSoFar < timeoutTime; timeWaitedSoFar += REPLY_MESSAGE_TIMEOUT_INCREMENT) {
+        for (int timeWaitedSoFar = 0; receivedMessage == null && timeWaitedSoFar < timeoutTime; timeWaitedSoFar +=
+                REPLY_MESSAGE_TIMEOUT_INCREMENT) {
             try {
                 receivedMessage = client.getReceiveQueue().poll(REPLY_MESSAGE_TIMEOUT_INCREMENT, TimeUnit.MILLISECONDS);
             } catch (final InterruptedException e) {
@@ -444,7 +443,7 @@ public class EngineServiceFacade {
                 Thread.currentThread().interrupt();
                 LOGGER.warn("reception of response from server interrupted {}:{}", hostName, port, e);
                 throw new ApexDeploymentException(
-                                "reception of response from server interrupted " + hostName + ':' + port, e);
+                        "reception of response from server interrupted " + hostName + ':' + port, e);
             }
         }
 
@@ -457,9 +456,9 @@ public class EngineServiceFacade {
         // Check instance is a response message
         if (!(receivedMessage instanceof Response)) {
             LOGGER.warn("response received from server is of incorrect type {}, should be of type {}",
-                            receivedMessage.getClass().getName(), Response.class.getName());
+                    receivedMessage.getClass().getName(), Response.class.getName());
             throw new ApexDeploymentException("response received from server is of incorrect type "
-                            + receivedMessage.getClass().getName() + ", should be of type " + Response.class.getName());
+                    + receivedMessage.getClass().getName() + ", should be of type " + Response.class.getName());
         }
 
         // Cast the response message
@@ -469,23 +468,24 @@ public class EngineServiceFacade {
         if (!responseMessage.getResponseTo().equals(sentMessage)) {
             LOGGER.warn("response received is not response to sent message " + sentMessage.getAction());
             throw new ApexDeploymentException(
-                            "response received is not correct response to sent message " + sentMessage.getAction());
+                    "response received is not correct response to sent message " + sentMessage.getAction());
         }
 
         // Check if successful
         if (responseMessage.isSuccessful()) {
             LOGGER.debug("response received: {} message was succssful: {}", sentMessage.getAction(),
-                            responseMessage.getMessageData());
+                    responseMessage.getMessageData());
         } else {
             LOGGER.debug("response received: {} message failed: {}", sentMessage.getAction(),
-                            responseMessage.getMessageData());
+                    responseMessage.getMessageData());
         }
 
         return responseMessage;
     }
-    
+
     /**
      * Set a deployment client for this facade. This method is for testing.
+     * 
      * @param deploymentClient the deployment client to set
      */
     protected void setDeploymentClient(final DeploymentClient deploymentClient) {
