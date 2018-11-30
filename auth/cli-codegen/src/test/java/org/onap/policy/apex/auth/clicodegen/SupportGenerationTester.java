@@ -39,7 +39,7 @@ import org.stringtemplate.v4.STGroupFile;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class GenerationTest {
+public class SupportGenerationTester {
 
     /**
      * Get the chunks for the codegen.
@@ -90,7 +90,7 @@ public class GenerationTest {
     /** Test STG load. */
     @Test
     public void testGenerationLoad() {
-        final StErrorListener errListener = new StErrorListener();
+        final DummySTErrorListener errListener = new DummySTErrorListener();
         final STGroupFile stg = new STGroupFile(CodeGeneratorCliEditor.STG_FILE);
         stg.setListener(errListener);
 
@@ -101,7 +101,7 @@ public class GenerationTest {
     /** Test STG chunks. */
     @Test
     public void testGenerationChunks() {
-        final StErrorListener errListener = new StErrorListener();
+        final DummySTErrorListener errListener = new DummySTErrorListener();
         final STGroupFile stg = new STGroupFile(CodeGeneratorCliEditor.STG_FILE);
         stg.setListener(errListener);
 

@@ -59,9 +59,9 @@ import org.stringtemplate.v4.ST;
 /**
  * Test CLI code generation.
  */
-public class CliCodegenTest {
+public class CodeGeneratorCliEditorTest {
 
-    private KeyInfoGetter kig;
+    private SupportKeyInfoGetter kig;
     private File outFile = null;
 
     @Test
@@ -96,7 +96,7 @@ public class CliCodegenTest {
      * @throws IOException  on generation exceptions
      */
     private int generateCli(final CodeGeneratorCliEditor codeGen, final AxPolicyModel policyModel) throws IOException {
-        kig = new KeyInfoGetter(policyModel);
+        kig = new SupportKeyInfoGetter(policyModel);
 
         // Order is important. 0: model, 1: context schemas, 2: tasks, 3: events, 4: ContextAlbums, 5: Policies
         // 0: model

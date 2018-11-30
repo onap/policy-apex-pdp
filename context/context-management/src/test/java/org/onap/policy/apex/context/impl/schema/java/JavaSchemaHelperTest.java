@@ -52,7 +52,7 @@ public class JavaSchemaHelperTest {
 
         JavaSchemaHelperJsonAdapterParameters stringAdapterPars = new JavaSchemaHelperJsonAdapterParameters();
         stringAdapterPars.setAdaptedClass("java.lang.String");
-        stringAdapterPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.TestJsonAdapter");
+        stringAdapterPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportJsonAdapter");
 
         javaSchemaHelperPars.getJsonAdapters().put("String", stringAdapterPars);
         
@@ -212,7 +212,7 @@ public class JavaSchemaHelperTest {
         stringSchemaHelper.init(userKey, stringSchema);
 
         AxContextSchema myBaseClassSchema = new AxContextSchema(schemaKey, "Java",
-                        "org.onap.policy.apex.context.impl.schema.java.MyBaseClass");
+                        "org.onap.policy.apex.context.impl.schema.java.SupportBaseClass");
         SchemaHelper myBaseClassSchemaHelper = new JavaSchemaHelper();
         myBaseClassSchemaHelper.init(userKey, myBaseClassSchema);
 
@@ -315,7 +315,7 @@ public class JavaSchemaHelperTest {
 
         assertEquals("123", stringSchemaHelper.unmarshal(123));
 
-        MySubClass subClassInstance = new MySubClass("123");
+        SupportSubClass subClassInstance = new SupportSubClass("123");
         assertEquals(subClassInstance, myBaseClassSchemaHelper.unmarshal(subClassInstance));
     }
 
@@ -375,7 +375,7 @@ public class JavaSchemaHelperTest {
         JavaSchemaHelperParameters javaShPars = (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap()
                         .get("Java");
         javaShPars.getJsonAdapters().get("String")
-                        .setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.BadJsonAdapter");
+                        .setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportBadJsonAdapter");
 
         AxContextSchema stringSchema = new AxContextSchema(schemaKey, "Java", "java.lang.String");
         SchemaHelper stringSchemaHelper = new JavaSchemaHelper();
@@ -386,7 +386,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception");
         } catch (ContextRuntimeException pre) {
             assertEquals("UserKey:0.0.1: instantiation of adapter class "
-                            + "\"org.onap.policy.apex.context.impl.schema.java.BadJsonAdapter\"  "
+                            + "\"org.onap.policy.apex.context.impl.schema.java.SupportBadJsonAdapter\"  "
                             + "to decode and encode class \"java.lang.String\" failed: Test for Bad Adapter",
                             pre.getMessage());
         }
