@@ -16,6 +16,24 @@
       "revId": "dc54d3b69626eed28dcd9c2521e66ffc110470fe",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9b3bcad0",
+        "filename": "auth/cli-codegen/src/test/java/org/onap/policy/apex/auth/clicodegen/DummySTErrorListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-30T15:24:20Z",
+      "side": 1,
+      "message": "Yes checkstyle should have objected to multiple capitalized letters. But I see it inherits from STErrorListener. Perhaps there is an override somewhere?",
+      "parentUuid": "9adffdf1_e042670f",
+      "revId": "dc54d3b69626eed28dcd9c2521e66ffc110470fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
