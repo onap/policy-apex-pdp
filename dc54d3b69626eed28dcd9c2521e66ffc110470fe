@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_e042670f",
+        "filename": "auth/cli-codegen/src/test/java/org/onap/policy/apex/auth/clicodegen/DummySTErrorListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2018-11-30T13:34:15Z",
+      "side": 1,
+      "message": "DummyST \u003d\u003e DummySt",
+      "revId": "dc54d3b69626eed28dcd9c2521e66ffc110470fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
