@@ -56,7 +56,7 @@ public class BeansTest {
         final BeanEvent beanEvent = new BeanEvent();
         assertNull(beanEvent.get("name"));
 
-        final BeanFake beanFake = new BeanFake();
+        final DummyBeanBase beanFake = new DummyBeanBase();
         assertNull(beanFake.get("name"));
         assertNull(beanFake.get("field1"));
 

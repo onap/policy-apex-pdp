@@ -18,32 +18,10 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.client.editor.rest.handling.bean;
+package org.onap.policy.apex.context.impl.schema.java;
 
-import javax.xml.bind.annotation.XmlType;
-
-/**
- * The Event Bean.
- */
-@XmlType
-public class BeanFake extends BeanBase {
-    private String name = null;
-    private String version = null;
-    private String field1 = null;
-    private int field2 = 0;
-    private int field3 = 0;
-
-    public String getName() {
-        field1 = name;
-        return field1;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public int getField2() {
-        field3 = field2;
-        return field3;
+public class SupportSubClass extends SupportBaseClass  {
+    public SupportSubClass(String stringField) {
+        super(stringField);
     }
 }

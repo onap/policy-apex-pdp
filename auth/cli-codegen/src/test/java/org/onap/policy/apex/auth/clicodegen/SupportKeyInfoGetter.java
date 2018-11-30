@@ -31,7 +31,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author John Keeney (john.keeney@ericsson.com)
  */
 
-public class KeyInfoGetter {
+public class SupportKeyInfoGetter {
 
     /** The policy model for the getters. */
     private final AxPolicyModel model;
@@ -41,7 +41,7 @@ public class KeyInfoGetter {
      *
      * @param model the policy model to use
      */
-    public KeyInfoGetter(final AxPolicyModel model) {
+    public SupportKeyInfoGetter(final AxPolicyModel model) {
         this.model = model;
     }
 

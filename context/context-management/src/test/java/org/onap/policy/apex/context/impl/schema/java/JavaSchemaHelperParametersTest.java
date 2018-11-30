@@ -62,15 +62,15 @@ public class JavaSchemaHelperParametersTest {
         assertFalse(pars.validate().isValid());
 
         jsonPars.setAdaptedClass("java.lang.String");
-        jsonPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.TestJsonDeserializer");
+        jsonPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportJsonDeserializer");
         assertFalse(pars.validate().isValid());
 
         jsonPars.setAdaptedClass("java.lang.String");
-        jsonPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.TestJsonSerializer");
+        jsonPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportJsonSerializer");
         assertFalse(pars.validate().isValid());
 
         jsonPars.setAdaptedClass("java.lang.String");
-        jsonPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.TestJsonAdapter");
+        jsonPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportJsonAdapter");
         assertTrue(pars.validate().isValid());
 
         Map<String, JavaSchemaHelperJsonAdapterParameters> adapterMap = new LinkedHashMap<>();

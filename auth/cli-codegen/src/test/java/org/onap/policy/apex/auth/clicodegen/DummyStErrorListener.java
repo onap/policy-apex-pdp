@@ -28,7 +28,7 @@ import org.stringtemplate.v4.misc.STMessage;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class StErrorListener implements STErrorListener {
+public class DummyStErrorListener implements STErrorListener {
 
     /** Counts errors of the listener. */
     private int errorCount;
