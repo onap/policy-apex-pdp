@@ -150,13 +150,11 @@ public class Model2JsonEventSchema {
             case FLOAT:
             case INT:
             case LONG:
-            case STRING: {
+            case STRING:
                 return true;
-            }
             
-            default: {
+            default:
                 return false;
-            }
         }
     }
 

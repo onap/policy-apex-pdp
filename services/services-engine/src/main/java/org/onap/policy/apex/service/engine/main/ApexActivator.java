@@ -127,36 +127,42 @@ public class ApexActivator {
                 unmarshaller.init(engineServiceHandler);
             }
 
-            // Set up unmarshaler/marshaler pairing for synchronized event handling. We only need to
-            // traverse the unmarshalers because the
-            // unmarshalers and marshalers are paired one to one uniquely so if we find a
-            // synchronized unmarshaler we'll also find its
-            // paired marshaler
-            for (final Entry<String, EventHandlerParameters> inputParameters : apexParameters.getEventInputParameters()
-                    .entrySet()) {
-                final ApexEventUnmarshaller unmarshaller = unmarshallerMap.get(inputParameters.getKey());
-
-                // Pair up peered unmarshalers and marshalers
-                for (final EventHandlerPeeredMode peeredMode : EventHandlerPeeredMode.values()) {
-                    // Check if the unmarshaler is synchronized with a marshaler
-                    if (inputParameters.getValue().isPeeredMode(peeredMode)) {
-                        // Find the unmarshaler and marshaler
-                        final ApexEventMarshaller peeredMarshaler =
-                                marshallerMap.get(inputParameters.getValue().getPeer(peeredMode));
-
-                        // Connect the unmarshaler and marshaler
-                        unmarshaller.connectMarshaler(peeredMode, peeredMarshaler);
-                    }
-                }
-                // Now let's get events flowing
-                unmarshaller.start();
-            }
+            setUpmarshalerPairings();
         } catch (final Exception e) {
             LOGGER.debug("Apex engine failed to start as a service", e);
             throw new ApexActivatorException("Apex engine failed to start as a service", e);
         }
 
         LOGGER.debug("Apex engine started as a service");
+    }
+
+    /**
+     * Set up unmarshaler/marshaler pairing for synchronized event handling. We only need to
+     * traverse the unmarshalers because the
+     * unmarshalers and marshalers are paired one to one uniquely so if we find a
+     * synchronized unmarshaler we'll also find its
+     * paired marshaler
+     */
+    private void setUpmarshalerPairings() {
+        for (final Entry<String, EventHandlerParameters> inputParameters : apexParameters.getEventInputParameters()
+                .entrySet()) {
+            final ApexEventUnmarshaller unmarshaller = unmarshallerMap.get(inputParameters.getKey());
+
+            // Pair up peered unmarshalers and marshalers
+            for (final EventHandlerPeeredMode peeredMode : EventHandlerPeeredMode.values()) {
+                // Check if the unmarshaler is synchronized with a marshaler
+                if (inputParameters.getValue().isPeeredMode(peeredMode)) {
+                    // Find the unmarshaler and marshaler
+                    final ApexEventMarshaller peeredMarshaler =
+                            marshallerMap.get(inputParameters.getValue().getPeer(peeredMode));
+
+                    // Connect the unmarshaler and marshaler
+                    unmarshaller.connectMarshaler(peeredMode, peeredMarshaler);
+                }
+            }
+            // Now let's get events flowing
+            unmarshaller.start();
+        }
     }
 
     /**

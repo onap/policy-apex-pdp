@@ -23,7 +23,6 @@ package org.onap.policy.apex.testsuites.integration.common.model.java;
 import java.util.Random;
 
 import org.onap.policy.apex.core.engine.executor.context.TaskExecutionContext;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**
  * The Class DefaultTask_Logic is default task logic in Java.
