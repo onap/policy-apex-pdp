@@ -73,39 +73,6 @@ public class ConcurrentContextMetrics {
     private final int zookeeperPort;
 
     /**
-     * The main method.
-     *
-     * @param args the args
-     * @throws Exception the exception
-     */
-    public static void main(final String[] args) throws Exception {
-        if (args.length != NUM_ARGS) {
-            String errorMessage = "Args: " + Arrays.toString(args)
-                            + "\nusage: testLabel jvmCount threadCount threadLoops longArraySize lockType "
-                            + "zookeeperAddress zookeeperPort zookeeperDirectory";
-            LOGGER.info(errorMessage);
-            return;
-        }
-
-        final ConfigrationProvider configrationProvider = new ConfigrationProviderImpl(args[ARG_LABEL],
-                        Integer.valueOf(args[ARG_JVM_COUNT]), Integer.valueOf(args[ARG_THREAD_COUNT]),
-                        Integer.valueOf(args[ARG_ITERATIONS]), Integer.valueOf(args[ARG_ARRAY_SIZE]),
-                        Integer.valueOf(args[ARG_LOCK_TYPE]));
-
-        final ConcurrentContextMetrics concurrentContextMetrics = new ConcurrentContextMetrics(configrationProvider,
-                        args[ARG_ZOOKEEPER_ADDRESS], Integer.valueOf(args[ARG_ZOOKEEPER_PORT]),
-                        args[ARG_ZOOKEEPER_DIRECTORY]);
-
-        concurrentContextMetrics.concurrentContextMetricsJvmLocal();
-        concurrentContextMetrics.concurrentContextMetricsCurator();
-        concurrentContextMetrics.concurrentContextMetricsHazelcast();
-        concurrentContextMetrics.concurrentContextMetricsHazelcastMultiJvmHazelcastLock();
-        concurrentContextMetrics.concurrentContextMetricsInfinispanMultiJvmHazelcastlock();
-        concurrentContextMetrics.concurrentContextMetricsInfinispanMultiJvmCuratorLock();
-        concurrentContextMetrics.concurrentContextMetricsHazelcastMultiJvmCuratorLock();
-    }
-
-    /**
      * Construct a concurrent context object.
      * 
      * @param configrationProvider Configuration for the context metrics
@@ -128,7 +95,7 @@ public class ConcurrentContextMetrics {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsJvmLocal() throws IOException, ApexException {
+    private void concurrentContextMetricsJvmLocal() throws ApexException {
         if (configrationProvider.getJvmCount() != 1) {
             return;
         }
@@ -149,7 +116,7 @@ public class ConcurrentContextMetrics {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsHazelcast() throws IOException, ApexException {
+    private void concurrentContextMetricsHazelcast() throws ApexException {
         if (configrationProvider.getJvmCount() != 1) {
             return;
         }
@@ -170,7 +137,7 @@ public class ConcurrentContextMetrics {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsCurator() throws IOException, ApexException {
+    private void concurrentContextMetricsCurator() throws ApexException {
         if (configrationProvider.getJvmCount() != 1) {
             return;
         }
@@ -196,7 +163,7 @@ public class ConcurrentContextMetrics {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsHazelcastMultiJvmHazelcastLock() throws IOException, ApexException {
+    private void concurrentContextMetricsHazelcastMultiJvmHazelcastLock() throws ApexException {
         LOGGER.debug("Running concurrentContextMetricsHazelcastMultiJVMHazelcastLock metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
@@ -214,7 +181,7 @@ public class ConcurrentContextMetrics {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void concurrentContextMetricsInfinispanMultiJvmHazelcastlock() throws IOException, ApexException {
+    private void concurrentContextMetricsInfinispanMultiJvmHazelcastlock() throws ApexException {
         LOGGER.debug("Running concurrentContextMetricsInfinispanMultiJVMHazelcastlock metrics . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
@@ -238,7 +205,7 @@ public class ConcurrentContextMetrics {
      * @throws InterruptedException on interrupts
      */
     private void concurrentContextMetricsInfinispanMultiJvmCuratorLock()
-                    throws IOException, ApexException, InterruptedException {
+                    throws ApexException {
 
         LOGGER.debug("Running concurrentContextMetricsInfinispanMultiJVMCuratorLock metrics . . .");
 
@@ -273,7 +240,7 @@ public class ConcurrentContextMetrics {
      * @throws InterruptedException on interrupts
      */
     private void concurrentContextMetricsHazelcastMultiJvmCuratorLock()
-                    throws IOException, ApexException, InterruptedException {
+                    throws ApexException {
         LOGGER.debug("Running concurrentContextMetricsHazelcastMultiJVMCuratorLock metrics . . .");
 
         final ZooKeeperServerServiceProvider zooKeeperServerServiceProvider = new ZooKeeperServerServiceProvider(
@@ -304,7 +271,7 @@ public class ConcurrentContextMetrics {
      * @throws IOException the IO exception
      * @throws ApexException the apex exception
      */
-    private void runConcurrentContextMetrics(final String testName) throws IOException, ApexException {
+    private void runConcurrentContextMetrics(final String testName) throws ApexException {
         final ConcurrentContext concurrentContext = new ConcurrentContext(configrationProvider);
 
         LOGGER.info("Running {} ...", testName);
@@ -320,4 +287,36 @@ public class ConcurrentContextMetrics {
         LOGGER.info("Completed {} ...", testName);
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the args
+     * @throws Exception the exception
+     */
+    public static void main(final String[] args) throws Exception {
+        if (args.length != NUM_ARGS) {
+            String errorMessage = "Args: " + Arrays.toString(args)
+                            + "\nusage: testLabel jvmCount threadCount threadLoops longArraySize lockType "
+                            + "zookeeperAddress zookeeperPort zookeeperDirectory";
+            LOGGER.info(errorMessage);
+            return;
+        }
+
+        final ConfigrationProvider configrationProvider = new ConfigrationProviderImpl(args[ARG_LABEL],
+                        Integer.valueOf(args[ARG_JVM_COUNT]), Integer.valueOf(args[ARG_THREAD_COUNT]),
+                        Integer.valueOf(args[ARG_ITERATIONS]), Integer.valueOf(args[ARG_ARRAY_SIZE]),
+                        Integer.valueOf(args[ARG_LOCK_TYPE]));
+
+        final ConcurrentContextMetrics concurrentContextMetrics = new ConcurrentContextMetrics(configrationProvider,
+                        args[ARG_ZOOKEEPER_ADDRESS], Integer.valueOf(args[ARG_ZOOKEEPER_PORT]),
+                        args[ARG_ZOOKEEPER_DIRECTORY]);
+
+        concurrentContextMetrics.concurrentContextMetricsJvmLocal();
+        concurrentContextMetrics.concurrentContextMetricsCurator();
+        concurrentContextMetrics.concurrentContextMetricsHazelcast();
+        concurrentContextMetrics.concurrentContextMetricsHazelcastMultiJvmHazelcastLock();
+        concurrentContextMetrics.concurrentContextMetricsInfinispanMultiJvmHazelcastlock();
+        concurrentContextMetrics.concurrentContextMetricsInfinispanMultiJvmCuratorLock();
+        concurrentContextMetrics.concurrentContextMetricsHazelcastMultiJvmCuratorLock();
+    }
 }
