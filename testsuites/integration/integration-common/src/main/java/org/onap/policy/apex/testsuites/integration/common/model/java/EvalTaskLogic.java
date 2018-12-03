@@ -21,7 +21,6 @@
 package org.onap.policy.apex.testsuites.integration.common.model.java;
 
 import org.onap.policy.apex.core.engine.executor.context.TaskExecutionContext;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**
  * The Class EvalTask_Logic is default evaluation task logic in Java.

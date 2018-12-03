@@ -119,17 +119,7 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
                 closestdowni = i;
             }
         }
-        if (closestupi == -1 || closestdowni == -1) {
-            return r;
-        }
-        if (closestupi == closestdowni) {
-            return closestupi;
-        }
-        if (Math.abs(closestdown - diff) > Math.abs(closestup - diff)) {
-            return closestupi;
-        } else {
-            return closestdowni;
-        }
+        return calculateReturnValue(diff, r, closestupi, closestdowni, closestup, closestdown);
     }
 
     /**
@@ -153,5 +143,31 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
         }
         autoLearn.setAvDiffs(Arrays.asList(avdiffs));
         autoLearn.setCounts(Arrays.asList(counts));
+    }
+    
+
+    /**
+     * Calculate the return value of the learning
+     * @param diff the difference
+     * @param r the random value
+     * @param closestupi closest to i upwards
+     * @param closestdowni closest to i downwards
+     * @param closestup closest up value
+     * @param closestdown closest down value
+     * @return the return value
+     */
+    private int calculateReturnValue(final double diff, final int r, int closestupi, int closestdowni, double closestup,
+                    double closestdown) {
+        if (closestupi == -1 || closestdowni == -1) {
+            return r;
+        }
+        if (closestupi == closestdowni) {
+            return closestupi;
+        }
+        if (Math.abs(closestdown - diff) > Math.abs(closestup - diff)) {
+            return closestupi;
+        } else {
+            return closestdowni;
+        }
     }
 }
