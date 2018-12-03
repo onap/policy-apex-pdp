@@ -20,36 +20,31 @@
 
 package org.onap.policy.apex.context.impl.schema.java;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
+import org.onap.policy.common.parameters.ParameterRuntimeException;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 /**
  * This class serialises and deserialises various type of event protocol parameters to and from JSON.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestJsonAdapter implements JsonSerializer<String>, JsonDeserializer<String> {
+public class SupportJsonSerializer implements JsonSerializer<String> {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(SupportJsonSerializer.class);
 
     /**
      * {@inheritDoc}
      */
     @Override
     public JsonElement serialize(final String src, final Type typeOfSrc, final JsonSerializationContext context) {
-        return new Gson().toJsonTree(src, String.class);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) {
-
-        return new Gson().fromJson(json, String.class);
+        final String returnMessage = "serialization of Apex event protocol parameters to Json is not supported";
+        LOGGER.error(returnMessage);
+        throw new ParameterRuntimeException(returnMessage);
     }
 }

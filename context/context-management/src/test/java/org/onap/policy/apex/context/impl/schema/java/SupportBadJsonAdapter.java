@@ -35,10 +35,10 @@ import java.lang.reflect.Type;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class BadJsonAdapter
+public class SupportBadJsonAdapter
         implements JsonSerializer<String>, JsonDeserializer<String> {
 
-    public BadJsonAdapter() throws IllegalAccessException {
+    public SupportBadJsonAdapter() throws IllegalAccessException {
         throw new IllegalAccessException("Test for Bad Adapter");
     }
     

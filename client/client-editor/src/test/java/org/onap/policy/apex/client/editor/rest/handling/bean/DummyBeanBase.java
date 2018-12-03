@@ -18,16 +18,32 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.context.impl.schema.java;
+package org.onap.policy.apex.client.editor.rest.handling.bean;
 
-public class MyBaseClass {
-    final String stringField;
+import javax.xml.bind.annotation.XmlType;
 
-    public MyBaseClass(final String stringField) {
-        this.stringField = stringField;
+/**
+ * The Event Bean.
+ */
+@XmlType
+public class DummyBeanBase extends BeanBase {
+    private String name = null;
+    private String version = null;
+    private String field1 = null;
+    private int field2 = 0;
+    private int field3 = 0;
+
+    public String getName() {
+        field1 = name;
+        return field1;
     }
 
-    public String getStringField() {
-        return stringField;
+    public String getVersion() {
+        return version;
+    }
+
+    public int getField2() {
+        field3 = field2;
+        return field3;
     }
 }
