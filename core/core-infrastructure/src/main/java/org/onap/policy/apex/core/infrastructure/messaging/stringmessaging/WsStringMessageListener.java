@@ -25,6 +25,7 @@ package org.onap.policy.apex.core.infrastructure.messaging.stringmessaging;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@FunctionalInterface
 public interface WsStringMessageListener {
 
     /**
