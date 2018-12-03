@@ -97,11 +97,7 @@ public class JavaTaskExecutor extends TaskExecutor {
         executePost(returnValue);
 
         // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**

@@ -58,8 +58,10 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             // Create the task logic object from the byte code of the class
             taskSelectionLogicObject = Class.forName(getSubject().getTaskSelectionLogic().getLogic()).newInstance();
         } catch (final Exception e) {
-            LOGGER.error("instantiation error on Java class" + taskSelectionLogicObject, e);
-            throw new StateMachineException("instantiation error on Java class" + taskSelectionLogicObject, e);
+            LOGGER.error("instantiation error on Java class \"" + getSubject().getTaskSelectionLogic().getLogic()
+                            + "\"", e);
+            throw new StateMachineException("instantiation error on Java class \""
+                            + getSubject().getTaskSelectionLogic().getLogic() + "\"", e);
         }
     }
 
@@ -74,7 +76,7 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public AxArtifactKey execute(final long executionId, final EnEvent incomingEvent)
-            throws StateMachineException, ContextException {
+                    throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, incomingEvent);
 
@@ -84,26 +86,22 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             // Find and call the method with the signature "public boolean getTask(final TaskSelectionExecutionContext
             // executor)" to invoke the task selection
             // logic in the Java class
-            final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask", (Class[])
-                    new Class[] { TaskSelectionExecutionContext.class });
+            final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask",
+                            (Class[]) new Class[] { TaskSelectionExecutionContext.class });
             returnValue = (boolean) method.invoke(taskSelectionLogicObject, getExecutionContext());
         } catch (final Exception e) {
-            LOGGER.error(
-                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"",
-                    e);
+            LOGGER.error("execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId()
+                            + "\"", e);
             throw new StateMachineException(
-                    "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"", e);
+                            "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"",
+                            e);
         }
 
         // Do the execution post work
         executePost(returnValue);
 
         // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**
@@ -114,7 +112,7 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
-                + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
-                + getSubject().getTaskSelectionLogic().getLogic());
+                        + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
+                        + getSubject().getTaskSelectionLogic().getLogic());
     }
 }
