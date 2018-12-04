@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.apps.uservice.test.adapt.restrequestor;
+package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,7 +38,7 @@ import javax.ws.rs.core.Response;
  * The Class TestRestRequestorEndpoint.
  */
 @Path("/apex")
-public class RestRequestorEndpointTest {
+public class SupportRestRequestorEndpoint {
 
     private static Object counterLock = new Object();
     private static int postMessagesReceived = 0;

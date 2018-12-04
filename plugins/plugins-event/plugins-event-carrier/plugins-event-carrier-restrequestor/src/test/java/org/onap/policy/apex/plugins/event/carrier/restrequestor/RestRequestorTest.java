@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.apps.uservice.test.adapt.restrequestor;
+package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -68,7 +68,7 @@ public class RestRequestorTest {
      */
     @BeforeClass
     public static void setUp() throws Exception {
-        final ResourceConfig rc = new ResourceConfig(RestRequestorEndpointTest.class);
+        final ResourceConfig rc = new ResourceConfig(SupportRestRequestorEndpoint.class);
         server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 
         while (!server.isStarted()) {
@@ -95,7 +95,7 @@ public class RestRequestorTest {
      */
     @Before
     public void resetCounters() {
-        RestRequestorEndpointTest.resetCounters();
+        SupportRestRequestorEndpoint.resetCounters();
     }
 
     /**
@@ -144,6 +144,52 @@ public class RestRequestorTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 
         assertEquals(Double.valueOf(50.0), getsSoFar);
+    }
+
+    /**
+     * Test rest requestor get empty.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testRestRequestorGetEmpty() throws MessagingException, ApexException, IOException {
+        final Client client = ClientBuilder.newClient();
+
+        final String[] args =
+            { "src/test/resources/prodcons/File2RESTRequest2FileGetEmpty.json" };
+        final ApexMain apexMain = new ApexMain(args);
+
+        Response response = null;
+
+        // Wait for the required amount of events to be received or for 10 seconds
+        Double getsSoFar = 0.0;
+        for (int i = 0; i < 40; i++) {
+            ThreadUtilities.sleep(100);
+
+            response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
+                            .request("application/json").get();
+
+            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
+                break;
+            }
+
+            final String responseString = response.readEntity(String.class);
+
+            @SuppressWarnings("unchecked")
+            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+            getsSoFar = Double.valueOf(jsonMap.get("GET").toString());
+
+            if (getsSoFar >= 50.0) {
+                break;
+            }
+        }
+
+        apexMain.shutdown();
+        client.close();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     /**
