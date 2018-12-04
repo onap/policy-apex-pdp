@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -144,9 +145,15 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
             throw new ApexEventException(errorMessage, e);
         }
 
-        // Set the peer timeout to the default value if its not set
+        // Set the requestor timeout
         if (consumerParameters.getPeerTimeout(EventHandlerPeeredMode.REQUESTOR) != 0) {
             restRequestTimeout = consumerParameters.getPeerTimeout(EventHandlerPeeredMode.REQUESTOR);
+        }
+
+        // Check if HTTP headers has been set
+        if (restConsumerProperties.checkHttpHeadersSet()) {
+            LOGGER.debug("REST Requestor consumer has http headers ({}): {}", this.name,
+                            Arrays.deepToString(restConsumerProperties.getHttpHeaders()));
         }
 
         // Initialize the HTTP client
@@ -163,10 +170,10 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         // Push the event onto the queue for handling
         try {
             incomingRestRequestQueue.add(restRequest);
-        } catch (final Exception e) {
+        } catch (final Exception requestException) {
             final String errorMessage = "could not queue request \"" + restRequest + "\" on REST Requestor consumer ("
                             + this.name + ")";
-            LOGGER.warn(errorMessage, e);
+            LOGGER.warn(errorMessage, requestException);
             throw new ApexEventRuntimeException(errorMessage);
         }
     }
@@ -384,25 +391,30 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         }
 
         /**
-         * Execute the REST request.
+         * Execute the REST request.executor.logger.info(executor.outFields);
          *
+         * 
          * @return the response to the REST request
          */
         public Response sendEventAsRestRequest() {
             switch (restConsumerProperties.getHttpMethod()) {
                 case GET:
-                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON).get();
+                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
+                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
 
                 case PUT:
                     return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
+                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
                                     .put(Entity.json(request.getEvent()));
 
                 case POST:
                     return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
+                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
                                     .post(Entity.json(request.getEvent()));
 
                 case DELETE:
-                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON).delete();
+                    return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
+                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).delete();
 
                 default:
                     break;

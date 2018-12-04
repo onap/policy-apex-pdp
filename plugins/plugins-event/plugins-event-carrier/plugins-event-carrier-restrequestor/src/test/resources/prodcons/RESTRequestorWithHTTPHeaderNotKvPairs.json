@@ -15,28 +15,16 @@
         }
     },
     "eventInputParameters": {
-        "FileConsumer": {
-            "carrierTechnologyParameters": {
-                "carrierTechnology": "FILE",
-                "parameters": {
-                    "fileName": "src/test/resources/events/EventsIn.json"
-                }
-            },
-            "eventProtocolParameters": {
-                "eventProtocol": "JSON"
-            }
-        },
-        "RestRequestorConsumer": {
+        "RestRequestorConsumer0": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTREQUESTOR",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/PutEvent",
-                    "httpMethod": "PUT",
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
                     "restRequestTimeout": 2000,
                     "httpHeaders" : [
-                        ["Content-Type", "application/json"],
-                        ["Date", "Tue, 4 Dec 2018 14:57:12 GMT"]
+                        ["aaa", "bbb", "ccc"]
                     ]
                 }
             },
@@ -45,12 +33,33 @@
             },
             "eventNameFilter": "ResponseEvent",
             "requestorMode": true,
-            "requestorPeer": "RestRequestorProducer",
+            "requestorPeer": "RestRequestorProducer0",
+            "requestorTimeout": 2000
+        },
+        "RestRequestorConsumer1": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
+                    "restRequestTimeout": 2000,
+                    "httpHeaders" : [
+                        ["aaa"]
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "ResponseEvent",
+            "requestorMode": true,
+            "requestorPeer": "RestRequestorProducer1",
             "requestorTimeout": 2000
         }
     },
     "eventOutputParameters": {
-        "RestRequestorProducer": {
+        "RestRequestorProducer0": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTREQUESTOR",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
@@ -60,20 +69,21 @@
             },
             "eventNameFilter": "RequestEvent",
             "requestorMode": true,
-            "requestorPeer": "RestRequestorConsumer",
+            "requestorPeer": "RestRequestorConsumer0",
             "requestorTimeout": 2000
         },
-        "FileProducer": {
+        "RestRequestorProducer1": {
             "carrierTechnologyParameters": {
-                "carrierTechnology": "FILE",
-                "parameters": {
-                    "fileName": "src/test/resources/events/EventsOut.json"
-                }
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON"
             },
-            "eventNameFilter": "BasicEvent"
+            "eventNameFilter": "RequestEvent",
+            "requestorMode": true,
+            "requestorPeer": "RestRequestorConsumer1",
+            "requestorTimeout": 2000
         }
     }
 }
