@@ -20,23 +20,34 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import java.util.Arrays;
 
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+
+import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+
+// @formatter:off
 /**
  * Apex parameters for REST as an event carrier technology with Apex issuing a REST request and receiving a REST
  * response.
  *
  * <p>The parameters for this plugin are:
  * <ol>
- * <li>url: The URL that the Apex Rest Requestor will connect to over REST for REST request sending. This parameter is
- * mandatory.
- * <li>httpMethod: The HTTP method to use when making requests over REST, legal values are GET (default), POST, PUT, and
- * DELETE.
+ * <li>url: The URL that the Apex Rest Requestor will connect to over REST for REST request sending.
+ * This parameter is mandatory.
+ * <li>httpMethod: The HTTP method to use when making requests over REST, legal values are GET (default),
+ *  POST, PUT, and DELETE.
  * <li>restRequestTimeout: The time in milliseconds to wait for a REST request to complete.
+ * <li>restRequestHeader: The necessary header needed
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+//@formatter:on
 public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyParameters {
     /** The supported HTTP methods. */
     public enum HttpMethod {
@@ -47,12 +58,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     public static final String RESTREQUESTOR_CARRIER_TECHNOLOGY_LABEL = "RESTREQUESTOR";
 
     /** The producer plugin class for the REST carrier technology. */
-    public static final String RESTREQUSTOR_EVENT_PRODUCER_PLUGIN_CLASS =
-            ApexRestRequestorProducer.class.getCanonicalName();
+    public static final String RESTREQUSTOR_EVENT_PRODUCER_PLUGIN_CLASS = ApexRestRequestorProducer.class
+                    .getCanonicalName();
 
     /** The consumer plugin class for the REST carrier technology. */
-    public static final String RESTREQUSTOR_EVENT_CONSUMER_PLUGIN_CLASS =
-            ApexRestRequestorConsumer.class.getCanonicalName();
+    public static final String RESTREQUSTOR_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestRequestorConsumer.class
+                    .getCanonicalName();
 
     /** The default HTTP method for request events. */
     public static final HttpMethod DEFAULT_REQUESTOR_HTTP_METHOD = HttpMethod.GET;
@@ -60,12 +71,16 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     /** The default timeout for REST requests. */
     public static final long DEFAULT_REST_REQUEST_TIMEOUT = 500;
 
+    // Commonly occurring strings
+    private static final String HTTP_HEADERS = "httpHeaders";
+
     private String url = null;
     private HttpMethod httpMethod = null;
+    private String[][] httpHeaders = null;
 
     /**
-     * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
-     * service.
+     * Constructor to create a REST carrier technology parameters instance and regiaaaster the instance with the
+     * parameter service.
      */
     public RestRequestorCarrierTechnologyParameters() {
         super();
@@ -112,14 +127,92 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
         this.httpMethod = httpMethod;
     }
 
+    /**
+     * Check if http headers have been set for the REST request.
+     *
+     * @return true if headers have beenset
+     */
+    public boolean checkHttpHeadersSet() {
+        return httpHeaders != null && httpHeaders.length > 0;
+    }
+
+    /**
+     * Gets the http headers for the REST request.
+     *
+     * @return the headers
+     */
+    public String[][] getHttpHeaders() {
+        return httpHeaders;
+    }
+
+    /**
+     * Gets the http headers for the REST request as a multivalued map.
+     *
+     * @return the headers
+     */
+    public MultivaluedMap<String, Object> getHttpHeadersAsMultivaluedMap() {
+        if (httpHeaders == null) {
+            return null;
+        }
+
+        // Load the HTTP headers into the map
+        MultivaluedMap<String, Object> httpHeaderMap = new MultivaluedHashMap<>();
+
+        for (String[] httpHeader : httpHeaders) {
+            httpHeaderMap.putSingle(httpHeader[0], httpHeader[1]);
+        }
+
+        return httpHeaderMap;
+    }
+
+    /**
+     * Sets the header for the REST request.
+     *
+     * @param httpHeaders the incoming HTTP headers
+     */
+    public void setHttpHeaders(final String[][] httpHeaders) {
+        this.httpHeaders = httpHeaders;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GroupValidationResult validate() {
+        final GroupValidationResult result = super.validate();
+
+        if (httpHeaders == null) {
+            return result;
+        }
+
+        for (String[] httpHeader : httpHeaders) {
+            if (httpHeader == null) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID, "HTTP header array entry is null");
+            } else if (httpHeader.length != 2) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
+                                "HTTP header array entries must have one key and one value: "
+                                                + Arrays.deepToString(httpHeader));
+            } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[0])) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
+                                "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
+            } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[1])) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
+                                "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
+            }
+        }
+
+        return result;
+    }
+
     /*
      * (non-Javadoc)
      *
-     * @see java.lang.Object#toString()
+     * @see new LinkedHashMap<>()java.lang.Object#toString()
      */
 
     @Override
     public String toString() {
-        return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + "]";
+        return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
+                        + Arrays.deepToString(httpHeaders) + "]";
     }
 }

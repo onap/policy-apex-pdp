@@ -31,13 +31,9 @@
                 "carrierTechnology": "RESTREQUESTOR",
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
-                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/PutEvent",
-                    "httpMethod": "PUT",
-                    "restRequestTimeout": 2000,
-                    "httpHeaders" : [
-                        ["Content-Type", "application/json"],
-                        ["Date", "Tue, 4 Dec 2018 14:57:12 GMT"]
-                    ]
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEmptyEvent",
+                    "httpMethod": "GET",
+                    "restRequestTimeout": 2000
                 }
             },
             "eventProtocolParameters": {
