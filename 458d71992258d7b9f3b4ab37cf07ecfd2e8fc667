@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_97587133",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/impl/distribution/AbstractDistributor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-12-06T14:39:11Z",
+      "side": 1,
+      "message": "I don\u0027t think the synchronized statement is needed here, provided albumMaps is a synchronized structure, it does not do any harm though, not sure would produce a minor sonar.",
+      "revId": "458d71992258d7b9f3b4ab37cf07ecfd2e8fc667",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
