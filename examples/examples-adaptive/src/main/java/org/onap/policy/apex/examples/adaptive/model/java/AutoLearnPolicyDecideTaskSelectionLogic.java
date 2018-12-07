@@ -49,10 +49,10 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
     public boolean getTask(final TaskSelectionExecutionContext executor) {
         String idString = executor.subject.getId();
         executor.logger.debug(idString);
-        
+
         String inFieldsString = executor.inFields.toString();
         executor.logger.debug(inFieldsString);
-        
+
         final List<String> tasks = executor.subject.getTaskNames();
         size = tasks.size();
 
@@ -144,22 +144,22 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
         autoLearn.setAvDiffs(Arrays.asList(avdiffs));
         autoLearn.setCounts(Arrays.asList(counts));
     }
-    
 
     /**
-     * Calculate the return value of the learning
+     * Calculate the return value of the learning.
+     * 
      * @param diff the difference
-     * @param r the random value
+     * @param random the random value
      * @param closestupi closest to i upwards
      * @param closestdowni closest to i downwards
      * @param closestup closest up value
      * @param closestdown closest down value
      * @return the return value
      */
-    private int calculateReturnValue(final double diff, final int r, int closestupi, int closestdowni, double closestup,
-                    double closestdown) {
+    private int calculateReturnValue(final double diff, final int random, int closestupi, int closestdowni,
+        double closestup, double closestdown) {
         if (closestupi == -1 || closestdowni == -1) {
-            return r;
+            return random;
         }
         if (closestupi == closestdowni) {
             return closestupi;

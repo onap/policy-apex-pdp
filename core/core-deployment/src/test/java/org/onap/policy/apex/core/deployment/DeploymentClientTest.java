@@ -65,7 +65,7 @@ public class DeploymentClientTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testDeploymentClientStart() throws Exception {
-        DeploymentClient deploymentClient = new DeploymentClient("localhost", 51273);
+        DeploymentClient deploymentClient = new DeploymentClient("localhost", 51332);
 
         final Field factoryField = deploymentClient.getClass().getDeclaredField("factory");
         factoryField.setAccessible(true);
@@ -81,7 +81,7 @@ public class DeploymentClientTest {
         Thread clientThread = new Thread(deploymentClient);
         clientThread.start();
 
-        ThreadUtilities.sleep(20);
+        ThreadUtilities.sleep(100);
 
         assertTrue(deploymentClient.isStarted());
         assertTrue(clientThread.isAlive());
@@ -114,26 +114,28 @@ public class DeploymentClientTest {
 
     @Test
     public void testDeploymentClientStartException() throws Exception {
-        DeploymentClient depoymentClient = new DeploymentClient("localhost", 51273);
+        DeploymentClient deploymentClient = new DeploymentClient("localhost", 51273);
 
-        final Field factoryField = depoymentClient.getClass().getDeclaredField("factory");
+        final Field factoryField = deploymentClient.getClass().getDeclaredField("factory");
         factoryField.setAccessible(true);
-        factoryField.set(depoymentClient, mockServiceFactory);
+        factoryField.set(deploymentClient, mockServiceFactory);
 
         Mockito.doReturn(mockService).when(mockServiceFactory).createClient(anyObject());
 
         Mockito.doNothing().when(mockService).addMessageListener(anyObject());
         Mockito.doThrow(new ApexRuntimeException("connection start failed")).when(mockService).startConnection();
 
-        Thread clientThread = new Thread(depoymentClient);
+        Thread clientThread = new Thread(deploymentClient);
         clientThread.start();
 
         ThreadUtilities.sleep(50);
 
-        assertFalse(depoymentClient.isStarted());
+        assertFalse(deploymentClient.isStarted());
         assertFalse(clientThread.isAlive());
-        assertEquals(0, depoymentClient.getReceiveQueue().size());
+        assertEquals(0, deploymentClient.getReceiveQueue().size());
 
         ThreadUtilities.sleep(100);
+        
+        deploymentClient.stopClient();
     }
 }

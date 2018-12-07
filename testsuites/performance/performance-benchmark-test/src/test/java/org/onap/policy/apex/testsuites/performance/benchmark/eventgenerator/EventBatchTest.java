@@ -37,12 +37,13 @@ public class EventBatchTest {
         EventBatch batch = new EventBatch(1, "TheApexClient");
         assertNotNull(batch);
 
-        assertEquals("\"nameSpace\": \"org.onap.policy.apex.sample.events\"", batch.getBatchAsJsonString().substring(4, 53));
+        assertEquals("\"nameSpace\": \"org.onap.policy.apex.sample.events\"",
+            batch.getBatchAsJsonString().substring(4, 53));
 
         EventBatchStats stats = batch.getStats();
         assertEquals(1, stats.getBatchSize());
 
         InputEvent ie = batch.getInputEvent(0);
-        assertEquals("org.onap.policy.apex.sample.events",ie.getNameSpace());
+        assertEquals("org.onap.policy.apex.sample.events", ie.getNameSpace());
     }
 }

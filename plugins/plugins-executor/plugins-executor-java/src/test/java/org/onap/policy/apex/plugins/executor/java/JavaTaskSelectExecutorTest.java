@@ -45,6 +45,9 @@ import org.onap.policy.common.parameters.ParameterService;
  *
  */
 public class JavaTaskSelectExecutorTest {
+    /**
+     * Initiate Parameters.
+     */
     @Before
     public void initiateParameters() {
         ParameterService.register(new DistributorParameters());
@@ -52,6 +55,9 @@ public class JavaTaskSelectExecutorTest {
         ParameterService.register(new PersistorParameters());
     }
 
+    /**
+     * Clear Parameters.
+     */
     @After
     public void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);

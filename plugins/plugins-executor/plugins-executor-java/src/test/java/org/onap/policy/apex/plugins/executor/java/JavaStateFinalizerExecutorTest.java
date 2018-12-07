@@ -51,6 +51,9 @@ import org.onap.policy.common.parameters.ParameterService;
  *
  */
 public class JavaStateFinalizerExecutorTest {
+    /**
+     * Initiate Parameters.
+     */
     @Before
     public void initiateParameters() {
         ParameterService.register(new DistributorParameters());
@@ -59,6 +62,9 @@ public class JavaStateFinalizerExecutorTest {
         ParameterService.register(new EngineParameters());
     }
 
+    /**
+     * Clear down Parameters.
+     */
     @After
     public void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
@@ -90,9 +96,11 @@ public class JavaStateFinalizerExecutorTest {
         try {
             parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
         } catch (StateMachineException e) {
+            fail("test should not throw an exception here");
         }
+
         AxState state = new AxState();
-        parentStateExcutor.setContext(null, state , internalContext);
+        parentStateExcutor.setContext(null, state, internalContext);
         AxStateFinalizerLogic stateFinalizerLogic = new AxStateFinalizerLogic();
         jsfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
 
@@ -116,7 +124,7 @@ public class JavaStateFinalizerExecutorTest {
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("state finalizer logic failed to run for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
-                            jtseException.getMessage());
+                jtseException.getMessage());
         }
 
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
@@ -126,7 +134,7 @@ public class JavaStateFinalizerExecutorTest {
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("state finalizer logic failed to run for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
-                            jtseException.getMessage());
+                jtseException.getMessage());
         }
 
         stateFinalizerLogic.setLogic("org.onap.policy.apex.plugins.executor.java.DummyJavaStateFinalizerLogic");
@@ -136,7 +144,7 @@ public class JavaStateFinalizerExecutorTest {
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
-                            + "on finalizer logic NULL:0.0.0:NULL:NULL", jtseException.getMessage());
+                + "on finalizer logic NULL:0.0.0:NULL:NULL", jtseException.getMessage());
         }
 
         state.getStateOutputs().put("SelectedOutputIsMe", null);

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
- * Test the JavaExecutorParameters class
+ * Test the JavaExecutorParameters class.
  */
 public class JavaExecutorParametersTest {
 
