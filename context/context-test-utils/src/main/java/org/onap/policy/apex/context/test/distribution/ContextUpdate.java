@@ -96,8 +96,8 @@ public class ContextUpdate {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals("Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\":"
-                    + " LongContextAlbum:0.0.1: object \"zero\" of class \"java.lang.String\" not compatible with"
-                    + " class \"java.lang.Long\"", e.getMessage());
+                + " LongContextAlbum:0.0.1: object \"zero\" of class \"java.lang.String\" not compatible with"
+                + " class \"java.lang.Long\"", e.getMessage());
             LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
@@ -106,9 +106,9 @@ public class ContextUpdate {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals(
-                    "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum"
-                            + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
-                    e.getMessage());
+                "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum"
+                    + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
+                e.getMessage());
             LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
@@ -117,7 +117,7 @@ public class ContextUpdate {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals("album \"LongContextAlbum:0.0.1\" null values are illegal on key \"0\" for put()",
-                    e.getMessage());
+                e.getMessage());
             LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
 
@@ -131,7 +131,6 @@ public class ContextUpdate {
 
         assertNull(dateContextAlbum.put("date0", tciA));
         assertTrue(dateContextAlbum.put("date0", tciA).equals(tciA));
-
 
         assertNull(mapContextAlbum.put("map0", tciC));
         assertTrue(mapContextAlbum.put("map0", tciC).equals(tciC));
@@ -161,9 +160,9 @@ public class ContextUpdate {
     }
 
     private ContextAlbum getContextAlbum(final String albumKey, final Distributor contextDistributor)
-            throws ContextException {
-        final ContextAlbum longContextAlbum =
-                contextDistributor.createContextAlbum(new AxArtifactKey(albumKey, VERSION));
+        throws ContextException {
+        final ContextAlbum longContextAlbum = contextDistributor
+            .createContextAlbum(new AxArtifactKey(albumKey, VERSION));
         assertNotNull(longContextAlbum);
         longContextAlbum.setUserArtifactStack(getAxArtifactKeyArray());
         return longContextAlbum;
@@ -172,7 +171,6 @@ public class ContextUpdate {
     private Distributor getDistributor() throws ContextException {
         final AxArtifactKey distributorKey = new AxArtifactKey(APEX_DISTRIBUTOR, VERSION);
         final Distributor contextDistributor = new DistributorFactory().getDistributor(distributorKey);
-
 
         final AxContextModel multiModel = TestContextAlbumFactory.createMultiAlbumsContextModel();
         contextDistributor.registerModel(multiModel);

@@ -32,9 +32,8 @@ import org.slf4j.ext.XLoggerFactory;
  * The Class {@link BatchDeployer} deploys an Apex model held as an XML or Json file onto an Apex engine. It uses the
  * EngDep protocol to communicate with the engine, with the EngDep protocol being carried on Java web sockets.
  *
- * <p>
- * This deployer is a simple command line deployer that reads the communication parameters and the location of the Apex
- * model file as arguments.
+ * <p>This deployer is a simple command line deployer that reads the communication parameters and the location of the
+ * Apex model file as arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -97,7 +96,7 @@ public class BatchDeployer {
      * @throws ApexException on Apex errors
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-            throws ApexException {
+        throws ApexException {
         engineServiceFacade.deployModel(modelFileName, ignoreConflicts, force);
     }
 
@@ -110,7 +109,7 @@ public class BatchDeployer {
      * @throws ApexException on Apex errors
      */
     public void deployModel(final AxPolicyModel policyModel, final boolean ignoreConflicts, final boolean force)
-            throws ApexException {
+        throws ApexException {
         engineServiceFacade.deployModel(policyModel, ignoreConflicts, force);
     }
 
@@ -133,7 +132,7 @@ public class BatchDeployer {
     public static void main(final String[] args) throws ApexException {
         if (args.length != NUM_ARGUMENTS) {
             final String message = "invalid arguments: " + Arrays.toString(args)
-                    + "\nusage: BatchDeployer <server address> <port address> <model file path";
+                + "\nusage: BatchDeployer <server address> <port address> <model file path";
             LOGGER.error(message);
             throw new ApexDeploymentException(message);
         }

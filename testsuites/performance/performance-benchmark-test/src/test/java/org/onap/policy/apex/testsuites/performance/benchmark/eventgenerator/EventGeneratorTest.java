@@ -55,8 +55,8 @@ public class EventGeneratorTest {
 
         EventGenerator eventGenerator = new EventGenerator(pars);
 
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/REST2RESTJsonEventJavascript.json" };
+        final String[] args = { "-rfr", "target", "-c",
+            "target/examples/config/SampleDomain/REST2RESTJsonEventJavascript.json" };
 
         final ApexMain apexMain = new ApexMain(args);
 
@@ -76,8 +76,7 @@ public class EventGeneratorTest {
     public void testEventGeneratorBadParams() {
         System.setOut(new PrintStream(outContent));
 
-        final String[] args =
-            { "-zzz" };
+        final String[] args = { "-zzz" };
 
         EventGenerator.main(args);
 
@@ -92,9 +91,7 @@ public class EventGeneratorTest {
     public void testEventGeneratorHelp() {
         System.setOut(new PrintStream(outContent));
 
-        final String[] args = {
-            "-h"
-        };
+        final String[] args = { "-h" };
 
         EventGenerator.main(args);
 
@@ -114,7 +111,7 @@ public class EventGeneratorTest {
             public void run() {
                 EventGenerator.main(null);
             }
-           }).start();
+        }).start();
 
         ThreadUtilities.sleep(1000);
         final String outString = outContent.toString();
@@ -127,7 +124,7 @@ public class EventGeneratorTest {
 
     @Test
     public void testEventGeneratorOutfileGood() {
-        EventGeneratorParameters pars =new EventGeneratorParameters();
+        EventGeneratorParameters pars = new EventGeneratorParameters();
         pars.setOutFile("target/statsOutFile.json");
 
         EventGenerator generator = new EventGenerator(pars);
