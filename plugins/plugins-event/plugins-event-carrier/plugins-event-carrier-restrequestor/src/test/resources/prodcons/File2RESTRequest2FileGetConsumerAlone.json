@@ -32,8 +32,7 @@
                 "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
                 "parameters": {
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
-                    "httpMethod": "GET",
-                    "restRequestTimeout": 2000
+                    "httpMethod": "GET"
                 }
             },
             "eventProtocolParameters": {

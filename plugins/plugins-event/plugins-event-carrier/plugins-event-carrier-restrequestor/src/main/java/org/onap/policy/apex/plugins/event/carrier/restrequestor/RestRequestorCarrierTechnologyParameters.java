@@ -204,12 +204,9 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see new LinkedHashMap<>()java.lang.Object#toString()
+    /**
+     * {@inheritDoc}
      */
-
     @Override
     public String toString() {
         return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
