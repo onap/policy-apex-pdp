@@ -67,29 +67,29 @@ public class ApexRestClientProducer implements ApexEventProducer {
      */
     @Override
     public void init(final String producerName, final EventHandlerParameters producerParameters)
-                    throws ApexEventException {
+        throws ApexEventException {
         this.name = producerName;
 
         // Check and get the REST Properties
         if (!(producerParameters.getCarrierTechnologyParameters() instanceof RestClientCarrierTechnologyParameters)) {
-            final String errorMessage = "specified consumer properties are not applicable to REST client producer ("
-                            + this.name + ")";
+            final String errorMessage = "specified producer properties are not applicable to REST client producer ("
+                + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
         restProducerProperties = (RestClientCarrierTechnologyParameters) producerParameters
-                        .getCarrierTechnologyParameters();
+            .getCarrierTechnologyParameters();
 
         // Check if the HTTP method has been set
         if (restProducerProperties.getHttpMethod() == null) {
-            restProducerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.DEFAULT_PRODUCER_HTTP_METHOD);
+            restProducerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
         }
 
-        if (!"POST".equalsIgnoreCase(restProducerProperties.getHttpMethod())
-                        && !"PUT".equalsIgnoreCase(restProducerProperties.getHttpMethod())) {
+        if (!RestClientCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())
+            && !RestClientCarrierTechnologyParameters.HttpMethod.PUT.equals(restProducerProperties.getHttpMethod())) {
             final String errorMessage = "specified HTTP method of \"" + restProducerProperties.getHttpMethod()
-                            + "\" is invalid, only HTTP methods \"POST\" and \"PUT\" are supproted "
-                            + "for event sending on REST client producer (" + this.name + ")";
+                + "\" is invalid, only HTTP methods \"POST\" and \"PUT\" are supproted "
+                + "for event sending on REST client producer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
@@ -140,7 +140,7 @@ public class ApexRestClientProducer implements ApexEventProducer {
     public void sendEvent(final long executionId, final String eventName, final Object event) {
         // Check if this is a synchronized event, if so we have received a reply
         final SynchronousEventCache synchronousEventCache = (SynchronousEventCache) peerReferenceMap
-                        .get(EventHandlerPeeredMode.SYNCHRONOUS);
+            .get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);
         }
@@ -151,16 +151,15 @@ public class ApexRestClientProducer implements ApexEventProducer {
         // Check that the request worked
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" using HTTP \""
-                            + restProducerProperties.getHttpMethod() + "\" failed with status code "
-                            + response.getStatus() + " and message \"" + response.readEntity(String.class)
-                            + "\", event:\n" + event;
+                + restProducerProperties.getHttpMethod() + "\" failed with status code " + response.getStatus()
+                + " and message \"" + response.readEntity(String.class) + "\", event:\n" + event;
             LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("event sent from engine using {} to URL {} with HTTP {} : {} and response {} ", this.name,
-                            restProducerProperties.getUrl(), restProducerProperties.getHttpMethod(), event, response);
+                restProducerProperties.getUrl(), restProducerProperties.getHttpMethod(), event, response);
         }
     }
 
@@ -179,14 +178,23 @@ public class ApexRestClientProducer implements ApexEventProducer {
      * Send the event as a JSON string as a REST request.
      *
      * @param event the event to send
-     * @return the response tot he JSON request
+     * @return the response to the JSON request
      */
-    public Response sendEventAsRestRequest(final String event) {
+    private Response sendEventAsRestRequest(final String event) {
         // We have already checked that it is a PUT or POST request
-        if ("POST".equalsIgnoreCase(restProducerProperties.getHttpMethod())) {
+        if (RestClientCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())) {
             return client.target(restProducerProperties.getUrl()).request("application/json").post(Entity.json(event));
         } else {
             return client.target(restProducerProperties.getUrl()).request("application/json").put(Entity.json(event));
         }
+    }
+
+    /**
+     * Hook for unit test mocking of HTTP client.
+     * 
+     * @param client the mocked client
+     */
+    protected void setClient(final Client client) {
+        this.client = client;
     }
 }
