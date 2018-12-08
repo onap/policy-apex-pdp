@@ -72,30 +72,29 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-                    final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+        final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
 
         // Check and get the REST Properties
         if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RestClientCarrierTechnologyParameters)) {
             final String errorMessage = "specified consumer properties are not applicable to REST client consumer ("
-                            + this.name + ")";
+                + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
         restConsumerProperties = (RestClientCarrierTechnologyParameters) consumerParameters
-                        .getCarrierTechnologyParameters();
+            .getCarrierTechnologyParameters();
 
         // Check if the HTTP method has been set
         if (restConsumerProperties.getHttpMethod() == null) {
-            restConsumerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD);
+            restConsumerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.GET);
         }
 
-        if (!restConsumerProperties.getHttpMethod()
-                        .equalsIgnoreCase(RestClientCarrierTechnologyParameters.CONSUMER_HTTP_METHOD)) {
+        if (!RestClientCarrierTechnologyParameters.HttpMethod.GET.equals(restConsumerProperties.getHttpMethod())) {
             final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
-                            + "\" is invalid, only HTTP method \"GET\" "
-                            + "is supported for event reception on REST client consumer (" + this.name + ")";
+                + "\" is invalid, only HTTP method \"GET\" "
+                + "is supported for event reception on REST client consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
@@ -203,13 +202,13 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
         public void run() {
             try {
                 final Response response = client.target(restConsumerProperties.getUrl()).request("application/json")
-                                .get();
+                    .get();
 
                 // Check that the event request worked
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                     final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
-                                    + "\" failed with status code " + response.getStatus() + " and message \""
-                                    + response.readEntity(String.class) + "\"";
+                        + "\" failed with status code " + response.getStatus() + " and message \""
+                        + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -219,7 +218,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 // Check there is content
                 if (eventJsonString == null || eventJsonString.trim().length() == 0) {
                     final String errorMessage = "received an empty event from URL \"" + restConsumerProperties.getUrl()
-                                    + "\"";
+                        + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -229,5 +228,14 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }
         }
+    }
+
+    /**
+     * Hook for unit test mocking of HTTP client.
+     * 
+     * @param client the mocked client
+     */
+    protected void setClient(final Client client) {
+        this.client = client;
     }
 }

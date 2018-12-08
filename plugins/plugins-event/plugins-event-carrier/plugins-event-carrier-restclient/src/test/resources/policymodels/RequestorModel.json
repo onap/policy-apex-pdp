@@ -1,0 +1,608 @@
+{
+   "apexPolicyModel" : {
+      "key" : {
+         "name" : "SmallModel",
+         "version" : "0.0.1"
+      },
+      "keyInformation" : {
+         "key" : {
+            "name" : "SmallModel_KeyInfo",
+            "version" : "0.0.1"
+         },
+         "keyInfoMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "BasicContextAlbum",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicContextAlbum",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "fec1b353-b35f-4384-b7d9-69622059c248",
+                  "description" : "Generated description for a concept called \"BasicContextAlbum\" with version \"0.0.1\" and UUID \"fec1b353-b35f-4384-b7d9-69622059c248\""
+               }
+            }, {
+               "key" : {
+                  "name" : "BasicEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "cc8d3c1a-e975-459a-bcd2-69f423eaa1f3",
+                  "description" : "Generated description for a concept called \"BasicEvent\" with version \"0.0.1\" and UUID \"cc8d3c1a-e975-459a-bcd2-69f423eaa1f3\""
+               }
+            }, {
+               "key" : {
+                  "name" : "BasicPolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicPolicy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "d0c5d8ee-5fe7-4978-89ce-4a3e69cad043",
+                  "description" : "Generated description for a concept called \"BasicPolicy\" with version \"0.0.1\" and UUID \"d0c5d8ee-5fe7-4978-89ce-4a3e69cad043\""
+               }
+            }, {
+               "key" : {
+                  "name" : "BasicTask",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicTask",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c5651414-fc1c-493b-878d-75f0ce685c36",
+                  "description" : "Generated description for a concept called \"BasicTask\" with version \"0.0.1\" and UUID \"c5651414-fc1c-493b-878d-75f0ce685c36\""
+               }
+            }, {
+               "key" : {
+                  "name" : "IntType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "IntType",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "790ff718-8dc0-44e0-89d8-1b3bbe238310",
+                  "description" : "Generated description for a concept called \"IntType\" with version \"0.0.1\" and UUID \"790ff718-8dc0-44e0-89d8-1b3bbe238310\""
+               }
+            }, {
+               "key" : {
+                  "name" : "RequestEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RequestEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "99875c27-6120-4101-9e73-50ac810e322c",
+                  "description" : "Generated description for a concept called \"RequestEvent\" with version \"0.0.1\" and UUID \"99875c27-6120-4101-9e73-50ac810e322c\""
+               }
+            }, {
+               "key" : {
+                  "name" : "RequestPolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RequestPolicy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "0667d905-981e-4249-b572-bc22821c7d29",
+                  "description" : "Generated description for a concept called \"RequestPolicy\" with version \"0.0.1\" and UUID \"0667d905-981e-4249-b572-bc22821c7d29\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ResponseEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ResponseEvent",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a5022000-fdd7-491c-af9f-5a36e87c997c",
+                  "description" : "Generated description for a concept called \"ResponseEvent\" with version \"0.0.1\" and UUID \"a5022000-fdd7-491c-af9f-5a36e87c997c\""
+               }
+            }, {
+               "key" : {
+                  "name" : "ResponsePolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ResponsePolicy",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "e72757c4-d81d-4337-b7ce-5f022f55818d",
+                  "description" : "Generated description for a concept called \"ResponsePolicy\" with version \"0.0.1\" and UUID \"e72757c4-d81d-4337-b7ce-5f022f55818d\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "a1bd1f4e-713b-456b-b1a8-bb48beee28e8",
+                  "description" : "Generated description for a concept called \"SmallModel\" with version \"0.0.1\" and UUID \"a1bd1f4e-713b-456b-b1a8-bb48beee28e8\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel_Albums",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel_Albums",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "72bed9af-ab7d-3379-b9f7-b5eca5c9ef22",
+                  "description" : "Generated description for concept referred to by key \"SmallModel_Albums:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel_Events",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel_Events",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "796dc6b0-627d-34ae-a5e2-1bc4b4b486b8",
+                  "description" : "Generated description for concept referred to by key \"SmallModel_Events:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel_KeyInfo",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel_KeyInfo",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "b4876774-6907-3d27-a2b8-f05737c5ee4a",
+                  "description" : "Generated description for concept referred to by key \"SmallModel_KeyInfo:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel_Policies",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel_Policies",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "5bcf946b-67be-3190-a906-f954896f999f",
+                  "description" : "Generated description for concept referred to by key \"SmallModel_Policies:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel_Schemas",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel_Schemas",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "c25bf5c3-7f1e-3667-b8a9-971ba21517bc",
+                  "description" : "Generated description for concept referred to by key \"SmallModel_Schemas:0.0.1\""
+               }
+            }, {
+               "key" : {
+                  "name" : "SmallModel_Tasks",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "SmallModel_Tasks",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "43b015ca-2ed1-3a35-b103-e8a5aa68f1ef",
+                  "description" : "Generated description for concept referred to by key \"SmallModel_Tasks:0.0.1\""
+               }
+            } ]
+         }
+      },
+      "policies" : {
+         "key" : {
+            "name" : "SmallModel_Policies",
+            "version" : "0.0.1"
+         },
+         "policyMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "RequestPolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "policyKey" : {
+                     "name" : "RequestPolicy",
+                     "version" : "0.0.1"
+                  },
+                  "template" : "FREEFORM",
+                  "state" : {
+                     "entry" : [ {
+                        "key" : "RequestState",
+                        "value" : {
+                           "stateKey" : {
+                              "parentKeyName" : "RequestPolicy",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "RequestState"
+                           },
+                           "trigger" : {
+                              "name" : "BasicEvent",
+                              "version" : "0.0.1"
+                           },
+                           "stateOutputs" : {
+                              "entry" : [ {
+                                 "key" : "RequestOutput",
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "RequestPolicy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "RequestState",
+                                       "localName" : "RequestOutput"
+                                    },
+                                    "outgoingEvent" : {
+                                       "name" : "RequestEvent",
+                                       "version" : "0.0.1"
+                                    },
+                                    "nextState" : {
+                                       "parentKeyName" : "NULL",
+                                       "parentKeyVersion" : "0.0.0",
+                                       "parentLocalName" : "NULL",
+                                       "localName" : "NULL"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "contextAlbumReference" : [ ],
+                           "taskSelectionLogic" : {
+                              "key" : "NULL",
+                              "logicFlavour" : "UNDEFINED",
+                              "logic" : ""
+                           },
+                           "stateFinalizerLogicMap" : {
+                              "entry" : [ ]
+                           },
+                           "defaultTask" : {
+                              "name" : "BasicTask",
+                              "version" : "0.0.1"
+                           },
+                           "taskReferences" : {
+                              "entry" : [ {
+                                 "key" : {
+                                    "name" : "BasicTask",
+                                    "version" : "0.0.1"
+                                 },
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "RequestPolicy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "RequestState",
+                                       "localName" : "RequestTask"
+                                    },
+                                    "outputType" : "DIRECT",
+                                    "output" : {
+                                       "parentKeyName" : "RequestPolicy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "RequestState",
+                                       "localName" : "RequestOutput"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  },
+                  "firstState" : "RequestState"
+               }
+            }, {
+               "key" : {
+                  "name" : "ResponsePolicy",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "policyKey" : {
+                     "name" : "ResponsePolicy",
+                     "version" : "0.0.1"
+                  },
+                  "template" : "FREEFORM",
+                  "state" : {
+                     "entry" : [ {
+                        "key" : "ResponseState",
+                        "value" : {
+                           "stateKey" : {
+                              "parentKeyName" : "ResponsePolicy",
+                              "parentKeyVersion" : "0.0.1",
+                              "parentLocalName" : "NULL",
+                              "localName" : "ResponseState"
+                           },
+                           "trigger" : {
+                              "name" : "ResponseEvent",
+                              "version" : "0.0.1"
+                           },
+                           "stateOutputs" : {
+                              "entry" : [ {
+                                 "key" : "ResponseOutput",
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "ResponsePolicy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "ResponseState",
+                                       "localName" : "ResponseOutput"
+                                    },
+                                    "outgoingEvent" : {
+                                       "name" : "BasicEvent",
+                                       "version" : "0.0.1"
+                                    },
+                                    "nextState" : {
+                                       "parentKeyName" : "NULL",
+                                       "parentKeyVersion" : "0.0.0",
+                                       "parentLocalName" : "NULL",
+                                       "localName" : "NULL"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "contextAlbumReference" : [ ],
+                           "taskSelectionLogic" : {
+                              "key" : "NULL",
+                              "logicFlavour" : "UNDEFINED",
+                              "logic" : ""
+                           },
+                           "stateFinalizerLogicMap" : {
+                              "entry" : [ ]
+                           },
+                           "defaultTask" : {
+                              "name" : "BasicTask",
+                              "version" : "0.0.1"
+                           },
+                           "taskReferences" : {
+                              "entry" : [ {
+                                 "key" : {
+                                    "name" : "BasicTask",
+                                    "version" : "0.0.1"
+                                 },
+                                 "value" : {
+                                    "key" : {
+                                       "parentKeyName" : "ResponsePolicy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "ResponseState",
+                                       "localName" : "ResponseTask"
+                                    },
+                                    "outputType" : "DIRECT",
+                                    "output" : {
+                                       "parentKeyName" : "ResponsePolicy",
+                                       "parentKeyVersion" : "0.0.1",
+                                       "parentLocalName" : "ResponseState",
+                                       "localName" : "ResponseOutput"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  },
+                  "firstState" : "ResponseState"
+               }
+            } ]
+         }
+      },
+      "tasks" : {
+         "key" : {
+            "name" : "SmallModel_Tasks",
+            "version" : "0.0.1"
+         },
+         "taskMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "BasicTask",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicTask",
+                     "version" : "0.0.1"
+                  },
+                  "inputFields" : {
+                     "entry" : [ {
+                        "key" : "intPar",
+                        "value" : {
+                           "key" : "intPar",
+                           "fieldSchemaKey" : {
+                              "name" : "IntType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  },
+                  "outputFields" : {
+                     "entry" : [ {
+                        "key" : "intPar",
+                        "value" : {
+                           "key" : "intPar",
+                           "fieldSchemaKey" : {
+                              "name" : "IntType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  },
+                  "taskParameters" : {
+                     "entry" : [ ]
+                  },
+                  "contextAlbumReference" : [ {
+                     "name" : "BasicContextAlbum",
+                     "version" : "0.0.1"
+                  } ],
+                  "taskLogic" : {
+                     "key" : "TaskLogic",
+                     "logicFlavour" : "JAVASCRIPT",
+                     "logic" : "executor.logger.debug(executor.subject.id);\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.name);\nexecutor.logger.debug(executor.inFields);\n\nexecutor.logger.debug(executor.eo);\n\nvar returnValue = executor.isTrue;"
+                  }
+               }
+            } ]
+         }
+      },
+      "events" : {
+         "key" : {
+            "name" : "SmallModel_Events",
+            "version" : "0.0.1"
+         },
+         "eventMap" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "BasicEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.events",
+                  "source" : "source",
+                  "target" : "target",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "intPar",
+                        "value" : {
+                           "key" : "intPar",
+                           "fieldSchemaKey" : {
+                              "name" : "IntType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "RequestEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "RequestEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.events",
+                  "source" : "apex",
+                  "target" : "server",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "intPar",
+                        "value" : {
+                           "key" : "intPar",
+                           "fieldSchemaKey" : {
+                              "name" : "IntType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "ResponseEvent",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "ResponseEvent",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.events",
+                  "source" : "server",
+                  "target" : "apex",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "intPar",
+                        "value" : {
+                           "key" : "intPar",
+                           "fieldSchemaKey" : {
+                              "name" : "IntType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            } ]
+         }
+      },
+      "albums" : {
+         "key" : {
+            "name" : "SmallModel_Albums",
+            "version" : "0.0.1"
+         },
+         "albums" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "BasicContextAlbum",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicContextAlbum",
+                     "version" : "0.0.1"
+                  },
+                  "scope" : "GLOBAL",
+                  "isWritable" : true,
+                  "itemSchema" : {
+                     "name" : "IntType",
+                     "version" : "0.0.1"
+                  }
+               }
+            } ]
+         }
+      },
+      "schemas" : {
+         "key" : {
+            "name" : "SmallModel_Schemas",
+            "version" : "0.0.1"
+         },
+         "schemas" : {
+            "entry" : [ {
+               "key" : {
+                  "name" : "IntType",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "IntType",
+                     "version" : "0.0.1"
+                  },
+                  "schemaFlavour" : "Java",
+                  "schemaDefinition" : "java.lang.Integer"
+               }
+            } ]
+         }
+      }
+   }
+}
