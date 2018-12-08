@@ -164,7 +164,7 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
         } catch (final InterruptedException e) {
             // restore the interrupt status
             Thread.currentThread().interrupt();
-            LOGGER.warn("Failed to queue the event: " + apexEvent, e);
+            LOGGER.warn("Queueing of the event was interrupted: " + apexEvent, e);
         }
     }
 

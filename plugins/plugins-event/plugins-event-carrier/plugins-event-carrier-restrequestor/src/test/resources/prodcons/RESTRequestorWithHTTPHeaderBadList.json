@@ -22,7 +22,6 @@
                 "parameters": {
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
                     "httpMethod": "GET",
-                    "restRequestTimeout": 2000,
                     "httpHeaders" : [
                         ["aaa", "bbb"],
                         ["ccc", "ddd"],
@@ -44,7 +43,6 @@
                 "parameters": {
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
                     "httpMethod": "GET",
-                    "restRequestTimeout": 2000,
                     "httpHeaders" : [
                         ,
                     ]
