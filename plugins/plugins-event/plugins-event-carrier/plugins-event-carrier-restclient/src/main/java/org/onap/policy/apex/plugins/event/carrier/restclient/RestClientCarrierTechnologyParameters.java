@@ -20,9 +20,15 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
+import java.util.Arrays;
+
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 
 /**
  * Apex parameters for REST as an event carrier technology with Apex as a REST client.
@@ -38,6 +44,10 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * @author Joss Armstrong (joss.armstrong@ericsson.com)
  */
 public class RestClientCarrierTechnologyParameters extends CarrierTechnologyParameters {
+    /** The supported HTTP methods. */
+    public enum HttpMethod {
+        GET, PUT, POST, DELETE
+    }
 
     /** The label of this carrier technology. */
     public static final String RESTCLIENT_CARRIER_TECHNOLOGY_LABEL = "RESTCLIENT";
@@ -48,14 +58,12 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     /** The consumer plugin class for the REST carrier technology. */
     public static final String RESTCLIENT_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestClientConsumer.class.getCanonicalName();
 
-    /** The default HTTP method for output of events. */
-    public static final String DEFAULT_PRODUCER_HTTP_METHOD = "POST";
-
-    /** The HTTP method for input of events. */
-    public static final String CONSUMER_HTTP_METHOD = "GET";
+    // Commonly occurring strings
+    private static final String HTTP_HEADERS = "httpHeaders";
 
     private String url = null;
-    private String httpMethod = null;
+    private HttpMethod httpMethod = null;
+    private String[][] httpHeaders = null;
 
     /**
      * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
@@ -94,7 +102,7 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
      *
      * @return the HTTP method
      */
-    public String getHttpMethod() {
+    public HttpMethod getHttpMethod() {
         return httpMethod;
     }
 
@@ -103,23 +111,59 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
      *
      * @param httpMethod the HTTP method
      */
-    public void setHttpMethod(final String httpMethod) {
+    public void setHttpMethod(final HttpMethod httpMethod) {
         this.httpMethod = httpMethod;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Check if http headers have been set for the REST request.
      *
-     * @see java.lang.Object#toString()
+     * @return true if headers have beenset
      */
-    @Override
-    public String toString() {
-        return "RESTClientCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + "]";
+    public boolean checkHttpHeadersSet() {
+        return httpHeaders != null && httpHeaders.length > 0;
     }
 
-    /*
+    /**
+     * Gets the http headers for the REST request.
      *
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
+     * @return the headers
+     */
+    public String[][] getHttpHeaders() {
+        return httpHeaders;
+    }
+
+    /**
+     * Gets the http headers for the REST request as a multivalued map.
+     *
+     * @return the headers
+     */
+    public MultivaluedMap<String, Object> getHttpHeadersAsMultivaluedMap() {
+        if (httpHeaders == null) {
+            return null;
+        }
+
+        // Load the HTTP headers into the map
+        MultivaluedMap<String, Object> httpHeaderMap = new MultivaluedHashMap<>();
+
+        for (String[] httpHeader : httpHeaders) {
+            httpHeaderMap.putSingle(httpHeader[0], httpHeader[1]);
+        }
+
+        return httpHeaderMap;
+    }
+
+    /**
+     * Sets the header for the REST request.
+     *
+     * @param httpHeaders the incoming HTTP headers
+     */
+    public void setHttpHeaders(final String[][] httpHeaders) {
+        this.httpHeaders = httpHeaders;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public GroupValidationResult validate() {
@@ -130,6 +174,35 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
             result.setResult("url", ValidationStatus.INVALID, "no URL has been set for event sending on REST client");
         }
 
+        if (httpHeaders == null) {
+            return result;
+        }
+
+        for (String[] httpHeader : httpHeaders) {
+            if (httpHeader == null) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID, "HTTP header array entry is null");
+            } else if (httpHeader.length != 2) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
+                                "HTTP header array entries must have one key and one value: "
+                                                + Arrays.deepToString(httpHeader));
+            } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[0])) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
+                                "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
+            } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[1])) {
+                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
+                                "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
+            }
+        }
+
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "RestClientCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
+                        + Arrays.deepToString(httpHeaders) + "]";
     }
 }

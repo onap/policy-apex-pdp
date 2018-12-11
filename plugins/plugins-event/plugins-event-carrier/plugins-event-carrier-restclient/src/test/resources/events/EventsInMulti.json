@@ -1,0 +1,16 @@
+{
+  "nameSpace": "org.onap.policy.apex.events",
+  "name": "BasicEvent",
+  "version": "0.0.1",
+  "source": "test",
+  "target": "apex",
+  "intPar": 3
+}
+{
+  "nameSpace": "org.onap.policy.apex.events",
+  "name": "BasicEvent",
+  "version": "0.0.1",
+  "source": "test",
+  "target": "apex",
+  "intPar": 6
+}

@@ -1,0 +1,87 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "src/test/resources/policymodels/RequestorModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "RestClientConsumer0": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
+                    "httpHeaders" : [
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "RestClientConsumer1": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
+                    "httpHeaders" : [
+                        ["aaa", "bbb"],
+                        ["ccc", "ddd"],
+                        ["eee", "fff"]
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "RestClientProducer0": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
+                    "httpHeaders" : [
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        },
+        "RestClientProducer1": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
+                    "httpMethod": "GET",
+                    "httpHeaders" : [
+                        ["aaa", "bbb"],
+                        ["ccc", "ddd"],
+                        ["eee", "fff"]
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}
