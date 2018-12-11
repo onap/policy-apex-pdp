@@ -21,6 +21,7 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,11 +41,14 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class TestRest2File.
  */
 public class TestRest2File {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestRest2File.class);
 
     private static final String BASE_URI = "http://localhost:32801/TestRest2File";
     private HttpServer server;
@@ -105,8 +109,7 @@ public class TestRest2File {
      */
     @Test
     public void testRestEventsIn() throws MessagingException, ApexException, IOException {
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/REST2FileJsonEvent.json" };
+        final String[] args = { "-rfr", "target", "-c", "target/examples/config/SampleDomain/REST2FileJsonEvent.json" };
 
         final ApexMain apexMain = new ApexMain(args);
 
@@ -114,9 +117,13 @@ public class TestRest2File {
         apexMain.shutdown();
 
         final String outputEventText = TextFileUtils
-                        .getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
-        assertTrue(outputEventText.contains("04\",\n" + "  \"version\": \"0.0.1\",\n"
-                        + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\""));
+            .getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
+
+        if (!outputEventText.contains(
+            "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"")) {
+            LOGGER.error(outputEventText);
+            fail("test output did not contain required string");
+        }
     }
 
     /**
@@ -131,8 +138,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/REST2FileJsonEmptyEvents.json" };
+        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEmptyEvents.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
@@ -143,8 +149,11 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains(
-                        "received an empty event from URL \"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\""));
+        if (!outString.contains(
+            "received an empty event from URL \"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"")) {
+            LOGGER.error(outString);
+            fail("test output did not contain required string");
+        }
     }
 
     /**
@@ -159,8 +168,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/REST2FileJsonEventNoURL.json" };
+        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventNoURL.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
@@ -171,7 +179,10 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains(" no URL has been set for event sending on REST client"));
+        if (!outString.contains(" no URL has been set for event sending on REST client")) {
+            LOGGER.error(outString);
+            fail("test output did not contain required string");
+        }
     }
 
     /**
@@ -186,8 +197,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/REST2FileJsonEventBadURL.json" };
+        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadURL.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
@@ -198,8 +208,11 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains(
-                        "reception of event from URL \"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404"));
+        if (!outString.contains(
+            "reception of event from URL \"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404")) {
+            LOGGER.error(outString);
+            fail("test output did not contain required string");
+        }
     }
 
     /**
@@ -214,8 +227,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json" };
+        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
@@ -226,8 +238,11 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains("specified HTTP method of \"POST\" is invalid, "
-                        + "only HTTP method \"GET\" is supported for event reception on REST client consumer"));
+        if (!outString.contains("specified HTTP method of \"POST\" is invalid, "
+            + "only HTTP method \"GET\" is supported for event reception on REST client consumer")) {
+            LOGGER.error(outString);
+            fail("test output did not contain required string");
+        }
     }
 
     /**
@@ -242,8 +257,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/REST2FileJsonEventBadResponse.json" };
+        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadResponse.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
@@ -254,7 +268,10 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains(
-                        "reception of event from URL \"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" failed with status code 400 and message \"\""));
+        if (!outString.contains(
+            "reception of event from URL \"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" failed with status code 400 and message \"\"")) {
+            LOGGER.error(outString);
+            fail("test output did not contain required string");
+        }
     }
 }
