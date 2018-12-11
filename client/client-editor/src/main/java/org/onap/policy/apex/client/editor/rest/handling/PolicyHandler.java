@@ -56,7 +56,7 @@ public class PolicyHandler implements RestCommandHandler {
                     + "but there was an error adding the";
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -65,7 +65,7 @@ public class PolicyHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -86,7 +86,7 @@ public class PolicyHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,

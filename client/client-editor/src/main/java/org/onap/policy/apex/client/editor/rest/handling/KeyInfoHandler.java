@@ -27,7 +27,7 @@ import org.onap.policy.apex.model.modelapi.ApexApiResult;
  */
 public class KeyInfoHandler implements RestCommandHandler {
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -36,7 +36,7 @@ public class KeyInfoHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -45,7 +45,7 @@ public class KeyInfoHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,

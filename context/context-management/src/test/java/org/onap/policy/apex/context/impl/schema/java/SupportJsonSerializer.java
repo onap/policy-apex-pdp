@@ -39,7 +39,7 @@ public class SupportJsonSerializer implements JsonSerializer<String> {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(SupportJsonSerializer.class);
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public JsonElement serialize(final String src, final Type typeOfSrc, final JsonSerializationContext context) {

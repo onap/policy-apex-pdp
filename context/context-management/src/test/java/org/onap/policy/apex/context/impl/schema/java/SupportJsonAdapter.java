@@ -37,7 +37,7 @@ import java.lang.reflect.Type;
 public class SupportJsonAdapter implements JsonSerializer<String>, JsonDeserializer<String> {
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public JsonElement serialize(final String src, final Type typeOfSrc, final JsonSerializationContext context) {
@@ -45,7 +45,7 @@ public class SupportJsonAdapter implements JsonSerializer<String>, JsonDeseriali
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) {

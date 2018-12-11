@@ -163,7 +163,7 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {
@@ -198,7 +198,7 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

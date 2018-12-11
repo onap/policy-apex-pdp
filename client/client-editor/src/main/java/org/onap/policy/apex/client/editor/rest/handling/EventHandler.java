@@ -43,7 +43,7 @@ public class EventHandler implements RestCommandHandler {
     private static final String NOT_OK = ": Not OK";
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -52,7 +52,7 @@ public class EventHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -72,7 +72,7 @@ public class EventHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,

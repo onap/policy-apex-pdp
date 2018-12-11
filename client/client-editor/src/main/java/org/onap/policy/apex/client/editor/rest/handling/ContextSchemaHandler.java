@@ -37,7 +37,7 @@ public class ContextSchemaHandler implements RestCommandHandler {
     private static final String NOT_OK = ": Not OK";
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -46,7 +46,7 @@ public class ContextSchemaHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -66,7 +66,7 @@ public class ContextSchemaHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,

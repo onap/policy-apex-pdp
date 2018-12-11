@@ -43,7 +43,7 @@ public class SupportBadJsonAdapter
     }
     
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public JsonElement serialize(final String src, final Type typeOfSrc,
@@ -52,7 +52,7 @@ public class SupportBadJsonAdapter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String deserialize(final JsonElement json, final Type typeOfT,

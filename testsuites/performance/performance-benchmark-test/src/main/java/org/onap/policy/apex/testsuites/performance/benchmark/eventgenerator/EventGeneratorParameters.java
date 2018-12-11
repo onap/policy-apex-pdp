@@ -111,7 +111,7 @@ public class EventGeneratorParameters implements ParameterGroup {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

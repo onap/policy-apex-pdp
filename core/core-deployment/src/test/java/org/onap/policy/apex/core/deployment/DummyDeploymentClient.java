@@ -69,7 +69,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

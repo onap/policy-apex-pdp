@@ -53,7 +53,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
     private String adaptorClass;
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
@@ -61,7 +61,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setName(String adaptedClass) {
@@ -141,7 +141,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

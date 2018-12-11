@@ -48,7 +48,7 @@ public class TaskHandler implements RestCommandHandler {
     private static final String TASK_PARTIALLY_DEFINED = " The task has only been partially defined.";
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -57,7 +57,7 @@ public class TaskHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
@@ -77,7 +77,7 @@ public class TaskHandler implements RestCommandHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
