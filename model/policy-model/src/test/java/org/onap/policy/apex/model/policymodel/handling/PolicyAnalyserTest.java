@@ -31,7 +31,7 @@ import org.onap.policy.apex.model.policymodel.handling.PolicyAnalysisResult;
 public class PolicyAnalyserTest {
     @Test
     public void test() {
-        final AxPolicyModel apexModel = new ApexPolicyModelCreatorTest().getModel();
+        final AxPolicyModel apexModel = new SupportApexPolicyModelCreator().getModel();
 
         final PolicyAnalyser policyAnalyser = new PolicyAnalyser();
         final PolicyAnalysisResult analysisResult = policyAnalyser.analyse(apexModel);

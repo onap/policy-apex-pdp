@@ -34,7 +34,7 @@ public class SupportBasicModelTester {
     @Test
     public void testNormalModelCreator() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new DummyApexBasicModelCreator());
+            new DummyApexBasicModelCreator());
 
         testApexModel.testApexModelValid();
         try {
@@ -52,9 +52,27 @@ public class SupportBasicModelTester {
     }
 
     @Test
+    public void testModelsUnequal() throws ApexException {
+        final TestApexModel<AxModel> testApexModel0 = new TestApexModel<AxModel>(AxModel.class,
+            new DummyApexBasicModelCreator());
+        final TestApexModel<AxModel> testApexModel1 = new TestApexModel<AxModel>(AxModel.class,
+            new DummyApexBasicModelCreator());
+
+        testApexModel1.getModel().getKey().setVersion("0.0.2");
+
+        try {
+            testApexModel0.checkModelEquality(testApexModel0.getModel(), testApexModel1.getModel(),
+                "Models are not equal");
+            fail("test should throw an exception here");
+        } catch (ApexException ae) {
+            assertEquals("Models are not equal", ae.getMessage());
+        }
+    }
+
+    @Test
     public void testModelCreator0() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexModelCreator0Test());
+            new SupportApexModelCreator0());
 
         testApexModel.testApexModelValid();
         try {
@@ -86,7 +104,7 @@ public class SupportBasicModelTester {
     @Test
     public void testModelCreator1() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexModelCreator1Test());
+            new SupportApexModelCreator1());
 
         try {
             testApexModel.testApexModelValid();
@@ -113,7 +131,7 @@ public class SupportBasicModelTester {
     @Test
     public void testModelCreator2() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexModelCreator2Test());
+            new SupportApexModelCreator2());
 
         testApexModel.testApexModelValid();
         testApexModel.testApexModelVaidateObservation();
@@ -128,7 +146,7 @@ public class SupportBasicModelTester {
     @Test
     public void testModelCreator1XmlJson() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
-                        new TestApexModelCreator1Test());
+            new SupportApexModelCreator1());
 
         try {
             testApexModel.testApexModelWriteReadJson();

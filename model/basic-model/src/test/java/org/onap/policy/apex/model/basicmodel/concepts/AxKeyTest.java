@@ -26,6 +26,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.lang.reflect.Field;
+
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -124,4 +126,42 @@ public class AxKeyTest {
         assertFalse(((AxKey) someKey0).equals(new AxReferenceKey()));
     }
 
+
+    @Test
+    public void testValidation() {
+        AxArtifactKey testKey = new AxArtifactKey("TheKey", "0.0.1");
+        assertEquals("TheKey:0.0.1", testKey.getId());
+
+        try {
+            Field nameField = testKey.getClass().getDeclaredField("name");
+            nameField.setAccessible(true);
+            nameField.set(testKey, "Key Name");
+            AxValidationResult validationResult = new AxValidationResult();
+            testKey.validate(validationResult);
+            nameField.set(testKey, "TheKey");
+            nameField.setAccessible(false);
+            assertEquals(
+                "name invalid-parameter name with value Key Name "
+                    + "does not match regular expression [A-Za-z0-9\\-_\\.]+",
+                validationResult.getMessageList().get(0).getMessage());
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            Field versionField = testKey.getClass().getDeclaredField("version");
+            versionField.setAccessible(true);
+            versionField.set(testKey, "Key Version");
+            AxValidationResult validationResult = new AxValidationResult();
+            testKey.validate(validationResult);
+            versionField.set(testKey, "0.0.1");
+            versionField.setAccessible(false);
+            assertEquals(
+                "version invalid-parameter version with value Key Version "
+                    + "does not match regular expression [A-Za-z0-9.]+",
+                validationResult.getMessageList().get(0).getMessage());
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
+    }
 }

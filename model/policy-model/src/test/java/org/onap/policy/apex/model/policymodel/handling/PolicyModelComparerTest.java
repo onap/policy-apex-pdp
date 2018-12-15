@@ -39,7 +39,7 @@ public class PolicyModelComparerTest {
 
     @Test
     public void testPolicyComparer() throws IOException {
-        final AxPolicyModel leftApexModel = new ApexPolicyModelCreatorTest().getModel();
+        final AxPolicyModel leftApexModel = new SupportApexPolicyModelCreator().getModel();
         final AxPolicyModel rightApexModel = new AxPolicyModel(leftApexModel);
 
         PolicyModelComparer policyModelComparer = new PolicyModelComparer(leftApexModel, rightApexModel);

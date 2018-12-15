@@ -46,7 +46,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
-import org.onap.policy.apex.model.policymodel.handling.ApexPolicyModelCreatorTest;
+import org.onap.policy.apex.model.policymodel.handling.SupportApexPolicyModelCreator;
 
 /**
  * Test policy models.
@@ -148,7 +148,7 @@ public class PolicyModelTest {
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
                         new AxTasks(tasksKey), new AxPolicies(policiesKey))));
 
-        model = new ApexPolicyModelCreatorTest().getModel();
+        model = new SupportApexPolicyModelCreator().getModel();
 
         AxValidationResult result = new AxValidationResult();
         result = model.validate(result);

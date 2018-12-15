@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -113,17 +112,14 @@ public class TestRest2File {
 
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outputEventText = TextFileUtils
             .getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
 
-        if (!outputEventText.contains(
-            "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"")) {
-            LOGGER.error(outputEventText);
-            fail("test output did not contain required string");
-        }
+        checkRequiredString(outputEventText,
+            "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"");
     }
 
     /**
@@ -141,7 +137,7 @@ public class TestRest2File {
         final String[] args = { "src/test/resources/prodcons/REST2FileJsonEmptyEvents.json" };
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -149,11 +145,8 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        if (!outString.contains(
-            "received an empty event from URL \"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"")) {
-            LOGGER.error(outString);
-            fail("test output did not contain required string");
-        }
+        checkRequiredString(outString,
+            "received an empty event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"");
     }
 
     /**
@@ -171,7 +164,7 @@ public class TestRest2File {
         final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventNoURL.json" };
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -179,10 +172,7 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        if (!outString.contains(" no URL has been set for event sending on REST client")) {
-            LOGGER.error(outString);
-            fail("test output did not contain required string");
-        }
+        checkRequiredString(outString, " no URL has been set for event sending on REST client");
     }
 
     /**
@@ -200,7 +190,7 @@ public class TestRest2File {
         final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadURL.json" };
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -208,11 +198,8 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        if (!outString.contains(
-            "reception of event from URL \"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404")) {
-            LOGGER.error(outString);
-            fail("test output did not contain required string");
-        }
+        checkRequiredString(outString, "reception of event from URL "
+            + "\"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404");
     }
 
     /**
@@ -230,7 +217,7 @@ public class TestRest2File {
         final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json" };
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -238,11 +225,8 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        if (!outString.contains("specified HTTP method of \"POST\" is invalid, "
-            + "only HTTP method \"GET\" is supported for event reception on REST client consumer")) {
-            LOGGER.error(outString);
-            fail("test output did not contain required string");
-        }
+        checkRequiredString(outString, "specified HTTP method of \"POST\" is invalid, "
+            + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
     }
 
     /**
@@ -260,7 +244,7 @@ public class TestRest2File {
         final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadResponse.json" };
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -268,10 +252,21 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        if (!outString.contains(
-            "reception of event from URL \"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" failed with status code 400 and message \"\"")) {
-            LOGGER.error(outString);
-            fail("test output did not contain required string");
+        checkRequiredString(outString,
+            "reception of event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" "
+                + "failed with status code 400 and message \"\"");
+    }
+
+    /**
+     * Check if a required string exists in the output.
+     * 
+     * @param outputEventText the text to examine
+     * @param requiredString the string to search for
+     */
+    private void checkRequiredString(String outputText, String requiredString) {
+        if (!outputText.contains(requiredString)) {
+            LOGGER.error("\n***output text:\n" + outputText + "\n***");
+            fail("\n***test output did not contain required string:\n" + requiredString + "\n***");
         }
     }
 }

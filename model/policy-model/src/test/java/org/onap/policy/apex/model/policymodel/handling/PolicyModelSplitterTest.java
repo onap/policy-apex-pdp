@@ -37,7 +37,7 @@ import org.onap.policy.apex.model.policymodel.handling.PolicyModelSplitter;
 public class PolicyModelSplitterTest {
     @Test
     public void test() {
-        final AxPolicyModel apexModel = new ApexPolicyModelCreatorTest().getModel();
+        final AxPolicyModel apexModel = new SupportApexPolicyModelCreator().getModel();
 
         final Set<AxArtifactKey> requiredPolicySet = new TreeSet<AxArtifactKey>();
         requiredPolicySet.add(new AxArtifactKey("policy", "0.0.1"));

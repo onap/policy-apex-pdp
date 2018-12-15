@@ -44,6 +44,7 @@ public class AxKeyInfoTest {
         AxKeyInfo testKeyInfo = new AxKeyInfo();
         testKeyInfo.setKey((new AxArtifactKey("PN", "0.0.1")));
         assertEquals("PN:0.0.1", testKeyInfo.getKey().getId());
+        assertTrue(testKeyInfo.matchesId("PN:0.0.1"));
 
         AxArtifactKey key = new AxArtifactKey("key", "0.0.1");
         testKeyInfo.setKey(key);

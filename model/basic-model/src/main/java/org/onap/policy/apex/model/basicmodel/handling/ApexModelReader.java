@@ -260,7 +260,7 @@ public class ApexModelReader<C extends AxConcept> {
             }
             catch (final Exception e) {
                 LOGGER.warn("JAXB error setting marshaller for JSON Input", e);
-                throw new ApexModelException("JAXB error setting marshaller for JSON Input", e);
+                throw new ApexModelException("JAXB error setting unmarshaller for JSON input", e);
             }
         }
         else if (Pattern.compile(XML_INPUT_TYPE_REGEXP).matcher(apexConceptString).find()) {
@@ -270,7 +270,7 @@ public class ApexModelReader<C extends AxConcept> {
             }
             catch (final Exception e) {
                 LOGGER.warn("JAXB error setting marshaller for XML Input", e);
-                throw new ApexModelException("JAXB error setting marshaller for XML Input", e);
+                throw new ApexModelException("JAXB error setting unmarshaller for XML input", e);
             }
         }
         else {

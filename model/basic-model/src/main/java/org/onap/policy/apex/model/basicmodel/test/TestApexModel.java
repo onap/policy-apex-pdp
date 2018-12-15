@@ -108,10 +108,7 @@ public class TestApexModel<M extends AxModel> {
         try {
             final URL apexModelUrl = ResourceUtils.getLocalFile(xmlFile.getAbsolutePath());
             final M fileModel = modelReader.read(apexModelUrl.openStream());
-            if (!model.equals(fileModel)) {
-                LOGGER.warn(TEST_MODEL_UNEQUAL_STR + xmlFile.getAbsolutePath());
-                throw new ApexException(TEST_MODEL_UNEQUAL_STR + xmlFile.getAbsolutePath());
-            }
+            checkModelEquality(model, fileModel, TEST_MODEL_UNEQUAL_STR + xmlFile.getAbsolutePath());
         } catch (final Exception e) {
             LOGGER.warn(ERROR_PROCESSING_FILE + xmlFile.getAbsolutePath(), e);
             throw new ApexException(ERROR_PROCESSING_FILE + xmlFile.getAbsolutePath(), e);
@@ -126,10 +123,8 @@ public class TestApexModel<M extends AxModel> {
         modelWriter.write(model, baOutputStream);
         final ByteArrayInputStream baInputStream = new ByteArrayInputStream(baOutputStream.toByteArray());
         final M byteArrayModel = modelReader.read(baInputStream);
-        if (!model.equals(byteArrayModel)) {
-            LOGGER.warn("test model does not equal XML marshalled and unmarshalled model");
-            throw new ApexException("test model does not equal XML marshalled and unmarshalled model");
-        }
+
+        checkModelEquality(model, byteArrayModel, "test model does not equal XML marshalled and unmarshalled model");
 
         LOGGER.debug("ran testApexModelWriteReadXML");
     }
@@ -161,11 +156,7 @@ public class TestApexModel<M extends AxModel> {
         try {
             final URL apexModelUrl = ResourceUtils.getLocalFile(jsonFile.getAbsolutePath());
             final M fileModel = modelReader.read(apexModelUrl.openStream());
-            if (!model.equals(fileModel)) {
-                LOGGER.warn(TEST_MODEL_UNEQUAL_STR + jsonFile.getAbsolutePath());
-                throw new ApexException(
-                                TEST_MODEL_UNEQUAL_STR + jsonFile.getAbsolutePath());
-            }
+            checkModelEquality(model, fileModel, TEST_MODEL_UNEQUAL_STR + jsonFile.getAbsolutePath());
         } catch (final Exception e) {
             LOGGER.warn(ERROR_PROCESSING_FILE + jsonFile.getAbsolutePath(), e);
             throw new ApexException(ERROR_PROCESSING_FILE + jsonFile.getAbsolutePath(), e);
@@ -178,10 +169,8 @@ public class TestApexModel<M extends AxModel> {
         modelWriter.write(model, baOutputStream);
         final ByteArrayInputStream baInputStream = new ByteArrayInputStream(baOutputStream.toByteArray());
         final M byteArrayModel = modelReader.read(baInputStream);
-        if (!model.equals(byteArrayModel)) {
-            LOGGER.warn("test model does not equal JSON marshalled and unmarshalled model");
-            throw new ApexException("test model does not equal JSON marshalled and unmarshalled model");
-        }
+        
+        checkModelEquality(model, byteArrayModel, "test model does not equal JSON marshalled and unmarshalled model");
 
         LOGGER.debug("ran testApexModelWriteReadJSON");
     }
@@ -204,10 +193,7 @@ public class TestApexModel<M extends AxModel> {
         final M dbJpaModel = apexDao.get(rootModelClass, model.getKey());
         apexDao.close();
 
-        if (!model.equals(dbJpaModel)) {
-            LOGGER.warn("test model does not equal model written and read using generic JPA");
-            throw new ApexException("test model does not equal model written and read using generic JPA");
-        }
+        checkModelEquality(model, dbJpaModel, "test model does not equal model written and read using generic JPA");
 
         LOGGER.debug("ran testApexModelWriteReadJPA");
     }
@@ -330,5 +316,21 @@ public class TestApexModel<M extends AxModel> {
 
         LOGGER.debug("ran testApexModelVaidateInvalidModel");
         return result;
+    }
+
+    /**
+     * Check if two models are equal.
+     * 
+     * @param leftModel the left model
+     * @param rightModel the right model
+     * @param errorMessage the error message to output on inequality
+     * @throws ApexException the exception to throw on inequality
+     */
+    public void checkModelEquality(final M leftModel, final M rightModel, final String errorMessage)
+        throws ApexException {
+        if (!leftModel.equals(rightModel)) {
+            LOGGER.warn(errorMessage);
+            throw new ApexException(errorMessage);
+        }
     }
 }

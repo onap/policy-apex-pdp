@@ -25,6 +25,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Field;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -83,7 +86,7 @@ public class AxReferenceKeyTest {
 
         AxReferenceKey clonedReferenceKey = new AxReferenceKey(testReferenceKey);
         assertEquals("AxReferenceKey:(parentKeyName=NPKN,parentKeyVersion=0.0.1,parentLocalName=NPKLN,localName=NLN)",
-                        clonedReferenceKey.toString());
+            clonedReferenceKey.toString());
 
         assertFalse(testReferenceKey.hashCode() == 0);
 
@@ -106,5 +109,101 @@ public class AxReferenceKeyTest {
         assertEquals(0, testReferenceKey.compareTo(new AxReferenceKey("NPKN", "0.0.1", "NPKLN", "NLN")));
 
         assertNotNull(testReferenceKey.getKeys());
+
+        try {
+            testReferenceKey.equals(null);
+            fail("test should throw an exception here");
+        } catch (Exception iae) {
+            assertEquals("comparison object may not be null", iae.getMessage());
+        }
+
+        try {
+            testReferenceKey.copyTo(null);
+            fail("test should throw an exception here");
+        } catch (Exception iae) {
+            assertEquals("target may not be null", iae.getMessage());
+        }
+
+        try {
+            testReferenceKey.copyTo(new AxArtifactKey("Key", "0.0.1"));
+            fail("test should throw an exception here");
+        } catch (Exception iae) {
+            assertEquals("org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey is not an instance of "
+                + "org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey", iae.getMessage());
+        }
+
+        AxReferenceKey targetRefKey = new AxReferenceKey();
+        assertEquals(testReferenceKey, testReferenceKey.copyTo(targetRefKey));
+    }
+
+    @Test
+    public void testValidation() {
+        AxReferenceKey testReferenceKey = new AxReferenceKey();
+        testReferenceKey.setParentArtifactKey(new AxArtifactKey("PN", "0.0.1"));
+        assertEquals("PN:0.0.1", testReferenceKey.getParentArtifactKey().getId());
+
+        try {
+            Field parentNameField = testReferenceKey.getClass().getDeclaredField("parentKeyName");
+            parentNameField.setAccessible(true);
+            parentNameField.set(testReferenceKey, "Parent Name");
+            AxValidationResult validationResult = new AxValidationResult();
+            testReferenceKey.validate(validationResult);
+            parentNameField.set(testReferenceKey, "ParentName");
+            parentNameField.setAccessible(false);
+            assertEquals(
+                "parentKeyName invalid-parameter parentKeyName with value Parent Name "
+                    + "does not match regular expression [A-Za-z0-9\\-_\\.]+",
+                validationResult.getMessageList().get(0).getMessage());
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            Field parentVersionField = testReferenceKey.getClass().getDeclaredField("parentKeyVersion");
+            parentVersionField.setAccessible(true);
+            parentVersionField.set(testReferenceKey, "Parent Version");
+            AxValidationResult validationResult = new AxValidationResult();
+            testReferenceKey.validate(validationResult);
+            parentVersionField.set(testReferenceKey, "0.0.1");
+            parentVersionField.setAccessible(false);
+            assertEquals(
+                "parentKeyVersion invalid-parameter parentKeyVersion with value Parent Version "
+                    + "does not match regular expression [A-Za-z0-9.]+",
+                validationResult.getMessageList().get(0).getMessage());
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            Field parentLocalNameField = testReferenceKey.getClass().getDeclaredField("parentLocalName");
+            parentLocalNameField.setAccessible(true);
+            parentLocalNameField.set(testReferenceKey, "Parent Local Name");
+            AxValidationResult validationResult = new AxValidationResult();
+            testReferenceKey.validate(validationResult);
+            parentLocalNameField.set(testReferenceKey, "ParentLocalName");
+            parentLocalNameField.setAccessible(false);
+            assertEquals(
+                "parentLocalName invalid-parameter parentLocalName with value "
+                    + "Parent Local Name does not match regular expression [A-Za-z0-9\\-_\\.]+|^$",
+                validationResult.getMessageList().get(0).getMessage());
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            Field localNameField = testReferenceKey.getClass().getDeclaredField("localName");
+            localNameField.setAccessible(true);
+            localNameField.set(testReferenceKey, "Local Name");
+            AxValidationResult validationResult = new AxValidationResult();
+            testReferenceKey.validate(validationResult);
+            localNameField.set(testReferenceKey, "LocalName");
+            localNameField.setAccessible(false);
+            assertEquals(
+                "localName invalid-parameter localName with value Local Name "
+                    + "does not match regular expression [A-Za-z0-9\\-_\\.]+|^$",
+                validationResult.getMessageList().get(0).getMessage());
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
     }
 }

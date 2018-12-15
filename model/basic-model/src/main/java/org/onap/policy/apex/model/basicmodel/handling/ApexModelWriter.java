@@ -217,8 +217,8 @@ public class ApexModelWriter<C extends AxConcept> {
                             cdataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
             domTransformer.transform(new DOMSource(document), new StreamResult(apexConceptWriter));
         } catch (JAXBException | TransformerException | ParserConfigurationException e) {
-            LOGGER.warn("Unable to marshal Apex concept XML", e);
-            throw new ApexModelException("Unable to marshal Apex concept XML", e);
+            LOGGER.warn("Unable to marshal Apex concept to XML", e);
+            throw new ApexModelException("Unable to marshal Apex concept to XML", e);
         }
         LOGGER.debug("wrote Apex concept XML");
     }
@@ -254,8 +254,8 @@ public class ApexModelWriter<C extends AxConcept> {
         try {
             marshaller.marshal(concept, apexConceptWriter);
         } catch (final JAXBException e) {
-            LOGGER.warn("Unable to marshal Apex concept JSON", e);
-            throw new ApexModelException("Unable to marshal Apex concept JSON", e);
+            LOGGER.warn("Unable to marshal Apex concept to JSON", e);
+            throw new ApexModelException("Unable to marshal Apex concept to JSON", e);
         }
         LOGGER.debug("wrote Apex concept JSON");
     }

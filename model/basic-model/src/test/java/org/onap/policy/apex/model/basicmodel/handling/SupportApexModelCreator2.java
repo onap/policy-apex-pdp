@@ -26,7 +26,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 
-public class TestApexModelCreator2Test implements TestApexModelCreator<AxModel> {
+public class SupportApexModelCreator2 implements TestApexModelCreator<AxModel> {
 
     @Override
     public AxModel getModel() {

@@ -32,14 +32,25 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.PropertyException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 
 public class ApexModelReaderTest {
+    @Mock
+    private Unmarshaller unmarshallerMock;
 
     @Test
     public void testModelReader() throws IOException, ApexException {
@@ -148,5 +159,49 @@ public class ApexModelReaderTest {
         }
         
         modelReader.setSchema("xml/example.xsd");
+    }
+
+    @Test
+    public void testSetInputTypeError() throws ApexModelException {
+        MockitoAnnotations.initMocks(this);
+
+        ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class, true);
+
+        try {
+            Field marshallerField = modelReader.getClass().getDeclaredField("unmarshaller");
+            marshallerField.setAccessible(true);
+            marshallerField.set(modelReader, unmarshallerMock);
+            marshallerField.setAccessible(false);
+        } catch (Exception validationException) {
+            fail("test should not throw an exception");
+        }
+
+        try {
+            Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(unmarshallerMock)
+                .unmarshal((StreamSource)Mockito.anyObject(), Mockito.anyObject());
+
+            modelReader.read("{Hello}");
+            fail("Test should throw an exception here");
+        } catch (Exception jaxbe) {
+            assertEquals("Unable to unmarshal Apex concept ", jaxbe.getMessage());
+        }
+
+        try {
+            Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(unmarshallerMock)
+                .setProperty(Mockito.anyString(), Mockito.anyString());
+            modelReader.read("{Hello}");
+            fail("Test should throw an exception here");
+        } catch (Exception jaxbe) {
+            assertEquals("JAXB error setting unmarshaller for JSON input", jaxbe.getMessage());
+        }
+
+        try {
+            Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(unmarshallerMock)
+                .setProperty(Mockito.anyString(), Mockito.anyString());
+            modelReader.read("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            fail("Test should throw an exception here");
+        } catch (Exception jaxbe) {
+            assertEquals("JAXB error setting unmarshaller for XML input", jaxbe.getMessage());
+        }
     }
 }

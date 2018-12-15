@@ -41,7 +41,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTree;
-import org.onap.policy.apex.model.policymodel.handling.ApexPolicyModelCreatorTest;
+import org.onap.policy.apex.model.policymodel.handling.SupportApexPolicyModelCreator;
 
 /**
  * Test apex policies.
@@ -113,7 +113,7 @@ public class PoliciesTest {
 
         assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getId());
 
-        policy = new ApexPolicyModelCreatorTest().getModel().getPolicies().get("policy");
+        policy = new SupportApexPolicyModelCreator().getModel().getPolicies().get("policy");
 
         AxValidationResult result = new AxValidationResult();
         result = policy.validate(result);

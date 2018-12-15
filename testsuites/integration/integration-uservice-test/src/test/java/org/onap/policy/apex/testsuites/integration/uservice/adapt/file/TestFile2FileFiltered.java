@@ -98,7 +98,7 @@ public class TestFile2FileFiltered {
 
         // Wait for the file to be filled
         long outFile0Size = 0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 20; i++) {
             final String fileString = stripVariableLengthText(outFilePaths[0]);
             outFile0Size = fileString.length();
             if (outFile0Size > 0 && outFile0Size >= expectedFileSizes[0]) {

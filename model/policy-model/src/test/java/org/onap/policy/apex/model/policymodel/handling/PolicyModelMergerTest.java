@@ -39,8 +39,8 @@ public class PolicyModelMergerTest {
 
     @Test
     public void testPolicyModelMerger() {
-        final AxPolicyModel leftPolicyModel = new ApexPolicyModelCreatorTest().getModel();
-        AxPolicyModel rightPolicyModel = new ApexPolicyModelCreatorTest().getModel();
+        final AxPolicyModel leftPolicyModel = new SupportApexPolicyModelCreator().getModel();
+        AxPolicyModel rightPolicyModel = new SupportApexPolicyModelCreator().getModel();
 
         try {
             final AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(leftPolicyModel,
@@ -99,7 +99,7 @@ public class PolicyModelMergerTest {
             fail("test should not throw an exception");
         }
 
-        rightPolicyModel = new ApexPolicyModelCreatorTest().getAnotherModel();
+        rightPolicyModel = new SupportApexPolicyModelCreator().getAnotherModel();
         try {
             final AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(leftPolicyModel,
                             rightPolicyModel, true);

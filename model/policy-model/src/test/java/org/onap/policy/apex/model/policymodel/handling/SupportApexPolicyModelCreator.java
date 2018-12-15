@@ -56,7 +56,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexPolicyModelCreatorTest implements TestApexModelCreator<AxPolicyModel> {
+public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPolicyModel> {
 
     @Override
     public AxPolicyModel getModel() {
