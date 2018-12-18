@@ -118,7 +118,7 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     /**
      * Check if http headers have been set for the REST request.
      *
-     * @return true if headers have beenset
+     * @return true if headers have been set
      */
     public boolean checkHttpHeadersSet() {
         return httpHeaders != null && httpHeaders.length > 0;
