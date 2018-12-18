@@ -31,7 +31,6 @@ import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapComparer;
@@ -48,7 +47,6 @@ public class ContextAlbumUpdate {
     /**
      * Test context album update.
      *
-     * @throws ApexModelException the apex model exception
      * @throws ApexException the apex exception
      */
     public void testContextAlbumUpdate() throws ApexException {

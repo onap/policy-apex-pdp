@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
-import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -68,8 +67,7 @@ public interface Executor<I, O, S, C> {
      * @param executionId the execution ID of the current APEX execution policy thread
      * @param incomingEntity the incoming entity that triggers execution
      * @return The outgoing entity that is the result of execution
-     * @throws StateMachineException on an execution error
-     * @throws ContextException on context errors
+     * @throws ApexException on an execution error
      */
     O execute(long executionId, I incomingEntity) throws ApexException;
 
@@ -78,8 +76,7 @@ public interface Executor<I, O, S, C> {
      *
      * @param executionId the execution ID of the current APEX execution policy thread
      * @param incomingEntity the incoming entity that triggers execution
-     * @throws StateMachineException on an execution error
-     * @throws ContextException on context errors
+     * @throws ApexException on an execution error
      */
     void executePre(long executionId, I incomingEntity) throws ApexException;
 
@@ -89,8 +86,7 @@ public interface Executor<I, O, S, C> {
      *
      * @param returnValue the return value indicates whether the execution was successful and, if it
      *        failed, how it failed
-     * @throws StateMachineException on an execution error
-     * @throws ContextException On context errors
+     * @throws ApexException on an execution error
      */
     void executePost(boolean returnValue) throws ApexException;
 

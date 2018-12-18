@@ -39,7 +39,6 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
  * <a href="https://github.com/KetothXupack/stackoverflow-answers/tree/master/q39401083">
  * https://github.com/KetothXupack/stackoverflow-answers/tree/master/q39401083</a><br>
  */
-@SuppressWarnings("restriction")
 public class ClassBuilder {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ClassBuilder.class);

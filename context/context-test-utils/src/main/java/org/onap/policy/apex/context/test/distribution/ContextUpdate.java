@@ -50,7 +50,6 @@ import org.onap.policy.apex.context.test.concepts.TestContextTreeMapItem;
 import org.onap.policy.apex.context.test.factory.TestContextAlbumFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -72,7 +71,6 @@ public class ContextUpdate {
     /**
      * Test context update.
      *
-     * @throws ApexModelException the apex model exception
      * @throws ApexException the apex exception
      */
     public void testContextUpdate() throws ApexException {

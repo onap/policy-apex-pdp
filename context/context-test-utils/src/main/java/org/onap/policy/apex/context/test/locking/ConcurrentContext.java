@@ -36,7 +36,6 @@ import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -63,7 +62,6 @@ public class ConcurrentContext {
      * The method tests concurrent use of context.
      * 
      * @return the verified context
-     * @throws ApexModelException the exception occurs in model handling
      * @throws ApexException the Apex exception occurs in handling Apex
      */
     public Map<String, TestContextLongItem> testConcurrentContext() throws ApexException {
