@@ -21,6 +21,7 @@
 package org.onap.policy.apex.service.engine.main;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Map.Entry;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -77,15 +78,18 @@ public class ApexMain {
             return;
         }
 
+        // Set incoming Java properties
+        setJavaProperties(parameters);
+
         // Set the name of the event handler parameters for producers and consumers
         for (final Entry<String, EventHandlerParameters> ehParameterEntry : parameters.getEventOutputParameters()
-                .entrySet()) {
+            .entrySet()) {
             if (!ehParameterEntry.getValue().checkSetName()) {
                 ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
             }
         }
         for (final Entry<String, EventHandlerParameters> ehParameterEntry : parameters.getEventInputParameters()
-                .entrySet()) {
+            .entrySet()) {
             if (!ehParameterEntry.getValue().checkSetName()) {
                 ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
             }
@@ -128,8 +132,8 @@ public class ApexMain {
     }
 
     /**
-     * The Class ApexMainShutdownHookClass terminates the Apex engine for the Apex service when its
-     * run method is called.
+     * The Class ApexMainShutdownHookClass terminates the Apex engine for the Apex service when its run method is
+     * called.
      */
     private class ApexMainShutdownHookClass extends Thread {
         /*
@@ -145,6 +149,31 @@ public class ApexMain {
             } catch (final ApexException e) {
                 LOGGER.warn("error occured during shut down of the Apex service", e);
             }
+        }
+    }
+
+    /**
+     * Set the Java properties specified in the parameters.
+     *
+     * @param parameters The incoming parameters
+     */
+    private void setJavaProperties(final ApexParameters parameters) {
+        if (!parameters.checkJavaPropertiesSet()) {
+            return;
+        }
+
+        // Set each Java property
+        for (String[] javaProperty : parameters.getJavaProperties()) {
+            String javaPropertyName = javaProperty[0];
+            String javaPropertyValue = javaProperty[1];
+
+            // Passwords are encoded using base64, better than sending passwords in the clear
+            if (javaPropertyName.toLowerCase().contains("password")) {
+                javaPropertyValue = new String(Base64.getDecoder().decode(javaPropertyValue.getBytes()));
+            }
+
+            // Set the Java property
+            System.setProperty(javaPropertyName, javaPropertyValue);
         }
     }
 
