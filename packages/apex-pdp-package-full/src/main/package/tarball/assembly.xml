@@ -62,7 +62,7 @@
                 <include>**/*</include>
             </includes>
             <outputDirectory>etc</outputDirectory>
-            <lineEnding>unix</lineEnding>
+            <lineEnding>keep</lineEnding>
             <excludes>
                 <exclude>*.formatted</exclude>
             </excludes>
