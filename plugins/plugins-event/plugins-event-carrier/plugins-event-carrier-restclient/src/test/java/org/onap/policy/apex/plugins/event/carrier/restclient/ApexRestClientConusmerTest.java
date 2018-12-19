@@ -147,7 +147,7 @@ public class ApexRestClientConusmerTest {
         consumerParameters.setCarrierTechnologyParameters(rcctp);
         rcctp.setUrl("http://some.place.that.does.not/exist");
         SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
-        
+
         try {
             arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
             assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
@@ -163,6 +163,7 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcc.setClient(httpClientMock);
 
@@ -182,7 +183,7 @@ public class ApexRestClientConusmerTest {
 
         final String outString = outContent.toString();
         System.setOut(stdout);
-        
+
         assertTrue(outString.contains(
             "reception of event from URL \"http://some.place.that.does.not/exist\" failed with status code 400"));
     }
@@ -215,6 +216,7 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcc.setClient(httpClientMock);
 
@@ -231,12 +233,11 @@ public class ApexRestClientConusmerTest {
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
-        
+
         final String outString = outContent.toString();
         System.setOut(stdout);
-        
-        assertTrue(outString.contains(
-            "received an empty event from URL \"http://some.place.that.does.not/exist\""));
+
+        assertTrue(outString.contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
     }
 
     @Test
@@ -268,6 +269,7 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn("").when(responseMock).readEntity(String.class);
         Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcc.setClient(httpClientMock);
 
@@ -284,12 +286,11 @@ public class ApexRestClientConusmerTest {
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
-        
+
         final String outString = outContent.toString();
         System.setOut(stdout);
-        
-        assertTrue(outString.contains(
-            "received an empty event from URL \"http://some.place.that.does.not/exist\""));
+
+        assertTrue(outString.contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
     }
 
     @Test
@@ -321,6 +322,7 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn("This is an event").when(responseMock).readEntity(String.class);
         Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcc.setClient(httpClientMock);
 

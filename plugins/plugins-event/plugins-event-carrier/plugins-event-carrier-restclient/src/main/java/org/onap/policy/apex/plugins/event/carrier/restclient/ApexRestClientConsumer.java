@@ -202,7 +202,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
         public void run() {
             try {
                 final Response response = client.target(restConsumerProperties.getUrl()).request("application/json")
-                    .get();
+                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
 
                 // Check that the event request worked
                 if (response.getStatus() != Response.Status.OK.getStatusCode()) {

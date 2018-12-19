@@ -30,7 +30,8 @@
     <description>Specific code for the APEX Decision Maker Example</description>
 
     <properties>
-        <policymodel.name>DecisionMakerPolicyModel</policymodel.name>
+        <policymodel.decisionmaker.name>DecisionMakerPolicyModel</policymodel.decisionmaker.name>
+        <policymodel.healthcheck.name>HealthCheckPolicyModel</policymodel.healthcheck.name>
         <apex-domains-decisionmaker-dir>${project.basedir}/src</apex-domains-decisionmaker-dir>
     </properties>
 
@@ -50,7 +51,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>generate-policy</id>
+                        <id>generate-decisionmaker-policy</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>
@@ -59,9 +60,26 @@
                             <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
                             <classpathScope>compile</classpathScope>
                             <arguments>
-                                <argument>--command-file=${project.basedir}/src/main/resources/policy/${policymodel.name}.apex</argument>
-                                <argument>--output-model-file=${project.build.directory}/classes/${policymodel.name}.json</argument>
-                                <argument>--log-file=${project.build.directory}/${policymodel.name}_policygeneration.log</argument>
+                                <argument>--command-file=${project.basedir}/src/main/resources/policy/${policymodel.decisionmaker.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/${policymodel.decisionmaker.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodel.decisionmaker.name}_policygeneration.log</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-healthcheck-policy</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
+                            <arguments>
+                                <argument>--command-file=${project.basedir}/src/main/resources/policy/${policymodel.healthcheck.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/${policymodel.healthcheck.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodel.healthcheck.name}_policygeneration.log</argument>
                                 <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
