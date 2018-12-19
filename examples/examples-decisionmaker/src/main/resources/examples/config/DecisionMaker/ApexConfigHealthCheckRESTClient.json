@@ -1,0 +1,57 @@
+{
+    "javaProperties" : [
+        ["javax.net.ssl.trustStore", "/home/liam/tmp/distribution/etc/ssl/policy-truststore"],
+        ["javax.net.ssl.trustStorePassword", "UG9sMWN5XzBuYXA="]
+    ],
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12345,
+        "policyModelFileName": "/home/liam/git/onap/policy/apex-pdp/examples/examples-decisionmaker/target/classes/HealthCheckPolicyModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+        "HealthCheckConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "https://policy:6969/healthcheck",
+                    "httpHeaders" : [
+                        ["Authorization", "Basic aGVhbHRoY2hlY2s6emIhWHp0RzM0"]
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "nameAlias": "none",
+                    "versionAlias": "version",
+                    "sourceAlias": "from"
+                }
+            },
+            "eventName": "HealthCheckEvent"
+        }
+    },
+    "eventOutputParameters": {
+        "logProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "/tmp/EventsOut.json"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    }
+}
