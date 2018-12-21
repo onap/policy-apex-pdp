@@ -35,7 +35,7 @@ import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineStats;
 
-public class TestApexEngineModelCreator implements TestApexModelCreator<AxEngineModel> {
+public class DummyTestApexEngineModelCreator implements TestApexModelCreator<AxEngineModel> {
 
     @Override
     public AxEngineModel getModel() {

@@ -43,7 +43,7 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
  * Test the apex model API.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexModelApi {
+public class ApexModelApiTest {
     private Connection connection;
 
     @Before

@@ -30,7 +30,7 @@ import java.util.UUID;
 import org.junit.Test;
 import org.onap.policy.apex.model.modelapi.impl.ModelFacade;
 
-public class TestModelFacade {
+public class ModelFacadeTest {
 
     @Test
     public void testModelFacade() {

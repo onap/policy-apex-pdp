@@ -29,7 +29,7 @@ import org.junit.Test;
  * Test policies for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexEditorApiPolicy {
+public class ApexEditorApiPolicyTest {
     @Test
     public void myTestPolicyCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);

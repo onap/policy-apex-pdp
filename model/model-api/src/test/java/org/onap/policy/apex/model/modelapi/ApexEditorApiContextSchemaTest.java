@@ -29,7 +29,7 @@ import org.junit.Test;
  * Context schema for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexEditorApiContextSchema {
+public class ApexEditorApiContextSchemaTest {
     @Test
     public void testContextSchemaCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);

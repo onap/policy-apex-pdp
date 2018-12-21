@@ -48,7 +48,7 @@ public class ApexEngineModelTest {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
         connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
 
-        testApexModel = new TestApexModel<AxEngineModel>(AxEngineModel.class, new TestApexEngineModelCreator());
+        testApexModel = new TestApexModel<AxEngineModel>(AxEngineModel.class, new DummyTestApexEngineModelCreator());
     }
 
     @After

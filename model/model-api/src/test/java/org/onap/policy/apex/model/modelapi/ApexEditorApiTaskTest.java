@@ -29,7 +29,7 @@ import org.junit.Test;
  * Test tasks for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexEditorApiTask {
+public class ApexEditorApiTaskTest {
     @Test
     public void testTaskCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);

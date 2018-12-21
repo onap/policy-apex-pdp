@@ -28,7 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
  * Dummy engine event listener for unit test.
  *
  */
-public class BadListener implements EnEventListener {
+public class DummyEnEventListener implements EnEventListener {
 
     /*
      * (non-Javadoc)

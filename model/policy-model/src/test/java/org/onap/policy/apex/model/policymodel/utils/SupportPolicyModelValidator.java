@@ -31,7 +31,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 /**
  * Main class to run the policy model validator.
  */
-public class PolicyModelValidator {
+public class SupportPolicyModelValidator {
     /**
      * Main method.
      * @param args the command line arguments

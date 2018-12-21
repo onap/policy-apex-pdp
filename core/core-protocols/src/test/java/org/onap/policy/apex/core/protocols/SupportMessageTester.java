@@ -32,7 +32,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 /**
  * Test of the abstract Message class.
  */
-public class MessageTest {
+public class SupportMessageTester {
 
     @SuppressWarnings("unlikely-arg-type")
     @Test

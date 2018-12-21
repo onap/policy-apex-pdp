@@ -371,7 +371,7 @@ public class ApexEngineImplTest {
         }
 
         try {
-            engine.addEventListener("badListener", new BadListener());
+            engine.addEventListener("badListener", new DummyEnEventListener());
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -394,7 +394,7 @@ public class ApexEngineImplTest {
 
         try {
             engine.removeEventListener("badListener");
-            engine.addEventListener("slowListener", new SlowListener());
+            engine.addEventListener("slowListener", new DummySlowEnEventListener());
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -414,7 +414,7 @@ public class ApexEngineImplTest {
             fail("test should not throw an exception");
         }
 
-        SlowListener slowListener = new SlowListener();
+        DummySlowEnEventListener slowListener = new DummySlowEnEventListener();
         try {
             engine.addEventListener("slowListener", slowListener);
         } catch (Exception e) {
