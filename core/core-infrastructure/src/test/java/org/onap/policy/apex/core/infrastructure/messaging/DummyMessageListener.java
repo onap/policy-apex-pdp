@@ -33,10 +33,10 @@ import org.slf4j.ext.XLoggerFactory;
  * method is invoked.
  *
  */
-public abstract class TestMessageListener implements MessageListener<String> {
+public abstract class DummyMessageListener implements MessageListener<String> {
 
     /** The Constant logger. */
-    private static final XLogger logger = XLoggerFactory.getXLogger(TestMessageListener.class);
+    private static final XLogger logger = XLoggerFactory.getXLogger(DummyMessageListener.class);
 
     /**
      * On command.

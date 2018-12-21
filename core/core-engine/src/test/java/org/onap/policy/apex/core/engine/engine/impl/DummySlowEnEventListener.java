@@ -28,7 +28,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
  * Dummy engine event listener for unit test.
  *
  */
-public class SlowListener implements EnEventListener {
+public class DummySlowEnEventListener implements EnEventListener {
 
     private long waitTime;
 

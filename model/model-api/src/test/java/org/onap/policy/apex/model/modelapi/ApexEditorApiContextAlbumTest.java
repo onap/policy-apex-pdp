@@ -29,7 +29,7 @@ import org.junit.Test;
  * Context album for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexEditorApiContextAlbum {
+public class ApexEditorApiContextAlbumTest {
     @Test
     public void testContextAlbumCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);

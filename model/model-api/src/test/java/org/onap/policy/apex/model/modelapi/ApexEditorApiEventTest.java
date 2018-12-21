@@ -29,7 +29,7 @@ import org.junit.Test;
  * Test events for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexEditorApiEvent {
+public class ApexEditorApiEventTest {
     @Test
     public void testEventCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);

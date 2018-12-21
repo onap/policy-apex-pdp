@@ -29,7 +29,7 @@ import org.junit.Test;
  * Key information for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexEditorApiKeyInfo {
+public class ApexEditorApiKeyInfoTest {
 
     @Test
     public void testKeyInfoCrud() {

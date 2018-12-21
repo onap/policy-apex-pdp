@@ -37,7 +37,7 @@ import org.onap.policy.apex.model.utilities.TextFileUtils;
  * Test the model handler facade.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestModelHandlerFacade {
+public class ModelHandlerFacadeTest {
 
     @Test
     public void testModelHandlerFacade() throws IOException {

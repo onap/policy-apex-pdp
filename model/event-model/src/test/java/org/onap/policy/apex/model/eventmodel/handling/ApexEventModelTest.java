@@ -48,7 +48,7 @@ public class ApexEventModelTest {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
         connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
 
-        testApexModel = new TestApexModel<AxEventModel>(AxEventModel.class, new TestApexEventModelCreator());
+        testApexModel = new TestApexModel<AxEventModel>(AxEventModel.class, new DummyTestApexEventModelCreator());
     }
 
     @After

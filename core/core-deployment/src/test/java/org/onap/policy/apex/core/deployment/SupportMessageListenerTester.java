@@ -29,7 +29,7 @@ import org.onap.policy.apex.core.protocols.Message;
 /**
  * A test message listener.
  */
-public class TestMessageListener implements MessageListener<Message> {
+public class SupportMessageListenerTester implements MessageListener<Message> {
     @Override
     public void onMessage(String messageString) {
         fail("Message should not be received");

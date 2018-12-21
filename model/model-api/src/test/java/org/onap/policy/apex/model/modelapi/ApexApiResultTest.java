@@ -35,7 +35,7 @@ import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
  * Test API results.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApiResult {
+public class ApexApiResultTest {
 
     @Test
     public void testApiResult() {

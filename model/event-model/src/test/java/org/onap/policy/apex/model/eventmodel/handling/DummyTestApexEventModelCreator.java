@@ -32,7 +32,7 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEventModel;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 
-public class TestApexEventModelCreator implements TestApexModelCreator<AxEventModel> {
+public class DummyTestApexEventModelCreator implements TestApexModelCreator<AxEventModel> {
 
     @Override
     public AxEventModel getModel() {
