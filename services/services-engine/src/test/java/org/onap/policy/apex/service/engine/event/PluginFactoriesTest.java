@@ -39,7 +39,7 @@ import org.onap.policy.common.parameters.ParameterException;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @author John Keeney (john.keeney@ericsson.com)
  */
-public class TestPluginFactories {
+public class PluginFactoriesTest {
 
     @Test
     public void testEventConsumerFactory() throws ApexEventException, ParameterException {

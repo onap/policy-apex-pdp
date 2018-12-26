@@ -343,7 +343,7 @@
                      "version" : "0.0.1"
                   },
                   "schemaFlavour" : "Java",
-                  "schemaDefinition" : "org.onap.policy.apex.service.engine.event.testpojos.TestPojoList"
+                  "schemaDefinition" : "org.onap.policy.apex.service.engine.event.testpojos.DummyPojoList"
                }
             }, {
                "key" : {
@@ -356,7 +356,7 @@
                      "version" : "0.0.1"
                   },
                   "schemaFlavour" : "Java",
-                  "schemaDefinition" : "org.onap.policy.apex.service.engine.event.testpojos.TestPojo"
+                  "schemaDefinition" : "org.onap.policy.apex.service.engine.event.testpojos.DummyPojo"
                }
             } ]
          }

@@ -20,26 +20,22 @@
 
 package org.onap.policy.apex.service.engine.engdep;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.core.protocols.Action;
+import org.onap.policy.apex.core.protocols.Message;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**
- * Bad action class.
+ * Bad protocol message.
  */
-public class BadAction implements Action {
-    private static final long serialVersionUID = -6562765120898697138L;
-    
-    private String actionString;
+public class DummyMessage extends Message {
+    private static final long serialVersionUID = 3827403727783909797L;
 
-    public BadAction(final String actionString) {
-        this.actionString = actionString;
-    }
-    
-    @Override
-    public String getActionString() {
-        if (actionString == "throw exception") {
-            throw new NotImplementedException("dummy IO excepton");
-        }
-        return actionString;
+    /**
+     * Constructor.
+     * @param action the message action
+     * @param targetKey the message target key
+     */
+    public DummyMessage(Action action, AxArtifactKey targetKey) {
+        super(action, targetKey);
     }
 }

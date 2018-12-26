@@ -37,7 +37,7 @@ import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer
  * Test JSON Tagged Event Consumer.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestJsonTaggedEventConsumer {
+public class JsonTaggedEventConsumerTest {
 
     @Test
     public void testGarbageText() throws IOException {

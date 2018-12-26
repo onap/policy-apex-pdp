@@ -18,24 +18,40 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.service.engine.engdep;
-
-import org.onap.policy.apex.core.protocols.Action;
-import org.onap.policy.apex.core.protocols.Message;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+package org.onap.policy.apex.service.engine.event.testpojos;
 
 /**
- * Bad protocol message.
+ * A test Pojo for pojo decoding and encoding in Apex.
  */
-public class BadMessage extends Message {
-    private static final long serialVersionUID = 3827403727783909797L;
+public class DummySubSubPojo {
+    private int anInt;
+    private Integer anInteger;
+    private String someString;
 
     /**
-     * Constructor.
-     * @param action the message action
-     * @param targetKey the message target key
+     * Gets the an int.
+     *
+     * @return the an int
      */
-    public BadMessage(Action action, AxArtifactKey targetKey) {
-        super(action, targetKey);
+    public int getAnInt() {
+        return anInt;
+    }
+
+    /**
+     * Gets the an integer.
+     *
+     * @return the an integer
+     */
+    public Integer getAnInteger() {
+        return anInteger;
+    }
+
+    /**
+     * Gets the a string.
+     *
+     * @return the a string
+     */
+    public String getSomeString() {
+        return someString;
     }
 }

@@ -25,7 +25,7 @@ package org.onap.policy.apex.service.engine.event;
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class JsonEventGenerator {
+public class SupportJsonEventGenerator {
     /**
      * Json event.
      *

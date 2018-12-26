@@ -138,19 +138,19 @@ public class EngDepMessageListenerTest {
             assertEquals("UpdateModel:0.0.1", dummyEngineService.getUpdateModelKey().getId());
 
             messageList.clear();
-            Message badMessage0 = new BadMessage(null, null);
+            Message badMessage0 = new DummyMessage(null, null);
             messageList.add(badMessage0);
             listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
             ThreadUtilities.sleep(50);
 
             messageList.clear();
-            Message badMessage1 = new BadMessage(new BadAction(null), null);
+            Message badMessage1 = new DummyMessage(new DummyAction(null), null);
             messageList.add(badMessage1);
             listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
             ThreadUtilities.sleep(50);
 
             messageList.clear();
-            Message badMessage2 = new BadMessage(new BadAction("throw exception"), null);
+            Message badMessage2 = new DummyMessage(new DummyAction("throw exception"), null);
             messageList.add(badMessage2);
             listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
             ThreadUtilities.sleep(50);

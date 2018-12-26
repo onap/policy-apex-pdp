@@ -30,7 +30,7 @@ import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEve
  * Test the JSON event parameters.
  *
  */
-public class TestJsonEventProtocolPrameters {
+public class JsonEventProtocolPrametersTest {
 
     @Test
     public void testJsonParameters() {

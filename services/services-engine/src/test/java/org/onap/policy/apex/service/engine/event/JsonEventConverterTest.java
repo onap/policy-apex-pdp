@@ -32,7 +32,7 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  * Test the JSON event converter corner cases.
  *
  */
-public class TestJsonEventConverter {
+public class JsonEventConverterTest {
     @Test
     public void testJsonEventConverter() {
         Apex2JsonEventConverter converter = new Apex2JsonEventConverter();

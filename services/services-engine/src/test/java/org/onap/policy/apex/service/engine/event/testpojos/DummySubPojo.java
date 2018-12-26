@@ -23,12 +23,12 @@ package org.onap.policy.apex.service.engine.event.testpojos;
 /**
  * A test Pojo for pojo decoding and encoding in Apex.
  */
-public class TestPojo {
+public class DummySubPojo {
     private int anInt;
     private Integer anInteger;
     private String someString;
     
-    private TestSubPojo testSubPojo;
+    private DummySubSubPojo testSubSubPojo;
 
     /**
      * Gets the an int.
@@ -58,12 +58,12 @@ public class TestPojo {
     }
 
     /**
-     * Gets the test sub pojo.
+     * Gets the test sub sub pojo.
      *
-     * @return the test sub pojo
+     * @return the test sub sub pojo
      */
-    public TestSubPojo getTestSubPojo() {
-        return testSubPojo;
+    public DummySubSubPojo getTestSubSubPojo() {
+        return testSubSubPojo;
     }
 
 }

@@ -41,8 +41,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
-import org.onap.policy.apex.service.engine.event.testpojos.TestPojo;
-import org.onap.policy.apex.service.engine.event.testpojos.TestPojoList;
+import org.onap.policy.apex.service.engine.event.testpojos.DummyPojo;
+import org.onap.policy.apex.service.engine.event.testpojos.DummyPojoList;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -52,8 +52,8 @@ import org.slf4j.ext.XLoggerFactory;
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestJsonEventHandlerForPojo {
-    private static final XLogger logger = XLoggerFactory.getXLogger(TestJsonEventHandlerForPojo.class);
+public class JsonEventHandlerForPojoTest {
+    private static final XLogger logger = XLoggerFactory.getXLogger(JsonEventHandlerForPojoTest.class);
 
     /**
      * Setup event model.
@@ -126,7 +126,7 @@ public class TestJsonEventHandlerForPojo {
         assertEquals("Outside", apexEvent.getSource());
         assertEquals("Apex", apexEvent.getTarget());
 
-        TestPojo testPojo = (TestPojo) apexEvent.get("POJO_PAR");
+        DummyPojo testPojo = (DummyPojo) apexEvent.get("POJO_PAR");
 
         assertEquals(1, testPojo.getAnInt());
         assertEquals(2, testPojo.getAnInteger().intValue());
@@ -177,9 +177,9 @@ public class TestJsonEventHandlerForPojo {
         assertEquals("Outside", apexEvent.getSource());
         assertEquals("Apex", apexEvent.getTarget());
 
-        TestPojoList testPojoList = (TestPojoList) apexEvent.get("POJO_LIST_PAR");
+        DummyPojoList testPojoList = (DummyPojoList) apexEvent.get("POJO_LIST_PAR");
 
-        for (TestPojo testPojo : testPojoList.getTestPojoList()) {
+        for (DummyPojo testPojo : testPojoList.getTestPojoList()) {
             assertEquals(1, testPojo.getAnInt());
             assertEquals(2, testPojo.getAnInteger().intValue());
             assertEquals("a string", testPojo.getSomeString());

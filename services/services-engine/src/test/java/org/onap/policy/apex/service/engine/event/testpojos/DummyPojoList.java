@@ -25,15 +25,15 @@ import java.util.List;
 /**
  * A test list of POJO for decoding and encoding.
  */
-public class TestPojoList {
-    private List<TestPojo> testPojoList;
+public class DummyPojoList {
+    private List<DummyPojo> testPojoList;
 
     /**
      * Gets the test pojo list.
      *
      * @return the test pojo list
      */
-    public List<TestPojo> getTestPojoList() {
+    public List<DummyPojo> getTestPojoList() {
         return testPojoList;
     }
 }

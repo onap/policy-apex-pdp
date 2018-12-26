@@ -18,40 +18,28 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.service.engine.event.testpojos;
+package org.onap.policy.apex.service.engine.engdep;
+
+import org.apache.commons.lang3.NotImplementedException;
+import org.onap.policy.apex.core.protocols.Action;
 
 /**
- * A test Pojo for pojo decoding and encoding in Apex.
+ * Bad action class.
  */
-public class TestSubSubPojo {
-    private int anInt;
-    private Integer anInteger;
-    private String someString;
+public class DummyAction implements Action {
+    private static final long serialVersionUID = -6562765120898697138L;
+    
+    private String actionString;
 
-    /**
-     * Gets the an int.
-     *
-     * @return the an int
-     */
-    public int getAnInt() {
-        return anInt;
+    public DummyAction(final String actionString) {
+        this.actionString = actionString;
     }
-
-    /**
-     * Gets the an integer.
-     *
-     * @return the an integer
-     */
-    public Integer getAnInteger() {
-        return anInteger;
-    }
-
-    /**
-     * Gets the a string.
-     *
-     * @return the a string
-     */
-    public String getSomeString() {
-        return someString;
+    
+    @Override
+    public String getActionString() {
+        if (actionString == "throw exception") {
+            throw new NotImplementedException("dummy IO excepton");
+        }
+        return actionString;
     }
 }

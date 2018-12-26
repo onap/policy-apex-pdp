@@ -33,7 +33,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
  * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexCommandLineArguments {
+public class ApexCommandLineArgumentsTest {
     @After
     public void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
