@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_8f911149",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/AppcResponseCreator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 3293
+      },
+      "writtenOn": "2019-01-04T22:50:18Z",
+      "side": 1,
+      "message": "Suggestion: It would be better if you define as a constant because it will help other programmers to understand what 400 signifies.",
+      "range": {
+        "startLine": 80,
+        "startChar": 41,
+        "endLine": 80,
+        "endChar": 44
+      },
+      "revId": "7b8b5158bd216e53265ac7c81b0a1910fc13432e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_af96553d",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3293
+      },
+      "writtenOn": "2019-01-04T22:50:18Z",
+      "side": 1,
+      "message": "Defined as a constant since you are using more than once and also for readability",
+      "range": {
+        "startLine": 77,
+        "startChar": 31,
+        "endLine": 77,
+        "endChar": 34
+      },
+      "revId": "7b8b5158bd216e53265ac7c81b0a1910fc13432e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_4f97a93a",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 3293
+      },
+      "writtenOn": "2019-01-04T22:50:18Z",
+      "side": 1,
+      "message": "or NONOK ?",
+      "range": {
+        "startLine": 102,
+        "startChar": 91,
+        "endLine": 102,
+        "endChar": 94
+      },
+      "revId": "7b8b5158bd216e53265ac7c81b0a1910fc13432e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_6f9ced5d",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 3293
+      },
+      "writtenOn": "2019-01-04T22:50:18Z",
+      "side": 1,
+      "message": "What if String is empty or null ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 63
+      },
+      "revId": "7b8b5158bd216e53265ac7c81b0a1910fc13432e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_0fa521a1",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 3293
+      },
+      "writtenOn": "2019-01-04T22:50:18Z",
+      "side": 1,
+      "message": "Make it constant",
+      "range": {
+        "startLine": 170,
+        "startChar": 40,
+        "endLine": 170,
+        "endChar": 43
+      },
+      "revId": "7b8b5158bd216e53265ac7c81b0a1910fc13432e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
