@@ -70,7 +70,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
         if (!(producerParameters
                 .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
             final String errorMessage =
-                    "specified consumer properties are not applicable to REST requestor producer (" + this.name + ")";
+                    "specified producer properties are not applicable to REST requestor producer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
