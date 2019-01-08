@@ -161,13 +161,14 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
         try {
             arcp.sendEvent(123, "EventName", "This is an Event");
             arcp.stop();
-        } catch (Exception e) {
+        } catch (Exception ex) {
             fail("test should not throw an exception");
         }
     }
@@ -197,6 +198,7 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
@@ -239,6 +241,7 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
@@ -250,14 +253,13 @@ public class ApexRestClientProducerTest {
         }
     }
 
-
     @Test
     public void testApexRestClientProducerPostEventCacheTrace() {
         MockitoAnnotations.initMocks(this);
 
         ch.qos.logback.classic.Logger classicLogger = (ch.qos.logback.classic.Logger) LOGGER;
         classicLogger.setLevel(Level.TRACE);
-        
+
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -285,6 +287,7 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
@@ -321,6 +324,7 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 

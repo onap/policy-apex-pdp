@@ -183,9 +183,11 @@ public class ApexRestClientProducer implements ApexEventProducer {
     private Response sendEventAsRestRequest(final String event) {
         // We have already checked that it is a PUT or POST request
         if (RestClientCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())) {
-            return client.target(restProducerProperties.getUrl()).request("application/json").post(Entity.json(event));
+            return client.target(restProducerProperties.getUrl()).request("application/json")
+                .headers(restProducerProperties.getHttpHeadersAsMultivaluedMap()).post(Entity.json(event));
         } else {
-            return client.target(restProducerProperties.getUrl()).request("application/json").put(Entity.json(event));
+            return client.target(restProducerProperties.getUrl()).request("application/json")
+                .headers(restProducerProperties.getHttpHeadersAsMultivaluedMap()).put(Entity.json(event));
         }
     }
 
