@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_3d5b76f7",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-01-09T00:09:16Z",
+      "side": 1,
+      "message": "Let\u0027s upgrade this once we release policy/common.",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 36
+      },
+      "revId": "413d0c94f8be4300d73188e916eae10ddf1f94c3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
