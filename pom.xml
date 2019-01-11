@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Copyright (C) 2019 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -43,7 +44,6 @@
         <version.commons-cli>1.4</version.commons-cli>
         <version.kafka>1.1.1</version.kafka>
         <version.jersey>2.26</version.jersey>
-        <version.eclipselink>2.6.5</version.eclipselink>
         <version.hibernate>5.3.6.Final</version.hibernate>
         <version.policy.common>1.4.0-SNAPSHOT</version.policy.common>
 
