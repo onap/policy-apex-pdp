@@ -48,7 +48,7 @@ public class ApexMainTest {
         final String outString = outContent.toString();
 
         System.setOut(stdout);
-        
+
         assertTrue(outString.contains("Apex configuration file was not specified as an argument"));
     }
 
@@ -57,8 +57,8 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = {"-whee"};
-        
+        String[] args = { "-whee" };
+
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
@@ -66,7 +66,7 @@ public class ApexMainTest {
         final String outString = outContent.toString();
 
         System.setOut(stdout);
-        
+
         assertTrue(outString.contains("invalid command line arguments specified : Unrecognized option: -whee"));
     }
 
@@ -75,8 +75,8 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = {"-h"};
-        
+        String[] args = { "-h" };
+
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
@@ -93,8 +93,8 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = {"-c", "src/test/resources/parameters/badParams.json"};
-        
+        String[] args = { "-c", "src/test/resources/parameters/badParams.json" };
+
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
@@ -111,8 +111,8 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = {"-c", "src/test/resources/parameters/correctParams.json"};
-        
+        String[] args = { "-c", "src/test/resources/parameters/correctParams.json" };
+
         final ApexMain apexMain = new ApexMain(args);
         assertEquals("MyApexEngine", apexMain.getParameters().getEngineServiceParameters().getName());
         ThreadUtilities.sleep(200);
@@ -126,20 +126,21 @@ public class ApexMainTest {
     }
 
     @Test
-    public void testjavaProperties() throws ApexException {
+    public void testJavaProperties() throws ApexException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = {"-c", "src/test/resources/parameters/correctParamsJavaProperties.json"};
-        
+        String[] args = { "-c", "src/test/resources/parameters/correctParamsJavaProperties.json" };
+
         final ApexMain apexMain = new ApexMain(args);
         assertEquals("MyApexEngine", apexMain.getParameters().getEngineServiceParameters().getName());
-        
+
         assertEquals("trust-store-file", System.getProperty("javax.net.ssl.trustStore"));
         assertEquals("Pol1cy_0nap", System.getProperty("javax.net.ssl.trustStorePassword"));
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
 
+        ThreadUtilities.sleep(10000);
         final String outString = outContent.toString();
 
         System.setOut(stdout);

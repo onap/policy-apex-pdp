@@ -32,7 +32,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "standardIo": true
+                    "fileName": "src/test/resources/events/TestPojoEvent.json"
                 }
             },
             "eventProtocolParameters": {
