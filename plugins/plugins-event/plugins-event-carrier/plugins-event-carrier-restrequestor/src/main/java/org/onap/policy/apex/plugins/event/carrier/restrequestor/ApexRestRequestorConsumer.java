@@ -351,7 +351,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                 final Response response = sendEventAsRestRequest();
 
                 // Check that the event request worked
-                if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                if (!Response.Status.Family.familyOf(response.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
                     final String errorMessage = "reception of response to \"" + request + "\" from URL \""
                                     + restConsumerProperties.getUrl() + "\" failed with status code "
                                     + response.getStatus() + " and message \"" + response.readEntity(String.class)

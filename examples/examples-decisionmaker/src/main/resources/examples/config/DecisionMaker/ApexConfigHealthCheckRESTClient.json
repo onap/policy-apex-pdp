@@ -1,6 +1,6 @@
 {
     "javaProperties" : [
-        ["javax.net.ssl.trustStore", "/home/liam/tmp/distribution/etc/ssl/policy-truststore"],
+        ["javax.net.ssl.trustStore", "etc/ssl/policy-truststore"],
         ["javax.net.ssl.trustStorePassword", "UG9sMWN5XzBuYXA="]
     ],
     "engineServiceParameters": {
