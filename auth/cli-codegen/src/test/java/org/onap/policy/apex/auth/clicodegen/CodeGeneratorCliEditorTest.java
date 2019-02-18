@@ -120,8 +120,11 @@ public class CodeGeneratorCliEditorTest {
             final List<ST> parameters = getParametersForTask(codeGen, t);
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
-            codeGen.addTaskDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            infields, outfields, logic, parameters, contextRefs);
+            codeGen.addTaskDeclaration(
+                    new TaskDeclarationBuilder().setName(kig.getName(key)).setVersion(kig.getVersion(key))
+                            .setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key)).setInfields(infields)
+                            .setOutfields(outfields).setLogic(logic).setParameters(parameters)
+                            .setContextRefs(contextRefs));
         }
 
         // 3: events
