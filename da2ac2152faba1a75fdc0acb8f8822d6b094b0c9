@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66aa0e74_20def2b3",
+        "filename": "tools/model-generator/src/main/java/org/onap/policy/apex/tools/model/generator/model2cli/Model2Cli.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-18T10:22:50Z",
+      "side": 1,
+      "message": "\u003e 120 characters",
+      "revId": "da2ac2152faba1a75fdc0acb8f8822d6b094b0c9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
