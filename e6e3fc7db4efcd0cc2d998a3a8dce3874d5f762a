@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bed8a9d_186edcc5",
+        "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/CodeGeneratorCliEditor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-19T08:32:35Z",
+      "side": 1,
+      "message": "Remove this tab character",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 5
+      },
+      "revId": "e6e3fc7db4efcd0cc2d998a3a8dce3874d5f762a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66d449db_0afdd829",
+        "filename": "tools/model-generator/src/main/java/org/onap/policy/apex/tools/model/generator/model2cli/Model2Cli.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-19T08:32:35Z",
+      "side": 1,
+      "message": "Remove the tab characters.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 3
+      },
+      "revId": "e6e3fc7db4efcd0cc2d998a3a8dce3874d5f762a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
