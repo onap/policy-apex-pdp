@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7866b7d_691d232b",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ApexModelImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-02-20T10:20:24Z",
+      "side": 1,
+      "message": "I think we can use the same builder here as well.",
+      "range": {
+        "startLine": 945,
+        "startChar": 6,
+        "endLine": 952,
+        "endChar": 29
+      },
+      "revId": "7a5b51030acad6b15fe890e7c5610892d1aba7b8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
