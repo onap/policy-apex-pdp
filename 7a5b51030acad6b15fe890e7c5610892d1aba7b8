@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f43a7727_304cc59e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-02-20T16:08:33Z",
+      "side": 1,
+      "message": "Minor nit, just make sure these 3 lines are together and located at the bottom of the commit message. Per ONAP reqs.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 54
+      },
+      "revId": "7a5b51030acad6b15fe890e7c5610892d1aba7b8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7866b7d_691d232b",
         "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ApexModelImpl.java",
         "patchSetId": 1
