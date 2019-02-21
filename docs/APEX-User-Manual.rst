@@ -6606,7 +6606,7 @@ Test Policy Step 2
                |                "time": 1483351989000,        |               "amount" : 699,                              |                           |
                |                "sale_ID": 99999983,          |               "assistant_ID" : 2323,                       |                           |
                |                "amount": 699,                |               "notes" : "",                                |                           |
-               |                 tem_ID": 5321,               |               "quantity" : 1,                              |                           |
+               |                "item_ID": 5321,              |               "quantity" : 1,                              |                           |
                |                 "quantity": 1,               |               "branch_ID" : 1001,                          |                           |
                |                 "assistant_ID": 2323,        |               "item_ID" : 5321,                            |                           |
                |                 "branch_ID": 1001,           |               "authorised" : true,                         |                           |
