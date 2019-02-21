@@ -45,6 +45,30 @@
       "revId": "7a5b51030acad6b15fe890e7c5610892d1aba7b8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a85741b_346d6e7c",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ApexModelImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 2571
+      },
+      "writtenOn": "2019-02-21T09:48:43Z",
+      "side": 1,
+      "message": "This one is inherited from ApexEditorApi interface. \nTo change this, the interface has to be changed as well.\nIs it ok to change the interface?",
+      "parentUuid": "a7866b7d_691d232b",
+      "range": {
+        "startLine": 945,
+        "startChar": 6,
+        "endLine": 952,
+        "endChar": 29
+      },
+      "revId": "7a5b51030acad6b15fe890e7c5610892d1aba7b8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
