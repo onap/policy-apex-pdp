@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -31,11 +31,11 @@ import java.util.Map.Entry;
 
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.context.test.locking.ConcurrentContext;
-import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
-import org.onap.policy.apex.context.test.utils.ConfigrationProviderImpl;
-import org.onap.policy.apex.context.test.utils.ZooKeeperServerServiceProvider;
+import org.onap.policy.apex.integration.context.test.concepts.TestContextLongItem;
+import org.onap.policy.apex.integration.context.test.locking.ConcurrentContext;
+import org.onap.policy.apex.integration.context.test.utils.ConfigrationProvider;
+import org.onap.policy.apex.integration.context.test.utils.ConfigrationProviderImpl;
+import org.onap.policy.apex.integration.context.test.utils.ZooKeeperServerServiceProvider;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor;
@@ -74,7 +74,7 @@ public class ConcurrentContextMetrics {
 
     /**
      * Construct a concurrent context object.
-     * 
+     *
      * @param configrationProvider Configuration for the context metrics
      * @param zookeeperAddress Zookeeper address
      * @param zookeeperPort Zookeeper port

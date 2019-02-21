@@ -38,17 +38,6 @@
 
     <profiles>
         <profile>
-            <id>apexMetrics</id>
-            <activation>
-                <property>
-                    <name>apexMetrics</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integration-context-test</module>
-            </modules>
-        </profile>
-        <profile>
             <id>apexAll</id>
             <activation>
                 <property>
@@ -56,6 +45,7 @@
                 </property>
             </activation>
             <modules>
+                <module>integration-context-test-utils</module>
                 <module>integration-context-test</module>
             </modules>
         </profile>

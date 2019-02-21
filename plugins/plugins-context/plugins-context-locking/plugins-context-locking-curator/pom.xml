@@ -47,11 +47,11 @@
             <artifactId>curator-recipes</artifactId>
             <version>4.0.1</version>
         </dependency>
-        <!-- The latest Zookeeper version fixes the vulnerabilities -->
+        <!-- This Zookeeper version fixes the vulnerabilities -->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>3.5.4-beta</version>
+            <version>3.4.13</version>
             <exclusions>
             <!-- Zookeeper uses an ancient version of log4j -->
                 <exclusion>

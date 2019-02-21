@@ -34,7 +34,6 @@
 
     <modules>
         <module>context-management</module>
-        <module>context-test-utils</module>
     </modules>
 
     <profiles>
