@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -24,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.onap.policy.apex.context.parameters.DistributorParameters.DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;
-import static org.onap.policy.apex.context.test.utils.Constants.TEST_VALUE;
+import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.TEST_VALUE;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,22 +33,18 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.SortedSet;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.context.test.lock.modifier.LockType;
-import org.onap.policy.apex.context.test.locking.ConcurrentContext;
-import org.onap.policy.apex.context.test.utils.ConfigrationProvider;
-import org.onap.policy.apex.context.test.utils.ConfigrationProviderImpl;
-import org.onap.policy.apex.context.test.utils.Constants;
-import org.onap.policy.apex.context.test.utils.NetworkUtils;
-import org.onap.policy.apex.context.test.utils.ZooKeeperServerServiceProvider;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
@@ -57,6 +54,14 @@ import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanDi
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManagerParameters;
 import org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager;
+import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextLongItem;
+import org.onap.policy.apex.testsuites.integration.context.lock.modifier.LockType;
+import org.onap.policy.apex.testsuites.integration.context.locking.ConcurrentContext;
+import org.onap.policy.apex.testsuites.integration.context.utils.ConfigrationProvider;
+import org.onap.policy.apex.testsuites.integration.context.utils.ConfigrationProviderImpl;
+import org.onap.policy.apex.testsuites.integration.context.utils.Constants;
+import org.onap.policy.apex.testsuites.integration.context.utils.NetworkUtils;
+import org.onap.policy.apex.testsuites.integration.context.utils.ZooKeeperServerServiceProvider;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.slf4j.ext.XLogger;
@@ -88,7 +93,10 @@ public class TestConcurrentContext {
     // We need to increment the Zookeeper port because sometimes the port is not released at the end
     // of the test for a few seconds.
     private static int nextZookeeperPort = ZOOKEEPER_START_PORT;
+
     private int zookeeperPort;
+
+    private static SchemaParameters schemaParameters;
 
     @Rule
     public final TemporaryFolder folder = new TemporaryFolder();
@@ -114,6 +122,20 @@ public class TestConcurrentContext {
         logger.info("For Infinispan, setting jgroups.tcp.address to: {}", ipAddressSet.first());
         System.setProperty("jgroups.tcp.address", ipAddressSet.first());
 
+        schemaParameters = new SchemaParameters();
+
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters, true);
+    }
+
+    /**
+     * Clear configuration.
+     */
+    @AfterClass
+    public static void clear() {
+        ParameterService.deregister(schemaParameters);
     }
 
     /**
@@ -150,6 +172,7 @@ public class TestConcurrentContext {
 
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
+        setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalVarSet",
                 TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
@@ -164,6 +187,8 @@ public class TestConcurrentContext {
         assertNotNull(actual);
         assertEquals(expected, actual.getLongValue());
 
+        clearContextParmetersInParameterService(contextParameters);
+
         logger.debug("Ran testConcurrentContextJVMLocalVarSet test");
     }
 
@@ -176,7 +201,9 @@ public class TestConcurrentContext {
     public void testConcurrentContextJvmLocalNoVarSet() throws Exception {
         logger.debug("Running testConcurrentContextJVMLocalNoVarSet test . . .");
 
-        new ContextParameters();
+        final ContextParameters contextParameters = new ContextParameters();
+        setContextParmetersInParameterService(contextParameters);
+
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalNoVarSet",
                 TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
 
@@ -188,6 +215,7 @@ public class TestConcurrentContext {
         assertNotNull(actual);
         assertEquals(expected, actual.getLongValue());
 
+        clearContextParmetersInParameterService(contextParameters);
         logger.debug("Ran testConcurrentContextJVMLocalNoVarSet test");
     }
 
@@ -203,6 +231,7 @@ public class TestConcurrentContext {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
         contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
+        setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("testConcurrentContextMultiJVMNoLock",
                 TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
@@ -215,6 +244,7 @@ public class TestConcurrentContext {
         assertNotNull(actual);
         assertEquals(0, actual.getLongValue());
 
+        clearContextParmetersInParameterService(contextParameters);
         logger.debug("Ran testConcurrentContextMultiJVMNoLock test");
     }
 
@@ -230,6 +260,7 @@ public class TestConcurrentContext {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getDistributorParameters().setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
         contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
+        setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("HazelcastLock",
                 TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
@@ -242,6 +273,7 @@ public class TestConcurrentContext {
         assertNotNull(actual);
         assertEquals(expected, actual.getLongValue());
 
+        clearContextParmetersInParameterService(contextParameters);
         logger.debug("Ran testConcurrentContextHazelcastLock test");
     }
 
@@ -253,9 +285,9 @@ public class TestConcurrentContext {
     @Test
     public void testConcurrentContextCuratorLock() throws Exception {
         logger.debug("Running testConcurrentContextCuratorLock test . . .");
+        final ContextParameters contextParameters = new ContextParameters();
         try {
             startZookeeperServer();
-            final ContextParameters contextParameters = new ContextParameters();
             final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
             distributorParameters.setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
 
@@ -263,7 +295,7 @@ public class TestConcurrentContext {
             curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
-            ParameterService.register(curatorParameters);
+            setContextParmetersInParameterService(contextParameters);
 
             final ConfigrationProvider configrationProvider = getConfigrationProvider("CuratorLock",
                     TEST_JVM_COUNT_SINGLE_JVM, TEST_THREAD_COUNT_SINGLE_JVM, TEST_THREAD_LOOPS);
@@ -278,6 +310,7 @@ public class TestConcurrentContext {
             logger.debug("Ran testConcurrentContextCuratorLock test");
         } finally {
             stopZookeeperServer();
+            clearContextParmetersInParameterService(contextParameters);
         }
     }
 
@@ -294,6 +327,7 @@ public class TestConcurrentContext {
         final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
         distributorParameters.setPluginClass(HazelcastContextDistributor.class.getCanonicalName());
         contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
+        setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("HazelcastMultiHazelcastlock",
                 TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
@@ -305,6 +339,8 @@ public class TestConcurrentContext {
         final TestContextLongItem actual = result.get(TEST_VALUE);
         assertNotNull(actual);
         assertEquals(expected, actual.getLongValue());
+
+        clearContextParmetersInParameterService(contextParameters);
         logger.debug("Ran testConcurrentContextHazelcastMultiJVMHazelcastLock test");
     }
 
@@ -326,6 +362,7 @@ public class TestConcurrentContext {
         infinispanParameters.setConfigFile("infinispan/infinispan-context-test.xml");
         contextParameters.setDistributorParameters(infinispanParameters);
         contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
+        setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("InfinispanMultiHazelcastlock",
                 TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
@@ -337,6 +374,8 @@ public class TestConcurrentContext {
         final TestContextLongItem actual = result.get(TEST_VALUE);
         assertNotNull(actual);
         assertEquals(expected, actual.getLongValue());
+
+        clearContextParmetersInParameterService(contextParameters);
         logger.debug("Ran testConcurrentContextInfinispanMultiJVMHazelcastlock test");
     }
 
@@ -349,10 +388,10 @@ public class TestConcurrentContext {
     public void testConcurrentContextInfinispanMultiJvmCuratorLock() throws Exception {
         logger.debug("Running testConcurrentContextInfinispanMultiJVMCuratorLock test . . .");
 
+        final ContextParameters contextParameters = new ContextParameters();
         try {
             startZookeeperServer();
 
-            final ContextParameters contextParameters = new ContextParameters();
             final InfinispanDistributorParameters infinispanParameters = new InfinispanDistributorParameters();
             infinispanParameters.setPluginClass(InfinispanContextDistributor.class.getCanonicalName());
             infinispanParameters.setConfigFile("infinispan/infinispan-context-test.xml");
@@ -362,7 +401,7 @@ public class TestConcurrentContext {
             curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
-            ParameterService.register(curatorParameters);
+            setContextParmetersInParameterService(contextParameters);
 
             final ConfigrationProvider configrationProvider = getConfigrationProvider("InfinispanMultiCuratorLock",
                     TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
@@ -376,6 +415,7 @@ public class TestConcurrentContext {
             assertEquals(expected, actual.getLongValue());
         } finally {
             stopZookeeperServer();
+            clearContextParmetersInParameterService(contextParameters);
         }
 
         logger.debug("Ran testConcurrentContextInfinispanMultiJVMCuratorLock test");
@@ -390,10 +430,10 @@ public class TestConcurrentContext {
     public void testConcurrentContextHazelcastMultiJvmCuratorLock() throws Exception {
         logger.debug("Running testConcurrentContextHazelcastMultiJVMCuratorLock test . . .");
 
+        final ContextParameters contextParameters = new ContextParameters();
         try {
             startZookeeperServer();
 
-            final ContextParameters contextParameters = new ContextParameters();
             contextParameters.getDistributorParameters()
                     .setPluginClass(HazelcastContextDistributor.class.getCanonicalName());
 
@@ -401,7 +441,7 @@ public class TestConcurrentContext {
             curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
-            ParameterService.register(curatorParameters);
+            setContextParmetersInParameterService(contextParameters);
 
             final ConfigrationProvider configrationProvider = getConfigrationProvider("HazelcastMultiCuratorLock",
                     TEST_JVM_COUNT_MULTI_JVM, TEST_THREAD_COUNT_MULTI_JVM, TEST_THREAD_LOOPS);
@@ -414,6 +454,7 @@ public class TestConcurrentContext {
             assertEquals(expected, actual.getLongValue());
         } finally {
             stopZookeeperServer();
+            clearContextParmetersInParameterService(contextParameters);
         }
         logger.debug("Ran testConcurrentContextHazelcastMultiJVMCuratorLock test");
     }
@@ -439,5 +480,30 @@ public class TestConcurrentContext {
             }
 
         };
+    }
+
+    /**
+     * Set the context parameters in the parameter service.
+     *
+     * @param contextParameters The parameters to set.
+     */
+    private void setContextParmetersInParameterService(final ContextParameters contextParameters) {
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+    }
+
+    /**
+     * Clear the context parameters in the parameter service.
+     *
+     * @param contextParameters The parameters to set.
+     */
+    private void clearContextParmetersInParameterService(final ContextParameters contextParameters) {
+        ParameterService.deregister(contextParameters.getPersistorParameters());
+        ParameterService.deregister(contextParameters.getLockManagerParameters());
+        ParameterService.deregister(contextParameters.getDistributorParameters());
+        ParameterService.deregister(contextParameters);
+
     }
 }

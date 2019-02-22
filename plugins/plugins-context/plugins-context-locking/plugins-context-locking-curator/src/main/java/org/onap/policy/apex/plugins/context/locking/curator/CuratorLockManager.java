@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -32,6 +33,8 @@ import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.locking.AbstractLockManager;
+import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
@@ -75,11 +78,19 @@ public class CuratorLockManager extends AbstractLockManager {
         super.init(key);
 
         // Get the lock manager parameters
-        final CuratorLockManagerParameters lockParameters = ParameterService
-                        .get(CuratorLockManagerParameters.class.getSimpleName());
+        final LockManagerParameters lockParameters = ParameterService.get(ContextParameterConstants.LOCKING_GROUP_NAME);
+
+        if (!(lockParameters instanceof CuratorLockManagerParameters)) {
+            String message = "could not set up Curator locking, "
+                    + "curator lock manager parameters are not set";
+            LOGGER.warn(message);
+            throw new ContextException(message);
+        }
+
+        final CuratorLockManagerParameters curatorLockPars = (CuratorLockManagerParameters)lockParameters;
 
         // Check if the curator address has been set
-        curatorZookeeperAddress = lockParameters.getZookeeperAddress();
+        curatorZookeeperAddress = curatorLockPars.getZookeeperAddress();
         if (curatorZookeeperAddress == null || curatorZookeeperAddress.trim().length() == 0) {
             String message = "could not set up Curator locking, "
                             + "check if the curator Zookeeper address parameter is set correctly";
@@ -89,8 +100,8 @@ public class CuratorLockManager extends AbstractLockManager {
 
         // Set up the curator framework we'll use
         curatorFramework = CuratorFrameworkFactory.builder().connectString(curatorZookeeperAddress)
-                        .retryPolicy(new ExponentialBackoffRetry(lockParameters.getZookeeperConnectSleepTime(),
-                                        lockParameters.getZookeeperContextRetries()))
+                        .retryPolicy(new ExponentialBackoffRetry(curatorLockPars.getZookeeperConnectSleepTime(),
+                                        curatorLockPars.getZookeeperContextRetries()))
                         .build();
 
         // Listen for changes on the Curator connection
@@ -102,8 +113,8 @@ public class CuratorLockManager extends AbstractLockManager {
         // Wait for the connection to be made
         try {
             curatorFramework.blockUntilConnected(
-                            lockParameters.getZookeeperConnectSleepTime() * lockParameters.getZookeeperContextRetries(),
-                            TimeUnit.MILLISECONDS);
+                    curatorLockPars.getZookeeperConnectSleepTime() * curatorLockPars.getZookeeperContextRetries(),
+                    TimeUnit.MILLISECONDS);
         } catch (final InterruptedException e) {
             // restore the interrupt status
             Thread.currentThread().interrupt();
@@ -123,7 +134,7 @@ public class CuratorLockManager extends AbstractLockManager {
         // We'll use Ephemeral nodes for locks on the Zookeeper server
         curatorFramework.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL);
 
-        LOGGER.exit("init(" + key + "," + lockParameters + ")");
+        LOGGER.exit("init(" + key + "," + curatorLockPars + ")");
     }
 
     /*
