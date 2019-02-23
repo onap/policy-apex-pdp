@@ -23,6 +23,7 @@ package org.onap.policy.apex.plugins.event.carrier.kafka;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -39,6 +40,11 @@ public class ApexKafkaConsumerTest {
     ApexEventReceiver incomingEventReceiver = null;
     ApexEventProducer apexKafkaProducer = null;
 
+    /**
+     * Set up testing.
+     *
+     * @throws ApexEventException on test set up errors.
+     */
     @Before
     public void setUp() throws ApexEventException {
         apexKafkaConsumer = new ApexKafkaConsumer();

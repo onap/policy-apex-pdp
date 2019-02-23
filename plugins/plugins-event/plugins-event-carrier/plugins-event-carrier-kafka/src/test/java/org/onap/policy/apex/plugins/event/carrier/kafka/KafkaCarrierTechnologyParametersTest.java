@@ -21,6 +21,7 @@
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
 import static org.junit.Assert.assertNotNull;
+
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +34,11 @@ public class KafkaCarrierTechnologyParametersTest {
     Properties kafkaConsumerProperties = null;
     GroupValidationResult result = null;
 
+    /**
+     * Set up testing.
+     *
+     * @throws Exception on setup errors
+     */
     @Before
     public void setUp() throws Exception {
         kafkaCarrierTechnologyParameters = new KafkaCarrierTechnologyParameters();

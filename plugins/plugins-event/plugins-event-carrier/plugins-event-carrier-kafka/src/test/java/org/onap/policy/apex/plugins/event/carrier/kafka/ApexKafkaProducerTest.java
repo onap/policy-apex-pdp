@@ -23,6 +23,7 @@ package org.onap.policy.apex.plugins.event.carrier.kafka;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -39,6 +40,9 @@ public class ApexKafkaProducerTest {
     SynchronousEventCache synchronousEventCache = null;
     private static final long DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT = 1000;
 
+    /**
+     * Set up testing.
+     */
     @Before
     public void setUp() throws Exception {
         apexKafkaProducer = new ApexKafkaProducer();
