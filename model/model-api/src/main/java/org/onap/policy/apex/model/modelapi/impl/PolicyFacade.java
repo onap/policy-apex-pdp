@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -1010,90 +1010,89 @@ public class PolicyFacade {
         }
     }
 
-  /**
-   * Create a policy state task reference.
-   *
-   * @param CreatePolicyStateTaskRefBuilder
-   
-   * @return result of the operation
-   */
-  public ApexApiResult createPolicyStateTaskRef(CreatePolicyStateTaskRefBuilder builder) {
-    try {
-      Assertions.argumentNotNull(builder.getStateName(), STATE_NAME_MAY_NOT_BE_NULL);
-      Assertions.argumentNotNull(builder.getOutputName(), "outputName may not be null");
+    /**
+     * Create a policy state task reference.
+     *
+     * @param builder builder for the state task reference
+     * @return result of the operation
+     */
+    public ApexApiResult createPolicyStateTaskRef(CreatePolicyStateTaskRefBuilder builder) {
+        try {
+            Assertions.argumentNotNull(builder.getStateName(), STATE_NAME_MAY_NOT_BE_NULL);
+            Assertions.argumentNotNull(builder.getOutputName(), "outputName may not be null");
 
-      final AxPolicy policy =
-          apexModel.getPolicyModel().getPolicies().get(builder.getName(), builder.getVersion());
-      if (policy == null) {
-        return new ApexApiResult(
-            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-            CONCEPT + builder.getName() + ':' + builder.getVersion() + DOES_NOT_EXIST);
-      }
+            final AxPolicy policy =
+                    apexModel.getPolicyModel().getPolicies().get(builder.getName(), builder.getVersion());
+            if (policy == null) {
+                return new ApexApiResult(
+                        ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+                        CONCEPT + builder.getName() + ':' + builder.getVersion() + DOES_NOT_EXIST);
+            }
 
-      final AxState state = policy.getStateMap().get(builder.getStateName());
-      if (state == null) {
-        return new ApexApiResult(
-            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-            CONCEPT + policy.getKey().getId() + ':' + builder.getStateName() + DOES_NOT_EXIST);
-      }
+            final AxState state = policy.getStateMap().get(builder.getStateName());
+            if (state == null) {
+                return new ApexApiResult(
+                        ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+                        CONCEPT + policy.getKey().getId() + ':' + builder.getStateName() + DOES_NOT_EXIST);
+            }
 
-      final AxTask task =
-          apexModel
-              .getPolicyModel()
-              .getTasks()
-              .get(builder.getTaskName(), builder.getTaskVersion());
-      if (task == null) {
-        return new ApexApiResult(
-            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-            CONCEPT + builder.getTaskName() + ':' + builder.getTaskVersion() + DOES_NOT_EXIST);
-      }
+            final AxTask task =
+                    apexModel
+                    .getPolicyModel()
+                    .getTasks()
+                    .get(builder.getTaskName(), builder.getTaskVersion());
+            if (task == null) {
+                return new ApexApiResult(
+                        ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+                        CONCEPT + builder.getTaskName() + ':' + builder.getTaskVersion() + DOES_NOT_EXIST);
+            }
 
-      if (state.getTaskReferences().containsKey(task.getKey())) {
-        return new ApexApiResult(
-            ApexApiResult.Result.CONCEPT_EXISTS,
-            "task "
-                + task.getKey().getId()
-                + " already has reference with output "
-                + state.getTaskReferences().get(task.getKey()));
-      }
+            if (state.getTaskReferences().containsKey(task.getKey())) {
+                return new ApexApiResult(
+                        ApexApiResult.Result.CONCEPT_EXISTS,
+                        "task "
+                                + task.getKey().getId()
+                                + " already has reference with output "
+                                + state.getTaskReferences().get(task.getKey()));
+            }
 
-      AxReferenceKey refKey;
-      if (builder.getTaskLocalName() == null) {
-        refKey = new AxReferenceKey(state.getKey(), state.getKey().getParentKeyName());
-      } else {
-        refKey = new AxReferenceKey(state.getKey(), builder.getTaskLocalName());
-      }
+            AxReferenceKey refKey;
+            if (builder.getTaskLocalName() == null) {
+                refKey = new AxReferenceKey(state.getKey(), state.getKey().getParentKeyName());
+            } else {
+                refKey = new AxReferenceKey(state.getKey(), builder.getTaskLocalName());
+            }
 
-      // The reference to the output we're using here
-      final AxReferenceKey outputRefKey =
-          new AxReferenceKey(state.getKey(), builder.getOutputName());
+            // The reference to the output we're using here
+            final AxReferenceKey outputRefKey =
+                    new AxReferenceKey(state.getKey(), builder.getOutputName());
 
-      final AxStateTaskOutputType stateTaskOutputType =
-          AxStateTaskOutputType.valueOf(builder.getOutputType());
-      if (stateTaskOutputType.equals(AxStateTaskOutputType.DIRECT)) {
-        if (!state.getStateOutputs().containsKey(outputRefKey.getLocalName())) {
-          return new ApexApiResult(
-              ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-              "state output concept " + outputRefKey.getId() + DOES_NOT_EXIST);
+            final AxStateTaskOutputType stateTaskOutputType =
+                    AxStateTaskOutputType.valueOf(builder.getOutputType());
+            if (stateTaskOutputType.equals(AxStateTaskOutputType.DIRECT)) {
+                if (!state.getStateOutputs().containsKey(outputRefKey.getLocalName())) {
+                    return new ApexApiResult(
+                            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+                            "state output concept " + outputRefKey.getId() + DOES_NOT_EXIST);
+                }
+            } else if (stateTaskOutputType.equals(AxStateTaskOutputType.LOGIC)) {
+                if (!state.getStateFinalizerLogicMap().containsKey(outputRefKey.getLocalName())) {
+                    return new ApexApiResult(
+                            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+                            "state finalizer logic concept " + outputRefKey.getId() + DOES_NOT_EXIST);
+                }
+            } else {
+                return new ApexApiResult(
+                        ApexApiResult.Result.FAILED, "output type " + builder.getOutputType() + " invalid");
+            }
+
+            state
+                .getTaskReferences()
+                .put(task.getKey(), new AxStateTaskReference(refKey, stateTaskOutputType, outputRefKey));
+            return new ApexApiResult();
+        } catch (final Exception e) {
+            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
-      } else if (stateTaskOutputType.equals(AxStateTaskOutputType.LOGIC)) {
-        if (!state.getStateFinalizerLogicMap().containsKey(outputRefKey.getLocalName())) {
-          return new ApexApiResult(
-              ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-              "state finalizer logic concept " + outputRefKey.getId() + DOES_NOT_EXIST);
-        }
-      } else {
-        return new ApexApiResult(
-            ApexApiResult.Result.FAILED, "output type " + builder.getOutputType() + " invalid");
-      }
-
-      state
-          .getTaskReferences()
-          .put(task.getKey(), new AxStateTaskReference(refKey, stateTaskOutputType, outputRefKey));
-      return new ApexApiResult();
-    } catch (final Exception e) {
-      return new ApexApiResult(ApexApiResult.Result.FAILED, e);
-    }
     }
 
     /**
@@ -1333,7 +1332,7 @@ public class PolicyFacade {
             final Set<AxArtifactKey> deleteSet = new TreeSet<>();
 
             for (final AxArtifactKey albumKey : state.getContextAlbumReferences()) {
-                
+
                 if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
                         || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
 
