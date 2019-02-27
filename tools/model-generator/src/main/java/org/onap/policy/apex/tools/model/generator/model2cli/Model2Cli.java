@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +35,7 @@ import org.apache.commons.lang3.Validate;
 import org.onap.policy.apex.auth.clicodegen.CodeGenCliEditorBuilder;
 import org.onap.policy.apex.auth.clicodegen.CodeGeneratorCliEditor;
 import org.onap.policy.apex.auth.clicodegen.EventDeclarationBuilder;
+import org.onap.policy.apex.auth.clicodegen.TaskDeclarationBuilder;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -168,8 +170,10 @@ public class Model2Cli {
             final List<ST> parameters = getParametersForTask(codeGen, t);
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
-            codeGen.addTaskDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                    infields, outfields, logic, parameters, contextRefs);
+            codeGen.addTaskDeclaration(new TaskDeclarationBuilder().setName(kig.getName(key))
+                    .setVersion(kig.getVersion(key)).setUuid(kig.getUuid(key))
+                    .setDescription(kig.getDesc(key)).setInfields(infields).setOutfields(outfields)
+                    .setLogic(logic).setParameters(parameters).setContextRefs(contextRefs));
         }
 
         // 3: events
