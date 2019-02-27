@@ -44,8 +44,8 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JythonTaskSelectExecutor.class);
 
     // Recurring string constants
-    private static final String TSL_FAILED_PREFIX = 
-                    "execute: task selection logic failed to set a return value for state  \"";
+    private static final String TSL_FAILED_PREFIX =
+            "execute: task selection logic failed to set a return value for state  \"";
 
     // The Jython interpreter
     private final PythonInterpreter interpreter = new PythonInterpreter();
@@ -117,40 +117,26 @@ public class JythonTaskSelectExecutor extends TaskSelectExecutor {
         executePost(returnValue);
 
         // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
+
     }
 
     /**
      * Handle the result returned by the interpreter.
-     * 
+     *
      * @return true if the result was successful
      * @throws StateMachineException on interpreter errors
      */
     private boolean handleInterpreterResult() throws StateMachineException {
         boolean returnValue = false;
-        
-        try {
-            final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
-            if (ret == null) {
-                LOGGER.error(TSL_FAILED_PREFIX
-                        + getSubject().getKey().getId() + "\"");
-                throw new StateMachineException(
-                        TSL_FAILED_PREFIX
-                                + getSubject().getKey().getId() + "\"");
-            }
-            returnValue = (Boolean) ret;
-        } catch (NullPointerException | ClassCastException e) {
-            LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                    + getSubject().getKey().getId() + "\"", e);
-            throw new StateMachineException(
-                    TSL_FAILED_PREFIX
-                            + getSubject().getKey().getId() + "\"",
-                    e);
+
+        final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
+        if (ret == null) {
+            LOGGER.error(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
+            throw new StateMachineException(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
         }
+        returnValue = (Boolean) ret;
+
         return returnValue;
     }
 
