@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fca9766_383f11f8",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonStateFinalizerExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:38:20Z",
+      "side": 1,
+      "message": "Yes, this is cleaner. I wondered about this check but when I examine the code it\u0027s fine to return the selected outgoing event because in all error situations an exception would already have been thrown. Nice improvement.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93d9559d_68ab7ece",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:38:20Z",
+      "side": 1,
+      "message": "We don\u0027t need returnValue any more, you can eliminate it and just return (Boolean) ret.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 36
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8074fcd1_4d67f8cf",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskSelectExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:38:20Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 36
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6ed39c9_a9cf30ca",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/test/java/org/onap/policy/apex/plugins/executor/jython/JythonStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:38:20Z",
+      "side": 1,
+      "message": "line \u003e 120 characters and there are a few more in this class. Also some trailing blanks, you can get rid of them by using the instructions at the bottom of this page:\nhttps://wiki.onap.org/display/DW/Policy+Developer+Environment%3A+Setting+up+Eclipse",
+      "range": {
+        "startLine": 127,
+        "startChar": 31,
+        "endLine": 127,
+        "endChar": 38
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e96b4d30_c12fe403",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/test/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskSelectExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:38:20Z",
+      "side": 1,
+      "message": "A few empty lines here.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
