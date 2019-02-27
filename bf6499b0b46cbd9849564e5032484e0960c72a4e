@@ -45,6 +45,30 @@
       "revId": "bf6499b0b46cbd9849564e5032484e0960c72a4e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93fc8206_fe00a5b2",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-02-27T15:03:03Z",
+      "side": 1,
+      "message": "Right, also the java version may be dependent in the version of alpine (not sure) and there are other user stories to upgrade JDK.",
+      "parentUuid": "60a9df19_98998072",
+      "range": {
+        "startLine": 4,
+        "startChar": 5,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "bf6499b0b46cbd9849564e5032484e0960c72a4e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
