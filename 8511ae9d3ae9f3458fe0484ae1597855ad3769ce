@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdbf6015_780e6681",
+        "filename": "plugins/plugins-executor/plugins-executor-mvel/src/main/java/org/onap/policy/apex/plugins/executor/mvel/MvelStateFinalizerExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:40:55Z",
+      "side": 1,
+      "message": "I saw this change in Ning Xi\u0027s review as well. Would ye mind propagating it through all the executor plugins please?",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 29
+      },
+      "revId": "8511ae9d3ae9f3458fe0484ae1597855ad3769ce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65aa5101_d4749ddb",
+        "filename": "plugins/plugins-executor/plugins-executor-mvel/src/test/java/org/onap/policy/apex/plugins/executor/mvel/MvelStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-27T09:40:55Z",
+      "side": 1,
+      "message": "\u003e 120 characters.",
+      "range": {
+        "startLine": 148,
+        "startChar": 28,
+        "endLine": 148,
+        "endChar": 29
+      },
+      "revId": "8511ae9d3ae9f3458fe0484ae1597855ad3769ce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
