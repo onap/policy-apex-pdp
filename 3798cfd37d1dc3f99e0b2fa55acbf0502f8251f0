@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4350bce9_0efab4d8",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-02-27T12:03:46Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 107
+      },
+      "revId": "3798cfd37d1dc3f99e0b2fa55acbf0502f8251f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35b4000a_12693f60",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-02-27T12:03:46Z",
+      "side": 1,
+      "message": "No use of assert*, so not really a test. Is there something to check to ensure the start did happen correctly?\nI understand you are trying to raise code coverage, but the JUnits should that things executed correctly. If this is a case where that is difficult to determine, then Liam your call if this goes through.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "3798cfd37d1dc3f99e0b2fa55acbf0502f8251f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c99a508_e7db3323",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-02-27T12:03:46Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 63
+      },
+      "revId": "3798cfd37d1dc3f99e0b2fa55acbf0502f8251f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9657e0ab_c8d5fd6a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-02-27T12:03:46Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 37
+      },
+      "revId": "3798cfd37d1dc3f99e0b2fa55acbf0502f8251f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
