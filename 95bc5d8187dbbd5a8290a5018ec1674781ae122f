@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d3a765e_283901fe",
+        "filename": "plugins/plugins-executor/plugins-executor-mvel/src/test/java/org/onap/policy/apex/plugins/executor/mvel/MvelStateFinalizerExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-02-27T12:09:53Z",
+      "side": 1,
+      "message": "Could this be in a finally statement?",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 26
+      },
+      "revId": "95bc5d8187dbbd5a8290a5018ec1674781ae122f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
