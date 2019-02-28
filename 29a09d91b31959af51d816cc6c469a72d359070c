@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b019dfb5_c58161b7",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-28T08:57:07Z",
+      "side": 1,
+      "message": "Picking up on Pam\u0027s comments, she is correct. In order to test this class properly, we should mock the ApexEventReceiver, then call the receiveString() method and check in the mock that what we received is the same as what we sent in.\n\nhave a look in the REST client tests for examples on how to use Mockito for mocking.",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 38
+      },
+      "revId": "29a09d91b31959af51d816cc6c469a72d359070c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c75ff2a_a9d540d5",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketProducerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-02-28T08:57:07Z",
+      "side": 1,
+      "message": "The same applies to this test.",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "29a09d91b31959af51d816cc6c469a72d359070c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
