@@ -21,7 +21,7 @@
 package org.onap.policy.apex.model.basicmodel.dao;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

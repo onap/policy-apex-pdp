@@ -28,7 +28,7 @@ import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -170,7 +170,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             throw new ContextRuntimeException(returnString);
         }
     }
-    
+
     /* (non-Javadoc)
      * @see org.onap.policy.apex.context.SchemaHelper#createNewSubInstance(java.lang.String)
      */

@@ -38,8 +38,8 @@ import org.onap.policy.apex.core.engine.executor.exception.StateMachineRuntimeEx
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
-import org.onap.policy.apex.model.utilities.Assertions;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

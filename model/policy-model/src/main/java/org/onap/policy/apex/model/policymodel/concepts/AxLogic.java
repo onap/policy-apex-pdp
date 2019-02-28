@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -44,7 +44,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class holds Logic for executing a task or task selection on an Apex policy state. The flavour of the logic
@@ -54,7 +54,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * executes it. In the Apex engine, executors are deployed as plugins. Apex also provides the executor with run-time
  * context, which makes context such as input fields, output fields, and context albums available to the task at
  * runtime.
- * 
+ *
  * <p>Validation checks that the logic key is valid, that the logic flavour is defined and is valid when checked against
  * the {@code LOGIC_FLAVOUR_REGEXP} regular expression, and that the specified logic string is not null or blank.
  */
@@ -113,7 +113,7 @@ public class AxLogic extends AxConcept {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxLogic(final AxLogic copyConcept) {

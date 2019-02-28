@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -48,14 +48,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is a policy container and holds a map of the policies for an entire Apex model. All Apex models that use
  * policies must have an {@link AxPolicies} field. The {@link AxPolicies} class implements the helper methods of the
  * {@link AxConceptGetter} interface to allow {@link AxPolicy} instances to be retrieved by calling methods directly on
  * this class without referencing the contained map.
- * 
+ *
  * <p>Validation checks that the container key is not null. An error is issued if no policies are defined in the
  * container. Each policy entry is checked to ensure that its key and value are not null and that the key matches the
  * key in the map value. Each policy entry is then validated individually.
@@ -105,7 +105,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxPolicies(final AxPolicies copyConcept) {
@@ -146,7 +146,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
      */
     @Override
@@ -156,7 +156,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
      */
     @Override
@@ -202,7 +202,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
      * basicmodel.concepts.AxValidationResult)
      */
@@ -250,7 +250,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
      */
     @Override
@@ -264,7 +264,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
      */
     @Override
@@ -307,7 +307,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
      */
     @Override
@@ -321,7 +321,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
      */
     @Override
@@ -346,7 +346,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override

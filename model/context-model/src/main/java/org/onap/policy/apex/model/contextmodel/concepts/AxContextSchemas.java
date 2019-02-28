@@ -48,14 +48,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is a context schema container and holds a map of the context schemas for an entire Apex model. All Apex
  * models that use context schemas must have an {@link AxContextSchemas} field. The {@link AxContextSchemas} class
  * implements the helper methods of the {@link AxConceptGetter} interface to allow {@link AxContextSchema} instances to
  * be retrieved by calling methods directly on this class without referencing the contained map.
- * 
+ *
  * <p>Validation checks that the container key is not null. An error is issued if no context schemas are defined in the
  * container. Each context schema entry is checked to ensure that its key and value are not null and that the key
  * matches the key in the map value. Each context schema entry is then validated individually.

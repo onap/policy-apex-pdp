@@ -43,14 +43,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * The Class AxKeyInformation holds a map of the key information for the entire Apex model. All Apex models
  * {@link AxModel} must have an {@link AxKeyInformation} field. The {@link AxKeyInformation} class implements the helper
  * methods of the {@link AxConceptGetter} interface to allow {@link AxKeyInfo} instances to be retrieved by calling
  * methods directly on this class without referencing the contained map.
- * 
+ *
  * <p>Validation checks that the key is not null, that the key information map is not empty, that each key and value in
  * the map is defined, that the key in each map entry matches the key if each entry value, and that no duplicate UUIDs
  * exist. Each key information entry is then validated individually.

@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -48,7 +48,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -57,7 +57,7 @@ import org.slf4j.ext.XLoggerFactory;
  * {@link AxState} instance. The states of a policy are held in a map in the policy. The state tree is built up at
  * policy design time by a policy editor and each state is connected to its next state by an {@link AxStateOutput}
  * instance.
- * 
+ *
  * <p>Execution of a policy is triggered by an event. A policy starts execution from its first state so the trigger
  * event for the first sate is the trigger event for the entire policy. Execution from that first state can continue to
  * one or more subsequent states and so on down branches of states. The state output of the final state in a branch has
@@ -65,10 +65,10 @@ import org.slf4j.ext.XLoggerFactory;
  * in the policy are the possible set of output events on the policy. A state may only be used once in the state tree of
  * a policy and recursive execution of states in the same execution branch is not allowed, so the same state may not
  * execute more than once on a single execution of a policy.
- * 
+ *
  * <p>The template of a policy is a string that can be used by policy editors to store meta information on the policy
  * that can be used at design time. The policy template string is not used during policy execution.
- * 
+ *
  * <p>During validation of a policy, the validation checks listed below are executed: <ol> <li>The policy key must not
  * be a null key <li>The policy key must be valid <li>If the policy template is not set, an observation is issued <li>At
  * least one state must be defined <li>Keys and values must all be defined, that is not null <li>The key on each entry
@@ -122,7 +122,7 @@ public class AxPolicy extends AxConcept {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxPolicy(final AxPolicy copyConcept) {
@@ -316,7 +316,7 @@ public class AxPolicy extends AxConcept {
 
     /**
      * Validate a state entry.
-     * 
+     *
      * @param stateEntry the state entry to validate
      * @param result The validation result to append to
      * @return The result of the validation
@@ -363,7 +363,7 @@ public class AxPolicy extends AxConcept {
 
     /**
      * Validate a state tree to ensure there are no circular references in it.
-     * 
+     *
      * @param result The validation result to append to
      * @return The result of the validation
      */

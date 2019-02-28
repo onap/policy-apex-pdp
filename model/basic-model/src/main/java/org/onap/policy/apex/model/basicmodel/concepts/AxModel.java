@@ -41,12 +41,12 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is the base class for all models in Apex. All model classes inherit from this model so all models must
  * have a key and have key information.
- * 
+ *
  * <p>Validation checks that the model key is valid. It goes on to check for null keys and checks each key for
  * uniqueness in the model. A check is carried out to ensure that an {@link AxKeyInfo} instance exists for every
  * {@link AxArtifactKey} key. For each {@link AxReferenceKey} instance, a check is made that its parent and local name

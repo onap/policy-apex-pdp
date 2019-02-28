@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.plugins.executor.mvel;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentNotNull;
+import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
 import java.io.Serializable;
 import java.util.HashMap;

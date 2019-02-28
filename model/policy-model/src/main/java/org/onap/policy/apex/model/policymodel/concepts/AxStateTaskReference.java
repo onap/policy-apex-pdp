@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -44,7 +44,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class defines the type of output handling that will be used when a task in a state completes
@@ -59,7 +59,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * case of {@link AxStateTaskOutputType#LOGIC} output selection, the output reference key held in
  * this {@link AxStateTaskReference} instance to an instance of an {@link AxStateFinalizerLogic}
  * class. See the explanation in the {@link AxState} class for a full description of this handling.
- * 
+ *
  * <p>During validation of a state task reference, the validation checks listed below are executed:
  * <ol>
  * <li>The state task reference key must not be a null key and must be valid, see validation in
@@ -111,7 +111,7 @@ public class AxStateTaskReference extends AxConcept {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxStateTaskReference(final AxStateTaskReference copyConcept) {
