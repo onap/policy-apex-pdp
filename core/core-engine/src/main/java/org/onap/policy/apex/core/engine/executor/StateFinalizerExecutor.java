@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentOfClassNotNull;
+import static org.onap.policy.common.utils.validation.Assertions.argumentOfClassNotNull;
 
 import java.util.Map;
 

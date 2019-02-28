@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -46,7 +46,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * A container class for an Apex engine model. This class is a container class that allows an Apex
@@ -55,7 +55,7 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * is used by an Apex engine to pass its current execution state to any system that wishes to query
  * that information. The time stamp of the engine model is the time at which the state and
  * statistics of the engine were read.
- * 
+ *
  * <p>Validation checks that the current state {@link AxEngineState} is defined and that the time stamp
  * is set on the engine model.
  */
@@ -101,7 +101,7 @@ public class AxEngineModel extends AxContextModel {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxEngineModel(final AxEngineModel copyConcept) {
