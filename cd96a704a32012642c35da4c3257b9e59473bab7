@@ -22,6 +22,30 @@
       "revId": "cd96a704a32012642c35da4c3257b9e59473bab7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "406041cc_563b651b",
+        "filename": "plugins/plugins-executor/plugins-executor-jruby/src/test/java/org/onap/policy/apex/plugins/executor/jruby/JrubyStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5257
+      },
+      "writtenOn": "2019-02-28T02:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b2fead7_0f13a08f",
+      "range": {
+        "startLine": 119,
+        "startChar": 35,
+        "endLine": 119,
+        "endChar": 40
+      },
+      "revId": "cd96a704a32012642c35da4c3257b9e59473bab7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
