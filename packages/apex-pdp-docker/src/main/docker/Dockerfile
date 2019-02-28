@@ -1,19 +1,13 @@
 #
-# Docker file to build an image that runs APEX on Java 8 in Ubuntu
+# Docker file to build an image that runs APEX on Java 8 in alpine
 #
-FROM ubuntu:16.04
+FROM alpine:3.9
 
-RUN apt-get update && \
-        apt-get upgrade -y && \
-        apt-get install -y zip unzip curl wget ssh iproute2 iputils-ping vim && \
-        apt-get install -y software-properties-common && \
-        add-apt-repository ppa:openjdk-r/ppa -y && \
-        apt-get update && \
-        apt-get install -y openjdk-8-jdk
+RUN apk add --no-cache --update bash zip unzip curl wget openssh iproute2 iputils vim openjdk8
 
 # Create apex user and group
-RUN groupadd apexuser
-RUN useradd --create-home -g apexuser apexuser
+RUN addgroup -S apexuser && adduser -S apexuser -G apexuser
+
 
 # Add Apex-specific directories and set ownership as the Apex admin user
 RUN mkdir -p /opt/app/policy/apex-pdp
@@ -33,8 +27,6 @@ RUN chmod a+x /opt/app/policy/apex-pdp/bin/*
 
 # Copy examples to Apex user area
 RUN cp -pr /opt/app/policy/apex-pdp/examples /home/apexuser
- 
-RUN apt-get clean
 
 RUN chown -R apexuser:apexuser /home/apexuser/*
 
