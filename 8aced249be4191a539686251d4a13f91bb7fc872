@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f23a7bbb_849e6cf1",
+        "filename": "plugins/plugins-executor/plugins-executor-mvel/src/test/java/org/onap/policy/apex/plugins/executor/mvel/MvelStateFinalizerExecutorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-02-28T02:34:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef8701c9_b46360f2",
+      "range": {
+        "startLine": 162,
+        "startChar": 12,
+        "endLine": 162,
+        "endChar": 44
+      },
+      "revId": "8aced249be4191a539686251d4a13f91bb7fc872",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd1f22a8_3b6cfe50",
         "filename": "plugins/plugins-executor/plugins-executor-mvel/src/test/java/org/onap/policy/apex/plugins/executor/mvel/MvelStateFinalizerExecutorTest.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-27T15:19:25Z",
       "side": 1,
       "message": "Same comment",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 36
+      },
+      "revId": "8aced249be4191a539686251d4a13f91bb7fc872",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f83c3a5c_f2d3810b",
+        "filename": "plugins/plugins-executor/plugins-executor-mvel/src/test/java/org/onap/policy/apex/plugins/executor/mvel/MvelStateFinalizerExecutorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-02-28T02:34:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd1f22a8_3b6cfe50",
       "range": {
         "startLine": 168,
         "startChar": 16,
