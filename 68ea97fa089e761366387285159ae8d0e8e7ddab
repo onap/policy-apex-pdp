@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3df53da9_671db549",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonStateFinalizerExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-02-28T03:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fca9766_383f11f8",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93d9559d_68ab7ece",
         "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskExecutor.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-27T09:38:20Z",
       "side": 1,
       "message": "We don\u0027t need returnValue any more, you can eliminate it and just return (Boolean) ret.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 36
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7082ba7_bd903998",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-02-28T03:03:05Z",
+      "side": 1,
+      "message": "OK,I will fix it.",
+      "parentUuid": "93d9559d_68ab7ece",
       "range": {
         "startLine": 126,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "530a4149_2e133a06",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/main/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskSelectExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-02-28T03:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8074fcd1_4d67f8cf",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 36
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6ed39c9_a9cf30ca",
         "filename": "plugins/plugins-executor/plugins-executor-jython/src/test/java/org/onap/policy/apex/plugins/executor/jython/JythonStateFinalizerExecutorTest.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d4c0e1e4_5bd488cd",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/test/java/org/onap/policy/apex/plugins/executor/jython/JythonStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-02-28T03:03:05Z",
+      "side": 1,
+      "message": "Thanks for your reply, I will fix it.",
+      "parentUuid": "d6ed39c9_a9cf30ca",
+      "range": {
+        "startLine": 127,
+        "startChar": 31,
+        "endLine": 127,
+        "endChar": 38
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e96b4d30_c12fe403",
         "filename": "plugins/plugins-executor/plugins-executor-jython/src/test/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskSelectExecutorTest.java",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-27T09:38:20Z",
       "side": 1,
       "message": "A few empty lines here.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "68ea97fa089e761366387285159ae8d0e8e7ddab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4afaaaca_739a9ba7",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/src/test/java/org/onap/policy/apex/plugins/executor/jython/JythonTaskSelectExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-02-28T03:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96b4d30_c12fe403",
       "range": {
         "startLine": 128,
         "startChar": 0,
