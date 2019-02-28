@@ -42,13 +42,13 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * A container class for an Apex event model. This class is a container class that allows an Apex model to be
  * constructed that contains events and context and the key information for those events and context. The model contains
  * schema definitions and the definitions of events that use those schemas.
- * 
+ *
  * <p>Validation runs {@link AxModel} validation on the model. In addition, the {@link AxContextSchemas} and
  * {@link AxEvents} validation is run on the context schemas and events in the model.
  */

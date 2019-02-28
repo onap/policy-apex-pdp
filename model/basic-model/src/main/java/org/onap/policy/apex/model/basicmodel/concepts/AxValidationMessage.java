@@ -21,7 +21,7 @@
 package org.onap.policy.apex.model.basicmodel.concepts;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * A validation message is created for each validation observation observed during validation of a concept. The message

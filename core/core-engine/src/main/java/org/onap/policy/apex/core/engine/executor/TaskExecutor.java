@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentOfClassNotNull;
+import static org.onap.policy.common.utils.validation.Assertions.argumentOfClassNotNull;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -222,7 +222,7 @@ public abstract class TaskExecutor
 
     /**
      * If the input field exists on the output and it is not set in the task, then it should be copied to the output.
-     * 
+     *
      * @param field the input field
      */
     private void copyInputField2Output(String field) {

@@ -24,7 +24,7 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * Implements concept getting from navigable maps.

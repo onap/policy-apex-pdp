@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.core.engine.engine.impl;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentNotNull;
+import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -213,7 +213,7 @@ public class ApexEngineImpl implements ApexEngine {
         for (int increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT;
                         increment > 0; increment -= ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT) {
             ThreadUtilities.sleep(ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT);
-            
+
             synchronized (state) {
                 switch (state) {
                     // Engine is OK to stop or has been stopped on return of an event
@@ -245,7 +245,7 @@ public class ApexEngineImpl implements ApexEngine {
         synchronized (state) {
             state = AxEngineState.STOPPED;
         }
-        
+
         throw new ApexException(STOP + key.getId() + "," + state + ", error stopping engine, engine stop timed out");
     }
 

@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
-import static org.onap.policy.apex.model.utilities.Assertions.argumentNotNull;
+import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;

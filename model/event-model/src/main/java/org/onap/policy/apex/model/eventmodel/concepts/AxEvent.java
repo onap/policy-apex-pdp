@@ -47,24 +47,24 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class defines an Apex event. An {@link AxEvent} is used to kick off execution of policies in Apex and is emitted
  * by policies when they completer execution. In addition, Apex uses {@link AxEvent} instances internally to pass
  * control from one Apex state to the next during execution.
- * 
+ *
  * <p>The {@link AxArtifactKey} of an event uniquely identifies it in an Apex system and the name field in the key is
  * the name of the event.
- * 
+ *
  * <p>Each {@link AxEvent} has a name space, which is usually set to identify the domain of application of an event. For
  * example a 4G cell power event might have the name space {@code org.onap.radio.4g} and the name {@code PowerEvent}.
  * The source and target of the event are reserved to hold an identifier that defines the sender and receiver of an
  * event respectively. The definition and structure of these fields is reserved for future use and their use by
  * applications is currently not recommended.
- * 
+ *
  * <p>The parameters that an event has are defined as a map of {@link AxField} instances.
- * 
+ *
  * <p>Validation checks that the event key is valid. If name space is a blank string, a warning is issued. Blank source
  * or target fields result in observations being issued. An event may not have any parameters. If it has parameters, the
  * name and value of each parameter entry is checked to ensure they are not null. Then the local name of each parameter

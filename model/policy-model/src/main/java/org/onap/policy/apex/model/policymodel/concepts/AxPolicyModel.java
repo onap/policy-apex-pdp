@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -54,7 +54,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * A container class for an Apex policy model. This class is a container class that allows an Apex
@@ -62,18 +62,18 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * required to run policies in Apex. The model contains schema definitions, definitions of events
  * and context albums that use those schemas, definitions of tasks for policies and definitions of
  * the policies themselves.
- * 
+ *
  * <p>An Apex policy model is an important artifact in Apex. At editing time, an Apex editor creates
  * and edits a policy model and a policy model is loaded into and is executed by an Apex engine.
  * Therefore, an Apex model and the set of policies that it holds is the way that the policy domain
  * that an Apex engine or a group of Apex engines executes across is expressed, both at design time
  * and run time. The Apex deployment system is responsible for deploying Apex models to and the
  * context they need the appropriate engines for execution.
- * 
+ *
  * <p>Model registration is carried out by calling the {@code register()} method, which registers the
  * policy model and all its constituent containers with the model service. The containers for
  * context schemas, events, context albums, tasks, policies, and key information are all registered.
- * 
+ *
  * <p>Once a policy model is composed, the overall structure of the policy model and all its references
  * can be validated. During validation of a policy model, the validation checks listed below are
  * executed:
@@ -156,7 +156,7 @@ public class AxPolicyModel extends AxModel {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxPolicyModel(final AxPolicyModel copyConcept) {
@@ -421,7 +421,7 @@ public class AxPolicyModel extends AxModel {
 
     /**
      * Validate all fundamental concepts keyed in tasks exist.
-     * 
+     *
      * @param task The task to validate the keys of
      * @param result the validation result to return
      * @return the result
@@ -468,7 +468,7 @@ public class AxPolicyModel extends AxModel {
 
     /**
      * Validate that the references used on a state are valid.
-     * 
+     *
      * @param state The state to check
      * @param result the validation result to append to
      */
@@ -519,7 +519,7 @@ public class AxPolicyModel extends AxModel {
     /**
      * Validate that the fields on tasks and events that trigger them and are output by them are
      * compatible for all tasks used on a state.
-     * 
+     *
      * @param state The state to check
      * @param result the validation result to append to
      */
@@ -546,7 +546,7 @@ public class AxPolicyModel extends AxModel {
     /**
      * Validate that the fields on a task of a state output and the events that trigger it are
      * compatible.
-     * 
+     *
      * @param state The state to check
      * @param task The task to check
      * @param stateOutput The state output to check

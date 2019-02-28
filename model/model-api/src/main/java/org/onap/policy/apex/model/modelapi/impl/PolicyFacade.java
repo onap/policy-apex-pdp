@@ -43,7 +43,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class acts as a facade for operations towards a policy model for policy operations.

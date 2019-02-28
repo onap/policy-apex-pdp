@@ -33,11 +33,11 @@ import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
-import org.onap.policy.apex.model.utilities.Assertions;
 import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextLongItem;
 import org.onap.policy.apex.testsuites.integration.context.factory.TestContextAlbumFactory;
 import org.onap.policy.apex.testsuites.integration.context.lock.modifier.AlbumModifier;
 import org.onap.policy.apex.testsuites.integration.context.lock.modifier.LockType;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * The Class ConfigrationProviderImpl provides configuration information for a context test back to the caller.
