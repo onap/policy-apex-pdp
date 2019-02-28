@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.executor.jython;
 
 import java.util.Map;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -113,40 +112,26 @@ public class JythonTaskExecutor extends TaskExecutor {
         executePost(returnValue);
 
         // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
+
     }
 
     /**
      * Handle the result returned by the interpreter.
-     * 
+     *
      * @return true if the result was successful
      * @throws StateMachineException on interpreter failures
      */
     private boolean handleInterpreterResult() throws StateMachineException {
-        boolean returnValue = false;
-        
-        try {
-            final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
-            if (ret == null) {
-                LOGGER.error("execute: task logic failed to set a return value for task  \""
-                        + getSubject().getKey().getId() + "\"");
-                throw new StateMachineException("execute: task logic failed to set a return value for task  \""
-                        + getSubject().getKey().getId() + "\"");
-            }
-            returnValue = (Boolean) ret;
-        } catch (NullPointerException | ClassCastException e) {
-            LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                    + getSubject().getKey().getId() + "\"", e);
-            throw new StateMachineException(
-                    "execute: task selection logic failed to set a return value for state  \""
-                            + getSubject().getKey().getId() + "\"",
-                    e);
+        final Object ret = interpreter.get("returnValue", java.lang.Boolean.class);
+        if (ret == null) {
+            LOGGER.error("execute: task logic failed to set a return value for task  \"" + getSubject().getKey().getId()
+                    + "\"");
+            throw new StateMachineException("execute: task logic failed to set a return value for task  \""
+                    + getSubject().getKey().getId() + "\"");
         }
-        return returnValue;
+        return (Boolean) ret;
+
     }
 
     /**

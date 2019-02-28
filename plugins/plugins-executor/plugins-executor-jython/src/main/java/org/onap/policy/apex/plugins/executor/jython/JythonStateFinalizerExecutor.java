@@ -21,11 +21,11 @@
 package org.onap.policy.apex.plugins.executor.jython;
 
 import java.util.Map;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.python.core.CompileMode;
+import org.python.core.CompilerFlags;
 import org.python.core.Py;
 import org.python.core.PyCode;
 import org.python.core.PyException;
@@ -61,8 +61,9 @@ public class JythonStateFinalizerExecutor extends StateFinalizerExecutor {
         super.prepare();
         try {
             synchronized (Py.class) {
-                compiled = Py.compile_flags(getSubject().getLogic(), "<" + getSubject().getKey().toString() + ">",
-                        CompileMode.exec, null);
+                final String logic = getSubject().getLogic();
+                final String filename = "<" + getSubject().getKey().toString() + ">";
+                compiled = Py.compile_flags(logic, filename, CompileMode.exec, new CompilerFlags());
             }
         } catch (final PyException e) {
             LOGGER.warn("failed to compile Jython code for state finalizer " + getSubject().getKey(), e);
@@ -98,7 +99,7 @@ public class JythonStateFinalizerExecutor extends StateFinalizerExecutor {
                 // Set up the Jython engine
                 interpreter.set("executor", getExecutionContext());
                 interpreter.exec(compiled);
-                returnValue = (boolean) interpreter.get("returnValue", java.lang.Boolean.class);
+                returnValue = interpreter.get("returnValue", java.lang.Boolean.class);
             }
             /* */
         } catch (final Exception e) {
@@ -111,11 +112,7 @@ public class JythonStateFinalizerExecutor extends StateFinalizerExecutor {
         executePost(returnValue);
 
         // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**
