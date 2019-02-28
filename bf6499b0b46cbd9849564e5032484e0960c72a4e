@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99dfc85b_beff873a",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-02-28T08:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57224cba_ffc7e8ac",
+      "range": {
+        "startLine": 2,
+        "startChar": 57,
+        "endLine": 2,
+        "endChar": 66
+      },
+      "revId": "bf6499b0b46cbd9849564e5032484e0960c72a4e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60a9df19_98998072",
         "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
         "patchSetId": 1
@@ -60,6 +84,54 @@
       "side": 1,
       "message": "Right, also the java version may be dependent in the version of alpine (not sure) and there are other user stories to upgrade JDK.",
       "parentUuid": "60a9df19_98998072",
+      "range": {
+        "startLine": 4,
+        "startChar": 5,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "bf6499b0b46cbd9849564e5032484e0960c72a4e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "456c2674_3cd90467",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-02-28T08:06:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60a9df19_98998072",
+      "range": {
+        "startLine": 4,
+        "startChar": 5,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "bf6499b0b46cbd9849564e5032484e0960c72a4e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe868019_7fcd5b55",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-02-28T08:06:21Z",
+      "side": 1,
+      "message": "I checked, alpine 3.9 is compatiable with openjdk 8, 11.",
+      "parentUuid": "93fc8206_fe00a5b2",
       "range": {
         "startLine": 4,
         "startChar": 5,
