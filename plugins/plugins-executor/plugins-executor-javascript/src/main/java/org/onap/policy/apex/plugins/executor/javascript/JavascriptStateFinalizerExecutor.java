@@ -21,13 +21,11 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import java.util.Map;
-
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -35,8 +33,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JavascriptStateFinalizerExecutor is the state finalizer executor for state finalizer logic written in
- * Javascript It is unlikely that this is thread safe.
+ * The Class JavascriptStateFinalizerExecutor is the state finalizer executor for state finalizer
+ * logic written in Javascript It is unlikely that this is thread safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -100,17 +98,10 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
                     + getSubject().getKey().getId() + "\"", e);
         }
 
-        returnValue = (boolean) engine.get("returnValue");
-
         // Do the execution post work
-        executePost(returnValue);
+        executePost((boolean) engine.get("returnValue"));
 
-        // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**

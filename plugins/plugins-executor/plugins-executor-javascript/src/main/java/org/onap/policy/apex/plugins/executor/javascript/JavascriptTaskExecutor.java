@@ -21,13 +21,11 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import java.util.Map;
-
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -35,8 +33,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JavascriptTaskExecutor is the task executor for task logic written in Javascript It is unlikely that this
- * is thread safe.
+ * The Class JavascriptTaskExecutor is the task executor for task logic written in Javascript It is
+ * unlikely that this is thread safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -98,31 +96,18 @@ public class JavascriptTaskExecutor extends TaskExecutor {
                     "task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
-        try {
-            final Object ret = engine.get("returnValue");
-            if (ret == null) {
-                LOGGER.error("execute: task logic failed to set a return value for task  \""
-                        + getSubject().getKey().getId() + "\"");
-                throw new StateMachineException("execute: task logic failed to set a return value for task  \""
-                        + getSubject().getKey().getId() + "\"");
-            }
-            returnValue = (Boolean) ret;
-        } catch (NullPointerException | ClassCastException e) {
-            LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                    + getSubject().getKey().getId() + "\"", e);
-            throw new StateMachineException("execute: task selection logic failed to set a return value for state  \""
-                    + getSubject().getKey().getId() + "\"", e);
+        final Object ret = engine.get("returnValue");
+        if (ret == null) {
+            LOGGER.error("execute: task logic failed to set a return value for task  \"" + getSubject().getKey().getId()
+                    + "\"");
+            throw new StateMachineException("execute: task logic failed to set a return value for task  \""
+                    + getSubject().getKey().getId() + "\"");
         }
 
         // Do the execution post work
-        executePost(returnValue);
+        executePost((Boolean) ret);
 
-        // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**
