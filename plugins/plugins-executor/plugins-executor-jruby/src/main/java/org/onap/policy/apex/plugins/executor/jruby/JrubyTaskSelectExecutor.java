@@ -100,11 +100,7 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
         executePost(returnValue);
 
         // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**
