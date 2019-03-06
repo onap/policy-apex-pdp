@@ -22,6 +22,30 @@
       "revId": "aa2a40457abd90abbeae742e4ba3a813019d94cc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4453d103_4153129f",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-03-06T05:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bab3e92_7d033ad3",
+      "range": {
+        "startLine": 147,
+        "startChar": 56,
+        "endLine": 147,
+        "endChar": 57
+      },
+      "revId": "aa2a40457abd90abbeae742e4ba3a813019d94cc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
