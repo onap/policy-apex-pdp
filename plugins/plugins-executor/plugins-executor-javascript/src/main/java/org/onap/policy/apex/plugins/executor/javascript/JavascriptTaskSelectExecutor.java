@@ -25,7 +25,6 @@ import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.TaskSelectExecutor;
@@ -35,8 +34,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JavascriptTaskSelectExecutor is the task selection executor for task selection logic written in Javascript
- * It is unlikely that this is thread safe.
+ * The Class JavascriptTaskSelectExecutor is the task selection executor for task selection logic
+ * written in Javascript It is unlikely that this is thread safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -46,7 +45,7 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
 
     // Recurring string constants
     private static final String TSL_FAILED_PREFIX =
-                    "execute: task selection logic failed to set a return value for state  \"";
+            "execute: task selection logic failed to set a return value for state  \"";
 
     // Javascript engine
     private ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
@@ -65,9 +64,9 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
             compiled = ((Compilable) engine).compile(getSubject().getTaskSelectionLogic().getLogic());
         } catch (final ScriptException e) {
             LOGGER.error("execute: task selection logic failed to compile for state  \"" + getSubject().getKey().getId()
-                            + "\"");
-            throw new StateMachineException("task selection logic failed to compile for state  \""
-                            + getSubject().getKey().getId() + "\"", e);
+                    + "\"");
+            throw new StateMachineException(
+                    "task selection logic failed to compile for state  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
     }
@@ -83,7 +82,7 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public AxArtifactKey execute(final long executionId, final EnEvent incomingEvent)
-                    throws StateMachineException, ContextException {
+            throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, incomingEvent);
 
@@ -99,35 +98,22 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
                 compiled.eval(engine.getContext());
             }
         } catch (final ScriptException e) {
-            LOGGER.error("execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId()
-                            + "\"");
+            LOGGER.error(
+                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"");
             throw new StateMachineException(
-                            "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"",
-                            e);
+                    "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
-        try {
-            final Object ret = engine.get("returnValue");
-            if (ret == null) {
-                LOGGER.error(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
-                throw new StateMachineException(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
-            }
-            returnValue = (Boolean) ret;
-        } catch (NullPointerException | ClassCastException e) {
-            LOGGER.error("execute: task selection logic failed to set a correct return value for state  \""
-                            + getSubject().getKey().getId() + "\"", e);
-            throw new StateMachineException(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"", e);
+        final Object ret = engine.get("returnValue");
+        if (ret == null) {
+            LOGGER.error(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
+            throw new StateMachineException(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
         }
 
         // Do the execution post work
-        executePost(returnValue);
+        executePost((Boolean) ret);
 
-        // Send back the return event
-        if (returnValue) {
-            return getOutgoing();
-        } else {
-            return null;
-        }
+        return getOutgoing();
     }
 
     /**
@@ -138,8 +124,8 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
-                        + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
-                        + getSubject().getTaskSelectionLogic().getLogic());
+                + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
+                + getSubject().getTaskSelectionLogic().getLogic());
         engine = null;
     }
 }
