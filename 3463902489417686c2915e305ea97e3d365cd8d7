@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c4da34b_fcf61ffd",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-03-06T12:14:12Z",
+      "side": 1,
+      "message": "Would we need another assert* after this to check receiveString is correct?",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "3463902489417686c2915e305ea97e3d365cd8d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1eaa383_ea117e44",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketProducerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-03-06T12:14:12Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 5
+      },
+      "revId": "3463902489417686c2915e305ea97e3d365cd8d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
