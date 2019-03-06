@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "abb027da_e54ea100",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketConsumerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2493
+      },
+      "writtenOn": "2019-03-06T12:48:02Z",
+      "side": 1,
+      "message": "I don\u0027t think we need another assert here.\n\napexWebSocketConsumerMock.receiveString(\"TestRecieveString\") call will trigger internal assertEquals where args[0] will be tested. \n\nAs there is no get method for receiveString I am not sure how to have external assert other than doAnswer.\n \nWould like to know if any other way is there. know if any other way is there.",
+      "parentUuid": "9c4da34b_fcf61ffd",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "3463902489417686c2915e305ea97e3d365cd8d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1eaa383_ea117e44",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/test/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketProducerTest.java",
         "patchSetId": 4
