@@ -29,6 +29,14 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for handling events being transported over web sockets</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <profiles>
         <profile>
             <id>apexSite</id>
