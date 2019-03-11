@@ -370,37 +370,65 @@ public final class ApexModelImpl implements ApexModel {
         return eventFacade.deleteEventPar(name, version, parName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#createContextAlbum(java.lang.String,
-     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-     * java.lang.String, java.lang.String)
-     */
-    @Override
-    // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
-            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
-            final String description) {
-        return contextAlbumFacade.createContextAlbum(name, version, scope, writable, contextSchemaName,
-                contextSchemaVersion, uuid, description);
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#createContextAlbum(java.lang.String,
+   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+   * java.lang.String, java.lang.String)
+   */
+  @Override
+  // CHECKSTYLE:OFF: checkstyle:parameterNumber
+  public ApexApiResult createContextAlbum(
+      final String name,
+      final String version,
+      final String scope,
+      final String writable,
+      final String contextSchemaName,
+      final String contextSchemaVersion,
+      final String uuid,
+      final String description) {
+    return contextAlbumFacade.createContextAlbum(
+        new ContextAlbumBuilder()
+            .setName(name)
+            .setVersion(version)
+            .setScope(scope)
+            .setWritable(writable)
+            .setContextSchemaName(contextSchemaName)
+            .setContextSchemaVersion(contextSchemaVersion)
+            .setUuid(uuid)
+            .setDescription(description));
     }
-    // CHECKSTYLE:ON: checkstyle:parameterNumber
+  // CHECKSTYLE:ON: checkstyle:parameterNumber
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#updateContextAlbum(java.lang.String,
-     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-     * java.lang.String, java.lang.String)
-     */
-    // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    @Override
-    public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
-            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
-            final String description) {
-        return contextAlbumFacade.updateContextAlbum(name, version, scope, writable, contextSchemaName,
-                contextSchemaVersion, uuid, description);
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#updateContextAlbum(java.lang.String,
+   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+   * java.lang.String, java.lang.String)
+   */
+  // CHECKSTYLE:OFF: checkstyle:parameterNumber
+  @Override
+  public ApexApiResult updateContextAlbum(
+      final String name,
+      final String version,
+      final String scope,
+      final String writable,
+      final String contextSchemaName,
+      final String contextSchemaVersion,
+      final String uuid,
+      final String description) {
+    return contextAlbumFacade.updateContextAlbum(
+        new ContextAlbumBuilder()
+            .setName(name)
+            .setVersion(version)
+            .setScope(scope)
+            .setWritable(writable)
+            .setContextSchemaName(contextSchemaName)
+            .setContextSchemaVersion(contextSchemaVersion)
+            .setUuid(uuid)
+            .setDescription(description));
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 

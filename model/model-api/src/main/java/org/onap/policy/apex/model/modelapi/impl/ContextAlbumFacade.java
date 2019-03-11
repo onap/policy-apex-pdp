@@ -86,14 +86,12 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
-            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
-            final String description) {
+    public ApexApiResult createContextAlbum(ContextAlbumBuilder builder) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
-            key.setName(name);
-            if (version != null) {
-                key.setVersion(version);
+            key.setName(builder.getName());
+            if (builder.getVersion() != null) {
+                key.setVersion(builder.getVersion());
             } else {
                 key.setVersion(apexProperties.getProperty("DEFAULT_CONCEPT_VERSION"));
             }
@@ -104,18 +102,18 @@ public class ContextAlbumFacade {
             }
 
             final AxContextSchema schema =
-                    apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
+                    apexModel.getPolicyModel().getSchemas().get(builder.getContextSchemaName(), builder.getContextSchemaVersion());
             if (schema == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
+                        CONCEPT + builder.getContextSchemaName() + ':' + builder.getContextSchemaVersion() + DOES_NOT_EXIST);
             }
 
             final AxContextAlbum contextAlbum = new AxContextAlbum(key);
-            contextAlbum.setScope(scope);
+            contextAlbum.setScope(builder.getScope());
             contextAlbum.setItemSchema(schema.getKey());
 
-            if (writable != null
-                    && ("true".equalsIgnoreCase(writable.trim()) || "t".equalsIgnoreCase(writable.trim()))) {
+            if (builder.getWritable() != null
+                    && ("true".equalsIgnoreCase(builder.getWritable().trim()) || "t".equalsIgnoreCase(builder.getWritable().trim()))) {
                 contextAlbum.setWritable(true);
             } else {
                 contextAlbum.setWritable(false);
@@ -124,9 +122,9 @@ public class ContextAlbumFacade {
             apexModel.getPolicyModel().getAlbums().getAlbumsMap().put(key, contextAlbum);
 
             if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
-                return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
+                return keyInformationFacade.updateKeyInformation(builder.getName(), builder.getVersion(), builder.getUuid(), builder.getDescription());
             } else {
-                return keyInformationFacade.createKeyInformation(name, version, uuid, description);
+                return keyInformationFacade.createKeyInformation(builder.getName(), builder.getVersion(), builder.getUuid(), builder.getDescription());
             }
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
@@ -150,38 +148,36 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
-            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
-            final String description) {
+    public ApexApiResult updateContextAlbum(ContextAlbumBuilder builder) {
         try {
-            final AxContextAlbum contextAlbum = apexModel.getPolicyModel().getAlbums().get(name, version);
+            final AxContextAlbum contextAlbum = apexModel.getPolicyModel().getAlbums().get(builder.getName(), builder.getVersion());
             if (contextAlbum == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                        CONCEPT + builder.getName() + ':' + builder.getVersion() + DOES_NOT_EXIST);
             }
 
-            if (scope != null) {
-                contextAlbum.setScope(scope);
+            if (builder.getScope() != null) {
+                contextAlbum.setScope(builder.getScope());
             }
-            if (writable != null) {
-                if ("true".equalsIgnoreCase(writable.trim()) || "t".equalsIgnoreCase(writable.trim())) {
+            if (builder.getWritable() != null) {
+                if ("true".equalsIgnoreCase(builder.getWritable().trim()) || "t".equalsIgnoreCase(builder.getWritable().trim())) {
                     contextAlbum.setWritable(true);
                 } else {
                     contextAlbum.setWritable(false);
                 }
             }
 
-            if (contextSchemaName != null) {
+            if (builder.getContextSchemaName() != null) {
                 final AxContextSchema schema =
-                        apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
+                        apexModel.getPolicyModel().getSchemas().get(builder.getContextSchemaName(), builder.getContextSchemaVersion());
                 if (schema == null) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
+                            CONCEPT + builder.getContextSchemaName() + ':' + builder.getContextSchemaVersion() + DOES_NOT_EXIST);
                 }
                 contextAlbum.setItemSchema(schema.getKey());
             }
 
-            return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
+            return keyInformationFacade.updateKeyInformation(builder.getName(), builder.getVersion(), builder.getUuid(), builder.getDescription());
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
