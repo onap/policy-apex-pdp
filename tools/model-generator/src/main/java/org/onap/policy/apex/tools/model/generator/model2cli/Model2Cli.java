@@ -35,6 +35,8 @@ import org.apache.commons.lang3.Validate;
 import org.onap.policy.apex.auth.clicodegen.CodeGenCliEditorBuilder;
 import org.onap.policy.apex.auth.clicodegen.CodeGeneratorCliEditor;
 import org.onap.policy.apex.auth.clicodegen.EventDeclarationBuilder;
+import org.onap.policy.apex.auth.clicodegen.PolicyStateDefBuilder;
+import org.onap.policy.apex.auth.clicodegen.PolicyStateTaskBuilder;
 import org.onap.policy.apex.auth.clicodegen.TaskDeclarationBuilder;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -370,9 +372,14 @@ public class Model2Cli {
             final List<ST> tsLogic = getTslForState(cg, st);
             final List<ST> ctxRefs = getCtxtRefsForState(cg, st);
 
-            final ST val = cg.createPolicyStateDef(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                    kig.getName(st.getTrigger()), kig.getVersion(st.getTrigger()), kig.getName(st.getDefaultTask()),
-                    kig.getVersion(st.getDefaultTask()), outputs, tasks, tsLogic, finalizerLogics, ctxRefs);
+            final ST val = cg.createPolicyStateDef(new PolicyStateDefBuilder()
+                    .setPolicyName(kig.getPName(skey)).setVersion(kig.getPVersion(skey))
+                    .setStateName(kig.getLName(skey)).setTriggerName(kig.getName(st.getTrigger()))
+                    .setTriggerVersion(kig.getVersion(st.getTrigger()))
+                    .setDefaultTask(kig.getName(st.getDefaultTask()))
+                    .setDefaultTaskVersion(kig.getVersion(st.getDefaultTask())).setOutputs(outputs)
+                    .setTasks(tasks).setTsLogic(tsLogic).setFinalizerLogics(finalizerLogics)
+                    .setCtxRefs(ctxRefs));
 
             ret.add(val);
         }
@@ -457,9 +464,12 @@ public class Model2Cli {
             final AxStateTaskReference tr = e.getValue();
             final AxReferenceKey trkey = tr.getKey();
 
-            final ST val = cg.createPolicyStateTask(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                    kig.getLName(trkey), kig.getName(tkey), kig.getVersion(tkey), tr.getStateTaskOutputType().name(),
-                    kig.getLName(tr.getOutput()));
+            final ST val = cg.createPolicyStateTask(new PolicyStateTaskBuilder()
+                    .setPolicyName(kig.getPName(skey)).setVersion(kig.getPVersion(skey))
+                    .setStateName(kig.getLName(skey)).setTaskLocalName(kig.getLName(trkey))
+                    .setTaskName(kig.getName(tkey)).setTaskVersion(kig.getVersion(tkey))
+                    .setOutputType(tr.getStateTaskOutputType().name())
+                    .setOutputName(kig.getLName(tr.getOutput())));
 
             ret.add(val);
         }
