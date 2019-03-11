@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a32fc46c_b87d5fe3",
+        "filename": "examples/examples-onap-vcpe/pom.xml",
+        "patchSetId": 28
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-03-11T15:21:09Z",
+      "side": 1,
+      "message": "reminder to run nexus-iq on it",
+      "revId": "b4ec27237c7030760720e1f8c3ca445d46a6a6fd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dee9250_07264e2b",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/ControlLoopLogTask.js",
+        "patchSetId": 28
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-03-11T15:21:09Z",
+      "side": 1,
+      "message": "This is a general comment - 2019 license update",
+      "revId": "b4ec27237c7030760720e1f8c3ca445d46a6a6fd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
