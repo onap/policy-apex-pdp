@@ -410,18 +410,16 @@ public class CodeGeneratorCliEditor {
      * @param outputName the output name
      * @return a CLI command for a policy state task definition
      */
-    public ST createPolicyStateTask(final String policyName, final String version, final String stateName,
-            final String taskLocalName, final String taskName, final String taskVersion,
-            final String outputType, final String outputName) {
+    public ST createPolicyStateTask(PolicyStateTaskBuilder policyStateTaskBuilder) {
         final ST st = stg.getInstanceOf("policyStateTask");
-        st.add(POLICY_NAME, policyName);
-        st.add(VERSION, version);
-        st.add(STATE_NAME, stateName);
-        st.add(TASK_LOCAL_NAME, taskLocalName);
-        st.add(TASK_NAME, taskName);
-        st.add(TASK_VERSION, taskVersion);
-        st.add(OUTPUT_TYPE, outputType);
-        st.add(OUTPUT_NAME, outputName);
+        st.add(POLICY_NAME, policyStateTaskBuilder.getPolicyName());
+        st.add(VERSION, policyStateTaskBuilder.getVersion());
+        st.add(STATE_NAME, policyStateTaskBuilder.getStateName());
+        st.add(TASK_LOCAL_NAME, policyStateTaskBuilder.getTaskLocalName());
+        st.add(TASK_NAME, policyStateTaskBuilder.getTaskName());
+        st.add(TASK_VERSION, policyStateTaskBuilder.getTaskVersion());
+        st.add(OUTPUT_TYPE, policyStateTaskBuilder.getOutputType());
+        st.add(OUTPUT_NAME, policyStateTaskBuilder.getOutputName());
         return st;
     }
 
@@ -468,23 +466,20 @@ public class CodeGeneratorCliEditor {
      * @param ctxRefs any context reference for the state
      * @return a CLI command for a policy state definition
      */
-    public ST createPolicyStateDef(final String policyName, final String version, final String stateName,
-            final String triggerName, final String triggerVersion, final String defaultTask,
-            final String defaultTaskVersion, final List<ST> outputs, final List<ST> tasks,
-            final List<ST> tsLogic, final List<ST> finalizerLogics, final List<ST> ctxRefs) {
+    public ST createPolicyStateDef(PolicyStateDefBuilder policyStateDefBuilder) {
         final ST st = stg.getInstanceOf("policyStateDef");
-        st.add(POLICY_NAME, policyName);
-        st.add(VERSION, version);
-        st.add(STATE_NAME, stateName);
-        st.add(TRIGGER_NAME, triggerName);
-        st.add(TRIGGER_VERSION, triggerVersion);
-        st.add(DEFAULT_TASK, defaultTask);
-        st.add(DEFAULT_TASK_VERSION, defaultTaskVersion);
-        st.add(OUTPUTS, outputs);
-        st.add(TASKS, tasks);
-        st.add(TS_LOGIC, tsLogic);
-        st.add(FINALIZER_LOGICS, finalizerLogics);
-        st.add(CTX_REFS, ctxRefs);
+        st.add(POLICY_NAME, policyStateDefBuilder.getPolicyName());
+        st.add(VERSION, policyStateDefBuilder.getVersion());
+        st.add(STATE_NAME, policyStateDefBuilder.getStateName());
+        st.add(TRIGGER_NAME, policyStateDefBuilder.getTriggerName());
+        st.add(TRIGGER_VERSION, policyStateDefBuilder.getTriggerVersion());
+        st.add(DEFAULT_TASK, policyStateDefBuilder.getDefaultTask());
+        st.add(DEFAULT_TASK_VERSION, policyStateDefBuilder.getDefaultTaskVersion());
+        st.add(OUTPUTS, policyStateDefBuilder.getOutputs());
+        st.add(TASKS, policyStateDefBuilder.getTasks());
+        st.add(TS_LOGIC, policyStateDefBuilder.getTsLogic());
+        st.add(FINALIZER_LOGICS, policyStateDefBuilder.getFinalizerLogics());
+        st.add(CTX_REFS, policyStateDefBuilder.getCtxRefs());
         return st;
     }
 
