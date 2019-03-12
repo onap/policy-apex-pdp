@@ -45,6 +45,53 @@
       "revId": "bcde6eccf77c53abc7bc87fd77140f03c1dfb994",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "013a8106_5a7cef2e",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ContextAlbumFacade.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-03-12T12:33:27Z",
+      "side": 1,
+      "message": "It should be a Samsung modifications notice I think.",
+      "parentUuid": "dd59aed1_1c96f45a",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "bcde6eccf77c53abc7bc87fd77140f03c1dfb994",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44f0c972_b5446d72",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ContextAlbumFacade.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-03-12T12:33:27Z",
+      "side": 1,
+      "message": "There are many lines longer than 120 characters in this class, maybe check your eclipse settings.",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 24
+      },
+      "revId": "bcde6eccf77c53abc7bc87fd77140f03c1dfb994",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
