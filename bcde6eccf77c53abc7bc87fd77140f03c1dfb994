@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92c53724_a5d81cae",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ApexModelImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-03-12T12:19:08Z",
+      "side": 1,
+      "message": "Update 2019",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "bcde6eccf77c53abc7bc87fd77140f03c1dfb994",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd59aed1_1c96f45a",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/ContextAlbumFacade.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-03-12T12:19:08Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "bcde6eccf77c53abc7bc87fd77140f03c1dfb994",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
