@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c40fa580_cabb40f4",
+        "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/PolicyStateDefBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2493
+      },
+      "writtenOn": "2019-03-12T02:03:36Z",
+      "side": 1,
+      "message": "Yeah sure, will use Lombok in future commits.",
+      "parentUuid": "885f653b_34fa4123",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "88f2318a04c7769a4dabec9b2adb5291117166ed",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ccd5224_5123df78",
         "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/PolicyStateTaskBuilder.java",
         "patchSetId": 2
