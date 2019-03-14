@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,121 +71,140 @@ public class ContextAlbumFacade {
         keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties, jsonMode);
     }
 
-    /**
-     * Create a context album.
-     *
-     * @param name name of the context album
-     * @param version version of the context album, set to null to use the default version
-     * @param scope of the context album
-     * @param writable "true" or "t" if the context album is writable, set to null or any other
-     *        value for a read-only album
-     * @param contextSchemaName name of the parameter context schema
-     * @param contextSchemaVersion version of the parameter context schema, set to null to use the
-     *        latest version
-     * @param uuid context album UUID, set to null to generate a UUID
-     * @param description context album description, set to null to generate a description
-     * @return result of the operation
-     */
-    // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
-            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
-            final String description) {
-        try {
-            final AxArtifactKey key = new AxArtifactKey();
-            key.setName(name);
-            if (version != null) {
-                key.setVersion(version);
-            } else {
-                key.setVersion(apexProperties.getProperty("DEFAULT_CONCEPT_VERSION"));
-            }
+  /**
+   * Create a context album.
+   *
+   * @param name name of the context album
+   * @param version version of the context album, set to null to use the default version
+   * @param scope of the context album
+   * @param writable "true" or "t" if the context album is writable, set to null or any other value
+   *     for a read-only album
+   * @param contextSchemaName name of the parameter context schema
+   * @param contextSchemaVersion version of the parameter context schema, set to null to use the
+   *     latest version
+   * @param uuid context album UUID, set to null to generate a UUID
+   * @param description context album description, set to null to generate a description
+   * @return result of the operation
+   */
+  // CHECKSTYLE:OFF: checkstyle:parameterNumber
+  public ApexApiResult createContextAlbum(ContextAlbumBuilder builder) {
+    try {
+      final AxArtifactKey key = new AxArtifactKey();
+      key.setName(builder.getName());
+      if (builder.getVersion() != null) {
+        key.setVersion(builder.getVersion());
+      } else {
+        key.setVersion(apexProperties.getProperty("DEFAULT_CONCEPT_VERSION"));
+      }
 
-            if (apexModel.getPolicyModel().getAlbums().getAlbumsMap().containsKey(key)) {
-                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        CONCEPT + key.getId() + " already exists");
-            }
+      if (apexModel.getPolicyModel().getAlbums().getAlbumsMap().containsKey(key)) {
+        return new ApexApiResult(
+            ApexApiResult.Result.CONCEPT_EXISTS, CONCEPT + key.getId() + " already exists");
+      }
 
-            final AxContextSchema schema =
-                    apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
-            if (schema == null) {
-                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
-            }
+      final AxContextSchema schema =
+          apexModel
+              .getPolicyModel()
+              .getSchemas()
+              .get(builder.getContextSchemaName(), builder.getContextSchemaVersion());
+      if (schema == null) {
+        return new ApexApiResult(
+            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+            CONCEPT
+                + builder.getContextSchemaName()
+                + ':'
+                + builder.getContextSchemaVersion()
+                + DOES_NOT_EXIST);
+      }
 
-            final AxContextAlbum contextAlbum = new AxContextAlbum(key);
-            contextAlbum.setScope(scope);
-            contextAlbum.setItemSchema(schema.getKey());
+      final AxContextAlbum contextAlbum = new AxContextAlbum(key);
+      contextAlbum.setScope(builder.getScope());
+      contextAlbum.setItemSchema(schema.getKey());
 
-            if (writable != null
-                    && ("true".equalsIgnoreCase(writable.trim()) || "t".equalsIgnoreCase(writable.trim()))) {
-                contextAlbum.setWritable(true);
-            } else {
-                contextAlbum.setWritable(false);
-            }
+      if (builder.getWritable() != null
+          && ("true".equalsIgnoreCase(builder.getWritable().trim())
+              || "t".equalsIgnoreCase(builder.getWritable().trim()))) {
+        contextAlbum.setWritable(true);
+      } else {
+        contextAlbum.setWritable(false);
+      }
 
-            apexModel.getPolicyModel().getAlbums().getAlbumsMap().put(key, contextAlbum);
+      apexModel.getPolicyModel().getAlbums().getAlbumsMap().put(key, contextAlbum);
 
-            if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
-                return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
-            } else {
-                return keyInformationFacade.createKeyInformation(name, version, uuid, description);
-            }
-        } catch (final Exception e) {
-            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
-        }
+      if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
+        return keyInformationFacade.updateKeyInformation(
+            builder.getName(), builder.getVersion(), builder.getUuid(), builder.getDescription());
+      } else {
+        return keyInformationFacade.createKeyInformation(
+            builder.getName(), builder.getVersion(), builder.getUuid(), builder.getDescription());
+      }
+    } catch (final Exception e) {
+      return new ApexApiResult(ApexApiResult.Result.FAILED, e);
     }
-    // CHECKSTYLE:ON: checkstyle:parameterNumber
+    }
+  // CHECKSTYLE:ON: checkstyle:parameterNumber
 
-    /**
-     * Update a context album.
-     *
-     * @param name name of the context album
-     * @param version version of the context album, set to null to use the default version
-     * @param scope of the context album
-     * @param writable "true" or "t" if the context album is writable, set to null or any other
-     *        value for a read-only album
-     * @param contextSchemaName name of the parameter context schema
-     * @param contextSchemaVersion version of the parameter context schema, set to null to use the
-     *        latest version
-     * @param uuid context album UUID, set to null to generate a UUID
-     * @param description context album description, set to null to generate a description
-     * @return result of the operation
-     */
-    // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
-            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
-            final String description) {
-        try {
-            final AxContextAlbum contextAlbum = apexModel.getPolicyModel().getAlbums().get(name, version);
-            if (contextAlbum == null) {
-                return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
-            }
+  /**
+   * Update a context album.
+   *
+   * @param name name of the context album
+   * @param version version of the context album, set to null to use the default version
+   * @param scope of the context album
+   * @param writable "true" or "t" if the context album is writable, set to null or any other value
+   *     for a read-only album
+   * @param contextSchemaName name of the parameter context schema
+   * @param contextSchemaVersion version of the parameter context schema, set to null to use the
+   *     latest version
+   * @param uuid context album UUID, set to null to generate a UUID
+   * @param description context album description, set to null to generate a description
+   * @return result of the operation
+   */
+  // CHECKSTYLE:OFF: checkstyle:parameterNumber
+  public ApexApiResult updateContextAlbum(ContextAlbumBuilder builder) {
+    try {
+      final AxContextAlbum contextAlbum =
+          apexModel.getPolicyModel().getAlbums().get(builder.getName(), builder.getVersion());
+      if (contextAlbum == null) {
+        return new ApexApiResult(
+            ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+            CONCEPT + builder.getName() + ':' + builder.getVersion() + DOES_NOT_EXIST);
+      }
 
-            if (scope != null) {
-                contextAlbum.setScope(scope);
-            }
-            if (writable != null) {
-                if ("true".equalsIgnoreCase(writable.trim()) || "t".equalsIgnoreCase(writable.trim())) {
-                    contextAlbum.setWritable(true);
-                } else {
-                    contextAlbum.setWritable(false);
-                }
-            }
-
-            if (contextSchemaName != null) {
-                final AxContextSchema schema =
-                        apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
-                if (schema == null) {
-                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
-                }
-                contextAlbum.setItemSchema(schema.getKey());
-            }
-
-            return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
-        } catch (final Exception e) {
-            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
+      if (builder.getScope() != null) {
+        contextAlbum.setScope(builder.getScope());
+      }
+      if (builder.getWritable() != null) {
+        if ("true".equalsIgnoreCase(builder.getWritable().trim())
+            || "t".equalsIgnoreCase(builder.getWritable().trim())) {
+          contextAlbum.setWritable(true);
+        } else {
+          contextAlbum.setWritable(false);
         }
+      }
+
+      if (builder.getContextSchemaName() != null) {
+        final AxContextSchema schema =
+            apexModel
+                .getPolicyModel()
+                .getSchemas()
+                .get(builder.getContextSchemaName(), builder.getContextSchemaVersion());
+        if (schema == null) {
+          return new ApexApiResult(
+              ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+              CONCEPT
+                  + builder.getContextSchemaName()
+                  + ':'
+                  + builder.getContextSchemaVersion()
+                  + DOES_NOT_EXIST);
+        }
+        contextAlbum.setItemSchema(schema.getKey());
+      }
+
+      return keyInformationFacade.updateKeyInformation(
+          builder.getName(), builder.getVersion(), builder.getUuid(), builder.getDescription());
+    } catch (final Exception e) {
+      return new ApexApiResult(ApexApiResult.Result.FAILED, e);
+    }
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
