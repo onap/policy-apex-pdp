@@ -3,7 +3,8 @@
 #
 FROM alpine:3.9
 
-RUN apk add --no-cache --update bash zip unzip curl wget openssh iproute2 iputils vim openjdk8
+RUN apk add --no-cache --update bash nss procps coreutils findutils grep zip unzip \
+                                     curl wget openssh iproute2 iputils vim openjdk8
 
 # Create apex user and group
 RUN addgroup -S apexuser && adduser -S apexuser -G apexuser
