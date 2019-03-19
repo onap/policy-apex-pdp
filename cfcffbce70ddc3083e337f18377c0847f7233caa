@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac928249_58986836",
+        "filename": "auth/cli-codegen/src/main/java/org/onap/policy/apex/auth/clicodegen/CodeGeneratorCliEditor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-03-19T14:11:33Z",
+      "side": 1,
+      "message": "Probably just change line 3 to 2016-2019. But I won\u0027t make you do that.",
+      "range": {
+        "startLine": 5,
+        "startChar": 1,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "cfcffbce70ddc3083e337f18377c0847f7233caa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
