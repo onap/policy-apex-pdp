@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -269,15 +270,7 @@ public class CodeGeneratorCliEditor {
     /**
      * Adds a new task declaration to the model.
      *
-     * @param name the name of the task
-     * @param version the version of the task
-     * @param uuid a UUID for the definition
-     * @param description a description of the task
-     * @param infields all infields for the task
-     * @param outfields all outfields for the task
-     * @param logic the logic for the task
-     * @param parameters any task parameter
-     * @param contextRefs any context reference
+     * @param taskDeclarationBuilder builder for the task declaration parameters
      */
     public void addTaskDeclaration(TaskDeclarationBuilder taskDeclarationBuilder) {
         final ST st = stg.getInstanceOf("taskDecl");
@@ -400,14 +393,7 @@ public class CodeGeneratorCliEditor {
     /**
      * Creates a new policy state task definition for a task which belongs to a state which belongs to a policy.
      *
-     * @param policyName the name of the policy
-     * @param version the version of the policy
-     * @param stateName the name of the new state
-     * @param taskLocalName the local (in policy and state) name of the task
-     * @param taskName the identifier of the task (previously defined as a task)
-     * @param taskVersion the version of the task definition
-     * @param outputType the output type
-     * @param outputName the output name
+     * @param policyStateTaskBuilder builder for the state task parameters
      * @return a CLI command for a policy state task definition
      */
     public ST createPolicyStateTask(PolicyStateTaskBuilder policyStateTaskBuilder) {
@@ -452,18 +438,7 @@ public class CodeGeneratorCliEditor {
     /**
      * Creates a new policy state definition for a state which belongs to a policy.
      *
-     * @param policyName the name of the policy
-     * @param version the version of the policy
-     * @param stateName the name of the new state
-     * @param triggerName the name of the trigger event
-     * @param triggerVersion the version of the trigger event
-     * @param defaultTask the identifier of the default task
-     * @param defaultTaskVersion the version of the default task
-     * @param outputs the output definitions of the state
-     * @param tasks the task definition of the state
-     * @param tsLogic the task selection logic of the state
-     * @param finalizerLogics the finalizer logics for the state
-     * @param ctxRefs any context reference for the state
+     * @param policyStateDefBuilder builder for the state definition parameters
      * @return a CLI command for a policy state definition
      */
     public ST createPolicyStateDef(PolicyStateDefBuilder policyStateDefBuilder) {

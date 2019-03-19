@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -371,65 +372,39 @@ public final class ApexModelImpl implements ApexModel {
         return eventFacade.deleteEventPar(name, version, parName);
     }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#createContextAlbum(java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String, java.lang.String)
-   */
-  @Override
-  // CHECKSTYLE:OFF: checkstyle:parameterNumber
-  public ApexApiResult createContextAlbum(
-      final String name,
-      final String version,
-      final String scope,
-      final String writable,
-      final String contextSchemaName,
-      final String contextSchemaVersion,
-      final String uuid,
-      final String description) {
-    return contextAlbumFacade.createContextAlbum(
-        new ContextAlbumBuilder()
-            .setName(name)
-            .setVersion(version)
-            .setScope(scope)
-            .setWritable(writable)
-            .setContextSchemaName(contextSchemaName)
-            .setContextSchemaVersion(contextSchemaVersion)
-            .setUuid(uuid)
-            .setDescription(description));
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#createContextAlbum(java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+     * java.lang.String, java.lang.String)
+     */
+    @Override
+    // CHECKSTYLE:OFF: checkstyle:parameterNumber
+    public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
+            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
+            final String description) {
+        return contextAlbumFacade.createContextAlbum(new ContextAlbumBuilder().setName(name).setVersion(version)
+                .setScope(scope).setWritable(writable).setContextSchemaName(contextSchemaName)
+                .setContextSchemaVersion(contextSchemaVersion).setUuid(uuid).setDescription(description));
     }
-  // CHECKSTYLE:ON: checkstyle:parameterNumber
+    // CHECKSTYLE:ON: checkstyle:parameterNumber
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#updateContextAlbum(java.lang.String,
-   * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-   * java.lang.String, java.lang.String)
-   */
-  // CHECKSTYLE:OFF: checkstyle:parameterNumber
-  @Override
-  public ApexApiResult updateContextAlbum(
-      final String name,
-      final String version,
-      final String scope,
-      final String writable,
-      final String contextSchemaName,
-      final String contextSchemaVersion,
-      final String uuid,
-      final String description) {
-    return contextAlbumFacade.updateContextAlbum(
-        new ContextAlbumBuilder()
-            .setName(name)
-            .setVersion(version)
-            .setScope(scope)
-            .setWritable(writable)
-            .setContextSchemaName(contextSchemaName)
-            .setContextSchemaVersion(contextSchemaVersion)
-            .setUuid(uuid)
-            .setDescription(description));
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.modelapi.ApexEditorAPI#updateContextAlbum(java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+     * java.lang.String, java.lang.String)
+     */
+    // CHECKSTYLE:OFF: checkstyle:parameterNumber
+    @Override
+    public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
+            final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
+            final String description) {
+        return contextAlbumFacade.updateContextAlbum(new ContextAlbumBuilder().setName(name).setVersion(version)
+                .setScope(scope).setWritable(writable).setContextSchemaName(contextSchemaName)
+                .setContextSchemaVersion(contextSchemaVersion).setUuid(uuid).setDescription(description));
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
@@ -970,25 +945,12 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult createPolicyStateTaskRef(
-            final String name,
-            final String version,
-            final String stateName,
-            final String taskLocalName,
-            final String taskName,
-            final String taskVersion,
-            final String outputType,
+    public ApexApiResult createPolicyStateTaskRef(final String name, final String version, final String stateName,
+            final String taskLocalName, final String taskName, final String taskVersion, final String outputType,
             final String outputName) {
-        return policyFacade.createPolicyStateTaskRef(
-                new CreatePolicyStateTaskRefBuilder()
-                .setName(name)
-                .setVersion(version)
-                .setStateName(stateName)
-                .setTaskLocalName(taskLocalName)
-                .setTaskName(taskName)
-                .setTaskVersion(taskVersion)
-                .setOutputType(outputType)
-                .setOutputName(outputName));
+        return policyFacade.createPolicyStateTaskRef(new CreatePolicyStateTaskRefBuilder().setName(name)
+                .setVersion(version).setStateName(stateName).setTaskLocalName(taskLocalName).setTaskName(taskName)
+                .setTaskVersion(taskVersion).setOutputType(outputType).setOutputName(outputName));
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 

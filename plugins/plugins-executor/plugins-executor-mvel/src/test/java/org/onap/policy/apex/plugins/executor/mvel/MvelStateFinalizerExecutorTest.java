@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +55,7 @@ import org.slf4j.ext.XLoggerFactory;
 public class MvelStateFinalizerExecutorTest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(MvelStateFinalizerExecutorTest.class);
+
     /**
      * Initiate Parameters.
      */

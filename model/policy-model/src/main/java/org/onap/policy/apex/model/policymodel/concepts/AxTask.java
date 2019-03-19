@@ -527,7 +527,7 @@ public class AxTask extends AxConcept {
             AxValidationResult result) {
         if (taskParameterEntry.getValue() == null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "null input task parameer value found on task parameter " + taskParameterEntry.getKey()));
+                    "null input task parameter value found on task parameter " + taskParameterEntry.getKey()));
         } else {
             if (!taskParameterEntry.getValue().getKey().getParentArtifactKey().equals(key)) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
