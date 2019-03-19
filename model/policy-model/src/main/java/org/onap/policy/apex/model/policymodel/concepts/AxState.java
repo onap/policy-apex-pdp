@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2018 Samsung Electronics Co., Ltd.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +58,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class holds the definition of a single state in a policy. A state is a single stage in a policy. A state has a
@@ -957,9 +958,9 @@ public class AxState extends AxConcept {
 
     /**
      * Compare the object fields on this state to another state.
-     * 
+     *
      * @param the other state to compare with
-     * @return the result of the comparison 
+     * @return the result of the comparison
      */
     private int compareObjectFields(final AxState other) {
         if (!key.equals(other.key)) {
@@ -986,7 +987,7 @@ public class AxState extends AxConcept {
         if (!taskReferenceMap.equals(other.taskReferenceMap)) {
             return (taskReferenceMap.hashCode() - other.taskReferenceMap.hashCode());
         }
-        
+
         return 0;
     }
 }

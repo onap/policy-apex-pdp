@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,14 +42,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * A container class for an Apex context model. This class is a container class that allows an Apex model to be
  * constructed that just contains context and the key information for that context. The model contains schema
  * definitions and the definitions of context albums that use those schemas. In the case where Apex context is being
  * used without policy or independent of policy, an Apex context model is sufficient to get Apex context working.
- * 
+ *
  * <p>Validation runs {@link AxModel} validation on the model. In addition, the {@link AxContextSchemas} and
  * {@link AxContextAlbums} validation is run on the context schemas and albums in the model.
  */

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,16 +48,16 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * In Apex, a field is an input or output parameter to or from a concept. For example, the parameters of an event are
  * fields and the input and output of a task is defined as a collection of fields.
- * 
+ *
  * <p>A field has an {@link AxReferenceKey} key that defines its name and parent, and a {@link AxArtifactKey} key to a
  * context schema that defines the structure of the data atom that holds the value of the field. Fields can be specified
  * as being optional but are mandatory by default.
- * 
+ *
  * <p>Validation checks that the field key and the field schema reference key are not null.
  */
 @Entity

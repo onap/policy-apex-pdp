@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +32,7 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is the output of a state, and is used by the engine to decide what the next state for execution is.

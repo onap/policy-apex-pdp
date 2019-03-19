@@ -1,26 +1,27 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.auth.clieditor;
 
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class holds the definition of an argument of a CLI command.
@@ -106,7 +107,7 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -117,7 +118,7 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
@@ -163,15 +164,15 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
         if (this == obj) {
             return true;
         }
-        
+
         if (obj == null) {
             return false;
         }
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         CommandLineArgument other = (CommandLineArgument) obj;
         if (argumentName == null) {
             if (other.argumentName != null) {
@@ -180,7 +181,7 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
         } else if (!argumentName.equals(other.argumentName)) {
             return false;
         }
-        
+
         if (description == null) {
             if (other.description != null) {
                 return false;
@@ -188,7 +189,7 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
         } else if (!description.equals(other.description)) {
             return false;
         }
-        
+
         return nullable == other.nullable;
     }
 }

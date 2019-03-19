@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -23,7 +24,7 @@ package org.onap.policy.apex.auth.clieditor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class represents a single Apex CLI command that is issued to the Apex Editor Java API
@@ -188,7 +189,7 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -200,7 +201,7 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
@@ -218,15 +219,15 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
         if (result != 0) {
             return result;
         }
-        
+
         if (!argumentList.equals(otherCommand.argumentList)) {
             return (argumentList.hashCode() - otherCommand.argumentList.hashCode());
         }
-        
+
         if (systemCommand != otherCommand.systemCommand) {
             return (this.hashCode() - otherCommand.hashCode());
         }
-        
+
         return apiMethod.compareTo(otherCommand.apiMethod);
     }
 
@@ -250,7 +251,7 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
                 return 1;
             }
         }
-        
+
         return 0;
     }
 
@@ -278,15 +279,15 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
         if (this == obj) {
             return true;
         }
-        
+
         if (obj == null) {
             return false;
         }
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         return this.compareTo((CommandLineCommand) obj) == 0;
     }
 }

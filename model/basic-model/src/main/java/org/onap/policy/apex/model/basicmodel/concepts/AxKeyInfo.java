@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,12 +40,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * The key information on an {@link AxArtifactKey} key in an Apex policy model. Each {@link AxArtifactKey} must have an
  * {@link AxKeyInfo} object. THe information held is the key's UUID and it's description.
- * 
+ *
  * <p>Validation checks that all fields are defined and that the key is valid. It also observes that descriptions are
  * blank and warns if the UUID is a zero UUID.
  */

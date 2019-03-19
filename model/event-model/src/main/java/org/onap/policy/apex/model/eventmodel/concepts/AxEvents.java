@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,14 +49,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is an event container and holds a map of the events for an entire Apex model. All Apex models that use
  * events must have an {@link AxEvents} field. The {@link AxEvents} class implements the helper methods of the
  * {@link AxConceptGetter} interface to allow {@link AxEvents} instances to be retrieved by calling methods directly on
  * this class without referencing the contained map.
- * 
+ *
  * <p>Validation checks that the container key is not null. An error is issued if no events are defined in the
  * container. Each event entry is checked to ensure that its key and value are not null and that the key matches the key
  * in the map value. Each event entry is then validated individually.

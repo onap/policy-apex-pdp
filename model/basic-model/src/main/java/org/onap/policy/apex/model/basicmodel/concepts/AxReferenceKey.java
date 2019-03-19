@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,21 +33,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * A reference key identifies entities in the system that are contained in other entities. Every contained concept in
  * the system must have an {@link AxReferenceKey} to identify it. Non-contained first order concepts are identified
  * using an {@link AxArtifactKey} key.
- * 
+ *
  * <p>An {@link AxReferenceKey} contains an {@link AxArtifactKey} key reference to the first order entity that contains
  * it. The local name of the reference key must uniquely identify the referenced concept among those concepts contained
  * in the reference key's parent. In other words, if a parent concept has more than one child, the local name in the key
  * of all its children must be unique.
- * 
+ *
  * <p>If a reference key's parent is itself a reference key, then the parent's local name must be set in the reference
  * key. If the parent is a first order concept, then the parent's local name in the key will be set to NULL.
- * 
+ *
  * <p>Key validation checks that the parent name and parent version fields match the NAME_REGEXP and
  * VERSION_REGEXP regular expressions respectively and that the local name fields match the
  * LOCAL_NAME_REGEXP regular expression.

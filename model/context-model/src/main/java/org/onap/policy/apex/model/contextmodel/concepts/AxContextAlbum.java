@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,25 +43,25 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyUse;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is used to define an album of context.
- * 
+ *
  * <p>A context album is a distributed map of context that will be distributed across all process instances that require
  * access to it. This class defines the schema (structure) of the items in the context album, whether the items on the
  * context album are writable or not, and what the scope of the context album is.
- * 
+ *
  * <p>The structure of items (objects) the context album is defined as a schema, which is understood by whatever schema
  * implementation is being used for the context album.
- * 
+ *
  * <p>The scope of a context album is a string field, understood by whatever distribution mechanism is being used for
  * the context album. The distribution mechanism uses the scope of the context album to decide to which executable
  * entities a given context album is distributed.
- * 
+ *
  * <p>The writable flag on a context album defines whether users of a context album can write to the context album or
  * just read objects from the context album.
- * 
+ *
  * <p>Validation checks that the album key and the context schema key are not null and that the scope field is not
  * undefined and matches the regular expression SCOPE_REGEXP.
  */

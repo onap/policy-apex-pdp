@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +26,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlType;
 
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is the base class for all Apex concept classes. It enforces implementation of abstract methods and
@@ -46,7 +47,7 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxConcept(final AxConcept copyConcept) {

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +42,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class holds a data schema definition in Apex. A data schema describes the structure of a single atom of data
@@ -50,13 +51,13 @@ import org.onap.policy.apex.model.utilities.Assertions;
  * schema flavour defines the type of schema being defined and the schema itself defines the schema. The schema flavour
  * is used by Apex to look up and load a plugin class that understands and interprets the schema definition and can
  * create instances of classes for the schema.
- * 
+ *
  * <p>An {@link AxContextSchema} is used to define each parameter in Apex events, the messages that enter, exit, and are
  * passed internally in Apex. In addition, an Apex {@link AxContextAlbum} instances hold a map of
  * {@link AxContextSchema} instances to represent the context being managed as an {@link AxContextAlbum}. For example,
  * the state of all cells in a mobile network might be represented as an {@link AxContextAlbum} with its
  * {@link AxContextSchema} being defined as @code cell} objects.
- * 
+ *
  * <p>Validation checks that the schema key is not null. It also checks that the schema flavour is defined and matches
  * the regular expression SCHEMA_FLAVOUR_REGEXP. Finally, validation checks that the defined schema is not a blank or
  * empty string.

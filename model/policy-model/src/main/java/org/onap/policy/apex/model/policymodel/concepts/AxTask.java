@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -54,21 +55,21 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class holds the definition of a task in Apex. A task is executed by a state and performs
  * some domain specific logic to carry out work required to be done by a policy. The Task Logic that
  * is executed by a task is held in a {@link AxTaskLogic} instance.
- * 
+ *
  * <p>A task has a set of input fields and output fields, which are passed to and are emitted from the
  * task during a task execution cycle. A task may have task parameters {@link AxTaskParameter},
  * which are configuration values passed to a task at initialization time.
- * 
+ *
  * <p>The Task Logic in a task may use information in context albums to perform their domain specific
  * work. The context albums that the task uses and that should be made available to the task by Apex
  * policy distribution are held as a set of references to context albums in the task.
- * 
+ *
  * <p>During validation of a task, the validation checks listed below are executed:
  * <ol>
  * <li>The task key must not be a null key and must be valid, see validation in
@@ -138,7 +139,7 @@ public class AxTask extends AxConcept {
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copyConcept the concept to copy from
      */
     public AxTask(final AxTask copyConcept) {
@@ -491,7 +492,7 @@ public class AxTask extends AxConcept {
 
     /**
      * Validate a field.
-     * 
+     *
      * @param key the key of the field to validate
      * @param field the field to validate
      * @param direction The direction of the field
@@ -517,7 +518,7 @@ public class AxTask extends AxConcept {
 
     /**
      * Validate a task parameter entry.
-     * 
+     *
      * @param taskParameterEntry the task parameter entry to validate
      * @param result The validation result to append to
      * @return The result of the validation
@@ -541,7 +542,7 @@ public class AxTask extends AxConcept {
 
     /**
      * Validate a context album reference entry.
-     * 
+     *
      * @param taskParameterEntry the context album reference entry to validate
      * @param result The validation result to append to
      * @return The result of the validation
@@ -647,7 +648,7 @@ public class AxTask extends AxConcept {
         }
         copy.setContextAlbumReferences(newContextUsage);
 
-        copy.setTaskLogic(new AxTaskLogic((AxLogic) taskLogic));
+        copy.setTaskLogic(new AxTaskLogic(taskLogic));
 
         return copy;
     }

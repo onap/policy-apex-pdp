@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,13 +33,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.utilities.Assertions;
+import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * An artifact key uniquely identifies every first order entity in the system. Every first order concept in the system
  * must have an {@link AxArtifactKey} to identify it. Concepts that are wholly contained in another concept are
  * identified using a {@link AxReferenceKey} key.
- * 
+ *
  * <p>Key validation checks that the name and version fields match the NAME_REGEXP and VERSION_REGEXP
  * regular expressions respectively.
  */
