@@ -1,0 +1,4 @@
+ONAP Policy Framework Apex Starter Service
+Version: ${project.version}
+Built (UTC): ${maven.build.timestamp}
+ONAP https://wiki.onap.org
