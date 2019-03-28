@@ -1,4 +1,12 @@
 {
     "name":"ApexStarterParameterGroup",
-    "timeInterval": 5
+    "pdpStatusParameters":{
+    	"timeInterval": 2,
+    	"pdpName":"apex-pdp",
+    	"version":"0.0.1",
+    	"pdpType":"apex",
+    	"description":"Pdp status for HealthCheck",
+    	"supportedPolicyTypes":["onap.controllloop.operational.apex.BBS","onap.controllloop.operational.apex.SampleDomain"]
+    
+    }
 }

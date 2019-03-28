@@ -18,32 +18,13 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.starter.parameters;
-
-import lombok.Getter;
-
-import org.onap.policy.common.parameters.ParameterGroupImpl;
-import org.onap.policy.common.parameters.annotations.NotBlank;
-import org.onap.policy.common.parameters.annotations.NotNull;
+package org.onap.policy.apex.starter;
 
 /**
- * Class to hold all parameters needed for apex starter component.
- *
- * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
+ * Names of various items contained in the Registry.
  */
-@NotNull
-@NotBlank
-@Getter
-public class ApexStarterParameterGroup extends ParameterGroupImpl {
-
-    private PdpStatusParameters pdpStatusParameters;
-
-    /**
-     * Create the apex starter parameter group.
-     *
-     * @param name the parameter group name
-     */
-    public ApexStarterParameterGroup(final String name) {
-        super(name);
-    }
+public class ApexStarterConstants {
+    // Registry keys
+    public static final String REG_APEX_STARTER_ACTIVATOR = "object:activator/apex_starter";
+    public static final String REG_PDP_STATUS_OBJECT = "object:pdp/status";
 }
