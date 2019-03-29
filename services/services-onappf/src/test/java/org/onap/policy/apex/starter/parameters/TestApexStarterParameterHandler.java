@@ -109,7 +109,6 @@ public class TestApexStarterParameterHandler {
         final ApexStarterParameterGroup parGroup = new ApexStarterParameterHandler().getParameters(arguments);
         assertTrue(arguments.checkSetConfigurationFilePath());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, parGroup.getName());
-        assertEquals(CommonTestData.APEX_STARTER_TIME_INTERVAL, parGroup.getTimeInterval());
     }
 
     @Test

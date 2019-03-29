@@ -48,10 +48,16 @@ public class TestApexStarterParameterGroup {
         final ApexStarterParameterGroup apexStarterParameters = commonTestData.toObject(
                 commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME),
                 ApexStarterParameterGroup.class);
+        final PdpStatusParameters pdpStatusParameters = apexStarterParameters.getPdpStatusParameters();
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarterParameters.getName());
-        assertEquals(CommonTestData.APEX_STARTER_TIME_INTERVAL, apexStarterParameters.getTimeInterval());
+        assertEquals(CommonTestData.TIME_INTERVAL, pdpStatusParameters.getTimeInterval());
+        assertEquals(CommonTestData.PDP_NAME, pdpStatusParameters.getPdpName());
+        assertEquals(CommonTestData.PDP_TYPE, pdpStatusParameters.getPdpType());
+        assertEquals(CommonTestData.VERSION, pdpStatusParameters.getVersion());
+        assertEquals(CommonTestData.DESCRIPTION, pdpStatusParameters.getDescription());
+        assertEquals(CommonTestData.SUPPORTED_POLICY_TYPES, pdpStatusParameters.getSupportedPolicyTypes());
     }
 
     @Test
@@ -61,7 +67,6 @@ public class TestApexStarterParameterGroup {
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, apexStarterParameters.getName());
-        assertEquals(CommonTestData.APEX_STARTER_TIME_INTERVAL, apexStarterParameters.getTimeInterval());
         assertTrue(validationResult.getResult().contains("is null"));
     }
 
@@ -72,7 +77,6 @@ public class TestApexStarterParameterGroup {
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", apexStarterParameters.getName());
-        assertEquals(CommonTestData.APEX_STARTER_TIME_INTERVAL, apexStarterParameters.getTimeInterval());
         assertTrue(validationResult.getResult().contains(
                 "field \"name\" type \"java.lang.String\" value \"\" INVALID, " + "must be a non-blank string"));
     }
@@ -89,16 +93,16 @@ public class TestApexStarterParameterGroup {
     }
 
     @Test
-    public void testApexStarterParameterGroup_EmptyTimeInterval() {
+    public void testApexStarterParameterGroup_EmptyPdpStatusParameters() {
         final Map<String, Object> map =
                 commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
-        map.put("timeInterval", commonTestData.getTimeInterval(true));
+        map.put("pdpStatusParameters", commonTestData.getPdpStatusParametersMap(true));
         final ApexStarterParameterGroup apexStarterParameters =
                 commonTestData.toObject(map, ApexStarterParameterGroup.class);
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                .contains("field \"timeInterval\" type \"int\" value \"0\" INVALID, must be >= 1")
-                && validationResult.getResult().contains("parameter group has status INVALID"));
+                .contains("\"org.onap.policy.apex.starter.parameters.ApexStarterParameterGroup\" INVALID, "
+                        + "parameter group has status INVALID"));
     }
 }

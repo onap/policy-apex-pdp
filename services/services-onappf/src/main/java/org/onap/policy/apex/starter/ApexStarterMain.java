@@ -27,6 +27,7 @@ import java.util.Properties;
 import org.onap.policy.apex.starter.exception.ApexStarterException;
 import org.onap.policy.apex.starter.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.starter.parameters.ApexStarterParameterHandler;
+import org.onap.policy.common.utils.services.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,12 +89,13 @@ public class ApexStarterMain {
 
         // create the activator
         activator = new ApexStarterActivator(parameterGroup, topicProperties);
-
+        Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
         // Start the activator
         try {
             activator.initialize();
         } catch (final ApexStarterException e) {
             LOGGER.error("start of ApexStarter failed, used parameters are {}", Arrays.toString(args), e);
+            Registry.unregister(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR);
             return;
         }
 

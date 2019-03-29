@@ -20,30 +20,35 @@
 
 package org.onap.policy.apex.starter.parameters;
 
+import java.util.List;
+
 import lombok.Getter;
 
 import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.Min;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
- * Class to hold all parameters needed for apex starter component.
+ * Class to hold all parameters needed for pdpstatus.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 @NotNull
 @NotBlank
 @Getter
-public class ApexStarterParameterGroup extends ParameterGroupImpl {
+public class PdpStatusParameters extends ParameterGroupImpl {
 
-    private PdpStatusParameters pdpStatusParameters;
+    @Min(value = 1)
+    private int timeInterval;
 
-    /**
-     * Create the apex starter parameter group.
-     *
-     * @param name the parameter group name
-     */
-    public ApexStarterParameterGroup(final String name) {
-        super(name);
+    private String pdpName;
+    private String version;
+    private String pdpType;
+    private String description;
+    private List<String> supportedPolicyTypes;
+
+    public PdpStatusParameters() {
+        super(PdpStatusParameters.class.getSimpleName());
     }
 }

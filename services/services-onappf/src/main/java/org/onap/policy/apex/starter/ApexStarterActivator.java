@@ -20,15 +20,22 @@
 
 package org.onap.policy.apex.starter;
 
+import java.util.List;
 import java.util.Properties;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import org.onap.policy.apex.starter.exception.ApexStarterException;
+import org.onap.policy.apex.starter.handler.CommunicationHandler;
+import org.onap.policy.apex.starter.handler.PdpMessageHandler;
 import org.onap.policy.apex.starter.parameters.ApexStarterParameterGroup;
+import org.onap.policy.apex.starter.parameters.PdpStatusParameters;
 import org.onap.policy.common.endpoints.event.comm.TopicEndpoint;
+import org.onap.policy.common.endpoints.event.comm.TopicSink;
+import org.onap.policy.common.endpoints.event.comm.TopicSource;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.common.utils.services.ServiceManager;
 import org.onap.policy.common.utils.services.ServiceManagerException;
 import org.slf4j.Logger;
@@ -43,12 +50,7 @@ public class ApexStarterActivator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexStarterActivator.class);
     private final ApexStarterParameterGroup apexStarterParameterGroup;
-
-    /**
-     * The current activator.
-     */
-    @Getter
-    private static volatile ApexStarterActivator current = null;
+    private CommunicationHandler communicationHandler;
 
     /**
      * Used to manage the services.
@@ -62,21 +64,35 @@ public class ApexStarterActivator {
     public ApexStarterActivator(final ApexStarterParameterGroup apexStarterParameterGroup,
             final Properties topicProperties) {
 
-        TopicEndpoint.manager.addTopicSinks(topicProperties);
-        TopicEndpoint.manager.addTopicSources(topicProperties);
-
+        final List<TopicSink> topicSinks = TopicEndpoint.manager.addTopicSinks(topicProperties);
+        final List<TopicSource> topicSources = TopicEndpoint.manager.addTopicSources(topicProperties);
         this.apexStarterParameterGroup = apexStarterParameterGroup;
+
+        // TODO: instanceId currently set as a random string, could be fetched from actual deployment
+        final int random = (int) (Math.random() * 100);
+        final String instanceId = "apex_" + random;
+
         // @formatter:off
         this.manager = new ServiceManager()
                 .addAction("topics",
-                        () -> TopicEndpoint.manager.start(), () -> TopicEndpoint.manager.shutdown())
+                        () -> TopicEndpoint.manager.start(),
+                        () -> TopicEndpoint.manager.shutdown())
                 .addAction("set alive",
-                        () -> setAlive(true), () -> setAlive(false))
+                        () -> setAlive(true),
+                        () -> setAlive(false))
+                .addAction("register context map",
+                        () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_OBJECT,
+                                new PdpMessageHandler().createPdpStatusFromParameters(instanceId,
+                                        apexStarterParameterGroup.getPdpStatusParameters())),
+                        () -> Registry.unregister(ApexStarterConstants.REG_PDP_STATUS_OBJECT))
                 .addAction("register parameters",
                         () -> registerToParameterService(apexStarterParameterGroup),
-                        () -> deregisterToParameterService(apexStarterParameterGroup));
+                        () -> deregisterToParameterService(apexStarterParameterGroup))
+                .addAction("Communication handler",
+                        () -> startCommunicationHandler(topicSinks, topicSources,
+                                apexStarterParameterGroup.getPdpStatusParameters()),
+                        () -> communicationHandler.stop());
         // @formatter:on
-        current = this;
     }
 
     /**
@@ -143,5 +159,22 @@ public class ApexStarterActivator {
      */
     public void deregisterToParameterService(final ApexStarterParameterGroup apexStarterParameterGroup) {
         ParameterService.deregister(apexStarterParameterGroup.getName());
+    }
+
+    /**
+     * Starts the communication handler which handles the communication between apex pdp and pap.
+     *
+     * @param pdpStatusParameters
+     * @param topicSources
+     * @param topicSinks
+     *
+     * @throws ApexStarterException if the handler start fails
+     */
+    public void startCommunicationHandler(final List<TopicSink> topicSinks, final List<TopicSource> topicSources,
+            final PdpStatusParameters pdpStatusParameters) throws ApexStarterException {
+        communicationHandler = new CommunicationHandler(topicSinks, topicSources, pdpStatusParameters);
+        if (!communicationHandler.start()) {
+            throw new ApexStarterException("Failed to start the communication handler for ApexStarter");
+        }
     }
 }
