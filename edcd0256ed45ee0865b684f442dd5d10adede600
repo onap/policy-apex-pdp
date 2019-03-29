@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c13eefd0_cc57b1f6",
+        "filename": "services/services-onappf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-03-29T19:58:37Z",
+      "side": 1,
+      "message": "I understood per discussion with Liam and PAP subteam that we should be using the counterpart version in the policy/models repo and not this one on the PDP side.   Not sure if this one should go away so not to get us all confused.",
+      "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d5b5841_873d349c",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-03-29T19:58:37Z",
+      "side": 1,
+      "message": "not from common as I mentioned in my previous comment",
+      "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "192d6f5d_86928841",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/parameters/PdpStatusParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-03-29T19:58:37Z",
+      "side": 1,
+      "message": "This calls seems to be repeated many, many times across repos .. will be very difficult to keep them in sync.   Why not to use the master copy (inherity from it)",
+      "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
