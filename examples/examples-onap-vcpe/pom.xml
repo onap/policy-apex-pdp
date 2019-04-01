@@ -18,7 +18,8 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -54,6 +55,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${version.jersey}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
             <artifactId>plugins-context-schema-avro</artifactId>
             <version>${project.version}</version>
@@ -67,6 +74,26 @@
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
             <artifactId>plugins-event-carrier-restrequestor</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
+            <artifactId>plugins-event-carrier-restclient</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.models.policy-models-interactions.model-impl</groupId>
+            <artifactId>aai</artifactId>
+            <version>${version.policy.models}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.models.policy-models-interactions.model-impl</groupId>
+            <artifactId>appclcm</artifactId>
+            <version>${version.policy.models}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.models.policy-models-interactions.model-impl</groupId>
+            <artifactId>events</artifactId>
+            <version>${version.policy.models}</version>
         </dependency>
     </dependencies>
 
