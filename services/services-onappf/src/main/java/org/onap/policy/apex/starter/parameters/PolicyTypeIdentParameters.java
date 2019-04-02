@@ -20,30 +20,24 @@
 
 package org.onap.policy.apex.starter.parameters;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
-import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
- * Class to hold all parameters needed for apex starter component.
+ * Class to hold all parameters needed for PolicyTypeIdent.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 @NotNull
 @NotBlank
 @Getter
-public class ApexStarterParameterGroup extends ParameterGroupImpl {
-
-    private PdpStatusParameters pdpStatusParameters;
-
-    /**
-     * Create the apex starter parameter group.
-     *
-     * @param name the parameter group name
-     */
-    public ApexStarterParameterGroup(final String name) {
-        super(name);
-    }
+@Setter
+@EqualsAndHashCode
+public class PolicyTypeIdentParameters {
+    private String name;
+    private String version;
 }

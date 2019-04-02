@@ -23,7 +23,8 @@ package org.onap.policy.apex.starter;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
@@ -36,8 +37,8 @@ import org.onap.policy.apex.starter.exception.ApexStarterException;
 import org.onap.policy.apex.starter.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.starter.parameters.ApexStarterParameterHandler;
 import org.onap.policy.apex.starter.parameters.CommonTestData;
-
-
+import org.onap.policy.common.utils.services.Registry;
+import org.onap.policy.models.pdp.concepts.PdpStatus;
 
 /**
  * Class to perform unit test of {@link ApexStarterActivator}}.
@@ -55,6 +56,7 @@ public class TestApexStarterActivator {
      */
     @Before
     public void setUp() throws Exception {
+        Registry.newRegistry();
         final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json",
             "-p", "src/test/resources/topic.properties" };
         final ApexStarterCommandLineArguments arguments =
@@ -90,6 +92,9 @@ public class TestApexStarterActivator {
         assertTrue(activator.getParameterGroup().isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, activator.getParameterGroup().getName());
 
+        // ensure items were added to the registry
+        assertNotNull(Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class));
+
         // repeat - should throw an exception
         assertThatIllegalStateException().isThrownBy(() -> activator.initialize());
         assertTrue(activator.isAlive());
@@ -97,15 +102,13 @@ public class TestApexStarterActivator {
     }
 
     @Test
-    public void testGetCurrent_testSetCurrent() {
-        assertSame(activator, ApexStarterActivator.getCurrent());
-    }
-
-    @Test
     public void testTerminate() throws Exception {
         activator.initialize();
         activator.terminate();
         assertFalse(activator.isAlive());
+
+        // ensure items have been removed from the registry
+        assertNull(Registry.getOrDefault(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class, null));
 
         // repeat - should throw an exception
         assertThatIllegalStateException().isThrownBy(() -> activator.terminate());

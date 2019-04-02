@@ -21,12 +21,15 @@
 package org.onap.policy.apex.starter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.starter.exception.ApexStarterException;
 import org.onap.policy.apex.starter.parameters.CommonTestData;
+import org.onap.policy.common.utils.services.Registry;
 
 /**
  * Class to perform unit test of {@link ApexStarterMain}}.
@@ -37,6 +40,14 @@ public class TestApexStarterMain {
     private ApexStarterMain apexStarter;
 
     /**
+     * Set up.
+     */
+    @Before
+    public void setUp() {
+        Registry.newRegistry();
+    }
+
+    /**
      * Shuts "main" down.
      *
      * @throws Exception if an error occurs
@@ -44,7 +55,8 @@ public class TestApexStarterMain {
     @After
     public void tearDown() throws Exception {
         // shut down activator
-        final ApexStarterActivator activator = ApexStarterActivator.getCurrent();
+        final ApexStarterActivator activator = Registry.getOrDefault(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR,
+                ApexStarterActivator.class, null);
         if (activator != null && activator.isAlive()) {
             activator.terminate();
         }
@@ -57,6 +69,9 @@ public class TestApexStarterMain {
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
         assertTrue(apexStarter.getParameters().isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarter.getParameters().getName());
+
+        // ensure items were added to the registry
+        assertNotNull(Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class));
 
         apexStarter.shutdown();
     }
