@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8c9c161c_665900e2",
+        "filename": "services/services-onappf/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-02T09:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c13eefd0_cc57b1f6",
+      "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d5b5841_873d349c",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fe052e31_1e1f498a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-02T09:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d5b5841_873d349c",
+      "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "192d6f5d_86928841",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/parameters/PdpStatusParameters.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-03-29T19:58:37Z",
       "side": 1,
       "message": "This calls seems to be repeated many, many times across repos .. will be very difficult to keep them in sync.   Why not to use the master copy (inherity from it)",
+      "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f54b9231_ee4895df",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/parameters/PdpStatusParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-02T09:20:49Z",
+      "side": 1,
+      "message": "As discussed in Change 83863, keeping this for now.",
+      "parentUuid": "192d6f5d_86928841",
       "revId": "edcd0256ed45ee0865b684f442dd5d10adede600",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
