@@ -27,4 +27,8 @@ public class ApexStarterConstants {
     // Registry keys
     public static final String REG_APEX_STARTER_ACTIVATOR = "object:activator/apex_starter";
     public static final String REG_PDP_STATUS_OBJECT = "object:pdp/status";
+    public static final String REG_APEX_TOSCA_POLICY_LIST = "object:apex/tosca/policy/list";
+    public static final String REG_PDP_STATUS_PUBLISHER = "object:pdp/status/publisher";
+    public static final String REG_APEX_PDP_TOPIC_SINKS = "object:apex/pdp/topic/sinks";
+    public static final String REG_APEX_ENGINE = "object:engine/apex_main";
 }

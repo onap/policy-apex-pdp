@@ -18,17 +18,16 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.starter.handler;
+package org.onap.policy.apex.starter.comm;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import org.onap.policy.apex.starter.handler.PdpMessageHandler;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.client.TopicSinkClient;
+import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,16 +38,11 @@ import org.slf4j.LoggerFactory;
  */
 public class PdpStatusPublisher extends TimerTask {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommunicationHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdpStatusPublisher.class);
 
-    private List<TopicSink> topicSinks;
     private TopicSinkClient topicSinkClient;
     private Timer timer;
-    private PdpMessageHandler pdpMessageHandler;
-
-    @Getter
-    @Setter(lombok.AccessLevel.PRIVATE)
-    private volatile boolean alive = false;
+    private long interval;
 
     /**
      * Constructor for instantiating PdpStatusPublisher
@@ -57,35 +51,42 @@ public class PdpStatusPublisher extends TimerTask {
      * @param topicSinks
      * @param apexStarterParameterGroup
      */
-    public PdpStatusPublisher(final List<TopicSink> topicSinks, final int interval) {
-        this.topicSinks = topicSinks;
+    public PdpStatusPublisher(final List<TopicSink> topicSinks, final long interval) {
         this.topicSinkClient = new TopicSinkClient(topicSinks.get(0));
-        this.pdpMessageHandler = new PdpMessageHandler();
+        this.interval = interval;
         timer = new Timer(false);
-        timer.scheduleAtFixedRate(this, 0, interval * 1000L);
-        setAlive(true);
+        timer.scheduleAtFixedRate(this, 0, interval);
     }
 
     @Override
     public void run() {
-        topicSinkClient.send(pdpMessageHandler.createPdpStatusFromContext());
-        LOGGER.info("Sent heartbeat to PAP");
+        final PdpStatus pdpStatus = new PdpMessageHandler().createPdpStatusFromContext();
+        topicSinkClient.send(pdpStatus);
+        LOGGER.debug("Sent heartbeat to PAP - {}", pdpStatus);
     }
 
+    /**
+     * Terminates the current timer.
+     */
     public void terminate() {
         timer.cancel();
         timer.purge();
-        setAlive(false);
     }
 
-    public PdpStatusPublisher updateInterval(final int interval) {
-        terminate();
-        return new PdpStatusPublisher(topicSinks, interval);
+    /**
+     * Get the current time interval used by the timer task.
+     *
+     * @return interval
+     */
+    public long getInterval() {
+        return interval;
     }
 
-    public void send() {
-        topicSinkClient.send(pdpMessageHandler.createPdpStatusFromContext());
-        LOGGER.info("Sent pdp status response message to PAP");
+    /**
+     * Method to send pdp status message to pap on demand.
+     */
+    public void send(final PdpStatus pdpStatus) {
+        topicSinkClient.send(pdpStatus);
+        LOGGER.debug("Sent pdp status message to PAP - {}", pdpStatus);
     }
-
 }

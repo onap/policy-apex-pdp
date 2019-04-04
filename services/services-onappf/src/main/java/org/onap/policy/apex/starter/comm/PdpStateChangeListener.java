@@ -18,37 +18,27 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.starter.parameters;
+package org.onap.policy.apex.starter.comm;
 
-import java.util.List;
-
-import lombok.Getter;
-
-import org.onap.policy.common.parameters.ParameterGroupImpl;
-import org.onap.policy.common.parameters.annotations.Min;
-import org.onap.policy.common.parameters.annotations.NotBlank;
-import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.apex.starter.handler.PdpStateChangeMessageHandler;
+import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.endpoints.listeners.TypedMessageListener;
+import org.onap.policy.models.pdp.concepts.PdpStateChange;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Class to hold all parameters needed for pdpstatus.
+ * Listener for Pdp state change messages sent by PAP.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-@NotNull
-@NotBlank
-@Getter
-public class PdpStatusParameters extends ParameterGroupImpl {
+public class PdpStateChangeListener implements TypedMessageListener<PdpStateChange> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdpStateChangeListener.class);
 
-    @Min(value = 1)
-    private long timeInterval;
-
-    private String pdpName;
-    private String version;
-    private String pdpType;
-    private String description;
-    private List<ToscaPolicyTypeIdentifierParameters> supportedPolicyTypes;
-
-    public PdpStatusParameters() {
-        super(PdpStatusParameters.class.getSimpleName());
+    @Override
+    public void onTopicEvent(final CommInfrastructure infra, final String topic,
+            final PdpStateChange pdpStateChangeMsg) {
+        LOGGER.debug("Pdp state change message received from PAP. - {}", pdpStateChangeMsg);
+        new PdpStateChangeMessageHandler().handlePdpStateChangeEvent(pdpStateChangeMsg);
     }
 }
