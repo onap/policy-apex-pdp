@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92e80919_28bb1d0b",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpStateChangeListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-04T17:38:17Z",
+      "side": 1,
+      "message": "\u003e 120 characters.",
+      "range": {
+        "startLine": 135,
+        "startChar": 57,
+        "endLine": 135,
+        "endChar": 69
+      },
+      "revId": "9a9e6e5d81977252ab4d5224670498ffa9ca9d3e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a814cb54_b28c3a04",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-04T17:38:17Z",
+      "side": 1,
+      "message": "\u003e 120 characters",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 907
+      },
+      "revId": "9a9e6e5d81977252ab4d5224670498ffa9ca9d3e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
