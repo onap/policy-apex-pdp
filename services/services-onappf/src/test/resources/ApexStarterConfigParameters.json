@@ -1,7 +1,7 @@
 {
     "name":"ApexStarterParameterGroup",
     "pdpStatusParameters":{
-        "timeInterval": 2,
+        "timeInterval": 2000,
         "pdpName":"apex-pdp",
         "version":"0.0.1",
         "pdpType":"apex",

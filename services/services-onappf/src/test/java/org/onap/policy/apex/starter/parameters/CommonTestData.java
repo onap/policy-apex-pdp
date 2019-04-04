@@ -38,14 +38,14 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 public class CommonTestData {
 
     public static final String APEX_STARTER_GROUP_NAME = "ApexStarterParameterGroup";
-    public static final int TIME_INTERVAL = 2;
+    public static final long TIME_INTERVAL = 2000;
     public static final String PDP_NAME = "apex-pdp";
     public static final String VERSION = "0.0.1";
     public static final String PDP_TYPE = "apex";
     public static final String DESCRIPTION = "Pdp status for HealthCheck";
     public static final String POLICY_NAME = "onap.controllloop.operational.apex.BBS";
     public static final String POLICY_VERSION = "0.0.1";
-    public static final List<PolicyTypeIdentParameters> SUPPORTED_POLICY_TYPES =
+    public static final List<ToscaPolicyTypeIdentifierParameters> SUPPORTED_POLICY_TYPES =
             Arrays.asList(getSupportedPolicyTypes(POLICY_NAME, POLICY_VERSION));
 
     public static final Coder coder = new StandardCoder();
@@ -55,8 +55,8 @@ public class CommonTestData {
      *
      * @return supported policy types
      */
-    public static PolicyTypeIdentParameters getSupportedPolicyTypes(final String name, final String version) {
-        final PolicyTypeIdentParameters policyTypeIdentParameters = new PolicyTypeIdentParameters();
+    public static ToscaPolicyTypeIdentifierParameters getSupportedPolicyTypes(final String name, final String version) {
+        final ToscaPolicyTypeIdentifierParameters policyTypeIdentParameters = new ToscaPolicyTypeIdentifierParameters();
         policyTypeIdentParameters.setName(name);
         policyTypeIdentParameters.setVersion(version);
         return policyTypeIdentParameters;

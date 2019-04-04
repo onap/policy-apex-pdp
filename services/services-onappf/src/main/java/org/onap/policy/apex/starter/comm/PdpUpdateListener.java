@@ -18,37 +18,26 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.starter.parameters;
+package org.onap.policy.apex.starter.comm;
 
-import java.util.List;
-
-import lombok.Getter;
-
-import org.onap.policy.common.parameters.ParameterGroupImpl;
-import org.onap.policy.common.parameters.annotations.Min;
-import org.onap.policy.common.parameters.annotations.NotBlank;
-import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.apex.starter.handler.PdpUpdateMessageHandler;
+import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.endpoints.listeners.TypedMessageListener;
+import org.onap.policy.models.pdp.concepts.PdpUpdate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Class to hold all parameters needed for pdpstatus.
+ * Listener for Pdp update messages sent by PAP.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-@NotNull
-@NotBlank
-@Getter
-public class PdpStatusParameters extends ParameterGroupImpl {
+public class PdpUpdateListener implements TypedMessageListener<PdpUpdate> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdpUpdateListener.class);
 
-    @Min(value = 1)
-    private long timeInterval;
-
-    private String pdpName;
-    private String version;
-    private String pdpType;
-    private String description;
-    private List<ToscaPolicyTypeIdentifierParameters> supportedPolicyTypes;
-
-    public PdpStatusParameters() {
-        super(PdpStatusParameters.class.getSimpleName());
+    @Override
+    public void onTopicEvent(final CommInfrastructure infra, final String topic, final PdpUpdate pdpUpdateMsg) {
+        LOGGER.debug("Pdp update message received from PAP - {}", pdpUpdateMsg);
+        new PdpUpdateMessageHandler().handlePdpUpdateEvent(pdpUpdateMsg);
     }
 }
