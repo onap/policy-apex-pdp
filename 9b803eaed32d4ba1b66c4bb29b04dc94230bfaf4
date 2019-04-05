@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e39599c9_ec93be6e",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/ApexStarterActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65195b24_558d2e18",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be9db314_5dd56839",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/ApexStarterConstants.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "question: Do all of these really need to be added to the registry?  Can some be passed to constructors instead?  For instance, could pass the status object to PdpMessageHandler, rather than having it use the registry.\n\nIn general, the registry should only be used when there\u0027s no simple mechanism to communicate info from one object to another.  For instance, there isn\u0027t a convenient way to pass objects to the rest servers, thus whatever they need, they must get from the registry.  However, most other objects can be provided via constructors or via setXxx methods.",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7cc2c40_bc900236",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/ApexStarterConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Some could be removed by passing object references between classes. Can look into it later.",
+      "parentUuid": "be9db314_5dd56839",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "98f1ab01_8f53dc94",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/comm/PdpStateChangeListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Could be combined. But, I thought it is better to keep the listener and handler separate(maybe in case of multithreading or so). Can look into it later.",
+      "parentUuid": "c1008c62_4b1e5dc2",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bf0b001_d39833b0",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/comm/PdpUpdateListener.java",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "could this class be combined with PdpUpdateMessageHandler?",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93e608ae_42d67878",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/comm/PdpUpdateListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Can look into it later.",
+      "parentUuid": "0bf0b001_d39833b0",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ad11854b_2929ef76",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f815888d_7bd92033",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73e436ca_11487bf4",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "change to:\n\n  getBytes(\"UTF-8\") or\n  getBytes(StandardCharsets.UTF_8)",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5737cd4_9b82f2ff",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73e436ca_11487bf4",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "e849dbfa_42137963",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53e5c599_353ca3a1",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fee6069_21992eca",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
         "patchSetId": 2
@@ -132,6 +258,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "sonar: pass the expected size to the arraylist constructor",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "834ffae6_f03231f9",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fee6069_21992eca",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "91d695aa_a39dc68f",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f04339b0_6fe8c2e0",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "818fb991_46b88b57",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpStateChangeMessageHandler.java",
         "patchSetId": 2
@@ -166,6 +328,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "PLZ FIX: also need to handle the broadcast case where stateChange.name\u003dnull, but group \u0026 subgroup equal the PDP\u0027s assigned group \u0026 subgroup",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2046c34e_7dc8aa38",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "818fb991_46b88b57",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "1eef8f2f_0ab2fcd3",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "078d6a17_c17b49fb",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5fa968e_8e1d0b30",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpStateChangeMessageHandler.java",
         "patchSetId": 2
@@ -200,6 +398,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "is this a valid assumption?",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df6a91f2_765e2c91",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "To start with, a single policy is dealt with here, as it might require some changes in ApexEngine.",
+      "parentUuid": "f5fa968e_8e1d0b30",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -240,6 +456,24 @@
     },
     {
       "key": {
+        "uuid": "e70e4367_bbd8d51f",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpStateChangeListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e81bbb66_963d6a32",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cf3ef99_c405b767",
         "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpStateChangeListener.java",
         "patchSetId": 2
@@ -251,6 +485,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "add \"UTF-8\" parameter",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3ef8f36_880a422f",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpStateChangeListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cf3ef99_c405b767",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -274,6 +526,24 @@
     },
     {
       "key": {
+        "uuid": "8a82ad40_99fcdef3",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpUpdateListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88f238f_32838035",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5062ae87_bd70140a",
         "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpUpdateListener.java",
         "patchSetId": 2
@@ -291,6 +561,24 @@
     },
     {
       "key": {
+        "uuid": "4543eeb5_59aa748f",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/starter/comm/TestPdpUpdateListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5062ae87_bd70140a",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3740896f_9b6d06bc",
         "filename": "services/services-onappf/src/test/resources/ApexStarterConfigParameters.json",
         "patchSetId": 2
@@ -302,6 +590,24 @@
       "writtenOn": "2019-04-04T22:01:16Z",
       "side": 1,
       "message": "might be good to change field name to timeIntervalMs",
+      "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4139365_0ddb5bf3",
+        "filename": "services/services-onappf/src/test/resources/ApexStarterConfigParameters.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-05T14:32:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3740896f_9b6d06bc",
       "revId": "9b803eaed32d4ba1b66c4bb29b04dc94230bfaf4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
