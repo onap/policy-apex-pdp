@@ -40,13 +40,11 @@ import org.onap.policy.common.parameters.annotations.NotNull;
 public class PdpStatusParameters extends ParameterGroupImpl {
 
     @Min(value = 1)
-    private int timeInterval;
+    private long timeIntervalMs;
 
-    private String pdpName;
-    private String version;
     private String pdpType;
     private String description;
-    private List<PolicyTypeIdentParameters> supportedPolicyTypes;
+    private List<ToscaPolicyTypeIdentifierParameters> supportedPolicyTypes;
 
     public PdpStatusParameters() {
         super(PdpStatusParameters.class.getSimpleName());

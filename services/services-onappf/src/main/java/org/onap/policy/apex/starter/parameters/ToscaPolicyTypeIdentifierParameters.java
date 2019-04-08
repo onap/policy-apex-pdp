@@ -37,7 +37,7 @@ import org.onap.policy.common.parameters.annotations.NotNull;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class PolicyTypeIdentParameters {
+public class ToscaPolicyTypeIdentifierParameters {
     private String name;
     private String version;
 }

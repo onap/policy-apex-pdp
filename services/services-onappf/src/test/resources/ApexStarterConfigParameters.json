@@ -1,9 +1,8 @@
 {
     "name":"ApexStarterParameterGroup",
     "pdpStatusParameters":{
-        "timeInterval": 2,
+        "timeIntervalMs": 2000,
         "pdpName":"apex-pdp",
-        "version":"0.0.1",
         "pdpType":"apex",
         "description":"Pdp status for HealthCheck",
         "supportedPolicyTypes":[{"name":"policy1","version":"1.0"},{"name":"policy2","version":"1.0"}]

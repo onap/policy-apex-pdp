@@ -57,7 +57,7 @@ public class ApexStarterMain {
             // The arguments return a string if there is a message to print and we should exit
             final String argumentMessage = arguments.parse(args);
             if (argumentMessage != null) {
-                LOGGER.info(argumentMessage);
+                LOGGER.debug(argumentMessage);
                 return;
             }
             // Validate that the arguments are sane
@@ -104,7 +104,6 @@ public class ApexStarterMain {
 
         LOGGER.info("Started ApexStarter service");
     }
-
 
     /**
      * Get the parameters specified in JSON.
@@ -153,7 +152,6 @@ public class ApexStarterMain {
             }
         }
     }
-
 
     /**
      * The main method.
