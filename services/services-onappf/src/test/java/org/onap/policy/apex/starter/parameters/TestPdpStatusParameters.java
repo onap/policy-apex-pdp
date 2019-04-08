@@ -41,10 +41,8 @@ public class TestPdpStatusParameters {
                 testData.toObject(testData.getPdpStatusParametersMap(false), PdpStatusParameters.class);
         final GroupValidationResult validationResult = pdpStatusParameters.validate();
         assertTrue(validationResult.isValid());
-        assertEquals(CommonTestData.TIME_INTERVAL, pdpStatusParameters.getTimeInterval());
-        assertEquals(CommonTestData.PDP_NAME, pdpStatusParameters.getPdpName());
+        assertEquals(CommonTestData.TIME_INTERVAL, pdpStatusParameters.getTimeIntervalMs());
         assertEquals(CommonTestData.PDP_TYPE, pdpStatusParameters.getPdpType());
-        assertEquals(CommonTestData.VERSION, pdpStatusParameters.getVersion());
         assertEquals(CommonTestData.DESCRIPTION, pdpStatusParameters.getDescription());
         assertEquals(CommonTestData.SUPPORTED_POLICY_TYPES, pdpStatusParameters.getSupportedPolicyTypes());
     }

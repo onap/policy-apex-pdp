@@ -52,10 +52,8 @@ public class TestApexStarterParameterGroup {
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarterParameters.getName());
-        assertEquals(CommonTestData.TIME_INTERVAL, pdpStatusParameters.getTimeInterval());
-        assertEquals(CommonTestData.PDP_NAME, pdpStatusParameters.getPdpName());
+        assertEquals(CommonTestData.TIME_INTERVAL, pdpStatusParameters.getTimeIntervalMs());
         assertEquals(CommonTestData.PDP_TYPE, pdpStatusParameters.getPdpType());
-        assertEquals(CommonTestData.VERSION, pdpStatusParameters.getVersion());
         assertEquals(CommonTestData.DESCRIPTION, pdpStatusParameters.getDescription());
         assertEquals(CommonTestData.SUPPORTED_POLICY_TYPES, pdpStatusParameters.getSupportedPolicyTypes());
     }
