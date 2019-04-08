@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "daf7ac8c_daba283d",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-08T10:38:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3782fe73_80a3e3c7",
+      "revId": "79f75d0dfd53db0c8e50515ad82f022a8de1d0f5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3f93c32_92f8f777",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-05T16:30:46Z",
       "side": 1,
       "message": "need to add this?  Or should it be left pointing at the main since the shutdown failed?\n\n  apexMain \u003d null;",
+      "revId": "79f75d0dfd53db0c8e50515ad82f022a8de1d0f5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7712b57_f5d08c38",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-08T10:38:09Z",
+      "side": 1,
+      "message": "If apexMain.shutdown() fail, then it will go to exception and  the line where apexMain is set to null is skipped.",
+      "parentUuid": "a3f93c32_92f8f777",
       "revId": "79f75d0dfd53db0c8e50515ad82f022a8de1d0f5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
