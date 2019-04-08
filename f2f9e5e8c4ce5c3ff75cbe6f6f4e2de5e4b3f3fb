@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bea2c7b0_7c3102c5",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-08T13:11:39Z",
+      "side": 1,
+      "message": "I don\u0027t know if we need to write the model and config to the file system, let\u0027s discuss but we may open a Jira on this for after M4",
+      "range": {
+        "startLine": 70,
+        "startChar": 1,
+        "endLine": 72,
+        "endChar": 83
+      },
+      "revId": "f2f9e5e8c4ce5c3ff75cbe6f6f4e2de5e4b3f3fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
