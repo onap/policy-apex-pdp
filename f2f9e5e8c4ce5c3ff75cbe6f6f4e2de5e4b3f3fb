@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "74f2525c_de13f32e",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/ApexStarterActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-08T14:33:57Z",
+      "side": 1,
+      "message": "better still, use this in these two lines: PdpMessageType.PDP_UPDATE.name()\n\nsame comment for state-change lines",
+      "revId": "f2f9e5e8c4ce5c3ff75cbe6f6f4e2de5e4b3f3fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bea2c7b0_7c3102c5",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
         "patchSetId": 5
@@ -19,6 +36,47 @@
         "endLine": 72,
         "endChar": 83
       },
+      "revId": "f2f9e5e8c4ce5c3ff75cbe6f6f4e2de5e4b3f3fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "044ab8d6_25305bf4",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-08T14:33:57Z",
+      "side": 1,
+      "message": "ApexMain expects them to be files",
+      "parentUuid": "bea2c7b0_7c3102c5",
+      "range": {
+        "startLine": 70,
+        "startChar": 1,
+        "endLine": 72,
+        "endChar": 83
+      },
+      "revId": "f2f9e5e8c4ce5c3ff75cbe6f6f4e2de5e4b3f3fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a62a530_e5ff8f2a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpMessageHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-08T14:33:57Z",
+      "side": 1,
+      "message": "this is fine, but the null check is unnecessary\n\nsame comment below",
       "revId": "f2f9e5e8c4ce5c3ff75cbe6f6f4e2de5e4b3f3fb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
