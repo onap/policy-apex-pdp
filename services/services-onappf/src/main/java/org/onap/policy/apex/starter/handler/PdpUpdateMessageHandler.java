@@ -32,6 +32,7 @@ import org.onap.policy.models.pdp.concepts.PdpResponseDetails;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
+import org.onap.policy.models.pdp.enums.PdpState;
 
 /**
  * This class supports the handling of pdp update messages.
@@ -39,7 +40,6 @@ import org.onap.policy.models.pdp.enums.PdpResponseStatus;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class PdpUpdateMessageHandler {
-
 
     /**
      * Method which handles a pdp update event from PAP.
@@ -49,8 +49,9 @@ public class PdpUpdateMessageHandler {
     public void handlePdpUpdateEvent(final PdpUpdate pdpUpdateMsg) {
         final PdpMessageHandler pdpMessageHandler = new PdpMessageHandler();
         final PdpStatus pdpStatusContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);
-        PdpResponseDetails pdpResponseDetails;
-        if (pdpStatusContext.getName().equals(pdpUpdateMsg.getName())) {
+        PdpResponseDetails pdpResponseDetails = null;
+        if (pdpUpdateMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
+                pdpStatusContext.getPdpSubgroup())) {
             final PdpStatusPublisher pdpStatusPublisher = Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
             if (checkIfAlreadyHandled(pdpUpdateMsg, pdpStatusContext, pdpStatusPublisher.getInterval())) {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
@@ -64,29 +65,65 @@ public class PdpUpdateMessageHandler {
                 pdpStatusContext.setPdpSubgroup(pdpUpdateMsg.getPdpSubgroup());
                 pdpStatusContext
                         .setPolicies(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()));
-                if (pdpUpdateMsg.getPolicies().isEmpty()) {
-                    final ApexEngineHandler apexEngineHandler =
-                            Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
-                    if (apexEngineHandler.isApexEngineRunning()) {
-                        try {
-                            apexEngineHandler.shutdown();
-                        } catch (final ApexStarterException e) {
-                            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                                    PdpResponseStatus.FAIL,
-                                    "Pdp update failed as the policies couldn't be undeployed.");
-                        }
-                    }
+                if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
+                    pdpResponseDetails =
+                            startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler, pdpStatusContext);
                 }
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST, pdpUpdateMsg.getPolicies());
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, "Pdp update successful.");
+                if (null == pdpResponseDetails) {
+                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                            PdpResponseStatus.SUCCESS, "Pdp update successful.");
+                }
             }
             final PdpStatusPublisher pdpStatusPublisherTemp =
                     Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
             final PdpStatus pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
             pdpStatus.setResponse(pdpResponseDetails);
+            pdpStatus.setDescription("Pdp status response message for PdpUpdate");
             pdpStatusPublisherTemp.send(pdpStatus);
         }
+    }
+
+    /**
+     * Method to start or stop apex engine based on the list of policies received from pap. When current state is
+     * active, if PAP sends PdpUpdate with empty policies list, stop apex engine, or, if there is a change in policies,
+     * stop the current running policies and the deploy the new ones.
+     *
+     * @param pdpUpdateMsg
+     * @param pdpMessageHandler
+     * @param pdpStatusContext
+     * @return pdpResponseDetails
+     */
+    private PdpResponseDetails startOrStopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
+            final PdpMessageHandler pdpMessageHandler, final PdpStatus pdpStatusContext) {
+        PdpResponseDetails pdpResponseDetails = null;
+        if (pdpUpdateMsg.getPolicies().isEmpty()) {
+            final ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
+            if (apexEngineHandler.isApexEngineRunning()) {
+                try {
+                    apexEngineHandler.shutdown();
+                } catch (final ApexStarterException e) {
+                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                            PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
+                }
+            }
+        } else {
+            try {
+                ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
+                if (apexEngineHandler.isApexEngineRunning()) {
+                    apexEngineHandler.shutdown();
+                }
+                apexEngineHandler = new ApexEngineHandler(
+                        (String) pdpUpdateMsg.getPolicies().get(0).getProperties().get("content"));
+                Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
+                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                        PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");
+            } catch (final ApexStarterException e) {
+                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                        PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
+            }
+        }
+        return pdpResponseDetails;
     }
 
     /**
@@ -104,10 +141,12 @@ public class PdpUpdateMessageHandler {
                 && null != pdpStatusContext.getPdpSubgroup()
                 && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())
                 && null != pdpStatusContext.getPolicies()
-                && pdpStatusContext.getPolicies()
-                        .containsAll(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()))
-                && null != pdpUpdateMsg.getPdpHeartbeatIntervalMs() && pdpUpdateMsg.getPdpHeartbeatIntervalMs() > 0
-                && interval == pdpUpdateMsg.getPdpHeartbeatIntervalMs();
+                && new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies())
+                        .equals(pdpStatusContext.getPolicies())
+                && (null == pdpUpdateMsg.getPdpHeartbeatIntervalMs()
+                        || (null != pdpUpdateMsg.getPdpHeartbeatIntervalMs()
+                                && pdpUpdateMsg.getPdpHeartbeatIntervalMs() > 0
+                                && interval == pdpUpdateMsg.getPdpHeartbeatIntervalMs()));
     }
 
     /**
