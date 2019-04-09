@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ca39352_9c141b19",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/engine/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-09T21:01:36Z",
+      "side": 1,
+      "message": "Using map was causing problems when policy_type_impl is a large json as we need to handle and update the json which needs to be passed to ApexMain. Some json formatting issues was causing problems. So, to avoid complexity and issues, using JsonObject here for now.",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
