@@ -97,6 +97,24 @@
       "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38c0b1f1_48bc6c31",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-10T02:36:40Z",
+      "side": 1,
+      "message": "it\u0027s been my assumption that a policy is uniquely identified by just the pair, the name (aka id) and the version.  I thought there could be multiple name/version pairs per type/type-version, but a given name/version would only be associated with one type/type-version.  Is that not the case?",
+      "parentUuid": "1e34ad7d_4bb07c2e",
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
