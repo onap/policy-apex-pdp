@@ -52,7 +52,6 @@
 
     <modules>
         <module>plugins-persistence-jpa-eclipselink</module>
-        <module>plugins-persistence-jpa-hibernate</module>
     </modules>
 
     <profiles>
