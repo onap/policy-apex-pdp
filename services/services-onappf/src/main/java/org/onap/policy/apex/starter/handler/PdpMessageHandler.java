@@ -96,12 +96,8 @@ public class PdpMessageHandler {
         pdpStatus.setDescription(pdpStatusContext.getDescription());
         pdpStatus.setSupportedPolicyTypes(pdpStatusContext.getSupportedPolicyTypes());
         pdpStatus.setPolicies(pdpStatusContext.getPolicies());
-        if (null != pdpStatusContext.getPdpGroup()) {
-            pdpStatus.setPdpGroup(pdpStatusContext.getPdpGroup());
-        }
-        if (null != pdpStatusContext.getPdpSubgroup()) {
-            pdpStatus.setPdpSubgroup(pdpStatusContext.getPdpSubgroup());
-        }
+        pdpStatus.setPdpGroup(pdpStatusContext.getPdpGroup());
+        pdpStatus.setPdpSubgroup(pdpStatusContext.getPdpSubgroup());
         return pdpStatus;
     }
 

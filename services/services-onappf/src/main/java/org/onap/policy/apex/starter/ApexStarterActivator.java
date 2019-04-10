@@ -40,6 +40,7 @@ import org.onap.policy.common.endpoints.listeners.MessageTypeDispatcher;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.common.utils.services.ServiceManager;
 import org.onap.policy.common.utils.services.ServiceManagerException;
+import org.onap.policy.models.pdp.enums.PdpMessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,7 @@ public class ApexStarterActivator {
         // TODO: instanceId currently set as a random string, could be fetched from actual deployment
         final int random = (int) (Math.random() * 100);
         final String instanceId = "apex_" + random;
-
+        LOGGER.debug("ApexStarterActivator initializing with instance id:" + instanceId);
         try {
             this.apexStarterParameterGroup = apexStarterParameterGroup;
             this.msgDispatcher = new MessageTypeDispatcher(MSG_TYPE_NAMES);
@@ -110,11 +111,11 @@ public class ApexStarterActivator {
                                         apexStarterParameterGroup.getPdpStatusParameters().getTimeIntervalMs())),
                         () -> stopAndRemovePdpStatusPublisher())
                 .addAction("Register pdp update listener",
-                    () -> msgDispatcher.register("PDP_UPDATE", pdpUpdateListener),
-                    () -> msgDispatcher.unregister("PDP_UPDATE"))
+                    () -> msgDispatcher.register(PdpMessageType.PDP_UPDATE.name(), pdpUpdateListener),
+                    () -> msgDispatcher.unregister(PdpMessageType.PDP_UPDATE.name()))
                 .addAction("Register pdp state change request dispatcher",
-                        () -> msgDispatcher.register("PDP_STATE_CHANGE", pdpStateChangeListener),
-                        () -> msgDispatcher.unregister("PDP_STATE_CHANGE"))
+                        () -> msgDispatcher.register(PdpMessageType.PDP_STATE_CHANGE.name(), pdpStateChangeListener),
+                        () -> msgDispatcher.unregister(PdpMessageType.PDP_STATE_CHANGE.name()))
                 .addAction("Message Dispatcher",
                     () -> registerMsgDispatcher(),
                     () -> unregisterMsgDispatcher());

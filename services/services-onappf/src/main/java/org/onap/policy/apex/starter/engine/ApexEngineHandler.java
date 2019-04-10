@@ -20,12 +20,13 @@
 
 package org.onap.policy.apex.starter.engine;
 
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -53,16 +54,15 @@ public class ApexEngineHandler {
      * @throws ApexStarterException
      */
 
-    @SuppressWarnings("unchecked")
     public ApexEngineHandler(final String properties) throws ApexStarterException {
         final StandardCoder standardCoder = new StandardCoder();
-        Map<String, Map<String, String>> body;
+        JsonObject body;
         try {
-            body = standardCoder.decode(new StringReader(properties), Map.class);
+            body = standardCoder.decode(new StringReader(properties), JsonObject.class);
         } catch (final CoderException e) {
             throw new ApexStarterException(e);
         }
-        final Map<String, String> engineServiceParameters = body.get("engineServiceParameters");
+        final JsonObject engineServiceParameters = body.get("engineServiceParameters").getAsJsonObject();
         final String policyModel = engineServiceParameters.get("policy_type_impl").toString();
         engineServiceParameters.remove("policy_type_impl");
         final String apexConfig = body.toString();
@@ -70,8 +70,8 @@ public class ApexEngineHandler {
         final String modelFilePath = createFile(policyModel, "modelFile");
 
         final String apexConfigFilePath = createFile(apexConfig, "apexConfigFile");
-
         final String[] apexArgs = { "-rfr", "target/classes", "-c", apexConfigFilePath, "-m", modelFilePath };
+        LOGGER.debug("Starting apex engine.");
         apexMain = new ApexMain(apexArgs);
     }
 
@@ -100,6 +100,7 @@ public class ApexEngineHandler {
 
     public void shutdown() throws ApexStarterException {
         try {
+            LOGGER.debug("Shutting down apex engine.");
             apexMain.shutdown();
             apexMain = null;
         } catch (final ApexException e) {

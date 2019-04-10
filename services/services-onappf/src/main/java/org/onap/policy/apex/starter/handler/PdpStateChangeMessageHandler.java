@@ -51,11 +51,9 @@ public class PdpStateChangeMessageHandler {
         final PdpStatusPublisher pdpStatusPublisher = Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
         final PdpMessageHandler pdpMessageHandler = new PdpMessageHandler();
         PdpResponseDetails pdpResponseDetails = null;
-        if (isMessageRelevant(pdpStateChangeMsg, pdpStatusContext)) {
+        if (pdpStateChangeMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
+                pdpStatusContext.getPdpSubgroup())) {
             switch (pdpStateChangeMsg.getState()) {
-                case TERMINATED:
-                    pdpResponseDetails = handleTerminatedState(pdpStateChangeMsg, pdpStatusContext, pdpMessageHandler);
-                    break;
                 case PASSIVE:
                     pdpResponseDetails = handlePassiveState(pdpStateChangeMsg, pdpStatusContext, pdpMessageHandler);
                     break;
@@ -67,21 +65,9 @@ public class PdpStateChangeMessageHandler {
             }
             final PdpStatus pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
             pdpStatus.setResponse(pdpResponseDetails);
+            pdpStatus.setDescription("Pdp status response message for PdpStateChange");
             pdpStatusPublisher.send(pdpStatus);
         }
-    }
-
-    /**
-     * Check if the pdp state change message is meant for this pdp.
-     *
-     * @param pdpStateChangeMsg
-     * @param pdpStatusContext
-     * @return boolean value if relevant or not
-     */
-    private boolean isMessageRelevant(final PdpStateChange pdpStateChangeMsg, final PdpStatus pdpStatusContext) {
-        return pdpStatusContext.getName().equals(pdpStateChangeMsg.getName()) || (null == pdpStateChangeMsg.getName()
-                && pdpStateChangeMsg.getPdpGroup().equals(pdpStatusContext.getPdpGroup())
-                && pdpStateChangeMsg.getPdpSubgroup().equals(pdpStatusContext.getPdpSubgroup()));
     }
 
     /**
@@ -108,7 +94,7 @@ public class PdpStateChangeMessageHandler {
                     // assumed that the apex policies list contains only one entry.
                     final ApexEngineHandler apexEngineHandler =
                             new ApexEngineHandler((String) policies.get(0).getProperties().get("content"));
-                    Registry.register(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
+                    Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                             PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
                     pdpStatusContext.setState(PdpState.ACTIVE);
@@ -149,37 +135,5 @@ public class PdpStateChangeMessageHandler {
             }
         }
         return pdpResponseDetails;
-    }
-
-    /**
-     * Method to handle when the new state from pap is terminated.
-     *
-     * @param pdpStateChangeMsg
-     * @param pdpStatusPublisher
-     * @param pdpMessageHandler
-     * @return pdpResponseDetails
-     */
-    private PdpResponseDetails handleTerminatedState(final PdpStateChange pdpStateChangeMsg,
-            final PdpStatus pdpStatusContext, final PdpMessageHandler pdpMessageHandler) {
-
-        PdpResponseDetails pdpResponseDetails;
-        if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
-            final ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
-            try {
-                apexEngineHandler.shutdown();
-                pdpStatusContext.setState(PdpState.PASSIVE);
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, "Apex Engine stopped. State changed to passive.");
-            } catch (final Exception e) {
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                        PdpResponseStatus.FAIL,
-                        "Stopping apex engine failed. State cannot be changed." + e.getMessage());
-            }
-        } else {
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                    PdpResponseStatus.SUCCESS, "Pdp already in passive state");
-        }
-        return pdpResponseDetails;
-
     }
 }

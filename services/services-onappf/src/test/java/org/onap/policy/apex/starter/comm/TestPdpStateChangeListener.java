@@ -168,18 +168,4 @@ public class TestPdpStateChangeListener {
 
         assertEquals(pdpStatus.getState(), pdpStateChangeMsg.getState());
     }
-
-    @Test
-    public void testPdpStateChangeMessageListener_passivetoterminated() {
-        final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
-        pdpStatus.setState(PdpState.PASSIVE);
-        performPdpUpdate(pdpStatus.getName());
-        final PdpStateChange pdpStateChangeMsg = new PdpStateChange();
-        pdpStateChangeMsg.setState(PdpState.TERMINATED);
-        pdpStateChangeMsg.setPdpGroup("pdpGroup");
-        pdpStateChangeMsg.setPdpSubgroup("pdpSubgroup");
-        pdpStateChangeMsg.setName(pdpStatus.getName());
-        pdpStateChangeListener.onTopicEvent(INFRA, TOPIC, null, pdpStateChangeMsg);
-        assertEquals(pdpStatus.getState(), PdpState.PASSIVE);
-    }
 }
