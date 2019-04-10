@@ -46,6 +46,57 @@
       "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ead78af_47599f3a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-10T02:27:04Z",
+      "side": 1,
+      "message": "I am not sure what are the implications of shutting down and restarting the Apex Engine but wondering if this will cause service disruption for existing executing policies that had no changes in this update, but may undergo the engine shutdown?   Just a question.  \n\nAnother observation, not sure what the shutdown implies, if for example closes ports, if that\u0027s the case consider interactions with the kubernetes liveness checks.",
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b941437_eeca8c76",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-10T02:27:04Z",
+      "side": 1,
+      "message": "\"get(0)\"  in theory you may get multiple policies, actually all that should be active in this apex-pdp.",
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e34ad7d_4bb07c2e",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-10T02:27:04Z",
+      "side": 1,
+      "message": "check policyTypeIdentifiers too?   A policy is uniquely identifiable by that quadruple.",
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
