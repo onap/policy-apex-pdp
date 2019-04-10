@@ -261,6 +261,11 @@
             <type>war</type>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.examples</groupId>
+            <artifactId>examples-onap-bbs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -394,6 +399,24 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}/examples/models/ONAPvCPE</outputDirectory>
                                     <includes>ONAPvCPEPolicyModel.json</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                 <artifactId>examples-onap-bbs</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>etc/**/*,examples/**/*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>examples-onap-bbs</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/examples/models/ONAPBBS</outputDirectory>
+                                    <includes>NomadicONTPolicyModel.json</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
