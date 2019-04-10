@@ -41,6 +41,7 @@
         <module>examples-decisionmaker</module>
         <module>examples-periodic</module>
         <module>examples-onap-vcpe</module>
+        <module>examples-onap-bbs</module>
         <module>examples-servlet</module>
     </modules>
 

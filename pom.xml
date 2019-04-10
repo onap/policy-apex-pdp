@@ -210,6 +210,7 @@
                 <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
                 <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
                 <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
+                <adsite-examples-onap-bbs-dir>${project.basedir}/examples/examples-onap-bbs/src</adsite-examples-onap-bbs-dir>
                 <adsite-examples-servlet-dir>${project.basedir}/examples/examples-servlet/src</adsite-examples-servlet-dir>
 
                 <adsite-packages-docker-dir>${project.basedir}/packages/apex-pdp-docker/src</adsite-packages-docker-dir>
@@ -588,6 +589,7 @@
                                 <adsite-examples-pcvs-dir>${project.basedir}/examples/examples-pcvs/src</adsite-examples-pcvs-dir>
                                 <adsite-examples-periodic-dir>${project.basedir}/examples/examples-periodic/src</adsite-examples-periodic-dir>
                                 <adsite-examples-onap-vcpe-dir>${project.basedir}/examples/examples-onap-vcpe/src</adsite-examples-onap-vcpe-dir>
+                                <adsite-examples-onap-bbs-dir>${project.basedir}/examples/examples-onap-bbs/src</adsite-examples-onap-bbs-dir>
                                 <adsite-examples-servlet-dir>${project.basedir}/examples/examples-servlet/src</adsite-examples-servlet-dir>
 
                                 <adsite-packages-docker-dir>${project.basedir}/packages/apex-pdp-docker/src</adsite-packages-docker-dir>
