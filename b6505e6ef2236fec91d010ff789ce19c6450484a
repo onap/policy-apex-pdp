@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "4047a4f9_4eeaf08f",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-10T08:54:03Z",
+      "side": 1,
+      "message": "Yes, I agree. But to keep it simple for Dublin release, only one policy per apex-engine is considered. Might need to make some changes in the Apex code for this.",
+      "parentUuid": "3ead78af_47599f3a",
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b941437_eeca8c76",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 1
@@ -77,6 +95,24 @@
       "writtenOn": "2019-04-10T02:27:04Z",
       "side": 1,
       "message": "\"get(0)\"  in theory you may get multiple policies, actually all that should be active in this apex-pdp.",
+      "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "807c8611_f8efb80e",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/starter/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-04-10T08:54:03Z",
+      "side": 1,
+      "message": "same comment as above.",
+      "parentUuid": "9b941437_eeca8c76",
       "revId": "b6505e6ef2236fec91d010ff789ce19c6450484a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
