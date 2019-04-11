@@ -1,9 +1,9 @@
 {
-    "name":"ApexStarterParameterGroup",
+    "name":"OnapPfParameterGroup",
     "pdpStatusParameters":{
         "timeIntervalMs": 120000,
         "pdpType":"apex",
-        "description":"Pdp status for HealthCheck",
+        "description":"Pdp Heartbeat",
         "supportedPolicyTypes":[{"name":"onap.policies.controlloop.Operational","version":"1.0.0"}]
     }
 }

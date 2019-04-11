@@ -34,130 +34,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.apex-pdp.services</groupId>
             <artifactId>services-engine</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Plugins for Context Distribution -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
-            <artifactId>plugins-context-distribution-hazelcast</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
-            <artifactId>plugins-context-distribution-infinispan</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Plugins for Context Locking -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
-            <artifactId>plugins-context-locking-hazelcast</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
-            <artifactId>plugins-context-locking-curator</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Plugins for Context Schemas -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
-            <artifactId>plugins-context-schema-avro</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Plugins for Executors -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-java</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-javascript</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-jruby</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-jython</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-mvel</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Plugins for Persistence of Models over JPA -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-persistence.plugins-persistence-jpa</groupId>
-            <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-persistence.plugins-persistence-jpa</groupId>
-            <artifactId>plugins-persistence-jpa-hibernate</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Plugins for event carrier technologies -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-kafka</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-websocket</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-jms</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-restclient</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-restserver</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-restrequestor</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <!-- Plugins for event protocols -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
-            <artifactId>plugins-event-protocol-xml</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
-            <artifactId>plugins-event-protocol-jms</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-
         <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>policy-endpoints</artifactId>
@@ -182,16 +62,22 @@
                     <groupId>javax.ws.rs</groupId>
                     <artifactId>javax.ws.rs-api</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.hk2</groupId>
+                    <artifactId>hk2-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.glassfish.hk2.external</groupId>
+                    <artifactId>javax.inject</artifactId>
+                </exclusion>
             </exclusions>
             <version>${version.policy.common}</version>
         </dependency>
-
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>${version.jersey}</version>
         </dependency>
-
         <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>utils-test</artifactId>
@@ -208,6 +94,8 @@
             </exclusions>
             <version>${version.policy.models}</version>
         </dependency>
+
+        <!--test dependencies -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -216,6 +104,11 @@
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

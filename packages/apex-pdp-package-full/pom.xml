@@ -40,7 +40,11 @@
             <artifactId>services-engine</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.services</groupId>
+            <artifactId>services-onappf</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- Client Servlet applications -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
@@ -278,6 +282,15 @@
                         </goals>
                         <configuration>
                             <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.services</groupId>
+                                    <artifactId>services-onappf</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/etc/onappf</outputDirectory>
+                                    <includes>config/*</includes>
+                                </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.auth</groupId>
                                     <artifactId>cli-editor</artifactId>
