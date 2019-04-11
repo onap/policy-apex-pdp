@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40b7cac1_b4634b4a",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceAssignedTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "This should work fine even though its an absolute path, you can use this as a \"hook\" to pass in parameters.\n\nHowever, it might be better to pass the parameters in as part of the policy model so you can pass it in dynamically and change the values.\n\nin .apex file:\ntask parameter create name\u003dMyTask parName\u003dgreeting defaultValue\u003dhello\n\nin Task:\nvar greeting \u003d executor.subject.task.taskParameters.get(\"greeting\").getTaskParameterValue();\nexecutor.logger.info(greeting);",
+      "range": {
+        "startLine": 32,
+        "startChar": 49,
+        "endLine": 32,
+        "endChar": 98
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1553ac39_1ab9bddc",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceAssignedTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "We may run into warinings with long lines once the Javascript checkstyle comes in.",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 1
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a6498d8_c754f9de",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/GetBBSCloseLoopEventTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "Do you need to put something into the output field of the event if this is null or should you return False to APEX to tell APEX there is an error?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 54
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c06cffa_5340c702",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/ServiceUpdateStateCpeAuthTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "Same comment on parameters",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 99
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a991779_a65f1908",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/ServiceUpdateStateCpeAuthTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "Do you need to put anything in the output fields of the event in the case where the check here is null?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e16ff415_e9c3d6d4",
+        "filename": "examples/examples-onap-bbs/src/site/site.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "Huawei?",
+      "range": {
+        "startLine": 4,
+        "startChar": 27,
+        "endLine": 4,
+        "endChar": 35
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6f0f41b_124add4c",
+        "filename": "examples/examples-onap-bbs/src/site/site.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "Should be changed for BBS",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c11d8ab1_f02022f8",
+        "filename": "packages/apex-pdp-package-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-11T11:48:07Z",
+      "side": 1,
+      "message": "Change license",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 52
+      },
+      "revId": "1afc12efd25e67f06127c83e336f957ad7bfdcba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
