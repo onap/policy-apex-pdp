@@ -82,6 +82,7 @@ set APEX_APP_MAP[eng-deployment]=java -Dlogback.configurationFile=%APEX_HOME%\et
 set APEX_APP_MAP[eng-monitoring]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-monitoring-%_VERSION%-monitoring.jar
 set APEX_APP_MAP[full-client]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\client-full-%_VERSION%-full.jar
 set APEX_APP_MAP[event-generator]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator
+set APEX_APP_MAP[onappf]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.services.onappf.ApexStarterMain
 
 :: array of applications with name=description
 :: declare -A APEX_APP_DESCR_MAP
@@ -96,6 +97,7 @@ set APEX_APP_DESCR_MAP[eng-deployment]=starts the APEX deployment client in a si
 set APEX_APP_DESCR_MAP[eng-monitoring]=starts the APEX engine monitoring client in a simple webserver
 set APEX_APP_DESCR_MAP[full-client]=starts the full APEX client (rest editor, deployment, monitoring) in a simple webserver
 set APEX_APP_DESCR_MAP["event-generator"]=starts the event generator in a simple webserver for performance testing
+set APEX_APP_DESCR_MAP[onappf]=starts the ApexStarter which handles the Apex Engine based on instructions from PAP
 
 :: no command line means help, -h means help
 if "%1" == "" goto Help
