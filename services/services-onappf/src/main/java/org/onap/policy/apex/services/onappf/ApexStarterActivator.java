@@ -33,6 +33,7 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
+import org.onap.policy.apex.services.onappf.rest.ApexStarterRestServer;
 import org.onap.policy.common.endpoints.event.comm.TopicEndpoint;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.TopicSource;
@@ -56,6 +57,7 @@ public class ApexStarterActivator {
     private List<TopicSink> topicSinks;// topics to which apex-pdp sends pdp status
     private List<TopicSource> topicSources; // topics to which apex-pdp listens to for messages from pap.
     private static final String[] MSG_TYPE_NAMES = { "messageName" };
+
     /**
      * Listens for messages on the topic, decodes them into a message, and then dispatches them.
      */
@@ -66,10 +68,21 @@ public class ApexStarterActivator {
      */
     private ServiceManager manager;
 
+    /**
+     * The ApexStarter REST API server.
+     */
+    private ApexStarterRestServer restServer;
+
     @Getter
     @Setter(lombok.AccessLevel.PRIVATE)
     private volatile boolean alive = false;
 
+    /**
+     * Instantiate the activator for onappf PDP-A.
+     *
+     * @param apexStarterParameterGroup the parameters for the onappf PDP-A service
+     * @param topicProperties properties used to configure the topics
+     */
     public ApexStarterActivator(final ApexStarterParameterGroup apexStarterParameterGroup,
             final Properties topicProperties) {
 
@@ -86,6 +99,8 @@ public class ApexStarterActivator {
         } catch (final RuntimeException e) {
             throw new ApexStarterRunTimeException(e);
         }
+
+        apexStarterParameterGroup.getRestServerParameters().setName(apexStarterParameterGroup.getName());
 
         final PdpUpdateListener pdpUpdateListener = new PdpUpdateListener();
         final PdpStateChangeListener pdpStateChangeListener = new PdpStateChangeListener();
@@ -118,7 +133,15 @@ public class ApexStarterActivator {
                         () -> msgDispatcher.unregister(PdpMessageType.PDP_STATE_CHANGE.name()))
                 .addAction("Message Dispatcher",
                     () -> registerMsgDispatcher(),
-                    () -> unregisterMsgDispatcher());
+                    () -> unregisterMsgDispatcher())
+                .addAction("Create REST server",
+                        () -> restServer =
+                                    new ApexStarterRestServer(apexStarterParameterGroup.getRestServerParameters()),
+                        () -> restServer = null)
+                .addAction("Message Dispatcher",
+                        () -> restServer.start(),
+                        () -> restServer.stop());
+
         // @formatter:on
     }
 
@@ -177,7 +200,7 @@ public class ApexStarterActivator {
     /**
      * Get the parameters used by the activator.
      *
-     * @return the parameters of the activator
+     * @return apexStarterParameterGroup the parameters of the activator
      */
     public ApexStarterParameterGroup getParameterGroup() {
         return apexStarterParameterGroup;

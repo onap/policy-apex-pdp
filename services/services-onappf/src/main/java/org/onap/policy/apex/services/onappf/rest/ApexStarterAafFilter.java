@@ -18,21 +18,22 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.services.onappf;
+package org.onap.policy.apex.services.onappf.rest;
+
+import org.onap.policy.common.endpoints.http.server.aaf.AafGranularAuthFilter;
 
 /**
- * Names of various items contained in the Registry.
+ * Class to manage aaf filters for services-onappf component.
+ *
+ * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class ApexStarterConstants {
-    // Registry keys
-    public static final String REG_APEX_STARTER_ACTIVATOR = "object:activator/apex_starter";
-    public static final String REG_PDP_STATUS_OBJECT = "object:pdp/status";
-    public static final String REG_APEX_TOSCA_POLICY_LIST = "object:apex/tosca/policy/list";
-    public static final String REG_PDP_STATUS_PUBLISHER = "object:pdp/status/publisher";
-    public static final String REG_APEX_PDP_TOPIC_SINKS = "object:apex/pdp/topic/sinks";
-    public static final String REG_APEX_ENGINE_HANDLER = "object:engine/apex/handler";
+public class ApexStarterAafFilter extends AafGranularAuthFilter {
 
-    private ApexStarterConstants() {
-        super();
+    public static final String AAF_NODETYPE = "policy-apex-pdp";
+    public static final String AAF_ROOT_PERMISSION = DEFAULT_NAMESPACE + "." + AAF_NODETYPE;
+
+    @Override
+    public String getPermissionTypeRoot() {
+        return AAF_ROOT_PERMISSION;
     }
 }

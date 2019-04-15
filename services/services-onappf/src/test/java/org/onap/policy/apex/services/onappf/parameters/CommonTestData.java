@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.onap.policy.apex.services.onappf.parameters.ToscaPolicyTypeIdentifierParameters;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
@@ -48,6 +47,12 @@ public class CommonTestData {
     public static final String POLICY_VERSION = "0.0.1";
     public static final List<ToscaPolicyTypeIdentifierParameters> SUPPORTED_POLICY_TYPES =
             Arrays.asList(getSupportedPolicyTypes(POLICY_NAME, POLICY_VERSION));
+    private static final String REST_SERVER_PASSWORD = "zb!XztG34";
+    private static final String REST_SERVER_USER = "healthcheck";
+    private static final int REST_SERVER_PORT = 6969;
+    private static final String REST_SERVER_HOST = "0.0.0.0";
+    private static final boolean REST_SERVER_HTTPS = true;
+    private static final boolean REST_SERVER_AAF = false;
 
     public static final Coder coder = new StandardCoder();
 
@@ -90,7 +95,29 @@ public class CommonTestData {
         final Map<String, Object> map = new TreeMap<>();
 
         map.put("name", name);
+        map.put("restServerParameters", getRestServerParametersMap(false));
         map.put("pdpStatusParameters", getPdpStatusParametersMap(false));
+
+        return map;
+    }
+
+    /**
+     * Returns a property map for a RestServerParameters map for test cases.
+     *
+     * @param isEmpty boolean value to represent that object created should be empty or not
+     * @return a property map suitable for constructing an object
+     */
+    public Map<String, Object> getRestServerParametersMap(final boolean isEmpty) {
+        final Map<String, Object> map = new TreeMap<>();
+        map.put("https", REST_SERVER_HTTPS);
+        map.put("aaf", REST_SERVER_AAF);
+
+        if (!isEmpty) {
+            map.put("host", REST_SERVER_HOST);
+            map.put("port", REST_SERVER_PORT);
+            map.put("userName", REST_SERVER_USER);
+            map.put("password", REST_SERVER_PASSWORD);
+        }
 
         return map;
     }

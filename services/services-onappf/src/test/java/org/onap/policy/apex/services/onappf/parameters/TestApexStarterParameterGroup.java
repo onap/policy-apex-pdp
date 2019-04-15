@@ -48,6 +48,7 @@ public class TestApexStarterParameterGroup {
         final ApexStarterParameterGroup apexStarterParameters = commonTestData.toObject(
                 commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME),
                 ApexStarterParameterGroup.class);
+        final RestServerParameters restServerParameters = apexStarterParameters.getRestServerParameters();
         final PdpStatusParameters pdpStatusParameters = apexStarterParameters.getPdpStatusParameters();
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertTrue(validationResult.isValid());
@@ -56,6 +57,12 @@ public class TestApexStarterParameterGroup {
         assertEquals(CommonTestData.PDP_TYPE, pdpStatusParameters.getPdpType());
         assertEquals(CommonTestData.DESCRIPTION, pdpStatusParameters.getDescription());
         assertEquals(CommonTestData.SUPPORTED_POLICY_TYPES, pdpStatusParameters.getSupportedPolicyTypes());
+        assertEquals(restServerParameters.getHost(), apexStarterParameters.getRestServerParameters().getHost());
+        assertEquals(restServerParameters.getPort(), apexStarterParameters.getRestServerParameters().getPort());
+        assertEquals(restServerParameters.getUserName(), apexStarterParameters.getRestServerParameters().getUserName());
+        assertEquals(restServerParameters.getPassword(), apexStarterParameters.getRestServerParameters().getPassword());
+        assertTrue(apexStarterParameters.getRestServerParameters().isHttps());
+        assertFalse(apexStarterParameters.getRestServerParameters().isAaf());
     }
 
     @Test
@@ -101,6 +108,21 @@ public class TestApexStarterParameterGroup {
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
                 .contains("\"org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup\" INVALID, "
+                        + "parameter group has status INVALID"));
+    }
+
+    @Test
+    public void testApexStarterParameterGroupp_EmptyRestServerParameters() {
+        final Map<String, Object> map =
+                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
+        map.put("restServerParameters", commonTestData.getRestServerParametersMap(true));
+
+        final ApexStarterParameterGroup apexStarterParameters =
+                commonTestData.toObject(map, ApexStarterParameterGroup.class);
+        final GroupValidationResult validationResult = apexStarterParameters.validate();
+        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.getResult()
+                .contains("\"org.onap.policy.apex.services.onappf.parameters.RestServerParameters\" INVALID, "
                         + "parameter group has status INVALID"));
     }
 }

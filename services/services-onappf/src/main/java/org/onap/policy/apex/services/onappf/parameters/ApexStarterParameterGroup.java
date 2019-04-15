@@ -35,7 +35,7 @@ import org.onap.policy.common.parameters.annotations.NotNull;
 @NotBlank
 @Getter
 public class ApexStarterParameterGroup extends ParameterGroupImpl {
-
+    private RestServerParameters restServerParameters;
     private PdpStatusParameters pdpStatusParameters;
 
     /**
