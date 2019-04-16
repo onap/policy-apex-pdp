@@ -22,11 +22,6 @@ package org.onap.policy.apex.model.contextmodel.handling;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -36,31 +31,21 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 
 /**
  * Apex context model tests.
- * 
+ *
  * @author liam
  *
  */
 public class ApexContextModelTest {
-    private Connection connection;
     TestApexModel<AxContextModel> testApexModel;
 
     /**
      * Set up tests.
-     * 
+     *
      * @throws Exception a testing exception
      */
     @Before
     public void setup() throws Exception {
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-        connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
-
         testApexModel = new TestApexModel<AxContextModel>(AxContextModel.class, new TestApexContextModelCreator());
-    }
-
-    @After
-    public void teardown() throws Exception {
-        connection.close();
-        new File("derby.log").delete();
     }
 
     @Test

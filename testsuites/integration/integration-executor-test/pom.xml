@@ -38,12 +38,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.context</groupId>
-            <artifactId>context-test-utils</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
             <artifactId>integration-common</artifactId>
             <version>${project.version}</version>
@@ -76,12 +70,6 @@
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
             <artifactId>plugins-executor-java</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>${version.derby}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

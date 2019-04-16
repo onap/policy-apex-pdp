@@ -45,6 +45,7 @@ import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
+import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
@@ -54,7 +55,6 @@ import org.onap.policy.apex.plugins.context.distribution.infinispan.InfinispanDi
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManager;
 import org.onap.policy.apex.plugins.context.locking.curator.CuratorLockManagerParameters;
 import org.onap.policy.apex.plugins.context.locking.hazelcast.HazelcastLockManager;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextLongItem;
 import org.onap.policy.apex.testsuites.integration.context.lock.modifier.LockType;
 import org.onap.policy.apex.testsuites.integration.context.locking.ConcurrentContext;
 import org.onap.policy.apex.testsuites.integration.context.utils.ConfigrationProvider;
