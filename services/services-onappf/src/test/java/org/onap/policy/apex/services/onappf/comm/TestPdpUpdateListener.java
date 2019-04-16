@@ -40,7 +40,6 @@ import org.junit.Test;
 import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
-import org.onap.policy.apex.services.onappf.comm.PdpUpdateListener;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
@@ -62,6 +61,13 @@ public class TestPdpUpdateListener {
     private static final String TOPIC = "my-topic";
     private ApexStarterActivator activator;
 
+    /**
+     * Method for setup before each test.
+     *
+     * @throws ApexStarterException if some error occurs while starting up the apex starter
+     * @throws FileNotFoundException if the file is missing
+     * @throws IOException if IO exception occurs
+     */
     @Before
     public void setUp() throws ApexStarterException, FileNotFoundException, IOException {
         Registry.newRegistry();

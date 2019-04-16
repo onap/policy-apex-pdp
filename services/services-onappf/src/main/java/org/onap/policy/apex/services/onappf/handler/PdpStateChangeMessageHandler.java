@@ -32,6 +32,8 @@ import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class supports the handling of pdp state change messages.
@@ -39,6 +41,8 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class PdpStateChangeMessageHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdpStateChangeMessageHandler.class);
 
     /**
      * Method which handles a pdp state change event from PAP.
@@ -72,10 +76,10 @@ public class PdpStateChangeMessageHandler {
     /**
      * Method to handle when the new state from pap is active.
      *
-     * @param pdpStateChangeMsg
-     * @param pdpStatusContext
-     * @param pdpMessageHandler
-     * @return pdpResponseDetails
+     * @param pdpStateChangeMsg pdp state change message
+     * @param pdpStatusContext pdp status object in memory
+     * @param pdpMessageHandler the pdp message handler
+     * @return pdpResponseDetails pdp response
      */
     private PdpResponseDetails handleActiveState(final PdpStateChange pdpStateChangeMsg,
             final PdpStatus pdpStatusContext, final PdpMessageHandler pdpMessageHandler) {
@@ -98,6 +102,7 @@ public class PdpStateChangeMessageHandler {
                             PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
                     pdpStatusContext.setState(PdpState.ACTIVE);
                 } catch (final ApexStarterException e) {
+                    LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                             PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
                 }
@@ -109,10 +114,10 @@ public class PdpStateChangeMessageHandler {
     /**
      * Method to handle when the new state from pap is passive.
      *
-     * @param pdpStateChangeMsg
-     * @param pdpStatusContext
-     * @param pdpMessageHandler
-     * @return pdpResponseDetails
+     * @param pdpStateChangeMsg pdp state change message
+     * @param pdpStatusContext pdp status object in memory
+     * @param pdpMessageHandler the pdp message handler
+     * @return pdpResponseDetails pdp response
      */
     private PdpResponseDetails handlePassiveState(final PdpStateChange pdpStateChangeMsg,
             final PdpStatus pdpStatusContext, final PdpMessageHandler pdpMessageHandler) {
@@ -128,6 +133,7 @@ public class PdpStateChangeMessageHandler {
                         PdpResponseStatus.SUCCESS, "Apex pdp state changed from Active to Passive.");
                 pdpStatusContext.setState(PdpState.PASSIVE);
             } catch (final Exception e) {
+                LOGGER.error("Stopping apex engine failed. State cannot be changed to Passive.", e);
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                         PdpResponseStatus.FAIL,
                         "Stopping apex engine failed. State cannot be changed to Passive." + e.getMessage());
