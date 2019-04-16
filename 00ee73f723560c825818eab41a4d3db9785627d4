@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "915df2f7_8ff95b8b",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-16T13:13:02Z",
+      "side": 1,
+      "message": "suggestion: do this once and store it in a field",
+      "revId": "00ee73f723560c825818eab41a4d3db9785627d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c8f725_7ad56dbf",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 3
@@ -19,6 +36,64 @@
         "endLine": 80,
         "endChar": 4
       },
+      "revId": "00ee73f723560c825818eab41a4d3db9785627d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7ebb8a0_171a0072",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-16T13:13:02Z",
+      "side": 1,
+      "message": "not needed - already have \"pdpStatusPublisher\"",
+      "parentUuid": "c6c8f725_7ad56dbf",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 4
+      },
+      "revId": "00ee73f723560c825818eab41a4d3db9785627d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "800c21b2_eaa7b88c",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-16T13:13:02Z",
+      "side": 1,
+      "message": "BUG: the logic here is no longer correct.  It\u0027s possible for the policies to be changed, while the group is not.  The old logic would have correctly returned false, while the new logic returns true.",
+      "revId": "00ee73f723560c825818eab41a4d3db9785627d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aada03f_997e23e0",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/rest/ApexStarterRestServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-04-16T13:13:02Z",
+      "side": 1,
+      "message": "this follows the usual pattern and should be fine, though it could be trimmed significantly using the model found in: https://gerrit.onap.org/r/#/c/85467/",
       "revId": "00ee73f723560c825818eab41a4d3db9785627d4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
