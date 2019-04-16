@@ -138,17 +138,12 @@ public class PdpUpdateMessageHandler {
      * @return boolean flag which tells if the information is same or not
      */
     private boolean checkIfAlreadyHandled(final PdpUpdate pdpUpdateMsg, final PdpStatus pdpStatusContext) {
-
-        if (null != pdpStatusContext.getPdpGroup()
-                && pdpStatusContext.getPdpGroup().equals(pdpUpdateMsg.getPdpGroup())) {
-            return true;
-        } else if (null != pdpStatusContext.getPdpSubgroup()
-                && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())) {
-            return true;
-        } else {
-            return null != pdpStatusContext.getPolicies() && new PdpMessageHandler()
-                    .getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()).equals(pdpStatusContext.getPolicies());
-        }
+        return null != pdpStatusContext.getPdpGroup()
+                && pdpStatusContext.getPdpGroup().equals(pdpUpdateMsg.getPdpGroup())
+                && null != pdpStatusContext.getPdpSubgroup()
+                && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())
+                && null != pdpStatusContext.getPolicies() && new PdpMessageHandler()
+                        .getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()).equals(pdpStatusContext.getPolicies());
     }
 
     /**
