@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efc6c074_b3190bb3",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/ApexStarterActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-16T09:28:37Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 105
+      },
+      "revId": "b15edfd8355c69d8a38eaa6c50e4c9b0044fb0f3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36ad25cc_d36b8b0d",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-16T09:28:37Z",
+      "side": 1,
+      "message": "LOGGER.error(\"Stopping apex engine failed. State cannot be changed to Passive.\", e);",
+      "range": {
+        "startLine": 136,
+        "startChar": 93,
+        "endLine": 136,
+        "endChar": 97
+      },
+      "revId": "b15edfd8355c69d8a38eaa6c50e4c9b0044fb0f3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "422472d8_9bb5140a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/rest/ApexStarterRestServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-16T09:28:37Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 31
+      },
+      "revId": "b15edfd8355c69d8a38eaa6c50e4c9b0044fb0f3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
