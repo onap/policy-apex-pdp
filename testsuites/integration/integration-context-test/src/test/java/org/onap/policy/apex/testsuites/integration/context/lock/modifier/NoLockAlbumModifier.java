@@ -24,7 +24,7 @@ package org.onap.policy.apex.testsuites.integration.context.lock.modifier;
 import java.util.Random;
 
 import org.onap.policy.apex.context.ContextAlbum;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextLongItem;
+import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

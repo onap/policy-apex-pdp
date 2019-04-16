@@ -22,11 +22,6 @@ package org.onap.policy.apex.model.eventmodel.handling;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -35,26 +30,16 @@ import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEventModel;
 
 public class ApexEventModelTest {
-    private Connection connection;
     TestApexModel<AxEventModel> testApexModel;
 
     /**
      * Set up the test.
-     * 
+     *
      * @throws Exception exceptions from the test
      */
     @Before
     public void setup() throws Exception {
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-        connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
-
         testApexModel = new TestApexModel<AxEventModel>(AxEventModel.class, new DummyTestApexEventModelCreator());
-    }
-
-    @After
-    public void teardown() throws Exception {
-        connection.close();
-        new File("derby.log").delete();
     }
 
     @Test

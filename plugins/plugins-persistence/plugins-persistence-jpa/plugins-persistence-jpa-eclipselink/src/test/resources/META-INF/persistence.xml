@@ -24,8 +24,8 @@
     <persistence-unit name="DAOTest" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>org.onap.policy.apex.context.test.entities.ReferenceKeyTestEntity</class>
-        <class>org.onap.policy.apex.context.test.entities.ArtifactKeyTestEntity</class>
+        <class>org.onap.policy.apex.plugins.persistence.jpa.eclipselink.entities.ReferenceKeyTestEntity</class>
+        <class>org.onap.policy.apex.plugins.persistence.jpa.eclipselink.entities.ArtifactKeyTestEntity</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

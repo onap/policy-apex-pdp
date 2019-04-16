@@ -37,6 +37,14 @@
         <module>integration-uservice-test</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <profiles>
         <profile>
             <id>apexAll</id>

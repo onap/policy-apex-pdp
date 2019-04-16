@@ -26,17 +26,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -48,20 +43,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.DummyEntity;
  * JUnit test class.
  */
 public class EntityTest {
-    private Connection connection;
     private ApexDao apexDao;
-
-    @Before
-    public void setup() throws Exception {
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-        connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
-    }
-
-    @After
-    public void teardown() throws Exception {
-        connection.close();
-        new File("derby.log").delete();
-    }
 
     @Test
     public void testEntityTestSanity() throws ApexException {

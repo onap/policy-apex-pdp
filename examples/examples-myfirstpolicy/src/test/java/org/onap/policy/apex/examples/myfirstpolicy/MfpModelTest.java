@@ -22,11 +22,6 @@ package org.onap.policy.apex.examples.myfirstpolicy;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -39,8 +34,6 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author John Keeney (john.keeney@ericsson.com)
  */
 public class MfpModelTest {
-
-    private static Connection connection;
     private static TestApexModel<AxPolicyModel> testApexModel1;
     private static TestApexModel<AxPolicyModel> testApexModel2;
 
@@ -51,21 +44,8 @@ public class MfpModelTest {
      */
     @BeforeClass
     public static void setup() throws Exception {
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-        connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
         testApexModel1 = new TestApexModel<>(AxPolicyModel.class, new TestMfpModelCreator.TestMfp1ModelCreator());
         testApexModel2 = new TestApexModel<>(AxPolicyModel.class, new TestMfpModelCreator.TestMfp2ModelCreator());
-    }
-
-    /**
-     * Teardown.
-     *
-     * @throws Exception if there is an error
-     */
-    @AfterClass
-    public static void teardown() throws Exception {
-        connection.close();
-        new File("derby.log").delete();
     }
 
     /**

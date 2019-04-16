@@ -213,11 +213,6 @@
         
         <!-- Test Data used by examples -->
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.context</groupId>
-            <artifactId>context-test-utils</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
             <artifactId>integration-common</artifactId>
             <version>${project.version}</version>

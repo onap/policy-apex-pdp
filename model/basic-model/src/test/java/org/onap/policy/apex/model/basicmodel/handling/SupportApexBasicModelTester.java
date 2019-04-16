@@ -23,11 +23,6 @@ package org.onap.policy.apex.model.basicmodel.handling;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -37,26 +32,16 @@ import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
 public class SupportApexBasicModelTester {
-    private Connection connection;
     TestApexModel<AxModel> testApexModel;
 
     /**
      * Set up the test.
-     * 
+     *
      * @throws Exception any exception thrown by the test
      */
     @Before
     public void setup() throws Exception {
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
-        connection = DriverManager.getConnection("jdbc:derby:memory:apex_test;create=true");
-
         testApexModel = new TestApexModel<AxModel>(AxModel.class, new DummyApexBasicModelCreator());
-    }
-
-    @After
-    public void teardown() throws Exception {
-        connection.close();
-        new File("derby.log").delete();
     }
 
     @Test

@@ -44,10 +44,8 @@
         <class>org.onap.policy.apex.model.eventmodel.concepts.AxEventModel</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:apex_test" />
-            <property name="javax.persistence.target-database" value="Derby" />
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:testdb" />
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
             <property name="eclipselink.logging.level" value="INFO" />
