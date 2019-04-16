@@ -1,0 +1,77 @@
+{
+    "engineServiceParameters": {
+        "name": "NomadicONTPolicyModelEngine",
+        "version": "0.0.1",
+        "id": 101,
+        "instanceCount": 4,
+        "deploymentPort": 12345,
+        "policyModelFileName": "/home/apexuser/examples/models/ONAPBBS/NomadicONTPolicyModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "MVEL": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
+                },
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            },
+            "contextParameters": {
+                "parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters",
+                "schemaParameters": {
+                    "Avro": {
+                        "parameterClassName": "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
+                    },
+                    "Java": {
+                        "parameterClassName": "org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters",
+                        "jsonAdapters": {
+                            "Instant": {
+                                "adaptedClass": "java.time.Instant",
+                                "adaptorClass": "org.onap.policy.controlloop.util.Serialization$GsonInstantAdapter"
+                            },
+                            "APPC_LCM_REQUEST": {
+                                "adaptedClass": "org.onap.policy.appclcm.LcmRequest",
+                                "adaptorClass": "org.onap.policy.appclcm.util.Serialization$RequestAdapter"
+                            },
+                            "APPC_LCM_RESPONSE": {
+                                "adaptedClass": "org.onap.policy.appclcm.LcmResponse",
+                                "adaptorClass": "org.onap.policy.appclcm.util.Serialization$ResponseAdapter"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "standardIo": true
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            }
+        }
+    },
+    "eventInputParameters": {
+        "SecondConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "FILE",
+                "parameters": {
+                    "fileName": "examples/events/ONAPBBS/EventsIn.json.txt"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "nameAlias": "policyName",
+                    "versionAlias": "version",
+                    "sourceAlias": "from",
+                    "pojoField": "VirtualControlLoopEvent"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "closedLoopEventClient":"DCAE.BBS_event_processor_mSInstance",
+    "policyVersion":"1.0.0.5",
+    "policyName":"Nomadic_ONT",
+    "policyScope":"reRegPolicyScope",
+    "target_type":"VM",
+    "AAI":{
+        "attachmentPoint":"olt11-1-1",
+        "service-information.hsia-cfs-service-instance-id":"1923eaa8-8ab7-49ef-b4c2-e185efbbe832",
+        "cvlan":"1005",
+        "svlan":"100",
+        "remoteId":"some-remote-id"
+    },
+    "closedLoopAlarmStart":1553067455,
+    "closedLoopEventStatus":"ONSET",
+    "closedLoopControlName":"reRegControlName",
+    "version":"1.0.0",
+    "target":"vserver.vserver-name",
+    "requestID":"407a6515-4b10-46ad-a249-efe529a36c69",
+    "from":"DCAE"
+}
+{
+    "closedLoopEventClient":"DCAE.BBS_event_processor_mSInstance",
+    "policyVersion":"1.0.0.5",
+    "policyName":"CPE_Authentication",
+    "policyScope":"reRegPolicyScope",
+    "target_type":"VM",
+    "AAI":{
+        "attachmentPoint":"olt11-1-1",
+        "service-information.hsia-cfs-service-instance-id":"1923eaa8-8ab7-49ef-b4c2-e185efbbe832",
+        "cvlan":"1005",
+        "svlan":"100",
+        "remoteId":"some-remote-id"
+    },
+    "closedLoopAlarmStart":1553067455,
+    "closedLoopEventStatus":"ONSET",
+    "closedLoopControlName":"reRegControlName",
+    "version":"1.0.0",
+    "target":"vserver.vserver-name",
+    "requestID":"407a6515-4b10-46ad-a249-efe529a36c69",
+    "from":"DCAE"
+}
