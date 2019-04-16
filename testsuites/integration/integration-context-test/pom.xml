@@ -45,6 +45,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
+            <artifactId>integration-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
             <artifactId>plugins-context-distribution-hazelcast</artifactId>
             <version>${project.version}</version>

@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -32,16 +32,16 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.test.entities.ArtifactKeyTestEntity;
-import org.onap.policy.apex.context.test.entities.ReferenceKeyTestEntity;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
+import org.onap.policy.apex.plugins.persistence.jpa.eclipselink.entities.ArtifactKeyTestEntity;
+import org.onap.policy.apex.plugins.persistence.jpa.eclipselink.entities.ReferenceKeyTestEntity;
 
 /**
  * Junit tests for class EclipselinkApexDao.
- * 
+ *
  * @author Dinh Danh Le (dinh.danh.le@ericsson.com)
  *
  */
@@ -57,7 +57,7 @@ public class EclipselinkApexDaoTest {
 
     /**
      * Setup the tests.
-     * 
+     *
      * @throws ApexException Exceptions from test setup
      */
     @Before
@@ -192,7 +192,7 @@ public class EclipselinkApexDaoTest {
             new AxReferenceKey(owner0Key, "Entity02"),
             new AxReferenceKey(owner0Key, "Entity03")
         });
-        
+
         // prepare 2 more AxReferenceKeys corresponding to owner1Key
         final AxReferenceKey refKey11 = new AxReferenceKey(owner1Key, "Entity11");
         final AxReferenceKey refKey12 = new AxReferenceKey(owner1Key, "Entity12");

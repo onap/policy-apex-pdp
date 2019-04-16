@@ -135,11 +135,6 @@
             <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-persistence.plugins-persistence-jpa</groupId>
-            <artifactId>plugins-persistence-jpa-hibernate</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- Plugins for event carrier technologies -->
         <dependency>
@@ -212,11 +207,6 @@
         </dependency>
         
         <!-- Test Data used by examples -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.context</groupId>
-            <artifactId>context-test-utils</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
             <artifactId>integration-common</artifactId>

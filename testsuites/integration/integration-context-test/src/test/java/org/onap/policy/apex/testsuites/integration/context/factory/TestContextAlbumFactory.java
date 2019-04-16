@@ -29,6 +29,12 @@ import static org.onap.policy.apex.testsuites.integration.context.utils.Constant
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.POLICY_CONTEXT_ALBUM;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.VERSION;
 
+import org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem;
+import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
+import org.onap.policy.apex.context.test.concepts.TestContextTreeMapItem;
+import org.onap.policy.apex.context.test.concepts.TestExternalContextItem;
+import org.onap.policy.apex.context.test.concepts.TestGlobalContextItem;
+import org.onap.policy.apex.context.test.concepts.TestPolicyContextItem;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
@@ -36,12 +42,6 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextDateLocaleItem;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextLongItem;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestContextTreeMapItem;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestExternalContextItem;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestGlobalContextItem;
-import org.onap.policy.apex.testsuites.integration.context.concepts.TestPolicyContextItem;
 
 /**
  * The Class TestContextAlbumFactory creates test context albums.

@@ -32,7 +32,6 @@
     <name>${project.artifactId}</name>
     <description>Specific source code and other artifacts for Apex example applications.</description>
 
-
     <modules>
         <module>examples-myfirstpolicy</module>
         <module>examples-aadm</module>
@@ -44,6 +43,14 @@
         <module>examples-servlet</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
     <profiles>
         <profile>
             <id>apexSite</id>

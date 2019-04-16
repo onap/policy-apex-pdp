@@ -32,15 +32,6 @@
     <name>${project.artifactId}</name>
     <description>The model for Apex, it comtains definitions of all Apex concepts and also has handling for Apex models.</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>${version.derby}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <modules>
         <module>utilities</module>
         <module>basic-model</module>
@@ -51,6 +42,14 @@
         <module>model-api</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
     <profiles>
         <profile>
             <id>apexSite</id>
