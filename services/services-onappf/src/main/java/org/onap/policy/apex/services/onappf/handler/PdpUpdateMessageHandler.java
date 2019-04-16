@@ -32,6 +32,8 @@ import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class supports the handling of pdp update messages.
@@ -39,6 +41,8 @@ import org.onap.policy.models.pdp.enums.PdpState;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class PdpUpdateMessageHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PdpUpdateMessageHandler.class);
 
     /**
      * Method which handles a pdp update event from PAP.
@@ -52,7 +56,7 @@ public class PdpUpdateMessageHandler {
         if (pdpUpdateMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
                 pdpStatusContext.getPdpSubgroup())) {
             final PdpStatusPublisher pdpStatusPublisher = Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
-            if (checkIfAlreadyHandled(pdpUpdateMsg, pdpStatusContext, pdpStatusPublisher.getInterval())) {
+            if (checkIfAlreadyHandled(pdpUpdateMsg, pdpStatusContext)) {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Pdp already updated");
             } else {
@@ -65,8 +69,7 @@ public class PdpUpdateMessageHandler {
                 pdpStatusContext
                         .setPolicies(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()));
                 if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
-                    pdpResponseDetails =
-                            startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler, pdpStatusContext);
+                    pdpResponseDetails = startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler);
                 }
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST, pdpUpdateMsg.getPolicies());
                 if (null == pdpResponseDetails) {
@@ -88,13 +91,13 @@ public class PdpUpdateMessageHandler {
      * active, if PAP sends PdpUpdate with empty policies list, stop apex engine, or, if there is a change in policies,
      * stop the current running policies and the deploy the new ones.
      *
-     * @param pdpUpdateMsg
-     * @param pdpMessageHandler
-     * @param pdpStatusContext
-     * @return pdpResponseDetails
+     * @param pdpUpdateMsg the pdp update message from pap
+     * @param pdpMessageHandler pdp message handler
+     * @param pdpStatusContext the pdp status object in memory
+     * @return pdpResponseDetails the pdp response
      */
     private PdpResponseDetails startOrStopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
-            final PdpMessageHandler pdpMessageHandler, final PdpStatus pdpStatusContext) {
+            final PdpMessageHandler pdpMessageHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         if (pdpUpdateMsg.getPolicies().isEmpty()) {
             final ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
@@ -102,6 +105,7 @@ public class PdpUpdateMessageHandler {
                 try {
                     apexEngineHandler.shutdown();
                 } catch (final ApexStarterException e) {
+                    LOGGER.error("Pdp update failed as the policies couldn't be undeployed." + e);
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                             PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
                 }
@@ -118,6 +122,7 @@ public class PdpUpdateMessageHandler {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");
             } catch (final ApexStarterException e) {
+                LOGGER.error("Apex engine service running failed. " + e);
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
             }
@@ -126,26 +131,24 @@ public class PdpUpdateMessageHandler {
     }
 
     /**
-     * Method checks of the Pdp update message is already handled by checking the values in the context.
+     * Method checks if the Pdp update message is already handled by checking the values in the context.
      *
      * @param pdpUpdateMsg pdp update message received from pap
      * @param pdpStatusContext values saved in context memory
-     * @param interval the current interval in which the pdp status publisher is sending the heartbeats
      * @return boolean flag which tells if the information is same or not
      */
-    private boolean checkIfAlreadyHandled(final PdpUpdate pdpUpdateMsg, final PdpStatus pdpStatusContext,
-            final long interval) {
-        return null != pdpStatusContext.getPdpGroup()
-                && pdpStatusContext.getPdpGroup().equals(pdpUpdateMsg.getPdpGroup())
-                && null != pdpStatusContext.getPdpSubgroup()
-                && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())
-                && null != pdpStatusContext.getPolicies()
-                && new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies())
-                        .equals(pdpStatusContext.getPolicies())
-                && (null == pdpUpdateMsg.getPdpHeartbeatIntervalMs()
-                        || (null != pdpUpdateMsg.getPdpHeartbeatIntervalMs()
-                                && pdpUpdateMsg.getPdpHeartbeatIntervalMs() > 0
-                                && interval == pdpUpdateMsg.getPdpHeartbeatIntervalMs()));
+    private boolean checkIfAlreadyHandled(final PdpUpdate pdpUpdateMsg, final PdpStatus pdpStatusContext) {
+
+        if (null != pdpStatusContext.getPdpGroup()
+                && pdpStatusContext.getPdpGroup().equals(pdpUpdateMsg.getPdpGroup())) {
+            return true;
+        } else if (null != pdpStatusContext.getPdpSubgroup()
+                && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())) {
+            return true;
+        } else {
+            return null != pdpStatusContext.getPolicies() && new PdpMessageHandler()
+                    .getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()).equals(pdpStatusContext.getPolicies());
+        }
     }
 
     /**

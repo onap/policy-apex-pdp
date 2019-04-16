@@ -1,6 +1,6 @@
 {
-    "name":"OnapPfParameterGroup",
-     "restServerParameters": {
+    "name":"ApexStarterParameterGroup",
+    "restServerParameters": {
         "host": "0.0.0.0",
         "port": 6969,
         "userName": "healthcheck",
@@ -10,7 +10,7 @@
     "pdpStatusParameters":{
         "timeIntervalMs": 120000,
         "pdpType":"apex",
-        "description":"Pdp Heartbeat",
+        "description":"Pdp heartbeat",
         "supportedPolicyTypes":[{"name":"onap.policies.controlloop.Operational","version":"1.0.0"}]
     }
 }

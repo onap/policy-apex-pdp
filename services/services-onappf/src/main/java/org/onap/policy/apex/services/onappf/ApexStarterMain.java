@@ -38,6 +38,8 @@ import org.slf4j.LoggerFactory;
  */
 public class ApexStarterMain {
 
+    private static final String APEX_STARTER_FAIL_MSG = "start of services-onappf failed";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexStarterMain.class);
 
     private ApexStarterActivator activator;
@@ -48,7 +50,7 @@ public class ApexStarterMain {
      *
      * @param args the command line arguments
      */
-    ApexStarterMain(final String[] args) {
+    public ApexStarterMain(final String[] args) {
         LOGGER.info("In ApexStarter with parameters " + Arrays.toString(args));
 
         // Check the arguments
@@ -63,7 +65,7 @@ public class ApexStarterMain {
             // Validate that the arguments are sane
             arguments.validate();
         } catch (final ApexStarterException e) {
-            LOGGER.error("start of ApexStarter failed", e);
+            LOGGER.error(APEX_STARTER_FAIL_MSG, e);
             return;
         }
 
@@ -71,7 +73,7 @@ public class ApexStarterMain {
         try {
             parameterGroup = new ApexStarterParameterHandler().getParameters(arguments);
         } catch (final Exception e) {
-            LOGGER.error("start of ApexStarter failed", e);
+            LOGGER.error(APEX_STARTER_FAIL_MSG, e);
             return;
         }
 
@@ -83,7 +85,7 @@ public class ApexStarterMain {
                 topicProperties.load(stream);
             }
         } catch (final Exception e) {
-            LOGGER.error("start of ApexStarter failed", e);
+            LOGGER.error(APEX_STARTER_FAIL_MSG, e);
             return;
         }
 
@@ -108,7 +110,7 @@ public class ApexStarterMain {
     /**
      * Get the parameters specified in JSON.
      *
-     * @return the parameters
+     * @return parameterGroup the parameters
      */
     public ApexStarterParameterGroup getParameters() {
         return parameterGroup;

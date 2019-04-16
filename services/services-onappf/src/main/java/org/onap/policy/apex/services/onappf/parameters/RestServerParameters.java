@@ -18,21 +18,35 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.services.onappf;
+package org.onap.policy.apex.services.onappf.parameters;
+
+import lombok.Getter;
+
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
- * Names of various items contained in the Registry.
+ * Class to hold all parameters needed for services-onappf rest server.
+ *
+ * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class ApexStarterConstants {
-    // Registry keys
-    public static final String REG_APEX_STARTER_ACTIVATOR = "object:activator/apex_starter";
-    public static final String REG_PDP_STATUS_OBJECT = "object:pdp/status";
-    public static final String REG_APEX_TOSCA_POLICY_LIST = "object:apex/tosca/policy/list";
-    public static final String REG_PDP_STATUS_PUBLISHER = "object:pdp/status/publisher";
-    public static final String REG_APEX_PDP_TOPIC_SINKS = "object:apex/pdp/topic/sinks";
-    public static final String REG_APEX_ENGINE_HANDLER = "object:engine/apex/handler";
+@NotNull
+@NotBlank
+@Getter
+public class RestServerParameters extends ParameterGroupImpl {
+    private String host;
 
-    private ApexStarterConstants() {
-        super();
+    @Min(value = 1)
+    private int port;
+
+    private String userName;
+    private String password;
+    private boolean https;
+    private boolean aaf;
+
+    public RestServerParameters() {
+        super("RestServerParameters");
     }
 }

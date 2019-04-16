@@ -44,12 +44,12 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyTypeIdentifi
 public class PdpMessageHandler {
 
     /**
-     * Method to create PdpStatus message from the parameters which will be saved to the context
+     * Method to create PdpStatus message from the parameters which will be saved to the context.
      *
      * @param instanceId instance id of apex pdp
      * @param pdpStatusParameters pdp status parameters read from the configuration file
      *
-     * @return PdpStatus the pdp status message
+     * @return pdpStatus the pdp status message
      */
     public PdpStatus createPdpStatusFromParameters(final String instanceId,
             final PdpStatusParameters pdpStatusParameters) {
@@ -66,8 +66,8 @@ public class PdpMessageHandler {
     /**
      * Method to get supported policy types from the parameters.
      *
-     * @param pdpStatusParameters
-     * @return list of PolicyTypeIdent
+     * @param pdpStatusParameters pdp status parameters
+     * @return supportedPolicyTypes list of PolicyTypeIdent
      */
     private List<ToscaPolicyTypeIdentifier> getSupportedPolicyTypesFromParameters(
             final PdpStatusParameters pdpStatusParameters) {
@@ -104,9 +104,7 @@ public class PdpMessageHandler {
     /**
      * Method to get a final pdp status when the apex started is shutting down.
      *
-     * @param policies list of ToscaPolicy
-     *
-     * @return PdpStatus
+     * @return PdpStatus the pdp status message
      */
     public PdpStatus getTerminatedPdpStatus() {
         final PdpStatus pdpStatusInContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);

@@ -49,9 +49,8 @@ public class ApexEngineHandler {
     /**
      * Constructs the object. Extracts the apex config and model files and instantiates the apex engine.
      *
-     * @param properties
-     * @return ApexEngineHandler
-     * @throws ApexStarterException
+     * @param properties the properties which contains the policies and configurations received from pap
+     * @throws ApexStarterException if the apex engine instantiation failed using the properties passed
      */
 
     public ApexEngineHandler(final String properties) throws ApexStarterException {
@@ -76,11 +75,11 @@ public class ApexEngineHandler {
     }
 
     /**
-     * Method to create the policy model file
+     * Method to create the policy model file.
      *
-     * @param policyModel
-     * @param modelFilePath
-     * @throws ApexStarterException
+     * @param fileContent the content of the file
+     * @param fileName the name of the file
+     * @throws ApexStarterException if the file creation failed
      */
     private String createFile(final String fileContent, final String fileName) throws ApexStarterException {
         try {
@@ -94,10 +93,16 @@ public class ApexEngineHandler {
         }
     }
 
+    /**
+     * Method to check whether the apex engine is running or not.
+     */
     public boolean isApexEngineRunning() {
         return null != apexMain;
     }
 
+    /**
+     * Method to shut down the apex engine.
+     */
     public void shutdown() throws ApexStarterException {
         try {
             LOGGER.debug("Shutting down apex engine.");

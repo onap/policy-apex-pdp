@@ -45,11 +45,10 @@ public class PdpStatusPublisher extends TimerTask {
     private long interval;
 
     /**
-     * Constructor for instantiating PdpStatusPublisher
+     * Constructor for instantiating PdpStatusPublisher.
      *
-     * @param pdpStatus
-     * @param topicSinks
-     * @param apexStarterParameterGroup
+     * @param topicSinks the topic sinks
+     * @param interval time interval to send pdp status
      */
     public PdpStatusPublisher(final List<TopicSink> topicSinks, final long interval) {
         this.topicSinkClient = new TopicSinkClient(topicSinks.get(0));
@@ -76,7 +75,7 @@ public class PdpStatusPublisher extends TimerTask {
     /**
      * Get the current time interval used by the timer task.
      *
-     * @return interval
+     * @return interval the current time interval
      */
     public long getInterval() {
         return interval;
@@ -84,6 +83,8 @@ public class PdpStatusPublisher extends TimerTask {
 
     /**
      * Method to send pdp status message to pap on demand.
+     *
+     * @param pdpStatus the pdp status
      */
     public void send(final PdpStatus pdpStatus) {
         topicSinkClient.send(pdpStatus);

@@ -40,8 +40,6 @@ import org.junit.Test;
 import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
-import org.onap.policy.apex.services.onappf.comm.PdpStateChangeListener;
-import org.onap.policy.apex.services.onappf.comm.PdpUpdateListener;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
@@ -65,6 +63,13 @@ public class TestPdpStateChangeListener {
     private static final String TOPIC = "my-topic";
     private ApexStarterActivator activator;
 
+    /**
+     * Method for setup before each test.
+     *
+     * @throws ApexStarterException if some error occurs while starting up the apex starter
+     * @throws FileNotFoundException if the file is missing
+     * @throws IOException if IO exception occurs
+     */
     @Before
     public void setUp() throws ApexStarterException, FileNotFoundException, IOException {
         pdpUpdateMessageListener = new PdpUpdateListener();
@@ -112,8 +117,10 @@ public class TestPdpStateChangeListener {
     }
 
     /**
-     * @param instance
-     * @return
+     * Method to initiate a PdpUpdate.
+     *
+     * @param instance the instance id
+     * @return PdpUpdate the pdp update message
      */
     private PdpUpdate performPdpUpdate(final String instance) {
         final PdpUpdate pdpUpdateMsg = new PdpUpdate();
