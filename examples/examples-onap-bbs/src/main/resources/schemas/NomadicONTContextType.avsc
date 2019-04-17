@@ -1,6 +1,6 @@
 {
     "type": "record",
-    "name": "VCPEClosedLoopStatus",
+    "name": "NomadicONTContext",
     "fields": [
         {
             "name": "AAI",
@@ -98,6 +98,10 @@
         },
         {
             "name": "message",
+            "type": "string"
+        },
+        {
+            "name": "url",
             "type": "string"
         },
         {

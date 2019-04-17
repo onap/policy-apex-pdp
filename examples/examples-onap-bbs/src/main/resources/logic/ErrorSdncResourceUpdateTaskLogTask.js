@@ -17,7 +17,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-
 executor.logger.info("Begin Execution ErrorResourceUpdateLogTask.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
