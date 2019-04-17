@@ -56,11 +56,12 @@
         }
     },
     "eventInputParameters": {
-        "SecondConsumer": {
+        "DCAEConsumer": {
             "carrierTechnologyParameters": {
-                "carrierTechnology": "FILE",
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
                 "parameters": {
-                    "fileName": "examples/events/ONAPBBS/EventsIn.json.txt"
+                    "url": "http://172.30.0.130:30227/events/unauthenticated.DCAE_CL_OUTPUT/g1/c1?timeout=60000"
                 }
             },
             "eventProtocolParameters": {

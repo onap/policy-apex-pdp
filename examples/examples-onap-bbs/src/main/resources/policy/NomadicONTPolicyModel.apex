@@ -30,12 +30,12 @@ schema create name=UUIDType                 flavour=Java schema=java.util.UUID
 
 schema create name=VirtualControlLoopEventType flavour=Java schema=org.onap.policy.controlloop.VirtualControlLoopEvent
 
-schema create name=VCPEClosedLoopStatusType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/VCPEClosedLoopStatusType.avsc"
+schema create name=NomadicONTContextType flavour=Avro schema=LS
+#MACROFILE:"src/main/resources/schemas/NomadicONTContextType.avsc"
 LE
 
 #=======================> Create Albums
-album create name=VCPEClosedLoopStatusAlbum scope=policy writable=true schemaName=VCPEClosedLoopStatusType
+album create name=NomadicONTContextAlbum scope=policy writable=true schemaName=NomadicONTContextType
 
 
 #===================================> Define Events
@@ -92,7 +92,7 @@ task inputfield create name=GetBBSCloseLoopEventTask fieldName=VirtualControlLoo
 task outputfield create name=GetBBSCloseLoopEventTask fieldName=requestID schemaName=UUIDType
 task outputfield create name=GetBBSCloseLoopEventTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=GetBBSCloseLoopEventTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
-task contextref create name=GetBBSCloseLoopEventTask albumName=VCPEClosedLoopStatusAlbum
+task contextref create name=GetBBSCloseLoopEventTask albumName=NomadicONTContextAlbum
 
 task logic create name=GetBBSCloseLoopEventTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/GetBBSCloseLoopEventTask.js"
@@ -107,7 +107,7 @@ task outputfield create name=AAIServiceAssignedTask fieldName=requestID schemaNa
 task outputfield create name=AAIServiceAssignedTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=AAIServiceAssignedTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
 
-task contextref create name=AAIServiceAssignedTask albumName=VCPEClosedLoopStatusAlbum
+task contextref create name=AAIServiceAssignedTask albumName=NomadicONTContextAlbum
 
 task logic create name=AAIServiceAssignedTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/AAIServiceAssignedTask.js"
@@ -133,7 +133,7 @@ task inputfield create name=SdncResourceUpdateTask fieldName=serviceInstanceId  
 task outputfield create name=SdncResourceUpdateTask fieldName=requestID schemaName=UUIDType
 task outputfield create name=SdncResourceUpdateTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=SdncResourceUpdateTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
-task contextref create name=SdncResourceUpdateTask albumName=VCPEClosedLoopStatusAlbum
+task contextref create name=SdncResourceUpdateTask albumName=NomadicONTContextAlbum
 
 task logic create name=SdncResourceUpdateTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/SdncResourceUpdateTask.js"
@@ -160,7 +160,7 @@ task outputfield create name=AAIServiceCreateTask fieldName=requestID schemaName
 task outputfield create name=AAIServiceCreateTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=AAIServiceCreateTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
 task outputfield create name=AAIServiceCreateTask fieldName=result   schemaName=SimpleStringType
-task contextref create name=AAIServiceCreateTask albumName=VCPEClosedLoopStatusAlbum
+task contextref create name=AAIServiceCreateTask albumName=NomadicONTContextAlbum
 
 task logic create name=AAIServiceCreateTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/AAIServiceCreateTask.js"
@@ -172,7 +172,7 @@ task inputfield create name=NomadicEventSuccessTask fieldName=requestID schemaNa
 task inputfield create name=NomadicEventSuccessTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task inputfield create name=NomadicEventSuccessTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
 task outputfield create name=NomadicEventSuccessTask fieldName=result schemaName=SimpleStringType optional=true
-task contextref create name=NomadicEventSuccessTask albumName=VCPEClosedLoopStatusAlbum
+task contextref create name=NomadicEventSuccessTask albumName=NomadicONTContextAlbum
 
 task logic create name=NomadicEventSuccessTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/NomadicEventSuccessTask.js"
@@ -187,7 +187,7 @@ task outputfield create name=ServiceUpdateStateCpeAuthTask fieldName=result sche
 task outputfield create name=ServiceUpdateStateCpeAuthTask fieldName=requestID schemaName=UUIDType
 task outputfield create name=ServiceUpdateStateCpeAuthTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=ServiceUpdateStateCpeAuthTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
-task contextref create name=ServiceUpdateStateCpeAuthTask albumName=VCPEClosedLoopStatusAlbum
+task contextref create name=ServiceUpdateStateCpeAuthTask albumName=NomadicONTContextAlbum
 
 task logic create name=ServiceUpdateStateCpeAuthTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/ServiceUpdateStateCpeAuthTask.js"
@@ -209,7 +209,7 @@ policy state taskref create name=ONTRegistrationPolicy stateName=AAI_SERVICE_CRE
 policy state output create name=ONTRegistrationPolicy stateName=AAI_SERVICE_CREATE outputName=SdncResourceUpdateErrorLogOutput eventName=ERROR_LOG
 policy state taskref create name=ONTRegistrationPolicy stateName=AAI_SERVICE_CREATE taskName=ErrorSdncResourceUpdateTaskLogTask outputType=DIRECT outputName=SdncResourceUpdateErrorLogOutput
 
-policy state contextref create name=ONTRegistrationPolicy stateName=AAI_SERVICE_CREATE albumName=VCPEClosedLoopStatusAlbum
+policy state contextref create name=ONTRegistrationPolicy stateName=AAI_SERVICE_CREATE albumName=NomadicONTContextAlbum
 
 policy state selecttasklogic create name=ONTRegistrationPolicy stateName=AAI_SERVICE_CREATE logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/SU2orInitStateSelect.js"
@@ -225,7 +225,7 @@ policy state taskref create name=ONTRegistrationPolicy stateName=SDNC_RES_UPDATE
 policy state output create name=ONTRegistrationPolicy stateName=SDNC_RES_UPDATE outputName=AAIServiceAssignedErrorLogOutput eventName=ERROR_LOG
 policy state taskref create name=ONTRegistrationPolicy stateName=SDNC_RES_UPDATE taskName=ErrorAAIServiceAssignedLogTask outputType=DIRECT outputName=AAIServiceAssignedErrorLogOutput
 
-policy state contextref create name=ONTRegistrationPolicy stateName=SDNC_RES_UPDATE albumName=VCPEClosedLoopStatusAlbum
+policy state contextref create name=ONTRegistrationPolicy stateName=SDNC_RES_UPDATE albumName=NomadicONTContextAlbum
 
 policy state selecttasklogic create name=ONTRegistrationPolicy stateName=SDNC_RES_UPDATE logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/RUorInitStateSelect.js"
