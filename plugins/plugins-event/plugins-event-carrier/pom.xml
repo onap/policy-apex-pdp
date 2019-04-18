@@ -39,6 +39,7 @@
         <module>plugins-event-carrier-restclient</module>
         <module>plugins-event-carrier-restserver</module>
         <module>plugins-event-carrier-restrequestor</module>
+        <module>plugins-event-carrier-cds</module>
     </modules>
 
     <profiles>
