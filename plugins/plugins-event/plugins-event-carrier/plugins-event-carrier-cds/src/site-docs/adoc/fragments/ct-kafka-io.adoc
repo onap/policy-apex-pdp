@@ -1,0 +1,102 @@
+//
+// ============LICENSE_START=======================================================
+//  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+// ================================================================================
+// This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
+// Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
+// 
+// SPDX-License-Identifier: CC-BY-4.0
+// ============LICENSE_END=========================================================
+//
+// @author Sven van der Meer (sven.van.der.meer@ericsson.com)
+//
+
+== Kafka IO
+
+Kafka IO is supported by the APEX Kafka plugin.
+The configurations below are examples.
+APEX will take any configuration inside the parameter object and forward it to Kafka.
+More information on Kafka specific configuration parameters can be found in the Kafka documentation:
+
+* link:https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html[Kafka Consumer Class]
+* link:https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html[Kafka Producer Class]
+
+
+
+=== Kafka Input
+
+APEX will receive events from the Apache Kafka messaging system.
+The input is uni-directional, an engine will only receive events from the input but not send any event to the input.
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "KAFKA", <1>
+  "parameterClassName" :
+    "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+  "parameters" : {
+    "bootstrapServers"  : "localhost:49092", <2>
+    "groupId"           : "apex-group-id", <3>
+    "enableAutoCommit"  : true, <4>
+    "autoCommitTime"    : 1000, <5>
+    "sessionTimeout"    : 30000, <6>
+    "consumerPollTime"  : 100, <7>
+    "consumerTopicList" : ["apex-in-0", "apex-in-1"], <8>
+    "keyDeserializer"   :
+        "org.apache.kafka.common.serialization.StringDeserializer", <9>
+    "valueDeserializer" :
+        "org.apache.kafka.common.serialization.StringDeserializer" <10>
+  }
+}
+----
+
+<1> set Kafka as carrier technology
+<2> bootstrap server and port
+<3> a group identifier
+<4> flag for auto-commit
+<5> auto-commit timeout in milliseconds
+<6> session timeout in milliseconds
+<7> consumer poll time in milliseconds
+<8> consumer topic list
+<9> key for the Kafka de-serializer
+<10> value for the Kafka de-serializer
+
+
+=== Kafka Output
+
+APEX will send events to the Apache Kafka messaging system.
+The output is uni-directional, an engine will send events to the output but not receive any event from the output.
+
+
+[source%nowrap,json]
+----
+"carrierTechnologyParameters" : {
+  "carrierTechnology" : "KAFKA", <1>
+  "parameterClassName" :
+    "org.onap.policy.apex.plugins.event.carrier.kafka.KAFKACarrierTechnologyParameters",
+  "parameters" : {
+    "bootstrapServers"  : "localhost:49092", <2>
+    "acks"              : "all", <3>
+    "retries"           : 0, <4>
+    "batchSize"         : 16384, <5>
+    "lingerTime"        : 1, <6>
+    "bufferMemory"      : 33554432, <7>
+    "producerTopic"     : "apex-out", <8>
+    "keySerializer"     :
+        "org.apache.kafka.common.serialization.StringSerializer", <9>
+    "valueSerializer"   :
+        "org.apache.kafka.common.serialization.StringSerializer" <10>
+  }
+}
+----
+
+<1> set Kafka as carrier technology
+<2> bootstrap server and port
+<3> acknowledgement strategy
+<4> number of retries
+<5> batch size
+<6> time to linger in milliseconds
+<7> buffer memory in byte
+<8> producer topic
+<9> key for the Kafka serializer
+<10> value for the Kafka serializer
