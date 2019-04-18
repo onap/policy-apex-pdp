@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5b760e1_2dafa533",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-18T07:49:37Z",
+      "side": 1,
+      "message": "Please replace the tabs with spaces.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "12503f61f02a7d7bf4fb936fb76b806932195345",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d13295f9_df440910",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_CreateAccessConnectivityInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-18T07:49:37Z",
+      "side": 1,
+      "message": "Same comment",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "12503f61f02a7d7bf4fb936fb76b806932195345",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6629f5c5_a3d3d997",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_DeleteAccessConnectivityInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-18T07:49:37Z",
+      "side": 1,
+      "message": "Same comment",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "12503f61f02a7d7bf4fb936fb76b806932195345",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
