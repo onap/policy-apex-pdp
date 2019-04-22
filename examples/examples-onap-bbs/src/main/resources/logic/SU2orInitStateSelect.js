@@ -17,7 +17,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-
 executor.logger.info("Begin Execution SU2orInitStateSelect.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
@@ -26,19 +25,21 @@ var returnValue = executor.isTrue;
 var result = null;
 
 var attachmentPoint = executor.inFields.get("attachmentPoint");
-var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(attachmentPoint);
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
+    attachmentPoint);
 
-executor.logger.info("==========>" + executor.outFields);
-executor.logger.info("==========>" + executor.inFields);
+executor.logger.info(executor.outFields);
+executor.logger.info(executor.inFields);
 
-result = vcpeClosedLoopStatus.get("result");
+result = NomadicONTContext.get("result");
 
 if (result === "SUCCESS") {
     executor.subject.getTaskKey("AAIServiceCreateTask").copyTo(executor.selectedTask);
 } else {
-    executor.subject.getTaskKey("SdncResourceUpdateErrorLogOutput").copyTo(executor.selectedTask);
+    executor.subject.getTaskKey("SdncResourceUpdateErrorLogOutput").copyTo(
+        executor.selectedTask);
     onsetFlag = executor.isFalse;
 }
 
 executor.logger.info("State Selected Task:" + executor.selectedTask);
-executor.logger.info("End Execution RUorInitStateSelect.js");
+executor.logger.info("End Execution SU2orInitStateSelect.js");

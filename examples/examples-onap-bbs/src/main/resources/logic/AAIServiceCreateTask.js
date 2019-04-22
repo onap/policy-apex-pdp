@@ -37,9 +37,11 @@ var AAI_URL = "localhost:8080";
 var CUSTOMER_ID = requestID;
 var BBS_CFS_SERVICE_TYPE = "BBS-CFS-Access_Test";
 var SERVICE_INSTANCE_UUID = serviceInstanceId;
+var HTTP_PROTOCOL = "https://";
 
 try {
-    var  br = Files.newBufferedReader(Paths.get("/home/apexuser/examples/config/ONAPBBS/config.txt"));
+    var br = Files.newBufferedReader(Paths.get(
+        "/home/apexuser/examples/config/ONAPBBS/config.txt"));
     // read line by line
     var line;
     while ((line = br.readLine()) != null) {
@@ -53,106 +55,118 @@ try {
 } catch (err) {
     executor.logger.info("Failed to retrieve data " + err);
 }
-executor.logger.info("AAI_URL=>" + AAI_URL);
+executor.logger.info("AAI_URL " + AAI_URL);
 
 
 var attachmentPoint = executor.inFields.get("attachmentPoint");
 var requestID = executor.inFields.get("requestID");
 var serviceInstanceId = executor.inFields.get("serviceInstanceId");
 
-var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(attachmentPoint);
-executor.logger.info(vcpeClosedLoopStatus);
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
+    attachmentPoint);
+executor.logger.info(NomadicONTContext);
 
-var jsonObj = JSON.parse(vcpeClosedLoopStatus.get("aai_message"));
+var putUpddateServInstance = JSON.parse(NomadicONTContext.get("aai_message"));
 
-jsonObj['orchestration-status'] = "created";
-executor.logger.info(" string" + JSON.stringify(jsonObj, null, 4));
-
+putUpddateServInstance['orchestration-status'] = "created";
+executor.logger.info(" string" + JSON.stringify(putUpddateServInstance, null, 4));
+var resource_version = putUpddateServInstance['resource-version'];
+var putUrl = NomadicONTContext.get("url");
 var aaiUpdateResult = true;
 
 
 /*BBS Policy updates  {{bbs-cfs-service-instance-UUID}} orchestration-status [ assigned --> created ]*/
 try {
-    //var urlPut =   "https://" + AAI_URL + "/aai/v14/business/customers/customer/" + CUSTOMER_ID + "/service-subscriptions/service-subscription/" + BBS_CFS_SERVICE_TYPE + "/service-instances/service-instance/" + SERVICE_INSTANCE_UUID;
-    var urlPut = "http://" + AAI_URL + "/RestConfServer/rest/operations/policy/su2/aaiUpdate";
-    result = httpPut(urlPut, JSON.stringify(jsonObj)).data;
-    executor.logger.info("Data received From " + urlPut + " " +result.toString());
-    repos = JSON.parse(result);
-    executor.logger.info("After Parse " + result.toString());
+    if (aaiUpdateResult == true) {
+        executor.logger.info("ready to putAfter Parse " + JSON.stringify(
+            putUpddateServInstance, null, 4));
+        var urlPut = HTTP_PROTOCOL + AAI_URL +
+            putUrl + "?resource_version=" + resource_version;
+        result = httpPut(urlPut, JSON.stringify(putUpddateServInstance)).data;
+        executor.logger.info("Data received From " + urlPut + " " + result.toString());
+        jsonObj = JSON.parse(result);
+        executor.logger.info("After Parse " + JSON.stringify(jsonObj, null, 4));
 
-    if (result == "") {
-        aaiUpdateResult = false;
+        /* If failure to retrieve data proceed to Failure */
+        if (result == "") {
+            aaiUpdateResult = false;
+        }
     }
-}catch (err) {
+} catch (err) {
     executor.logger.info("Failed to retrieve data " + err);
     aaiUpdateResult = false;
 }
-
 /* If Success then Fill output schema */
 if (aaiUpdateResult === true) {
-    vcpeClosedLoopStatus.put("result", "SUCCESS");
+    NomadicONTContext.put("result", "SUCCESS");
 } else {
-    vcpeClosedLoopStatus.put("result", "FAILURE");
+    NomadicONTContext.put("result", "FAILURE");
 }
 
 
 executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
-executor.outFields.put("serviceInstanceId",  executor.inFields.get("serviceInstanceId"));
+executor.outFields.put("serviceInstanceId", executor.inFields.get(
+    "serviceInstanceId"));
 
 var returnValue = executor.isTrue;
-executor.logger.info("==========>" + executor.outFields);
+executor.logger.info(executor.outFields);
 executor.logger.info("End Execution AAIServiceCreateTask.js");
 
+/* Utility functions Begin */
 
-function httpGet(theUrl){
+function httpGet(theUrl) {
     var con = new java.net.URL(theUrl).openConnection();
     con.requestMethod = "GET";
     return asResponse(con);
 }
 
-function httpPost(theUrl, data, contentType){
+function httpPost(theUrl, data, contentType) {
     contentType = contentType || "application/json";
     var con = new java.net.URL(theUrl).openConnection();
     con.requestMethod = "POST";
     con.setRequestProperty("Content-Type", contentType);
-    con.doOutput=true;
+    con.doOutput = true;
     write(con.outputStream, data);
     return asResponse(con);
 }
 
-function httpPut(theUrl, data, contentType){
+function httpPut(theUrl, data, contentType) {
     contentType = contentType || "application/json";
     var con = new java.net.URL(theUrl).openConnection();
     con.requestMethod = "PUT";
     con.setRequestProperty("Content-Type", contentType);
-    con.doOutput=true;
+    con.doOutput = true;
     write(con.outputStream, data);
     return asResponse(con);
 }
 
-function asResponse(con){
+function asResponse(con) {
     var d = read(con.inputStream);
-    return {data : d, statusCode : con.resultCode};
+    return {
+        data: d,
+        statusCode: con.resultCode
+    };
 }
 
-function write(outputStream, data){
+function write(outputStream, data) {
     var wr = new java.io.DataOutputStream(outputStream);
     wr.writeBytes(data);
     wr.flush();
     wr.close();
 }
 
-function read(inputStream){
-    var inReader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream));
+function read(inputStream) {
+    var inReader = new java.io.BufferedReader(new java.io.InputStreamReader(
+        inputStream));
     var inputLine;
     var result = new java.lang.StringBuffer();
 
     while ((inputLine = inReader.readLine()) != null) {
-           result.append(inputLine);
+        result.append(inputLine);
     }
     inReader.close();
     return result.toString();
 }
 
-
+/* Utility functions End */

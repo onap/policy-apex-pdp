@@ -25,19 +25,20 @@ executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
 var attachmentPoint = executor.inFields.get("attachmentPoint");
-var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(attachmentPoint);
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
+    attachmentPoint);
 
-executor.logger.info("==========>" + executor.outFields);
-executor.logger.info("==========>" + executor.inFields);
+executor.logger.info(executor.outFields);
+executor.logger.info(executor.inFields);
 
-result = vcpeClosedLoopStatus.get("result");
+result = NomadicONTContext.get("result");
 
 if (result === "SUCCESS") {
     returnValue = executor.isTrue;
     executor.outFields.put("result", "SUCCCESS");
-    executor.logger.info("BBS policy Execution Done$$$$$$$$$$$");
+    executor.logger.info("BBS policy Execution Done");
 } else {
-    executor.logger.info("BBS policy Execution Failed$$$$$$$$$$$");
+    executor.logger.info("BBS policy Execution Failed");
     executor.outFields.put("result", "FAILURE");
     returnValue = executor.isFalse;
 }
