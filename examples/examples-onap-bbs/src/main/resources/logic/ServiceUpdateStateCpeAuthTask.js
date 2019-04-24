@@ -37,6 +37,8 @@ var requestID = clEvent.getRequestId();
 
 var jsonObj;
 var aaiUpdateResult = true;
+var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var client = new wbClient();
 
 /* Get AAI URL from Configuration file. */
 var AAI_URL = "localhost:8080";
@@ -102,13 +104,12 @@ try {
             putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL +
             putUrl + "?resource_version=" + resource_version;
-        result = httpPut(urlPut, JSON.stringify(putUpddateServInstance)).data;
+        //result = httpPut(urlPut, JSON.stringify(putUpddateServInstance)).data;
+        result = client.httpsRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), null, null,
+                        "application/json", true, true);
         executor.logger.info("Data received From " + urlPut + " " + result.toString());
-        jsonObj = JSON.parse(result);
-        executor.logger.info("After Parse " + JSON.stringify(jsonObj, null, 4));
-
         /* If failure to retrieve data proceed to Failure */
-        if (result == "") {
+        if (result != "") {
             aaiUpdateResult = false;
         }
     }
