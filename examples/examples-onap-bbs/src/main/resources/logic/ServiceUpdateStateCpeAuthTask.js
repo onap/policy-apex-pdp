@@ -37,6 +37,8 @@ var requestID = clEvent.getRequestId();
 
 var jsonObj;
 var aaiUpdateResult = true;
+var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var client = new wbClient();
 
 /* Get AAI URL from Configuration file. */
 var AAI_URL = "localhost:8080";
@@ -50,15 +52,19 @@ var service_instance;
 try {
     var br = Files.newBufferedReader(Paths.get(
         "/home/apexuser/examples/config/ONAPBBS/config.txt"));
-    // read line by line
     var line;
     while ((line = br.readLine()) != null) {
         if (line.startsWith("AAI_URL")) {
             var str = line.split("=");
             AAI_URL = str[str.length - 1];
-            break;
+        } else if (line.startsWith("AAI_USERNAME")) {
+            var str = line.split("=");
+            AAI_USERNAME = str[str.length - 1];
+        } else if (line.startsWith("AAI_PASSWORD")) {
+            var str = line.split("=");
+            AAI_PASSWORD = str[str.length - 1];
         }
-    }
+        }
 } catch (err) {
     executor.logger.info("Failed to retrieve data " + err);
 }
@@ -73,7 +79,7 @@ try {
     executor.logger.info("Query url" + urlGet);
 
     result = httpGet(urlGet).data;
-    executor.logger.info("Data received From " + urlGet + " " + result.toString());
+    executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result);
 
 
@@ -102,13 +108,11 @@ try {
             putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL +
             putUrl + "?resource_version=" + resource_version;
-        result = httpPut(urlPut, JSON.stringify(putUpddateServInstance)).data;
-        executor.logger.info("Data received From " + urlPut + " " + result.toString());
-        jsonObj = JSON.parse(result);
-        executor.logger.info("After Parse " + JSON.stringify(jsonObj, null, 4));
-
+        result = client.httpsRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
+                        "application/json", true, true);
+        executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
-        if (result == "") {
+        if (result != "") {
             aaiUpdateResult = false;
         }
     }

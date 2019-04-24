@@ -1,3 +1,7 @@
 AAI_URL=aai.api.simpledemo.openecomp.org:30233
-SDNC_URL=aai.api.simpledemo.openecomp.org:8443
+AAI_USERNAME=AAI
+AAI_PASSWORD=AAI
+SDNC_URL=sdnc.api.simpledemo.onap.org:30202
+SDNC_USERNAME=admin
+SDNC_PASSWORD=Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
 SVC_NOTIFICATION_URL=http://c1.vm1.mso.simpledemo.openecomp.org:8080
