@@ -39,6 +39,10 @@ executor.logger.info(NomadicONTContext);
 var jsonObj;
 var aaiUpdateResult = true;
 
+var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var client = new wbClient();
+
+
 /* Get AAI URL from Configuration file. */
 var AAI_URL = "localhost:8080";
 var CUSTOMER_ID = requestID;
@@ -72,21 +76,26 @@ try {
     var urlGet = HTTP_PROTOCOL + AAI_URL +
         "/aai/v14/nodes/service-instances/service-instance/" +
         SERVICE_INSTANCE_ID + "?format=resource_and_url";
+
     executor.logger.info("Query url" + urlGet);
 
-    result = httpGet(urlGet).data;
-    executor.logger.info("Data received From " + urlGet + " " + result.toString());
-    jsonObj = JSON.parse(result);
+    result = client.httpsRequest(urlGet, "GET", null, "AAI", "AAI",
+        "application/json", true, true);
+    executor.logger.info("Data received From " + urlGet + " " + result
+        .toString());
+    jsonObj = JSON.parse(result.toString());
 
-
+    executor.logger.info(JSON.stringify(jsonObj, null, 4));
     /* Retrieve the service instance id */
-    results = jsonObj['results'];
-    putUrl = results["url"];
-    service_instance = results["service-instance"];
+    results = jsonObj['results'][0];
+    putUrl = results['url'];
+    service_instance = results['service-instance'];
     service_instance_id = service_instance['service-instance-id'];
     resource_version = service_instance['resource-version'];
     relationship_list = service_instance['relationship-list'];
-    executor.logger.info("After Parse " + JSON.stringify(jsonObj, null, 4));
+    executor.logger.info("After Parse service_instance " + JSON.stringify(
+            service_instance, null, 4) + "\n url " + putUrl +
+        "\n Service instace Id " + service_instance_id);
 
     if (result == "") {
         aaiUpdateResult = false;
@@ -106,13 +115,13 @@ try {
             putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL +
             putUrl + "?resource_version=" + resource_version;
-        result = httpPut(urlPut, JSON.stringify(putUpddateServInstance)).data;
-        executor.logger.info("Data received From " + urlPut + " " + result.toString());
-        jsonObj = JSON.parse(result);
-        executor.logger.info("After Parse " + JSON.stringify(jsonObj, null, 4));
-
+        result = client.httpsRequest(urlPut, "PUT", JSON.stringify(
+                putUpddateServInstance), "AAI", "AAI",
+            "application/json", true, true);
+        executor.logger.info("Data received From " + urlPut + " " + result
+            .toString());
         /* If failure to retrieve data proceed to Failure */
-        if (result == "") {
+        if (result != "") {
             aaiUpdateResult = false;
         }
     }
@@ -121,12 +130,20 @@ try {
     aaiUpdateResult = false;
 }
 
+if (!service_instance.hasOwnProperty('input-parameters') || !service_instance
+    .hasOwnProperty('metadata')) {
+    aaiUpdateResult = false;
+    executor.logger.info(
+        "Validate data failed. input-parameters or metadata is missing");
+}
 /* If Success then Fill output schema */
 if (aaiUpdateResult === true) {
+    executor.outFields.put("result", "SUCCESS");
     NomadicONTContext.put("result", "SUCCESS");
     NomadicONTContext.put("aai_message", JSON.stringify(service_instance));
     NomadicONTContext.put("url", putUrl);
 } else {
+    executor.outFields.put("result", "FAILURE");
     NomadicONTContext.put("result", "FAILURE");
 }
 
@@ -139,60 +156,13 @@ var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);
 executor.logger.info("End Execution AAIServiceAssignedTask.js");
 
-
 /* Utility functions Begin */
-function httpGet(theUrl) {
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "GET";
-    return asResponse(con);
-}
-
-function httpPost(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "POST";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asResponse(con);
-}
-
-function httpPut(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "PUT";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asResponse(con);
-}
-
-function asResponse(con) {
-    var d = read(con.inputStream);
-    return {
-        data: d,
-        statusCode: con.resultCode
-    };
-}
-
-function write(outputStream, data) {
-    var wr = new java.io.DataOutputStream(outputStream);
-    wr.writeBytes(data);
-    wr.flush();
-    wr.close();
-}
-
-function read(inputStream) {
-    var inReader = new java.io.BufferedReader(new java.io.InputStreamReader(
-        inputStream));
-    var inputLine;
-    var result = new java.lang.StringBuffer();
-
-    while ((inputLine = inReader.readLine()) != null) {
-        result.append(inputLine);
+function IsValidJSONString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
     }
-    inReader.close();
-    return result.toString();
+    return true;
 }
-
 /* Utility functions End */
