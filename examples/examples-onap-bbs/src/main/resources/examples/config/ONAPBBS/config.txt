@@ -1,3 +1,3 @@
 AAI_URL=aai.api.simpledemo.openecomp.org:30233
-SDNC_URL=aai.api.simpledemo.openecomp.org:8443
+SDNC_URL=sdnc.api.simpledemo.onap.org:30202
 SVC_NOTIFICATION_URL=http://c1.vm1.mso.simpledemo.openecomp.org:8080
