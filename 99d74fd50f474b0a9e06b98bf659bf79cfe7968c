@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6520af6_f6ee863f",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-24T19:37:27Z",
+      "side": 1,
+      "message": "Here also",
+      "range": {
+        "startLine": 17,
+        "startChar": 16,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "99d74fd50f474b0a9e06b98bf659bf79cfe7968c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "643596ec_2086230b",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-24T19:37:27Z",
+      "side": 1,
+      "message": "Nit Picking but this should be PDP not PDB",
+      "range": {
+        "startLine": 30,
+        "startChar": 27,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "99d74fd50f474b0a9e06b98bf659bf79cfe7968c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1d564ed_f81bb100",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-04-24T19:37:27Z",
+      "side": 1,
+      "message": "Here too and there are more below.",
+      "range": {
+        "startLine": 37,
+        "startChar": 78,
+        "endLine": 37,
+        "endChar": 81
+      },
+      "revId": "99d74fd50f474b0a9e06b98bf659bf79cfe7968c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
