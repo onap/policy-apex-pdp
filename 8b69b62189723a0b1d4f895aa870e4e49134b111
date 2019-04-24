@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "629598a5_2446dddf",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2019-04-24T18:36:41Z",
+      "side": 1,
+      "message": "Code dublication? The same logic appears in line 133",
+      "range": {
+        "startLine": 208,
+        "startChar": 14,
+        "endLine": 215,
+        "endChar": 13
+      },
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
