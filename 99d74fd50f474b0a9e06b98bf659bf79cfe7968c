@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ff7d3ff5_96eae79d",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-24T23:51:32Z",
+      "side": 1,
+      "message": "I think you can safely remove the *PROXY* ones as in the others.",
+      "revId": "99d74fd50f474b0a9e06b98bf659bf79cfe7968c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6520af6_f6ee863f",
         "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
         "patchSetId": 1
