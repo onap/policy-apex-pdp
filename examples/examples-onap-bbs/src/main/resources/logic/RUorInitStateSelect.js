@@ -28,9 +28,6 @@ var attachmentPoint = executor.inFields.get("attachmentPoint");
 var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
     attachmentPoint);
 
-executor.logger.info(executor.outFields);
-executor.logger.info(executor.inFields);
-
 result = NomadicONTContext.get("result");
 
 if (result === "SUCCESS") {

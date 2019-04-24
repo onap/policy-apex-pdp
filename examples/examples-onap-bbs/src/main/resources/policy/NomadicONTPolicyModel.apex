@@ -49,11 +49,13 @@ event parameter create name=AAI_SERVICE_ASSIGNED parName=attachmentPoint     sch
 event parameter create name=AAI_SERVICE_ASSIGNED parName=serviceInstanceId   schemaName=SimpleStringType optional=true
 
 event create name=SDNC_RESOURCE_UPDATE version=1.0.0 nameSpace=org.onap.policy.apex.onap.bbs source=APEX target=APEX
+event parameter create name=SDNC_RESOURCE_UPDATE parName=result schemaName=SimpleStringType
 event parameter create name=SDNC_RESOURCE_UPDATE parName=requestID schemaName=UUIDType
 event parameter create name=SDNC_RESOURCE_UPDATE parName=attachmentPoint     schemaName=SimpleStringType
 event parameter create name=SDNC_RESOURCE_UPDATE parName=serviceInstanceId   schemaName=SimpleStringType optional=true
 
 event create name=AAI_SERVICE_CREATE version=1.0.0 nameSpace=org.onap.policy.apex.onap.bbs source=APEX target=APEX
+event parameter create name=AAI_SERVICE_CREATE parName=result schemaName=SimpleStringType
 event parameter create name=AAI_SERVICE_CREATE parName=requestID schemaName=UUIDType
 event parameter create name=AAI_SERVICE_CREATE parName=attachmentPoint     schemaName=SimpleStringType
 event parameter create name=AAI_SERVICE_CREATE parName=serviceInstanceId   schemaName=SimpleStringType optional=true
@@ -106,6 +108,7 @@ task inputfield create name=AAIServiceAssignedTask fieldName=serviceInstanceId  
 task outputfield create name=AAIServiceAssignedTask fieldName=requestID schemaName=UUIDType
 task outputfield create name=AAIServiceAssignedTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=AAIServiceAssignedTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
+task outputfield create name=AAIServiceAssignedTask fieldName=result schemaName=SimpleStringType
 
 task contextref create name=AAIServiceAssignedTask albumName=NomadicONTContextAlbum
 
@@ -133,6 +136,7 @@ task inputfield create name=SdncResourceUpdateTask fieldName=serviceInstanceId  
 task outputfield create name=SdncResourceUpdateTask fieldName=requestID schemaName=UUIDType
 task outputfield create name=SdncResourceUpdateTask fieldName=attachmentPoint     schemaName=SimpleStringType
 task outputfield create name=SdncResourceUpdateTask fieldName=serviceInstanceId   schemaName=SimpleStringType optional=true
+task outputfield create name=SdncResourceUpdateTask fieldName=result schemaName=SimpleStringType
 task contextref create name=SdncResourceUpdateTask albumName=NomadicONTContextAlbum
 
 task logic create name=SdncResourceUpdateTask logicFlavour=JAVASCRIPT logic=LS
