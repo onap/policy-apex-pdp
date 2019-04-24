@@ -26,7 +26,6 @@ importClass(java.nio.file.Paths);
 
 importPackage(org.json.XML);
 
-
 executor.logger.info("Begin Execution SdncResourceUpdateTask.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
@@ -36,7 +35,8 @@ var requestID = executor.inFields.get("requestID");
 var serviceInstanceId = executor.inFields.get("serviceInstanceId");
 var uuidType = Java.type("java.util.UUID");
 
-
+var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var client = new wbClient();
 
 var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
     attachmentPoint);
@@ -45,7 +45,7 @@ executor.logger.info(NomadicONTContext);
 var jsonObj;
 var aaiUpdateResult = true;
 var SDNC_URL = "localhost:8080";
-var HTTP_PROTOCOL ="https://"
+var HTTP_PROTOCOL = "http://"
 var SVC_NOTIFICATION_URL;
 var putUpddateServInstance = JSON.parse(NomadicONTContext.get("aai_message"));
 var input_param = JSON.parse(putUpddateServInstance['input-parameters']);
@@ -69,14 +69,10 @@ try {
     executor.logger.info("Failed to retrieve data " + err);
 }
 executor.logger.info("SDNC_URL " + SDNC_URL);
-executor.logger.info("input param " + JSON.stringify(input_param,
-    null, 4));
 
 var result;
 var jsonObj;
 var sdncUpdateResult = true;
-
-
 
 /* BBS Policy calls SDN-C GR-API to delete AccessConnectivity VF ID */
 /* Prepare Data*/
@@ -140,16 +136,17 @@ xmlDeleteAccess = xmlDeleteAccess.replace("vendor_value", input_param['service']
 xmlDeleteAccess = xmlDeleteAccess.replace("service_id_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'],
     'controller-service-id'));
-executor.logger.info("Delete Access Prfile " + xmlDeleteAccess);
+//executor.logger.info("Delete Access Profile Message " + xmlDeleteAccess);
+executor.logger.info(client.toPrettyString(xmlDeleteAccess, 4));
 
 try {
     var urlPost1 = HTTP_PROTOCOL + SDNC_URL +
         "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-    result = httpDelete(urlPost1, xmlDeleteAccess, "application/xml").data;
-    executor.logger.info("Data received From " + urlPost1 + " " + result.toString());
-    jsonObj = JSON.parse(result);
-    executor.logger.info("After Parse " + jsonObj.toString());
-
+    //result = httpDelete(urlPost1, xmlDeleteAccess, "application/xml").data;
+    result = client.httpRequest(urlPost1, "POST", xmlDeleteAccess, "admin",
+        "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
+        "application/xml", true);
+    executor.logger.info("Data received From " + urlPost1 + " " + result);
     if (result == "") {
         sdncUpdateResult = false;
     }
@@ -157,7 +154,6 @@ try {
     executor.logger.info("Failed to retrieve data " + err);
     sdncUpdateResult = false;
 }
-
 
 /* BBS Policy calls SDN-C GR-API to create new AccessConnectivity VF  */
 
@@ -189,7 +185,6 @@ xmlCreateAccess = xmlCreateAccess.replace("customer_id_value", input_param[
     'service']['globalSubscriberId']);
 xmlCreateAccess = xmlCreateAccess.replace("customer_name_value", input_param[
     'service']['globalSubscriberId']);
-
 
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
@@ -226,26 +221,26 @@ xmlCreateAccess = xmlCreateAccess.replace("c_vlan_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'cvlan'));
 xmlCreateAccess = xmlCreateAccess.replace("access_id_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
-executor.logger.info("Create Access Prfile " + xmlCreateAccess);
+//executor.logger.info("Create Access Prfile Message" + xmlCreateAccess);
+executor.logger.info(client.toPrettyString(xmlCreateAccess, 4));
+
 try {
     if (sdncUpdateResult == true) {
         var urlPost2 = HTTP_PROTOCOL + SDNC_URL +
             "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-        result = httpPost(urlPost2, xmlCreateAccess, "application/xml").data;
-        executor.logger.info("Data received From " + urlPost2 + " " + result.toString());
-        jsonObj = JSON.parse(result);
-        executor.logger.info("After Parse " + jsonObj.toString());
-
+        //result = httpPost(urlPost2, xmlCreateAccess, "application/xml").data;
+        result = client.httpRequest(urlPost2, "POST", xmlCreateAccess, "admin",
+            "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
+            "application/xml", true);
+        executor.logger.info("Data received From " + urlPost2 + " " + result);
         if (result == "") {
-             sdncUpdateResult = false;
+            sdncUpdateResult = false;
         }
     }
 } catch (err) {
     executor.logger.info("Failed to retrieve data " + err);
     sdncUpdateResult = false;
 }
-
-
 
 /* BBS Policy calls SDN-C GR-API to create change Internet Profile  */
 var xmlChangeProfile = "";
@@ -304,7 +299,6 @@ xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value",
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value",
     "EdgeInternetProfile");
 
-
 xmlChangeProfile = xmlChangeProfile.replace("vendor_value", input_param[
     'service']['parameters']['requestInputs']['ont_ont_manufacturer']);
 xmlChangeProfile = xmlChangeProfile.replace("service_id_value", getMetaValue(
@@ -326,16 +320,16 @@ xmlChangeProfile = xmlChangeProfile.replace("s_vlan_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'svlan'));
 xmlChangeProfile = xmlChangeProfile.replace("c_vlan_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'cvlan'));
-executor.logger.info("Change Internet Profile " + xmlChangeProfile);
-
+//executor.logger.info("Change Internet Profile Message" + xmlChangeProfile);
+executor.logger.info(client.toPrettyString(xmlChangeProfile, 4));
 try {
     if (sdncUpdateResult == true) {
-        var urlPost3 = HTTP_PROTOCOL + SDNC_URL + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-        result = httpPost(urlPost3, xmlChangeProfile, "application/xml").data;
-        executor.logger.info("Data received From " + urlPost3 + " " + result.toString());
-        jsonObj = JSON.parse(result);
-        executor.logger.info("After Parse " + jsonObj.toString());
-
+        var urlPost3 = HTTP_PROTOCOL + SDNC_URL +
+            "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
+        result = client.httpRequest(urlPost3, "POST", xmlChangeProfile, "admin",
+            "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
+            "application/xml", true);
+        executor.logger.info("Data received From " + urlPost3 + " " + result);
         if (result == "") {
             sdncUpdateResult = false;
         }
@@ -345,15 +339,15 @@ try {
     sdncUpdateResult = false;
 }
 
-
 /* If Success then Fill output schema */
 
 if (sdncUpdateResult === true) {
     NomadicONTContext.put("result", "SUCCESS");
+    executor.outFields.put("result", "SUCCESS");
 } else {
     NomadicONTContext.put("result", "FAILURE");
+    executor.outFields.put("result", "FAILURE");
 }
-
 
 executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
@@ -363,7 +357,6 @@ executor.outFields.put("serviceInstanceId", executor.inFields.get(
 var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);
 executor.logger.info("End Execution SdncResourceUpdateTask.js");
-
 
 function getMetaValue(metaJson, metaname) {
     for (var i = 0; i < metaJson.length; i++) {
@@ -406,67 +399,12 @@ function getResourceCustomizationUuid(resJson, resourceName) {
 }
 
 /* Utility functions Begin */
-function httpGet(theUrl) {
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "GET";
-    return asresult(con);
-}
-
-function httpPost(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "POST";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asresult(con);
-}
-
-function httpDelete(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "DELETE";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asresult(con);
-}
-
-function httpPut(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "PUT";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asresult(con);
-}
-
-function asresult(con) {
-    var d = read(con.inputStream);
-    return {
-        data: d,
-        statusCode: con.resultCode
-    };
-}
-
-function write(outputStream, data) {
-    var wr = new java.io.DataOutputStream(outputStream);
-    wr.writeBytes(data);
-    wr.flush();
-    wr.close();
-}
-
-function read(inputStream) {
-        var inReader = new java.io.BufferedReader(new java.io.InputStreamReader(
-            inputStream));
-        var inputLine;
-        var result = new java.lang.StringBuffer();
-
-        while ((inputLine = inReader.readLine()) != null) {
-            result.append(inputLine);
-        }
-        inReader.close();
-        return result.toString();
+function IsValidJSONString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
     }
-    /* Utility functions End */
+    return true;
+}
+/* Utility functions End */

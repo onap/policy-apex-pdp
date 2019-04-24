@@ -32,13 +32,18 @@ var attachmentPoint = executor.inFields.get("attachmentPoint");
 var requestID = executor.inFields.get("requestID");
 var serviceInstanceId = executor.inFields.get("serviceInstanceId");
 
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
+    attachmentPoint);
+executor.logger.info(NomadicONTContext);
+
 //Get the AAI URL from configuraiotn file
 var AAI_URL = "localhost:8080";
 var CUSTOMER_ID = requestID;
 var BBS_CFS_SERVICE_TYPE = "BBS-CFS-Access_Test";
-var SERVICE_INSTANCE_UUID = serviceInstanceId;
+var SERVICE_INSTANCE_ID = serviceInstanceId;
 var HTTP_PROTOCOL = "https://";
-
+var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var client = new wbClient();
 try {
     var br = Files.newBufferedReader(Paths.get(
         "/home/apexuser/examples/config/ONAPBBS/config.txt"));
@@ -56,24 +61,45 @@ try {
     executor.logger.info("Failed to retrieve data " + err);
 }
 executor.logger.info("AAI_URL " + AAI_URL);
+var aaiUpdateResult = true;
+/* Get service instance Id from AAI */
+try {
+    var urlGet = HTTP_PROTOCOL + AAI_URL +
+        "/aai/v14/nodes/service-instances/service-instance/" +
+        SERVICE_INSTANCE_ID + "?format=resource_and_url";
 
+    executor.logger.info("Query url" + urlGet);
 
-var attachmentPoint = executor.inFields.get("attachmentPoint");
-var requestID = executor.inFields.get("requestID");
-var serviceInstanceId = executor.inFields.get("serviceInstanceId");
+    result = client.httpRequest(urlGet, "GET", null, "AAI", "AAI",
+        "application/json", true);
+    executor.logger.info("Data received From " + urlGet + " " + result);
+    jsonObj = JSON.parse(result);
 
-var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
-    attachmentPoint);
-executor.logger.info(NomadicONTContext);
+    executor.logger.info(JSON.stringify(jsonObj, null, 4));
+    /* Retrieve the service instance id */
+    results = jsonObj['results'][0];
+    putUrl = results['url'];
+    service_instance = results['service-instance'];
+    executor.logger.info("After Parse service_instance " + JSON.stringify(
+            service_instance, null, 4) + "\n url " + putUrl +
+        "\n Service instace Id " + SERVICE_INSTANCE_ID);
 
-var putUpddateServInstance = JSON.parse(NomadicONTContext.get("aai_message"));
+    if (result == "") {
+        aaiUpdateResult = false;
+    }
+} catch (err) {
+    executor.logger.info("Failed to retrieve data " + err);
+    aaiUpdateResult = false;
+}
 
+var putUpddateServInstance = service_instance;
 putUpddateServInstance['orchestration-status'] = "created";
-executor.logger.info(" string" + JSON.stringify(putUpddateServInstance, null, 4));
+if (putUpddateServInstance.hasOwnProperty('input-parameters'))
+    delete putUpddateServInstance['input-parameters'];
+executor.logger.info(" string" + JSON.stringify(putUpddateServInstance, null,
+    4));
 var resource_version = putUpddateServInstance['resource-version'];
 var putUrl = NomadicONTContext.get("url");
-var aaiUpdateResult = true;
-
 
 /*BBS Policy updates  {{bbs-cfs-service-instance-UUID}} orchestration-status [ assigned --> created ]*/
 try {
@@ -82,13 +108,12 @@ try {
             putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL +
             putUrl + "?resource_version=" + resource_version;
-        result = httpPut(urlPut, JSON.stringify(putUpddateServInstance)).data;
-        executor.logger.info("Data received From " + urlPut + " " + result.toString());
-        jsonObj = JSON.parse(result);
-        executor.logger.info("After Parse " + JSON.stringify(jsonObj, null, 4));
-
+        result = client.httpRequest(urlPut, "PUT", JSON.stringify(
+                putUpddateServInstance), "AAI", "AAI",
+            "application/json", true);
+        executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
-        if (result == "") {
+        if (result != "") {
             aaiUpdateResult = false;
         }
     }
@@ -101,8 +126,8 @@ if (aaiUpdateResult === true) {
     NomadicONTContext.put("result", "SUCCESS");
 } else {
     NomadicONTContext.put("result", "FAILURE");
-}
 
+}
 
 executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
@@ -112,61 +137,3 @@ executor.outFields.put("serviceInstanceId", executor.inFields.get(
 var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);
 executor.logger.info("End Execution AAIServiceCreateTask.js");
-
-/* Utility functions Begin */
-
-function httpGet(theUrl) {
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "GET";
-    return asResponse(con);
-}
-
-function httpPost(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "POST";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asResponse(con);
-}
-
-function httpPut(theUrl, data, contentType) {
-    contentType = contentType || "application/json";
-    var con = new java.net.URL(theUrl).openConnection();
-    con.requestMethod = "PUT";
-    con.setRequestProperty("Content-Type", contentType);
-    con.doOutput = true;
-    write(con.outputStream, data);
-    return asResponse(con);
-}
-
-function asResponse(con) {
-    var d = read(con.inputStream);
-    return {
-        data: d,
-        statusCode: con.resultCode
-    };
-}
-
-function write(outputStream, data) {
-    var wr = new java.io.DataOutputStream(outputStream);
-    wr.writeBytes(data);
-    wr.flush();
-    wr.close();
-}
-
-function read(inputStream) {
-    var inReader = new java.io.BufferedReader(new java.io.InputStreamReader(
-        inputStream));
-    var inputLine;
-    var result = new java.lang.StringBuffer();
-
-    while ((inputLine = inReader.readLine()) != null) {
-        result.append(inputLine);
-    }
-    inReader.close();
-    return result.toString();
-}
-
-/* Utility functions End */
