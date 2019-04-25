@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "20c4a7d3_7ee1074a",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "Is this needed and used?",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f54850f_08f96bde",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "I don\u0027t think we should have credentials in the code even thought these ones will be only set when the credential arguments are null.  It is considered a security hole.",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "038bbf60_f460fd1f",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "Not sure why the plain java HttpUrlConnection is used, higher level abstractions are used in apex-pdp I think - Apache HttpClient, or jersey\u0027s http client could be used here and may be easier to program against it.\n\nIn any case, when using IOStreams, should use the try-with-resources to auto-close them and avoid leaks.",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "629598a5_2446dddf",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 1
@@ -19,6 +70,142 @@
         "endLine": 215,
         "endChar": 13
       },
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06055f43_8381bb55",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/config.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "??",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03e1ed54_9250bf7b",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "use spaces instead of tabs",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33a62e17_ec3f9dff",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "should urls be configurable?",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2a3d6c7_efe6f5ef",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_CreateAccessConnectivityInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "spaces instead of tabs",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b50f5cd_a6ba5b01",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_DeleteAccessConnectivityInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "spaces instead of tabs",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fc160f9_361bbb68",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceCreateTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "at least in java, checkstype won\u0027t allow to have the \"(\" in a different line thatn the argument.",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca2f4652_e139df47",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceCreateTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "Do you need the .toString() here?  at least in java as part of the string concatenation operator, it won\u0027t.",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5493f533_89aa4468",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceCreateTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-25T00:11:25Z",
+      "side": 1,
+      "message": "checkstyle ?",
       "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
