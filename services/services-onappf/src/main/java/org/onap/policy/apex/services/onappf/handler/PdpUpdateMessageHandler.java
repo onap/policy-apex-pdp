@@ -99,9 +99,14 @@ public class PdpUpdateMessageHandler {
     private PdpResponseDetails startOrStopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
             final PdpMessageHandler pdpMessageHandler) {
         PdpResponseDetails pdpResponseDetails = null;
+        ApexEngineHandler apexEngineHandler = null;
+        try {
+            apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
+        } catch (final IllegalArgumentException e) {
+            LOGGER.debug("ApenEngineHandler not in registry.", e);
+        }
         if (pdpUpdateMsg.getPolicies().isEmpty()) {
-            final ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
-            if (apexEngineHandler.isApexEngineRunning()) {
+            if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                 try {
                     apexEngineHandler.shutdown();
                 } catch (final ApexStarterException e) {
@@ -112,8 +117,7 @@ public class PdpUpdateMessageHandler {
             }
         } else {
             try {
-                ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
-                if (apexEngineHandler.isApexEngineRunning()) {
+                if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                     apexEngineHandler.shutdown();
                 }
                 apexEngineHandler = new ApexEngineHandler(

@@ -90,8 +90,9 @@ public class PdpStateChangeMessageHandler {
         } else {
             final List<ToscaPolicy> policies = Registry.get(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST);
             if (policies.isEmpty()) {
+                pdpStatusContext.setState(PdpState.ACTIVE);
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, "No policies found. Apex engine not running.");
+                        PdpResponseStatus.SUCCESS, "State changed to active. No policies found.");
             } else {
                 try {
                     // assumed that the apex policies list contains only one entry.
@@ -126,9 +127,16 @@ public class PdpStateChangeMessageHandler {
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.SUCCESS, "Pdp already in passive state");
         } else {
-            final ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
+            ApexEngineHandler apexEngineHandler = null;
             try {
-                apexEngineHandler.shutdown();
+                apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
+            } catch (final IllegalArgumentException e) {
+                LOGGER.debug("ApenEngineHandler not in registry.", e);
+            }
+            try {
+                if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
+                    apexEngineHandler.shutdown();
+                }
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Apex pdp state changed from Active to Passive.");
                 pdpStatusContext.setState(PdpState.PASSIVE);
