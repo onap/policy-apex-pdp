@@ -22,6 +22,30 @@
       "revId": "a698121da2be8129a9274ce4f1ead3510cf6e0f9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3966a07e_fae50722",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-04-25T09:48:38Z",
+      "side": 1,
+      "message": "All typos fixed in https://gerrit.onap.org/r/#/c/86242/",
+      "parentUuid": "1732dabf_a22ac062",
+      "range": {
+        "startLine": 11,
+        "startChar": 42,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "a698121da2be8129a9274ce4f1ead3510cf6e0f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
