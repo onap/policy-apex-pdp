@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bf72fb7_42b154f6",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-25T11:34:43Z",
+      "side": 1,
+      "message": "Sonar will complain, use Standard Charsets UTF8",
+      "range": {
+        "startLine": 152,
+        "startChar": 94,
+        "endLine": 152,
+        "endChar": 101
+      },
+      "revId": "873482f38205ad7438f5c165ffb8992042d06184",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d0f3de9_facd93af",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-25T11:34:43Z",
+      "side": 1,
+      "message": "I guess this is ok - I would have used try-with-resources on this to ensure it gets closed. Although this class it has no effect.",
+      "range": {
+        "startLine": 265,
+        "startChar": 47,
+        "endLine": 265,
+        "endChar": 67
+      },
+      "revId": "873482f38205ad7438f5c165ffb8992042d06184",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
