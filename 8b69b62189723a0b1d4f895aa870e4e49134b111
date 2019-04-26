@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8540054e_0536a681",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "yes, for now using it.",
+      "parentUuid": "20c4a7d3_7ee1074a",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f54850f_08f96bde",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2d41be30_eb7982cc",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f54850f_08f96bde",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "038bbf60_f460fd1f",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-04-25T00:11:25Z",
       "side": 1,
       "message": "Not sure why the plain java HttpUrlConnection is used, higher level abstractions are used in apex-pdp I think - Apache HttpClient, or jersey\u0027s http client could be used here and may be easier to program against it.\n\nIn any case, when using IOStreams, should use the try-with-resources to auto-close them and avoid leaks.",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "633feadd_af4a30ff",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Working on jersey, will update in next branch. Currently merging this working copy to test BBS.",
+      "parentUuid": "038bbf60_f460fd1f",
       "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "35696394_3af83b58",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "629598a5_2446dddf",
+      "range": {
+        "startLine": 208,
+        "startChar": 14,
+        "endLine": 215,
+        "endChar": 13
+      },
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06055f43_8381bb55",
         "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/config.txt",
         "patchSetId": 1
@@ -87,6 +165,24 @@
       "writtenOn": "2019-04-25T00:11:25Z",
       "side": 1,
       "message": "??",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10d10be0_f9db8b25",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/config.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06055f43_8381bb55",
       "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "82b09019_3cc61e6a",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03e1ed54_9250bf7b",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33a62e17_ec3f9dff",
         "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt",
         "patchSetId": 1
@@ -121,6 +235,24 @@
       "writtenOn": "2019-04-25T00:11:25Z",
       "side": 1,
       "message": "should urls be configurable?",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7fe09b9_8455e8df",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "I\u0027ll check this, this always default value for now.",
+      "parentUuid": "33a62e17_ec3f9dff",
       "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "b72396f7_921b9368",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_CreateAccessConnectivityInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2a3d6c7_efe6f5ef",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b50f5cd_a6ba5b01",
         "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_DeleteAccessConnectivityInstance.txt",
         "patchSetId": 1
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "1834ef6a_83a100ae",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/sdnc_DeleteAccessConnectivityInstance.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b50f5cd_a6ba5b01",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fc160f9_361bbb68",
         "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceCreateTask.js",
         "patchSetId": 1
@@ -172,6 +340,24 @@
       "writtenOn": "2019-04-25T00:11:25Z",
       "side": 1,
       "message": "at least in java, checkstype won\u0027t allow to have the \"(\" in a different line thatn the argument.",
+      "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dec6dc2e_3828e09e",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/AAIServiceCreateTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-26T09:45:20Z",
+      "side": 1,
+      "message": "Java script accept this. And as per liam\u0027s earlier comment about column size I kept it this way",
+      "parentUuid": "3fc160f9_361bbb68",
       "revId": "8b69b62189723a0b1d4f895aa870e4e49134b111",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
