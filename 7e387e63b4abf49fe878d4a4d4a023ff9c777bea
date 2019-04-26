@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9edbb404_2d19a3e3",
+        "filename": "examples/examples-onap-bbs/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T14:41:15Z",
+      "side": 1,
+      "message": "Oh ok - sorry I missed Jorge\u0027s comment. Let\u0027s move it later please.",
+      "parentUuid": "37fba3d6_5323731a",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db9ec5cd_18702339",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 5
