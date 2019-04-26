@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d05e0b49_4f958b6f",
+        "filename": "examples/examples-onap-bbs/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "There could be security vulnerabilities from these new dependencies. I just finished our security review with the subcommittee, introducing these so late post M4 is not acceptable.",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db9ec5cd_18702339",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "Please use the Standard charsets UTF8 constant.",
+      "range": {
+        "startLine": 182,
+        "startChar": 81,
+        "endLine": 182,
+        "endChar": 88
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a8e7c13_cac9029d",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 201,
+        "startChar": 67,
+        "endLine": 201,
+        "endChar": 74
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "226f4fba_9dc80719",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/SdncResourceUpdateTask.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "remove commented out code",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 75
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5910b5a_7000962a",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/SdncResourceUpdateTask.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "hardcoded user/password - should use a configuration file for that.",
+      "range": {
+        "startLine": 146,
+        "startChar": 67,
+        "endLine": 147,
+        "endChar": 54
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0308b207_12787653",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/SdncResourceUpdateTask.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "remove commented out code",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 73
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d80701a_c7095142",
+        "filename": "examples/examples-onap-bbs/src/main/resources/logic/SdncResourceUpdateTask.js",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-26T12:02:49Z",
+      "side": 1,
+      "message": "remove commented out code",
+      "range": {
+        "startLine": 323,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 77
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
