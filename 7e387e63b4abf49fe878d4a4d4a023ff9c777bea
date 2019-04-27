@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "34caae4d_e521a3fb",
+        "filename": "examples/examples-onap-bbs/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-04-27T15:39:23Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll create JIRA for next release(Jorge\u0027s suggestion to use jersey/apache http). But this implementation can we merge it? its required for BBS.",
+      "parentUuid": "9edbb404_2d19a3e3",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7e387e63b4abf49fe878d4a4d4a023ff9c777bea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db9ec5cd_18702339",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 5
