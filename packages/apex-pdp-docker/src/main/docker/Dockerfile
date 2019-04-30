@@ -1,36 +1,47 @@
 #
 # Docker file to build an image that runs APEX on Java 8 in alpine
 #
-FROM alpine:3.9
+FROM onap/policy-base-alpine
 
-RUN apk add --no-cache --update bash nss procps coreutils findutils grep zip unzip \
-                                     curl wget openssh iproute2 iputils vim openjdk8
+LABEL maintainer="Policy Team"
+
+ARG BUILD_VERSION=${BUILD_VERSION}
+ARG POLICY_LOGS=/var/log/onap/policy/apex-pdp
+
+ENV BUILD_VERSION ${BUILD_VERSION}
+ENV POLICY_HOME=/opt/app/policy
+ENV POLICY_APEX_PDP_HOME=${POLICY_HOME}/apex-pdp
+ENV POLICY_LOGS=${POLICY_LOGS}
+
+RUN apk add --no-cache \
+    vim \
+    iproute2 \
+    iputils
 
 # Create apex user and group
 RUN addgroup -S apexuser && adduser -S apexuser -G apexuser
 
 
 # Add Apex-specific directories and set ownership as the Apex admin user
-RUN mkdir -p /opt/app/policy/apex-pdp
-RUN mkdir -p /var/log/onap/policy/apex-pdp
-RUN chown -R apexuser:apexuser /var/log/onap/policy/apex-pdp
+RUN mkdir -p ${POLICY_APEX_PDP_HOME} \
+    && mkdir -p ${POLICY_LOGS} \
+    && chown -R apexuser:apexuser ${POLICY_LOGS}
 
 # Unpack the tarball
 RUN mkdir /packages
 COPY apex-pdp-package-full.tar.gz /packages
-RUN tar xvfz /packages/apex-pdp-package-full.tar.gz --directory /opt/app/policy/apex-pdp
-RUN rm /packages/apex-pdp-package-full.tar.gz
+RUN tar xvfz /packages/apex-pdp-package-full.tar.gz --directory ${POLICY_APEX_PDP_HOME} \
+    && rm /packages/apex-pdp-package-full.tar.gz
 
 # Ensure everything has the correct permissions
-RUN find /opt/app -type d -perm 755
-RUN find /opt/app -type f -perm 644
-RUN chmod a+x /opt/app/policy/apex-pdp/bin/*
+RUN find /opt/app -type d -perm 755 \
+    && find /opt/app -type f -perm 644 \
+    && chmod a+x ${POLICY_APEX_PDP_HOME}/bin/*
 
 # Copy examples to Apex user area
-RUN cp -pr /opt/app/policy/apex-pdp/examples /home/apexuser
-
-RUN chown -R apexuser:apexuser /home/apexuser/*
+RUN cp -pr ${POLICY_APEX_PDP_HOME}/examples /home/apexuser \
+    && chown -R apexuser:apexuser /home/apexuser/*
 
 USER apexuser
-ENV PATH /opt/app/policy/apex-pdp/bin:$PATH
+ENV PATH ${POLICY_APEX_PDP_HOME}/bin:$PATH
 WORKDIR /home/apexuser
