@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8427ed07_9685ff77",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T13:45:14Z",
+      "side": 1,
+      "message": "18:39:00 Step 1/19 : FROM onap/policy-base-alpine\n18:39:00 manifest for onap/policy-base-alpine:latest not found\nI guess, I need to provide exact release version. (1.4.0)?",
+      "range": {
+        "startLine": 4,
+        "startChar": 5,
+        "endLine": 4,
+        "endChar": 28
+      },
+      "revId": "1aac864b4f4c9fb0c923d4b873b920fb6d7dd602",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
