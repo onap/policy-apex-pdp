@@ -52,8 +52,8 @@
                 <value>s_vlan_value</value>
             </param>
             <param>
-                <name>accessID</name>
-                <value>access_id_value</value>
+                <name>remoteID</name>
+                <value>remote_id_value</value>
             </param>
         </network-input-parameters>
     </network-request-input>
