@@ -33,7 +33,6 @@
 ## DO NOT CHANGE CODE BELOW, unless you know what you are doing
 ##
 
-
 if [ -z $APEX_HOME ]
 then
     APEX_HOME="/opt/app/policy/apex-pdp"
@@ -47,6 +46,14 @@ then
     exit
 fi
 
+## Environment variables for HTTPS
+KEYSTORE="${APEX_HOME}/etc/ssl/policy-keystore"
+KEYSTORE_PASSWD="Pol1cy_0nap"
+TRUSTSTORE="${APEX_HOME}/etc/ssl/policy-truststore"
+TRUSTSTORE_PASSWD="Pol1cy_0nap"
+
+## HTTPS parameters
+HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWD} -Djavax.net.ssl.trustStore=${TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWD}"
 
 ## script name for output
 MOD_SCRIPT_NAME=`basename $0`
@@ -60,11 +67,10 @@ if [ "${BASH_VERSION:0:1}" -lt 4 ] ; then
 fi
 
 ## config for CP apps
-_config="-Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -Dhazelcast.config=$APEX_HOME/etc/hazelcast.xml -Dhazelcast.mancenter.enabled=false"
+_config="${HTTPS_PARAMETERS} -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -Dhazelcast.config=$APEX_HOME/etc/hazelcast.xml -Dhazelcast.mancenter.enabled=false"
 
 ## Maven/APEX version
 _version=`cat $APEX_HOME/etc/app-version.txt`
-
 
 ## system to get CygWin paths
 system=`uname -s | cut -c1-6`
@@ -76,7 +82,6 @@ fi
 
 ## CP for CP apps
 CLASSPATH="$APEX_HOME/etc${cpsep}$APEX_HOME/etc/hazelcast${cpsep}$APEX_HOME/etc/infinispan${cpsep}$APEX_HOME/lib/*"
-
 
 ## array of applications with name=command
 declare -A APEX_APP_MAP

@@ -50,12 +50,20 @@ if defined APEX_HOME (
     exit /b
 )
 
+:: Environment variables for HTTPS
+set KEYSTORE=%APEX_HOME%/etc/ssl/policy-keystore"
+set KEYSTORE_PASSWD="Pol1cy_0nap"
+set TRUSTSTORE=%APEX_HOME%/etc/ssl/policy-truststore"
+set TRUSTSTORE_PASSWD="Pol1cy_0nap"
+
+:: HTTPS parameters
+set HTTPS_PARAMETERS=-Djavax.net.ssl.keyStore=%KEYSTORE% -Djavax.net.ssl.keyStorePassword=%KEYSTORE_PASSWD% -Djavax.net.ssl.trustStore=%TRUSTSTORE% -Djavax.net.ssl.trustStorePassword=%TRUSTSTORE_PASSWD%
 
 :: script name for output
 set MOD_SCRIPT_NAME=apexApps
 
 :: config for CP apps
-SET _CONFIG=-Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -Dhazelcast.config=%APEX_HOME%\etc\hazelcast.xml -Dhazelcast.mancenter.enabled=false
+SET _CONFIG=%HTTPS_PARAMETERS% -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -Dhazelcast.config=%APEX_HOME%\etc\hazelcast.xml -Dhazelcast.mancenter.enabled=false
 
 :: Maven/APEX version
 set /p _VERSION=<%APEX_HOME%\etc\app-version.txt
