@@ -44,8 +44,8 @@
                 <value>service_id_value</value>
             </param>
             <param>
-                <name>access_id</name>
-                <value>access_id_value</value>
+                <name>remote_id</name>
+                <value>remote_id_value</value>
             </param>
             <param>
                 <name>ont_sn</name>

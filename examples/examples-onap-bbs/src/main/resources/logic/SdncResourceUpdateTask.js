@@ -218,7 +218,7 @@ xmlCreateAccess = xmlCreateAccess.replace("s_vlan_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'svlan'));
 xmlCreateAccess = xmlCreateAccess.replace("c_vlan_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'cvlan'));
-xmlCreateAccess = xmlCreateAccess.replace("access_id_value", getMetaValue(
+xmlCreateAccess = xmlCreateAccess.replace("remote_id_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
 executor.logger.info(client.toPrettyString(xmlCreateAccess, 4));
 
@@ -299,7 +299,7 @@ xmlChangeProfile = xmlChangeProfile.replace("vendor_value", input_param[
 xmlChangeProfile = xmlChangeProfile.replace("service_id_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'],
     'controller-service-id'));
-xmlChangeProfile = xmlChangeProfile.replace("access_id_value", getMetaValue(
+xmlChangeProfile = xmlChangeProfile.replace("remote_id_value", getMetaValue(
     putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
 xmlChangeProfile = xmlChangeProfile.replace("ont_sn_value", input_param[
     'service']['parameters']['requestInputs']['ont_ont_serial_num']);
