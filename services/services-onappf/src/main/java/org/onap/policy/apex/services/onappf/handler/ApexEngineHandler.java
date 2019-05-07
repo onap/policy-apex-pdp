@@ -53,11 +53,11 @@ public class ApexEngineHandler {
      * @throws ApexStarterException if the apex engine instantiation failed using the properties passed
      */
 
-    public ApexEngineHandler(final String properties) throws ApexStarterException {
+    public ApexEngineHandler(final Object properties) throws ApexStarterException {
         final StandardCoder standardCoder = new StandardCoder();
         JsonObject body;
         try {
-            body = standardCoder.decode(new StringReader(properties), JsonObject.class);
+            body = standardCoder.decode(new StringReader(properties.toString()), JsonObject.class);
         } catch (final CoderException e) {
             throw new ApexStarterException(e);
         }

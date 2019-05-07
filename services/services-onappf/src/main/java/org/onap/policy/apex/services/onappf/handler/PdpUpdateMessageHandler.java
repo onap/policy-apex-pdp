@@ -120,8 +120,8 @@ public class PdpUpdateMessageHandler {
                 if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                     apexEngineHandler.shutdown();
                 }
-                apexEngineHandler = new ApexEngineHandler(
-                        (String) pdpUpdateMsg.getPolicies().get(0).getProperties().get("content"));
+                apexEngineHandler =
+                        new ApexEngineHandler(pdpUpdateMsg.getPolicies().get(0).getProperties().get("content"));
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");

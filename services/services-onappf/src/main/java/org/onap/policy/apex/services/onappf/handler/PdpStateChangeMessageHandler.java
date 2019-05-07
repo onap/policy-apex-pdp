@@ -97,7 +97,7 @@ public class PdpStateChangeMessageHandler {
                 try {
                     // assumed that the apex policies list contains only one entry.
                     final ApexEngineHandler apexEngineHandler =
-                            new ApexEngineHandler((String) policies.get(0).getProperties().get("content"));
+                            new ApexEngineHandler(policies.get(0).getProperties().get("content"));
                     Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                             PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
