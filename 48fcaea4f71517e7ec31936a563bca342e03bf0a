@@ -22,6 +22,30 @@
       "revId": "48fcaea4f71517e7ec31936a563bca342e03bf0a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fda2c50d_9eb3fada",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-05-20T08:48:57Z",
+      "side": 1,
+      "message": "you are right, will update it.",
+      "parentUuid": "102b0d15_e5a0d22e",
+      "range": {
+        "startLine": 73,
+        "startChar": 250,
+        "endLine": 73,
+        "endChar": 260
+      },
+      "revId": "48fcaea4f71517e7ec31936a563bca342e03bf0a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
