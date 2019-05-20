@@ -69,6 +69,9 @@ fi
 ## config for CP apps
 _config="${HTTPS_PARAMETERS} -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -Dhazelcast.config=$APEX_HOME/etc/hazelcast.xml -Dhazelcast.mancenter.enabled=false"
 
+## jmx test config
+_jmxconfig="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9911 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=172.17.0.2"
+
 ## Maven/APEX version
 _version=`cat $APEX_HOME/etc/app-version.txt`
 
@@ -97,6 +100,7 @@ APEX_APP_MAP["eng-monitoring"]="java -Dlogback.configurationFile=$APEX_HOME/etc/
 APEX_APP_MAP["full-client"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-full-$_version-full.jar"
 APEX_APP_MAP["event-gen"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator"
 APEX_APP_MAP["onappf"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.services.onappf.ApexStarterMain"
+APEX_APP_MAP["jmx-test"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config $_jmxconfig org.onap.policy.apex.service.engine.main.ApexMain"
 
 ## array of applications with name=description
 declare -A APEX_APP_DESCR_MAP
@@ -112,6 +116,7 @@ APEX_APP_DESCR_MAP["eng-monitoring"]="starts the APEX engine monitoring client i
 APEX_APP_DESCR_MAP["full-client"]="starts the full APEX client (rest editor, deployment, monitoring) in a simple webserver"
 APEX_APP_DESCR_MAP["event-generator"]="starts the event generator in a simple webserver for performance testing"
 APEX_APP_DESCR_MAP["onappf"]="starts the ApexStarter which handles the Apex Engine based on instructions from PAP"
+APEX_APP_DESCR_MAP["jmx-test"]="starts the APEX engine with creating jmx connection configuration"
 
 ##
 ## Help screen and exit condition (i.e. too few arguments)
