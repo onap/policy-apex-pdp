@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "102b0d15_e5a0d22e",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-05-20T08:44:26Z",
+      "side": 1,
+      "message": "Can we make this a hostname and then put the same in /etc/hosts file during setup for test?\nOtherwise if I am correct, we will have to update this script always with the new IP.",
+      "range": {
+        "startLine": 73,
+        "startChar": 250,
+        "endLine": 73,
+        "endChar": 260
+      },
+      "revId": "48fcaea4f71517e7ec31936a563bca342e03bf0a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
