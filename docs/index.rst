@@ -12,3 +12,4 @@ APEX PDP
    APEX-Policy-Guide.rst
    APEX-Developer-Guide.rst
    APEX-Install-Guide.rst
+   APEX-OnapPf-Guide.rst
