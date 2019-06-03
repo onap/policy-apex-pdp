@@ -36,7 +36,7 @@ RUN tar xvfz /packages/apex-pdp-package-full.tar.gz --directory ${POLICY_APEX_PD
 # Ensure everything has the correct permissions
 RUN find /opt/app -type d -perm 755 \
     && find /opt/app -type f -perm 644 \
-    && chmod a+x ${POLICY_APEX_PDP_HOME}/bin/*
+    && chmod 755 ${POLICY_APEX_PDP_HOME}/bin/*
 
 # Copy examples to Apex user area
 RUN cp -pr ${POLICY_APEX_PDP_HOME}/examples /home/apexuser \
