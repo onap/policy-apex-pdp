@@ -16,6 +16,24 @@
       "revId": "c447d7111134cc149542ea1690712864e850060e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85ac0a98_6ca6ca29",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/config.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5287
+      },
+      "writtenOn": "2019-06-06T16:33:36Z",
+      "side": 1,
+      "message": "Its fixed for now, since its in configuration file, if required to change, can be updated without recompile the code.",
+      "parentUuid": "6f415842_818d73dc",
+      "revId": "c447d7111134cc149542ea1690712864e850060e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
