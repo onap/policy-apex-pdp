@@ -36,7 +36,7 @@
     <network-request-input>
         <network-input-parameters>
             <param>
-                <name>vendor</name>
+                <name>manufacturer</name>
                 <value>vendor_value</value>
             </param>
             <param>
@@ -44,7 +44,7 @@
                 <value>service_id_value</value>
             </param>
             <param>
-                <name>remote_id</name>
+                <name>ip_remote_id</name>
                 <value>remote_id_value</value>
             </param>
             <param>
@@ -52,19 +52,19 @@
                 <value>ont_sn_value</value>
             </param>
             <param>
-                <name>service_type</name>
+                <name>ip_service_type</name>
                 <value>service_type_value</value>
             </param>
             <param>
-                <name>mac</name>
+                <name>ip_rg_mac_addr</name>
                 <value>mac_value</value>
             </param>
             <param>
-                <name>up_speed</name>
+                <name>ip_upstream_speed</name>
                 <value>up_speed_value</value>
             </param>
             <param>
-                <name>down_speed</name>
+                <name>ip_downstream_speed</name>
                 <value>down_speed_value</value>
             </param>
             <param>
