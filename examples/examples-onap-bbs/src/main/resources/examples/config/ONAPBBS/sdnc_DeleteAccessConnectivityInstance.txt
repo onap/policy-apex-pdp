@@ -36,12 +36,12 @@
     <network-request-input>
         <network-input-parameters>
             <param>
-                <name>vendor</name>
+                <name>manufacturer</name>
                 <value>vendor_value</value>
             </param>
             <param>
                 <name>serviceID</name>
-                <value>serviceID_value</value>
+                <value>service_id_value</value>
             </param>
         </network-input-parameters>
     </network-request-input>

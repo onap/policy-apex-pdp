@@ -36,7 +36,7 @@
     <network-request-input>
         <network-input-parameters>
             <param>
-                <name>vendor</name>
+                <name>manufacturer</name>
                 <value>vendor_value</value>
             </param>
             <param>
@@ -52,7 +52,7 @@
                 <value>s_vlan_value</value>
             </param>
             <param>
-                <name>remoteID</name>
+                <name>remote_id</name>
                 <value>remote_id_value</value>
             </param>
         </network-input-parameters>
