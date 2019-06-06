@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f415842_818d73dc",
+        "filename": "examples/examples-onap-bbs/src/main/resources/examples/config/ONAPBBS/config.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-06-06T14:02:21Z",
+      "side": 1,
+      "message": "do you need to change this one below?",
+      "revId": "c447d7111134cc149542ea1690712864e850060e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
