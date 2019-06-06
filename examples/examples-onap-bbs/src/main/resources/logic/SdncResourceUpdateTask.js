@@ -112,27 +112,27 @@ xmlDeleteAccess = xmlDeleteAccess.replace("customer_name_value", input_param[
 xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
         'resources'
-    ], 'OLT'));
+    ], 'AccessConnectivity'));
 xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_custom_uuid_value",
     getResourceCustomizationUuid(input_param['service']['parameters'][
         'resources'
-    ], 'OLT'));
+    ], 'AccessConnectivity'));
 xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_uuid_value",
     getResourceUuid(input_param['service']['parameters']['resources'],
-        'OLT'));
-xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_name_value", "OLT");
+        'AccessConnectivity'));
+xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_name_value", "AccessConnectivity");
 xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
         'resources'
-    ], 'OLT'));
+    ], 'AccessConnectivity'));
 xmlDeleteAccess = xmlDeleteAccess.replace(
     "network_info_model_custom_uuid_value", getResourceCustomizationUuid(
-        input_param['service']['parameters']['resources'], 'OLT'));
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
 xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_uuid_value",
     getResourceUuid(input_param['service']['parameters']['resources'],
-        'OLT'));
+        'AccessConnectivity'));
 xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_name_value",
-    "OLT");
+    "AccessConnectivity");
 
 xmlDeleteAccess = xmlDeleteAccess.replace("vendor_value", input_param['service']
     ['parameters']['requestInputs']['ont_ont_manufacturer']);
@@ -188,27 +188,27 @@ xmlCreateAccess = xmlCreateAccess.replace("customer_name_value", input_param[
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
         'resources'
-    ], 'OLT'));
+    ], 'AccessConnectivity'));
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_custom_uuid_value",
     getResourceCustomizationUuid(input_param['service']['parameters'][
         'resources'
-    ], 'OLT'));
+    ], 'AccessConnectivity'));
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_uuid_value",
     getResourceUuid(input_param['service']['parameters']['resources'],
-        'OLT'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value", "OLT");
+        'AccessConnectivity'));
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value", "AccessConnectivity");
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
         'resources'
-    ], 'OLT'));
+    ], 'AccessConnectivity'));
 xmlCreateAccess = xmlCreateAccess.replace(
     "network_info_model_custom_uuid_value", getResourceCustomizationUuid(
-        input_param['service']['parameters']['resources'], 'OLT'));
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value",
     getResourceUuid(input_param['service']['parameters']['resources'],
-        'OLT'));
+        'AccessConnectivity'));
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value",
-    "OLT");
+    "AccessConnectivity");
 
 xmlCreateAccess = xmlCreateAccess.replace("vendor_value", input_param['service']
     ['parameters']['requestInputs']['ont_ont_manufacturer']);
@@ -270,29 +270,29 @@ xmlChangeProfile = xmlChangeProfile.replace("customer_name_value", input_param[
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
         'resources'
-    ], 'EdgeInternetProfile'));
+    ], 'InternetProfile'));
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_custom_uuid_value",
     getResourceCustomizationUuid(input_param['service']['parameters'][
         'resources'
-    ], 'EdgeInternetProfile'));
+    ], 'InternetProfile'));
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_uuid_value",
     getResourceUuid(input_param['service']['parameters']['resources'],
-        'EdgeInternetProfile'));
+        'InternetProfile'));
 xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value",
-    "EdgeInternetProfile");
+    "InternetProfile");
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_inv_uuid_value",
     getResourceInvariantUuid(input_param['service']['parameters'][
         'resources'
-    ], 'EdgeInternetProfile'));
+    ], 'InternetProfile'));
 xmlCreateAccess = xmlCreateAccess.replace(
     "network_info_model_custom_uuid_value", getResourceCustomizationUuid(
         input_param['service']['parameters']['resources'],
-        'EdgeInternetProfile'));
+        'InternetProfile'));
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value",
     getResourceUuid(input_param['service']['parameters']['resources'],
-        'EdgeInternetProfile'));
+        'InternetProfile'));
 xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value",
-    "EdgeInternetProfile");
+    "InternetProfile");
 
 xmlChangeProfile = xmlChangeProfile.replace("vendor_value", input_param[
     'service']['parameters']['requestInputs']['ont_ont_manufacturer']);

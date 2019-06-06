@@ -100,8 +100,6 @@ try {
 
 var putUpddateServInstance = service_instance;
 putUpddateServInstance['orchestration-status'] = "created";
-if (putUpddateServInstance.hasOwnProperty('input-parameters'))
-    delete putUpddateServInstance['input-parameters'];
 executor.logger.info(" string" + JSON.stringify(putUpddateServInstance, null,
     4));
 var resource_version = putUpddateServInstance['resource-version'];
