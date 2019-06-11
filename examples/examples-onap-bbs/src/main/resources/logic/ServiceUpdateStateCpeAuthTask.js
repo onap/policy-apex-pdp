@@ -50,6 +50,7 @@ var HTTP_PROTOCOL = "https://";
 var results;
 var putUrl;
 var service_instance;
+var AAI_VERSION = "v14";
 try {
     var br = Files.newBufferedReader(Paths.get(
         "/home/apexuser/examples/config/ONAPBBS/config.txt"));
@@ -64,8 +65,11 @@ try {
         } else if (line.startsWith("AAI_PASSWORD")) {
             var str = line.split("=");
             AAI_PASSWORD = str[str.length - 1];
-        }
-        }
+        }else if (line.startsWith("AAI_VERSION")) {
+            var str = line.split("=");
+            AAI_VERSION = str[str.length - 1];
+         }
+     }
 } catch (err) {
     executor.logger.info("Failed to retrieve data " + err);
 }
@@ -75,7 +79,7 @@ executor.logger.info("AAI_URL=>" + AAI_URL);
 /* Get service instance Id from AAI */
 try {
     var urlGet = HTTP_PROTOCOL + AAI_URL +
-        "/aai/v14/nodes/service-instances/service-instance/" +
+        "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/" +
         SERVICE_INSTANCE_ID + "?format=resource_and_url"
     executor.logger.info("Query url" + urlGet);
 

@@ -47,6 +47,7 @@ var client = new wbClient();
 var AAI_URL = "localhost:8080";
 var CUSTOMER_ID = requestID;
 var SERVICE_INSTANCE_ID = serviceInstanceId;
+var AAI_VERSION = "v14";
 var resource_version;
 var relationship_list;
 var HTTP_PROTOCOL = "https://";
@@ -67,6 +68,9 @@ try {
         } else if (line.startsWith("AAI_PASSWORD")) {
             var str = line.split("=");
             AAI_PASSWORD = str[str.length - 1];
+        } else if (line.startsWith("AAI_VERSION")) {
+            var str = line.split("=");
+            AAI_VERSION = str[str.length - 1];
         }
     }
 } catch (err) {
@@ -78,7 +82,7 @@ executor.logger.info("AAI_URL " + AAI_URL);
 /* Get service instance Id from AAI */
 try {
     var urlGet = HTTP_PROTOCOL + AAI_URL +
-        "/aai/v14/nodes/service-instances/service-instance/" +
+        "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/" +
         SERVICE_INSTANCE_ID + "?format=resource_and_url";
 
     executor.logger.info("Query url" + urlGet);
@@ -107,6 +111,8 @@ try {
     executor.logger.info("Failed to retrieve data " + err);
     aaiUpdateResult = false;
 }
+
+
 
 /* BBS Policy updates orchestration status of {{bbs-cfs-service-instance-UUID}} [ active --> assigned ] */
 var putUpddateServInstance;
@@ -138,6 +144,111 @@ if (!service_instance.hasOwnProperty('input-parameters') || !service_instance
     executor.logger.info(
         "Validate data failed. input-parameters or metadata is missing");
 }
+
+/* update logical link in pnf */
+var oldLinkName = "";
+try {
+    if (aaiUpdateResult == true) {
+        var pnfName = "";
+        var pnfResponse;
+        var pnfUpdate;
+        var relationShips = relationship_list["relationship"];
+
+
+        for (var i = 0; i < relationShips.length; i++) {
+            if (relationShips[i]["related-to"] == "pnf") {
+               var  relationship_data =  relationShips[i]["relationship-data"];
+               for (var j = 0; j < relationship_data.length; j++) {
+                   if (relationship_data[j]["relationship-key"] == "pnf.pnf-name") {
+                        pnfName = relationship_data[j]['relationship-value'];
+                        break;
+                   }
+               }
+            }
+        }
+        executor.logger.info("pnf-name found " + pnfName);
+
+        /* 1. Get PNF */
+        var urlGetPnf = HTTP_PROTOCOL + AAI_URL +
+            "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
+        pnfResponse = client.httpsRequest(urlGetPnf, "GET", null, AAI_USERNAME, AAI_PASSWORD,
+                 "application/json", true, true);
+        executor.logger.info("Data received From " + urlGetPnf + " " + pnfResponse);
+        /* If failure to retrieve data proceed to Failure */
+        if (result != "") {
+            aaiUpdateResult = false;
+        }
+        pnfUpdate = JSON.parse(pnfResponse.toString());
+        executor.logger.info(JSON.stringify(pnfUpdate, null, 4));
+
+
+        /*2. Create logical link */
+        var link_name = attachmentPoint;
+        var logicalLink = {
+                              "link-name": link_name,
+                              "in-maint": false,
+                              "link-type": "attachment-point"
+                          };
+        var urlNewLogicalLink = HTTP_PROTOCOL + AAI_URL +
+            "/aai/" + AAI_VERSION + "/network/logical-links/logical-link/" + link_name;
+        result = client.httpsRequest(urlNewLogicalLink, "PUT", JSON.stringify(logicalLink), AAI_USERNAME, AAI_PASSWORD,
+                 "application/json", true, true);
+        executor.logger.info("Data received From " + urlNewLogicalLink + " " + result);
+        /* If failure to retrieve data proceed to Failure */
+        if (result != "") {
+            aaiUpdateResult = false;
+        }
+
+        /*3. Update pnf with new relation*/
+        for (var i = 0; i < pnfUpdate["relationship-list"]["relationship"].length; i++) {
+            if (pnfUpdate["relationship-list"]["relationship"][i]['related-to'] == 'logical-link') {
+                pnfUpdate["relationship-list"]["relationship"][i]['related-link'] = "/aai/" + AAI_VERSION + "/network/logical-links/logical-link/" + link_name;
+                for (var j = 0; j < pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'].length; j++) {
+                    if (pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-key'] ==  "logical-link.link-name") {
+                        oldLinkName = pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-value'];
+                        pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-value'] = link_name;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        executor.logger.info("Put pnf to aai " + JSON.stringify(pnfUpdate, null, 4));
+        var urlPutPnf = HTTP_PROTOCOL + AAI_URL +
+            "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
+        result = client.httpsRequest(urlPutPnf, "PUT", JSON.stringify(pnfUpdate), AAI_USERNAME, AAI_PASSWORD,
+                 "application/json", true, true);
+        executor.logger.info("Data received From " + urlPutPnf + " " + result);
+
+        /* If failure to retrieve data proceed to Failure */
+        if (result != "") {
+            aaiUpdateResult = false;
+        }
+
+        /* Get and Delete the Stale logical link */
+        var oldLinkResult;
+        var linkResult;
+        var urlOldLogicalLink = HTTP_PROTOCOL + AAI_URL +
+            "/aai/" + AAI_VERSION + "/network/logical-links/logical-link/" + oldLinkName;
+        linkResult = client.httpsRequest(urlOldLogicalLink, "GET", null, AAI_USERNAME, AAI_PASSWORD,
+                 "application/json", true, true);
+        executor.logger.info("Data received From " + urlOldLogicalLink + " " + linkResult + " " + linkResult.hasOwnProperty("link-name"));
+        oldLinkResult = JSON.parse(linkResult.toString());
+        if (oldLinkResult.hasOwnProperty("link-name") == true) {
+            var res_version = oldLinkResult["resource-version"];
+            var urlDelOldLogicalLink = urlOldLogicalLink + "?resource-version=" + res_version;
+            executor.logger.info("Delete called for " + urlDelOldLogicalLink);
+            result = client.httpsRequest(urlDelOldLogicalLink, "DELETE", null, AAI_USERNAME, AAI_PASSWORD,
+                     "application/json", true, true);
+            executor.logger.info("Delete called for " + urlDelOldLogicalLink + " result " + result);
+        }
+    }
+} catch (err) {
+    executor.logger.info("Failed to retrieve data " + err);
+    aaiUpdateResult = false;
+}
+
 /* If Success then Fill output schema */
 if (aaiUpdateResult === true) {
     executor.outFields.put("result", "SUCCESS");

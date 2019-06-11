@@ -41,6 +41,7 @@ var AAI_URL = "localhost:8080";
 var CUSTOMER_ID = requestID;
 var BBS_CFS_SERVICE_TYPE = "BBS-CFS-Access_Test";
 var SERVICE_INSTANCE_ID = serviceInstanceId;
+var AAI_VERSION = "v14";
 var HTTP_PROTOCOL = "https://";
 var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
 var client = new wbClient();
@@ -61,6 +62,9 @@ try {
         } else if (line.startsWith("AAI_PASSWORD")) {
             var str = line.split("=");
             AAI_PASSWORD = str[str.length - 1];
+        } else if (line.startsWith("AAI_VERSION")) {
+            var str = line.split("=");
+            AAI_VERSION = str[str.length - 1];
         }
     }
 } catch (err) {
@@ -71,7 +75,7 @@ var aaiUpdateResult = true;
 /* Get service instance Id from AAI */
 try {
     var urlGet = HTTP_PROTOCOL + AAI_URL +
-        "/aai/v14/nodes/service-instances/service-instance/" +
+        "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/" +
         SERVICE_INSTANCE_ID + "?format=resource_and_url";
 
     executor.logger.info("Query url" + urlGet);
