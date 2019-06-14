@@ -52,19 +52,19 @@ public class ApexEngineHandler {
      * @param properties the properties which contains the policies and configurations received from pap
      * @throws ApexStarterException if the apex engine instantiation failed using the properties passed
      */
-
     public ApexEngineHandler(final Object properties) throws ApexStarterException {
         final StandardCoder standardCoder = new StandardCoder();
-        JsonObject body;
+        String policyModel;
+        String apexConfig;
         try {
-            body = standardCoder.decode(new StringReader(properties.toString()), JsonObject.class);
+            JsonObject body = standardCoder.decode(standardCoder.encode(properties), JsonObject.class);
+            final JsonObject engineServiceParameters = body.get("engineServiceParameters").getAsJsonObject();
+            policyModel = standardCoder.encode(engineServiceParameters.get("policy_type_impl"));
+            engineServiceParameters.remove("policy_type_impl");
+            apexConfig = standardCoder.encode(body);
         } catch (final CoderException e) {
             throw new ApexStarterException(e);
         }
-        final JsonObject engineServiceParameters = body.get("engineServiceParameters").getAsJsonObject();
-        final String policyModel = engineServiceParameters.get("policy_type_impl").toString();
-        engineServiceParameters.remove("policy_type_impl");
-        final String apexConfig = body.toString();
 
         final String modelFilePath = createFile(policyModel, "modelFile");
 
