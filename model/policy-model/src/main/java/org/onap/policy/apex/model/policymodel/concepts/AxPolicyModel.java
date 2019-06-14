@@ -25,19 +25,20 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -47,6 +48,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
+import org.onap.policy.apex.model.basicmodel.handling.KeyInfoMarshalFilter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
@@ -55,6 +57,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
+import org.onap.policy.apex.model.policymodel.handling.EmptyAlbumsAdapter;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -108,7 +111,7 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlRootElement(name = "apexPolicyModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxPolicyModel", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"policies", "tasks", "events", "albums", "schemas"})
+    propOrder = {"policies", "tasks", "events", "albums", "schemas"})
 
 public class AxPolicyModel extends AxModel {
     private static final String DOES_NOT_EXIST = " does not exist";
@@ -137,7 +140,8 @@ public class AxPolicyModel extends AxModel {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumns({@JoinColumn(name = "albumsName", referencedColumnName = "name"),
             @JoinColumn(name = "albumsVersion", referencedColumnName = "version")})
-    @XmlElement(name = "albums", required = true)
+    @XmlElement(name = "albums", required = false )
+    @XmlJavaTypeAdapter(EmptyAlbumsAdapter.class)
     private AxContextAlbums albums;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -172,11 +176,11 @@ public class AxPolicyModel extends AxModel {
      */
     public AxPolicyModel(final AxArtifactKey key) {
         this(key, new AxContextSchemas(new AxArtifactKey(key.getName() + "_Schemas", key.getVersion())),
-                new AxKeyInformation(new AxArtifactKey(key.getName() + "_KeyInfo", key.getVersion())),
-                new AxEvents(new AxArtifactKey(key.getName() + "_Events", key.getVersion())),
-                new AxContextAlbums(new AxArtifactKey(key.getName() + "_Albums", key.getVersion())),
-                new AxTasks(new AxArtifactKey(key.getName() + "_Tasks", key.getVersion())),
-                new AxPolicies(new AxArtifactKey(key.getName() + "_Policies", key.getVersion())));
+            new AxKeyInformation(new AxArtifactKey(key.getName() + "_KeyInfo", key.getVersion())),
+            new AxEvents(new AxArtifactKey(key.getName() + "_Events", key.getVersion())),
+            new AxContextAlbums(new AxArtifactKey(key.getName() + "_Albums", key.getVersion())),
+            new AxTasks(new AxArtifactKey(key.getName() + "_Tasks", key.getVersion())),
+            new AxPolicies(new AxArtifactKey(key.getName() + "_Policies", key.getVersion())));
     }
 
     /**
@@ -206,8 +210,10 @@ public class AxPolicyModel extends AxModel {
         this.policies = policies;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#register()
      */
     @Override
     public void register() {
@@ -220,8 +226,10 @@ public class AxPolicyModel extends AxModel {
         ModelService.registerModel(AxPolicyModel.class, this);
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#getKeys()
      */
     @Override
     public List<AxKey> getKeys() {
@@ -243,7 +251,7 @@ public class AxPolicyModel extends AxModel {
      */
     public AxContextModel getContextModel() {
         return new AxContextModel(new AxArtifactKey(albums.getKey().getName() + "_Model", albums.getKey().getVersion()),
-                getSchemas(), getAlbums(), getKeyInformation());
+            getSchemas(), getAlbums(), getKeyInformation());
     }
 
     /**
@@ -341,8 +349,12 @@ public class AxPolicyModel extends AxModel {
         this.schemas = schemas;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxModel#validate(org.onap.policy.apex.model.
+     * basicmodel.concepts.AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -374,8 +386,8 @@ public class AxPolicyModel extends AxModel {
             for (final AxField field : event.getFields()) {
                 if (getSchemas().get(field.getSchema()) == null) {
                     result.addValidationMessage(
-                            new AxValidationMessage(event.getKey(), this.getClass(), ValidationResult.INVALID,
-                                    "event field data type " + field.getSchema().getId() + DOES_NOT_EXIST));
+                        new AxValidationMessage(event.getKey(), this.getClass(), ValidationResult.INVALID,
+                            "event field data type " + field.getSchema().getId() + DOES_NOT_EXIST));
                 }
             }
         }
@@ -392,8 +404,8 @@ public class AxPolicyModel extends AxModel {
         for (final AxContextAlbum contextAlbum : albums.getAll(null)) {
             if (getSchemas().get(contextAlbum.getItemSchema()) == null) {
                 result.addValidationMessage(
-                        new AxValidationMessage(contextAlbum.getKey(), this.getClass(), ValidationResult.INVALID,
-                                "context album schema " + contextAlbum.getItemSchema().getId() + DOES_NOT_EXIST));
+                    new AxValidationMessage(contextAlbum.getKey(), this.getClass(), ValidationResult.INVALID,
+                        "context album schema " + contextAlbum.getItemSchema().getId() + DOES_NOT_EXIST));
             }
         }
         return result;
@@ -422,22 +434,21 @@ public class AxPolicyModel extends AxModel {
     private AxValidationResult validateTaskKeys(final AxTask task, AxValidationResult result) {
         for (final AxField field : task.getInputFieldSet()) {
             if (getSchemas().get(field.getSchema()) == null) {
-                result.addValidationMessage(
-                        new AxValidationMessage(task.getKey(), this.getClass(), ValidationResult.INVALID,
-                                "task input field schema " + field.getSchema().getId() + DOES_NOT_EXIST));
+                result.addValidationMessage(new AxValidationMessage(task.getKey(), this.getClass(),
+                    ValidationResult.INVALID, "task input field schema " + field.getSchema().getId() + DOES_NOT_EXIST));
             }
         }
         for (final AxField field : task.getOutputFieldSet()) {
             if (getSchemas().get(field.getSchema()) == null) {
                 result.addValidationMessage(
-                        new AxValidationMessage(task.getKey(), this.getClass(), ValidationResult.INVALID,
-                                "task output field schema " + field.getSchema().getId() + DOES_NOT_EXIST));
+                    new AxValidationMessage(task.getKey(), this.getClass(), ValidationResult.INVALID,
+                        "task output field schema " + field.getSchema().getId() + DOES_NOT_EXIST));
             }
         }
         for (final AxArtifactKey contextAlbumKey : task.getContextAlbumReferences()) {
             if (albums.get(contextAlbumKey) == null) {
                 result.addValidationMessage(new AxValidationMessage(task.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "task context album " + contextAlbumKey.getId() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "task context album " + contextAlbumKey.getId() + DOES_NOT_EXIST));
             }
         }
         return result;
@@ -469,40 +480,40 @@ public class AxPolicyModel extends AxModel {
         for (final AxArtifactKey contextAlbumKey : state.getContextAlbumReferences()) {
             if (albums.get(contextAlbumKey) == null) {
                 result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "state context album " + contextAlbumKey.getId() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "state context album " + contextAlbumKey.getId() + DOES_NOT_EXIST));
             }
         }
 
         final AxEvent triggerEvent = events.getEventMap().get(state.getTrigger());
         if (triggerEvent == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "state trigger event " + state.getTrigger().getId() + DOES_NOT_EXIST));
+                ValidationResult.INVALID, "state trigger event " + state.getTrigger().getId() + DOES_NOT_EXIST));
         }
 
         final AxTask defaultTask = tasks.getTaskMap().get(state.getDefaultTask());
         if (defaultTask == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "state default task " + state.getDefaultTask().getId() + DOES_NOT_EXIST));
+                ValidationResult.INVALID, "state default task " + state.getDefaultTask().getId() + DOES_NOT_EXIST));
         }
 
         // Check task input fields and event fields are compatible for default tasks with no task
         // selection logic
-        if (state.getTaskSelectionLogic().getKey().equals(AxReferenceKey.getNullKey()) && triggerEvent != null
-                && defaultTask != null) {
+        if (state.getTaskSelectionLogic().getKey().equals(AxReferenceKey.getNullKey())
+                && triggerEvent != null && defaultTask != null) {
             final Set<AxField> unhandledTaskInputFields = new TreeSet<>(defaultTask.getInputFieldSet());
             unhandledTaskInputFields.removeAll(triggerEvent.getFields());
             for (final AxField unhandledTaskInputField : unhandledTaskInputFields) {
                 result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "task input field " + unhandledTaskInputField + " for task "
-                                + defaultTask.getId() + " not in trigger event " + triggerEvent.getId()));
+                    ValidationResult.INVALID, "task input field " + unhandledTaskInputField + " for task "
+                        + defaultTask.getId() + " not in trigger event " + triggerEvent.getId()));
             }
         }
 
         for (final AxStateOutput stateOutput : state.getStateOutputs().values()) {
             if (events.getEventMap().get(stateOutput.getOutgingEvent()) == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
-                                + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
+                        + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
         }
 
@@ -527,10 +538,10 @@ public class AxPolicyModel extends AxModel {
             final AxTask usedTask = tasks.getTaskMap().get(taskRefEntry.getKey());
             if (usedTask == null) {
                 result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "state task " + taskRefEntry.getKey().getId() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "state task " + taskRefEntry.getKey().getId() + DOES_NOT_EXIST));
             } else {
                 AxStateOutput stateOutput =
-                        state.getStateOutputs().get(taskRefEntry.getValue().getOutput().getKey().getLocalName());
+                    state.getStateOutputs().get(taskRefEntry.getValue().getOutput().getKey().getLocalName());
                 validateEventTaskFieldCompatibilityOnStateOutput(state, usedTask, stateOutput, result);
             }
         }
@@ -549,14 +560,14 @@ public class AxPolicyModel extends AxModel {
             final AxStateOutput stateOutput, AxValidationResult result) {
         if (stateOutput == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "state output on task reference for task " + task.getId() + " is null"));
+                ValidationResult.INVALID, "state output on task reference for task " + task.getId() + " is null"));
 
         } else {
             final AxEvent usedEvent = events.getEventMap().get(stateOutput.getOutgingEvent());
             if (usedEvent == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
-                        ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
-                                + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
+                    ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
+                        + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
 
             if (task != null && usedEvent != null) {
@@ -564,15 +575,52 @@ public class AxPolicyModel extends AxModel {
                 unhandledTaskOutputFields.removeAll(usedEvent.getFields());
                 for (final AxField unhandledTaskOutputField : unhandledTaskOutputFields) {
                     result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
-                            ValidationResult.INVALID, "task output field " + unhandledTaskOutputField + " for task "
-                                    + task.getId() + " not in output event " + usedEvent.getId()));
+                        ValidationResult.INVALID, "task output field " + unhandledTaskOutputField + " for task "
+                            + task.getId() + " not in output event " + usedEvent.getId()));
                 }
             }
         }
     }
 
     /**
-     * {@inheritDoc}.
+     * When a model is unmarshalled from disk or from the database, if the albums field was missing a blank
+     * with a null key was added. This method is called by JAXB after unmarshalling and is
+     * used to insert an appropriate key
+     *
+     * @param unmarshaller the unmarshaller that is unmarshalling the model
+     * @param parent the parent object of this object in the unmarshaller
+     */
+    public void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
+        new EmptyAlbumsAdapter().doAfterUnmarshal(this);
+    }
+
+    /**
+     * When a model is marshalled from disk or database, if the albums field is empty/null, then the albums field
+     * is not emitted. If the (empty) albums field is not emitted then it's keyinfo should also be suppressed
+     * This method is called by JAXB before marshaling and is used to insert the appropriate filters
+     *
+     * @param marshaller the marshaller that is marshaller the model
+     * @throws Exception
+     */
+    public void beforeMarshal(final Marshaller marshaller) throws Exception {
+        EmptyAlbumsAdapter albumsfilter = new EmptyAlbumsAdapter();
+        marshaller.setAdapter(EmptyAlbumsAdapter.class, albumsfilter);
+        //get/create the keyinfofilter
+        KeyInfoMarshalFilter keyinfoFilter = marshaller.getAdapter(KeyInfoMarshalFilter.class);
+        if(keyinfoFilter == null) {
+            keyinfoFilter = new KeyInfoMarshalFilter();
+        }
+        //if the albumsfilter would filter out this model's albums add the album's key to the keyinfofilter
+        if(albumsfilter.marshal(this.albums) == null && this.albums != null) {
+            keyinfoFilter.addFilterKey(this.albums.getKey());
+        }
+        marshaller.setAdapter(keyinfoFilter);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#clean()
      */
     @Override
     public void clean() {
@@ -584,8 +632,10 @@ public class AxPolicyModel extends AxModel {
         schemas.clean();
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#toString()
      */
     @Override
     public String toString() {
@@ -607,8 +657,12 @@ public class AxPolicyModel extends AxModel {
         return builder.toString();
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
+     * basicmodel.concepts.AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept targetObject) {
@@ -628,8 +682,10 @@ public class AxPolicyModel extends AxModel {
         return copy;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#hashCode()
      */
     @Override
     public int hashCode() {
@@ -644,8 +700,10 @@ public class AxPolicyModel extends AxModel {
         return result;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#equals(java.lang.Object)
      */
     @Override
     public boolean equals(final Object obj) {
@@ -679,8 +737,12 @@ public class AxPolicyModel extends AxModel {
         return schemas.equals(other.schemas);
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxModel#compareTo(org.onap.policy.apex.model.
+     * basicmodel.concepts.AxConcept)
      */
     @Override
     public int compareTo(final AxConcept otherObj) {
