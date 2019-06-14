@@ -39,8 +39,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
+import org.onap.policy.apex.model.basicmodel.handling.KeyInfoMarshalFilter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -79,6 +81,7 @@ public class AxModel extends AxConcept {
     @JoinColumns({ @JoinColumn(name = "keyInformationName", referencedColumnName = "name"),
             @JoinColumn(name = "keyInformationVersion", referencedColumnName = "version") })
     @XmlElement(name = "keyInformation", required = true)
+    @XmlJavaTypeAdapter(KeyInfoMarshalFilter.class)
     private AxKeyInformation keyInformation;
     // @formatter:on
 

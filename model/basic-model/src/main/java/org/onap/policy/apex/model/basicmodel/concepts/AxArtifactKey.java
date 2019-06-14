@@ -190,6 +190,16 @@ public class AxArtifactKey extends AxKey {
         this.version = Assertions.validateStringParameter(VERSION_TOKEN, version, VERSION_REGEXP);
     }
 
+    /**
+     * Check if the key is IDENTICAL to a null key.
+     *
+     * @return true, if the key is IDENTICAL to a null key
+     */
+    public boolean isNullKey() {
+        return this.getCompatibility(AxArtifactKey.getNullKey()).equals(AxKey.Compatibility.IDENTICAL);
+    }
+
+
     /*
      * (non-Javadoc)
      *
