@@ -2,6 +2,7 @@
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications Copyright (C) 2019 Nordix Foundation
+   Modifications Copyright (C) 2019 Bell Canada.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -514,6 +515,7 @@
                                 <descriptor>src/main/package/tarball/assembly.xml</descriptor>
                             </descriptors>
                             <finalName>${project.artifactId}-${project.version}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                     </execution>
                 </executions>
@@ -526,7 +528,7 @@
                         <configuration>
                             <tasks>
                                 <untar
-                                    src="${project.build.directory}/${project.artifactId}-${project.version}-tarball.tar.gz"
+                                    src="${project.build.directory}/${project.artifactId}-${project.version}.tar.gz"
                                     dest="${project.build.directory}/install_hierarchy" compression="gzip" />
                             </tasks>
                         </configuration>
