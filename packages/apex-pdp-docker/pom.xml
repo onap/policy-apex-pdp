@@ -30,81 +30,136 @@
     <name>Policy APEX PDP - Docker build</name>
     <description>ONAP Policy APEX PDP Docker Build</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <dist.project.version>${project.version}</dist.project.version>
+        <docker.skip>false</docker.skip>
+        <docker.skip.build>false</docker.skip.build>
+        <docker.skip.push>false</docker.skip.push>
+        <docker.pull.registry>nexus3.onap.org:10001</docker.pull.registry>
+        <docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
+        <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
+    </properties>
+
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.0</version>
                 <executions>
                     <execution>
-                        <id>copy-apex-tarball</id>
-                        <phase>prepare-package</phase>
+                        <phase>validate</phase>
                         <goals>
-                            <goal>copy</goal>
+                            <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/policy-apex-pdp</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.packages</groupId>
-                                    <artifactId>apex-pdp-package-full</artifactId>
-                                    <version>${project.version}</version>
-                                    <classifier>tarball</classifier>
-                                    <type>tar.gz</type>
-                                    <destFileName>apex-pdp-package-full.tar.gz</destFileName>
-                                </artifactItem>
-                            </artifactItems>
+                            <source>
+                                println 'Project version: ' + project.properties['dist.project.version']
+                                if (project.properties['dist.project.version'] != null) {
+                                    def versionArray = project.properties['dist.project.version'].split('-')
+                                    def minMaxVersionArray = versionArray[0].tokenize('.')
+                                    if (project.properties['dist.project.version'].endsWith("-SNAPSHOT")) {
+                                        project.properties['project.docker.latest.minmax.tag.version'] =
+                                            minMaxVersionArray[0] + "." + minMaxVersionArray[1] + "-SNAPSHOT-latest"
+                                    } else {
+                                        project.properties['project.docker.latest.minmax.tag.version'] =
+                                            minMaxVersionArray[0] + "." + minMaxVersionArray[1] + "-STAGING-latest"
+                                    }
+                                    println 'New tag for docker: ' + properties['project.docker.latest.minmax.tag.version']
+                                }
+                            </source>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/policy-apex-pdp</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/docker</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>get-target-version</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.30.0</version> <!-- Extract this as a property from the policy-parent -->
                 <configuration>
-                    <executable>echo</executable>
-                    <workingDirectory>${project.build.directory}</workingDirectory>
-                    <arguments>
-                        <argument>${project.version}</argument>
-                    </arguments>
-                    <outputFile>${project.build.directory}/version</outputFile>
+                    <verbose>true</verbose>
+                    <apiVersion>1.23</apiVersion>
+                    <pullRegistry>${docker.pull.registry}</pullRegistry>
+                    <pushRegistry>${docker.push.registry}</pushRegistry>
+                    <images>
+                        <image>
+                            <name>onap/policy-apex-pdp</name>
+                            <build>
+                                <cleanup>try</cleanup>
+                                <dockerFile>Dockerfile</dockerFile>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                    <tag>${project.version}-${maven.build.timestamp}</tag>
+                                    <tag>${project.docker.latest.minmax.tag.version}</tag>
+                                </tags>
+                                <assembly>
+                                    <inline>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <includes>
+                                                    <include>org.onap.policy.apex-pdp.packages:apex-pdp-package-full</include>
+                                                </includes>
+                                                <outputDirectory>.</outputDirectory>
+                                                <outputFileNameMapping>apex-pdp-package-full.tar.gz</outputFileNameMapping>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>clean-images</id>
+                        <phase>pre-clean</phase>
+                        <goals>
+                            <goal>remove</goal>
+                        </goals>
+                        <configuration>
+                            <removeAll>true</removeAll>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-images</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>push-images</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <image>onap/policy-apex-pdp</image>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>apex-pdp-package-full</artifactId>
+            <version>${project.version}</version>
+            <type>tar.gz</type>
+        </dependency>
+    </dependencies>
     <profiles>
         <profile>
             <id>apexSite</id>

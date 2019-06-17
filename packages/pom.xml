@@ -32,11 +32,6 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] packaging</description>
 
-    <modules>
-        <module>apex-pdp-package-full</module>
-        <module>apex-pdp-docker</module>
-    </modules>
-
     <profiles>
         <profile>
             <id>apexSite</id>
@@ -52,5 +47,22 @@
                 </site>
             </distributionManagement>
         </profile>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <modules>
+                <module>apex-pdp-package-full</module>
+                <module>apex-pdp-docker</module>
+            </modules>
+            <properties>
+                <docker.skip.push>false</docker.skip.push>
+            </properties>
+        </profile>
+
     </profiles>
 </project>

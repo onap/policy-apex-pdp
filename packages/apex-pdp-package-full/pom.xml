@@ -514,6 +514,7 @@
                                 <descriptor>src/main/package/tarball/assembly.xml</descriptor>
                             </descriptors>
                             <finalName>${project.artifactId}-${project.version}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                     </execution>
                 </executions>
@@ -526,7 +527,7 @@
                         <configuration>
                             <tasks>
                                 <untar
-                                    src="${project.build.directory}/${project.artifactId}-${project.version}-tarball.tar.gz"
+                                    src="${project.build.directory}/${project.artifactId}-${project.version}.tar.gz"
                                     dest="${project.build.directory}/install_hierarchy" compression="gzip" />
                             </tasks>
                         </configuration>
