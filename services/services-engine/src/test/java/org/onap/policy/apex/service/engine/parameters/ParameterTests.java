@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -42,14 +43,13 @@ import org.onap.policy.common.parameters.ParameterException;
 
 /**
  * Test for an empty parameter file.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ParameterTests {
     @Test
     public void invalidParametersNoFileTest() throws ParameterException {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/invalidNoFile.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/invalidNoFile.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -63,23 +63,21 @@ public class ParameterTests {
 
     @Test
     public void invalidParametersEmptyTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/empty.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/empty.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertTrue(e.getMessage().startsWith(
-                            "validation error(s) on parameters from \"src/test/resources/parameters/empty.json\""));
+            assertTrue(e.getMessage()
+                    .startsWith("validation error(s) on parameters from \"src/test/resources/parameters/empty.json\""));
         }
     }
 
     @Test
     public void invalidParametersNoParamsTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/noParams.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/noParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -87,21 +85,20 @@ public class ParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("validation error(s) on parameters from \"src/test/resources/parameters/noParams.json\"\n"
-                            + "parameter group \"APEX_PARAMETERS\" type "
-                            + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                            + "parameter group has status INVALID\n" + "  parameter group \"UNDEFINED\" INVALID, "
-                            + "engine service parameters are not specified\n"
-                            + "  parameter group map \"eventOutputParameters\" INVALID, "
-                            + "at least one event output must be specified\n"
-                            + "  parameter group map \"eventInputParameters\" INVALID, "
-                            + "at least one event input must be specified\n", e.getMessage());
+                    + "parameter group \"APEX_PARAMETERS\" type "
+                    + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
+                    + "parameter group has status INVALID\n" + "  parameter group \"UNDEFINED\" INVALID, "
+                    + "engine service parameters are not specified\n"
+                    + "  parameter group map \"eventOutputParameters\" INVALID, "
+                    + "at least one event output must be specified\n"
+                    + "  parameter group map \"eventInputParameters\" INVALID, "
+                    + "at least one event input must be specified\n", e.getMessage());
         }
     }
 
     @Test
     public void invalidParametersBlankParamsTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/blankParams.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/blankParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -110,25 +107,23 @@ public class ParameterTests {
         } catch (final ParameterException e) {
 
             assertEquals("validation error(s) on parameters from \"src/test/resources/parameters/blankParams.json\"\n"
-                            + "parameter group \"APEX_PARAMETERS\" type "
-                            + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                            + "parameter group has status INVALID\n"
-                            + "  parameter group \"ENGINE_SERVICE_PARAMETERS\" type "
-                            + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
-                            + "INVALID, parameter group has status INVALID\n"
-                            + "    field \"id\" type \"int\" value \"-1\" INVALID, "
-                            + "id not specified or specified value [-1] invalid, must be specified as id >= 0\n"
-                            + "  parameter group map \"eventOutputParameters\" INVALID, "
-                            + "at least one event output must be specified\n"
-                            + "  parameter group map \"eventInputParameters\" INVALID, "
-                            + "at least one event input must be specified\n", e.getMessage());
+                    + "parameter group \"APEX_PARAMETERS\" type "
+                    + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
+                    + "parameter group has status INVALID\n" + "  parameter group \"ENGINE_SERVICE_PARAMETERS\" type "
+                    + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
+                    + "INVALID, parameter group has status INVALID\n"
+                    + "    field \"id\" type \"int\" value \"-1\" INVALID, "
+                    + "id not specified or specified value [-1] invalid, must be specified as id >= 0\n"
+                    + "  parameter group map \"eventOutputParameters\" INVALID, "
+                    + "at least one event output must be specified\n"
+                    + "  parameter group map \"eventInputParameters\" INVALID, "
+                    + "at least one event input must be specified\n", e.getMessage());
         }
     }
 
     @Test
     public void invalidParametersTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/badParams.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/badParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -136,53 +131,53 @@ public class ParameterTests {
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
             assertEquals("validation error(s) on parameters from \"src/test/resources/parameters/badParams.json\"\n"
-                            + "parameter group \"APEX_PARAMETERS\" type "
-                            + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                            + "parameter group has status INVALID\n" + "  parameter group \"hello there\" type "
-                            + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
-                            + "INVALID, parameter group has status INVALID\n"
-                            + "    field \"name\" type \"java.lang.String\" value \"hello there\" INVALID, "
-                            + "name is invalid, it must match regular expression[A-Za-z0-9\\-_\\.]+\n"
-                            + "    field \"id\" type \"int\" value \"-45\" INVALID, id not specified or "
-                            + "specified value [-45] invalid, must be specified as id >= 0\n"
-                            + "    field \"instanceCount\" type \"int\" value \"-345\" INVALID, "
-                            + "instanceCount [-345] invalid, must be specified as instanceCount >= 1\n"
-                            + "    field \"deploymentPort\" type \"int\" value \"65536\" INVALID, "
-                            + "deploymentPort [65536] invalid, must be specified as 1024 <= port <= 65535\n"
-                            + "    field \"policyModelFileName\" type \"java.lang.String\" "
-                            + "value \"/some/file/name.xml\" INVALID, not found\n"
-                            + "  parameter group map \"eventOutputParameters\" INVALID, "
-                            + "parameter group has status INVALID\n" + "    parameter group \"FirstProducer\" type "
-                            + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                            + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
-                            + "\"org.onap.policy.apex.service.engine.event.impl."
-                            + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
-                            + "parameter group has status INVALID\n"
-                            + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                            + "\"null\" invalid, must be specified as a non-empty string\n"
-                            + "  parameter group map \"eventInputParameters\" INVALID, "
-                            + "parameter group has status INVALID\n" + "    parameter group \"TheFileConsumer1\" type "
-                            + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                            + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
-                            + "\"org.onap.policy.apex.service.engine.event.impl."
-                            + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
-                            + "parameter group has status INVALID\n"
-                            + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                            + "\"null\" invalid, must be specified as a non-empty string\n", e.getMessage());
+                    + "parameter group \"APEX_PARAMETERS\" type "
+                    + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
+                    + "parameter group has status INVALID\n" + "  parameter group \"hello there\" type "
+                    + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
+                    + "INVALID, parameter group has status INVALID\n"
+                    + "    field \"name\" type \"java.lang.String\" value \"hello there\" INVALID, "
+                    + "name is invalid, it must match regular expression[A-Za-z0-9\\-_\\.]+\n"
+                    + "    field \"id\" type \"int\" value \"-45\" INVALID, id not specified or "
+                    + "specified value [-45] invalid, must be specified as id >= 0\n"
+                    + "    field \"instanceCount\" type \"int\" value \"-345\" INVALID, "
+                    + "instanceCount [-345] invalid, must be specified as instanceCount >= 1\n"
+                    + "    field \"deploymentPort\" type \"int\" value \"65536\" INVALID, "
+                    + "deploymentPort [65536] invalid, must be specified as 1024 <= port <= 65535\n"
+                    + "    field \"policyModelFileName\" type \"java.lang.String\" "
+                    + "value \"/some/file/name.xml\" INVALID, not found\n"
+                    + "  parameter group map \"eventOutputParameters\" INVALID, "
+                    + "parameter group map has status INVALID\n" + "    parameter group \"FirstProducer\" type "
+                    + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
+                    + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
+                    + "\"org.onap.policy.apex.service.engine.event.impl."
+                    + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
+                    + "parameter group has status INVALID\n"
+                    + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
+                    + "\"null\" invalid, must be specified as a non-empty string\n"
+                    + "  parameter group map \"eventInputParameters\" INVALID, "
+                    + "parameter group map has status INVALID\n" + "    parameter group \"TheFileConsumer1\" type "
+                    + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
+                    + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
+                    + "\"org.onap.policy.apex.service.engine.event.impl."
+                    + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
+                    + "parameter group has status INVALID\n"
+                    + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
+                    + "\"null\" invalid, must be specified as a non-empty string\n", e.getMessage());
         }
     }
 
     @Test
     public void modelNotFileTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/badParamsModelNotFile.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/badParamsModelNotFile.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertEquals("validation error(s) on parameters from "
+            assertEquals(
+                    "validation error(s) on parameters from "
                             + "\"src/test/resources/parameters/badParamsModelNotFile.json\"\n"
                             + "parameter group \"APEX_PARAMETERS\" type "
                             + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
@@ -190,14 +185,13 @@ public class ParameterTests {
                             + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
                             + "INVALID, parameter group has status INVALID\n" + "    field \"policyModelFileName\" "
                             + "type \"java.lang.String\" value \"src/test\" INVALID, is not a plain file\n",
-                            e.getMessage());
+                    e.getMessage());
         }
     }
 
     @Test
     public void goodParametersTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/goodParams.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/goodParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -209,38 +203,36 @@ public class ParameterTests {
             assertTrue(parameters.getEventOutputParameters().containsKey("FirstProducer"));
             assertTrue(parameters.getEventOutputParameters().containsKey("MyOtherProducer"));
             assertEquals("FILE", parameters.getEventOutputParameters().get("FirstProducer")
-                            .getCarrierTechnologyParameters().getLabel());
+                    .getCarrierTechnologyParameters().getLabel());
             assertEquals("FILE", parameters.getEventOutputParameters().get("MyOtherProducer")
-                            .getCarrierTechnologyParameters().getLabel());
+                    .getCarrierTechnologyParameters().getLabel());
             assertEquals(ApexFileEventProducer.class.getCanonicalName(), parameters.getEventOutputParameters()
-                            .get("MyOtherProducer").getCarrierTechnologyParameters().getEventProducerPluginClass());
+                    .get("MyOtherProducer").getCarrierTechnologyParameters().getEventProducerPluginClass());
             assertEquals(ApexFileEventConsumer.class.getCanonicalName(), parameters.getEventOutputParameters()
-                            .get("MyOtherProducer").getCarrierTechnologyParameters().getEventConsumerPluginClass());
-            assertEquals("JSON", parameters.getEventOutputParameters().get("FirstProducer").getEventProtocolParameters()
-                            .getLabel());
+                    .get("MyOtherProducer").getCarrierTechnologyParameters().getEventConsumerPluginClass());
+            assertEquals("JSON",
+                    parameters.getEventOutputParameters().get("FirstProducer").getEventProtocolParameters().getLabel());
             assertEquals("JSON", parameters.getEventOutputParameters().get("MyOtherProducer")
-                            .getEventProtocolParameters().getLabel());
+                    .getEventProtocolParameters().getLabel());
 
             assertTrue(parameters.getEventInputParameters().containsKey("TheFileConsumer1"));
             assertTrue(parameters.getEventInputParameters().containsKey("MySuperDooperConsumer1"));
             assertEquals("FILE", parameters.getEventInputParameters().get("TheFileConsumer1")
-                            .getCarrierTechnologyParameters().getLabel());
+                    .getCarrierTechnologyParameters().getLabel());
             assertEquals("SUPER_DOOPER", parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                            .getCarrierTechnologyParameters().getLabel());
+                    .getCarrierTechnologyParameters().getLabel());
             assertEquals("JSON", parameters.getEventInputParameters().get("TheFileConsumer1")
-                            .getEventProtocolParameters().getLabel());
+                    .getEventProtocolParameters().getLabel());
             assertEquals("SUPER_TOK_DEL", parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                            .getEventProtocolParameters().getLabel());
+                    .getEventProtocolParameters().getLabel());
             assertEquals(ApexFileEventProducer.class.getCanonicalName(), parameters.getEventInputParameters()
-                            .get("TheFileConsumer1").getCarrierTechnologyParameters().getEventProducerPluginClass());
+                    .get("TheFileConsumer1").getCarrierTechnologyParameters().getEventProducerPluginClass());
             assertEquals(ApexFileEventConsumer.class.getCanonicalName(), parameters.getEventInputParameters()
-                            .get("TheFileConsumer1").getCarrierTechnologyParameters().getEventConsumerPluginClass());
-            assertEquals(SuperDooperEventProducer.class.getCanonicalName(),
-                            parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                                            .getCarrierTechnologyParameters().getEventProducerPluginClass());
-            assertEquals(SuperDooperEventSubscriber.class.getCanonicalName(),
-                            parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                                            .getCarrierTechnologyParameters().getEventConsumerPluginClass());
+                    .get("TheFileConsumer1").getCarrierTechnologyParameters().getEventConsumerPluginClass());
+            assertEquals(SuperDooperEventProducer.class.getCanonicalName(), parameters.getEventInputParameters()
+                    .get("MySuperDooperConsumer1").getCarrierTechnologyParameters().getEventProducerPluginClass());
+            assertEquals(SuperDooperEventSubscriber.class.getCanonicalName(), parameters.getEventInputParameters()
+                    .get("MySuperDooperConsumer1").getCarrierTechnologyParameters().getEventConsumerPluginClass());
         } catch (final ParameterException e) {
             fail("This test should not throw an exception");
         }
@@ -248,8 +240,7 @@ public class ParameterTests {
 
     @Test
     public void superDooperParametersTest() {
-        final String[] args =
-            { "-c", "src/test/resources/parameters/superDooperParams.json" };
+        final String[] args = { "-c", "src/test/resources/parameters/superDooperParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         try {
@@ -261,14 +252,14 @@ public class ParameterTests {
             assertEquals(345, parameters.getEngineServiceParameters().getInstanceCount());
             assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
 
-            final CarrierTechnologyParameters prodCarrierTech = parameters.getEventOutputParameters()
-                            .get("FirstProducer").getCarrierTechnologyParameters();
-            final EventProtocolParameters prodEventProt = parameters.getEventOutputParameters().get("FirstProducer")
-                            .getEventProtocolParameters();
-            final CarrierTechnologyParameters consCarrierTech = parameters.getEventInputParameters()
-                            .get("MySuperDooperConsumer1").getCarrierTechnologyParameters();
-            final EventProtocolParameters consEventProt = parameters.getEventInputParameters()
-                            .get("MySuperDooperConsumer1").getEventProtocolParameters();
+            final CarrierTechnologyParameters prodCarrierTech =
+                    parameters.getEventOutputParameters().get("FirstProducer").getCarrierTechnologyParameters();
+            final EventProtocolParameters prodEventProt =
+                    parameters.getEventOutputParameters().get("FirstProducer").getEventProtocolParameters();
+            final CarrierTechnologyParameters consCarrierTech =
+                    parameters.getEventInputParameters().get("MySuperDooperConsumer1").getCarrierTechnologyParameters();
+            final EventProtocolParameters consEventProt =
+                    parameters.getEventInputParameters().get("MySuperDooperConsumer1").getEventProtocolParameters();
 
             assertEquals("SUPER_DOOPER", prodCarrierTech.getLabel());
             assertEquals("SUPER_TOK_DEL", prodEventProt.getLabel());
@@ -277,8 +268,8 @@ public class ParameterTests {
 
             assertTrue(prodCarrierTech instanceof SuperDooperCarrierTechnologyParameters);
 
-            final SuperDooperCarrierTechnologyParameters superDooperParameters
-                = (SuperDooperCarrierTechnologyParameters) prodCarrierTech;
+            final SuperDooperCarrierTechnologyParameters superDooperParameters =
+                    (SuperDooperCarrierTechnologyParameters) prodCarrierTech;
             assertEquals("somehost:12345", superDooperParameters.getBootstrapServers());
             assertEquals("0", superDooperParameters.getAcks());
             assertEquals(25, superDooperParameters.getRetries());
@@ -296,8 +287,7 @@ public class ParameterTests {
             assertEquals("some.key.deserailizer", superDooperParameters.getKeyDeserializer());
             assertEquals("some.value.deserailizer", superDooperParameters.getValueDeserializer());
 
-            final String[] consumerTopics =
-                { "consumer-out-0", "consumer-out-1", "consumer-out-2" };
+            final String[] consumerTopics = { "consumer-out-0", "consumer-out-1", "consumer-out-2" };
             assertEquals(Arrays.asList(consumerTopics), superDooperParameters.getConsumerTopicList());
         } catch (final ParameterException e) {
             fail("This test should not throw an exception");
