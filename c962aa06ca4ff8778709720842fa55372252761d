@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "fe856e42_ad819890",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/main/java/org/onap/policy/apex/plugins/event/carrier/jms/JmsCarrierTechnologyParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-19T20:02:01Z",
+      "side": 1,
+      "message": "I meant StringUtils.isBlank()",
+      "parentUuid": "feadc71b_7c9f7e09",
+      "revId": "c962aa06ca4ff8778709720842fa55372252761d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26691656_5abb76af",
         "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/TestApexStarterMain.java",
         "patchSetId": 2
