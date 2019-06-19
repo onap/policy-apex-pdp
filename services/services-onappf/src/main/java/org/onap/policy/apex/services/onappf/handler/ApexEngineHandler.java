@@ -23,7 +23,6 @@ package org.onap.policy.apex.services.onappf.handler;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;

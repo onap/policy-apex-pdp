@@ -102,7 +102,7 @@ public class TestApexStarterMain {
     @Test
     public void testApexStarter_InvalidParameters() {
         final String[] apexStarterConfigParameters =
-                { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
+        { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
         assertTrue(apexStarter.getParameters() == null);
     }

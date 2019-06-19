@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +23,14 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import java.util.Base64;
 import java.util.Properties;
-
 import javax.naming.Context;
-
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for JMS as an event carrier technology.
- * 
+ *
  * <p>The parameters for this plugin are:
  * <ol>
  * <li>initialContextFactory: JMS uses a naming {@link Context} object to look up the locations of JMS servers and JMS
@@ -376,14 +375,14 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
 
     /**
      * Check if the string is null or blank.
-     * 
-     * @param stringValue the string value 
-     * @return
+     *
+     * @param stringValue the string value
+     * @return is null or blank
      */
     private boolean isNullOrBlank(final String stringValue) {
         return stringValue == null || stringValue.trim().length() == 0;
     }
-    
+
     private String getDefaultCredential() {
         return new String(Base64.getDecoder().decode(DEFAULT_SECURITY_CREDENTIALS.getBytes()));
     }

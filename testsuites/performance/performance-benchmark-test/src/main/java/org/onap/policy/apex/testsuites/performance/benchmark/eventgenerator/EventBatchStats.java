@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
 import java.util.List;
-
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
@@ -145,7 +145,7 @@ public class EventBatchStats {
      * Calculate statistics for a single event.
      * @param eventBatch the event batch for the event
      * @param eventNo the event number of the event
-     * @return
+     * @return event timings
      */
     private Pair<Long, Long> calculateEventTimings(EventBatch eventBatch, int eventNo) {
         // If an event is in a batch, it has been sent

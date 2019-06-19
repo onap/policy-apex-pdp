@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -34,7 +33,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -69,7 +67,7 @@ public class AxContextModel extends AxModel {
     @JoinColumns({
         @JoinColumn(name = "schemasName", referencedColumnName = "name"),
         @JoinColumn(name = "schemasVersion", referencedColumnName = "version")
-    })
+        })
     @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
 
@@ -77,7 +75,7 @@ public class AxContextModel extends AxModel {
     @JoinColumns({
         @JoinColumn(name = "albumsName", referencedColumnName = "name"),
         @JoinColumn(name = "albumsVersion", referencedColumnName = "version")
-    })
+        })
     @XmlElement(name = "albums", required = true)
     private AxContextAlbums albums;
     // @formatter:on
