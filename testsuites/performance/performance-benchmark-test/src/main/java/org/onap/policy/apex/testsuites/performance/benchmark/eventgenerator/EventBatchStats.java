@@ -145,7 +145,7 @@ public class EventBatchStats {
      * Calculate statistics for a single event.
      * @param eventBatch the event batch for the event
      * @param eventNo the event number of the event
-     * @return
+     * @return event timings
      */
     private Pair<Long, Long> calculateEventTimings(EventBatch eventBatch, int eventNo) {
         // If an event is in a batch, it has been sent

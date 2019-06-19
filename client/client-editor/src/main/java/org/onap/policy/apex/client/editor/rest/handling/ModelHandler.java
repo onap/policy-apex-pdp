@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -23,10 +23,8 @@ package org.onap.policy.apex.client.editor.rest.handling;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.apex.client.editor.rest.handling.bean.BeanModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
@@ -321,7 +319,7 @@ public class ModelHandler implements RestCommandHandler {
 
     /**
      * Augment a message with key information.
-     * 
+     *
      * @param session the Apex model editing session
      * @param message The message to augment
      * @return the augmented message
@@ -357,7 +355,7 @@ public class ModelHandler implements RestCommandHandler {
 
     /**
      * Get an embedded JSON object for the given JSON object.
-     * 
+     *
      * @param jsonObject the input JSON object
      * @return the embedded JSON object
      */
@@ -371,11 +369,11 @@ public class ModelHandler implements RestCommandHandler {
 
     /**
      * Condition a field so its key information can be looked up.
-     * 
+     *
      * @param jsonObject the object to query
      * @param fieldTag the tag of the field to condition
      * @param fieldValue the value of the field to condition
-     * @return
+     * @return field read from the json
      */
     private String readFieldFromJsonObject(final JsonObject jsonObject, final String fieldTag, final String value) {
         String lookedupValue = value;
@@ -392,7 +390,7 @@ public class ModelHandler implements RestCommandHandler {
 
     /**
      * Look up the UUID and description in the key information for a concept.
-     * 
+     *
      * @param session the Apex editor session
      * @param jsonObject the JSON object to place the fields in
      * @param name the concept name to look up
@@ -425,7 +423,7 @@ public class ModelHandler implements RestCommandHandler {
 
     /**
      * Look up the key information for the given concept name and value.
-     * 
+     *
      * @param session the Apex editor session
      * @param name the concept name to look up
      * @param version the concept version to look up

@@ -376,14 +376,14 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
 
     /**
      * Check if the string is null or blank.
-     * 
-     * @param stringValue the string value 
-     * @return
+     *
+     * @param stringValue the string value
+     * @return is null or blank
      */
     private boolean isNullOrBlank(final String stringValue) {
         return stringValue == null || stringValue.trim().length() == 0;
     }
-    
+
     private String getDefaultCredential() {
         return new String(Base64.getDecoder().decode(DEFAULT_SECURITY_CREDENTIALS.getBytes()));
     }

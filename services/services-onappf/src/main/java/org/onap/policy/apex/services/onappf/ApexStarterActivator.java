@@ -105,40 +105,40 @@ public class ApexStarterActivator {
         // @formatter:off
         this.manager = new ServiceManager()
                 .addAction("topics",
-                        () -> TopicEndpoint.manager.start(),
-                        () -> TopicEndpoint.manager.shutdown())
+                    () -> TopicEndpoint.manager.start(),
+                    () -> TopicEndpoint.manager.shutdown())
                 .addAction("set alive",
-                        () -> setAlive(true),
-                        () -> setAlive(false))
+                    () -> setAlive(true),
+                    () -> setAlive(false))
                 .addAction("register pdp status context object",
-                        () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_OBJECT,
+                    () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_OBJECT,
                                 new PdpMessageHandler().createPdpStatusFromParameters(instanceId,
                                         apexStarterParameterGroup.getPdpStatusParameters())),
-                        () -> Registry.unregister(ApexStarterConstants.REG_PDP_STATUS_OBJECT))
+                    () -> Registry.unregister(ApexStarterConstants.REG_PDP_STATUS_OBJECT))
                 .addAction("topic sinks",
-                        () -> Registry.register(ApexStarterConstants.REG_APEX_PDP_TOPIC_SINKS, topicSinks),
-                        () -> Registry.unregister(ApexStarterConstants.REG_APEX_PDP_TOPIC_SINKS))
+                    () -> Registry.register(ApexStarterConstants.REG_APEX_PDP_TOPIC_SINKS, topicSinks),
+                    () -> Registry.unregister(ApexStarterConstants.REG_APEX_PDP_TOPIC_SINKS))
                 .addAction("Pdp Status publisher",
-                        () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER,
+                    () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER,
                                 new PdpStatusPublisher(topicSinks,
                                         apexStarterParameterGroup.getPdpStatusParameters().getTimeIntervalMs())),
-                        () -> stopAndRemovePdpStatusPublisher())
+                    () -> stopAndRemovePdpStatusPublisher())
                 .addAction("Register pdp update listener",
                     () -> msgDispatcher.register(PdpMessageType.PDP_UPDATE.name(), pdpUpdateListener),
                     () -> msgDispatcher.unregister(PdpMessageType.PDP_UPDATE.name()))
                 .addAction("Register pdp state change request dispatcher",
-                        () -> msgDispatcher.register(PdpMessageType.PDP_STATE_CHANGE.name(), pdpStateChangeListener),
-                        () -> msgDispatcher.unregister(PdpMessageType.PDP_STATE_CHANGE.name()))
+                    () -> msgDispatcher.register(PdpMessageType.PDP_STATE_CHANGE.name(), pdpStateChangeListener),
+                    () -> msgDispatcher.unregister(PdpMessageType.PDP_STATE_CHANGE.name()))
                 .addAction("Message Dispatcher",
                     () -> registerMsgDispatcher(),
                     () -> unregisterMsgDispatcher())
                 .addAction("Create REST server",
-                        () -> restServer =
+                    () -> restServer =
                                     new ApexStarterRestServer(apexStarterParameterGroup.getRestServerParameters()),
-                        () -> restServer = null)
+                    () -> restServer = null)
                 .addAction("Rest Server",
-                        () -> restServer.start(),
-                        () -> restServer.stop());
+                    () -> restServer.start(),
+                    () -> restServer.stop());
 
         // @formatter:on
     }

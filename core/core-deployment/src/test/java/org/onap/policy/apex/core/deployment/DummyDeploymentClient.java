@@ -136,10 +136,10 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
 
     /**
      * Handle and return the response to the engine status message.
-     * 
+     *
      * @param message the incoming status message
      * @param successFlag true if the result should be successful
-     * @return
+     * @return engine status success or not
      */
     private boolean handleAndReturnEngineStatus(Message message, boolean successFlag) {
         if ("DoNotRespond".equals(message.getTarget().getName())) {

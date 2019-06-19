@@ -25,7 +25,7 @@
  * task logic, task selection logic, and state finalizer logic respectively when that logic is
  * executing in an executor plugin under the control of an APEX engine.
  *
- * The AxStateFacade and AxTaskFacade classes provide facades and convenience
+ * <p>The AxStateFacade and AxTaskFacade classes provide facades and convenience
  * methods for state and task definition information for logic at execution time.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
