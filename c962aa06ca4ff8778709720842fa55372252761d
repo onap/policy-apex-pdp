@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd31c51c_c9592c11",
+        "filename": "examples/examples-onap-bbs/src/test/java/org/onap/policy/apex/examples/bbs/WebClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-19T18:29:47Z",
+      "side": 1,
+      "message": "maybe just remove try/catch block and add \"throws xxx\" to the method signature",
+      "revId": "c962aa06ca4ff8778709720842fa55372252761d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feadc71b_7c9f7e09",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/main/java/org/onap/policy/apex/plugins/event/carrier/jms/JmsCarrierTechnologyParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-19T18:29:47Z",
+      "side": 1,
+      "message": "maybe just call StringUtils.isEmpty() instead?  (Or eliminate this method altogether, replacing it with the above method call.)",
+      "revId": "c962aa06ca4ff8778709720842fa55372252761d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26691656_5abb76af",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/TestApexStarterMain.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-19T18:29:47Z",
+      "side": 1,
+      "message": "hmm.  Surprised this passes checkstyle, as I\u0027d expect it to require an additional four spaces of indentation.\n\nsame comment in later files",
+      "revId": "c962aa06ca4ff8778709720842fa55372252761d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
