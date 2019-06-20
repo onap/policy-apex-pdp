@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 huawei. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,32 +21,30 @@
 
 package org.onap.policy.apex.examples.bbs;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import javax.net.ssl.HttpsURLConnection;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class WebClientTest {
-    HttpsURLConnection mockedHttpsURLConnection;
+    HttpsURLConnection mockedHttpsUrlConnection;
     String sampleString = "Response Code :200";
     /**
      * Set up the mocked REST manager.
+     * @throws IOException
      */
     @Before
-    public void setupMockedRest() {
-        mockedHttpsURLConnection   = mock(HttpsURLConnection.class);
-        InputStream iStream = new ByteArrayInputStream(sampleString.getBytes());
-        try {
-            when(mockedHttpsURLConnection.getInputStream()).thenReturn(iStream);
-            Mockito.doNothing().when(mockedHttpsURLConnection).connect();
-        }catch (Exception e) {
-        }
-
+    public void setupMockedRest() throws IOException {
+        mockedHttpsUrlConnection   = mock(HttpsURLConnection.class);
+        InputStream inputStream = new ByteArrayInputStream(sampleString.getBytes());
+        when(mockedHttpsUrlConnection.getInputStream()).thenReturn(inputStream);
+        Mockito.doNothing().when(mockedHttpsUrlConnection).connect();
     }
 
     @Test
@@ -66,8 +65,8 @@ public class WebClientTest {
 
     @Test
     public void toPrettyString() {
-        String xmlSample = "<input xmlns=\"org:onap:sdnc:northbound:generic-resource\">" +
-                "<sdnc-request-header> <svc-action>update</svc-action> </sdnc-request-header></input>";
+        String xmlSample = "<input xmlns=\"org:onap:sdnc:northbound:generic-resource\">"
+                + "<sdnc-request-header> <svc-action>update</svc-action> </sdnc-request-header></input>";
         WebClient cl = new WebClient();
         cl.toPrettyString(xmlSample, 4);
     }

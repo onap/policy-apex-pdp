@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +23,15 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import java.util.Base64;
 import java.util.Properties;
-
 import javax.naming.Context;
-
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Apex parameters for JMS as an event carrier technology.
- * 
+ *
  * <p>The parameters for this plugin are:
  * <ol>
  * <li>initialContextFactory: JMS uses a naming {@link Context} object to look up the locations of JMS servers and JMS
@@ -329,38 +329,38 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     public GroupValidationResult validate() {
         final GroupValidationResult result = super.validate();
 
-        if (isNullOrBlank(initialContextFactory)) {
+        if (StringUtils.isBlank(initialContextFactory)) {
             result.setResult("initialContextFactory", ValidationStatus.INVALID,
                             "initialContextFactory must be specified as a string that is a class that implements the "
                                             + "interface org.jboss.naming.remote.client.InitialContextFactory");
         }
 
-        if (isNullOrBlank(providerUrl)) {
+        if (StringUtils.isBlank(providerUrl)) {
             result.setResult("providerUrl", ValidationStatus.INVALID,
                             "providerUrl must be specified as a URL string that specifies the location of "
                                             + "configuration information for the service provider to use "
                                             + "such as remote://localhost:4447");
         }
 
-        if (isNullOrBlank(securityPrincipal)) {
+        if (StringUtils.isBlank(securityPrincipal)) {
             result.setResult("securityPrincipal", ValidationStatus.INVALID,
                             "securityPrincipal must be specified the identity of the principal for authenticating "
                                             + "the caller to the service");
         }
 
-        if (isNullOrBlank(securityCredentials)) {
+        if (StringUtils.isBlank(securityCredentials)) {
             result.setResult("securityCredentials", ValidationStatus.INVALID,
                             "  securityCredentials must be specified as the credentials of the "
                                             + "principal for authenticating the caller to the service");
         }
 
-        if (isNullOrBlank(producerTopic)) {
+        if (StringUtils.isBlank(producerTopic)) {
             result.setResult("producerTopic", ValidationStatus.INVALID,
                             "  producerTopic must be a string that identifies the JMS topic "
                                             + "on which Apex will send events");
         }
 
-        if (isNullOrBlank(consumerTopic)) {
+        if (StringUtils.isBlank(consumerTopic)) {
             result.setResult("consumerTopic", ValidationStatus.INVALID,
                             "  consumerTopic must be a string that identifies the JMS topic "
                                             + "on which Apex will recieve events");
@@ -374,16 +374,6 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         return result;
     }
 
-    /**
-     * Check if the string is null or blank.
-     * 
-     * @param stringValue the string value 
-     * @return
-     */
-    private boolean isNullOrBlank(final String stringValue) {
-        return stringValue == null || stringValue.trim().length() == 0;
-    }
-    
     private String getDefaultCredential() {
         return new String(Base64.getDecoder().decode(DEFAULT_SECURITY_CREDENTIALS.getBytes()));
     }

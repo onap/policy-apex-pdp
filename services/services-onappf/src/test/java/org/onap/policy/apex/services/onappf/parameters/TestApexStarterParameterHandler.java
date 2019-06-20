@@ -116,7 +116,7 @@ public class TestApexStarterParameterHandler {
     @Test
     public void testApexStarterParameterGroup_InvalidName() throws ApexStarterException {
         final String[] apexStarterConfigParameters =
-                { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
+        { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
 
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         arguments.parse(apexStarterConfigParameters);

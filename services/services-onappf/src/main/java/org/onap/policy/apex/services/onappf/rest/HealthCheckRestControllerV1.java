@@ -51,15 +51,15 @@ import org.onap.policy.common.endpoints.report.HealthCheckReport;
 @Api(value = "PDP-A API")
 @Produces(MediaType.APPLICATION_JSON)
 @SwaggerDefinition(
- info = @Info(description =
+    info = @Info(description =
                  "PDP-A is responsible for making policy decisions and for managing the administrative"
                          + " state of the PDPs as directed by PolicyAdministration", version = "v1.0",
                  title = "PDP-A"),
- consumes = {MediaType.APPLICATION_JSON},
- produces = {MediaType.APPLICATION_JSON},
- schemes = {SwaggerDefinition.Scheme.HTTP, SwaggerDefinition.Scheme.HTTPS},
- tags = {@Tag(name = "PDP-A", description = "PDP-A Operations")},
- securityDefinition = @SecurityDefinition(basicAuthDefinitions = {@BasicAuthDefinition(key = "basicAuth")}))
+    consumes = {MediaType.APPLICATION_JSON},
+    produces = {MediaType.APPLICATION_JSON},
+    schemes = {SwaggerDefinition.Scheme.HTTP, SwaggerDefinition.Scheme.HTTPS},
+    tags = {@Tag(name = "PDP-A", description = "PDP-A Operations")},
+    securityDefinition = @SecurityDefinition(basicAuthDefinitions = {@BasicAuthDefinition(key = "basicAuth")}))
 //@formatter:on
 public class HealthCheckRestControllerV1 {
 

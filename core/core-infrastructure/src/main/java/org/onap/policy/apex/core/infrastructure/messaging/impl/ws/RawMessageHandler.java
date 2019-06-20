@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws;
 
 import com.google.common.eventbus.Subscribe;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.MessageBlock;
@@ -93,7 +92,7 @@ public class RawMessageHandler<M> implements WebSocketMessageListener<M>, Runnab
         // processing thread
 
         try (final ByteArrayInputStream stream = new ByteArrayInputStream(dataByteBuffer.array());
-                        final ObjectInputStream ois = new ObjectInputStream(stream);) {
+                        final ObjectInputStream ois = new ObjectInputStream(stream)) {
             @SuppressWarnings("unchecked")
             final MessageHolder<M> messageHolder = (MessageHolder<M>) ois.readObject();
 
