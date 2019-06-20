@@ -140,6 +140,24 @@
       "revId": "c962aa06ca4ff8778709720842fa55372252761d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c12d58ac_7c6c01a2",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/TestApexStarterMain.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-20T13:17:21Z",
+      "side": 1,
+      "message": "hmm.  Makes me think there\u0027s a problem with the maven checkstyle plugin.",
+      "parentUuid": "4c4559e6_c6a06063",
+      "revId": "c962aa06ca4ff8778709720842fa55372252761d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
