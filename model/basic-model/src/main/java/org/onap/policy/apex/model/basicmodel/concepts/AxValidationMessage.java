@@ -53,7 +53,7 @@ public class AxValidationMessage {
         Assertions.argumentNotNull(message, "message may not be null");
 
         this.observedKey = observedKey;
-        this.observedClass = observedClass.getCanonicalName();
+        this.observedClass = observedClass.getName();
         this.validationResult = validationResult;
         this.message = message;
     }

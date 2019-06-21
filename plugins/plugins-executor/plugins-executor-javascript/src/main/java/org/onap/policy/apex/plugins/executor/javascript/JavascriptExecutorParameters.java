@@ -35,8 +35,8 @@ public class JavascriptExecutorParameters extends ExecutorParameters {
      * Constructor that sets the abstract implementation classes.
      */
     public JavascriptExecutorParameters() {
-        this.setTaskExecutorPluginClass(JavascriptTaskExecutor.class.getCanonicalName());
-        this.setTaskSelectionExecutorPluginClass(JavascriptTaskSelectExecutor.class.getCanonicalName());
-        this.setStateFinalizerExecutorPluginClass(JavascriptStateFinalizerExecutor.class.getCanonicalName());
+        this.setTaskExecutorPluginClass(JavascriptTaskExecutor.class.getName());
+        this.setTaskSelectionExecutorPluginClass(JavascriptTaskSelectExecutor.class.getName());
+        this.setStateFinalizerExecutorPluginClass(JavascriptStateFinalizerExecutor.class.getName());
     }
 }

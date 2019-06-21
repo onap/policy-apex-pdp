@@ -119,8 +119,8 @@ public class SequentialContextInstantiation {
             try {
                 dateAlbum.put("tci9", tci9);
             } catch (final Exception e) {
-                final String message = "class \"" + TestContextDateTzItem.class.getCanonicalName()
-                                + "\" not compatible with class \"" + TestContextDateLocaleItem.class.getCanonicalName()
+                final String message = "class \"" + TestContextDateTzItem.class.getName()
+                                + "\" not compatible with class \"" + TestContextDateLocaleItem.class.getName()
                                 + "\"";
                 assertTrue(e.getMessage().contains(message));
                 LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
@@ -151,7 +151,7 @@ public class SequentialContextInstantiation {
                 fail(EXCEPTION_MESSAGE);
             } catch (final Exception e) {
                 assertTrue(e.getMessage().endsWith("not compatible with class \""
-                                + TestContextDateLocaleItem.class.getCanonicalName() + "\""));
+                                + TestContextDateLocaleItem.class.getName() + "\""));
                 LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
             }
             assertEquals(5, dateAlbum1.size());

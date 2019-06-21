@@ -59,10 +59,10 @@ public class EventProtocolParametersJsonAdapter
 
     // Built in event protocol parameters
     private static final Map<String, String> BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP = new HashMap<>();
-    
+
     static {
-        BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("JSON", JsonEventProtocolParameters.class.getCanonicalName());
-        BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("APEX", ApexEventProtocolParameters.class.getCanonicalName());
+        BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("JSON", JsonEventProtocolParameters.class.getName());
+        BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("APEX", ApexEventProtocolParameters.class.getName());
     }
 
     /*

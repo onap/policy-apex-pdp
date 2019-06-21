@@ -49,10 +49,10 @@ public class RestServerCarrierTechnologyParameters extends CarrierTechnologyPara
     public static final String RESTSERVER_CARRIER_TECHNOLOGY_LABEL = "RESTSERVER";
 
     /** The producer plugin class for the REST carrier technology. */
-    public static final String RESTSERVER_EVENT_PRODUCER_PLUGIN_CLASS = ApexRestServerProducer.class.getCanonicalName();
+    public static final String RESTSERVER_EVENT_PRODUCER_PLUGIN_CLASS = ApexRestServerProducer.class.getName();
 
     /** The consumer plugin class for the REST carrier technology. */
-    public static final String RESTSERVER_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestServerConsumer.class.getCanonicalName();
+    public static final String RESTSERVER_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestServerConsumer.class.getName();
 
     // REST server parameters
     private boolean standalone = false;

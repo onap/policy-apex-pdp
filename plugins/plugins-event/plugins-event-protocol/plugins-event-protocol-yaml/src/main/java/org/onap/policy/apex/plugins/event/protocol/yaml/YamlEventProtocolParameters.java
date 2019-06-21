@@ -89,7 +89,7 @@ public class YamlEventProtocolParameters extends EventProtocolTextTokenDelimited
         this.setEndDelimiterToken(YAML_END_TEXT_DELIMITER_TOKEN);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(Apex2YamlEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(Apex2YamlEventConverter.class.getName());
     }
 
     /**

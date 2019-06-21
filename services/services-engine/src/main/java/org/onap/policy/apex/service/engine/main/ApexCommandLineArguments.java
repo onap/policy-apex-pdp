@@ -151,7 +151,7 @@ public class ApexCommandLineArguments {
         }
 
         if (commandLine.hasOption('h')) {
-            return help(ApexMain.class.getCanonicalName());
+            return help(ApexMain.class.getName());
         }
 
         if (commandLine.hasOption('v')) {

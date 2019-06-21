@@ -44,10 +44,10 @@ public class JmsCarrierTechnologyParametersTest {
     public static final String JMS_CARRIER_TECHNOLOGY_LABEL = "JMS";
 
     public static final String JMS_EVENT_PRODUCER_PLUGIN_CLASS =
-            ApexJmsProducer.class.getCanonicalName();
+            ApexJmsProducer.class.getName();
 
     public static final String JMS_EVENT_CONSUMER_PLUGIN_CLASS =
-            ApexJmsConsumer.class.getCanonicalName();
+            ApexJmsConsumer.class.getName();
 
     private static final String DEFAULT_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
     private static final String DEFAULT_INITIAL_CTXT_FACTORY =

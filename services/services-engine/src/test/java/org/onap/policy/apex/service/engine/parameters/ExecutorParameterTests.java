@@ -211,7 +211,7 @@ public class ExecutorParameterTests {
             assertEquals(19, parameters.getEngineServiceParameters().getInstanceCount());
             assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
             assertTrue(parameters.getEngineServiceParameters().getPolicyModelFileName()
-                            .endsWith("/src/test/resources/policymodels/SmallModel.json"));
+                            .endsWith("policymodels/SmallModel.json"));
         } catch (final ParameterException e) {
             fail("This test should not throw any exception: " + e.getMessage());
         }

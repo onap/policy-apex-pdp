@@ -43,7 +43,7 @@ public class SampleDomainModelSaverTest {
             SampleDomainModelSaver.main(null);
             fail("test should throw an exception");
         } catch (Exception exc) {
-            assertEquals("java.lang.NullPointerException", exc.getClass().getCanonicalName());
+            assertEquals("java.lang.NullPointerException", exc.getClass().getName());
         }
 
         String[] args0 =

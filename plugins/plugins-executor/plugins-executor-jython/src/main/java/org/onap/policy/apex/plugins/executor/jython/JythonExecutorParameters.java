@@ -35,8 +35,8 @@ public class JythonExecutorParameters extends ExecutorParameters {
      * Constructor that sets the abstract implementation classes.
      */
     public JythonExecutorParameters() {
-        this.setTaskExecutorPluginClass(JythonTaskExecutor.class.getCanonicalName());
-        this.setTaskSelectionExecutorPluginClass(JythonTaskSelectExecutor.class.getCanonicalName());
-        this.setStateFinalizerExecutorPluginClass(JythonStateFinalizerExecutor.class.getCanonicalName());
+        this.setTaskExecutorPluginClass(JythonTaskExecutor.class.getName());
+        this.setTaskSelectionExecutorPluginClass(JythonTaskSelectExecutor.class.getName());
+        this.setStateFinalizerExecutorPluginClass(JythonStateFinalizerExecutor.class.getName());
     }
 }

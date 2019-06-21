@@ -60,12 +60,12 @@ public class CarrierTechnologyParametersJsonAdapter
 
     // Built in technology parameters
     private static final Map<String, String> BUILT_IN_CARRIER_TECHNOLOGY_PARMETER_CLASS_MAP = new HashMap<>();
-    
+
     static {
         BUILT_IN_CARRIER_TECHNOLOGY_PARMETER_CLASS_MAP.put("FILE",
-                FileCarrierTechnologyParameters.class.getCanonicalName());
+                FileCarrierTechnologyParameters.class.getName());
         BUILT_IN_CARRIER_TECHNOLOGY_PARMETER_CLASS_MAP.put("EVENT_REQUESTOR",
-                EventRequestorCarrierTechnologyParameters.class.getCanonicalName());
+                EventRequestorCarrierTechnologyParameters.class.getName());
     }
 
     /*

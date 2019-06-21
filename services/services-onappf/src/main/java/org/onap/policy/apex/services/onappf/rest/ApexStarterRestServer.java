@@ -62,7 +62,7 @@ public class ApexStarterRestServer implements Startable {
             servers = HttpServletServer.factory.build(getServerProperties());
             for (final HttpServletServer server : servers) {
                 if (server.isAaf()) {
-                    server.addFilterClass(null, ApexStarterAafFilter.class.getCanonicalName());
+                    server.addFilterClass(null, ApexStarterAafFilter.class.getName());
                 }
                 server.start();
             }
@@ -89,7 +89,7 @@ public class ApexStarterRestServer implements Startable {
         props.setProperty(svcpfx + PolicyEndPointProperties.PROPERTY_HTTP_PORT_SUFFIX,
                 Integer.toString(restServerParameters.getPort()));
         props.setProperty(svcpfx + PolicyEndPointProperties.PROPERTY_HTTP_REST_CLASSES_SUFFIX,
-                HealthCheckRestControllerV1.class.getCanonicalName());
+                HealthCheckRestControllerV1.class.getName());
         props.setProperty(svcpfx + PolicyEndPointProperties.PROPERTY_MANAGED_SUFFIX, "false");
         props.setProperty(svcpfx + PolicyEndPointProperties.PROPERTY_HTTP_SWAGGER_SUFFIX, "true");
         props.setProperty(svcpfx + PolicyEndPointProperties.PROPERTY_HTTP_AUTH_USERNAME_SUFFIX,

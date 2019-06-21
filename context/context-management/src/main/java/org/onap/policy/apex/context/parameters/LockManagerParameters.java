@@ -35,7 +35,7 @@ public class LockManagerParameters implements ParameterGroup {
     /**
      * The default lock manager can lock context album instance across all threads in a single JVM.
      */
-    public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JvmLocalLockManager.class.getCanonicalName();
+    public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JvmLocalLockManager.class.getName();
 
     private String name;
     private String pluginClass = DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;

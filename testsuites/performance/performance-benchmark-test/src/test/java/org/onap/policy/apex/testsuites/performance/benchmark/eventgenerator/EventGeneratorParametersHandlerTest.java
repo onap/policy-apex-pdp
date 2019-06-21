@@ -23,6 +23,7 @@ package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.apache.commons.cli.ParseException;
@@ -257,9 +258,7 @@ public class EventGeneratorParametersHandlerTest {
             handler.parse(args);
             fail("test should throw an exception");
         } catch (ParseException pe) {
-            assertEquals("Could not read parameters from configuration file "
-                            + "\"src/test/resources/parameters/unit/NonExistant.json\": "
-                            + "src/test/resources/parameters/unit/NonExistant.json", pe.getMessage());
+            assertTrue(pe.getMessage().startsWith("Could not read parameters from configuration file "));
         }
 
         try {

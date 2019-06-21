@@ -35,8 +35,8 @@ public class JrubyExecutorParameters extends ExecutorParameters {
      * Constructor that sets the abstract implementation classes.
      */
     public JrubyExecutorParameters() {
-        this.setTaskExecutorPluginClass(JrubyTaskExecutor.class.getCanonicalName());
-        this.setTaskSelectionExecutorPluginClass(JrubyTaskSelectExecutor.class.getCanonicalName());
-        this.setStateFinalizerExecutorPluginClass(JrubyStateFinalizerExecutor.class.getCanonicalName());
+        this.setTaskExecutorPluginClass(JrubyTaskExecutor.class.getName());
+        this.setTaskSelectionExecutorPluginClass(JrubyTaskSelectExecutor.class.getName());
+        this.setStateFinalizerExecutorPluginClass(JrubyStateFinalizerExecutor.class.getName());
     }
 }

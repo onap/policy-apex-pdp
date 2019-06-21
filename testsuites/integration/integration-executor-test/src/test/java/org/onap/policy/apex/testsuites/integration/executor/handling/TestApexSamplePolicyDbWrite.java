@@ -55,7 +55,7 @@ public class TestApexSamplePolicyDbWrite {
     @Test
     public void testModelWriteReadJpa() throws Exception {
         final DaoParameters DaoParameters = new DaoParameters();
-        DaoParameters.setPluginClass(DefaultApexDao.class.getCanonicalName());
+        DaoParameters.setPluginClass(DefaultApexDao.class.getName());
         DaoParameters.setPersistenceUnit("SampleModelTest");
 
         Connection connection = DriverManager.getConnection("jdbc:h2:mem:testdb");

@@ -49,10 +49,10 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
     public static final String FILE_CARRIER_TECHNOLOGY_LABEL = "FILE";
 
     /** The producer plugin class for the FILE carrier technology. */
-    public static final String FILE_EVENT_PRODUCER_PLUGIN_CLASS = ApexFileEventProducer.class.getCanonicalName();
+    public static final String FILE_EVENT_PRODUCER_PLUGIN_CLASS = ApexFileEventProducer.class.getName();
 
     /** The consumer plugin class for the FILE carrier technology. */
-    public static final String FILE_EVENT_CONSUMER_PLUGIN_CLASS = ApexFileEventConsumer.class.getCanonicalName();
+    public static final String FILE_EVENT_CONSUMER_PLUGIN_CLASS = ApexFileEventConsumer.class.getName();
 
     // Recurring strings
     private static final String FILE_NAME_TOKEN = "fileName";

@@ -40,7 +40,7 @@ import org.slf4j.ext.XLoggerFactory;
  * The Class HazelcastContextDistributorTest.
  */
 public class HazelcastContextDistributorTest {
-    private static final String HAZEL_CAST_PLUGIN_CLASS = HazelcastContextDistributor.class.getCanonicalName();
+    private static final String HAZEL_CAST_PLUGIN_CLASS = HazelcastContextDistributor.class.getName();
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(HazelcastContextDistributorTest.class);
 

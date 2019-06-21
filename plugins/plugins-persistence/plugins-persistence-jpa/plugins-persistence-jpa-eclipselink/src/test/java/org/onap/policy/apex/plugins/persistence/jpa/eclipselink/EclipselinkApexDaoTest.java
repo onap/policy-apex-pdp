@@ -62,7 +62,7 @@ public class EclipselinkApexDaoTest {
      */
     @Before
     public void setup() throws ApexException {
-        daoParameters.setPluginClass(EclipselinkApexDao.class.getCanonicalName());
+        daoParameters.setPluginClass(EclipselinkApexDao.class.getName());
         daoParameters.setPersistenceUnit("DAOTest");
         eclipselinkApexDao = new EclipselinkApexDao();
         eclipselinkApexDao.init(daoParameters);

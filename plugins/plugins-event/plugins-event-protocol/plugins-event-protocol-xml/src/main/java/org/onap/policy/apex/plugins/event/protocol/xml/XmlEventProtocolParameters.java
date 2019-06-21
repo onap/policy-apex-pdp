@@ -48,6 +48,6 @@ public class XmlEventProtocolParameters extends EventProtocolTextTokenDelimitedP
         this.setStartDelimiterToken(XML_TEXT_DELIMITER_TOKEN);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(Apex2XmlEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(Apex2XmlEventConverter.class.getName());
     }
 }

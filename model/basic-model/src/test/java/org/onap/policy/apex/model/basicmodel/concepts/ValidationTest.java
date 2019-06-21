@@ -88,7 +88,7 @@ public class ValidationTest {
 
         assertEquals(AxValidationResult.ValidationResult.INVALID, result.getMessageList().get(3).getValidationResult());
         assertEquals("Some message", result.getMessageList().get(3).getMessage());
-        assertEquals(AxArtifactKey.class.getCanonicalName(), result.getMessageList().get(3).getObservedClass());
+        assertEquals(AxArtifactKey.class.getName(), result.getMessageList().get(3).getObservedClass());
         assertEquals(AxArtifactKey.getNullKey(), result.getMessageList().get(3).getObservedKey());
     }
 }

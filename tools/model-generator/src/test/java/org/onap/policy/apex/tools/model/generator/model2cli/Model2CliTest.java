@@ -54,7 +54,7 @@ public class Model2CliTest {
         final String outputString = runModel2Cli(cliArgs);
 
         assertTrue(outputString
-                        .contains("gen-model2cli: no '-m' model file given, cannot proceed (try -h for help)\n"));
+                        .contains("gen-model2cli: no '-m' model file given, cannot proceed (try -h for help)"));
     }
 
     @Test

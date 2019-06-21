@@ -46,6 +46,6 @@ public class SuperTokenDelimitedEventProtocolParameters extends EventProtocolTex
         this.setStartDelimiterToken(SUPER_TOKEN_DELIMITER);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(SuperTokenDelimitedEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(SuperTokenDelimitedEventConverter.class.getName());
     }
 }

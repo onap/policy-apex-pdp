@@ -86,7 +86,7 @@ public class JmsObjectEventProtocolParameters extends EventProtocolParameters {
         this.setLabel(JMS_OBJECT_EVENT_PROTOCOL_LABEL);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(Apex2JmsObjectEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(Apex2JmsObjectEventConverter.class.getName());
     }
 
     /**

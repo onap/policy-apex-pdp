@@ -220,7 +220,7 @@ public class EngineServiceImplTest {
         }
 
         String status = esImpl.getStatus(esImpl.getEngineKeys().iterator().next());
-        assertEquals("{\n   \"apexEngineModel\" :", status.substring(0, 24));
+        assertTrue(status.contains("\n   \"apexEngineModel\" :"));
 
         assertFalse(esImpl.isStarted());
         assertFalse(esImpl.isStarted(null));
@@ -453,8 +453,7 @@ public class EngineServiceImplTest {
         assertEquals(AxEngineState.EXECUTING, esImpl.getState());
 
         String status = esImpl.getStatus(esImpl.getEngineKeys().iterator().next());
-        assertEquals("{\n   \"apexEngineModel\" :", status.substring(0, 24));
-
+        assertTrue(status.contains("\n   \"apexEngineModel\" :"));
         assertTrue(esImpl.isStarted());
         assertTrue(esImpl.isStarted(esImpl.getEngineKeys().iterator().next()));
         assertFalse(esImpl.isStopped());

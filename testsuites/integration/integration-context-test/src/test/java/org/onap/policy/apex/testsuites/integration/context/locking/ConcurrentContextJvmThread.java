@@ -71,7 +71,7 @@ public class ConcurrentContextJvmThread implements Runnable, Closeable {
         commandList.add("-Xmx512m");
         commandList.add("-cp");
         commandList.add(System.getProperty("java.class.path"));
-        commandList.add(ConcurrentContextJvm.class.getCanonicalName());
+        commandList.add(ConcurrentContextJvm.class.getName());
         commandList.add(configrationProvider.getTestName());
         commandList.add(Integer.toString(jvm));
         commandList.add(Integer.toString(configrationProvider.getThreadCount()));
@@ -81,7 +81,7 @@ public class ConcurrentContextJvmThread implements Runnable, Closeable {
         commandList.add(System.getProperty("hazelcast.config", ""));
 
         for (final Entry<String, ParameterGroup> parameterServiceEntry : ParameterService.getAll()) {
-            commandList.add(parameterServiceEntry.getValue().getClass().getCanonicalName());
+            commandList.add(parameterServiceEntry.getValue().getClass().getName());
             commandList.add(new Gson().toJson(parameterServiceEntry.getValue()));
         }
 

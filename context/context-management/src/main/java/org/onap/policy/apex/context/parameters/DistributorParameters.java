@@ -33,7 +33,7 @@ import org.onap.policy.common.parameters.ParameterGroup;
  */
 public class DistributorParameters implements ParameterGroup {
     /** The default distributor makes context albums available to all threads in a single JVM. */
-    public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JvmLocalDistributor.class.getCanonicalName();
+    public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JvmLocalDistributor.class.getName();
 
     private String name;
     private String pluginClass = DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;

@@ -64,7 +64,7 @@ public class ApexCommandLineEditorMain {
             parameters = parser.parse(args);
 
             if (parameters.isHelpSet()) {
-                parser.help(ApexCommandLineEditorMain.class.getCanonicalName());
+                parser.help(ApexCommandLineEditorMain.class.getName());
                 return;
             }
             parameters.validate();

@@ -38,10 +38,10 @@ public class WebSocketCarrierTechnologyParameters extends CarrierTechnologyParam
     public static final String WEB_SCOKET_CARRIER_TECHNOLOGY_LABEL = "WEBSOCKET";
 
     /** The producer plugin class for the web socket carrier technology. */
-    public static final String WEB_SCOKET_EVENT_PRODUCER_PLUGIN_CLASS = ApexWebSocketProducer.class.getCanonicalName();
+    public static final String WEB_SCOKET_EVENT_PRODUCER_PLUGIN_CLASS = ApexWebSocketProducer.class.getName();
 
     /** The consumer plugin class for the web socket carrier technology. */
-    public static final String KWEB_SCOKET_EVENT_CONSUMER_PLUGIN_CLASS = ApexWebSocketConsumer.class.getCanonicalName();
+    public static final String KWEB_SCOKET_EVENT_CONSUMER_PLUGIN_CLASS = ApexWebSocketConsumer.class.getName();
 
     // Default parameter values
     private static final String DEFAULT_HOST = "localhost";

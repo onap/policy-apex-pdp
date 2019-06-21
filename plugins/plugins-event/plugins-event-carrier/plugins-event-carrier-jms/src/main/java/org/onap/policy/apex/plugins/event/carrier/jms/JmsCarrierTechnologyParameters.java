@@ -75,10 +75,10 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     public static final String JMS_CARRIER_TECHNOLOGY_LABEL = "JMS";
 
     /** The producer plugin class for the JMS carrier technology. */
-    public static final String JMS_EVENT_PRODUCER_PLUGIN_CLASS = ApexJmsProducer.class.getCanonicalName();
+    public static final String JMS_EVENT_PRODUCER_PLUGIN_CLASS = ApexJmsProducer.class.getName();
 
     /** The consumer plugin class for the JMS carrier technology. */
-    public static final String JMS_EVENT_CONSUMER_PLUGIN_CLASS = ApexJmsConsumer.class.getCanonicalName();
+    public static final String JMS_EVENT_CONSUMER_PLUGIN_CLASS = ApexJmsConsumer.class.getName();
 
     // @formatter:off
 

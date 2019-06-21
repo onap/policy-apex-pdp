@@ -35,8 +35,8 @@ public class JavaExecutorParameters extends ExecutorParameters {
      * Constructor that sets the abstract implementation classes.
      */
     public JavaExecutorParameters() {
-        this.setTaskExecutorPluginClass(JavaTaskExecutor.class.getCanonicalName());
-        this.setTaskSelectionExecutorPluginClass(JavaTaskSelectExecutor.class.getCanonicalName());
-        this.setStateFinalizerExecutorPluginClass(JavaStateFinalizerExecutor.class.getCanonicalName());
+        this.setTaskExecutorPluginClass(JavaTaskExecutor.class.getName());
+        this.setTaskSelectionExecutorPluginClass(JavaTaskSelectExecutor.class.getName());
+        this.setStateFinalizerExecutorPluginClass(JavaStateFinalizerExecutor.class.getName());
     }
 }

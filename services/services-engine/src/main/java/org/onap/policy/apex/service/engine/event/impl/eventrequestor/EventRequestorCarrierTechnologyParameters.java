@@ -36,11 +36,11 @@ public class EventRequestorCarrierTechnologyParameters extends CarrierTechnology
 
     /** The producer plugin class for the EVENT_REQUESTOR carrier technology. */
     public static final String EVENT_REQUESTOR_EVENT_PRODUCER_PLUGIN_CLASS =
-            EventRequestorProducer.class.getCanonicalName();
+            EventRequestorProducer.class.getName();
 
     /** The consumer plugin class for the EVENT_REQUESTOR carrier technology. */
     public static final String EVENT_REQUESTOR_EVENT_CONSUMER_PLUGIN_CLASS =
-            EventRequestorConsumer.class.getCanonicalName();
+            EventRequestorConsumer.class.getName();
     // @formatter:on
 
     /**

@@ -53,10 +53,10 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     public static final String RESTCLIENT_CARRIER_TECHNOLOGY_LABEL = "RESTCLIENT";
 
     /** The producer plugin class for the REST carrier technology. */
-    public static final String RESTCLIENT_EVENT_PRODUCER_PLUGIN_CLASS = ApexRestClientProducer.class.getCanonicalName();
+    public static final String RESTCLIENT_EVENT_PRODUCER_PLUGIN_CLASS = ApexRestClientProducer.class.getName();
 
     /** The consumer plugin class for the REST carrier technology. */
-    public static final String RESTCLIENT_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestClientConsumer.class.getCanonicalName();
+    public static final String RESTCLIENT_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestClientConsumer.class.getName();
 
     // Commonly occurring strings
     private static final String HTTP_HEADERS = "httpHeaders";

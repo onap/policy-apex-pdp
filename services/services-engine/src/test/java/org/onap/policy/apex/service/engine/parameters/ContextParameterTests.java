@@ -136,7 +136,7 @@ public class ContextParameterTests {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
             assertEquals("org.onap.policy.apex.context.parameters.ContextParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getClass().getCanonicalName());
+                                            .getClass().getName());
             assertEquals(123456, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
                             .getPersistorParameters().getFlushPeriod());
         } catch (final ParameterException e) {
@@ -154,7 +154,7 @@ public class ContextParameterTests {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
             assertEquals("org.onap.policy.apex.context.parameters.ContextParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getClass().getCanonicalName());
+                                            .getClass().getName());
             assertEquals(300000, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
                             .getPersistorParameters().getFlushPeriod());
         } catch (final ParameterException e) {
@@ -172,10 +172,10 @@ public class ContextParameterTests {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
             assertEquals("org.onap.policy.apex.context.parameters.ContextParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getClass().getCanonicalName());
+                                            .getClass().getName());
             assertEquals("org.onap.policy.apex.context.parameters.DistributorParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getDistributorParameters().getClass().getCanonicalName());
+                                            .getDistributorParameters().getClass().getName());
         } catch (final ParameterException e) {
             fail("This test should not throw any exception: " + e.getMessage());
         }
@@ -191,16 +191,16 @@ public class ContextParameterTests {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
             assertEquals("org.onap.policy.apex.context.parameters.ContextParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getClass().getCanonicalName());
+                                            .getClass().getName());
             assertEquals("org.onap.policy.apex.context.parameters.DistributorParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getDistributorParameters().getClass().getCanonicalName());
+                                            .getDistributorParameters().getClass().getName());
             assertEquals("org.onap.policy.apex.context.parameters.LockManagerParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getLockManagerParameters().getClass().getCanonicalName());
+                                            .getLockManagerParameters().getClass().getName());
             assertEquals("org.onap.policy.apex.context.parameters.PersistorParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getPersistorParameters().getClass().getCanonicalName());
+                                            .getPersistorParameters().getClass().getName());
             assertEquals(300000, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
                             .getPersistorParameters().getFlushPeriod());
         } catch (final ParameterException e) {
@@ -218,13 +218,13 @@ public class ContextParameterTests {
             final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
             assertEquals("org.onap.policy.apex.context.parameters.ContextParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getClass().getCanonicalName());
+                                            .getClass().getName());
             assertEquals("org.onap.policy.apex.context.parameters.LockManagerParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getLockManagerParameters().getClass().getCanonicalName());
+                                            .getLockManagerParameters().getClass().getName());
             assertEquals("org.onap.policy.apex.context.parameters.PersistorParameters",
                             parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                                            .getPersistorParameters().getClass().getCanonicalName());
+                                            .getPersistorParameters().getClass().getName());
             assertEquals(123456, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
                             .getPersistorParameters().getFlushPeriod());
 
@@ -232,7 +232,7 @@ public class ContextParameterTests {
                             .getEngineServiceParameters().getEngineParameters().getContextParameters()
                             .getDistributorParameters();
             assertEquals("org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperDistributorParameters",
-                            infinispanParameters.getClass().getCanonicalName());
+                            infinispanParameters.getClass().getName());
             assertEquals("my/lovely/configFile.xml", infinispanParameters.getConfigFile());
             assertEquals("holy/stone.xml", infinispanParameters.getJgroupsFile());
             assertEquals(false, infinispanParameters.isPreferIPv4Stack());

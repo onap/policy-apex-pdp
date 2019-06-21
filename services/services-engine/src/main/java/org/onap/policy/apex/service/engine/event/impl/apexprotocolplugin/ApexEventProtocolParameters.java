@@ -51,6 +51,6 @@ public class ApexEventProtocolParameters extends EventProtocolParameters {
         this.setLabel(eventProtocolLabel);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(Apex2ApexEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(Apex2ApexEventConverter.class.getName());
     }
 }

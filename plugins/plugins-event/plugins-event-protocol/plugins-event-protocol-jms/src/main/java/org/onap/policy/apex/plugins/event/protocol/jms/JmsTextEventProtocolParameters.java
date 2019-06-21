@@ -51,6 +51,6 @@ public class JmsTextEventProtocolParameters extends JsonEventProtocolParameters 
         this.setLabel(JMS_TEXT_EVENT_PROTOCOL_LABEL);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(Apex2JmsTextEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(Apex2JmsTextEventConverter.class.getName());
     }
 }

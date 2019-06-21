@@ -89,12 +89,12 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
         this.setEndChar(JSON_TEXT_BLOCK_END_DELIMITER);
 
         // Set the event protocol plugin class
-        this.setEventProtocolPluginClass(Apex2JsonEventConverter.class.getCanonicalName());
+        this.setEventProtocolPluginClass(Apex2JsonEventConverter.class.getName());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.common.parameters.ParameterGroup#getName()
      */
     @Override

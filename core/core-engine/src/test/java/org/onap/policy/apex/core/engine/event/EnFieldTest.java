@@ -84,7 +84,7 @@ public class EnFieldTest {
         assertEquals(fieldKey, field.getKey());
         assertEquals("MyField", field.getName());
         assertEquals("org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelper",
-                        field.getSchemaHelper().getClass().getCanonicalName());
+                        field.getSchemaHelper().getClass().getName());
         assertEquals(123, field.getAssignableValue());
         assertEquals("EnField [axField=AxField:(key=AxReferenceKey:(parentKeyName=Parent,parentKeyVersion=0.0.1,"
                         + "parentLocalName=MyParent,localName=MyField),fieldSchemaKey=AxArtifactKey:"

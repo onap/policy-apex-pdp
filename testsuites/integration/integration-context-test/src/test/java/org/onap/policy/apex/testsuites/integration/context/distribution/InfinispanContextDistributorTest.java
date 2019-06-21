@@ -43,7 +43,7 @@ import org.slf4j.ext.XLoggerFactory;
 public class InfinispanContextDistributorTest {
     private static final XLogger logger = XLoggerFactory.getXLogger(InfinispanContextDistributorTest.class);
 
-    private static final String PLUGIN_CLASS = InfinispanContextDistributor.class.getCanonicalName();
+    private static final String PLUGIN_CLASS = InfinispanContextDistributor.class.getName();
 
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;

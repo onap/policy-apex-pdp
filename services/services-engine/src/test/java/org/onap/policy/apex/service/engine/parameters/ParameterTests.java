@@ -206,9 +206,9 @@ public class ParameterTests {
                     .getCarrierTechnologyParameters().getLabel());
             assertEquals("FILE", parameters.getEventOutputParameters().get("MyOtherProducer")
                     .getCarrierTechnologyParameters().getLabel());
-            assertEquals(ApexFileEventProducer.class.getCanonicalName(), parameters.getEventOutputParameters()
+            assertEquals(ApexFileEventProducer.class.getName(), parameters.getEventOutputParameters()
                     .get("MyOtherProducer").getCarrierTechnologyParameters().getEventProducerPluginClass());
-            assertEquals(ApexFileEventConsumer.class.getCanonicalName(), parameters.getEventOutputParameters()
+            assertEquals(ApexFileEventConsumer.class.getName(), parameters.getEventOutputParameters()
                     .get("MyOtherProducer").getCarrierTechnologyParameters().getEventConsumerPluginClass());
             assertEquals("JSON",
                     parameters.getEventOutputParameters().get("FirstProducer").getEventProtocolParameters().getLabel());
@@ -225,13 +225,13 @@ public class ParameterTests {
                     .getEventProtocolParameters().getLabel());
             assertEquals("SUPER_TOK_DEL", parameters.getEventInputParameters().get("MySuperDooperConsumer1")
                     .getEventProtocolParameters().getLabel());
-            assertEquals(ApexFileEventProducer.class.getCanonicalName(), parameters.getEventInputParameters()
+            assertEquals(ApexFileEventProducer.class.getName(), parameters.getEventInputParameters()
                     .get("TheFileConsumer1").getCarrierTechnologyParameters().getEventProducerPluginClass());
-            assertEquals(ApexFileEventConsumer.class.getCanonicalName(), parameters.getEventInputParameters()
+            assertEquals(ApexFileEventConsumer.class.getName(), parameters.getEventInputParameters()
                     .get("TheFileConsumer1").getCarrierTechnologyParameters().getEventConsumerPluginClass());
-            assertEquals(SuperDooperEventProducer.class.getCanonicalName(), parameters.getEventInputParameters()
+            assertEquals(SuperDooperEventProducer.class.getName(), parameters.getEventInputParameters()
                     .get("MySuperDooperConsumer1").getCarrierTechnologyParameters().getEventProducerPluginClass());
-            assertEquals(SuperDooperEventSubscriber.class.getCanonicalName(), parameters.getEventInputParameters()
+            assertEquals(SuperDooperEventSubscriber.class.getName(), parameters.getEventInputParameters()
                     .get("MySuperDooperConsumer1").getCarrierTechnologyParameters().getEventConsumerPluginClass());
         } catch (final ParameterException e) {
             fail("This test should not throw an exception");

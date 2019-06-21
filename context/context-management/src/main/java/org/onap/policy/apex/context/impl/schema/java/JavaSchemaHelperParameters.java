@@ -23,7 +23,6 @@ package org.onap.policy.apex.context.impl.schema.java;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 
@@ -41,12 +40,12 @@ public class JavaSchemaHelperParameters extends SchemaHelperParameters {
      */
     public JavaSchemaHelperParameters() {
         this.setName("Java");
-        this.setSchemaHelperPluginClass(JavaSchemaHelper.class.getCanonicalName());
+        this.setSchemaHelperPluginClass(JavaSchemaHelper.class.getName());
     }
-    
+
     /**
      * Get the JSON adapters.
-     * 
+     *
      * @return the JSON adapters
      */
     public Map<String, JavaSchemaHelperJsonAdapterParameters> getJsonAdapters() {
@@ -55,7 +54,7 @@ public class JavaSchemaHelperParameters extends SchemaHelperParameters {
 
     /**
      * Set JSON adapters for the schema helper.
-     * 
+     *
      * @param jsonAdapters the JSON adapters
      */
     public void setJsonAdapters(Map<String, JavaSchemaHelperJsonAdapterParameters> jsonAdapters) {

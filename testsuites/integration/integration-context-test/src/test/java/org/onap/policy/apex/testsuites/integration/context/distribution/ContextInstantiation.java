@@ -451,7 +451,7 @@ public class ContextInstantiation {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals(getMessage(TEST_POLICY_CONTEXT_ITEM000, "TestContextItem006",
-                            TestContextStringItem.class.getCanonicalName(), "stringValue=" + STRING_VAL),
+                            TestContextStringItem.class.getName(), "stringValue=" + STRING_VAL),
                             e.getMessage());
             LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
@@ -461,7 +461,7 @@ public class ContextInstantiation {
             fail(EXCEPTION_MESSAGE);
         } catch (final ContextRuntimeException e) {
             assertEquals(getMessage(TEST_POLICY_CONTEXT_ITEM001, "TestContextItem003",
-                            TestContextLongItem.class.getCanonicalName(), "longValue=" + INT_VAL_3), e.getMessage());
+                            TestContextLongItem.class.getName(), "longValue=" + INT_VAL_3), e.getMessage());
             LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
         }
     }
@@ -527,7 +527,7 @@ public class ContextInstantiation {
     }
 
     private String getMessage(final String key, final String objName, final String clazzName, final String valString) {
-        return getMessage(key, objName, clazzName, valString, TestPolicyContextItem.class.getCanonicalName());
+        return getMessage(key, objName, clazzName, valString, TestPolicyContextItem.class.getName());
     }
 
     private String getMessage(final String key, final String objName, final String clazzName, final String valString,

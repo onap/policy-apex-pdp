@@ -171,7 +171,7 @@ public class TestConcurrentContext {
         logger.debug("Running testConcurrentContextJVMLocalVarSet test . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getName());
         setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("JVMLocalVarSet",
@@ -229,8 +229,8 @@ public class TestConcurrentContext {
         logger.debug("Running testConcurrentContextMultiJVMNoLock test . . .");
 
         final ContextParameters contextParameters = new ContextParameters();
-        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getCanonicalName());
-        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getCanonicalName());
+        contextParameters.getDistributorParameters().setPluginClass(JvmLocalDistributor.class.getName());
+        contextParameters.getLockManagerParameters().setPluginClass(JvmLocalLockManager.class.getName());
         setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("testConcurrentContextMultiJVMNoLock",
@@ -259,7 +259,7 @@ public class TestConcurrentContext {
 
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getDistributorParameters().setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
-        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getName());
         setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("HazelcastLock",
@@ -292,7 +292,7 @@ public class TestConcurrentContext {
             distributorParameters.setPluginClass(DEFAULT_DISTRIBUTOR_PLUGIN_CLASS);
 
             final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
-            curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
+            curatorParameters.setPluginClass(CuratorLockManager.class.getName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
             setContextParmetersInParameterService(contextParameters);
@@ -325,8 +325,8 @@ public class TestConcurrentContext {
 
         final ContextParameters contextParameters = new ContextParameters();
         final DistributorParameters distributorParameters = contextParameters.getDistributorParameters();
-        distributorParameters.setPluginClass(HazelcastContextDistributor.class.getCanonicalName());
-        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
+        distributorParameters.setPluginClass(HazelcastContextDistributor.class.getName());
+        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getName());
         setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("HazelcastMultiHazelcastlock",
@@ -358,10 +358,10 @@ public class TestConcurrentContext {
 
         final ContextParameters contextParameters = new ContextParameters();
         final InfinispanDistributorParameters infinispanParameters = new InfinispanDistributorParameters();
-        infinispanParameters.setPluginClass(InfinispanContextDistributor.class.getCanonicalName());
+        infinispanParameters.setPluginClass(InfinispanContextDistributor.class.getName());
         infinispanParameters.setConfigFile("infinispan/infinispan-context-test.xml");
         contextParameters.setDistributorParameters(infinispanParameters);
-        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getCanonicalName());
+        contextParameters.getLockManagerParameters().setPluginClass(HazelcastLockManager.class.getName());
         setContextParmetersInParameterService(contextParameters);
 
         final ConfigrationProvider configrationProvider = getConfigrationProvider("InfinispanMultiHazelcastlock",
@@ -393,12 +393,12 @@ public class TestConcurrentContext {
             startZookeeperServer();
 
             final InfinispanDistributorParameters infinispanParameters = new InfinispanDistributorParameters();
-            infinispanParameters.setPluginClass(InfinispanContextDistributor.class.getCanonicalName());
+            infinispanParameters.setPluginClass(InfinispanContextDistributor.class.getName());
             infinispanParameters.setConfigFile("infinispan/infinispan-context-test.xml");
             contextParameters.setDistributorParameters(infinispanParameters);
 
             final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
-            curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
+            curatorParameters.setPluginClass(CuratorLockManager.class.getName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
             setContextParmetersInParameterService(contextParameters);
@@ -435,10 +435,10 @@ public class TestConcurrentContext {
             startZookeeperServer();
 
             contextParameters.getDistributorParameters()
-                    .setPluginClass(HazelcastContextDistributor.class.getCanonicalName());
+                    .setPluginClass(HazelcastContextDistributor.class.getName());
 
             final CuratorLockManagerParameters curatorParameters = new CuratorLockManagerParameters();
-            curatorParameters.setPluginClass(CuratorLockManager.class.getCanonicalName());
+            curatorParameters.setPluginClass(CuratorLockManager.class.getName());
             curatorParameters.setZookeeperAddress(ZOOKEEPER_ADDRESS + ":" + zookeeperPort);
             contextParameters.setLockManagerParameters(curatorParameters);
             setContextParmetersInParameterService(contextParameters);

@@ -35,8 +35,8 @@ public class MvelExecutorParameters extends ExecutorParameters {
      * Constructor that sets the abstract implementation classes.
      */
     public MvelExecutorParameters() {
-        this.setTaskExecutorPluginClass(MvelTaskExecutor.class.getCanonicalName());
-        this.setTaskSelectionExecutorPluginClass(MvelTaskSelectExecutor.class.getCanonicalName());
-        this.setStateFinalizerExecutorPluginClass(MvelStateFinalizerExecutor.class.getCanonicalName());
+        this.setTaskExecutorPluginClass(MvelTaskExecutor.class.getName());
+        this.setTaskSelectionExecutorPluginClass(MvelTaskSelectExecutor.class.getName());
+        this.setStateFinalizerExecutorPluginClass(MvelStateFinalizerExecutor.class.getName());
     }
 }

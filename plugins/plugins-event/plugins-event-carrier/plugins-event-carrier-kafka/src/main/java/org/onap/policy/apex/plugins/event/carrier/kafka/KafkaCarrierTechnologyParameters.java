@@ -41,10 +41,10 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
     public static final String KAFKA_CARRIER_TECHNOLOGY_LABEL = "KAFKA";
 
     /** The producer plugin class for the Kafka carrier technology. */
-    public static final String KAFKA_EVENT_PRODUCER_PLUGIN_CLASS = ApexKafkaProducer.class.getCanonicalName();
+    public static final String KAFKA_EVENT_PRODUCER_PLUGIN_CLASS = ApexKafkaProducer.class.getName();
 
     /** The consumer plugin class for the Kafka carrier technology. */
-    public static final String KAFKA_EVENT_CONSUMER_PLUGIN_CLASS = ApexKafkaConsumer.class.getCanonicalName();
+    public static final String KAFKA_EVENT_CONSUMER_PLUGIN_CLASS = ApexKafkaConsumer.class.getName();
 
     // Repeated strings in messages
     private static final String SPECIFY_AS_STRING_MESSAGE = "not specified, must be specified as a string";
@@ -65,7 +65,7 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
     private static final String[] DEFAULT_CONS_TOPICLIST   = {"apex-in"};
     private static final String   DEFAULT_STRING_SERZER    = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String   DEFAULT_STRING_DESZER    = "org.apache.kafka.common.serialization.StringDeserializer";
-    private static final String   DEFAULT_PARTITIONR_CLASS = DefaultPartitioner.class.getCanonicalName();
+    private static final String   DEFAULT_PARTITIONR_CLASS = DefaultPartitioner.class.getName();
 
     // Parameter property map tokens
     private static final String PROPERTY_BOOTSTRAP_SERVERS  = "bootstrap.servers";
