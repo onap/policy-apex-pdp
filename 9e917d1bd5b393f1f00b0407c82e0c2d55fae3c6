@@ -16,6 +16,24 @@
       "revId": "9e917d1bd5b393f1f00b0407c82e0c2d55fae3c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd1c1ba6_a2af37e7",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/main/java/org/onap/policy/apex/plugins/event/carrier/kafka/KafkaCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-25T16:15:31Z",
+      "side": 1,
+      "message": "Done\nNice, didn\u0027t realise this was possible.",
+      "parentUuid": "8070dc09_a45201d9",
+      "revId": "9e917d1bd5b393f1f00b0407c82e0c2d55fae3c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
