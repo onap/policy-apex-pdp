@@ -92,7 +92,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
 
         // Kick off the Kafka consumer
         kafkaConsumer = new KafkaConsumer<>(kafkaConsumerProperties.getKafkaConsumerProperties());
-        kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicList());
+        kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicListAsCollection());
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("event receiver for " + this.getClass().getName() + ":" + this.name + " subscribed to topics: "
                     + kafkaConsumerProperties.getConsumerTopicList());
@@ -154,7 +154,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
     public void run() {
         // Kick off the Kafka consumer
         kafkaConsumer = new KafkaConsumer<>(kafkaConsumerProperties.getKafkaConsumerProperties());
-        kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicList());
+        kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicListAsCollection());
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("event receiver for " + this.getClass().getName() + ":" + this.name + " subscribed to topics: "
                     + kafkaConsumerProperties.getConsumerTopicList());
@@ -181,7 +181,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
 
     /**
      * Trace a record if trace is enabled.
-     * 
+     *
      * @param record the record to trace
      */
     private void traceIfTraceEnabled(final ConsumerRecord<String, String> record) {
