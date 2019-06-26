@@ -101,7 +101,7 @@ public class ApexJmsProducerTest {
                 synchronousEventCache);
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
                 "testSource", "testTarget");
-        apexJmsProducer.sendEvent(1000L, "TestApexJmsProducer", apexEvent);
+        apexJmsProducer.sendEvent(1000L, null, "TestApexJmsProducer", apexEvent);
     }
 
     @Test(expected = ApexEventRuntimeException.class)
@@ -111,7 +111,7 @@ public class ApexJmsProducerTest {
                 apexJmsConsumer, apexJmsProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
         apexJmsProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
                 synchronousEventCache);
-        apexJmsProducer.sendEvent(-1L, "TestApexJmsProducer", new ApexJmsProducerTest());
+        apexJmsProducer.sendEvent(-1L, null, "TestApexJmsProducer", new ApexJmsProducerTest());
     }
 
     @Test

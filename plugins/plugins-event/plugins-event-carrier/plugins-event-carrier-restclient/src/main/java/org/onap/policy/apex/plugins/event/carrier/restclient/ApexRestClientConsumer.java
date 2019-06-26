@@ -223,7 +223,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 }
 
                 // Send the event into Apex
-                eventReceiver.receiveEvent(eventJsonString);
+                eventReceiver.receiveEvent(null, eventJsonString);
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }
@@ -232,7 +232,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
     /**
      * Hook for unit test mocking of HTTP client.
-     * 
+     *
      * @param client the mocked client
      */
     protected void setClient(final Client client) {

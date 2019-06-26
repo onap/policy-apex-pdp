@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -120,7 +120,7 @@ public class JavaStateFinalizerExecutorTest {
         }
 
         try {
-            jsfe.execute(-1, null);
+            jsfe.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("state finalizer logic failed to run for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
@@ -130,7 +130,7 @@ public class JavaStateFinalizerExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jsfe.execute(-1, event);
+            jsfe.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("state finalizer logic failed to run for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
@@ -140,7 +140,7 @@ public class JavaStateFinalizerExecutorTest {
         stateFinalizerLogic.setLogic("org.onap.policy.apex.plugins.executor.java.DummyJavaStateFinalizerLogic");
         try {
             jsfe.prepare();
-            jsfe.execute(-1, event);
+            jsfe.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
@@ -150,7 +150,7 @@ public class JavaStateFinalizerExecutorTest {
         state.getStateOutputs().put("SelectedOutputIsMe", null);
         try {
             jsfe.prepare();
-            String stateOutput = jsfe.execute(0, event);
+            String stateOutput = jsfe.execute(0, null, event);
             assertEquals("SelectedOutputIsMe", stateOutput);
             jsfe.cleanUp();
         } catch (Exception jtseException) {

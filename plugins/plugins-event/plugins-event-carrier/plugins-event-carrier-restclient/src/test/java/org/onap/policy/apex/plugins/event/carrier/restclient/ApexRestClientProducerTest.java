@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -166,7 +166,7 @@ public class ApexRestClientProducerTest {
         arcp.setClient(httpClientMock);
 
         try {
-            arcp.sendEvent(123, "EventName", "This is an Event");
+            arcp.sendEvent(123, null, "EventName", "This is an Event");
             arcp.stop();
         } catch (Exception ex) {
             fail("test should not throw an exception");
@@ -203,7 +203,7 @@ public class ApexRestClientProducerTest {
         arcp.setClient(httpClientMock);
 
         try {
-            arcp.sendEvent(123, "EventName", "This is an Event");
+            arcp.sendEvent(123, null, "EventName", "This is an Event");
             arcp.stop();
         } catch (Exception e) {
             fail("test should not throw an exception");
@@ -246,7 +246,7 @@ public class ApexRestClientProducerTest {
         arcp.setClient(httpClientMock);
 
         try {
-            arcp.sendEvent(123, "EventName", "This is an Event");
+            arcp.sendEvent(123, null, "EventName", "This is an Event");
             arcp.stop();
         } catch (Exception e) {
             fail("test should not throw an exception");
@@ -292,7 +292,7 @@ public class ApexRestClientProducerTest {
         arcp.setClient(httpClientMock);
 
         try {
-            arcp.sendEvent(123, "EventName", "This is an Event");
+            arcp.sendEvent(123, null, "EventName", "This is an Event");
             arcp.stop();
         } catch (Exception e) {
             fail("test should not throw an exception");
@@ -329,7 +329,7 @@ public class ApexRestClientProducerTest {
         arcp.setClient(httpClientMock);
 
         try {
-            arcp.sendEvent(123, "EventName", "This is an Event");
+            arcp.sendEvent(123, null, "EventName", "This is an Event");
             fail("test should throw an exception here");
         } catch (Exception e) {
             assertEquals(

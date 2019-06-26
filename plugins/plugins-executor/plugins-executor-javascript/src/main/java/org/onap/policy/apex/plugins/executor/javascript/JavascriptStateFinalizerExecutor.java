@@ -22,6 +22,8 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import java.util.Map;
+import java.util.Properties;
+
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
@@ -34,8 +36,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JavascriptStateFinalizerExecutor is the state finalizer executor for state finalizer
- * logic written in Javascript It is unlikely that this is thread safe.
+ * The Class JavascriptStateFinalizerExecutor is the state finalizer executor for state finalizer logic written in
+ * Javascript It is unlikely that this is thread safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -70,16 +72,17 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
      * Executes the executor for the state finalizer logic in a sequential manner.
      *
      * @param executionId the execution ID for the current APEX policy execution
+     * @param executionProperties properties for the current APEX policy execution
      * @param incomingFields the incoming fields for finalisation
      * @return The state output for the state
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public String execute(final long executionId, final Map<String, Object> incomingFields)
-            throws StateMachineException, ContextException {
+    public String execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionId, incomingFields);
+        executePre(executionId, executionProperties, incomingFields);
 
         // Set up the Javascript engine
         engine.put("executor", getExecutionContext());

@@ -142,10 +142,8 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#start()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void start() {
@@ -156,21 +154,16 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
         consumerThread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getName()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
         return name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.policy.apex.service.
-     * parameters. eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
@@ -231,10 +224,8 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void onMessage(final Message jmsMessage) {
@@ -245,7 +236,7 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
                         jmsMessage.getJMSType());
             }
 
-            eventReceiver.receiveEvent(jmsMessage);
+            eventReceiver.receiveEvent(null, jmsMessage);
         } catch (final Exception e) {
             final String errorMessage = "failed to receive message from JMS";
             LOGGER.warn(errorMessage, e);
@@ -253,10 +244,8 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.producer.ApexEventProducer#stop()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void stop() {

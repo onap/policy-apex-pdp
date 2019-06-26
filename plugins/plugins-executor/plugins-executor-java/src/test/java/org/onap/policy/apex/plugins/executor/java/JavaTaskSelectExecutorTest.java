@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -102,7 +102,7 @@ public class JavaTaskSelectExecutorTest {
         }
 
         try {
-            jtse.execute(-1, null);
+            jtse.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
@@ -111,7 +111,7 @@ public class JavaTaskSelectExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jtse.execute(-1, event);
+            jtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("task selection logic failed to run for state  \"NULL:0.0.0:NULL:NULL\"",
@@ -122,7 +122,7 @@ public class JavaTaskSelectExecutorTest {
                         .setLogic("org.onap.policy.apex.plugins.executor.java.DummyJavaTaskSelectionLogic");
         try {
             jtse.prepare();
-            jtse.execute(-1, event);
+            jtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
@@ -131,7 +131,7 @@ public class JavaTaskSelectExecutorTest {
 
         try {
             jtse.prepare();
-            AxArtifactKey taskKey = jtse.execute(0, event);
+            AxArtifactKey taskKey = jtse.execute(0, null, event);
             assertEquals("NULL:0.0.0", taskKey.getId());
             jtse.cleanUp();
         } catch (Exception jtseException) {

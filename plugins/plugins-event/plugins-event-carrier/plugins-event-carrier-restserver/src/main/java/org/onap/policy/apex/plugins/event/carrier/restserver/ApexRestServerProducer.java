@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.restserver;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
@@ -65,7 +66,7 @@ public class ApexRestServerProducer implements ApexEventProducer {
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        
+
         // The REST carrier properties
         RestServerCarrierTechnologyParameters restProducerProperties =
                 (RestServerCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
@@ -128,7 +129,8 @@ public class ApexRestServerProducer implements ApexEventProducer {
      * java.lang.Object)
      */
     @Override
-    public void sendEvent(final long executionId, final String eventName, final Object event) {
+    public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
+            final Object event) {
         if (LOGGER.isDebugEnabled()) {
             String message = name + ": event " + executionId + ':' + eventName + " recevied from Apex, event=" + event;
             LOGGER.debug(message);

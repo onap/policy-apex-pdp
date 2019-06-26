@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -80,7 +80,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
     /**
      * Private utility to get the next candidate value for a Execution ID. This value will always be unique in a single
      * JVM
-     * 
+     *
      * @return the next candidate value for a Execution ID
      */
     private static synchronized long getNextExecutionId() {
@@ -142,7 +142,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getName()
      */
     @Override
@@ -152,7 +152,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.
      * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode)
      */
@@ -163,7 +163,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.
      * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode,
      * org.onap.policy.apex.service.engine.event.PeeredReference)
@@ -175,7 +175,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#start()
      */
     @Override
@@ -211,7 +211,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
 
                 // Process the event from the text block if there is one there
                 if (textBlock.getText() != null) {
-                    eventReceiver.receiveEvent(getNextExecutionId(), textBlock.getText());
+                    eventReceiver.receiveEvent(getNextExecutionId(), null, textBlock.getText());
                 }
             }
             while (!textBlock.isEndOfText());

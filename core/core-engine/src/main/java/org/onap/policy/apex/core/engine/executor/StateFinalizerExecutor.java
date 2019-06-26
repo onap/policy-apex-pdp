@@ -24,6 +24,7 @@ package org.onap.policy.apex.core.engine.executor;
 import static org.onap.policy.common.utils.validation.Assertions.argumentOfClassNotNull;
 
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
@@ -44,7 +45,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class StateFinalizerExecutor
-                implements Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> {
+        implements Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(StateFinalizerExecutor.class);
 
@@ -77,76 +78,64 @@ public abstract class StateFinalizerExecutor
         return executionContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
-     * engine.executor.Executor, java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent,
-                    final AxStateFinalizerLogic incomingFinalizerLogic,
-                    final ApexInternalContext incomingInternalContext) {
+            final AxStateFinalizerLogic incomingFinalizerLogic, final ApexInternalContext incomingInternalContext) {
         this.parent = incomingParent;
         axState = (AxState) parent.getSubject();
         this.finalizerLogic = incomingFinalizerLogic;
         this.internalContext = incomingInternalContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#prepare()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + finalizerLogic.getId() + "," + finalizerLogic.getLogicFlavour() + ","
-                        + finalizerLogic.getLogic());
+                + finalizerLogic.getLogic());
         argumentOfClassNotNull(finalizerLogic.getLogic(), StateMachineException.class,
-                        "state finalizer logic cannot be null.");
+                "state finalizer logic cannot be null.");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public String execute(final long executionId, final Map<String, Object> newIncomingFields)
-                    throws StateMachineException, ContextException {
+    public String execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         throw new StateMachineException("execute() not implemented on abstract StateFinalizerExecutionContext class, "
-                        + "only on its subclasses");
+                + "only on its subclasses");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public final void executePre(final long executionId, final Map<String, Object> newIncomingFields)
-                    throws StateMachineException, ContextException {
+    public final void executePre(final long executionId, final Properties executionProperties,
+            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + finalizerLogic.getLogicFlavour() + "," + getSubject().getId() + ","
-                        + finalizerLogic.getLogic());
+                + finalizerLogic.getLogic());
 
         // Record the incoming fields
         this.incomingFields = newIncomingFields;
 
         // Get state finalizer context object
-        executionContext = new StateFinalizerExecutionContext(this, executionId, axState, getIncoming(),
-                        axState.getStateOutputs().keySet(), getContext());
+        executionContext = new StateFinalizerExecutionContext(this, executionId, executionProperties, axState,
+                getIncoming(), axState.getStateOutputs().keySet(), getContext());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePost(boolean)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
             String errorMessage = "execute-post: state finalizer logic execution failure on state \"" + axState.getId()
-                            + "\" on finalizer logic " + finalizerLogic.getId();
+                    + "\" on finalizer logic " + finalizerLogic.getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -163,79 +152,65 @@ public abstract class StateFinalizerExecutor
 
         if (!axState.getStateOutputs().keySet().contains(getOutgoing())) {
             LOGGER.warn(EXECUTE_POST_SFL + finalizerLogic.getId() + "\" selected output state \"" + getOutgoing()
-                            + "\" that does not exsist on state \"" + axState.getId() + "\"");
+                    + "\" that does not exsist on state \"" + axState.getId() + "\"");
             throw new StateMachineException(EXECUTE_POST_SFL + finalizerLogic.getId() + "\" selected output state \""
-                            + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
+                    + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
         }
 
         LOGGER.debug("execute-post:{}, returning  state output \"{}\" and fields {}", finalizerLogic.getId(),
-                        getOutgoing(), incomingFields);
+                getOutgoing(), incomingFields);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#cleanUp()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void cleanUp() throws StateMachineException {
         throw new StateMachineException("cleanUp() not implemented on class");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getKey()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxReferenceKey getKey() {
         return finalizerLogic.getKey();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getParent()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
         return parent;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getSubject()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxStateFinalizerLogic getSubject() {
         return finalizerLogic;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getContext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public ApexInternalContext getContext() {
         return internalContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getIncoming()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Map<String, Object> getIncoming() {
         return incomingFields;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getOutgoing()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getOutgoing() {
@@ -246,35 +221,26 @@ public abstract class StateFinalizerExecutor
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
-     * executor.Executor)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setNext(
-                    final Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> inNextEx) {
+            final Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> inNextEx) {
         this.nextExecutor = inNextEx;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getNext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> getNext() {
         return nextExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core. engine.
-     * ExecutorParameters)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {
-    }
+    public void setParameters(final ExecutorParameters parameters) {}
 }

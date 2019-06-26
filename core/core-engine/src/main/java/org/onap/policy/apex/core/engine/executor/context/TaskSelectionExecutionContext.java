@@ -23,6 +23,7 @@ package org.onap.policy.apex.core.engine.executor.context;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.ContextAlbum;
@@ -64,6 +65,9 @@ public class TaskSelectionExecutionContext {
 
     /** the execution ID for the current APEX policy execution instance. */
     public final Long executionId;
+
+    /** the execution properties the current APEX policy execution instance. */
+    public final Properties executionProperties;
 
     /**
      * The incoming fields from the trigger event for the state. The task selection logic can access
@@ -111,6 +115,7 @@ public class TaskSelectionExecutionContext {
 
         // Execution ID is the current policy execution instance
         this.executionId = executionId;
+        this.executionProperties = incomingEvent.getExecutionProperties();
 
         // The events
         inFields = incomingEvent;

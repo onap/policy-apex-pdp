@@ -117,7 +117,7 @@ public class JavascriptStateFinalizerExecutorTest {
 
         Map<String, Object> incomingParameters1 = new HashMap<>();
         try {
-            jsfe.execute(-1, incomingParameters1);
+            jsfe.execute(-1, null, incomingParameters1);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("state finalizer logic failed to run for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
@@ -141,7 +141,7 @@ public class JavascriptStateFinalizerExecutorTest {
                         + "var returnValue = new returnValueType(true);}");
         try {
             jsfe.prepare();
-            jsfe.execute(-1, event);
+            jsfe.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -153,7 +153,7 @@ public class JavascriptStateFinalizerExecutorTest {
         state.getStateOutputs().put("SelectedOutputIsMe", null);
         try {
             jsfe.prepare();
-            String stateOutput = jsfe.execute(0, event);
+            String stateOutput = jsfe.execute(0, null, event);
             assertEquals("SelectedOutputIsMe", stateOutput);
             jsfe.cleanUp();
         } catch (Exception jtseException) {

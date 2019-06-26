@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -149,7 +150,8 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
      * java.lang.Object)
      */
     @Override
-    public void sendEvent(final long executionId, final String eventName, final Object event) {
+    public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
+            final Object event) {
         // Check if this is a synchronized event, if so we have received a reply
         final SynchronousEventCache synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);

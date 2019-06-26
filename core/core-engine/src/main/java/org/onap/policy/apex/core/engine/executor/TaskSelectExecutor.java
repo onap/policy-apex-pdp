@@ -23,6 +23,8 @@ package org.onap.policy.apex.core.engine.executor;
 
 import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
+import java.util.Properties;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -36,8 +38,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This abstract class executes a the task selection logic of a state of an Apex policy and is
- * specialized by classes that implement execution of task selection logic.
+ * This abstract class executes a the task selection logic of a state of an Apex policy and is specialized by classes
+ * that implement execution of task selection logic.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
@@ -72,11 +74,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
         return executionContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
-     * engine.executor.Executor, java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxState newAxState,
@@ -86,10 +85,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
         this.context = newContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#prepare()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -98,26 +95,21 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
         argumentNotNull(axState.getTaskSelectionLogic().getLogic(), "task selection logic cannot be null.");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public AxArtifactKey execute(final long executionId, final EnEvent newIncomingEvent)
-            throws StateMachineException, ContextException {
+    public AxArtifactKey execute(final long executionId, final Properties executionProperties,
+            final EnEvent newIncomingEvent) throws StateMachineException, ContextException {
         throw new StateMachineException("execute() not implemented on class");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public final void executePre(final long executionId, final EnEvent newIncomingEvent) throws StateMachineException {
+    public final void executePre(final long executionId, final Properties executionProperties,
+            final EnEvent newIncomingEvent) throws StateMachineException {
         LOGGER.debug("execute-pre:" + axState.getKey().getId() + "," + axState.getTaskSelectionLogic().getLogicFlavour()
                 + "," + axState.getTaskSelectionLogic().getLogic());
 
@@ -131,10 +123,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
                 getOutgoing(), getContext());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePost(boolean)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException {
@@ -164,104 +154,80 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
         LOGGER.debug("execute-post:" + axState.getKey().getId() + "," + ", returning task " + outgoingTaskKey.getId());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#cleanUp()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void cleanUp() throws StateMachineException {
         throw new StateMachineException("cleanUp() not implemented on class");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getKey()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxReferenceKey getKey() {
         return axState.getKey();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getParent()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
         return parent;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getSubject()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxState getSubject() {
         return axState;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getContext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public ApexInternalContext getContext() {
         return context;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
-     * executor.Executor)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setNext(final Executor<EnEvent, AxArtifactKey, AxState, ApexInternalContext> newNextExecutor) {
         this.nextExecutor = newNextExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getNext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Executor<EnEvent, AxArtifactKey, AxState, ApexInternalContext> getNext() {
         return nextExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getIncoming()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public EnEvent getIncoming() {
         return incomingEvent;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getOutgoing()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxArtifactKey getOutgoing() {
         return outgoingTaskKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
-     * engine. ExecutorParameters)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}

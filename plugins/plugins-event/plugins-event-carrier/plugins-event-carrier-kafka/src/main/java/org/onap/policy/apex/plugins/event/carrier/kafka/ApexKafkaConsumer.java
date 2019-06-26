@@ -167,7 +167,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
                         kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration().toMillis());
                 for (final ConsumerRecord<String, String> record : records) {
                     traceIfTraceEnabled(record);
-                    eventReceiver.receiveEvent(record.value());
+                    eventReceiver.receiveEvent(null, record.value());
                 }
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);

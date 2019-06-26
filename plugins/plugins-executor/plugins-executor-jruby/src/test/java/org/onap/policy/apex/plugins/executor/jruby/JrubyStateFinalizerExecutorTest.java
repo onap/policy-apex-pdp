@@ -113,7 +113,7 @@ public class JrubyStateFinalizerExecutorTest {
         }
 
         try {
-            jsfe.execute(-1, null);
+            jsfe.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" on "
@@ -130,7 +130,7 @@ public class JrubyStateFinalizerExecutorTest {
         state.getStateOutputs().put("SelectedOutputIsMe", null);
         try {
             jsfe.prepare();
-            String stateOutput = jsfe.execute(0, event);
+            String stateOutput = jsfe.execute(0, null, event);
             assertEquals("SelectedOutputIsMe", stateOutput);
             jsfe.cleanUp();
         } catch (Exception jtseException) {

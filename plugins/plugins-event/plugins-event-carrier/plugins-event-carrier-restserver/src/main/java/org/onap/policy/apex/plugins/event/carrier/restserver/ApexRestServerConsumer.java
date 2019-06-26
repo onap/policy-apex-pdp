@@ -105,7 +105,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        
+
         // The REST parameters read from the parameter service
         RestServerCarrierTechnologyParameters restConsumerProperties =
                 (RestServerCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
@@ -209,7 +209,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
 
         try {
             // Send the event into Apex
-            eventReceiver.receiveEvent(executionId, event);
+            eventReceiver.receiveEvent(executionId, null, event);
         } catch (final Exception e) {
             final String errorMessage = "error receiving events on event consumer " + name + ", " + e.getMessage();
             LOGGER.warn(errorMessage, e);

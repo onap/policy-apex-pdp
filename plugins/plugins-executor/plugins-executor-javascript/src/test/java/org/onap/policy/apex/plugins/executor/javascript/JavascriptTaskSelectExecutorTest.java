@@ -98,7 +98,7 @@ public class JavascriptTaskSelectExecutorTest {
         AxEvent axEvent1 = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event1 = new EnEvent(axEvent1);
         try {
-            jtse.execute(-1, event1);
+            jtse.execute(-1, null, event1);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -115,7 +115,7 @@ public class JavascriptTaskSelectExecutorTest {
         }
 
         try {
-            jtse.execute(-1, null);
+            jtse.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
@@ -124,7 +124,7 @@ public class JavascriptTaskSelectExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jtse.execute(-1, event);
+            jtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -136,7 +136,7 @@ public class JavascriptTaskSelectExecutorTest {
                 + "var returnValue = new returnValueType(false); ");
         try {
             jtse.prepare();
-            jtse.execute(-1, event);
+            jtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
@@ -147,7 +147,7 @@ public class JavascriptTaskSelectExecutorTest {
                 + "var returnValue = new returnValueType(true); ");
         try {
             jtse.prepare();
-            AxArtifactKey taskKey = jtse.execute(0, event);
+            AxArtifactKey taskKey = jtse.execute(0, null, event);
             assertEquals("NULL:0.0.0", taskKey.getId());
             jtse.cleanUp();
         } catch (Exception jtseException) {

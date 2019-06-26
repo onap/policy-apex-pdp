@@ -186,7 +186,8 @@ public class ApexEventMarshaller implements ApexEventListener, Runnable {
                 // Process the next Apex event from the queue
                 final Object event = converter.fromApexEvent(apexEvent);
 
-                producer.sendEvent(apexEvent.getExecutionId(), apexEvent.getName(), event);
+                producer.sendEvent(apexEvent.getExecutionId(), apexEvent.getExecutionProperties(), apexEvent.getName(),
+                        event);
 
                 if (LOGGER.isTraceEnabled()) {
                     final String message = "event sent : " + apexEvent.toString();

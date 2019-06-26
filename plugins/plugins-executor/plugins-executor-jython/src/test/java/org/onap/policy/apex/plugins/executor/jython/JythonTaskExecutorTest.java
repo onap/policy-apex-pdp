@@ -103,7 +103,7 @@ public class JythonTaskExecutorTest {
         }
 
         try {
-            jte.execute(-1, null);
+            jte.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals(java.lang.NullPointerException.class, jteException.getClass());
@@ -111,7 +111,7 @@ public class JythonTaskExecutorTest {
 
         Map<String, Object> incomingParameters = new HashMap<>();
         try {
-            jte.execute(-1, incomingParameters);
+            jte.execute(-1, null, incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("failed to execute Jython code for task NULL:0.0.0", jteException.getMessage());
@@ -124,7 +124,7 @@ public class JythonTaskExecutorTest {
 
         try {
             jte.prepare();
-            Map<String, Object> returnMap = jte.execute(-1, incomingParameters);
+            Map<String, Object> returnMap = jte.execute(-1, null, incomingParameters);
             assertEquals(0, returnMap.size());
             jte.cleanUp();
             fail("test should throw an exception here");
@@ -136,7 +136,7 @@ public class JythonTaskExecutorTest {
         task.getTaskLogic().setLogic(scriptSource);
         try {
             jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, incomingParameters);
+            Map<String, Object> returnMap = jte.execute(0, null, incomingParameters);
             assertEquals(0, returnMap.size());
             jte.cleanUp();
         } catch (Exception jteException) {

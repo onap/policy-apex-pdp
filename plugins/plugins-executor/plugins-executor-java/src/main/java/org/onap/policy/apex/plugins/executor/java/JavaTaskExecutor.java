@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.executor.java;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
@@ -67,16 +68,17 @@ public class JavaTaskExecutor extends TaskExecutor {
      * Executes the executor for the task in a sequential manner.
      *
      * @param executionId the execution ID for the current APEX policy execution
+     * @param executionProperties properties for the current APEX policy execution
      * @param incomingFields the incoming fields
      * @return The outgoing fields
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public Map<String, Object> execute(final long executionId, final Map<String, Object> incomingFields)
-            throws StateMachineException, ContextException {
+    public Map<String, Object> execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionId, incomingFields);
+        executePre(executionId, executionProperties, incomingFields);
 
         // Check and execute the Java logic
         boolean returnValue = false;
@@ -84,7 +86,7 @@ public class JavaTaskExecutor extends TaskExecutor {
             // Find and call the method with the signature "public boolean getEvent(final TaskExecutionContext executor)
             // throws ApexException" to invoke the
             // task logic in the Java class
-            final Method method = taskLogicObject.getClass().getDeclaredMethod("getEvent", (Class[])
+            final Method method = taskLogicObject.getClass().getDeclaredMethod("getEvent",
                     new Class[] { TaskExecutionContext.class });
             returnValue = (boolean) method.invoke(taskLogicObject, getExecutionContext());
         } catch (final Exception e) {

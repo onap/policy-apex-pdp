@@ -25,6 +25,7 @@ import static org.onap.policy.common.utils.validation.Assertions.argumentOfClass
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -49,7 +50,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class TaskExecutor
-                implements Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> {
+        implements Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TaskExecutor.class);
 
@@ -79,55 +80,46 @@ public abstract class TaskExecutor
         return executionContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
-     * engine.executor.Executor, java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxTask newAxTask,
-                    final ApexInternalContext newInternalContext) {
+            final ApexInternalContext newInternalContext) {
         this.parent = newParent;
         this.axTask = newAxTask;
         this.internalContext = newInternalContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#prepare()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + axTask.getKey().getId() + "," + axTask.getTaskLogic().getLogicFlavour() + ","
-                        + axTask.getTaskLogic().getLogic());
+                + axTask.getTaskLogic().getLogic());
         argumentOfClassNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class,
-                        "task logic cannot be null.");
+                "task logic cannot be null.");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#execute(java.lang.long, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public Map<String, Object> execute(final long executionId, final Map<String, Object> newIncomingFields)
-                    throws StateMachineException, ContextException {
+    public Map<String, Object> execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         throw new StateMachineException(
-                        "execute() not implemented on abstract TaskExecutor class, only on its subclasses");
+                "execute() not implemented on abstract TaskExecutor class, only on its subclasses");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public final void executePre(final long executionId, final Map<String, Object> newIncomingFields)
-                    throws StateMachineException, ContextException {
+    public final void executePre(final long executionId, final Properties executionProperties,
+            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + getSubject().getTaskLogic().getLogicFlavour() + ","
-                        + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
+                + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
 
         // Check that the incoming event has all the input fields for this state
         final Set<String> missingTaskInputFields = new TreeSet<>(axTask.getInputFields().keySet());
@@ -136,7 +128,7 @@ public abstract class TaskExecutor
         // Remove fields from the set that are optional
         final Set<String> optionalFields = new TreeSet<>();
         for (final Iterator<String> missingFieldIterator = missingTaskInputFields.iterator(); missingFieldIterator
-                        .hasNext();) {
+                .hasNext();) {
             final String missingField = missingFieldIterator.next();
             if (axTask.getInputFields().get(missingField).getOptional()) {
                 optionalFields.add(missingField);
@@ -145,7 +137,7 @@ public abstract class TaskExecutor
         missingTaskInputFields.removeAll(optionalFields);
         if (!missingTaskInputFields.isEmpty()) {
             throw new StateMachineException("task input fields \"" + missingTaskInputFields
-                            + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
+                    + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
         }
 
         // Record the incoming fields
@@ -158,20 +150,18 @@ public abstract class TaskExecutor
         }
 
         // Get task context object
-        executionContext = new TaskExecutionContext(this, executionId, getSubject(), getIncoming(), getOutgoing(),
-                        getContext());
+        executionContext = new TaskExecutionContext(this, executionId, executionProperties, getSubject(), getIncoming(),
+                getOutgoing(), getContext());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePost(boolean)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
             String errorMessage = "execute-post: task logic execution failure on task \"" + axTask.getKey().getName()
-                            + "\" in model " + internalContext.getKey().getId();
+                    + "\" in model " + internalContext.getKey().getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -194,17 +184,17 @@ public abstract class TaskExecutor
         // Remove fields from the set that are optional
         final Set<String> optionalOrCopiedFields = new TreeSet<>();
         for (final Iterator<String> missingFieldIterator = missingTaskOutputFields.iterator(); missingFieldIterator
-                        .hasNext();) {
+                .hasNext();) {
             final String missingField = missingFieldIterator.next();
             if (axTask.getInputFields().containsKey(missingField)
-                            || axTask.getOutputFields().get(missingField).getOptional()) {
+                    || axTask.getOutputFields().get(missingField).getOptional()) {
                 optionalOrCopiedFields.add(missingField);
             }
         }
         missingTaskOutputFields.removeAll(optionalOrCopiedFields);
         if (!missingTaskOutputFields.isEmpty()) {
             throw new StateMachineException("task output fields \"" + missingTaskOutputFields
-                            + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
+                    + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
         }
 
         // Finally, check that the outgoing field map don't have any extra fields, if present, raise
@@ -214,7 +204,7 @@ public abstract class TaskExecutor
         extraTaskOutputFields.removeAll(axTask.getOutputFields().keySet());
         if (!extraTaskOutputFields.isEmpty()) {
             throw new StateMachineException("task output fields \"" + extraTaskOutputFields
-                            + "\" are unwanted for task \"" + axTask.getKey().getId() + "\"");
+                    + "\" are unwanted for task \"" + axTask.getKey().getId() + "\"");
         }
 
         String message = "execute-post:" + axTask.getKey().getId() + ", returning fields " + outgoingFields.toString();
@@ -246,105 +236,81 @@ public abstract class TaskExecutor
         getOutgoing().put(field, getIncoming().get(field));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#cleanUp()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void cleanUp() throws StateMachineException {
         throw new StateMachineException("cleanUp() not implemented on class");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getKey()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxArtifactKey getKey() {
         return axTask.getKey();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getParent()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
         return parent;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getSubject()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxTask getSubject() {
         return axTask;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getContext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public ApexInternalContext getContext() {
         return internalContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getIncoming()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Map<String, Object> getIncoming() {
         return incomingFields;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getOutgoing()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Map<String, Object> getOutgoing() {
         return outgoingFields;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
-     * executor.Executor)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public void setNext(
-                    final Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> nextEx) {
+    public void setNext(final Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> nextEx) {
         this.nextExecutor = nextEx;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getNext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> getNext() {
         return nextExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core. engine.
-     * ExecutorParameters)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {
-    }
+    public void setParameters(final ExecutorParameters parameters) {}
 }

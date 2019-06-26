@@ -80,7 +80,7 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
             LOGGER.warn("specified consumer properties are not applicable to a web socket consumer");
             throw new ApexEventException("specified consumer properties are not applicable to a web socket consumer");
         }
-        
+
         // The Web Socket properties
         WebSocketCarrierTechnologyParameters webSocketConsumerProperties =
                 (WebSocketCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
@@ -183,7 +183,7 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
     @Override
     public void receiveString(final String eventString) {
         try {
-            eventReceiver.receiveEvent(eventString);
+            eventReceiver.receiveEvent(null, eventString);
             eventsRead++;
         } catch (final Exception e) {
             final String errorMessage = "Error sending event " + name + '_' + eventsRead + ", " + e.getMessage()

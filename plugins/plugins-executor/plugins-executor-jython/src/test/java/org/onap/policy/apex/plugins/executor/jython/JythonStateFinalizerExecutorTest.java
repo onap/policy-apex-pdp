@@ -130,7 +130,7 @@ public class JythonStateFinalizerExecutorTest {
         stateFinalizerLogic.setLogic(scriptSource);
         try {
             jsfe.prepare();
-            jsfe.execute(-1, null);
+            jsfe.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -151,7 +151,7 @@ public class JythonStateFinalizerExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jsfe.execute(0, event);
+            jsfe.execute(0, null, event);
         } catch (Exception jtseException) {
             jtseException.printStackTrace();
             fail("test should not throw an exception here");
@@ -159,7 +159,7 @@ public class JythonStateFinalizerExecutorTest {
 
         try {
             jsfe.prepare();
-            String stateOutput = jsfe.execute(0, event);
+            String stateOutput = jsfe.execute(0, null, event);
             assertEquals("SelectedOutputIsMe", stateOutput);
             jsfe.cleanUp();
         } catch (Exception jtseException) {

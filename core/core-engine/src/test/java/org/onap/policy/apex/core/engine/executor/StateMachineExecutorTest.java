@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -187,7 +187,7 @@ public class StateMachineExecutorTest {
                         new AxArtifactKey("OwnerKey:0.0.1"));
 
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("no states defined on state machine", ex.getMessage());
@@ -209,7 +209,7 @@ public class StateMachineExecutorTest {
         assertEquals(null, executor.getNext());
 
         try {
-            executor.executePre(0, null);
+            executor.executePre(0, null, null);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execution pre work not implemented on class", ex.getMessage());
@@ -231,7 +231,7 @@ public class StateMachineExecutorTest {
         axPolicy.setFirstState("BadState");
         executor.setContext(null, axPolicy, internalContextMock);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("first state not defined on state machine", ex.getMessage());
@@ -240,14 +240,14 @@ public class StateMachineExecutorTest {
         axPolicy.setFirstState("state0");
         executor.setContext(null, axPolicy, internalContextMock);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
 
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -256,7 +256,7 @@ public class StateMachineExecutorTest {
         axPolicy.getStateMap().get("State1").getStateOutputs().get("stateOutput1").setNextState(badStateKey);
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("state execution failed, next state \"Policy:0.0.1:PName:BadState\" not found",
@@ -267,7 +267,7 @@ public class StateMachineExecutorTest {
                         .setNextState(AxReferenceKey.getNullKey());
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -275,7 +275,7 @@ public class StateMachineExecutorTest {
         axPolicy.getStateMap().get("State1").setTrigger(new AxArtifactKey("BadTrigger:0.0.1"));
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("incoming event \"Event1:0.0.1\" does not match trigger \"BadTrigger:0.0.1\" "
@@ -285,7 +285,7 @@ public class StateMachineExecutorTest {
         axPolicy.getStateMap().get("State1").setTrigger(new AxArtifactKey("Event1:0.0.1"));
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -309,7 +309,7 @@ public class StateMachineExecutorTest {
 
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -334,7 +334,7 @@ public class StateMachineExecutorTest {
 
         dummyTsle.setTaskNo(0);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -342,7 +342,7 @@ public class StateMachineExecutorTest {
         dummyTsle.setTaskNo(0);
         dummySfle.setReturnBad(true);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("State execution of state \"Policy:0.0.1:NULL:state1\" on task \"task1:0.0.1\" failed: "
@@ -353,7 +353,7 @@ public class StateMachineExecutorTest {
         dummyTsle.setTaskNo(0);
         dummySfle.setReturnBad(false);
         try {
-            executor.execute(0, incomingEventMock);
+            executor.execute(0, null, incomingEventMock);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }

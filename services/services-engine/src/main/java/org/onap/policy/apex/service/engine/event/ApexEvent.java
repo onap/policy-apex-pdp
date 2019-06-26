@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -23,7 +23,12 @@ package org.onap.policy.apex.service.engine.event;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.slf4j.Logger;
@@ -36,6 +41,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private static final long serialVersionUID = -4451918242101961685L;
 
@@ -104,18 +112,19 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     /** The target of an Apex event must match this regular expression. */
     public static final String TARGET_REGEXP = SOURCE_REGEXP;
 
-    // The fields of the event
-    // @formatter:off
+    // The standard fields of the event
     private final String name;
     private final String version;
     private final String nameSpace;
     private final String source;
     private final String target;
-    // @formatter:on
 
     // An identifier for the current event execution. The default value here will always be unique
     // in a single JVM
     private long executionId = ApexEvent.getNextExecutionId();
+
+    // Event related properties used during processing of this event
+    private Properties executionProperties;
 
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;
@@ -144,7 +153,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     /**
      * Private utility to get the next candidate value for a Execution ID. This value will always be
      * unique in a single JVM
-     * 
+     *
      * @return the next candidate value for a Execution ID
      */
     private static synchronized long getNextExecutionId() {
@@ -190,63 +199,10 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     }
 
     /**
-     * Gets the name.
+     * Sets the pass-thru executionID for this event.
      *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the version.
-     *
-     * @return the version
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * Gets the name space.
-     *
-     * @return the name space
-     */
-    public String getNameSpace() {
-        return nameSpace;
-    }
-
-    /**
-     * Gets the source.
-     *
-     * @return the source
-     */
-    public String getSource() {
-        return source;
-    }
-
-    /**
-     * Gets the target.
-     *
-     * @return the target
-     */
-    public String getTarget() {
-        return target;
-    }
-
-    /**
-     * Gets the pass-thru executionID for this event.
-     *
-     * @return the executionID
-     */
-    public long getExecutionId() {
-        return executionId;
-    }
-
-    /**
-     * Sets the pass-thru executionID for this event. The default value for executionID will be be
-     * unique in the current JVM. For some applications/deployments this executionID may need to
-     * globally unique
+     * <p>The default value for executionID is unique in the current JVM. For some applications/deployments this
+     * executionID may need to be globally unique
      *
      * @param executionId the executionID
      */
@@ -255,12 +211,12 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     }
 
     /**
-     * Gets the exception message explaining why processing of this event to fail.
+     * Set the execution properties for this event.
      *
-     * @return the exception message
+     * @param executionProperties the execution properties to set
      */
-    public String getExceptionMessage() {
-        return exceptionMessage;
+    public void setExecutionProperties(Properties executionProperties) {
+        this.executionProperties = executionProperties;
     }
 
     /**
@@ -317,51 +273,5 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
 
         // Go ahead and put everything
         super.putAll(incomingMap);
-    }
-
-    /*
-     * Object overrides from here
-     */
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("name=");
-        builder.append(name);
-        builder.append(",version=");
-        builder.append(version);
-        builder.append(",nameSpace=");
-        builder.append(nameSpace);
-        builder.append(",source=");
-        builder.append(source);
-        builder.append(",target=");
-        builder.append(target);
-        builder.append(",executionID=");
-        builder.append(executionId);
-        builder.append(",exceptionMessage=");
-        builder.append(exceptionMessage);
-        builder.append(",");
-        builder.append("[");
-
-        boolean firstData = true;
-        for (final Map.Entry<String, Object> dataEntry : this.entrySet()) {
-            if (firstData) {
-                firstData = false;
-            } else {
-                builder.append(',');
-            }
-
-            builder.append(dataEntry.getKey());
-            builder.append('=');
-            builder.append(dataEntry.getValue());
-        }
-
-        builder.append("]");
-        return builder.toString();
     }
 }

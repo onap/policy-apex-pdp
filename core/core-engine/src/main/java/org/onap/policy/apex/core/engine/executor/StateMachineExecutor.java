@@ -21,6 +21,7 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.ContextException;
@@ -59,8 +60,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     private ExecutorFactory executorFactory = null;
 
     /**
-     * Constructor, save the executor factory that will give us executors for task selection logic
-     * and task logic.
+     * Constructor, save the executor factory that will give us executors for task selection logic and task logic.
      *
      * @param executorFactory the executor factory
      * @param owner the artifact key of the owner of this state machine
@@ -69,11 +69,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         this.executorFactory = executorFactory;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#setContext(org.onap.policy.apex.core.
-     * engine.executor.Executor, java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxPolicy newAxPolicy,
@@ -109,10 +106,8 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#prepare()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -121,14 +116,11 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executeDirected(java.lang.long,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public EnEvent execute(final long executionId, final EnEvent incomingEvent)
+    public EnEvent execute(final long executionId, final Properties executionProperties, final EnEvent incomingEvent)
             throws StateMachineException, ContextException {
         // Check if there are any states on the state machine
         if (stateExecutorMap.size() == 0) {
@@ -145,9 +137,10 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         StateExecutor stateExecutor = firstExecutor;
         StateOutput stateOutput = new StateOutput(new AxStateOutput(firstExecutor.getSubject().getKey(),
                 incomingEvent.getKey(), firstExecutor.getSubject().getKey()), incomingEvent);
+
         while (true) {
             // Execute the state, it returns an output or throws an exception
-            stateOutput = stateExecutor.execute(executionId, stateOutput.getOutputEvent());
+            stateOutput = stateExecutor.execute(executionId, executionProperties, stateOutput.getOutputEvent());
 
             // Use the next state of the state output to find if all the states have executed
             if (stateOutput.getNextState().equals(AxReferenceKey.getNullKey())) {
@@ -165,31 +158,25 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         return stateOutput.getOutputEvent();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePre(java.lang.long,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public final void executePre(final long executionId, final EnEvent incomingEntity) throws StateMachineException {
+    public final void executePre(final long executionId, final Properties executionProperties,
+            final EnEvent incomingEntity) throws StateMachineException {
         throw new StateMachineException("execution pre work not implemented on class");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#executePost(boolean)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException {
         throw new StateMachineException("execution post work not implemented on class");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#cleanUp()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void cleanUp() throws StateMachineException {
@@ -198,94 +185,72 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getKey()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public AxArtifactKey getKey() {
         return axPolicy.getKey();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getParent()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final Executor<?, ?, ?, ?> getParent() {
         return parent;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getSubject()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final AxPolicy getSubject() {
         return axPolicy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getContext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final ApexInternalContext getContext() {
         return internalContext;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getIncoming()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final EnEvent getIncoming() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getOutgoing()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final EnEvent getOutgoing() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setNext(org.onap.policy.apex.core.engine.
-     * executor.Executor)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final void setNext(final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> newNextExecutor) {
         this.nextExecutor = newNextExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.Executor#getNext()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> getNext() {
         return nextExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.Executor#setParameters(org.onap.policy.apex.core.
-     * engine. ExecutorParameters)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {

@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 
@@ -70,6 +71,9 @@ public class EnEvent extends HashMap<String, Object> {
     // be reset
     private long executionId = rand.nextLong();
 
+    // Event related properties used during processing of this event
+    private Properties executionProperties;
+
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;
 
@@ -89,7 +93,7 @@ public class EnEvent extends HashMap<String, Object> {
      */
     public EnEvent(final AxEvent axEvent) {
         super();
-        
+
         if (axEvent == null) {
             throw new EnException("event definition is null or was not found in model service");
         }
@@ -160,6 +164,24 @@ public class EnEvent extends HashMap<String, Object> {
     }
 
     /**
+     * Get the event execution properties.
+     *
+     * @return the event execution properties
+     */
+    public Properties getExecutionProperties() {
+        return executionProperties;
+    }
+
+    /**
+     * Set the event execution properties.
+     *
+     * @param executionProperties the execution properties to set
+     */
+    public void setExecutionProperties(Properties executionProperties) {
+        this.executionProperties = executionProperties;
+    }
+
+    /**
      * Gets the exception message explaining why processing of this event to fail.
      *
      * @return the exception message
@@ -176,7 +198,6 @@ public class EnEvent extends HashMap<String, Object> {
     public void setExceptionMessage(final String exceptionMessage) {
         this.exceptionMessage = exceptionMessage;
     }
-
 
     /**
      * Get the user artifact stack of the event.

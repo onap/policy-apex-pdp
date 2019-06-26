@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -102,7 +102,7 @@ public class JavaTaskExecutorTest {
         }
 
         try {
-            jte.execute(-1, null);
+            jte.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals(java.lang.NullPointerException.class, jteException.getClass());
@@ -110,7 +110,7 @@ public class JavaTaskExecutorTest {
 
         Map<String, Object> incomingParameters = new HashMap<>();
         try {
-            jte.execute(-1, incomingParameters);
+            jte.execute(-1, null, incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("task logic failed to run for task  \"NULL:0.0.0\"", jteException.getMessage());
@@ -119,7 +119,7 @@ public class JavaTaskExecutorTest {
         task.getTaskLogic().setLogic("org.onap.policy.apex.plugins.executor.java.DummyJavaTaskLogic");
         try {
             jte.prepare();
-            jte.execute(-1, incomingParameters);
+            jte.execute(-1, null, incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
@@ -128,7 +128,7 @@ public class JavaTaskExecutorTest {
 
         try {
             jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, incomingParameters);
+            Map<String, Object> returnMap = jte.execute(0, null, incomingParameters);
             assertEquals(0, returnMap.size());
             jte.cleanUp();
         } catch (Exception jteException) {

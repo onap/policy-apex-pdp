@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.executor.java;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
@@ -66,16 +67,17 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
      * Executes the executor for the state finalizer logic in a sequential manner.
      *
      * @param executionId the execution ID for the current APEX policy execution
+     * @param executionProperties properties for the current APEX policy execution
      * @param incomingFields the incoming fields for finalisation
      * @return The state output for the state
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public String execute(final long executionId, final Map<String, Object> incomingFields)
-            throws StateMachineException, ContextException {
+    public String execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionId, incomingFields);
+        executePre(executionId, executionProperties, incomingFields);
 
         // Check and execute the Java logic
         boolean returnValue = false;
@@ -84,7 +86,7 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
             // StateFinalizerExecutionContext executor) throws ApexException"
             // to invoke the
             // task logic in the Java class
-            final Method method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput", (Class[])
+            final Method method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput",
                     new Class[] { StateFinalizerExecutionContext.class });
             returnValue = (boolean) method.invoke(stateFinalizerLogicObject, getExecutionContext());
         } catch (final Exception e) {

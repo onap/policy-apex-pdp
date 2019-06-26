@@ -103,7 +103,7 @@ public class MvelTaskSelectExecutorTest {
         }
 
         try {
-            mtse.execute(-1, null);
+            mtse.execute(-1, null, null);
             fail("test should throw an exception here");
         } catch (Exception mtseException) {
             assertEquals(java.lang.NullPointerException.class, mtseException.getClass());
@@ -112,7 +112,7 @@ public class MvelTaskSelectExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            mtse.execute(-1, event);
+            mtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception mtseException) {
             assertEquals("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL",
@@ -122,7 +122,7 @@ public class MvelTaskSelectExecutorTest {
         state.getTaskSelectionLogic().setLogic("executionId != -1");
         try {
             mtse.prepare();
-            mtse.execute(-1, event);
+            mtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception mtseException) {
             assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
@@ -131,7 +131,7 @@ public class MvelTaskSelectExecutorTest {
 
         try {
             mtse.prepare();
-            AxArtifactKey taskKey = mtse.execute(0, event);
+            AxArtifactKey taskKey = mtse.execute(0, null, event);
             assertEquals("NULL:0.0.0", taskKey.getId());
             mtse.cleanUp();
         } catch (Exception mtseException) {

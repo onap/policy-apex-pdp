@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
+import java.util.Properties;
+
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -65,20 +67,22 @@ public interface Executor<I, O, S, C> {
      * Executes the executor, running through its context in its natural order.
      *
      * @param executionId the execution ID of the current APEX execution policy thread
+     * @param executionProperties the execution properties to set
      * @param incomingEntity the incoming entity that triggers execution
      * @return The outgoing entity that is the result of execution
      * @throws ApexException on an execution error
      */
-    O execute(long executionId, I incomingEntity) throws ApexException;
+    O execute(long executionId, Properties executionProperties, I incomingEntity) throws ApexException;
 
     /**
      * Carry out the preparatory work for execution.
      *
      * @param executionId the execution ID of the current APEX execution policy thread
+     * @param executionProperties the execution properties to set
      * @param incomingEntity the incoming entity that triggers execution
      * @throws ApexException on an execution error
      */
-    void executePre(long executionId, I incomingEntity) throws ApexException;
+    void executePre(long executionId, Properties executionProperties, I incomingEntity) throws ApexException;
 
     /**
      * Carry out the post work for execution, the returning entity should be set by the child

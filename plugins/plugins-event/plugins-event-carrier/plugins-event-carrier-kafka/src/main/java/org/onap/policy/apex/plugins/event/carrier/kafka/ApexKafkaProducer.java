@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.kafka;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -66,8 +67,7 @@ public class ApexKafkaProducer implements ApexEventProducer {
         if (!(producerParameters.getCarrierTechnologyParameters() instanceof KafkaCarrierTechnologyParameters)) {
             String message = "specified producer properties are not applicable to a Kafka producer (" + this.name + ")";
             LOGGER.warn(message);
-            throw new ApexEventException(
-                    message);
+            throw new ApexEventException(message);
         }
         kafkaProducerProperties =
                 (KafkaCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
@@ -112,7 +112,8 @@ public class ApexKafkaProducer implements ApexEventProducer {
      * java.lang.Object)
      */
     @Override
-    public void sendEvent(final long executionId, final String eventName, final Object event) {
+    public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
+            final Object event) {
         // Check if this is a synchronized event, if so we have received a reply
         final SynchronousEventCache synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);

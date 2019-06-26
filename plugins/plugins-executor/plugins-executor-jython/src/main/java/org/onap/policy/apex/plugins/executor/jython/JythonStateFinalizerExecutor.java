@@ -21,6 +21,8 @@
 package org.onap.policy.apex.plugins.executor.jython;
 
 import java.util.Map;
+import java.util.Properties;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -78,18 +80,19 @@ public class JythonStateFinalizerExecutor extends StateFinalizerExecutor {
      *
      * @param executionId the execution ID for the current APEX policy execution
      * @param incomingFields the incoming fields for finalisation
+     * @param executionProperties properties for the current APEX policy execution
      * @return The state output for the state
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public String execute(final long executionId, final Map<String, Object> incomingFields)
-            throws StateMachineException, ContextException {
+    public String execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
 
         boolean returnValue = false;
 
         // Do execution pre work
-        executePre(executionId, incomingFields);
+        executePre(executionId, executionProperties, incomingFields);
 
         try {
 

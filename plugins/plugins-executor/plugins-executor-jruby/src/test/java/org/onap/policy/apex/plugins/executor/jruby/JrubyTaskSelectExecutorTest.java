@@ -99,7 +99,7 @@ public class JrubyTaskSelectExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jtse.execute(-1, event);
+            jtse.execute(-1, null, event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
@@ -112,7 +112,7 @@ public class JrubyTaskSelectExecutorTest {
 
         try {
             jtse.prepare();
-            AxArtifactKey taskKey = jtse.execute(0, event);
+            AxArtifactKey taskKey = jtse.execute(0, null, event);
             assertEquals("NULL:0.0.0", taskKey.getId());
             jtse.cleanUp();
         } catch (Exception jtseException) {

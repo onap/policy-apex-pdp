@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,6 +22,7 @@ package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -35,11 +36,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Concrete implementation of an Apex event producer that sends one or more events to its peered
- * event requestor consumer.
- * 
+ * Concrete implementation of an Apex event producer that sends one or more events to its peered event requestor
+ * consumer.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * 
+ *
  */
 public class EventRequestorProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventRequestorProducer.class);
@@ -56,7 +57,7 @@ public class EventRequestorProducer implements ApexEventProducer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#init(java.lang.String,
      * org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters)
      */
@@ -85,7 +86,7 @@ public class EventRequestorProducer implements ApexEventProducer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getName()
      */
     @Override
@@ -95,44 +96,35 @@ public class EventRequestorProducer implements ApexEventProducer {
 
     /**
      * Get the number of events sent to date.
-     * 
+     *
      * @return the number of events received
      */
     public int getEventsSent() {
         return eventsSent;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getPeeredReference(org.onap.
-     * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
         return peerReferenceMap.get(peeredMode);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#setPeeredReference(org.onap.
-     * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode,
-     * org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
         peerReferenceMap.put(peeredMode, peeredReference);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#sendEvent(long, java.lang.
-     * String, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public void sendEvent(final long executionId, final String eventName, final Object eventObject) {
+    public void sendEvent(final long executionId, final Properties executorProperties, final String eventName,
+            final Object eventObject) {
         // Check if this is a synchronized event, if so we have received a reply
         final SynchronousEventCache synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
@@ -166,10 +158,8 @@ public class EventRequestorProducer implements ApexEventProducer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#stop()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void stop() {

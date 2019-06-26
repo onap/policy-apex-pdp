@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import org.onap.policy.apex.context.ContextAlbum;
@@ -38,9 +39,9 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * Container class for the execution context for Task logic executions in a task being executed in
- * an Apex engine. The task must have easy access to the task definition, the incoming and outgoing
- * field contexts, as well as the policy, global, and external context.
+ * Container class for the execution context for Task logic executions in a task being executed in an Apex engine. The
+ * task must have easy access to the task definition, the incoming and outgoing field contexts, as well as the policy,
+ * global, and external context.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
@@ -65,15 +66,18 @@ public class TaskExecutionContext {
     /** the execution ID for the current APEX policy execution instance. */
     public final Long executionId;
 
+    /** the execution properties the current APEX policy execution instance. */
+    public final Properties executionProperties;
+
     /**
-     * The incoming fields from the trigger event for the task. The task logic can access these
-     * fields when executing its logic.
+     * The incoming fields from the trigger event for the task. The task logic can access these fields when executing
+     * its logic.
      */
     public final Map<String, Object> inFields;
 
     /**
-     * The outgoing fields from the task. The task logic can access and set these fields with its
-     * logic. A task outputs its result using these fields.
+     * The outgoing fields from the task. The task logic can access and set these fields with its logic. A task outputs
+     * its result using these fields.
      */
     public final Map<String, Object> outFields;
 
@@ -98,20 +102,21 @@ public class TaskExecutionContext {
      *
      * @param taskExecutor the task executor that requires context
      * @param executionId the execution ID for the current APEX policy execution instance
+     * @param executionProperties the execution properties for task execution
      * @param axTask the task definition that is the subject of execution
      * @param inFields the in fields
      * @param outFields the out fields
-     * @param internalContext the execution context of the Apex engine in which the task is being
-     *        executed
+     * @param internalContext the execution context of the Apex engine in which the task is being executed
      */
-    public TaskExecutionContext(final TaskExecutor taskExecutor, final long executionId, final AxTask axTask,
-            final Map<String, Object> inFields, final Map<String, Object> outFields,
-            final ApexInternalContext internalContext) {
+    public TaskExecutionContext(final TaskExecutor taskExecutor, final long executionId,
+            final Properties executionProperties, final AxTask axTask, final Map<String, Object> inFields,
+            final Map<String, Object> outFields, final ApexInternalContext internalContext) {
         // The subject is the task definition
         subject = new AxTaskFacade(axTask);
 
         // Execution ID is the current policy execution instance
         this.executionId = executionId;
+        this.executionProperties = executionProperties;
 
         // The input and output fields
         this.inFields = Collections.unmodifiableMap(inFields);
@@ -144,8 +149,7 @@ public class TaskExecutionContext {
      *
      * @param contextAlbumName The context album name
      * @return The context album
-     * @throws ContextRuntimeException if the context album does not exist on the task for this
-     *         executor
+     * @throws ContextRuntimeException if the context album does not exist on the task for this executor
      */
     public ContextAlbum getContextAlbum(final String contextAlbumName) {
         // Find the context album

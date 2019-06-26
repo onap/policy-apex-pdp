@@ -25,6 +25,7 @@ import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Properties;
 
 import org.mvel2.MVEL;
 import org.onap.policy.apex.context.ContextException;
@@ -71,16 +72,17 @@ public class MvelTaskSelectExecutor extends TaskSelectExecutor {
      * Executes the executor for the task in a sequential manner.
      *
      * @param executionId the execution ID for the current APEX policy execution
+     * @param executionProperties properties for the current APEX policy execution
      * @param incomingEvent the incoming event
      * @return The outgoing event
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public AxArtifactKey execute(final long executionId, final EnEvent incomingEvent)
-            throws StateMachineException, ContextException {
+    public AxArtifactKey execute(final long executionId, final Properties executionProperties,
+            final EnEvent incomingEvent) throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionId, incomingEvent);
+        executePre(executionId, executionProperties, incomingEvent);
 
         // Check and execute the MVEL logic
         argumentNotNull(compiled, "MVEL task not compiled.");

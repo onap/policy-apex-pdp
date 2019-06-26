@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -70,7 +70,7 @@ public class TaskSelectExecutorTest {
         AxReferenceKey state0Key = new AxReferenceKey("State0Parent:0.0.1:Parent:State0");
         Mockito.doReturn(state0Key).when(axStateMock).getKey();
         Mockito.doReturn(state0Key.getId()).when(axStateMock).getId();
-        
+
         Map<AxArtifactKey, AxStateTaskReference> taskReferences = new LinkedHashMap<>();
         taskReferences.put(new AxArtifactKey("Task0:0.0.0"), null);
         taskReferences.put(new AxArtifactKey("Task1:0.0.0"), null);
@@ -127,19 +127,19 @@ public class TaskSelectExecutorTest {
         }
 
         try {
-            executor.executePre(0, incomingEvent);
+            executor.executePre(0, null, incomingEvent);
         } catch (Exception ex) {
             assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
         }
 
         try {
-            executor.executePre(0, incomingEvent);
+            executor.executePre(0, null, incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
 
         try {
-            executor.execute(0, incomingEvent);
+            executor.execute(0, null, incomingEvent);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute() not implemented on class", ex.getMessage());
@@ -163,7 +163,7 @@ public class TaskSelectExecutorTest {
         }
 
         try {
-            executor.executePre(0, incomingEvent);
+            executor.executePre(0, null, incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -176,7 +176,7 @@ public class TaskSelectExecutorTest {
         }
 
         try {
-            executor.executePre(0, incomingEvent);
+            executor.executePre(0, null, incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -189,15 +189,15 @@ public class TaskSelectExecutorTest {
             assertEquals("task \"IDontExist:0.0.0\" returned by task selection logic not defined "
                             + "on state \"State0Parent:0.0.1:Parent:State0\"", ex.getMessage());
         }
-        
+
         try {
-            executor.executePre(0, incomingEvent);
+            executor.executePre(0, null, incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
 
         executor.getOutgoing().setName("Task0");
-        
+
         try {
             executor.executePost(true);
             assertEquals("Task0", executor.getOutgoing().getName());

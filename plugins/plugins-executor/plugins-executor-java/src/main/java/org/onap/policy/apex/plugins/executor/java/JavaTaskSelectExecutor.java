@@ -21,6 +21,7 @@
 package org.onap.policy.apex.plugins.executor.java;
 
 import java.lang.reflect.Method;
+import java.util.Properties;
 
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -58,10 +59,10 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             // Create the task logic object from the byte code of the class
             taskSelectionLogicObject = Class.forName(getSubject().getTaskSelectionLogic().getLogic()).newInstance();
         } catch (final Exception e) {
-            LOGGER.error("instantiation error on Java class \"" + getSubject().getTaskSelectionLogic().getLogic()
-                            + "\"", e);
-            throw new StateMachineException("instantiation error on Java class \""
-                            + getSubject().getTaskSelectionLogic().getLogic() + "\"", e);
+            LOGGER.error(
+                    "instantiation error on Java class \"" + getSubject().getTaskSelectionLogic().getLogic() + "\"", e);
+            throw new StateMachineException(
+                    "instantiation error on Java class \"" + getSubject().getTaskSelectionLogic().getLogic() + "\"", e);
         }
     }
 
@@ -69,16 +70,17 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
      * Executes the executor for the task in a sequential manner.
      *
      * @param executionId the execution ID for the current APEX policy execution
+     * @param executionProperties properties for the current APEX policy execution
      * @param incomingEvent the incoming event
      * @return The outgoing event
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public AxArtifactKey execute(final long executionId, final EnEvent incomingEvent)
-                    throws StateMachineException, ContextException {
+    public AxArtifactKey execute(final long executionId, final Properties executionProperties,
+            final EnEvent incomingEvent) throws StateMachineException, ContextException {
         // Do execution pre work
-        executePre(executionId, incomingEvent);
+        executePre(executionId, executionProperties, incomingEvent);
 
         // Check and execute the Java logic
         boolean returnValue = false;
@@ -87,14 +89,14 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             // executor)" to invoke the task selection
             // logic in the Java class
             final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask",
-                            (Class[]) new Class[] { TaskSelectionExecutionContext.class });
+                    new Class[] { TaskSelectionExecutionContext.class });
             returnValue = (boolean) method.invoke(taskSelectionLogicObject, getExecutionContext());
         } catch (final Exception e) {
-            LOGGER.error("execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId()
-                            + "\"", e);
+            LOGGER.error(
+                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"",
+                    e);
             throw new StateMachineException(
-                            "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"",
-                            e);
+                    "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"", e);
         }
 
         // Do the execution post work
@@ -112,7 +114,7 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
-                        + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
-                        + getSubject().getTaskSelectionLogic().getLogic());
+                + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
+                + getSubject().getTaskSelectionLogic().getLogic());
     }
 }

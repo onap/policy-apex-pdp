@@ -21,6 +21,8 @@
 package org.onap.policy.apex.plugins.executor.jython;
 
 import java.util.Map;
+import java.util.Properties;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -34,8 +36,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class JythonTaskExecutor is the task executor for task logic written in Jython It is unlikely
- * that this is thread safe.
+ * The Class JythonTaskExecutor is the task executor for task logic written in Jython It is unlikely that this is thread
+ * safe.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -77,19 +79,20 @@ public class JythonTaskExecutor extends TaskExecutor {
      * Executes the executor for the task in a sequential manner.
      *
      * @param executionId the execution ID for the current APEX policy execution
+     * @param executionProperties properties for the current APEX policy execution
      * @param incomingFields the incoming fields
      * @return The outgoing fields
      * @throws StateMachineException on an execution error
      * @throws ContextException on context errors
      */
     @Override
-    public Map<String, Object> execute(final long executionId, final Map<String, Object> incomingFields)
-            throws StateMachineException, ContextException {
+    public Map<String, Object> execute(final long executionId, final Properties executionProperties,
+            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
 
         boolean returnValue = false;
 
         // Do execution pre work
-        executePre(executionId, incomingFields);
+        executePre(executionId, executionProperties, incomingFields);
 
         try {
 

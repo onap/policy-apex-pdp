@@ -107,7 +107,7 @@ public class ApexWebSocketProducerTest {
                 apexWebSocketConsumer, apexWebSocketProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
         apexWebSocketProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
                 synchronousEventCache);
-        apexWebSocketProducer.sendEvent(1000L, "TestApexWebSocketProducer", "apexEvent");
+        apexWebSocketProducer.sendEvent(1000L, null, "TestApexWebSocketProducer", "apexEvent");
     }
 
     @Test
