@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e115c7d_c2acd123",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/EngineServiceInfoResponseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T14:02:15Z",
+      "side": 1,
+      "message": "odd.  Why is this necessary?",
+      "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4cd2171a_48838463",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T14:02:15Z",
+      "side": 1,
+      "message": "Not sure of the purpose of lines 86-92.  Why not just eliminate them and keep only line 91?  (HttpsURLConnection is a subclass of HttpURLConnection.)",
+      "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b825a8a3_30656d49",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T14:02:15Z",
+      "side": 1,
+      "message": "use NetworkUtil.getAlwaysTrustingManager() instead",
+      "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
