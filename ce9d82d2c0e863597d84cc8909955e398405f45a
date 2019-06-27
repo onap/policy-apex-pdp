@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e26c79c5_cf34e95e",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/event/EnEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T13:06:22Z",
+      "side": 1,
+      "message": "use @Getter \u0026 @Setter instead?",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37bf0c8a_96335369",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T13:06:22Z",
+      "side": 1,
+      "message": "seems like I\u0027ve seen sonar complaints about the use of @inheritDoc - could just remove these comments altogether maybe?",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e1cb7f2_0f902ddd",
+        "filename": "plugins/plugins-executor/plugins-executor-java/src/main/java/org/onap/policy/apex/plugins/executor/java/JavaTaskSelectExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T13:06:22Z",
+      "side": 1,
+      "message": "doesn\u0027t support \"{}\" notations?",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
