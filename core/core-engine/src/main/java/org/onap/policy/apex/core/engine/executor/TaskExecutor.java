@@ -81,7 +81,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxTask newAxTask,
@@ -92,7 +92,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -103,7 +103,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> execute(final long executionId, final Properties executionProperties,
@@ -113,7 +113,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePre(final long executionId, final Properties executionProperties,
@@ -155,7 +155,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
@@ -237,7 +237,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void cleanUp() throws StateMachineException {
@@ -245,7 +245,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
@@ -253,7 +253,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
@@ -261,7 +261,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxTask getSubject() {
@@ -269,7 +269,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexInternalContext getContext() {
@@ -277,7 +277,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getIncoming() {
@@ -285,7 +285,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getOutgoing() {
@@ -293,7 +293,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setNext(final Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> nextEx) {
@@ -301,7 +301,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> getNext() {
@@ -309,7 +309,7 @@ public abstract class TaskExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}

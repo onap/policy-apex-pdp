@@ -75,7 +75,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxState newAxState,
@@ -86,7 +86,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -96,7 +96,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey execute(final long executionId, final Properties executionProperties,
@@ -105,7 +105,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePre(final long executionId, final Properties executionProperties,
@@ -124,7 +124,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException {
@@ -155,7 +155,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void cleanUp() throws StateMachineException {
@@ -163,7 +163,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxReferenceKey getKey() {
@@ -171,7 +171,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
@@ -179,7 +179,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxState getSubject() {
@@ -187,7 +187,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexInternalContext getContext() {
@@ -195,7 +195,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setNext(final Executor<EnEvent, AxArtifactKey, AxState, ApexInternalContext> newNextExecutor) {
@@ -203,7 +203,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<EnEvent, AxArtifactKey, AxState, ApexInternalContext> getNext() {
@@ -211,7 +211,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public EnEvent getIncoming() {
@@ -219,7 +219,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getOutgoing() {
@@ -227,7 +227,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}
