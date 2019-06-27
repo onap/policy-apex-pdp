@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "46d64d80_f328b1fe",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/event/EnEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T13:20:32Z",
+      "side": 1,
+      "message": "Should be OK to use it at the field level.",
+      "parentUuid": "ae48f468_805cbc6c",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37bf0c8a_96335369",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateExecutor.java",
         "patchSetId": 1
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "It does but I dodn\u0027t want to change the entire class, the formatter modified this line when I saved the file.",
       "parentUuid": "1e1cb7f2_0f902ddd",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53cfb139_4a46f277",
+        "filename": "plugins/plugins-executor/plugins-executor-java/src/main/java/org/onap/policy/apex/plugins/executor/java/JavaTaskSelectExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-06-27T13:20:32Z",
+      "side": 1,
+      "message": "yeah, that\u0027s for another review - it probably impacts lots of apex code",
+      "parentUuid": "e128225a_54b069da",
       "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
