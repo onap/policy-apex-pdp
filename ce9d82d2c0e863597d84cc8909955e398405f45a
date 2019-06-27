@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ae48f468_805cbc6c",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/event/EnEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T13:17:56Z",
+      "side": 1,
+      "message": "This class extends a map, there probably would be no problem using @Getter and @Setter but I didn\u0027t want to risk it.",
+      "parentUuid": "e26c79c5_cf34e95e",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37bf0c8a_96335369",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateExecutor.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "174d3524_ac4b3e71",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T13:17:56Z",
+      "side": 1,
+      "message": "Yes, I remember someone saying that. I\u0027ll raise another review to remove all these type of comments inthe repo, they are unhelpful.",
+      "parentUuid": "37bf0c8a_96335369",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e1cb7f2_0f902ddd",
         "filename": "plugins/plugins-executor/plugins-executor-java/src/main/java/org/onap/policy/apex/plugins/executor/java/JavaTaskSelectExecutor.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-06-27T13:06:22Z",
       "side": 1,
       "message": "doesn\u0027t support \"{}\" notations?",
+      "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e128225a_54b069da",
+        "filename": "plugins/plugins-executor/plugins-executor-java/src/main/java/org/onap/policy/apex/plugins/executor/java/JavaTaskSelectExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T13:17:56Z",
+      "side": 1,
+      "message": "It does but I dodn\u0027t want to change the entire class, the formatter modified this line when I saved the file.",
+      "parentUuid": "1e1cb7f2_0f902ddd",
       "revId": "ce9d82d2c0e863597d84cc8909955e398405f45a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
