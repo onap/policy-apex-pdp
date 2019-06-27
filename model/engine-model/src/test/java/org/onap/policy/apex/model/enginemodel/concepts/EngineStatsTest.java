@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,7 +141,7 @@ public class EngineStatsTest {
         assertTrue(stats.equals(stats));
         assertTrue(stats.equals(clonedStats));
         assertFalse(stats.equals(null));
-        assertFalse(stats.equals("Hello"));
+        assertFalse(stats.equals((Object)"Hello"));
         assertFalse(stats.equals(new AxEngineStats(new AxReferenceKey())));
 
         assertEquals(0, stats.compareTo(stats));

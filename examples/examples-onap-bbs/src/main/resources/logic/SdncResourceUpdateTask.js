@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +39,7 @@ var uuidType = Java.type("java.util.UUID");
 var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
 var client = new wbClient();
 
-var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
-    attachmentPoint);
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(attachmentPoint);
 var sdncUUID = uuidType.randomUUID();
 executor.logger.info(NomadicONTContext);
 var jsonObj;
@@ -50,8 +50,7 @@ var SVC_NOTIFICATION_URL;
 var putUpddateServInstance = JSON.parse(NomadicONTContext.get("aai_message"));
 var input_param = JSON.parse(putUpddateServInstance['input-parameters']);
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/config.txt"));
+    var br = Files.newBufferedReader(Paths.get("/home/apexuser/examples/config/ONAPBBS/config.txt"));
     var line;
     while ((line = br.readLine()) != null) {
         if (line.startsWith("SDNC_URL")) {
@@ -60,8 +59,7 @@ try {
         } else if (line.startsWith("SVC_NOTIFICATION_URL")) {
             var str = line.split("=");
             SVC_NOTIFICATION_URL = str[str.length - 1];
-        }
-        else if (line.startsWith("SDNC_USERNAME")) {
+        } else if (line.startsWith("SDNC_USERNAME")) {
             var str = line.split("=");
             SDNC_USERNAME = str[str.length - 1];
         } else if (line.startsWith("SDNC_PASSWORD")) {
@@ -79,12 +77,11 @@ var jsonObj;
 var sdncUpdateResult = true;
 
 /* BBS Policy calls SDN-C GR-API to delete AccessConnectivity VF ID */
-/* Prepare Data*/
+/* Prepare Data */
 var xmlDeleteAccess = "";
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/sdnc_DeleteAccessConnectivityInstance.txt"
-    ));
+    var br = Files.newBufferedReader(Paths
+            .get("/home/apexuser/examples/config/ONAPBBS/sdnc_DeleteAccessConnectivityInstance.txt"));
     var line;
     while ((line = br.readLine()) != null) {
         xmlDeleteAccess += line;
@@ -96,56 +93,39 @@ try {
 
 /* BBS Policy calls SDN-C GR-API to delete AccessConnectivity */
 xmlDeleteAccess = xmlDeleteAccess.replace("svc_request_id_value", sdncUUID);
-xmlDeleteAccess = xmlDeleteAccess.replace("svc_notification_url_value",
-    SVC_NOTIFICATION_URL);
+xmlDeleteAccess = xmlDeleteAccess.replace("svc_notification_url_value", SVC_NOTIFICATION_URL);
 xmlDeleteAccess = xmlDeleteAccess.replace("request_id_value", sdncUUID);
 xmlDeleteAccess = xmlDeleteAccess.replace("service_id_value", sdncUUID);
-xmlDeleteAccess = xmlDeleteAccess.replace("service_instance_id_value",
-    putUpddateServInstance['service-instance-id']);
-xmlDeleteAccess = xmlDeleteAccess.replace("service_type_value", input_param[
-    'service']['serviceType']);
-xmlDeleteAccess = xmlDeleteAccess.replace("customer_id_value", input_param[
-    'service']['globalSubscriberId']);
-xmlDeleteAccess = xmlDeleteAccess.replace("customer_name_value", input_param[
-    'service']['globalSubscriberId']);
+xmlDeleteAccess = xmlDeleteAccess.replace("service_instance_id_value", putUpddateServInstance['service-instance-id']);
+xmlDeleteAccess = xmlDeleteAccess.replace("service_type_value", input_param['service']['serviceType']);
+xmlDeleteAccess = xmlDeleteAccess.replace("customer_id_value", input_param['service']['globalSubscriberId']);
+xmlDeleteAccess = xmlDeleteAccess.replace("customer_name_value", input_param['service']['globalSubscriberId']);
 
-xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_inv_uuid_value",
-    getResourceInvariantUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'AccessConnectivity'));
-xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_custom_uuid_value",
-    getResourceCustomizationUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'AccessConnectivity'));
-xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_uuid_value",
-    getResourceUuid(input_param['service']['parameters']['resources'],
-        'AccessConnectivity'));
-xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_name_value", "AccessConnectivity");
-xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_inv_uuid_value",
-    getResourceInvariantUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'AccessConnectivity'));
-xmlDeleteAccess = xmlDeleteAccess.replace(
-    "network_info_model_custom_uuid_value", getResourceCustomizationUuid(
+xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_inv_uuid_value", getResourceInvariantUuid(
         input_param['service']['parameters']['resources'], 'AccessConnectivity'));
-xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_uuid_value",
-    getResourceUuid(input_param['service']['parameters']['resources'],
-        'AccessConnectivity'));
-xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_name_value",
-    "AccessConnectivity");
+xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_custom_uuid_value", getResourceCustomizationUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_uuid_value", getResourceUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlDeleteAccess = xmlDeleteAccess.replace("srv_info_model_name_value", "AccessConnectivity");
+xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_inv_uuid_value", getResourceInvariantUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_custom_uuid_value", getResourceCustomizationUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_uuid_value", getResourceUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlDeleteAccess = xmlDeleteAccess.replace("network_info_model_name_value", "AccessConnectivity");
 
-xmlDeleteAccess = xmlDeleteAccess.replace("vendor_value", input_param['service']
-    ['parameters']['requestInputs']['ont_ont_manufacturer']);
+xmlDeleteAccess = xmlDeleteAccess.replace("vendor_value",
+        input_param['service']['parameters']['requestInputs']['ont_ont_manufacturer']);
 xmlDeleteAccess = xmlDeleteAccess.replace("service_id_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'],
-    'controller-service-id'));
+        putUpddateServInstance['metadata']['metadatum'], 'controller-service-id'));
 executor.logger.info(client.toPrettyString(xmlDeleteAccess, 4));
 
 try {
-    var urlPost1 = HTTP_PROTOCOL + SDNC_URL +
-        "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-    result = client.httpRequest(urlPost1, "POST", xmlDeleteAccess, SDNC_USERNAME, SDNC_PASSWORD,
-        "application/xml", true, true);
+    var urlPost1 = HTTP_PROTOCOL + SDNC_URL + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
+    result = client.httpRequest(urlPost1, "POST", xmlDeleteAccess, SDNC_USERNAME, SDNC_PASSWORD, "application/xml",
+            false);
     executor.logger.info("Data received From " + urlPost1 + " " + result);
     if (result == "") {
         sdncUpdateResult = false;
@@ -155,14 +135,13 @@ try {
     sdncUpdateResult = false;
 }
 
-/* BBS Policy calls SDN-C GR-API to create new AccessConnectivity VF  */
+/* BBS Policy calls SDN-C GR-API to create new AccessConnectivity VF */
 
-/* Prepare Data*/
+/* Prepare Data */
 var xmlCreateAccess = "";
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/sdnc_CreateAccessConnectivityInstance.txt"
-    ));
+    var br = Files.newBufferedReader(Paths
+            .get("/home/apexuser/examples/config/ONAPBBS/sdnc_CreateAccessConnectivityInstance.txt"));
     var line;
     while ((line = br.readLine()) != null) {
         xmlCreateAccess += line;
@@ -172,62 +151,47 @@ try {
     executor.logger.info("Failed to retrieve data " + err);
 }
 xmlCreateAccess = xmlCreateAccess.replace("svc_request_id_value", sdncUUID);
-xmlCreateAccess = xmlCreateAccess.replace("svc_notification_url_value",
-    SVC_NOTIFICATION_URL);
+xmlCreateAccess = xmlCreateAccess.replace("svc_notification_url_value", SVC_NOTIFICATION_URL);
 xmlCreateAccess = xmlCreateAccess.replace("request_id_value", requestID);
 xmlCreateAccess = xmlCreateAccess.replace("service_id_value", sdncUUID);
-xmlCreateAccess = xmlCreateAccess.replace("service_instance_id_value",
-    putUpddateServInstance['service-instance-id']);
-xmlCreateAccess = xmlCreateAccess.replace("service_type_value", input_param[
-    'service']['serviceType']);
-xmlCreateAccess = xmlCreateAccess.replace("customer_id_value", input_param[
-    'service']['globalSubscriberId']);
-xmlCreateAccess = xmlCreateAccess.replace("customer_name_value", input_param[
-    'service']['globalSubscriberId']);
+xmlCreateAccess = xmlCreateAccess.replace("service_instance_id_value", putUpddateServInstance['service-instance-id']);
+xmlCreateAccess = xmlCreateAccess.replace("service_type_value", input_param['service']['serviceType']);
+xmlCreateAccess = xmlCreateAccess.replace("customer_id_value", input_param['service']['globalSubscriberId']);
+xmlCreateAccess = xmlCreateAccess.replace("customer_name_value", input_param['service']['globalSubscriberId']);
 
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value",
-    getResourceInvariantUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'AccessConnectivity'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_custom_uuid_value",
-    getResourceCustomizationUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'AccessConnectivity'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_uuid_value",
-    getResourceUuid(input_param['service']['parameters']['resources'],
-        'AccessConnectivity'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value", "AccessConnectivity");
-xmlCreateAccess = xmlCreateAccess.replace("network_info_model_inv_uuid_value",
-    getResourceInvariantUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'AccessConnectivity'));
-xmlCreateAccess = xmlCreateAccess.replace(
-    "network_info_model_custom_uuid_value", getResourceCustomizationUuid(
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value", getResourceInvariantUuid(
         input_param['service']['parameters']['resources'], 'AccessConnectivity'));
-xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value",
-    getResourceUuid(input_param['service']['parameters']['resources'],
-        'AccessConnectivity'));
-xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value",
-    "AccessConnectivity");
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_custom_uuid_value", getResourceCustomizationUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_uuid_value", getResourceUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value", "AccessConnectivity");
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_inv_uuid_value", getResourceInvariantUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_custom_uuid_value", getResourceCustomizationUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value", getResourceUuid(
+        input_param['service']['parameters']['resources'], 'AccessConnectivity'));
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value", "AccessConnectivity");
 
-xmlCreateAccess = xmlCreateAccess.replace("vendor_value", input_param['service']
-    ['parameters']['requestInputs']['ont_ont_manufacturer']);
-xmlCreateAccess = xmlCreateAccess.replace("ont_sn_value", input_param['service']
-    ['parameters']['requestInputs']['ont_ont_serial_num']);
-xmlCreateAccess = xmlCreateAccess.replace("s_vlan_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'svlan'));
-xmlCreateAccess = xmlCreateAccess.replace("c_vlan_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'cvlan'));
+xmlCreateAccess = xmlCreateAccess.replace("vendor_value",
+        input_param['service']['parameters']['requestInputs']['ont_ont_manufacturer']);
+xmlCreateAccess = xmlCreateAccess.replace("ont_sn_value",
+        input_param['service']['parameters']['requestInputs']['ont_ont_serial_num']);
+xmlCreateAccess = xmlCreateAccess.replace("s_vlan_value", getMetaValue(putUpddateServInstance['metadata']['metadatum'],
+        'svlan'));
+xmlCreateAccess = xmlCreateAccess.replace("c_vlan_value", getMetaValue(putUpddateServInstance['metadata']['metadatum'],
+        'cvlan'));
 xmlCreateAccess = xmlCreateAccess.replace("remote_id_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
+        putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
 executor.logger.info(client.toPrettyString(xmlCreateAccess, 4));
 
 try {
     if (sdncUpdateResult == true) {
-        var urlPost2 = HTTP_PROTOCOL + SDNC_URL +
-            "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-        result = client.httpRequest(urlPost2, "POST", xmlCreateAccess, SDNC_USERNAME, SDNC_PASSWORD,
-            "application/xml", true, true);
+        var urlPost2 = HTTP_PROTOCOL + SDNC_URL
+                + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
+        result = client.httpRequest(urlPost2, "POST", xmlCreateAccess, SDNC_USERNAME, SDNC_PASSWORD, "application/xml",
+                false);
         executor.logger.info("Data received From " + urlPost2 + " " + result);
         if (result == "") {
             sdncUpdateResult = false;
@@ -238,12 +202,11 @@ try {
     sdncUpdateResult = false;
 }
 
-/* BBS Policy calls SDN-C GR-API to create change Internet Profile  */
+/* BBS Policy calls SDN-C GR-API to create change Internet Profile */
 var xmlChangeProfile = "";
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt"
-    ));
+    var br = Files.newBufferedReader(Paths
+            .get("/home/apexuser/examples/config/ONAPBBS/sdnc_ChangeInternetProfileInstance.txt"));
     var line;
     while ((line = br.readLine()) != null) {
         xmlChangeProfile += line;
@@ -254,75 +217,56 @@ try {
 }
 
 xmlChangeProfile = xmlChangeProfile.replace("svc_request_id_value", sdncUUID);
-xmlChangeProfile = xmlChangeProfile.replace("svc_notification_url_value",
-    SVC_NOTIFICATION_URL);
+xmlChangeProfile = xmlChangeProfile.replace("svc_notification_url_value", SVC_NOTIFICATION_URL);
 xmlChangeProfile = xmlChangeProfile.replace("request_id_value", requestID);
 xmlChangeProfile = xmlChangeProfile.replace("service_id_value", sdncUUID);
-xmlChangeProfile = xmlChangeProfile.replace("service_instance_id_value",
-    putUpddateServInstance['service-instance-id']);
-xmlChangeProfile = xmlChangeProfile.replace("service_type_value", input_param[
-    'service']['serviceType']);
-xmlChangeProfile = xmlChangeProfile.replace("customer_id_value", input_param[
-    'service']['globalSubscriberId']);
-xmlChangeProfile = xmlChangeProfile.replace("customer_name_value", input_param[
-    'service']['globalSubscriberId']);
+xmlChangeProfile = xmlChangeProfile.replace("service_instance_id_value", putUpddateServInstance['service-instance-id']);
+xmlChangeProfile = xmlChangeProfile.replace("service_type_value", input_param['service']['serviceType']);
+xmlChangeProfile = xmlChangeProfile.replace("customer_id_value", input_param['service']['globalSubscriberId']);
+xmlChangeProfile = xmlChangeProfile.replace("customer_name_value", input_param['service']['globalSubscriberId']);
 
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value",
-    getResourceInvariantUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'InternetProfile'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_custom_uuid_value",
-    getResourceCustomizationUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'InternetProfile'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_uuid_value",
-    getResourceUuid(input_param['service']['parameters']['resources'],
-        'InternetProfile'));
-xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value",
-    "InternetProfile");
-xmlCreateAccess = xmlCreateAccess.replace("network_info_model_inv_uuid_value",
-    getResourceInvariantUuid(input_param['service']['parameters'][
-        'resources'
-    ], 'InternetProfile'));
-xmlCreateAccess = xmlCreateAccess.replace(
-    "network_info_model_custom_uuid_value", getResourceCustomizationUuid(
-        input_param['service']['parameters']['resources'],
-        'InternetProfile'));
-xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value",
-    getResourceUuid(input_param['service']['parameters']['resources'],
-        'InternetProfile'));
-xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value",
-    "InternetProfile");
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_inv_uuid_value", getResourceInvariantUuid(
+        input_param['service']['parameters']['resources'], 'InternetProfile'));
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_custom_uuid_value", getResourceCustomizationUuid(
+        input_param['service']['parameters']['resources'], 'InternetProfile'));
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_uuid_value", getResourceUuid(
+        input_param['service']['parameters']['resources'], 'InternetProfile'));
+xmlCreateAccess = xmlCreateAccess.replace("srv_info_model_name_value", "InternetProfile");
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_inv_uuid_value", getResourceInvariantUuid(
+        input_param['service']['parameters']['resources'], 'InternetProfile'));
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_custom_uuid_value", getResourceCustomizationUuid(
+        input_param['service']['parameters']['resources'], 'InternetProfile'));
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_uuid_value", getResourceUuid(
+        input_param['service']['parameters']['resources'], 'InternetProfile'));
+xmlCreateAccess = xmlCreateAccess.replace("network_info_model_name_value", "InternetProfile");
 
-xmlChangeProfile = xmlChangeProfile.replace("vendor_value", input_param[
-    'service']['parameters']['requestInputs']['ont_ont_manufacturer']);
+xmlChangeProfile = xmlChangeProfile.replace("vendor_value",
+        input_param['service']['parameters']['requestInputs']['ont_ont_manufacturer']);
 xmlChangeProfile = xmlChangeProfile.replace("service_id_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'],
-    'controller-service-id'));
+        putUpddateServInstance['metadata']['metadatum'], 'controller-service-id'));
 xmlChangeProfile = xmlChangeProfile.replace("remote_id_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
-xmlChangeProfile = xmlChangeProfile.replace("ont_sn_value", input_param[
-    'service']['parameters']['requestInputs']['ont_ont_serial_num']);
-xmlChangeProfile = xmlChangeProfile.replace("service_type_value", input_param[
-    'service']['serviceType']);
-xmlChangeProfile = xmlChangeProfile.replace("mac_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'rgw-mac-address'));
+        putUpddateServInstance['metadata']['metadatum'], 'remote-id'));
+xmlChangeProfile = xmlChangeProfile.replace("ont_sn_value",
+        input_param['service']['parameters']['requestInputs']['ont_ont_serial_num']);
+xmlChangeProfile = xmlChangeProfile.replace("service_type_value", input_param['service']['serviceType']);
+xmlChangeProfile = xmlChangeProfile.replace("mac_value", getMetaValue(putUpddateServInstance['metadata']['metadatum'],
+        'rgw-mac-address'));
 xmlChangeProfile = xmlChangeProfile.replace("up_speed_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'up-speed'));
+        putUpddateServInstance['metadata']['metadatum'], 'up-speed'));
 xmlChangeProfile = xmlChangeProfile.replace("down_speed_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'down-speed'));
+        putUpddateServInstance['metadata']['metadatum'], 'down-speed'));
 xmlChangeProfile = xmlChangeProfile.replace("s_vlan_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'svlan'));
+        putUpddateServInstance['metadata']['metadatum'], 'svlan'));
 xmlChangeProfile = xmlChangeProfile.replace("c_vlan_value", getMetaValue(
-    putUpddateServInstance['metadata']['metadatum'], 'cvlan'));
+        putUpddateServInstance['metadata']['metadatum'], 'cvlan'));
 
 executor.logger.info(client.toPrettyString(xmlChangeProfile, 4));
 try {
     if (sdncUpdateResult == true) {
-        var urlPost3 = HTTP_PROTOCOL + SDNC_URL +
-            "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
+        var urlPost3 = HTTP_PROTOCOL + SDNC_URL
+                + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
         result = client.httpRequest(urlPost3, "POST", xmlChangeProfile, SDNC_USERNAME, SDNC_PASSWORD,
-            "application/xml", true, true);
+                "application/xml", false);
         executor.logger.info("Data received From " + urlPost3 + " " + result);
         if (result == "") {
             sdncUpdateResult = false;
@@ -345,8 +289,7 @@ if (sdncUpdateResult === true) {
 
 executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
-executor.outFields.put("serviceInstanceId", executor.inFields.get(
-    "serviceInstanceId"));
+executor.outFields.put("serviceInstanceId", executor.inFields.get("serviceInstanceId"));
 
 var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);

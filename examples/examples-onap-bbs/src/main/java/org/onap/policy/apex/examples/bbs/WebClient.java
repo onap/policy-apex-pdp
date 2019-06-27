@@ -21,25 +21,18 @@
 
 package org.onap.policy.apex.examples.bbs;
 
-
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.X509Certificate;
 import java.util.Base64;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -49,6 +42,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
+import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
+import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.w3c.dom.Document;
@@ -60,69 +56,39 @@ import org.xml.sax.InputSource;
  * The Class WebClient act as rest client for BBS usecase.
  */
 public class WebClient {
-
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(WebClient.class);
 
-    /**
-     * Disable ssl verification.
-     */
-    private static void disableCertificateValidation() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
-
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                }
-            }
-            };
-
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-        } catch (Exception e) {
-            LOGGER.error("httpsRequest Exception " + e);
-        }
-    }
+    // Duplicated string constants
+    private static final String BBS_POLICY = "BBS Policy";
 
     /**
      * Send simple https rest request.
      *
-     * @param requestUrl  url
-     * @param requestMethod  method eg POST/GET/PUT
-     * @param outputStr   Data
-     * @param username  Simple Username
-     * @param pass   Simple password
+     * @param requestUrl url
+     * @param requestMethod method eg POST/GET/PUT
+     * @param outputStr Data
+     * @param username Simple Username
+     * @param pass Simple password
      * @param contentType http content type
-     * @param fillApp If required to fill app details
-     * @param disableSSl If disabling ssl checking
-     * @return  String response message
+     * @apram secureHttp flag indicating if HTTPS should be used
+     * @return String response message
      */
-    public String httpsRequest(String requestUrl, String requestMethod,
-                               String outputStr, String username, String pass,
-                               String contentType, boolean fillApp, boolean disableSSl) {
+    public String httpRequest(String requestUrl, String requestMethod, String outputStr, String username, String pass,
+            String contentType, boolean secureHttp) {
         String result = "";
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
         try {
             LOGGER.info("httpsRequest starts " + requestUrl + " method " + requestMethod);
-            if (disableSSl) {
-                disableCertificateValidation();
-            }
+            disableCertificateValidation();
+
             URL url = new URL(requestUrl);
-            HttpsURLConnection httpUrlConn = (HttpsURLConnection) url.openConnection();
+            HttpURLConnection httpUrlConn = null;
+            if (secureHttp) {
+                httpUrlConn = (HttpsURLConnection) url.openConnection();
+            }
+            else {
+                httpUrlConn = (HttpURLConnection) url.openConnection();
+            }
             httpUrlConn.setDoOutput(true);
             httpUrlConn.setDoInput(true);
             httpUrlConn.setUseCaches(false);
@@ -135,10 +101,8 @@ public class WebClient {
 
             httpUrlConn.setRequestProperty("Content-Type", contentType);
             httpUrlConn.setRequestProperty("Accept", contentType);
-            if (fillApp) {
-                httpUrlConn.setRequestProperty("X-FromAppId", "BBS Policy");
-                httpUrlConn.setRequestProperty("X-TransactionId", "BBS Policy");
-            }
+            httpUrlConn.setRequestProperty("X-FromAppId", BBS_POLICY);
+            httpUrlConn.setRequestProperty("X-TransactionId", BBS_POLICY);
             httpUrlConn.setRequestMethod(requestMethod);
 
             if ("GET".equalsIgnoreCase(requestMethod)) {
@@ -151,107 +115,20 @@ public class WebClient {
                 outputStream.close();
             }
 
-            try (InputStream inputStream = httpUrlConn.getInputStream()) {
-                try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-                    try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                        String str;
-                        while ((str = bufferedReader.readLine()) != null) {
-                            buffer.append(str);
-                        }
-                    }
+            try (BufferedReader bufferedReader =
+                    new BufferedReader(new InputStreamReader(httpUrlConn.getInputStream(), StandardCharsets.UTF_8))) {
+                String str;
+                while ((str = bufferedReader.readLine()) != null) {
+                    builder.append(str);
                 }
                 httpUrlConn.disconnect();
-                result = buffer.toString();
+                result = builder.toString();
             }
             LOGGER.info("httpsRequest success ");
         } catch (Exception ce) {
             LOGGER.error("httpsRequest Exception " + ce);
         }
         return result;
-    }
-
-    /**
-     * Send simple https rest request.
-     *
-     * @param requestUrl  url
-     * @param requestMethod  method eg POST/GET/PUT
-     * @param outputStr   Data
-     * @param username  Simple Username
-     * @param pass   Simple password
-     * @param contentType http content type
-     * @param fillApp If required to fill app details
-     * @param disableSSl If disabling ssl checking
-     * @return  String response message
-     */
-    public String httpRequest(String requestUrl, String requestMethod,
-                              String outputStr, String username, String pass,
-                              String contentType, boolean fillApp, boolean disableSSl) {
-        String result = "";
-        StringBuffer buffer = new StringBuffer();
-        try {
-            LOGGER.info("httpRequest starts " + requestUrl + " method " + requestMethod);
-            if (disableSSl) {
-                disableCertificateValidation();
-            }
-            URL url = new URL(requestUrl);
-            HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
-            httpUrlConn.setDoOutput(true);
-            httpUrlConn.setDoInput(true);
-            httpUrlConn.setUseCaches(false);
-
-            if ((username != null) && (pass != null)) {
-                httpUrlConn.setRequestProperty("Authorization", getAuth(username, pass));
-            } else {
-                LOGGER.warn("Authorization information missing");
-            }
-
-            httpUrlConn.setRequestProperty("Content-Type", contentType);
-            httpUrlConn.setRequestProperty("Accept", contentType);
-            if (fillApp) {
-                httpUrlConn.setRequestProperty("X-FromAppId", "BBS Policy");
-                httpUrlConn.setRequestProperty("X-TransactionId", "BBS Policy");
-            }
-            httpUrlConn.setRequestMethod(requestMethod);
-
-            if ("GET".equalsIgnoreCase(requestMethod)) {
-                httpUrlConn.connect();
-            }
-
-            if (null != outputStr) {
-                OutputStream outputStream = httpUrlConn.getOutputStream();
-                outputStream.write(outputStr.getBytes(StandardCharsets.UTF_8));
-                outputStream.close();
-            }
-
-            try (InputStream inputStream = httpUrlConn.getInputStream()) {
-                try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-                    try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                        String str;
-                        while ((str = bufferedReader.readLine()) != null) {
-                            buffer.append(str);
-                        }
-                    }
-                }
-                httpUrlConn.disconnect();
-                result = buffer.toString();
-            }
-            LOGGER.info("httpsRequest success ");
-        } catch (Exception ce) {
-            LOGGER.error("httpsRequest Exception " + ce);
-        }
-        return result;
-    }
-
-    /**
-     * Return Basic Authentication String.
-     *
-     * @param userName UserName
-     * @param password PassWord
-     * @return Basic Authentication
-     */
-    private String getAuth(String userName, String password) {
-        String userCredentials = userName + ":" + password;
-        return ("Basic " + Base64.getEncoder().encodeToString(userCredentials.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
@@ -264,21 +141,19 @@ public class WebClient {
     public String toPrettyString(String xml, int indent) {
         try {
             try (ByteArrayInputStream br = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))) {
-                Document document = DocumentBuilderFactory.newInstance()
-                        .newDocumentBuilder()
-                        .parse(new InputSource(br));
+                Document document =
+                        DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(br));
 
                 document.normalize();
                 XPath path = XPathFactory.newInstance().newXPath();
-                NodeList nodeList = (NodeList) path.evaluate("//text()[normalize-space()='']",
-                        document,
-                        XPathConstants.NODESET);
+                NodeList nodeList =
+                        (NodeList) path.evaluate("//text()[normalize-space()='']", document, XPathConstants.NODESET);
 
                 for (int i = 0; i < nodeList.getLength(); ++i) {
                     Node node = nodeList.item(i);
                     node.getParentNode().removeChild(node);
                 }
-               
+
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 transformerFactory.setAttribute("indent-number", indent);
                 Transformer transformer = transformerFactory.newTransformer();
@@ -291,7 +166,37 @@ public class WebClient {
                 return stringWriter.toString();
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ApexRuntimeException("pretiffication failed", e);
         }
+    }
+
+    /**
+     * Disable ssl verification.
+     */
+    private static void disableCertificateValidation() {
+        try {
+            TrustManager[] trustAllCerts = NetworkUtil.getAlwaysTrustingManager();
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+
+        } catch (Exception e) {
+            LOGGER.error("certificate validation Exception " + e);
+        }
+    }
+
+    /**
+     * Return Basic Authentication String.
+     *
+     * @param userName UserName
+     * @param password PassWord
+     * @return Basic Authentication
+     */
+    private String getAuth(String userName, String password) {
+        String userCredentials = userName + ":" + password;
+        return ("Basic " + Base64.getEncoder().encodeToString(userCredentials.getBytes(StandardCharsets.UTF_8)));
     }
 }

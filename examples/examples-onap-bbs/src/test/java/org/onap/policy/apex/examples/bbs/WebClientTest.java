@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.examples.bbs;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,13 +36,15 @@ import org.mockito.Mockito;
 public class WebClientTest {
     HttpsURLConnection mockedHttpsUrlConnection;
     String sampleString = "Response Code :200";
+
     /**
      * Set up the mocked REST manager.
-     * @throws IOException
+     *
+     * @throws IOException on I/O errors
      */
     @Before
     public void setupMockedRest() throws IOException {
-        mockedHttpsUrlConnection   = mock(HttpsURLConnection.class);
+        mockedHttpsUrlConnection = mock(HttpsURLConnection.class);
         InputStream inputStream = new ByteArrayInputStream(sampleString.getBytes());
         when(mockedHttpsUrlConnection.getInputStream()).thenReturn(inputStream);
         Mockito.doNothing().when(mockedHttpsUrlConnection).connect();
@@ -50,17 +53,17 @@ public class WebClientTest {
     @Test
     public void httpsRequest() {
         WebClient cl = new WebClient();
-        String result = cl.httpsRequest("https://some.random.url/data", "POST", null,
-                "admin", "admin", "application/json",true, true);
-
+        String result = cl.httpRequest("https://some.random.url/data", "POST", null, "admin", "admin",
+                "application/json", true);
+        assertNotNull(result);
     }
 
     @Test
     public void httpRequest() {
         WebClient cl = new WebClient();
-        String result = cl.httpRequest("http://some.random.url/data", "GET", null,
-                "admin", "admin", "application/json",true, true);
-
+        String result =
+                cl.httpRequest("http://some.random.url/data", "GET", null, "admin", "admin", "application/json", false);
+        assertNotNull(result);
     }
 
     @Test

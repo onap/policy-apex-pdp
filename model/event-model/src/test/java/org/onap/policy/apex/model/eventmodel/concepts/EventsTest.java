@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -194,7 +195,7 @@ public class EventsTest {
         assertTrue(event.equals(event));
         assertTrue(event.equals(clonedEvent));
         assertFalse(event.equals(null));
-        assertFalse(event.equals("Hello"));
+        assertFalse(event.equals((Object)"Hello"));
         assertFalse(
                 event.equals(new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap)));
         assertFalse(event.equals(new AxEvent(eventKey, "namespace1", "source", "target", parameterMap)));
@@ -277,7 +278,7 @@ public class EventsTest {
         assertTrue(events.equals(events));
         assertTrue(events.equals(clonedEvents));
         assertFalse(events.equals(null));
-        assertFalse(events.equals("Hello"));
+        assertFalse(events.equals((Object)"Hello"));
         assertFalse(events.equals(new AxEvents(new AxArtifactKey())));
 
         assertEquals(0, events.compareTo(events));

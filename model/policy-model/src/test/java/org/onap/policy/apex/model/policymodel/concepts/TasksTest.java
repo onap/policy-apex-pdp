@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -228,7 +229,7 @@ public class TasksTest {
         assertTrue(task.equals(task));
         assertTrue(task.equals(clonedTask));
         assertFalse(task.equals(null));
-        assertFalse(task.equals("Hello"));
+        assertFalse(task.equals((Object)"Hello"));
         assertFalse(task.equals(new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl)));
         assertFalse(task.equals(new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl)));
         assertFalse(task.equals(new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl)));
@@ -311,7 +312,7 @@ public class TasksTest {
         assertTrue(tasks.equals(tasks));
         assertTrue(tasks.equals(clonedTasks));
         assertFalse(tasks.equals(null));
-        assertFalse(tasks.equals("Hello"));
+        assertFalse(tasks.equals((Object)"Hello"));
         assertFalse(tasks.equals(new AxTasks(new AxArtifactKey())));
 
         assertEquals(0, tasks.compareTo(tasks));

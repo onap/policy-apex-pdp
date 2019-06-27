@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -240,7 +241,7 @@ public class PoliciesTest {
         assertTrue(policy.equals(policy));
         assertTrue(policy.equals(clonedPolicy));
         assertFalse(policy.equals(null));
-        assertFalse(policy.equals("Hello"));
+        assertFalse(policy.equals((Object)"Hello"));
         assertFalse(policy.equals(
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
         assertFalse(policy.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
@@ -324,7 +325,7 @@ public class PoliciesTest {
         assertTrue(policies.equals(policies));
         assertTrue(policies.equals(clonedPolicies));
         assertFalse(policies.equals(null));
-        assertFalse(policies.equals("Hello"));
+        assertFalse(policies.equals((Object)"Hello"));
         assertFalse(policies.equals(new AxPolicies(new AxArtifactKey())));
 
         assertEquals(0, policies.compareTo(policies));

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -135,7 +136,7 @@ public class StateTaskReferenceTest {
         assertTrue(stRef.equals(stRef));
         assertTrue(stRef.equals(clonedStRef));
         assertFalse(stRef.equals(null));
-        assertFalse(stRef.equals("Hello"));
+        assertFalse(stRef.equals((Object)"Hello"));
         assertFalse(stRef.equals(
                         new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
         assertFalse(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));
