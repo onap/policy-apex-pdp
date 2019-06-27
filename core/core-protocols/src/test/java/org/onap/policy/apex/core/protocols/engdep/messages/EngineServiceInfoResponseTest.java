@@ -75,7 +75,7 @@ public class EngineServiceInfoResponseTest {
         
         assertTrue(response.equals(response));
         assertFalse(response.equals(null));
-        assertFalse(response.equals(new StartEngine(new AxArtifactKey())));
+        assertFalse(response.equals((Object)new StartEngine(new AxArtifactKey())));
 
         response = new EngineServiceInfoResponse(null, false, null);
         EngineServiceInfoResponse otherResponse = new EngineServiceInfoResponse(null, false, null);

@@ -32,8 +32,7 @@ var attachmentPoint = executor.inFields.get("attachmentPoint");
 var requestID = executor.inFields.get("requestID");
 var serviceInstanceId = executor.inFields.get("serviceInstanceId");
 
-var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
-    attachmentPoint);
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(attachmentPoint);
 executor.logger.info(NomadicONTContext);
 
 var jsonObj;
@@ -41,7 +40,6 @@ var aaiUpdateResult = true;
 
 var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
 var client = new wbClient();
-
 
 /* Get AAI URL from Configuration file. */
 var AAI_URL = "localhost:8080";
@@ -55,8 +53,7 @@ var results;
 var putUrl;
 var service_instance;
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/config.txt"));
+    var br = Files.newBufferedReader(Paths.get("/home/apexuser/examples/config/ONAPBBS/config.txt"));
     var line;
     while ((line = br.readLine()) != null) {
         if (line.startsWith("AAI_URL")) {
@@ -81,14 +78,12 @@ executor.logger.info("AAI_URL " + AAI_URL);
 
 /* Get service instance Id from AAI */
 try {
-    var urlGet = HTTP_PROTOCOL + AAI_URL +
-        "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/" +
-        SERVICE_INSTANCE_ID + "?format=resource_and_url";
+    var urlGet = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/"
+            + SERVICE_INSTANCE_ID + "?format=resource_and_url";
 
     executor.logger.info("Query url" + urlGet);
 
-    result = client.httpsRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD,
-        "application/json", true, true);
+    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
     executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result.toString());
 
@@ -100,9 +95,8 @@ try {
     service_instance_id = service_instance['service-instance-id'];
     resource_version = service_instance['resource-version'];
     relationship_list = service_instance['relationship-list'];
-    executor.logger.info("After Parse service_instance " + JSON.stringify(
-            service_instance, null, 4) + "\n url " + putUrl +
-        "\n Service instace Id " + service_instance_id);
+    executor.logger.info("After Parse service_instance " + JSON.stringify(service_instance, null, 4) + "\n url "
+            + putUrl + "\n Service instace Id " + service_instance_id);
 
     if (result == "") {
         aaiUpdateResult = false;
@@ -112,21 +106,16 @@ try {
     aaiUpdateResult = false;
 }
 
-
-
 /* BBS Policy updates orchestration status of {{bbs-cfs-service-instance-UUID}} [ active --> assigned ] */
 var putUpddateServInstance;
 putUpddateServInstance = service_instance;
 try {
     if (aaiUpdateResult == true) {
         putUpddateServInstance["orchestration-status"] = "active";
-        executor.logger.info("ready to putAfter Parse " + JSON.stringify(
-            putUpddateServInstance, null, 4));
-        var urlPut = HTTP_PROTOCOL + AAI_URL +
-            putUrl + "?resource_version=" + resource_version;
-        result = client.httpsRequest(urlPut, "PUT", JSON.stringify(
-                putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
-            "application/json", true, true);
+        executor.logger.info("ready to putAfter Parse " + JSON.stringify(putUpddateServInstance, null, 4));
+        var urlPut = HTTP_PROTOCOL + AAI_URL + putUrl + "?resource_version=" + resource_version;
+        result = client.httpRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
+                "application/json", true);
         executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -138,11 +127,9 @@ try {
     aaiUpdateResult = false;
 }
 
-if (!service_instance.hasOwnProperty('input-parameters') || !service_instance
-    .hasOwnProperty('metadata')) {
+if (!service_instance.hasOwnProperty('input-parameters') || !service_instance.hasOwnProperty('metadata')) {
     aaiUpdateResult = false;
-    executor.logger.info(
-        "Validate data failed. input-parameters or metadata is missing");
+    executor.logger.info("Validate data failed. input-parameters or metadata is missing");
 }
 
 /* update logical link in pnf */
@@ -154,25 +141,22 @@ try {
         var pnfUpdate;
         var relationShips = relationship_list["relationship"];
 
-
         for (var i = 0; i < relationShips.length; i++) {
             if (relationShips[i]["related-to"] == "pnf") {
-               var  relationship_data =  relationShips[i]["relationship-data"];
-               for (var j = 0; j < relationship_data.length; j++) {
-                   if (relationship_data[j]["relationship-key"] == "pnf.pnf-name") {
+                var relationship_data = relationShips[i]["relationship-data"];
+                for (var j = 0; j < relationship_data.length; j++) {
+                    if (relationship_data[j]["relationship-key"] == "pnf.pnf-name") {
                         pnfName = relationship_data[j]['relationship-value'];
                         break;
-                   }
-               }
+                    }
+                }
             }
         }
         executor.logger.info("pnf-name found " + pnfName);
 
         /* 1. Get PNF */
-        var urlGetPnf = HTTP_PROTOCOL + AAI_URL +
-            "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
-        pnfResponse = client.httpsRequest(urlGetPnf, "GET", null, AAI_USERNAME, AAI_PASSWORD,
-                 "application/json", true, true);
+        var urlGetPnf = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
+        pnfResponse = client.httpRequest(urlGetPnf, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
         executor.logger.info("Data received From " + urlGetPnf + " " + pnfResponse);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -181,18 +165,17 @@ try {
         pnfUpdate = JSON.parse(pnfResponse.toString());
         executor.logger.info(JSON.stringify(pnfUpdate, null, 4));
 
-
         /*2. Create logical link */
         var link_name = attachmentPoint;
         var logicalLink = {
-                              "link-name": link_name,
-                              "in-maint": false,
-                              "link-type": "attachment-point"
-                          };
-        var urlNewLogicalLink = HTTP_PROTOCOL + AAI_URL +
-            "/aai/" + AAI_VERSION + "/network/logical-links/logical-link/" + link_name;
-        result = client.httpsRequest(urlNewLogicalLink, "PUT", JSON.stringify(logicalLink), AAI_USERNAME, AAI_PASSWORD,
-                 "application/json", true, true);
+            "link-name" : link_name,
+            "in-maint" : false,
+            "link-type" : "attachment-point"
+        };
+        var urlNewLogicalLink = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION
+                + "/network/logical-links/logical-link/" + link_name;
+        result = client.httpRequest(urlNewLogicalLink, "PUT", JSON.stringify(logicalLink), AAI_USERNAME, AAI_PASSWORD,
+                "application/json", true);
         executor.logger.info("Data received From " + urlNewLogicalLink + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -202,9 +185,10 @@ try {
         /*3. Update pnf with new relation*/
         for (var i = 0; i < pnfUpdate["relationship-list"]["relationship"].length; i++) {
             if (pnfUpdate["relationship-list"]["relationship"][i]['related-to'] == 'logical-link') {
-                pnfUpdate["relationship-list"]["relationship"][i]['related-link'] = "/aai/" + AAI_VERSION + "/network/logical-links/logical-link/" + link_name;
+                pnfUpdate["relationship-list"]["relationship"][i]['related-link'] = "/aai/" + AAI_VERSION
+                        + "/network/logical-links/logical-link/" + link_name;
                 for (var j = 0; j < pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'].length; j++) {
-                    if (pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-key'] ==  "logical-link.link-name") {
+                    if (pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-key'] == "logical-link.link-name") {
                         oldLinkName = pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-value'];
                         pnfUpdate["relationship-list"]["relationship"][i]['relationship-data'][j]['relationship-value'] = link_name;
                         break;
@@ -215,10 +199,9 @@ try {
         }
 
         executor.logger.info("Put pnf to aai " + JSON.stringify(pnfUpdate, null, 4));
-        var urlPutPnf = HTTP_PROTOCOL + AAI_URL +
-            "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
-        result = client.httpsRequest(urlPutPnf, "PUT", JSON.stringify(pnfUpdate), AAI_USERNAME, AAI_PASSWORD,
-                 "application/json", true, true);
+        var urlPutPnf = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
+        result = client.httpRequest(urlPutPnf, "PUT", JSON.stringify(pnfUpdate), AAI_USERNAME, AAI_PASSWORD,
+                "application/json", true);
         executor.logger.info("Data received From " + urlPutPnf + " " + result);
 
         /* If failure to retrieve data proceed to Failure */
@@ -229,18 +212,19 @@ try {
         /* Get and Delete the Stale logical link */
         var oldLinkResult;
         var linkResult;
-        var urlOldLogicalLink = HTTP_PROTOCOL + AAI_URL +
-            "/aai/" + AAI_VERSION + "/network/logical-links/logical-link/" + oldLinkName;
-        linkResult = client.httpsRequest(urlOldLogicalLink, "GET", null, AAI_USERNAME, AAI_PASSWORD,
-                 "application/json", true, true);
-        executor.logger.info("Data received From " + urlOldLogicalLink + " " + linkResult + " " + linkResult.hasOwnProperty("link-name"));
+        var urlOldLogicalLink = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION
+                + "/network/logical-links/logical-link/" + oldLinkName;
+        linkResult = client
+                .httpRequest(urlOldLogicalLink, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
+        executor.logger.info("Data received From " + urlOldLogicalLink + " " + linkResult + " "
+                + linkResult.hasOwnProperty("link-name"));
         oldLinkResult = JSON.parse(linkResult.toString());
         if (oldLinkResult.hasOwnProperty("link-name") == true) {
             var res_version = oldLinkResult["resource-version"];
             var urlDelOldLogicalLink = urlOldLogicalLink + "?resource-version=" + res_version;
             executor.logger.info("Delete called for " + urlDelOldLogicalLink);
-            result = client.httpsRequest(urlDelOldLogicalLink, "DELETE", null, AAI_USERNAME, AAI_PASSWORD,
-                     "application/json", true, true);
+            result = client.httpRequest(urlDelOldLogicalLink, "DELETE", null, AAI_USERNAME, AAI_PASSWORD,
+                    "application/json", true);
             executor.logger.info("Delete called for " + urlDelOldLogicalLink + " result " + result);
         }
     }
@@ -262,8 +246,7 @@ if (aaiUpdateResult === true) {
 
 executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
-executor.outFields.put("serviceInstanceId", executor.inFields.get(
-    "serviceInstanceId"));
+executor.outFields.put("serviceInstanceId", executor.inFields.get("serviceInstanceId"));
 
 var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);

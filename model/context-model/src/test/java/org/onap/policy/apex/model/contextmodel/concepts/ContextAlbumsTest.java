@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -36,7 +36,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 
 /**
  * Context album tests.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ContextAlbumsTest {
@@ -125,7 +125,7 @@ public class ContextAlbumsTest {
         assertTrue(album.equals(album));
         assertTrue(album.equals(clonedAlbum));
         assertFalse(album.equals(null));
-        assertFalse(album.equals("Hello"));
+        assertFalse(album.equals((Object)"Hello"));
         assertFalse(album.equals(new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey())));
         assertFalse(album.equals(new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey())));
         assertFalse(album.equals(new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey())));
@@ -192,7 +192,7 @@ public class ContextAlbumsTest {
         assertTrue(albums.equals(albums));
         assertTrue(albums.equals(clonedAlbums));
         assertFalse(albums.equals(null));
-        assertFalse(albums.equals("Hello"));
+        assertFalse(albums.equals((Object)"Hello"));
         assertFalse(albums.equals(new AxContextAlbums(new AxArtifactKey())));
 
         assertEquals(0, albums.compareTo(albums));

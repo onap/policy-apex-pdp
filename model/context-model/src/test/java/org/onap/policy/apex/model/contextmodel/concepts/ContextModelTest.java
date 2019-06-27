@@ -66,7 +66,7 @@ public class ContextModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals("Hello"));
+        assertFalse(model.equals((Object)"Hello"));
         assertFalse(model.equals(new AxContextModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
                         new AxKeyInformation())));

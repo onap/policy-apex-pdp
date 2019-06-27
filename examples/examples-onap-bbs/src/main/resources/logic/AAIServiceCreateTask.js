@@ -32,11 +32,10 @@ var attachmentPoint = executor.inFields.get("attachmentPoint");
 var requestID = executor.inFields.get("requestID");
 var serviceInstanceId = executor.inFields.get("serviceInstanceId");
 
-var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(
-    attachmentPoint);
+var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(attachmentPoint);
 executor.logger.info(NomadicONTContext);
 
-//Get the AAI URL from configuraiotn file
+// Get the AAI URL from configuraiotn file
 var AAI_URL = "localhost:8080";
 var CUSTOMER_ID = requestID;
 var BBS_CFS_SERVICE_TYPE = "BBS-CFS-Access_Test";
@@ -48,8 +47,7 @@ var client = new wbClient();
 var AAI_USERNAME = null;
 var AAI_PASSWORD = null;
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/config.txt"));
+    var br = Files.newBufferedReader(Paths.get("/home/apexuser/examples/config/ONAPBBS/config.txt"));
     // read line by line
     var line;
     while ((line = br.readLine()) != null) {
@@ -74,14 +72,12 @@ executor.logger.info("AAI_URL " + AAI_URL);
 var aaiUpdateResult = true;
 /* Get service instance Id from AAI */
 try {
-    var urlGet = HTTP_PROTOCOL + AAI_URL +
-        "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/" +
-        SERVICE_INSTANCE_ID + "?format=resource_and_url";
+    var urlGet = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/"
+            + SERVICE_INSTANCE_ID + "?format=resource_and_url";
 
     executor.logger.info("Query url" + urlGet);
 
-    result = client.httpsRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD,
-        "application/json", true, true);
+    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
     executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result);
 
@@ -90,9 +86,8 @@ try {
     results = jsonObj['results'][0];
     putUrl = results['url'];
     service_instance = results['service-instance'];
-    executor.logger.info("After Parse service_instance " + JSON.stringify(
-            service_instance, null, 4) + "\n url " + putUrl +
-        "\n Service instace Id " + SERVICE_INSTANCE_ID);
+    executor.logger.info("After Parse service_instance " + JSON.stringify(service_instance, null, 4) + "\n url "
+            + putUrl + "\n Service instace Id " + SERVICE_INSTANCE_ID);
 
     if (result == "") {
         aaiUpdateResult = false;
@@ -104,21 +99,17 @@ try {
 
 var putUpddateServInstance = service_instance;
 putUpddateServInstance['orchestration-status'] = "created";
-executor.logger.info(" string" + JSON.stringify(putUpddateServInstance, null,
-    4));
+executor.logger.info(" string" + JSON.stringify(putUpddateServInstance, null, 4));
 var resource_version = putUpddateServInstance['resource-version'];
 var putUrl = NomadicONTContext.get("url");
 
-/*BBS Policy updates  {{bbs-cfs-service-instance-UUID}} orchestration-status [ assigned --> created ]*/
+/* BBS Policy updates {{bbs-cfs-service-instance-UUID}} orchestration-status [ assigned --> created ] */
 try {
     if (aaiUpdateResult == true) {
-        executor.logger.info("ready to putAfter Parse " + JSON.stringify(
-            putUpddateServInstance, null, 4));
-        var urlPut = HTTP_PROTOCOL + AAI_URL +
-            putUrl + "?resource_version=" + resource_version;
-        result = client.httpsRequest(urlPut, "PUT", JSON.stringify(
-                putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
-            "application/json", true, true);
+        executor.logger.info("ready to putAfter Parse " + JSON.stringify(putUpddateServInstance, null, 4));
+        var urlPut = HTTP_PROTOCOL + AAI_URL + putUrl + "?resource_version=" + resource_version;
+        result = client.httpRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
+                "application/json", true);
         executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -139,8 +130,7 @@ if (aaiUpdateResult === true) {
 
 executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
-executor.outFields.put("serviceInstanceId", executor.inFields.get(
-    "serviceInstanceId"));
+executor.outFields.put("serviceInstanceId", executor.inFields.get("serviceInstanceId"));
 
 var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);

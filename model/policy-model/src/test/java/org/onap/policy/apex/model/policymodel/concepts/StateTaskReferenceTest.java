@@ -135,7 +135,7 @@ public class StateTaskReferenceTest {
         assertTrue(stRef.equals(stRef));
         assertTrue(stRef.equals(clonedStRef));
         assertFalse(stRef.equals(null));
-        assertFalse(stRef.equals("Hello"));
+        assertFalse(stRef.equals((Object)"Hello"));
         assertFalse(stRef.equals(
                         new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
         assertFalse(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));

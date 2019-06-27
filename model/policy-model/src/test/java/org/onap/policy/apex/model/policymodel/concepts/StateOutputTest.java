@@ -119,7 +119,7 @@ public class StateOutputTest {
         assertTrue(so.equals(so));
         assertTrue(so.equals(clonedPar));
         assertFalse(so.equals(null));
-        assertFalse(so.equals("Hello"));
+        assertFalse(so.equals((Object)"Hello"));
         assertFalse(so.equals(new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey)));
         assertFalse(so.equals(new AxStateOutput(soKey, new AxArtifactKey(), nsKey)));
         assertFalse(so.equals(new AxStateOutput(soKey, eKey, new AxReferenceKey())));

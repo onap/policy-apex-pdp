@@ -162,7 +162,7 @@ public class LogicTest {
         assertTrue(logic.equals(logic));
         assertTrue(logic.equals(clonedLogic));
         assertFalse(logic.equals(null));
-        assertFalse(logic.equals("Hello"));
+        assertFalse(logic.equals((Object)"Hello"));
         assertFalse(logic.equals(new AxLogic(AxReferenceKey.getNullKey(), "LogicFlavour", "Logic")));
         assertFalse(logic.equals(new AxLogic(logicKey, "AnotherLogicFlavour", "Logic")));
         assertFalse(logic.equals(new AxLogic(logicKey, "LogicFlavour", "AnotherLogic")));

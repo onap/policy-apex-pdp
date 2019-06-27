@@ -67,7 +67,7 @@ public class AxKeyUseTest {
         
         assertTrue(keyUse.equals(keyUse));
         assertTrue(keyUse.equals(clonedKeyUse));
-        assertFalse(keyUse.equals("Hello"));
+        assertFalse(keyUse.equals((Object)"Hello"));
         assertTrue(keyUse.equals(new AxKeyUse(key)));
         
         assertEquals(0, keyUse.compareTo(keyUse));

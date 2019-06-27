@@ -92,7 +92,7 @@ public class AxReferenceKeyTest {
 
         assertTrue(testReferenceKey.equals(testReferenceKey));
         assertTrue(testReferenceKey.equals(clonedReferenceKey));
-        assertFalse(testReferenceKey.equals("Hello"));
+        assertFalse(testReferenceKey.equals((Object)"Hello"));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("PKN", "0.0.2", "PLN", "LN")));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.2", "PLN", "LN")));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN")));

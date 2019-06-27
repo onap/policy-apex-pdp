@@ -73,7 +73,7 @@ public class SupportApexBasicModelConceptsTester {
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
         assertFalse(model.equals(null));
-        assertFalse(model.equals("Hello"));
+        assertFalse(model.equals((Object)"Hello"));
         clonedModel.getKey().setVersion("0.0.2");
         assertFalse(model.equals(clonedModel));
         clonedModel.getKey().setVersion("0.0.1");
@@ -95,7 +95,7 @@ public class SupportApexBasicModelConceptsTester {
         final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
 
         assertFalse(keyI.equals(null));
-        assertFalse(keyI.equals(new AxArtifactKey()));
+        assertFalse(keyI.equals((Object)new AxArtifactKey()));
         assertTrue(keyI.equals(clonedKeyI));
 
         clonedKeyI.setKey(new AxArtifactKey());

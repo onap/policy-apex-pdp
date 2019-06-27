@@ -117,7 +117,7 @@ public class FieldTest {
         assertTrue(field.equals(field));
         assertTrue(field.equals(clonedField));
         assertFalse(field.equals(null));
-        assertFalse(field.equals("Hello"));
+        assertFalse(field.equals((Object)"Hello"));
         assertFalse(field.equals(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
         assertFalse(field.equals(new AxField(fieldKey, AxArtifactKey.getNullKey(), false)));
         assertFalse(field.equals(new AxField(fieldKey, schemaKey, false)));

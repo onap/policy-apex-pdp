@@ -89,7 +89,7 @@ public class PolicyModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals("Hello"));
+        assertFalse(model.equals((Object)"Hello"));
         assertFalse(model.equals(new AxPolicyModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),

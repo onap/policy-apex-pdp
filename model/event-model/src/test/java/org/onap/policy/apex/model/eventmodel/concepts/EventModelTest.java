@@ -64,7 +64,7 @@ public class EventModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals("Hello"));
+        assertFalse(model.equals((Object)"Hello"));
         assertFalse(model.equals(new AxEventModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxEventModel(modelKey, new AxContextSchemas(), new AxKeyInformation(keyInfoKey),
                 new AxEvents(eventsKey))));

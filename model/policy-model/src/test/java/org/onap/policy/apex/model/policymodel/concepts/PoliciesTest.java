@@ -240,7 +240,7 @@ public class PoliciesTest {
         assertTrue(policy.equals(policy));
         assertTrue(policy.equals(clonedPolicy));
         assertFalse(policy.equals(null));
-        assertFalse(policy.equals("Hello"));
+        assertFalse(policy.equals((Object)"Hello"));
         assertFalse(policy.equals(
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
         assertFalse(policy.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
@@ -324,7 +324,7 @@ public class PoliciesTest {
         assertTrue(policies.equals(policies));
         assertTrue(policies.equals(clonedPolicies));
         assertFalse(policies.equals(null));
-        assertFalse(policies.equals("Hello"));
+        assertFalse(policies.equals((Object)"Hello"));
         assertFalse(policies.equals(new AxPolicies(new AxArtifactKey())));
 
         assertEquals(0, policies.compareTo(policies));
