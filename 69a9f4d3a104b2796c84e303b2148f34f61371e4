@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "12a66f45_9e175202",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/EngineServiceInfoResponseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T14:29:18Z",
+      "side": 1,
+      "message": "It\u0027s an Eclipse Info level message. Without doing this I get:\n\nUnlikely argument type for equals(): StartEngine seems to be unrelated to EngineServiceInfoResponse",
+      "parentUuid": "3e115c7d_c2acd123",
+      "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cd2171a_48838463",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "14c408ad_6a1465e9",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T14:29:18Z",
+      "side": 1,
+      "message": "I\u0027m not sure either. I refactored two almost identical methods into a single method, this was the only difference in the two methods.\n\nAs far as I can tell the different class cast should make no difference whatever here as casting is just a compiler thing, but this is what was in the original code.\n\nIt should be safe to do this?\n\nHttpURLConnection \u003d (HttpURLConnection) url.openConnection();\n\nI guess the unerlying library will know from the URL that its HTTP or HTTPS and act accordingly.",
+      "parentUuid": "4cd2171a_48838463",
+      "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b825a8a3_30656d49",
         "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-06-27T14:02:15Z",
       "side": 1,
       "message": "use NetworkUtil.getAlwaysTrustingManager() instead",
+      "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da66816_94a62be8",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T14:29:18Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "b825a8a3_30656d49",
       "revId": "69a9f4d3a104b2796c84e303b2148f34f61371e4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
