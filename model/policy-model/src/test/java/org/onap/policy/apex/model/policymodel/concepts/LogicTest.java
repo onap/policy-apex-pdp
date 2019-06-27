@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -162,7 +163,7 @@ public class LogicTest {
         assertTrue(logic.equals(logic));
         assertTrue(logic.equals(clonedLogic));
         assertFalse(logic.equals(null));
-        assertFalse(logic.equals("Hello"));
+        assertFalse(logic.equals((Object)"Hello"));
         assertFalse(logic.equals(new AxLogic(AxReferenceKey.getNullKey(), "LogicFlavour", "Logic")));
         assertFalse(logic.equals(new AxLogic(logicKey, "AnotherLogicFlavour", "Logic")));
         assertFalse(logic.equals(new AxLogic(logicKey, "LogicFlavour", "AnotherLogic")));

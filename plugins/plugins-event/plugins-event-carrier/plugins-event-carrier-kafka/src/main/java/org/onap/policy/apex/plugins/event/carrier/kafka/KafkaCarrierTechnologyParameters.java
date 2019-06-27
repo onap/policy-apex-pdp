@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +56,6 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
     public static final String KAFKA_EVENT_CONSUMER_PLUGIN_CLASS = ApexKafkaConsumer.class.getName();
 
     // Repeated strings in messages
-    private static final String SPECIFY_AS_STRING_MESSAGE = "not specified, must be specified as a string";
     private static final String ENTRY = "entry ";
     private static final String KAFKA_PROPERTIES = "kafkaProperties";
 

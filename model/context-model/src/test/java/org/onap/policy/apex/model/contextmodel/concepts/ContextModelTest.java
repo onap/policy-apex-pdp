@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +67,7 @@ public class ContextModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals("Hello"));
+        assertFalse(model.equals((Object)"Hello"));
         assertFalse(model.equals(new AxContextModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
                         new AxKeyInformation())));

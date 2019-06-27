@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,8 +84,8 @@ try {
         SERVICE_INSTANCE_ID + "?format=resource_and_url"
     executor.logger.info("Query url" + urlGet);
 
-    result = client.httpsRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD,
-            "application/json", true, true);
+    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD,
+            "application/json", true);
     executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result);
 
@@ -122,8 +123,8 @@ try {
             putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL +
             putUrl + "?resource_version=" + resource_version;
-        result = client.httpsRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
-                        "application/json", true, true);
+        result = client.httpRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
+                        "application/json", true);
         executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
