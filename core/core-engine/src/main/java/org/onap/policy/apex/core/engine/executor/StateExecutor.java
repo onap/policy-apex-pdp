@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +93,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent, final AxState incomingAxState,
@@ -143,7 +144,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -160,7 +161,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public StateOutput execute(final long executionId, final Properties executionProperties,
@@ -249,7 +250,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePre(final long executionId, final Properties executionProperties,
@@ -263,7 +264,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void cleanUp() throws StateMachineException {
@@ -279,7 +280,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxReferenceKey getKey() {
@@ -287,7 +288,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
@@ -295,7 +296,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxState getSubject() {
@@ -303,7 +304,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final ApexInternalContext getContext() {
@@ -311,7 +312,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final EnEvent getIncoming() {
@@ -319,7 +320,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final StateOutput getOutgoing() {
@@ -327,7 +328,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void setNext(final Executor<EnEvent, StateOutput, AxState, ApexInternalContext> incomingNextExecutor) {
@@ -335,7 +336,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final Executor<EnEvent, StateOutput, AxState, ApexInternalContext> getNext() {
@@ -343,7 +344,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {

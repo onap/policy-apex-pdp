@@ -79,7 +79,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent,
@@ -91,7 +91,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -102,7 +102,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String execute(final long executionId, final Properties executionProperties,
@@ -112,7 +112,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePre(final long executionId, final Properties executionProperties,
@@ -129,7 +129,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
@@ -162,7 +162,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void cleanUp() throws StateMachineException {
@@ -170,7 +170,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxReferenceKey getKey() {
@@ -178,7 +178,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<?, ?, ?, ?> getParent() {
@@ -186,7 +186,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxStateFinalizerLogic getSubject() {
@@ -194,7 +194,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public ApexInternalContext getContext() {
@@ -202,7 +202,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getIncoming() {
@@ -210,7 +210,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String getOutgoing() {
@@ -222,7 +222,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setNext(
@@ -231,7 +231,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> getNext() {
@@ -239,7 +239,7 @@ public abstract class StateFinalizerExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {}

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +47,7 @@ public class DummySmExecutor extends StateMachineExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -60,7 +61,7 @@ public class DummySmExecutor extends StateMachineExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public EnEvent execute(final long executionId, final Properties executionProperties, final EnEvent incomingEvent) {
@@ -68,7 +69,7 @@ public class DummySmExecutor extends StateMachineExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void cleanUp() throws StateMachineException {

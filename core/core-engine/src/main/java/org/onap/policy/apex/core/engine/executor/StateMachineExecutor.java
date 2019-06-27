@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +71,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxPolicy newAxPolicy,
@@ -107,7 +108,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void prepare() throws StateMachineException {
@@ -117,7 +118,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public EnEvent execute(final long executionId, final Properties executionProperties, final EnEvent incomingEvent)
@@ -159,7 +160,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePre(final long executionId, final Properties executionProperties,
@@ -168,7 +169,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException {
@@ -176,7 +177,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void cleanUp() throws StateMachineException {
@@ -186,7 +187,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
@@ -194,7 +195,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final Executor<?, ?, ?, ?> getParent() {
@@ -202,7 +203,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final AxPolicy getSubject() {
@@ -210,7 +211,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final ApexInternalContext getContext() {
@@ -218,7 +219,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final EnEvent getIncoming() {
@@ -226,7 +227,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final EnEvent getOutgoing() {
@@ -234,7 +235,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final void setNext(final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> newNextExecutor) {
@@ -242,7 +243,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> getNext() {
@@ -250,7 +251,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setParameters(final ExecutorParameters parameters) {
