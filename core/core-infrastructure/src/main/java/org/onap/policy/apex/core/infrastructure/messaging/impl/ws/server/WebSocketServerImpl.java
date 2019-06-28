@@ -48,11 +48,8 @@ abstract class WebSocketServerImpl extends WebSocketServer {
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#onOpen(org.java_websocket.WebSocket ,
-     * org.java_websocket.handshake.ClientHandshake)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onOpen(final WebSocket conn, final ClientHandshake handshake) {
@@ -62,11 +59,8 @@ abstract class WebSocketServerImpl extends WebSocketServer {
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#onClose(org.java_websocket. WebSocket, int, java.lang.String,
-     * boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onClose(final WebSocket conn, final int code, final String reason, final boolean remote) {
@@ -76,10 +70,8 @@ abstract class WebSocketServerImpl extends WebSocketServer {
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#onError(org.java_websocket.WebSocket, java.lang.Exception)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onError(final WebSocket conn, final Exception ex) {

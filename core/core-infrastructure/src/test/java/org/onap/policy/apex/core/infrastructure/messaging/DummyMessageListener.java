@@ -45,11 +45,8 @@ public abstract class DummyMessageListener implements MessageListener<String> {
      */
     public abstract void onCommand(MessageBlock<String> data);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(org.onap.policy.apex.core.
-     * infrastructure. messaging.impl.ws.data.Data)
+    /**
+     * {@inheritDoc}.
      */
     @Subscribe
     @Override

@@ -30,11 +30,8 @@ import org.apache.avro.generic.GenericData.Array;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class AvroArrayObjectMapper extends AvroDirectObjectMapper {
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#createNewinstance(org.
-     * apache.avro.Schema)
+    /**
+     * {@inheritDoc}.
      */
     @SuppressWarnings("rawtypes")
     @Override

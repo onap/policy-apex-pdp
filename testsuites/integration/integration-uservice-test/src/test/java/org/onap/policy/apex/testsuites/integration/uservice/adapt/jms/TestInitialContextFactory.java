@@ -42,10 +42,8 @@ public class TestInitialContextFactory implements InitialContextFactory {
      */
     public TestInitialContextFactory() throws NamingException {}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.naming.spi.InitialContextFactory#getInitialContext(java.util.Hashtable)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Context getInitialContext(final Hashtable<?, ?> environment) throws NamingException {

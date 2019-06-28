@@ -49,12 +49,8 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
                 WebSocketEventSubscriberServer.class.getCanonicalName() + ": port " + port + ", waiting for events");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener#
-     * receiveString(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void receiveString(final String eventString) {

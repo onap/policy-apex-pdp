@@ -67,10 +67,8 @@ public class TestContextBooleanItem implements Serializable {
         this.flag = flag;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -80,10 +78,8 @@ public class TestContextBooleanItem implements Serializable {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -100,10 +96,8 @@ public class TestContextBooleanItem implements Serializable {
         return flag == other.flag;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

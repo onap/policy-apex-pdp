@@ -136,10 +136,8 @@ public class ApexMain {
      * called.
      */
     private class ApexMainShutdownHookClass extends Thread {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Runnable#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

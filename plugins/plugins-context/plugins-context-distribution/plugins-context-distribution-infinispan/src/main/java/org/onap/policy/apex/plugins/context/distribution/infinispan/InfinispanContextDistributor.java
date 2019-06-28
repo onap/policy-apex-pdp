@@ -54,11 +54,8 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         LOGGER.exit("InfinispanContextDistributor()");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.impl.distribution.AbstractContextDistributor#init(org.onap.policy.apex
-     * .model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxArtifactKey key) throws ContextException {
@@ -89,11 +86,8 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         infinispanManager = newInfinispanManager;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.impl.distribution.AbstractContextDistributor#
-     * getContextAlbumMap(org.onap.policy.apex.core.model.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextAlbumKey) {
@@ -103,10 +97,8 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         return infinispanManager.getCacheManager().getCache(contextAlbumKey.getId().replace(':', '_'));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.impl.distribution.AbstractContextDistributor#shutdown()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void shutdown() {

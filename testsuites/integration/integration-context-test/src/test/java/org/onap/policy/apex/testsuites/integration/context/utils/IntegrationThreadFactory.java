@@ -47,8 +47,8 @@ public class IntegrationThreadFactory implements ThreadFactory {
         this.threadFactoryName = threadFactoryName;
     }
 
-    /* (non-Javadoc)
-     * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Thread newThread(final Runnable runnable) {

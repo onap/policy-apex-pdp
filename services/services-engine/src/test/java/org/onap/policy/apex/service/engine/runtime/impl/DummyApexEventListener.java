@@ -28,12 +28,8 @@ import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
  */
 public class DummyApexEventListener implements ApexEventListener {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.runtime.ApexEventListener#onApexEvent(org.onap.policy.apex.service.engine.
-     * event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onApexEvent(ApexEvent apexEvent) {

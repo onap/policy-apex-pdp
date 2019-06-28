@@ -84,26 +84,20 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      */
     public abstract void clean();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public abstract boolean equals(Object otherObject);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public abstract String toString();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public abstract int hashCode();

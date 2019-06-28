@@ -68,23 +68,16 @@ public class CharacterDelimitedTextBlockReader implements TextBlockReader {
         this.endTagChar = charDelimitedParameters.getEndChar();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader#init(
-     * java.io.InputStream)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final InputStream incomingInputStream) {
         this.inputStream = incomingInputStream;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader#
-     * readTextBlock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public TextBlock readTextBlock() throws IOException {

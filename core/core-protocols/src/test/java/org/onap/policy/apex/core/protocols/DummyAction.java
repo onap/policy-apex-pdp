@@ -34,8 +34,8 @@ public class DummyAction implements Action {
         this.actionString = actionString;
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.core.protocols.Action#getActionString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getActionString() {

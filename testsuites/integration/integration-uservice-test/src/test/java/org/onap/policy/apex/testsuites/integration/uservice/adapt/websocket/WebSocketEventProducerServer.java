@@ -105,12 +105,8 @@ public class WebSocketEventProducerServer implements WsStringMessageListener {
         System.out.println(WebSocketEventProducerServer.class.getCanonicalName() + ": stopped");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener#
-     * receiveString(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void receiveString(final String eventString) {

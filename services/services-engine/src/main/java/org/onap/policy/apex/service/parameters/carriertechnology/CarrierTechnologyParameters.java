@@ -120,10 +120,8 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -131,10 +129,8 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
                         + ", eventConsumerPluginClass=" + eventConsumerPluginClass + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

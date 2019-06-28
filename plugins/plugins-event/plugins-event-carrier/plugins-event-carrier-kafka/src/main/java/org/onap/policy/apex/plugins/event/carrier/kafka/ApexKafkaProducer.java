@@ -73,43 +73,32 @@ public class ApexKafkaProducer implements ApexEventProducer {
                 (KafkaCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
         return name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getPeeredReference(org.onap.policy.apex.service.
-     * parameters.eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
         return peerReferenceMap.get(peeredMode);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#setPeeredReference(org.onap.policy.apex.service.
-     * parameters.eventhandler.EventHandlerPeeredMode, org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
         peerReferenceMap.put(peeredMode, peeredReference);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.producer.ApexEventProducer#sendEvent(long, java.lang.String,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
@@ -138,10 +127,8 @@ public class ApexKafkaProducer implements ApexEventProducer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.producer.ApexEventProducer#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() {

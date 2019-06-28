@@ -54,10 +54,8 @@ public class MessagingClient<M> extends InternalMessageBusClient<M> implements M
         super(serverUri);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#stopConnection()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stopConnection() {
@@ -72,10 +70,8 @@ public class MessagingClient<M> extends InternalMessageBusClient<M> implements M
         this.close();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#startConnection()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void startConnection() {
@@ -131,12 +127,8 @@ public class MessagingClient<M> extends InternalMessageBusClient<M> implements M
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex
-     * .core. infrastructure. messaging.MessageHolder)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void send(final MessageHolder<M> commands) {
@@ -145,11 +137,8 @@ public class MessagingClient<M> extends InternalMessageBusClient<M> implements M
         connection.send(MessagingUtils.serializeObject(commands));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void send(final String messageString) {
@@ -157,10 +146,8 @@ public class MessagingClient<M> extends InternalMessageBusClient<M> implements M
         connection.send(messageString);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#isStarted()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStarted() {

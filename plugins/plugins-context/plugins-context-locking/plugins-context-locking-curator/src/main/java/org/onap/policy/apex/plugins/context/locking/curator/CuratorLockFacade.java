@@ -57,10 +57,8 @@ public class CuratorLockFacade implements Lock {
         this.lockMutex = lockMutex;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.Lock#lock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void lock() {
@@ -71,20 +69,16 @@ public class CuratorLockFacade implements Lock {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.Lock#lockInterruptibly()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void lockInterruptibly() throws InterruptedException {
         LOGGER.warn("lockInterruptibly() not supported for \"{}\"", lockId);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.Lock#tryLock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean tryLock() {
@@ -97,10 +91,8 @@ public class CuratorLockFacade implements Lock {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.Lock#tryLock(long, java.util.concurrent.TimeUnit)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean tryLock(final long time, final TimeUnit unit) throws InterruptedException {
@@ -113,10 +105,8 @@ public class CuratorLockFacade implements Lock {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.Lock#unlock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlock() {
@@ -127,10 +117,8 @@ public class CuratorLockFacade implements Lock {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.Lock#newCondition()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Condition newCondition() {

@@ -65,30 +65,24 @@ public class AxKeyUse extends AxKey {
         this.usedKey = usedKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxKey getKey() {
         return usedKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
         return usedKey.getKeys();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getID()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getId() {
@@ -105,35 +99,24 @@ public class AxKeyUse extends AxKey {
         this.usedKey = key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getCompatibility(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxKey.Compatibility getCompatibility(final AxKey otherKey) {
         return usedKey.getCompatibility(otherKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxKey#isCompatible(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isCompatible(final AxKey otherKey) {
         return usedKey.isCompatible(otherKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
@@ -144,20 +127,16 @@ public class AxKeyUse extends AxKey {
         return usedKey.validate(result);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
         usedKey.clean();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -170,12 +149,8 @@ public class AxKeyUse extends AxKey {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -195,10 +170,8 @@ public class AxKeyUse extends AxKey {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -208,10 +181,8 @@ public class AxKeyUse extends AxKey {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang. Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -230,10 +201,8 @@ public class AxKeyUse extends AxKey {
         return usedKey.equals(other.usedKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {

@@ -32,11 +32,8 @@ import org.apache.avro.generic.GenericData.EnumSymbol;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class AvroEnumObjectMapper extends AvroDirectObjectMapper {
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#createNewinstance(org.
-     * apache.avro.Schema)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object createNewInstance(final Schema avroSchema) {

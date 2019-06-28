@@ -45,22 +45,16 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
     // The Apex compatible class
     private static final Class<Byte[]> schemaClass = Byte[].class;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#getJavaClass()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Class<?> getJavaClass() {
         return schemaClass;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#setAvroType(org.apache.
-     * avro. Schema.Type)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxKey intUserKey, final Type initAvroType) {
@@ -68,11 +62,8 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
         this.avroType = initAvroType;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#createNewinstance(org.
-     * apache. avro.Schema)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object createNewInstance(final Schema avroSchema) {
@@ -81,21 +72,16 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#getAvroType()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Type getAvroType() {
         return avroType;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#mapFromAvro(java.lang.
-     * Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object mapFromAvro(final Object avroObject) {
@@ -118,11 +104,8 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
         return byteArray;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.plugins.context.schema.avro.AvroObjectMapper#mapToAvro(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object mapToAvro(final Object object) {

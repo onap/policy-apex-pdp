@@ -38,10 +38,8 @@ public class SingleClassLoader extends ClassLoader {
         this.byteCodeFileObject = byteCodeFileObject;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.ClassLoader#findClass(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     protected Class<?> findClass(final String className) throws ClassNotFoundException {

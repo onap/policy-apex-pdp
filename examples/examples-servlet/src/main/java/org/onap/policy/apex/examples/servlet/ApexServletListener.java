@@ -46,10 +46,8 @@ public class ApexServletListener implements ServletContextListener {
     // The Apex engine reference
     private ApexMain apexMain;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void contextInitialized(final ServletContextEvent servletContextEvent) {
@@ -83,10 +81,8 @@ public class ApexServletListener implements ServletContextListener {
     }
 
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void contextDestroyed(final ServletContextEvent servletContextEvent) {

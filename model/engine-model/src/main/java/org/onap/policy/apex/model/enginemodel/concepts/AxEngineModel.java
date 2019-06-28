@@ -157,10 +157,8 @@ public class AxEngineModel extends AxContextModel {
         this.stats = stats;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -234,12 +232,8 @@ public class AxEngineModel extends AxContextModel {
         this.stats = stats;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#validate(org.onap.policy.apex
-     * .model .basicmodel.concepts.AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -260,10 +254,8 @@ public class AxEngineModel extends AxContextModel {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -271,10 +263,8 @@ public class AxEngineModel extends AxContextModel {
         stats.clean();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -292,12 +282,8 @@ public class AxEngineModel extends AxContextModel {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept targetObject) {
@@ -315,10 +301,8 @@ public class AxEngineModel extends AxContextModel {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -331,10 +315,8 @@ public class AxEngineModel extends AxContextModel {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -363,12 +345,8 @@ public class AxEngineModel extends AxContextModel {
         return stats.equals(other.stats);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.contextmodel.concepts.AxContextModel#compareTo(org.onap.policy.
-     * apex.model.basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {

@@ -34,11 +34,8 @@ import org.slf4j.ext.XLoggerFactory;
 public class NoLockAlbumModifier implements AlbumModifier {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(NoLockAlbumModifier.class);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.lock.modifier.AlbumModifier#modifyAlbum(org.onap.policy.apex.context.
-     * ContextAlbum, int, int)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void modifyAlbum(final ContextAlbum contextAlbum, final int loopSize, final int arraySize) {

@@ -56,11 +56,8 @@ public class HazelcastContextDistributor extends AbstractDistributor {
         LOGGER.exit("HazelcastContextDistributor()");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.impl.distribution.AbstractContextDistributor#init(org.onap.
-     * policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxArtifactKey key) throws ContextException {
@@ -84,11 +81,8 @@ public class HazelcastContextDistributor extends AbstractDistributor {
         hazelcastInstance = newHazelcastInstance;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.impl.distribution.AbstractContextDistributor#
-     * getContextAlbumMap(org.onap.policy.apex.core.model.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextAlbumKey) {
@@ -97,11 +91,8 @@ public class HazelcastContextDistributor extends AbstractDistributor {
         return hazelcastInstance.getMap(contextAlbumKey.getId());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.context.impl.distribution.AbstractContextDistributor#shutdown()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void shutdown() {

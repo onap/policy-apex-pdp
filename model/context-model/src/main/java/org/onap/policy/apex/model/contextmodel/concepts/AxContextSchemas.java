@@ -145,20 +145,16 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         schemas = navigableContextSchemas;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -199,11 +195,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         this.schemas.putAll(schemasMap);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -245,10 +238,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -259,10 +250,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -277,11 +266,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -303,10 +289,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -317,10 +301,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -341,10 +323,8 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         return schemas.equals(other.schemas);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {
@@ -369,31 +349,24 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.core.
-     * basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextSchema get(final AxArtifactKey conceptKey) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextSchema>) schemas).get(conceptKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextSchema get(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextSchema>) schemas).get(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextSchema get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -401,20 +374,16 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
                         conceptKeyVersion);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxContextSchema> getAll(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextSchema>) schemas).getAll(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxContextSchema> getAll(final String conceptKeyName, final String conceptKeyVersion) {

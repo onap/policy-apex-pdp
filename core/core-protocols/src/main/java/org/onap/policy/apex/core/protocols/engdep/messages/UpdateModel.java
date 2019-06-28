@@ -88,18 +88,16 @@ public class UpdateModel extends Message {
         return forceInstall;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.model.protocols.Message#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
         return "UpdateModel {" + super.toString() + "}[]";
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -110,8 +108,8 @@ public class UpdateModel extends Message {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(Object obj) {

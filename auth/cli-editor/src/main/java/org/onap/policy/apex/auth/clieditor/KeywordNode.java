@@ -133,10 +133,8 @@ public class KeywordNode implements Comparable<KeywordNode> {
         return command;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -161,10 +159,8 @@ public class KeywordNode implements Comparable<KeywordNode> {
         return commandSet;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final KeywordNode otherKeywordNode) {

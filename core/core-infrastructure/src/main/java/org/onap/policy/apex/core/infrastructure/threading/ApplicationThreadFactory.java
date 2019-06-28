@@ -72,10 +72,8 @@ public class ApplicationThreadFactory implements ThreadFactory {
         this.threadPriority = threadPriority;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Thread newThread(final Runnable runnable) {
@@ -129,10 +127,8 @@ public class ApplicationThreadFactory implements ThreadFactory {
         return threadPriority;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

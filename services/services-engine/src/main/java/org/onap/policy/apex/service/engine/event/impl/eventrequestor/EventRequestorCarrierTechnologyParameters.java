@@ -56,18 +56,16 @@ public class EventRequestorCarrierTechnologyParameters extends CarrierTechnology
         this.setEventConsumerPluginClass(EVENT_REQUESTOR_EVENT_CONSUMER_PLUGIN_CLASS);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {
         return new GroupValidationResult(this);
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.common.parameters.ParameterGroup#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {

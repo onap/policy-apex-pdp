@@ -62,20 +62,16 @@ public class HazelcastLock implements ReadWriteLock {
         return lockId;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.ReadWriteLock#readLock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Lock readLock() {
         return readLock;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.ReadWriteLock#writeLock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Lock writeLock() {

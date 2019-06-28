@@ -34,10 +34,8 @@ public class SupportApexEventReceiver implements ApexEventReceiver {
     private Object lastEvent;
     private int eventCount;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventReceiver#receiveEvent(long, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void receiveEvent(final long executionId, final Properties executionProperties, final Object event)
@@ -47,10 +45,8 @@ public class SupportApexEventReceiver implements ApexEventReceiver {
         this.eventCount++;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventReceiver#receiveEvent(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void receiveEvent(final Properties executionProperties, final Object event) throws ApexEventException {

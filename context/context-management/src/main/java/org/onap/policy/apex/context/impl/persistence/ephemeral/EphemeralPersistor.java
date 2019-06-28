@@ -40,31 +40,24 @@ public class EphemeralPersistor implements Persistor {
     // The key of this persistor
     private AxArtifactKey key;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.Persistor#init(org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxArtifactKey persistorKey) throws ContextException {
         this.key = persistorKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.Persistor#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.Persistor#readContextItem(org.onap.policy.apex.core.basicmodel.concepts.
-     * AxReferenceKey, java.lang.Class)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextSchema readContextItem(final AxReferenceKey itemKey, final Class<?> contextItemClass) {
@@ -72,11 +65,8 @@ public class EphemeralPersistor implements Persistor {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.Persistor#readContextItems(org.onap.policy.apex.core.basicmodel.concepts.
-     * AxArtifactKey, java.lang.Class)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxContextSchema> readContextItems(final AxArtifactKey ownerKey, final Class<?> contextItemClass)
@@ -85,12 +75,8 @@ public class EphemeralPersistor implements Persistor {
         return new TreeSet<>();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.context.Persistor#writeContextItem(org.onap.policy.apex.core.contextmodel.concepts.
-     * AxContextItem)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object writeContextItem(final Object contextItem) {

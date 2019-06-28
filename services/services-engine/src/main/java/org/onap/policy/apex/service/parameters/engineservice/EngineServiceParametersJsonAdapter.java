@@ -66,11 +66,8 @@ public class EngineServiceParametersJsonAdapter
     private static final String EXECUTOR_PARAMETERS     = "executorParameters";
     // @formatter:on
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type,
-     * com.google.gson.JsonSerializationContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public JsonElement serialize(final EngineParameters src, final Type typeOfSrc,
@@ -80,11 +77,8 @@ public class EngineServiceParametersJsonAdapter
         throw new ParameterRuntimeException(returnMessage);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type,
-     * com.google.gson.JsonDeserializationContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public EngineParameters deserialize(final JsonElement json, final Type typeOfT,

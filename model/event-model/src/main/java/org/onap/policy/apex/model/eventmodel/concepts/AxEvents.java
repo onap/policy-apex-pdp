@@ -143,20 +143,16 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         eventMap = navigableEventMap;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -199,12 +195,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         this.eventMap.putAll(eventMap);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -245,10 +237,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -259,10 +249,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -277,12 +265,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept targetObject) {
@@ -302,10 +286,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -316,10 +298,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -341,10 +321,8 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         return eventMap.equals(other.eventMap);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {
@@ -369,31 +347,24 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.model.basicmodel.
-     * concepts. AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxEvent get(final AxArtifactKey conceptKey) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxEvent>) eventMap).get(conceptKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxEvent get(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxEvent>) eventMap).get(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxEvent get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -401,20 +372,16 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
                         conceptKeyVersion);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxEvent> getAll(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxEvent>) eventMap).getAll(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxEvent> getAll(final String conceptKeyName, final String conceptKeyVersion) {

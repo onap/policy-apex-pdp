@@ -163,10 +163,8 @@ public class ApexPeriodicEventGenerator extends TimerTask {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

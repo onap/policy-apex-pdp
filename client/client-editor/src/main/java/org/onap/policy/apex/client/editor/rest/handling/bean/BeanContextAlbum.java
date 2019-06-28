@@ -98,10 +98,8 @@ public class BeanContextAlbum extends BeanBase {
         return writeable;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

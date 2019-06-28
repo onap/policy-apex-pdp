@@ -219,10 +219,8 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
         return Duration.ofMillis(consumerPollTime);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

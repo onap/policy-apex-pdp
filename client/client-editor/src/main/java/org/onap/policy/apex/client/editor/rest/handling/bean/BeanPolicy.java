@@ -100,10 +100,8 @@ public class BeanPolicy extends BeanBase {
         return states;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

@@ -80,10 +80,8 @@ public abstract class AxKey extends AxConcept {
         super(copyConcept);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getID()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public abstract String getId();

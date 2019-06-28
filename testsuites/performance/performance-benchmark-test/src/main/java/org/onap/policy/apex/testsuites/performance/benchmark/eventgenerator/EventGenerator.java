@@ -126,10 +126,8 @@ public class EventGenerator {
      * This class is a shutdown hook for the Apex editor command.
      */
     private class EventGeneratorShutdownHook implements Runnable {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Runnable#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

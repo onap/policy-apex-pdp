@@ -56,11 +56,8 @@ public class EventRequestorProducer implements ApexEventProducer {
     // The number of events sent
     private int eventsSent = 0;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#init(java.lang.String,
-     * org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final String producerName, final EventHandlerParameters producerParameters)
@@ -85,10 +82,8 @@ public class EventRequestorProducer implements ApexEventProducer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {

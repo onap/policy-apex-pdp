@@ -320,10 +320,8 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         this.objectMessageSending = objectMessageSending;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

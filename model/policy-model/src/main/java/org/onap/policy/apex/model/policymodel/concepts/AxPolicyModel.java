@@ -206,10 +206,8 @@ public class AxPolicyModel extends AxModel {
         this.policies = policies;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#register()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void register() {
@@ -222,10 +220,8 @@ public class AxPolicyModel extends AxModel {
         ModelService.registerModel(AxPolicyModel.class, this);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -345,12 +341,8 @@ public class AxPolicyModel extends AxModel {
         this.schemas = schemas;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxModel#validate(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -579,10 +571,8 @@ public class AxPolicyModel extends AxModel {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -594,10 +584,8 @@ public class AxPolicyModel extends AxModel {
         schemas.clean();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -619,12 +607,8 @@ public class AxPolicyModel extends AxModel {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept targetObject) {
@@ -644,10 +628,8 @@ public class AxPolicyModel extends AxModel {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -662,10 +644,8 @@ public class AxPolicyModel extends AxModel {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -699,12 +679,8 @@ public class AxPolicyModel extends AxModel {
         return schemas.equals(other.schemas);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxModel#compareTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {

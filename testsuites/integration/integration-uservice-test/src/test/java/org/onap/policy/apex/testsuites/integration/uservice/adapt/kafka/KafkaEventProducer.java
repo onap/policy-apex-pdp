@@ -68,10 +68,8 @@ public class KafkaEventProducer implements Runnable {
         producerThread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

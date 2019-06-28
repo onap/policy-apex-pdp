@@ -61,12 +61,8 @@ public class WsStringMessageServer implements WsStringMessager {
         this.port = port;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageSender#start(org.onap.policy.
-     * apex. core.infrastructure.messaging. stringmessaging.WSStringMessageListener)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void start(final WsStringMessageListener newWsStringMessageListener) throws MessagingException {
@@ -92,10 +88,8 @@ public class WsStringMessageServer implements WsStringMessager {
         LOGGER.exit("web socket string message server started");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageSender#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() {
@@ -104,12 +98,8 @@ public class WsStringMessageServer implements WsStringMessager {
         LOGGER.exit("web socket string message server stopped");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageSender#sendString(java.lang.
-     * String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void sendString(final String stringMessage) {
@@ -124,11 +114,8 @@ public class WsStringMessageServer implements WsStringMessager {
      */
     private class WsStringMessageServerListener implements MessageListener<String> {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(org.onap.policy.apex.core.
-         * infrastructure.messaging.impl.ws.messageblock. MessageBlock)
+        /**
+         * {@inheritDoc}.
          */
         @Subscribe
         @Override
@@ -136,10 +123,8 @@ public class WsStringMessageServer implements WsStringMessager {
             throw new UnsupportedOperationException("raw messages are not supported on string message clients");
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang.String)
+        /**
+         * {@inheritDoc}.
          */
         @Subscribe
         @Override

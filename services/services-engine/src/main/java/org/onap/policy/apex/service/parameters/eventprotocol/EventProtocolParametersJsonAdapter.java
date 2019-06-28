@@ -65,11 +65,8 @@ public class EventProtocolParametersJsonAdapter
         BUILT_IN_EVENT_PROTOCOL_PARMETER_CLASS_MAP.put("APEX", ApexEventProtocolParameters.class.getName());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type,
-     * com.google.gson.JsonSerializationContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public JsonElement serialize(final EventProtocolParameters src, final Type typeOfSrc,
@@ -79,11 +76,8 @@ public class EventProtocolParametersJsonAdapter
         throw new ParameterRuntimeException(returnMessage);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement,
-     * java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public EventProtocolParameters deserialize(final JsonElement json, final Type typeOfT,

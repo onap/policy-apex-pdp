@@ -68,20 +68,16 @@ public class CuratorReentrantReadWriteLock implements ReadWriteLock {
         return lockId;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.ReadWriteLock#readLock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Lock readLock() {
         return readLockFacade;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.concurrent.locks.ReadWriteLock#writeLock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Lock writeLock() {

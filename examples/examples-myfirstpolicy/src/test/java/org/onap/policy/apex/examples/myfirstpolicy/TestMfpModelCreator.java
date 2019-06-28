@@ -31,40 +31,32 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  */
 public abstract class TestMfpModelCreator implements TestApexModelCreator<AxPolicyModel> {
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getMalstructuredModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getMalstructuredModel() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getObservationModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getObservationModel() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getWarningModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getWarningModel() {
         return getModel();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getInvalidModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getInvalidModel() {
@@ -76,10 +68,8 @@ public abstract class TestMfpModelCreator implements TestApexModelCreator<AxPoli
      */
     public static class TestMfp1ModelCreator extends TestMfpModelCreator {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.model.basicmodel.handling.ApexModelCreator#getModel()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public AxPolicyModel getModel() {
@@ -92,15 +82,12 @@ public abstract class TestMfpModelCreator implements TestApexModelCreator<AxPoli
      */
     public static class TestMfp2ModelCreator extends TestMfpModelCreator {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.model.basicmodel.handling.ApexModelCreator#getModel()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public AxPolicyModel getModel() {
             return new MfpDomainModelFactory().getMfp2PolicyModel();
         }
     }
-
 }

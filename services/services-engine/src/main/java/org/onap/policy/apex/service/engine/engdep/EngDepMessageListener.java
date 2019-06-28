@@ -110,10 +110,8 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
         messageQueue.add(data);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang. String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onMessage(final String messageString) {

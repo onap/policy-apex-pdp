@@ -49,23 +49,16 @@ public class SuperDooperEventSubscriber implements ApexEventConsumer {
         return name;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.
-     * policy.apex .service.parameters.eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.
-     * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode,
-     * org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {}

@@ -25,54 +25,40 @@ import org.onap.policy.apex.model.policymodel.concepts.AxLogicReader;
 
 public class DummyLogicReader implements AxLogicReader {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#getLogicPackage()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getLogicPackage() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#setLogicPackage(java.lang.
-     * String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxLogicReader setLogicPackage(final String logicPackage) {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#getDefaultLogic()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getDefaultLogic() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#setDefaultLogic(java.lang.
-     * String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxLogicReader setDefaultLogic(final String defaultLogic) {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#readLogic(org.onap.policy.apex.
-     * model.policymodel.concepts.AxLogic)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String readLogic(final AxLogic axLogic) {

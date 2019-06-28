@@ -49,10 +49,8 @@ public class SingleClassCompilationUnit extends SimpleJavaFileObject {
         this.source = source;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.SimpleJavaFileObject#getCharContent(boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public CharSequence getCharContent(final boolean ignoreEncodingErrors) {
@@ -60,20 +58,16 @@ public class SingleClassCompilationUnit extends SimpleJavaFileObject {
         return source;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.SimpleJavaFileObject#openOutputStream()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public OutputStream openOutputStream() {
         throw new IllegalStateException();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.SimpleJavaFileObject#openInputStream()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public InputStream openInputStream() {

@@ -38,90 +38,72 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
  */
 public class DummyContextAlbumImpl implements ContextAlbum {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#containsKey(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean containsKey(Object key) {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#containsValue(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean containsValue(Object value) {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#entrySet()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<Entry<String, Object>> entrySet() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#get(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object get(Object key) {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#isEmpty()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isEmpty() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#keySet()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<String> keySet() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object put(String key, Object value) {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#putAll(java.util.Map)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void putAll(Map<? extends String, ? extends Object> map) {
@@ -129,80 +111,64 @@ public class DummyContextAlbumImpl implements ContextAlbum {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#remove(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object remove(Object key) {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#size()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int size() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Map#values()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Collection<Object> values() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#getAlbumDefinition()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextAlbum getAlbumDefinition() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#getSchemaHelper()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public SchemaHelper getSchemaHelper() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#lockForReading(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void lockForReading(String key) throws ContextException {
@@ -210,10 +176,8 @@ public class DummyContextAlbumImpl implements ContextAlbum {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#lockForWriting(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void lockForWriting(String key) throws ContextException {
@@ -221,10 +185,8 @@ public class DummyContextAlbumImpl implements ContextAlbum {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#unlockForReading(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForReading(String key) throws ContextException {
@@ -232,10 +194,8 @@ public class DummyContextAlbumImpl implements ContextAlbum {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#unlockForWriting(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForWriting(String key) throws ContextException {
@@ -243,22 +203,16 @@ public class DummyContextAlbumImpl implements ContextAlbum {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#getUserArtifactStack()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept[] getUserArtifactStack() {
         throw new NotImplementedException("Not Implemeted on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.context.ContextAlbum#setUserArtifactStack(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept[])
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setUserArtifactStack(AxConcept[] userArtifactStack) {
@@ -266,10 +220,8 @@ public class DummyContextAlbumImpl implements ContextAlbum {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.ContextAlbum#flush()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void flush() throws ContextException {

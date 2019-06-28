@@ -158,10 +158,8 @@ public class ApexServicesRestMain {
         return state;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -187,10 +185,8 @@ public class ApexServicesRestMain {
      * This class is a shutdown hook for the Apex editor command.
      */
     private class ApexServicesRestShutdownHook implements Runnable {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Runnable#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

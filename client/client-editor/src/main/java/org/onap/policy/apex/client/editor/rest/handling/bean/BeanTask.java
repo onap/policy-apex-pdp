@@ -121,10 +121,8 @@ public class BeanTask extends BeanBase {
         return contexts;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

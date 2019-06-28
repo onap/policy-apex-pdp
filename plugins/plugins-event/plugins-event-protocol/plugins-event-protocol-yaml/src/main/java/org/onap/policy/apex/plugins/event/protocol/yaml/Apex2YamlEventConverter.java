@@ -53,11 +53,8 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
     // The parameters for the YAML event protocol
     private YamlEventProtocolParameters yamlPars;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter#init(org.onap.policy.
-     * apex.service.parameters.eventprotocol.EventProtocolParameters)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final EventProtocolParameters parameters) {
@@ -71,10 +68,8 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         yamlPars = (YamlEventProtocolParameters) parameters;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
@@ -127,11 +122,8 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         return eventList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent(org.onap.policy.
-     * apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {

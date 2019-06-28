@@ -89,10 +89,8 @@ public abstract class EventProtocolParameters implements ParameterGroup {
         this.eventProtocolPluginClass = eventProtocolPluginClass.replaceAll("\\s+", "");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.service.AbstractParameters#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -100,10 +98,8 @@ public abstract class EventProtocolParameters implements ParameterGroup {
                         + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

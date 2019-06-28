@@ -51,10 +51,8 @@ public class GetEngineInfo extends Message {
         super(EngDepAction.GET_ENGINE_INFO, engineKey, messageData);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.model.protocols.Message#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

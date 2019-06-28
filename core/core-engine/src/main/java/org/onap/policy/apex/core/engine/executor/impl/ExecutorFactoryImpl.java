@@ -89,12 +89,8 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.ExecutorFactory#getTaskSelectionExecutor(org.onap.policy.apex.core.
-     * model. concepts.AxState, org.onap.policy.apex.core.engine.context.Context)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public TaskSelectExecutor getTaskSelectionExecutor(final Executor<?, ?, ?, ?> parentExecutor, final AxState state,
@@ -114,11 +110,8 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         return tsExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.executor.ExecutorFactory#getTaskExecutor(org.onap.policy.apex.core.model.
-     * concepts. AxTask, org.onap.policy.apex.core.engine.context.Context)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public TaskExecutor getTaskExecutor(final Executor<?, ?, ?, ?> parentExecutor, final AxTask task,
@@ -132,13 +125,8 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         return taskExecutor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.executor.ExecutorFactory#getStateFinalizerExecutor(org.onap.policy.apex.core.
-     * engine. executor.Executor, org.onap.policy.apex.core.policymodel.concepts.AxStateFinalizerLogic,
-     * org.onap.policy.apex.core.engine.context.ApexInternalContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public StateFinalizerExecutor getStateFinalizerExecutor(final Executor<?, ?, ?, ?> parentExecutor,

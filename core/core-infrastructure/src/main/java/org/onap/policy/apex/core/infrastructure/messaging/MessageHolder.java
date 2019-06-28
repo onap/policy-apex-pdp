@@ -104,20 +104,16 @@ public class MessageHolder<M> implements Serializable {
         return senderHostAddress;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
         return "ApexCommandProtocol [creationTime=" + creationTime + ", senderHostAddress=" + senderHostAddress + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -129,10 +125,8 @@ public class MessageHolder<M> implements Serializable {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {

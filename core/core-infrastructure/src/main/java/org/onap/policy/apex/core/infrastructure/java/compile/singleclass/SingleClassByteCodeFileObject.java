@@ -53,10 +53,8 @@ public class SingleClassByteCodeFileObject extends SimpleJavaFileObject {
         super(URI.create("byte:///" + className + ".class"), Kind.CLASS);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.SimpleJavaFileObject#openOutputStream()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public OutputStream openOutputStream() {
@@ -67,10 +65,8 @@ public class SingleClassByteCodeFileObject extends SimpleJavaFileObject {
         return byteArrayOutputStream;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.SimpleJavaFileObject#openInputStream()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public InputStream openInputStream() {

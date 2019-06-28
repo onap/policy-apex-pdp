@@ -121,10 +121,8 @@ public class BeanState extends BeanBase {
         this.defaultTask = defaultTask;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

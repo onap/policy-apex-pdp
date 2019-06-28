@@ -111,50 +111,40 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return albumDefinition.getKey();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
         return albumDefinition.getKey().getName();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#getAxContextAlbum()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextAlbum getAlbumDefinition() {
         return albumDefinition;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#getSchemaHelper()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public SchemaHelper getSchemaHelper() {
         return schemaHelper;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#lockForReading(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void lockForReading(final String keyOnAlbum) throws ContextException {
@@ -163,10 +153,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
                 userArtifactStack);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#lockForWriting(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void lockForWriting(final String keyOnAlbum) throws ContextException {
@@ -175,10 +163,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
                 userArtifactStack);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#unlockForReading(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForReading(final String keyOnAlbum) throws ContextException {
@@ -187,10 +173,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
                 userArtifactStack);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#unlockForWriting(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForWriting(final String keyOnAlbum) throws ContextException {
@@ -199,33 +183,24 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
                 userArtifactStack);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.context.ContextAlbum#getUserArtifactStack()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept[] getUserArtifactStack() {
         return userArtifactStack;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.context.ContextAlbum#setUserArtifactStack(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept [])
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setUserArtifactStack(final AxConcept[] userArtifactStack) {
         this.userArtifactStack = userArtifactStack;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextAlbum#flush()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void flush() throws ContextException {
@@ -236,30 +211,24 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
      * The Map interface
      */
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#size()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int size() {
         return albumMap.size();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#isEmpty()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isEmpty() {
         return albumMap.isEmpty();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#containsKey(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean containsKey(final Object key) {
@@ -271,10 +240,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return albumMap.containsKey(key);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#containsValue(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean containsValue(final Object value) {
@@ -286,10 +253,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return albumMap.containsValue(value);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#get(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object get(final Object key) {
@@ -311,20 +276,16 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return item;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#keySet()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<String> keySet() {
         return albumMap.keySet();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#values()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Collection<Object> values() {
@@ -341,10 +302,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return valueList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#entrySet()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<Entry<String, Object>> entrySet() {
@@ -361,10 +320,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return entrySet;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object put(final String key, final Object incomingValue) {
@@ -414,10 +371,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#putAll(java.util.Map)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void putAll(final Map<? extends String, ? extends Object> incomingContextAlbum) {
@@ -451,10 +406,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#remove(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object remove(final Object key) {
@@ -479,10 +432,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return removedValue;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() {
@@ -504,16 +455,16 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         albumMap.clear();
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(ContextAlbumImpl otherContextAlbumImpl) {
         return (equals(otherContextAlbumImpl) ? 0 : 1);
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -524,8 +475,8 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(Object obj) {

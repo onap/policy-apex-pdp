@@ -140,10 +140,8 @@ public class ApexSchemaGenerator {
     private class ApexSchemaOutputResolver extends SchemaOutputResolver {
         private final StringWriter stringWriter = new StringWriter();
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public Result createOutput(final String namespaceUri, final String suggestedFileName) throws IOException {

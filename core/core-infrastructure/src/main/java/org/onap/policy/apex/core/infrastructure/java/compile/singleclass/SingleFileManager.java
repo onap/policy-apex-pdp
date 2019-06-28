@@ -54,11 +54,8 @@ public class SingleFileManager extends ForwardingJavaFileManager<StandardJavaFil
         singleClassLoader = new SingleClassLoader(byteCodeFileObject);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.ForwardingJavaFileManager#getJavaFileForOutput(javax.tools.JavaFileManager.Location,
-     * java.lang.String, javax.tools.JavaFileObject.Kind, javax.tools.FileObject)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public JavaFileObject getJavaFileForOutput(final Location notUsed, final String className,
@@ -67,10 +64,8 @@ public class SingleFileManager extends ForwardingJavaFileManager<StandardJavaFil
         return singleClassLoader.getFileObject();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.tools.ForwardingJavaFileManager#getClassLoader(javax.tools.JavaFileManager.Location)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public SingleClassLoader getClassLoader(final Location location) {

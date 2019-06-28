@@ -171,21 +171,16 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
         return peerReferenceMap.get(peeredMode);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.policy.apex.service.
-     * parameters. eventhandler.EventHandlerPeeredMode, org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
         peerReferenceMap.put(peeredMode, peeredReference);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

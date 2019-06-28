@@ -102,10 +102,8 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#start()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void start() {
@@ -116,42 +114,32 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         consumerThread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
         return name;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.policy.apex.service.
-     * parameters. eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
         return peerReferenceMap.get(peeredMode);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.policy.apex.service.
-     * parameters. eventhandler.EventHandlerPeeredMode, org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
         peerReferenceMap.put(peeredMode, peeredReference);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {
@@ -160,10 +148,8 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.producer.ApexEventProducer#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() {
@@ -173,12 +159,8 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
         stopOrderedFlag = true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener#receiveString(java.
-     * lang. String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void receiveString(final String eventString) {

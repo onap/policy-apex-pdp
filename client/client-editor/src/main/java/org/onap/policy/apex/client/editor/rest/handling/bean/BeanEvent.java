@@ -123,10 +123,8 @@ public class BeanEvent extends BeanBase {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

@@ -66,10 +66,8 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#start()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void startConnection() {
@@ -78,10 +76,8 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
         isStarted = true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stopConnection() {
@@ -117,11 +113,8 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
         return connectionUri;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(org.onap.policy.apex .core.
-     * infrastructure. messaging.MessageHolder)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void send(final MessageHolder<M> message) {
@@ -132,10 +125,8 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#send(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void send(final String messageString) {
@@ -145,10 +136,8 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.infrastructure.messaging.MessagingService#isStarted()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStarted() {

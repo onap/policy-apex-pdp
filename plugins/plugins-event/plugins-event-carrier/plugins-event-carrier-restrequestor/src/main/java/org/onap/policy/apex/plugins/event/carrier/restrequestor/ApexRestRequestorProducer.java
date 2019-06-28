@@ -56,11 +56,8 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
     // The number of events sent
     private int eventsSent = 0;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#init(java.lang.String,
-     * org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final String producerName, final EventHandlerParameters producerParameters)
@@ -102,10 +99,8 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
@@ -121,33 +116,24 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
         return eventsSent;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#getPeeredReference(org.onap.policy.apex.service.
-     * parameters.eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
         return peerReferenceMap.get(peeredMode);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#setPeeredReference(org.onap.policy.apex.service.
-     * parameters.eventhandler.EventHandlerPeeredMode, org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
         peerReferenceMap.put(peeredMode, peeredReference);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#sendEvent(long, java.lang. String,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
@@ -185,10 +171,8 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProducer#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() {

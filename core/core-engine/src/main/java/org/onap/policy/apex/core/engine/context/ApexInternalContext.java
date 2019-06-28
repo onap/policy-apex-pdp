@@ -173,10 +173,8 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
         contextDistributor.clear();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -184,52 +182,40 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
                 + ", currentPolicyKey=" + currentPolicyKey + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.core.basicmodel.concepts.
-     * AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ContextAlbum get(final AxArtifactKey conceptKey) {
         return new AxConceptGetterImpl<>(contextAlbums).get(conceptKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ContextAlbum get(final String conceptKeyName) {
         return new AxConceptGetterImpl<>(contextAlbums).get(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ContextAlbum get(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>(contextAlbums).get(conceptKeyName, conceptKeyVersion);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<ContextAlbum> getAll(final String conceptKeyName) {
         return new AxConceptGetterImpl<>(contextAlbums).getAll(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<ContextAlbum> getAll(final String conceptKeyName, final String conceptKeyVersion) {

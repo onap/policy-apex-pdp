@@ -145,20 +145,16 @@ public class AxContextSchema extends AxConcept {
         this.schemaDefinition = schemaDefinition.replaceAll(WHITESPACE_REGEXP, "");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -212,11 +208,8 @@ public class AxContextSchema extends AxConcept {
         this.schemaDefinition = schema.replaceAll(WHITESPACE_REGEXP, "");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -250,10 +243,8 @@ public class AxContextSchema extends AxConcept {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -262,10 +253,8 @@ public class AxContextSchema extends AxConcept {
         schemaDefinition = schemaDefinition.replaceAll(WHITESPACE_REGEXP, "");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -282,11 +271,8 @@ public class AxContextSchema extends AxConcept {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -303,10 +289,8 @@ public class AxContextSchema extends AxConcept {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -318,10 +302,8 @@ public class AxContextSchema extends AxConcept {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -349,10 +331,8 @@ public class AxContextSchema extends AxConcept {
         return thisSchema.equals(otherSchema);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {

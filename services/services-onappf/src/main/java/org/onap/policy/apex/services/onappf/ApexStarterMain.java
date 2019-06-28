@@ -137,10 +137,8 @@ public class ApexStarterMain {
      * called.
      */
     private class ApexStarterShutdownHookClass extends Thread {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Runnable#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

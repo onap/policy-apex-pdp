@@ -49,10 +49,8 @@ public class BeanField extends BeanKeyRef {
         return optional;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.client.editor.rest.bean.Bean_KeyRef#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

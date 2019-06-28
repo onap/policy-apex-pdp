@@ -100,11 +100,8 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader# init(
-     * java.io.InputStream)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final InputStream incomingInputStream) {
@@ -116,10 +113,8 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
         textConsumputionThread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlockReader# readTextBlock()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public TextBlock readTextBlock() throws IOException {
@@ -171,10 +166,8 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

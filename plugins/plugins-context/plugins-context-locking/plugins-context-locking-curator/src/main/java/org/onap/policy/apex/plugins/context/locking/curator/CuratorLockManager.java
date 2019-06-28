@@ -65,11 +65,8 @@ public class CuratorLockManager extends AbstractLockManager {
         LOGGER.exit("CuratorLockManager(): Curator lock manager set up");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.impl.locking.AbstractLockManager#init(org.onap.policy.apex. model.
-     * basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxArtifactKey key) throws ContextException {
@@ -137,11 +134,8 @@ public class CuratorLockManager extends AbstractLockManager {
         LOGGER.exit("init(" + key + "," + curatorLockPars + ")");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.impl.locking.AbstractLockManager#getReentrantReadWriteLock(
-     * java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ReadWriteLock getReentrantReadWriteLock(final String lockId) throws ContextException {
@@ -154,10 +148,8 @@ public class CuratorLockManager extends AbstractLockManager {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#shutdown()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void shutdown() {
@@ -173,11 +165,8 @@ public class CuratorLockManager extends AbstractLockManager {
      */
     private class CuratorManagerConnectionStateListener implements ConnectionStateListener {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.apache.curator.framework.state.ConnectionStateListener#stateChanged(org.apache.
-         * curator.framework.CuratorFramework, org.apache.curator.framework.state.ConnectionState)
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void stateChanged(final CuratorFramework incomngCuratorFramework, final ConnectionState newState) {

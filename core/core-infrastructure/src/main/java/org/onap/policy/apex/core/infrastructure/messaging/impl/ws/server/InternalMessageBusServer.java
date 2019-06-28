@@ -95,10 +95,8 @@ abstract class InternalMessageBusServer<M> extends WebSocketServerImpl implement
         messageBlockHandler.post(new RawMessageBlock(rawMessage, webSocket));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.server.WebSocketServer#onMessage(org.java_websocket.WebSocket, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onMessage(final WebSocket webSocket, final String stringMessage) {

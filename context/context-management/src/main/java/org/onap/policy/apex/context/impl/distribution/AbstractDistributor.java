@@ -79,11 +79,8 @@ public abstract class AbstractDistributor implements Distributor {
         LOGGER.exit("AbstractContextDistributor()");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextDistributor#init(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxArtifactKey distributorKey) throws ContextException {
@@ -125,18 +122,14 @@ public abstract class AbstractDistributor implements Distributor {
         flushTimer = incomingFlushTimer;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextDistributor#shutdown()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public abstract void shutdown();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.ContextDistributor#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
@@ -151,11 +144,8 @@ public abstract class AbstractDistributor implements Distributor {
      */
     public abstract Map<String, Object> getContextAlbumMap(AxArtifactKey contextAlbumKey);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.Distributor#registerModel(org.onap.policy.apex.model.contextmodel.concepts.
-     * AxContextModel)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void registerModel(final AxContextModel contextModel) throws ContextException {
@@ -164,12 +154,8 @@ public abstract class AbstractDistributor implements Distributor {
         ModelService.registerModel(AxContextAlbums.class, contextModel.getAlbums());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.context.ContextDistributor#createContextAlbum(org.onap.policy.apex.core.basicmodel.
-     * concepts. AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public synchronized ContextAlbum createContextAlbum(final AxArtifactKey axContextAlbumKey) throws ContextException {
@@ -220,12 +206,8 @@ public abstract class AbstractDistributor implements Distributor {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.context.ContextDistributor#removeContextAlbum(org.onap.policy.apex.core.basicmodel.
-     * concepts. AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void removeContextAlbum(final AxContextAlbum contextAlbum) throws ContextException {
@@ -241,10 +223,8 @@ public abstract class AbstractDistributor implements Distributor {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#flush()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void flush() throws ContextException {
@@ -259,11 +239,8 @@ public abstract class AbstractDistributor implements Distributor {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#flushContextAlbum(org.onap.policy.apex.core.context.
-     * ContextAlbum)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void flushContextAlbum(final ContextAlbum contextAlbum) throws ContextException {
@@ -281,10 +258,8 @@ public abstract class AbstractDistributor implements Distributor {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#lockForReading(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public synchronized void lockForReading(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
@@ -292,10 +267,8 @@ public abstract class AbstractDistributor implements Distributor {
         lockManager.lockForReading(mapKey.getId(), itemKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#lockForWriting(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public synchronized void lockForWriting(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
@@ -303,10 +276,8 @@ public abstract class AbstractDistributor implements Distributor {
         lockManager.lockForWriting(mapKey.getId(), itemKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#unlockForReading(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForReading(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
@@ -314,10 +285,8 @@ public abstract class AbstractDistributor implements Distributor {
         lockManager.unlockForReading(mapKey.getId(), itemKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#unlockForWriting(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForWriting(final AxArtifactKey mapKey, final String itemKey) throws ContextException {
@@ -325,10 +294,8 @@ public abstract class AbstractDistributor implements Distributor {
         lockManager.unlockForWriting(mapKey.getId(), itemKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.ContextDistributor#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() {

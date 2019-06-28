@@ -51,10 +51,8 @@ public class StopEngine extends Message {
         super(EngDepAction.STOP_ENGINE, engineKey, messageData);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.model.protocols.Message#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

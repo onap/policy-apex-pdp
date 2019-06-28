@@ -106,10 +106,8 @@ public class CuratorLockManagerParameters extends LockManagerParameters {
         this.zookeeperContextRetries = zookeeperContextRetries;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.parameters.LockManagerParameters#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

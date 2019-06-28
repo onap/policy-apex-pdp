@@ -115,10 +115,8 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#start()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void start() {
@@ -129,10 +127,8 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         consumerThread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
@@ -148,33 +144,24 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         return eventsReceived;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#getPeeredReference(org.onap.
-     * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
         return peerReferenceMap.get(peeredMode);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConsumer#setPeeredReference(org.onap.
-     * policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode,
-     * org.onap.policy.apex.service.engine.event.PeeredReference)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
         peerReferenceMap.put(peeredMode, peeredReference);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {
@@ -202,10 +189,8 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.producer.ApexEventConsumer#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() {

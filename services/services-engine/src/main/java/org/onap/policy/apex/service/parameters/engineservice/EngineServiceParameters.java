@@ -265,10 +265,8 @@ public class EngineServiceParameters implements ParameterGroup {
         this.engineParameters = engineParameters;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

@@ -29,24 +29,16 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
 
 public final class SuperTokenDelimitedEventConverter implements ApexEventProtocolConverter {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventOfOtherType) throws ApexException {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent(org.onap.policy.
-     * apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String fromApexEvent(final ApexEvent apexEvent) throws ApexException {

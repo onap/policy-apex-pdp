@@ -55,12 +55,8 @@ public final class EnEventListenerImpl implements EnEventListener {
         this.apexEnEventConverter = apexEnEventConverter;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.engine.EnEventListener#onEnEvent(org.onap.policy.apex.core.
-     * engine.event.EnEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onEnEvent(final EnEvent enEvent) throws ApexException {

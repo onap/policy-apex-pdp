@@ -140,10 +140,8 @@ public abstract class Message implements Serializable {
         return messageData;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object object) {
@@ -166,10 +164,8 @@ public abstract class Message implements Serializable {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -179,10 +175,8 @@ public abstract class Message implements Serializable {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

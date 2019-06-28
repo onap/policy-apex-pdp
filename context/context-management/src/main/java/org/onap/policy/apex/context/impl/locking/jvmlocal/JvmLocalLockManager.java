@@ -33,21 +33,16 @@ import org.onap.policy.apex.context.impl.locking.AbstractLockManager;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JvmLocalLockManager extends AbstractLockManager {
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.context.impl.locking.AbstractLockManager#getReentrantReadWriteLock(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ReadWriteLock getReentrantReadWriteLock(final String lockId) throws ContextException {
         return new ReentrantReadWriteLock();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#shutdown()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void shutdown() {

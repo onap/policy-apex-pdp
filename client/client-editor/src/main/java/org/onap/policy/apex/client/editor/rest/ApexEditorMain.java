@@ -157,10 +157,8 @@ public class ApexEditorMain {
         return state;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -186,10 +184,8 @@ public class ApexEditorMain {
      * This class is a shutdown hook for the Apex editor command.
      */
     private class ApexEditorShutdownHook implements Runnable {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Runnable#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

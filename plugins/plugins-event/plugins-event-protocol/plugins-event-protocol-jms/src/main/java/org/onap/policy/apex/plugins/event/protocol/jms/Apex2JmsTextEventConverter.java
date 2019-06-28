@@ -40,10 +40,8 @@ import org.slf4j.ext.XLoggerFactory;
 public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(Apex2JmsTextEventConverter.class);
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
@@ -74,12 +72,8 @@ public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
         return super.toApexEvent(eventName, jmsString);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent(org.onap.policy.apex.service.engine.
-     * event. ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {

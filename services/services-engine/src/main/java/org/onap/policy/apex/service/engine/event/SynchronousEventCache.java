@@ -170,10 +170,8 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

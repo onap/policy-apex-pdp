@@ -94,21 +94,16 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter#init(org.onap.policy.apex.service.
-     * parameters. eventprotocol.EventProtocolParameters)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final EventProtocolParameters parameters) {
         // No initialization necessary on this class
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
@@ -156,12 +151,8 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
         return eventList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent(org.onap.policy.apex.service.engine.
-     * event. ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {

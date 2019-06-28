@@ -109,8 +109,8 @@ public class PingTestClass implements Serializable {
         this.pongTime = pongTime;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

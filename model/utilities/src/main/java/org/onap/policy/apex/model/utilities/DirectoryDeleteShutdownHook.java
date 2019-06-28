@@ -40,10 +40,8 @@ final class DirectoryDeleteShutdownHook extends Thread {
         this.tempDir = tempDir;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

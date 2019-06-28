@@ -46,21 +46,16 @@ public class PolicyLogicReader implements AxLogicReader {
     // Flag indicating if default logic should be returned
     private String defaultLogic;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#getLogicPackage()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getLogicPackage() {
         return logicPackage;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#setLogicPackage(java.lang.
-     * String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxLogicReader setLogicPackage(final String incomingLogicPackage) {
@@ -68,20 +63,16 @@ public class PolicyLogicReader implements AxLogicReader {
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#getDefaultLogic()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getDefaultLogic() {
         return defaultLogic;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#setDefaultLogic(boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxLogicReader setDefaultLogic(final String incomingDefaultLogic) {
@@ -89,12 +80,8 @@ public class PolicyLogicReader implements AxLogicReader {
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.policymodel.concepts.AxLogicReader#readLogic(.policymodel.concepts
-     * .AxLogic)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String readLogic(final AxLogic axLogic) {

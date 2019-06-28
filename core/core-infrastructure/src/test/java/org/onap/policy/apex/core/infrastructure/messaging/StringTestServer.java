@@ -65,12 +65,8 @@ public class StringTestServer {
      */
     private class WsStringServerMessageListener implements WsStringMessageListener {
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener#receiveString(java
-         * .lang.String)
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void receiveString(final String stringMessage) {

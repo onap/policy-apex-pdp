@@ -46,10 +46,8 @@ abstract class WebSocketClientImpl extends WebSocketClient {
         super(serverUri);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.client.WebSocketClient#onOpen(org.java_websocket.handshake.ServerHandshake)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onOpen(final ServerHandshake handshakedata) {
@@ -58,10 +56,8 @@ abstract class WebSocketClientImpl extends WebSocketClient {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.client.WebSocketClient#onClose(int, java.lang.String, boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onClose(final int code, final String reason, final boolean remote) {
@@ -70,10 +66,8 @@ abstract class WebSocketClientImpl extends WebSocketClient {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.java_websocket.client.WebSocketClient#onError(java.lang.Exception)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onError(final Exception ex) {

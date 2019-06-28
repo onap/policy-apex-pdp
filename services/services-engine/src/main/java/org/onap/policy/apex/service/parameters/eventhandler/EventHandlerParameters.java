@@ -303,10 +303,8 @@ public class EventHandlerParameters implements ParameterGroup {
         this.eventNameFilter = eventNameFilter;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {
@@ -393,10 +391,8 @@ public class EventHandlerParameters implements ParameterGroup {
         return requestorTimeout;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

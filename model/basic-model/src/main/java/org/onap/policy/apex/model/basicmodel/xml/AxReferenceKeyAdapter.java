@@ -39,20 +39,16 @@ public class AxReferenceKeyAdapter extends XmlAdapter<String, AxReferenceKey> im
 
     private static final long serialVersionUID = -3480405083900107029L;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public final String marshal(final AxReferenceKey key) throws Exception {
         return key.getLocalName();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public final AxReferenceKey unmarshal(final String key) throws Exception {

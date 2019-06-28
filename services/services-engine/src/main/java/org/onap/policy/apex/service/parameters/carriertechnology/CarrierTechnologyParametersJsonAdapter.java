@@ -68,11 +68,8 @@ public class CarrierTechnologyParametersJsonAdapter
                 EventRequestorCarrierTechnologyParameters.class.getName());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type,
-     * com.google.gson.JsonSerializationContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public JsonElement serialize(final CarrierTechnologyParameters src, final Type typeOfSrc,
@@ -82,11 +79,8 @@ public class CarrierTechnologyParametersJsonAdapter
         throw new ParameterRuntimeException(returnMessage);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement,
-     * java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public CarrierTechnologyParameters deserialize(final JsonElement json, final Type typeOfT,

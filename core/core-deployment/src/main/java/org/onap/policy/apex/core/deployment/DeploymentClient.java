@@ -82,10 +82,8 @@ public class DeploymentClient implements Runnable {
         this.port = port;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {
@@ -232,11 +230,8 @@ public class DeploymentClient implements Runnable {
      * @see DeploymentClientEvent
      */
     private class DeploymentClientListener implements MessageListener<Message> {
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(org.onap. policy.apex.core.
-         * infrastructure.messaging.impl.ws.messageblock. MessageBlock)
+        /**
+         * {@inheritDoc}.
          */
         @Subscribe
         @Override
@@ -245,10 +240,8 @@ public class DeploymentClient implements Runnable {
             receiveQueue.addAll(messageData.getMessages());
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.core.infrastructure.messaging.MessageListener#onMessage(java.lang. String)
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void onMessage(final String messageString) {

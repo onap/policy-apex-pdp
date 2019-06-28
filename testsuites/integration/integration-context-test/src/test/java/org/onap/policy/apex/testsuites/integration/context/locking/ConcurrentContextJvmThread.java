@@ -57,10 +57,8 @@ public class ConcurrentContextJvmThread implements Runnable, Closeable {
         this.configrationProvider = configrationProvider;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

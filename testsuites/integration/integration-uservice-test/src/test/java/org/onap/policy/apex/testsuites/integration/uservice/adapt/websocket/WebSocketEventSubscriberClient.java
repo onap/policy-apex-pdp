@@ -47,12 +47,8 @@ public class WebSocketEventSubscriberClient implements WsStringMessageListener {
         client.start(this);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WSStringMessageListener#
-     * receiveString(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void receiveString(final String eventString) {

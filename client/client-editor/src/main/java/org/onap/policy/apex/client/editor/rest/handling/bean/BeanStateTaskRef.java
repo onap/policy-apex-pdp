@@ -58,10 +58,8 @@ public class BeanStateTaskRef extends BeanBase {
         return outputName;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

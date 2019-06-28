@@ -83,10 +83,8 @@ public abstract class EventProtocolTextCharDelimitedParameters extends EventProt
         this.endChar = endChar;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -94,10 +92,8 @@ public abstract class EventProtocolTextCharDelimitedParameters extends EventProt
                         + ", endChar=" + endChar + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

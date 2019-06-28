@@ -33,85 +33,64 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 public class DummyAxKey extends AxKey {
     private static final long serialVersionUID = 964899169013353800L;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(AxConcept concept) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getId()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getId() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getCompatibility(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Compatibility getCompatibility(AxKey otherKey) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxKey#isCompatible(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isCompatible(AxKey otherKey) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxKey getKey() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(AxValidationResult result) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -119,42 +98,32 @@ public class DummyAxKey extends AxKey {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(Object otherObject) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
         return "Dummy Key";
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(AxConcept target) {

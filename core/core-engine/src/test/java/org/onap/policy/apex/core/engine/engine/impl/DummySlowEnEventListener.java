@@ -32,11 +32,8 @@ public class DummySlowEnEventListener implements EnEventListener {
 
     private long waitTime;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.core.engine.engine.EnEventListener#onEnEvent(org.onap.policy.apex.core.engine.event.EnEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onEnEvent(EnEvent enEvent) throws ApexException {

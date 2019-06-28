@@ -59,10 +59,8 @@ public class ConcurrentContextThread implements Runnable, Closeable {
         new ContextParameters();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

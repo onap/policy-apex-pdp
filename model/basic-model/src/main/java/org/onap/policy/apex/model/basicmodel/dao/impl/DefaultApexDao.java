@@ -59,11 +59,8 @@ public class DefaultApexDao implements ApexDao {
     // Entity manager for JPA
     private EntityManagerFactory emf = null;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.dao.ApexDao#init(org.onap.policy.apex.model.basicmodel.dao.DAOParameters)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final DaoParameters daoParameters) throws ApexException {
@@ -99,10 +96,8 @@ public class DefaultApexDao implements ApexDao {
         return emf.createEntityManager();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#close()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public final void close() {
@@ -111,11 +106,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#create(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void create(final T obj) {
@@ -132,11 +124,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void delete(final T obj) {
@@ -153,11 +142,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void delete(final Class<T> someClass, final AxArtifactKey key) {
@@ -175,11 +161,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void delete(final Class<T> someClass, final AxReferenceKey key) {
@@ -198,10 +181,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#create(java.util.Collection)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void createCollection(final Collection<T> objs) {
@@ -220,10 +201,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#delete(java.util.Collection)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void deleteCollection(final Collection<T> objs) {
@@ -242,10 +221,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#deleteByArtifactKey(java.lang.Class, java.util.Collection)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> int deleteByArtifactKey(final Class<T> someClass,
@@ -270,11 +247,8 @@ public class DefaultApexDao implements ApexDao {
         return deletedCount;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#deleteByReferenceKey(java.lang.Class,
-     * java.util.Collection)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> int deleteByReferenceKey(final Class<T> someClass,
@@ -298,10 +272,8 @@ public class DefaultApexDao implements ApexDao {
         return deletedCount;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#deleteAll(java.lang.Class)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> void deleteAll(final Class<T> someClass) {
@@ -315,11 +287,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#get(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> T get(final Class<T> someClass, final AxArtifactKey key) {
@@ -347,11 +316,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#get(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> T get(final Class<T> someClass, final AxReferenceKey key) {
@@ -378,10 +344,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#getAll(java.lang.Class)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> List<T> getAll(final Class<T> someClass) {
@@ -396,11 +360,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#getAll(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> List<T> getAll(final Class<T> someClass, final AxArtifactKey parentKey) {
@@ -417,11 +378,8 @@ public class DefaultApexDao implements ApexDao {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#getArtifact(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> T getArtifact(final Class<T> someClass, final AxArtifactKey key) {
@@ -446,11 +404,8 @@ public class DefaultApexDao implements ApexDao {
         return ret.get(0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#getArtifact(java.lang.Class,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> T getArtifact(final Class<T> someClass, final AxReferenceKey key) {
@@ -476,11 +431,8 @@ public class DefaultApexDao implements ApexDao {
         return ret.get(0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#update(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> T update(final T obj) {
@@ -497,10 +449,8 @@ public class DefaultApexDao implements ApexDao {
         return ret;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.dao.ApexDao#size(java.lang.Class)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public <T extends AxConcept> long size(final Class<T> someClass) {

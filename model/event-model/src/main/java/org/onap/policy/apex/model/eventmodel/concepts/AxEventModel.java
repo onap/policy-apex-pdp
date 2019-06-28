@@ -124,10 +124,8 @@ public class AxEventModel extends AxModel {
         this.events = events;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#register()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void register() {
@@ -136,10 +134,8 @@ public class AxEventModel extends AxModel {
         ModelService.registerModel(AxEvents.class, getEvents());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -189,12 +185,8 @@ public class AxEventModel extends AxModel {
         this.events = events;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxModel#validate(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -205,10 +197,8 @@ public class AxEventModel extends AxModel {
         return events.validate(result);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -217,10 +207,8 @@ public class AxEventModel extends AxModel {
         events.clean();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -236,12 +224,8 @@ public class AxEventModel extends AxModel {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept targetObject) {
@@ -258,10 +242,8 @@ public class AxEventModel extends AxModel {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -273,10 +255,8 @@ public class AxEventModel extends AxModel {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxModel#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -301,12 +281,8 @@ public class AxEventModel extends AxModel {
         return events.equals(other.events);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxModel#compareTo(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {

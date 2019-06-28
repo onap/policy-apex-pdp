@@ -34,10 +34,8 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 @Converter
 public class Uuid2String extends XmlAdapter<String, UUID> implements AttributeConverter<UUID, String> {
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.persistence.AttributeConverter#convertToDatabaseColumn(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String convertToDatabaseColumn(final UUID uuid) {
@@ -51,30 +49,24 @@ public class Uuid2String extends XmlAdapter<String, UUID> implements AttributeCo
         return returnString;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.persistence.AttributeConverter#convertToEntityAttribute(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public UUID convertToEntityAttribute(final String uuidString) {
         return UUID.fromString(uuidString);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.xml.bind.annotation.adapters.XmlAdapter
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public UUID unmarshal(final String value) throws Exception {
         return this.convertToEntityAttribute(value);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.xml.bind.annotation.adapters.XmlAdapter
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String marshal(final UUID value) throws Exception {

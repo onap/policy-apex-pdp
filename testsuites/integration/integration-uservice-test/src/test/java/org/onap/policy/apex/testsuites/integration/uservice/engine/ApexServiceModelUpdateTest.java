@@ -364,11 +364,8 @@ public class ApexServiceModelUpdateTest {
      */
     private final class TestListener implements ApexEventListener {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.onap.policy.apex.service.engine.runtime.ApexEventListener#onApexEvent(org.onap.policy
-         * .apex.service.engine.event.ApexEvent)
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public synchronized void onApexEvent(final ApexEvent event) {

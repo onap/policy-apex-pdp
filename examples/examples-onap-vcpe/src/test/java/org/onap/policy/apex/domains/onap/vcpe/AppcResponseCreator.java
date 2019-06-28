@@ -63,10 +63,8 @@ public class AppcResponseCreator {
     }
 
     private class AppcTimerTask extends TimerTask {
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.util.TimerTask#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

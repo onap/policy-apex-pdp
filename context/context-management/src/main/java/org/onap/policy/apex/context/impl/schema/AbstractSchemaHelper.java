@@ -61,11 +61,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
         this.schemaClass = schemaClass;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#init(org.onap.policy.apex.model.basicmodel.concepts .AxKey,
-     * org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxKey incomingUserKey, final AxContextSchema incomingSchema) {
@@ -78,50 +75,40 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
         this.schema = incomingSchema;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxKey getUserKey() {
         return userKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#getSchema()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextSchema getSchema() {
         return schema;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#getSchemaClass()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Class<?> getSchemaClass() {
         return schemaClass;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#getSchemaObject()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object getSchemaObject() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#createNewInstance()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object createNewInstance() {
@@ -143,10 +130,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#createNewInstance(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object createNewInstance(final String stringValue) {
@@ -172,8 +157,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.context.SchemaHelper#createNewSubInstance(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object createNewSubInstance(String subType) {

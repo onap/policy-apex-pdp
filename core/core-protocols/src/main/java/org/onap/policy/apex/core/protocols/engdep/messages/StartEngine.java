@@ -51,10 +51,8 @@ public class StartEngine extends Message {
         super(EngDepAction.START_ENGINE, engineKey, messageData);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.model.protocols.Message#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

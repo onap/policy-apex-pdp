@@ -128,8 +128,8 @@ public class EngineServiceInfoResponse extends Response {
         this.apexModelKey = apexModelKey;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -141,8 +141,8 @@ public class EngineServiceInfoResponse extends Response {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(Object obj) {

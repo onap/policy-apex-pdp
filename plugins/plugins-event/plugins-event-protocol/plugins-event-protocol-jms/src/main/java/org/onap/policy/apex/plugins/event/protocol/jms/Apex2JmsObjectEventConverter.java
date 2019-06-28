@@ -69,10 +69,8 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
@@ -125,11 +123,8 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         return eventList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent
-     * (org.onap.policy.apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {

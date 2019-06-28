@@ -105,10 +105,8 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -116,10 +114,8 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
                 + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final CommandLineArgument otherArgument) {
@@ -143,8 +139,8 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
         return description.compareTo(otherArgument.description);
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -156,8 +152,8 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(Object obj) {

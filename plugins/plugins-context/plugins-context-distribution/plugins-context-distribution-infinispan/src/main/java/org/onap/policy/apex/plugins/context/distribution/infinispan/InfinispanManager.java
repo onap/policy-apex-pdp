@@ -109,10 +109,8 @@ public class InfinispanManager {
      * Private class to implement the shutdown hook for this infinispan manager.
      */
     public class InfinspanManagerShutdownHook extends Thread {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Thread#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

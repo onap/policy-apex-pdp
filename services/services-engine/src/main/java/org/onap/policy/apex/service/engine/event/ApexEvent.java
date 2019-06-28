@@ -232,10 +232,8 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * Map overrides from here
      */
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object put(final String key, final Object value) {
@@ -250,10 +248,8 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#putAll(java.util.Map)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void putAll(final Map<? extends String, ? extends Object> incomingMap) {

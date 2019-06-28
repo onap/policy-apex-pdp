@@ -41,40 +41,40 @@ public class TestApexSamplePolicyModelCreator implements TestApexModelCreator<Ax
         this.logicExecutorType = logicExecutorType;
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.model.basicmodel.handling.ApexModelCreator#getModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getModel() {
         return new SampleDomainModelFactory().getSamplePolicyModel(logicExecutorType);
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getMalstructuredModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getMalstructuredModel() {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getObservationModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getObservationModel() {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getWarningModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getWarningModel() {
         return getModel();
     }
 
-    /* (non-Javadoc)
-     * @see org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator#getInvalidModel()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxPolicyModel getInvalidModel() {

@@ -449,20 +449,16 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         this.valueDeserializer = valueDeserializer;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.common.parameters.ParameterGroup#getName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
         return this.getLabel();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.apps.uservice.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

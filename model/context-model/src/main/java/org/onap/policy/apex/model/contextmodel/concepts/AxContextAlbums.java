@@ -146,20 +146,16 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         albums = navigableAlbums;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -202,10 +198,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         this.albums.putAll(albumsMap);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -216,10 +210,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -236,11 +228,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -286,11 +275,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -311,10 +297,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -325,10 +309,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -350,10 +332,8 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         return albums.equals(other.albums);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {
@@ -378,31 +358,24 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.
-     * model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextAlbum get(final AxArtifactKey conceptKey) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextAlbum>) albums).get(conceptKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextAlbum get(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextAlbum>) albums).get(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxContextAlbum get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -410,20 +383,16 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
                         conceptKeyVersion);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxContextAlbum> getAll(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextAlbum>) albums).getAll(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxContextAlbum> getAll(final String conceptKeyName, final String conceptKeyVersion) {

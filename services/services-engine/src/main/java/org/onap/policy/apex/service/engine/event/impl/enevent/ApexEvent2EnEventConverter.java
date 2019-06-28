@@ -57,12 +57,8 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         this.apexEngine = apexEngine;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object event) throws ApexException {
@@ -105,12 +101,8 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         return eventList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent(org.onap.policy.
-     * apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public EnEvent fromApexEvent(final ApexEvent apexEvent) throws ApexException {

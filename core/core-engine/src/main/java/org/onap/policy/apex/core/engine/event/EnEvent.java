@@ -217,10 +217,8 @@ public class EnEvent extends HashMap<String, Object> {
         userArtifactStack = usedArtifactStackArray;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#get(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object get(final Object key) {
@@ -245,10 +243,8 @@ public class EnEvent extends HashMap<String, Object> {
         return item;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#values()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Collection<Object> values() {
@@ -263,10 +259,8 @@ public class EnEvent extends HashMap<String, Object> {
         return valueList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#entrySet()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<Map.Entry<String, Object>> entrySet() {
@@ -281,10 +275,8 @@ public class EnEvent extends HashMap<String, Object> {
         return entrySet;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object put(final String key, final Object incomingValue) {
@@ -316,10 +308,8 @@ public class EnEvent extends HashMap<String, Object> {
         return super.put(key, valueToAssign);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#putAll(java.util.Map)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void putAll(final Map<? extends String, ? extends Object> incomingMap) {
@@ -329,10 +319,8 @@ public class EnEvent extends HashMap<String, Object> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#remove(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object remove(final Object key) {
@@ -354,10 +342,8 @@ public class EnEvent extends HashMap<String, Object> {
         return removedValue;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.Map#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() {
@@ -370,10 +356,8 @@ public class EnEvent extends HashMap<String, Object> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.AbstractMap#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -381,8 +365,8 @@ public class EnEvent extends HashMap<String, Object> {
                 + super.toString() + "]";
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -392,8 +376,8 @@ public class EnEvent extends HashMap<String, Object> {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(Object obj) {

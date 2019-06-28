@@ -41,12 +41,8 @@ import org.slf4j.ext.XLoggerFactory;
 public class Apex2ApexEventConverter implements ApexEventProtocolConverter {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(Apex2ApexEventConverter.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter#init(org.onap.policy.
-     * apex. service.parameters.eventprotocol.EventProtocolParameters)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final EventProtocolParameters parameters) {
@@ -58,12 +54,8 @@ public class Apex2ApexEventConverter implements ApexEventProtocolConverter {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#toApexEvent(java.lang.String,
-     * java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
@@ -120,12 +112,8 @@ public class Apex2ApexEventConverter implements ApexEventProtocolConverter {
         return eventList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.service.engine.event.ApexEventConverter#fromApexEvent(org.onap.policy.
-     * apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {

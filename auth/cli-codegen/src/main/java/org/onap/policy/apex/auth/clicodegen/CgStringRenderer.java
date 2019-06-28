@@ -33,11 +33,8 @@ import org.stringtemplate.v4.StringRenderer;
  */
 public class CgStringRenderer implements AttributeRenderer {
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.stringtemplate.v4.AttributeRenderer#toString(java.lang.Object, java.lang.String,
-     * java.util.Locale)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString(final Object obj, final String format, final Locale locale) {

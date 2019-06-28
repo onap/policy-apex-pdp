@@ -67,11 +67,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     }
     // @formatter:on
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper#init(org.onap.policy.apex.model .basicmodel.
-     * concepts. AxKey, org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxKey userKey, final AxContextSchema schema) {
@@ -96,10 +93,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#createNewInstance(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object createNewInstance(final Object incomingObject) {
@@ -131,10 +126,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         throw new ContextRuntimeException(returnString);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#object2SchemaObject(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object unmarshal(final Object object) {
@@ -159,10 +152,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#schemaObject2Json(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String marshal2String(final Object schemaObject) {
@@ -183,10 +174,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.SchemaHelper#marshal2JsonElement(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Object marshal2Object(final Object schemaObject) {

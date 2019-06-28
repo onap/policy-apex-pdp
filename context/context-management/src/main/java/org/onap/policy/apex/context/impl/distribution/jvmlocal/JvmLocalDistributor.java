@@ -45,12 +45,8 @@ public class JvmLocalDistributor extends AbstractDistributor {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.context.impl.distribution.AbstractDistributor#getContextAlbumMap(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextMapKey) {
@@ -58,10 +54,8 @@ public class JvmLocalDistributor extends AbstractDistributor {
         return Collections.synchronizedMap(new HashMap<String, Object>());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.impl.distribution.AbstractDistributor#shutdown()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void shutdown() {

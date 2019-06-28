@@ -39,10 +39,8 @@ public class ThreadingTestThread implements Runnable {
 
     private String threadName;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

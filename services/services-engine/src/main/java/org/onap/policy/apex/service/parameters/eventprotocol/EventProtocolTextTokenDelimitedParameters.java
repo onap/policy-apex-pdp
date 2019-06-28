@@ -115,10 +115,8 @@ public abstract class EventProtocolTextTokenDelimitedParameters extends EventPro
                         + ", endDelimiterToken=" + endDelimiterToken + ", delimiterAtStart=" + delimiterAtStart + "]";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

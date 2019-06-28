@@ -33,8 +33,8 @@ public class DummyStErrorListener implements STErrorListener {
     /** Counts errors of the listener. */
     private int errorCount;
 
-    /* (non-Javadoc)
-     * @see org.stringtemplate.v4.STErrorListener#IOError(org.stringtemplate.v4.misc.STMessage)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void IOError(final STMessage msg) {
@@ -44,8 +44,8 @@ public class DummyStErrorListener implements STErrorListener {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.stringtemplate.v4.STErrorListener#compileTimeError(org.stringtemplate.v4.misc.STMessage)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void compileTimeError(final STMessage msg) {
@@ -55,8 +55,8 @@ public class DummyStErrorListener implements STErrorListener {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.stringtemplate.v4.STErrorListener#internalError(org.stringtemplate.v4.misc.STMessage)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void internalError(final STMessage msg) {
@@ -66,8 +66,8 @@ public class DummyStErrorListener implements STErrorListener {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.stringtemplate.v4.STErrorListener#runTimeError(org.stringtemplate.v4.misc.STMessage)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void runTimeError(final STMessage msg) {

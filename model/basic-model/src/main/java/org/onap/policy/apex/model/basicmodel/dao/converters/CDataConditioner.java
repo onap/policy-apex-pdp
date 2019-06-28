@@ -35,40 +35,32 @@ public class CDataConditioner extends XmlAdapter<String, String> implements Attr
 
     private static final String NL = "\n";
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.persistence.AttributeConverter#convertToDatabaseColumn(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String convertToDatabaseColumn(final String raw) {
         return clean(raw);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.persistence.AttributeConverter#convertToEntityAttribute(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String convertToEntityAttribute(final String db) {
         return clean(db);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.xml.bind.annotation.adapters.XmlAdapter
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String unmarshal(final String value) throws Exception {
         return this.convertToEntityAttribute(value);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.xml.bind.annotation.adapters.XmlAdapter
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String marshal(final String value) throws Exception {

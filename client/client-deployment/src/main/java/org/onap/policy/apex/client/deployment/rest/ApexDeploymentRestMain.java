@@ -174,10 +174,8 @@ public class ApexDeploymentRestMain {
      * This class is a shutdown hook for the Apex services command.
      */
     private class ApexServicesShutdownHook implements Runnable {
-        /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Runnable#run()
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public void run() {

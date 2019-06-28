@@ -128,10 +128,8 @@ public class InfinispanDistributorParameters extends DistributorParameters {
         this.jgroupsBindAddress = jgroupsBindAddress;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.context.parameters.DistributorParameters#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

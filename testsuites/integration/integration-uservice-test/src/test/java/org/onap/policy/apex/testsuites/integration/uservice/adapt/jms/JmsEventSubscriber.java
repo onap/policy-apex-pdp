@@ -71,10 +71,8 @@ public class JmsEventSubscriber implements Runnable {
         subscriberThread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {

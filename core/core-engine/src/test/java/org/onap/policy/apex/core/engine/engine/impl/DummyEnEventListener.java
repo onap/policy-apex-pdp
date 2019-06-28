@@ -30,11 +30,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
  */
 public class DummyEnEventListener implements EnEventListener {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.core.engine.engine.EnEventListener#onEnEvent(org.onap.policy.apex.core.engine.event.EnEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onEnEvent(EnEvent enEvent) throws ApexException {

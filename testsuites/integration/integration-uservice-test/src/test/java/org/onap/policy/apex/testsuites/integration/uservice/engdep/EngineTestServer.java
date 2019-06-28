@@ -75,10 +75,8 @@ public class EngineTestServer implements Runnable, EngineServiceEventInterface {
         this.parameters = parameters;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Runnable#run()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void run() {
@@ -192,12 +190,8 @@ public class EngineTestServer implements Runnable, EngineServiceEventInterface {
         return starting;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface#sendEvent(org.onap.
-     * policy.apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void sendEvent(final ApexEvent event) {
@@ -217,12 +211,8 @@ public class EngineTestServer implements Runnable, EngineServiceEventInterface {
      */
     private final class TestApexListener implements ApexEventListener {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see
-         * org.onap.policy.apex.service.engine.runtime.ApexEventListener#onApexEvent(org.onap.policy
-         * .apex.service.engine.event.ApexEvent)
+        /**
+         * {@inheritDoc}.
          */
         @Override
         public synchronized void onApexEvent(final ApexEvent apexEvent) {

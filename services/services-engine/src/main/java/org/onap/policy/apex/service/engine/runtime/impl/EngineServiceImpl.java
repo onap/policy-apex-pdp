@@ -147,11 +147,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return new EngineServiceImpl(engineServiceKey, threadCount, config.getPeriodicEventPeriod());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#registerActionListener(java.lang. String,
-     * org.onap.policy.apex.service.engine.runtime.ApexEventListener)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void registerActionListener(final String listenerName, final ApexEventListener apexEventListener) {
@@ -179,10 +176,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#deregisterActionListener(java.lang. String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void deregisterActionListener(final String listenerName) {
@@ -198,40 +193,32 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getEngineServiceEventInterface()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public EngineServiceEventInterface getEngineServiceEventInterface() {
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return engineServiceKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getInfo()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Collection<AxArtifactKey> getEngineKeys() {
         return engineWorkerMap.keySet();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getApexModelKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getApexModelKey() {
@@ -242,11 +229,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return engineWorkerMap.entrySet().iterator().next().getValue().getApexModelKey();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#updateModel(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxArtifactKey, java.lang.String, boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void updateModel(final AxArtifactKey incomingEngineServiceKey, final String apexModelString,
@@ -283,11 +267,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#updateModel(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxArtifactKey, org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel, boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void updateModel(final AxArtifactKey incomingEngineServiceKey, final AxPolicyModel apexModel,
@@ -430,10 +411,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getState()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxEngineState getState() {
@@ -447,10 +426,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return AxEngineState.STOPPED;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#startAll()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void startAll() throws ApexException {
@@ -459,11 +436,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#start(org.onap.policy.apex.core.model.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void start(final AxArtifactKey engineKey) throws ApexException {
@@ -493,10 +467,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit(engineKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() throws ApexException {
@@ -517,11 +489,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stop(org.onap.policy.apex.core.model.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop(final AxArtifactKey engineKey) throws ApexException {
@@ -545,10 +514,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit(engineKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() throws ApexException {
@@ -564,11 +531,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.exit();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#clear(org.onap.policy.apex.core.model.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear(final AxArtifactKey engineKey) throws ApexException {
@@ -610,11 +574,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStarted(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStarted(final AxArtifactKey engineKey) {
@@ -648,11 +609,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStopped(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStopped(final AxArtifactKey engineKey) {
@@ -670,10 +628,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return engineWorkerMap.get(engineKey).isStopped();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#startPeriodicEvents(long)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void startPeriodicEvents(final long period) throws ApexException {
@@ -693,10 +649,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         this.periodicEventPeriod = period;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stopPeriodicEvents()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stopPeriodicEvents() throws ApexException {
@@ -712,11 +666,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         periodicEventPeriod = 0;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getStatus(org.onap.policy.apex.core.model
-     * .concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getStatus(final AxArtifactKey engineKey) throws ApexException {
@@ -736,11 +687,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return engineWorkerMap.get(engineKey).getStatus(engineKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getRuntimeInfo(org.onap.policy.apex.core.
-     * model.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getRuntimeInfo(final AxArtifactKey engineKey) throws ApexException {
@@ -760,11 +708,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         return engineWorkerMap.get(engineKey).getRuntimeInfo(engineKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface#sendEvent(org.onap.policy.
-     * apex.service.engine.event.ApexEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void sendEvent(final ApexEvent event) {

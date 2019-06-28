@@ -47,21 +47,16 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
         this.conceptMap = conceptMap;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.apex.core.basicmodel.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public C get(final AxArtifactKey conceptKey) {
         return conceptMap.get(conceptKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang. String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public C get(final String conceptKeyName) {
@@ -89,10 +84,8 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
         return conceptMap.get(foundKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#get(java.lang. String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public C get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -105,20 +98,16 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java. lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<C> getAll(final String conceptKeyName) {
         return getAll(conceptKeyName, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.basicmodel.concepts.AxConceptGetter#getAll(java. lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<C> getAll(final String conceptKeyName, final String conceptKeyVersion) {

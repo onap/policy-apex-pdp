@@ -63,11 +63,8 @@ public class TestSaleAuthListener implements EnEventListener {
         return resultEvents.remove(0);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.engine.EnEventListener#onEnEvent(org.onap.policy.apex.core.engine.event.EnEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void onEnEvent(final EnEvent saleauthEvent) {

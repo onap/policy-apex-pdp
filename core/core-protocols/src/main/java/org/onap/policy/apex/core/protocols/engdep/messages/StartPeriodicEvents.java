@@ -51,10 +51,8 @@ public class StartPeriodicEvents extends Message {
         super(EngDepAction.START_PERIODIC_EVENTS, engineKey, messageData);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.model.protocols.Message#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

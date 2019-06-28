@@ -61,10 +61,8 @@ public class JavaSchemaHelperParameters extends SchemaHelperParameters {
         this.jsonAdapters = jsonAdapters;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.service.parameters.ApexParameterValidator#validate()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

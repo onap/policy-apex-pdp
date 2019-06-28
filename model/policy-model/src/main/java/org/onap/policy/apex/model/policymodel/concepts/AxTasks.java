@@ -144,20 +144,16 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         taskMap = navigableTaskMap;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
@@ -200,12 +196,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         this.taskMap.putAll(taskMap);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxValidationResult)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxValidationResult validate(final AxValidationResult resultIn) {
@@ -244,10 +236,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clean() {
@@ -258,10 +248,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {
@@ -276,12 +264,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         return builder.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.
-     * basicmodel.concepts.AxConcept)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxConcept copyTo(final AxConcept targetObject) {
@@ -302,10 +286,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         return copy;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -316,10 +298,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -341,10 +321,8 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         return taskMap.equals(other.taskMap);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int compareTo(final AxConcept otherObj) {
@@ -369,32 +347,24 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(org.onap.policy.apex.
-     * model. basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxTask get(final AxArtifactKey conceptKey) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxTask>) taskMap).get(conceptKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxTask get(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxTask>) taskMap).get(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#get(java.lang.String,
-     * java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxTask get(final String conceptKeyName, final String conceptKeyVersion) {
@@ -402,21 +372,16 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
                 conceptKeyVersion);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxTask> getAll(final String conceptKeyName) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxTask>) taskMap).getAll(conceptKeyName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter#getAll(java.lang.String,
-     * java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Set<AxTask> getAll(final String conceptKeyName, final String conceptKeyVersion) {

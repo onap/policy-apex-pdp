@@ -51,31 +51,24 @@ public abstract class AbstractLockManager implements LockManager {
     private final Map<String, Map<String, ReadWriteLock>> lockMaps = Collections
                     .synchronizedMap(new HashMap<String, Map<String, ReadWriteLock>>());
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.LockManager#init(org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void init(final AxArtifactKey lockManagerKey) throws ContextException {
         this.key = lockManagerKey;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.LockManager#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#lockForReading(org.onap.policy.apex.core.model.concepts.
-     * AxArtifactKey, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public synchronized void lockForReading(final String lockTypeKey, final String lockKey) throws ContextException {
@@ -94,10 +87,8 @@ public abstract class AbstractLockManager implements LockManager {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#lockForWriting(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public synchronized void lockForWriting(final String lockTypeKey, final String lockKey) throws ContextException {
@@ -116,10 +107,8 @@ public abstract class AbstractLockManager implements LockManager {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#unlockForReading(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForReading(final String lockTypeKey, final String lockKey) throws ContextException {
@@ -138,10 +127,8 @@ public abstract class AbstractLockManager implements LockManager {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.context.LockManager#unlockForWriting(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void unlockForWriting(final String lockTypeKey, final String lockKey) throws ContextException {

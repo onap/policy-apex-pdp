@@ -71,60 +71,48 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         this.lockType = LockType.getLockType(lockType);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getTestName()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getTestName() {
         return testType;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getLoopSize()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int getLoopSize() {
         return loopSize;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getThreadCount()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int getThreadCount() {
         return threadCount;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getJvmCount()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int getJvmCount() {
         return jvmCount;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getAlbumSize()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int getAlbumSize() {
         return albumSize;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getExecutorService()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ExecutorService getExecutorService() {
@@ -133,10 +121,8 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return Executors.newFixedThreadPool(threadCount, threadFactory);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getExecutorService(java.lang.String, int)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ExecutorService getExecutorService(final String threadFactoryName, final int threadPoolSize) {
@@ -144,12 +130,8 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return Executors.newFixedThreadPool(threadPoolSize, threadFactory);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.context.test.utils.ConfigrationProvider#getDistributor(org.onap.policy.apex.model.basicmodel
-     * .concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Distributor getDistributor(final AxArtifactKey key) {
@@ -160,10 +142,8 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getDistributor()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Distributor getDistributor() {
@@ -171,23 +151,17 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return getDistributor(distributorKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getContextAlbum(org.onap.policy.apex.context.
-     * Distributor)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public ContextAlbum getContextAlbum(final Distributor distributor) {
         return getContextAlbum(distributor, Constants.L_TYPE_CONTEXT_ALBUM, Constants.getAxArtifactKeyArray());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getContextAlbum(org.onap.policy.apex.context.
-     * Distributor, org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey,
-     * org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey[])
+    /**
+     * {@inheritDoc}.
+     *[])
      */
     @Override
     public ContextAlbum getContextAlbum(final Distributor distributor, final AxArtifactKey axContextAlbumKey,
@@ -204,10 +178,8 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getContextAlbumInitValues()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Map<String, Object> getContextAlbumInitValues() {
@@ -218,20 +190,16 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return values;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getAlbumModifier()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AlbumModifier getAlbumModifier() {
         return lockType.getAlbumModifier();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.context.test.utils.ConfigrationProvider#getLockType()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public LockType getLockType() {
@@ -250,10 +218,8 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
                         : testType + ":TestConcurrentContextJVMThread_";
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

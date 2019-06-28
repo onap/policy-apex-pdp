@@ -180,10 +180,8 @@ public class TestContextDateLocaleItem implements Serializable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public int hashCode() {
@@ -197,10 +195,8 @@ public class TestContextDateLocaleItem implements Serializable {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -241,10 +237,8 @@ public class TestContextDateLocaleItem implements Serializable {
         return utcOffset == other.utcOffset;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

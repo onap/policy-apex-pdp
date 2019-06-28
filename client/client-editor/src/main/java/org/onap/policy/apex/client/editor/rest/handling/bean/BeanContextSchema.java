@@ -88,10 +88,8 @@ public class BeanContextSchema extends BeanBase {
         return schemaDefinition;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

@@ -46,51 +46,40 @@ public class DummyEngineService implements EngineService {
     private int modelKeyGetCalled;
     private AxArtifactKey updateModelKey;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#registerActionListener(java.lang.String,
-     * org.onap.policy.apex.service.engine.runtime.ApexEventListener)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void registerActionListener(String listenerName, ApexEventListener listener) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#deregisterActionListener(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void deregisterActionListener(String listenerName) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getEngineServiceEventInterface()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public EngineServiceEventInterface getEngineServiceEventInterface() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return new AxArtifactKey("DummyEngineService:0.0.1");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getEngineKeys()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Collection<AxArtifactKey> getEngineKeys() {
@@ -99,10 +88,8 @@ public class DummyEngineService implements EngineService {
         return keys;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getApexModelKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getApexModelKey() {
@@ -111,11 +98,8 @@ public class DummyEngineService implements EngineService {
         return new AxArtifactKey("DummyApexModelKey:0.0.1");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#updateModel(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxArtifactKey, java.lang.String, boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void updateModel(AxArtifactKey engineServiceKey, String apexModelString, boolean forceFlag)
@@ -123,11 +107,8 @@ public class DummyEngineService implements EngineService {
         updateModelKey = engineServiceKey;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#updateModel(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxArtifactKey, org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel, boolean)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void updateModel(AxArtifactKey engineServiceKey, AxPolicyModel apexModel, boolean forceFlag)
@@ -135,148 +116,111 @@ public class DummyEngineService implements EngineService {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getState()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxEngineState getState() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#startAll()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void startAll() throws ApexException {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.runtime.EngineService#start(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void start(AxArtifactKey engineKey) throws ApexException {
         startEngineKey = engineKey;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() throws ApexException {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.runtime.EngineService#stop(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop(AxArtifactKey engineKey) throws ApexException {
         stopEngineKey = engineKey;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() throws ApexException {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.runtime.EngineService#clear(org.onap.policy.apex.model.basicmodel.concepts.
-     * AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear(AxArtifactKey engineKey) throws ApexException {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStarted()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStarted() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStarted(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStarted(AxArtifactKey engineKey) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStopped()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStopped() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#isStopped(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean isStopped(AxArtifactKey engineKey) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#startPeriodicEvents(long)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void startPeriodicEvents(long period) throws ApexException {
         periodicPeriod = period;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#stopPeriodicEvents()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stopPeriodicEvents() throws ApexException {
         periodicPeriod = 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.onap.policy.apex.service.engine.runtime.EngineService#getStatus(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getStatus(AxArtifactKey engineKey) throws ApexException {
@@ -284,12 +228,8 @@ public class DummyEngineService implements EngineService {
         return "The Status";
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.onap.policy.apex.service.engine.runtime.EngineService#getRuntimeInfo(org.onap.policy.apex.model.basicmodel.
-     * concepts.AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public String getRuntimeInfo(AxArtifactKey engineKey) throws ApexException {

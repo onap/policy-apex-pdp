@@ -101,12 +101,8 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.exit("ApexEngine()<-" + key.getId() + "," + state);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.engine.ApexEngine#updateModel(org.onap.policy.apex.model.policymodel.concepts.
-     * AxPolicyModel)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void updateModel(final AxPolicyModel apexModel) throws ApexException {
@@ -154,10 +150,8 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.exit(UPDATE_MODEL + key.getId());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#start()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void start() throws ApexException {
@@ -195,10 +189,8 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.exit("start()" + key);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#stop()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void stop() throws ApexException {
@@ -250,10 +242,8 @@ public class ApexEngineImpl implements ApexEngine {
         throw new ApexException(STOP + key.getId() + "," + state + ", error stopping engine, engine stop timed out");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#clear()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void clear() throws ApexException {
@@ -273,11 +263,8 @@ public class ApexEngineImpl implements ApexEngine {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#createEvent(org.onap.policy.apex.core.model.concepts.
-     * AxArtifactKey)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public EnEvent createEvent(final AxArtifactKey eventKey) {
@@ -295,11 +282,8 @@ public class ApexEngineImpl implements ApexEngine {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.onap.policy.apex.core.engine.engine.ApexEngine#handleEvent(org.onap.policy.apex.core.engine.event.EnEvent)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public boolean handleEvent(final EnEvent incomingEvent) {
@@ -361,11 +345,8 @@ public class ApexEngineImpl implements ApexEngine {
         return ret;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#addEventListener(java.lang.String,
-     * org.onap.policy.apex.core.engine.engine.EnEventListener)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void addEventListener(final String listenerName, final EnEventListener listener) {
@@ -384,10 +365,8 @@ public class ApexEngineImpl implements ApexEngine {
         eventListeners.put(listenerName, listener);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#removeEventListener(java.lang.String)
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public void removeEventListener(final String listenerName) {
@@ -400,30 +379,24 @@ public class ApexEngineImpl implements ApexEngine {
         eventListeners.remove(listenerName);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#getKey()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxArtifactKey getKey() {
         return key;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#getState()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public final AxEngineState getState() {
         return state;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#getEngineStatus()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public AxEngineModel getEngineStatus() {
@@ -434,10 +407,8 @@ public class ApexEngineImpl implements ApexEngine {
         return engineModel;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.onap.policy.apex.core.engine.engine.ApexEngine#getEngineRuntime()
+    /**
+     * {@inheritDoc}.
      */
     @Override
     public Map<AxArtifactKey, Map<String, Object>> getEngineContext() {
