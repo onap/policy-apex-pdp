@@ -163,7 +163,6 @@ public class ApexStarterCommandLineArguments {
      */
     public void validate() throws ApexStarterException {
         validateReadableFile("apex starter configuration", configurationFilePath);
-        validateReadableFile("apex starter properties", propertyFilePath);
     }
 
     /**

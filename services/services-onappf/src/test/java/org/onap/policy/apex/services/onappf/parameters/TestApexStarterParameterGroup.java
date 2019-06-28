@@ -27,6 +27,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.Map;
 
 import org.junit.Test;
+import org.onap.policy.common.endpoints.parameters.RestServerParameters;
+import org.onap.policy.common.endpoints.parameters.TopicParameterGroup;
 import org.onap.policy.common.parameters.GroupValidationResult;
 
 /**
@@ -50,6 +52,7 @@ public class TestApexStarterParameterGroup {
                 ApexStarterParameterGroup.class);
         final RestServerParameters restServerParameters = apexStarterParameters.getRestServerParameters();
         final PdpStatusParameters pdpStatusParameters = apexStarterParameters.getPdpStatusParameters();
+        final TopicParameterGroup topicParameterGroup  = apexStarterParameters.getTopicParameterGroup();
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarterParameters.getName());
@@ -57,6 +60,8 @@ public class TestApexStarterParameterGroup {
         assertEquals(CommonTestData.PDP_TYPE, pdpStatusParameters.getPdpType());
         assertEquals(CommonTestData.DESCRIPTION, pdpStatusParameters.getDescription());
         assertEquals(CommonTestData.SUPPORTED_POLICY_TYPES, pdpStatusParameters.getSupportedPolicyTypes());
+        assertEquals(CommonTestData.TOPIC_PARAMS, topicParameterGroup.getTopicSinks());
+        assertEquals(CommonTestData.TOPIC_PARAMS, topicParameterGroup.getTopicSources());
         assertEquals(restServerParameters.getHost(), apexStarterParameters.getRestServerParameters().getHost());
         assertEquals(restServerParameters.getPort(), apexStarterParameters.getRestServerParameters().getPort());
         assertEquals(restServerParameters.getUserName(), apexStarterParameters.getRestServerParameters().getUserName());
@@ -122,7 +127,23 @@ public class TestApexStarterParameterGroup {
         final GroupValidationResult validationResult = apexStarterParameters.validate();
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                .contains("\"org.onap.policy.apex.services.onappf.parameters.RestServerParameters\" INVALID, "
+                .contains("\"org.onap.policy.common.endpoints.parameters.RestServerParameters\" INVALID, "
+                        + "parameter group has status INVALID"));
+    }
+
+
+    @Test
+    public void testApexStarterParameterGroupp_EmptyTopicParameters() {
+        final Map<String, Object> map =
+                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
+        map.put("topicParameterGroup", commonTestData.getTopicParametersMap(true));
+
+        final ApexStarterParameterGroup apexStarterParameters =
+                commonTestData.toObject(map, ApexStarterParameterGroup.class);
+        final GroupValidationResult validationResult = apexStarterParameters.validate();
+        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.getResult()
+                .contains("\"org.onap.policy.common.endpoints.parameters.TopicParameterGroup\" INVALID, "
                         + "parameter group has status INVALID"));
     }
 }

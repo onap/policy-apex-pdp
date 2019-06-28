@@ -67,8 +67,7 @@ public class TestApexStarterMain {
 
     @Test
     public void testApexStarter() throws ApexStarterException {
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json",
-            "-p", "src/test/resources/topic.properties" };
+        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json"};
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
         assertTrue(apexStarter.getParameters().isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarter.getParameters().getName());

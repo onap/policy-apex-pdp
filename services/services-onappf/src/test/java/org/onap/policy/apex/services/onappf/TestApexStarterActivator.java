@@ -27,7 +27,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileInputStream;
 import java.util.Properties;
 
 import org.junit.After;
@@ -40,6 +39,7 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
 import org.onap.policy.apex.services.onappf.parameters.CommonTestData;
+import org.onap.policy.common.endpoints.utils.ParameterUtils;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 
@@ -60,19 +60,12 @@ public class TestApexStarterActivator {
     @Before
     public void setUp() throws Exception {
         Registry.newRegistry();
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json",
-            "-p", "src/test/resources/topic.properties" };
+        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json"};
         final ApexStarterCommandLineArguments arguments =
                 new ApexStarterCommandLineArguments(apexStarterConfigParameters);
         final ApexStarterParameterGroup parGroup = new ApexStarterParameterHandler().getParameters(arguments);
-
-        final Properties props = new Properties();
-        final String propFile = arguments.getFullPropertyFilePath();
-        try (FileInputStream stream = new FileInputStream(propFile)) {
-            props.load(stream);
-        }
-
-        activator = new ApexStarterActivator(parGroup, props);
+        Properties topicProperties = ParameterUtils.getTopicProperties(parGroup.getTopicParameterGroup());
+        activator = new ApexStarterActivator(parGroup, topicProperties);
     }
 
     /**

@@ -186,12 +186,7 @@ public class CommonApexStarterRestServer {
         systemProps.put("javax.net.ssl.keyStorePassword", "Pol1cy_0nap");
         System.setProperties(systemProps);
 
-        // @formatter:off
-        final String[] apexStarterConfigParameters = {
-            "-c", "src/test/resources/TestConfigParams.json",
-            "-p", "src/test/resources/topic.properties"
-        };
-        // @formatter:on
+        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/TestConfigParams.json" };
 
         main = new ApexStarterMain(apexStarterConfigParameters);
 
