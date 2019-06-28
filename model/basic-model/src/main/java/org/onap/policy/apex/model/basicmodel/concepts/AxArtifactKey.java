@@ -122,16 +122,20 @@ public class AxArtifactKey extends AxKey {
         return new AxArtifactKey(AxKey.NULL_KEY_NAME, AxKey.NULL_KEY_VERSION);
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKey()
      */
     @Override
     public AxArtifactKey getKey() {
         return this;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#getKeys()
      */
     @Override
     public List<AxKey> getKeys() {
@@ -140,8 +144,10 @@ public class AxArtifactKey extends AxKey {
         return keyList;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getID()
      */
     @Override
     public String getId() {
@@ -185,7 +191,20 @@ public class AxArtifactKey extends AxKey {
     }
 
     /**
-     * {@inheritDoc}.
+     * Check if the key is IDENTICAL to a null key.
+     *
+     * @return true, if the key is IDENTICAL to a null key
+     */
+    public boolean isNullKey() {
+        return this.getCompatibility(AxArtifactKey.getNullKey()).equals(AxKey.Compatibility.IDENTICAL);
+    }
+
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxKey#getCompatibility(org.onap.policy.apex.model.basicmodel.
+     * concepts.AxKey)
      */
     @Override
     public AxKey.Compatibility getCompatibility(final AxKey otherKey) {
@@ -217,8 +236,12 @@ public class AxArtifactKey extends AxKey {
         return Compatibility.PATCH;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxKey#isCompatible(org.onap.policy.apex.model.basicmodel.concepts.
+     * AxKey)
      */
     @Override
     public boolean isCompatible(final AxKey otherKey) {
@@ -232,8 +255,12 @@ public class AxArtifactKey extends AxKey {
         return !(compatibility == Compatibility.DIFFERENT || compatibility == Compatibility.MAJOR);
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#validate(org.onap.policy.apex.model.basicmodel.concepts.
+     * AxValidationResult)
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
@@ -254,8 +281,10 @@ public class AxArtifactKey extends AxKey {
         return result;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#clean()
      */
     @Override
     public void clean() {
@@ -263,8 +292,10 @@ public class AxArtifactKey extends AxKey {
         version = Assertions.validateStringParameter(VERSION_TOKEN, version, VERSION_REGEXP);
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#toString()
      */
     @Override
     public String toString() {
@@ -279,8 +310,12 @@ public class AxArtifactKey extends AxKey {
         return builder.toString();
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.onap.policy.apex.model.basicmodel.concepts.AxConcept#copyTo(org.onap.policy.apex.model.basicmodel.concepts.
+     * AxConcept)
      */
     @Override
     public AxConcept copyTo(final AxConcept target) {
@@ -296,8 +331,10 @@ public class AxArtifactKey extends AxKey {
         return copyObject;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#hashCode()
      */
     @Override
     public int hashCode() {
@@ -308,8 +345,10 @@ public class AxArtifactKey extends AxKey {
         return result;
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang. Object)
      */
     @Override
     public boolean equals(final Object obj) {
@@ -331,8 +370,10 @@ public class AxArtifactKey extends AxKey {
         return version.equals(other.version);
     }
 
-    /**
-     * {@inheritDoc}.
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(final AxConcept otherObj) {
