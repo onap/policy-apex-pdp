@@ -53,8 +53,8 @@ public class WebClientTest {
     @Test
     public void httpsRequest() {
         WebClient cl = new WebClient();
-        String result = cl.httpRequest("https://some.random.url/data", "POST", null, "admin", "admin",
-                "application/json", true);
+        String result =
+                cl.httpRequest("https://some.random.url/data", "POST", null, "admin", "admin", "application/json");
         assertNotNull(result);
     }
 
@@ -62,7 +62,7 @@ public class WebClientTest {
     public void httpRequest() {
         WebClient cl = new WebClient();
         String result =
-                cl.httpRequest("http://some.random.url/data", "GET", null, "admin", "admin", "application/json", false);
+                cl.httpRequest("http://some.random.url/data", "GET", null, "admin", "admin", "application/json");
         assertNotNull(result);
     }
 

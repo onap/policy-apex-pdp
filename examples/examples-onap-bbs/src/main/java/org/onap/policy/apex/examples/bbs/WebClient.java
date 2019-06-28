@@ -70,11 +70,10 @@ public class WebClient {
      * @param username Simple Username
      * @param pass Simple password
      * @param contentType http content type
-     * @apram secureHttp flag indicating if HTTPS should be used
      * @return String response message
      */
     public String httpRequest(String requestUrl, String requestMethod, String outputStr, String username, String pass,
-            String contentType, boolean secureHttp) {
+            String contentType) {
         String result = "";
         StringBuilder builder = new StringBuilder();
         try {
@@ -82,13 +81,8 @@ public class WebClient {
             disableCertificateValidation();
 
             URL url = new URL(requestUrl);
-            HttpURLConnection httpUrlConn = null;
-            if (secureHttp) {
-                httpUrlConn = (HttpsURLConnection) url.openConnection();
-            }
-            else {
-                httpUrlConn = (HttpURLConnection) url.openConnection();
-            }
+            HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
+
             httpUrlConn.setDoOutput(true);
             httpUrlConn.setDoInput(true);
             httpUrlConn.setUseCaches(false);
