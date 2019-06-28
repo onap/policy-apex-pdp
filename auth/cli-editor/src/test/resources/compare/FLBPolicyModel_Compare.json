@@ -1,12 +1,12 @@
 {
    "apexPolicyModel" : {
       "key" : {
-         "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+         "name" : "FLBPolicy_PolicyModel",
          "version" : "0.0.1"
       },
       "keyInformation" : {
          "key" : {
-            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+            "name" : "FLBPolicy_PolicyModel_KeyInfo",
             "version" : "0.0.1"
          },
          "keyInfoMap" : {
@@ -155,198 +155,198 @@
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                  "name" : "FLBPolicy_InputEvent",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                     "name" : "FLBPolicy_InputEvent",
                      "version" : "0.0.1"
                   },
                   "UUID" : "f99b46f4-42fa-4873-a3f0-663ef950e917",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_InputEvent:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_InputEvent:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                  "name" : "FLBPolicy_OutputEvent",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                     "name" : "FLBPolicy_OutputEvent",
                      "version" : "0.0.1"
                   },
                   "UUID" : "90d481b5-d0df-4167-a14b-6c1fd9ee4a4c",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_OutputEvent:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_OutputEvent:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Policy",
+                  "name" : "FLBPolicy_Policy",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Policy",
+                     "name" : "FLBPolicy_Policy",
                      "version" : "0.0.1"
                   },
                   "UUID" : "26c27f19-c56f-4ddc-8561-bfa1a89dc9db",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Policy:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_Policy:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+                  "name" : "FLBPolicy_PolicyModel",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel",
+                     "name" : "FLBPolicy_PolicyModel",
                      "version" : "0.0.1"
                   },
                   "UUID" : "aeb5ab2b-0b60-41ac-889d-787e3b59fd19",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+                  "name" : "FLBPolicy_PolicyModel_Albums",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+                     "name" : "FLBPolicy_PolicyModel_Albums",
                      "version" : "0.0.1"
                   },
                   "UUID" : "b72eb47e-6b70-419c-ba8d-1ed55a91aa2f",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Albums:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel_Albums:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+                  "name" : "FLBPolicy_PolicyModel_Events",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+                     "name" : "FLBPolicy_PolicyModel_Events",
                      "version" : "0.0.1"
                   },
                   "UUID" : "952468c2-386e-4984-9f46-8c84208ad9bc",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Events:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel_Events:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+                  "name" : "FLBPolicy_PolicyModel_KeyInfo",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo",
+                     "name" : "FLBPolicy_PolicyModel_KeyInfo",
                      "version" : "0.0.1"
                   },
                   "UUID" : "0e7c3475-8fbc-446d-afbe-d54ae56fc0ee",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_KeyInfo:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel_KeyInfo:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+                  "name" : "FLBPolicy_PolicyModel_Policies",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+                     "name" : "FLBPolicy_PolicyModel_Policies",
                      "version" : "0.0.1"
                   },
                   "UUID" : "c2130341-3a43-41ae-a942-5aeba3f86724",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Policies:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel_Policies:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+                  "name" : "FLBPolicy_PolicyModel_Schemas",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+                     "name" : "FLBPolicy_PolicyModel_Schemas",
                      "version" : "0.0.1"
                   },
                   "UUID" : "09dd200b-9280-4f27-a85a-fab9fa276586",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Schemas:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel_Schemas:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+                  "name" : "FLBPolicy_PolicyModel_Tasks",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+                     "name" : "FLBPolicy_PolicyModel_Tasks",
                      "version" : "0.0.1"
                   },
                   "UUID" : "4eb61362-ef5b-454e-b540-e1301df8108b",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_PolicyModel_Tasks:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_PolicyModel_Tasks:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Task",
+                  "name" : "FLBPolicy_Task",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Task",
+                     "name" : "FLBPolicy_Task",
                      "version" : "0.0.1"
                   },
                   "UUID" : "76e762b7-8fdf-4d02-b4f3-60bf340997fd",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Task:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_Task:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                  "name" : "FLBPolicy_Task_Post",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                     "name" : "FLBPolicy_Task_Post",
                      "version" : "0.0.1"
                   },
                   "UUID" : "3252ff86-02ee-4561-a818-4c7a12546045",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Task_Post:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_Task_Post:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                  "name" : "FLBPolicy_Task_Pre",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                     "name" : "FLBPolicy_Task_Pre",
                      "version" : "0.0.1"
                   },
                   "UUID" : "c4fde272-52f0-4ac0-a37b-a25aa043e122",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_Task_Pre:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_Task_Pre:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                  "name" : "FLBPolicy_fromFuzzy",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                     "name" : "FLBPolicy_fromFuzzy",
                      "version" : "0.0.1"
                   },
                   "UUID" : "54b771b4-11af-43eb-94a2-d97e8b585515",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_fromFuzzy:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_fromFuzzy:0.0.1\""
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                  "name" : "FLBPolicy_toFuzzy",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                     "name" : "FLBPolicy_toFuzzy",
                      "version" : "0.0.1"
                   },
                   "UUID" : "960205cd-3cf1-4e90-a456-a0ac59bb06d5",
-                  "description" : "Generated description for concept referred to by key \"LoadBalancingFuzzyPolicy_toFuzzy:0.0.1\""
+                  "description" : "Generated description for concept referred to by key \"FLBPolicy_toFuzzy:0.0.1\""
                }
             }, {
                "key" : {
@@ -782,18 +782,18 @@
       },
       "policies" : {
          "key" : {
-            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Policies",
+            "name" : "FLBPolicy_PolicyModel_Policies",
             "version" : "0.0.1"
          },
          "policyMap" : {
             "entry" : [ {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Policy",
+                  "name" : "FLBPolicy_Policy",
                   "version" : "0.0.1"
                },
                "value" : {
                   "policyKey" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Policy",
+                     "name" : "FLBPolicy_Policy",
                      "version" : "0.0.1"
                   },
                   "template" : "FREEFORM",
@@ -802,13 +802,13 @@
                         "key" : "FuzzyExecute",
                         "value" : {
                            "stateKey" : {
-                              "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                              "parentKeyName" : "FLBPolicy_Policy",
                               "parentKeyVersion" : "0.0.1",
                               "parentLocalName" : "NULL",
                               "localName" : "FuzzyExecute"
                            },
                            "trigger" : {
-                              "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                              "name" : "FLBPolicy_toFuzzy",
                               "version" : "0.0.1"
                            },
                            "stateOutputs" : {
@@ -816,17 +816,17 @@
                                  "key" : "Fuzzy2Post",
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "FuzzyExecute",
                                        "localName" : "Fuzzy2Post"
                                     },
                                     "outgoingEvent" : {
-                                       "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                                       "name" : "FLBPolicy_fromFuzzy",
                                        "version" : "0.0.1"
                                     },
                                     "nextState" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "NULL",
                                        "localName" : "PostExecute"
@@ -844,25 +844,25 @@
                               "entry" : [ ]
                            },
                            "defaultTask" : {
-                              "name" : "LoadBalancingFuzzyPolicy_Task",
+                              "name" : "FLBPolicy_Task",
                               "version" : "0.0.1"
                            },
                            "taskReferences" : {
                               "entry" : [ {
                                  "key" : {
-                                    "name" : "LoadBalancingFuzzyPolicy_Task",
+                                    "name" : "FLBPolicy_Task",
                                     "version" : "0.0.1"
                                  },
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "FuzzyExecute",
-                                       "localName" : "LoadBalancingFuzzyPolicy_Policy"
+                                       "localName" : "FLBPolicy_Policy"
                                     },
                                     "outputType" : "DIRECT",
                                     "output" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "FuzzyExecute",
                                        "localName" : "Fuzzy2Post"
@@ -875,13 +875,13 @@
                         "key" : "PostExecute",
                         "value" : {
                            "stateKey" : {
-                              "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                              "parentKeyName" : "FLBPolicy_Policy",
                               "parentKeyVersion" : "0.0.1",
                               "parentLocalName" : "NULL",
                               "localName" : "PostExecute"
                            },
                            "trigger" : {
-                              "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                              "name" : "FLBPolicy_fromFuzzy",
                               "version" : "0.0.1"
                            },
                            "stateOutputs" : {
@@ -889,13 +889,13 @@
                                  "key" : "Post2Out",
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "PostExecute",
                                        "localName" : "Post2Out"
                                     },
                                     "outgoingEvent" : {
-                                       "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                                       "name" : "FLBPolicy_OutputEvent",
                                        "version" : "0.0.1"
                                     },
                                     "nextState" : {
@@ -917,25 +917,25 @@
                               "entry" : [ ]
                            },
                            "defaultTask" : {
-                              "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                              "name" : "FLBPolicy_Task_Post",
                               "version" : "0.0.1"
                            },
                            "taskReferences" : {
                               "entry" : [ {
                                  "key" : {
-                                    "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                                    "name" : "FLBPolicy_Task_Post",
                                     "version" : "0.0.1"
                                  },
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "PostExecute",
-                                       "localName" : "LoadBalancingFuzzyPolicy_Policy"
+                                       "localName" : "FLBPolicy_Policy"
                                     },
                                     "outputType" : "DIRECT",
                                     "output" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "PostExecute",
                                        "localName" : "Post2Out"
@@ -948,13 +948,13 @@
                         "key" : "PreExecute",
                         "value" : {
                            "stateKey" : {
-                              "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                              "parentKeyName" : "FLBPolicy_Policy",
                               "parentKeyVersion" : "0.0.1",
                               "parentLocalName" : "NULL",
                               "localName" : "PreExecute"
                            },
                            "trigger" : {
-                              "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                              "name" : "FLBPolicy_InputEvent",
                               "version" : "0.0.1"
                            },
                            "stateOutputs" : {
@@ -962,17 +962,17 @@
                                  "key" : "Pre2Fuzzy",
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "PreExecute",
                                        "localName" : "Pre2Fuzzy"
                                     },
                                     "outgoingEvent" : {
-                                       "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                                       "name" : "FLBPolicy_toFuzzy",
                                        "version" : "0.0.1"
                                     },
                                     "nextState" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "NULL",
                                        "localName" : "FuzzyExecute"
@@ -990,25 +990,25 @@
                               "entry" : [ ]
                            },
                            "defaultTask" : {
-                              "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                              "name" : "FLBPolicy_Task_Pre",
                               "version" : "0.0.1"
                            },
                            "taskReferences" : {
                               "entry" : [ {
                                  "key" : {
-                                    "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                                    "name" : "FLBPolicy_Task_Pre",
                                     "version" : "0.0.1"
                                  },
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "PreExecute",
-                                       "localName" : "LoadBalancingFuzzyPolicy_Policy"
+                                       "localName" : "FLBPolicy_Policy"
                                     },
                                     "outputType" : "DIRECT",
                                     "output" : {
-                                       "parentKeyName" : "LoadBalancingFuzzyPolicy_Policy",
+                                       "parentKeyName" : "FLBPolicy_Policy",
                                        "parentKeyVersion" : "0.0.1",
                                        "parentLocalName" : "PreExecute",
                                        "localName" : "Pre2Fuzzy"
@@ -1026,18 +1026,18 @@
       },
       "tasks" : {
          "key" : {
-            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Tasks",
+            "name" : "FLBPolicy_PolicyModel_Tasks",
             "version" : "0.0.1"
          },
          "taskMap" : {
             "entry" : [ {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Task",
+                  "name" : "FLBPolicy_Task",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Task",
+                     "name" : "FLBPolicy_Task",
                      "version" : "0.0.1"
                   },
                   "inputFields" : {
@@ -1476,17 +1476,17 @@
                   "taskLogic" : {
                      "key" : "TaskLogic",
                      "logicFlavour" : "FUZZY",
-                     "logic" : "policymodels/fuzzy/SampleLBFuzzyLogic.xml"
+                     "logic" : "somelogic goes here"
                   }
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                  "name" : "FLBPolicy_Task_Post",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Task_Post",
+                     "name" : "FLBPolicy_Task_Post",
                      "version" : "0.0.1"
                   },
                   "inputFields" : {
@@ -1777,12 +1777,12 @@
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                  "name" : "FLBPolicy_Task_Pre",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_Task_Pre",
+                     "name" : "FLBPolicy_Task_Pre",
                      "version" : "0.0.1"
                   },
                   "inputFields" : {
@@ -2382,18 +2382,18 @@
       },
       "events" : {
          "key" : {
-            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Events",
+            "name" : "FLBPolicy_PolicyModel_Events",
             "version" : "0.0.1"
          },
          "eventMap" : {
             "entry" : [ {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                  "name" : "FLBPolicy_InputEvent",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_InputEvent",
+                     "name" : "FLBPolicy_InputEvent",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apexaiasonom",
@@ -2693,12 +2693,12 @@
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                  "name" : "FLBPolicy_OutputEvent",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_OutputEvent",
+                     "name" : "FLBPolicy_OutputEvent",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apexaiasonom",
@@ -2845,12 +2845,12 @@
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                  "name" : "FLBPolicy_fromFuzzy",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_fromFuzzy",
+                     "name" : "FLBPolicy_fromFuzzy",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apexaiasonom",
@@ -2997,12 +2997,12 @@
                }
             }, {
                "key" : {
-                  "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                  "name" : "FLBPolicy_toFuzzy",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "LoadBalancingFuzzyPolicy_toFuzzy",
+                     "name" : "FLBPolicy_toFuzzy",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apexaiasonom",
@@ -3305,7 +3305,7 @@
       },
       "albums" : {
          "key" : {
-            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Albums",
+            "name" : "FLBPolicy_PolicyModel_Albums",
             "version" : "0.0.1"
          },
          "albums" : {
@@ -3314,7 +3314,7 @@
       },
       "schemas" : {
          "key" : {
-            "name" : "LoadBalancingFuzzyPolicy_PolicyModel_Schemas",
+            "name" : "FLBPolicy_PolicyModel_Schemas",
             "version" : "0.0.1"
          },
          "schemas" : {

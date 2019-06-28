@@ -600,18 +600,18 @@ public class AxPolicyModel extends AxModel {
      * This method is called by JAXB before marshaling and is used to insert the appropriate filters
      *
      * @param marshaller the marshaller that is marshaller the model
-     * @throws Exception
+     * @throws Exception if there is a problem with the marshalling
      */
     public void beforeMarshal(final Marshaller marshaller) throws Exception {
         EmptyAlbumsAdapter albumsfilter = new EmptyAlbumsAdapter();
         marshaller.setAdapter(EmptyAlbumsAdapter.class, albumsfilter);
         //get/create the keyinfofilter
         KeyInfoMarshalFilter keyinfoFilter = marshaller.getAdapter(KeyInfoMarshalFilter.class);
-        if(keyinfoFilter == null) {
+        if (keyinfoFilter == null) {
             keyinfoFilter = new KeyInfoMarshalFilter();
         }
         //if the albumsfilter would filter out this model's albums add the album's key to the keyinfofilter
-        if(albumsfilter.marshal(this.albums) == null && this.albums != null) {
+        if (albumsfilter.marshal(this.albums) == null && this.albums != null) {
             keyinfoFilter.addFilterKey(this.albums.getKey());
         }
         marshaller.setAdapter(keyinfoFilter);

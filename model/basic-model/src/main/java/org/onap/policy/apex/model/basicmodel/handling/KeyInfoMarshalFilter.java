@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ * Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import java.util.Collection;
@@ -32,7 +32,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 
 /**
- * This class implements a filter to prevent some keyinfo information being marshalled when a model is serialised
+ * This class implements a filter to prevent some keyinfo information being marshalled when a model is serialised.
  */
 public class KeyInfoMarshalFilter extends XmlAdapter<AxKeyInformation, AxKeyInformation> {
 
@@ -50,8 +50,8 @@ public class KeyInfoMarshalFilter extends XmlAdapter<AxKeyInformation, AxKeyInfo
     /**
      * Remove a key from the list to be filtered.
      *
-     * @return true if the passed key was in the filter list and has been removed.
      * @param key the key to remove from the filter list
+     * @return true if the passed key was in the filter list and has been removed.
      */
     public boolean removeFilterKey(AxKey key) {
         return filterList.remove(key);
@@ -69,31 +69,31 @@ public class KeyInfoMarshalFilter extends XmlAdapter<AxKeyInformation, AxKeyInfo
     /**
      * Decide whether to unmarshall some keyinfos - Always.
      *
-     * @param v the keyinfo
-     * @return the the keyinfo
-     * @throws Exception
+     * @param val the keyinfo
+     * @return the keyinfo
+     * @throws Exception if there is some problem unmarshalling
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(Object)
      */
     @Override
-    public AxKeyInformation unmarshal(AxKeyInformation v) throws Exception {
-        return v;
+    public AxKeyInformation unmarshal(AxKeyInformation val) throws Exception {
+        return val;
     }
 
     /**
      * Select which keyinfo entries will be marshalled - i.e. those not in the filter list.
      *
-     * @param v the keyinfo
+     * @param val the keyinfo
      * @return the keyinfo
-     * @throws Exception
+     * @throws Exception if there is some problem with the marshalling
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(Object)
      */
     @Override
-    public AxKeyInformation marshal(AxKeyInformation v) throws Exception {
-        if(v == null || v.getKeyInfoMap() == null || v.getKeyInfoMap().isEmpty() || filterList.isEmpty() ) {
-            return v;
+    public AxKeyInformation marshal(AxKeyInformation val) throws Exception {
+        if (val == null || val.getKeyInfoMap() == null || val.getKeyInfoMap().isEmpty() || filterList.isEmpty() ) {
+            return val;
         }
         //create a new keyinfo clone to avoid removing keyinfo entries from the original model
-        AxKeyInformation ret = new AxKeyInformation(v);
+        AxKeyInformation ret = new AxKeyInformation(val);
         Map<AxArtifactKey, AxKeyInfo> retmap = new TreeMap<>(ret.getKeyInfoMap());
         for (AxKey key : filterList) {
             retmap.remove(key);

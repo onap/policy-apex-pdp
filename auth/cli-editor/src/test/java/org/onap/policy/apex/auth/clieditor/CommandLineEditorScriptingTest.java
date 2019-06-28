@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +77,7 @@ public class CommandLineEditorScriptingTest {
     }
 
     /**
-     * Test sample Fuzzy LB policy script.
+     * Test sample FLB policy script.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error
@@ -93,11 +94,11 @@ public class CommandLineEditorScriptingTest {
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
         final URL compareModelUrl =
-                ResourceUtils.getLocalFile("src/test/resources/compare/FuzzyPolicyModel_Compare.json");
+                ResourceUtils.getLocalFile("src/test/resources/compare/FLBPolicyModel_Compare.json");
         final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         final URL compareModelNoAlbumsUrl =
-            ResourceUtils.getLocalFile("src/test/resources/compare/FuzzyPolicyModel_noAlbums_Compare.json");
+            ResourceUtils.getLocalFile("src/test/resources/compare/FLBPolicyModel_noAlbums_Compare.json");
         final AxPolicyModel compareNoAlbumsModel = modelReader.read(compareModelNoAlbumsUrl.openStream());
 
         // Ignore key info UUIDs
@@ -111,7 +112,7 @@ public class CommandLineEditorScriptingTest {
     }
 
     /**
-     * Test sample Fuzzy LB map policy script.
+     * Test sample FLB map policy script.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error

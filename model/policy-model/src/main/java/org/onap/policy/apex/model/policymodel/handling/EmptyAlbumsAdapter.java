@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ * Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.model.policymodel.handling;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -39,9 +39,9 @@ public class EmptyAlbumsAdapter extends XmlAdapter<AxContextAlbums, AxContextAlb
      * Decide whether to marshall a context albums entry. Non-empty context albums are always marshalled.
      * Empty albums are filtered.
      *
-     * @param v the albums entry
+     * @param albums the albums entry
      * @return the albums entry, or null if empty
-     * @throws Exception
+     * @throws Exception if there is a problem with the marshalling
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(Object)
      */
     @Override
@@ -56,14 +56,14 @@ public class EmptyAlbumsAdapter extends XmlAdapter<AxContextAlbums, AxContextAlb
     /**
      * Decide whether to unmarshall a context albums entry - Always.
      *
-     * @param v the albums entry
+     * @param val the albums entry
      * @return the albums entry
-     * @throws Exception
+     * @throws Exception if there is a problem with the unmarshalling
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(Object)
      */
     @Override
-    public AxContextAlbums unmarshal(AxContextAlbums v) throws Exception {
-        return v;
+    public AxContextAlbums unmarshal(AxContextAlbums val) throws Exception {
+        return val;
     }
 
     /**
@@ -74,7 +74,7 @@ public class EmptyAlbumsAdapter extends XmlAdapter<AxContextAlbums, AxContextAlb
      * @param policyModel the policy model containing the possibly empty context albums entry
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(Object)
      */
-    public void doAfterUnmarshal(AxPolicyModel policyModel){
+    public void doAfterUnmarshal(AxPolicyModel policyModel) {
         AxArtifactKey nullkey = new AxArtifactKey();
         AxArtifactKey blanknullalbumskey =
             new AxArtifactKey(nullkey.getKey().getName() + "_Albums", nullkey.getKey().getVersion());
