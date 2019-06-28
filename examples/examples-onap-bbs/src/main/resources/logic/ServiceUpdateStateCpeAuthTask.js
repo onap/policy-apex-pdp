@@ -28,12 +28,10 @@ executor.logger.info("Begin Execution ServiceUpdateStateCpeAuthTask.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var clEventType = Java.type(
-    "org.onap.policy.controlloop.VirtualControlLoopEvent");
+var clEventType = Java.type("org.onap.policy.controlloop.VirtualControlLoopEvent");
 var clEvent = executor.inFields.get("VirtualControlLoopEvent");
 
-var serviceInstanceId = clEvent.getAai().get(
-    "service-information.hsia-cfs-service-instance-id");
+var serviceInstanceId = clEvent.getAai().get("service-information.hsia-cfs-service-instance-id");
 var requestID = clEvent.getRequestId();
 
 var jsonObj;
@@ -53,8 +51,7 @@ var putUrl;
 var service_instance;
 var AAI_VERSION = "v14";
 try {
-    var br = Files.newBufferedReader(Paths.get(
-        "/home/apexuser/examples/config/ONAPBBS/config.txt"));
+    var br = Files.newBufferedReader(Paths.get("/home/apexuser/examples/config/ONAPBBS/config.txt"));
     var line;
     while ((line = br.readLine()) != null) {
         if (line.startsWith("AAI_URL")) {
@@ -66,11 +63,11 @@ try {
         } else if (line.startsWith("AAI_PASSWORD")) {
             var str = line.split("=");
             AAI_PASSWORD = str[str.length - 1];
-        }else if (line.startsWith("AAI_VERSION")) {
+        } else if (line.startsWith("AAI_VERSION")) {
             var str = line.split("=");
             AAI_VERSION = str[str.length - 1];
-         }
-     }
+        }
+    }
 } catch (err) {
     executor.logger.info("Failed to retrieve data " + err);
 }
@@ -79,25 +76,21 @@ executor.logger.info("AAI_URL=>" + AAI_URL);
 
 /* Get service instance Id from AAI */
 try {
-    var urlGet = HTTP_PROTOCOL + AAI_URL +
-        "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/" +
-        SERVICE_INSTANCE_ID + "?format=resource_and_url"
+    var urlGet = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/nodes/service-instances/service-instance/"
+            + SERVICE_INSTANCE_ID + "?format=resource_and_url"
     executor.logger.info("Query url" + urlGet);
 
-    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD,
-            "application/json", true);
+    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json");
     executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result);
-
 
     /* Retrieve the service instance id */
     results = jsonObj['results'][0];
     putUrl = results["url"];
     service_instance = results['service-instance'];
     resource_version = service_instance['resource-version'];
-    executor.logger.info("After Parse service_instance " + JSON.stringify(
-            service_instance, null, 4) + "\n url " + putUrl +
-        "\n Service instace Id " + SERVICE_INSTANCE_ID);
+    executor.logger.info("After Parse service_instance " + JSON.stringify(service_instance, null, 4) + "\n url "
+            + putUrl + "\n Service instace Id " + SERVICE_INSTANCE_ID);
 
     if (result == "") {
         aaiUpdateResult = false;
@@ -112,19 +105,15 @@ var putUpddateServInstance;
 putUpddateServInstance = service_instance;
 if (newState == 'inService') {
     putUpddateServInstance['orchestration-status'] = "active";
-}
-else
-{
+} else {
     putUpddateServInstance['orchestration-status'] = "inActive";
 }
 try {
     if (aaiUpdateResult == true) {
-        executor.logger.info("ready to put After Parse " + JSON.stringify(
-            putUpddateServInstance, null, 4));
-        var urlPut = HTTP_PROTOCOL + AAI_URL +
-            putUrl + "?resource_version=" + resource_version;
+        executor.logger.info("ready to put After Parse " + JSON.stringify(putUpddateServInstance, null, 4));
+        var urlPut = HTTP_PROTOCOL + AAI_URL + putUrl + "?resource_version=" + resource_version;
         result = client.httpRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
-                        "application/json", true);
+                "application/json");
         executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -145,4 +134,3 @@ if (aaiUpdateResult == true) {
 executor.logger.info(executor.outFields);
 var returnValue = executor.isTrue;
 executor.logger.info("End Execution ServiceUpdateStateCpeAuthTask.js");
-

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +30,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import org.onap.policy.apex.core.engine.monitoring.EventMonitor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -62,6 +66,8 @@ public class EnEvent extends HashMap<String, Object> {
     private final transient EventMonitor eventMonitor = new EventMonitor();
 
     // The stack of execution of this event, used for monitoring
+    @Getter
+    @Setter
     private AxConcept[] userArtifactStack;
 
     private static Random rand = new Random(System.nanoTime());
@@ -69,12 +75,18 @@ public class EnEvent extends HashMap<String, Object> {
     // An identifier for the current event execution. The default value here will always be a random
     // number, and should
     // be reset
+    @Getter
+    @Setter
     private long executionId = rand.nextLong();
 
     // Event related properties used during processing of this event
+    @Getter
+    @Setter
     private Properties executionProperties;
 
     // A string holding a message that indicates why processing of this event threw an exception
+    @Getter
+    @Setter
     private String exceptionMessage;
 
     /**
@@ -135,86 +147,6 @@ public class EnEvent extends HashMap<String, Object> {
      */
     public String getId() {
         return axEvent.getKey().getId();
-    }
-
-    /**
-     * Get the currently set value for the ExecutionID for this event. A ExecutionID in an EnEvent
-     * is used identify all EnEvents (input, internal and output events) used in a single Engine
-     * invocation. Therefore, a ExecutionID can be used to match which output event is the result of
-     * a particular input event. The default initialized value for the ExecutionID is always unique
-     * in a single JVM.
-     *
-     * @return the currently set value for the ExecutionID for this event.
-     */
-    public long getExecutionId() {
-        return executionId;
-    }
-
-    /**
-     * Set the value for the ExecutionID for this event. A ExecutionID in an EnEvent is used
-     * identify all EnEvents (input, internal and output events) used in a single Engine invocation.
-     * Therefore, a ExecutionID can be used to match which output event is the result of a
-     * particular input event. The default initialised value for the ExecutionID is always unique in
-     * a single JVM.
-     *
-     * @param executionId the new value for the ExecutionID for this event.
-     */
-    public void setExecutionId(final long executionId) {
-        this.executionId = executionId;
-    }
-
-    /**
-     * Get the event execution properties.
-     *
-     * @return the event execution properties
-     */
-    public Properties getExecutionProperties() {
-        return executionProperties;
-    }
-
-    /**
-     * Set the event execution properties.
-     *
-     * @param executionProperties the execution properties to set
-     */
-    public void setExecutionProperties(Properties executionProperties) {
-        this.executionProperties = executionProperties;
-    }
-
-    /**
-     * Gets the exception message explaining why processing of this event to fail.
-     *
-     * @return the exception message
-     */
-    public String getExceptionMessage() {
-        return exceptionMessage;
-    }
-
-    /**
-     * Sets the exception message explaining why processing of this event to fail.
-     *
-     * @param exceptionMessage the exception message
-     */
-    public void setExceptionMessage(final String exceptionMessage) {
-        this.exceptionMessage = exceptionMessage;
-    }
-
-    /**
-     * Get the user artifact stack of the event.
-     *
-     * @return the event user artifact stack
-     */
-    public AxConcept[] getUserArtifactStack() {
-        return userArtifactStack;
-    }
-
-    /**
-     * Store the user artifact stack of the event.
-     *
-     * @param usedArtifactStackArray the event user artifact stack
-     */
-    public void setUserArtifactStack(final AxConcept[] usedArtifactStackArray) {
-        userArtifactStack = usedArtifactStackArray;
     }
 
     /*
