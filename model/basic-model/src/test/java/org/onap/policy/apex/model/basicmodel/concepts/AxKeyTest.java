@@ -1,19 +1,20 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -27,13 +28,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
-
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey.Compatibility;
-import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 
 public class AxKeyTest {
 
@@ -124,6 +120,16 @@ public class AxKeyTest {
         assertFalse(someKey0.equals(null));
         assertTrue(someKey0.equals(someKey0));
         assertFalse(((AxKey) someKey0).equals(new AxReferenceKey()));
+
+        AxArtifactKey nullKey0 = AxArtifactKey.getNullKey();
+        assertTrue(nullKey0.isNullKey());
+        AxArtifactKey nullKey1 = new AxArtifactKey();
+        assertTrue(nullKey1.isNullKey());
+        AxArtifactKey nullKey2 = new AxArtifactKey(AxKey.NULL_KEY_NAME,AxKey.NULL_KEY_VERSION);
+        assertTrue(nullKey2.isNullKey());
+        AxArtifactKey notnullKey = new AxArtifactKey("Blah",AxKey.NULL_KEY_VERSION);
+        assertFalse(notnullKey.isNullKey());
+
     }
 
 
