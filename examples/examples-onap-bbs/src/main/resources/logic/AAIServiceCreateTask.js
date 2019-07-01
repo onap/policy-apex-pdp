@@ -78,7 +78,7 @@ try {
 
     executor.logger.info("Query url" + urlGet);
 
-    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
+    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json");
     executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result);
 
@@ -110,7 +110,7 @@ try {
         executor.logger.info("ready to putAfter Parse " + JSON.stringify(putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL + putUrl + "?resource_version=" + resource_version;
         result = client.httpRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
-                "application/json", true);
+                "application/json");
         executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {

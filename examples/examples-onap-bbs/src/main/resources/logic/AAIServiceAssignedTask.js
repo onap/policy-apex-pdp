@@ -84,7 +84,7 @@ try {
 
     executor.logger.info("Query url" + urlGet);
 
-    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
+    result = client.httpRequest(urlGet, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json");
     executor.logger.info("Data received From " + urlGet + " " + result);
     jsonObj = JSON.parse(result.toString());
 
@@ -116,7 +116,7 @@ try {
         executor.logger.info("ready to putAfter Parse " + JSON.stringify(putUpddateServInstance, null, 4));
         var urlPut = HTTP_PROTOCOL + AAI_URL + putUrl + "?resource_version=" + resource_version;
         result = client.httpRequest(urlPut, "PUT", JSON.stringify(putUpddateServInstance), AAI_USERNAME, AAI_PASSWORD,
-                "application/json", true);
+                "application/json");
         executor.logger.info("Data received From " + urlPut + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -157,7 +157,7 @@ try {
 
         /* 1. Get PNF */
         var urlGetPnf = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
-        pnfResponse = client.httpRequest(urlGetPnf, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
+        pnfResponse = client.httpRequest(urlGetPnf, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json");
         executor.logger.info("Data received From " + urlGetPnf + " " + pnfResponse);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
@@ -166,7 +166,7 @@ try {
         pnfUpdate = JSON.parse(pnfResponse.toString());
         executor.logger.info(JSON.stringify(pnfUpdate, null, 4));
 
-        /*2. Create logical link */
+        /* 2. Create logical link */
         var link_name = attachmentPoint;
         var logicalLink = {
             "link-name" : link_name,
@@ -176,14 +176,14 @@ try {
         var urlNewLogicalLink = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION
                 + "/network/logical-links/logical-link/" + link_name;
         result = client.httpRequest(urlNewLogicalLink, "PUT", JSON.stringify(logicalLink), AAI_USERNAME, AAI_PASSWORD,
-                "application/json", true);
+                "application/json");
         executor.logger.info("Data received From " + urlNewLogicalLink + " " + result);
         /* If failure to retrieve data proceed to Failure */
         if (result != "") {
             aaiUpdateResult = false;
         }
 
-        /*3. Update pnf with new relation*/
+        /* 3. Update pnf with new relation */
         for (var i = 0; i < pnfUpdate["relationship-list"]["relationship"].length; i++) {
             if (pnfUpdate["relationship-list"]["relationship"][i]['related-to'] == 'logical-link') {
                 pnfUpdate["relationship-list"]["relationship"][i]['related-link'] = "/aai/" + AAI_VERSION
@@ -202,7 +202,7 @@ try {
         executor.logger.info("Put pnf to aai " + JSON.stringify(pnfUpdate, null, 4));
         var urlPutPnf = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION + "/network/pnfs/pnf/" + pnfName;
         result = client.httpRequest(urlPutPnf, "PUT", JSON.stringify(pnfUpdate), AAI_USERNAME, AAI_PASSWORD,
-                "application/json", true);
+                "application/json");
         executor.logger.info("Data received From " + urlPutPnf + " " + result);
 
         /* If failure to retrieve data proceed to Failure */
@@ -215,8 +215,7 @@ try {
         var linkResult;
         var urlOldLogicalLink = HTTP_PROTOCOL + AAI_URL + "/aai/" + AAI_VERSION
                 + "/network/logical-links/logical-link/" + oldLinkName;
-        linkResult = client
-                .httpRequest(urlOldLogicalLink, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json", true);
+        linkResult = client.httpRequest(urlOldLogicalLink, "GET", null, AAI_USERNAME, AAI_PASSWORD, "application/json");
         executor.logger.info("Data received From " + urlOldLogicalLink + " " + linkResult + " "
                 + linkResult.hasOwnProperty("link-name"));
         oldLinkResult = JSON.parse(linkResult.toString());
@@ -225,7 +224,7 @@ try {
             var urlDelOldLogicalLink = urlOldLogicalLink + "?resource-version=" + res_version;
             executor.logger.info("Delete called for " + urlDelOldLogicalLink);
             result = client.httpRequest(urlDelOldLogicalLink, "DELETE", null, AAI_USERNAME, AAI_PASSWORD,
-                    "application/json", true);
+                    "application/json");
             executor.logger.info("Delete called for " + urlDelOldLogicalLink + " result " + result);
         }
     }
