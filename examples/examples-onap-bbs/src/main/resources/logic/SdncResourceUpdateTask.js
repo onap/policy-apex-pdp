@@ -1,7 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,8 +123,7 @@ executor.logger.info(client.toPrettyString(xmlDeleteAccess, 4));
 
 try {
     var urlPost1 = HTTP_PROTOCOL + SDNC_URL + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-    result = client.httpRequest(urlPost1, "POST", xmlDeleteAccess, SDNC_USERNAME, SDNC_PASSWORD, "application/xml",
-            false);
+    result = client.httpRequest(urlPost1, "POST", xmlDeleteAccess, SDNC_USERNAME, SDNC_PASSWORD, "application/xml");
     executor.logger.info("Data received From " + urlPost1 + " " + result);
     if (result == "") {
         sdncUpdateResult = false;
@@ -190,8 +188,7 @@ try {
     if (sdncUpdateResult == true) {
         var urlPost2 = HTTP_PROTOCOL + SDNC_URL
                 + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-        result = client.httpRequest(urlPost2, "POST", xmlCreateAccess, SDNC_USERNAME, SDNC_PASSWORD, "application/xml",
-                false);
+        result = client.httpRequest(urlPost2, "POST", xmlCreateAccess, SDNC_USERNAME, SDNC_PASSWORD, "application/xml");
         executor.logger.info("Data received From " + urlPost2 + " " + result);
         if (result == "") {
             sdncUpdateResult = false;
@@ -265,8 +262,8 @@ try {
     if (sdncUpdateResult == true) {
         var urlPost3 = HTTP_PROTOCOL + SDNC_URL
                 + "/restconf/operations/GENERIC-RESOURCE-API:network-topology-operation";
-        result = client.httpRequest(urlPost3, "POST", xmlChangeProfile, SDNC_USERNAME, SDNC_PASSWORD,
-                "application/xml", false);
+        result = client
+                .httpRequest(urlPost3, "POST", xmlChangeProfile, SDNC_USERNAME, SDNC_PASSWORD, "application/xml");
         executor.logger.info("Data received From " + urlPost3 + " " + result);
         if (result == "") {
             sdncUpdateResult = false;
