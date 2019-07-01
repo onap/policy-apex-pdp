@@ -21,7 +21,8 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import lombok.Getter;
-
+import org.onap.policy.common.endpoints.parameters.RestServerParameters;
+import org.onap.policy.common.endpoints.parameters.TopicParameterGroup;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
@@ -37,7 +38,7 @@ import org.onap.policy.common.parameters.annotations.NotNull;
 public class ApexStarterParameterGroup extends ParameterGroupImpl {
     private RestServerParameters restServerParameters;
     private PdpStatusParameters pdpStatusParameters;
-
+    private TopicParameterGroup topicParameterGroup;
     /**
      * Create the apex starter parameter group.
      *

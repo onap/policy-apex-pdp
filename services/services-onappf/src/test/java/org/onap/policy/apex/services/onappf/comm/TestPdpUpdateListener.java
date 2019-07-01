@@ -22,7 +22,6 @@ package org.onap.policy.apex.services.onappf.comm;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -45,6 +44,7 @@ import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
 import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.endpoints.utils.ParameterUtils;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
@@ -71,10 +71,9 @@ public class TestPdpUpdateListener {
     @Before
     public void setUp() throws ApexStarterException, FileNotFoundException, IOException {
         Registry.newRegistry();
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json",
-            "-p", "src/test/resources/topic.properties" };
+        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json" };
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
-        ApexStarterParameterGroup apexStarterParameterGroup;
+        ApexStarterParameterGroup parameterGroup;
         // The arguments return a string if there is a message to print and we should
         // exit
         final String argumentMessage = arguments.parse(apexStarterConfigParameters);
@@ -85,15 +84,11 @@ public class TestPdpUpdateListener {
         arguments.validate();
 
         // Read the parameters
-        apexStarterParameterGroup = new ApexStarterParameterHandler().getParameters(arguments);
+        parameterGroup = new ApexStarterParameterHandler().getParameters(arguments);
 
         // Read the properties
-        final Properties topicProperties = new Properties();
-        final String propFile = arguments.getFullPropertyFilePath();
-        try (FileInputStream stream = new FileInputStream(propFile)) {
-            topicProperties.load(stream);
-        }
-        activator = new ApexStarterActivator(apexStarterParameterGroup, topicProperties);
+        Properties topicProperties = ParameterUtils.getTopicProperties(parameterGroup.getTopicParameterGroup());
+        activator = new ApexStarterActivator(parameterGroup, topicProperties);
         Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
         activator.initialize();
         pdpUpdateMessageListener = new PdpUpdateListener();
