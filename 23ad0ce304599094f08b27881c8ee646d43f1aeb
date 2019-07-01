@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee99ae9e_ca6b3487",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-01T14:05:18Z",
+      "side": 1,
+      "message": "It\u0027s a good idea to keep the comment line length to 120 characters.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 139
+      },
+      "revId": "23ad0ce304599094f08b27881c8ee646d43f1aeb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bea767e_54fa6c8f",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxArtifactKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-01T14:05:18Z",
+      "side": 1,
+      "message": "I did a global change to change all these to {@inheritdoc}, can you merge in those changes?",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 7
+      },
+      "revId": "23ad0ce304599094f08b27881c8ee646d43f1aeb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb154a29_6329e709",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/concepts/AxPolicyModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-01T14:05:18Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 213,
+        "startChar": 2,
+        "endLine": 217,
+        "endChar": 7
+      },
+      "revId": "23ad0ce304599094f08b27881c8ee646d43f1aeb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
