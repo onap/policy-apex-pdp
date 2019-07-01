@@ -18,7 +18,7 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
-model create name=LoadBalancingFuzzyPolicy_PolicyModel
+model create name=FLBPolicy_PolicyModel
 
 schema create name=Adj_CM_type flavour=Java schema=java.util.HashMap<String,String>
 schema create name=Adj_KPI_type flavour=Java schema=java.util.HashMap<String,String>
