@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c76a9b0_d828c4a7",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/messaging/util/MessagingUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-02T19:08:45Z",
+      "side": 1,
+      "message": "use NetworkUtil.allocPort() instead - it uses an OS mechanism to find an available port",
+      "revId": "9f0678f3ab333949076b5b9747158cf40e08fbef",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
