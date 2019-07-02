@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,13 +22,13 @@
 package org.onap.policy.apex.service.engine.engdep;
 
 import com.google.common.eventbus.Subscribe;
-
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-
 import org.java_websocket.WebSocket;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
@@ -57,7 +58,7 @@ import org.slf4j.ext.XLoggerFactory;
  * event implements this interface, and the object created with that class is registered with a component using the
  * component's <code>addEngDepMessageListener</code> method. When the engDepMessage event occurs, that object's
  * appropriate method is invoked.
- * 
+ *
  * <p>This class uses a queue to buffer incoming messages. When the listener is called, it places the incoming message
  * on the queue. A thread runs which removes the messages from the queue and forwards them to the Apex engine.
  *
@@ -211,7 +212,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle incoming EngDep messages.
-     * 
+     *
      * @param message the incoming message
      * @param webSocket the web socket the message came in on
      * @param enDepAction the action from the message
@@ -253,7 +254,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
             case GET_ENGINE_INFO:
                 handleEngineInfoMessage(message, webSocket);
                 break;
-                
+
             default:
                 throw new ApexException("action " + enDepAction + " on received message not handled by engine");
         }
@@ -261,7 +262,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the get engine service information message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -279,7 +280,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the update model message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -298,7 +299,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the start engine message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -316,7 +317,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the stop engine message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -334,7 +335,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the start periodic events message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -356,7 +357,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the stop periodic events message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -376,7 +377,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the engine status message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -392,7 +393,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     /**
      * Handle the engine information message.
-     * 
+     *
      * @param message the message
      * @param webSocket the web socket that the message came on
      * @throws ApexException on message handling exceptions
@@ -403,6 +404,19 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
         // Send a reply with the engine runtime information
         sendReply(webSocket, getEngineInfo, true, apexService.getRuntimeInfo(getEngineInfo.getTarget()));
         LOGGER.debug("returned runtime information for engine {}", getEngineInfo.getTarget().getId());
+    }
+
+    /**
+     * Get the local address for the WS MessageHolder, or null if there is a problem.
+     */
+    private InetAddress getLocalAddress() {
+        try {
+            return MessagingUtils.getLocalHostLanAddress();
+        }
+        catch (UnknownHostException e) {
+            LOGGER.debug("failed to find the localhost address - continuing ...", e);
+            return null;
+        }
     }
 
     /**
@@ -429,7 +443,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
         final Response responseMessage = new Response(requestMessage.getTarget(), result, requestMessage);
         responseMessage.setMessageData(messageData);
 
-        final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
+        final MessageHolder<Message> messageHolder = new MessageHolder<>(getLocalAddress());
         messageHolder.addMessage(responseMessage);
         client.send(MessagingUtils.serializeObject(messageHolder));
 
@@ -460,7 +474,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
         responseMessage.setEngineKeyArray(engineKeyCollection);
         responseMessage.setApexModelKey(apexModelKey);
 
-        final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
+        final MessageHolder<Message> messageHolder = new MessageHolder<>(getLocalAddress());
         messageHolder.addMessage(responseMessage);
         client.send(MessagingUtils.serializeObject(messageHolder));
 

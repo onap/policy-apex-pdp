@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,6 @@ import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -101,7 +101,7 @@ public final class MessagingUtils {
 
     /**
      * Check if port is available or not.
-     * 
+     *
      * @param port the port to test
      * @return true if port is available
      */
@@ -118,6 +118,7 @@ public final class MessagingUtils {
      * Returns the local host address.
      *
      * @return the local host address
+     * @throws IllegalStateException if the local host's address cannot be found
      */
     public static InetAddress getHost() {
         try {

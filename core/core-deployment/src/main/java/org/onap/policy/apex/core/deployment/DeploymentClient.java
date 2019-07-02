@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +22,12 @@
 package org.onap.policy.apex.core.deployment;
 
 import com.google.common.eventbus.Subscribe;
-
+import java.net.InetAddress;
 import java.net.URI;
+import java.net.UnknownHostException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
@@ -66,7 +67,7 @@ public class DeploymentClient implements Runnable {
     // Thread management fields
     private boolean started = false;
     private Thread thisThread = null;
-    
+
     // Number of messages processed
     private long messagesSent = 0;
     private long messagesReceived = 0;
@@ -127,7 +128,8 @@ public class DeploymentClient implements Runnable {
             }
 
             // Send the message in its message holder
-            final MessageHolder<Message> messageHolder = new MessageHolder<>(MessagingUtils.getHost());
+            InetAddress local = getLocalAddress();
+            final MessageHolder<Message> messageHolder = new MessageHolder<>(local);
             messageHolder.addMessage(messageForSending);
             service.send(messageHolder);
             messagesSent++;
@@ -138,8 +140,21 @@ public class DeploymentClient implements Runnable {
             thisThread.interrupt();
             return false;
         }
-        
+
         return true;
+    }
+
+    /**
+     * Get the local address for the WS MessageHolder, or null if there is a problem.
+     */
+    private InetAddress getLocalAddress() {
+        try {
+            return MessagingUtils.getLocalHostLanAddress();
+        }
+        catch (UnknownHostException e) {
+            LOGGER.debug("engine<-->deployment client failed to find the localhost address - continuing ...", e);
+            return null;
+        }
     }
 
     /**

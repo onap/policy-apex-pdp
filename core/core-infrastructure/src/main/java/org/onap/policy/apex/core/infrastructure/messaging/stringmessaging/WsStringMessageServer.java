@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,9 @@
 package org.onap.policy.apex.core.infrastructure.messaging.stringmessaging;
 
 import com.google.common.eventbus.Subscribe;
-
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-
+import java.net.UnknownHostException;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
@@ -66,19 +66,32 @@ public class WsStringMessageServer implements WsStringMessager {
      */
     @Override
     public void start(final WsStringMessageListener newWsStringMessageListener) throws MessagingException {
-        this.wsStringMessageListener = newWsStringMessageListener;
 
         LOGGER.entry("web socket event consumer server starting . . .");
+        if (LOGGER.isDebugEnabled()) {
+            String lanaddress = "unknown";
+            try {
+                lanaddress = MessagingUtils.getLocalHostLanAddress().getHostAddress();
+            }
+            catch (final UnknownHostException ignore) {
+                LOGGER.debug("Failed to find name of local address name",ignore);
+            }
+            LOGGER.debug("web socket string message server LAN address=" + lanaddress);
+            String hostaddress = "unknown";
+            try {
+                hostaddress = InetAddress.getLocalHost().getHostAddress();
+            }
+            catch (final UnknownHostException ignore) {
+                LOGGER.debug("Failed to find name of local address",ignore);
+            }
+            LOGGER.debug("web socket string message server host address=" + hostaddress);
+        }
+
+        this.wsStringMessageListener = newWsStringMessageListener;
 
         try {
-            final InetAddress addrLan = MessagingUtils.getLocalHostLanAddress();
-            LOGGER.debug("web socket string message server LAN address=" + addrLan.getHostAddress());
-            final InetAddress addr = InetAddress.getLocalHost();
-            LOGGER.debug("web socket string message server host address=" + addr.getHostAddress());
-
             service = factory.createServer(new InetSocketAddress(port));
             service.addMessageListener(new WsStringMessageServerListener());
-
             service.startConnection();
         } catch (final Exception e) {
             LOGGER.warn("web socket string message server start failed", e);
