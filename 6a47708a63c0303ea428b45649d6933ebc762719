@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27561f94_61bdef9a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:16:04Z",
+      "side": 1,
+      "message": "I really like this implementation!",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 31
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "751c742a_03b63009",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:16:04Z",
+      "side": 1,
+      "message": "I think you need replaceAll here because the key could occur more than once in the string.\n\nWe propbably should put in a test for that case as well.",
+      "range": {
+        "startLine": 144,
+        "startChar": 86,
+        "endLine": 144,
+        "endChar": 93
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33377e2f_5d165eed",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:16:04Z",
+      "side": 1,
+      "message": "It\u0027s OK for a key in the execution properties not to be in the URL so this exception should not be thrown.\n\nHowever, if a key is specified in the URL, it must be in the execution properties so we need to check for that.",
+      "range": {
+        "startLine": 148,
+        "startChar": 21,
+        "endLine": 148,
+        "endChar": 76
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b61b1d_bbb920e5",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:16:04Z",
+      "side": 1,
+      "message": "Maybe check the value of rcctp.getUrl() here as well, it should be http://some.place.that.does.not/exist, I think.",
+      "range": {
+        "startLine": 225,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 1
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4affe5b6_094b0c8b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:16:04Z",
+      "side": 1,
+      "message": "Yes, we need to pass the properties to the producer side.",
+      "range": {
+        "startLine": 44,
+        "startChar": 51,
+        "endLine": 44,
+        "endChar": 88
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4c116c_aec9c8bb",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:16:04Z",
+      "side": 1,
+      "message": "Same as the comments on the RestClient.",
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
