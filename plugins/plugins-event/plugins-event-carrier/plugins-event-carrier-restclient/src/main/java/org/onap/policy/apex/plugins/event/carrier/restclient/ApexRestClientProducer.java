@@ -23,6 +23,8 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.Optional;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -132,6 +134,20 @@ public class ApexRestClientProducer implements ApexEventProducer {
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);
+        }
+
+        if (executionProperties != null) {
+            Set<String> names = executionProperties.stringPropertyNames();
+            names.stream().map(key -> Optional.of(key)).forEach(op -> {
+                op.filter(str -> restProducerProperties.getUrl().contains("{" + str + "}"))
+                    .map(str -> {
+                        restProducerProperties.setUrl(restProducerProperties.getUrl().replace("{" + str + "}",
+                            (String) executionProperties.get(str)));
+                        return str;
+                    }).orElseThrow(() -> new ApexEventRuntimeException(
+                    "executionProperty key can not be found in URL parameter"));
+            });
+
         }
 
         // Send the event as a REST request
