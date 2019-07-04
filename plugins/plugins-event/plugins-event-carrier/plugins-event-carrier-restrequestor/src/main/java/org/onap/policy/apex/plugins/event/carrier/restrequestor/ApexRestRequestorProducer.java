@@ -173,7 +173,7 @@ public class ApexRestRequestorProducer implements ApexEventProducer {
 
             // Use the consumer to handle this event
             final ApexRestRequestorConsumer restRequstConsumer = (ApexRestRequestorConsumer) consumer;
-            restRequstConsumer.processRestRequest(new ApexRestRequest(executionId, eventName, event));
+            restRequstConsumer.processRestRequest(new ApexRestRequest(executionId, executionProperties, eventName, event));
 
             eventsSent++;
         } else {

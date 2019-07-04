@@ -44,6 +44,8 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Properties;
+
 /**
  * Test the ApexRestClientProducer class.
  *
@@ -207,6 +209,29 @@ public class ApexRestClientProducerTest {
             arcp.stop();
         } catch (Exception e) {
             fail("test should not throw an exception");
+        }
+
+        rcctp.setUrl("http://some.place.that.{key}.not/{tag}");
+        Properties properties = new Properties();
+        properties.put("tag", "exist");
+        properties.put("key", "does");
+
+        try {
+            arcp.sendEvent(123, properties, "EventName", "This is an Event");
+            arcp.stop();
+        } catch (Exception e) {
+            fail("test should not throw an exception");
+        }
+        
+        rcctp.setUrl("http://some.place.that.{key}.not/{tag");
+
+        try {
+            arcp.sendEvent(123, properties, "EventName", "This is an Event");
+            arcp.stop();
+        } catch (Exception e) {
+          assertEquals(
+              "executionProperty key can not be found in URL parameter",
+              e.getMessage());
         }
     }
 

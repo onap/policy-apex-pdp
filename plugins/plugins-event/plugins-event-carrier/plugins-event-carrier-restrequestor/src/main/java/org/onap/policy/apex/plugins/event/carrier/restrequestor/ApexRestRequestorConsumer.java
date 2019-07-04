@@ -26,6 +26,9 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -251,6 +254,20 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                     // Poll timed out, check for request timeouts
                     timeoutExpiredRequests();
                     continue;
+                }
+
+                Properties inputExecutionProperties = restRequest.getExecutionProperties();
+                if (inputExecutionProperties != null) {
+                    Set<String> names = inputExecutionProperties.stringPropertyNames();
+                    names.stream().map(key -> Optional.of(key)).forEach(op -> {
+                        op.filter(str -> restConsumerProperties.getUrl().contains("{" + str + "}"))
+                                .map(str -> {
+                                    restConsumerProperties.setUrl(restConsumerProperties.getUrl().replace("{" + str + "}",
+                                            (String) inputExecutionProperties.get(str)));
+                                    return str;
+                                }).orElseThrow(() -> new ApexEventRuntimeException(
+                                "executionProperty key can not be found in URL parameter"));
+                    });
                 }
 
                 // Set the time stamp of the REST request
