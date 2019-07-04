@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa21b278_a16720c3",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T09:38:41Z",
+      "side": 1,
+      "message": "Thinking about this again, there is a possibility for interference here. We are overwriting the value of the URL parameter every time in every thread and this will cause problems if multiple instances are using this plugin. For example, if there are ongoing calls for multiple VMs/VNFs in parallel, we will be in trouble.\n\nWe need a local variable called untaggedUrl to hold the URL value for each instance.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 2
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9575c0d0_707925d2",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T09:38:41Z",
+      "side": 1,
+      "message": "String untaggedUrl \u003d restProducerProperties.getUrl();",
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27561f94_61bdef9a",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 2
@@ -206,6 +246,75 @@
         "startChar": 21,
         "endLine": 148,
         "endChar": 76
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d1544c_dba0e649",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T09:38:41Z",
+      "side": 1,
+      "message": "sendEventAsReqstRequest(final String untaggedUrl, final String event)",
+      "range": {
+        "startLine": 186,
+        "startChar": 21,
+        "endLine": 186,
+        "endChar": 63
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d872279_4609fd99",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T09:38:41Z",
+      "side": 1,
+      "message": "untaggedUrl",
+      "range": {
+        "startLine": 189,
+        "startChar": 33,
+        "endLine": 189,
+        "endChar": 64
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77aa69f1_7fb32347",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T09:38:41Z",
+      "side": 1,
+      "message": "untaggedUrl",
+      "range": {
+        "startLine": 192,
+        "startChar": 33,
+        "endLine": 192,
+        "endChar": 64
       },
       "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
