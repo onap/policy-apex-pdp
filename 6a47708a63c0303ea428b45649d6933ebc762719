@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "2b2f5f2f_665f46a4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T09:32:46Z",
+      "side": 1,
+      "message": "We actually need to loop over the keys found in the URL so if we wrote a getKeysFromUrl() method on the Properties class, that could return the keys over which we iterate.\n\nSet\u003cString\u003e urlKeys \u003d restProducerProperties.getKeysFromUrl();",
+      "range": {
+        "startLine": 140,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 71
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "751c742a_03b63009",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 2
