@@ -23,6 +23,9 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.EnumMap;
 import java.util.Map;
 
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -72,7 +75,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-        final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+            final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
 
@@ -95,6 +98,13 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
             final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
                 + "\" is invalid, only HTTP method \"GET\" "
                 + "is supported for event reception on REST client consumer (" + this.name + ")";
+            LOGGER.warn(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
+        // check if the http Return Code filter has been set
+        if (restConsumerProperties.getHttpCodeFilter() == null) {
+            final String errorMessage = "no return code filter has been specified on REST Client consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
@@ -186,13 +196,14 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
         public void run() {
             try {
                 final Response response = client.target(restConsumerProperties.getUrl()).request("application/json")
-                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
+                                                  .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
+                                                  .get();
 
                 // Check that the event request worked
                 if (!Response.Status.Family.familyOf(response.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
                     final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
-                        + "\" failed with status code " + response.getStatus() + " and message \""
-                        + response.readEntity(String.class) + "\"";
+                                                        + "\" failed with status code " + response.getStatus()
+                                                        + " and message \"" + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -201,13 +212,33 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
                 // Check there is content
                 if (eventJsonString == null || eventJsonString.trim().length() == 0) {
-                    final String errorMessage = "received an empty event from URL \"" + restConsumerProperties.getUrl()
-                        + "\"";
+                    final String errorMessage =
+                            "received an empty event from URL \"" + restConsumerProperties.getUrl() + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
+                // Build a filter Pattern
+                String pattern = restConsumerProperties.getHttpCodeFilter();
+
+                // Compile the pattern
+                Pattern p = Pattern.compile(pattern);
+
+                // Match the return code
+                Matcher isPass = p.matcher(String.valueOf(response.getStatus()));
+
+                // Check that the request worked
+                if (!isPass.matches()) {
+                    final String errorMessage = "received an invalid status code \"" + response.getStatus() +"\"";
+                    LOGGER.warn(errorMessage);
+                    throw new ApexEventRuntimeException(errorMessage);
+                }
+
+                // build a key and value property in excutionProperties
+                Properties executionProperties = new Properties();
+                executionProperties.put("HTTP_STATUS_CODE", response.getStatus());
+
                 // Send the event into Apex
-                eventReceiver.receiveEvent(null, eventJsonString);
+                eventReceiver.receiveEvent(executionProperties, eventJsonString);
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }

@@ -111,8 +111,15 @@ public class RestRequestorCarrierTechnologyParametersTest {
     public void testGettersAndSetters() {
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
 
+        rrctp.setHttpHeaders(null);
+        assertEquals(null,rrctp.getHttpHeadersAsMultivaluedMap());
+
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
+        assertEquals("[1-5][0][0-5]",rrctp.getHttpCodeFilter());
+
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -140,7 +147,7 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals(RestRequestorCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RESTRequestorCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
+                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]], httpCodeFilter=[1-5][0][0-5]]",
                         rrctp.toString());
     }
 }

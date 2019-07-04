@@ -27,11 +27,14 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -56,6 +59,7 @@ import org.slf4j.LoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
+
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestRequestorConsumer.class);
 
@@ -100,25 +104,25 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-                    final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+            final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
 
         // Check and get the REST Properties
         if (!(consumerParameters
-                        .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
-            final String errorMessage = "specified consumer properties are not applicable to REST Requestor consumer ("
-                            + this.name + ")";
+                      .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
+            final String errorMessage =
+                    "specified consumer properties are not applicable to REST Requestor consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-        restConsumerProperties = (RestRequestorCarrierTechnologyParameters) consumerParameters
-                        .getCarrierTechnologyParameters();
+        restConsumerProperties =
+                (RestRequestorCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Check if we are in peered mode
         if (!consumerParameters.isPeeredMode(EventHandlerPeeredMode.REQUESTOR)) {
             final String errorMessage = "REST Requestor consumer (" + this.name
-                            + ") must run in peered requestor mode with a REST Requestor producer";
+                                                + ") must run in peered requestor mode with a REST Requestor producer";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
@@ -126,7 +130,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         // Check if the HTTP method has been set
         if (restConsumerProperties.getHttpMethod() == null) {
             restConsumerProperties
-                            .setHttpMethod(RestRequestorCarrierTechnologyParameters.DEFAULT_REQUESTOR_HTTP_METHOD);
+                    .setHttpMethod(RestRequestorCarrierTechnologyParameters.DEFAULT_REQUESTOR_HTTP_METHOD);
         }
 
         // Check if the HTTP URL has been set
@@ -145,6 +149,14 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
             throw new ApexEventException(errorMessage, e);
         }
 
+        // check if http Return Code filter has been set
+        if (restConsumerProperties.getHttpCodeFilter() == null) {
+            final String errorMessage =
+                    "no return code filter has been specified on REST Requestor consumer (" + this.name + ")";
+            LOGGER.warn(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
         // Set the requestor timeout
         if (consumerParameters.getPeerTimeout(EventHandlerPeeredMode.REQUESTOR) != 0) {
             restRequestTimeout = consumerParameters.getPeerTimeout(EventHandlerPeeredMode.REQUESTOR);
@@ -153,7 +165,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         // Check if HTTP headers has been set
         if (restConsumerProperties.checkHttpHeadersSet()) {
             LOGGER.debug("REST Requestor consumer has http headers ({}): {}", this.name,
-                            Arrays.deepToString(restConsumerProperties.getHttpHeaders()));
+                    Arrays.deepToString(restConsumerProperties.getHttpHeaders()));
         }
 
         // Initialize the HTTP client
@@ -171,8 +183,8 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         try {
             incomingRestRequestQueue.add(restRequest);
         } catch (final Exception requestException) {
-            final String errorMessage = "could not queue request \"" + restRequest + "\" on REST Requestor consumer ("
-                            + this.name + ")";
+            final String errorMessage =
+                    "could not queue request \"" + restRequest + "\" on REST Requestor consumer (" + this.name + ")";
             LOGGER.warn(errorMessage, requestException);
             throw new ApexEventRuntimeException(errorMessage);
         }
@@ -232,8 +244,8 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         while (consumerThread.isAlive() && !stopOrderedFlag) {
             try {
                 // Take the next event from the queue
-                final ApexRestRequest restRequest = incomingRestRequestQueue.poll(REST_REQUESTOR_WAIT_SLEEP_TIME,
-                                TimeUnit.MILLISECONDS);
+                final ApexRestRequest restRequest =
+                        incomingRestRequestQueue.poll(REST_REQUESTOR_WAIT_SLEEP_TIME, TimeUnit.MILLISECONDS);
                 if (restRequest == null) {
                     // Poll timed out, check for request timeouts
                     timeoutExpiredRequests();
@@ -278,8 +290,8 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
 
         // Interrupt timed out requests and remove them from the ongoing map
         for (final ApexRestRequest timedoutRequest : timedoutRequestList) {
-            final String errorMessage = "REST Requestor consumer (" + this.name + "), REST request timed out: "
-                            + timedoutRequest;
+            final String errorMessage =
+                    "REST Requestor consumer (" + this.name + "), REST request timed out: " + timedoutRequest;
             LOGGER.warn(errorMessage);
 
             ongoingRestRequestMap.remove(timedoutRequest);
@@ -304,6 +316,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
      * @author Liam Fallon (liam.fallon@ericsson.com)
      */
     private class RestRequestRunner implements Runnable {
+
         private static final String APPLICATION_JSON = "application/json";
 
         // The REST request being processed by this thread
@@ -335,10 +348,10 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
 
                 // Check that the event request worked
                 if (!Response.Status.Family.familyOf(response.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
-                    final String errorMessage = "reception of response to \"" + request + "\" from URL \""
-                                    + restConsumerProperties.getUrl() + "\" failed with status code "
-                                    + response.getStatus() + " and message \"" + response.readEntity(String.class)
-                                    + "\"";
+                    final String errorMessage =
+                            "reception of response to \"" + request + "\" from URL \"" + restConsumerProperties.getUrl()
+                                    + "\" failed with status code " + response.getStatus() + " and message \""
+                                    + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -347,13 +360,33 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
 
                 // Check there is content
                 if (eventJsonString == null || eventJsonString.trim().length() == 0) {
-                    final String errorMessage = "received an enpty response to \"" + request + "\" from URL \""
-                                    + restConsumerProperties.getUrl() + "\"";
+                    final String errorMessage =
+                            "received an empty response to \"" + request + "\" from URL \"" + restConsumerProperties
+                                                                                                      .getUrl() + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
+                // Build a filter Pattern
+                String pattern = restConsumerProperties.getHttpCodeFilter();
+
+                // Compile the pattern
+                Pattern p = Pattern.compile(pattern);
+
+                // Match the return code
+                Matcher isPass = p.matcher(String.valueOf(response.getStatus()));
+
+                // Check that the request worked //response.getStatus() != Response.Status.OK.getStatusCode()
+                if (!isPass.matches()) {
+                    final String errorMessage = "received an invalid status code \"" + response.getStatus() +"\"";
+                    throw new ApexEventRuntimeException(errorMessage);
+                }
+
+                // build a key and value property in excutionProperties
+                Properties executionProperties = new Properties();
+                executionProperties.put("HTTP_STATUS_CODE", response.getStatus());
+
                 // Send the event into Apex
-                eventReceiver.receiveEvent(request.getExecutionId(), null, eventJsonString);
+                eventReceiver.receiveEvent(request.getExecutionId(), executionProperties, eventJsonString);
 
                 synchronized (eventsReceivedLock) {
                     eventsReceived++;
@@ -376,28 +409,27 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
         /**
          * Execute the REST request.
          *
-         *
          * @return the response to the REST request
          */
         public Response sendEventAsRestRequest() {
             switch (restConsumerProperties.getHttpMethod()) {
                 case GET:
                     return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
-                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
+                                   .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
 
                 case PUT:
                     return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
-                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
-                                    .put(Entity.json(request.getEvent()));
+                                   .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
+                                   .put(Entity.json(request.getEvent()));
 
                 case POST:
                     return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
-                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
-                                    .post(Entity.json(request.getEvent()));
+                                   .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap())
+                                   .post(Entity.json(request.getEvent()));
 
                 case DELETE:
                     return client.target(restConsumerProperties.getUrl()).request(APPLICATION_JSON)
-                                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).delete();
+                                   .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).delete();
 
                 default:
                     break;

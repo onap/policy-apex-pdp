@@ -36,6 +36,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  *
  */
 public class ApexRestRequestorConsumerTest {
+
     @Test
     public void testApexRestRequestorConsumerSetup() {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
@@ -51,7 +52,7 @@ public class ApexRestRequestorConsumerTest {
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("specified consumer properties are not applicable to REST Requestor consumer (ConsumerName)",
-                            aee.getMessage());
+                    aee.getMessage());
         }
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
@@ -60,8 +61,7 @@ public class ApexRestRequestorConsumerTest {
             consumer.init(consumerName, consumerParameters, incomingEventReceiver);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
-            assertEquals("REST Requestor consumer (ConsumerName) must run in peered requestor mode "
-                            + "with a REST Requestor producer", aee.getMessage());
+            assertEquals("REST Requestor consumer (ConsumerName) must run in peered requestor mode " + "with a REST Requestor producer", aee.getMessage());
         }
 
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
@@ -84,6 +84,14 @@ public class ApexRestRequestorConsumerTest {
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        try {
+            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            fail("test should throw an exception here");
+        } catch (ApexEventException aee) {
+            assertEquals("no return code filter has been specified on REST Requestor consumer (ConsumerName)", aee.getMessage());
+        }
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         try {
@@ -96,8 +104,7 @@ public class ApexRestRequestorConsumerTest {
             consumer.processRestRequest(null);
             fail("test should throw an exception here");
         } catch (Exception ex) {
-            assertEquals("could not queue request \"null\" on REST Requestor consumer (ConsumerName)",
-                            ex.getMessage());
+            assertEquals("could not queue request \"null\" on REST Requestor consumer (ConsumerName)", ex.getMessage());
         }
 
         assertEquals("ConsumerName", consumer.getName());
@@ -119,6 +126,7 @@ public class ApexRestRequestorConsumerTest {
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         // Test should time out requests
@@ -132,6 +140,32 @@ public class ApexRestRequestorConsumerTest {
             assertEquals(0, consumer.getEventsReceived());
         } catch (ApexEventException aee) {
             fail("test should not throw an exception");
+        }
+    }
+
+    @Test
+    public void testApexRestRequestorConsumerBadReturnCode() {
+        ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
+        assertNotNull(consumer);
+
+        String consumerName = "ConsumerName";
+
+        EventHandlerParameters consumerParameters = new EventHandlerParameters();
+        ApexEventReceiver incomingEventReceiver = null;
+        RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
+        consumerParameters.setCarrierTechnologyParameters(rrctp);
+        consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
+        rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
+        rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("zzz");
+        consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
+
+        // test invalid status code
+        try {
+            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            consumer.start();
+        } catch (ApexEventException aee) {
+            assertEquals("received an invalid status code \"200\"",aee.getMessage());
         }
     }
 }

@@ -43,7 +43,6 @@ import org.slf4j.LoggerFactory;
  * Concrete implementation of an Apex event producer that sends events using REST.
  *
  * @author Joss Armstrong (joss.armstrong@ericsson.com)
- *
  */
 public class ApexRestClientProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestClientProducer.class);
@@ -136,7 +135,6 @@ public class ApexRestClientProducer implements ApexEventProducer {
 
         // Send the event as a REST request
         final Response response = sendEventAsRestRequest((String) event);
-
         // Check that the request worked
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" using HTTP \""
