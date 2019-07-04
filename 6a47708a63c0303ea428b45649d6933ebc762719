@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "f7820cb3_455a293b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-04T08:57:02Z",
+      "side": 1,
+      "message": "Thanks! Also maybe in the error message if a key is missing on the URL it would be really good if the error message mentioned the name of the key that was missing, something like:\n\nkey \"myKey\" specified on url \"http://somewhere.in.the.{myKey}/{yourkey}\" not found in execution properties passed by the current policy.",
+      "parentUuid": "edd5fde9_903d2076",
+      "range": {
+        "startLine": 148,
+        "startChar": 21,
+        "endLine": 148,
+        "endChar": 76
+      },
+      "revId": "6a47708a63c0303ea428b45649d6933ebc762719",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3b61b1d_bbb920e5",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
         "patchSetId": 2
