@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4207cf2c_c88d8594",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "suggestion: could do a \"Set\" operation here, to determine if names contains something that doesn\u0027t appear in inputProperty.  Once that\u0027s done, could simplify the rest of this by using Stream.reduce(), eliminating the need for checkUrl.  I think that would be clearer, though I could be wrong.",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56cba202_2d4a625b",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 3
@@ -22,6 +39,210 @@
       "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28c6ea99_8af0b8dc",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "could pre-compile this pattern and stick it into a static",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ebae63a_5069721b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "Do we have to parameterize \"key\" - why doesn\u0027t java complain about line 179 since \"key\" is a generic type, but the method returns a parameterized type?",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64046eea_159a73ca",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "are the backslashes necessary inside the \"[...]\" blocks?",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47e36330_5a420351",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "could these two be combined - just look for two \"{\" in a row with no intervening \"}\"?",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bede27d_2b4cfc1b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "same comment as before",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0bf3a9f_5039c1b8",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "use non-capture groups through-out?",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53a9b164_9c0e8ce6",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "I prefer to use assertj, because it\u0027s easy to forget things otherwise.  For example, in this case, \"fail()\" is missing - should appear either after line 215 or after line 217",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52e794c1_e491d5e1",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "same comments as for the duplicate code block in the earlier java file\n\nconsider extracting this common code block into a utility or super class",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67efa421_52b77513",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "consider extracting these common methods into a utility or super class",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e57ab9c0_22ece80e",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "eliminate trailing spaces",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f68d6dd_2f8d0dfa",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94e4218f_2dd5a2b0",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-05T13:25:48Z",
+      "side": 1,
+      "message": "missing a fail() statement here somewhere - either after line 125 or after line 127",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
