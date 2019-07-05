@@ -1,6 +1,7 @@
 //
 // ============LICENSE_START=======================================================
 //  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+//  Modifications Copyright (C) 2019 Nordix Foundation.
 // ================================================================================
 // This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
 // Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
@@ -45,7 +46,8 @@ The input is uni-directional, an engine will only receive events from the input 
     "keyDeserializer"   :
         "org.apache.kafka.common.serialization.StringDeserializer", <9>
     "valueDeserializer" :
-        "org.apache.kafka.common.serialization.StringDeserializer" <10>
+        "org.apache.kafka.common.serialization.StringDeserializer", <10>
+    "kafkaProperties"   : [] <11>
   }
 }
 ----
@@ -60,6 +62,8 @@ The input is uni-directional, an engine will only receive events from the input 
 <8> consumer topic list
 <9> key for the Kafka de-serializer
 <10> value for the Kafka de-serializer
+<11> an optional list of name value pairs of properties to be passed transparently to Kafka.
+This field need not be specified, can be set to null, or to an empty list as here.
 
 
 === Kafka Output
@@ -85,7 +89,11 @@ The output is uni-directional, an engine will send events to the output but not 
     "keySerializer"     :
         "org.apache.kafka.common.serialization.StringSerializer", <9>
     "valueSerializer"   :
-        "org.apache.kafka.common.serialization.StringSerializer" <10>
+        "org.apache.kafka.common.serialization.StringSerializer", <10>
+    "kafkaProperties": [ <11>
+        ["message.max.bytes", 1000000],
+        ["compression.codec", "none"]
+    ]
   }
 }
 ----
@@ -100,3 +108,6 @@ The output is uni-directional, an engine will send events to the output but not 
 <8> producer topic
 <9> key for the Kafka serializer
 <10> value for the Kafka serializer
+<11> an optional list of name value pairs of properties to be passed transparently to Kafka. If a property appears in
+the _kafkaProperties_ field and is also explicitly specified to a non-default value (such as _lingerTime_) the explictly
+specified value of the property is used rather than the value specified in the _kafkaProperties_ list.
