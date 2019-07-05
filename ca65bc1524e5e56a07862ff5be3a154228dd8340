@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6afb34b_767bdcfa",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-05T10:50:48Z",
+      "side": 1,
+      "message": "Sonar doesn\u0027t like commented codes.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 7
+      },
+      "revId": "ca65bc1524e5e56a07862ff5be3a154228dd8340",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
