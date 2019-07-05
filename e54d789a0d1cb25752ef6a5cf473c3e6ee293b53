@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bce8af13_84f56c08",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-05T15:07:18Z",
+      "side": 1,
+      "message": "Correct Liam. But, the string replace will replace all the occurences of the key.",
+      "parentUuid": "4e969316_92419161",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 2
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4207cf2c_c88d8594",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 3
@@ -53,6 +77,30 @@
       "writtenOn": "2019-07-05T13:46:28Z",
       "side": 1,
       "message": "replaceAll() is needed for multiple keys.",
+      "range": {
+        "startLine": 150,
+        "startChar": 56,
+        "endLine": 150,
+        "endChar": 63
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f850490_4f82903a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-05T15:07:18Z",
+      "side": 1,
+      "message": "replaceAll can take in regular expressions. For simple string substitutions, replace method will do the job by  replacing all the occurrences.",
+      "parentUuid": "f59ad10a_cad270df",
       "range": {
         "startLine": 150,
         "startChar": 56,
