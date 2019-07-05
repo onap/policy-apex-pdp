@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "56cba202_2d4a625b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-05T10:54:26Z",
+      "side": 1,
+      "message": "The logic seems to cover all cases now. Good.",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 50
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "386e2551_33a61a62",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
         "patchSetId": 3
