@@ -25,6 +25,8 @@ import java.util.Arrays;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -77,6 +79,10 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
+
+    @Getter
+    @Setter
+    private String httpCodeFilter = null;
 
     /**
      * Constructor to create a REST carrier technology parameters instance and regiaaaster the instance with the
@@ -146,6 +152,24 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     }
 
     /**
+     * Gets the httpCodeFilter for the Rest request
+     *
+     * @return the httpCodeFilter
+     */
+    public String getHttpCodeFilter() {
+        return httpCodeFilter;
+    }
+
+    /**
+     * Sets the httpCodeFilter for the REST request.
+     *
+     * @param httpCodeFilter
+     */
+    public void setHttpCodeFilter(String httpCodeFilter) {
+        this.httpCodeFilter = httpCodeFilter;
+    }
+
+    /**
      * Gets the http headers for the REST request as a multivalued map.
      *
      * @return the headers
@@ -190,14 +214,14 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID, "HTTP header array entry is null");
             } else if (httpHeader.length != 2) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                                "HTTP header array entries must have one key and one value: "
+                        "HTTP header array entries must have one key and one value: "
                                                 + Arrays.deepToString(httpHeader));
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[0])) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                                "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
+                        "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[1])) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                                "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
+                        "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
             }
         }
 
@@ -210,6 +234,6 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     @Override
     public String toString() {
         return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                        + Arrays.deepToString(httpHeaders) + "]";
+                        + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }

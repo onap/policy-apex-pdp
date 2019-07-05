@@ -25,6 +25,8 @@ import java.util.Arrays;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -64,6 +66,10 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
+
+    @Getter
+    @Setter
+    private String httpCodeFilter = null;
 
     /**
      * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
@@ -132,6 +138,24 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     public String[][] getHttpHeaders() {
         return httpHeaders;
     }
+
+//    /**
+//     * Gets the httpCodeFilter for the Rest request
+//     *
+//     * @return the httpCodeFilter
+//     */
+//    public String getHttpCodeFilter() {
+//        return httpCodeFilter;
+//    }
+//
+//    /**
+//     * Sets the httpCodeFilter for the REST request.
+//     *
+//     * @param httpCodeFilter
+//     */
+//    public void setHttpCodeFilter(String httpCodeFilter) {
+//        this.httpCodeFilter = httpCodeFilter;
+//    }
 
     /**
      * Gets the http headers for the REST request as a multivalued map.
@@ -203,6 +227,6 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     @Override
     public String toString() {
         return "RestClientCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                        + Arrays.deepToString(httpHeaders) + "]";
+                        + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }

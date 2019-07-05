@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -102,9 +102,27 @@ public class RestClientCarrierTechnologyParametersTest {
             assertEquals("bbb", rrctp1.getHttpHeadersAsMultivaluedMap().get("aaa").get(0));
             assertEquals("ddd", rrctp1.getHttpHeadersAsMultivaluedMap().get("ccc").get(0));
             assertEquals("fff", rrctp1.getHttpHeadersAsMultivaluedMap().get("eee").get(0));
-            
+
             rrctp1.setHttpHeaders(null);
             assertEquals(null, rrctp1.getHttpHeadersAsMultivaluedMap());
+        } catch (ParameterException pe) {
+            fail("test should not throw an exception");
+        }
+    }
+
+    @Test
+    public void testRestClientCarrierTechnologyHttpCodeFilterOk() {
+        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setRelativeFileRoot(".");
+
+        try {
+            ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+            RestClientCarrierTechnologyParameters rrctp1 = (RestClientCarrierTechnologyParameters) parameters
+                             .getEventInputParameters().get("RestClientConsumer1").getCarrierTechnologyParameters();
+            assertEquals("[1-5][0][0-5]", rrctp1.getHttpCodeFilter());
+
         } catch (ParameterException pe) {
             fail("test should not throw an exception");
         }
@@ -116,6 +134,9 @@ public class RestClientCarrierTechnologyParametersTest {
 
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
+        assertEquals("[1-5][0][0-5]", rrctp.getHttpCodeFilter());
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -143,7 +164,7 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RestClientCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
-                        rrctp.toString());
+                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]], "
+                        + "httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 }
