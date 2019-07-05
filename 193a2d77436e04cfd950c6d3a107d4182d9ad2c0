@@ -16,6 +16,24 @@
       "revId": "193a2d77436e04cfd950c6d3a107d4182d9ad2c0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3f237f9_dad0b901",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/test/java/org/onap/policy/apex/plugins/event/carrier/kafka/KafkaCarrierTechnologyParametersTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-05T13:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3117d68_9935b976",
+      "revId": "193a2d77436e04cfd950c6d3a107d4182d9ad2c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
