@@ -31,6 +31,8 @@ import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.common.parameters.ParameterException;
 
+import java.util.Set;
+
 /**
  * Test REST Requestor carrier technology parameters.
  */
@@ -106,6 +108,25 @@ public class RestRequestorCarrierTechnologyParametersTest {
             fail("test should not throw an exception");
         }
     }
+    
+    @Test
+    public void testRestRequestorCarrierTechnologyParametersUrl() {
+        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTRequestorWithUrlTags.json");
+        arguments.setRelativeFileRoot(".");
+        
+        try {
+            ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+            RestRequestorCarrierTechnologyParameters rrctp1 = (RestRequestorCarrierTechnologyParameters) parameters
+                            .getEventInputParameters().get("RestRequestorConsumer1").getCarrierTechnologyParameters();
+            assertEquals(3, rrctp1.getHttpHeaders().length);
+            assertEquals("bbb", rrctp1.getHttpHeadersAsMultivaluedMap().get("aaa").get(0));
+            assertEquals("ddd", rrctp1.getHttpHeadersAsMultivaluedMap().get("ccc").get(0));
+            assertEquals("fff", rrctp1.getHttpHeadersAsMultivaluedMap().get("eee").get(0));
+        } catch (ParameterException pe) {
+            assertTrue(pe.getMessage().contains("no proper URL has been set for event sending on REST client"));
+        }
+    }
 
     @Test
     public void testGettersAndSetters() {
@@ -143,4 +164,40 @@ public class RestRequestorCarrierTechnologyParametersTest {
                         + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
                         rrctp.toString());
     }
+    
+    @Test
+    public void testUrlValidation() {
+        RestRequestorCarrierTechnologyParameters rrctp = 
+            new RestRequestorCarrierTechnologyParameters();
+
+        rrctp.setUrl("http://some.where.no.tag.in.url");
+        assertEquals("http://some.where.no.tag.in.url", rrctp.getUrl());
+
+        String[][] httpHeaders = new String[2][2];
+        httpHeaders[0][0] = "aaa";
+        httpHeaders[0][1] = "bbb";
+        httpHeaders[1][0] = "ccc";
+        httpHeaders[1][1] = "ddd";
+
+        rrctp.setHttpHeaders(httpHeaders);
+        assertEquals("aaa", rrctp.getHttpHeaders()[0][0]);
+        assertEquals("bbb", rrctp.getHttpHeaders()[0][1]);
+        assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
+        assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
+        
+        assertEquals(true, rrctp.validateTagInUrl());
+        
+        rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
+        assertEquals(true, rrctp.validateTagInUrl());
+        
+        Set<String> keymap = rrctp.getKeysFromUrl();
+        assertEquals(true, keymap.contains("place"));
+        assertEquals(true, keymap.contains("that"));
+        assertEquals(true, keymap.contains("one"));
+
+        
+        rrctp.setUrl("http://place}.{that/{not}.{ }/{that}s}.{exist");
+        assertEquals(false, rrctp.validateTagInUrl());
+    }
+
 }

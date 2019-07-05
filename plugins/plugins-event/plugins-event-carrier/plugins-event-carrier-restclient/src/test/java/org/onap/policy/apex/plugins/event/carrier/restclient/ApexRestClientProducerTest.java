@@ -41,8 +41,12 @@ import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 /**
  * Test the ApexRestClientProducer class.
@@ -202,12 +206,22 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
+        //test property not found
+        rcctp.setUrl("http://some.place2.that.{key}.not/{tag}and.again.{tag}");
+        Properties properties = new Properties();
+        properties.put("tag", "exist");
         try {
-            arcp.sendEvent(123, null, "EventName", "This is an Event");
+            arcp.sendEvent(123, properties, "EventName", "This is an Event");
             arcp.stop();
         } catch (Exception e) {
-            fail("test should not throw an exception");
+            assertEquals(
+                    "key\"key\"specified on url "
+                            + "\"http://some.place2.that.{key}.not/{tag}and.again.{tag}\"not found "
+                            + "in execution properties passed by the current policy",
+                    e.getMessage());
         }
+
+        //TODO: add more case for unit test
     }
 
     @Test

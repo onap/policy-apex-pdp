@@ -23,6 +23,9 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -36,6 +39,8 @@ import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,12 +139,32 @@ public class ApexRestClientProducer implements ApexEventProducer {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);
         }
 
+        AtomicReference<String> checkUrl = new  AtomicReference<String>(restProducerProperties.getUrl());
+        if (executionProperties != null) {
+            Set<String> names = restProducerProperties.getKeysFromUrl();
+            Set<String> inputProperty = executionProperties.stringPropertyNames();
+
+            names.stream().map(key -> Optional.of(key)).forEach(op -> {
+                op.filter(str -> inputProperty.contains(str))
+                        .map(str -> {
+                            String ret = checkUrl.get().replace("{" + str + "}",
+                                    (String) executionProperties.get(str));
+                            checkUrl.set(ret);
+                            return ret;
+                        }).orElseThrow(() -> new ApexEventRuntimeException(
+                        "key\"" + op.get() + "\"specified on url \"" + restProducerProperties.getUrl() +
+                                "\"not found in execution properties passed by the current policy"));
+
+            });
+        }
+        final String untaggedUrl = checkUrl.get();
+
         // Send the event as a REST request
-        final Response response = sendEventAsRestRequest((String) event);
+        final Response response = sendEventAsRestRequest(untaggedUrl, (String) event);
 
         // Check that the request worked
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-            final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" using HTTP \""
+            final String errorMessage = "send of event to URL \"" + untaggedUrl + "\" using HTTP \""
                     + restProducerProperties.getHttpMethod() + "\" failed with status code " + response.getStatus()
                     + " and message \"" + response.readEntity(String.class) + "\", event:\n" + event;
             LOGGER.warn(errorMessage);
@@ -148,7 +173,7 @@ public class ApexRestClientProducer implements ApexEventProducer {
 
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("event sent from engine using {} to URL {} with HTTP {} : {} and response {} ", this.name,
-                    restProducerProperties.getUrl(), restProducerProperties.getHttpMethod(), event, response);
+                untaggedUrl, restProducerProperties.getHttpMethod(), event, response);
         }
     }
 
@@ -167,13 +192,13 @@ public class ApexRestClientProducer implements ApexEventProducer {
      * @param event the event to send
      * @return the response to the JSON request
      */
-    private Response sendEventAsRestRequest(final String event) {
+    private Response sendEventAsRestRequest(final String untaggedUrl, final String event) {
         // We have already checked that it is a PUT or POST request
         if (RestClientCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())) {
-            return client.target(restProducerProperties.getUrl()).request("application/json")
+            return client.target(untaggedUrl).request("application/json")
                     .headers(restProducerProperties.getHttpHeadersAsMultivaluedMap()).post(Entity.json(event));
         } else {
-            return client.target(restProducerProperties.getUrl()).request("application/json")
+            return client.target(untaggedUrl).request("application/json")
                     .headers(restProducerProperties.getHttpHeadersAsMultivaluedMap()).put(Entity.json(event));
         }
     }

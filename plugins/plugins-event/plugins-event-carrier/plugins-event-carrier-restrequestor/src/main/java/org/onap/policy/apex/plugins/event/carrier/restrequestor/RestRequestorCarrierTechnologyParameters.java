@@ -21,6 +21,10 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -175,6 +179,41 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     }
 
     /**
+     * Get the tag for the REST Producer Properties.
+     *
+     * @return set of the tags
+     */
+    public Set<String> getKeysFromUrl() {
+        Matcher matcher = Pattern.compile("(?<=\\{)[^}]*(?=\\})").matcher(this.url);
+        Set key = new HashSet();
+        while (matcher.find()) {
+            key.add(matcher.group(0));
+        }
+        return key;
+    }
+    
+    /**
+     * Validate tags in url.
+     * http://www.blah.com/{par1/somethingelse (Missing end tag1) use  (\\{([^\\{}]*)$)
+     * http://www.blah.com/{par1/{some}thingelse (Missing end tag2) use (\\{([^\\{}]*.?)\\{)
+     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use (\\}([^\\{}]*.?)\\})
+     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use (^([^\\{}]*.?)\\})
+     * http://www.blah.com/{}/somethingelse (Empty tag) use \\{(\\s*)\\}")
+     *
+     * @return if url is legal 
+     */
+    public boolean validateTagInUrl() {
+        // Check url tag syntax error
+        Matcher matcher = Pattern.compile(
+              "(\\{([^\\{}]*.?)\\{)|(\\{([^\\{}]*)$)|(\\}([^\\{}]*.?)\\})|(^([^\\{}]*.?)\\})|\\{(\\s*)\\}")
+              .matcher(this.url);
+        if (matcher.find()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * {@inheritDoc}.
      */
     @Override
@@ -200,6 +239,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
                                 "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
             }
         }
+        
+        if (!validateTagInUrl()) {
+            result.setResult("url", ValidationStatus.INVALID, 
+                "no proper URL has been set for event sending on REST client");
+        }
+              
 
         return result;
     }
