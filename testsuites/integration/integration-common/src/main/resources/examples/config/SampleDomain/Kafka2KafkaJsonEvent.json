@@ -28,7 +28,8 @@
                     "bufferMemory": 33554432,
                     "producerTopic": "apex-out-json",
                     "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
-                    "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer"
+                    "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer",
+                    "kafkaProperties": []
                 }
             },
             "eventProtocolParameters": {
@@ -52,7 +53,11 @@
                         "apex-in-json"
                     ],
                     "keyDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
-                    "valueDeserializer": "org.apache.kafka.common.serialization.StringDeserializer"
+                    "valueDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+                    "kafkaProperties": [
+                        ["message.max.bytes", 1000000],
+                        ["compression.codec", "none"]
+                    ]
                 }
             },
             "eventProtocolParameters": {
