@@ -77,6 +77,7 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
+    private String httpCodeFilter = null;
 
     /**
      * Constructor to create a REST carrier technology parameters instance and regiaaaster the instance with the
@@ -146,6 +147,24 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     }
 
     /**
+     * Gets the httpCodeFilter for the Rest request
+     *
+     * @return the httpCodeFilter
+     */
+    public String getHttpCodeFilter() {
+        return httpCodeFilter;
+    }
+
+    /**
+     * Sets the httpCodeFilter for the REST request.
+     *
+     * @param httpCodeFilter
+     */
+    public void setHttpCodeFilter(final String httpCodeFilter) {
+        this.httpCodeFilter = httpCodeFilter;
+    }
+
+    /**
      * Gets the http headers for the REST request as a multivalued map.
      *
      * @return the headers
@@ -210,6 +229,6 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     @Override
     public String toString() {
         return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                        + Arrays.deepToString(httpHeaders) + "]";
+                        + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }
