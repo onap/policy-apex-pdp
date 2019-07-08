@@ -22,6 +22,30 @@
       "revId": "ca65bc1524e5e56a07862ff5be3a154228dd8340",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b267ebe8_e46bc13d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-08T02:05:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6afb34b_767bdcfa",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 7
+      },
+      "revId": "ca65bc1524e5e56a07862ff5be3a154228dd8340",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
