@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +23,8 @@ package org.onap.policy.apex.services.onappf;
 
 import java.util.List;
 import java.util.Properties;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.apex.services.onappf.comm.PdpStateChangeListener;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
 import org.onap.policy.apex.services.onappf.comm.PdpUpdateListener;
@@ -34,7 +33,7 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeExceptio
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.rest.ApexStarterRestServer;
-import org.onap.policy.common.endpoints.event.comm.TopicEndpoint;
+import org.onap.policy.common.endpoints.event.comm.TopicEndpointManager;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.TopicSource;
 import org.onap.policy.common.endpoints.listeners.MessageTypeDispatcher;
@@ -86,8 +85,8 @@ public class ApexStarterActivator {
     public ApexStarterActivator(final ApexStarterParameterGroup apexStarterParameterGroup,
             final Properties topicProperties) {
 
-        topicSinks = TopicEndpoint.manager.addTopicSinks(topicProperties);
-        topicSources = TopicEndpoint.manager.addTopicSources(topicProperties);
+        topicSinks = TopicEndpointManager.getManager().addTopicSinks(topicProperties);
+        topicSources = TopicEndpointManager.getManager().addTopicSources(topicProperties);
 
         // TODO: instanceId currently set as a random string, could be fetched from actual deployment
         final int random = (int) (Math.random() * 100);
@@ -105,8 +104,8 @@ public class ApexStarterActivator {
         // @formatter:off
         this.manager = new ServiceManager()
                 .addAction("topics",
-                    () -> TopicEndpoint.manager.start(),
-                    () -> TopicEndpoint.manager.shutdown())
+                    () -> TopicEndpointManager.getManager().start(),
+                    () -> TopicEndpointManager.getManager().shutdown())
                 .addAction("set alive",
                     () -> setAlive(true),
                     () -> setAlive(false))
