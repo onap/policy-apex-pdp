@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "136c9043_66df9468",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Replace() will replace all the occurrences of the key, so Set is OK.",
+      "parentUuid": "bce8af13_84f56c08",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 2
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4207cf2c_c88d8594",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 3
@@ -113,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "2c932f8d_3ce72bbe",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "replace will replace all the key in the Url. test result shows it is OK for the logic.",
+      "parentUuid": "5f850490_4f82903a",
+      "range": {
+        "startLine": 150,
+        "startChar": 56,
+        "endLine": 150,
+        "endChar": 63
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56cba202_2d4a625b",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 3
@@ -136,6 +184,30 @@
     },
     {
       "key": {
+        "uuid": "066df8d2_20f08046",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56cba202_2d4a625b",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 50
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa334110_371a6b59",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 3
@@ -156,6 +228,30 @@
       "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c00861_92d39a51",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "ack, I will check the code style.",
+      "parentUuid": "fa334110_371a6b59",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 4
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +306,24 @@
     },
     {
       "key": {
+        "uuid": "d43e875b_95ded813",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "I think this depends on our definition, If we think string like \"vnf/id\" could be a proper key, then we can change the regex here.",
+      "parentUuid": "64046eea_159a73ca",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47e36330_5a420351",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 3
@@ -221,6 +335,24 @@
       "writtenOn": "2019-07-05T13:25:48Z",
       "side": 1,
       "message": "could these two be combined - just look for two \"{\" in a row with no intervening \"}\"?",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63dfaf72_f45cb295",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "In first case, there is only one { in the Url,",
+      "parentUuid": "47e36330_5a420351",
       "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -244,6 +376,24 @@
     },
     {
       "key": {
+        "uuid": "d2cd4780_f180ee2c",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6bede27d_2b4cfc1b",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0bf3a9f_5039c1b8",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 3
@@ -255,6 +405,24 @@
       "writtenOn": "2019-07-05T13:25:48Z",
       "side": 1,
       "message": "use non-capture groups through-out?",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65fc767c_07d8d2eb",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a0bf3a9f_5039c1b8",
       "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -278,6 +446,24 @@
     },
     {
       "key": {
+        "uuid": "ba1487b8_c3661165",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "OK,I will check this part",
+      "parentUuid": "53a9b164_9c0e8ce6",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52e794c1_e491d5e1",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 3
@@ -289,6 +475,24 @@
       "writtenOn": "2019-07-05T13:25:48Z",
       "side": 1,
       "message": "same comments as for the duplicate code block in the earlier java file\n\nconsider extracting this common code block into a utility or super class",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd92a214_f78b7aec",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "52e794c1_e491d5e1",
       "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -312,6 +516,24 @@
     },
     {
       "key": {
+        "uuid": "824118b6_aef77640",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "67efa421_52b77513",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e57ab9c0_22ece80e",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
         "patchSetId": 3
@@ -323,6 +545,24 @@
       "writtenOn": "2019-07-05T13:25:48Z",
       "side": 1,
       "message": "eliminate trailing spaces",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a53c4276_c501d7ae",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e57ab9c0_22ece80e",
       "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -346,6 +586,24 @@
     },
     {
       "key": {
+        "uuid": "99c9e1da_0a7e37a7",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1f68d6dd_2f8d0dfa",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94e4218f_2dd5a2b0",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
         "patchSetId": 3
@@ -363,6 +621,24 @@
     },
     {
       "key": {
+        "uuid": "45d0f15d_ddcfa363",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "94e4218f_2dd5a2b0",
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "386e2551_33a61a62",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
         "patchSetId": 3
@@ -374,6 +650,30 @@
       "writtenOn": "2019-07-05T10:50:15Z",
       "side": 1,
       "message": "Please check your eclipse formatter settings. I can see unwanted spaces in multiple files.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 8
+      },
+      "revId": "e54d789a0d1cb25752ef6a5cf473c3e6ee293b53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d45c5577_d8847072",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-08T01:47:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "386e2551_33a61a62",
       "range": {
         "startLine": 187,
         "startChar": 0,
