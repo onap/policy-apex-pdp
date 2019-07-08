@@ -226,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "3269fff3_75470f88",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-08T05:27:55Z",
+      "side": 1,
+      "message": "So I think the Lombok is not suitable here.",
+      "parentUuid": "f53bde55_6a8e3872",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 7
+      },
+      "revId": "dd9030d548bc1984221f4286ae9d556c4ccdbd59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "537d4958_237f50d9",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 1
