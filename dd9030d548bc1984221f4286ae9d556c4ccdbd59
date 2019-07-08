@@ -250,6 +250,30 @@
     },
     {
       "key": {
+        "uuid": "33af68cb_a7b4fdac",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-08T08:50:33Z",
+      "side": 1,
+      "message": "I can\u0027t see final fields.\n\nprivate String url \u003d null;\nprivate HttpMethod httpMethod \u003d null;\nprivate String[][] httpHeaders \u003d null;\n\nIf you are referring to the method parameters then it is ok to leave it to lombok to set them into fields.",
+      "parentUuid": "3269fff3_75470f88",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 7
+      },
+      "revId": "dd9030d548bc1984221f4286ae9d556c4ccdbd59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "537d4958_237f50d9",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 1
