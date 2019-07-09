@@ -23,7 +23,8 @@
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
                     "httpMethod": "GET",
                     "httpHeaders" : [
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
@@ -41,7 +42,8 @@
                         ["aaa", "bbb"],
                         ["ccc", "ddd"],
                         ["eee", "fff"]
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
@@ -58,7 +60,8 @@
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
                     "httpMethod": "GET",
                     "httpHeaders" : [
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
@@ -76,7 +79,8 @@
                         ["aaa", "bbb"],
                         ["ccc", "ddd"],
                         ["eee", "fff"]
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
