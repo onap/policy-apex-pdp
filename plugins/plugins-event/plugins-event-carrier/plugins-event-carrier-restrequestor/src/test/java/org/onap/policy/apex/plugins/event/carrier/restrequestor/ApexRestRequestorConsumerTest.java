@@ -84,6 +84,7 @@ public class ApexRestRequestorConsumerTest {
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         try {
@@ -119,6 +120,7 @@ public class ApexRestRequestorConsumerTest {
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         // Test should time out requests
@@ -132,6 +134,32 @@ public class ApexRestRequestorConsumerTest {
             assertEquals(0, consumer.getEventsReceived());
         } catch (ApexEventException aee) {
             fail("test should not throw an exception");
+        }
+    }
+
+    @Test
+    public void testApexRestRequestorConsumerBadReturnCode() {
+        ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
+        assertNotNull(consumer);
+
+        String consumerName = "ConsumerName";
+
+        EventHandlerParameters consumerParameters = new EventHandlerParameters();
+        ApexEventReceiver incomingEventReceiver = null;
+        RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
+        consumerParameters.setCarrierTechnologyParameters(rrctp);
+        consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
+        rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
+        rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("zzz");
+        consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
+
+        // test invalid status code
+        try {
+            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            consumer.start();
+        } catch (ApexEventException aee) {
+            assertEquals("received an invalid status code \"200\"",aee.getMessage());
         }
     }
 }
