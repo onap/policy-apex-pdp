@@ -63,11 +63,10 @@ Installation Layout
       |                                   | logback (logging) and third party |
       |                                   | library configurations            |
       +-----------------------------------+-----------------------------------+
-      | **3**                             | configuration files for           |
+      | **3**                             | configuration file for            |
       |                                   | APEXOnapPf, such as               |
       |                                   | OnapPfConfig.json (initial        |
-      |                                   | configuration for APEXOnapPf) and |
-      |                                   | topic.properties (dmaap topics)   |
+      |                                   | configuration for APEXOnapPf)     |
       +-----------------------------------+-----------------------------------+
       | **4**                             | ssl related files such as         |
       |                                   | policy-keystore and               |
@@ -154,7 +153,7 @@ Verify Installation - run APEXOnapPf
 
          .. container:: paragraph
 
-            OnapPfConfig.json is the file which contains the initial configuration to startup the ApexStarter service. The dmaap topics to be used for sending or receiving messages is specified in the topic.properties file. Provide these two files as arguments while running the ApexOnapPf.
+            OnapPfConfig.json is the file which contains the initial configuration to startup the ApexStarter service. The dmaap topics to be used for sending or receiving messages is also specified in the this file. Provide this file as argument while running the ApexOnapPf.
 
          .. container:: listingblock
 
@@ -163,9 +162,9 @@ Verify Installation - run APEXOnapPf
                .. code::
                       :number-lines:
 
-                      # $APEX_HOME/bin/apexOnapPf.sh -c $APEX_HOME/etc/onappf/config/OnapPfConfig.json -p $APEX_HOME/etc/onappf/config/topic.properties (1)
-                      # $APEX_HOME/bin/apexOnapPf.sh -c C:/apex/apex-full-2.0.0-SNAPSHOT/etc/onappf/config/OnapPfConfig.json -p C:/apex/apex-full-2.0.0-SNAPSHOT/etc/onappf/config/topic.properties (2)
-                      >%APEX_HOME%\bin\apexOnapPf.bat -c %APEX_HOME%\etc\onappf\config\OnapPfConfig.json -p %APEX_HOME%\etc\onappf\config\topic.properties (3)
+                      # $APEX_HOME/bin/apexOnapPf.sh -c $APEX_HOME/etc/onappf/config/OnapPfConfig.json (1)
+                      # $APEX_HOME/bin/apexOnapPf.sh -c C:/apex/apex-full-2.0.0-SNAPSHOT/etc/onappf/config/OnapPfConfig.json (2)
+                      >%APEX_HOME%\bin\apexOnapPf.bat -c %APEX_HOME%\etc\onappf\config\OnapPfConfig.json (3)
 
          .. container:: colist arabic
 
@@ -190,7 +189,7 @@ Verify Installation - run APEXOnapPf
                .. code::
                   :number-lines:
 
-                  In ApexStarter with parameters [-c, C:/apex/etc/onappf/config/OnapPfConfig.json, -p, C:/apex/etc/onappf/config/topic.properties] . . .
+                  In ApexStarter with parameters [-c, C:/apex/etc/onappf/config/OnapPfConfig.json] . . .
                   Apex [main] INFO o.o.p.c.u.services.ServiceManager - service manager starting set alive
                   Apex [main] INFO o.o.p.c.u.services.ServiceManager - service manager starting register pdp status context object
                   Apex [main] INFO o.o.p.c.u.services.ServiceManager - service manager starting topic sinks
@@ -239,7 +238,7 @@ Running APEXOnapPf in Docker
 
                ::
 
-                  docker run -p 6969:6969 -p 23324:23324 -it --rm  nexus3.onap.org:10001/onap/policy-apex-pdp:2.1-SNAPSHOT-latest /bin/bash -c "/opt/app/policy/apex-pdp/bin/apexOnapPf.sh -c /opt/app/policy/apex-pdp/etc/onappf/config/OnapPfConfig.json -p /opt/app/policy/apex-pdp/etc/onappf/config/topic.properties"
+                  docker run -p 6969:6969 -p 23324:23324 -it --rm  nexus3.onap.org:10001/onap/policy-apex-pdp:2.1-SNAPSHOT-latest /bin/bash -c "/opt/app/policy/apex-pdp/bin/apexOnapPf.sh -c /opt/app/policy/apex-pdp/etc/onappf/config/OnapPfConfig.json"
 
       .. container:: paragraph
 
@@ -313,25 +312,25 @@ Build a Docker Image
                WORKDIR /home/apexuser
 
 
-APEXOnapPf Configuration Files Explained
+APEXOnapPf Configuration File Explained
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
          .. container:: paragraph
 
-            The ApexOnapPf is initialized using two files:
+            The ApexOnapPf is initialized using a configuration file:
 
          .. container:: ulist
 
             -  OnapPfConfig.json
-
-            -  topic.properties
 
 Format of the configuration file (OnapPfConfig.json) explained
 --------------------------------------------------------------
 
          .. container:: paragraph
 
-            The configuration file is a JSON file containing the initial values for configuring the rest server for healthcheck and the pdp itself. A sample can be found below:
+            The configuration file is a JSON file containing the initial values for configuring the rest server for healthcheck and the pdp itself.
+            The topic infrastructure and the topics to be used for sending or receiving messages is specified in this configuration file.
+            A sample can be found below:
 
          .. container:: listingblock
 
@@ -353,6 +352,18 @@ Format of the configuration file (OnapPfConfig.json) explained
                           "pdpType":"apex",  (4)
                           "description":"Pdp Heartbeat",
                           "supportedPolicyTypes":[{"name":"onap.policies.controlloop.operational.Apex","version":"1.0.0"}]  (5)
+                      },
+                      "topicParameterGroup": {
+                          "topicSources" : [{  (6)
+                              "topic" : "POLICY-PDP-PAP",  (7)
+                              "servers" : [ "message-router" ],  (8)
+                              "topicCommInfrastructure" : "dmaap"  (9)
+                          }],
+                          "topicSinks" : [{  (10)
+                              "topic" : "POLICY-PDP-PAP",  (11)
+                              "servers" : [ "message-router" ],  (12)
+                              "topicCommInfrastructure" : "dmaap"  (13)
+                          }]
                       }
                   }
 
@@ -375,37 +386,28 @@ Format of the configuration file (OnapPfConfig.json) explained
             | **5**                             | List of policy types supported by |
             |                                   | the PDP.                          |
             +-----------------------------------+-----------------------------------+
-
-
-Format of the properties file (topic.properties) explained
-----------------------------------------------------------
-
-         .. container:: paragraph
-
-            The dmaap topics to be used for sending or receiving messages is specified in the topic.properties file. A sample can be found below:
-
-         .. container:: listingblock
-
-            .. container:: content
-
-               .. code::
-
-                  dmaap.source.topics=POLICY-PDP-PAP  (1)
-                  dmaap.sink.topics=POLICY-PDP-PAP  (2)
-                  dmaap.source.topics.POLICY-PDP-PAP.servers= message-router  (3)
-                  dmaap.sink.topics.POLICY-PDP-PAP.servers= message-router  (4)
-
-         .. container:: colist arabic
-
+            | **6**                             | List of topics' details from      |
+            |                                   | which messages are received.      |
             +-----------------------------------+-----------------------------------+
-            | **1**                             | DMaap topic name of the source    |
-            |                                   | to which PDP-A listens to for     |
-            |                                   | messages from PAP.                |
+            | **7**                             | Topic name of the source to which |
+            |                                   | PDP-A listens to for messages     |
+            |                                   | from PAP.                         |
             +-----------------------------------+-----------------------------------+
-            | **2**                             | DMaap topic name of the sink to   |
-            |                                   | which PDP sends messages to.      |
+            | **8**                             | List of servers for the source    |
+            |                                   | topic.                            |
             +-----------------------------------+-----------------------------------+
-            | **3**                             | DMaap source server.              |
+            | **9**                             | The source topic infrastructure.  |
+            |                                   | For e.g. dmaap, noop, ueb         |
             +-----------------------------------+-----------------------------------+
-            | **4**                             | DMaap sink server.                |
+            | **10**                            | List of topics' details to which  |
+            |                                   | messages are sent to.             |
+            +-----------------------------------+-----------------------------------+
+            | **11**                            | Topic name of the sink to which   |
+            |                                   | PDP-A sends messages to.          |
+            +-----------------------------------+-----------------------------------+
+            | **12**                            | List of servers for the sink      |
+            |                                   | topic.                            |
+            +-----------------------------------+-----------------------------------+
+            | **13**                            | The sink topic infrastructure.    |
+            |                                   | For e.g. dmaap, noop, ueb         |
             +-----------------------------------+-----------------------------------+
