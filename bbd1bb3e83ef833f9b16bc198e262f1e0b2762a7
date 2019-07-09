@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92278517_28fa6d58",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-09T09:24:02Z",
+      "side": 1,
+      "message": "Better to take this to class level. And then it applies to all fields of the class.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 11
+      },
+      "revId": "bbd1bb3e83ef833f9b16bc198e262f1e0b2762a7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02d56a76_c9de5fb2",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-09T09:24:02Z",
+      "side": 1,
+      "message": "It can be replaced by another lombok annotation @ToString at class level.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 5
+      },
+      "revId": "bbd1bb3e83ef833f9b16bc198e262f1e0b2762a7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be427b7d_599e50a4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-09T09:24:02Z",
+      "side": 1,
+      "message": "sonar might complain about this.",
+      "range": {
+        "startLine": 377,
+        "startChar": 49,
+        "endLine": 377,
+        "endChar": 109
+      },
+      "revId": "bbd1bb3e83ef833f9b16bc198e262f1e0b2762a7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e0ba4a6_3c30f800",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-09T09:24:02Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 80,
+        "endChar": 11
+      },
+      "revId": "bbd1bb3e83ef833f9b16bc198e262f1e0b2762a7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a6cc013_3fd0e793",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-09T09:24:02Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 167,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "bbd1bb3e83ef833f9b16bc198e262f1e0b2762a7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
