@@ -24,6 +24,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import java.util.Properties;
+
 /**
  * Test the ApexRestRequest class.
  */
@@ -34,11 +36,14 @@ public class ApexRestRequestTest {
         final String eventName = "EventName";
         final String eventString = "The Event String";
 
-        ApexRestRequest rr = new ApexRestRequest(1, eventName, eventString);
+        Properties properties = new Properties();
+        properties.put("key", "value");
+        ApexRestRequest rr = new ApexRestRequest(1, properties, eventName, eventString);
 
         assertEquals(1, rr.getExecutionId());
         assertEquals(eventName, rr.getEventName());
         assertEquals(eventString, rr.getEvent());
+        assertEquals(properties, rr.getExecutionProperties());
 
         rr.setTimestamp(1234567);
         assertEquals(1234567, rr.getTimestamp());
