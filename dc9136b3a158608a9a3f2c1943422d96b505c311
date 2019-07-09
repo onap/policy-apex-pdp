@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "b8434d09_6b0d612c",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-09T16:23:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be removed or something?\nSay, for e.g. when the HttpCodeFilter has [2,5][0-9][0-9], and the response status is 500, an exception will be thrown here itself, where we actually need to handle it.",
+      "range": {
+        "startLine": 203,
+        "startChar": 15,
+        "endLine": 209,
+        "endChar": 17
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80c5f4d8_bc4685f3",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 7
@@ -69,6 +92,29 @@
         "startChar": 13,
         "endLine": 61,
         "endChar": 38
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c28457_4aa92d4b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-09T16:23:12Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 350,
+        "startChar": 16,
+        "endLine": 356,
+        "endChar": 17
       },
       "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
