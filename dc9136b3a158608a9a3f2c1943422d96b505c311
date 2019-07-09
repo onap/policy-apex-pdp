@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a14e75d2_21dfadc7",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-09T14:39:51Z",
+      "side": 1,
+      "message": "\"[2][0-9][0-9] should be a default value in the RestClientCarrierTechnologyParameters class.",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80c5f4d8_bc4685f3",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-09T14:39:51Z",
+      "side": 1,
+      "message": "See previous comments, move code to here.",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5203df51_7b10e950",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-09T14:39:51Z",
+      "side": 1,
+      "message": "Same comments here",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 38
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cd39615_afae5ec4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-09T14:39:51Z",
+      "side": 1,
+      "message": "Same comments.",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
