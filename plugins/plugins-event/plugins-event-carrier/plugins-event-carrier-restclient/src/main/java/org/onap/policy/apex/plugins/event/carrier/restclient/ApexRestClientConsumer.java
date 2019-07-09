@@ -23,6 +23,9 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.EnumMap;
 import java.util.Map;
 
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -50,6 +53,9 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
     // The amount of time to wait in milliseconds between checks that the consumer thread has stopped
     private static final long REST_CLIENT_WAIT_SLEEP_TIME = 50;
+
+    // The Key for property
+    private static final String HTTP_CODE_STATUS = "HTTP_CODE_STATUS";
 
     // The REST parameters read from the parameter service
     private RestClientCarrierTechnologyParameters restConsumerProperties;
@@ -98,6 +104,12 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
+
+        // check if http Return Code filter has been set
+        if (restConsumerProperties.getHttpCodeFilter() == null) {
+            restConsumerProperties.setHttpCodeFilter("[2][0-9][0-9]");
+        }
+
 
         // Initialize the HTTP client
         client = ClientBuilder.newClient();
@@ -206,8 +218,28 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
+                // Build a filter Pattern
+                String pattern = restConsumerProperties.getHttpCodeFilter();
+
+                // Compile the pattern
+                Pattern p = Pattern.compile(pattern);
+
+                // Match the return code
+                Matcher isPass = p.matcher(String.valueOf(response.getStatus()));
+
+                // Check that the request worked
+                if (!isPass.matches()) {
+                    final String errorMessage = "received an invalid status code \"" + response.getStatus() +"\"";
+                    LOGGER.warn(errorMessage);
+                    throw new ApexEventRuntimeException(errorMessage);
+                }
+
+                // build a key and value property in excutionProperties
+                Properties executionProperties = new Properties();
+                executionProperties.put(HTTP_CODE_STATUS, response.getStatus());
+
                 // Send the event into Apex
-                eventReceiver.receiveEvent(null, eventJsonString);
+                eventReceiver.receiveEvent(executionProperties, eventJsonString);
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }

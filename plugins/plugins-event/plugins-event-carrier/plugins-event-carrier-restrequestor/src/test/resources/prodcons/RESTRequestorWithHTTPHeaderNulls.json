@@ -25,7 +25,8 @@
                     "httpHeaders" : [
                         [null, "bbb"],
                         ["ccc", "ddd"]
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
@@ -47,7 +48,8 @@
                         ["aaa", "bbb"],
                         ["ccc", null],
                         ["eee", "fff"]
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
