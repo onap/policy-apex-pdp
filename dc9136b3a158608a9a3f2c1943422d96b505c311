@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "b976c36e_0b8240d9",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-09T16:19:54Z",
+      "side": 1,
+      "message": "suggestion: since all fields have these annotations, could move them to class level",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5203df51_7b10e950",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 7
@@ -59,6 +76,23 @@
     },
     {
       "key": {
+        "uuid": "dd55b8ff_0eea4a3e",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-09T16:19:54Z",
+      "side": 1,
+      "message": "move this common code to a common superclass (or utility, if superclass is not an option)",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cd39615_afae5ec4",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
         "patchSetId": 7
@@ -73,6 +107,40 @@
       "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83f731df_fecebf73",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-09T16:19:54Z",
+      "side": 1,
+      "message": "same comment as before - can move these annotations to class level",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b4a27_618f1bb4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-09T16:19:54Z",
+      "side": 1,
+      "message": "need tests to ensure the filter works correctly?",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
