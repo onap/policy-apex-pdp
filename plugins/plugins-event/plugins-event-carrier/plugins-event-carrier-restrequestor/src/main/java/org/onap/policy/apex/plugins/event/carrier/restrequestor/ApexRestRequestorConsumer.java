@@ -27,11 +27,14 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -56,12 +59,16 @@ import org.slf4j.LoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
+
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestRequestorConsumer.class);
 
     // The amount of time to wait in milliseconds between checks that the consumer thread has
     // stopped
     private static final long REST_REQUESTOR_WAIT_SLEEP_TIME = 50;
+
+    // The Key for property
+    private static final String HTTP_CODE_STATUS = "HTTP_CODE_STATUS";
 
     // The REST parameters read from the parameter service
     private RestRequestorCarrierTechnologyParameters restConsumerProperties;
@@ -143,6 +150,11 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
             final String errorMessage = "invalid URL has been specified on REST Requestor consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage, e);
+        }
+
+        // check if http Return Code filter has been set
+        if (restConsumerProperties.getHttpCodeFilter() == null) {
+            restConsumerProperties.setHttpCodeFilter("[2][0-9][0-9]");
         }
 
         // Set the requestor timeout
@@ -304,6 +316,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
      * @author Liam Fallon (liam.fallon@ericsson.com)
      */
     private class RestRequestRunner implements Runnable {
+
         private static final String APPLICATION_JSON = "application/json";
 
         // The REST request being processed by this thread
@@ -333,27 +346,37 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                 // Execute the REST request
                 final Response response = sendEventAsRestRequest();
 
-                // Check that the event request worked
-                if (!Response.Status.Family.familyOf(response.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
-                    final String errorMessage = "reception of response to \"" + request + "\" from URL \""
-                                    + restConsumerProperties.getUrl() + "\" failed with status code "
-                                    + response.getStatus() + " and message \"" + response.readEntity(String.class)
-                                    + "\"";
-                    throw new ApexEventRuntimeException(errorMessage);
-                }
-
                 // Get the event we received
                 final String eventJsonString = response.readEntity(String.class);
 
                 // Check there is content
                 if (eventJsonString == null || eventJsonString.trim().length() == 0) {
-                    final String errorMessage = "received an enpty response to \"" + request + "\" from URL \""
+                    final String errorMessage = "received an empty response to \"" + request + "\" from URL \""
                                     + restConsumerProperties.getUrl() + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
+                // Build a filter Pattern
+                String pattern = restConsumerProperties.getHttpCodeFilter();
+
+                // Compile the pattern
+                Pattern p = Pattern.compile(pattern);
+
+                // Match the return code
+                Matcher isPass = p.matcher(String.valueOf(response.getStatus()));
+
+                // Check that the request worked
+                if (!isPass.matches()) {
+                    final String errorMessage = "received an invalid status code \"" + response.getStatus() +"\"";
+                    throw new ApexEventRuntimeException(errorMessage);
+                }
+
+                // build a key and value property in excutionProperties
+                Properties executionProperties = new Properties();
+                executionProperties.put(HTTP_CODE_STATUS, response.getStatus());
+
                 // Send the event into Apex
-                eventReceiver.receiveEvent(request.getExecutionId(), null, eventJsonString);
+                eventReceiver.receiveEvent(request.getExecutionId(), executionProperties, eventJsonString);
 
                 synchronized (eventsReceivedLock) {
                     eventsReceived++;

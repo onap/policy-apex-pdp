@@ -25,6 +25,8 @@ import java.util.Arrays;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -43,6 +45,8 @@ import org.onap.policy.common.utils.validation.ParameterValidationUtils;
  *
  * @author Joss Armstrong (joss.armstrong@ericsson.com)
  */
+@Setter
+@Getter
 public class RestClientCarrierTechnologyParameters extends CarrierTechnologyParameters {
     /** The supported HTTP methods. */
     public enum HttpMethod {
@@ -64,6 +68,7 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
+    private String httpCodeFilter = "[2][0-9][0-9]";
 
     /**
      * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
@@ -80,57 +85,12 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     }
 
     /**
-     * Gets the URL for the REST request.
-     *
-     * @return the URL
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the URL for the REST request.
-     *
-     * @param incomingUrl the URL
-     */
-    public void setUrl(final String incomingUrl) {
-        this.url = incomingUrl;
-    }
-
-    /**
-     * Gets the HTTP method to use for the REST request.
-     *
-     * @return the HTTP method
-     */
-    public HttpMethod getHttpMethod() {
-        return httpMethod;
-    }
-
-    /**
-     * Sets the HTTP method to use for the REST request.
-     *
-     * @param httpMethod the HTTP method
-     */
-    public void setHttpMethod(final HttpMethod httpMethod) {
-        this.httpMethod = httpMethod;
-    }
-
-    /**
      * Check if http headers have been set for the REST request.
      *
      * @return true if headers have been set
      */
     public boolean checkHttpHeadersSet() {
         return httpHeaders != null && httpHeaders.length > 0;
-    }
-
-    /**
-     * Gets the http headers for the REST request.
-     *
-     * @return the headers
-     */
-    public String[][] getHttpHeaders() {
-        return httpHeaders;
     }
 
     /**
@@ -151,15 +111,6 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
         }
 
         return httpHeaderMap;
-    }
-
-    /**
-     * Sets the header for the REST request.
-     *
-     * @param httpHeaders the incoming HTTP headers
-     */
-    public void setHttpHeaders(final String[][] httpHeaders) {
-        this.httpHeaders = httpHeaders;
     }
 
     /**
@@ -203,6 +154,6 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     @Override
     public String toString() {
         return "RestClientCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                        + Arrays.deepToString(httpHeaders) + "]";
+                        + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }
