@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1cc2f49a_ef5dc167",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-10T09:51:54Z",
+      "side": 1,
+      "message": "Add nordix license in all files.",
+      "range": {
+        "startLine": 4,
+        "startChar": 3,
+        "endLine": 4,
+        "endChar": 40
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76bde48c_cd15783a",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
         "patchSetId": 8
