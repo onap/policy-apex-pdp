@@ -24,6 +24,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,7 +100,7 @@ public class JavascriptTaskSelectExecutorTest {
         AxEvent axEvent1 = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event1 = new EnEvent(axEvent1);
         try {
-            jtse.execute(-1, null, event1);
+            jtse.execute(-1, new Properties(), event1);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -115,7 +117,7 @@ public class JavascriptTaskSelectExecutorTest {
         }
 
         try {
-            jtse.execute(-1, null, null);
+            jtse.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
@@ -124,7 +126,7 @@ public class JavascriptTaskSelectExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jtse.execute(-1, null, event);
+            jtse.execute(-1, new Properties(), event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -136,7 +138,7 @@ public class JavascriptTaskSelectExecutorTest {
                 + "var returnValue = new returnValueType(false); ");
         try {
             jtse.prepare();
-            jtse.execute(-1, null, event);
+            jtse.execute(-1, new Properties(), event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
@@ -147,7 +149,7 @@ public class JavascriptTaskSelectExecutorTest {
                 + "var returnValue = new returnValueType(true); ");
         try {
             jtse.prepare();
-            AxArtifactKey taskKey = jtse.execute(0, null, event);
+            AxArtifactKey taskKey = jtse.execute(0, new Properties(), event);
             assertEquals("NULL:0.0.0", taskKey.getId());
             jtse.cleanUp();
         } catch (Exception jtseException) {
