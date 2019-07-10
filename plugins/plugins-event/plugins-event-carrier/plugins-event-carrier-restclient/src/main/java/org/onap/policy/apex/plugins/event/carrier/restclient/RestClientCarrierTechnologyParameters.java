@@ -21,10 +21,12 @@
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import java.util.Arrays;
-
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -64,6 +66,9 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
+    private static final Pattern patternProperKey = Pattern.compile("(?<=\\{)[^}]*(?=\\})");
+    private static final Pattern patternErrorKey = Pattern.compile(
+        "(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*\\$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
 
     /**
      * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
@@ -163,6 +168,36 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
     }
 
     /**
+     * Get the tag for the REST Producer Properties.
+     *
+     * @return set of the tags
+     */
+    public Set<String> getKeysFromUrl() {
+        Matcher matcher = patternProperKey.matcher(this.url);
+        Set<String> key = new HashSet<>();
+        while (matcher.find()) {
+            key.add(matcher.group());
+        }
+        return key;
+    }
+
+    /**
+     * Validate tags in url.
+     * http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
+     * http://www.blah.com/{par1/{some}thingelse (Nested tag) use {[^}]*{
+     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
+     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
+     * http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
+     *
+     * @return if url is legal
+     */
+    public boolean validateTagInUrl() {
+        // Check url tag syntax error
+        Matcher matcher = patternErrorKey.matcher(this.url);
+        return (!matcher.find());
+    }
+
+    /**
      * {@inheritDoc}.
      */
     @Override
@@ -171,7 +206,8 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
 
         // Check if the URL has been set for event output
         if (getUrl() == null) {
-            result.setResult("url", ValidationStatus.INVALID, "no URL has been set for event sending on REST client");
+            result.setResult("url", ValidationStatus.INVALID,
+                "no URL has been set for event sending on REST client");
         }
 
         if (httpHeaders == null) {
@@ -194,6 +230,10 @@ public class RestClientCarrierTechnologyParameters extends CarrierTechnologyPara
             }
         }
 
+        if (!validateTagInUrl()) {
+            result.setResult("url", ValidationStatus.INVALID,
+                    "no proper URL has been set for event sending on REST client");
+        }
         return result;
     }
 

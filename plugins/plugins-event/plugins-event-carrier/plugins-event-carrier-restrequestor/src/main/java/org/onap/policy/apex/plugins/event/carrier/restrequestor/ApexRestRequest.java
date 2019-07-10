@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import java.util.Properties;
+
 /**
  * This class holds a record of a REST request for the REST requestor plugin.
  *
@@ -29,6 +31,7 @@ public class ApexRestRequest {
     private long executionId;
     private String eventName;
     private Object event;
+    private Properties executionProperties;
     private long timestamp;
 
     /**
@@ -38,8 +41,10 @@ public class ApexRestRequest {
      * @param eventName the event name
      * @param event the event
      */
-    public ApexRestRequest(final long executionId, final String eventName, final Object event) {
+    public ApexRestRequest(final long executionId, final Properties executionProperties,
+            final String eventName, final Object event) {
         this.executionId = executionId;
+        this.executionProperties = executionProperties;
         this.eventName = eventName;
         this.event = event;
     }
@@ -69,6 +74,15 @@ public class ApexRestRequest {
      */
     public Object getEvent() {
         return event;
+    }
+
+    /**
+     * Gets the executionProperties.
+     *
+     * @return the executionProperties
+     */
+    public Properties getExecutionProperties() {
+        return executionProperties;
     }
 
     /**

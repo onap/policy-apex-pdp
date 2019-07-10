@@ -31,6 +31,8 @@ import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.common.parameters.ParameterException;
 
+import java.util.Set;
+
 /**
  * Test REST Requestor carrier technology parameters.
  */
@@ -145,5 +147,40 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals("RestClientCarrierTechnologyParameters "
                         + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
                         rrctp.toString());
+    }
+
+    @Test
+    public void testUrlValidation() {
+        RestClientCarrierTechnologyParameters rrctp =
+                new RestClientCarrierTechnologyParameters();
+
+        rrctp.setUrl("http://some.where.no.tag.in.url");
+        assertEquals("http://some.where.no.tag.in.url", rrctp.getUrl());
+
+        String[][] httpHeaders = new String[2][2];
+        httpHeaders[0][0] = "aaa";
+        httpHeaders[0][1] = "bbb";
+        httpHeaders[1][0] = "ccc";
+        httpHeaders[1][1] = "ddd";
+
+        rrctp.setHttpHeaders(httpHeaders);
+        assertEquals("aaa", rrctp.getHttpHeaders()[0][0]);
+        assertEquals("bbb", rrctp.getHttpHeaders()[0][1]);
+        assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
+        assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
+
+        assertEquals(true, rrctp.validateTagInUrl());
+
+        rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
+        assertEquals(true, rrctp.validateTagInUrl());
+
+        Set<String> keymap = rrctp.getKeysFromUrl();
+        assertEquals(true, keymap.contains("place"));
+        assertEquals(true, keymap.contains("that"));
+        assertEquals(true, keymap.contains("one"));
+
+
+        rrctp.setUrl("http://place}.{that/{not}.{ }/{that}s}.{exist");
+        assertEquals(false, rrctp.validateTagInUrl());
     }
 }
