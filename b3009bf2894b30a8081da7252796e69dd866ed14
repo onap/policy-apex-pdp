@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "318e6671_8175c0ab",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-10T15:25:21Z",
+      "side": 1,
+      "message": "agreed",
+      "parentUuid": "0b80e7b8_4d1a0bd9",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 1
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08dee2d1_81b9194e",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 8
@@ -154,6 +178,40 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6847d6_cdadae12",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-10T15:25:21Z",
+      "side": 1,
+      "message": "is it really necessary to sleep?  Perhaps use Awaitability to wait for some condition?  Or event better, use a latch that is automatically decremented when the condition is satisfied.",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e1e7851_75a1be82",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-10T15:25:21Z",
+      "side": 1,
+      "message": "add a fail() line here",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
