@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 import org.junit.After;
 import org.junit.Before;
@@ -130,7 +131,7 @@ public class JythonStateFinalizerExecutorTest {
         stateFinalizerLogic.setLogic(scriptSource);
         try {
             jsfe.prepare();
-            jsfe.execute(-1, null, null);
+            jsfe.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(
@@ -151,7 +152,7 @@ public class JythonStateFinalizerExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            jsfe.execute(0, null, event);
+            jsfe.execute(0, new Properties(), event);
         } catch (Exception jtseException) {
             jtseException.printStackTrace();
             fail("test should not throw an exception here");
@@ -159,7 +160,7 @@ public class JythonStateFinalizerExecutorTest {
 
         try {
             jsfe.prepare();
-            String stateOutput = jsfe.execute(0, null, event);
+            String stateOutput = jsfe.execute(0, new Properties(), event);
             assertEquals("SelectedOutputIsMe", stateOutput);
             jsfe.cleanUp();
         } catch (Exception jtseException) {

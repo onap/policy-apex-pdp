@@ -23,6 +23,7 @@ package org.onap.policy.apex.plugins.event.carrier.restserver;
 import java.net.URI;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ws.rs.core.Response;
@@ -195,7 +196,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
 
         try {
             // Send the event into Apex
-            eventReceiver.receiveEvent(executionId, null, event);
+            eventReceiver.receiveEvent(executionId, new Properties(), event);
         } catch (final Exception e) {
             final String errorMessage = "error receiving events on event consumer " + name + ", " + e.getMessage();
             LOGGER.warn(errorMessage, e);

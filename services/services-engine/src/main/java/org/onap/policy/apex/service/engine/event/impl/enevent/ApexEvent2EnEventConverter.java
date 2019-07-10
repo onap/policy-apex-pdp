@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -84,8 +84,8 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         final ApexEvent apexEvent = new ApexEvent(axEvent.getKey().getName(), axEvent.getKey().getVersion(),
                 axEvent.getNameSpace(), axEvent.getSource(), axEvent.getTarget());
 
-        // Copy the ExecutionID from the EnEvent into the ApexEvent
         apexEvent.setExecutionId(enEvent.getExecutionId());
+        apexEvent.setExecutionProperties(enEvent.getExecutionProperties());
 
         // Copy he exception message to the Apex event if it is set
         if (enEvent.getExceptionMessage() != null) {
@@ -126,8 +126,8 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         // Set the data on the engine event
         enEvent.putAll(apexEvent);
 
-        // copy the ExecutionID from the ApexEvent into the EnEvent
         enEvent.setExecutionId(apexEvent.getExecutionId());
+        enEvent.setExecutionProperties(apexEvent.getExecutionProperties());
 
         return enEvent;
     }

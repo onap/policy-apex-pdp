@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
@@ -195,7 +196,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
 
                 // Process the event from the text block if there is one there
                 if (textBlock.getText() != null) {
-                    eventReceiver.receiveEvent(getNextExecutionId(), null, textBlock.getText());
+                    eventReceiver.receiveEvent(getNextExecutionId(), new Properties(), textBlock.getText());
                 }
             }
             while (!textBlock.isEndOfText());

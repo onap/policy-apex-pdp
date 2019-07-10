@@ -118,6 +118,12 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
         // Initialize the returned task object so it can be set
         outgoingTaskKey = new AxArtifactKey();
 
+        // Check the execution properties exist
+        if (executionProperties == null) {
+            throw new StateMachineException(
+                    "execution properties are null on state \"" + getSubject().getId() + "\"");
+        }
+
         // Get task selection context object
         executionContext = new TaskSelectionExecutionContext(this, executionId, getSubject(), getIncoming(),
                 getOutgoing(), getContext());

@@ -26,6 +26,8 @@ import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,7 +97,7 @@ public class JavascriptTaskExecutorTest {
 
         Map<String, Object> incomingParameters2 = new HashMap<>();
         try {
-            jte.execute(-1, null, incomingParameters2);
+            jte.execute(-1, new Properties(), incomingParameters2);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("task logic failed to run for task  \"NULL:0.0.0\"", jteException.getMessage());
@@ -110,7 +112,7 @@ public class JavascriptTaskExecutorTest {
         }
 
         try {
-            jte.execute(-1, null, null);
+            jte.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals(java.lang.NullPointerException.class, jteException.getClass());
@@ -118,7 +120,7 @@ public class JavascriptTaskExecutorTest {
 
         Map<String, Object> incomingParameters = new HashMap<>();
         try {
-            jte.execute(-1, null, incomingParameters);
+            jte.execute(-1, new Properties(), incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("execute: task logic failed to set a return value for task  \"NULL:0.0.0\"",
@@ -129,7 +131,7 @@ public class JavascriptTaskExecutorTest {
                 + "var returnValue = new returnValueType(false); ");
         try {
             jte.prepare();
-            jte.execute(-1, null, incomingParameters);
+            jte.execute(-1, new Properties(), incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
@@ -140,7 +142,7 @@ public class JavascriptTaskExecutorTest {
                 + "var returnValue = new returnValueType(true); ");
         try {
             jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, null, incomingParameters);
+            Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
             assertEquals(0, returnMap.size());
             jte.cleanUp();
         } catch (Exception jteException) {

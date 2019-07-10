@@ -24,6 +24,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -99,7 +101,7 @@ public class JythonTaskSelectExecutorTest {
         state.getTaskSelectionLogic().setLogic(scriptSource);
         try {
             jtse.prepare();
-            jtse.execute(-1, null, null);
+            jtse.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
@@ -109,7 +111,7 @@ public class JythonTaskSelectExecutorTest {
         EnEvent event = new EnEvent(axEvent);
         try {
             jtse.prepare();
-            jtse.execute(-1, null, event);
+            jtse.execute(-1, new Properties(), event);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("failed to execute Jython code for task selection logic in NULL:0.0.0:NULL:NULL",
@@ -120,7 +122,7 @@ public class JythonTaskSelectExecutorTest {
         state.getTaskSelectionLogic().setLogic(scriptSource);
         try {
             jtse.prepare();
-            jtse.execute(-1, null, event);
+            jtse.execute(-1, new Properties(), event);
             jtse.cleanUp();
         } catch (Exception jtseException) {
             fail("test should not throw an exception here");

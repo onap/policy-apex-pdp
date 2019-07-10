@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.websocket;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
@@ -165,7 +166,7 @@ public class ApexWebSocketConsumer implements ApexEventConsumer, WsStringMessage
     @Override
     public void receiveString(final String eventString) {
         try {
-            eventReceiver.receiveEvent(null, eventString);
+            eventReceiver.receiveEvent(new Properties(), eventString);
             eventsRead++;
         } catch (final Exception e) {
             final String errorMessage = "Error sending event " + name + '_' + eventsRead + ", " + e.getMessage()

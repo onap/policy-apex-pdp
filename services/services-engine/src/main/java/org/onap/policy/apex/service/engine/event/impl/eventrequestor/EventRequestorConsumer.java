@@ -22,6 +22,7 @@ package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -177,7 +178,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
                 }
 
                 // Send the event into Apex
-                eventReceiver.receiveEvent(null, eventObject);
+                eventReceiver.receiveEvent(new Properties(), eventObject);
 
                 eventsReceived++;
             } catch (final InterruptedException e) {

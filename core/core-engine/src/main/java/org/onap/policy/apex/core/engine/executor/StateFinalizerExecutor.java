@@ -123,6 +123,12 @@ public abstract class StateFinalizerExecutor
         // Record the incoming fields
         this.incomingFields = newIncomingFields;
 
+        // Check the execution properties exist
+        if (executionProperties == null) {
+            throw new StateMachineException(
+                    "execution properties are null on state finalizer \"" + getSubject().getId() + "\"");
+        }
+
         // Get state finalizer context object
         executionContext = new StateFinalizerExecutionContext(this, executionId, executionProperties, axState,
                 getIncoming(), axState.getStateOutputs().keySet(), getContext());

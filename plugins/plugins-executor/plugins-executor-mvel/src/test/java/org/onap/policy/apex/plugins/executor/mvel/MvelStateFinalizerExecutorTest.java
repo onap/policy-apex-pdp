@@ -24,6 +24,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -126,7 +128,7 @@ public class MvelStateFinalizerExecutorTest {
         }
 
         try {
-            msfe.execute(-1, null, null);
+            msfe.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception msfeException) {
             assertEquals("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL",
@@ -136,7 +138,7 @@ public class MvelStateFinalizerExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         try {
-            msfe.execute(-1, null, event);
+            msfe.execute(-1, new Properties(), event);
             fail("test should throw an exception here");
         } catch (Exception msfeException) {
             assertEquals("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL",
@@ -146,7 +148,7 @@ public class MvelStateFinalizerExecutorTest {
         stateFinalizerLogic.setLogic("executionId !=-1");
         try {
             msfe.prepare();
-            msfe.execute(-1, null, event);
+            msfe.execute(-1, new Properties(), event);
             fail("test should throw an exception here");
         } catch (Exception msfeException) {
             assertEquals(
@@ -161,7 +163,7 @@ public class MvelStateFinalizerExecutorTest {
         state.getStateOutputs().put("SelectedOutputIsMe", null);
         try {
             msfe.prepare();
-            String stateOutput = msfe.execute(0, null, event);
+            String stateOutput = msfe.execute(0, new Properties(), event);
             assertEquals("SelectedOutputIsMe", stateOutput);
         } catch (Exception msfeException) {
             LOGGER.warn("Unexpected exception happened here.", msfeException);

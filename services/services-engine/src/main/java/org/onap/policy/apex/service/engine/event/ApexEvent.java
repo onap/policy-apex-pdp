@@ -124,7 +124,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private long executionId = ApexEvent.getNextExecutionId();
 
     // Event related properties used during processing of this event
-    private Properties executionProperties;
+    private Properties executionProperties = new Properties();
 
     // A string holding a message that indicates why processing of this event threw an exception
     private String exceptionMessage;

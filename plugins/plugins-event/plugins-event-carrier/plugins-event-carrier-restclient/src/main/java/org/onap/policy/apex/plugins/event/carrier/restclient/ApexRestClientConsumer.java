@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -207,7 +208,7 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 }
 
                 // Send the event into Apex
-                eventReceiver.receiveEvent(null, eventJsonString);
+                eventReceiver.receiveEvent(new Properties(), eventJsonString);
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }

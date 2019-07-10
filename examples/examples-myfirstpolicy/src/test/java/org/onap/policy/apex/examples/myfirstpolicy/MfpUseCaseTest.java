@@ -81,12 +81,12 @@ public class MfpUseCaseTest {
     @BeforeClass
     public static void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
@@ -98,7 +98,7 @@ public class MfpUseCaseTest {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
@@ -111,7 +111,7 @@ public class MfpUseCaseTest {
     @AfterClass
     public static void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
