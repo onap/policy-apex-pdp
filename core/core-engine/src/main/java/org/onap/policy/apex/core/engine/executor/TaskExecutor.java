@@ -149,6 +149,12 @@ public abstract class TaskExecutor
             outgoingFields.put(outputFieldName, null);
         }
 
+        // Check the execution properties exist
+        if (executionProperties == null) {
+            throw new StateMachineException(
+                    "execution properties are null on task \"" + axTask.getKey().getId() + "\"");
+        }
+
         // Get task context object
         executionContext = new TaskExecutionContext(this, executionId, executionProperties, getSubject(), getIncoming(),
                 getOutgoing(), getContext());

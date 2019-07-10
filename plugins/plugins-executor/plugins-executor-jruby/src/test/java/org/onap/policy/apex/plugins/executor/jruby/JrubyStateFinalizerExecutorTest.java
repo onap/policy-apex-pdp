@@ -25,6 +25,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,7 +115,7 @@ public class JrubyStateFinalizerExecutorTest {
         }
 
         try {
-            jsfe.execute(-1, null, null);
+            jsfe.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception jtseException) {
             assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" on "
@@ -130,7 +132,7 @@ public class JrubyStateFinalizerExecutorTest {
         state.getStateOutputs().put("SelectedOutputIsMe", null);
         try {
             jsfe.prepare();
-            String stateOutput = jsfe.execute(0, null, event);
+            String stateOutput = jsfe.execute(0, new Properties(), event);
             assertEquals("SelectedOutputIsMe", stateOutput);
             jsfe.cleanUp();
         } catch (Exception jtseException) {

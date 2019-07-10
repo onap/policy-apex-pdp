@@ -27,6 +27,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -66,9 +69,6 @@ public class TaskExecutionContext {
     /** the execution ID for the current APEX policy execution instance. */
     public final Long executionId;
 
-    /** the execution properties the current APEX policy execution instance. */
-    public final Properties executionProperties;
-
     /**
      * The incoming fields from the trigger event for the task. The task logic can access these fields when executing
      * its logic.
@@ -95,7 +95,13 @@ public class TaskExecutionContext {
     private final List<AxConcept> usedArtifactStack;
 
     // A message specified in the logic
+    @Getter
+    @Setter
     private String message;
+
+    // Execution properties for a policy execution
+    @Getter
+    private Properties executionProperties;
 
     /**
      * Instantiates a new task execution context.
@@ -162,23 +168,5 @@ public class TaskExecutionContext {
             throw new ContextRuntimeException("cannot find definition of context album \"" + contextAlbumName
                     + "\" on task \"" + subject.getId() + "\"");
         }
-    }
-
-    /**
-     * Get the user message.
-     *
-     * @return the user message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Sets the user message.
-     *
-     * @param message the message
-     */
-    public void setMessage(final String message) {
-        this.message = message;
     }
 }

@@ -27,6 +27,9 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -60,9 +63,6 @@ public class StateFinalizerExecutionContext {
     /** the execution ID for the current APEX policy execution instance. */
     public final Long executionId;
 
-    /** the execution properties the current APEX policy execution instance. */
-    public final Properties executionProperties;
-
     /**
      * The list of state outputs for this state finalizer. The purpose of a state finalizer is to select a state output
      * for a state from this list of state output names.
@@ -75,9 +75,6 @@ public class StateFinalizerExecutionContext {
      * marshal these fields so that they match the fields required for the event defined in the state output.
      */
     public final Map<String, Object> fields;
-
-    // A message specified in the logic
-    private String message;
 
     /**
      * The state output that the state finalizer logic has selected for a state. The state finalizer logic sets this
@@ -94,6 +91,15 @@ public class StateFinalizerExecutionContext {
 
     // All available context albums
     private final Map<String, ContextAlbum> context;
+
+    // A message specified in the logic
+    @Getter
+    @Setter
+    private String message;
+
+    // Execution properties for a policy execution
+    @Getter
+    private Properties executionProperties;
 
     /**
      * Instantiates a new state finalizer execution context.
@@ -178,23 +184,5 @@ public class StateFinalizerExecutionContext {
      */
     public void setSelectedStateOutputName(final String selectedStateOutputName) {
         this.selectedStateOutputName = selectedStateOutputName;
-    }
-
-    /**
-     * Gets the user message.
-     *
-     * @return the user message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Sets the user message.
-     *
-     * @param message the message
-     */
-    public void setMessage(final String message) {
-        this.message = message;
     }
 }

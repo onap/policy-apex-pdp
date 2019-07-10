@@ -82,7 +82,7 @@ public class EnEvent extends HashMap<String, Object> {
     // Event related properties used during processing of this event
     @Getter
     @Setter
-    private Properties executionProperties;
+    private Properties executionProperties = new Properties();
 
     // A string holding a message that indicates why processing of this event threw an exception
     @Getter
