@@ -27,6 +27,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import lombok.NonNull;
+
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -182,7 +184,8 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      * {@inheritDoc}.
      */
     @Override
-    public void receiveEvent(final Properties executionProperties, final Object event) throws ApexEventException {
+    public void receiveEvent(@NonNull final Properties executionProperties, final Object event)
+            throws ApexEventException {
         receiveEvent(0, executionProperties, event, true);
     }
 
@@ -190,7 +193,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      * {@inheritDoc}.
      */
     @Override
-    public void receiveEvent(final long executionId, final Properties executionProperties, final Object event)
+    public void receiveEvent(final long executionId, @NonNull final Properties executionProperties, final Object event)
             throws ApexEventException {
         receiveEvent(executionId, executionProperties, event, false);
     }

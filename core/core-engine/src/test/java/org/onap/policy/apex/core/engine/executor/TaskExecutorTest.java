@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -158,24 +159,32 @@ public class TaskExecutorTest {
 
         Map<String, Object> incomingFields = new LinkedHashMap<>();
         try {
-            executor.executePre(0, null, incomingFields);
+            executor.executePre(0, new Properties(), incomingFields);
         } catch (Exception ex) {
             assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
         }
 
         incomingFields.put("InField0", "A Value");
         try {
-            executor.executePre(0, null, incomingFields);
+            executor.executePre(0, new Properties(), incomingFields);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
 
         try {
-            executor.execute(0, null, incomingFields);
+            executor.execute(0, new Properties(), incomingFields);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute() not implemented on abstract TaskExecutor class, only on its subclasses",
-                            ex.getMessage());
+                    ex.getMessage());
+        }
+
+        try {
+            executor.execute(0, new Properties(), incomingFields);
+            fail("test should throw an exception");
+        } catch (Exception ex) {
+            assertEquals("execute() not implemented on abstract TaskExecutor class, only on its subclasses",
+                    ex.getMessage());
         }
 
         try {
@@ -183,7 +192,7 @@ public class TaskExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: task logic execution failure on task \"Task0\" in model Context:0.0.1",
-                            ex.getMessage());
+                    ex.getMessage());
         }
 
         executor.getExecutionContext().setMessage("Execution message");
@@ -192,7 +201,7 @@ public class TaskExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: task logic execution failure on task \"Task0\" in model Context:0.0.1, "
-                            + "user message: Execution message", ex.getMessage());
+                    + "user message: Execution message", ex.getMessage());
         }
 
         try {
@@ -216,7 +225,7 @@ public class TaskExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("task output fields \"[BadExtraField]\" are unwanted for task \"Task0:0.0.1\"",
-                            ex.getMessage());
+                    ex.getMessage());
         }
 
         executor.getExecutionContext().outFields.remove("BadExtraField");
@@ -246,6 +255,13 @@ public class TaskExecutorTest {
             executor.executePost(true);
         } catch (Exception ex) {
             fail("test should not throw an exception");
+        }
+
+        try {
+            executor.executePre(0, null, incomingFields);
+            fail("test should throw an exception");
+        } catch (Exception ex) {
+            assertEquals("executionProperties is marked @NonNull but is null", ex.getMessage());
         }
     }
 }

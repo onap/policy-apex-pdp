@@ -23,6 +23,7 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -232,7 +233,7 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
                         jmsMessage.getJMSType());
             }
 
-            eventReceiver.receiveEvent(null, jmsMessage);
+            eventReceiver.receiveEvent(new Properties(), jmsMessage);
         } catch (final Exception e) {
             final String errorMessage = "failed to receive message from JMS";
             LOGGER.warn(errorMessage, e);

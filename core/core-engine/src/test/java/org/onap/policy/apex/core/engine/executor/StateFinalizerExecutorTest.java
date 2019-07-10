@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -117,19 +118,25 @@ public class StateFinalizerExecutorTest {
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception ex) {
             assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
         }
 
         try {
             executor.executePre(0, null, incomingEvent);
+        } catch (Exception ex) {
+            assertEquals("executionProperties is marked @NonNull but is null", ex.getMessage());
+        }
+
+        try {
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
 
         try {
-            executor.execute(0, null, incomingEvent);
+            executor.execute(0, new Properties(), incomingEvent);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute() not implemented on abstract StateFinalizerExecutionContext class, "
@@ -154,7 +161,7 @@ public class StateFinalizerExecutorTest {
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -168,7 +175,7 @@ public class StateFinalizerExecutorTest {
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }
@@ -184,7 +191,7 @@ public class StateFinalizerExecutorTest {
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception ex) {
             fail("test should not throw an exception");
         }

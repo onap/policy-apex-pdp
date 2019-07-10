@@ -27,6 +27,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -353,7 +354,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                 }
 
                 // Send the event into Apex
-                eventReceiver.receiveEvent(request.getExecutionId(), null, eventJsonString);
+                eventReceiver.receiveEvent(request.getExecutionId(), new Properties(), eventJsonString);
 
                 synchronized (eventsReceivedLock) {
                     eventsReceived++;

@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -127,19 +128,19 @@ public class TaskSelectExecutorTest {
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception ex) {
             assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
 
         try {
-            executor.execute(0, null, incomingEvent);
+            executor.execute(0, new Properties(), incomingEvent);
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute() not implemented on class", ex.getMessage());
@@ -150,7 +151,7 @@ public class TaskSelectExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\"",
-                            ex.getMessage());
+                    ex.getMessage());
         }
 
         executor.getExecutionContext().setMessage("Execution message");
@@ -159,11 +160,11 @@ public class TaskSelectExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\", "
-                            + "user message: Execution message", ex.getMessage());
+                    + "user message: Execution message", ex.getMessage());
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -176,7 +177,7 @@ public class TaskSelectExecutorTest {
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -187,11 +188,11 @@ public class TaskSelectExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("task \"IDontExist:0.0.0\" returned by task selection logic not defined "
-                            + "on state \"State0Parent:0.0.1:Parent:State0\"", ex.getMessage());
+                    + "on state \"State0Parent:0.0.1:Parent:State0\"", ex.getMessage());
         }
 
         try {
-            executor.executePre(0, null, incomingEvent);
+            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }
@@ -203,6 +204,13 @@ public class TaskSelectExecutorTest {
             assertEquals("Task0", executor.getOutgoing().getName());
         } catch (Exception e) {
             fail("test should not throw an exception");
+        }
+
+        try {
+            executor.executePre(0, null, incomingEvent);
+            fail("test should throw an exception");
+        } catch (Exception ex) {
+            assertEquals("executionProperties is marked @NonNull but is null", ex.getMessage());
         }
     }
 }

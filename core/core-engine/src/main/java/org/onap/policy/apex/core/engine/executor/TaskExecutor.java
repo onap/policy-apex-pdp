@@ -30,6 +30,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import lombok.NonNull;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -116,7 +118,7 @@ public abstract class TaskExecutor
      * {@inheritDoc}.
      */
     @Override
-    public final void executePre(final long executionId, final Properties executionProperties,
+    public final void executePre(final long executionId, @NonNull final Properties executionProperties,
             final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + getSubject().getTaskLogic().getLogicFlavour() + ","
                 + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
