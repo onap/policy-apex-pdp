@@ -45,6 +45,29 @@
       "revId": "0e9e60d6651931c8b34a418e5d26675e15109fca",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97206524_458c669a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-10T09:44:13Z",
+      "side": 1,
+      "message": "Maybe add some test cases to catch syntax errors in url as well.",
+      "range": {
+        "startLine": 225,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 9
+      },
+      "revId": "0e9e60d6651931c8b34a418e5d26675e15109fca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
