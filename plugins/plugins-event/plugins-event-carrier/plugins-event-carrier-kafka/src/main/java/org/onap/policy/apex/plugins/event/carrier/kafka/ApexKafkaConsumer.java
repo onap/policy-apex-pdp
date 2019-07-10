@@ -22,6 +22,7 @@ package org.onap.policy.apex.plugins.event.carrier.kafka;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -151,7 +152,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
                         kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration().toMillis());
                 for (final ConsumerRecord<String, String> record : records) {
                     traceIfTraceEnabled(record);
-                    eventReceiver.receiveEvent(null, record.value());
+                    eventReceiver.receiveEvent(new Properties(), record.value());
                 }
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);

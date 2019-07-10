@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -66,9 +69,6 @@ public class TaskSelectionExecutionContext {
     /** the execution ID for the current APEX policy execution instance. */
     public final Long executionId;
 
-    /** the execution properties the current APEX policy execution instance. */
-    public final Properties executionProperties;
-
     /**
      * The incoming fields from the trigger event for the state. The task selection logic can access
      * these fields to decide what task to select for the state.
@@ -94,7 +94,13 @@ public class TaskSelectionExecutionContext {
     private final Map<String, ContextAlbum> context;
 
     // A message specified in the logic
+    @Getter
+    @Setter
     private String message;
+
+    // Execution properties for a policy execution
+    @Getter
+    private Properties executionProperties;
 
     /**
      * Instantiates a new task selection execution context.
@@ -169,23 +175,5 @@ public class TaskSelectionExecutionContext {
             throw new ContextRuntimeException("cannot find definition of context album \"" + contextAlbumName
                     + "\" on state \"" + subject.getId() + "\"");
         }
-    }
-
-    /**
-     * Gets the user message.
-     *
-     * @return the user message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Sets the user message.
-     *
-     * @param message the message
-     */
-    public void setMessage(final String message) {
-        this.message = message;
     }
 }

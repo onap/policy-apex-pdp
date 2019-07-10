@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
@@ -103,7 +104,7 @@ public class MvelTaskExecutorTest {
         }
 
         try {
-            mte.execute(-1, null, null);
+            mte.execute(-1, new Properties(), null);
             fail("test should throw an exception here");
         } catch (Exception mteException) {
             assertEquals(java.lang.NullPointerException.class, mteException.getClass());
@@ -111,7 +112,7 @@ public class MvelTaskExecutorTest {
 
         Map<String, Object> incomingParameters = new HashMap<>();
         try {
-            mte.execute(-1, null, incomingParameters);
+            mte.execute(-1, new Properties(), incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception mteException) {
             assertEquals("failed to execute MVEL code for task NULL:0.0.0", mteException.getMessage());
@@ -120,7 +121,7 @@ public class MvelTaskExecutorTest {
         task.getTaskLogic().setLogic("executionId != -1");
         try {
             mte.prepare();
-            mte.execute(-1, null, incomingParameters);
+            mte.execute(-1, new Properties(), incomingParameters);
             fail("test should throw an exception here");
         } catch (Exception mteException) {
             assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
@@ -129,7 +130,7 @@ public class MvelTaskExecutorTest {
 
         try {
             mte.prepare();
-            Map<String, Object> returnMap = mte.execute(0, null, incomingParameters);
+            Map<String, Object> returnMap = mte.execute(0, new Properties(), incomingParameters);
             assertEquals(0, returnMap.size());
             mte.cleanUp();
         } catch (Exception mteException) {

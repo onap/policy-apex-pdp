@@ -212,6 +212,14 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
             LOGGER.trace(eventString);
         }
 
+        // Execution properties must be defined to allow policies to pass properties back
+        if (executionProperties == null) {
+            final String errorMessage = "Error while converting event into an ApexEvent for " + name + ": "
+                    + "executionProperites are null";
+            LOGGER.warn(errorMessage);
+            throw new ApexEventException(errorMessage);
+        }
+
         // Convert the incoming events to Apex events
         try {
             final List<ApexEvent> apexEventList = converter.toApexEvent(consumerParameters.getEventName(), event);
