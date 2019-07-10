@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "c17226e6_d71ccc18",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-10T09:51:54Z",
+      "side": 1,
+      "message": "Maybe add test cases so that these things are caught.",
+      "parentUuid": "3fcc4ea8_8373b185",
+      "range": {
+        "startLine": 203,
+        "startChar": 15,
+        "endLine": 209,
+        "endChar": 17
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80c5f4d8_bc4685f3",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 7
