@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2cbcc080_f45e3b38",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a14e75d2_21dfadc7",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8434d09_6b0d612c",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
         "patchSetId": 7
@@ -30,6 +48,30 @@
       "writtenOn": "2019-07-09T16:23:12Z",
       "side": 1,
       "message": "Shouldn\u0027t this be removed or something?\nSay, for e.g. when the HttpCodeFilter has [2,5][0-9][0-9], and the response status is 500, an exception will be thrown here itself, where we actually need to handle it.",
+      "range": {
+        "startLine": 203,
+        "startChar": 15,
+        "endLine": 209,
+        "endChar": 17
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fcc4ea8_8373b185",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "I will delete the logic bug, thanks.",
+      "parentUuid": "b8434d09_6b0d612c",
       "range": {
         "startLine": 203,
         "startChar": 15,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "09364e56_5ccdbce5",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80c5f4d8_bc4685f3",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b976c36e_0b8240d9",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 7
@@ -70,6 +130,24 @@
       "writtenOn": "2019-07-09T16:19:54Z",
       "side": 1,
       "message": "suggestion: since all fields have these annotations, could move them to class level",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8e05c12_85de6749",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b976c36e_0b8240d9",
       "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "09880c35_84085551",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5203df51_7b10e950",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 38
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46c28457_4aa92d4b",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 7
@@ -110,6 +212,30 @@
       "writtenOn": "2019-07-09T16:23:12Z",
       "side": 1,
       "message": "same comment",
+      "range": {
+        "startLine": 350,
+        "startChar": 16,
+        "endLine": 356,
+        "endChar": 17
+      },
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79996a3c_ee6f469d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Yes, it is a logic bug, I will delete this filed.",
+      "parentUuid": "46c28457_4aa92d4b",
       "range": {
         "startLine": 350,
         "startChar": 16,
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "51d95309_c0a29a46",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Yes it is a task for POLICY-1884 later.",
+      "parentUuid": "dd55b8ff_0eea4a3e",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cd39615_afae5ec4",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
         "patchSetId": 7
@@ -153,6 +297,24 @@
       "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c42b19_2f34deb8",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0cd39615_afae5ec4",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "e11fecef_50d40c40",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83f731df_fecebf73",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "796b4a27_618f1bb4",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
         "patchSetId": 7
@@ -184,6 +364,24 @@
       "writtenOn": "2019-07-09T16:19:54Z",
       "side": 1,
       "message": "need tests to ensure the filter works correctly?",
+      "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03189d15_beb2289f",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParametersTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-10T07:05:58Z",
+      "side": 1,
+      "message": "Filter works in consumer and the test is finished in other blocks.",
+      "parentUuid": "796b4a27_618f1bb4",
       "revId": "dc9136b3a158608a9a3f2c1943422d96b505c311",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
