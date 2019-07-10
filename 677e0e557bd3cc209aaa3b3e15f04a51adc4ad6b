@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45bfb2cb_a83af4b9",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateFinalizerExecutor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-10T14:00:13Z",
+      "side": 1,
+      "message": "or use @NotNull annotation?\n\nsame comment applies in other files",
+      "revId": "677e0e557bd3cc209aaa3b3e15f04a51adc4ad6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf5d2b1d_3159f976",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/executionproperties/logic/RunTestStateTSL.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-10T14:00:13Z",
+      "side": 1,
+      "message": "use a \"switch\" statement?",
+      "revId": "677e0e557bd3cc209aaa3b3e15f04a51adc4ad6b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
