@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6dc7301_ed4b4bec",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-11T12:34:39Z",
+      "side": 1,
+      "message": "should probably do this in an \"else\" block attached to the following \"if\".  Otherwise, it will throw an NPE if the filter is null.",
+      "revId": "3ed1d2ad54b20537ee0a3468826b67683ad8b142",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52d4ce37_49f02323",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-11T12:34:39Z",
+      "side": 1,
+      "message": "can filter really be null?  If so, then need to move line 100 into an \"else\" block attached to this \"if\".  In addition, could replace the two conditions with a single call to StringUtils.isBlank()",
+      "revId": "3ed1d2ad54b20537ee0a3468826b67683ad8b142",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9621548e_74d77a9f",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-11T12:34:39Z",
+      "side": 1,
+      "message": "If filter can be null, then line 130 should be moved into an \"else\" block attached to this \"if\".  May also consider using StringUtils.isBlank().",
+      "revId": "3ed1d2ad54b20537ee0a3468826b67683ad8b142",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
