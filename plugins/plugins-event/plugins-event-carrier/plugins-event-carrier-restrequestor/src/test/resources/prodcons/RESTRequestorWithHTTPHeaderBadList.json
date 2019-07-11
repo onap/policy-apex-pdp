@@ -25,7 +25,8 @@
                     "httpHeaders" : [
                         ["aaa", "bbb"],
                         ["ccc", "ddd"],
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
@@ -45,7 +46,8 @@
                     "httpMethod": "GET",
                     "httpHeaders" : [
                         ,
-                    ]
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
                 }
             },
             "eventProtocolParameters": {
