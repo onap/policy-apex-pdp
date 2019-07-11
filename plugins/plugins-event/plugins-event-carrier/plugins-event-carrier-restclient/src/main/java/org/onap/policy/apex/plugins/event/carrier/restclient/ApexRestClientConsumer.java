@@ -1,6 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +25,9 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.EnumMap;
 import java.util.Map;
 
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -50,6 +55,9 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
     // The amount of time to wait in milliseconds between checks that the consumer thread has stopped
     private static final long REST_CLIENT_WAIT_SLEEP_TIME = 50;
+
+    // The Key for property
+    private static final String HTTP_CODE_STATUS = "HTTP_CODE_STATUS";
 
     // The REST parameters read from the parameter service
     private RestClientCarrierTechnologyParameters restConsumerProperties;
@@ -97,6 +105,11 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 + "is supported for event reception on REST client consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
+        }
+
+        // check if http Return Code filter has been set
+        if (restConsumerProperties.getHttpCodeFilter() == null) {
+            restConsumerProperties.setHttpCodeFilter("[2][0-9][0-9]");
         }
 
         // Initialize the HTTP client
@@ -188,14 +201,6 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                 final Response response = client.target(restConsumerProperties.getUrl()).request("application/json")
                     .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
 
-                // Check that the event request worked
-                if (!Response.Status.Family.familyOf(response.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
-                    final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
-                        + "\" failed with status code " + response.getStatus() + " and message \""
-                        + response.readEntity(String.class) + "\"";
-                    throw new ApexEventRuntimeException(errorMessage);
-                }
-
                 // Get the event we received
                 final String eventJsonString = response.readEntity(String.class);
 
@@ -206,8 +211,23 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
+                // Match the return code
+                Matcher isPass = Pattern.compile(restConsumerProperties.getHttpCodeFilter())
+                    .matcher(String.valueOf(response.getStatus()));
+
+                // Check that status code
+                if (!isPass.matches()) {
+                    final String errorMessage = "received an invalid status code \"" + response.getStatus() +"\"";
+                    LOGGER.warn(errorMessage);
+                    throw new ApexEventRuntimeException(errorMessage);
+                }
+
+                // build a key and value property in excutionProperties
+                Properties executionProperties = new Properties();
+                executionProperties.put(HTTP_CODE_STATUS, response.getStatus());
+
                 // Send the event into Apex
-                eventReceiver.receiveEvent(null, eventJsonString);
+                eventReceiver.receiveEvent(executionProperties, eventJsonString);
             } catch (final Exception e) {
                 LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
             }
