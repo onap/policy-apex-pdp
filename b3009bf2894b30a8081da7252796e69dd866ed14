@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cfbe38aa_a0543a31",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1cc2f49a_ef5dc167",
+      "range": {
+        "startLine": 4,
+        "startChar": 3,
+        "endLine": 4,
+        "endChar": 40
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76bde48c_cd15783a",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad37db70_6a053976",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "76bde48c_cd15783a",
+      "range": {
+        "startLine": 108,
+        "startChar": 1,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "f46af6b6_d6c60dce",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "1. We can not delete filed httpCodeFilter and it comes from Json File. And the pattern is compiled from httpCodeFilter.\n2. If we write the pattern in the properties, it will never changed even if the httpCodeFilter changed.",
+      "parentUuid": "318e6671_8175c0ab",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 1
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08dee2d1_81b9194e",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 8
@@ -106,6 +178,30 @@
       "writtenOn": "2019-07-10T08:29:39Z",
       "side": 1,
       "message": "private Pattern httpCodeFilterPattern \u003d Pattern.compile(\"[2][0-9][0-9]);",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 5
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d546280e_d846873b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "The pattern is not static. If we do like above, when the httpCodeFilter is changed, the Pattern will not change in my test, this is the reason why we have to compile it all the time.",
+      "parentUuid": "08dee2d1_81b9194e",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -135,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "985cce89_4d8f5716",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "How to validate the pattern or just simply validate if the httpCodeFIlternPattern is null.",
+      "parentUuid": "f2879e57_322d9342",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1496faad_ed99ec69",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 8
@@ -155,6 +269,30 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b0e9ec1_ee9b4691",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1496faad_ed99ec69",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 38
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -181,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "f7617645_83ec2022",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "351866e7_740a5a6e",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc6847d6_cdadae12",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
         "patchSetId": 8
@@ -198,6 +360,24 @@
     },
     {
       "key": {
+        "uuid": "9e167940_0a900232",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cc6847d6_cdadae12",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e1e7851_75a1be82",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
         "patchSetId": 8
@@ -209,6 +389,24 @@
       "writtenOn": "2019-07-10T15:25:21Z",
       "side": 1,
       "message": "add a fail() line here",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bdee992_0f63fe46",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T02:14:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1e1e7851_75a1be82",
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
