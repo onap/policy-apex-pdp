@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +42,12 @@ import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 /**
  * Test the ApexRestClientProducer class.
@@ -174,7 +179,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEvent() {
+    public void testApexRestClientProducerPostEventFail() {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
@@ -202,10 +207,60 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
+        //test property not found
+        rcctp.setUrl("http://some.place2.that.{key}.not/{tag}and.again.{tag}");
+        Properties properties = new Properties();
+        properties.put("tag", "exist");
         try {
-            arcp.sendEvent(123, null, "EventName", "This is an Event");
+            arcp.sendEvent(123, properties, "EventName", "This is an Event");
             arcp.stop();
+            fail("test should throw an exception");
         } catch (Exception e) {
+            assertEquals(
+                    "key\"key\"specified on url "
+                            + "\"http://some.place2.that.{key}.not/{tag}and.again.{tag}\"not found "
+                            + "in execution properties passed by the current policy",
+                    e.getMessage());
+        }
+    }
+
+    @Test
+    public void testApexRestClientProducerPostEventOK() {
+        MockitoAnnotations.initMocks(this);
+
+        ApexRestClientProducer arcp = new ApexRestClientProducer();
+        assertNotNull(arcp);
+
+        EventHandlerParameters producerParameters = new EventHandlerParameters();
+        RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(rcctp);
+
+        rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
+        try {
+            arcp.init("RestClientConsumer", producerParameters);
+            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
+
+            assertEquals("RestClientConsumer", arcp.getName());
+        } catch (ApexEventException e) {
+            fail("test should not throw an exception");
+        }
+
+        System.out.println("fail test");
+        rcctp.setUrl("http://some.place.{key}.does.not/{tag}");
+        Properties properties = new Properties();
+        properties.put("tag", "exist");
+        properties.put("key", "that");
+        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
+        Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
+        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
+        Mockito.doReturn(targetMock).when(httpClientMock).target("http://some.place.that.does.not/exist");
+        arcp.setClient(httpClientMock);
+
+        try {
+            arcp.sendEvent(123, properties, "EventName", "This is an Event");
+            arcp.stop();
+        } catch (Exception ex) {
             fail("test should not throw an exception");
         }
     }
