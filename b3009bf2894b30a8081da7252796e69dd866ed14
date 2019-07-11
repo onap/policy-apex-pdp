@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "cb235598_0bc97bcd",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-11T07:44:30Z",
+      "side": 1,
+      "message": "1. This is true.\n2. The httpCodeFilter is configured in the properties so it should never change unless the APEX engine is restarted and the properties are re-read.\n\nTo overcome this we could create a field for the compiled pattern in the ApexRestClientConsumer class and compile it in the \"init()\" method.\n\nprivate Pattern httpCodeFilterPattern;\n\n..........Blah.......\n\npublic void init(.................) {\n\n    ..........................\n    httpCodeFilterPattern \u003d Pattern.compile(restConsumerProperties.getHttpCodeFilter());\n}\n\nThen the code above becomes:\n\nMatcher isPass \u003d httpCodeFilterPattern().matcher(String.valueOf(response.getStatus()));\n\nif (!isPass.matches()) {\n\n.....Blah blah....",
+      "parentUuid": "f46af6b6_d6c60dce",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 1
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08dee2d1_81b9194e",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 8
@@ -243,6 +267,24 @@
       "side": 1,
       "message": "How to validate the pattern or just simply validate if the httpCodeFIlternPattern is null.",
       "parentUuid": "f2879e57_322d9342",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff53257_93719135",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-11T07:44:30Z",
+      "side": 1,
+      "message": "Yes, that\u0027s a good question!\n\nnull is allowed because that means the expression is not specified. In that case set it to \"[2][0-9][0-9]\"\n\nAt least it should not be an empty string and it should compile.\nLet\u0027s do that much for now.",
+      "parentUuid": "985cce89_4d8f5716",
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -340,6 +382,29 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58049584_5bdea921",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-11T07:44:30Z",
+      "side": 1,
+      "message": "Is this test deleted now?",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 58
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     },
     {
       "key": {
