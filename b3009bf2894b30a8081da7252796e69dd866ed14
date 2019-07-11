@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "630cd51e_60ce2233",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T09:10:10Z",
+      "side": 1,
+      "message": "Amazing. I will finish it.",
+      "parentUuid": "cb235598_0bc97bcd",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 1
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08dee2d1_81b9194e",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 8
@@ -235,6 +259,30 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078acea9_2869b75f",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T09:10:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d546280e_d846873b",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 5
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -288,6 +336,24 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0657fda_0a68dbef",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T09:10:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ff53257_93719135",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -396,6 +462,30 @@
       "writtenOn": "2019-07-11T07:44:30Z",
       "side": 1,
       "message": "Is this test deleted now?",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 58
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc3d316_004f9830",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-11T09:10:10Z",
+      "side": 1,
+      "message": "Yes. I found this block I have wrote is useless, and return code test is covered in rest requestor test.",
+      "parentUuid": "58049584_5bdea921",
       "range": {
         "startLine": 141,
         "startChar": 16,
