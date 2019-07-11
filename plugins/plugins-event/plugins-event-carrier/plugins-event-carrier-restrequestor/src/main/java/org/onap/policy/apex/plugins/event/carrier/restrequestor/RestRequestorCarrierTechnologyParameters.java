@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,10 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -78,8 +83,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
 
+    private static final Pattern patternProperKey = Pattern.compile("(?<=\\{)[^}]*(?=\\})");
+    private static final Pattern patternErrorKey = Pattern.compile(
+        "(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
+
     /**
-     * Constructor to create a REST carrier technology parameters instance and regiaaaster the instance with the
+     * Constructor to create a REST carrier technology parameters instance and register the instance with the
      * parameter service.
      */
     public RestRequestorCarrierTechnologyParameters() {
@@ -175,6 +184,36 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     }
 
     /**
+     * Get the tag for the REST Producer Properties.
+     *
+     * @return set of the tags
+     */
+    public Set<String> getKeysFromUrl() {
+        Matcher matcher = patternProperKey.matcher(this.url);
+        Set<String> key = new HashSet<>();
+        while (matcher.find()) {
+            key.add(matcher.group());
+        }
+        return key;
+    }
+
+    /**
+     * Validate tags in url.
+     * http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
+     * http://www.blah.com/{par1/{some}thingelse (Missing end tag2) use {[^}]*{
+     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
+     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
+     * http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
+     *
+     * @return if url is legal
+     */
+    public boolean validateTagInUrl() {
+        // Check url tag syntax error
+        Matcher matcher = patternErrorKey.matcher(this.url);
+        return (!matcher.find());
+    }
+
+    /**
      * {@inheritDoc}.
      */
     @Override
@@ -200,6 +239,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
                                 "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
             }
         }
+
+        if (!validateTagInUrl()) {
+            result.setResult("url", ValidationStatus.INVALID,
+                "no proper URL has been set for event sending on REST client");
+        }
+
 
         return result;
     }

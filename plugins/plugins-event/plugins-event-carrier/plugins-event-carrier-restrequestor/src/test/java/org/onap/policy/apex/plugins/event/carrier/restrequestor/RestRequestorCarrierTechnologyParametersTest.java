@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -30,6 +31,8 @@ import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.common.parameters.ParameterException;
+
+import java.util.Set;
 
 /**
  * Test REST Requestor carrier technology parameters.
@@ -143,4 +146,51 @@ public class RestRequestorCarrierTechnologyParametersTest {
                         + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
                         rrctp.toString());
     }
+
+    @Test
+    public void testUrlValidation() {
+        RestRequestorCarrierTechnologyParameters rrctp =
+            new RestRequestorCarrierTechnologyParameters();
+
+        rrctp.setUrl("http://some.where.no.tag.in.url");
+        assertEquals("http://some.where.no.tag.in.url", rrctp.getUrl());
+
+        String[][] httpHeaders = new String[2][2];
+        httpHeaders[0][0] = "aaa";
+        httpHeaders[0][1] = "bbb";
+        httpHeaders[1][0] = "ccc";
+        httpHeaders[1][1] = "ddd";
+
+        rrctp.setHttpHeaders(httpHeaders);
+        assertEquals("aaa", rrctp.getHttpHeaders()[0][0]);
+        assertEquals("bbb", rrctp.getHttpHeaders()[0][1]);
+        assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
+        assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
+
+        assertEquals(true, rrctp.validateTagInUrl());
+
+        rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
+        assertEquals(true, rrctp.validateTagInUrl());
+
+        Set<String> keymap = rrctp.getKeysFromUrl();
+        assertEquals(true, keymap.contains("place"));
+        assertEquals(true, keymap.contains("that"));
+        assertEquals(true, keymap.contains("one"));
+
+        rrctp.setUrl("http://{place.{that}/{is}.{not}/{what}.{exist}");
+        assertEquals(false, rrctp.validateTagInUrl());
+        rrctp.setUrl("http://{place}.{that}/{is}.{not}/{what}.{exist");
+        assertEquals(false, rrctp.validateTagInUrl());
+        rrctp.setUrl("http://place.that/is.not/what.{exist");
+        assertEquals(false, rrctp.validateTagInUrl());
+        rrctp.setUrl("http://place}.{that}/{is}.{not}/{what}.{exist}");
+        assertEquals(false, rrctp.validateTagInUrl());
+        rrctp.setUrl("http://{place}.{that}/is}.{not}/{what}.{exist}");
+        assertEquals(false, rrctp.validateTagInUrl());
+        rrctp.setUrl("http://{place}.{that}/{}.{not}/{what}.{exist}");
+        assertEquals(false, rrctp.validateTagInUrl());
+        rrctp.setUrl("http://{place}.{that}/{ }.{not}/{what}.{exist}");
+        assertEquals(false, rrctp.validateTagInUrl());
+    }
+
 }
