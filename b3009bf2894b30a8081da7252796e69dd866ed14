@@ -357,6 +357,24 @@
     },
     {
       "key": {
+        "uuid": "ce9360c4_d44310f4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-11T13:33:46Z",
+      "side": 1,
+      "message": "Please implement at least empty string check and that the pattern compiles.",
+      "parentUuid": "f0657fda_0a68dbef",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1496faad_ed99ec69",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 8
@@ -495,6 +513,30 @@
       "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d062f7_5372985a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-11T13:33:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8dc3d316_004f9830",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 58
+      },
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
