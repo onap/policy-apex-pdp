@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "b60f7b57_dd558905",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-11T13:33:46Z",
+      "side": 1,
+      "message": "Jim, you are correct. \n\nThe filter can never be null because the contract from the properties class ensures that it is always set to the default value even if it is not specified in the incoming configuration.\n\nTherefore, this entire if block is not required.",
+      "parentUuid": "52d4ce37_49f02323",
+      "revId": "3ed1d2ad54b20537ee0a3468826b67683ad8b142",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9621548e_74d77a9f",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 10
