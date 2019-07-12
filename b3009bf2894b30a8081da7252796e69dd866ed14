@@ -375,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "feeb5d6e_1bc2e149",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-12T02:40:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce9360c4_d44310f4",
+      "revId": "b3009bf2894b30a8081da7252796e69dd866ed14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1496faad_ed99ec69",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 8
