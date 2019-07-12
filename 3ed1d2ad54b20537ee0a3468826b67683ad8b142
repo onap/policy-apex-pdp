@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "a6442aff_fbf2293b",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-12T02:40:26Z",
+      "side": 1,
+      "message": "StringUtil.isBlank() is a great way. I want leave this block and add a else function. Because some one may set it to null in some coding area.",
+      "parentUuid": "b60f7b57_dd558905",
+      "revId": "3ed1d2ad54b20537ee0a3468826b67683ad8b142",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9621548e_74d77a9f",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 10
