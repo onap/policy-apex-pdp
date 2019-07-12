@@ -26,14 +26,20 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // @formatter:off
 /**
@@ -46,14 +52,21 @@ import org.onap.policy.common.utils.validation.ParameterValidationUtils;
  * This parameter is mandatory.
  * <li>httpMethod: The HTTP method to use when making requests over REST, legal values are GET (default),
  *  POST, PUT, and DELETE.
- * <li>restRequestTimeout: The time in milliseconds to wait for a REST request to complete.
- * <li>restRequestHeader: The necessary header needed
+ * <li>httpHeaders, the HTTP headers to send on REST requests, optional parameter, defaults to none.
+ * <li>httpCodeFilter: a regular expression filter for returned HTTP codes, if the returned HTTP code passes this
+ * filter, then the request is assumed to have succeeded by the plugin, optional, defaults to allowing 2xx codes
+ * through, that is a regular expression of "[2][0-9][0-9]"
  * </ol>
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 //@formatter:on
+@Getter
+@Setter
 public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyParameters {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestRequestorCarrierTechnologyParameters.class);
+
     /** The supported HTTP methods. */
     public enum HttpMethod {
         GET, PUT, POST, DELETE
@@ -63,12 +76,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     public static final String RESTREQUESTOR_CARRIER_TECHNOLOGY_LABEL = "RESTREQUESTOR";
 
     /** The producer plugin class for the REST carrier technology. */
-    public static final String RESTREQUSTOR_EVENT_PRODUCER_PLUGIN_CLASS = ApexRestRequestorProducer.class
-                    .getCanonicalName();
+    public static final String RESTREQUSTOR_EVENT_PRODUCER_PLUGIN_CLASS =
+            ApexRestRequestorProducer.class.getCanonicalName();
 
     /** The consumer plugin class for the REST carrier technology. */
-    public static final String RESTREQUSTOR_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestRequestorConsumer.class
-                    .getCanonicalName();
+    public static final String RESTREQUSTOR_EVENT_CONSUMER_PLUGIN_CLASS =
+            ApexRestRequestorConsumer.class.getCanonicalName();
 
     /** The default HTTP method for request events. */
     public static final HttpMethod DEFAULT_REQUESTOR_HTTP_METHOD = HttpMethod.GET;
@@ -76,20 +89,26 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     /** The default timeout for REST requests. */
     public static final long DEFAULT_REST_REQUEST_TIMEOUT = 500;
 
+    /** The default HTTP code filter, allows 2xx HTTP codes through. */
+    public static final String DEFAULT_HTTP_CODE_FILTER = "[2][0-9][0-9]";
+
     // Commonly occurring strings
     private static final String HTTP_HEADERS = "httpHeaders";
+    private static final String HTTP_CODE_FILTER = "httpCodeFilter";
+
+    // Regular expression patterns for finding and checking keys in URLs
+    private static final Pattern patternProperKey = Pattern.compile("(?<=\\{)[^}]*(?=\\})");
+    private static final Pattern patternErrorKey =
+            Pattern.compile("(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
 
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
-
-    private static final Pattern patternProperKey = Pattern.compile("(?<=\\{)[^}]*(?=\\})");
-    private static final Pattern patternErrorKey = Pattern.compile(
-        "(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
+    private String httpCodeFilter = DEFAULT_HTTP_CODE_FILTER;
 
     /**
-     * Constructor to create a REST carrier technology parameters instance and register the instance with the
-     * parameter service.
+     * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
+     * service.
      */
     public RestRequestorCarrierTechnologyParameters() {
         super();
@@ -101,57 +120,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     }
 
     /**
-     * Gets the URL for the REST request.
-     *
-     * @return the URL
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the URL for the REST request.
-     *
-     * @param incomingUrl the URL
-     */
-    public void setUrl(final String incomingUrl) {
-        this.url = incomingUrl;
-    }
-
-    /**
-     * Gets the HTTP method to use for the REST request.
-     *
-     * @return the HTTP method
-     */
-    public HttpMethod getHttpMethod() {
-        return httpMethod;
-    }
-
-    /**
-     * Sets the HTTP method to use for the REST request.
-     *
-     * @param httpMethod the HTTP method
-     */
-    public void setHttpMethod(final HttpMethod httpMethod) {
-        this.httpMethod = httpMethod;
-    }
-
-    /**
      * Check if http headers have been set for the REST request.
      *
      * @return true if headers have beenset
      */
     public boolean checkHttpHeadersSet() {
         return httpHeaders != null && httpHeaders.length > 0;
-    }
-
-    /**
-     * Gets the http headers for the REST request.
-     *
-     * @return the headers
-     */
-    public String[][] getHttpHeaders() {
-        return httpHeaders;
     }
 
     /**
@@ -189,7 +163,7 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
      * @return set of the tags
      */
     public Set<String> getKeysFromUrl() {
-        Matcher matcher = patternProperKey.matcher(this.url);
+        Matcher matcher = patternProperKey.matcher(getUrl());
         Set<String> key = new HashSet<>();
         while (matcher.find()) {
             key.add(matcher.group());
@@ -197,29 +171,55 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
         return key;
     }
 
-    /**
-     * Validate tags in url.
-     * http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
-     * http://www.blah.com/{par1/{some}thingelse (Missing end tag2) use {[^}]*{
-     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
-     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
-     * http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
-     *
-     * @return if url is legal
-     */
-    public boolean validateTagInUrl() {
-        // Check url tag syntax error
-        Matcher matcher = patternErrorKey.matcher(this.url);
-        return (!matcher.find());
-    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
+        GroupValidationResult result = super.validate();
 
+        result = validateUrl(result);
+
+        result = validateHttpHeaders(result);
+
+        return validateHttpCodeFilter(result);
+    }
+
+    // @formatter:off
+    /**
+     * Validate the URL.
+     *
+     * <p>Checks:
+     * http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
+     * http://www.blah.com/{par1/{some}thingelse (Nested tag) use {[^}]*{
+     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
+     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
+     * http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
+     * @param result the result of the validation
+     */
+    // @formatter:on
+    private GroupValidationResult validateUrl(final GroupValidationResult result) {
+        // URL is only set on Requestor consumers
+        if (getUrl() == null) {
+            return result;
+        }
+
+        Matcher matcher = patternErrorKey.matcher(getUrl());
+        if (matcher.find()) {
+            result.setResult("url", ValidationStatus.INVALID,
+                    "no proper URL has been set for event sending on REST requestor");
+        }
+
+        return result;
+    }
+
+    /**
+     * Validate the HTTP headers.
+     *
+     * @param result the result of the validation
+     */
+    private GroupValidationResult validateHttpHeaders(final GroupValidationResult result) {
         if (httpHeaders == null) {
             return result;
         }
@@ -229,22 +229,43 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID, "HTTP header array entry is null");
             } else if (httpHeader.length != 2) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                                "HTTP header array entries must have one key and one value: "
-                                                + Arrays.deepToString(httpHeader));
+                        "HTTP header array entries must have one key and one value: "
+                                + Arrays.deepToString(httpHeader));
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[0])) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                                "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
+                        "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[1])) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                                "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
+                        "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
             }
         }
 
-        if (!validateTagInUrl()) {
-            result.setResult("url", ValidationStatus.INVALID,
-                "no proper URL has been set for event sending on REST client");
-        }
+        return result;
+    }
 
+    /**
+     * Validate the HTTP code filter.
+     *
+     * @param result the result of the validation
+     */
+    public GroupValidationResult validateHttpCodeFilter(final GroupValidationResult result) {
+        if (httpCodeFilter == null) {
+            httpCodeFilter = DEFAULT_HTTP_CODE_FILTER;
+
+        } else if (StringUtils.isBlank(httpCodeFilter)) {
+            result.setResult(HTTP_CODE_FILTER, ValidationStatus.INVALID,
+                    "HTTP code filter must be specified as a three digit regular expression");
+        } else {
+            try {
+                Pattern.compile(httpCodeFilter);
+            } catch (PatternSyntaxException pse) {
+                String message =
+                        "Invalid HTTP code filter, the filter must be specified as a three digit regular expression: "
+                                + pse.getMessage();
+                result.setResult(HTTP_CODE_FILTER, ValidationStatus.INVALID, message);
+                LOGGER.debug(message, pse);
+            }
+        }
 
         return result;
     }
@@ -255,6 +276,6 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     @Override
     public String toString() {
         return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                        + Arrays.deepToString(httpHeaders) + "]";
+                + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }

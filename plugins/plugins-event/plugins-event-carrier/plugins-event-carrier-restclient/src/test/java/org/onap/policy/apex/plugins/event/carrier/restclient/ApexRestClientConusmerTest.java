@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -33,6 +34,7 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
+import org.junit.After;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -61,8 +63,13 @@ public class ApexRestClientConusmerTest {
     @Mock
     private Response responseMock;
 
+    @After
+    public void after() {
+        System.setOut(stdout);
+    }
+
     @Test
-    public void testApexRestClientConusmerErrors() {
+    public void testApexRestClientConsumerErrors() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
@@ -92,51 +99,41 @@ public class ApexRestClientConusmerTest {
         }
 
         rcctp.setHttpMethod(null);
-        try {
-            arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+        rcctp.setHttpCodeFilter("zzz");
 
-            assertEquals("RestClientConsumer", arcc.getName());
+        arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
 
-            arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        assertEquals("RestClientConsumer", arcc.getName());
+
+        arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
-        try {
-            // We have not set the URL, this test should not receive any events
-            arcc.start();
-            ThreadUtilities.sleep(200);
-            arcc.stop();
-
-            assertEquals(0, incomingEventReceiver.getEventCount());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        // We have not set the URL, this test should not receive any events
+        arcc.start();
+        ThreadUtilities.sleep(200);
+        arcc.stop();
+        assertEquals(0, incomingEventReceiver.getEventCount());
 
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        try {
-            // We have not set the URL, this test should not receive any events
-            arcc.start();
-            ThreadUtilities.sleep(200);
-            arcc.stop();
 
-            assertEquals(0, incomingEventReceiver.getEventCount());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        // We have not set the URL, this test should not receive any events
+        arcc.start();
+        ThreadUtilities.sleep(200);
+        arcc.stop();
+        assertEquals(0, incomingEventReceiver.getEventCount());
     }
 
     @Test
-    public void testApexRestClientConusmerHttpError() {
+    public void testApexRestClientConsumerHttpError() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
@@ -146,50 +143,39 @@ public class ApexRestClientConusmerTest {
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rcctp);
         rcctp.setUrl("http://some.place.that.does.not/exist");
+        rcctp.setHttpCodeFilter("[1-5][0][0-5]");
         SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
 
-        try {
-            arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+        arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
 
-            assertEquals("RestClientConsumer", arcc.getName());
+        assertEquals("[1-5][0][0-5]", rcctp.getHttpCodeFilter());
 
-            arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        assertEquals("RestClientConsumer", arcc.getName());
+
+        arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        try {
-            // We have not set the URL, this test should not receive any events
-            arcc.start();
-            ThreadUtilities.sleep(200);
-            arcc.stop();
-
-            assertEquals(0, incomingEventReceiver.getEventCount());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
-
-        final String outString = outContent.toString();
-        System.setOut(stdout);
-
-        assertTrue(outString.contains(
-            "reception of event from URL \"http://some.place.that.does.not/exist\" failed with status code 400"));
+        // We have not set the URL, this test should not receive any events
+        arcc.start();
+        ThreadUtilities.sleep(200);
+        arcc.stop();
+        assertEquals(0, incomingEventReceiver.getEventCount());
     }
 
     @Test
-    public void testApexRestClientConusmerJsonError() {
+    public void testApexRestClientConsumerJsonError() {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
@@ -199,6 +185,7 @@ public class ApexRestClientConusmerTest {
         SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rcctp);
+        rcctp.setHttpCodeFilter("[1-5][0][0-5]");
 
         try {
             arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
@@ -207,6 +194,7 @@ public class ApexRestClientConusmerTest {
             assertEquals("RestClientConsumer", arcc.getName());
 
             arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+
             assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         } catch (ApexEventException e) {
             fail("test should not throw an exception");
@@ -218,30 +206,26 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        try {
-            // We have not set the URL, this test should not receive any events
-            arcc.start();
-            ThreadUtilities.sleep(200);
-            arcc.stop();
+        // We have not set the URL, this test should not receive any events
+        arcc.start();
+        ThreadUtilities.sleep(200);
+        arcc.stop();
 
-            assertEquals(0, incomingEventReceiver.getEventCount());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        assertEquals(0, incomingEventReceiver.getEventCount());
 
         final String outString = outContent.toString();
-        System.setOut(stdout);
 
         assertTrue(outString.contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
     }
 
     @Test
-    public void testApexRestClientConusmerJsonEmpty() {
+    public void testApexRestClientConsumerJsonEmpty() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
@@ -251,18 +235,16 @@ public class ApexRestClientConusmerTest {
         SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rcctp);
+        rcctp.setHttpCodeFilter("[1-5][0][0-5]");
 
-        try {
-            arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+        arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
 
-            assertEquals("RestClientConsumer", arcc.getName());
+        assertEquals("RestClientConsumer", arcc.getName());
 
-            arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+
+        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -271,6 +253,94 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
+        arcc.setClient(httpClientMock);
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        // We have not set the URL, this test should not receive any events
+        arcc.start();
+        ThreadUtilities.sleep(200);
+        arcc.stop();
+
+        assertEquals(0, incomingEventReceiver.getEventCount());
+
+        final String outString = outContent.toString();
+
+        assertTrue(outString.contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
+    }
+
+    @Test
+    public void testApexRestClientConsumerJsonOk() throws ApexEventException {
+        MockitoAnnotations.initMocks(this);
+
+        ApexRestClientConsumer arcc = new ApexRestClientConsumer();
+        assertNotNull(arcc);
+
+        EventHandlerParameters consumerParameters = new EventHandlerParameters();
+        SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
+        RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
+        consumerParameters.setCarrierTechnologyParameters(rcctp);
+        rcctp.setHttpCodeFilter("[1-5][0][0-5]");
+
+        arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+
+        assertEquals("RestClientConsumer", arcc.getName());
+
+        arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+
+        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+
+        rcctp.setUrl("http://some.place.that.does.not/exist");
+        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
+        Mockito.doReturn("This is an event").when(responseMock).readEntity(String.class);
+        Mockito.doReturn(responseMock).when(builderMock).get();
+        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
+        arcc.setClient(httpClientMock);
+
+        // We have not set the URL, this test should not receive any events
+        arcc.start();
+        ThreadUtilities.sleep(200);
+        arcc.stop();
+
+        assertEquals("This is an event", incomingEventReceiver.getLastEvent());
+    }
+
+    @Test
+    public void testApexRestClientConsumerInvalidStatusCode() throws ApexEventException {
+        MockitoAnnotations.initMocks(this);
+
+        ApexRestClientConsumer arcc = new ApexRestClientConsumer();
+        assertNotNull(arcc);
+
+        EventHandlerParameters consumerParameters = new EventHandlerParameters();
+        SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
+        RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
+        consumerParameters.setCarrierTechnologyParameters(rcctp);
+        rcctp.setHttpCodeFilter("zzz");
+
+        arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+
+        assertEquals("RestClientConsumer", arcc.getName());
+
+        arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+
+        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+
+        rcctp.setUrl("http://some.place.that.does.not/exist");
+        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
+        Mockito.doReturn("This is an event").when(responseMock).readEntity(String.class);
+        Mockito.doReturn(responseMock).when(builderMock).get();
+        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
+        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -281,60 +351,9 @@ public class ApexRestClientConusmerTest {
             arcc.start();
             ThreadUtilities.sleep(200);
             arcc.stop();
-
-            assertEquals(0, incomingEventReceiver.getEventCount());
         } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
-
-        final String outString = outContent.toString();
-        System.setOut(stdout);
-
-        assertTrue(outString.contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
-    }
-
-    @Test
-    public void testApexRestClientConusmerJsonOk() {
-        MockitoAnnotations.initMocks(this);
-
-        ApexRestClientConsumer arcc = new ApexRestClientConsumer();
-        assertNotNull(arcc);
-
-        EventHandlerParameters consumerParameters = new EventHandlerParameters();
-        SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
-        RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
-        consumerParameters.setCarrierTechnologyParameters(rcctp);
-
-        try {
-            arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcc.getName());
-
-            arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
-
-        rcctp.setUrl("http://some.place.that.does.not/exist");
-        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn("This is an event").when(responseMock).readEntity(String.class);
-        Mockito.doReturn(responseMock).when(builderMock).get();
-        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
-        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        arcc.setClient(httpClientMock);
-
-        try {
-            // We have not set the URL, this test should not receive any events
-            arcc.start();
-            ThreadUtilities.sleep(200);
-            arcc.stop();
-
-            assertEquals("This is an event", incomingEventReceiver.getLastEvent());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
+            // test invalid status code
+            assertEquals("received an invalid status code \"200\"", e.getMessage());
         }
     }
 }

@@ -87,30 +87,57 @@ public class RestClientCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testRestClientCarrierTechnologyParametersOk() {
+    public void testRestClientCarrierTechnologyParameterFilterInvalid() {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json");
         arguments.setRelativeFileRoot(".");
 
         try {
+            new ApexParameterHandler().getParameters(arguments);
             ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
 
             RestClientCarrierTechnologyParameters rrctp0 = (RestClientCarrierTechnologyParameters) parameters
                             .getEventInputParameters().get("RestClientConsumer0").getCarrierTechnologyParameters();
-            assertEquals(0, rrctp0.getHttpHeaders().length);
-
-            RestClientCarrierTechnologyParameters rrctp1 = (RestClientCarrierTechnologyParameters) parameters
-                            .getEventInputParameters().get("RestClientConsumer1").getCarrierTechnologyParameters();
-            assertEquals(3, rrctp1.getHttpHeaders().length);
-            assertEquals("bbb", rrctp1.getHttpHeadersAsMultivaluedMap().get("aaa").get(0));
-            assertEquals("ddd", rrctp1.getHttpHeadersAsMultivaluedMap().get("ccc").get(0));
-            assertEquals("fff", rrctp1.getHttpHeadersAsMultivaluedMap().get("eee").get(0));
-
-            rrctp1.setHttpHeaders(null);
-            assertEquals(null, rrctp1.getHttpHeadersAsMultivaluedMap());
+            fail("test should throw an exception here");
         } catch (ParameterException pe) {
-            fail("test should not throw an exception");
+            assertTrue(pe.getMessage().contains("Invalid HTTP code filter, the filter must be specified as a three digit regular expression: "));
         }
+    }
+
+    @Test
+    public void testRestClientCarrierTechnologyParametersOk() throws ParameterException {
+        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setRelativeFileRoot(".");
+
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+        RestClientCarrierTechnologyParameters rrctp0 = (RestClientCarrierTechnologyParameters) parameters
+                        .getEventInputParameters().get("RestClientConsumer0").getCarrierTechnologyParameters();
+        assertEquals(0, rrctp0.getHttpHeaders().length);
+
+        RestClientCarrierTechnologyParameters rrctp1 = (RestClientCarrierTechnologyParameters) parameters
+                        .getEventInputParameters().get("RestClientConsumer1").getCarrierTechnologyParameters();
+        assertEquals(3, rrctp1.getHttpHeaders().length);
+        assertEquals("bbb", rrctp1.getHttpHeadersAsMultivaluedMap().get("aaa").get(0));
+        assertEquals("ddd", rrctp1.getHttpHeadersAsMultivaluedMap().get("ccc").get(0));
+        assertEquals("fff", rrctp1.getHttpHeadersAsMultivaluedMap().get("eee").get(0));
+
+        rrctp1.setHttpHeaders(null);
+        assertEquals(null, rrctp1.getHttpHeadersAsMultivaluedMap());
+    }
+
+    @Test
+    public void testRestClientCarrierTechnologyHttpCodeFilterOk() throws ParameterException {
+        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setRelativeFileRoot(".");
+
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+        RestClientCarrierTechnologyParameters rrctp1 = (RestClientCarrierTechnologyParameters) parameters
+                         .getEventInputParameters().get("RestClientConsumer1").getCarrierTechnologyParameters();
+        assertEquals("[1-5][0][0-5]", rrctp1.getHttpCodeFilter());
     }
 
     @Test
@@ -119,6 +146,9 @@ public class RestClientCarrierTechnologyParametersTest {
 
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
+        assertEquals("[1-5][0][0-5]", rrctp.getHttpCodeFilter());
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -146,8 +176,8 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RestClientCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
-                        rrctp.toString());
+                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]], "
+                        + "httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 
     @Test
@@ -170,10 +200,10 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
         assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
 
-        assertEquals(true, rrctp.validateTagInUrl());
+        assertEquals(true, rrctp.validate().isValid());
 
         rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
-        assertEquals(true, rrctp.validateTagInUrl());
+        assertEquals(true, rrctp.validate().isValid());
 
         Set<String> keymap = rrctp.getKeysFromUrl();
         assertEquals(true, keymap.contains("place"));
@@ -181,19 +211,18 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals(true, keymap.contains("one"));
 
         rrctp.setUrl("http://{place.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{is}.{not}/{what}.{exist");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://place.that/is.not/what.{exist");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://place}.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{ }.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
-
+        assertEquals(false, rrctp.validate().isValid());
     }
 }

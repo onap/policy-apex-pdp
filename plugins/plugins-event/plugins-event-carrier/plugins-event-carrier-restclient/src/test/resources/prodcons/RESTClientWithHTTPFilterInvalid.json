@@ -23,8 +23,10 @@
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
                     "httpMethod": "GET",
                     "httpHeaders" : [
+                        ["aaa", "bbb"],
+                        ["ccc", "ddd"]
                     ],
-                    "httpCodeFilter" : "[1-5][0][0-5]"
+                    "httpCodeFilter" : "*\\.*"
                 }
             },
             "eventProtocolParameters": {
@@ -40,10 +42,9 @@
                     "httpMethod": "GET",
                     "httpHeaders" : [
                         ["aaa", "bbb"],
-                        ["ccc", "ddd"],
-                        ["eee", "fff"]
+                        ["ccc", "ddd"]
                     ],
-                    "httpCodeFilter" : "[1-5][0][0-5]"
+                    "httpCodeFilter" : " "
                 }
             },
             "eventProtocolParameters": {
@@ -55,14 +56,7 @@
         "RestClientProducer0": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
-                "parameters": {
-                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
-                    "httpMethod": "GET",
-                    "httpHeaders" : [
-                    ],
-                    "httpCodeFilter" : "[1-5][0][0-5]"
-                }
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON"
@@ -71,17 +65,7 @@
         "RestClientProducer1": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
-                "parameters": {
-                    "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
-                    "httpMethod": "GET",
-                    "httpHeaders" : [
-                        ["aaa", "bbb"],
-                        ["ccc", "ddd"],
-                        ["eee", "fff"]
-                    ],
-                    "httpCodeFilter" : "[1-5][0][0-5]"
-                }
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters"
             },
             "eventProtocolParameters": {
                 "eventProtocol": "JSON"

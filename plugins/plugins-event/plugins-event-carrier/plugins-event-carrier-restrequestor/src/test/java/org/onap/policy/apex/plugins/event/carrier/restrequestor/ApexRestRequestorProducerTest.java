@@ -39,7 +39,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 public class ApexRestRequestorProducerTest {
 
     @Test
-    public void testApexRestRequestorProducerMethods() {
+    public void testApexRestRequestorProducerMethods() throws ApexEventException {
         ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
         assertNotNull(producer);
 
@@ -83,12 +83,8 @@ public class ApexRestRequestorProducerTest {
         }
 
         rrctp.setHttpMethod(null);
-        try {
-            producer.init(producerName, producerParameters);
-            producer.stop();
-        } catch (ApexEventException aee) {
-            fail("test should not throw an exception here");
-        }
+        producer.init(producerName, producerParameters);
+        producer.stop();
 
         assertEquals("ProducerName", producer.getName());
         assertEquals(0, producer.getEventsSent());
@@ -96,7 +92,7 @@ public class ApexRestRequestorProducerTest {
     }
 
     @Test
-    public void testApexRestRequestorProducerRequest() {
+    public void testApexRestRequestorProducerRequest() throws ApexEventException {
         ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
 
         String producerName = "ProducerName";
@@ -108,12 +104,8 @@ public class ApexRestRequestorProducerTest {
         rrctp.setUrl(null);
         rrctp.setHttpMethod(null);
 
-        try {
-            producer.init(producerName, producerParameters);
-            producer.stop();
-        } catch (ApexEventException aee) {
-            fail("test should not throw an exception here");
-        }
+        producer.init(producerName, producerParameters);
+        producer.stop();
 
         String eventName = "EventName";
         String event = "This is the event";

@@ -27,6 +27,8 @@ import static org.junit.Assert.fail;
 
 import ch.qos.logback.classic.Level;
 
+import java.util.Properties;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
@@ -42,12 +44,8 @@ import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Properties;
 
 /**
  * Test the ApexRestClientProducer class.
@@ -69,7 +67,7 @@ public class ApexRestClientProducerTest {
     private Response responseMock;
 
     @Test
-    public void testApexRestClientProducerErrors() {
+    public void testApexRestClientProducerErrors() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -96,53 +94,33 @@ public class ApexRestClientProducerTest {
         }
 
         rcctp.setHttpMethod(null);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-
-            arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-
-            arcp.stop();
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
+        arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+        assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        arcp.stop();
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
+        arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+        assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        arcp.stop();
 
-            assertEquals("RestClientConsumer", arcp.getName());
-
-            arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-
-            arcp.stop();
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-
-            arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-            assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-
-            arcp.stop();
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
+        arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
+        assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        arcp.stop();
     }
 
     @Test
-    public void testApexRestClientProducerPutEvent() {
+    public void testApexRestClientProducerPutEvent() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
@@ -153,14 +131,9 @@ public class ApexRestClientProducerTest {
         producerParameters.setCarrierTechnologyParameters(rcctp);
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -170,16 +143,12 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
-        try {
-            arcp.sendEvent(123, null, "EventName", "This is an Event");
-            arcp.stop();
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        arcp.sendEvent(123, null, "EventName", "This is an Event");
+        arcp.stop();
     }
 
     @Test
-    public void testApexRestClientProducerPostEventFail() {
+    public void testApexRestClientProducerPostEventFail() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
@@ -190,14 +159,9 @@ public class ApexRestClientProducerTest {
         producerParameters.setCarrierTechnologyParameters(rcctp);
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -225,7 +189,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEventOK() {
+    public void testApexRestClientProducerPostEventOK() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
@@ -236,14 +200,9 @@ public class ApexRestClientProducerTest {
         producerParameters.setCarrierTechnologyParameters(rcctp);
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
 
         System.out.println("fail test");
         rcctp.setUrl("http://some.place.{key}.does.not/{tag}");
@@ -257,16 +216,12 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target("http://some.place.that.does.not/exist");
         arcp.setClient(httpClientMock);
 
-        try {
-            arcp.sendEvent(123, properties, "EventName", "This is an Event");
-            arcp.stop();
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        arcp.sendEvent(123, properties, "EventName", "This is an Event");
+        arcp.stop();
     }
 
     @Test
-    public void testApexRestClientProducerPostEventCache() {
+    public void testApexRestClientProducerPostEventCache() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
@@ -283,14 +238,9 @@ public class ApexRestClientProducerTest {
             1000);
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
         assertEquals(cache, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -300,16 +250,12 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
-        try {
-            arcp.sendEvent(123, null, "EventName", "This is an Event");
-            arcp.stop();
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        arcp.sendEvent(123, null, "EventName", "This is an Event");
+        arcp.stop();
     }
 
     @Test
-    public void testApexRestClientProducerPostEventCacheTrace() {
+    public void testApexRestClientProducerPostEventCacheTrace() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ch.qos.logback.classic.Logger classicLogger = (ch.qos.logback.classic.Logger) LOGGER;
@@ -329,14 +275,9 @@ public class ApexRestClientProducerTest {
             1000);
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
         assertEquals(cache, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -346,16 +287,12 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
-        try {
-            arcp.sendEvent(123, null, "EventName", "This is an Event");
-            arcp.stop();
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        arcp.sendEvent(123, null, "EventName", "This is an Event");
+        arcp.stop();
     }
 
     @Test
-    public void testApexRestClientProducerHttpError() {
+    public void testApexRestClientProducerHttpError() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
@@ -366,14 +303,9 @@ public class ApexRestClientProducerTest {
         producerParameters.setCarrierTechnologyParameters(rcctp);
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
-
-            assertEquals("RestClientConsumer", arcp.getName());
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();

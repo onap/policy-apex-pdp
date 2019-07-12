@@ -25,23 +25,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.Properties;
+
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
-import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-
-import java.util.Properties;
 
 /**
  * Test the ApexRestRequestorConsumer class.
  *
  */
 public class ApexRestRequestorConsumerTest {
+
     @Test
-    public void testApexRestRequestorConsumerSetup() {
+    public void testApexRestRequestorConsumerSetup() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
@@ -88,13 +88,10 @@ public class ApexRestRequestorConsumerTest {
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
-        try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
-        } catch (ApexEventException aee) {
-            fail("test should not throw an exception");
-        }
+        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
 
         try {
             consumer.processRestRequest(null);
@@ -110,7 +107,7 @@ public class ApexRestRequestorConsumerTest {
     }
 
     @Test
-    public void testApexRestRequestorConsumerRequest() {
+    public void testApexRestRequestorConsumerRequest() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
@@ -123,24 +120,21 @@ public class ApexRestRequestorConsumerTest {
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         // Test should time out requests
-        try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
-            consumer.start();
-            ApexRestRequest request = new ApexRestRequest(123, null,"EventName", "Event body");
-            consumer.processRestRequest(request);
-            ThreadUtilities.sleep(2000);
-            consumer.stop();
-            assertEquals(0, consumer.getEventsReceived());
-        } catch (ApexEventException aee) {
-            fail("test should not throw an exception");
-        }
+        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.start();
+        ApexRestRequest request = new ApexRestRequest(123, null, "EventName", "Event body");
+        consumer.processRestRequest(request);
+        ThreadUtilities.sleep(200);
+        consumer.stop();
+        assertEquals(0, consumer.getEventsReceived());
     }
 
     @Test
-    public void testApexRestRequestorConsumerUrlUpdate() {
+    public void testApexRestRequestorConsumerUrlUpdate() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
@@ -158,21 +152,18 @@ public class ApexRestRequestorConsumerTest {
         Properties properties = new Properties();
         properties.put("site", "onap");
         properties.put("net", "org");
-        try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
-            consumer.start();
-            ApexRestRequest request = new ApexRestRequest(123, properties,"EventName", "Event body");
-            consumer.processRestRequest(request);
-            ThreadUtilities.sleep(2000);
-            consumer.stop();
-            assertEquals(0, consumer.getEventsReceived());
-        } catch (Exception aee) {
-            fail("test should not throw an exception");
-        }
+
+        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.start();
+        ApexRestRequest request = new ApexRestRequest(123, properties,"EventName", "Event body");
+        consumer.processRestRequest(request);
+        ThreadUtilities.sleep(2000);
+        consumer.stop();
+        assertEquals(0, consumer.getEventsReceived());
     }
 
     @Test
-    public void testApexRestRequestorConsumerUrlUpdateError() {
+    public void testApexRestRequestorConsumerUrlUpdateError() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
@@ -189,16 +180,13 @@ public class ApexRestRequestorConsumerTest {
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 2000);
         Properties properties = new Properties();
         properties.put("site", "onap");
-        try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
-            consumer.start();
-            ApexRestRequest request = new ApexRestRequest(123, properties,"EventName", "Event body");
-            consumer.processRestRequest(request);
-            ThreadUtilities.sleep(2000);
-            consumer.stop();
-            assertEquals(0, consumer.getEventsReceived());
-        } catch (Exception aee) {
-            fail("test should not throw an exception");
-        }
+
+        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.start();
+        ApexRestRequest request = new ApexRestRequest(123, properties,"EventName", "Event body");
+        consumer.processRestRequest(request);
+        ThreadUtilities.sleep(2000);
+        consumer.stop();
+        assertEquals(0, consumer.getEventsReceived());
     }
 }

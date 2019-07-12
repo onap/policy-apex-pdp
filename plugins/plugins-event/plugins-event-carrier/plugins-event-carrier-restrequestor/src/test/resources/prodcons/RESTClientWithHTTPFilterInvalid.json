@@ -23,10 +23,8 @@
                     "url": "http://localhost:32801/TestRESTRequestor/apex/event/GetEvent",
                     "httpMethod": "GET",
                     "httpHeaders" : [
-                        [null, "bbb"],
-                        ["ccc", "ddd"]
                     ],
-                    "httpCodeFilter" : "[1-5][0][0-5]"
+                    "httpCodeFilter" : "*\\.*"
                 }
             },
             "eventProtocolParameters": {
@@ -46,10 +44,10 @@
                     "httpMethod": "GET",
                     "httpHeaders" : [
                         ["aaa", "bbb"],
-                        ["ccc", null],
+                        ["ccc", "ddd"],
                         ["eee", "fff"]
                     ],
-                    "httpCodeFilter" : "[1-5][0][0-5]"
+                    "httpCodeFilter" : " "
                 }
             },
             "eventProtocolParameters": {
