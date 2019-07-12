@@ -88,6 +88,7 @@ public class ApexRestRequestorConsumerTest {
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         try {
@@ -123,6 +124,7 @@ public class ApexRestRequestorConsumerTest {
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         // Test should time out requests
@@ -131,7 +133,7 @@ public class ApexRestRequestorConsumerTest {
             consumer.start();
             ApexRestRequest request = new ApexRestRequest(123, null,"EventName", "Event body");
             consumer.processRestRequest(request);
-            ThreadUtilities.sleep(2000);
+            ThreadUtilities.sleep(200);
             consumer.stop();
             assertEquals(0, consumer.getEventsReceived());
         } catch (ApexEventException aee) {

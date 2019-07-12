@@ -30,6 +30,9 @@ import java.util.regex.Pattern;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -53,6 +56,8 @@ import org.onap.policy.common.utils.validation.ParameterValidationUtils;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 //@formatter:on
+@Getter
+@Setter
 public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyParameters {
     /** The supported HTTP methods. */
     public enum HttpMethod {
@@ -78,10 +83,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
 
     // Commonly occurring strings
     private static final String HTTP_HEADERS = "httpHeaders";
+    private static final String HTTP_CODE_FILTER = "httpCodeFilter";
 
     private String url = null;
     private HttpMethod httpMethod = null;
     private String[][] httpHeaders = null;
+    private String httpCodeFilter = "[2][0-9][0-9]";
 
     private static final Pattern patternProperKey = Pattern.compile("(?<=\\{)[^}]*(?=\\})");
     private static final Pattern patternErrorKey = Pattern.compile(
@@ -101,57 +108,12 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     }
 
     /**
-     * Gets the URL for the REST request.
-     *
-     * @return the URL
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the URL for the REST request.
-     *
-     * @param incomingUrl the URL
-     */
-    public void setUrl(final String incomingUrl) {
-        this.url = incomingUrl;
-    }
-
-    /**
-     * Gets the HTTP method to use for the REST request.
-     *
-     * @return the HTTP method
-     */
-    public HttpMethod getHttpMethod() {
-        return httpMethod;
-    }
-
-    /**
-     * Sets the HTTP method to use for the REST request.
-     *
-     * @param httpMethod the HTTP method
-     */
-    public void setHttpMethod(final HttpMethod httpMethod) {
-        this.httpMethod = httpMethod;
-    }
-
-    /**
      * Check if http headers have been set for the REST request.
      *
      * @return true if headers have beenset
      */
     public boolean checkHttpHeadersSet() {
         return httpHeaders != null && httpHeaders.length > 0;
-    }
-
-    /**
-     * Gets the http headers for the REST request.
-     *
-     * @return the headers
-     */
-    public String[][] getHttpHeaders() {
-        return httpHeaders;
     }
 
     /**
@@ -245,6 +207,9 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
                 "no proper URL has been set for event sending on REST client");
         }
 
+        if (StringUtils.isBlank(httpCodeFilter)) {
+            result.setResult(HTTP_CODE_FILTER,ValidationStatus.INVALID, "HTTP CODE FIlTER is blank.");
+        }
 
         return result;
     }
@@ -255,6 +220,6 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
     @Override
     public String toString() {
         return "RESTRequestorCarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                        + Arrays.deepToString(httpHeaders) + "]";
+                        + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }
