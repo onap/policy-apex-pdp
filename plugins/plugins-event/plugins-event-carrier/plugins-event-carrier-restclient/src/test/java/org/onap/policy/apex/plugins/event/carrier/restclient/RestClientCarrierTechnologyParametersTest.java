@@ -114,11 +114,32 @@ public class RestClientCarrierTechnologyParametersTest {
     }
 
     @Test
+    public void testRestClientCarrierTechnologyHttpCodeFilterOk() {
+        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setRelativeFileRoot(".");
+
+        try {
+            ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+            RestClientCarrierTechnologyParameters rrctp1 = (RestClientCarrierTechnologyParameters) parameters
+                             .getEventInputParameters().get("RestClientConsumer1").getCarrierTechnologyParameters();
+            assertEquals("[1-5][0][0-5]", rrctp1.getHttpCodeFilter());
+
+        } catch (ParameterException pe) {
+            fail("test should not throw an exception");
+        }
+    }
+
+    @Test
     public void testGettersAndSetters() {
         RestClientCarrierTechnologyParameters rrctp = new RestClientCarrierTechnologyParameters();
 
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
+        assertEquals("[1-5][0][0-5]", rrctp.getHttpCodeFilter());
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -146,8 +167,8 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RestClientCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
-                        rrctp.toString());
+                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]], "
+                        + "httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 
     @Test
