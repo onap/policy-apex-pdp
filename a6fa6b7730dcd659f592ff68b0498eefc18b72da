@@ -467,6 +467,24 @@
       "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7bacdef8_9092f694",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T14:41:53Z",
+      "side": 1,
+      "message": "I don\u0027t understand.  Just add \"throws Exception\" to the test case, then try/catch can be removed, while retaining lines 163-169",
+      "parentUuid": "f5d74b6e_6163c073",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
