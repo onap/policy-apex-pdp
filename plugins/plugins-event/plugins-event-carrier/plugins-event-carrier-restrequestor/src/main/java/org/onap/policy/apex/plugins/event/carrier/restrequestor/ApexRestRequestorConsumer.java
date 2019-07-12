@@ -27,16 +27,14 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Optional;
-import java.util.Map.Entry;
-import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -254,15 +252,15 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
                     Set<String> names = restConsumerProperties.getKeysFromUrl();
                     Set<String> inputProperty = inputExecutionProperties.stringPropertyNames();
 
-                    names.stream().map(key -> Optional.of(key)).forEach(op -> {
-                        op.filter(str -> inputProperty.contains(str))
+                    names.stream().map(Optional::of).forEach(op ->
+                        op.filter(inputProperty::contains)
                                 .orElseThrow(() -> new ApexEventRuntimeException(
-                                        "key\"" + op.get() + "\"specified on url \"" + restConsumerProperties.getUrl() +
-                                                "\"not found in execution properties passed by the current policy"));
-                    });
+                                        "key\"" + op.get() + "\"specified on url \"" + restConsumerProperties.getUrl()
+                                                + "\"not found in execution properties passed by the current policy"))
+                    );
 
                     untaggedUrl = names.stream().reduce(untaggedUrl,
-                            (acc, str) -> acc.replace("{" + str + "}", (String) inputExecutionProperties.get(str)));
+                        (acc, str) -> acc.replace("{" + str + "}", (String) inputExecutionProperties.get(str)));
                 }
 
                 // Set the time stamp of the REST request
