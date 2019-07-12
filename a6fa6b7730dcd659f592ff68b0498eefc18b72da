@@ -485,6 +485,24 @@
       "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12b38c4e_5f5406cf",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2019-07-12T15:51:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7bacdef8_9092f694",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
