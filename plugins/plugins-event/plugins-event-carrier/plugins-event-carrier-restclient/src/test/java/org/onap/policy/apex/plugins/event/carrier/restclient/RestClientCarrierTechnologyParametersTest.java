@@ -69,6 +69,9 @@ public class RestClientCarrierTechnologyParametersTest {
             assertTrue(pe.getMessage().trim()
                             .endsWith("HTTP header array entries must have one key and one value: [aaa]"));
         }
+        catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
     }
 
     @Test
@@ -114,11 +117,32 @@ public class RestClientCarrierTechnologyParametersTest {
     }
 
     @Test
+    public void testRestClientCarrierTechnologyHttpCodeFilterOk() {
+        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setRelativeFileRoot(".");
+
+        try {
+            ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+            RestClientCarrierTechnologyParameters rrctp1 = (RestClientCarrierTechnologyParameters) parameters
+                             .getEventInputParameters().get("RestClientConsumer1").getCarrierTechnologyParameters();
+            assertEquals("[1-5][0][0-5]", rrctp1.getHttpCodeFilter());
+
+        } catch (ParameterException pe) {
+            fail("test should not throw an exception");
+        }
+    }
+
+    @Test
     public void testGettersAndSetters() {
         RestClientCarrierTechnologyParameters rrctp = new RestClientCarrierTechnologyParameters();
 
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
+        assertEquals("[1-5][0][0-5]", rrctp.getHttpCodeFilter());
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -146,8 +170,8 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RestClientCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
-                        rrctp.toString());
+                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]], "
+                        + "httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 
     @Test
@@ -170,10 +194,10 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
         assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
 
-        assertEquals(true, rrctp.validateTagInUrl());
+        assertEquals(true, rrctp.validate().isValid());
 
         rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
-        assertEquals(true, rrctp.validateTagInUrl());
+        assertEquals(true, rrctp.validate().isValid());
 
         Set<String> keymap = rrctp.getKeysFromUrl();
         assertEquals(true, keymap.contains("place"));
@@ -181,19 +205,19 @@ public class RestClientCarrierTechnologyParametersTest {
         assertEquals(true, keymap.contains("one"));
 
         rrctp.setUrl("http://{place.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{is}.{not}/{what}.{exist");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://place.that/is.not/what.{exist");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://place}.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{ }.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
 
     }
 }

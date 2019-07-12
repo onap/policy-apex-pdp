@@ -2860,6 +2860,7 @@ REST Client Output
                           "parameters" : {
                             "url" : "http://example.com:8888/actions/events", (2)
                             "httpMethod" : "PUT" (3)
+                            "httpColdFilter" : "[2][0-9][0-9]" (4)
                           }
                         }
 
@@ -2871,6 +2872,8 @@ REST Client Output
                   | **2** | the URL of the HTTP server for events            |
                   +-------+--------------------------------------------------+
                   | **3** | use HTTP PUT (remove this line to use HTTP POST) |
+                  +-------+--------------------------------------------------+
+                  | **4** | use HTTP CODE FIlTER for return code |
                   +-------+--------------------------------------------------+
 
 REST Server IO

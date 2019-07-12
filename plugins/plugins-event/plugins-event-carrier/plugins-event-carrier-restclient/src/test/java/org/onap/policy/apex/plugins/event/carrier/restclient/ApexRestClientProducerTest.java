@@ -27,6 +27,8 @@ import static org.junit.Assert.fail;
 
 import ch.qos.logback.classic.Level;
 
+import java.util.Properties;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
@@ -42,12 +44,8 @@ import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Properties;
 
 /**
  * Test the ApexRestClientProducer class.

@@ -114,8 +114,15 @@ public class RestRequestorCarrierTechnologyParametersTest {
     public void testGettersAndSetters() {
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
 
+        rrctp.setHttpHeaders(null);
+        assertEquals(null,rrctp.getHttpHeadersAsMultivaluedMap());
+
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
+
+        rrctp.setHttpCodeFilter("[1-5][0][0-5]");
+        assertEquals("[1-5][0][0-5]",rrctp.getHttpCodeFilter());
+
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -143,8 +150,8 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals(RestRequestorCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RESTRequestorCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]]]",
-                        rrctp.toString());
+                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]],"
+                        + " httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 
     @Test
@@ -167,10 +174,10 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
         assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
 
-        assertEquals(true, rrctp.validateTagInUrl());
+        assertEquals(true, rrctp.validate().isValid());
 
         rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
-        assertEquals(true, rrctp.validateTagInUrl());
+        assertEquals(true, rrctp.validate().isValid());
 
         Set<String> keymap = rrctp.getKeysFromUrl();
         assertEquals(true, keymap.contains("place"));
@@ -178,19 +185,19 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals(true, keymap.contains("one"));
 
         rrctp.setUrl("http://{place.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{is}.{not}/{what}.{exist");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://place.that/is.not/what.{exist");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://place}.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{ }.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validateTagInUrl());
+        assertEquals(false, rrctp.validate().isValid());
     }
 
 }
