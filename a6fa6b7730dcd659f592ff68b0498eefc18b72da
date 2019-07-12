@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1519f56d_ab233d8c",
+        "filename": "docs/APEX-User-Manual.rst",
+        "patchSetId": 15
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-12T10:42:56Z",
+      "side": 1,
+      "message": "FILTER",
+      "range": {
+        "startLine": 2876,
+        "startChar": 42,
+        "endLine": 2876,
+        "endChar": 48
+      },
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f801f652_ff0a9499",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-12T10:42:56Z",
+      "side": 1,
+      "message": "httpCodeFilter",
+      "range": {
+        "startLine": 55,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9f0513_f5f6cdad",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-12T10:42:56Z",
+      "side": 1,
+      "message": "We should put in a test that calls validate after this so that we can check if the validate on an invalid filter fails.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 3
+      },
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f5d363_71070f33",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParametersTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-07-12T10:42:56Z",
+      "side": 1,
+      "message": "Remove this, it was just used for debugging.",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
