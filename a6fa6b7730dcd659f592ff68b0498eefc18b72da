@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "de3f401f_f984d55d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "StringUtils.isBlank()",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f801f652_ff0a9499",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
         "patchSetId": 15
@@ -45,6 +62,23 @@
       "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb570e3_ffc6e4bd",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "is there a reason for using getUrl() on line 194, but this.url on line 199?",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +105,23 @@
     },
     {
       "key": {
+        "uuid": "99a47066_9621c60a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "is this necessary?  If so, it might best be done in an @After method, to ensure that it\u0027s done, whether or not the junit test case fails in the middle.",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53f5d363_71070f33",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParametersTest.java",
         "patchSetId": 15
@@ -91,6 +142,91 @@
       "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa21c75_982e4161",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "StringUtils.isBlank()",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1090004_40d7e416",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "this is fine, though the common code block could be done before the switch, and then just the appropriate method called within the switch",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0e84ae0_c1df256d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorCarrierTechnologyParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "getUrl() vs this.url",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e386c99_ba7b848c",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "checkstyle: need a space after \"null,\"",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7df30c79_d94782d5",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumerTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-12T13:02:39Z",
+      "side": 1,
+      "message": "not sure why this is wrapped in a try/catch block - junit will generate an error if something throws an exception, so no need to add this extra code\n\nsame comment applies to other test cases",
+      "revId": "a6fa6b7730dcd659f592ff68b0498eefc18b72da",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
