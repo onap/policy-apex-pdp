@@ -2842,10 +2842,14 @@ REST Client Output
                .. container:: paragraph
 
                   APEX will connect to a given URL to send events, but
-                  not receive any events. The default HTTP operation is
-                  POST (no configuration required). To change it to PUT
+                  not receive any events.The default HTTP operation is POST
+                  (no configuration required). To change it to PUT
                   simply add the configuration parameter (as shown in
                   the example below).
+                  The URL can be configured statically or tagged
+                  as ``?example.{site}.org:8080/{trig}/events``,
+                  all tags as ``site`` and ``trig`` in the URL need to be set
+                  within APEX event parameter.
 
                .. container:: listingblock
 
@@ -3093,6 +3097,10 @@ REST Requestor Input
                .. container:: paragraph
 
                   APEX will connect to a given URL to request an input.
+                  The URL can be configured statically or tagged
+                  as ``?example.{site}.org:8080/{trig}/events``,
+                  all tags as ``site`` and ``trig`` in the URL need to be set
+                  within APEX event parameter.
 
                .. container:: listingblock
 
