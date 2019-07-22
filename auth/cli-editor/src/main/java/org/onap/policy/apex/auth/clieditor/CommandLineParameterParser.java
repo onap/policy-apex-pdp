@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,10 +23,10 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
-
+import java.util.Properties;
+import lombok.Getter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -35,17 +36,20 @@ import org.apache.commons.cli.ParseException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class CommandLineParameterParser {
-    private static final int MAX_HELP_LINE_LENGTH = 120;
 
     // Apache Commons CLI options
     private final Options options;
+    private Properties optionVariableMap;
 
     /**
      * Construct the options for the CLI editor.
      */
     public CommandLineParameterParser() {
         options = new Options();
+        optionVariableMap = new Properties();
+
         options.addOption(Option.builder("h").longOpt("help").desc("outputs the usage of this command").required(false)
                         .type(Boolean.class).build());
         options.addOption(Option.builder("m").longOpt("metadata-file").desc("name of the command metadata file to use")
@@ -92,21 +96,8 @@ public class CommandLineParameterParser {
      * @return the CLI parameters
      */
     public CommandLineParameters parse(final String[] args) {
-        CommandLine commandLine = null;
-        try {
-            commandLine = new DefaultParser().parse(options, args);
-        } catch (final ParseException e) {
-            throw new CommandLineException("invalid command line arguments specified : " + e.getMessage());
-        }
-
+        CommandLine commandLine = parseDefault(args);
         final CommandLineParameters parameters = new CommandLineParameters();
-        final String[] remainingArgs = commandLine.getArgs();
-
-        if (remainingArgs.length > 0) {
-            throw new CommandLineException(
-                            "too many command line arguments specified : " + Arrays.toString(remainingArgs));
-        }
-
         parseSIngleLetterOptions(commandLine, parameters);
         parseDoubleLetterOptions(commandLine, parameters);
 
@@ -114,26 +105,53 @@ public class CommandLineParameterParser {
     }
 
     /**
+     * Parse the command line options using default parser.
+     *
+     * @param args The arguments
+     * @return the CLI parameters
+     */
+    protected CommandLine parseDefault(final String[] args) {
+        CommandLine commandLine = null;
+        try {
+            commandLine = new DefaultParser().parse(options, args);
+        } catch (final ParseException e) {
+            throw new CommandLineException("invalid command line arguments specified : " + e.getMessage());
+        }
+
+        final String[] remainingArgs = commandLine.getArgs();
+
+        if (remainingArgs.length > 0) {
+            throw new CommandLineException(
+                            "too many command line arguments specified : " + Arrays.toString(remainingArgs));
+        }
+        return commandLine;
+    }
+
+    /**
      * Parse options with just a single letter.
-     * 
+     *
      * @param commandLine the command line
      * @param parameters the parsed parameters
      */
-    private void parseDoubleLetterOptions(CommandLine commandLine, final CommandLineParameters parameters) {
+    protected void parseDoubleLetterOptions(CommandLine commandLine, final CommandLineParameters parameters) {
         if (commandLine.hasOption("nl")) {
             parameters.setSuppressLog(true);
+            optionVariableMap.setProperty("nl", "suppressLog");
         }
         if (commandLine.hasOption("nm")) {
             parameters.setSuppressModelOutput(true);
+            optionVariableMap.setProperty("nm", "suppressModelOutput");
         }
         if (commandLine.hasOption("if")) {
             parameters.setIgnoreCommandFailuresSet(true);
             parameters.setIgnoreCommandFailures(Boolean.valueOf(commandLine.getOptionValue("if")));
+            optionVariableMap.setProperty("if", "ignoreCommandFailures");
         } else {
             parameters.setIgnoreCommandFailuresSet(false);
         }
         if (commandLine.hasOption("wd")) {
             parameters.setWorkingDirectory(commandLine.getOptionValue("wd"));
+            optionVariableMap.setProperty("wd", "workingDirectory");
         } else {
             parameters.setWorkingDirectory(Paths.get("").toAbsolutePath().toString());
         }
@@ -141,41 +159,39 @@ public class CommandLineParameterParser {
 
     /**
      * Parse options with two letters.
-     * 
+     *
      * @param commandLine the command line
      * @param parameters the parsed parameters
      */
-    private void parseSIngleLetterOptions(CommandLine commandLine, final CommandLineParameters parameters) {
+    protected void parseSIngleLetterOptions(CommandLine commandLine, final CommandLineParameters parameters) {
         if (commandLine.hasOption('h')) {
-            parameters.setHelp(true);
+            parameters.setHelpSet(true);
+            optionVariableMap.setProperty("h", "helpSet");
         }
         if (commandLine.hasOption('m')) {
             parameters.setMetadataFileName(commandLine.getOptionValue('m'));
+            optionVariableMap.setProperty("m", "metadataFileName");
         }
         if (commandLine.hasOption('a')) {
-            parameters.setApexPorpertiesFileName(commandLine.getOptionValue('a'));
+            parameters.setApexPropertiesFileName(commandLine.getOptionValue('a'));
+            optionVariableMap.setProperty("a", "apexPropertiesFileName");
         }
         if (commandLine.hasOption('c')) {
             parameters.setCommandFileName(commandLine.getOptionValue('c'));
+            optionVariableMap.setProperty("c", "commandFileName");
         }
         if (commandLine.hasOption('l')) {
             parameters.setLogFileName(commandLine.getOptionValue('l'));
+            optionVariableMap.setProperty("l", "logFileName");
         }
         if (commandLine.hasOption('i')) {
             parameters.setInputModelFileName(commandLine.getOptionValue('i'));
+            optionVariableMap.setProperty("i", "inputModelFileName");
         }
         if (commandLine.hasOption('o')) {
             parameters.setOutputModelFileName(commandLine.getOptionValue('o'));
+            optionVariableMap.setProperty("o", "outputModelFileName");
         }
     }
 
-    /**
-     * Print help information.
-     *
-     * @param mainClassName the main class name
-     */
-    public void help(final String mainClassName) {
-        final HelpFormatter helpFormatter = new HelpFormatter();
-        helpFormatter.printHelp(MAX_HELP_LINE_LENGTH, mainClassName + " [options...]", "options", options, "");
-    }
 }

@@ -1,0 +1,19 @@
+{
+  "tosca_definitions_version": "tosca_simple_yaml_1_0_0",
+  "topology_template": {
+    "policies": [
+      {
+        "operational.sampledomain": {
+          "type": "onap.policies.controlloop.Operational",
+          "typeVersion": "1.0.0",
+          "name": "onap.policies.controlloop.Operational.apex.sampledomain",
+          "version": "1.0.0",
+          "properties": {
+            "content": {
+            }
+          }
+        }
+      }
+    ]
+  }
+}
