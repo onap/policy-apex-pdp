@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46578e6d_c0178bd6",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParameterParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "\"I\" \u003d\u003e \"i\"",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d0ad9e4_44effacf",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "JsonObject is non portable.  Maybe use plain Object instead.  That of course means a little more casting and coercion.  As an alternative, could use a StandardCoderObject and add getMap() and getArray() methods to it, similar to the existing getString() method.  (And add StandardCoderMap \u0026 StandardCoderArray classes as return types.)",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d815fea_71941bc5",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "need else?",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3c3de0b_2427794b",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "sonar: loop over the entrySet instead of the keySet, thus avoiding the call to getProperty() on line 199",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "532f15c3_1ed61363",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "can argValue be null?  If so, may need to use:\n\n  xxx.isNotEmpty((String) argValue)",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dcfd9fd_042b2139",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "checkstyle: \",\" \u003d\u003e \", \"\n\nsame comment below",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f7940eb_b10a11ef",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "reverse the arguments",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec102fa3_ba1ba92c",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "add fail().  Better yet, use assertj and avoid this kind of error altogether.\n\nsame comment below",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe2b1593_d1f4a929",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/CommonTestData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "sonar(?):  add private constructor for utility class",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46d523a4_e25cee35",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "swap arguments",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40ecf8ef_15984836",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "why wrap this in a try/catch?\n\nsame comment below",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf308a30_be16909f",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "use assertj or add fail().\n\nsame comment below.",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02010716_3b10b6aa",
+        "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.apex",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "2019?",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f5262f9_0e6d9bd0",
+        "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.apex",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-22T13:55:23Z",
+      "side": 1,
+      "message": "remove trailing spaces (if there\u0027s an easy way to do it)",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
