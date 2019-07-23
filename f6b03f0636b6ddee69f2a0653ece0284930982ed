@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ee28507_6fb51fd7",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-23T15:06:18Z",
+      "side": 1,
+      "message": "glad you caught this.  I had wondered about it, but then forgot to comment on it",
+      "revId": "f6b03f0636b6ddee69f2a0653ece0284930982ed",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
