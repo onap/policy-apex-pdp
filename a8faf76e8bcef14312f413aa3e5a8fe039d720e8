@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fe01ca26_d7e5518f",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParameterParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46578e6d_c0178bd6",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d0ad9e4_44effacf",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "992c20a3_e52e2b5a",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d815fea_71941bc5",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3c3de0b_2427794b",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
         "patchSetId": 1
@@ -64,6 +100,24 @@
       "writtenOn": "2019-07-22T13:55:23Z",
       "side": 1,
       "message": "sonar: loop over the entrySet instead of the keySet, thus avoiding the call to getProperty() on line 199",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ed2abd9_5f806138",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c3de0b_2427794b",
       "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "58184789_473a61d6",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "It can\u0027t be null. So removed.",
+      "parentUuid": "532f15c3_1ed61363",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dcfd9fd_042b2139",
         "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
         "patchSetId": 1
@@ -98,6 +170,24 @@
       "writtenOn": "2019-07-22T13:55:23Z",
       "side": 1,
       "message": "checkstyle: \",\" \u003d\u003e \", \"\n\nsame comment below",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2bb5ef4_e751d9a1",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dcfd9fd_042b2139",
       "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "bde6c3aa_6c80b5d5",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f7940eb_b10a11ef",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec102fa3_ba1ba92c",
         "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
         "patchSetId": 1
@@ -132,6 +240,24 @@
       "writtenOn": "2019-07-22T13:55:23Z",
       "side": 1,
       "message": "add fail().  Better yet, use assertj and avoid this kind of error altogether.\n\nsame comment below",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17506188_62b0578c",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaEditorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec102fa3_ba1ba92c",
       "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -155,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "a5d94745_ae506e7f",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/tosca/CommonTestData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe2b1593_d1f4a929",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46d523a4_e25cee35",
         "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
         "patchSetId": 1
@@ -166,6 +310,24 @@
       "writtenOn": "2019-07-22T13:55:23Z",
       "side": 1,
       "message": "swap arguments",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5ea7d8c_0f3b970d",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46d523a4_e25cee35",
       "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "777e7de9_1a0b711d",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40ecf8ef_15984836",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf308a30_be16909f",
         "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
         "patchSetId": 1
@@ -200,6 +380,24 @@
       "writtenOn": "2019-07-22T13:55:23Z",
       "side": 1,
       "message": "use assertj or add fail().\n\nsame comment below.",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eda5c5_37ec4c08",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/utils/CliUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf308a30_be16909f",
       "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -223,6 +421,24 @@
     },
     {
       "key": {
+        "uuid": "31618a24_4d1feaf9",
+        "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.apex",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02010716_3b10b6aa",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f5262f9_0e6d9bd0",
         "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.apex",
         "patchSetId": 1
@@ -234,6 +450,24 @@
       "writtenOn": "2019-07-22T13:55:23Z",
       "side": 1,
       "message": "remove trailing spaces (if there\u0027s an easy way to do it)",
+      "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efefe837_1fa8c3aa",
+        "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.apex",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T15:03:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f5262f9_0e6d9bd0",
       "revId": "a8faf76e8bcef14312f413aa3e5a8fe039d720e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
