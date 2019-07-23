@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dae801cb_5bb8f8e4",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaParameters.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-23T16:42:38Z",
+      "side": 1,
+      "message": "still want to do these remaining tests if isHelpSet() is true?",
+      "revId": "07df95c4a945880d76dc200c2481b8b60b67997a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
