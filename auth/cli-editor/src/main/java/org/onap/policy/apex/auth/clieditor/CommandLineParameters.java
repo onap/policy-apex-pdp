@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +28,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
+import lombok.Getter;
+import lombok.Setter;
+import org.onap.policy.apex.auth.clieditor.utils.CliUtils;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
 /**
@@ -35,9 +38,9 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Setter
+@Getter
 public class CommandLineParameters {
-    // Recurring string constants
-    private static final String OF_TYPE_TAG = " of type ";
 
     // Default location of the command definition meta data in JSON
     private static final String JSON_COMMAND_METADATA_RESOURCE = "etc/editor/Commands.json";
@@ -62,26 +65,26 @@ public class CommandLineParameters {
      * Validates the command line parameters.
      */
     public void validate() {
-        validateReadableFile("Metadata File", metadataFileName);
-        validateReadableFile("Properties File", apexPropertiesFileName);
-        validateReadableFile("Command File", commandFileName);
-        validateReadableFile("Input Model File", inputModelFileName);
-        validateWritableFile("Output Model File", outputModelFileName);
-        validateWritableFile("Log File", logFileName);
-        validateWritableDirectory("Working Directory", workingDirectory);
+        CliUtils.validateReadableFile("Metadata File", metadataFileName);
+        CliUtils.validateReadableFile("Properties File", apexPropertiesFileName);
+        CliUtils.validateReadableFile("Command File", commandFileName);
+        CliUtils.validateReadableFile("Input Model File", inputModelFileName);
+        CliUtils.validateWritableFile("Output Model File", outputModelFileName);
+        CliUtils.validateWritableFile("Log File", logFileName);
+        CliUtils.validateWritableDirectory("Working Directory", workingDirectory);
 
-        if (isSuppressLogSet()) {
+        if (isSuppressLog()) {
             setEcho(false);
         } else {
             if (checkSetCommandFileName()) {
                 setEcho(true);
-                if (!checkSetIgnoreCommandFailures()) {
-                    setIgnoreCommandFailures(false);
+                if (!isIgnoreCommandFailuresSet()) {
+                    setIgnoreCommandFailuresSet(false);
                 }
             } else {
                 setEcho(false);
-                if (!checkSetIgnoreCommandFailures()) {
-                    setIgnoreCommandFailures(true);
+                if (!isIgnoreCommandFailuresSet()) {
+                    setIgnoreCommandFailuresSet(true);
                 }
             }
         }
@@ -163,7 +166,7 @@ public class CommandLineParameters {
      */
     public OutputStream getOutputStream() throws IOException {
         // Check if log suppression is active, if so, consume all output on a byte array output stream
-        if (isSuppressLogSet()) {
+        if (isSuppressLog()) {
             return new ByteArrayOutputStream();
 
         }
@@ -175,145 +178,12 @@ public class CommandLineParameters {
     }
 
     /**
-     * Validate that a file is readable.
-     *
-     * @param fileTag the file tag, a tag used for information and error messages
-     * @param fileName the file name to check
-     */
-    private void validateReadableFile(final String fileTag, final String fileName) {
-        if (fileName == null) {
-            return;
-        }
-        final File theFile = new File(fileName);
-        final String prefixExceptionMessage = "File " + fileName + OF_TYPE_TAG + fileTag;
-
-        if (!theFile.exists()) {
-            throw new CommandLineException(prefixExceptionMessage + " does not exist");
-        }
-        if (!theFile.isFile()) {
-            throw new CommandLineException(prefixExceptionMessage + " is not a normal file");
-        }
-        if (!theFile.canRead()) {
-            throw new CommandLineException(prefixExceptionMessage + " is ureadable");
-        }
-    }
-
-    /**
-     * Validate that a file is writable.
-     *
-     * @param fileTag the file tag, a tag used for information and error messages
-     * @param fileName the file name to check
-     */
-    private void validateWritableFile(final String fileTag, final String fileName) {
-        if (fileName == null) {
-            return;
-        }
-        final File theFile = new File(fileName);
-        final String prefixExceptionMessage = "File " + fileName + OF_TYPE_TAG + fileTag;
-        if (theFile.exists()) {
-            if (!theFile.isFile()) {
-                throw new CommandLineException(prefixExceptionMessage + " is not a normal file");
-            }
-            if (!theFile.canWrite()) {
-                throw new CommandLineException(prefixExceptionMessage + " cannot be written");
-            }
-        } else {
-            try {
-                theFile.createNewFile();
-            } catch (final IOException e) {
-                throw new CommandLineException(prefixExceptionMessage + " cannot be created: ", e);
-            }
-        }
-    }
-
-    /**
-     * Validate that a directory exists and is writable.
-     *
-     * @param directoryTag the directory tag, a tag used for information and error messages
-     * @param directoryName the directory name to check
-     */
-    private void validateWritableDirectory(final String directoryTag, final String directoryName) {
-        if (directoryName == null) {
-            return;
-        }
-        final File theDirectory = new File(directoryName);
-        final String prefixExceptionMessage = "directory " + directoryName + OF_TYPE_TAG + directoryTag;
-
-        if (theDirectory.exists()) {
-            if (!theDirectory.isDirectory()) {
-                throw new CommandLineException(prefixExceptionMessage + " is not a directory");
-            }
-            if (!theDirectory.canWrite()) {
-                throw new CommandLineException(prefixExceptionMessage + " cannot be written");
-            }
-        }
-    }
-
-    /**
-     * Checks if help is set.
-     *
-     * @return true, if help is set
-     */
-    public boolean isHelpSet() {
-        return helpSet;
-    }
-
-    /**
-     * Sets whether the help flag is set or not.
-     *
-     * @param isHelpSet the value of the help flag
-     */
-    public void setHelp(final boolean isHelpSet) {
-        this.helpSet = isHelpSet;
-    }
-
-    /**
-     * Gets the file name of the command metadata file for the editor commands.
-     *
-     * @return the file name of the command metadata file for the editor commands
-     */
-    public String getMetadataFileName() {
-        return metadataFileName;
-    }
-
-    /**
-     * Sets the file name of the command metadata file for the editor commands.
-     *
-     * @param metadataFileName the file name of the command metadata file for the editor commands
-     */
-    public void setMetadataFileName(final String metadataFileName) {
-        this.metadataFileName = metadataFileName.trim();
-    }
-
-    /**
      * Check if the file name of the command metadata file for the editor commands is set.
      *
      * @return true, if the file name of the command metadata file for the editor commands is set
      */
     public boolean checkSetMetadataFileName() {
         return metadataFileName != null && metadataFileName.length() > 0;
-    }
-
-    /**
-     * Gets the file name of the file containing properties that are used for command default
-     * values.
-     *
-     * @return the file name of the file containing properties that are used for command default
-     *         values
-     */
-    public String getApexPorpertiesFileName() {
-        return apexPropertiesFileName;
-    }
-
-    /**
-     * Sets the file name of the file containing properties that are used for command default
-     * values.
-     *
-     * @param apexPorpertiesFileName the file name of the file containing properties that are used
-     *        for command default values
-     */
-    public void setApexPorpertiesFileName(final String apexPorpertiesFileName) {
-        apexPropertiesFileName = apexPorpertiesFileName.trim();
     }
 
     /**
@@ -328,25 +198,6 @@ public class CommandLineParameters {
     }
 
     /**
-     * Gets the name of the file containing commands to be streamed into the CLI editor.
-     *
-     * @return the name of the file containing commands to be streamed into the CLI editor
-     */
-    public String getCommandFileName() {
-        return commandFileName;
-    }
-
-    /**
-     * Sets the name of the file containing commands to be streamed into the CLI editor.
-     *
-     * @param commandFileName the name of the file containing commands to be streamed into the CLI
-     *        editor
-     */
-    public void setCommandFileName(final String commandFileName) {
-        this.commandFileName = commandFileName.trim();
-    }
-
-    /**
      * Check if the name of the file containing commands to be streamed into the CLI editor is set.
      *
      * @return true, if the name of the file containing commands to be streamed into the CLI editor
@@ -354,28 +205,6 @@ public class CommandLineParameters {
      */
     public boolean checkSetCommandFileName() {
         return commandFileName != null && commandFileName.length() > 0;
-    }
-
-    /**
-     * Gets the name of the file containing the Apex model that will be used to initialize the Apex
-     * model in the CLI editor.
-     *
-     * @return the name of the file containing the Apex model that will be used to initialize the
-     *         Apex model in the CLI editor
-     */
-    public String getInputModelFileName() {
-        return inputModelFileName;
-    }
-
-    /**
-     * Sets the name of the file containing the Apex model that will be used to initialize the Apex
-     * model in the CLI editor.
-     *
-     * @param inputModelFileName the name of the file containing the Apex model that will be used to
-     *        initialize the Apex model in the CLI editor
-     */
-    public void setInputModelFileName(final String inputModelFileName) {
-        this.inputModelFileName = inputModelFileName.trim();
     }
 
     /**
@@ -390,26 +219,6 @@ public class CommandLineParameters {
     }
 
     /**
-     * Gets the name of the file that the Apex CLI editor will save the Apex model to when it exits.
-     *
-     * @return the name of the file that the Apex CLI editor will save the Apex model to when it
-     *         exits
-     */
-    public String getOutputModelFileName() {
-        return outputModelFileName;
-    }
-
-    /**
-     * Sets the name of the file that the Apex CLI editor will save the Apex model to when it exits.
-     *
-     * @param outputModelFileName the name of the file that the Apex CLI editor will save the Apex
-     *        model to when it exits
-     */
-    public void setOutputModelFileName(final String outputModelFileName) {
-        this.outputModelFileName = outputModelFileName.trim();
-    }
-
-    /**
      * Check if the name of the file that the Apex CLI editor will save the Apex model to when it
      * exits is set.
      *
@@ -421,43 +230,6 @@ public class CommandLineParameters {
     }
 
     /**
-     * Gets the working directory that is the root for CLI editor macro includes.
-     *
-     * @return the CLI editor working directory
-     */
-    public String getWorkingDirectory() {
-        return workingDirectory;
-    }
-
-    /**
-     * Sets the working directory that is the root for CLI editor macro includes.
-     *
-     * @param workingDirectory the CLI editor working directory
-     */
-    public void setWorkingDirectory(final String workingDirectory) {
-        this.workingDirectory = workingDirectory.trim();
-    }
-
-    /**
-     * Gets the name of the file to which the Apex CLI editor will log commands and responses.
-     *
-     * @return the name of the file to which the Apex CLI editor will log commands and responses
-     */
-    public String getLogFileName() {
-        return logFileName;
-    }
-
-    /**
-     * Sets the name of the file to which the Apex CLI editor will log commands and responses.
-     *
-     * @param logFileName the name of the file to which the Apex CLI editor will log commands and
-     *        responses
-     */
-    public void setLogFileName(final String logFileName) {
-        this.logFileName = logFileName.trim();
-    }
-
-    /**
      * Check if the name of the file to which the Apex CLI editor will log commands and responses is
      * set.
      *
@@ -466,98 +238,6 @@ public class CommandLineParameters {
      */
     public boolean checkSetLogFileName() {
         return logFileName != null;
-    }
-
-    /**
-     * Checks if the Apex CLI editor is set to echo commands that have been entered.
-     *
-     * @return true, if the Apex CLI editor is set to echo commands that have been entered
-     */
-    public boolean isEchoSet() {
-        return echo;
-    }
-
-    /**
-     * Sets whether the Apex CLI editor should echo commands that have been entered.
-     *
-     * @param echo true, if the Apex CLI editor should echo commands that have been entered
-     */
-    public void setEcho(final boolean echo) {
-        this.echo = echo;
-    }
-
-    /**
-     * Checks whether the Apex CLI editor is set to suppress logging of command output.
-     *
-     * @return true, if the Apex CLI editor is set to suppress logging of command output.
-     */
-    public boolean isSuppressLogSet() {
-        return suppressLog;
-    }
-
-    /**
-     * Sets whether the Apex CLI editor should suppress logging of command output.
-     *
-     * @param suppressLog true, if the Apex CLI editor should suppress logging of command output
-     */
-    public void setSuppressLog(final boolean suppressLog) {
-        this.suppressLog = suppressLog;
-    }
-
-    /**
-     * Checks whether the Apex CLI editor is set to suppress output of its Apex model on exit.
-     *
-     * @return true, if checks if the Apex CLI editor is set to suppress output of its Apex model on
-     *         exit
-     */
-    public boolean isSuppressModelOutputSet() {
-        return suppressModelOutput;
-    }
-
-    /**
-     * Sets whether the Apex CLI editor should suppress output of its Apex model on exit.
-     *
-     * @param suppressModelOutput true, if the Apex CLI editor should suppress output of its Apex
-     *        model on exit
-     */
-    public void setSuppressModelOutput(final boolean suppressModelOutput) {
-        this.suppressModelOutput = suppressModelOutput;
-    }
-
-    /**
-     * Check if the command failures flag is set.
-     *
-     * @return true if the command failures flag has been set
-     */
-    public boolean checkSetIgnoreCommandFailures() {
-        return ignoreCommandFailuresSet;
-    }
-
-    /**
-     * Checks if the command failures flag is set.
-     *
-     * @param ignoreCommandFailuresSet true if the command failures flag has been set
-     */
-    public void setIgnoreCommandFailuresSet(final boolean ignoreCommandFailuresSet) {
-        this.ignoreCommandFailuresSet = ignoreCommandFailuresSet;
-    }
-
-    /**
-     * Checks if command failures should be ignored and command execution continue.
-     *
-     * @return true if command failures should be ignored
-     */
-    public boolean isIgnoreCommandFailures() {
-        return ignoreCommandFailures;
-    }
-
-    /**
-     * Sets if command errors should be ignored and command execution continue.
-     *
-     * @param ignoreCommandFailures true if command errors should be ignored
-     */
-    public void setIgnoreCommandFailures(final boolean ignoreCommandFailures) {
-        this.ignoreCommandFailures = ignoreCommandFailures;
     }
 
     /**
