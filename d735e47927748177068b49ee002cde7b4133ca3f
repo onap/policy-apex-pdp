@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8106d068_71834b6d",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-23T16:29:19Z",
+      "side": 1,
+      "message": "hmm.  Just noticed - looks like these tests need to happen before the preceding validateXxxFile() calls.\n\nAlso need to test outputToscaPolicyFileName\u003d\u003dnull?",
+      "revId": "d735e47927748177068b49ee002cde7b4133ca3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
