@@ -16,6 +16,24 @@
       "revId": "d735e47927748177068b49ee002cde7b4133ca3f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4c374d0_c3e10204",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-23T16:39:39Z",
+      "side": 1,
+      "message": "Agreed. No need to do the validations unnecessarily in this case. Done .",
+      "parentUuid": "8106d068_71834b6d",
+      "revId": "d735e47927748177068b49ee002cde7b4133ca3f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
