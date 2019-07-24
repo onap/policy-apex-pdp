@@ -16,6 +16,24 @@
       "revId": "07df95c4a945880d76dc200c2481b8b60b67997a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e088902_c6159a5a",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaParameters.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-07-24T09:37:55Z",
+      "side": 1,
+      "message": "Not necessary. If isHelpSet is true, the validate method itself won\u0027t be called. So, this check can be removed from here.",
+      "parentUuid": "dae801cb_5bb8f8e4",
+      "revId": "07df95c4a945880d76dc200c2481b8b60b67997a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
