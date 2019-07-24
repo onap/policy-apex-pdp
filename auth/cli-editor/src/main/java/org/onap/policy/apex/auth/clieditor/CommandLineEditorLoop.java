@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -38,7 +39,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
@@ -120,7 +120,7 @@ public class CommandLineEditorLoop {
         }
 
         // Get the output model
-        if (!parameters.isSuppressModelOutputSet()) {
+        if (!parameters.isSuppressModelOutput()) {
             final String modelString = modelHandler.writeModelToString(writer);
 
             if (parameters.checkSetOutputModelFileName()) {
@@ -138,7 +138,7 @@ public class CommandLineEditorLoop {
 
     /**
      * Check if the command processing loop has come to an end.
-     * 
+     *
      * @param executionStatus a pair containing the result of the last command and the accumulated error count
      * @param parameters the input parameters for command execution
      * @return true if the command processing loop should exit
@@ -153,7 +153,7 @@ public class CommandLineEditorLoop {
 
     /**
      * Process the incoming commands one by one.
-     * 
+     *
      * @param parameters the parameters to the CLI editor
      * @param reader the reader to read the logic block from
      * @param writer the writer to write results and error messages on
@@ -178,7 +178,7 @@ public class CommandLineEditorLoop {
                 line = expandMacroFile(parameters, line);
             }
 
-            if (parameters.isEchoSet()) {
+            if (parameters.isEcho()) {
                 writer.println(line);
             }
 
@@ -221,7 +221,7 @@ public class CommandLineEditorLoop {
 
     /**
      * Read a logic block, a block of program logic for a policy.
-     * 
+     *
      * @param parameters the parameters to the CLI editor
      * @param reader the reader to read the logic block from
      * @param writer the writer to write results and error messages on
@@ -244,7 +244,7 @@ public class CommandLineEditorLoop {
                     logicLine = expandMacroFile(parameters, logicLine);
                 }
 
-                if (parameters.isEchoSet()) {
+                if (parameters.isEcho()) {
                     writer.println(logicLine);
                 }
 
@@ -549,7 +549,7 @@ public class CommandLineEditorLoop {
     /**
      * This method reads in the file from a file macro statement, expands the macro, and replaces the Macro tag in the
      * line with the file contents.
-     * 
+     *
      * @param parameters The parameters for the CLI editor
      * @param line The line with the macro keyword in it
      * @return the expanded line
