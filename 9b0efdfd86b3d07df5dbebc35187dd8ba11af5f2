@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "952df955_e7631f83",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-26T12:47:27Z",
+      "side": 1,
+      "message": "sonar doesn\u0027t like sleep() in tests.  Is there no way for ApexMain (or the rest server) to decrement a CountDownLatch and just have the test code wait on that?  The tests will probably run much faster with that approach.\n\nsame comment through-out",
+      "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "482fa647_72eee281",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/executionproperties/logic/TaskFetchHttpCode.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-26T12:47:27Z",
+      "side": 1,
+      "message": "indentation\n\nsame comment below",
+      "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b676596_02271c84",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/testdata/executionproperties/RESTEventBadUrl.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-26T12:47:27Z",
+      "side": 1,
+      "message": "remove trailing space\n\nsame comment in other json files",
+      "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
