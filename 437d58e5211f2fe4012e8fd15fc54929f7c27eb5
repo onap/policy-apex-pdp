@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650e58dd_9ce1775a",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.bat",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-26T12:49:06Z",
+      "side": 1,
+      "message": "2019",
+      "revId": "437d58e5211f2fe4012e8fd15fc54929f7c27eb5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af1c161e_111e70bf",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-26T12:49:06Z",
+      "side": 1,
+      "message": "2019",
+      "revId": "437d58e5211f2fe4012e8fd15fc54929f7c27eb5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
