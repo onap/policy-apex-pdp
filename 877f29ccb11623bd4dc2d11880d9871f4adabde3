@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "209cc98b_a4271608",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRestClientEndpoint.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5240
+      },
+      "writtenOn": "2019-07-26T08:27:59Z",
+      "side": 1,
+      "message": "*  Modifications Copyright (C) 2019 Nordix Foundation.",
+      "range": {
+        "startLine": 4,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 3
+      },
+      "revId": "877f29ccb11623bd4dc2d11880d9871f4adabde3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
