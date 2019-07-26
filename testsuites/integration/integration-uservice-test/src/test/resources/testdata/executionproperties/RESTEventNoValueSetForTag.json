@@ -1,0 +1,59 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 4,
+        "deploymentPort": 12561,
+        "policyModelFileName": "target/ExecutionPropertiesRestTestPolicyModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            }
+        }
+    },
+    "eventInputParameters": {
+         "GetCodeConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestExecutionRest/apex/event/FetchHttpCode",
+                    "httpMethod": "GET",
+                    "httpHeaders" : [
+                    ],
+                    "httpCodeFilter" : "[1-5][0][0-5]"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON",
+                "parameters": {
+                    "testToRun": "FetchHttpCode"
+                }
+            },
+            "eventName": "Event0200"
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestExecutionRest/apex/event/{tagId}/{Number}",
+                    "httpMethod": "PUT",
+                    "httpHeaders" : [
+                        ["Content-Type", "application/json"],
+                        ["Date", "Tue, 24 Jul 2019 14:57:12 GMT"]
+                    ]
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventName": "Event0201"
+        }
+    }
+}
