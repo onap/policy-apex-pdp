@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "82580453_759027a6",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-29T01:55:05Z",
+      "side": 1,
+      "message": "Thread.sleep() and ThreadUtilities.sleep() replacement in unit test will be handled in ticket POLICY-1914. So just keep the usage in current release.",
+      "parentUuid": "952df955_e7631f83",
+      "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "482fa647_72eee281",
         "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/executionproperties/logic/TaskFetchHttpCode.js",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7c1f6203_3a7fe76d",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/executionproperties/logic/TaskFetchHttpCode.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-29T01:55:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "482fa647_72eee281",
+      "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b676596_02271c84",
         "filename": "testsuites/integration/integration-uservice-test/src/test/resources/testdata/executionproperties/RESTEventBadUrl.json",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-07-26T12:47:27Z",
       "side": 1,
       "message": "remove trailing space\n\nsame comment in other json files",
+      "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03e9c167_cce68b4d",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/testdata/executionproperties/RESTEventBadUrl.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-07-29T01:55:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6b676596_02271c84",
       "revId": "9b0efdfd86b3d07df5dbebc35187dd8ba11af5f2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
