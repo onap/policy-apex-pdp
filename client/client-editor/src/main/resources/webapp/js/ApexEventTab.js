@@ -64,7 +64,7 @@ function eventTab_activate() {
                     "<td>"                            +
                     fieldEntry.value.fieldSchemaKey.name + ":"  + fieldEntry.value.fieldSchemaKey.version +
                     "<td>"                            +
-                    fieldEntry.value.optional
+                    fieldEntry.value.optional         +
                     "</td></tr>";
             }
 
