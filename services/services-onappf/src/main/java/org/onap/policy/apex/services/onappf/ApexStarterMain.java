@@ -1,6 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +23,9 @@
 package org.onap.policy.apex.services.onappf;
 
 import java.util.Arrays;
-import java.util.Properties;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
-import org.onap.policy.common.endpoints.utils.ParameterUtils;
 import org.onap.policy.common.utils.services.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,11 +76,8 @@ public class ApexStarterMain {
             return;
         }
 
-        // Read the properties
-        Properties topicProperties = ParameterUtils.getTopicProperties(parameterGroup.getTopicParameterGroup());
-
         // create the activator
-        activator = new ApexStarterActivator(parameterGroup, topicProperties);
+        activator = new ApexStarterActivator(parameterGroup);
         Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
         // Start the activator
         try {

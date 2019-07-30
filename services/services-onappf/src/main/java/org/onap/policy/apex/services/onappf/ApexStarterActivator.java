@@ -22,7 +22,6 @@
 package org.onap.policy.apex.services.onappf;
 
 import java.util.List;
-import java.util.Properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.services.onappf.comm.PdpStateChangeListener;
@@ -80,13 +79,14 @@ public class ApexStarterActivator {
      * Instantiate the activator for onappf PDP-A.
      *
      * @param apexStarterParameterGroup the parameters for the onappf PDP-A service
-     * @param topicProperties properties used to configure the topics
      */
-    public ApexStarterActivator(final ApexStarterParameterGroup apexStarterParameterGroup,
-            final Properties topicProperties) {
+    public ApexStarterActivator(final ApexStarterParameterGroup apexStarterParameterGroup) {
 
-        topicSinks = TopicEndpointManager.getManager().addTopicSinks(topicProperties);
-        topicSources = TopicEndpointManager.getManager().addTopicSources(topicProperties);
+        topicSinks = TopicEndpointManager.getManager()
+                        .addTopicSinks(apexStarterParameterGroup.getTopicParameterGroup().getTopicSinks());
+
+        topicSources = TopicEndpointManager.getManager()
+                        .addTopicSources(apexStarterParameterGroup.getTopicParameterGroup().getTopicSources());
 
         // TODO: instanceId currently set as a random string, could be fetched from actual deployment
         final int random = (int) (Math.random() * 100);

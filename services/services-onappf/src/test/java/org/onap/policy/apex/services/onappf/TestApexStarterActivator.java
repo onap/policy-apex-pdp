@@ -1,6 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,19 +29,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Properties;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.services.onappf.ApexStarterActivator;
-import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
-import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
 import org.onap.policy.apex.services.onappf.parameters.CommonTestData;
-import org.onap.policy.common.endpoints.utils.ParameterUtils;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 
@@ -64,8 +60,7 @@ public class TestApexStarterActivator {
         final ApexStarterCommandLineArguments arguments =
                 new ApexStarterCommandLineArguments(apexStarterConfigParameters);
         final ApexStarterParameterGroup parGroup = new ApexStarterParameterHandler().getParameters(arguments);
-        Properties topicProperties = ParameterUtils.getTopicProperties(parGroup.getTopicParameterGroup());
-        activator = new ApexStarterActivator(parGroup, topicProperties);
+        activator = new ApexStarterActivator(parGroup);
     }
 
     /**
