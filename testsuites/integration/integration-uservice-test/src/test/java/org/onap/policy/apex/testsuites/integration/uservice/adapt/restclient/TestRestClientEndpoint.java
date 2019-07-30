@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,28 +23,26 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import com.google.gson.Gson;
-
 import java.util.Map;
 import java.util.Random;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+
 /**
  * The Class TestRestClientEndpoint.
  */
 @Path("/apex")
 public class TestRestClientEndpoint {
-
     private static int postMessagesReceived = 0;
     private static int putMessagesReceived = 0;
     private static int statMessagesReceived = 0;
     private static int getMessagesReceived = 0;
+    private static int tagUrlToProperUrl = 0;
 
     /**
      * Service get stats.
@@ -159,5 +158,84 @@ public class TestRestClientEndpoint {
 
         return Response.status(200).entity("{\"GET\": , " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived
                 + ",\"POST\": , " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}").build();
+    }
+
+    /**
+     * Service put request codeFilter Set.
+     *
+     * @return the response
+     */
+    @Path("/event/CodeFilterSet")
+    @PUT
+    public Response serviceCodeFilterSet() {
+        putMessagesReceived++;
+        tagUrlToProperUrl = 1;
+        return Response.status(200)
+                .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
+                        + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "PostProperUrl"
+                        + tagUrlToProperUrl + "}")
+                .build();
+    }
+
+    /**
+     * Service put request codeFilter Default 200.
+     *
+     * @return the response
+     */
+    @Path("/event/CodeFilterDefault")
+    @PUT
+    public Response serviceCodeFilterDefault() {
+        putMessagesReceived++;
+        tagUrlToProperUrl = 2;
+        return Response.status(200)
+                .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
+                        + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "PostProperUrl"
+                        + tagUrlToProperUrl + "}")
+                .build();
+    }
+
+    /**
+     * Service put request codeFilter Set.
+     *
+     * @return the response
+     */
+    @Path("/event/CodeFilterSet/3")
+    @PUT
+    public Response serviceCodeFilterSetForMultiTag() {
+        putMessagesReceived++;
+        tagUrlToProperUrl = 3;
+        return Response.status(200)
+                .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
+                        + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "PostProperUrl"
+                        + tagUrlToProperUrl + "}")
+                .build();
+    }
+
+    /**
+     * Service get tagged Url request access status.
+     *
+     * @return the response
+     */
+    @Path("/event/GetProperUrl")
+    @GET
+    public Response serviceGetProperUrl() {
+        statMessagesReceived++;
+        if (tagUrlToProperUrl == 1) {
+            return Response.status(200).entity("{\"PostProperUrl\": " + tagUrlToProperUrl + "}").build();
+        } else {
+            return Response.status(500).entity("{\"PostProperUrl\": " + tagUrlToProperUrl + "}").build();
+        }
+    }
+
+    /**
+     * Service fetch Http Code event.
+     *
+     * @return the response
+     */
+    @Path("/event/FetchHttpCode")
+    @GET
+    public Response serviceFetchHttpCode() {
+        statMessagesReceived++;
+        return Response.status(500).entity("{\"testToRun\": " + "FetchHttpCode" + "}").build();
     }
 }
