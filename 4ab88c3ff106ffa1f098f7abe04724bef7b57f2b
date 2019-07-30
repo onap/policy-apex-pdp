@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5017d193_dbe6cfcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-30T10:58:10Z",
+      "side": 1,
+      "message": "The JIRA is already closed last year. It will be good if you can create a bug explaining the problem briefly and if it is UI issue then attaching a snapshot as well. Thanks!",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "4ab88c3ff106ffa1f098f7abe04724bef7b57f2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
