@@ -22,6 +22,30 @@
       "revId": "4ab88c3ff106ffa1f098f7abe04724bef7b57f2b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709d5d53_fcf847f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2019-08-01T10:21:08Z",
+      "side": 1,
+      "message": "The issue was found by Coverity Scan static analysis service. It looks like a typo to me that can break appropriate HTML layout. If you think it\u0027s not a bug, please let me know -- I\u0027ll instruct the analysis tool to ignore it. \n\nI\u0027ve created POLICY-1961 for that kind of issues.",
+      "parentUuid": "5017d193_dbe6cfcc",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "4ab88c3ff106ffa1f098f7abe04724bef7b57f2b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
