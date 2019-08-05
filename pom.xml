@@ -45,8 +45,8 @@
         <version.kafka>1.1.1</version.kafka>
         <version.jersey>2.26</version.jersey>
         <version.hibernate>5.3.7.Final</version.hibernate>
-        <version.policy.common>1.5.1-SNAPSHOT</version.policy.common>
-        <version.policy.models>2.1.1-SNAPSHOT</version.policy.models>
+        <version.policy.common>1.5.1</version.policy.common>
+        <version.policy.models>2.1.1</version.policy.models>
         <!-- sonar/jacoco overrides -->
         <!-- Overriding oparent default sonar/jacoco settings Combine all our reports
             into one file shared across sub-modules -->
