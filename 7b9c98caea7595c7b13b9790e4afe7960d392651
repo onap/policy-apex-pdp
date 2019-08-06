@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71656005_c4dd587d",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "this test is unnecessary as ame can never be null if it reaches this point",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9c3a1b8_9f1c960f",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestExtraTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "maybe rename this to ApexDeploymentRestParametersTest since that\u0027s what it\u0027s testing",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76e8698d_40455940",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "this doesn\u0027t appear to be used",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c88dbb7_49c2cc5a",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "should probably reset this in an @After method",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4ea4682_a7586314",
+        "filename": "client/client-full/src/main/java/org/onap/policy/apex/client/full/rest/ParameterCheck.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "why has this file been cloned?  why not share a common file and cut down the amount of code that has to be maintained and tested?\n\nsame question for other files\n\nI assume this will be addressed in the future refactoring",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9bd55d9_f47d28c7",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "this test is unnecessary as ame can never be null if it reaches this point",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62fd5016_b0059510",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestExtraTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "rename to ApexServicesRestParametersTest",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2f5816_a329ee7f",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-06T12:13:12Z",
+      "side": 1,
+      "message": "same comments as for DeploymentRestMainTest",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
