@@ -21,7 +21,6 @@
 package org.onap.policy.apex.services.onappf.handler;
 
 import java.util.List;
-
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
@@ -99,9 +98,14 @@ public class PdpStateChangeMessageHandler {
                     final ApexEngineHandler apexEngineHandler =
                             new ApexEngineHandler(policies.get(0).getProperties().get("content"));
                     Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
-                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                    if (apexEngineHandler.isApexEngineRunning()) {
+                        pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                             PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
-                    pdpStatusContext.setState(PdpState.ACTIVE);
+                        pdpStatusContext.setState(PdpState.ACTIVE);
+                    } else {
+                        pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                            PdpResponseStatus.FAIL, "Apex engine failed to start. State cannot be changed to active.");
+                    }
                 } catch (final ApexStarterException e) {
                     LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),

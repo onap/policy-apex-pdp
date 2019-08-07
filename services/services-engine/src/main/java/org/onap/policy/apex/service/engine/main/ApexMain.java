@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modification Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -23,7 +24,8 @@ package org.onap.policy.apex.service.engine.main;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map.Entry;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
@@ -44,6 +46,10 @@ public class ApexMain {
 
     // The parameters read in from JSON
     private ApexParameters parameters;
+
+    @Getter
+    @Setter(lombok.AccessLevel.PRIVATE)
+    private volatile boolean alive = false;
 
     /**
      * Instantiates the Apex service.
@@ -101,6 +107,7 @@ public class ApexMain {
         // Start the activator
         try {
             activator.initialize();
+            setAlive(true);
         } catch (final ApexActivatorException e) {
             LOGGER.error("start of Apex service failed, used parameters are " + Arrays.toString(args), e);
             return;
@@ -129,6 +136,7 @@ public class ApexMain {
         if (activator != null) {
             activator.terminate();
         }
+        setAlive(false);
     }
 
     /**
@@ -144,6 +152,7 @@ public class ApexMain {
             try {
                 // Shutdown the Apex engine and wait for everything to stop
                 activator.terminate();
+                setAlive(false);
             } catch (final ApexException e) {
                 LOGGER.warn("error occured during shut down of the Apex service", e);
             }

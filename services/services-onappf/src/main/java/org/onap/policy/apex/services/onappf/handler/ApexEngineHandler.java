@@ -96,7 +96,7 @@ public class ApexEngineHandler {
      * Method to check whether the apex engine is running or not.
      */
     public boolean isApexEngineRunning() {
-        return null != apexMain;
+        return null != apexMain && apexMain.isAlive();
     }
 
     /**

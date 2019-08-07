@@ -21,7 +21,6 @@
 package org.onap.policy.apex.services.onappf.handler;
 
 import java.util.List;
-
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
@@ -106,30 +105,49 @@ public class PdpUpdateMessageHandler {
             LOGGER.debug("ApenEngineHandler not in registry.", e);
         }
         if (pdpUpdateMsg.getPolicies().isEmpty()) {
-            if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-                try {
-                    apexEngineHandler.shutdown();
-                } catch (final ApexStarterException e) {
-                    LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
-                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                            PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
-                }
-            }
+            pdpResponseDetails = stopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
         } else {
+            pdpResponseDetails = startApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
+        }
+        return pdpResponseDetails;
+    }
+
+    private PdpResponseDetails stopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
+        final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
+        PdpResponseDetails pdpResponseDetails = null;
+        if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
             try {
-                if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-                    apexEngineHandler.shutdown();
-                }
-                apexEngineHandler =
-                        new ApexEngineHandler(pdpUpdateMsg.getPolicies().get(0).getProperties().get("content"));
-                Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");
+                apexEngineHandler.shutdown();
             } catch (final ApexStarterException e) {
-                LOGGER.error("Apex engine service running failed. ", e);
+                LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
+                        PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
             }
+        }
+        return pdpResponseDetails;
+    }
+
+    private PdpResponseDetails startApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
+        final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
+        PdpResponseDetails pdpResponseDetails = null;
+        try {
+            if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
+                apexEngineHandler.shutdown();
+            }
+            apexEngineHandler =
+                    new ApexEngineHandler(pdpUpdateMsg.getPolicies().get(0).getProperties().get("content"));
+            Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
+            if (apexEngineHandler.isApexEngineRunning()) {
+                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                    PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");
+            } else {
+                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                    PdpResponseStatus.FAIL, "Apex engine failed to start.");
+            }
+        } catch (final ApexStarterException e) {
+            LOGGER.error("Apex engine service running failed. ", e);
+            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                    PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
         return pdpResponseDetails;
     }
