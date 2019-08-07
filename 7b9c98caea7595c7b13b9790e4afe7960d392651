@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "a9b39a9e_c637b17b",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-07T13:06:51Z",
+      "side": 1,
+      "message": "oh, duh, I must be going blind",
+      "parentUuid": "4c88a688_436b8941",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c88dbb7_49c2cc5a",
         "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
         "patchSetId": 1
