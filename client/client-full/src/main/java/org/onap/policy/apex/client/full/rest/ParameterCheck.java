@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@
 package org.onap.policy.apex.client.full.rest;
 
 import java.util.Map;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -69,12 +69,20 @@ public final class ParameterCheck {
      * @return the host name
      */
     public static String getHostName(final Map<String, String[]> parameterMap) {
+        if (parameterMap == null) {
+            return null;
+        }
+
         if (!parameterMap.containsKey(HOSTNAME_PAR)) {
             LOGGER.warn(PARAMETER + HOSTNAME_PAR + NOT_FOUND);
             return null;
         }
 
         final String[] hostNameValue = parameterMap.get(HOSTNAME_PAR);
+
+        if (hostNameValue == null) {
+            return null;
+        }
 
         if (hostNameValue.length == 0 || hostNameValue[0].trim().length() == 0) {
             LOGGER.warn("value of parameter \"" + HOSTNAME_PAR + NOT_FOUND);
@@ -91,6 +99,10 @@ public final class ParameterCheck {
      * @return the port
      */
     public static int getPort(final Map<String, String[]> parameterMap) {
+        if (parameterMap == null) {
+            return -1;
+        }
+
         if (!parameterMap.containsKey(PORT_PAR)) {
             LOGGER.warn(PARAMETER + PORT_PAR + NOT_FOUND);
             return -1;
@@ -127,6 +139,10 @@ public final class ParameterCheck {
      * @return the engine key
      */
     public static AxArtifactKey getEngineKey(final Map<String, String[]> parameterMap) {
+        if (parameterMap == null) {
+            return null;
+        }
+
         String artifactKeyParameter = null;
         for (final String parameter : parameterMap.keySet()) {
             // Check for an AxArtifactKey parameter
@@ -147,7 +163,12 @@ public final class ParameterCheck {
             return null;
         }
 
-        return new AxArtifactKey(axArtifactKeyArray[1]);
+        try {
+            return new AxArtifactKey(axArtifactKeyArray[1]);
+        } catch (Exception apEx) {
+            LOGGER.trace("invalid artifact key ID {}", axArtifactKeyArray[1], apEx);
+            return null;
+        }
     }
 
     /**
@@ -159,6 +180,10 @@ public final class ParameterCheck {
      */
     public static ParameterCheck.StartStop getStartStop(final Map<String, String[]> parameterMap,
                     final AxArtifactKey engineKey) {
+        if (parameterMap == null || engineKey == null) {
+            return null;
+        }
+
         final String startStopPar = AXARTIFACTKEY_PAR + '#' + engineKey.getId();
         if (!parameterMap.containsKey(startStopPar)) {
             LOGGER.warn("parameter \"{}\" not found", startStopPar);
@@ -166,6 +191,10 @@ public final class ParameterCheck {
         }
 
         final String[] startStopValue = parameterMap.get(startStopPar);
+
+        if (startStopValue == null) {
+            return null;
+        }
 
         if (startStopValue.length == 0 || startStopValue[0].trim().length() == 0) {
             LOGGER.warn("value of parameter \"{}\" not found", startStopPar);
@@ -193,12 +222,20 @@ public final class ParameterCheck {
      * @return The long value
      */
     public static long getLong(final Map<String, String[]> parameterMap, final String longName) {
+        if (parameterMap == null || longName == null) {
+            return -1;
+        }
+
         if (!parameterMap.containsKey(longName)) {
             LOGGER.warn("parameter \"{}\" not found", longName);
             return -1;
         }
 
         final String[] longValue = parameterMap.get(longName);
+
+        if (longValue == null) {
+            return -1;
+        }
 
         if (longValue.length == 0 || longValue[0].trim().length() == 0) {
             LOGGER.warn("value of parameter \"{}\" not found", longName);

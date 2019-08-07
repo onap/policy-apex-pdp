@@ -21,9 +21,7 @@
 package org.onap.policy.apex.client.deployment.rest;
 
 import com.google.gson.JsonObject;
-
 import java.io.InputStream;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,8 +30,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.onap.policy.apex.core.deployment.ApexDeploymentException;
 import org.onap.policy.apex.core.deployment.EngineServiceFacade;
@@ -69,7 +65,7 @@ public class ApexDeploymentRestResource {
     @GET
     public Response createSession(@QueryParam("hostName") final String hostName, @QueryParam("port") final int port) {
         final String host = hostName + ":" + port;
-        final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
+        final EngineServiceFacade engineServiceFacade = getEngineServiceFacade(hostName, port);
 
         try {
             engineServiceFacade.init();
@@ -109,10 +105,10 @@ public class ApexDeploymentRestResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response modelUpload(@FormDataParam("hostName") final String hostName, @FormDataParam("port") final int port,
             @FormDataParam("file") final InputStream uploadedInputStream,
-            @FormDataParam("file") final FormDataContentDisposition fileDetail,
+            @FormDataParam("fileName") final String fileName,
             @FormDataParam("ignoreConflicts") final boolean ignoreConflicts,
             @FormDataParam("forceUpdate") final boolean forceUpdate) {
-        final EngineServiceFacade engineServiceFacade = new EngineServiceFacade(hostName, port);
+        final EngineServiceFacade engineServiceFacade = getEngineServiceFacade(hostName, port);
 
         try {
             engineServiceFacade.init();
@@ -124,8 +120,7 @@ public class ApexDeploymentRestResource {
         }
 
         try {
-            engineServiceFacade.deployModel(fileDetail.getFileName(), uploadedInputStream, ignoreConflicts,
-                    forceUpdate);
+            engineServiceFacade.deployModel(fileName, uploadedInputStream, ignoreConflicts, forceUpdate);
         } catch (final Exception e) {
             LOGGER.warn("Error updating model on engine service " + engineServiceFacade.getKey().getId(), e);
             final String errorMessage =
@@ -135,8 +130,19 @@ public class ApexDeploymentRestResource {
                     .build();
         }
 
-        return Response.ok("Model " + fileDetail.getFileName() + " deployed on engine service "
+        return Response.ok("Model " + fileName + " deployed on engine service "
                 + engineServiceFacade.getKey().getId()).build();
+    }
+
+    /**
+     * Get an engine service facade for sending REST requests. This method is package because it is used by unit test.
+     *
+     * @param hostName the host name of the Apex engine
+     * @param port the port of the Apex engine
+     * @return the engine service facade
+     */
+    protected EngineServiceFacade getEngineServiceFacade(final String hostName, final int port) {
+        return new EngineServiceFacade(hostName, port);
     }
 
 }
