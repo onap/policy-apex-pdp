@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1b1926aa_62b4c97b",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "71656005_c4dd587d",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9c3a1b8_9f1c960f",
         "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestExtraTest.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-06T12:13:12Z",
       "side": 1,
       "message": "maybe rename this to ApexDeploymentRestParametersTest since that\u0027s what it\u0027s testing",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf5cea72_174b9af7",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestExtraTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a9c3a1b8_9f1c960f",
       "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4c88a688_436b8941",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "used in return value",
+      "parentUuid": "76e8698d_40455940",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c88dbb7_49c2cc5a",
         "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2019-08-06T12:13:12Z",
       "side": 1,
       "message": "should probably reset this in an @After method",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af99099c_89d46c98",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c88dbb7_49c2cc5a",
       "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a2528786_f5d389f7",
+        "filename": "client/client-full/src/main/java/org/onap/policy/apex/client/full/rest/ParameterCheck.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "it is because some duplicated code in the source, will be refactored in next release.",
+      "parentUuid": "d4ea4682_a7586314",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9bd55d9_f47d28c7",
         "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesExceptionTest.java",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2019-08-06T12:13:12Z",
       "side": 1,
       "message": "this test is unnecessary as ame can never be null if it reaches this point",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f753ffd_5e673ac2",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e9bd55d9_f47d28c7",
       "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "83bd41c8_b0193757",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestExtraTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62fd5016_b0059510",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e2f5816_a329ee7f",
         "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
         "patchSetId": 1
@@ -132,6 +258,24 @@
       "writtenOn": "2019-08-06T12:13:12Z",
       "side": 1,
       "message": "same comments as for DeploymentRestMainTest",
+      "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29bfeb5c_2d32fd96",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-07T06:29:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9e2f5816_a329ee7f",
       "revId": "7b9c98caea7595c7b13b9790e4afe7960d392651",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
