@@ -526,7 +526,7 @@ public class AxEvent extends AxConcept {
             return nameSpace.compareTo(other.nameSpace);
         }
         if (!source.equals(other.source)) {
-            return target.compareTo(other.source);
+            return source.compareTo(other.source);
         }
         if (!target.equals(other.target)) {
             return target.compareTo(other.target);
