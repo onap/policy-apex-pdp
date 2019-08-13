@@ -102,7 +102,7 @@ public class KeyedMapDifference<K, V> {
             builder.append(getInOneSideOnlyAsString(leftOnly, "left", keysOnly));
         }
 
-        if (leftOnly.isEmpty()) {
+        if (rightOnly.isEmpty()) {
             if (!diffsOnly) {
                 builder.append("*** all right keys in left\n");
             }
