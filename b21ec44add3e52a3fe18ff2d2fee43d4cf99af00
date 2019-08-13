@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "216c20a0_9eb4cff3",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-13T08:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c152238_d1639fb4",
+      "revId": "b21ec44add3e52a3fe18ff2d2fee43d4cf99af00",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "221bb36e_996ebfda",
         "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-12T12:42:34Z",
       "side": 1,
       "message": "same comments as in the other java file",
+      "revId": "b21ec44add3e52a3fe18ff2d2fee43d4cf99af00",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe265632_21ba57b7",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-13T08:58:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "221bb36e_996ebfda",
       "revId": "b21ec44add3e52a3fe18ff2d2fee43d4cf99af00",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
