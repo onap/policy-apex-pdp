@@ -42,7 +42,7 @@
         <encoding>UTF-8</encoding>
         <file.encoding>UTF-8</file.encoding>
         <version.commons-cli>1.4</version.commons-cli>
-        <version.kafka>1.1.1</version.kafka>
+        <version.kafka>2.3.0</version.kafka>
         <version.jersey>2.26</version.jersey>
         <version.hibernate>5.3.7.Final</version.hibernate>
         <version.policy.common>1.5.2-SNAPSHOT</version.policy.common>
