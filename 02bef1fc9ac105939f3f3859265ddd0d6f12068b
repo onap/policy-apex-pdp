@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e6a82f5_21a7e5ef",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-08-20T22:58:49Z",
+      "side": 0,
+      "message": "we could probably upgrade the version declared in policy/parent",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 37
+      },
+      "revId": "02bef1fc9ac105939f3f3859265ddd0d6f12068b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
