@@ -38,9 +38,8 @@
         <docker.skip>false</docker.skip>
         <docker.skip.build>false</docker.skip.build>
         <docker.skip.push>false</docker.skip.push>
-        <docker.pull.registry>nexus3.onap.org:10001</docker.pull.registry>
-        <docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
-        <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
+        <docker.pull.registry>docker.io</docker.pull.registry>
+        <docker.push.registry>docker.io</docker.push.registry>
     </properties>
 
     <build>
@@ -52,7 +51,7 @@
                 <version>1.0</version>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <phase>pre-clean</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
@@ -71,6 +70,12 @@
                                     }
                                     println 'New tag for docker: ' + properties['project.docker.latest.minmax.tag.version']
                                 }
+                                if ( "aarch64".equals(System.properties['os.arch']) ) {
+                                    project.properties['project.docker.arch'] = "arm64";
+                                } else {
+                                    project.properties['project.docker.arch'] = System.properties['os.arch'];
+                                }
+                                println 'Using arch for docker: ' + project.properties['project.docker.arch'];
                             </source>
                         </configuration>
                     </execution>
@@ -87,14 +92,13 @@
                     <pushRegistry>${docker.push.registry}</pushRegistry>
                     <images>
                         <image>
-                            <name>onap/policy-apex-pdp</name>
+                            <name>cristinapauna/policy-apex-pdp:latest-${project.docker.arch}</name>
                             <build>
                                 <cleanup>try</cleanup>
                                 <dockerFile>Dockerfile</dockerFile>
                                 <tags>
-                                    <tag>${project.version}</tag>
-                                    <tag>${project.version}-${maven.build.timestamp}</tag>
-                                    <tag>${project.docker.latest.minmax.tag.version}</tag>
+                                    <tag>${project.version}-${project.docker.arch}</tag>
+                                    <tag>${project.docker.latest.minmax.tag.version}-${project.docker.arch}</tag>
                                 </tags>
                                 <assembly>
                                     <inline>
@@ -139,7 +143,7 @@
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <image>onap/policy-apex-pdp</image>
+                            <image>cristinapauna/policy-apex-pdp</image>
                         </configuration>
                     </execution>
                 </executions>
