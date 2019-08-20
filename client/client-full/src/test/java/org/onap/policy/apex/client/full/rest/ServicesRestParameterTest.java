@@ -22,6 +22,7 @@ package org.onap.policy.apex.client.full.rest;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 /**

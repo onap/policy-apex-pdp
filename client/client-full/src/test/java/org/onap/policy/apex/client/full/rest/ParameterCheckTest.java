@@ -22,6 +22,7 @@ package org.onap.policy.apex.client.full.rest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;

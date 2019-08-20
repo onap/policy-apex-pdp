@@ -93,9 +93,6 @@ public class ApexRestRequestorProducerTest {
 
     @Test
     public void testApexRestRequestorProducerRequest() throws ApexEventException {
-        ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
-
-        String producerName = "ProducerName";
         EventHandlerParameters producerParameters = new EventHandlerParameters();
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
@@ -104,7 +101,8 @@ public class ApexRestRequestorProducerTest {
         rrctp.setUrl(null);
         rrctp.setHttpMethod(null);
 
-        producer.init(producerName, producerParameters);
+        ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
+        producer.init("ProducerName", producerParameters);
         producer.stop();
 
         String eventName = "EventName";

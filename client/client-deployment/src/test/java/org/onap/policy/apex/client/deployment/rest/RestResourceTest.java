@@ -22,6 +22,7 @@ package org.onap.policy.apex.client.deployment.rest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import javax.ws.rs.core.Response;

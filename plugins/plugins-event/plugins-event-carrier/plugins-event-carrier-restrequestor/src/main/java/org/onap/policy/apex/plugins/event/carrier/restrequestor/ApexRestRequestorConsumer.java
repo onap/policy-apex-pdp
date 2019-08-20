@@ -372,7 +372,7 @@ public class ApexRestRequestorConsumer implements ApexEventConsumer, Runnable {
 
                 // Check that the request worked
                 if (!isPass.matches()) {
-                    final String errorMessage ="reception of event from URL \"" + restConsumerProperties.getUrl()
+                    final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
                             + "\" failed with status code " + response.getStatus() + " and message \""
                             + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);

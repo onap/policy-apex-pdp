@@ -21,6 +21,7 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.URI;
@@ -118,7 +119,7 @@ public class TestExecutionPropertyRest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = {"src/test/resources/testdata/executionproperties/RESTEventBadUrl.json"};
+        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventBadUrl.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(500);
@@ -142,7 +143,7 @@ public class TestExecutionPropertyRest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = {"src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json"};
+        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(1000);
@@ -167,7 +168,7 @@ public class TestExecutionPropertyRest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = {"src/test/resources/testdata/executionproperties/RESTEventBadHttpCodeFilter.json"};
+        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventBadHttpCodeFilter.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(500);
@@ -190,7 +191,8 @@ public class TestExecutionPropertyRest {
     public void testReplaceUrlTag() throws Exception {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args = {"src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json"};
+        final String[] args =
+            { "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json" };
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(1000);
         apexMain.shutdown();
@@ -215,7 +217,7 @@ public class TestExecutionPropertyRest {
     public void testReplaceUrlMultiTag() throws Exception {
         final Client client = ClientBuilder.newClient();
         final String[] args =
-                {"src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToMultiTagUrlOK.json"};
+            { "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToMultiTagUrlOK.json" };
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(1500);
         apexMain.shutdown();

@@ -23,6 +23,7 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import com.google.gson.Gson;
 import java.util.Map;
 import java.util.Random;
