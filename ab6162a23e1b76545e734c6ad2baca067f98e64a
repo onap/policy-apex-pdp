@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad48f01e_c3386f52",
+        "filename": "tools/model-generator/src/test/java/org/onap/policy/apex/tools/model/generator/model2event/Model2EventSchemaTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-08-20T13:24:13Z",
+      "side": 1,
+      "message": "These 2 lines need to be separated (static from non-static) to avoid checkstyle flag.",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "ab6162a23e1b76545e734c6ad2baca067f98e64a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
