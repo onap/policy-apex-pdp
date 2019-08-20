@@ -38,8 +38,8 @@
         <docker.skip>false</docker.skip>
         <docker.skip.build>false</docker.skip.build>
         <docker.skip.push>false</docker.skip.push>
-        <docker.pull.registry>nexus3.onap.org:10001</docker.pull.registry>
-        <docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
+        <docker.pull.registry>docker.io</docker.pull.registry>
+        <docker.push.registry>onap</docker.push.registry>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
     </properties>
 
@@ -87,14 +87,12 @@
                     <pushRegistry>${docker.push.registry}</pushRegistry>
                     <images>
                         <image>
-                            <name>onap/policy-apex-pdp</name>
+                            <name>policy-apex-pdp</name>
                             <build>
                                 <cleanup>try</cleanup>
                                 <dockerFile>Dockerfile</dockerFile>
                                 <tags>
-                                    <tag>${project.version}</tag>
-                                    <tag>${project.version}-${maven.build.timestamp}</tag>
-                                    <tag>${project.docker.latest.minmax.tag.version}</tag>
+                                    <tag>${os.arch}</tag>
                                 </tags>
                                 <assembly>
                                     <inline>
