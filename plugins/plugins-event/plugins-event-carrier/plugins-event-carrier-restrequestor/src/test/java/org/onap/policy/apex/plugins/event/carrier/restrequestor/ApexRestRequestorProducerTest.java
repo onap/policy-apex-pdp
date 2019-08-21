@@ -37,17 +37,18 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  * Test the ApexRestRequestorProducer class.
  */
 public class ApexRestRequestorProducerTest {
+    // String constants
+    private static final String PRODUCER_NAME = "ProducerName";
 
     @Test
     public void testApexRestRequestorProducerMethods() throws ApexEventException {
         ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
         assertNotNull(producer);
 
-        String producerName = "ProducerName";
         EventHandlerParameters producerParameters = new EventHandlerParameters();
 
         try {
-            producer.init(producerName, producerParameters);
+            producer.init(PRODUCER_NAME, producerParameters);
         } catch (ApexEventException aee) {
             assertEquals("specified producer properties are not applicable to REST requestor producer (ProducerName)",
                             aee.getMessage());
@@ -56,7 +57,7 @@ public class ApexRestRequestorProducerTest {
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(rrctp);
         try {
-            producer.init(producerName, producerParameters);
+            producer.init(PRODUCER_NAME, producerParameters);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("REST Requestor producer (ProducerName) must run in peered requestor mode "
@@ -66,7 +67,7 @@ public class ApexRestRequestorProducerTest {
         producerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setUrl("ZZZZ");
         try {
-            producer.init(producerName, producerParameters);
+            producer.init(PRODUCER_NAME, producerParameters);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("URL may not be specified on REST Requestor producer (ProducerName)", aee.getMessage());
@@ -75,7 +76,7 @@ public class ApexRestRequestorProducerTest {
         rrctp.setUrl(null);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         try {
-            producer.init(producerName, producerParameters);
+            producer.init(PRODUCER_NAME, producerParameters);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("HTTP method may not be specified on REST Requestor producer (ProducerName)",
@@ -83,19 +84,16 @@ public class ApexRestRequestorProducerTest {
         }
 
         rrctp.setHttpMethod(null);
-        producer.init(producerName, producerParameters);
+        producer.init(PRODUCER_NAME, producerParameters);
         producer.stop();
 
-        assertEquals("ProducerName", producer.getName());
+        assertEquals(PRODUCER_NAME, producer.getName());
         assertEquals(0, producer.getEventsSent());
         assertEquals(null, producer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test
     public void testApexRestRequestorProducerRequest() throws ApexEventException {
-        ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
-
-        String producerName = "ProducerName";
         EventHandlerParameters producerParameters = new EventHandlerParameters();
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
@@ -104,7 +102,8 @@ public class ApexRestRequestorProducerTest {
         rrctp.setUrl(null);
         rrctp.setHttpMethod(null);
 
-        producer.init(producerName, producerParameters);
+        ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
+        producer.init(PRODUCER_NAME, producerParameters);
         producer.stop();
 
         String eventName = "EventName";

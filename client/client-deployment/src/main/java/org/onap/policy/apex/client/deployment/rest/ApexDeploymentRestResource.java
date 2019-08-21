@@ -95,7 +95,6 @@ public class ApexDeploymentRestResource {
      * @param hostName the host name of the engine service to connect to.
      * @param port the port number of the engine service to connect to.
      * @param uploadedInputStream input stream
-     * @param fileDetail details on the file
      * @param ignoreConflicts conflict policy
      * @param forceUpdate update policy
      * @return a response object in plain text confirming the upload was successful

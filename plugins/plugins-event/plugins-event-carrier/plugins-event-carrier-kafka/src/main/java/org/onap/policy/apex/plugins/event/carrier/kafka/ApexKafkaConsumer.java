@@ -149,7 +149,7 @@ public class ApexKafkaConsumer implements ApexEventConsumer, Runnable {
         while (consumerThread.isAlive() && !stopOrderedFlag) {
             try {
                 final ConsumerRecords<String, String> records =
-                        kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration().toMillis());
+                        kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration());
                 for (final ConsumerRecord<String, String> record : records) {
                     traceIfTraceEnabled(record);
                     eventReceiver.receiveEvent(new Properties(), record.value());

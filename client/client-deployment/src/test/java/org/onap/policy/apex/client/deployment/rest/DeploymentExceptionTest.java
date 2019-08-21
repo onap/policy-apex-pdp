@@ -21,6 +21,7 @@
 package org.onap.policy.apex.client.deployment.rest;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 /**

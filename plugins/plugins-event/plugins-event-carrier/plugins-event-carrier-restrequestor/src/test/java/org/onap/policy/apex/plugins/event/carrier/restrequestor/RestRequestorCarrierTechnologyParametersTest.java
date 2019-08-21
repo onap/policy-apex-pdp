@@ -26,13 +26,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Set;
+
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.common.parameters.ParameterException;
-
-import java.util.Set;
 
 /**
  * Test REST Requestor carrier technology parameters.
@@ -65,9 +65,9 @@ public class RestRequestorCarrierTechnologyParametersTest {
             fail("test should throw an exception here");
         } catch (ParameterException pe) {
             assertTrue(pe.getMessage()
-                            .contains("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]"));
+                    .contains("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]"));
             assertTrue(pe.getMessage().trim()
-                            .endsWith("HTTP header array entries must have one key and one value: [aaa]"));
+                    .endsWith("HTTP header array entries must have one key and one value: [aaa]"));
         }
     }
 
@@ -95,11 +95,11 @@ public class RestRequestorCarrierTechnologyParametersTest {
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
 
         RestRequestorCarrierTechnologyParameters rrctp0 = (RestRequestorCarrierTechnologyParameters) parameters
-                        .getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
+                .getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
         assertEquals(0, rrctp0.getHttpHeaders().length);
 
         RestRequestorCarrierTechnologyParameters rrctp1 = (RestRequestorCarrierTechnologyParameters) parameters
-                        .getEventInputParameters().get("RestRequestorConsumer1").getCarrierTechnologyParameters();
+                .getEventInputParameters().get("RestRequestorConsumer1").getCarrierTechnologyParameters();
         assertEquals(3, rrctp1.getHttpHeaders().length);
         assertEquals("bbb", rrctp1.getHttpHeadersAsMultivaluedMap().get("aaa").get(0));
         assertEquals("ddd", rrctp1.getHttpHeadersAsMultivaluedMap().get("ccc").get(0));
@@ -116,11 +116,11 @@ public class RestRequestorCarrierTechnologyParametersTest {
             new ApexParameterHandler().getParameters(arguments);
             ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
 
-            RestRequestorCarrierTechnologyParameters rrctp0 = (RestRequestorCarrierTechnologyParameters) parameters
-                               .getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
+            parameters.getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
             fail("test should throw an exception here");
         } catch (ParameterException pe) {
-            assertTrue(pe.getMessage().contains("Invalid HTTP code filter, the filter must be specified as a three digit regular expression: "));
+            assertTrue(pe.getMessage().contains(
+                    "Invalid HTTP code filter, the filter must be specified as a three digit regular expression: "));
         }
     }
 
@@ -129,13 +129,13 @@ public class RestRequestorCarrierTechnologyParametersTest {
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
 
         rrctp.setHttpHeaders(null);
-        assertEquals(null,rrctp.getHttpHeadersAsMultivaluedMap());
+        assertEquals(null, rrctp.getHttpHeadersAsMultivaluedMap());
 
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
 
         rrctp.setHttpCodeFilter("[1-5][0][0-5]");
-        assertEquals("[1-5][0][0-5]",rrctp.getHttpCodeFilter());
+        assertEquals("[1-5][0][0-5]", rrctp.getHttpCodeFilter());
 
         String[][] httpHeaders = new String[2][2];
         httpHeaders[0][0] = "aaa";
@@ -163,14 +163,13 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals(RestRequestorCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RESTRequestorCarrierTechnologyParameters "
-                        + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]],"
-                        + " httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
+                + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]],"
+                + " httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 
     @Test
     public void testUrlValidation() {
-        RestRequestorCarrierTechnologyParameters rrctp =
-            new RestRequestorCarrierTechnologyParameters();
+        RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
 
         rrctp.setUrl("http://some.where.no.tag.in.url");
         assertEquals("http://some.where.no.tag.in.url", rrctp.getUrl());

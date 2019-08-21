@@ -39,39 +39,41 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  *
  */
 public class ApexRestRequestorConsumerTest {
+    // String constants
+    private static final String CONSUMER_NAME = "ConsumerName";
+    private static final String EVENT_NAME = "EventName";
+    private static final String EVENT_BODY = "Event body";
 
     @Test
     public void testApexRestRequestorConsumerSetup() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
-        String consumerName = "ConsumerName";
-
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
         ApexEventReceiver incomingEventReceiver = null;
 
         try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("specified consumer properties are not applicable to REST Requestor consumer (ConsumerName)",
-                            aee.getMessage());
+                    aee.getMessage());
         }
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rrctp);
         try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("REST Requestor consumer (ConsumerName) must run in peered requestor mode "
-                            + "with a REST Requestor producer", aee.getMessage());
+                    + "with a REST Requestor producer", aee.getMessage());
         }
 
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(null);
         try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("no URL has been specified on REST Requestor consumer (ConsumerName)", aee.getMessage());
@@ -80,7 +82,7 @@ public class ApexRestRequestorConsumerTest {
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("ZZZZ");
         try {
-            consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
             fail("test should throw an exception here");
         } catch (ApexEventException aee) {
             assertEquals("invalid URL has been specified on REST Requestor consumer (ConsumerName)", aee.getMessage());
@@ -91,17 +93,16 @@ public class ApexRestRequestorConsumerTest {
         rrctp.setHttpCodeFilter("[1-5][0][0-5]");
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
-        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
 
         try {
             consumer.processRestRequest(null);
             fail("test should throw an exception here");
         } catch (Exception ex) {
-            assertEquals("could not queue request \"null\" on REST Requestor consumer (ConsumerName)",
-                            ex.getMessage());
+            assertEquals("could not queue request \"null\" on REST Requestor consumer (ConsumerName)", ex.getMessage());
         }
 
-        assertEquals("ConsumerName", consumer.getName());
+        assertEquals(CONSUMER_NAME, consumer.getName());
         assertEquals(0, consumer.getEventsReceived());
         assertEquals(null, consumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
@@ -111,10 +112,7 @@ public class ApexRestRequestorConsumerTest {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
-        String consumerName = "ConsumerName";
-
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
-        ApexEventReceiver incomingEventReceiver = null;
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rrctp);
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
@@ -124,9 +122,9 @@ public class ApexRestRequestorConsumerTest {
         consumerParameters.setPeerTimeout(EventHandlerPeeredMode.REQUESTOR, 0);
 
         // Test should time out requests
-        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.init(CONSUMER_NAME, consumerParameters, null);
         consumer.start();
-        ApexRestRequest request = new ApexRestRequest(123, null, "EventName", "Event body");
+        ApexRestRequest request = new ApexRestRequest(123, null, EVENT_NAME, EVENT_BODY);
         consumer.processRestRequest(request);
         ThreadUtilities.sleep(200);
         consumer.stop();
@@ -138,10 +136,7 @@ public class ApexRestRequestorConsumerTest {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
-        String consumerName = "ConsumerName";
-
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
-        ApexEventReceiver incomingEventReceiver = null;
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rrctp);
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
@@ -153,9 +148,9 @@ public class ApexRestRequestorConsumerTest {
         properties.put("site", "onap");
         properties.put("net", "org");
 
-        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.init(CONSUMER_NAME, consumerParameters, null);
         consumer.start();
-        ApexRestRequest request = new ApexRestRequest(123, properties,"EventName", "Event body");
+        ApexRestRequest request = new ApexRestRequest(123, properties, EVENT_NAME, EVENT_BODY);
         consumer.processRestRequest(request);
         ThreadUtilities.sleep(2000);
         consumer.stop();
@@ -167,10 +162,7 @@ public class ApexRestRequestorConsumerTest {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
-        String consumerName = "ConsumerName";
-
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
-        ApexEventReceiver incomingEventReceiver = null;
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rrctp);
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
@@ -181,9 +173,9 @@ public class ApexRestRequestorConsumerTest {
         Properties properties = new Properties();
         properties.put("site", "onap");
 
-        consumer.init(consumerName, consumerParameters, incomingEventReceiver);
+        consumer.init(CONSUMER_NAME, consumerParameters, null);
         consumer.start();
-        ApexRestRequest request = new ApexRestRequest(123, properties,"EventName", "Event body");
+        ApexRestRequest request = new ApexRestRequest(123, properties, EVENT_NAME, EVENT_BODY);
         consumer.processRestRequest(request);
         ThreadUtilities.sleep(2000);
         consumer.stop();
