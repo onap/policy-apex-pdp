@@ -22,6 +22,30 @@
       "revId": "ab6162a23e1b76545e734c6ad2baca067f98e64a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ee4dc2_987f61ba",
+        "filename": "tools/model-generator/src/test/java/org/onap/policy/apex/tools/model/generator/model2event/Model2EventSchemaTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5259
+      },
+      "writtenOn": "2019-08-21T06:38:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad48f01e_c3386f52",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "ab6162a23e1b76545e734c6ad2baca067f98e64a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
