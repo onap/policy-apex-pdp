@@ -22,6 +22,30 @@
       "revId": "02bef1fc9ac105939f3f3859265ddd0d6f12068b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34d5ec0_93a41d83",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-21T09:41:47Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "9e6a82f5_21a7e5ef",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 37
+      },
+      "revId": "02bef1fc9ac105939f3f3859265ddd0d6f12068b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
