@@ -20,10 +20,14 @@
 
 package org.onap.policy.apex.tools.common;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import org.apache.commons.cli.Option;
 import org.junit.Test;
-import org.onap.policy.apex.tools.common.CliParser;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
 
 /**
  * Tests for {@link CliParser}.
@@ -39,5 +43,28 @@ public class CliParserTest {
     public void testappVersion() {
         final CliParser cli = new CliParser();
         LOGGER.info(cli.getAppVersion());
+    }
+
+    /**
+     * testAddAndGetOptionException.
+     */
+    @Test
+    public void testAddAndGetOptionException() {
+        final CliParser cli = new CliParser();
+        assertThatThrownBy(() -> {
+            cli.addOption(null);
+        }).isInstanceOf(IllegalStateException.class).hasMessageContaining("CLI parser: given option was null");
+    }
+
+    /**
+     * testParseAndGetCli.
+     */
+    @Test
+    public void testParseAndGetCli() {
+        final CliParser cli = new CliParser();
+        final Option option = new Option("g", "Good option.");
+        cli.addOption(option);
+        cli.parseCli(new String[] {"-g"});
+        assertThat(cli.getCommandLine().hasOption("-g")).isTrue();
     }
 }

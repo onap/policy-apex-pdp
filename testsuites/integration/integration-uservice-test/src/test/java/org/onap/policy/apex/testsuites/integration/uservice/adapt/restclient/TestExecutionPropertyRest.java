@@ -146,7 +146,7 @@ public class TestExecutionPropertyRest {
         final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json" };
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(1000);
+        ThreadUtilities.sleep(2000);
 
         apexMain.shutdown();
 
