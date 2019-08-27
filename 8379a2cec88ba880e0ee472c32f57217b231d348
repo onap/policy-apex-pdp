@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28ae7339_473917ed",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-27T07:31:20Z",
+      "side": 1,
+      "message": "We should be getting rid of sleeps in unit tests but let\u0027s leave that work till Frankfurt.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "8379a2cec88ba880e0ee472c32f57217b231d348",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
