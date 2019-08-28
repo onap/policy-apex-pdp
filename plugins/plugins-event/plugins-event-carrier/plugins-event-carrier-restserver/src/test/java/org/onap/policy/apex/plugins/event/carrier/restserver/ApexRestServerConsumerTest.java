@@ -93,7 +93,7 @@ public class ApexRestServerConsumerTest {
                 incomingEventReceiver);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testInitWithSynchronousModeAndProperValues()
             throws ApexEventException, NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException {
