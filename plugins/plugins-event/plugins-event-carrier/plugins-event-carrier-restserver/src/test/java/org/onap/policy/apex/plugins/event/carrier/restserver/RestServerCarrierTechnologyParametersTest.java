@@ -86,4 +86,33 @@ public class RestServerCarrierTechnologyParametersTest {
         assertFalse(result.isValid());
     }
 
+    @Test
+    public void testValidateWithValidValues() throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException {
+
+        Field field = RestServerCarrierTechnologyParameters.class.getDeclaredField("standalone");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, true);
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("host");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, "localhost");
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("port");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, 6969);
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("userName");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, "username");
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("password");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, "password");
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("https");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, true);
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("aaf");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, true);
+        result = restServerCarrierTechnologyParameters.validate();
+        assertNotNull(result);
+        assertTrue(result.isValid());
+    }
 }

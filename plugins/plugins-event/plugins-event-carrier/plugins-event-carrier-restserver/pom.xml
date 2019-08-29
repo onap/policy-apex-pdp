@@ -50,6 +50,11 @@
             <artifactId>jersey-container-servlet-core</artifactId>
             <version>${version.jersey}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>policy-endpoints</artifactId>
+            <version>${version.policy.common}</version>
+        </dependency>
     </dependencies>
 
     <profiles>

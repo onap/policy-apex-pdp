@@ -4,7 +4,7 @@
         "version": "0.0.1",
         "id": 45,
         "instanceCount": 4,
-        "deploymentPort": 12561,
+        "deploymentPort": 13561,
         "policyModelFileName": "examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.xml",
         "engineParameters": {
             "executorParameters": {
