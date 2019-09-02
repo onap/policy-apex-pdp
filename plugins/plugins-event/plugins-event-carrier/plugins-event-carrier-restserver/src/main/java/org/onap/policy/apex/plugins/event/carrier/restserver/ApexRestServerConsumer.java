@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +21,11 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
-import java.net.URI;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
-
 import javax.ws.rs.core.Response;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
@@ -40,6 +35,9 @@ import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
+import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +49,6 @@ import org.slf4j.LoggerFactory;
 public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestServerConsumer.class);
-
-    private static final String BASE_URI_TEMPLATE = "http://%s:%d/apex";
 
     // The amount of time to wait in milliseconds between checks that the consumer thread has stopped
     private static final long REST_SERVER_CONSUMER_WAIT_SLEEP_TIME = 50;
@@ -71,7 +67,7 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
     private boolean stopOrderedFlag = false;
 
     // The local HTTP server to use for REST call reception if we are running a local Grizzly server
-    private HttpServer server;
+    private HttpServletServer server;
 
     // Holds the next identifier for event execution.
     private static AtomicLong nextExecutionID = new AtomicLong(0L);
@@ -126,21 +122,37 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
                 throw new ApexEventException(errorMessage);
             }
 
-            // Compose the URI for the standalone server
-            final String baseUrl = String.format(BASE_URI_TEMPLATE, restConsumerProperties.getHost(),
-                    restConsumerProperties.getPort());
-
             // Instantiate the standalone server
-            final ResourceConfig rc = new ResourceConfig(RestServerEndpoint.class, AccessControlFilter.class);
-            server = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseUrl), rc);
-
-            while (!server.isStarted()) {
+            LOGGER.info("Creating the Apex Rest Server");
+            createServer(restConsumerProperties);
+            server.start();
+            while (!server.isAlive()) {
                 ThreadUtilities.sleep(REST_SERVER_CONSUMER_WAIT_SLEEP_TIME);
             }
         }
 
         // Register this consumer with the REST server end point
         RestServerEndpoint.registerApexRestServerConsumer(this.name, this);
+    }
+
+    private void createServer(RestServerCarrierTechnologyParameters restConsumerProperties) {
+
+        server = HttpServletServerFactoryInstance.getServerFactory().build(
+            restConsumerProperties.getName(),
+            restConsumerProperties.isHttps(),
+            restConsumerProperties.getHost(),
+            restConsumerProperties.getPort(), null, true, false);
+        if (restConsumerProperties.isAaf()) {
+            server.addFilterClass(null, ApexRestServerAafFilter.class.getName());
+        }
+        server.addServletClass(null, RestServerEndpoint.class.getName());
+        server.addServletClass(null, AccessControlFilter.class.getName());
+        server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
+        if (null != restConsumerProperties.getUserName()
+            && null != restConsumerProperties.getPassword()) {
+            server.setBasicAuthentication(restConsumerProperties.getUserName(),
+                restConsumerProperties.getPassword(), null);
+        }
     }
 
     /**
@@ -261,6 +273,9 @@ public class ApexRestServerConsumer implements ApexEventConsumer, Runnable {
 
         while (consumerThread.isAlive()) {
             ThreadUtilities.sleep(REST_SERVER_CONSUMER_WAIT_SLEEP_TIME);
+        }
+        if (server != null) {
+            server.stop();
         }
     }
 }

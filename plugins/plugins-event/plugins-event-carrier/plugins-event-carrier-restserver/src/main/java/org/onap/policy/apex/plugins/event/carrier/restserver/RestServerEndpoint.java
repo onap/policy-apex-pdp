@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,19 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.BasicAuthDefinition;
+import io.swagger.annotations.Info;
+import io.swagger.annotations.SecurityDefinition;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
+import java.net.HttpURLConnection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,7 +43,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,14 +52,34 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-@Path("/{eventInput}")
+@Path("/apex/{eventInput}")
+@Api(value = "APEX REST SERVER API")
 @Produces(
     { MediaType.APPLICATION_JSON })
 @Consumes(
     { MediaType.APPLICATION_JSON })
+@SwaggerDefinition(
+        info = @Info(description =
+                 "APEX RestServer that handles  REST requests and responses to and from Apex.", version = "v1.0",
+                     title = "APEX RESTSERVER"),
+        consumes = {MediaType.APPLICATION_JSON},
+        produces = {MediaType.APPLICATION_JSON},
+        schemes = {SwaggerDefinition.Scheme.HTTP, SwaggerDefinition.Scheme.HTTPS},
+        tags = {@Tag(name = "APEX RESTSERVER", description = "APEX RESTSERVER")},
+        securityDefinition = @SecurityDefinition(basicAuthDefinitions = {@BasicAuthDefinition(key = "basicAuth")}))
 public class RestServerEndpoint {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(RestServerEndpoint.class);
+
+    public static final String AUTHORIZATION_TYPE = "basicAuth";
+
+    public static final int AUTHENTICATION_ERROR_CODE = HttpURLConnection.HTTP_UNAUTHORIZED;
+    public static final int AUTHORIZATION_ERROR_CODE = HttpURLConnection.HTTP_FORBIDDEN;
+    public static final int SERVER_ERROR_CODE = HttpURLConnection.HTTP_INTERNAL_ERROR;
+
+    public static final String AUTHENTICATION_ERROR_MESSAGE = "Authentication Error";
+    public static final String AUTHORIZATION_ERROR_MESSAGE = "Authorization Error";
+    public static final String SERVER_ERROR_MESSAGE = "Internal Server Error";
 
     // Statistics on the amount of HTTP messages handled
     private static int getMessagesReceived = 0;
@@ -82,6 +112,14 @@ public class RestServerEndpoint {
      */
     @Path("/Status")
     @GET
+    @ApiOperation(
+        value = "Get Statistics",
+        notes = "Get statistics on apex REST event handlin",
+        authorizations = @Authorization(value = AUTHORIZATION_TYPE))
+    @ApiResponses(
+        value = {@ApiResponse(code = AUTHENTICATION_ERROR_CODE, message = AUTHENTICATION_ERROR_MESSAGE),
+            @ApiResponse(code = AUTHORIZATION_ERROR_CODE, message = AUTHORIZATION_ERROR_MESSAGE),
+            @ApiResponse(code = SERVER_ERROR_CODE, message = SERVER_ERROR_MESSAGE)})
     public Response serviceGetStats() {
         incrementGetMessages();
         return Response.status(Response.Status.OK.getStatusCode())
@@ -92,13 +130,21 @@ public class RestServerEndpoint {
     }
 
     /**
-     * Service post request, an incoming event over RETS to Apex.
+     * Service post request, an incoming event over REST to Apex.
      *
      * @param jsonString the JSON string containing the data coming in on the REST call
      * @return the response event to the request
      */
     @Path("/EventIn")
     @POST
+    @ApiOperation(
+        value = "Post Event",
+        notes = "Service post request, an incoming event over REST to Apex",
+        authorizations = @Authorization(value = AUTHORIZATION_TYPE))
+    @ApiResponses(
+        value = {@ApiResponse(code = AUTHENTICATION_ERROR_CODE, message = AUTHENTICATION_ERROR_MESSAGE),
+            @ApiResponse(code = AUTHORIZATION_ERROR_CODE, message = AUTHORIZATION_ERROR_MESSAGE),
+            @ApiResponse(code = SERVER_ERROR_CODE, message = SERVER_ERROR_MESSAGE)})
     public Response servicePostRequest(final String jsonString) {
         incrementPostEventMessages();
 
@@ -112,13 +158,21 @@ public class RestServerEndpoint {
     }
 
     /**
-     * Service put request, an incoming event over RETS to Apex.
+     * Service put request, an incoming event over REST to Apex.
      *
      * @param jsonString the JSON string containing the data coming in on the REST call
      * @return the response event to the request
      */
     @Path("/EventIn")
     @PUT
+    @ApiOperation(
+        value = "Put Event",
+        notes = "Service put request, an incoming event over REST to Apex",
+        authorizations = @Authorization(value = AUTHORIZATION_TYPE))
+    @ApiResponses(
+        value = {@ApiResponse(code = AUTHENTICATION_ERROR_CODE, message = AUTHENTICATION_ERROR_MESSAGE),
+            @ApiResponse(code = AUTHORIZATION_ERROR_CODE, message = AUTHORIZATION_ERROR_MESSAGE),
+            @ApiResponse(code = SERVER_ERROR_CODE, message = SERVER_ERROR_MESSAGE)})
     public Response servicePutRequest(final String jsonString) {
         incrementPutEventMessages();
 

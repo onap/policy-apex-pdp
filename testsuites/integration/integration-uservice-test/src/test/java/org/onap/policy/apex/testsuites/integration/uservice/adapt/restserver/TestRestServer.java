@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -24,24 +25,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.Random;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -73,16 +72,19 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void testRestServerPut() throws MessagingException, ApexException, IOException {
-        LOGGER.info("testRestServerPut start");
+    public void testRestServerPut() throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerPut start");
 
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
-
+        if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 6, 10000L)) {
+            throw new IllegalStateException("cannot connect to Apex Rest Server");
+        }
         final Client client = ClientBuilder.newClient();
 
         Response response = null;
@@ -106,7 +108,7 @@ public class TestRestServer {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
         assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
-        LOGGER.info("testRestServerPut end");
+        LOGGER.debug("testRestServerPut end");
     }
 
     /**
@@ -115,14 +117,18 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void testRestServerPost() throws MessagingException, ApexException, IOException {
+    public void testRestServerPost() throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerPost start");
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
-
+        if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 6, 10000L)) {
+            throw new IllegalStateException("cannot connect to Apex Rest Server");
+        }
         final Client client = ClientBuilder.newClient();
 
         Response response = null;
@@ -146,6 +152,7 @@ public class TestRestServer {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
         assertEquals("Test slogan for External Event0", jsonMap.get("TestSlogan"));
+        LOGGER.debug("testRestServerPost end");
     }
 
     /**
@@ -154,13 +161,17 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @Test
-    public void testRestServerGetStatus() throws MessagingException, ApexException, IOException {
+    public void testRestServerGetStatus() throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerGetStatus start");
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
         final ApexMain apexMain = new ApexMain(args);
-
+        if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 6, 10000L)) {
+            throw new IllegalStateException("cannot connect to Apex Rest Server");
+        }
         final Client client = ClientBuilder.newClient();
 
         Response postResponse = null;
@@ -198,7 +209,7 @@ public class TestRestServer {
         assertEquals(1.0, jsonMap.get("STAT"));
         assertTrue((double) jsonMap.get("POST") >= 10.0);
         assertTrue((double) jsonMap.get("PUT") >= 10.0);
-
+        LOGGER.debug("testRestServerGetStatus end");
     }
 
     /**
@@ -207,14 +218,19 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void testRestServerMultiInputs() throws MessagingException, ApexException, IOException {
+    public void testRestServerMultiInputs()
+        throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerMultiInputs start");
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json" };
         final ApexMain apexMain = new ApexMain(args);
-
+        if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 6, 10000L)) {
+            throw new IllegalStateException("cannot connect to Apex Rest Server");
+        }
         final Client client = ClientBuilder.newClient();
 
         Response firstResponse = null;
@@ -230,12 +246,12 @@ public class TestRestServer {
             if (Response.Status.OK.getStatusCode() != firstResponse.getStatus()) {
                 break;
             }
-            
+
             final String firstResponseString = firstResponse.readEntity(String.class);
 
             firstJsonMap = new Gson().fromJson(firstResponseString, Map.class);
 
-            secondResponse = client.target("http://localhost:23324/apex/SecondConsumer/EventIn")
+            secondResponse = client.target("http://localhost:23325/apex/SecondConsumer/EventIn")
                             .request("application/json").post(Entity.json(getEvent()));
 
             if (Response.Status.OK.getStatusCode() != secondResponse.getStatus()) {
@@ -252,10 +268,11 @@ public class TestRestServer {
         assertEquals(Response.Status.OK.getStatusCode(), firstResponse.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", firstJsonMap.get("nameSpace"));
         assertEquals("Test slogan for External Event0", firstJsonMap.get("TestSlogan"));
-        
+
         assertEquals(Response.Status.OK.getStatusCode(), secondResponse.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", secondJsonMap.get("nameSpace"));
         assertEquals("Test slogan for External Event0", secondJsonMap.get("TestSlogan"));
+        LOGGER.debug("testRestServerMultiInputs end");
     }
 
     /**
@@ -264,9 +281,12 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @Test
-    public void testRestServerProducerStandalone() throws MessagingException, ApexException, IOException {
+    public void testRestServerProducerStandalone()
+        throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerProducerStandalone start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -284,6 +304,7 @@ public class TestRestServer {
 
         assertTrue(outString.contains(
                         "the parameters \"host\", \"port\", and \"standalone\" are illegal on REST Server producer"));
+        LOGGER.debug("testRestServerProducerStandalone end");
     }
 
     /**
@@ -292,9 +313,12 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @Test
-    public void testRestServerProducerHost() throws MessagingException, ApexException, IOException {
+    public void testRestServerProducerHost()
+        throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerProducerHost start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -311,6 +335,7 @@ public class TestRestServer {
         System.setErr(stderr);
 
         assertTrue(outString.contains(" host is specified only in standalone mode"));
+        LOGGER.debug("testRestServerProducerHost end");
     }
 
     /**
@@ -319,9 +344,12 @@ public class TestRestServer {
      * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @Test
-    public void testRestServerProducerPort() throws MessagingException, ApexException, IOException {
+    public void testRestServerProducerPort()
+        throws MessagingException, ApexException, IOException, InterruptedException {
+        LOGGER.debug("testRestServerProducerPort start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -338,6 +366,7 @@ public class TestRestServer {
         System.setErr(stderr);
 
         assertTrue(outString.contains(" port is specified only in standalone mode"));
+        LOGGER.debug("testRestServerProducerPort end");
     }
 
     /**
@@ -349,6 +378,7 @@ public class TestRestServer {
      */
     @Test
     public void testRestServerConsumerStandaloneNoHost() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerConsumerStandaloneNoHost start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -366,6 +396,7 @@ public class TestRestServer {
 
         assertTrue(outString.contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
                         + "(FirstConsumer) in standalone mode"));
+        LOGGER.debug("testRestServerConsumerStandaloneNoHost end");
     }
 
     /**
@@ -377,6 +408,7 @@ public class TestRestServer {
      */
     @Test
     public void testRestServerConsumerStandaloneNoPort() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerConsumerStandaloneNoPort start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -394,6 +426,7 @@ public class TestRestServer {
 
         assertTrue(outString.contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
                         + "(FirstConsumer) in standalone mode"));
+        LOGGER.debug("testRestServerConsumerStandaloneNoPort end");
     }
 
     /**
@@ -405,6 +438,7 @@ public class TestRestServer {
      */
     @Test
     public void testRestServerProducerNotSync() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerProducerNotSync start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -422,6 +456,7 @@ public class TestRestServer {
 
         assertTrue(outString.contains("REST Server producer (FirstProducer) must run in synchronous mode "
                         + "with a REST Server consumer"));
+        LOGGER.debug("testRestServerProducerNotSync end");
     }
 
     /**
@@ -433,6 +468,7 @@ public class TestRestServer {
      */
     @Test
     public void testRestServerConsumerNotSync() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerConsumerNotSync start");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
@@ -451,6 +487,7 @@ public class TestRestServer {
         assertTrue(outString
                         .contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
                                         + "with the same peered mode"));
+        LOGGER.debug("testRestServerConsumerNotSync end");
     }
 
     /**
