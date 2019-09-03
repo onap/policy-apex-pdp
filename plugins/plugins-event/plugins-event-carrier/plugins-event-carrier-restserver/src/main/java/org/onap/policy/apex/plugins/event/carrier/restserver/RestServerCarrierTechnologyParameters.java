@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
+import lombok.Getter;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -40,6 +42,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class RestServerCarrierTechnologyParameters extends CarrierTechnologyParameters {
     // @formatter:off
     private static final int MIN_USER_PORT =  1024;
@@ -58,6 +61,10 @@ public class RestServerCarrierTechnologyParameters extends CarrierTechnologyPara
     private boolean standalone = false;
     private String  host       = null;
     private int     port       = -1;
+    private String userName;
+    private String password;
+    private boolean https;
+    private boolean aaf;
     // @formatter:on
 
     /**
@@ -71,34 +78,6 @@ public class RestServerCarrierTechnologyParameters extends CarrierTechnologyPara
         this.setLabel(RESTSERVER_CARRIER_TECHNOLOGY_LABEL);
         this.setEventProducerPluginClass(RESTSERVER_EVENT_PRODUCER_PLUGIN_CLASS);
         this.setEventConsumerPluginClass(RESTSERVER_EVENT_CONSUMER_PLUGIN_CLASS);
-    }
-
-    /**
-     * Check if the REST server is running in standalone mode or is using an underlying servlet infrastructure to manage
-     * requests.
-     *
-     * @return true if in standalone mode
-     */
-    public boolean isStandalone() {
-        return standalone;
-    }
-
-    /**
-     * Gets the host.
-     *
-     * @return the host
-     */
-    public String getHost() {
-        return host;
-    }
-
-    /**
-     * Gets the port.
-     *
-     * @return the port
-     */
-    public int getPort() {
-        return port;
     }
 
     /**
