@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "82e7c6be_34e5fede",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-09-03T14:35:29Z",
+      "side": 1,
+      "message": "Grizzly server is removed, and RestServer from PolicyCommon is initialized in ApexRestServerConsumer as part of this change.",
+      "parentUuid": "88ee4fb2_68d1d657",
+      "revId": "52db4fdbe3aa28b2271f62f75db49f6bf7055e10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1c17caa_c48e2765",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/RestServerCarrierTechnologyParametersTest.java",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d4fe9e4f_06ed5b44",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/RestServerCarrierTechnologyParametersTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-09-03T14:35:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e1c17caa_c48e2765",
+      "revId": "52db4fdbe3aa28b2271f62f75db49f6bf7055e10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12b39e82_7f4fbd70",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2019-09-03T13:25:25Z",
       "side": 1,
       "message": "might want to use \"600, 100\" or \"120, 500\" instead - the second argument is the amount of time it will sleep between checks; 10s is a long time to wait if the server doesn\u0027t come up right away.\n\nsame comment elsewhere",
+      "revId": "52db4fdbe3aa28b2271f62f75db49f6bf7055e10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f0fe4c5_6b1b7fde",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-09-03T14:35:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12b39e82_7f4fbd70",
       "revId": "52db4fdbe3aa28b2271f62f75db49f6bf7055e10",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
