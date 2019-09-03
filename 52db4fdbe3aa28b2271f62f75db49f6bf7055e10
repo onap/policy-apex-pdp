@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "ea3fede0_1bf92917",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/RestServerCarrierTechnologyParametersTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-09-03T14:52:07Z",
+      "side": 1,
+      "message": "is there a success case with standalone\u003dfalse?",
+      "parentUuid": "baf61b5a_aadaf7cc",
+      "revId": "52db4fdbe3aa28b2271f62f75db49f6bf7055e10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12b39e82_7f4fbd70",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
         "patchSetId": 4
