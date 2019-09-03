@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f7d57ed_cc85d260",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/RestServerCarrierTechnologyParametersTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-09-03T14:52:07Z",
+      "side": 1,
+      "message": "fyi: could use powermock Whitebox to cut all of these to single lines",
+      "revId": "7cf00931901b54b916a9e25f957bf7904aa9b068",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
