@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3e6b41fe_b045aa20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-09-03T14:39:08Z",
+      "side": 1,
+      "message": "I see my confusion: it appears that the consumer class initializes a HttpServletServer, which is not a RestServer.",
+      "parentUuid": "82e7c6be_34e5fede",
+      "revId": "52db4fdbe3aa28b2271f62f75db49f6bf7055e10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1c17caa_c48e2765",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/RestServerCarrierTechnologyParametersTest.java",
         "patchSetId": 4
