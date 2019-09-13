@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Jim Hahn <jrh3@att.com>
+Code-Review+1: Pamela Dragosh <pdragosh@research.att.com>
+Code-Review+1: Ajith Sreekumar <ajith.sreekumar@est.tech>
+Code-Review+2: Liam Fallon <liam.fallon@est.tech>
+Submitted-by: Liam Fallon <liam.fallon@est.tech>
+Submitted-at: Fri, 13 Sep 2019 09:49:49 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/95582
+Project: policy/apex-pdp
+Branch: refs/heads/elalto
