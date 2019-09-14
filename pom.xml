@@ -238,7 +238,8 @@
                 <adsite-plugins-executor-java-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-java/src</adsite-plugins-executor-java-dir>
                 <adsite-plugins-executor-javascript-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-javascript/src</adsite-plugins-executor-javascript-dir>
                 <adsite-plugins-executor-jruby-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jruby/src</adsite-plugins-executor-jruby-dir>
-                <adsite-plugins-executor-jython-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jython/src</adsite-plugins-executor-jython-dir>
+                <!-- Jython support disabled due to security concerns -->
+                <!-- adsite-plugins-executor-jython-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-jython/src</adsite-plugins-executor-jython-dir-->
                 <adsite-plugins-executor-mvel-dir>${project.basedir}/plugins/plugins-executor/plugins-executor-mvel/src</adsite-plugins-executor-mvel-dir>
 
                 <adsite-services-engine-dir>${project.basedir}/services/services-engine/src</adsite-services-engine-dir>
