@@ -47,6 +47,10 @@
         <version.hibernate>5.3.7.Final</version.hibernate>
         <version.policy.common>1.6.0-SNAPSHOT</version.policy.common>
         <version.policy.models>2.2.0-SNAPSHOT</version.policy.models>
+        <version.jackson>2.10.0.pr3</version.jackson>
+        <version.jgroups>4.1.5.Final</version.jgroups>
+        <version.commons-codec>20041127.091804</version.commons-codec>
+        <version.caffeine>2.8.0</version.caffeine>
         <!-- sonar/jacoco overrides -->
         <!-- Overriding oparent default sonar/jacoco settings Combine all our reports
             into one file shared across sub-modules -->
@@ -102,6 +106,31 @@
                 <groupId>org.onap.policy.common</groupId>
                 <artifactId>common-parameters</artifactId>
                 <version>${version.policy.common}</version>
+            </dependency>
+           <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.org.jgroups</groupId>
+                <artifactId>jgroups</artifactId>
+                <version>${version.jgroups}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>comomns-codec</artifactId>
+                <version>${version.commons-codec}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${version.caffeine}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
