@@ -118,13 +118,13 @@
                 <version>${version.jackson}</version>
             </dependency>
             <dependency>
-                <groupId>org.org.jgroups</groupId>
+                <groupId>org.jgroups</groupId>
                 <artifactId>jgroups</artifactId>
                 <version>${version.jgroups}</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
-                <artifactId>comomns-codec</artifactId>
+                <artifactId>commons-codec</artifactId>
                 <version>${version.commons-codec}</version>
             </dependency>
             <dependency>
