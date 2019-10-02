@@ -22,6 +22,30 @@
       "revId": "fa6f8d62a884c4c235cc83d1b9c2e0dd2680f51e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9db82fe_bd4c356e",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/tosca/ToscaTemplate.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-02T10:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "358892d8_b3b6fb77",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "fa6f8d62a884c4c235cc83d1b9c2e0dd2680f51e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
