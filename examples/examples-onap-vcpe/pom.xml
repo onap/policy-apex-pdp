@@ -96,6 +96,12 @@
             <artifactId>events</artifactId>
             <version>${version.policy.models}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>policy-endpoints</artifactId>
+            <version>${version.policy.common}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
