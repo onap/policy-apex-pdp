@@ -50,12 +50,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-grizzly2-http</artifactId>
-            <version>${version.jersey}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>${version.jersey}</version>
@@ -95,6 +89,12 @@
             <groupId>org.onap.policy.models.policy-models-interactions.model-impl</groupId>
             <artifactId>events</artifactId>
             <version>${version.policy.models}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>policy-endpoints</artifactId>
+            <version>${version.policy.common}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

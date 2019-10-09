@@ -178,12 +178,6 @@
             <version>${version.jersey}</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-grizzly2-http</artifactId>
-            <version>${version.jersey}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>3.0.0</version>

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +21,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.google.gson.Gson;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.URI;
-import java.util.Map;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -46,8 +30,23 @@ import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
+import org.onap.policy.common.gson.GsonMessageBodyHandler;
+import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class TestFile2Rest.
@@ -56,7 +55,8 @@ public class TestFile2Rest {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestFile2Rest.class);
 
     private static final String BASE_URI = "http://localhost:32801/TestFile2Rest";
-    private static HttpServer server;
+    private static final int PORT = 32801;
+    private static HttpServletServer server;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -71,11 +71,16 @@ public class TestFile2Rest {
      */
     @BeforeClass
     public static void setUp() throws Exception {
-        final ResourceConfig rc = new ResourceConfig(TestRestClientEndpoint.class);
-        server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        server = HttpServletServerFactoryInstance.getServerFactory().build(
+            "TestFile2Rest", false, null, PORT, "/TestFile2Rest", false, false);
 
-        while (!server.isStarted()) {
-            ThreadUtilities.sleep(50);
+        server.addServletClass(null, TestRestClientEndpoint.class.getName());
+        server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
+
+        server.start();
+
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2, 1L)) {
+            throw new IllegalStateException("port " + PORT + " is still not in use");
         }
     }
 
@@ -86,7 +91,9 @@ public class TestFile2Rest {
      */
     @AfterClass
     public static void tearDown() throws Exception {
-        server.shutdown();
+        if (server != null) {
+            server.stop();
+        }
     }
 
     /**
