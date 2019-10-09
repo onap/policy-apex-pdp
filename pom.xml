@@ -107,6 +107,11 @@
                 <artifactId>common-parameters</artifactId>
                 <version>${version.policy.common}</version>
             </dependency>
+            <dependency>
+                <groupId>org.onap.policy.common</groupId>
+                <artifactId>policy-endpoints</artifactId>
+                <version>${version.policy.common}</version>
+            </dependency>
            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
