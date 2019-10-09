@@ -20,17 +20,6 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.net.URI;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -38,9 +27,20 @@ import org.junit.Test;
 import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
+import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * This class runs integration tests for execution property in restClient.
@@ -50,7 +50,9 @@ public class TestExecutionPropertyRest {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestExecutionPropertyRest.class);
 
     private static final String BASE_URI = "http://localhost:32801/TestExecutionRest";
-    private static HttpServer server;
+    private static HttpServletServer server;
+    private static final int PORT = 32801;
+    private static final int REST_SERVER_WAIT_SLEEP_TIME = 50;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -84,11 +86,20 @@ public class TestExecutionPropertyRest {
      */
     @BeforeClass
     public static void setUp() throws Exception {
-        final ResourceConfig rc = new ResourceConfig(TestRestClientEndpoint.class);
-        server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        if (NetworkUtil.isTcpPortOpen("localHost", PORT, 1, 1L)) {
+            throw new IllegalStateException("port " + PORT + " is still in use");
+        }
 
-        if (NetworkUtil.isTcpPortOpen(BASE_URI, 32801, 1, 1L)) {
-            throw new IllegalStateException("port " + 32801 + " is still in use");
+        server = HttpServletServerFactoryInstance.getServerFactory().build(
+            "TestExecutionPropertyRest", false, null, PORT, "/TestExecutionRest", false, false);
+
+        server.addServletClass(null, TestRestClientEndpoint.class.getName());
+        server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
+
+        server.start();
+
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 1, 1L)) {
+            ThreadUtilities.sleep(REST_SERVER_WAIT_SLEEP_TIME);
         }
 
     }
@@ -100,7 +111,9 @@ public class TestExecutionPropertyRest {
      */
     @AfterClass
     public static void tearDown() throws Exception {
-        server.shutdown();
+        if (server != null) {
+            server.stop();
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +21,6 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.junit.Assert.fail;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.URI;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,8 +30,19 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
+import org.onap.policy.common.gson.GsonMessageBodyHandler;
+import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import static org.junit.Assert.fail;
 
 /**
  * The Class TestRest2File.
@@ -50,7 +51,9 @@ public class TestRest2File {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestRest2File.class);
 
     private static final String BASE_URI = "http://localhost:32801/TestRest2File";
-    private HttpServer server;
+    private static final int PORT = 32801;
+    private static HttpServletServer server;
+    private static final int REST_SERVER_WAIT_SLEEP_TIME = 50;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -73,11 +76,16 @@ public class TestRest2File {
      */
     @Before
     public void setUp() throws Exception {
-        final ResourceConfig rc = new ResourceConfig(TestRestClientEndpoint.class);
-        server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        server = HttpServletServerFactoryInstance.getServerFactory().build(
+            "TestRest2File", false, null, PORT, "/TestRest2File", false, false);
 
-        while (!server.isStarted()) {
-            ThreadUtilities.sleep(50);
+        server.addServletClass(null, TestRestClientEndpoint.class.getName());
+        server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
+
+        server.start();
+
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 1, 1L)) {
+            ThreadUtilities.sleep(REST_SERVER_WAIT_SLEEP_TIME);
         }
     }
 
@@ -88,7 +96,9 @@ public class TestRest2File {
      */
     @After
     public void tearDown() throws Exception {
-        server.shutdown();
+        if (server != null) {
+            server.stop();
+        }
     }
 
     /**
@@ -254,7 +264,7 @@ public class TestRest2File {
 
         checkRequiredString(outString,
             "reception of event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" "
-                + "failed with status code 400 and message \"\"");
+                + "failed with status code 400 and message \"");
     }
 
     /**
@@ -263,9 +273,9 @@ public class TestRest2File {
      * @param outputEventText the text to examine
      * @param requiredString the string to search for
      */
-    private void checkRequiredString(String outputText, String requiredString) {
-        if (!outputText.contains(requiredString)) {
-            LOGGER.error("\n***output text:\n" + outputText + "\n***");
+    private void checkRequiredString(String outputEventText, String requiredString) {
+        if (!outputEventText.contains(requiredString)) {
+            LOGGER.error("\n***output text:\n" + outputEventText + "\n***");
             fail("\n***test output did not contain required string:\n" + requiredString + "\n***");
         }
     }

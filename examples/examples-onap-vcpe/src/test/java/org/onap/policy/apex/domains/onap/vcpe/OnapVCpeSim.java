@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,31 +21,34 @@
 
 package org.onap.policy.apex.domains.onap.vcpe;
 
-import java.net.URI;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
+import org.onap.policy.common.gson.GsonMessageBodyHandler;
+import org.onap.policy.common.utils.network.NetworkUtil;
 
 /**
- * The Class AaiAndGuardSim.
+ * The Class OnapVCpeSim.
  */
 public class OnapVCpeSim {
     private static final int MAX_LOOPS = 100000;
-    private HttpServer server;
+    private static HttpServletServer server;
+    private static final int REST_SERVER_WAIT_SLEEP_TIME = 50;
 
     /**
      * Instantiates a new aai and guard sim.
      */
-    public OnapVCpeSim(final String[] args) {
-        final String baseUri = "http://" + args[0] + ':' + args[1] + "/OnapVCpeSim";
+    public OnapVCpeSim(final String[] args) throws Exception {
+        server = HttpServletServerFactoryInstance.getServerFactory().build(
+            "OnapVCpeSimEndpoint", false, args[0], Integer.valueOf(args[1]).intValue(), "/OnapVCpeSim", false, false);
 
-        final ResourceConfig rc = new ResourceConfig(OnapVCpeSimEndpoint.class);
-        server = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseUri), rc);
+        server.addServletClass(null, OnapVCpeSimEndpoint.class.getName());
+        server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
 
-        while (!server.isStarted()) {
-            ThreadUtilities.sleep(50);
+        server.start();
+
+        while (!NetworkUtil.isTcpPortOpen(args[0], Integer.valueOf(args[1]).intValue(), 1, 1L)) {
+            ThreadUtilities.sleep(REST_SERVER_WAIT_SLEEP_TIME);
         }
     }
 
@@ -54,7 +58,9 @@ public class OnapVCpeSim {
      * @throws Exception the exception
      */
     public void tearDown() throws Exception {
-        server.shutdown();
+        if (server != null) {
+            server.stop();
+        }
     }
 
     /**
