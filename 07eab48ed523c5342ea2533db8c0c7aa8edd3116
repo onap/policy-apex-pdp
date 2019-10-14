@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8e34081_cfe0aeb7",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-14T13:27:15Z",
+      "side": 1,
+      "message": "fix comment",
+      "revId": "07eab48ed523c5342ea2533db8c0c7aa8edd3116",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54a4f3a3_4c0590aa",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-14T13:27:15Z",
+      "side": 1,
+      "message": "is this still needed?",
+      "revId": "07eab48ed523c5342ea2533db8c0c7aa8edd3116",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c397272f_7a6eddf5",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-14T13:27:15Z",
+      "side": 1,
+      "message": "not needed, provided NetworkUtil.isTcpPortOpen() is used instead of isAlive/sleep loop (see comment on line 49)\n\nsame comment applies to other files",
+      "revId": "07eab48ed523c5342ea2533db8c0c7aa8edd3116",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ba9e480_4a05cb5c",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-14T13:27:15Z",
+      "side": 1,
+      "message": "maybe use NetworkUtil.isTcpPortOpen() instead\n\nsame comment applies to other files",
+      "revId": "07eab48ed523c5342ea2533db8c0c7aa8edd3116",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42137ebb_5c9c448e",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-14T13:27:15Z",
+      "side": 1,
+      "message": "this seems odd.  Won\u0027t the previous loop start a server on the port?  If so, then this \"if\" should always throw an exception or it might be inconsistent.  On the other hand, it could make sense to move this \"if\" test before line 89, where it can ensure that the port is available BEFORE starting the server",
+      "revId": "07eab48ed523c5342ea2533db8c0c7aa8edd3116",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
