@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "823fbbfe_376474fb",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSim.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-15T12:47:13Z",
+      "side": 1,
+      "message": "change this whole block to:\n\n  if( ! Network...) {\n    throw new IllegalStateException(\"...\")\n  }",
+      "revId": "bf97ffbde44634e82454c298d006b7e37525c7ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3417262_a032ab30",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-15T12:47:13Z",
+      "side": 1,
+      "message": "same comments from other file",
+      "revId": "bf97ffbde44634e82454c298d006b7e37525c7ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a9a2d72_eba624d6",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-15T12:47:13Z",
+      "side": 1,
+      "message": "throw an exception instead of sleeping\n\nsame comment in other files",
+      "revId": "bf97ffbde44634e82454c298d006b7e37525c7ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
