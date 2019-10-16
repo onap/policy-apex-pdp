@@ -56,7 +56,7 @@ public class TestApexStarterActivator {
     @Before
     public void setUp() throws Exception {
         Registry.newRegistry();
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json"};
+        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
         final ApexStarterCommandLineArguments arguments =
                 new ApexStarterCommandLineArguments(apexStarterConfigParameters);
         final ApexStarterParameterGroup parGroup = new ApexStarterParameterHandler().getParameters(arguments);
