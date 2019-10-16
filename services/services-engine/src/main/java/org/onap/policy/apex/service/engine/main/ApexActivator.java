@@ -24,17 +24,29 @@ package org.onap.policy.apex.service.engine.main;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
+import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
+import org.onap.policy.apex.model.policymodel.concepts.AxPolicies;
+import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.engdep.EngDepMessagingService;
+import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -45,11 +57,18 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexActivator {
+    private static final String APEX_ENGINE_FAILED_MSG = "Apex engine failed to start as a service";
+
     // The logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexActivator.class);
 
     // The parameters of this Apex activator
-    private final ApexParameters apexParameters;
+    @Getter
+    private ApexParameters apexParameters;
+
+    // The parameters of the Apex activator when running with multiple policies
+    @Getter
+    private Map<ToscaPolicyIdentifier, ApexParameters> apexParametersMap;
 
     // Event unmarshalers are used to receive events asynchronously into Apex
     private final Map<String, ApexEventUnmarshaller> unmarshallerMap = new LinkedHashMap<>();
@@ -72,6 +91,15 @@ public class ApexActivator {
     }
 
     /**
+     * Instantiate the activator for the Apex engine as a complete service when running with multiple policies.
+     *
+     * @param parametersMap the apex parameters map for the Apex service
+     */
+    public ApexActivator(Map<ToscaPolicyIdentifier, ApexParameters> parametersMap) {
+        apexParametersMap = parametersMap;
+    }
+
+    /**
      * Initialize the Apex engine as a complete service.
      *
      * @throws ApexActivatorException on errors in initializing the engine
@@ -80,19 +108,7 @@ public class ApexActivator {
         LOGGER.debug("Apex engine starting as a service . . .");
 
         try {
-            // Create engine with specified thread count
-            LOGGER.debug("starting apex engine service . . .");
-            final EngineService apexEngineService =
-                    EngineServiceImpl.create(apexParameters.getEngineServiceParameters());
-
-            // Instantiate and start the messaging service for Deployment
-            LOGGER.debug("starting apex deployment service . . .");
-            final EngDepMessagingService engDepService = new EngDepMessagingService(apexEngineService,
-                    apexParameters.getEngineServiceParameters().getDeploymentPort());
-            engDepService.start();
-
-            // Create the engine holder to hold the engine's references and act as an event receiver
-            engineServiceHandler = new ApexEngineServiceHandler(apexEngineService, engDepService);
+            EngineService apexEngineService = instantiateEngine(apexParameters);
 
             // Check if a policy model file has been specified
             if (apexParameters.getEngineServiceParameters().getPolicyModelFileName() != null) {
@@ -107,34 +123,167 @@ public class ApexActivator {
                         policyModelString, true);
             }
 
-            // Producer parameters specify what event marshalers to handle events leaving Apex are
-            // set up and how they are set up
-            for (final Entry<String, EventHandlerParameters> outputParameters : apexParameters
-                    .getEventOutputParameters().entrySet()) {
-                final ApexEventMarshaller marshaller = new ApexEventMarshaller(outputParameters.getKey(),
-                        apexParameters.getEngineServiceParameters(), outputParameters.getValue());
-                marshaller.init();
-                apexEngineService.registerActionListener(outputParameters.getKey(), marshaller);
-                marshallerMap.put(outputParameters.getKey(), marshaller);
-            }
-
-            // Consumer parameters specify what event unmarshalers to handle events coming into Apex
-            // are set up and how they are set up
-            for (final Entry<String, EventHandlerParameters> inputParameters : apexParameters.getEventInputParameters()
-                    .entrySet()) {
-                final ApexEventUnmarshaller unmarshaller = new ApexEventUnmarshaller(inputParameters.getKey(),
-                        apexParameters.getEngineServiceParameters(), inputParameters.getValue());
-                unmarshallerMap.put(inputParameters.getKey(), unmarshaller);
-                unmarshaller.init(engineServiceHandler);
-            }
-
-            setUpmarshalerPairings();
+            setUpMarshallerAndUnmarshaller(apexEngineService, apexParameters);
+            setUpmarshalerPairings(apexParameters);
         } catch (final Exception e) {
-            LOGGER.debug("Apex engine failed to start as a service", e);
-            throw new ApexActivatorException("Apex engine failed to start as a service", e);
+            LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
+            throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
         }
 
         LOGGER.debug("Apex engine started as a service");
+    }
+
+    /**
+     * Initialize the Apex engine as a complete service when running with multiple policies.
+     *
+     * @throws ApexActivatorException on errors in initializing the engine
+     */
+    public void initializeForMultiplePolicies() throws ApexActivatorException {
+        LOGGER.debug("Apex engine starting as a service . . .");
+
+        try {
+            apexParameters = apexParametersMap.values().iterator().next();
+            // totalInstanceCount is the sum of instance counts required as per each policy
+            int totalInstanceCount = apexParametersMap.values().stream()
+                .mapToInt(p -> p.getEngineServiceParameters().getInstanceCount()).sum();
+            apexParameters.getEngineServiceParameters().setInstanceCount(totalInstanceCount);
+            EngineService apexEngineService = instantiateEngine(apexParameters);
+
+            Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap = new LinkedHashMap<>();
+            for (Entry<ToscaPolicyIdentifier, ApexParameters> apexParamsEntry : apexParametersMap.entrySet()) {
+                ApexParameters apexParams = apexParamsEntry.getValue();
+                // Check if a policy model file has been specified
+                if (apexParams.getEngineServiceParameters().getPolicyModelFileName() != null) {
+                    LOGGER.debug("deploying policy model in \""
+                        + apexParams.getEngineServiceParameters().getPolicyModelFileName()
+                        + "\" to the apex engines . . .");
+
+                    final String policyModelString = TextFileUtils
+                        .getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
+                    AxPolicyModel policyModel = EngineServiceImpl
+                        .createModel(apexParams.getEngineServiceParameters().getEngineKey(), policyModelString);
+                    policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
+                }
+                setUpMarshallerAndUnmarshaller(apexEngineService, apexParams);
+                setUpmarshalerPairings(apexParams);
+            }
+            AxPolicyModel finalPolicyModel = aggregatePolicyModels(policyModelsMap);
+            // Set the policy model in the engine
+            apexEngineService.updateModel(apexParameters.getEngineServiceParameters().getEngineKey(),
+                finalPolicyModel, true);
+        } catch (final Exception e) {
+            LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
+            throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
+        }
+
+        LOGGER.debug("Apex engine started as a service");
+    }
+
+    private AxPolicyModel aggregatePolicyModels(Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap) {
+        AxContextSchemas axContextSchemas = new AxContextSchemas();
+        AxKeyInformation axKeyInformation = new AxKeyInformation();
+        AxEvents axEvents = new AxEvents();
+        AxContextAlbums axContextAlbums = new AxContextAlbums();
+        AxTasks axTasks = new AxTasks();
+        AxPolicies axPolicies = new AxPolicies();
+        for (Entry<ToscaPolicyIdentifier, AxPolicyModel> policyModelEntry : policyModelsMap.entrySet()) {
+            AxPolicyModel policyModel = policyModelEntry.getValue();
+            StringBuilder errorMessage = new StringBuilder();
+            for (AxArtifactKey key : policyModel.getSchemas().getSchemasMap().keySet()) {
+                AxContextSchema schemaKey = axContextSchemas.getSchemasMap().get(key);
+                // same context schema name with different definitions cannot occur in multiple policies
+                if (null != schemaKey) {
+                    if (schemaKey.equals(policyModel.getSchemas().get(key))) {
+                        LOGGER.info("Same contextSchema - " + key.getId() + "is being used by multiple policies.");
+                    } else {
+                        errorMessage.append("\n Same context schema - ").append(key.getId())
+                            .append(" with different definitions used in different policies");
+                    }
+                }
+            }
+            for (AxArtifactKey key : policyModel.getEvents().getEventMap().keySet()) {
+                if (axEvents.getEventMap().containsKey(key)) {
+                    errorMessage.append("\n Duplicate event found - ").append(key.getId());
+                }
+            }
+            for (AxArtifactKey key : policyModel.getAlbums().getAlbumsMap().keySet()) {
+                AxContextAlbum albumsKey = axContextAlbums.getAlbumsMap().get(key);
+                // same context album name with different definitions cannot occur in multiple policies
+                if (null != albumsKey) {
+                    if (albumsKey.equals(policyModel.getAlbums().get(key))) {
+                        LOGGER.info("Same contextAlbum - " + key.getId() + "is being used by multiple policies.");
+                    } else {
+                        errorMessage.append("\n Same context album - ").append(key.getId())
+                            .append(" with different definitions used in different policies");
+                    }
+                }
+            }
+            for (AxArtifactKey key : policyModel.getTasks().getTaskMap().keySet()) {
+                if (axTasks.getTaskMap().containsKey(key)) {
+                    errorMessage.append("\n Duplicate task found - ").append(key.getId());
+                }
+            }
+            for (AxArtifactKey key : policyModel.getPolicies().getPolicyMap().keySet()) {
+                if (axPolicies.getPolicyMap().containsKey(key)) {
+                    errorMessage.append("\n Duplicate policy found - ").append(key.getId());
+                }
+            }
+            if (errorMessage.length() > 0) {
+                LOGGER.error("Policy model for " + policyModelEntry.getKey().getName() + ":"
+                    + policyModelEntry.getKey().getVersion() + " is having duplicates. So this policy is not executed");
+                apexParametersMap.remove(policyModelEntry.getKey());
+            } else {
+                // key information can be same in multiple policies
+                axKeyInformation.getKeyInfoMap().putAll(policyModel.getKeyInformation().getKeyInfoMap());
+                axContextSchemas.getSchemasMap().putAll(policyModel.getSchemas().getSchemasMap());
+                axEvents.getEventMap().putAll(policyModel.getEvents().getEventMap());
+                axContextAlbums.getAlbumsMap().putAll(policyModel.getAlbums().getAlbumsMap());
+                axTasks.getTaskMap().putAll(policyModel.getTasks().getTaskMap());
+                axPolicies.getPolicyMap().putAll(policyModel.getPolicies().getPolicyMap());
+            }
+        }
+        return new AxPolicyModel(new AxArtifactKey(), axContextSchemas, axKeyInformation, axEvents, axContextAlbums,
+            axTasks, axPolicies);
+    }
+
+    private void setUpMarshallerAndUnmarshaller(EngineService apexEngineService, ApexParameters apexParameters)
+        throws ApexEventException {
+        // Producer parameters specify what event marshalers to handle events leaving Apex are
+        // set up and how they are set up
+        for (final Entry<String, EventHandlerParameters> outputParameters : apexParameters
+                .getEventOutputParameters().entrySet()) {
+            final ApexEventMarshaller marshaller = new ApexEventMarshaller(outputParameters.getKey(),
+                    apexParameters.getEngineServiceParameters(), outputParameters.getValue());
+            marshaller.init();
+            apexEngineService.registerActionListener(outputParameters.getKey(), marshaller);
+            marshallerMap.put(outputParameters.getKey(), marshaller);
+        }
+
+        // Consumer parameters specify what event unmarshalers to handle events coming into Apex
+        // are set up and how they are set up
+        for (final Entry<String, EventHandlerParameters> inputParameters : apexParameters.getEventInputParameters()
+                .entrySet()) {
+            final ApexEventUnmarshaller unmarshaller = new ApexEventUnmarshaller(inputParameters.getKey(),
+                    apexParameters.getEngineServiceParameters(), inputParameters.getValue());
+            unmarshallerMap.put(inputParameters.getKey(), unmarshaller);
+            unmarshaller.init(engineServiceHandler);
+        }
+    }
+
+    private EngineService instantiateEngine(ApexParameters apexParameters) throws ApexException {
+        // Create engine with specified thread count
+        LOGGER.debug("starting apex engine service . . .");
+        EngineService apexEngineService = EngineServiceImpl.create(apexParameters.getEngineServiceParameters());
+
+        // Instantiate and start the messaging service for Deployment
+        LOGGER.debug("starting apex deployment service . . .");
+        final EngDepMessagingService engDepService = new EngDepMessagingService(apexEngineService,
+                apexParameters.getEngineServiceParameters().getDeploymentPort());
+        engDepService.start();
+
+        // Create the engine holder to hold the engine's references and act as an event receiver
+        engineServiceHandler = new ApexEngineServiceHandler(apexEngineService, engDepService);
+        return apexEngineService;
     }
 
     /**
@@ -143,8 +292,9 @@ public class ApexActivator {
      * unmarshalers and marshalers are paired one to one uniquely so if we find a
      * synchronized unmarshaler we'll also find its
      * paired marshaler
+     * @param apexParameters the apex parameters
      */
-    private void setUpmarshalerPairings() {
+    private void setUpmarshalerPairings(ApexParameters apexParameters) {
         for (final Entry<String, EventHandlerParameters> inputParameters : apexParameters.getEventInputParameters()
                 .entrySet()) {
             final ApexEventUnmarshaller unmarshaller = unmarshallerMap.get(inputParameters.getKey());
@@ -192,14 +342,5 @@ public class ApexActivator {
         // Clear the services
         ModelService.clear();
         ParameterService.clear();
-    }
-
-    /**
-     * Get the parameters used by the adapter.
-     *
-     * @return the parameters of the adapter
-     */
-    public ApexParameters getApexParameters() {
-        return apexParameters;
     }
 }
