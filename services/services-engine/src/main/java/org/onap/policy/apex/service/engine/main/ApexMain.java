@@ -23,6 +23,8 @@ package org.onap.policy.apex.service.engine.main;
 
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +32,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -45,7 +48,12 @@ public class ApexMain {
     private ApexActivator activator;
 
     // The parameters read in from JSON
+    @Getter
     private ApexParameters parameters;
+
+    // The parameters read in from JSON for each policy
+    @Getter
+    private Map<ToscaPolicyIdentifier, ApexParameters> apexParametersMap;
 
     @Getter
     @Setter(lombok.AccessLevel.PRIVATE)
@@ -54,51 +62,16 @@ public class ApexMain {
     /**
      * Instantiates the Apex service.
      *
-     * @param args the commaind line arguments
+     * @param args the command line arguments
      */
     public ApexMain(final String[] args) {
         LOGGER.entry("Starting Apex service with parameters " + Arrays.toString(args) + " . . .");
 
-        // Check the arguments
-        final ApexCommandLineArguments arguments = new ApexCommandLineArguments();
         try {
-            // The arguments return a string if there is a message to print and we should exit
-            final String argumentMessage = arguments.parse(args);
-            if (argumentMessage != null) {
-                LOGGER.info(argumentMessage);
-                return;
-            }
-
-            // Validate that the arguments are sane
-            arguments.validate();
-        } catch (final ApexException e) {
+            parameters = populateApexParameters(args);
+        } catch (ApexException e) {
             LOGGER.error("start of Apex service failed", e);
             return;
-        }
-
-        // Read the parameters
-        try {
-            parameters = new ApexParameterHandler().getParameters(arguments);
-        } catch (final Exception e) {
-            LOGGER.error("start of Apex service failed", e);
-            return;
-        }
-
-        // Set incoming Java properties
-        setJavaProperties(parameters);
-
-        // Set the name of the event handler parameters for producers and consumers
-        for (final Entry<String, EventHandlerParameters> ehParameterEntry : parameters.getEventOutputParameters()
-            .entrySet()) {
-            if (!ehParameterEntry.getValue().checkSetName()) {
-                ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
-            }
-        }
-        for (final Entry<String, EventHandlerParameters> ehParameterEntry : parameters.getEventInputParameters()
-            .entrySet()) {
-            if (!ehParameterEntry.getValue().checkSetName()) {
-                ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
-            }
         }
 
         // Now, create the activator for the Apex service
@@ -119,11 +92,91 @@ public class ApexMain {
     }
 
     /**
-     * Get the parameters specified in JSON.
+     * Instantiates the Apex service for multiple policies.
      *
-     * @return the parameters
+     * @param policyArgumentsMap the map with command line arguments as value and policy-id as key
+     * @throws ApexException on errors
      */
-    public ApexParameters getParameters() {
+    public ApexMain(Map<ToscaPolicyIdentifier, String[]> policyArgumentsMap) throws ApexException {
+        apexParametersMap = new LinkedHashMap<ToscaPolicyIdentifier, ApexParameters>();
+        for ( ToscaPolicyIdentifier policyIdent: policyArgumentsMap.keySet()) {
+            try {
+                apexParametersMap.put(policyIdent, populateApexParameters(policyArgumentsMap.get(policyIdent)));
+            } catch (ApexException e) {
+                LOGGER.error("Invalid arguments specified for policy - " + policyIdent.getName() + ":"
+                    + policyIdent.getVersion(), e);
+            }
+        }
+        if (apexParametersMap.isEmpty()) {
+            LOGGER.error("start of Apex service failed");
+            return;
+        }
+        // Now, create the activator for the Apex service
+        activator = new ApexActivator(apexParametersMap);
+
+        // Start the activator
+        try {
+            activator.initializeForMultiplePolicies();
+            apexParametersMap = activator.getApexParametersMap();
+            setAlive(true);
+        } catch (final ApexActivatorException e) {
+            LOGGER.error("start of Apex service failed", e);
+            activator.terminate();
+            return;
+        }
+
+        // Add a shutdown hook to shut everything down in an orderly manner
+        Runtime.getRuntime().addShutdownHook(new ApexMainShutdownHookClass());
+        LOGGER.exit("Started Apex");
+    }
+
+    private ApexParameters populateApexParameters(String[] args) throws ApexException {
+        // Check the arguments
+        final ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        try {
+            // The arguments return a string if there is a message to print and we should exit
+            final String argumentMessage = arguments.parse(args);
+            if (argumentMessage != null) {
+                LOGGER.info(argumentMessage);
+                throw new ApexException(argumentMessage);
+            }
+
+            // Validate that the arguments are sane
+            arguments.validate();
+        } catch (final ApexException e) {
+            LOGGER.error("Arguments validation failed.", e);
+            throw new ApexException("Arguments validation failed.", e);
+        }
+
+        ApexParameters parameters;
+        // Read the parameters
+        try {
+            ApexParameterHandler apexParameterHandler = new ApexParameterHandler();
+            // In case of multiple policies received from PAP, do not clear ParameterService if parameters of one policy
+            // already registered
+            apexParameterHandler.setKeepParameterServiceFlag(null != apexParametersMap && !apexParametersMap.isEmpty());
+            parameters = apexParameterHandler.getParameters(arguments);
+        } catch (final Exception e) {
+            LOGGER.error("Cannot create APEX Parameters from the arguments provided.", e);
+            throw new ApexException("Cannot create APEX Parameters from the arguments provided.", e);
+        }
+
+        // Set incoming Java properties
+        setJavaProperties(parameters);
+
+        // Set the name of the event handler parameters for producers and consumers
+        for (final Entry<String, EventHandlerParameters> ehParameterEntry : parameters.getEventOutputParameters()
+            .entrySet()) {
+            if (!ehParameterEntry.getValue().checkSetName()) {
+                ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
+            }
+        }
+        for (final Entry<String, EventHandlerParameters> ehParameterEntry : parameters.getEventInputParameters()
+            .entrySet()) {
+            if (!ehParameterEntry.getValue().checkSetName()) {
+                ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
+            }
+        }
         return parameters;
     }
 
