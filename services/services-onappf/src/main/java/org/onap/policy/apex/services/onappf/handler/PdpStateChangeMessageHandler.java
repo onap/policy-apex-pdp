@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.services.onappf.handler;
 
+import java.util.HashSet;
 import java.util.List;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
@@ -31,6 +32,7 @@ import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,25 +95,55 @@ public class PdpStateChangeMessageHandler {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "State changed to active. No policies found.");
             } else {
-                try {
-                    // assumed that the apex policies list contains only one entry.
-                    final ApexEngineHandler apexEngineHandler =
-                            new ApexEngineHandler(policies.get(0).getProperties().get("content"));
-                    Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
-                    if (apexEngineHandler.isApexEngineRunning()) {
-                        pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                            PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
-                        pdpStatusContext.setState(PdpState.ACTIVE);
-                    } else {
-                        pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                            PdpResponseStatus.FAIL, "Apex engine failed to start. State cannot be changed to active.");
-                    }
-                } catch (final ApexStarterException e) {
-                    LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
-                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
-                            PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
-                }
+                pdpResponseDetails = startApexEngine(pdpStateChangeMsg, pdpStatusContext, pdpMessageHandler, policies);
             }
+        }
+        return pdpResponseDetails;
+    }
+
+    /**
+     * Method to start apex engine.
+     *
+     * @param pdpStateChangeMsg pdp state change message
+     * @param pdpStatusContext pdp status in memory
+     * @param pdpMessageHandler the pdp message handler
+     * @param policies list of policies
+     * @return pdp response details
+     */
+    private PdpResponseDetails startApexEngine(final PdpStateChange pdpStateChangeMsg, final PdpStatus pdpStatusContext,
+        final PdpMessageHandler pdpMessageHandler, final List<ToscaPolicy> policies) {
+        PdpResponseDetails pdpResponseDetails;
+        try {
+            final ApexEngineHandler apexEngineHandler = new ApexEngineHandler(policies);
+            Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
+            if (apexEngineHandler.isApexEngineRunning()) {
+                List<ToscaPolicyIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
+                // only the policies which are succesfully executed should be there in the heartbeat
+                pdpStatusContext.setPolicies(runningPolicies);
+                if (new HashSet<>(runningPolicies)
+                    .equals(new HashSet<>(pdpMessageHandler.getToscaPolicyIdentifiers(policies)))) {
+                    pdpResponseDetails =
+                        pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                            PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
+                } else {
+                    StringBuilder message = new StringBuilder(
+                        "Apex engine started. But, only the following polices are running - ");
+                    for (ToscaPolicyIdentifier policy : runningPolicies) {
+                        message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
+                    }
+                    message.append(". Other policies failed execution. Please see the logs for more details.");
+                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(
+                        pdpStateChangeMsg.getRequestId(), PdpResponseStatus.SUCCESS, message.toString());
+                }
+                pdpStatusContext.setState(PdpState.ACTIVE);
+            } else {
+                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                    PdpResponseStatus.FAIL, "Apex engine failed to start. State cannot be changed to active.");
+            }
+        } catch (final ApexStarterException e) {
+            LOGGER.error("Pdp State Change failed.", e);
+            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                    PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
         return pdpResponseDetails;
     }
