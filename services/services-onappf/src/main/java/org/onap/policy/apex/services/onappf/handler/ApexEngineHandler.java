@@ -21,17 +21,21 @@
 package org.onap.policy.apex.services.onappf.handler;
 
 import com.google.gson.JsonObject;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,31 +50,41 @@ public class ApexEngineHandler {
     private ApexMain apexMain;
 
     /**
-     * Constructs the object. Extracts the apex config and model files and instantiates the apex engine.
+     * Constructs the object. Extracts the config and model files from each policy and instantiates the apex engine.
      *
-     * @param properties the properties which contains the policies and configurations received from pap
-     * @throws ApexStarterException if the apex engine instantiation failed using the properties passed
+     * @param policies the list of policies
+     * @throws ApexStarterException if the apex engine instantiation failed using the policies passed
      */
-    public ApexEngineHandler(final Object properties) throws ApexStarterException {
-        final StandardCoder standardCoder = new StandardCoder();
-        String policyModel;
-        String apexConfig;
-        try {
-            JsonObject body = standardCoder.decode(standardCoder.encode(properties), JsonObject.class);
-            final JsonObject engineServiceParameters = body.get("engineServiceParameters").getAsJsonObject();
-            policyModel = standardCoder.encode(engineServiceParameters.get("policy_type_impl"));
-            engineServiceParameters.remove("policy_type_impl");
-            apexConfig = standardCoder.encode(body);
-        } catch (final CoderException e) {
-            throw new ApexStarterException(e);
+    public ApexEngineHandler(List<ToscaPolicy> policies)  throws ApexStarterException {
+        Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
+        for (ToscaPolicy policy : policies) {
+            Object properties = policy.getProperties().get("content");
+            final StandardCoder standardCoder = new StandardCoder();
+            String policyModel;
+            String apexConfig;
+            try {
+                JsonObject body = standardCoder.decode(standardCoder.encode(properties), JsonObject.class);
+                final JsonObject engineServiceParameters = body.get("engineServiceParameters").getAsJsonObject();
+                policyModel = standardCoder.encode(engineServiceParameters.get("policy_type_impl"));
+                engineServiceParameters.remove("policy_type_impl");
+                apexConfig = standardCoder.encode(body);
+            } catch (final CoderException e) {
+                throw new ApexStarterException(e);
+            }
+
+            final String modelFilePath = createFile(policyModel, "modelFile");
+
+            final String apexConfigFilePath = createFile(apexConfig, "apexConfigFile");
+            final String[] apexArgs = { "-c", apexConfigFilePath, "-m", modelFilePath };
+            policyArgsMap.put(policy.getIdentifier(), apexArgs);
         }
 
-        final String modelFilePath = createFile(policyModel, "modelFile");
-
-        final String apexConfigFilePath = createFile(apexConfig, "apexConfigFile");
-        final String[] apexArgs = { "-c", apexConfigFilePath, "-m", modelFilePath };
         LOGGER.debug("Starting apex engine.");
-        apexMain = new ApexMain(apexArgs);
+        try {
+            apexMain = new ApexMain(policyArgsMap);
+        } catch (ApexException e) {
+            throw new ApexStarterException(e);
+        }
     }
 
     /**
@@ -97,6 +111,13 @@ public class ApexEngineHandler {
      */
     public boolean isApexEngineRunning() {
         return null != apexMain && apexMain.isAlive();
+    }
+
+    /**
+     * Method that return the list of running policies in the apex engine.
+     */
+    public List<ToscaPolicyIdentifier> getRunningPolicies() {
+        return new ArrayList<>(apexMain.getApexParametersMap().keySet());
     }
 
     /**

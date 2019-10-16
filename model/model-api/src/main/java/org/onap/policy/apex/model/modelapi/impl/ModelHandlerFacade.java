@@ -33,7 +33,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -528,7 +527,7 @@ public class ModelHandlerFacade {
 
         try {
             AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(apexModel.getPolicyModel(),
-                            mergeInPolicyModel, keepOriginal, false);
+                            mergeInPolicyModel, keepOriginal, false, false);
             apexModel.setPolicyModel(mergedPolicyModel != null ? mergedPolicyModel : new AxPolicyModel());
             return new ApexApiResult();
         } catch (ApexModelException e) {
@@ -555,7 +554,7 @@ public class ModelHandlerFacade {
 
         try {
             AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(apexModel.getPolicyModel(),
-                            mergeInPolicyModel, keepOriginal, false);
+                            mergeInPolicyModel, keepOriginal, false, false);
             apexModel.setPolicyModel(mergedPolicyModel != null ? mergedPolicyModel : new AxPolicyModel());
             return new ApexApiResult();
         } catch (ApexModelException e) {

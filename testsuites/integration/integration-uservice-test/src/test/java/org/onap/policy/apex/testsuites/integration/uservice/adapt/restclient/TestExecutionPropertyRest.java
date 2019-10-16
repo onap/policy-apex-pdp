@@ -20,6 +20,13 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -33,14 +40,6 @@ import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * This class runs integration tests for execution property in restClient.
@@ -97,7 +96,7 @@ public class TestExecutionPropertyRest {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
 
