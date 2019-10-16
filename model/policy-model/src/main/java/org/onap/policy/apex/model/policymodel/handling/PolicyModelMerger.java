@@ -1,32 +1,38 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.handling;
 
-import java.util.Set;
-import java.util.TreeSet;
-
+import java.util.Map;
+import java.util.Map.Entry;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
+import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -42,7 +48,8 @@ public final class PolicyModelMerger {
     /**
      * Private constructor used to prevent sub class instantiation.
      */
-    private PolicyModelMerger() {}
+    private PolicyModelMerger() {
+    }
 
     /**
      * Get a merged policy model with information from two policy models merged into a larger policy
@@ -52,12 +59,14 @@ public final class PolicyModelMerger {
      * @param rightPolicyModel the policies to include in sub policy model
      * @param useLeftOnMatches if true, uses concepts from the left model if concepts with common
      *        keys are found, if false it uses the concepts from the right model
+     * @param failOnDuplicateKeys whether to fail or not on the occurence of duplicate concept keys
      * @return the new Destination Model
      * @throws ApexModelException on model transfer errors
      */
     public static AxPolicyModel getMergedPolicyModel(final AxPolicyModel leftPolicyModel,
-            final AxPolicyModel rightPolicyModel, final boolean useLeftOnMatches) throws ApexModelException {
-        return getMergedPolicyModel(leftPolicyModel, rightPolicyModel, useLeftOnMatches, false);
+        final AxPolicyModel rightPolicyModel, final boolean useLeftOnMatches, final boolean failOnDuplicateKeys)
+        throws ApexModelException {
+        return getMergedPolicyModel(leftPolicyModel, rightPolicyModel, useLeftOnMatches, false, failOnDuplicateKeys);
     }
 
     /**
@@ -69,89 +78,105 @@ public final class PolicyModelMerger {
      * @param useLeftOnMatches if true, uses concepts from the left model if concepts with common
      *        keys are found, if false it uses the concepts from the right model
      * @param ignoreInvalidSource Ignore errors on the source model, do the best you can
+     * @param failOnDuplicateKeys whether to fail or not on the occurence of duplicate concept keys
      * @return the new Destination Model
      * @throws ApexModelException on model transfer errors
      */
     public static AxPolicyModel getMergedPolicyModel(final AxPolicyModel leftPolicyModel,
-            final AxPolicyModel rightPolicyModel, final boolean useLeftOnMatches, final boolean ignoreInvalidSource)
-            throws ApexModelException {
-        // Validate the left model
-        if (!ignoreInvalidSource) {
-            final AxValidationResult leftValidationResult = new AxValidationResult();
-            leftPolicyModel.validate(leftValidationResult);
-            if (!leftValidationResult.isValid()) {
-                String message = "left model is invalid: " + leftValidationResult.toString(); 
-                LOGGER.warn(message);
-                throw new ApexModelException(message);
-            }
-        }
+        final AxPolicyModel rightPolicyModel, final boolean useLeftOnMatches, final boolean ignoreInvalidSource,
+        final boolean failOnDuplicateKeys) throws ApexModelException {
 
-        // Validate the right model
         if (!ignoreInvalidSource) {
-            final AxValidationResult rightValidationResult = new AxValidationResult();
-            rightPolicyModel.validate(rightValidationResult);
-            if (!rightValidationResult.isValid()) {
-                String message = "right model is invalid: " + rightValidationResult.toString();
-                LOGGER.warn(message);
-                throw new ApexModelException(message);
-            }
+            validateModels(leftPolicyModel, "left");
+            validateModels(rightPolicyModel, "right");
         }
 
         // The new policy model uses the favoured copy side as its base
-        final AxPolicyModel mergedPolicyModel = (useLeftOnMatches ? new AxPolicyModel(leftPolicyModel)
-                : new AxPolicyModel(rightPolicyModel));
+        final AxPolicyModel mergedPolicyModel =
+            (useLeftOnMatches ? new AxPolicyModel(leftPolicyModel) : new AxPolicyModel(rightPolicyModel));
 
         // The Compared to policy model is the unfavoured side
-        final AxPolicyModel copyFromPolicyModel = (useLeftOnMatches ? rightPolicyModel : leftPolicyModel);
+        final AxPolicyModel copyFromPolicyModel =
+            (useLeftOnMatches ? new AxPolicyModel(rightPolicyModel) : new AxPolicyModel(leftPolicyModel));
 
-        //  Get the keys to copy over
-        final Set<AxArtifactKey> copyOverKeyInfoKeys =
-                new TreeSet<>(copyFromPolicyModel.getKeyInformation().getKeyInfoMap().keySet());
-        final Set<AxArtifactKey> copyOverContextSchemaKeys =
-                new TreeSet<>(copyFromPolicyModel.getSchemas().getSchemasMap().keySet());
-        final Set<AxArtifactKey> copyOverEventKeys =
-                new TreeSet<>(copyFromPolicyModel.getEvents().getEventMap().keySet());
-        final Set<AxArtifactKey> copyOverContextAlbumKeys =
-                new TreeSet<>(copyFromPolicyModel.getAlbums().getAlbumsMap().keySet());
-        final Set<AxArtifactKey> copyOverTaskKeys = new TreeSet<>(copyFromPolicyModel.getTasks().getTaskMap().keySet());
-        final Set<AxArtifactKey> copyOverPolicyKeys =
-                new TreeSet<>(copyFromPolicyModel.getPolicies().getPolicyMap().keySet());
+        Map<AxArtifactKey, AxKeyInfo> mergedKeyInfoMap = mergedPolicyModel.getKeyInformation().getKeyInfoMap();
+        Map<AxArtifactKey, AxContextSchema> mergedSchemasMap = mergedPolicyModel.getSchemas().getSchemasMap();
+        Map<AxArtifactKey, AxEvent> mergedEventMap = mergedPolicyModel.getEvents().getEventMap();
+        Map<AxArtifactKey, AxContextAlbum> mergedAlbumsMap = mergedPolicyModel.getAlbums().getAlbumsMap();
+        Map<AxArtifactKey, AxTask> mergedTaskMap = mergedPolicyModel.getTasks().getTaskMap();
+        Map<AxArtifactKey, AxPolicy> mergedPolicyMap = mergedPolicyModel.getPolicies().getPolicyMap();
 
-        //  Remove keys that already exist
-        copyOverKeyInfoKeys.removeAll(mergedPolicyModel.getKeyInformation().getKeyInfoMap().keySet());
-        copyOverContextSchemaKeys.removeAll(mergedPolicyModel.getSchemas().getSchemasMap().keySet());
-        copyOverEventKeys.removeAll(mergedPolicyModel.getEvents().getEventMap().keySet());
-        copyOverContextAlbumKeys.removeAll(mergedPolicyModel.getAlbums().getAlbumsMap().keySet());
-        copyOverTaskKeys.removeAll(mergedPolicyModel.getTasks().getTaskMap().keySet());
-        copyOverPolicyKeys.removeAll(mergedPolicyModel.getPolicies().getPolicyMap().keySet());
+        Map<AxArtifactKey, AxKeyInfo> copyOverKeyInfoMap = copyFromPolicyModel.getKeyInformation().getKeyInfoMap();
+        Map<AxArtifactKey, AxContextSchema> copyOverSchemasMap = copyFromPolicyModel.getSchemas().getSchemasMap();
+        Map<AxArtifactKey, AxEvent> copyOverEventMap = copyFromPolicyModel.getEvents().getEventMap();
+        Map<AxArtifactKey, AxContextAlbum> copyOverAlbumsMap = copyFromPolicyModel.getAlbums().getAlbumsMap();
+        Map<AxArtifactKey, AxTask> copyOverTaskMap = copyFromPolicyModel.getTasks().getTaskMap();
+        Map<AxArtifactKey, AxPolicy> copyOverPolicyMap = copyFromPolicyModel.getPolicies().getPolicyMap();
 
+        if (failOnDuplicateKeys) {
+            StringBuilder errorMessage = new StringBuilder();
+            checkForDuplicateContextItem(mergedSchemasMap, copyOverSchemasMap, errorMessage, "schema");
+            checkForDuplicateItem(mergedEventMap, copyOverEventMap, errorMessage, "event");
+            checkForDuplicateContextItem(mergedAlbumsMap, copyOverAlbumsMap, errorMessage, "album");
+            checkForDuplicateItem(mergedTaskMap, copyOverTaskMap, errorMessage, "task");
+            checkForDuplicateItem(mergedPolicyMap, copyOverPolicyMap, errorMessage, "policy");
+            if (errorMessage.length() > 0) {
+                throw new ApexModelException(errorMessage.toString());
+            }
+        } else {
+            //  Remove entries that already exist
+            copyOverKeyInfoMap.keySet().removeIf(mergedKeyInfoMap::containsKey);
+            copyOverSchemasMap.keySet().removeIf(mergedSchemasMap::containsKey);
+            copyOverEventMap.keySet().removeIf(mergedEventMap::containsKey);
+            copyOverAlbumsMap.keySet().removeIf(mergedAlbumsMap::containsKey);
+            copyOverTaskMap.keySet().removeIf(mergedTaskMap::containsKey);
+            copyOverPolicyMap.keySet().removeIf(mergedPolicyMap::containsKey);
+        }
         // Now add all the concepts that must be copied over
-        for (final AxArtifactKey keyInfoKey : copyOverKeyInfoKeys) {
-            mergedPolicyModel.getKeyInformation().getKeyInfoMap().put(keyInfoKey,
-                    copyFromPolicyModel.getKeyInformation().getKeyInfoMap().get(keyInfoKey));
-        }
-        for (final AxArtifactKey contextSchemaKey : copyOverContextSchemaKeys) {
-            mergedPolicyModel.getSchemas().getSchemasMap().put(contextSchemaKey,
-                    copyFromPolicyModel.getSchemas().getSchemasMap().get(contextSchemaKey));
-        }
-        for (final AxArtifactKey eventKey : copyOverEventKeys) {
-            mergedPolicyModel.getEvents().getEventMap().put(eventKey,
-                    copyFromPolicyModel.getEvents().getEventMap().get(eventKey));
-        }
-        for (final AxArtifactKey contextAlbumKey : copyOverContextAlbumKeys) {
-            mergedPolicyModel.getAlbums().getAlbumsMap().put(contextAlbumKey,
-                    copyFromPolicyModel.getAlbums().getAlbumsMap().get(contextAlbumKey));
-        }
-        for (final AxArtifactKey taskKey : copyOverTaskKeys) {
-            mergedPolicyModel.getTasks().getTaskMap().put(taskKey,
-                    copyFromPolicyModel.getTasks().getTaskMap().get(taskKey));
-        }
-        for (final AxArtifactKey policyKey : copyOverPolicyKeys) {
-            mergedPolicyModel.getPolicies().getPolicyMap().put(policyKey,
-                    copyFromPolicyModel.getPolicies().getPolicyMap().get(policyKey));
-        }
+        mergedKeyInfoMap.putAll(copyOverKeyInfoMap);
+        mergedSchemasMap.putAll(copyOverSchemasMap);
+        mergedEventMap.putAll(copyOverEventMap);
+        mergedAlbumsMap.putAll(copyOverAlbumsMap);
+        mergedTaskMap.putAll(copyOverTaskMap);
+        mergedPolicyMap.putAll(copyOverPolicyMap);
 
         // That's it, return the model
         return mergedPolicyModel;
+    }
+
+    private static <V> void checkForDuplicateItem(Map<AxArtifactKey, V> mergedItemsMap,
+        Map<AxArtifactKey, V> copyOverItemsMap, StringBuilder errorMessage, String itemType) {
+        for (AxArtifactKey key : copyOverItemsMap.keySet()) {
+            if (mergedItemsMap.containsKey(key)) {
+                errorMessage.append("\n Duplicate " + itemType + " found - ").append(key.getId());
+            }
+        }
+    }
+
+    private static <V> void checkForDuplicateContextItem(Map<AxArtifactKey, V> mergedItemsMap,
+        Map<AxArtifactKey, V> copyOverItemsMap, StringBuilder errorMessage, String itemType) {
+        for (Entry<AxArtifactKey, V> entry : copyOverItemsMap.entrySet()) {
+            V item = mergedItemsMap.get(entry.getKey());
+            // same context schema name with different definitions cannot occur in multiple policies
+            if (null != item) {
+                if (item.equals(entry.getValue())) {
+                    LOGGER.info("Same {} - {} is used by multiple policies.", itemType, entry.getKey().getId());
+                } else {
+                    errorMessage.append("\n Same " + itemType + " - ").append(entry.getKey().getId())
+                        .append(" with different definitions used in different policies");
+                }
+            }
+        }
+    }
+
+    private static void validateModels(AxPolicyModel policyModel, String position) throws ApexModelException {
+        // Validate the model
+        final AxValidationResult validationResult = new AxValidationResult();
+        policyModel.validate(validationResult);
+        if (!validationResult.isValid()) {
+            String message = position + " model is invalid: " + validationResult.toString();
+            LOGGER.warn(message);
+            throw new ApexModelException(message);
+        }
     }
 }

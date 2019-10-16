@@ -21,7 +21,18 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.google.gson.Gson;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Map;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -34,18 +45,6 @@ import org.onap.policy.common.endpoints.http.server.HttpServletServer;
 import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
 import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.utils.network.NetworkUtil;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * The Class TestRestRequestor.
@@ -76,7 +75,7 @@ public class RestRequestorTest {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
     }
