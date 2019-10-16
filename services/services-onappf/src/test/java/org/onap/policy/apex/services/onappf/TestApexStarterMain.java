@@ -27,9 +27,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.services.onappf.ApexStarterActivator;
-import org.onap.policy.apex.services.onappf.ApexStarterConstants;
-import org.onap.policy.apex.services.onappf.ApexStarterMain;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.CommonTestData;
 import org.onap.policy.common.utils.services.Registry;
@@ -67,7 +64,7 @@ public class TestApexStarterMain {
 
     @Test
     public void testApexStarter() throws ApexStarterException {
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json"};
+        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
         assertTrue(apexStarter.getParameters().isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarter.getParameters().getName());

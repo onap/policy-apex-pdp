@@ -2,7 +2,6 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
-
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,16 +22,15 @@
 package org.onap.policy.apex.services.onappf.comm;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,13 +38,16 @@ import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
+import org.onap.policy.apex.services.onappf.handler.ApexEngineHandler;
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
 import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
 import org.onap.policy.common.utils.services.Registry;
+import org.onap.policy.models.pdp.concepts.PdpStateChange;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
+import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 /**
@@ -56,9 +57,12 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
  */
 public class TestPdpUpdateListener {
     private PdpUpdateListener pdpUpdateMessageListener;
+    private PdpStateChangeListener pdpStateChangeListener;
     private static final CommInfrastructure INFRA = CommInfrastructure.NOOP;
     private static final String TOPIC = "my-topic";
     private ApexStarterActivator activator;
+    private ApexEngineHandler apexEngineHandler;
+    private PrintStream stdout = System.out;
 
     /**
      * Method for setup before each test.
@@ -70,7 +74,7 @@ public class TestPdpUpdateListener {
     @Before
     public void setUp() throws ApexStarterException, FileNotFoundException, IOException {
         Registry.newRegistry();
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json" };
+        final String[] apexStarterConfigParameters = {"-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         ApexStarterParameterGroup parameterGroup;
         // The arguments return a string if there is a message to print and we should
@@ -89,6 +93,7 @@ public class TestPdpUpdateListener {
         Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
         activator.initialize();
         pdpUpdateMessageListener = new PdpUpdateListener();
+        pdpStateChangeListener = new PdpStateChangeListener();
     }
 
     /**
@@ -98,7 +103,11 @@ public class TestPdpUpdateListener {
      */
     @After
     public void teardown() throws Exception {
-
+        apexEngineHandler =
+            Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
+        if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
+            apexEngineHandler.shutdown();
+        }
         // clear the apex starter activator
         if (activator != null && activator.isAlive()) {
             activator.terminate();
@@ -108,33 +117,91 @@ public class TestPdpUpdateListener {
     @Test
     public void testPdpUpdateMssageListener() {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
-        final PdpUpdate pdpUpdateMsg = new PdpUpdate();
-        pdpUpdateMsg.setDescription("dummy pdp status for test");
-        pdpUpdateMsg.setPdpGroup("pdpGroup");
-        pdpUpdateMsg.setPdpSubgroup("pdpSubgroup");
-        pdpUpdateMsg.setName(pdpStatus.getName());
-        pdpUpdateMsg.setPdpHeartbeatIntervalMs(Long.valueOf(3000));
-        final ToscaPolicy toscaPolicy = new ToscaPolicy();
-        toscaPolicy.setType("apexpolicytype");
-        toscaPolicy.setVersion("1.0");
-        toscaPolicy.setName("apex policy name");
-        final Map<String, Object> propertiesMap = new LinkedHashMap<>();
-        String properties;
-        try {
-            properties = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\dummyProperties.json")),
-                    StandardCharsets.UTF_8);
-            propertiesMap.put("content", properties);
-        } catch (final IOException e) {
-            propertiesMap.put("content", "");
-        }
-        toscaPolicy.setProperties(propertiesMap);
+        final ToscaPolicy toscaPolicy =
+            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
-        pdpUpdateMsg.setPolicies(toscaPolicies);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
         assertEquals(pdpStatus.getPdpGroup(), pdpUpdateMsg.getPdpGroup());
         assertEquals(pdpStatus.getPdpSubgroup(), pdpUpdateMsg.getPdpSubgroup());
         assertEquals(pdpStatus.getPolicies(),
                 new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()));
+    }
+
+    @Test
+    public void testPdpUpdateMssageListener_success() throws InterruptedException {
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
+            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<ToscaPolicy>()));
+        PdpStateChange pdpStateChangeMsg =
+            TestListenerUtils.createPdpStateChangeMsg(PdpState.ACTIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
+        pdpStateChangeListener.onTopicEvent(INFRA, TOPIC, null, pdpStateChangeMsg);
+        final ToscaPolicy toscaPolicy =
+            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+        final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
+        toscaPolicies.add(toscaPolicy);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
+        Thread.sleep(200);
+        final String outString = outContent.toString();
+        System.setOut(stdout);
+        assertEquals(pdpStatus.getPdpGroup(), pdpUpdateMsg.getPdpGroup());
+        assertEquals(pdpStatus.getPdpSubgroup(), pdpUpdateMsg.getPdpSubgroup());
+        assertEquals(pdpStatus.getPolicies(),
+                new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()));
+        assertTrue(outString.contains("Apex engine started and policies are running."));
+    }
+
+    @Test
+    public void testPdpUpdateMssageListener_undeploy() throws InterruptedException {
+        final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
+            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<ToscaPolicy>()));
+        PdpStateChange pdpStateChangeMsg =
+            TestListenerUtils.createPdpStateChangeMsg(PdpState.ACTIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
+        pdpStateChangeListener.onTopicEvent(INFRA, TOPIC, null, pdpStateChangeMsg);
+        final ToscaPolicy toscaPolicy =
+            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+        final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
+        toscaPolicies.add(toscaPolicy);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
+            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<ToscaPolicy>()));
+        Thread.sleep(200);
+        final String outString = outContent.toString();
+        System.setOut(stdout);
+        assertTrue(outString.contains("Pdp update successful. No policies are running."));
+
+    }
+
+    @Test
+    public void testPdpUpdateMssageListener_multi_policy_duplicate() throws InterruptedException, ApexStarterException {
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
+        final ToscaPolicy toscaPolicy =
+            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+        final ToscaPolicy toscaPolicy2 =
+            TestListenerUtils.createToscaPolicy("apexpolicy2", "1.0", "src/test/resources/dummyProperties.json");
+        final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
+        toscaPolicies.add(toscaPolicy);
+        toscaPolicies.add(toscaPolicy2);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
+        PdpStateChange pdpStateChangeMsg =
+            TestListenerUtils.createPdpStateChangeMsg(PdpState.ACTIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
+        pdpStateChangeListener.onTopicEvent(INFRA, TOPIC, null, pdpStateChangeMsg);
+        Thread.sleep(200);
+        final String outString = outContent.toString();
+        System.setOut(stdout);
+        assertTrue(outString.contains(
+            "Apex engine started. But, only the following polices are running - apex policy name:1.0  . "
+            + "Other policies failed execution. Please see the logs for more details."));
     }
 }

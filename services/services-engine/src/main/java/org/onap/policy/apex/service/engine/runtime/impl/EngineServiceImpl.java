@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -28,7 +29,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -134,13 +134,13 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             LOGGER.warn("Engine service configuration parameters is null");
             throw new ApexException("engine service configuration parameters are null");
         }
-        
+
         final GroupValidationResult validation = config.validate();
         if (!validation.isValid()) {
             LOGGER.warn("Invalid engine service configuration parameters: {}" + validation.getResult());
             throw new ApexException("Invalid engine service configuration parameters: " + validation);
         }
-        
+
         final AxArtifactKey engineServiceKey = config.getEngineKey();
         final int threadCount = config.getInstanceCount();
 
@@ -235,6 +235,24 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     @Override
     public void updateModel(final AxArtifactKey incomingEngineServiceKey, final String apexModelString,
                     final boolean forceFlag) throws ApexException {
+        AxPolicyModel apexPolicyModel = createModel(incomingEngineServiceKey, apexModelString);
+
+        // Update the model
+        updateModel(incomingEngineServiceKey, apexPolicyModel, forceFlag);
+
+        LOGGER.exit();
+    }
+
+    /**
+    * Method to create model.
+    *
+    * @param incomingEngineServiceKey incoming engine service key
+    * @param apexModelString apex model string
+    * @return apexPolicyModel the policy model
+    * @throws ApexException apex exception
+    */
+    public static AxPolicyModel createModel(final AxArtifactKey incomingEngineServiceKey, final String apexModelString)
+        throws ApexException {
         // Check if the engine service key specified is sane
         if (incomingEngineServiceKey == null) {
             String message = ENGINE_KEY_NOT_SPECIFIED;
@@ -260,11 +278,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             LOGGER.error(message, e);
             throw new ApexException(message, e);
         }
-
-        // Update the model
-        updateModel(incomingEngineServiceKey, apexPolicyModel, forceFlag);
-
-        LOGGER.exit();
+        return apexPolicyModel;
     }
 
     /**
@@ -314,7 +328,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
     /**
      * Execute the model update on the engine instances.
-     * 
+     *
      * @param incomingEngineServiceKey the engine service key to update
      * @param apexModel the model to update the engines with
      * @param forceFlag if true, ignore compatibility problems
@@ -322,7 +336,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
      */
     private void executeModelUpdate(final AxArtifactKey incomingEngineServiceKey, final AxPolicyModel apexModel,
                     final boolean forceFlag) throws ApexException {
-        
+
         if (!isStopped()) {
             stopEngines(incomingEngineServiceKey);
         }
@@ -458,7 +472,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
 
         // Start the engine
         engineWorkerMap.get(engineKey).start(engineKey);
-        
+
         // Check if periodic events should be turned on
         if (periodicEventPeriod > 0) {
             startPeriodicEvents(periodicEventPeriod);
@@ -478,7 +492,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             periodicEventGenerator.cancel();
             periodicEventGenerator = null;
         }
-        
+
         // Stop each engine
         for (final EngineService engine : engineWorkerMap.values()) {
             if (engine.getState() != AxEngineState.STOPPED) {

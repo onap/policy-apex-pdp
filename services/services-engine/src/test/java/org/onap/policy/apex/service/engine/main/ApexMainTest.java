@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -26,10 +26,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.service.parameters.ApexParameters;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 
 /**
  * Test the ApexMain class.
@@ -146,5 +149,60 @@ public class ApexMainTest {
         System.setOut(stdout);
 
         assertTrue(outString.contains("Added the action listener to the engine"));
+    }
+
+    @Test
+    public void testCorrectParametersWithMultiplePolicies() throws ApexException {
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
+        String[] args = {"-c", "src/test/resources/parameters/correctParams.json", "-m",
+            "src/test/resources/policymodels/SmallModel.json"};
+        argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
+        final ApexMain apexMain = new ApexMain(argsMap);
+        ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
+        assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+        final String outString = outContent.toString();
+        System.setOut(stdout);
+        assertTrue(outString.contains("Added the action listener to the engine"));
+    }
+
+    @Test
+    public void testInCorrectParametersWithMultiplePolicies() throws ApexException {
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
+        String[] args = {"-c", "src/test/resources/parameters/correctParams.json", "-m",
+            "src/test/resources/policymodels/SmallModel.json"};
+        argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
+        argsMap.put(new ToscaPolicyIdentifier("id2", "v2"), args);
+        final ApexMain apexMain = new ApexMain(argsMap);
+        ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
+        assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+        final String outString = outContent.toString();
+        System.setOut(stdout);
+        assertTrue(outString.contains("Policy model for id2:v2 is having duplicates. So this policy is not executed"));
+        assertTrue(apexMain.getApexParametersMap().size() == 1); // only id1:v1 is kept in the map, id2:v2 failed
+    }
+
+    @Test
+    public void testInvalidArgsWithMultiplePolicies() throws ApexException {
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
+        String[] args = {"-c", "file1", "-m", "file2"};
+        argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
+        final ApexMain apexMain = new ApexMain(argsMap);
+        final String outString = outContent.toString();
+        System.setOut(stdout);
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+        assertTrue(
+            outString.contains("Arguments validation failed") && outString.contains("start of Apex service failed"));
+        assertTrue(apexMain.getApexParametersMap().isEmpty()); // No policy is running in the engine
     }
 }
