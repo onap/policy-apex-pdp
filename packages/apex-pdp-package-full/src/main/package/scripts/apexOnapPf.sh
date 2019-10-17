@@ -59,6 +59,16 @@ then
    exit
 fi
 
+if [[ -f "${HOME}"/config/policy-truststore ]]; then
+    echo "overriding policy-truststore"
+    cp -f "${HOME}"/config/policy-truststore "${APEX_HOME}"/etc/ssl/
+fi
+
+if [[ -f "${HOME}"/config/policy-keystore ]]; then
+    echo "overriding policy-keystore"
+    cp -f "${HOME}"/config/policy-keystore "${APEX_HOME}"/etc/ssl/
+fi
+
 if [ $(whoami) == "$APEX_USER" ]
 then
    $APEX_HOME/bin/apexApps.sh onappf $*
