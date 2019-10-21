@@ -47,11 +47,6 @@ import org.slf4j.LoggerFactory;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class CliUtils {
-
-    private CliUtils() {
-        // This class cannot be initialized
-    }
-
     private static final Logger LOGGER = LoggerFactory.getLogger(CliUtils.class);
 
     // Recurring string constants
@@ -59,13 +54,20 @@ public class CliUtils {
     private static final int MAX_HELP_LINE_LENGTH = 120;
 
     /**
-     * Method to create apex policy in tosca service template.
+     * Private constructor to prevent sub-classing.
+     */
+    private CliUtils() {
+        // This class cannot be initialized
+    }
+
+    /**
+     * Method to create apex policy in TOSCA service template.
      *
      * @param parameters containing paths to the apex config and tosca template skeleton file
      * @param policyModelFilePath path of apex policy model
      */
     public static void createToscaServiceTemplate(ApexCliToscaParameters parameters, String policyModelFilePath)
-        throws IOException, CoderException {
+            throws IOException, CoderException {
         final StandardCoder standardCoder = new StandardCoder();
         String apexConfig = TextFileUtils.getTextFileAsString(parameters.getApexConfigFileName());
         JsonObject apexConfigJson = standardCoder.decode(apexConfig, JsonObject.class);
@@ -79,7 +81,7 @@ public class CliUtils {
         JsonObject toscaPolicyProperties = toscaTemplateJson.get("topology_template").getAsJsonObject();
         JsonObject toscaPolicy = toscaPolicyProperties.get("policies").getAsJsonArray().get(0).getAsJsonObject();
         JsonObject toscaProperties = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString()).getAsJsonObject()
-            .get("properties").getAsJsonObject();
+                .get("properties").getAsJsonObject();
         toscaProperties.add("content", apexConfigJson);
 
         final String toscaPolicyString = standardCoder.encode(toscaTemplateJson);
@@ -192,7 +194,7 @@ public class CliUtils {
      * @return list of arguments
      */
     public static List<String> generateArgumentsForCliEditor(CommandLineParameters parameters,
-        Properties optionVariableMap, Class<?> class1) {
+            Properties optionVariableMap, Class<?> class1) {
 
         List<String> cliArgsList = new ArrayList<>();
         PropertyDescriptor pd;
@@ -209,7 +211,7 @@ public class CliUtils {
                 if (argValue instanceof String && !key.equals("o")) {
                     cliArgsList.add("-" + key);
                     cliArgsList.add(argValue.toString());
-                } else if (argValue instanceof Boolean && (Boolean)argValue) {
+                } else if (argValue instanceof Boolean && (Boolean) argValue) {
                     cliArgsList.add("-" + key);
                 }
             } catch (Exception e) {
