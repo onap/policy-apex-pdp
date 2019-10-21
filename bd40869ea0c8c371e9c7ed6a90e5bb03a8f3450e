@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c7f7ac6_09a43c2b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "need to save a handle to this anywhere so it can be shut down?",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0395e599_a1caa95a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "maybe replace:\n  .toArray()[0]\nwith:\n   .iterator().next()",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cb83e18_37bbdb3d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "sonar: iterate over entrySet, thus eliminating need for \"get()\" on line 151",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bafc7307_e5c4c560",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "sonar: iterate over entrySet",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d665d33_e721b79c",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "use a StringBuilder instead of String, and append() instead of \"+\u003d\" (below)",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e255c4c_82c224d4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "combine containsKey() and get() call - just use get() and check for non-null",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1cc7807_41bbb475",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "combine this with line 105 or even delete it and combine lines 105 \u0026 106",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8560e1f6_508730a4",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "all of these sleeps add up - is there no way to do this with a CountDownLatch instead?\n\nsame comment in other files",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "895bb1f2_4d7fd299",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "should probably do this in an @After method, so it\u0027s reset whether or not the test succeeds\n\nsame comment below (and in other files)",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1892fd93_9b898d93",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "if these are just Lists, then order is not guaranteed and equals() may fail - may need to convert to Sets first\n\nsame comment in other files",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db39a79e_eec09529",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "use a StringBuilder instead",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5697ea0_5c244e37",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "use StringBuilder",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1657c379_f1fa39cd",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "maybe use a StandardCoder instead of an ObjectMapper",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "645bbf45_e499f95a",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/parameters/dummyclasses/SuperDooperExecutorParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-21T17:57:52Z",
+      "side": 1,
+      "message": "perhaps use DummyTaskExecutor.getName() so that the class name/package can be changed without breaking this\n\nsame comment below",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
