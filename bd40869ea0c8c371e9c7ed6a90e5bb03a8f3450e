@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d57e5ed3_03787985",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "apexEngineService is not needed while terminating. engineServiceHandler is what required for this, and it is available as an instance variable",
+      "parentUuid": "5c7f7ac6_09a43c2b",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0395e599_a1caa95a",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "maybe replace:\n  .toArray()[0]\nwith:\n   .iterator().next()",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa8652bb_7a81ea39",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0395e599_a1caa95a",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c8c0e135_dbdec902",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cb83e18_37bbdb3d",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bafc7307_e5c4c560",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "sonar: iterate over entrySet",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "821c2ad0_53ef73c5",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bafc7307_e5c4c560",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "8ca27ccb_0ade8910",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d665d33_e721b79c",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e255c4c_82c224d4",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "combine containsKey() and get() call - just use get() and check for non-null",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6cb16183_03b77969",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e255c4c_82c224d4",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7f40182f_f00c44e4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1cc7807_41bbb475",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8560e1f6_508730a4",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
         "patchSetId": 1
@@ -132,6 +258,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "all of these sleeps add up - is there no way to do this with a CountDownLatch instead?\n\nsame comment in other files",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a26616f_fb60bc8c",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "That would be tricky I think. I might have to check the logs or fire an event(depending on the policy) in the countdownlatch to know if the policy is executed. Anyway, this sleep is not necessarily needed. So removing it.",
+      "parentUuid": "8560e1f6_508730a4",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "f38fdfa1_73eff710",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "895bb1f2_4d7fd299",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1892fd93_9b898d93",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpStateChangeMessageHandler.java",
         "patchSetId": 1
@@ -166,6 +328,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "if these are just Lists, then order is not guaranteed and equals() may fail - may need to convert to Sets first\n\nsame comment in other files",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4baa263_6662a58a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1892fd93_9b898d93",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "d8a504de_41e60323",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpStateChangeMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db39a79e_eec09529",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5697ea0_5c244e37",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 1
@@ -200,6 +398,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "use StringBuilder",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c242c7e_30894c17",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5697ea0_5c244e37",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "c7a877f3_11eba3d3",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1657c379_f1fa39cd",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "645bbf45_e499f95a",
         "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/parameters/dummyclasses/SuperDooperExecutorParameters.java",
         "patchSetId": 1
@@ -234,6 +468,24 @@
       "writtenOn": "2019-10-21T17:57:52Z",
       "side": 1,
       "message": "perhaps use DummyTaskExecutor.getName() so that the class name/package can be changed without breaking this\n\nsame comment below",
+      "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a628d03_363cb6de",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/parameters/dummyclasses/SuperDooperExecutorParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-22T13:53:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "645bbf45_e499f95a",
       "revId": "bd40869ea0c8c371e9c7ed6a90e5bb03a8f3450e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
