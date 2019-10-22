@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcd46a4e_b55a61da",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-22T16:40:11Z",
+      "side": 1,
+      "message": "could just pass a File to decode() and avoid this read altogether",
+      "revId": "d60ee042770deddcbf0c45ef08ad180a1b3e0b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99202453_c7f5a3e0",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-22T16:40:11Z",
+      "side": 1,
+      "message": "could just pass a File to decode() and avoid this read altogether",
+      "revId": "d60ee042770deddcbf0c45ef08ad180a1b3e0b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68fcd35a_bbcd8fd0",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-22T16:40:11Z",
+      "side": 1,
+      "message": "could just pass a File to decode() and avoid this read altogether",
+      "revId": "d60ee042770deddcbf0c45ef08ad180a1b3e0b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
