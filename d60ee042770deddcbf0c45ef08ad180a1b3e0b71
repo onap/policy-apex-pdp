@@ -50,6 +50,24 @@
       "revId": "d60ee042770deddcbf0c45ef08ad180a1b3e0b71",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b6c936_6fff8a76",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-23T09:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68fcd35a_bbcd8fd0",
+      "revId": "d60ee042770deddcbf0c45ef08ad180a1b3e0b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
