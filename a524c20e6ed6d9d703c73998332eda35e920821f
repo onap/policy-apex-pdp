@@ -2,6 +2,190 @@
   "comments": [
     {
       "key": {
+        "uuid": "f89e8978_ea84768d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "Is it possible to generalize this and have the case of one model just being the same as calling the multiple case with an array with one entry?",
+      "range": {
+        "startLine": 80,
+        "startChar": 1,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d06c8c_836d10b8",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "I know it wasn\u0027t in there before but we probably should check if the engine is already initialized and throw an exception if it is.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 80
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90f24876_6a0cec63",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "Same here, check for already initialized case.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 74
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0202b00b_21dd3f31",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be in the model loop because it will set up the marshaller/unmarshaller and pairings multiple times, one for each model.\n\nI think we have to combine the inputs and outputs and then call these once, otherwise we\u0027ll only have the last set of inputs/outputs defined.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 51
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58be933b_2a799cef",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "I think you can replace this method by using the utility class:\norg.onap.policy.apex.model.policymodel.handling.PolicyModelMerger",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 5
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "659eb67d_a54dc0bd",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "Same comment, why not just have a map with one entry for the single model case.",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 58,
+        "endChar": 73
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfb125a7_8dd7a35a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "I\u0027m not keen on magic flags.\n\nMaybe treating the single case as not a special case will remove the need for this.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a463dd96_d89dd69e",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-10-24T13:00:43Z",
+      "side": 1,
+      "message": "Same comment",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 5
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63c9c20c_91749699",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 3
