@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2019 Nordix Foundation.
