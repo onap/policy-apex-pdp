@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63a3c2bc_38d9ec48",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "sonar: probably exceeds cyclomatic complexity - maybe refactor/extract methods out of this",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc31c865_a87c7dee",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "looks like getSchemasMap() can be done once and cached\n\nsimilar comment below",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cd76b88_f1704a62",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "looks like a duplicate of the code for the left model - maybe refactor/extract a common method",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0728086_6a444ed0",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMergerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "can use assertj for this, too - I THINK there\u0027s a hasMessageStartingWith method (or some such)",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61139bfc_f765ac8d",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMergerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "use assertj for this: xxx.hasMessageContaining()",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e18553f_0590acbd",
+        "filename": "services/services-engine/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "I assume you know what you\u0027re doing ;-)",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f2275ba_0e0a90f1",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "maybe swap the bodies of the \"if\" and \"else\" - then can get rid of the negation (and change \"\u0026\u0026\" to \"||\", of course).  That might make the conditional more understandable.",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6363dd17_1b1ac82b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "could probably use a stream for this",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a356d1ed_c73c058b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "could probably use stream.reduce() (or some such) for this",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "719946f7_ba20514f",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T14:02:29Z",
+      "side": 1,
+      "message": "should probably change \"is having\" to \"has\" here and in the class that generates this message",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
