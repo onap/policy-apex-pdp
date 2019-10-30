@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a64dc45_51b2eea4",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "these \"for\" loops all look the same - perhaps extract a common function (may need to be generic, if the values are of different type).\nAnother option would be to manipulate maps instead of key sets, then could just use map.addAll(copyMap) for each of these.",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce75576c_14c0fbb4",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "these \"for\" loops all look the same - perhaps extract a common function",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28e75273_7e93af69",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "can cache the map",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13690c8d_51069a27",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "can cache the map",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac1206f2_c35b7f37",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "looks like a duplicate of the previous method",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f33f926f_2a1334d6",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "just a suggestion: could pass \"left\" or \"right\" instead of boolean",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae7be11b_3cfc4127",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T18:30:49Z",
+      "side": 1,
+      "message": "could use stream.reduce()",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
