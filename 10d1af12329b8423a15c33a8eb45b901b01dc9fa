@@ -194,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "c27719c7_e8fb3eb2",
+        "filename": "services/services-engine/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:44:06Z",
+      "side": 1,
+      "message": "Yes, the exclusion is added to avoid dependency conflict.",
+      "parentUuid": "8e18553f_0590acbd",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f2275ba_0e0a90f1",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 4
