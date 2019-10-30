@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd44ec1a_c1d07769",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f89e8978_ea84768d",
+      "range": {
+        "startLine": 80,
+        "startChar": 1,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d06c8c_836d10b8",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-24T13:00:43Z",
       "side": 1,
       "message": "I know it wasn\u0027t in there before but we probably should check if the engine is already initialized and throw an exception if it is.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 80
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4c172_24a4a973",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d06c8c_836d10b8",
       "range": {
         "startLine": 111,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "133a72c7_823e9262",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f24876_6a0cec63",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 74
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0202b00b_21dd3f31",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-24T13:00:43Z",
       "side": 1,
       "message": "I don\u0027t think this should be in the model loop because it will set up the marshaller/unmarshaller and pairings multiple times, one for each model.\n\nI think we have to combine the inputs and outputs and then call these once, otherwise we\u0027ll only have the last set of inputs/outputs defined.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 51
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "847eb952_4c530c5d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Here each input/output from each model was iterated and the marshaller/unmarshaller was getting added to a map. So, it wouldn\u0027t get overwritten. But setting up marshaller/unmarshaller before actually updating the model to the engine can mess up some test cases. So moving this after the model update part.",
+      "parentUuid": "0202b00b_21dd3f31",
       "range": {
         "startLine": 167,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "424212d0_f2ae2bdf",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Done. Thanks, I didn\u0027t notice this class earlier.",
+      "parentUuid": "58be933b_2a799cef",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 5
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "659eb67d_a54dc0bd",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2019-10-24T13:00:43Z",
       "side": 1,
       "message": "Same comment, why not just have a map with one entry for the single model case.",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 58,
+        "endChar": 73
+      },
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "741b0e56_e70f5369",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "659eb67d_a54dc0bd",
       "range": {
         "startLine": 52,
         "startChar": 1,
@@ -197,6 +341,24 @@
       "writtenOn": "2019-10-23T13:10:10Z",
       "side": 1,
       "message": "could use Collections.emptyList()",
+      "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c683c91c_5b2694ac",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T13:33:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63c9c20c_91749699",
       "revId": "a524c20e6ed6d9d703c73998332eda35e920821f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
