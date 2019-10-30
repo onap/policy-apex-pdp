@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a8edcbd_06f32aba",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63a3c2bc_38d9ec48",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc31c865_a87c7dee",
         "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-30T14:02:29Z",
       "side": 1,
       "message": "looks like getSchemasMap() can be done once and cached\n\nsimilar comment below",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd6aae7d_cc340e73",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc31c865_a87c7dee",
       "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da44ff5b_6c284ce4",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cd76b88_f1704a62",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0728086_6a444ed0",
         "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMergerTest.java",
         "patchSetId": 4
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "7e94ab94_d892f539",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMergerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0728086_6a444ed0",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61139bfc_f765ac8d",
         "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMergerTest.java",
         "patchSetId": 4
@@ -81,6 +153,24 @@
       "writtenOn": "2019-10-30T14:02:29Z",
       "side": 1,
       "message": "use assertj for this: xxx.hasMessageContaining()",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a813296_30d57d14",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMergerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61139bfc_f765ac8d",
       "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "782c6688_64c38b78",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f2275ba_0e0a90f1",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6363dd17_1b1ac82b",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 4
@@ -132,6 +240,24 @@
       "writtenOn": "2019-10-30T14:02:29Z",
       "side": 1,
       "message": "could probably use a stream for this",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ecb66d39_35a0e446",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6363dd17_1b1ac82b",
       "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -166,6 +292,24 @@
       "writtenOn": "2019-10-30T14:02:29Z",
       "side": 1,
       "message": "should probably change \"is having\" to \"has\" here and in the class that generates this message",
+      "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a90c172_215b8fb1",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-30T17:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "719946f7_ba20514f",
       "revId": "10d1af12329b8423a15c33a8eb45b901b01dc9fa",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
