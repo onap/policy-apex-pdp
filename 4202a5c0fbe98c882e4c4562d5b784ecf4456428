@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "669e4474_3fefa136",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-31T18:56:29Z",
+      "side": 1,
+      "message": "not sure if sonar will complain or not - might need to add a comment inside the method body or invoke super() - can do that in another review if it\u0027s an issue",
+      "revId": "4202a5c0fbe98c882e4c4562d5b784ecf4456428",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "613fd093_ef01b98c",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-31T18:56:29Z",
+      "side": 1,
+      "message": "still kind of messy, but at least it\u0027s slightly clearer what it\u0027s doing.  If AxPolicyModel had a copy of the identifer, then could use the Model instead of the whole Map.Entry, which would make it a little cleaner still - oh well.",
+      "revId": "4202a5c0fbe98c882e4c4562d5b784ecf4456428",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
