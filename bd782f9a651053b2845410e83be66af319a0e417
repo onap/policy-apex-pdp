@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a55fc1c_04939804",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a64dc45_51b2eea4",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce75576c_14c0fbb4",
         "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-30T18:30:49Z",
       "side": 1,
       "message": "these \"for\" loops all look the same - perhaps extract a common function",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8caaf20_6129b44e",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce75576c_14c0fbb4",
       "revId": "bd782f9a651053b2845410e83be66af319a0e417",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7976d3a5_db5d5e43",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28e75273_7e93af69",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13690c8d_51069a27",
         "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2019-10-30T18:30:49Z",
       "side": 1,
       "message": "can cache the map",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0a8481d_513b5362",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13690c8d_51069a27",
       "revId": "bd782f9a651053b2845410e83be66af319a0e417",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6fd9e85c_42ac9a89",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac1206f2_c35b7f37",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f33f926f_2a1334d6",
         "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
         "patchSetId": 5
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "e5e03174_ff0f9f48",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f33f926f_2a1334d6",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae7be11b_3cfc4127",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 5
@@ -115,6 +223,24 @@
       "writtenOn": "2019-10-30T18:30:49Z",
       "side": 1,
       "message": "could use stream.reduce()",
+      "revId": "bd782f9a651053b2845410e83be66af319a0e417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bb6c29b_a232c258",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-10-31T17:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae7be11b_3cfc4127",
       "revId": "bd782f9a651053b2845410e83be66af319a0e417",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
