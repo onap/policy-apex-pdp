@@ -75,12 +75,10 @@
                     <artifactId>jersey-client</artifactId>
                 </exclusion>
             </exclusions>
-            <version>${version.policy.common}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>${version.jersey}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>

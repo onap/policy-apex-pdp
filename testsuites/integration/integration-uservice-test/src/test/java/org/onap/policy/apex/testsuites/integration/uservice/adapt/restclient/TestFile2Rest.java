@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -32,6 +33,7 @@ import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -53,7 +55,6 @@ import org.slf4j.ext.XLoggerFactory;
 public class TestFile2Rest {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestFile2Rest.class);
 
-    private static final String BASE_URI = "http://localhost:32801/TestFile2Rest";
     private static final int PORT = 32801;
     private static HttpServletServer server;
 
@@ -78,7 +79,7 @@ public class TestFile2Rest {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
     }

@@ -50,7 +50,6 @@ import org.onap.policy.common.utils.network.NetworkUtil;
  * The Class TestRestRequestor.
  */
 public class RestRequestorTest {
-    private static final String BASE_URI = "http://localhost:32801/TestRESTRequestor";
     private static final int PORT = 32801;
     private static HttpServletServer server;
 
@@ -75,7 +74,7 @@ public class RestRequestorTest {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
     }

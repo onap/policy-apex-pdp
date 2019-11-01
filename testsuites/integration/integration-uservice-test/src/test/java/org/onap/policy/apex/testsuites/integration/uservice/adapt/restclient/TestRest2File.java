@@ -27,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +50,6 @@ import org.slf4j.ext.XLoggerFactory;
 public class TestRest2File {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestRest2File.class);
 
-    private static final String BASE_URI = "http://localhost:32801/TestRest2File";
     private static final int PORT = 32801;
     private static HttpServletServer server;
 
@@ -82,7 +82,7 @@ public class TestRest2File {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
     }
