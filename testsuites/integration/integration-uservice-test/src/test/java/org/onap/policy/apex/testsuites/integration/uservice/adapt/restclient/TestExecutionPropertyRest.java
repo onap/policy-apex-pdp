@@ -20,6 +20,14 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -34,14 +42,6 @@ import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.Assert.assertTrue;
-
 /**
  * This class runs integration tests for execution property in restClient.
  */
@@ -49,7 +49,6 @@ public class TestExecutionPropertyRest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestExecutionPropertyRest.class);
 
-    private static final String BASE_URI = "http://localhost:32801/TestExecutionRest";
     private static HttpServletServer server;
     private static final int PORT = 32801;
 

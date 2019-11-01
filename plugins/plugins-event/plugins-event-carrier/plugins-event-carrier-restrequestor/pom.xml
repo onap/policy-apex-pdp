@@ -34,7 +34,6 @@
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>${version.jersey}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.services</groupId>
@@ -44,7 +43,6 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
-            <version>${version.jersey}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -57,18 +55,15 @@
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <scope>test</scope>
-            <version>${version.jersey}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>policy-endpoints</artifactId>
-            <version>${version.policy.common}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
-            <version>${version.jersey}</version>
         </dependency>
     </dependencies>
 
