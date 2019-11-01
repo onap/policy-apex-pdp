@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "811eb8fb_b0affdcb",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-01T12:45:04Z",
+      "side": 1,
+      "message": "I changed this class as well in my Jersey review so we\u0027ll have a merge conflict here ;-)",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "82da1e9fa73e6a19455ea979bbf084aeed43af90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
