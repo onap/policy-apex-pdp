@@ -27,6 +27,7 @@ import java.io.PrintStream;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -48,7 +49,6 @@ public class TestExecutionPropertyRest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestExecutionPropertyRest.class);
 
-    private static final String BASE_URI = "http://localhost:32801/TestExecutionRest";
     private static HttpServletServer server;
     private static final int PORT = 32801;
 
@@ -96,7 +96,7 @@ public class TestExecutionPropertyRest {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
 
