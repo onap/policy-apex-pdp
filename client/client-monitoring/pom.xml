@@ -32,6 +32,10 @@
     <description>Web client for monitoring Apex engines</description>
 
     <dependencies>
+         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>policy-endpoints</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
             <artifactId>core-deployment</artifactId>
@@ -40,14 +44,6 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>

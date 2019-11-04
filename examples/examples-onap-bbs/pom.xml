@@ -50,16 +50,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-grizzly2-http</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
             <artifactId>plugins-context-schema-avro</artifactId>
             <version>${project.version}</version>
