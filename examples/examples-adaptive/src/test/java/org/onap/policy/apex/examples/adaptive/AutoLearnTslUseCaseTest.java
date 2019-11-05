@@ -134,7 +134,7 @@ public class AutoLearnTslUseCaseTest {
 
         final TestApexActionListener listener1 = new TestApexActionListener("TestListener1");
         apexEngine1.addEventListener("listener", listener1);
-        apexEngine1.updateModel(apexPolicyModel);
+        apexEngine1.updateModel(apexPolicyModel, false);
         apexEngine1.start();
         final EnEvent triggerEvent = apexEngine1.createEvent(new AxArtifactKey("AutoLearnTriggerEvent", "0.0.1"));
         final double rval = rand.nextGaussian();
@@ -189,7 +189,7 @@ public class AutoLearnTslUseCaseTest {
 
         final TestApexActionListener listener1 = new TestApexActionListener("TestListener1");
         apexEngine1.addEventListener("listener1", listener1);
-        apexEngine1.updateModel(apexPolicyModel);
+        apexEngine1.updateModel(apexPolicyModel, false);
         apexEngine1.start();
 
         final EnEvent triggerEvent = apexEngine1.createEvent(new AxArtifactKey("AutoLearnTriggerEvent", "0.0.1"));

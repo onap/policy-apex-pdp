@@ -342,9 +342,17 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
 
         // Update the engines
+        boolean isSubsequentInstance = false;
         for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
             LOGGER.info("Registering apex model on engine {}", engineWorkerEntry.getKey().getId());
-            engineWorkerEntry.getValue().updateModel(engineWorkerEntry.getKey(), apexModel, forceFlag);
+            EngineWorker engineWorker = (EngineWorker) engineWorkerEntry.getValue();
+            if (isSubsequentInstance) {
+                // set subsequentInstance flag as true if the current engine worker instance is not the first one
+                // first engine instance will have this flag as false
+                engineWorker.setSubsequentInstance(true);
+            }
+            engineWorker.updateModel(engineWorkerEntry.getKey(), apexModel, forceFlag);
+            isSubsequentInstance = true;
         }
 
         // start all engines on this engine service if it was not stopped before the update

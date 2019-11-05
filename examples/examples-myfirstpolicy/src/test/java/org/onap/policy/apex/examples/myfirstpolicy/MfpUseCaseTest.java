@@ -134,7 +134,7 @@ public class MfpUseCaseTest {
 
         final TestSaleAuthListener listener = new TestSaleAuthListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         final AxEvent axEventin = apexPolicyModel.getEvents().get(new AxArtifactKey("SALE_INPUT:0.0.1"));
@@ -182,7 +182,7 @@ public class MfpUseCaseTest {
 
         final TestSaleAuthListener listener = new TestSaleAuthListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         final AxEvent axEventin = apexPolicyModel.getEvents().get(new AxArtifactKey("SALE_INPUT:0.0.1"));

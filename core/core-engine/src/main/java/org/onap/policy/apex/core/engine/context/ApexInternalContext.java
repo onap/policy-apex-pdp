@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +22,12 @@
 package org.onap.policy.apex.core.engine.context;
 
 import com.google.common.collect.Maps;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
@@ -113,13 +112,24 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
      * in the new model.
      *
      * @param newPolicyModel The new incoming Apex model to use for context
+     * @param isSubsequentInstance if the current worker instance being updated is not the first one
      * @throws ContextException On errors on context setting
      */
-    public void update(final AxPolicyModel newPolicyModel) throws ContextException {
+    public void update(final AxPolicyModel newPolicyModel, boolean isSubsequentInstance) throws ContextException {
         if (newPolicyModel == null) {
             throw new ContextException("internal context update failed, supplied model is null");
         }
-
+        // context is shared between all the engine instances
+        // during model update context album only needs to be updated for the first instance.
+        // remaining engine instances can just copy the context
+        if (isSubsequentInstance) {
+            contextAlbums.clear();
+            for (AxArtifactKey contextAlbumKey : ModelService.getModel(AxContextAlbums.class).getAlbumsMap().keySet()) {
+                contextAlbums.put(contextAlbumKey, contextDistributor.createContextAlbum(contextAlbumKey));
+            }
+            key = newPolicyModel.getKey();
+            return;
+        }
         // Get the differences between the existing context and the new context
         final KeyedMapDifference<AxArtifactKey, AxContextAlbum> contextDifference =
                 new ContextComparer().compare(ModelService.getModel(AxContextAlbums.class), newPolicyModel.getAlbums());
@@ -143,11 +153,11 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
                         + newContextAlbum.getItemSchema().getId() + "\" on incoming model");
             }
         }
-        
+
         // Remove maps that are no longer used
         for (final Entry<AxArtifactKey, AxContextAlbum> removedContextAlbumEntry : contextDifference.getLeftOnly()
                 .entrySet()) {
-            contextDistributor.removeContextAlbum(removedContextAlbumEntry.getValue());
+            contextDistributor.removeContextAlbum(removedContextAlbumEntry.getKey());
             contextAlbums.remove(removedContextAlbumEntry.getKey());
         }
 
@@ -156,6 +166,11 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
 
         // Set up the new context albums
         for (final AxArtifactKey contextAlbumKey : contextDifference.getRightOnly().keySet()) {
+            // In case if a context album is part of previous and current model, but needs to be cleared
+            // for example, due to a major version change
+            if (contextAlbums.containsKey(contextAlbumKey)) {
+                contextDistributor.removeContextAlbum(contextAlbumKey);
+            }
             contextAlbums.put(contextAlbumKey, contextDistributor.createContextAlbum(contextAlbumKey));
         }
 

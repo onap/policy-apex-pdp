@@ -26,7 +26,6 @@ import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -105,7 +104,7 @@ public class ApexEngineImpl implements ApexEngine {
      * {@inheritDoc}.
      */
     @Override
-    public void updateModel(final AxPolicyModel apexModel) throws ApexException {
+    public void updateModel(final AxPolicyModel apexModel, final boolean isSubsequentInstance) throws ApexException {
         if (apexModel != null) {
             LOGGER.entry("updateModel()->" + key.getId() + ", apexPolicyModel=" + apexModel.getKey().getId());
         } else {
@@ -125,8 +124,8 @@ public class ApexEngineImpl implements ApexEngine {
                 /// New internal context
                 internalContext = new ApexInternalContext(apexModel);
             } else {
-                // Exiting internal context which must be updated
-                internalContext.update(apexModel);
+                // Existing internal context which must be updated
+                internalContext.update(apexModel, isSubsequentInstance);
             }
         } catch (final ContextException e) {
             LOGGER.warn(UPDATE_MODEL + key.getId() + ", error setting the context for engine \"" + key.getId() + "\"",

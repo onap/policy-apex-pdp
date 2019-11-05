@@ -21,11 +21,13 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -59,7 +61,11 @@ public class ApexActivator {
 
     // The parameters of the Apex activator when running with multiple policies
     @Getter
+    @Setter
     private Map<ToscaPolicyIdentifier, ApexParameters> apexParametersMap;
+
+    @Getter
+    Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap;
 
     // Event unmarshalers are used to receive events asynchronously into Apex
     private final Map<String, ApexEventUnmarshaller> unmarshallerMap = new LinkedHashMap<>();
@@ -99,46 +105,7 @@ public class ApexActivator {
                 .mapToInt(p -> p.getEngineServiceParameters().getInstanceCount()).sum();
             apexParameters.getEngineServiceParameters().setInstanceCount(totalInstanceCount);
             instantiateEngine(apexParameters);
-            Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap = new LinkedHashMap<>();
-            Map<String, EventHandlerParameters> inputParametersMap = new LinkedHashMap<>();
-            Map<String, EventHandlerParameters> outputParametersMap = new LinkedHashMap<>();
-
-            for (Entry<ToscaPolicyIdentifier, ApexParameters> apexParamsEntry : apexParametersMap.entrySet()) {
-                ApexParameters apexParams = apexParamsEntry.getValue();
-                boolean duplicateInputParameterExist =
-                    apexParams.getEventInputParameters().keySet().stream().anyMatch(inputParametersMap::containsKey);
-                boolean duplicateOutputParameterExist =
-                    apexParams.getEventOutputParameters().keySet().stream().anyMatch(outputParametersMap::containsKey);
-                if (duplicateInputParameterExist || duplicateOutputParameterExist) {
-                    LOGGER.error("I/O Parameters for " + apexParamsEntry.getKey().getName() + ":"
-                        + apexParamsEntry.getKey().getVersion()
-                        + " has duplicates. So this policy is not executed");
-                    apexParametersMap.remove(apexParamsEntry.getKey());
-                    continue;
-                } else {
-                    inputParametersMap.putAll(apexParams.getEventInputParameters());
-                    outputParametersMap.putAll(apexParams.getEventOutputParameters());
-                }
-                // Check if a policy model file has been specified
-                if (apexParams.getEngineServiceParameters().getPolicyModelFileName() != null) {
-                    LOGGER.debug("deploying policy model in \""
-                        + apexParams.getEngineServiceParameters().getPolicyModelFileName()
-                        + "\" to the apex engines . . .");
-
-                    final String policyModelString = TextFileUtils
-                        .getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
-                    AxPolicyModel policyModel = EngineServiceImpl
-                        .createModel(apexParams.getEngineServiceParameters().getEngineKey(), policyModelString);
-                    policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
-                }
-            }
-            AxPolicyModel finalPolicyModel = aggregatePolicyModels(policyModelsMap);
-            // Set the policy model in the engine
-            apexEngineService.updateModel(apexParameters.getEngineServiceParameters().getEngineKey(),
-                finalPolicyModel, true);
-            setUpMarshallerAndUnmarshaller(apexParameters.getEngineServiceParameters(), inputParametersMap,
-                outputParametersMap);
-            setUpmarshalerPairings(inputParametersMap);
+            setUpModelMarhsallerAndUnmarshaller(apexParameters);
         } catch (final Exception e) {
             LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
             throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
@@ -147,8 +114,51 @@ public class ApexActivator {
         LOGGER.debug("Apex engine started as a service");
     }
 
+    private void setUpModelMarhsallerAndUnmarshaller(ApexParameters apexParameters) throws IOException, ApexException {
+        policyModelsMap = new LinkedHashMap<>();
+        Map<String, EventHandlerParameters> inputParametersMap = new LinkedHashMap<>();
+        Map<String, EventHandlerParameters> outputParametersMap = new LinkedHashMap<>();
+
+        for (Entry<ToscaPolicyIdentifier, ApexParameters> apexParamsEntry : apexParametersMap.entrySet()) {
+            ApexParameters apexParams = apexParamsEntry.getValue();
+            boolean duplicateInputParameterExist =
+                apexParams.getEventInputParameters().keySet().stream().anyMatch(inputParametersMap::containsKey);
+            boolean duplicateOutputParameterExist =
+                apexParams.getEventOutputParameters().keySet().stream().anyMatch(outputParametersMap::containsKey);
+            if (duplicateInputParameterExist || duplicateOutputParameterExist) {
+                LOGGER.error("I/O Parameters for {}:{} has duplicates. So this policy is not executed.",
+                    apexParamsEntry.getKey().getName(), apexParamsEntry.getKey().getVersion());
+                apexParametersMap.remove(apexParamsEntry.getKey());
+                continue;
+            } else {
+                inputParametersMap.putAll(apexParams.getEventInputParameters());
+                outputParametersMap.putAll(apexParams.getEventOutputParameters());
+            }
+            // Check if a policy model file has been specified
+            if (apexParams.getEngineServiceParameters().getPolicyModelFileName() != null) {
+                LOGGER.debug("deploying policy model in \"{}\" to the apex engines . . .",
+                    apexParams.getEngineServiceParameters().getPolicyModelFileName());
+
+                final String policyModelString =
+                    TextFileUtils.getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
+                AxPolicyModel policyModel = EngineServiceImpl
+                    .createModel(apexParams.getEngineServiceParameters().getEngineKey(), policyModelString);
+                policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
+            }
+        }
+        AxPolicyModel finalPolicyModel = aggregatePolicyModels(policyModelsMap);
+        // Set the policy model in the engine
+        apexEngineService.updateModel(apexParameters.getEngineServiceParameters().getEngineKey(), finalPolicyModel,
+            true);
+        setUpMarshallerAndUnmarshaller(apexParameters.getEngineServiceParameters(), inputParametersMap,
+            outputParametersMap);
+        setUpmarshalerPairings(inputParametersMap);
+    }
+
     private AxPolicyModel aggregatePolicyModels(Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap) {
         Map.Entry<ToscaPolicyIdentifier, AxPolicyModel> firstEntry = policyModelsMap.entrySet().iterator().next();
+        ToscaPolicyIdentifier tempId = new ToscaPolicyIdentifier(firstEntry.getKey());
+        AxPolicyModel tempModel = new AxPolicyModel(firstEntry.getValue());
         Stream<Entry<ToscaPolicyIdentifier, AxPolicyModel>> policyModelStream =
             policyModelsMap.entrySet().stream().skip(1);
         Entry<ToscaPolicyIdentifier, AxPolicyModel> finalPolicyModelEntry =
@@ -157,13 +167,16 @@ public class ApexActivator {
                     entry1.setValue(
                         PolicyModelMerger.getMergedPolicyModel(entry1.getValue(), entry2.getValue(), true, true));
                 } catch (ApexModelException exc) {
-                    LOGGER.error("Policy model for " + entry2.getKey().getName() + ":" + entry2.getKey().getVersion()
-                        + " is having duplicates. So this policy is not executed", exc.getMessage());
+                    LOGGER.error("{}. \nPolicy model for {} : {} is having duplicates. So this policy is not executed.",
+                        exc.getMessage(), entry2.getKey().getName(), entry2.getKey().getVersion());
                     apexParametersMap.remove(entry2.getKey());
+                    policyModelsMap.remove(entry2.getKey());
                 }
                 return entry1;
             }));
-        return finalPolicyModelEntry.getValue();
+        AxPolicyModel finalPolicyModel = new AxPolicyModel(finalPolicyModelEntry.getValue());
+        policyModelsMap.put(tempId, tempModel); // put back the original first entry into the policyModelsMap
+        return finalPolicyModel;
     }
 
     private void setUpMarshallerAndUnmarshaller(EngineServiceParameters engineServiceParameters,
@@ -237,21 +250,30 @@ public class ApexActivator {
     }
 
     /**
+     * Updates the APEX Engine with the model created from new Policies.
+     *
+     * @param apexParamsMap  the apex parameters map for the Apex service
+     * @throws ApexException on errors
+     */
+    public void updateModel(Map<ToscaPolicyIdentifier, ApexParameters> apexParamsMap) throws ApexException {
+        try {
+            shutdownMarshallerAndUnmarshaller();
+            ApexParameters apexParameters = apexParamsMap.values().iterator().next();
+            setUpModelMarhsallerAndUnmarshaller(apexParameters);
+        } catch (final Exception e) {
+            LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
+            throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
+        }
+    }
+
+    /**
      * Terminate the Apex engine.
      *
      * @throws ApexException on termination errors
      */
     public void terminate() throws ApexException {
         // Shut down all marshalers and unmarshalers
-        for (final ApexEventMarshaller marshaller : marshallerMap.values()) {
-            marshaller.stop();
-        }
-        marshallerMap.clear();
-
-        for (final ApexEventUnmarshaller unmarshaller : unmarshallerMap.values()) {
-            unmarshaller.stop();
-        }
-        unmarshallerMap.clear();
+        shutdownMarshallerAndUnmarshaller();
 
         // Check if the engine service handler has been shut down already
         if (engineServiceHandler != null) {
@@ -262,5 +284,15 @@ public class ApexActivator {
         // Clear the services
         ModelService.clear();
         ParameterService.clear();
+    }
+
+    /**
+     * Shuts down all marshallers and unmarshallers.
+     */
+    private void shutdownMarshallerAndUnmarshaller() {
+        marshallerMap.values().forEach(ApexEventMarshaller::stop);
+        marshallerMap.clear();
+        unmarshallerMap.values().forEach(ApexEventUnmarshaller::stop);
+        unmarshallerMap.clear();
     }
 }

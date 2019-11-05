@@ -130,10 +130,10 @@ public class ApexParameterHandler {
 
     /**
      * Register all the incoming parameters with the parameter service.
-     * 
+     *
      * @param parameters The parameters to register
      */
-    private void registerParameters(ApexParameters parameters) {
+    public void registerParameters(ApexParameters parameters) {
         ParameterService.register(parameters);
         ParameterService.register(parameters.getEngineServiceParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters());

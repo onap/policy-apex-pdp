@@ -56,6 +56,35 @@ public class ApexEngineHandler {
      * @throws ApexStarterException if the apex engine instantiation failed using the policies passed
      */
     public ApexEngineHandler(List<ToscaPolicy> policies)  throws ApexStarterException {
+        Map<ToscaPolicyIdentifier, String[]> policyArgsMap = createPolicyArgsMap(policies);
+        LOGGER.debug("Starting apex engine.");
+        try {
+            apexMain = new ApexMain(policyArgsMap);
+        } catch (ApexException e) {
+            throw new ApexStarterException(e);
+        }
+    }
+
+    /**
+     * Updates the Apex Engine with the policy model created from new list of policies.
+     *
+     * @param policies the list of policies
+     * @throws ApexStarterException if the apex engine instantiation failed using the policies passed
+     */
+    public void updateApexEngine(List<ToscaPolicy> policies) throws ApexStarterException {
+        Map<ToscaPolicyIdentifier, String[]> policyArgsMap = createPolicyArgsMap(policies);
+        if (null == apexMain || !apexMain.isAlive()) {
+            throw new ApexStarterException("Apex Engine not initialized.");
+        }
+        try {
+            apexMain.updateModel(policyArgsMap);
+        } catch (ApexException e) {
+            throw new ApexStarterException(e);
+        }
+    }
+
+    private Map<ToscaPolicyIdentifier, String[]> createPolicyArgsMap(List<ToscaPolicy> policies)
+        throws ApexStarterException {
         Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
         for (ToscaPolicy policy : policies) {
             Object properties = policy.getProperties().get("content");
@@ -78,13 +107,7 @@ public class ApexEngineHandler {
             final String[] apexArgs = { "-c", apexConfigFilePath, "-m", modelFilePath };
             policyArgsMap.put(policy.getIdentifier(), apexArgs);
         }
-
-        LOGGER.debug("Starting apex engine.");
-        try {
-            apexMain = new ApexMain(policyArgsMap);
-        } catch (ApexException e) {
-            throw new ApexStarterException(e);
-        }
+        return policyArgsMap;
     }
 
     /**

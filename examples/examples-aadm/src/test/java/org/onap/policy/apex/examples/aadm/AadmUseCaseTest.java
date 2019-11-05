@@ -122,7 +122,7 @@ public class AadmUseCaseTest {
         final ApexEngineImpl apexEngine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(key);
         final TestApexActionListener listener = new TestApexActionListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         final AxEvent axEvent = getTriggerEvent(apexPolicyModel);

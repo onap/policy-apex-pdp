@@ -125,7 +125,7 @@ public class TestEventInstantiation {
         assertNotNull(apexPolicyModel);
 
         final ApexEngine apexEngine = new ApexEngineFactory().createApexEngine(apexPolicyModel.getKey());
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         final EnEvent event = apexEngine.createEvent(new AxArtifactKey("Event0000", "0.0.1"));

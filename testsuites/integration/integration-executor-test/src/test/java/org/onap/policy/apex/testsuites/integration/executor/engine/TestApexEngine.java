@@ -65,7 +65,7 @@ public class TestApexEngine {
         final ApexEngine apexEngine = new ApexEngineFactory().createApexEngine(key);
         final TestApexActionListener listener = new TestApexActionListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         for (final AxEvent axEvent : apexPolicyModel.getEvents().getEventMap().values()) {

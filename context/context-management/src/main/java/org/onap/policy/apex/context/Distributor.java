@@ -75,10 +75,10 @@ public interface Distributor {
     /**
      * Remove a context album from a distributor.
      *
-     * @param contextAlbum The album to remove
+     * @param axContextAlbumKey The key of album to remove
      * @throws ContextException if the album cannot be removed
      */
-    void removeContextAlbum(AxContextAlbum contextAlbum) throws ContextException;
+    void removeContextAlbum(AxArtifactKey axContextAlbumKey) throws ContextException;
 
     /**
      * Flush all context albums owned by the distributor to the distribution mechanism.

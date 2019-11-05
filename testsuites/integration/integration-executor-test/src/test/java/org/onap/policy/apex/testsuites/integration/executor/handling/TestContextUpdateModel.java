@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,7 +128,7 @@ public class TestContextUpdateModel {
         assertNotNull(model1);
         assertEquals(2, model1.getPolicies().getPolicyMap().size());
 
-        apexEngine.updateModel(model1);
+        apexEngine.updateModel(model1, false);
         apexEngine.start();
         sendEvent(apexEngine, listener, "Event0000", true);
         sendEvent(apexEngine, listener, "Event0100", true);
@@ -137,7 +138,7 @@ public class TestContextUpdateModel {
         assertNotNull(model2);
         model2.getPolicies().getPolicyMap().remove(new AxArtifactKey("Policy0", "0.0.1"));
         assertEquals(1, model2.getPolicies().getPolicyMap().size());
-        apexEngine.updateModel(model2);
+        apexEngine.updateModel(model2, false);
         apexEngine.start();
         sendEvent(apexEngine, listener, "Event0000", false);
         sendEvent(apexEngine, listener, "Event0100", true);
@@ -147,7 +148,7 @@ public class TestContextUpdateModel {
         assertNotNull(model3);
         model3.getPolicies().getPolicyMap().remove(new AxArtifactKey("Policy1", "0.0.1"));
         assertEquals(1, model3.getPolicies().getPolicyMap().size());
-        apexEngine.updateModel(model3);
+        apexEngine.updateModel(model3, false);
         apexEngine.start();
         sendEvent(apexEngine, listener, "Event0000", true);
         sendEvent(apexEngine, listener, "Event0100", false);
@@ -156,7 +157,7 @@ public class TestContextUpdateModel {
         final AxPolicyModel model4 = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
         assertNotNull(model4);
         assertEquals(2, model4.getPolicies().getPolicyMap().size());
-        apexEngine.updateModel(model4);
+        apexEngine.updateModel(model4, false);
         apexEngine.start();
         sendEvent(apexEngine, listener, "Event0100", true);
         sendEvent(apexEngine, listener, "Event0000", true);
