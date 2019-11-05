@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
@@ -99,6 +98,6 @@ public class AxOutputField extends AxField {
      * @param field the output field to copy from
      */
     public AxOutputField(final AxOutputField field) {
-        super(new AxReferenceKey(field.getKey()), new AxArtifactKey(field.getSchema()));
+        super(new AxReferenceKey(field.getKey()), new AxArtifactKey(field.getSchema()), field.getOptional());
     }
 }
