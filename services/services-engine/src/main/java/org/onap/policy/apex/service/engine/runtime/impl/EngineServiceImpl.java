@@ -77,8 +77,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     private AxArtifactKey engineServiceKey = null;
 
     // The Apex engine workers this engine service is handling
-    private final Map<AxArtifactKey, EngineService> engineWorkerMap = Collections
-                    .synchronizedMap(new LinkedHashMap<AxArtifactKey, EngineService>());
+    private final Map<AxArtifactKey, EngineWorker> engineWorkerMap = Collections
+                    .synchronizedMap(new LinkedHashMap<AxArtifactKey, EngineWorker>());
 
     // Event queue for events being sent into the Apex engines, it used by all engines within a
     // group.
@@ -342,9 +342,17 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
 
         // Update the engines
-        for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
+        boolean isSubsequentInstance = false;
+        for (final Entry<AxArtifactKey, EngineWorker> engineWorkerEntry : engineWorkerMap.entrySet()) {
             LOGGER.info("Registering apex model on engine {}", engineWorkerEntry.getKey().getId());
-            engineWorkerEntry.getValue().updateModel(engineWorkerEntry.getKey(), apexModel, forceFlag);
+            EngineWorker engineWorker = engineWorkerEntry.getValue();
+            if (isSubsequentInstance) {
+                // set subsequentInstance flag as true if the current engine worker instance is not the first one
+                // first engine instance will have this flag as false
+                engineWorker.setSubsequentInstance(true);
+            }
+            engineWorker.updateModel(engineWorkerEntry.getKey(), apexModel, forceFlag);
+            isSubsequentInstance = true;
         }
 
         // start all engines on this engine service if it was not stopped before the update
@@ -355,7 +363,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
         // Check if all engines are running
         final StringBuilder notRunningEngineIdBuilder = new StringBuilder();
-        for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
+        for (final Entry<AxArtifactKey, EngineWorker> engineWorkerEntry : engineWorkerMap.entrySet()) {
             if (engineWorkerEntry.getValue().getState() != AxEngineState.READY
                             && engineWorkerEntry.getValue().getState() != AxEngineState.EXECUTING) {
                 notRunningEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
@@ -387,7 +395,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
         // Check if all engines are stopped
         final StringBuilder notStoppedEngineIdBuilder = new StringBuilder();
-        for (final Entry<AxArtifactKey, EngineService> engineWorkerEntry : engineWorkerMap.entrySet()) {
+        for (final Entry<AxArtifactKey, EngineWorker> engineWorkerEntry : engineWorkerMap.entrySet()) {
             if (engineWorkerEntry.getValue().getState() != AxEngineState.STOPPED) {
                 notStoppedEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
                 notStoppedEngineIdBuilder.append('(');

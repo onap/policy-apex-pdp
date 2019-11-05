@@ -162,10 +162,11 @@ public class PdpUpdateMessageHandler {
         PdpResponseDetails pdpResponseDetails = null;
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-                apexEngineHandler.shutdown();
+                apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPolicies());
+            } else {
+                apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPolicies());
+                Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             }
-            apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPolicies());
-            Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             if (apexEngineHandler.isApexEngineRunning()) {
                 List<ToscaPolicyIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
                 if (new HashSet<>(runningPolicies)

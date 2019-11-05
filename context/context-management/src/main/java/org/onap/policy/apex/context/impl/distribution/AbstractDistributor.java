@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
@@ -210,16 +210,12 @@ public abstract class AbstractDistributor implements Distributor {
      * {@inheritDoc}.
      */
     @Override
-    public void removeContextAlbum(final AxContextAlbum contextAlbum) throws ContextException {
+    public void removeContextAlbum(final AxArtifactKey axContextAlbumKey) throws ContextException {
         synchronized (albumMaps) {
-            // Check if the map already exists, if not return
-            if (!albumMaps.containsKey(contextAlbum.getKey())) {
-                LOGGER.warn("map remove failed, supplied map is null");
+            // Remove the map from the distributor
+            if (null == albumMaps.remove(axContextAlbumKey)) {
                 throw new ContextException("map update failed, supplied map is null");
             }
-
-            // Remove the map from the distributor
-            albumMaps.remove(contextAlbum.getKey());
         }
     }
 

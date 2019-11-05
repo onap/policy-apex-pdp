@@ -1,25 +1,27 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.core.engine.context;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -156,33 +158,23 @@ public class ApexInternalContextTest {
     @Test
     public void testAlbumUpdate() throws ContextException {
         ApexInternalContext context = new ApexInternalContext(policyModel);
-
-        try {
-            context.update(null);
-            fail("test should throw an exception");
-        } catch (ContextException ce) {
-            assertEquals("internal context update failed, supplied model is null", ce.getMessage());
-        }
+        assertThatThrownBy(() -> context.update(null, false))
+            .hasMessage("internal context update failed, supplied model is null");
 
         assertEquals(policyModel.getKey().getId(), context.getKey().getId());
         assertEquals(1, context.getContextAlbums().size());
 
-        try {
-            context.update(incompatiblePolicyModel);
-            fail("test should throw an exception here");
-        } catch (ContextException ce) {
-            assertEquals("internal context update failed on context album \"Album:0.0.1\" "
-                            + "in model \"PolicyModel:0.0.1\", "
-                            + "schema \"Schema:0.0.1\" on existing context model does not equal "
-                            + "schema \"IncompatibleSchema:0.0.1\" on incoming model", ce.getMessage());
-        }
+        assertThatThrownBy(() -> context.update(incompatiblePolicyModel, false)).hasMessage(
+            "internal context update failed on context album \"Album:0.0.1\" " + "in model \"PolicyModel:0.0.1\", "
+                + "schema \"Schema:0.0.1\" on existing context model does not equal "
+                + "schema \"IncompatibleSchema:0.0.1\" on incoming model");
 
         assertEquals(policyModel.getKey().getId(), context.getKey().getId());
 
-        context.update(newVersionPolicyModel);
+        context.update(newVersionPolicyModel, false);
         assertEquals(newVersionPolicyModel.getKey().getId(), context.getKey().getId());
 
-        context.update(newPolicyModel);
+        context.update(newPolicyModel, true);
         assertEquals(newPolicyModel.getKey().getId(), context.getKey().getId());
     }
 }

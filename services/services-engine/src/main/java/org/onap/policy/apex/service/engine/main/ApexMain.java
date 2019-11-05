@@ -26,9 +26,15 @@ import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.service.ModelService;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
+import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
@@ -126,6 +132,67 @@ public class ApexMain {
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new ApexMainShutdownHookClass());
         LOGGER.exit("Started Apex");
+    }
+
+    /**
+     * Updates the APEX Engine with the model created from new Policies.
+     *
+     * @param policyArgsMap the map with command line arguments as value and policy-id as key
+     * @throws ApexException on errors
+     */
+    public void updateModel(Map<ToscaPolicyIdentifier, String[]> policyArgsMap) throws ApexException {
+        apexParametersMap.clear();
+        AxContextAlbums albums = ModelService.getModel(AxContextAlbums.class);
+        Map<AxArtifactKey, AxContextAlbum> albumsMap = new TreeMap<>();
+        for (Entry<ToscaPolicyIdentifier, String[]> policyArgsEntry : policyArgsMap.entrySet()) {
+            findAlbumsToHold(albumsMap, policyArgsEntry.getKey());
+            try {
+                apexParametersMap.put(policyArgsEntry.getKey(), populateApexParameters(policyArgsEntry.getValue()));
+            } catch (ApexException e) {
+                LOGGER.error("Invalid arguments specified for policy - {}:{}", policyArgsEntry.getKey().getName(),
+                    policyArgsEntry.getKey().getVersion(), e);
+            }
+        }
+        try {
+            if (albumsMap.isEmpty()) {
+                // clear context since none of the policies' context albums has to be retained
+                // this could be because all policies have a major version change,
+                // or a full set of new policies are received in the update message
+                activator.terminate();
+                // ParameterService is cleared when activator is terminated. Register the engine parameters in this case
+                new ApexParameterHandler().registerParameters(apexParametersMap.values().iterator().next());
+                activator = new ApexActivator(apexParametersMap);
+                activator.initialize();
+                setAlive(true);
+            } else {
+                albums.setAlbumsMap(albumsMap);
+                activator.setApexParametersMap(apexParametersMap);
+                activator.updateModel(apexParametersMap);
+            }
+        } catch (final ApexException e) {
+            LOGGER.error(APEX_SERVICE_FAILED_MSG, e);
+            activator.terminate();
+            throw new ApexException(e.getMessage());
+        }
+    }
+
+    /**
+     * Find the context albums which should be retained when updating the policies.
+     *
+     * @param albumsMap the albums which should be kept during model update
+     * @param policyId the policy id of current policy
+     */
+    private void findAlbumsToHold(Map<AxArtifactKey, AxContextAlbum> albumsMap, ToscaPolicyIdentifier policyId) {
+        for (Entry<ToscaPolicyIdentifier, AxPolicyModel> policyModelsEntry : activator.getPolicyModelsMap()
+            .entrySet()) {
+            // If a policy with the same major version is received in PDP_UPDATE,
+            // context for that policy has to be retained. For this, take such policies' albums
+            if (policyModelsEntry.getKey().getName().equals(policyId.getName())
+                && policyModelsEntry.getKey().getVersion().split("\\.")[0]
+                    .equals(policyId.getVersion().split("\\.")[0])) {
+                albumsMap.putAll(policyModelsEntry.getValue().getAlbums().getAlbumsMap());
+            }
+        }
     }
 
     private ApexParameters populateApexParameters(String[] args) throws ApexException {

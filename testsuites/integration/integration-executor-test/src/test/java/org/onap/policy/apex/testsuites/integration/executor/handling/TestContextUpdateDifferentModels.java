@@ -1,29 +1,30 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.testsuites.integration.executor.handling;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
@@ -123,7 +124,7 @@ public class TestContextUpdateDifferentModels {
                 (ApexEngineImpl) new ApexEngineFactory().createApexEngine(new AxArtifactKey("TestApexEngine", "0.0.1"));
         final TestApexActionListener listener = new TestApexActionListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexModelSample);
+        apexEngine.updateModel(apexModelSample, false);
         apexEngine.start();
 
         apexEngine.stop();
@@ -131,13 +132,8 @@ public class TestContextUpdateDifferentModels {
         final AxPolicyModel someSpuriousModel = new AxPolicyModel(new AxArtifactKey("SomeSpuriousModel", "0.0.1"));
         assertNotNull(someSpuriousModel);
 
-        try {
-            apexEngine.updateModel(null);
-            fail("null model should throw an exception");
-        } catch (final ApexException e) {
-            assertEquals("updateModel()<-TestApexEngine:0.0.1, Apex model is not defined, it has a null value",
-                    e.getMessage());
-        }
+        assertThatThrownBy(() -> apexEngine.updateModel(null, false))
+            .hasMessage("updateModel()<-TestApexEngine:0.0.1, Apex model is not defined, it has a null value");
         assertEquals(apexEngine.getInternalContext().getContextAlbums().size(),
                 apexModelSample.getAlbums().getAlbumsMap().size());
         for (final ContextAlbum contextAlbum : apexEngine.getInternalContext().getContextAlbums().values()) {
@@ -145,7 +141,7 @@ public class TestContextUpdateDifferentModels {
                     contextAlbum.getAlbumDefinition().equals(apexModelSample.getAlbums().get(contextAlbum.getKey())));
         }
 
-        apexEngine.updateModel(someSpuriousModel);
+        apexEngine.updateModel(someSpuriousModel, false);
         assertEquals(apexEngine.getInternalContext().getContextAlbums().size(),
                 someSpuriousModel.getAlbums().getAlbumsMap().size());
         for (final ContextAlbum contextAlbum : apexEngine.getInternalContext().getContextAlbums().values()) {

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,7 +135,7 @@ public class MfpUseCaseTest {
 
         final TestSaleAuthListener listener = new TestSaleAuthListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         final AxEvent axEventin = apexPolicyModel.getEvents().get(new AxArtifactKey("SALE_INPUT:0.0.1"));
@@ -182,7 +183,7 @@ public class MfpUseCaseTest {
 
         final TestSaleAuthListener listener = new TestSaleAuthListener("Test");
         apexEngine.addEventListener("listener", listener);
-        apexEngine.updateModel(apexPolicyModel);
+        apexEngine.updateModel(apexPolicyModel, false);
         apexEngine.start();
 
         final AxEvent axEventin = apexPolicyModel.getEvents().get(new AxArtifactKey("SALE_INPUT:0.0.1"));

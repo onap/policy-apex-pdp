@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Random;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,12 +73,12 @@ public class AnomalyDetectionTslUseCaseTest {
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
@@ -90,7 +90,7 @@ public class AnomalyDetectionTslUseCaseTest {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         engineParameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
@@ -103,7 +103,7 @@ public class AnomalyDetectionTslUseCaseTest {
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
@@ -135,7 +135,7 @@ public class AnomalyDetectionTslUseCaseTest {
 
         final TestApexActionListener listener1 = new TestApexActionListener("TestListener1");
         apexEngine1.addEventListener("listener", listener1);
-        apexEngine1.updateModel(apexPolicyModel);
+        apexEngine1.updateModel(apexPolicyModel, false);
         apexEngine1.start();
         final EnEvent triggerEvent =
                 apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
@@ -191,7 +191,7 @@ public class AnomalyDetectionTslUseCaseTest {
 
         final TestApexActionListener listener1 = new TestApexActionListener("TestListener1");
         apexEngine1.addEventListener("listener1", listener1);
-        apexEngine1.updateModel(apexPolicyModel);
+        apexEngine1.updateModel(apexPolicyModel, false);
         apexEngine1.start();
 
         final EnEvent triggerEvent =

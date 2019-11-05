@@ -27,7 +27,6 @@ import java.io.PrintStream;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -96,7 +95,7 @@ public class TestExecutionPropertyRest {
 
         server.start();
 
-        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 2000, 1L)) {
+        if (!NetworkUtil.isTcpPortOpen("localHost", PORT, 60, 500L)) {
             throw new IllegalStateException("port " + PORT + " is still not in use");
         }
 
