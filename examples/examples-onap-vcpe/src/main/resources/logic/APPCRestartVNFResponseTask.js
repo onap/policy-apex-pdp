@@ -32,29 +32,46 @@ var appcResponse = executor.inFields.get("APPCLCMResponseEvent");
 
 var requestIDString = appcResponse.getCorrelationId().substr(0, 36);
 executor.logger.info("requestIDString = " + requestIDString);
-var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").get(requestIDString);
-executor.logger.info("Size of RequestIDVNFIDAlbum = " + executor.getContextAlbum("RequestIDVNFIDAlbum").size());
+var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum")
+        .get(requestIDString);
+executor.logger.info("Size of RequestIDVNFIDAlbum = "
+        + executor.getContextAlbum("RequestIDVNFIDAlbum").size());
 executor.logger.info("vnfID = " + vnfID);
 
 var returnValue = executor.isTrue;
 
 if (vnfID != null) {
-    var vcpeClosedLoopStatus = executor.getContextAlbum("VCPEClosedLoopStatusAlbum").get(vnfID.toString());
-    var requestId = java.util.UUID.fromString(vcpeClosedLoopStatus.get("requestID"));
+    var vcpeClosedLoopStatus = executor.getContextAlbum(
+            "VCPEClosedLoopStatusAlbum").get(vnfID.toString());
+    var requestId = java.util.UUID.fromString(vcpeClosedLoopStatus
+            .get("requestID"));
 
-    vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+    vcpeClosedLoopStatus.put("notificationTime", java.lang.System
+            .currentTimeMillis());
 
-    executor.logger.info("Got from APPC code: " + org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()));
+    executor.logger.info("Got from APPC code: "
+            + org.onap.policy.appclcm.AppcLcmResponseCode
+                    .toResponseValue(appcResponse.getBody().getOutput()
+                            .getStatus().getCode()));
 
-    if (org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == org.onap.policy.appclcm.LcmResponseCode.SUCCESS) {
+    if (org.onap.policy.appclcm.AppcLcmResponseCode
+            .toResponseValue(appcResponse.getBody().getOutput().getStatus()
+                    .getCode()) == org.onap.policy.appclcm.AppcLcmResponseCode.SUCCESS) {
         vcpeClosedLoopStatus.put("notification", "OPERATION_SUCCESS");
         vcpeClosedLoopStatus.put("message", "vCPE restarted");
         executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestIDString);
-    } else if (org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == "ACCEPTED" ||
-               org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()) == "REJECT" ) {
-        executor.logger.info("Got ACCEPTED 100 or REJECT 312, keep the context, wait for next response. Code is: " + org.onap.policy.appclcm.LcmResponseCode.toResponseValue(appcResponse.getBody().getStatus().getCode()));
-    }
-    else {
+    } else if (org.onap.policy.appclcm.AppcLcmResponseCode
+            .toResponseValue(appcResponse.getBody().getOutput().getStatus()
+                    .getCode()) == "ACCEPTED"
+            || org.onap.policy.appclcm.AppcLcmResponseCode
+                    .toResponseValue(appcResponse.getBody().getOutput()
+                            .getStatus().getCode()) == "REJECT") {
+        executor.logger
+                .info("Got ACCEPTED 100 or REJECT 312, keep the context, wait for next response. Code is: "
+                        + org.onap.policy.appclcm.AppcLcmResponseCode
+                                .toResponseValue(appcResponse.getBody()
+                                        .getOutput().getStatus().getCode()));
+    } else {
         executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestIDString);
         vcpeClosedLoopStatus.put("notification", "OPERATION_FAILURE");
         vcpeClosedLoopStatus.put("message", "vCPE restart failed");
@@ -63,7 +80,8 @@ if (vnfID != null) {
     executor.outFields.put("requestID", requestId);
     executor.outFields.put("vnfID", vnfID);
 } else {
-    executor.message = "VNF ID not found in context album for request ID " + requestIDString;
+    executor.message = "VNF ID not found in context album for request ID "
+            + requestIDString;
     returnValue = executor.isFalse;
 }
 

@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.time.Instant;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
@@ -46,6 +47,7 @@ import org.onap.policy.aai.AaiNqRequest;
 import org.onap.policy.aai.AaiNqResponse;
 import org.onap.policy.aai.AaiNqVfModule;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.onap.policy.controlloop.util.Serialization;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -63,6 +65,9 @@ public class OnapVCpeSimEndpoint {
     private static AtomicInteger putMessagesReceived = new AtomicInteger();
     private static AtomicInteger statMessagesReceived = new AtomicInteger();
     private static AtomicInteger getMessagesReceived = new AtomicInteger();
+
+    private static final Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).create();
 
     /**
      * Service get stats.
@@ -121,7 +126,7 @@ public class OnapVCpeSimEndpoint {
 
         LOGGER.info("\n*** AAI REQUEST START ***\n" + jsonString + "\n *** AAI REQUEST END ***");
 
-        AaiNqRequest request = new Gson().fromJson(jsonString, AaiNqRequest.class);
+        AaiNqRequest request = gson.fromJson(jsonString, AaiNqRequest.class);
         String vnfId = request.getInstanceFilters().getInstanceFilter().iterator().next().get("generic-vnf")
                         .get("vnf-id");
         String vnfSuffix = vnfId.substring(vnfId.length() - 4);
@@ -295,7 +300,7 @@ public class OnapVCpeSimEndpoint {
         postMessagesReceived.incrementAndGet();
 
         @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
+        final Map<String, Object> jsonMap = gson.fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
@@ -330,7 +335,7 @@ public class OnapVCpeSimEndpoint {
         putMessagesReceived.incrementAndGet();
 
         @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
+        final Map<String, Object> jsonMap = gson.fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));

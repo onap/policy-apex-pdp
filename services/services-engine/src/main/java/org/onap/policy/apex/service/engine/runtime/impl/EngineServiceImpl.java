@@ -230,20 +230,6 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     }
 
     /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void updateModel(final AxArtifactKey incomingEngineServiceKey, final String apexModelString,
-                    final boolean forceFlag) throws ApexException {
-        AxPolicyModel apexPolicyModel = createModel(incomingEngineServiceKey, apexModelString);
-
-        // Update the model
-        updateModel(incomingEngineServiceKey, apexPolicyModel, forceFlag);
-
-        LOGGER.exit();
-    }
-
-    /**
     * Method to create model.
     *
     * @param incomingEngineServiceKey incoming engine service key
@@ -279,6 +265,20 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             throw new ApexException(message, e);
         }
         return apexPolicyModel;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void updateModel(final AxArtifactKey incomingEngineServiceKey, final String apexModelString,
+                    final boolean forceFlag) throws ApexException {
+        AxPolicyModel apexPolicyModel = createModel(incomingEngineServiceKey, apexModelString);
+
+        // Update the model
+        updateModel(incomingEngineServiceKey, apexPolicyModel, forceFlag);
+
+        LOGGER.exit();
     }
 
     /**

@@ -31,8 +31,8 @@ schema create name=VirtualControlLoopNotificationType flavour=Java schema=org.on
 schema create name=AAIServiceNamedQueryRequestType flavour=Java schema=org.onap.policy.aai.AaiNqRequest
 schema create name=AAIServiceNamedQueryResponseType flavour=Java schema=org.onap.policy.aai.AaiNqResponse
 
-schema create name=APPCLCMRequestType flavour=Java schema=org.onap.policy.appclcm.LcmRequestWrapper
-schema create name=APPCLCMResponseType flavour=Java schema=org.onap.policy.appclcm.LcmResponseWrapper
+schema create name=APPCLCMRequestType flavour=Java schema=org.onap.policy.appclcm.AppcLcmDmaapWrapper
+schema create name=APPCLCMResponseType flavour=Java schema=org.onap.policy.appclcm.AppcLcmDmaapWrapper
 
 schema create name=GuardDecisionAttributesType flavour=Avro schema=LS
 #MACROFILE:"src/main/resources/schemas/GuardDecisionAttributesType.avsc"

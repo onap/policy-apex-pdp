@@ -39,7 +39,7 @@ clNotification.setClosedLoopAlarmEnd(java.time.Instant.ofEpochMilli(vcpeClosedLo
 clNotification.setClosedLoopEventClient(vcpeClosedLoopStatus.get("closedLoopEventClient"));
 clNotification.setVersion(vcpeClosedLoopStatus.get("version"));
 clNotification.setRequestId(java.util.UUID.fromString(vcpeClosedLoopStatus.get("requestID")));
-clNotification.setTargetType(org.onap.policy.controlloop.ControlLoopTargetType.toType(vcpeClosedLoopStatus.get("target_type")));
+clNotification.setTargetType(vcpeClosedLoopStatus.get("target_type"));
 clNotification.setTarget(org.onap.policy.controlloop.ControlLoopEventStatus.toStatus(vcpeClosedLoopStatus.get("target")));
 clNotification.setFrom(vcpeClosedLoopStatus.get("from"));
 clNotification.setPolicyScope(vcpeClosedLoopStatus.get("policyScope"));

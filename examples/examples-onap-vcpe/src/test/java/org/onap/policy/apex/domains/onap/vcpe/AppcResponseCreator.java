@@ -20,24 +20,24 @@
 
 package org.onap.policy.apex.domains.onap.vcpe;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.time.Instant;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.BlockingQueue;
 
+import org.onap.policy.appclcm.AppcLcmBody;
 import org.onap.policy.appclcm.AppcLcmDmaapWrapper;
 import org.onap.policy.appclcm.AppcLcmInput;
 import org.onap.policy.appclcm.AppcLcmOutput;
-import org.onap.policy.common.utils.coder.CoderException;
-import org.onap.policy.common.utils.coder.StandardCoder;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
+import org.onap.policy.controlloop.util.Serialization;
 
 /**
  * Respond to an APPC request with a given delay.
  */
 public class AppcResponseCreator {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(AppcResponseCreator.class);
-
     // The request from APPC
     private final String jsonRequestString;
 
@@ -46,6 +46,9 @@ public class AppcResponseCreator {
 
     // The timer task for response generation
     private final Timer appcTimer;
+
+    private static final Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).create();
 
     /**
      * Respond to the given APPC request after the given amount of milliseconds.
@@ -70,15 +73,8 @@ public class AppcResponseCreator {
         @Override
         public void run() {
 
-            StandardCoder standardCoder = new StandardCoder();
-
             AppcLcmDmaapWrapper requestWrapper = null;
-            try {
-                requestWrapper = standardCoder.decode(jsonRequestString, AppcLcmDmaapWrapper.class);
-            } catch (CoderException e) {
-                LOGGER.warn("decoding of the APPC request message failed", e);
-                return;
-            }
+            requestWrapper = gson.fromJson(jsonRequestString, AppcLcmDmaapWrapper.class);
 
             AppcLcmInput request = requestWrapper.getBody().getInput();
 
@@ -87,6 +83,7 @@ public class AppcResponseCreator {
             response.getStatus().setMessage("Restart Successful");
 
             AppcLcmDmaapWrapper responseWrapper = new AppcLcmDmaapWrapper();
+            responseWrapper.setBody(new AppcLcmBody());
             responseWrapper.getBody().setOutput(response);
 
             responseWrapper.setVersion(requestWrapper.getVersion());
@@ -94,12 +91,7 @@ public class AppcResponseCreator {
             responseWrapper.setCorrelationId(requestWrapper.getCorrelationId());
             responseWrapper.setType(requestWrapper.getType());
 
-            try {
-                appcResponseQueue.add(standardCoder.encode(responseWrapper));
-            } catch (CoderException e) {
-                LOGGER.warn("encoding of the APPC request message failed", e);
-                return;
-            }
+            appcResponseQueue.add(gson.toJson(responseWrapper));
         }
     }
 }
