@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40a1fe8b_1da052fd",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/AppcResponseCreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-07T21:45:53Z",
+      "side": 1,
+      "message": "I\u0027ve seen this in other code - wonder if we should add this to GsonMessageHandler and StandardCoder?  Probably depends whether every situation needs to the conversion.",
+      "revId": "ccf72b37d15930a8ede20ec4391b776cc60bf3c5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
