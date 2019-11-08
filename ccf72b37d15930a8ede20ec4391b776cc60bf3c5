@@ -16,6 +16,24 @@
       "revId": "ccf72b37d15930a8ede20ec4391b776cc60bf3c5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94503052_ab107069",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/AppcResponseCreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-08T08:54:48Z",
+      "side": 1,
+      "message": "I would have used StandardCoder here if there was a way to specify adaptation of the Instant class.\n\nHow does this work in Drools when it calls APPC, how does it specify the adaptation, in other words how does it specify that the org.onap.policy.controlloop.util.Serialization class should be used to serialize and deserialize Instant?",
+      "parentUuid": "40a1fe8b_1da052fd",
+      "revId": "ccf72b37d15930a8ede20ec4391b776cc60bf3c5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
