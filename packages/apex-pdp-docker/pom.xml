@@ -79,7 +79,6 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.30.0</version> <!-- Extract this as a property from the policy-parent -->
                 <configuration>
                     <verbose>true</verbose>
                     <apiVersion>1.23</apiVersion>
