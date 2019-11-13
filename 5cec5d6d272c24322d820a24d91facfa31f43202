@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b167d388_91f69d3f",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/impl/distribution/AbstractDistributor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "can combine lines 215 \u0026 221 to avoid double look-up",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0f43353_2d5ca6ab",
         "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AnomalyDetectionTslUseCaseTest.java",
         "patchSetId": 1
@@ -36,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "791248dd_12df50ed",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "if these maps are configured at the same time, then perhaps they should be combined",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2805fe4_c8f4b0f0",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -53,6 +87,40 @@
     },
     {
       "key": {
+        "uuid": "0ec22792_b26bfa79",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "does it matter if there\u0027s a duplicate entry?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08fbe93b_41e8888c",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "should probably rename from \"setUpmarsh\" to \"setUpMarsh\"",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5475325f_18708a9d",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -64,6 +132,108 @@
       "writtenOn": "2019-11-13T15:37:34Z",
       "side": 1,
       "message": "I think there will be a sonar for not logging the exception.",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c5afc95_496ab032",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "seems kind of long - perhaps split part of the body into its own method",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "890a1be5_005a645f",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "use \"{}\" instead of concatenation",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a8b8560_932b21a4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "do we know that this parameter name will be unique?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "952d2282_983458e3",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/runtime/impl/EngineServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "if we know this is always an EngineWorker, then could we change the Map to be EngineWorker instead of EngineService?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cacd4802_66c33851",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "seems like lots of chance for overwriting existing entries here.  Do all of these really have to be registered?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5079330_007e9150",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-13T16:39:49Z",
+      "side": 1,
+      "message": "do this before invoking createXxx?",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
