@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0f43353_2d5ca6ab",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AnomalyDetectionTslUseCaseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-11-13T15:37:34Z",
+      "side": 1,
+      "message": "license",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d49b2ab9_8d2db66f",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AutoLearnTslUseCaseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-11-13T15:37:34Z",
+      "side": 1,
+      "message": "license - general",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2805fe4_c8f4b0f0",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-11-13T15:37:34Z",
+      "side": 1,
+      "message": "don\u0027t need \"else\" since \"continue\" in line 132.",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5475325f_18708a9d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-11-13T15:37:34Z",
+      "side": 1,
+      "message": "I think there will be a sonar for not logging the exception.",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
