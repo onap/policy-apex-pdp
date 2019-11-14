@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c663c96a_7ccdb954",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "@Liam To do this, the registerParameters method is made public. Otherwise in the above for loop, finding albums part and populating parameters part has be done separately which would result in iterating the same policyArgsMap twice.",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 108
+      },
+      "revId": "40a1f22ff8d28e78b6512c0a10d454b37f015fdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
