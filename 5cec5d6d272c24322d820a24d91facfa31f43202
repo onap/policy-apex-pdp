@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "6bcb9594_5355a6a5",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/context/ApexInternalContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-14T11:34:35Z",
+      "side": 1,
+      "message": "OK",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 35
+      },
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0f43353_2d5ca6ab",
         "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AnomalyDetectionTslUseCaseTest.java",
         "patchSetId": 1
@@ -98,6 +121,24 @@
       "writtenOn": "2019-11-13T16:39:49Z",
       "side": 1,
       "message": "does it matter if there\u0027s a duplicate entry?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "179c64c0_b275859a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-14T11:34:35Z",
+      "side": 1,
+      "message": "We just take the last one. Maybe we should throw an error, could you check to see what happens if the policy model file parameter is specified twice?",
+      "parentUuid": "0ec22792_b26bfa79",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -206,6 +247,47 @@
     },
     {
       "key": {
+        "uuid": "280a1d79_0e079feb",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/runtime/impl/EngineServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-14T11:34:35Z",
+      "side": 1,
+      "message": "Yes we could do that. EngineService is an interface but there is unlikely to be any other implementation of the interface than EngineWorker in this map.",
+      "parentUuid": "952d2282_983458e3",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b97a42c_64ccc494",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-14T11:34:35Z",
+      "side": 1,
+      "message": "why does this method need to become public?",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 10
+      },
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cacd4802_66c33851",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
         "patchSetId": 1
@@ -217,6 +299,24 @@
       "writtenOn": "2019-11-13T16:39:49Z",
       "side": 1,
       "message": "seems like lots of chance for overwriting existing entries here.  Do all of these really have to be registered?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b85494eb_1504bf2b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-14T11:34:35Z",
+      "side": 1,
+      "message": "The parameter service holds the parameters in memory for the apex engine. We may be storing more than we need. However, we\u0027d have to check this to see what is really needed and what isn\u0027t.",
+      "parentUuid": "cacd4802_66c33851",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
