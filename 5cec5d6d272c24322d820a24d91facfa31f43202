@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b268d510_24438b60",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/impl/distribution/AbstractDistributor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b167d388_91f69d3f",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bcb9594_5355a6a5",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/context/ApexInternalContext.java",
         "patchSetId": 1
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "84f106cd_ea9cecdc",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AnomalyDetectionTslUseCaseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0f43353_2d5ca6ab",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d49b2ab9_8d2db66f",
         "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AutoLearnTslUseCaseTest.java",
         "patchSetId": 1
@@ -70,6 +106,24 @@
       "writtenOn": "2019-11-13T15:37:34Z",
       "side": 1,
       "message": "license - general",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06f32f56_70937b84",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AutoLearnTslUseCaseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d49b2ab9_8d2db66f",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -93,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "b43a902a_ca1f1219",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "These 2 maps are populated and used in different places. I think it is good to keep them separate.",
+      "parentUuid": "791248dd_12df50ed",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2805fe4_c8f4b0f0",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -104,6 +176,24 @@
       "writtenOn": "2019-11-13T15:37:34Z",
       "side": 1,
       "message": "don\u0027t need \"else\" since \"continue\" in line 132.",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6309370_450deba7",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2805fe4_c8f4b0f0",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -145,6 +235,24 @@
     },
     {
       "key": {
+        "uuid": "fb84da6a_bc85834d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "The model file is generated from the ToscaPolicy and only this file\u0027s path will be available in the EngineServiceParameters at this point. Now, if the same policy model comes with different ToscaPolicyIdentifiers in the Policies list, then only one will work and the remaining will give error saying they are duplicates. And, the ToscaPolicyIdentifiers are the same ones received in PDP_UPDATE from PAP.",
+      "parentUuid": "179c64c0_b275859a",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08fbe93b_41e8888c",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -156,6 +264,24 @@
       "writtenOn": "2019-11-13T16:39:49Z",
       "side": 1,
       "message": "should probably rename from \"setUpmarsh\" to \"setUpMarsh\"",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27d54ec9_293a59eb",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08fbe93b_41e8888c",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -179,6 +305,24 @@
     },
     {
       "key": {
+        "uuid": "3099e2b1_dcf44625",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5475325f_18708a9d",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c5afc95_496ab032",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
         "patchSetId": 1
@@ -190,6 +334,24 @@
       "writtenOn": "2019-11-13T16:39:49Z",
       "side": 1,
       "message": "seems kind of long - perhaps split part of the body into its own method",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ca5e743_1c627a9a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c5afc95_496ab032",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -213,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "3869b9b6_c83e99e8",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "890a1be5_005a645f",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a8b8560_932b21a4",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
         "patchSetId": 1
@@ -224,6 +404,24 @@
       "writtenOn": "2019-11-13T16:39:49Z",
       "side": 1,
       "message": "do we know that this parameter name will be unique?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53315307_cdb165a9",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Parameter name will be unique. ApexParameters are registered only once when the engine is initialized, and cleared when the engine is terminated.",
+      "parentUuid": "4a8b8560_932b21a4",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -259,6 +457,24 @@
       "side": 1,
       "message": "Yes we could do that. EngineService is an interface but there is unlikely to be any other implementation of the interface than EngineWorker in this map.",
       "parentUuid": "952d2282_983458e3",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69a9db7d_573beba5",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/runtime/impl/EngineServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "280a1d79_0e079feb",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -323,6 +539,24 @@
     },
     {
       "key": {
+        "uuid": "9db25a90_78fe0297",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "registerParameters is called only once when the engine is initialized. ParameterService is cleared when the engine is terminated or reinitialized. It seems all these Parameters are used in some classes (for e.g. DistributorFactory, PersistorFactory etc)",
+      "parentUuid": "b85494eb_1504bf2b",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5079330_007e9150",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 1
@@ -334,6 +568,24 @@
       "writtenOn": "2019-11-13T16:39:49Z",
       "side": 1,
       "message": "do this before invoking createXxx?",
+      "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "407021b9_97f34bd0",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2019-11-14T13:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5079330_007e9150",
       "revId": "5cec5d6d272c24322d820a24d91facfa31f43202",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
