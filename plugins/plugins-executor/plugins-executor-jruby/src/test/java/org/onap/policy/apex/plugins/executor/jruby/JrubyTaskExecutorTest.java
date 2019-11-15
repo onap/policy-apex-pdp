@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,8 +70,18 @@ public class JrubyTaskExecutorTest {
 
     @Test
     public void testJrubyTaskExecutor() {
+        // Run test twice to check for incorrect shutdown activity
+        jrubyExecutorTest();
+        jrubyExecutorTest();
+    }
+
+    /**
+     * Test the JRuby executor.
+     */
+    private void jrubyExecutorTest() {
         JrubyTaskExecutor jte = new JrubyTaskExecutor();
         assertNotNull(jte);
+
         try {
             Field fieldContainer = JrubyTaskExecutor.class.getDeclaredField("container");
             fieldContainer.setAccessible(true);
@@ -101,12 +112,21 @@ public class JrubyTaskExecutorTest {
             fail("test should throw an exception here");
         } catch (Exception jteException) {
             assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
-                    jteException.getMessage());
+                            jteException.getMessage());
         }
 
-        final String jrubyLogic =
-                "if executor.executionId == -1" + "\n return false" + "\n else " + "\n return true" + "\n end";
+        final String jrubyLogic = "if executor.executionId == -1" + "\n return false" + "\n else " + "\n return true"
+                        + "\n end";
         task.getTaskLogic().setLogic(jrubyLogic);
+
+        try {
+            jte.prepare();
+            Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
+            assertEquals(0, returnMap.size());
+            jte.cleanUp();
+        } catch (Exception jteException) {
+            fail("test should not throw an exception here");
+        }
 
         try {
             jte.prepare();

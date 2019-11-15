@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +48,8 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JrubyTaskSelectExecutor.class);
 
     // Jruby container
-    private ScriptingContainer container =
-            new ScriptingContainer(LocalContextScope.CONCURRENT, LocalVariableBehavior.TRANSIENT, true);
+    private ScriptingContainer container = new ScriptingContainer(LocalContextScope.CONCURRENT,
+                    LocalVariableBehavior.TRANSIENT, true);
     private EmbedEvalUnit parsedjruby = null;
 
     /**
@@ -63,8 +64,12 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
 
         // Set up the JRuby engine
         container = (container == null)
-                ? new ScriptingContainer(LocalContextScope.CONCURRENT, LocalVariableBehavior.TRANSIENT, true)
-                : container;
+                        ? new ScriptingContainer(LocalContextScope.CONCURRENT, LocalVariableBehavior.TRANSIENT, true)
+                        : container;
+
+        // Use the container.setError(System.err) and container.setOutput(System.out) method calls to redirect output
+        // and error to standard output and error for debugging
+
         container.put("executor", getExecutionContext()); // needed for compile as a placeholder
         parsedjruby = container.parse(getSubject().getTaskSelectionLogic().getLogic());
     }
@@ -81,7 +86,7 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public AxArtifactKey execute(final long executionId, final Properties executionProperties,
-            final EnEvent incomingEvent) throws StateMachineException, ContextException {
+                    final EnEvent incomingEvent) throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingEvent);
 
@@ -113,8 +118,8 @@ public class JrubyTaskSelectExecutor extends TaskSelectExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
-                + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
-                + getSubject().getTaskSelectionLogic().getLogic());
+                        + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
+                        + getSubject().getTaskSelectionLogic().getLogic());
         container.terminate();
         container = null;
     }

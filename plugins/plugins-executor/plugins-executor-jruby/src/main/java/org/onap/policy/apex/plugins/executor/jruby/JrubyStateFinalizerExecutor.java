@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +45,8 @@ public class JrubyStateFinalizerExecutor extends StateFinalizerExecutor {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JrubyStateFinalizerExecutor.class);
 
     // Jruby container
-    private ScriptingContainer container =
-            new ScriptingContainer(LocalContextScope.CONCURRENT, LocalVariableBehavior.TRANSIENT, true);
+    private ScriptingContainer container = new ScriptingContainer(LocalContextScope.CONCURRENT,
+                    LocalVariableBehavior.TRANSIENT, true);
     private EmbedEvalUnit parsedjruby = null;
 
     /**
@@ -60,10 +61,11 @@ public class JrubyStateFinalizerExecutor extends StateFinalizerExecutor {
 
         // Set up the JRuby engine
         container = (container == null)
-                ? new ScriptingContainer(LocalContextScope.CONCURRENT, LocalVariableBehavior.TRANSIENT, true)
-                : container;
-        container.setError(System.err);
-        container.setOutput(System.out);
+                        ? new ScriptingContainer(LocalContextScope.CONCURRENT, LocalVariableBehavior.TRANSIENT, true)
+                        : container;
+
+        // Use the container.setError(System.err) and container.setOutput(System.out) method calls to redirect output
+        // and error to standard output and error for debugging
         container.put("executor", getExecutionContext()); // needed for the compile
         parsedjruby = container.parse(getSubject().getLogic());
     }
@@ -80,7 +82,7 @@ public class JrubyStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public String execute(final long executionId, final Properties executionProperties,
-            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
+                    final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
@@ -112,7 +114,7 @@ public class JrubyStateFinalizerExecutor extends StateFinalizerExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
-                + getSubject().getLogic());
+                        + getSubject().getLogic());
         container.terminate();
         container = null;
     }
