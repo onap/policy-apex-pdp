@@ -22,7 +22,6 @@ package org.onap.policy.apex.services.onappf.handler;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.parameters.PdpStatusParameters;
 import org.onap.policy.apex.services.onappf.parameters.ToscaPolicyTypeIdentifierParameters;
@@ -54,6 +53,7 @@ public class PdpMessageHandler {
     public PdpStatus createPdpStatusFromParameters(final String instanceId,
             final PdpStatusParameters pdpStatusParameters) {
         final PdpStatus pdpStatus = new PdpStatus();
+        pdpStatus.setPdpGroup(pdpStatusParameters.getPdpGroup());
         pdpStatus.setPdpType(pdpStatusParameters.getPdpType());
         pdpStatus.setState(PdpState.PASSIVE);
         pdpStatus.setHealthy(PdpHealthStatus.HEALTHY);

@@ -21,11 +21,12 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Map;
 import org.junit.Test;
-import org.onap.policy.apex.services.onappf.parameters.PdpStatusParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 
 /**
@@ -46,6 +47,7 @@ public class TestPdpStatusParameters {
         assertEquals(CommonTestData.PDP_TYPE, pdpStatusParameters.getPdpType());
         assertEquals(CommonTestData.DESCRIPTION, pdpStatusParameters.getDescription());
         assertEquals(CommonTestData.SUPPORTED_POLICY_TYPES, pdpStatusParameters.getSupportedPolicyTypes());
+        assertEquals(CommonTestData.PDP_GROUP, pdpStatusParameters.getPdpGroup());
     }
 
     @Test
@@ -55,5 +57,29 @@ public class TestPdpStatusParameters {
         final GroupValidationResult result = pdpStatusParameters.validate();
         assertNull(result.getResult());
         assertTrue(result.isValid());
+    }
+
+    @Test
+    public void testPdpStatusParameters_nullPdpGroup() throws Exception {
+        Map<String, Object> pdpStatusParametersMap = testData.getPdpStatusParametersMap(false);
+        pdpStatusParametersMap.remove("pdpGroup");
+        final PdpStatusParameters pdpStatusParameters =
+                testData.toObject(pdpStatusParametersMap, PdpStatusParameters.class);
+        final GroupValidationResult validationResult = pdpStatusParameters.validate();
+        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.getResult()
+            .contains("field \"pdpGroup\" type \"java.lang.String\" value \"null\" INVALID"));
+    }
+
+    @Test
+    public void testPdpStatusParameters_emptyPdpGroup() throws Exception {
+        Map<String, Object> pdpStatusParametersMap = testData.getPdpStatusParametersMap(false);
+        pdpStatusParametersMap.put("pdpGroup", "");
+        final PdpStatusParameters pdpStatusParameters =
+                testData.toObject(pdpStatusParametersMap, PdpStatusParameters.class);
+        final GroupValidationResult validationResult = pdpStatusParameters.validate();
+        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.getResult()
+            .contains("field \"pdpGroup\" type \"java.lang.String\" value \"\" INVALID, must be a non-blank string"));
     }
 }

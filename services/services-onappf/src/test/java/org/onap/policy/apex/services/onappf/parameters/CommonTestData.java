@@ -42,6 +42,7 @@ public class CommonTestData {
     public static final String PDP_NAME = "apex-pdp";
     public static final String VERSION = "0.0.1";
     public static final String PDP_TYPE = "apex";
+    public static final String PDP_GROUP = "defaultGroup";
     public static final String DESCRIPTION = "Pdp status for HealthCheck";
     public static final String POLICY_NAME = "onap.controllloop.operational.apex.BBS";
     public static final String POLICY_VERSION = "0.0.1";
@@ -145,6 +146,7 @@ public class CommonTestData {
     public Map<String, Object> getPdpStatusParametersMap(final boolean isEmpty) {
         final Map<String, Object> map = new TreeMap<>();
         if (!isEmpty) {
+            map.put("pdpGroup", PDP_GROUP);
             map.put("timeIntervalMs", TIME_INTERVAL);
             map.put("pdpName", PDP_NAME);
             map.put("version", VERSION);
