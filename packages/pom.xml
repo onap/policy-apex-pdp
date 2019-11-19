@@ -53,6 +53,9 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <modules>
+                <module>apex-pdp-package-full</module>
+            </modules>
         </profile>
         <profile>
             <id>docker</id>
