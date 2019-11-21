@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a14246b0_179c40f2",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-21T16:19:57Z",
+      "side": 1,
+      "message": "rename to \"custom\" query?",
+      "revId": "96499223e328440c3623bcd3f8b9a648255a43ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11c1911b_f15577fa",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-21T16:19:57Z",
+      "side": 1,
+      "message": "rename to \"custom\" query?",
+      "revId": "96499223e328440c3623bcd3f8b9a648255a43ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
