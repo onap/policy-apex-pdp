@@ -1,0 +1,8 @@
+{
+    "result-data": [
+        {
+            "resource-type": "vserver",
+            "resource-link": "/aai/v15/cloud-infrastructure/cloud-regions/cloud-region/CloudOwner/RegionOne/tenants/tenant/3f2aaef74ecb4b19b35e26d0849fe9a2/vservers/vserver/b4fe00ac-1da6-4b00-ac0d-8e8300db0007"
+        }
+    ]
+}

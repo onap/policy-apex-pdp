@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Random;
@@ -41,12 +42,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.onap.policy.aai.AaiNqGenericVnf;
-import org.onap.policy.aai.AaiNqInventoryResponseItem;
-import org.onap.policy.aai.AaiNqRequest;
-import org.onap.policy.aai.AaiNqResponse;
-import org.onap.policy.aai.AaiNqVfModule;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.controlloop.util.Serialization;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -114,47 +111,50 @@ public class OnapVCpeSimEndpoint {
     }
 
     /**
-     * AAI named query request.
+     * AAI named query search request.
+     * http://localhost:54321/aai/v16/search/nodes-query?search-node-type=vserver&filter=vserver-name:EQUALS:
      *
-     * @param jsonString the json string
+     * @param searchNodeType the node type to search for
+     * @param filter the filter to apply in the search
      * @return the response
+     * @throws IOException on I/O errors
      */
-    @Path("aai/search/named-query")
-    @POST
-    public Response aaiNamedQueryRequest(final String jsonString) {
-        postMessagesReceived.incrementAndGet();
+    @Path("aai/v16/search/nodes-query")
+    @GET
+    public Response aaiNamedQuerySearchRequest(@QueryParam("search-node-type") final String searchNodeType,
+                    @QueryParam("filter") final String filter) throws IOException {
+        getMessagesReceived.incrementAndGet();
 
-        LOGGER.info("\n*** AAI REQUEST START ***\n" + jsonString + "\n *** AAI REQUEST END ***");
+        LOGGER.info("\n*** AAI NODE QUERY GET START ***\nsearchNodeType=" + searchNodeType + "\nfilter=" + filter
+                        + "\n *** AAI REQUEST END ***");
 
-        AaiNqRequest request = gson.fromJson(jsonString, AaiNqRequest.class);
-        String vnfId = request.getInstanceFilters().getInstanceFilter().iterator().next().get("generic-vnf")
-                        .get("vnf-id");
-        String vnfSuffix = vnfId.substring(vnfId.length() - 4);
+        String responseJsonString = TextFileUtils
+                        .getTextFileAsString("src/test/resources/aai/SearchNodeTypeResponse.json");
 
-        AaiNqInventoryResponseItem responseItem = new AaiNqInventoryResponseItem();
-        responseItem.setModelName("vCPE");
+        LOGGER.info("\n*** AAI RESPONSE START ***\n" + responseJsonString + "\n *** AAI RESPONSE END ***");
 
-        AaiNqGenericVnf genericVnf = new AaiNqGenericVnf();
-        genericVnf.setResourceVersion("1");
-        genericVnf.setVnfName("vCPEInfraVNF" + vnfSuffix);
-        genericVnf.setProvStatus("PREPROV");
-        genericVnf.setIsClosedLoopDisabled(false);
-        genericVnf.setVnfType("vCPEInfraService10/vCPEInfraService10 0");
-        genericVnf.setInMaint(false);
-        genericVnf.setServiceId("5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f");
-        genericVnf.setVnfId(vnfId);
+        return Response.status(200).entity(responseJsonString).build();
+    }
 
-        responseItem.setGenericVnf(genericVnf);
+    /**
+     * AAI named query request on a particular resource.
+     * http://localhost:54321/OnapVCpeSim/sim/aai/v16/query?format=resource
+     *
+     * @param format the format of the request
+     * @param jsonString the body of the request
+     * @return the response
+     * @throws IOException on I/O errors
+     */
+    @Path("aai/v16/query")
+    @PUT
+    public Response aaiNamedQueryResourceRequest(@QueryParam("format") final String format, final String jsonString)
+                    throws IOException {
+        putMessagesReceived.incrementAndGet();
 
-        AaiNqVfModule vfModule = new AaiNqVfModule();
-        vfModule.setOrchestrationStatus("Created");
+        LOGGER.info("\n*** AAI NODE RESOURE POST QUERY START ***\\nformat=" + format + "\njson=" + jsonString
+                        + "\n *** AAI REQUEST END ***");
 
-        responseItem.setVfModule(vfModule);
-
-        AaiNqResponse response = new AaiNqResponse();
-        response.getInventoryResponseItems().add(responseItem);
-
-        String responseJsonString = new GsonBuilder().setPrettyPrinting().create().toJson(response);
+        String responseJsonString = TextFileUtils.getTextFileAsString("src/test/resources/aai/NodeQueryResponse.json");
 
         LOGGER.info("\n*** AAI RESPONSE START ***\n" + responseJsonString + "\n *** AAI RESPONSE END ***");
 
