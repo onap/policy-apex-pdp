@@ -52,28 +52,6 @@
             "requestorPeer": "GuardRequestorProducer",
             "requestorTimeout": 500
         },
-        "AAIRequestorConsumer": {
-            "carrierTechnologyParameters": {
-                "carrierTechnology": "RESTREQUESTOR",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
-                "parameters": {
-                    "url": "http://10.0.1.1:8443/aai/search/named-query",
-                    "httpMethod": "POST",
-                    "restRequestTimeout": 2000
-                }
-            },
-            "eventProtocolParameters": {
-                "eventProtocol": "JSON",
-                "parameters": {
-                    "pojoField": "AAINamedQueryResponse"
-                }
-            },
-            "eventName": "AAINamedQueryResponseEvent",
-            "eventNameFilter": "AAINamedQueryResponseEvent",
-            "requestorMode": true,
-            "requestorPeer": "AAIRequestorProducer",
-            "requestorTimeout": 500
-        },
         "DCAEConsumer": {
             "carrierTechnologyParameters": {
                 "carrierTechnology": "RESTCLIENT",
@@ -88,10 +66,10 @@
                     "nameAlias": "closedLoopControlName",
                     "versionAlias": "version",
                     "sourceAlias": "from",
-                    "pojoField": "VirtualControlLoopEvent" 
+                    "pojoField": "VirtualControlLoopEvent"
                 }
             },
-            "eventName": "ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e" 
+            "eventName": "ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e"
         },
         "APPCConsumer": {
             "carrierTechnologyParameters": {
@@ -135,22 +113,6 @@
             "eventNameFilter": "GuardRequestEvent",
             "requestorMode": true,
             "requestorPeer": "GuardRequestorConsumer",
-            "requestorTimeout": 500
-        },
-        "AAIRequestorProducer": {
-            "carrierTechnologyParameters": {
-                "carrierTechnology": "RESTREQUESTOR",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
-            },
-            "eventProtocolParameters": {
-                "eventProtocol": "JSON",
-                "parameters": {
-                    "pojoField": "AAINamedQueryRequest"
-                }
-            },
-            "eventNameFilter": "AAINamedQueryRequestEvent",
-            "requestorMode": true,
-            "requestorPeer": "AAIRequestorConsumer",
             "requestorTimeout": 500
         },
         "APPCProducer": {
