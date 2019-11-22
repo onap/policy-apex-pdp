@@ -15,7 +15,10 @@
         "generic-vnf.vnf-type": "vCPEInfraService10/vCPEInfraService10 0",
         "generic-vnf.in-maint": "false",
         "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f",
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0000"
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000000",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_0"
     },
     "from": "DCAE",
     "version": "1.0.2"
@@ -37,7 +40,10 @@
         "generic-vnf.vnf-type": "vCPEInfraService10/vCPEInfraService10 0",
         "generic-vnf.in-maint": "false",
         "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f",
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0001"
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000001",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_1"
     },
     "from": "DCAE",
     "version": "1.0.2"
@@ -52,7 +58,10 @@
     "target": "generic-vnf.vnf-id",
     "AAI": {
         "vserver.is-closed-loop-disabled": "false",
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0002"
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000002",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_2"
     },
     "from": "DCAE",
     "version": "1.0.2"
@@ -67,7 +76,10 @@
     "target": "generic-vnf.vnf-id",
     "AAI": {
         "vserver.is-closed-loop-disabled": "false",
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0003"
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000003",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_3"
     },
     "from": "DCAE",
     "version": "1.0.2"
@@ -84,7 +96,7 @@
     "version": "1.0.2",
     "from": "DCAE",
     "AAI": {
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000004",
         "generic-vnf.resource-version": "1",
         "generic-vnf.vnf-name": "vCPEInfraVNF0005",
         "generic-vnf.prov-status": "PREPROV",
@@ -92,7 +104,10 @@
         "generic-vnf.orchestration-status": "Created",
         "generic-vnf.vnf-type": "cCPEInfraService10/vCPEInfraService10 0",
         "generic-vnf.in-maint": "false",
-        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03b0005"
+        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03b0005",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_4"
     }
 }
 {
@@ -107,7 +122,7 @@
     "version": "1.0.2",
     "from": "DCAE",
     "AAI": {
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000005",
         "generic-vnf.resource-version": "1",
         "generic-vnf.vnf-name": "vCPEInfraVNF0006",
         "generic-vnf.prov-status": "PREPROV",
@@ -115,7 +130,10 @@
         "generic-vnf.orchestration-status": "Created",
         "generic-vnf.vnf-type": "cCPEInfraService10/vCPEInfraService10 0",
         "generic-vnf.in-maint": "false",
-        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03b0006"
+        "generic-vnf.service-id": "5585fd2c-ad0d-4050-b0cf-dfe4a03b0006",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_5"
     }
 }
 {
@@ -130,7 +148,10 @@
     "version": "1.0.2",
     "from": "DCAE",
     "AAI": {
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0006"
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000006",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_6"
     }
 }
 {
@@ -145,6 +166,9 @@
     "version": "1.0.2",
     "from": "DCAE",
     "AAI": {
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0007"
+        "generic-vnf.vnf-id": "00000000-0000-0000-0000-000000000007",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_7"
     }
 }

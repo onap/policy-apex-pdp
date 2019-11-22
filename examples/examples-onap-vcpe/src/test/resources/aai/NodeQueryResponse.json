@@ -3,8 +3,8 @@
         {
             "vserver": {
                 "vserver-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db0007",
-                "vserver-name": "Ete_vFWCLvFWSNK_7ba1fbde_0",
-                "vserver-name2": "Ete_vFWCLvFWSNK_7ba1fbde_0",
+                "vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_0",
+                "vserver-name2": "Ete_vCPECLvCPESNK_7ba1fbde_0",
                 "prov-status": "ACTIVE",
                 "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/f953c499-4b1e-426b-8c6d-e9e9f1fc730f",
                 "in-maint": false,
@@ -15,11 +15,11 @@
                         {
                             "related-to": "vnfc",
                             "relationship-label": "tosca.relationships.HostedOn",
-                            "related-link": "/aai/v15/network/vnfcs/vnfc/Ete_vFWCLvFWSNK_7ba1fbde_0",
+                            "related-link": "/aai/v15/network/vnfcs/vnfc/Ete_vCPECLvCPESNK_7ba1fbde_0",
                             "relationship-data": [
                                 {
                                     "relationship-key": "vnfc.vnfc-name",
-                                    "relationship-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                    "relationship-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                 }
                             ]
                         },
@@ -36,7 +36,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "generic-vnf.vnf-name",
-                                    "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                    "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                 }
                             ]
                         },
@@ -110,7 +110,7 @@
                 "l-interfaces": {
                     "l-interface": [
                         {
-                            "interface-name": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0-vfw_0_int_unprotected_private_port_0-u2lkra6bpz7l",
+                            "interface-name": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0-vcpe_0_int_unprotected_private_port_0-u2lkra6bpz7l",
                             "interface-id": "bd621b3f-da40-4a8a-a703-3db290295cd9",
                             "macaddr": "fa:16:3e:0c:27:e4",
                             "network-name": "4e291560-92f8-4822-9dcf-dd75c04c9617",
@@ -120,7 +120,7 @@
                             "is-ip-unnumbered": false
                         },
                         {
-                            "interface-name": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0-vfw_0_onap_private_port_0-nfvykwarrnxr",
+                            "interface-name": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0-vcpe_0_onap_private_port_0-nfvykwarrnxr",
                             "interface-id": "86bbce7d-51ba-4ad2-a34a-aa2742f9789f",
                             "macaddr": "fa:16:3e:39:d9:27",
                             "network-name": "3ef9d123-0d09-4400-8ed0-c0fd5c76aa2b",
@@ -130,7 +130,7 @@
                             "is-ip-unnumbered": false
                         },
                         {
-                            "interface-name": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0-vfw_0_int_protected_private_port_0-bz3hsoxjcgyw",
+                            "interface-name": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0-vcpe_0_int_protected_private_port_0-bz3hsoxjcgyw",
                             "interface-id": "b1a8a573-d70d-4b32-b717-21fd6bb549a6",
                             "macaddr": "fa:16:3e:95:1d:e9",
                             "network-name": "47cae58a-b052-4f73-8f42-e154c260d5df",
@@ -146,8 +146,8 @@
         {
             "generic-vnf": {
                 "vnf-id": "f17face5-69cb-4c88-9e0b-7426db7edddd",
-                "vnf-name": "Ete_vFWCLvFWSNK_7ba1fbde_0",
-                "vnf-type": "vFWCL 2019-05-01 15:30:/vFWCL_vFWSNK bbefb8ce-2bde 0",
+                "vnf-name": "Ete_vCPECLvCPESNK_7ba1fbde_0",
+                "vnf-type": "vCPECL 2019-05-01 15:30:/vCPECL_vCPESNK bbefb8ce-2bde 0",
                 "service-id": "e591441a-e649-4490-82e0-07dac05d674b",
                 "prov-status": "ACTIVE",
                 "orchestration-status": "Active",
@@ -162,7 +162,7 @@
                         {
                             "related-to": "service-instance",
                             "relationship-label": "org.onap.relationships.inventory.ComposedOf",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vFWCL/service-instances/service-instance/7be584e2-0bb2-4126-adaf-ced2c77ca0b3",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vCPECL/service-instances/service-instance/7be584e2-0bb2-4126-adaf-ced2c77ca0b3",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -170,7 +170,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 },
                                 {
                                     "relationship-key": "service-instance.service-instance-id",
@@ -220,7 +220,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "vserver.vserver-name",
-                                    "property-value": "demofwl01snkfbde"
+                                    "property-value": "democpel01snkfbde"
                                 }
                             ]
                         },
@@ -249,7 +249,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "vserver.vserver-name",
-                                    "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                    "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                 }
                             ]
                         }
@@ -259,8 +259,8 @@
                     "vf-module": [
                         {
                             "vf-module-id": "a6936a82-e340-4fe2-8e3e-b0a10a0001e2",
-                            "vf-module-name": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0",
-                            "heat-stack-id": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0/6769f192-0579-4dab-b4e7-170d334c37dd",
+                            "vf-module-name": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0",
+                            "heat-stack-id": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0/6769f192-0579-4dab-b4e7-170d334c37dd",
                             "orchestration-status": "active",
                             "is-base-vf-module": true,
                             "automated-assignment": false,
@@ -296,7 +296,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01snkfbde"
+                                                "property-value": "democpel01snkfbde"
                                             }
                                         ]
                                     },
@@ -325,7 +325,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                             }
                                         ]
                                     }
@@ -339,7 +339,7 @@
         {
             "model-ver": {
                 "model-version-id": "189a5070-3bd5-45ac-8a1d-c84ca40b277b",
-                "model-name": "vFWCL_vFWSNK bbefb8ce-2bde",
+                "model-name": "vCPECL_vCPESNK bbefb8ce-2bde",
                 "model-version": "1.0",
                 "model-description": "vendor software product",
                 "resource-version": "1556724755172",
@@ -416,7 +416,7 @@
                     "model-ver": [
                         {
                             "model-version-id": "189a5070-3bd5-45ac-8a1d-c84ca40b277b",
-                            "model-name": "vFWCL_vFWSNK bbefb8ce-2bde",
+                            "model-name": "vCPECL_vCPESNK bbefb8ce-2bde",
                             "model-version": "1.0",
                             "model-description": "vendor software product",
                             "resource-version": "1556724755172",
@@ -499,7 +499,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "generic-vnf.vnf-name",
-                                    "property-value": "Ete_vFWCLvPKG_7ba1fbde_1"
+                                    "property-value": "Ete_vCPECLvPKG_7ba1fbde_1"
                                 }
                             ]
                         },
@@ -516,7 +516,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "generic-vnf.vnf-name",
-                                    "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                    "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                 }
                             ]
                         }
@@ -527,7 +527,7 @@
         {
             "model-ver": {
                 "model-version-id": "a03b1102-ac3b-44dd-8862-9b94f1951040",
-                "model-name": "vFWCL 2019-05-01 15:30:",
+                "model-name": "vCPECL 2019-05-01 15:30:",
                 "model-version": "1.0",
                 "distribution-status": "DISTRIBUTION_COMPLETE_OK",
                 "model-description": "catalog service description",
@@ -578,7 +578,7 @@
                     "model-ver": [
                         {
                             "model-version-id": "a03b1102-ac3b-44dd-8862-9b94f1951040",
-                            "model-name": "vFWCL 2019-05-01 15:30:",
+                            "model-name": "vCPECL 2019-05-01 15:30:",
                             "model-version": "1.0",
                             "distribution-status": "DISTRIBUTION_COMPLETE_OK",
                             "model-description": "catalog service description",
@@ -591,8 +591,8 @@
         {
             "generic-vnf": {
                 "vnf-id": "9cd7da50-723c-418c-a91d-af2866844a5d",
-                "vnf-name": "Ete_vFWCLvPKG_7ba1fbde_1",
-                "vnf-type": "vFWCL 2019-05-01 15:30:/vFWCL_vPKG 5101f6c6-8df3 0",
+                "vnf-name": "Ete_vCPECLvPKG_7ba1fbde_1",
+                "vnf-type": "vCPECL 2019-05-01 15:30:/vCPECL_vPKG 5101f6c6-8df3 0",
                 "service-id": "e591441a-e649-4490-82e0-07dac05d674b",
                 "prov-status": "ACTIVE",
                 "orchestration-status": "Active",
@@ -607,7 +607,7 @@
                         {
                             "related-to": "service-instance",
                             "relationship-label": "org.onap.relationships.inventory.ComposedOf",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vFWCL/service-instances/service-instance/7be584e2-0bb2-4126-adaf-ced2c77ca0b3",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vCPECL/service-instances/service-instance/7be584e2-0bb2-4126-adaf-ced2c77ca0b3",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -615,7 +615,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 },
                                 {
                                     "relationship-key": "service-instance.service-instance-id",
@@ -665,7 +665,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "vserver.vserver-name",
-                                    "property-value": "demofwl01pgnfbde"
+                                    "property-value": "democpel01pgnfbde"
                                 }
                             ]
                         }
@@ -675,8 +675,8 @@
                     "vf-module": [
                         {
                             "vf-module-id": "04bcd430-e1ef-4da5-a67e-3dd80463a725",
-                            "vf-module-name": "Vfmodule_Ete_vFWCLvPKG_7ba1fbde_1",
-                            "heat-stack-id": "Vfmodule_Ete_vFWCLvPKG_7ba1fbde_1/6f9827e8-68fb-45e9-a19e-e2246a43df14",
+                            "vf-module-name": "Vfmodule_Ete_vCPECLvPKG_7ba1fbde_1",
+                            "heat-stack-id": "Vfmodule_Ete_vCPECLvPKG_7ba1fbde_1/6f9827e8-68fb-45e9-a19e-e2246a43df14",
                             "orchestration-status": "active",
                             "is-base-vf-module": true,
                             "automated-assignment": false,
@@ -712,7 +712,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01pgnfbde"
+                                                "property-value": "democpel01pgnfbde"
                                             }
                                         ]
                                     }
@@ -726,8 +726,8 @@
         {
             "vf-module": {
                 "vf-module-id": "a6936a82-e340-4fe2-8e3e-b0a10a0001e2",
-                "vf-module-name": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0",
-                "heat-stack-id": "Vfmodule_Ete_vFWCLvFWSNK_7ba1fbde_0/6769f192-0579-4dab-b4e7-170d334c37dd",
+                "vf-module-name": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0",
+                "heat-stack-id": "Vfmodule_Ete_vCPECLvCPESNK_7ba1fbde_0/6769f192-0579-4dab-b4e7-170d334c37dd",
                 "orchestration-status": "active",
                 "is-base-vf-module": true,
                 "automated-assignment": false,
@@ -763,7 +763,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "vserver.vserver-name",
-                                    "property-value": "demofwl01snkfbde"
+                                    "property-value": "democpel01snkfbde"
                                 }
                             ]
                         },
@@ -792,7 +792,7 @@
                             "related-to-property": [
                                 {
                                     "property-key": "vserver.vserver-name",
-                                    "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                    "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                 }
                             ]
                         }
@@ -803,7 +803,7 @@
         {
             "model-ver": {
                 "model-version-id": "94b18b1d-cc91-4f43-911a-e6348665f292",
-                "model-name": "VfwclVfwsnkBbefb8ce2bde..base_vfw..module-0",
+                "model-name": "vCPECLvCPESNKBbefb8ce2bde..base_vcpe..module-0",
                 "model-version": "1",
                 "resource-version": "1556724754936",
                 "model-elements": {
@@ -879,7 +879,7 @@
                     "model-ver": [
                         {
                             "model-version-id": "94b18b1d-cc91-4f43-911a-e6348665f292",
-                            "model-name": "VfwclVfwsnkBbefb8ce2bde..base_vfw..module-0",
+                            "model-name": "vCPECLvCPESNKBbefb8ce2bde..base_vcpe..module-0",
                             "model-version": "1",
                             "resource-version": "1556724754936",
                             "relationship-list": {
@@ -923,8 +923,8 @@
                     "vserver": [
                         {
                             "vserver-id": "f7807a27-1c45-4e79-9e61-6fb33ee4b7e7",
-                            "vserver-name": "Ete_vFWCLvFWSNK_38fbaf46_0",
-                            "vserver-name2": "Ete_vFWCLvFWSNK_38fbaf46_0",
+                            "vserver-name": "Ete_vCPECLvCPESNK_38fbaf46_0",
+                            "vserver-name2": "Ete_vCPECLvCPESNK_38fbaf46_0",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/f7807a27-1c45-4e79-9e61-6fb33ee4b7e7",
                             "in-maint": false,
@@ -945,18 +945,18 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_38fbaf46_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_38fbaf46_0"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/Ete_vFWCLvFWSNK_38fbaf46_0",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/Ete_vCPECLvCPESNK_38fbaf46_0",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "Ete_vFWCLvFWSNK_38fbaf46_0"
+                                                "relationship-value": "Ete_vCPECLvCPESNK_38fbaf46_0"
                                             }
                                         ]
                                     },
@@ -1030,8 +1030,8 @@
                         },
                         {
                             "vserver-id": "900dc2db-1d65-41ef-8b13-9b9b605cb0bd",
-                            "vserver-name": "vofwl01snkf0ef",
-                            "vserver-name2": "vofwl01snkf0ef",
+                            "vserver-name": "vocpel01snkf0ef",
+                            "vserver-name2": "vocpel01snkf0ef",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/900dc2db-1d65-41ef-8b13-9b9b605cb0bd",
                             "in-maint": false,
@@ -1052,18 +1052,18 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvFWSNK_8edbf0ef_1"
+                                                "property-value": "Ete_vCPEDTvCPESNK_8edbf0ef_1"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01snkf0ef",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01snkf0ef",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01snkf0ef"
+                                                "relationship-value": "vocpel01snkf0ef"
                                             }
                                         ]
                                     },
@@ -1137,8 +1137,8 @@
                         },
                         {
                             "vserver-id": "cc93aa76-e88d-43a6-8e3b-331918dd3eab",
-                            "vserver-name": "demofwl01pgnaf46",
-                            "vserver-name2": "demofwl01pgnaf46",
+                            "vserver-name": "democpel01pgnaf46",
+                            "vserver-name2": "democpel01pgnaf46",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/cc93aa76-e88d-43a6-8e3b-331918dd3eab",
                             "in-maint": false,
@@ -1149,11 +1149,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/demofwl01pgnaf46",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/democpel01pgnaf46",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "demofwl01pgnaf46"
+                                                "relationship-value": "democpel01pgnaf46"
                                             }
                                         ]
                                     },
@@ -1170,7 +1170,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWCLvPKG_38fbaf46_1"
+                                                "property-value": "Ete_vCPECLvPKG_38fbaf46_1"
                                             }
                                         ]
                                     },
@@ -1244,8 +1244,8 @@
                         },
                         {
                             "vserver-id": "ab342d19-f3e6-420b-8481-ed7f16c43dfa",
-                            "vserver-name": "demofwl01snkaf46",
-                            "vserver-name2": "demofwl01snkaf46",
+                            "vserver-name": "democpel01snkaf46",
+                            "vserver-name2": "democpel01snkaf46",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/ab342d19-f3e6-420b-8481-ed7f16c43dfa",
                             "in-maint": false,
@@ -1266,18 +1266,18 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_38fbaf46_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_38fbaf46_0"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/demofwl01snkaf46",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/democpel01snkaf46",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "demofwl01snkaf46"
+                                                "relationship-value": "democpel01snkaf46"
                                             }
                                         ]
                                     },
@@ -1351,8 +1351,8 @@
                         },
                         {
                             "vserver-id": "2a9ce7fd-ecae-4301-b2eb-0b3f42df2eb8",
-                            "vserver-name": "vofwl01vfw8ab3",
-                            "vserver-name2": "vofwl01vfw8ab3",
+                            "vserver-name": "vocpel01vcpe8ab3",
+                            "vserver-name2": "vocpel01vcpe8ab3",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/2a9ce7fd-ecae-4301-b2eb-0b3f42df2eb8",
                             "in-maint": false,
@@ -1363,11 +1363,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01vfw8ab3",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01vcpe8ab3",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01vfw8ab3"
+                                                "relationship-value": "vocpel01vcpe8ab3"
                                             }
                                         ]
                                     },
@@ -1384,7 +1384,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvFWSNK_8b908ab3_1"
+                                                "property-value": "Ete_vCPEDTvCPESNK_8b908ab3_1"
                                             }
                                         ]
                                     },
@@ -1458,8 +1458,8 @@
                         },
                         {
                             "vserver-id": "91277106-90d3-450d-8a10-9aa9a8727d6e",
-                            "vserver-name": "vofwl01pgnf0ef",
-                            "vserver-name2": "vofwl01pgnf0ef",
+                            "vserver-name": "vocpel01pgnf0ef",
+                            "vserver-name2": "vocpel01pgnf0ef",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/91277106-90d3-450d-8a10-9aa9a8727d6e",
                             "in-maint": false,
@@ -1480,18 +1480,18 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvPKG_8edbf0ef_0"
+                                                "property-value": "Ete_vCPEDTvPKG_8edbf0ef_0"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01pgnf0ef",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01pgnf0ef",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01pgnf0ef"
+                                                "relationship-value": "vocpel01pgnf0ef"
                                             }
                                         ]
                                     },
@@ -1565,8 +1565,8 @@
                         },
                         {
                             "vserver-id": "801da076-918a-4911-b87c-b44ce62822a9",
-                            "vserver-name": "vofwl01pgn8ab3",
-                            "vserver-name2": "vofwl01pgn8ab3",
+                            "vserver-name": "vocpel01pgn8ab3",
+                            "vserver-name2": "vocpel01pgn8ab3",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/801da076-918a-4911-b87c-b44ce62822a9",
                             "in-maint": false,
@@ -1577,11 +1577,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01pgn8ab3",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01pgn8ab3",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01pgn8ab3"
+                                                "relationship-value": "vocpel01pgn8ab3"
                                             }
                                         ]
                                     },
@@ -1598,7 +1598,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvPKG_8b908ab3_0"
+                                                "property-value": "Ete_vCPEDTvPKG_8b908ab3_0"
                                             }
                                         ]
                                     },
@@ -1672,8 +1672,8 @@
                         },
                         {
                             "vserver-id": "8a503052-a89c-4035-94ec-b3ab1e157b49",
-                            "vserver-name": "vofwl01vfwf0ef",
-                            "vserver-name2": "vofwl01vfwf0ef",
+                            "vserver-name": "vocpel01vcpef0ef",
+                            "vserver-name2": "vocpel01vcpef0ef",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/8a503052-a89c-4035-94ec-b3ab1e157b49",
                             "in-maint": false,
@@ -1694,18 +1694,18 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvFWSNK_8edbf0ef_1"
+                                                "property-value": "Ete_vCPEDTvCPESNK_8edbf0ef_1"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01vfwf0ef",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01vcpef0ef",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01vfwf0ef"
+                                                "relationship-value": "vocpel01vcpef0ef"
                                             }
                                         ]
                                     },
@@ -1779,8 +1779,8 @@
                         },
                         {
                             "vserver-id": "39a77e27-ced1-444c-a5b6-f73135e09225",
-                            "vserver-name": "vofwl01snk8ab3",
-                            "vserver-name2": "vofwl01snk8ab3",
+                            "vserver-name": "vocpel01snk8ab3",
+                            "vserver-name2": "vocpel01snk8ab3",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/39a77e27-ced1-444c-a5b6-f73135e09225",
                             "in-maint": false,
@@ -1791,11 +1791,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01snk8ab3",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01snk8ab3",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01snk8ab3"
+                                                "relationship-value": "vocpel01snk8ab3"
                                             }
                                         ]
                                     },
@@ -1812,7 +1812,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvFWSNK_8b908ab3_1"
+                                                "property-value": "Ete_vCPEDTvCPESNK_8b908ab3_1"
                                             }
                                         ]
                                     },
@@ -1886,8 +1886,8 @@
                         },
                         {
                             "vserver-id": "0e581a27-5184-48b1-88b1-e81c5b5a450c",
-                            "vserver-name": "vofwl01snk8ab3",
-                            "vserver-name2": "vofwl01snk8ab3",
+                            "vserver-name": "vocpel01snk8ab3",
+                            "vserver-name2": "vocpel01snk8ab3",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/0e581a27-5184-48b1-88b1-e81c5b5a450c",
                             "in-maint": false,
@@ -1898,11 +1898,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01snk8ab3",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01snk8ab3",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01snk8ab3"
+                                                "relationship-value": "vocpel01snk8ab3"
                                             }
                                         ]
                                     },
@@ -1919,7 +1919,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvFWSNK_8b908ab3_2"
+                                                "property-value": "Ete_vCPEDTvCPESNK_8b908ab3_2"
                                             }
                                         ]
                                     },
@@ -1993,8 +1993,8 @@
                         },
                         {
                             "vserver-id": "c103ce57-6662-49e0-a589-ebfd91f05c79",
-                            "vserver-name": "vofwl01vfw8ab3",
-                            "vserver-name2": "vofwl01vfw8ab3",
+                            "vserver-name": "vocpel01vcpe8ab3",
+                            "vserver-name2": "vocpel01vcpe8ab3",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/c103ce57-6662-49e0-a589-ebfd91f05c79",
                             "in-maint": false,
@@ -2005,11 +2005,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vofwl01vfw8ab3",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/vocpel01vcpe8ab3",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "vofwl01vfw8ab3"
+                                                "relationship-value": "vocpel01vcpe8ab3"
                                             }
                                         ]
                                     },
@@ -2026,7 +2026,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWDTvFWSNK_8b908ab3_2"
+                                                "property-value": "Ete_vCPEDTvCPESNK_8b908ab3_2"
                                             }
                                         ]
                                     },
@@ -2100,8 +2100,8 @@
                         },
                         {
                             "vserver-id": "b75ccb62-131b-4e76-adad-28636fc60fb8",
-                            "vserver-name": "demofwl01snkfbde",
-                            "vserver-name2": "demofwl01snkfbde",
+                            "vserver-name": "democpel01snkfbde",
+                            "vserver-name2": "democpel01snkfbde",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/b75ccb62-131b-4e76-adad-28636fc60fb8",
                             "in-maint": false,
@@ -2112,11 +2112,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/demofwl01snkfbde",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/democpel01snkfbde",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "demofwl01snkfbde"
+                                                "relationship-value": "democpel01snkfbde"
                                             }
                                         ]
                                     },
@@ -2133,7 +2133,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                             }
                                         ]
                                     },
@@ -2207,8 +2207,8 @@
                         },
                         {
                             "vserver-id": "f953c499-4b1e-426b-8c6d-e9e9f1fc730f",
-                            "vserver-name": "Ete_vFWCLvFWSNK_7ba1fbde_0",
-                            "vserver-name2": "Ete_vFWCLvFWSNK_7ba1fbde_0",
+                            "vserver-name": "Ete_vCPECLvCPESNK_7ba1fbde_0",
+                            "vserver-name2": "Ete_vCPECLvCPESNK_7ba1fbde_0",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/f953c499-4b1e-426b-8c6d-e9e9f1fc730f",
                             "in-maint": false,
@@ -2219,11 +2219,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/Ete_vFWCLvFWSNK_7ba1fbde_0",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/Ete_vCPECLvCPESNK_7ba1fbde_0",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                                "relationship-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                             }
                                         ]
                                     },
@@ -2240,7 +2240,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                             }
                                         ]
                                     },
@@ -2314,8 +2314,8 @@
                         },
                         {
                             "vserver-id": "80465c73-3481-4d9d-9d3b-ab4016dfffe7",
-                            "vserver-name": "demofwl01pgnfbde",
-                            "vserver-name2": "demofwl01pgnfbde",
+                            "vserver-name": "democpel01pgnfbde",
+                            "vserver-name2": "democpel01pgnfbde",
                             "prov-status": "ACTIVE",
                             "vserver-selflink": "http://10.12.25.2:8774/v2.1/41d6d38489bd40b09ea8a6b6b852dcbd/servers/80465c73-3481-4d9d-9d3b-ab4016dfffe7",
                             "in-maint": false,
@@ -2326,11 +2326,11 @@
                                     {
                                         "related-to": "vnfc",
                                         "relationship-label": "tosca.relationships.HostedOn",
-                                        "related-link": "/aai/v15/network/vnfcs/vnfc/demofwl01pgnfbde",
+                                        "related-link": "/aai/v15/network/vnfcs/vnfc/democpel01pgnfbde",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "vnfc.vnfc-name",
-                                                "relationship-value": "demofwl01pgnfbde"
+                                                "relationship-value": "democpel01pgnfbde"
                                             }
                                         ]
                                     },
@@ -2347,7 +2347,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "generic-vnf.vnf-name",
-                                                "property-value": "Ete_vFWCLvPKG_7ba1fbde_1"
+                                                "property-value": "Ete_vCPECLvPKG_7ba1fbde_1"
                                             }
                                         ]
                                     },
@@ -2426,7 +2426,7 @@
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vFWCL",
+                            "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vCPECL",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2434,7 +2434,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 }
                             ]
                         },
@@ -2486,7 +2486,7 @@
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vFW",
+                            "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vCPE",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2494,7 +2494,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFW"
+                                    "relationship-value": "vCPE"
                                 }
                             ]
                         },
@@ -2546,7 +2546,7 @@
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vFW",
+                            "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vCPE",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2554,7 +2554,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFW"
+                                    "relationship-value": "vCPE"
                                 }
                             ]
                         },
@@ -2576,7 +2576,7 @@
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_8568f3da-8821-4600-b95f-6224f15943f7/service-subscriptions/service-subscription/vFWCL",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_8568f3da-8821-4600-b95f-6224f15943f7/service-subscriptions/service-subscription/vCPECL",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2584,14 +2584,14 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 }
                             ]
                         },
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_38fbaf46-8ae5-4b08-ad4d-2cb552ca2eb0/service-subscriptions/service-subscription/vFWCL",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_38fbaf46-8ae5-4b08-ad4d-2cb552ca2eb0/service-subscriptions/service-subscription/vCPECL",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2599,14 +2599,14 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 }
                             ]
                         },
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vFWCL",
+                            "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vCPECL",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2614,14 +2614,14 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 }
                             ]
                         },
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_8edbf0ef-8460-4965-9e56-7e4637c31a41/service-subscriptions/service-subscription/vFWDT",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_8edbf0ef-8460-4965-9e56-7e4637c31a41/service-subscriptions/service-subscription/vCPEDT",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2629,7 +2629,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWDT"
+                                    "relationship-value": "vCPEDT"
                                 }
                             ]
                         },
@@ -2651,7 +2651,7 @@
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_5dbd369e-2174-430a-9c15-b9a090b99591/service-subscriptions/service-subscription/vFWDT",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_5dbd369e-2174-430a-9c15-b9a090b99591/service-subscriptions/service-subscription/vCPEDT",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2659,14 +2659,14 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWDT"
+                                    "relationship-value": "vCPEDT"
                                 }
                             ]
                         },
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_8b908ab3-b9e6-41a9-a4e2-31cc9c5114a2/service-subscriptions/service-subscription/vFWDT",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_8b908ab3-b9e6-41a9-a4e2-31cc9c5114a2/service-subscriptions/service-subscription/vCPEDT",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2674,14 +2674,14 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWDT"
+                                    "relationship-value": "vCPEDT"
                                 }
                             ]
                         },
                         {
                             "related-to": "service-subscription",
                             "relationship-label": "org.onap.relationships.inventory.Uses",
-                            "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vFWCL",
+                            "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vCPECL",
                             "relationship-data": [
                                 {
                                     "relationship-key": "customer.global-customer-id",
@@ -2689,7 +2689,7 @@
                                 },
                                 {
                                     "relationship-key": "service-subscription.service-type",
-                                    "relationship-value": "vFWCL"
+                                    "relationship-value": "vCPECL"
                                 }
                             ]
                         }
@@ -2717,7 +2717,7 @@
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vFWCL",
+                                        "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vCPECL",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2725,7 +2725,7 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWCL"
+                                                "relationship-value": "vCPECL"
                                             }
                                         ]
                                     },
@@ -2777,7 +2777,7 @@
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vFW",
+                                        "related-link": "/aai/v15/business/customers/customer/SDN-ETHERNET-INTERNET/service-subscriptions/service-subscription/vCPE",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2785,7 +2785,7 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFW"
+                                                "relationship-value": "vCPE"
                                             }
                                         ]
                                     },
@@ -2837,7 +2837,7 @@
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vFW",
+                                        "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vCPE",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2845,7 +2845,7 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFW"
+                                                "relationship-value": "vCPE"
                                             }
                                         ]
                                     },
@@ -2867,7 +2867,7 @@
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_8568f3da-8821-4600-b95f-6224f15943f7/service-subscriptions/service-subscription/vFWCL",
+                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_8568f3da-8821-4600-b95f-6224f15943f7/service-subscriptions/service-subscription/vCPECL",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2875,14 +2875,14 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWCL"
+                                                "relationship-value": "vCPECL"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_38fbaf46-8ae5-4b08-ad4d-2cb552ca2eb0/service-subscriptions/service-subscription/vFWCL",
+                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_38fbaf46-8ae5-4b08-ad4d-2cb552ca2eb0/service-subscriptions/service-subscription/vCPECL",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2890,14 +2890,14 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWCL"
+                                                "relationship-value": "vCPECL"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vFWCL",
+                                        "related-link": "/aai/v15/business/customers/customer/Demonstration/service-subscriptions/service-subscription/vCPECL",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2905,14 +2905,14 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWCL"
+                                                "relationship-value": "vCPECL"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_8edbf0ef-8460-4965-9e56-7e4637c31a41/service-subscriptions/service-subscription/vFWDT",
+                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_8edbf0ef-8460-4965-9e56-7e4637c31a41/service-subscriptions/service-subscription/vCPEDT",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2920,7 +2920,7 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWDT"
+                                                "relationship-value": "vCPEDT"
                                             }
                                         ]
                                     },
@@ -2942,7 +2942,7 @@
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_5dbd369e-2174-430a-9c15-b9a090b99591/service-subscriptions/service-subscription/vFWDT",
+                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_5dbd369e-2174-430a-9c15-b9a090b99591/service-subscriptions/service-subscription/vCPEDT",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2950,14 +2950,14 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWDT"
+                                                "relationship-value": "vCPEDT"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_8b908ab3-b9e6-41a9-a4e2-31cc9c5114a2/service-subscriptions/service-subscription/vFWDT",
+                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_8b908ab3-b9e6-41a9-a4e2-31cc9c5114a2/service-subscriptions/service-subscription/vCPEDT",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2965,14 +2965,14 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWDT"
+                                                "relationship-value": "vCPEDT"
                                             }
                                         ]
                                     },
                                     {
                                         "related-to": "service-subscription",
                                         "relationship-label": "org.onap.relationships.inventory.Uses",
-                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vFWCL",
+                                        "related-link": "/aai/v15/business/customers/customer/DemoCust_7ba1fbde-6187-464a-a62d-d9dd25bdf4e8/service-subscriptions/service-subscription/vCPECL",
                                         "relationship-data": [
                                             {
                                                 "relationship-key": "customer.global-customer-id",
@@ -2980,7 +2980,7 @@
                                             },
                                             {
                                                 "relationship-key": "service-subscription.service-type",
-                                                "relationship-value": "vFWCL"
+                                                "relationship-value": "vCPECL"
                                             }
                                         ]
                                     }
@@ -3027,7 +3027,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_38fbaf46_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_38fbaf46_0"
                                             }
                                         ]
                                     },
@@ -3056,7 +3056,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01snkf0ef"
+                                                "property-value": "vocpel01snkf0ef"
                                             }
                                         ]
                                     },
@@ -3085,7 +3085,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01pgnaf46"
+                                                "property-value": "democpel01pgnaf46"
                                             }
                                         ]
                                     },
@@ -3114,7 +3114,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01snkaf46"
+                                                "property-value": "democpel01snkaf46"
                                             }
                                         ]
                                     },
@@ -3143,7 +3143,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01vfw8ab3"
+                                                "property-value": "vocpel01vcpe8ab3"
                                             }
                                         ]
                                     },
@@ -3172,7 +3172,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01pgnf0ef"
+                                                "property-value": "vocpel01pgnf0ef"
                                             }
                                         ]
                                     },
@@ -3201,7 +3201,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01pgn8ab3"
+                                                "property-value": "vocpel01pgn8ab3"
                                             }
                                         ]
                                     },
@@ -3230,7 +3230,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01vfwf0ef"
+                                                "property-value": "vocpel01vcpef0ef"
                                             }
                                         ]
                                     },
@@ -3259,7 +3259,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01snk8ab3"
+                                                "property-value": "vocpel01snk8ab3"
                                             }
                                         ]
                                     },
@@ -3288,7 +3288,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01snk8ab3"
+                                                "property-value": "vocpel01snk8ab3"
                                             }
                                         ]
                                     },
@@ -3317,7 +3317,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01vfw8ab3"
+                                                "property-value": "vocpel01vcpe8ab3"
                                             }
                                         ]
                                     },
@@ -3346,7 +3346,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01snkfbde"
+                                                "property-value": "democpel01snkfbde"
                                             }
                                         ]
                                     },
@@ -3375,7 +3375,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                             }
                                         ]
                                     },
@@ -3404,7 +3404,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01pgnfbde"
+                                                "property-value": "democpel01pgnfbde"
                                             }
                                         ]
                                     }
@@ -3453,7 +3453,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_38fbaf46_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_38fbaf46_0"
                                             }
                                         ]
                                     },
@@ -3482,7 +3482,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01snkf0ef"
+                                                "property-value": "vocpel01snkf0ef"
                                             }
                                         ]
                                     },
@@ -3511,7 +3511,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01pgnaf46"
+                                                "property-value": "democpel01pgnaf46"
                                             }
                                         ]
                                     },
@@ -3540,7 +3540,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01snkaf46"
+                                                "property-value": "democpel01snkaf46"
                                             }
                                         ]
                                     },
@@ -3569,7 +3569,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01vfw8ab3"
+                                                "property-value": "vocpel01vcpe8ab3"
                                             }
                                         ]
                                     },
@@ -3598,7 +3598,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01pgnf0ef"
+                                                "property-value": "vocpel01pgnf0ef"
                                             }
                                         ]
                                     },
@@ -3627,7 +3627,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01pgn8ab3"
+                                                "property-value": "vocpel01pgn8ab3"
                                             }
                                         ]
                                     },
@@ -3656,7 +3656,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01vfwf0ef"
+                                                "property-value": "vocpel01vcpef0ef"
                                             }
                                         ]
                                     },
@@ -3685,7 +3685,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01snk8ab3"
+                                                "property-value": "vocpel01snk8ab3"
                                             }
                                         ]
                                     },
@@ -3714,7 +3714,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01snk8ab3"
+                                                "property-value": "vocpel01snk8ab3"
                                             }
                                         ]
                                     },
@@ -3743,7 +3743,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "vofwl01vfw8ab3"
+                                                "property-value": "vocpel01vcpe8ab3"
                                             }
                                         ]
                                     },
@@ -3772,7 +3772,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01snkfbde"
+                                                "property-value": "democpel01snkfbde"
                                             }
                                         ]
                                     },
@@ -3801,7 +3801,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "Ete_vFWCLvFWSNK_7ba1fbde_0"
+                                                "property-value": "Ete_vCPECLvCPESNK_7ba1fbde_0"
                                             }
                                         ]
                                     },
@@ -3830,7 +3830,7 @@
                                         "related-to-property": [
                                             {
                                                 "property-key": "vserver.vserver-name",
-                                                "property-value": "demofwl01pgnfbde"
+                                                "property-value": "democpel01pgnfbde"
                                             }
                                         ]
                                     }

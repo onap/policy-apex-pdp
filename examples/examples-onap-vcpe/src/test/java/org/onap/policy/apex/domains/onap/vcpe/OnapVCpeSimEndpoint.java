@@ -66,6 +66,8 @@ public class OnapVCpeSimEndpoint {
     private static final Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).create();
 
+    private static final AtomicInteger nextVnfId = new AtomicInteger(0);
+
     /**
      * Service get stats.
      *
@@ -91,7 +93,7 @@ public class OnapVCpeSimEndpoint {
     public Response serviceGuardPostRequest(final String jsonString) {
         LOGGER.info("\n*** GUARD REQUEST START ***\n" + jsonString + "\n *** GUARD REQUEST END ***");
 
-        String target = jsonString.substring(jsonString.indexOf("b4fe00ac"));
+        String target = jsonString.substring(jsonString.indexOf("00000000"));
         target = target.substring(0, target.indexOf('"'));
 
         int thisGuardMessageNumber = guardMessagesReceived.incrementAndGet();
@@ -128,8 +130,12 @@ public class OnapVCpeSimEndpoint {
         LOGGER.info("\n*** AAI NODE QUERY GET START ***\nsearchNodeType=" + searchNodeType + "\nfilter=" + filter
                         + "\n *** AAI REQUEST END ***");
 
+        String adjustedVserverUuid = "b4fe00ac-1da6-4b00-ac0d-8e8300db"
+                        + String.format("%04d", nextVnfId.getAndIncrement());
+
         String responseJsonString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/aai/SearchNodeTypeResponse.json");
+                        .getTextFileAsString("src/test/resources/aai/SearchNodeTypeResponse.json")
+                        .replaceAll("b4fe00ac-1da6-4b00-ac0d-8e8300db0007", adjustedVserverUuid);
 
         LOGGER.info("\n*** AAI RESPONSE START ***\n" + responseJsonString + "\n *** AAI RESPONSE END ***");
 
@@ -154,7 +160,12 @@ public class OnapVCpeSimEndpoint {
         LOGGER.info("\n*** AAI NODE RESOURE POST QUERY START ***\\nformat=" + format + "\njson=" + jsonString
                         + "\n *** AAI REQUEST END ***");
 
-        String responseJsonString = TextFileUtils.getTextFileAsString("src/test/resources/aai/NodeQueryResponse.json");
+        int beginIndex = jsonString.indexOf("b4fe00ac-1da6-4b00-ac0d-8e8300db")
+                        + +"b4fe00ac-1da6-4b00-ac0d-8e8300db".length();
+        String nextVnfIdUrlEnding = jsonString.substring(beginIndex, beginIndex + 4);
+        String responseJsonString = TextFileUtils.getTextFileAsString("src/test/resources/aai/NodeQueryResponse.json")
+                        .replaceAll("bbb3cefd-01c8-413c-9bdd-2b92f9ca3d38",
+                                        "00000000-0000-0000-0000-00000000" + nextVnfIdUrlEnding);
 
         LOGGER.info("\n*** AAI RESPONSE START ***\n" + responseJsonString + "\n *** AAI RESPONSE END ***");
 

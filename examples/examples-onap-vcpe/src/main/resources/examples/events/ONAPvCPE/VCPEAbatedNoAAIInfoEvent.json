@@ -10,6 +10,9 @@
     "version": "1.0.2",
     "from": "DCAE",
     "AAI": {
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1"
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+        "vserver.is-closed-loop-disabled": "false",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "vserverName"
     }
 }

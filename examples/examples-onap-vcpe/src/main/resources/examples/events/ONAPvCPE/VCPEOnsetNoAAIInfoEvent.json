@@ -8,7 +8,9 @@
     "target": "generic-vnf.vnf-id",
     "AAI": {
         "vserver.is-closed-loop-disabled": "false",
-        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1"
+        "generic-vnf.vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+        "vserver.prov-status": "ACTIVE",
+        "vserver.vserver-name": "vserverName"
     },
     "from": "DCAE",
     "version": "1.0.2"
