@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6777ed90_2d283cce",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/examples/config/ONAPvCPE/ApexConfig_Sim.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-22T17:48:28Z",
+      "side": 1,
+      "message": "I assume you meant to change this",
+      "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ca49441_3cb18202",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/AAILookupTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-22T17:48:28Z",
+      "side": 1,
+      "message": "this looks like a duplicate of line 62",
+      "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a7069f2_af9cc613",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-22T17:48:28Z",
+      "side": 1,
+      "message": "\"+ +\" \u003d\u003e \"+\" ?",
+      "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
