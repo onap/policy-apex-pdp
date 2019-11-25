@@ -1,7 +1,7 @@
 {
     "name":"ApexStarterParameterGroup",
     "restServerParameters": {
-        "host": "0.0.0.0",
+        "host": "localhost",
         "port": 6969,
         "userName": "healthcheck",
         "password": "zb!XztG34",
