@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ce39d206_632bb710",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/examples/config/ONAPvCPE/ApexConfig_Sim.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-25T11:08:15Z",
+      "side": 1,
+      "message": "Yes, with the new way that the A\u0026AI lookup works, I would have to put quite a lot of work into making the simulator multi threaded. It was simpler just to instantiate apex-pdp with just one thread and do everything in lock step.\n\nI don\u0027t have access to an ONAP system with the vCPE use case set up on it at the moment so I\u0027ll come back to this later and simulate the real behaviour I observe.",
+      "parentUuid": "6777ed90_2d283cce",
+      "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ca49441_3cb18202",
         "filename": "examples/examples-onap-vcpe/src/main/resources/logic/AAILookupTask.js",
         "patchSetId": 1
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "372ead6b_09104b82",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/AAILookupTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-25T11:08:15Z",
+      "side": 1,
+      "message": "Yes, it should be getGenericVnfByVnfName",
+      "parentUuid": "80e73d0f_34e44e1d",
+      "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a7069f2_af9cc613",
         "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
         "patchSetId": 1
@@ -83,6 +119,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "2a7069f2_af9cc613",
+      "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec4d6bb7_b67491de",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-11-25T11:08:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86c50872_0cc1edba",
       "revId": "08d8086b458ff433ad7f0576524e3a553985a536",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
