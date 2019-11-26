@@ -60,15 +60,15 @@
         </encoder>
     </appender>
 
-    <logger name="org.onap.policy.apex.core.context.monitoring" level="TRACE" additivity="false">
+    <logger name="org.onap.policy.apex.core.context.monitoring" level="INFO" additivity="false">
         <appender-ref ref="CTXT_FILE" />
     </logger>
 
-    <logger name="org.onap.policy.apex.core.engine.monitoring" level="TRACE" additivity="false">
+    <logger name="org.onap.policy.apex.core.engine.monitoring" level="INFO" additivity="false">
         <appender-ref ref="CTXT_FILE" />
     </logger>
 
-    <logger name="org.onap.policy.apex.executionlogging" level="TRACE" additivity="false">
+    <logger name="org.onap.policy.apex.executionlogging" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

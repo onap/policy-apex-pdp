@@ -40,7 +40,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="org.onap.policy.apex.core.contextmodel" level="TRACE" additivity="false">
+    <logger name="org.onap.policy.apex.core.contextmodel" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
@@ -48,7 +48,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="org.onap.policy.apex.core" level="TRACE" additivity="false">
+    <logger name="org.onap.policy.apex.core" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
@@ -68,7 +68,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.onap.policy.apex.core.context.impl.monitoring" level="TRACE" additivity="false">
+    <logger name="org.onap.policy.apex.core.context.impl.monitoring" level="INFO" additivity="false">
         <appender-ref ref="CTXT_FILE" />
     </logger>
 

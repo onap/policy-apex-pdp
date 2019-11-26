@@ -68,8 +68,8 @@ public class JmsEventProducer implements Runnable {
      * @throws JMSException the JMS exception
      */
     public JmsEventProducer(final String topic, final ConnectionFactory connectionFactory, final String username,
-            final String password, final int eventCount, final boolean sendObjects, final long eventInterval)
-            throws JMSException {
+                    final String password, final int eventCount, final boolean sendObjects, final long eventInterval)
+                    throws JMSException {
         this.topic = topic;
         this.eventCount = eventCount;
         this.sendObjects = sendObjects;
@@ -88,7 +88,7 @@ public class JmsEventProducer implements Runnable {
     public void run() {
         final Topic jmsTopic = new ActiveMQTopic(topic);
         try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic)) {
+                        final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic)) {
 
             while (producerThread.isAlive() && !stopFlag) {
                 ThreadUtilities.sleep(50);
@@ -120,8 +120,8 @@ public class JmsEventProducer implements Runnable {
      */
     private void sendEventsToTopic(final Session jmsSession, final MessageProducer jmsProducer) throws JMSException {
 
-        LOGGER.info("{} : sending events to JMS server, event count {}", this.getClass().getCanonicalName(),
-                eventCount);
+        LOGGER.debug("{} : sending events to JMS server, event count {}", this.getClass().getCanonicalName(),
+                        eventCount);
 
         for (int i = 0; i < eventCount; i++) {
             ThreadUtilities.sleep(eventInterval);
@@ -135,7 +135,7 @@ public class JmsEventProducer implements Runnable {
             jmsProducer.send(jmsMessage);
             eventsSentCount++;
         }
-        LOGGER.info("{} : completed, number of events sent", this.getClass().getCanonicalName(), eventsSentCount);
+        LOGGER.debug("{} : completed, number of events sent", this.getClass().getCanonicalName(), eventsSentCount);
     }
 
     /**
@@ -151,13 +151,13 @@ public class JmsEventProducer implements Runnable {
      * Shutdown.
      */
     public void shutdown() {
-        LOGGER.info("{} : stopping", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : stopping", this.getClass().getCanonicalName());
         stopFlag = true;
 
         while (producerThread.isAlive()) {
             ThreadUtilities.sleep(10);
         }
-        LOGGER.info("{} : stopped", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : stopped", this.getClass().getCanonicalName());
     }
 
 }

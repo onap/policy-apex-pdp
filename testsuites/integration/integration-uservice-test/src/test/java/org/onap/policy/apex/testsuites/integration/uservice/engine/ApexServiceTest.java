@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -103,7 +103,6 @@ public class ApexServiceTest {
         parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         service = EngineServiceImpl.create(parameters);
 
-
         LOGGER.debug("Running TestApexEngine. . .");
 
         apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
@@ -127,12 +126,12 @@ public class ApexServiceTest {
         ParameterService.register(new LockManagerParameters());
         ParameterService.register(new PersistorParameters());
         ParameterService.register(new EngineServiceParameters());
-        
+
         EngineParameters engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", new JavascriptExecutorParameters());
         ParameterService.register(engineParameters);
     }
-    
+
     /**
      * Clear down parameters.
      */
@@ -146,7 +145,7 @@ public class ApexServiceTest {
         ParameterService.deregister(ContextParameterConstants.MAIN_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
-    
+
     /**
      * Update the engine then test the engine with 2 sample events.
      *
@@ -158,7 +157,7 @@ public class ApexServiceTest {
 
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
-            LOGGER.info("{}", service.getStatus(engineKey));
+            LOGGER.debug("{}", service.getStatus(engineKey));
         }
         while (!service.isStarted() && System.currentTimeMillis() - starttime < MAX_START_WAIT) {
             ThreadUtilities.sleep(200);
@@ -177,14 +176,14 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
-        final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
@@ -197,7 +196,6 @@ public class ApexServiceTest {
         ThreadUtilities.sleep(500);
         assertEquals(2, actionEventsReceived);
         actionEventsReceived = 0;
-
 
         // Stop all engines on this engine service
         final long stoptime = System.currentTimeMillis();
@@ -221,7 +219,7 @@ public class ApexServiceTest {
 
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
-            LOGGER.info("{}", service.getStatus(engineKey));
+            LOGGER.debug("{}", service.getStatus(engineKey));
         }
         while (!service.isStarted() && System.currentTimeMillis() - starttime < MAX_START_WAIT) {
             ThreadUtilities.sleep(200);
@@ -238,8 +236,8 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event1 =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event1 = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event1.putAll(eventDataMap);
         event1.setExecutionId(System.nanoTime());
 
@@ -260,8 +258,8 @@ public class ApexServiceTest {
             ThreadUtilities.sleep(100);
         }
 
-        final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
 
@@ -309,7 +307,7 @@ public class ApexServiceTest {
 
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
-            LOGGER.info("{}", service.getStatus(engineKey));
+            LOGGER.debug("{}", service.getStatus(engineKey));
         }
         while (!service.isStarted() && System.currentTimeMillis() - starttime < MAX_START_WAIT) {
             ThreadUtilities.sleep(200);
@@ -328,14 +326,14 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
-        final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
@@ -371,7 +369,7 @@ public class ApexServiceTest {
 
         final long starttime = System.currentTimeMillis();
         for (final AxArtifactKey engineKey : service.getEngineKeys()) {
-            LOGGER.info("{}", service.getStatus(engineKey));
+            LOGGER.debug("{}", service.getStatus(engineKey));
         }
         while (!service.isStarted() && System.currentTimeMillis() - starttime < MAX_START_WAIT) {
             ThreadUtilities.sleep(200);
@@ -388,8 +386,8 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event1 =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event1 = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event1.putAll(eventDataMap);
 
         final ApexEventListener myEventListener1 = new ApexEventListener() {
@@ -409,8 +407,8 @@ public class ApexServiceTest {
             ThreadUtilities.sleep(100);
         }
 
-        final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
+                        "test", "apex");
         event2.putAll(eventDataMap);
 
         final ApexEventListener myEventListener2 = new ApexEventListener() {
@@ -468,10 +466,10 @@ public class ApexServiceTest {
     }
 
     /**
-     * The listener interface for receiving test events. The class that is interested in processing
-     * a test event implements this interface, and the object created with that class is registered
-     * with a component using the component's <code>addTestListener</code> method. When the test
-     * event occurs, that object's appropriate method is invoked.
+     * The listener interface for receiving test events. The class that is interested in processing a test event
+     * implements this interface, and the object created with that class is registered with a component using the
+     * component's <code>addTestListener</code> method. When the test event occurs, that object's appropriate method is
+     * invoked.
      *
      * @see TestEvent
      */
@@ -489,7 +487,7 @@ public class ApexServiceTest {
             final Date testStartTime = new Date((Long) event.get("TestTimestamp"));
             final Date testEndTime = new Date();
 
-            LOGGER.info("policy execution time: " + (testEndTime.getTime() - testStartTime.getTime()) + "ms");
+            LOGGER.debug("policy execution time: " + (testEndTime.getTime() - testStartTime.getTime()) + "ms");
         }
 
         /**
@@ -504,13 +502,13 @@ public class ApexServiceTest {
             assertTrue(result.get("TestMatchCase").equals(new Byte((byte) 123)));
             assertTrue(result.get("TestTemperature").equals(34.5445667));
             assertTrue(((byte) result.get("TestMatchCaseSelected")) >= 0
-                    && ((byte) result.get("TestMatchCaseSelected") <= 3));
+                            && ((byte) result.get("TestMatchCaseSelected") <= 3));
             assertTrue(((byte) result.get("TestEstablishCaseSelected")) >= 0
-                    && ((byte) result.get("TestEstablishCaseSelected") <= 3));
+                            && ((byte) result.get("TestEstablishCaseSelected") <= 3));
             assertTrue(((byte) result.get("TestDecideCaseSelected")) >= 0
-                    && ((byte) result.get("TestDecideCaseSelected") <= 3));
-            assertTrue(
-                    ((byte) result.get("TestActCaseSelected")) >= 0 && ((byte) result.get("TestActCaseSelected") <= 3));
+                            && ((byte) result.get("TestDecideCaseSelected") <= 3));
+            assertTrue(((byte) result.get("TestActCaseSelected")) >= 0
+                            && ((byte) result.get("TestActCaseSelected") <= 3));
         }
     }
 

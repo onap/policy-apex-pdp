@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,12 +22,17 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.events;
 
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The Class EventGenerator.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class EventGenerator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventGenerator.class);
+
     private static int nextEventNo = 0;
 
     /**
@@ -576,7 +581,7 @@ public class EventGenerator {
      */
     public static void main(final String[] args) {
         if (args.length != 2) {
-            System.err.println("usage EventGenerator #events XML|JSON");
+            LOGGER.error("usage EventGenerator #events XML|JSON");
             return;
         }
 
@@ -584,17 +589,17 @@ public class EventGenerator {
         try {
             eventCount = Integer.parseInt(args[0]);
         } catch (final Exception e) {
-            System.err.println("usage EventGenerator #events XML|JSON");
+            LOGGER.error("usage EventGenerator #events XML|JSON");
             e.printStackTrace();
             return;
         }
 
         if (args[1].equalsIgnoreCase("XML")) {
-            System.out.println(xmlEvents(eventCount));
+            LOGGER.info(xmlEvents(eventCount));
         } else if (args[1].equalsIgnoreCase("JSON")) {
-            System.out.println(jsonEvents(eventCount));
+            LOGGER.info(jsonEvents(eventCount));
         } else {
-            System.err.println("usage EventGenerator #events XML|JSON");
+            LOGGER.error("usage EventGenerator #events XML|JSON");
             return;
         }
     }

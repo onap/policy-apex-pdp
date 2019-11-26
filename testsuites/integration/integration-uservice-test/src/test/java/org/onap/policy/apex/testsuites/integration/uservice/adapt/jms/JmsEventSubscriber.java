@@ -106,7 +106,7 @@ public class JmsEventSubscriber implements Runnable {
             throw new ApexEventRuntimeException("JMS event consumption failed", e);
         }
 
-        LOGGER.info("{} : event reception completed", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : event reception completed", this.getClass().getCanonicalName());
     }
 
     /**
@@ -131,7 +131,7 @@ public class JmsEventSubscriber implements Runnable {
         }
 
         connection.close();
-        LOGGER.info("{} : stopped", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : stopped", this.getClass().getCanonicalName());
     }
 
 }

@@ -32,6 +32,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class KafkaEventSubscriber.
@@ -39,6 +41,9 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class KafkaEventSubscriber implements Runnable {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaEventSubscriber.class);
+
     private static final Duration POLL_DURATION = Duration.ofMillis(100);
 
     private final String topic;
@@ -59,10 +64,8 @@ public class KafkaEventSubscriber implements Runnable {
                     throws MessagingException {
         this.topic = topic;
 
-
         final Properties consumerProperties = new Properties();
         consumerProperties.put("group.id", "test");
-
 
         consumer = sharedKafkaTestResource.getKafkaTestUtils().getKafkaConsumer(StringDeserializer.class,
                         StringDeserializer.class, consumerProperties);
@@ -77,17 +80,16 @@ public class KafkaEventSubscriber implements Runnable {
      */
     @Override
     public void run() {
-        System.out.println(KafkaEventSubscriber.class.getCanonicalName()
-                        + ": receiving events from Kafka server  on topic " + topic);
+        LOGGER.debug("{}: receiving events from Kafka server  on topic {}",
+                        KafkaEventSubscriber.class.getCanonicalName(), topic);
 
         while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
             try {
                 final ConsumerRecords<String, String> records = consumer.poll(POLL_DURATION);
                 for (final ConsumerRecord<String, String> record : records) {
                     eventsReceivedCount++;
-                    System.out.println("****** Received event No. " + eventsReceivedCount + " ******");
-                    System.out.println("offset=" + record.offset());
-                    System.out.println("key=" + record.key());
+                    LOGGER.debug("****** Received event No. {} ******\noffset={}\nkey={}", eventsReceivedCount,
+                                    record.offset(), record.key());
                 }
             } catch (final Exception e) {
                 // Thread interrupted
@@ -95,7 +97,7 @@ public class KafkaEventSubscriber implements Runnable {
             }
         }
 
-        System.out.println(KafkaEventSubscriber.class.getCanonicalName() + ": event reception completed");
+        LOGGER.debug("{}: event reception completed", KafkaEventSubscriber.class.getCanonicalName());
     }
 
     /**
@@ -118,6 +120,6 @@ public class KafkaEventSubscriber implements Runnable {
         }
 
         consumer.close();
-        System.out.println(KafkaEventSubscriber.class.getCanonicalName() + ": stopped");
+        LOGGER.debug("{} : stopped", KafkaEventSubscriber.class.getCanonicalName());
     }
 }

@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -23,11 +23,15 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.websocket;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class WebSocketEventSubscriberServer.
  */
 public class WebSocketEventSubscriberServer implements WsStringMessageListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketEventSubscriberServer.class);
+
     private final int port;
     private long eventsReceivedCount = 0;
 
@@ -45,8 +49,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
         server = new WsStringMessageServer(port);
         server.start(this);
 
-        System.out.println(
-                WebSocketEventSubscriberServer.class.getCanonicalName() + ": port " + port + ", waiting for events");
+        LOGGER.debug("{}: port {}, waiting for events", WebSocketEventSubscriberServer.class.getCanonicalName(), port);
     }
 
     /**
@@ -54,8 +57,8 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
      */
     @Override
     public void receiveString(final String eventString) {
-        System.out.println(WebSocketEventSubscriberServer.class.getCanonicalName() + ": port " + port
-                + ", received event " + eventString);
+        LOGGER.debug("{}: port {}, received event {}", WebSocketEventSubscriberServer.class.getCanonicalName(), port,
+                        eventString);
         eventsReceivedCount++;
     }
 
@@ -73,7 +76,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
      */
     public void shutdown() {
         server.stop();
-        System.out.println(WebSocketEventSubscriberServer.class.getCanonicalName() + ": stopped");
+        LOGGER.debug("{} : stopped", WebSocketEventSubscriberServer.class.getCanonicalName());
     }
 
     /**
@@ -84,7 +87,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
      */
     public static void main(final String[] args) throws MessagingException {
         if (args.length != 1) {
-            System.err.println("usage WebSocketEventSubscriberClient port");
+            LOGGER.error("usage WebSocketEventSubscriberClient port");
             return;
         }
 
@@ -92,7 +95,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
         try {
             port = Integer.parseInt(args[0]);
         } catch (final Exception e) {
-            System.err.println("usage WebSocketEventSubscriberClient port");
+            LOGGER.error("usage WebSocketEventSubscriberClient port");
             e.printStackTrace();
             return;
         }

@@ -34,11 +34,11 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="FILE" />
     </root>
 
-    <logger name="org.onap.policy.apex.executionlogging" level="debug" additivity="false">
+    <logger name="org.onap.policy.apex.executionlogging" level="info" additivity="false">
         <appender-ref ref="FILE" />
     </logger>
 </configuration>

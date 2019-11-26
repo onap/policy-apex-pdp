@@ -44,7 +44,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.onap.policy.apex.plugins.event.carrier.restserver" level="trace" additivity="false">
+    <logger name="org.onap.policy.apex.plugins.event.carrier.restserver" level="info" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>

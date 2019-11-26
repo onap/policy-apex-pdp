@@ -29,6 +29,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.testsuites.integration.uservice.adapt.events.EventGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class KafkaEventProducer.
@@ -36,6 +38,9 @@ import org.onap.policy.apex.testsuites.integration.uservice.adapt.events.EventGe
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class KafkaEventProducer implements Runnable {
+    // Get a reference to the logger
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaEventProducer.class);
+
     private final String topic;
     private final SharedKafkaTestResource sharedKafkaTestResource;
     private final int eventCount;
@@ -101,12 +106,12 @@ public class KafkaEventProducer implements Runnable {
      * @param producer the producer
      */
     private void sendEventsToTopic(final Producer<String, String> producer) {
-        System.out.println(KafkaEventProducer.class.getCanonicalName()
-                        + ": sending events to Kafka server , event count " + eventCount + ", xmlEvents " + xmlEvents);
+        LOGGER.debug("{} : sending events to Kafka server, event count {}, xmlEvents {}",
+                        KafkaEventProducer.class.getCanonicalName(), eventCount, xmlEvents);
 
         for (int i = 0; i < eventCount; i++) {
-            System.out.println(KafkaEventProducer.class.getCanonicalName() + ": waiting " + eventInterval
-                            + " milliseconds before sending next event");
+            LOGGER.debug("{} : waiting {} milliseconds before sending next event",
+                            KafkaEventProducer.class.getCanonicalName(), eventInterval);
             ThreadUtilities.sleep(eventInterval);
 
             String eventString = null;
@@ -118,9 +123,9 @@ public class KafkaEventProducer implements Runnable {
             producer.send(new ProducerRecord<String, String>(topic, "Event" + i + "Of" + eventCount, eventString));
             producer.flush();
             eventsSentCount++;
-            System.out.println("****** Sent event No. " + eventsSentCount + " ******");
+            LOGGER.debug("****** Sent event No. {} ******", eventsSentCount);
         }
-        System.out.println(KafkaEventProducer.class.getCanonicalName() + ": completed");
+        LOGGER.debug("{}: completed", KafkaEventProducer.class.getCanonicalName());
     }
 
     /**
@@ -136,7 +141,7 @@ public class KafkaEventProducer implements Runnable {
      * Shutdown.
      */
     public void shutdown() {
-        System.out.println(KafkaEventProducer.class.getCanonicalName() + ": stopping");
+        LOGGER.debug("{} : stopping", KafkaEventProducer.class.getCanonicalName());
 
         stopFlag = true;
 
@@ -144,6 +149,6 @@ public class KafkaEventProducer implements Runnable {
             ThreadUtilities.sleep(10);
         }
 
-        System.out.println(KafkaEventProducer.class.getCanonicalName() + ": stopped");
+        LOGGER.debug("{} : stopped", KafkaEventProducer.class.getCanonicalName());
     }
 }
