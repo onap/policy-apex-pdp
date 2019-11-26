@@ -93,11 +93,11 @@
 
     <build>
         <plugins>
-            <!-- Generate the APEX Policy JSON from the APEX CLI command -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
+                    <!-- Generate the APEX Policy JSON from the APEX CLI command -->
                     <execution>
                         <id>generate-policy</id>
                         <phase>compile</phase>
@@ -115,13 +115,7 @@
                             </arguments>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <!-- Generate the APEX ToscaPolicy JSON file-->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
+                    <!-- Generate the APEX ToscaPolicy JSON file-->
                     <execution>
                         <id>generate-tosca-policy</id>
                         <phase>compile</phase>
