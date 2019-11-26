@@ -78,7 +78,7 @@ public class CommonTestData {
     public static TopicParameters getTopicParams() {
         final TopicParameters topicParams = new TopicParameters();
         topicParams.setTopic("POLICY-PDP-PAP");
-        topicParams.setTopicCommInfrastructure("dmaap");
+        topicParams.setTopicCommInfrastructure("noop");
         topicParams.setServers(Arrays.asList("message-router"));
         return topicParams;
     }
