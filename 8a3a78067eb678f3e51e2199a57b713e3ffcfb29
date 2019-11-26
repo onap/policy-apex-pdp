@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f85f42c4_bb4398ba",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/jms/JmsEventProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-11-26T14:57:20Z",
+      "side": 1,
+      "message": "in another review, should change getCanonicalName() to getName()\n\nsame comment for all apex source code",
+      "revId": "8a3a78067eb678f3e51e2199a57b713e3ffcfb29",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
