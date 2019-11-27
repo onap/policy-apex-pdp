@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -120,8 +121,7 @@ public class JmsEventProducer implements Runnable {
      */
     private void sendEventsToTopic(final Session jmsSession, final MessageProducer jmsProducer) throws JMSException {
 
-        LOGGER.debug("{} : sending events to JMS server, event count {}", this.getClass().getCanonicalName(),
-                        eventCount);
+        LOGGER.debug("{} : sending events to JMS server, event count {}", this.getClass().getName(), eventCount);
 
         for (int i = 0; i < eventCount; i++) {
             ThreadUtilities.sleep(eventInterval);
@@ -135,7 +135,7 @@ public class JmsEventProducer implements Runnable {
             jmsProducer.send(jmsMessage);
             eventsSentCount++;
         }
-        LOGGER.debug("{} : completed, number of events sent", this.getClass().getCanonicalName(), eventsSentCount);
+        LOGGER.debug("{} : completed, number of events sent", this.getClass().getName(), eventsSentCount);
     }
 
     /**
@@ -151,13 +151,13 @@ public class JmsEventProducer implements Runnable {
      * Shutdown.
      */
     public void shutdown() {
-        LOGGER.debug("{} : stopping", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : stopping", this.getClass().getName());
         stopFlag = true;
 
         while (producerThread.isAlive()) {
             ThreadUtilities.sleep(10);
         }
-        LOGGER.debug("{} : stopped", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : stopped", this.getClass().getName());
     }
 
 }

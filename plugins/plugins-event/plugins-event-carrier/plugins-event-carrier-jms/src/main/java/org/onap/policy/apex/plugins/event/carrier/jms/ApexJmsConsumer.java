@@ -87,7 +87,7 @@ public class ApexJmsConsumer implements MessageListener, ApexEventConsumer, Runn
         // Check and get the JMS Properties
         if (!(consumerParameters.getCarrierTechnologyParameters() instanceof JmsCarrierTechnologyParameters)) {
             final String errorMessage = "specified consumer properties of type \""
-                    + consumerParameters.getCarrierTechnologyParameters().getClass().getCanonicalName()
+                    + consumerParameters.getCarrierTechnologyParameters().getClass().getName()
                     + "\" are not applicable to a JMS consumer";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);

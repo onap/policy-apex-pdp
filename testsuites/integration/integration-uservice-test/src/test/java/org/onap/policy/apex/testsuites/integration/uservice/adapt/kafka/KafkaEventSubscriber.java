@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,8 +81,8 @@ public class KafkaEventSubscriber implements Runnable {
      */
     @Override
     public void run() {
-        LOGGER.debug("{}: receiving events from Kafka server  on topic {}",
-                        KafkaEventSubscriber.class.getCanonicalName(), topic);
+        LOGGER.debug("{}: receiving events from Kafka server  on topic {}", KafkaEventSubscriber.class.getName(),
+                        topic);
 
         while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
             try {
@@ -97,7 +98,7 @@ public class KafkaEventSubscriber implements Runnable {
             }
         }
 
-        LOGGER.debug("{}: event reception completed", KafkaEventSubscriber.class.getCanonicalName());
+        LOGGER.debug("{}: event reception completed", KafkaEventSubscriber.class.getName());
     }
 
     /**
@@ -120,6 +121,6 @@ public class KafkaEventSubscriber implements Runnable {
         }
 
         consumer.close();
-        LOGGER.debug("{} : stopped", KafkaEventSubscriber.class.getCanonicalName());
+        LOGGER.debug("{} : stopped", KafkaEventSubscriber.class.getName());
     }
 }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -94,7 +95,7 @@ public class JmsEventSubscriber implements Runnable {
                         ((TextMessage) message).getText();
                     } else {
                         throw new ApexEventException("unknowm message \"" + message + "\" of type \""
-                                        + message.getClass().getCanonicalName() + "\" received");
+                                        + message.getClass().getName() + "\" received");
                     }
                     eventsReceivedCount++;
                 } catch (final Exception e) {
@@ -106,7 +107,7 @@ public class JmsEventSubscriber implements Runnable {
             throw new ApexEventRuntimeException("JMS event consumption failed", e);
         }
 
-        LOGGER.debug("{} : event reception completed", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : event reception completed", this.getClass().getName());
     }
 
     /**
@@ -131,7 +132,7 @@ public class JmsEventSubscriber implements Runnable {
         }
 
         connection.close();
-        LOGGER.debug("{} : stopped", this.getClass().getCanonicalName());
+        LOGGER.debug("{} : stopped", this.getClass().getName());
     }
 
 }

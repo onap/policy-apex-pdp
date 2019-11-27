@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +40,10 @@ public class ApexMonitoringRestMain {
 
     // Services state
     public enum ServicesState {
-        STOPPED, READY, INITIALIZING, RUNNING
+        STOPPED,
+        READY,
+        INITIALIZING,
+        RUNNING
     }
 
     private ServicesState state = ServicesState.STOPPED;
@@ -72,12 +76,12 @@ public class ApexMonitoringRestMain {
         } catch (final ApexMonitoringRestParameterException e) {
             throw new ApexMonitoringRestParameterException(
                             REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, " + e.getMessage() + '\n'
-                                            + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()), e);
+                                            + parser.getHelp(ApexMonitoringRestMain.class.getName()),
+                            e);
         }
 
         if (parameters.isHelpSet()) {
-            throw new ApexMonitoringRestParameterException(
-                            parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
+            throw new ApexMonitoringRestParameterException(parser.getHelp(ApexMonitoringRestMain.class.getName()));
         }
 
         // Validate the parameters
@@ -85,7 +89,7 @@ public class ApexMonitoringRestMain {
         if (validationMessage.length() > 0) {
             throw new ApexMonitoringRestParameterException(
                             REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage + '\n'
-                                            + parser.getHelp(ApexMonitoringRestMain.class.getCanonicalName()));
+                                            + parser.getHelp(ApexMonitoringRestMain.class.getName()));
         }
 
         state = ServicesState.READY;
@@ -131,7 +135,8 @@ public class ApexMonitoringRestMain {
             String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
             outStream.println(message);
             LOGGER.warn(message, e);
-        } finally {
+        }
+        finally {
             if (apexMonitoringRest != null) {
                 apexMonitoringRest.shutdown();
                 apexMonitoringRest = null;

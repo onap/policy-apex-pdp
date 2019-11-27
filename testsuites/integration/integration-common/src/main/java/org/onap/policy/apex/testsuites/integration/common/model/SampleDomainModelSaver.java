@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -49,21 +50,21 @@ public final class SampleDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 1) {
-            LOGGER.error("usage: " + SampleDomainModelSaver.class.getCanonicalName() + " modelDirectory");
+            LOGGER.error("usage: " + SampleDomainModelSaver.class.getName() + " modelDirectory");
             return;
         }
 
         // Save Java model
         final AxPolicyModel javaPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVA");
-        final ApexModelSaver<AxPolicyModel> javaModelSaver = new ApexModelSaver<>(AxPolicyModel.class,
-                        javaPolicyModel, args[0]);
+        final ApexModelSaver<AxPolicyModel> javaModelSaver = new ApexModelSaver<>(AxPolicyModel.class, javaPolicyModel,
+                        args[0]);
         javaModelSaver.apexModelWriteJson();
         javaModelSaver.apexModelWriteXml();
 
         // Save Javascript model
         final AxPolicyModel javascriptPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
-        final ApexModelSaver<AxPolicyModel> javascriptModelSaver = new ApexModelSaver<>(
-                        AxPolicyModel.class, javascriptPolicyModel, args[0]);
+        final ApexModelSaver<AxPolicyModel> javascriptModelSaver = new ApexModelSaver<>(AxPolicyModel.class,
+                        javascriptPolicyModel, args[0]);
         javascriptModelSaver.apexModelWriteJson();
         javascriptModelSaver.apexModelWriteXml();
 
@@ -83,8 +84,8 @@ public final class SampleDomainModelSaver {
 
         // Save MVEL model
         final AxPolicyModel mvelPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
-        final ApexModelSaver<AxPolicyModel> mvelModelSaver = new ApexModelSaver<>(AxPolicyModel.class,
-                        mvelPolicyModel, args[0]);
+        final ApexModelSaver<AxPolicyModel> mvelModelSaver = new ApexModelSaver<>(AxPolicyModel.class, mvelPolicyModel,
+                        args[0]);
         mvelModelSaver.apexModelWriteJson();
         mvelModelSaver.apexModelWriteXml();
     }

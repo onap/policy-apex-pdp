@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,8 +65,8 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
         client = new WsStringMessageClient(host, port);
         client.start(this);
 
-        LOGGER.debug("{}: host {}, port {}, event count {}, xmlEvents {}",
-                        WebSocketEventProducerClient.class.getCanonicalName(), host, port, eventCount, xmlEvents);
+        LOGGER.debug("{}: host {}, port {}, event count {}, xmlEvents {}", WebSocketEventProducerClient.class.getName(),
+                        host, port, eventCount, xmlEvents);
     }
 
     /**
@@ -73,11 +74,11 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
      */
     public void sendEvents() {
         LOGGER.debug("{}: sending events on host {}, port {}, event count {}, xmlEvents {}",
-                        WebSocketEventProducerClient.class.getCanonicalName(), host, port, eventCount, xmlEvents);
+                        WebSocketEventProducerClient.class.getName(), host, port, eventCount, xmlEvents);
 
         for (int i = 0; i < eventCount; i++) {
             LOGGER.debug("{}: waiting {} milliseconds before sending next event",
-                            WebSocketEventProducerClient.class.getCanonicalName(), eventInterval);
+                            WebSocketEventProducerClient.class.getName(), eventInterval);
             ThreadUtilities.sleep(eventInterval);
 
             String eventString = null;
@@ -88,10 +89,10 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
             }
             client.sendString(eventString);
             eventsSentCount++;
-            LOGGER.debug("{}:  host {}, port {}, sent event {}", WebSocketEventProducerClient.class.getCanonicalName(),
-                            host, port, eventString);
+            LOGGER.debug("{}:  host {}, port {}, sent event {}", WebSocketEventProducerClient.class.getName(), host,
+                            port, eventString);
         }
-        LOGGER.debug("{}: completed", WebSocketEventProducerClient.class.getCanonicalName());
+        LOGGER.debug("{}: completed", WebSocketEventProducerClient.class.getName());
     }
 
     /**
@@ -108,7 +109,7 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
      */
     public void shutdown() {
         client.stop();
-        LOGGER.debug("{}: stopped", WebSocketEventProducerClient.class.getCanonicalName());
+        LOGGER.debug("{}: stopped", WebSocketEventProducerClient.class.getName());
     }
 
     /**
@@ -116,8 +117,8 @@ public class WebSocketEventProducerClient implements WsStringMessageListener {
      */
     @Override
     public void receiveString(final String eventString) {
-        LOGGER.debug("{}:  host {}, port {}, received event {}", WebSocketEventProducerServer.class.getCanonicalName(),
-                        host, port, eventString);
+        LOGGER.debug("{}:  host {}, port {}, received event {}", WebSocketEventProducerServer.class.getName(), host,
+                        port, eventString);
     }
 
     /**

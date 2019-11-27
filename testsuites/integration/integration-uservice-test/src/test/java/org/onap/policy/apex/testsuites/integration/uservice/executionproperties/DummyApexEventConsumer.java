@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,22 +60,21 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-            final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+                    final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
-
 
         // Check and get the properties
         if (!(consumerParameters.getCarrierTechnologyParameters() instanceof DummyCarrierTechnologyParameters)) {
             String message = "specified consumer properties of type \""
-                    + consumerParameters.getCarrierTechnologyParameters().getClass().getCanonicalName()
-                    + "\" are not applicable to a dummy consumer";
+                            + consumerParameters.getCarrierTechnologyParameters().getClass().getName()
+                            + "\" are not applicable to a dummy consumer";
             LOGGER.warn(message);
             throw new ApexEventException(message);
         }
 
-        dummyConsumerProperties =
-                (DummyCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+        dummyConsumerProperties = (DummyCarrierTechnologyParameters) consumerParameters
+                        .getCarrierTechnologyParameters();
     }
 
     @Override
@@ -107,7 +107,8 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
     }
 
     @Override
-    public void stop() {}
+    public void stop() {
+    }
 
     private class RunTestEventSender implements Runnable {
         @Override
@@ -117,7 +118,7 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
                 executionProperties.load(new FileInputStream(new File(dummyConsumerProperties.getPropertyFileName())));
             } catch (IOException e1) {
                 String message = "reading of executor properties for testing failed from file: "
-                        + dummyConsumerProperties.getPropertyFileName();
+                                + dummyConsumerProperties.getPropertyFileName();
                 LOGGER.warn(message);
                 throw new ApexEventRuntimeException(message);
             }

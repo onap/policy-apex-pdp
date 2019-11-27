@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,11 +83,11 @@ public class ApexServicesRestMain {
             parameters = parser.parse(args);
         } catch (final ApexServicesRestParameterException e) {
             throw new ApexServicesRestParameterException(REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, "
-                            + e.getMessage() + '\n' + parser.getHelp(ApexServicesRestMain.class.getCanonicalName()), e);
+                            + e.getMessage() + '\n' + parser.getHelp(ApexServicesRestMain.class.getName()), e);
         }
 
         if (parameters.isHelpSet()) {
-            throw new ApexServicesRestParameterException(parser.getHelp(ApexServicesRestMain.class.getCanonicalName()));
+            throw new ApexServicesRestParameterException(parser.getHelp(ApexServicesRestMain.class.getName()));
         }
 
         // Validate the parameters
@@ -94,7 +95,7 @@ public class ApexServicesRestMain {
         if (validationMessage.length() > 0) {
             throw new ApexServicesRestParameterException(
                             REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, " + validationMessage + '\n'
-                                            + parser.getHelp(ApexServicesRestMain.class.getCanonicalName()));
+                                            + parser.getHelp(ApexServicesRestMain.class.getName()));
         }
 
         state = EditorState.READY;
@@ -140,7 +141,8 @@ public class ApexServicesRestMain {
             String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
             outStream.println(message);
             LOGGER.warn(message, e);
-        } finally {
+        }
+        finally {
             if (apexServices != null) {
                 apexServices.shutdown();
                 apexServices = null;
@@ -195,7 +197,7 @@ public class ApexServicesRestMain {
             }
         }
     }
-    
+
     /**
      * Main method, main entry point for command.
      *

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -107,11 +108,11 @@ public class KafkaEventProducer implements Runnable {
      */
     private void sendEventsToTopic(final Producer<String, String> producer) {
         LOGGER.debug("{} : sending events to Kafka server, event count {}, xmlEvents {}",
-                        KafkaEventProducer.class.getCanonicalName(), eventCount, xmlEvents);
+                        KafkaEventProducer.class.getName(), eventCount, xmlEvents);
 
         for (int i = 0; i < eventCount; i++) {
-            LOGGER.debug("{} : waiting {} milliseconds before sending next event",
-                            KafkaEventProducer.class.getCanonicalName(), eventInterval);
+            LOGGER.debug("{} : waiting {} milliseconds before sending next event", KafkaEventProducer.class.getName(),
+                            eventInterval);
             ThreadUtilities.sleep(eventInterval);
 
             String eventString = null;
@@ -125,7 +126,7 @@ public class KafkaEventProducer implements Runnable {
             eventsSentCount++;
             LOGGER.debug("****** Sent event No. {} ******", eventsSentCount);
         }
-        LOGGER.debug("{}: completed", KafkaEventProducer.class.getCanonicalName());
+        LOGGER.debug("{}: completed", KafkaEventProducer.class.getName());
     }
 
     /**
@@ -141,7 +142,7 @@ public class KafkaEventProducer implements Runnable {
      * Shutdown.
      */
     public void shutdown() {
-        LOGGER.debug("{} : stopping", KafkaEventProducer.class.getCanonicalName());
+        LOGGER.debug("{} : stopping", KafkaEventProducer.class.getName());
 
         stopFlag = true;
 
@@ -149,6 +150,6 @@ public class KafkaEventProducer implements Runnable {
             ThreadUtilities.sleep(10);
         }
 
-        LOGGER.debug("{} : stopped", KafkaEventProducer.class.getCanonicalName());
+        LOGGER.debug("{} : stopped", KafkaEventProducer.class.getName());
     }
 }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +50,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
         server = new WsStringMessageServer(port);
         server.start(this);
 
-        LOGGER.debug("{}: port {}, waiting for events", WebSocketEventSubscriberServer.class.getCanonicalName(), port);
+        LOGGER.debug("{}: port {}, waiting for events", WebSocketEventSubscriberServer.class.getName(), port);
     }
 
     /**
@@ -57,7 +58,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
      */
     @Override
     public void receiveString(final String eventString) {
-        LOGGER.debug("{}: port {}, received event {}", WebSocketEventSubscriberServer.class.getCanonicalName(), port,
+        LOGGER.debug("{}: port {}, received event {}", WebSocketEventSubscriberServer.class.getName(), port,
                         eventString);
         eventsReceivedCount++;
     }
@@ -76,7 +77,7 @@ public class WebSocketEventSubscriberServer implements WsStringMessageListener {
      */
     public void shutdown() {
         server.stop();
-        LOGGER.debug("{} : stopped", WebSocketEventSubscriberServer.class.getCanonicalName());
+        LOGGER.debug("{} : stopped", WebSocketEventSubscriberServer.class.getName());
     }
 
     /**
