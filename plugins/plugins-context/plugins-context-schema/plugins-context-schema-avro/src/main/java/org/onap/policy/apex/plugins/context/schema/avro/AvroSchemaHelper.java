@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -152,7 +153,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
     /**
      * Create an instance of a sub type of this type.
-     * 
+     *
      * @param schema the Avro schema of the the type
      * @param subInstanceType the sub type
      * @param foundTypes types we have already found
@@ -188,7 +189,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
     /**
      * Instantiate a sub instance of a type.
-     * 
+     *
      * @param subInstanceType the type of the sub instance to create
      * @param subSchema the sub schema we have received
      * @param foundTypes types we have already found
@@ -245,7 +246,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
     /**
      * Check that the incoming object is a string, the incoming object must be a string containing Json.
-     * 
+     *
      * @param object incoming object
      * @return object as String
      */
@@ -258,8 +259,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             }
         } catch (final ClassCastException e) {
             final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
-                            + (object != null ? object.getClass().getCanonicalName() : "null")
-                            + "\" must be assignable to \"" + getSchemaClass().getCanonicalName()
+                            + (object != null ? object.getClass().getName() : "null") + "\" must be assignable to \""
+                            + getSchemaClass().getName()
                             + "\" or be a Json string representation of it for Avro unmarshalling";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
@@ -268,7 +269,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
     /**
      * Get a string object.
-     * 
+     *
      * @param object the string object
      * @return the string
      */

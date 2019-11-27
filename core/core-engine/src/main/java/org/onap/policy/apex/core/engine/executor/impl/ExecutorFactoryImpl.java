@@ -193,7 +193,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         // executor class
         if (executorClass == null) {
             final String errorMessage = "Executor plugin class not defined for \"" + logicFlavour
-                            + "\" executor of type \"" + executorSuperClass.getCanonicalName() + "\"";
+                            + "\" executor of type \"" + executorSuperClass.getName() + "\"";
             LOGGER.error(errorMessage);
             throw new StateMachineRuntimeException(errorMessage);
         }
@@ -204,7 +204,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
             executorObject = executorClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             final String errorMessage = "Instantiation error on \"" + logicFlavour + "\" executor of type \""
-                            + executorClass.getCanonicalName() + "\"";
+                            + executorClass.getName() + "\"";
             LOGGER.error(errorMessage, e);
             throw new StateMachineRuntimeException(errorMessage, e);
         }
@@ -212,7 +212,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         // Check the class is the correct type of executor
         if (!(executorSuperClass.isAssignableFrom(executorObject.getClass()))) {
             final String errorMessage = "Executor on \"" + logicFlavour + "\" of type \"" + executorClass
-                            + "\" is not an instance of \"" + executorSuperClass.getCanonicalName() + "\"";
+                            + "\" is not an instance of \"" + executorSuperClass.getName() + "\"";
 
             LOGGER.error(errorMessage);
             throw new StateMachineRuntimeException(errorMessage);

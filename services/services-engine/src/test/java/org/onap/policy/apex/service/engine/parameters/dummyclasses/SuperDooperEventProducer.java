@@ -80,7 +80,7 @@ public class SuperDooperEventProducer implements ApexEventProducer {
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
             final Object event) {
-        LOGGER.info("Sending Event: " + this.getClass().getCanonicalName() + ":" + this.name + " ... event ("
+        LOGGER.info("Sending Event: " + this.getClass().getName() + ":" + this.name + " ... event ("
                 + eventName + ") : " + event);
     }
 

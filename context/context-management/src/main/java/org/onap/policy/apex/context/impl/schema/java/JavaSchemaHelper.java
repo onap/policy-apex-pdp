@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,9 +120,9 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         final String returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
-                        + incomingObject.getClass().getCanonicalName()
-                        + "\" is not an instance of JsonObject and is not assignable to \""
-                        + getSchemaClass().getCanonicalName() + "\"";
+                        + incomingObject.getClass().getName()
+                        + "\" is not an instance of JsonObject and is not assignable to \"" + getSchemaClass().getName()
+                        + "\"";
         LOGGER.warn(returnString);
         throw new ContextRuntimeException(returnString);
     }
@@ -167,8 +168,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return getGson().toJson(schemaObject);
         } else {
             final String returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
-                            + "\" of class \"" + schemaObject.getClass().getCanonicalName()
-                            + "\" not compatible with class \"" + getSchemaClass().getCanonicalName() + "\"";
+                            + "\" of class \"" + schemaObject.getClass().getName() + "\" not compatible with class \""
+                            + getSchemaClass().getName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -224,8 +225,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
             final String returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
-                            + object.getClass().getCanonicalName() + "\" not compatible with class \""
-                            + getSchemaClass().getCanonicalName() + "\"";
+                            + object.getClass().getName() + "\" not compatible with class \""
+                            + getSchemaClass().getName() + "\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
@@ -233,7 +234,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
 
     /**
      * Get a GSON instance that has the correct adaptation included.
-     * 
+     *
      * @return the GSON instance
      */
     private Gson getGson() {
@@ -244,11 +245,11 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
 
         JavaSchemaHelperParameters javaSchemaHelperParmeters = (JavaSchemaHelperParameters) schemaParameters
                         .getSchemaHelperParameterMap().get("Java");
-        
+
         if (javaSchemaHelperParmeters == null) {
             javaSchemaHelperParmeters = new JavaSchemaHelperParameters();
         }
-        
+
         for (JavaSchemaHelperJsonAdapterParameters jsonAdapterEntry : javaSchemaHelperParmeters.getJsonAdapters()
                         .values()) {
 

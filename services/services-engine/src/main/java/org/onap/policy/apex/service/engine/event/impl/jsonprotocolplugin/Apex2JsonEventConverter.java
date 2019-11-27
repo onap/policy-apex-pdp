@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -124,7 +125,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Decode a list of Apex events.
-     * 
+     *
      * @param eventName the name of the incoming events
      * @param jsonEventString the JSON representation of the event list
      * @param decodedJsonObject The JSON list object
@@ -176,9 +177,8 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     }
 
     /**
-    /**
      * Serialise an Apex event to a JSON string field by field.
-     * 
+     *
      * @param apexEvent the event to Serialise
      * @return the Serialise event as JSON
      * @throws ApexEventException exceptions on marshaling to JSON
@@ -207,8 +207,8 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
             if (!apexEvent.containsKey(fieldName)) {
                 if (!eventField.getOptional()) {
-                    final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. "
-                                    + "Field \"" + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
+                    final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. " + "Field \""
+                                    + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
                     LOGGER.debug(errorMessage);
                     throw new ApexEventRuntimeException(errorMessage);
                 }
@@ -229,7 +229,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Serialise an Apex event to a JSON string as a single POJO.
-     * 
+     *
      * @param apexEvent the event to Serialise
      * @return the Serialise event as JSON
      * @throws ApexEventException exceptions on marshaling to JSON
@@ -268,7 +268,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         // Get the schema helper
         final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory()
                         .createSchemaHelper(pojoFieldDefinition.getKey(), pojoFieldDefinition.getSchema());
-        
+
         return fieldSchemaHelper.marshal2String(fieldValue);
     }
 
@@ -322,7 +322,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Decode an Apex event field by field.
-     * 
+     *
      * @param jsonObject the JSON representation of the event
      * @param apexEvent the incoming event header
      * @param eventDefinition the definition of the event from the model
@@ -358,7 +358,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Decode an Apex event as a single POJO.
-     * 
+     *
      * @param jsonObject the JSON representation of the event
      * @param apexEvent the incoming event header
      * @param eventDefinition the definition of the event from the model
@@ -439,7 +439,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Determine the name field of the event header.
-     * 
+     *
      * @param jsonObject the event in JSON format
      * @param parameterEventName the configured event name from the parameters
      * @return the event name to use on the event header
@@ -468,7 +468,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Determine the version field of the event header.
-     * 
+     *
      * @param jsonObject the event in JSON format
      * @return the event version
      */
@@ -481,7 +481,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Determine the name space field of the event header.
-     * 
+     *
      * @param jsonObject the event in JSON format
      * @param eventName the name of the event
      * @param eventDefinition the definition of the event structure
@@ -505,7 +505,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Determine the source field of the event header.
-     * 
+     *
      * @param jsonObject the event in JSON format
      * @param eventDefinition the definition of the event structure
      * @return the event version
@@ -522,7 +522,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
     /**
      * Determine the target field of the event header.
-     * 
+     *
      * @param jsonObject the event in JSON format
      * @param eventDefinition the definition of the event structure
      * @return the event version
@@ -565,7 +565,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         } catch (final Exception e) {
             // The element is not a string so throw an error
             throw new ApexEventRuntimeException("field \"" + fieldName + "\" with type \""
-                            + jsonField.getClass().getCanonicalName() + "\" is not a string value", e);
+                            + jsonField.getClass().getName() + "\" is not a string value", e);
         }
 
         // Is regular expression checking required

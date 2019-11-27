@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +61,7 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         // on both sides of Apex
         if (!(parameters instanceof JmsObjectEventProtocolParameters)) {
             final String errormessage = "specified Event Protocol Parameters properties of type \""
-                            + parameters.getClass().getCanonicalName() + "\" are not applicable to a "
+                            + parameters.getClass().getName() + "\" are not applicable to a "
                             + Apex2JmsObjectEventConverter.class.getName() + " converter";
             LOGGER.error(errormessage);
         } else {

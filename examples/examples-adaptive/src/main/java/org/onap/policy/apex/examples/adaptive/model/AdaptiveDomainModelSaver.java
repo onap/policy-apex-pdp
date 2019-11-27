@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,21 +51,21 @@ public final class AdaptiveDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 1) {
-            LOGGER.error("usage: " + AdaptiveDomainModelSaver.class.getCanonicalName() + " modelDirectory");
+            LOGGER.error("usage: " + AdaptiveDomainModelSaver.class.getName() + " modelDirectory");
             return;
         }
 
         // Save Anomaly Detection model
         final AxPolicyModel adPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
-        final ApexModelSaver<AxPolicyModel> adModelSaver =
-                        new ApexModelSaver<>(AxPolicyModel.class, adPolicyModel, args[0]);
+        final ApexModelSaver<AxPolicyModel> adModelSaver = new ApexModelSaver<>(AxPolicyModel.class, adPolicyModel,
+                        args[0]);
         adModelSaver.apexModelWriteJson();
         adModelSaver.apexModelWriteXml();
 
         // Save Auto Learn model
         final AxPolicyModel alPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
-        final ApexModelSaver<AxPolicyModel> alModelSaver =
-                        new ApexModelSaver<>(AxPolicyModel.class, alPolicyModel, args[0]);
+        final ApexModelSaver<AxPolicyModel> alModelSaver = new ApexModelSaver<>(AxPolicyModel.class, alPolicyModel,
+                        args[0]);
         alModelSaver.apexModelWriteJson();
         alModelSaver.apexModelWriteXml();
     }

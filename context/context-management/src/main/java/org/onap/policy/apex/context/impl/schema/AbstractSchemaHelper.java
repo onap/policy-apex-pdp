@@ -123,7 +123,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             return schemaClass.newInstance();
         } catch (final Exception e) {
             final String returnString = userKey.getId() + ": could not create an instance of class \""
-                            + schemaClass.getCanonicalName() + "\" using the default constructor \""
+                            + schemaClass.getName() + "\" using the default constructor \""
                             + schemaClass.getSimpleName() + "()\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString, e);
@@ -150,7 +150,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             return stringConstructor.newInstance(stringValue);
         } catch (final Exception e) {
             final String returnString = userKey.getId() + ": could not create an instance of class \""
-                            + schemaClass.getCanonicalName() + "\" using the string constructor \""
+                            + schemaClass.getName() + "\" using the string constructor \""
                             + schemaClass.getSimpleName() + "(String)\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);

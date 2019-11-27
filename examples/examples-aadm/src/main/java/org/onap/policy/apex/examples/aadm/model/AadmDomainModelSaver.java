@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +39,8 @@ public final class AadmDomainModelSaver {
     /**
      * Private default constructor to prevent subclassing.
      */
-    private AadmDomainModelSaver() {}
+    private AadmDomainModelSaver() {
+    }
 
     /**
      * Write the AADM model to args[0].
@@ -48,14 +50,14 @@ public final class AadmDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 1) {
-            LOGGER.error("usage: " + AadmDomainModelSaver.class.getCanonicalName() + " modelDirectory");
+            LOGGER.error("usage: " + AadmDomainModelSaver.class.getName() + " modelDirectory");
             return;
         }
 
         // Save Java model
         final AxPolicyModel aadmPolicyModel = new AadmDomainModelFactory().getAadmPolicyModel();
-        final ApexModelSaver<AxPolicyModel> aadmModelSaver =
-                new ApexModelSaver<>(AxPolicyModel.class, aadmPolicyModel, args[0]);
+        final ApexModelSaver<AxPolicyModel> aadmModelSaver = new ApexModelSaver<>(AxPolicyModel.class, aadmPolicyModel,
+                        args[0]);
         aadmModelSaver.apexModelWriteJson();
         aadmModelSaver.apexModelWriteXml();
     }

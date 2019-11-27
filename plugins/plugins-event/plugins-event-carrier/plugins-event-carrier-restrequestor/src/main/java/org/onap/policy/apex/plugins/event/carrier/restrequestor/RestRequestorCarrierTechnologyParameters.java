@@ -77,11 +77,11 @@ public class RestRequestorCarrierTechnologyParameters extends CarrierTechnologyP
 
     /** The producer plugin class for the REST carrier technology. */
     public static final String RESTREQUSTOR_EVENT_PRODUCER_PLUGIN_CLASS =
-            ApexRestRequestorProducer.class.getCanonicalName();
+            ApexRestRequestorProducer.class.getName();
 
     /** The consumer plugin class for the REST carrier technology. */
     public static final String RESTREQUSTOR_EVENT_CONSUMER_PLUGIN_CLASS =
-            ApexRestRequestorConsumer.class.getCanonicalName();
+            ApexRestRequestorConsumer.class.getName();
 
     /** The default HTTP method for request events. */
     public static final HttpMethod DEFAULT_REQUESTOR_HTTP_METHOD = HttpMethod.GET;

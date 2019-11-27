@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +37,8 @@ public final class MfpDomainModelSaver {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(MfpDomainModelSaver.class);
 
     /** Private constructor to prevent instantiation. */
-    private MfpDomainModelSaver() {}
+    private MfpDomainModelSaver() {
+    }
 
     /**
      * Write the MyFirstPolicy model to args[0].
@@ -46,14 +48,14 @@ public final class MfpDomainModelSaver {
      */
     public static void main(final String[] args) throws ApexException {
         if (args.length != 1) {
-            LOGGER.error("usage: " + MfpDomainModelSaver.class.getCanonicalName() + " modelDirectory");
+            LOGGER.error("usage: " + MfpDomainModelSaver.class.getName() + " modelDirectory");
             return;
         }
 
         // Save Java model
         AxPolicyModel mfpPolicyModel = new MfpDomainModelFactory().getMfp1PolicyModel();
-        ApexModelSaver<AxPolicyModel> mfpModelSaver =
-                new ApexModelSaver<>(AxPolicyModel.class, mfpPolicyModel, args[0] + "/1/");
+        ApexModelSaver<AxPolicyModel> mfpModelSaver = new ApexModelSaver<>(AxPolicyModel.class, mfpPolicyModel,
+                        args[0] + "/1/");
         mfpModelSaver.apexModelWriteJson();
         mfpModelSaver.apexModelWriteXml();
 

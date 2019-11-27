@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,18 +83,18 @@ public class ApexEditorMain {
             parameters = parser.parse(args);
         } catch (final ApexEditorParameterException e) {
             throw new ApexEditorParameterException(REST_ENDPOINT_PREFIX + this.toString() + ") parameter error, "
-                            + e.getMessage() + '\n' + parser.getHelp(ApexEditorMain.class.getCanonicalName()), e);
+                            + e.getMessage() + '\n' + parser.getHelp(ApexEditorMain.class.getName()), e);
         }
 
         if (parameters.isHelpSet()) {
-            throw new ApexEditorParameterException(parser.getHelp(ApexEditorMain.class.getCanonicalName()));
+            throw new ApexEditorParameterException(parser.getHelp(ApexEditorMain.class.getName()));
         }
 
         // Validate the parameters
         final String validationMessage = parameters.validate();
         if (validationMessage.length() > 0) {
             throw new ApexEditorParameterException(REST_ENDPOINT_PREFIX + this.toString() + ") parameters invalid, "
-                            + validationMessage + '\n' + parser.getHelp(ApexEditorMain.class.getCanonicalName()));
+                            + validationMessage + '\n' + parser.getHelp(ApexEditorMain.class.getName()));
         }
 
         state = EditorState.READY;
@@ -139,7 +140,8 @@ public class ApexEditorMain {
             String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
             outStream.println(message);
             LOGGER.warn(message, e);
-        } finally {
+        }
+        finally {
             if (apexEditor != null) {
                 apexEditor.shutdown();
                 apexEditor = null;

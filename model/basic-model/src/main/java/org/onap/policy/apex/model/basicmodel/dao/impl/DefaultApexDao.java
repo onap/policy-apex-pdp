@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,7 +120,8 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             mg.merge(obj);
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -137,7 +139,8 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             mg.remove(mg.contains(obj) ? obj : mg.merge(obj));
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -156,7 +159,8 @@ public class DefaultApexDao implements ApexDao {
             mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
                             + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -176,7 +180,8 @@ public class DefaultApexDao implements ApexDao {
                             + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
                             + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -196,7 +201,8 @@ public class DefaultApexDao implements ApexDao {
                 mg.merge(t);
             }
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -216,7 +222,8 @@ public class DefaultApexDao implements ApexDao {
                 mg.remove(mg.contains(t) ? t : mg.merge(t));
             }
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -241,7 +248,8 @@ public class DefaultApexDao implements ApexDao {
                                 .executeUpdate();
             }
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
         return deletedCount;
@@ -266,7 +274,8 @@ public class DefaultApexDao implements ApexDao {
                                 + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
             }
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
         return deletedCount;
@@ -282,7 +291,8 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             mg.createQuery(DELETE_FROM + someClass.getSimpleName() + " c ", someClass).executeUpdate();
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -305,13 +315,14 @@ public class DefaultApexDao implements ApexDao {
                     t.copyTo(clonedT);
                     return clonedT;
                 } catch (final Exception e) {
-                    LOGGER.warn("Could not clone object of class \"" + someClass.getCanonicalName() + "\"", e);
+                    LOGGER.warn("Could not clone object of class \"" + someClass.getName() + "\"", e);
                     return null;
                 }
             } else {
                 return null;
             }
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -333,13 +344,14 @@ public class DefaultApexDao implements ApexDao {
                     t.copyTo(clonedT);
                     return clonedT;
                 } catch (final Exception e) {
-                    LOGGER.warn("Could not clone object of class \"" + someClass.getCanonicalName() + "\"", e);
+                    LOGGER.warn("Could not clone object of class \"" + someClass.getName() + "\"", e);
                     return null;
                 }
             } else {
                 return null;
             }
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -355,7 +367,8 @@ public class DefaultApexDao implements ApexDao {
         final EntityManager mg = getEntityManager();
         try {
             return mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + " c", someClass).getResultList();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -373,7 +386,8 @@ public class DefaultApexDao implements ApexDao {
             return mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
                             + parentKey.getName() + AND_C_KEY_PARENT_KEY_VERSION + parentKey.getVersion() + "'",
                             someClass).getResultList();
-        } finally {
+        }
+        finally {
             mg.close();
         }
     }
@@ -391,7 +405,8 @@ public class DefaultApexDao implements ApexDao {
         try {
             ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
                             + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).getResultList();
-        } finally {
+        }
+        finally {
             mg.close();
         }
         if (ret == null || ret.isEmpty()) {
@@ -418,7 +433,8 @@ public class DefaultApexDao implements ApexDao {
             ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
                             + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
                             + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).getResultList();
-        } finally {
+        }
+        finally {
             mg.close();
         }
         if (ret == null || ret.isEmpty()) {
@@ -443,7 +459,8 @@ public class DefaultApexDao implements ApexDao {
             ret = mg.merge(obj);
             mg.flush();
             mg.getTransaction().commit();
-        } finally {
+        }
+        finally {
             mg.close();
         }
         return ret;
@@ -462,7 +479,8 @@ public class DefaultApexDao implements ApexDao {
         try {
             size = mg.createQuery("SELECT COUNT(c) FROM " + someClass.getSimpleName() + " c", Long.class)
                             .getSingleResult();
-        } finally {
+        }
+        finally {
             mg.close();
         }
         return size;
