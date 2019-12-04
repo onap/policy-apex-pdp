@@ -23,6 +23,7 @@ package org.onap.policy.apex.services.onappf.parameters.dummyclasses;
 
 import java.util.Map;
 import java.util.Properties;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -31,11 +32,13 @@ import org.onap.policy.apex.core.engine.executor.exception.StateMachineException
  * Dummy state finalizer executor for testing.
  */
 public class DummyStateFinalizerExecutor extends StateFinalizerExecutor {
-    public DummyStateFinalizerExecutor() {}
+    public DummyStateFinalizerExecutor() {
+        // Private constructor to prevent subclassing
+    }
 
     @Override
     public String execute(final long executionId, final Properties executorProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+                    final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
 
         return "stateOutput0";
     }
