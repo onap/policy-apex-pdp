@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "393e7944_4913b307",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-12-04T13:57:04Z",
+      "side": 1,
+      "message": "I\u0027m using the new checkstyle, but it\u0027s complaining about a number of spacing issues that, if corrected, don\u0027t pass the checkstyle used in jenkins.  Have you seen this?",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ad25cf2_b8132e42",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateFinalizerExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-12-04T13:57:04Z",
+      "side": 1,
+      "message": "hmm.  now it\u0027s more difficult to see where the declaration ends and the fields begin. :-(",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c2879c5_90595d49",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/messaging/util/MessagingUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-12-04T13:57:04Z",
+      "side": 1,
+      "message": "hmm.  this definitely seems odd",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a17ec90_20d46a4a",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/dummyclasses/DummyTaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-12-04T13:57:04Z",
+      "side": 1,
+      "message": "is a comment needed in the body?\n\nsame comment below",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a083d390_f8c34763",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/dummyclasses/SuperDooperEventProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-12-04T13:57:04Z",
+      "side": 1,
+      "message": "comment?",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2b21cd9_d0141ceb",
+        "filename": "testsuites/integration/integration-context-test/src/test/resources/infinispan/default-jgroups-udp.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-12-04T13:57:04Z",
+      "side": 1,
+      "message": "this is the correct indentation level??  it seems more difficult to see the structure of the document :-(",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
