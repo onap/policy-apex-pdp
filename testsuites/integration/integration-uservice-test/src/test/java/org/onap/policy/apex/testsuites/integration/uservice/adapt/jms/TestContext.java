@@ -90,49 +90,65 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void bind(final Name name, final Object obj) throws NamingException {}
+    public void bind(final Name name, final Object obj) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void bind(final String name, final Object obj) throws NamingException {}
+    public void bind(final String name, final Object obj) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void rebind(final Name name, final Object obj) throws NamingException {}
+    public void rebind(final Name name, final Object obj) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void rebind(final String name, final Object obj) throws NamingException {}
+    public void rebind(final String name, final Object obj) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void unbind(final Name name) throws NamingException {}
+    public void unbind(final Name name) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void unbind(final String name) throws NamingException {}
+    public void unbind(final String name) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void rename(final Name oldName, final Name newName) throws NamingException {}
+    public void rename(final Name oldName, final Name newName) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void rename(final String oldName, final String newName) throws NamingException {}
+    public void rename(final String oldName, final String newName) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
@@ -170,13 +186,17 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void destroySubcontext(final Name name) throws NamingException {}
+    public void destroySubcontext(final Name name) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void destroySubcontext(final String name) throws NamingException {}
+    public void destroySubcontext(final String name) throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.
@@ -270,7 +290,9 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void close() throws NamingException {}
+    public void close() throws NamingException {
+        // Not used here
+    }
 
     /**
      * {@inheritDoc}.

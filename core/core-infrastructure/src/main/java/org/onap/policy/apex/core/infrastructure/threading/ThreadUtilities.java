@@ -30,7 +30,9 @@ public final class ThreadUtilities {
     /**
      * Private constructor to prevent sub-classing of this class.
      */
-    private ThreadUtilities() {}
+    private ThreadUtilities() {
+        // Private constructor to prevent subclassing
+    }
 
     /**
      * Sleeps for the specified number of milliseconds, hiding interrupt handling.

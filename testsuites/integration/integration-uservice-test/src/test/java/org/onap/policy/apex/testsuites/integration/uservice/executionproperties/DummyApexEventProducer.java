@@ -125,7 +125,6 @@ public class DummyApexEventProducer implements ApexEventProducer {
             throw new ApexEventRuntimeException(message);
         }
 
-
         try {
             executionProperties.store(new FileOutputStream(new File(dummyProducerProperties.getPropertyFileName())),
                     "");
@@ -141,5 +140,7 @@ public class DummyApexEventProducer implements ApexEventProducer {
      * {@inheritDoc}.
      */
     @Override
-    public void stop() {}
+    public void stop() {
+        // Not used
+    }
 }

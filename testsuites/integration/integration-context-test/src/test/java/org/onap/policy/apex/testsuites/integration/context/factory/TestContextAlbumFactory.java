@@ -60,7 +60,9 @@ public final class TestContextAlbumFactory {
     /**
      * Default constructor to prevent sub-classing.
      */
-    private TestContextAlbumFactory() {}
+    private TestContextAlbumFactory() {
+        // Private constructor to block subclassing
+    }
 
     /**
      * Creates the policy context model.

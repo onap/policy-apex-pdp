@@ -53,6 +53,7 @@ import org.slf4j.ext.XLoggerFactory;
 // TODO: Auto-generated Javadoc
 /**
  * This class tests AADM use case.
+ * 
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
  *
  */
@@ -86,7 +87,7 @@ public class AadmUseCaseTest {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         ParameterService.register(engineParameters);
@@ -98,7 +99,7 @@ public class AadmUseCaseTest {
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
@@ -441,7 +442,9 @@ public class AadmUseCaseTest {
      * Test vpn cleardown.
      */
     @After
-    public void testAadmCleardown() {}
+    public void testAadmCleardown() {
+        // Not used
+    }
 
     /**
      * Gets the trigger event.

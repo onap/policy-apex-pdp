@@ -31,7 +31,9 @@ import org.onap.policy.apex.core.engine.executor.exception.StateMachineException
  * Dummy state finalizer executor for testing.
  */
 public class DummyStateFinalizerExecutor extends StateFinalizerExecutor {
-    public DummyStateFinalizerExecutor() {}
+    public DummyStateFinalizerExecutor() {
+        // Default constructor
+    }
 
     @Override
     public String execute(final long executionId, final Properties executorProperties,
