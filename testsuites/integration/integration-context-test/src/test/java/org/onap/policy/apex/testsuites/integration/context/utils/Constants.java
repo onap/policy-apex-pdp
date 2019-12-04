@@ -68,7 +68,9 @@ public class Constants {
     /**
      * Instantiates a new constants.
      */
-    private Constants() {}
+    private Constants() {
+        // Private constructor to block subclassing
+    }
 
     /**
      * Gets the ax artifact key array.

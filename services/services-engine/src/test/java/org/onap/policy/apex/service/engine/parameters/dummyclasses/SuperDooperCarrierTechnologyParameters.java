@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -47,8 +47,7 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private static final int DEFAULT_SESSION_TIMEOUT = 30000;
     private static final String DEFAULT_PRODUCER_TOPIC = "apex-out";
     private static final int DEFAULT_CONSUMER_POLL_TIME = 100;
-    private static final String[] DEFAULT_CONSUMER_TOPIC_LIST =
-        { "apex-in" };
+    private static final String[] DEFAULT_CONSUMER_TOPIC_LIST = {"apex-in"};
     private static final String DEFAULT_KEYSERZER = "org.apache.superDooper.common.serialization.StringSerializer";
     private static final String DEFAULT_VALSERZER = "org.apache.superDooper.common.serialization.StringSerializer";
     private static final String DEFAULT_KEYDESZER = "org.apache.superDooper.common.serialization.StringDeserializer";
@@ -99,9 +98,9 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
         // Set the carrier technology properties for the FILE carrier technology
         this.setLabel("SUPER_DOOPER");
         this.setEventProducerPluginClass(
-                        "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventProducer");
+                "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventProducer");
         this.setEventConsumerPluginClass(
-                        "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventSubscriber");
+                "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperEventSubscriber");
     }
 
     /**
@@ -466,32 +465,32 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
 
         if (bootstrapServers == null || bootstrapServers.trim().length() == 0) {
             result.setResult("bootstrapServers", ValidationStatus.INVALID,
-                            "bootstrapServers not specified, must be specified as a string of form host:port");
+                    "bootstrapServers not specified, must be specified as a string of form host:port");
         }
 
         if (acks == null || acks.trim().length() == 0) {
             result.setResult("acks", ValidationStatus.INVALID,
-                            "acks not specified, must be specified as a string with values [0|1|all]");
+                    "acks not specified, must be specified as a string with values [0|1|all]");
         }
 
         if (retries < 0) {
             result.setResult("retries", ValidationStatus.INVALID,
-                            "[" + retries + "] invalid, must be specified as retries >= 0");
+                    "[" + retries + "] invalid, must be specified as retries >= 0");
         }
 
         if (batchSize < 0) {
             result.setResult("batchSize", ValidationStatus.INVALID,
-                            "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
+                    "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
         }
 
         if (lingerTime < 0) {
             result.setResult("lingerTime", ValidationStatus.INVALID,
-                            "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
+                    "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
         }
 
         if (bufferMemory < 0) {
             result.setResult("bufferMemory", ValidationStatus.INVALID,
-                            "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
+                    "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
         }
 
         if (groupId == null || groupId.trim().length() == 0) {
@@ -500,34 +499,34 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
 
         if (autoCommitTime < 0) {
             result.setResult("autoCommitTime", ValidationStatus.INVALID,
-                            "[" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0");
+                    "[" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0");
         }
 
         if (sessionTimeout < 0) {
-            result.setResult("sessionTimeout", ValidationStatus.INVALID, "sessionTimeout [" + sessionTimeout
-                            + "] invalid, must be specified as sessionTimeout >= 0");
+            result.setResult("sessionTimeout", ValidationStatus.INVALID,
+                    "sessionTimeout [" + sessionTimeout + "] invalid, must be specified as sessionTimeout >= 0");
         }
 
         if (producerTopic == null || producerTopic.trim().length() == 0) {
             result.setResult("producerTopic", ValidationStatus.INVALID,
-                            "producerTopic not specified, must be specified as a string");
+                    "producerTopic not specified, must be specified as a string");
         }
 
         if (consumerPollTime < 0) {
             result.setResult("consumerPollTime", ValidationStatus.INVALID,
-                            "[" + consumerPollTime + "] invalid, must be specified as consumerPollTime >= 0");
+                    "[" + consumerPollTime + "] invalid, must be specified as consumerPollTime >= 0");
         }
 
         if (consumerTopicList == null || consumerTopicList.length == 0) {
             result.setResult("consumerTopicList", ValidationStatus.INVALID,
-                            "not specified, must be specified as a list of strings");
+                    "not specified, must be specified as a list of strings");
         }
 
         StringBuilder consumerTopicMessageBuilder = new StringBuilder();
         for (final String consumerTopic : consumerTopicList) {
             if (consumerTopic == null || consumerTopic.trim().length() == 0) {
                 consumerTopicMessageBuilder.append("  invalid consumer topic \"" + consumerTopic
-                                + "\" specified on consumerTopicList, consumer topics must be specified as strings");
+                        + "\" specified on consumerTopicList, consumer topics must be specified as strings");
             }
         }
 
@@ -541,17 +540,17 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
 
         if (valueSerializer == null || valueSerializer.trim().length() == 0) {
             result.setResult("valueSerializer", ValidationStatus.INVALID,
-                            "not specified, must be specified as a string");
+                    "not specified, must be specified as a string");
         }
 
         if (keyDeserializer == null || keyDeserializer.trim().length() == 0) {
             result.setResult("keyDeserializer", ValidationStatus.INVALID,
-                            "not specified, must be specified as a string");
+                    "not specified, must be specified as a string");
         }
 
         if (valueDeserializer == null || valueDeserializer.trim().length() == 0) {
             result.setResult("valueDeserializer", ValidationStatus.INVALID,
-                            "not specified, must be specified as a string");
+                    "not specified, must be specified as a string");
         }
 
         return result;

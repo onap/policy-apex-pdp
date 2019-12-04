@@ -37,7 +37,9 @@ public class TestContextLongItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextLongItem() {}
+    public TestContextLongItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

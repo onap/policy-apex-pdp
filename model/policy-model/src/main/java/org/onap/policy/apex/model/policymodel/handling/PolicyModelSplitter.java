@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -33,8 +33,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * Helper class used to extract information from a policy model into a policy model that is a subset
- * of the original policy model.
+ * Helper class used to extract information from a policy model into a policy model that is a subset of the original
+ * policy model.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -44,11 +44,12 @@ public final class PolicyModelSplitter {
     /**
      * Private constructor used to prevent sub class instantiation.
      */
-    private PolicyModelSplitter() {}
+    private PolicyModelSplitter() {
+        // Private constructor to block subclassing
+    }
 
     /**
-     * Get a sub policy model with only the information required for the specified policies from a
-     * larger policy model.
+     * Get a sub policy model with only the information required for the specified policies from a larger policy model.
      *
      * @param sourcePolicyModel the source Apex Model
      * @param subPolicies the policies to include in sub policy model
@@ -61,8 +62,7 @@ public final class PolicyModelSplitter {
     }
 
     /**
-     * Get a sub policy model with only the information required for the specified policies from a
-     * larger policy model.
+     * Get a sub policy model with only the information required for the specified policies from a larger policy model.
      *
      * @param sourcePolicyModel the source Apex Model
      * @param subPolicies the policies to include in sub policy model

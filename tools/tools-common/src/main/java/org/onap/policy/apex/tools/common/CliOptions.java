@@ -84,9 +84,9 @@ public final class CliOptions {
             .desc("set the input policy model file").build();
 
     /** A type option defining what type is used for events with "-t" and "--type". */
-    public static final Option TYPE = Option.builder("t").hasArg().argName("TYPE").longOpt("type").desc(
-            "set the event type for generation, one of: stimuli (trigger events), response (action events),"
-            + " internal (events between states)")
+    public static final Option TYPE = Option.builder("t").hasArg().argName("TYPE").longOpt("type")
+            .desc("set the event type for generation, one of: stimuli (trigger events), response (action events),"
+                    + " internal (events between states)")
             .build();
 
     /** A server option with "-s" and "--server". */
@@ -100,7 +100,9 @@ public final class CliOptions {
     /** A skip validation option with "-sv" and "--skip-validation". */
     public static final Option SKIPVALIDATION = Option.builder("sv").longOpt("skip-validation")
             .desc("switch of validation of the input file").required(false).type(boolean.class).build();
-    
+
     /** Private constructor to prevent instantiation. */
-    private CliOptions() {}
+    private CliOptions() {
+        // Private constructor to block subclassing
+    }
 }

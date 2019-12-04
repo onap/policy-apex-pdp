@@ -314,5 +314,7 @@ public abstract class TaskExecutor
      * {@inheritDoc}.
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+        // Not used
+    }
 }

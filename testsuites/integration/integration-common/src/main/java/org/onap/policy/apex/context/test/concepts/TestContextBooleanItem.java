@@ -38,7 +38,9 @@ public class TestContextBooleanItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextBooleanItem() {}
+    public TestContextBooleanItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

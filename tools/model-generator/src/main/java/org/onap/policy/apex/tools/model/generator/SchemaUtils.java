@@ -47,7 +47,9 @@ public final class SchemaUtils {
     /**
      * Private constructor to avoid instantiation.
      */
-    private SchemaUtils() {}
+    private SchemaUtils() {
+        // Private constructor to block subclassing
+    }
 
     /**
      * Returns the schema for an event.
