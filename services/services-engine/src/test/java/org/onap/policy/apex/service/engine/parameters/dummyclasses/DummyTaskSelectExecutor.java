@@ -32,18 +32,24 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
  * Dummy task selection executor for testing.
  */
 public class DummyTaskSelectExecutor extends TaskSelectExecutor {
-    public DummyTaskSelectExecutor() {}
+    public DummyTaskSelectExecutor() {
+        // Not used here
+    }
 
     @Override
-    public void prepare() throws StateMachineException {}
+    public void prepare() throws StateMachineException {
+        // Not used here
+    }
 
     @Override
     public AxArtifactKey execute(final long executionId, final Properties executorProperties,
-            final EnEvent newIncomingEvent) throws StateMachineException, ContextException {
+                    final EnEvent newIncomingEvent) throws StateMachineException, ContextException {
 
         return new AxArtifactKey("task:0.0.1");
     }
 
     @Override
-    public void cleanUp() throws StateMachineException {}
+    public void cleanUp() throws StateMachineException {
+        // Not used here
+    }
 }

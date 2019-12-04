@@ -47,7 +47,9 @@ public final class SchemaUtils {
     /**
      * Private constructor to avoid instantiation.
      */
-    private SchemaUtils() {}
+    private SchemaUtils() {
+        // Private constructor to prevent subclassing
+    }
 
     /**
      * Returns the schema for an event.
@@ -58,7 +60,7 @@ public final class SchemaUtils {
      */
     public static Schema getEventSchema(final AxEvent event) throws ApexEventException {
         final Schema skeletonSchema = Schema.createRecord(event.getKey().getName(), event.getNameSpace(),
-                "org.onap.policy.apex.model.eventmodel.events", false);
+                        "org.onap.policy.apex.model.eventmodel.events", false);
 
         // Get the schema field for each parameter
         final List<Field> fields = new ArrayList<>(getSkeletonEventSchemaFields());
@@ -99,9 +101,9 @@ public final class SchemaUtils {
      * @throws ApexEventException in case of any error
      */
     public static Schema getEventParameterSchema(final AxField parameter,
-            final Map<String, Schema> preexistingParamSchemas) throws ApexEventException {
-        final SchemaHelper schemaHelper =
-                new SchemaHelperFactory().createSchemaHelper(parameter.getKey(), parameter.getSchema().getKey());
+                    final Map<String, Schema> preexistingParamSchemas) throws ApexEventException {
+        final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(parameter.getKey(),
+                        parameter.getSchema().getKey());
 
         Schema parameterSchema = null;
         try {
@@ -112,8 +114,8 @@ public final class SchemaUtils {
             }
         } catch (final AvroRuntimeException e) {
             throw new ApexEventException("failed to decode a schema for parameter " + parameter.getKey().getLocalName()
-                    + " of type " + parameter.getSchema().getId() + " with Java type " + schemaHelper.getSchemaClass(),
-                    e);
+                            + " of type " + parameter.getSchema().getId() + " with Java type "
+                            + schemaHelper.getSchemaClass(), e);
         }
         final String schemaname = parameterSchema.getFullName();
 
@@ -126,7 +128,7 @@ public final class SchemaUtils {
             processSubSchemas(parameterSchema, preexistingParamSchemas);
         } catch (AvroRuntimeException | ApexEventException e) {
             throw new ApexEventException("failed to decode a schema for parameter " + parameter.getKey().getLocalName()
-                    + " of type " + parameter.getSchema().getId() + " using Schema type " + schemaname, e);
+                            + " of type " + parameter.getSchema().getId() + " using Schema type " + schemaname, e);
         }
         if (alreadyseen != null) {
             parameterSchema = alreadyseen;
@@ -143,13 +145,13 @@ public final class SchemaUtils {
      * @throws ApexEventException in case of any error
      */
     public static void processSubSchemas(final Schema avroParameterSchema, final Map<String, Schema> map)
-            throws ApexEventException {
+                    throws ApexEventException {
         if (avroParameterSchema.getType() == Schema.Type.RECORD) {
             final String schematypename = avroParameterSchema.getFullName();
             final Schema alreadyregistered = map.get(schematypename);
             if (alreadyregistered != null && !avroParameterSchema.equals(alreadyregistered)) {
-                throw new ApexEventException(
-                        "Parameter attempts to redefine type " + schematypename + " when it has already been defined");
+                throw new ApexEventException("Parameter attempts to redefine type " + schematypename
+                                + " when it has already been defined");
             }
             map.put(schematypename, avroParameterSchema);
             for (final Schema.Field f : avroParameterSchema.getFields()) {

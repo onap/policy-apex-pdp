@@ -60,7 +60,9 @@ public abstract class ClassUtils {
     /**
      * Private constructor used to prevent sub class instantiation.
      */
-    private ClassUtils() {}
+    private ClassUtils() {
+        // Private constructor to prevent subclassing
+    }
 
     /**
      * Get the class names of all classes on the class path. WARNING: This is a heavy call, use sparingly
@@ -79,7 +81,8 @@ public abstract class ClassUtils {
             if (sunBootLibraryPathString != null && sunBootLibraryPathString.contains(LIBRARAY_PATH_TOKEN)) {
                 // Strip any superfluous trailer from path
                 sunBootLibraryPathString = sunBootLibraryPathString.substring(0,
-                        sunBootLibraryPathString.lastIndexOf(LIBRARAY_PATH_TOKEN) + LIBRARAY_PATH_TOKEN.length());
+                                sunBootLibraryPathString.lastIndexOf(LIBRARAY_PATH_TOKEN)
+                                                + LIBRARAY_PATH_TOKEN.length());
 
                 final File bootLibraryFile = new File(sunBootLibraryPathString);
                 // The set used to hold class names is populated with predefined Java classes
@@ -166,8 +169,8 @@ public abstract class ClassUtils {
                 classNameSet.addAll(processJar(child));
             } else if (child.getName().endsWith(".class") && !child.getName().contains("$")) {
                 // Process the ".class" file
-                classNameSet.add(
-                        child.getAbsolutePath().replace(rootDir, "").replaceFirst(CLASS_PATTERN, "").replace('/', '.'));
+                classNameSet.add(child.getAbsolutePath().replace(rootDir, "").replaceFirst(CLASS_PATTERN, "")
+                                .replace('/', '.'));
             }
         }
         return classNameSet;

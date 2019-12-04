@@ -43,7 +43,8 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     /**
      * Default constructor.
      */
-    public AxConcept() {}
+    public AxConcept() {
+    }
 
     /**
      * Copy constructor.

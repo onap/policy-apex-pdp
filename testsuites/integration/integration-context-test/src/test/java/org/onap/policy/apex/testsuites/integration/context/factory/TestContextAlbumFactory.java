@@ -60,7 +60,9 @@ public final class TestContextAlbumFactory {
     /**
      * Default constructor to prevent sub-classing.
      */
-    private TestContextAlbumFactory() {}
+    private TestContextAlbumFactory() {
+        // Private constructor to prevent subclassing
+    }
 
     /**
      * Creates the policy context model.
@@ -69,9 +71,9 @@ public final class TestContextAlbumFactory {
      */
     public static AxContextModel createPolicyContextModel() {
         final AxContextSchema policySchema = new AxContextSchema(new AxArtifactKey("PolicySchema", VERSION),
-                JAVA_FLAVOUR, TestPolicyContextItem.class.getName());
+                        JAVA_FLAVOUR, TestPolicyContextItem.class.getName());
         final AxContextAlbum albumDefinition = new AxContextAlbum(new AxArtifactKey(POLICY_CONTEXT_ALBUM, VERSION),
-                APPLICATION, true, policySchema.getKey());
+                        APPLICATION, true, policySchema.getKey());
 
         final AxContextSchemas schemas = new AxContextSchemas(new AxArtifactKey(SCHEMAS2, VERSION));
         schemas.getSchemasMap().put(policySchema.getKey(), policySchema);
@@ -79,8 +81,8 @@ public final class TestContextAlbumFactory {
         albums.getAlbumsMap().put(albumDefinition.getKey(), albumDefinition);
 
         final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey(KEY_INFO_MAP_KEY, VERSION));
-        final AxContextModel contextModel =
-                new AxContextModel(new AxArtifactKey("PolicyContextModel", VERSION), schemas, albums, keyInformation);
+        final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("PolicyContextModel", VERSION),
+                        schemas, albums, keyInformation);
         contextModel.setKeyInformation(keyInformation);
         keyInformation.generateKeyInfo(contextModel);
 
@@ -94,9 +96,9 @@ public final class TestContextAlbumFactory {
      */
     public static AxContextModel createGlobalContextModel() {
         final AxContextSchema globalSchema = new AxContextSchema(new AxArtifactKey("GlobalSchema", VERSION),
-                JAVA_FLAVOUR, TestGlobalContextItem.class.getName());
+                        JAVA_FLAVOUR, TestGlobalContextItem.class.getName());
         final AxContextAlbum albumDefinition = new AxContextAlbum(new AxArtifactKey(GLOBAL_CONTEXT_ALBUM, VERSION),
-                "GLOBAL", true, globalSchema.getKey());
+                        "GLOBAL", true, globalSchema.getKey());
 
         final AxContextSchemas schemas = new AxContextSchemas(new AxArtifactKey(SCHEMAS2, VERSION));
         schemas.getSchemasMap().put(globalSchema.getKey(), globalSchema);
@@ -104,8 +106,8 @@ public final class TestContextAlbumFactory {
         albums.getAlbumsMap().put(albumDefinition.getKey(), albumDefinition);
 
         final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey(KEY_INFO_MAP_KEY, VERSION));
-        final AxContextModel contextModel =
-                new AxContextModel(new AxArtifactKey("GlobalContextModel", VERSION), schemas, albums, keyInformation);
+        final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("GlobalContextModel", VERSION),
+                        schemas, albums, keyInformation);
         contextModel.setKeyInformation(keyInformation);
         keyInformation.generateKeyInfo(contextModel);
 
@@ -119,9 +121,9 @@ public final class TestContextAlbumFactory {
      */
     public static AxContextModel createExternalContextModel() {
         final AxContextSchema externalSchema = new AxContextSchema(new AxArtifactKey("ExternalSchema", VERSION),
-                JAVA_FLAVOUR, TestExternalContextItem.class.getName());
+                        JAVA_FLAVOUR, TestExternalContextItem.class.getName());
         final AxContextAlbum albumDefinition = new AxContextAlbum(new AxArtifactKey(EXTERNAL_CONTEXT_ALBUM, VERSION),
-                "EXTERNAL", true, externalSchema.getKey());
+                        "EXTERNAL", true, externalSchema.getKey());
 
         final AxContextSchemas schemas = new AxContextSchemas(new AxArtifactKey(SCHEMAS2, VERSION));
         schemas.getSchemasMap().put(externalSchema.getKey(), externalSchema);
@@ -129,8 +131,8 @@ public final class TestContextAlbumFactory {
         albums.getAlbumsMap().put(albumDefinition.getKey(), albumDefinition);
 
         final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey(KEY_INFO_MAP_KEY, VERSION));
-        final AxContextModel contextModel =
-                new AxContextModel(new AxArtifactKey("ExternalContextModel", VERSION), schemas, albums, keyInformation);
+        final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("ExternalContextModel", VERSION),
+                        schemas, albums, keyInformation);
         contextModel.setKeyInformation(keyInformation);
         keyInformation.generateKeyInfo(contextModel);
 
@@ -147,12 +149,12 @@ public final class TestContextAlbumFactory {
         final AxContextSchema longSchema = new AxContextSchema(longSchemaKey, JAVA_FLAVOUR, JAVA_LONG);
 
         final AxArtifactKey longContextAlbumKey = new AxArtifactKey("LongContextAlbum1", VERSION);
-        final AxContextAlbum albumDefinition1 =
-                new AxContextAlbum(longContextAlbumKey, APPLICATION, true, longSchema.getKey());
+        final AxContextAlbum albumDefinition1 = new AxContextAlbum(longContextAlbumKey, APPLICATION, true,
+                        longSchema.getKey());
 
         final AxArtifactKey longContextAlbumKey2 = new AxArtifactKey("LongContextAlbum2", VERSION);
-        final AxContextAlbum albumDefinition2 =
-                new AxContextAlbum(longContextAlbumKey2, APPLICATION, true, longSchema.getKey());
+        final AxContextAlbum albumDefinition2 = new AxContextAlbum(longContextAlbumKey2, APPLICATION, true,
+                        longSchema.getKey());
 
         final AxContextSchemas schemas = new AxContextSchemas(new AxArtifactKey(SCHEMAS2, VERSION));
         schemas.getSchemasMap().put(longSchema.getKey(), longSchema);
@@ -161,8 +163,8 @@ public final class TestContextAlbumFactory {
         albums.getAlbumsMap().put(albumDefinition2.getKey(), albumDefinition2);
 
         final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey(KEY_INFO_MAP_KEY, VERSION));
-        final AxContextModel contextModel =
-                new AxContextModel(new AxArtifactKey("LongContextModel", VERSION), schemas, albums, keyInformation);
+        final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("LongContextModel", VERSION), schemas,
+                        albums, keyInformation);
         contextModel.setKeyInformation(keyInformation);
         keyInformation.generateKeyInfo(contextModel);
 
@@ -175,14 +177,14 @@ public final class TestContextAlbumFactory {
      * @return the ax context model
      */
     public static AxContextModel createMultiAlbumsContextModel() {
-        final AxContextSchema longSchema =
-                new AxContextSchema(new AxArtifactKey("LongSchema", VERSION), JAVA_FLAVOUR, JAVA_LONG);
+        final AxContextSchema longSchema = new AxContextSchema(new AxArtifactKey("LongSchema", VERSION), JAVA_FLAVOUR,
+                        JAVA_LONG);
         final AxContextSchema lTypeSchema = new AxContextSchema(new AxArtifactKey("LTypeSchema", VERSION), JAVA_FLAVOUR,
-                TestContextLongItem.class.getName());
+                        TestContextLongItem.class.getName());
         final AxContextSchema dateSchema = new AxContextSchema(new AxArtifactKey("DateSchema", VERSION), JAVA_FLAVOUR,
-                TestContextDateLocaleItem.class.getName());
+                        TestContextDateLocaleItem.class.getName());
         final AxContextSchema mapSchema = new AxContextSchema(new AxArtifactKey("MapSchema", VERSION), JAVA_FLAVOUR,
-                TestContextTreeMapItem.class.getName());
+                        TestContextTreeMapItem.class.getName());
 
         final AxContextSchemas schemas = new AxContextSchemas(new AxArtifactKey(SCHEMAS2, VERSION));
         schemas.getSchemasMap().put(longSchema.getKey(), longSchema);
@@ -191,13 +193,13 @@ public final class TestContextAlbumFactory {
         schemas.getSchemasMap().put(mapSchema.getKey(), mapSchema);
 
         final AxContextAlbum longAlbumDefinition = new AxContextAlbum(new AxArtifactKey(LONG_CONTEXT_ALBUM, VERSION),
-                APPLICATION, true, longSchema.getKey());
+                        APPLICATION, true, longSchema.getKey());
         final AxContextAlbum lTypeAlbumDefinition = new AxContextAlbum(new AxArtifactKey("LTypeContextAlbum", VERSION),
-                APPLICATION, true, lTypeSchema.getKey());
+                        APPLICATION, true, lTypeSchema.getKey());
         final AxContextAlbum dateAlbumDefinition = new AxContextAlbum(new AxArtifactKey(DATE_CONTEXT_ALBUM, VERSION),
-                APPLICATION, true, dateSchema.getKey());
+                        APPLICATION, true, dateSchema.getKey());
         final AxContextAlbum mapAlbumDefinition = new AxContextAlbum(new AxArtifactKey(MAP_CONTEXT_ALBUM, VERSION),
-                APPLICATION, true, mapSchema.getKey());
+                        APPLICATION, true, mapSchema.getKey());
 
         final AxContextAlbums albums = new AxContextAlbums(new AxArtifactKey(CONTEXT, VERSION));
         albums.getAlbumsMap().put(longAlbumDefinition.getKey(), longAlbumDefinition);
@@ -207,7 +209,7 @@ public final class TestContextAlbumFactory {
 
         final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey(KEY_INFO_MAP_KEY, VERSION));
         final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("MultiAlbumsContextModel", VERSION),
-                schemas, albums, keyInformation);
+                        schemas, albums, keyInformation);
         contextModel.setKeyInformation(keyInformation);
         keyInformation.generateKeyInfo(contextModel);
 

@@ -34,14 +34,18 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
  * Dummy task executor for testing.
  */
 public class DummyTaskExecutor extends TaskExecutor {
-    public DummyTaskExecutor() {}
+    public DummyTaskExecutor() {
+        // Not used here
+    }
 
     @Override
-    public void prepare() throws StateMachineException {}
+    public void prepare() throws StateMachineException {
+        // Not used here
+    }
 
     @Override
     public Map<String, Object> execute(final long executionId, final Properties executorProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+                    final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
 
         AxArtifactKey event0Key = new AxArtifactKey("Event0:0.0.1");
         return new EnEvent(event0Key);
@@ -54,5 +58,7 @@ public class DummyTaskExecutor extends TaskExecutor {
     }
 
     @Override
-    public void cleanUp() throws StateMachineException {}
+    public void cleanUp() throws StateMachineException {
+        // Not used here
+    }
 }

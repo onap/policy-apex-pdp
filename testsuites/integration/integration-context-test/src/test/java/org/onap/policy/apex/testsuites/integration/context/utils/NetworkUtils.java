@@ -37,12 +37,14 @@ public class NetworkUtils {
     /**
      * Instantiates a new network utils.
      */
-    private NetworkUtils() {}
+    private NetworkUtils() {
+        // Private constructor to prevent subclassing
+    }
 
     /**
-     * The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to
-     * work. In order to ensure that all the JVMs in a test pick up the same IP address, this
-     * function sets the address to be the first non-loopback IPv4 address on a host
+     * The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to work. In order to ensure
+     * that all the JVMs in a test pick up the same IP address, this function sets the address to be the first
+     * non-loopback IPv4 address on a host
      *
      * @return Set of IPv4 addresses
      * @throws SocketException throw socket exception if error occurs
@@ -62,6 +64,5 @@ public class NetworkUtils {
         }
         return ipAddressSet;
     }
-
 
 }

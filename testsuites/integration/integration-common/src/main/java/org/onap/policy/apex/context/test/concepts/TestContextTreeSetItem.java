@@ -40,7 +40,9 @@ public class TestContextTreeSetItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextTreeSetItem() {}
+    public TestContextTreeSetItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

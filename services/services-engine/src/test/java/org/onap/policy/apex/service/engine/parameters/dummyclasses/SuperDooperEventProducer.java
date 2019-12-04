@@ -42,7 +42,9 @@ public class SuperDooperEventProducer implements ApexEventProducer {
 
     private String name;
 
-    public SuperDooperEventProducer() {}
+    public SuperDooperEventProducer() {
+        // Default constructor
+    }
 
     /**
      * {@inheritDoc}.
@@ -72,21 +74,23 @@ public class SuperDooperEventProducer implements ApexEventProducer {
      * {@inheritDoc}.
      */
     @Override
-    public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {}
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
-            final Object event) {
-        LOGGER.info("Sending Event: " + this.getClass().getName() + ":" + this.name + " ... event ("
-                + eventName + ") : " + event);
+    public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
     }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void stop() {}
+    public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
+                    final Object event) {
+        LOGGER.info("Sending Event: " + this.getClass().getName() + ":" + this.name + " ... event (" + eventName
+                        + ") : " + event);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void stop() {
+    }
 }

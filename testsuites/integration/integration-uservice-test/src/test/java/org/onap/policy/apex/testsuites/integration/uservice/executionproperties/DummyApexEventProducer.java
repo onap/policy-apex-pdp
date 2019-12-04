@@ -58,7 +58,7 @@ public class DummyApexEventProducer implements ApexEventProducer {
 
     @Override
     public void init(final String producerName, final EventHandlerParameters producerParameters)
-            throws ApexEventException {
+                    throws ApexEventException {
         this.name = producerName;
 
         // Check and get the Properties
@@ -67,8 +67,8 @@ public class DummyApexEventProducer implements ApexEventProducer {
             LOGGER.warn(message);
             throw new ApexEventException(message);
         }
-        dummyProducerProperties =
-                (DummyCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+        dummyProducerProperties = (DummyCarrierTechnologyParameters) producerParameters
+                        .getCarrierTechnologyParameters();
 
         new File(dummyProducerProperties.getPropertyFileName()).delete();
     }
@@ -102,10 +102,10 @@ public class DummyApexEventProducer implements ApexEventProducer {
      */
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
-            final Object eventAsJsonString) {
+                    final Object eventAsJsonString) {
         // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache =
-                (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
+        final SynchronousEventCache synchronousEventCache = (SynchronousEventCache) peerReferenceMap
+                        .get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);
         }
@@ -120,18 +120,17 @@ public class DummyApexEventProducer implements ApexEventProducer {
         }
         if (!dummyProducerProperties.getTestToRun().equals(testEvent.getTestToRun())) {
             String message = "tests in received test event and parameters do not match " + testEvent.getTestToRun()
-                    + ":" + dummyProducerProperties.getTestToRun();
+                            + ":" + dummyProducerProperties.getTestToRun();
             LOGGER.warn(message);
             throw new ApexEventRuntimeException(message);
         }
 
-
         try {
             executionProperties.store(new FileOutputStream(new File(dummyProducerProperties.getPropertyFileName())),
-                    "");
+                            "");
         } catch (IOException ioe) {
             String message = "writing of executor properties for testing failed from file: "
-                    + dummyProducerProperties.getPropertyFileName();
+                            + dummyProducerProperties.getPropertyFileName();
             LOGGER.warn(message, ioe);
             throw new ApexEventRuntimeException(message, ioe);
         }
@@ -141,5 +140,7 @@ public class DummyApexEventProducer implements ApexEventProducer {
      * {@inheritDoc}.
      */
     @Override
-    public void stop() {}
+    public void stop() {
+        // Not used here
+    }
 }

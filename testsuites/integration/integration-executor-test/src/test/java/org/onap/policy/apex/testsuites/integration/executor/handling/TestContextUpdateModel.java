@@ -71,12 +71,12 @@ public class TestContextUpdateModel {
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
@@ -88,7 +88,7 @@ public class TestContextUpdateModel {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         ParameterService.register(engineParameters);
@@ -100,7 +100,7 @@ public class TestContextUpdateModel {
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
@@ -170,7 +170,9 @@ public class TestContextUpdateModel {
      * Test context update model after.
      */
     @After
-    public void testContextUpdateModelAfter() {}
+    public void testContextUpdateModelAfter() {
+        // Not used here
+    }
 
     /**
      * Send event.
@@ -182,7 +184,7 @@ public class TestContextUpdateModel {
      * @throws ContextException the context exception
      */
     private void sendEvent(final ApexEngine apexEngine, final TestApexActionListener listener, final String eventName,
-            final boolean shouldWork) throws ContextException {
+                    final boolean shouldWork) throws ContextException {
         final Date aDate = new Date(1433453067123L);
         final Map<String, Object> eventDataMap = new HashMap<String, Object>();
         eventDataMap.put("TestSlogan", "This is a test slogan");

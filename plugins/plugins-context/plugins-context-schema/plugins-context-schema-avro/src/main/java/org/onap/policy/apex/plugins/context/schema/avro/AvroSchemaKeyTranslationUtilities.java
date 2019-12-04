@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -29,7 +29,7 @@ import java.util.Map.Entry;
 
 /**
  * This static final class contains utility methods for Avro schemas.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class AvroSchemaKeyTranslationUtilities {
@@ -42,11 +42,13 @@ public final class AvroSchemaKeyTranslationUtilities {
     /**
      * Default constructor to avoid subclassing.
      */
-    private AvroSchemaKeyTranslationUtilities() {}
+    private AvroSchemaKeyTranslationUtilities() {
+        // Private constructor to prevent subclassing
+    }
 
     /**
-     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start
-     * with [A-Za-z_] and subsequently contain only [A-Za-z0-9_]
+     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start with [A-Za-z_] and
+     * subsequently contain only [A-Za-z0-9_]
      *
      * @param jsonString The JSON string to translate
      * @param revert True if we want to revert the field names to their original values
@@ -58,8 +60,8 @@ public final class AvroSchemaKeyTranslationUtilities {
         }
 
         // Create a JSON element for the incoming JSON string
-        final JsonElement jsonElement =
-                new GsonBuilder().serializeNulls().create().fromJson(jsonString, JsonElement.class);
+        final JsonElement jsonElement = new GsonBuilder().serializeNulls().create().fromJson(jsonString,
+                        JsonElement.class);
 
         final JsonElement translatedJsonElement = translateIllegalKeys(jsonElement, revert);
 
@@ -67,8 +69,8 @@ public final class AvroSchemaKeyTranslationUtilities {
     }
 
     /**
-     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start
-     * with [A-Za-z_] and subsequently contain only [A-Za-z0-9_]
+     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start with [A-Za-z_] and
+     * subsequently contain only [A-Za-z0-9_]
      *
      * @param jsonElement The JSON element to translate
      * @param revert True if we want to revert the field names to their original values
@@ -86,8 +88,8 @@ public final class AvroSchemaKeyTranslationUtilities {
     }
 
     /**
-     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start
-     * with [A-Za-z_] and subsequently contain only [A-Za-z0-9_]
+     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start with [A-Za-z_] and
+     * subsequently contain only [A-Za-z0-9_]
      *
      * @param jsonObject The JSON object to translate
      * @param revert True if we want to revert the field names to their original values
@@ -98,15 +100,15 @@ public final class AvroSchemaKeyTranslationUtilities {
 
         for (final Entry<String, JsonElement> jsonObjectEntry : jsonObject.entrySet()) {
             newJsonObject.add(translateIllegalKey(jsonObjectEntry.getKey(), revert),
-                    translateIllegalKeys(jsonObjectEntry.getValue(), revert));
+                            translateIllegalKeys(jsonObjectEntry.getValue(), revert));
         }
 
         return newJsonObject;
     }
 
     /**
-     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start
-     * with [A-Za-z_] and subsequently contain only [A-Za-z0-9_]
+     * Translate characters in JSON keys to values that are legal in Avro. Avro names must start with [A-Za-z_] and
+     * subsequently contain only [A-Za-z0-9_]
      *
      * @param jsonArray The JSON array to translate
      * @param revert True if we want to revert the field names to their original values
@@ -123,8 +125,8 @@ public final class AvroSchemaKeyTranslationUtilities {
     }
 
     /**
-     * Translate characters in a single JSON key to values that are legal in Avro. Avro names must
-     * start with [A-Za-z_] and subsequently contain only [A-Za-z0-9_]
+     * Translate characters in a single JSON key to values that are legal in Avro. Avro names must start with [A-Za-z_]
+     * and subsequently contain only [A-Za-z0-9_]
      *
      * @param key The key to translate
      * @param revert True if we want to revert the field names to their original values
