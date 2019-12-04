@@ -47,7 +47,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class StateFinalizerExecutor
-        implements Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> {
+    implements Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(StateFinalizerExecutor.class);
 
@@ -85,7 +85,7 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent,
-            final AxStateFinalizerLogic incomingFinalizerLogic, final ApexInternalContext incomingInternalContext) {
+        final AxStateFinalizerLogic incomingFinalizerLogic, final ApexInternalContext incomingInternalContext) {
         this.parent = incomingParent;
         axState = (AxState) parent.getSubject();
         this.finalizerLogic = incomingFinalizerLogic;
@@ -98,9 +98,9 @@ public abstract class StateFinalizerExecutor
     @Override
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + finalizerLogic.getId() + "," + finalizerLogic.getLogicFlavour() + ","
-                + finalizerLogic.getLogic());
+            + finalizerLogic.getLogic());
         argumentOfClassNotNull(finalizerLogic.getLogic(), StateMachineException.class,
-                "state finalizer logic cannot be null.");
+            "state finalizer logic cannot be null.");
     }
 
     /**
@@ -108,9 +108,9 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public String execute(final long executionId, final Properties executionProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
-        throw new StateMachineException("execute() not implemented on abstract StateFinalizerExecutionContext class, "
-                + "only on its subclasses");
+        final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+        throw new StateMachineException(
+            "execute() not implemented on abstract StateFinalizerExecutionContext class, " + "only on its subclasses");
     }
 
     /**
@@ -118,16 +118,16 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public final void executePre(final long executionId, @NonNull final Properties executionProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+        final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + finalizerLogic.getLogicFlavour() + "," + getSubject().getId() + ","
-                + finalizerLogic.getLogic());
+            + finalizerLogic.getLogic());
 
         // Record the incoming fields
         this.incomingFields = newIncomingFields;
 
         // Get state finalizer context object
         executionContext = new StateFinalizerExecutionContext(this, executionId, executionProperties, axState,
-                getIncoming(), axState.getStateOutputs().keySet(), getContext());
+            getIncoming(), axState.getStateOutputs().keySet(), getContext());
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class StateFinalizerExecutor
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
             String errorMessage = "execute-post: state finalizer logic execution failure on state \"" + axState.getId()
-                    + "\" on finalizer logic " + finalizerLogic.getId();
+                + "\" on finalizer logic " + finalizerLogic.getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -154,13 +154,13 @@ public abstract class StateFinalizerExecutor
 
         if (!axState.getStateOutputs().keySet().contains(getOutgoing())) {
             LOGGER.warn(EXECUTE_POST_SFL + finalizerLogic.getId() + "\" selected output state \"" + getOutgoing()
-                    + "\" that does not exsist on state \"" + axState.getId() + "\"");
+                + "\" that does not exsist on state \"" + axState.getId() + "\"");
             throw new StateMachineException(EXECUTE_POST_SFL + finalizerLogic.getId() + "\" selected output state \""
-                    + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
+                + getOutgoing() + "\" that does not exsist on state \"" + axState.getId() + "\"");
         }
 
         LOGGER.debug("execute-post:{}, returning  state output \"{}\" and fields {}", finalizerLogic.getId(),
-                getOutgoing(), incomingFields);
+            getOutgoing(), incomingFields);
     }
 
     /**
@@ -228,7 +228,7 @@ public abstract class StateFinalizerExecutor
      */
     @Override
     public void setNext(
-            final Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> inNextEx) {
+        final Executor<Map<String, Object>, String, AxStateFinalizerLogic, ApexInternalContext> inNextEx) {
         this.nextExecutor = inNextEx;
     }
 
@@ -244,5 +244,7 @@ public abstract class StateFinalizerExecutor
      * {@inheritDoc}.
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+        // Not used
+    }
 }

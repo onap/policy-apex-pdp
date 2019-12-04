@@ -36,7 +36,9 @@ public class TestContextFloatItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextFloatItem() {}
+    public TestContextFloatItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

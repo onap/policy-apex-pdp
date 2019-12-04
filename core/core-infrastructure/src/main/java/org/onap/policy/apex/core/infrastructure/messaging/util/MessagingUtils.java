@@ -29,12 +29,13 @@ import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class MessagingUtils is a class with static methods used in IPC messaging for finding free
- * ports, translating host names to addresses, serializing objects and flushing object streams.
+ * The Class MessagingUtils is a class with static methods used in IPC messaging for finding free ports, translating
+ * host names to addresses, serializing objects and flushing object streams.
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
@@ -53,11 +54,13 @@ public final class MessagingUtils {
     /**
      * Private constructor used to prevent sub class instantiation.
      */
-    private MessagingUtils() {}
+    private MessagingUtils() {
+        // Private constructor to block subclassing
+    }
 
     /**
-     * This method searches the availability of the port, if the requested port not available, this
-     * method will throw an exception.
+     * This method searches the availability of the port, if the requested port not available, this method will throw an
+     * exception.
      *
      * @param port the port to check
      * @return the port verified as being free
@@ -75,9 +78,9 @@ public final class MessagingUtils {
     }
 
     /**
-     * This method searches the availability of the port, if the requested port not available,this
-     * method will increment the port number and check the availability of that port, this process
-     * will continue until it reaches max port range which is MAX_PORT_RANGE.
+     * This method searches the availability of the port, if the requested port not available,this method will increment
+     * the port number and check the availability of that port, this process will continue until it reaches max port
+     * range which is MAX_PORT_RANGE.
      *
      * @param port the first port to check
      * @return the port that was found
@@ -129,9 +132,8 @@ public final class MessagingUtils {
     }
 
     /**
-     * This method searches the availability of the port, if the requested port not available,this
-     * method will increment the port number and check the availability, this process will continue
-     * until it find port available.
+     * This method searches the availability of the port, if the requested port not available,this method will increment
+     * the port number and check the availability, this process will continue until it find port available.
      *
      * @param port the first port to check
      * @return the port that was found
@@ -155,11 +157,11 @@ public final class MessagingUtils {
             InetAddress candidateAddress = null;
             // Iterate all NICs (network interface cards)...
             for (final Enumeration<NetworkInterface> ifaces = NetworkInterface.getNetworkInterfaces(); ifaces
-                    .hasMoreElements();) {
+                .hasMoreElements();) {
                 final NetworkInterface iface = ifaces.nextElement();
                 // Iterate all IP addresses assigned to each card...
                 for (final Enumeration<InetAddress> inetAddrs = iface.getInetAddresses(); inetAddrs
-                        .hasMoreElements();) {
+                    .hasMoreElements();) {
                     final InetAddress inetAddr = inetAddrs.nextElement();
                     if (!inetAddr.isLoopbackAddress()) {
 
@@ -201,8 +203,8 @@ public final class MessagingUtils {
             }
             return jdkSuppliedAddress;
         } catch (final Exception e) {
-            final UnknownHostException unknownHostException =
-                    new UnknownHostException("Failed to determine LAN address: " + e);
+            final UnknownHostException unknownHostException = new UnknownHostException(
+                "Failed to determine LAN address: " + e);
             unknownHostException.initCause(e);
             throw unknownHostException;
         }
@@ -223,7 +225,8 @@ public final class MessagingUtils {
             oos.writeObject(object);
         } catch (final IOException e) {
             LOGGER.warn("error on object serialization", e);
-        } finally {
+        }
+        finally {
             flushAndClose(oos, bytesOut);
         }
         return bytesOut.toByteArray();

@@ -50,7 +50,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
  */
 public abstract class RestUtils {
     // Regular expressions for checking input types
-    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; //starts with <?xml...>
+    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*"; // starts with <?xml...>
     /**
      * starts with some kind of bracket [ or ( or {, then has something, then has bracket.
      */
@@ -59,7 +59,9 @@ public abstract class RestUtils {
     /**
      * Constructor, block inheritance.
      */
-    private RestUtils() {}
+    private RestUtils() {
+        // Private constructor to block subclassing
+    }
 
     /**
      * HTTP POST requests can't send nulls so we interpret blanks as nulls.
@@ -103,8 +105,7 @@ public abstract class RestUtils {
     }
 
     /**
-     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings
-     * into a map.
+     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings into a map.
      *
      * @param jsonString the incoming JSON string
      * @return a map of the JSON strings
@@ -116,15 +117,14 @@ public abstract class RestUtils {
 
         final Map<String, String> jsonMap = new TreeMap<>();
         for (final Entry<String, JsonElement> jsonEntry : jsonObject.entrySet()) {
-            jsonMap.put(jsonEntry.getKey(), (jsonEntry.getValue() == JsonNull.INSTANCE ? null
-                    : blank2null(jsonEntry.getValue().getAsString())));
+            jsonMap.put(jsonEntry.getKey(),
+                (jsonEntry.getValue() == JsonNull.INSTANCE ? null : blank2null(jsonEntry.getValue().getAsString())));
         }
         return jsonMap;
     }
 
     /**
-     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings
-     * into a map.
+     * Apex HTTP PUT requests send simple single level JSON strings, this method reads those strings into a map.
      *
      * @param <C> the generic type
      * @param jsonString the incoming JSON string
@@ -153,7 +153,7 @@ public abstract class RestUtils {
      * @throws JAXBException the JAXB exception
      */
     public static <C extends AxConcept> C getConceptFromJson(final String jsonString, final Class<C> clz)
-            throws JAXBException {
+        throws JAXBException {
         Unmarshaller unmarshaller = null;
         final JAXBContext jaxbContext = JAXBContext.newInstance(clz);
         unmarshaller = jaxbContext.createUnmarshaller();

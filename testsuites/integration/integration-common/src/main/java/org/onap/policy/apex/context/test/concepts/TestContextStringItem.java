@@ -36,7 +36,9 @@ public class TestContextStringItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextStringItem() {}
+    public TestContextStringItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

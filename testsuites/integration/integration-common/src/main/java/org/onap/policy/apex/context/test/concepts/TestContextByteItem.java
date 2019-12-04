@@ -36,7 +36,9 @@ public class TestContextByteItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextByteItem() {}
+    public TestContextByteItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

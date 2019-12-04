@@ -52,7 +52,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class TaskExecutor
-        implements Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> {
+    implements Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TaskExecutor.class);
 
@@ -87,7 +87,7 @@ public abstract class TaskExecutor
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> newParent, final AxTask newAxTask,
-            final ApexInternalContext newInternalContext) {
+        final ApexInternalContext newInternalContext) {
         this.parent = newParent;
         this.axTask = newAxTask;
         this.internalContext = newInternalContext;
@@ -99,9 +99,9 @@ public abstract class TaskExecutor
     @Override
     public void prepare() throws StateMachineException {
         LOGGER.debug("prepare:" + axTask.getKey().getId() + "," + axTask.getTaskLogic().getLogicFlavour() + ","
-                + axTask.getTaskLogic().getLogic());
+            + axTask.getTaskLogic().getLogic());
         argumentOfClassNotNull(axTask.getTaskLogic().getLogic(), StateMachineException.class,
-                "task logic cannot be null.");
+            "task logic cannot be null.");
     }
 
     /**
@@ -109,9 +109,9 @@ public abstract class TaskExecutor
      */
     @Override
     public Map<String, Object> execute(final long executionId, final Properties executionProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+        final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         throw new StateMachineException(
-                "execute() not implemented on abstract TaskExecutor class, only on its subclasses");
+            "execute() not implemented on abstract TaskExecutor class, only on its subclasses");
     }
 
     /**
@@ -119,9 +119,9 @@ public abstract class TaskExecutor
      */
     @Override
     public final void executePre(final long executionId, @NonNull final Properties executionProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+        final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         LOGGER.debug("execute-pre:" + getSubject().getTaskLogic().getLogicFlavour() + ","
-                + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
+            + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogic());
 
         // Check that the incoming event has all the input fields for this state
         final Set<String> missingTaskInputFields = new TreeSet<>(axTask.getInputFields().keySet());
@@ -130,7 +130,7 @@ public abstract class TaskExecutor
         // Remove fields from the set that are optional
         final Set<String> optionalFields = new TreeSet<>();
         for (final Iterator<String> missingFieldIterator = missingTaskInputFields.iterator(); missingFieldIterator
-                .hasNext();) {
+            .hasNext();) {
             final String missingField = missingFieldIterator.next();
             if (axTask.getInputFields().get(missingField).getOptional()) {
                 optionalFields.add(missingField);
@@ -139,7 +139,7 @@ public abstract class TaskExecutor
         missingTaskInputFields.removeAll(optionalFields);
         if (!missingTaskInputFields.isEmpty()) {
             throw new StateMachineException("task input fields \"" + missingTaskInputFields
-                    + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
+                + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
         }
 
         // Record the incoming fields
@@ -153,7 +153,7 @@ public abstract class TaskExecutor
 
         // Get task context object
         executionContext = new TaskExecutionContext(this, executionId, executionProperties, getSubject(), getIncoming(),
-                getOutgoing(), getContext());
+            getOutgoing(), getContext());
     }
 
     /**
@@ -163,7 +163,7 @@ public abstract class TaskExecutor
     public final void executePost(final boolean returnValue) throws StateMachineException, ContextException {
         if (!returnValue) {
             String errorMessage = "execute-post: task logic execution failure on task \"" + axTask.getKey().getName()
-                    + "\" in model " + internalContext.getKey().getId();
+                + "\" in model " + internalContext.getKey().getId();
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -186,17 +186,17 @@ public abstract class TaskExecutor
         // Remove fields from the set that are optional
         final Set<String> optionalOrCopiedFields = new TreeSet<>();
         for (final Iterator<String> missingFieldIterator = missingTaskOutputFields.iterator(); missingFieldIterator
-                .hasNext();) {
+            .hasNext();) {
             final String missingField = missingFieldIterator.next();
             if (axTask.getInputFields().containsKey(missingField)
-                    || axTask.getOutputFields().get(missingField).getOptional()) {
+                || axTask.getOutputFields().get(missingField).getOptional()) {
                 optionalOrCopiedFields.add(missingField);
             }
         }
         missingTaskOutputFields.removeAll(optionalOrCopiedFields);
         if (!missingTaskOutputFields.isEmpty()) {
             throw new StateMachineException("task output fields \"" + missingTaskOutputFields
-                    + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
+                + "\" are missing for task \"" + axTask.getKey().getId() + "\"");
         }
 
         // Finally, check that the outgoing field map don't have any extra fields, if present, raise
@@ -206,7 +206,7 @@ public abstract class TaskExecutor
         extraTaskOutputFields.removeAll(axTask.getOutputFields().keySet());
         if (!extraTaskOutputFields.isEmpty()) {
             throw new StateMachineException("task output fields \"" + extraTaskOutputFields
-                    + "\" are unwanted for task \"" + axTask.getKey().getId() + "\"");
+                + "\" are unwanted for task \"" + axTask.getKey().getId() + "\"");
         }
 
         String message = "execute-post:" + axTask.getKey().getId() + ", returning fields " + outgoingFields.toString();
@@ -314,5 +314,7 @@ public abstract class TaskExecutor
      * {@inheritDoc}.
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+        // Not used
+    }
 }
