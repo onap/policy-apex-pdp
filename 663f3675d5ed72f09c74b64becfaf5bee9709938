@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "5a0cfd88_0ae1fd63",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/messaging/util/MessagingUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-12-04T14:19:34Z",
+      "side": 1,
+      "message": "try-with-resources ?",
+      "revId": "663f3675d5ed72f09c74b64becfaf5bee9709938",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a17ec90_20d46a4a",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/dummyclasses/DummyTaskExecutor.java",
         "patchSetId": 3
