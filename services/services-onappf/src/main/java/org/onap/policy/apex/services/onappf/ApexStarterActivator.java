@@ -36,10 +36,12 @@ import org.onap.policy.common.endpoints.event.comm.TopicEndpointManager;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.TopicSource;
 import org.onap.policy.common.endpoints.listeners.MessageTypeDispatcher;
+import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.common.utils.services.ServiceManager;
 import org.onap.policy.common.utils.services.ServiceManagerException;
 import org.onap.policy.models.pdp.enums.PdpMessageType;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyTypeIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,6 +77,9 @@ public class ApexStarterActivator {
     @Setter(lombok.AccessLevel.PRIVATE)
     private volatile boolean alive = false;
 
+    @Getter
+    private List<ToscaPolicyTypeIdentifier> supportedPolicyTypes;
+
     /**
      * Instantiate the activator for onappf PDP-A.
      *
@@ -88,10 +93,8 @@ public class ApexStarterActivator {
         topicSources = TopicEndpointManager.getManager()
                         .addTopicSources(apexStarterParameterGroup.getTopicParameterGroup().getTopicSources());
 
-        // TODO: instanceId currently set as a random string, could be fetched from actual deployment
-        final int random = (int) (Math.random() * 100);
-        final String instanceId = "apex_" + random;
-        LOGGER.debug("ApexStarterActivator initializing with instance id:" + instanceId);
+        final String instanceId = NetworkUtil.getHostname();
+        LOGGER.debug("ApexStarterActivator initializing with instance id: {}", instanceId);
         try {
             this.apexStarterParameterGroup = apexStarterParameterGroup;
             this.msgDispatcher = new MessageTypeDispatcher(MSG_TYPE_NAMES);
@@ -101,6 +104,10 @@ public class ApexStarterActivator {
 
         final PdpUpdateListener pdpUpdateListener = new PdpUpdateListener();
         final PdpStateChangeListener pdpStateChangeListener = new PdpStateChangeListener();
+        final PdpMessageHandler pdpMessageHandler = new PdpMessageHandler();
+        supportedPolicyTypes =
+            pdpMessageHandler.getSupportedPolicyTypesFromParameters(apexStarterParameterGroup.getPdpStatusParameters());
+
         // @formatter:off
         this.manager = new ServiceManager()
                 .addAction("topics",
@@ -111,7 +118,7 @@ public class ApexStarterActivator {
                     () -> setAlive(false))
                 .addAction("register pdp status context object",
                     () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_OBJECT,
-                                new PdpMessageHandler().createPdpStatusFromParameters(instanceId,
+                                pdpMessageHandler.createPdpStatusFromParameters(instanceId,
                                         apexStarterParameterGroup.getPdpStatusParameters())),
                     () -> Registry.unregister(ApexStarterConstants.REG_PDP_STATUS_OBJECT))
                 .addAction("topic sinks",
