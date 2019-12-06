@@ -59,8 +59,7 @@ public final class ApexModelImpl implements ApexModel {
      * Create an implementation of the Apex editor and model APIs.
      *
      * @param apexProperties The properties to use for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise
-     *        set to false
+     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise set to false
      */
     public ApexModelImpl(final Properties apexProperties, final boolean jsonMode) {
         this.apexProperties = apexProperties;
@@ -81,7 +80,9 @@ public final class ApexModelImpl implements ApexModel {
     /**
      * Constructor, prevents this class being sub-classed.
      */
-    private ApexModelImpl() {}
+    private ApexModelImpl() {
+        // Private constructor to block subclassing
+    }
 
     /**
      * {@inheritDoc}.

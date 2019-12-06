@@ -60,7 +60,9 @@ public abstract class ClassUtils {
     /**
      * Private constructor used to prevent sub class instantiation.
      */
-    private ClassUtils() {}
+    private ClassUtils() {
+        // Private constructor to block subclassing
+    }
 
     /**
      * Get the class names of all classes on the class path. WARNING: This is a heavy call, use sparingly

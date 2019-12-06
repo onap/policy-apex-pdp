@@ -38,7 +38,9 @@ public class TestContextTreeMapItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextTreeMapItem() {}
+    public TestContextTreeMapItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

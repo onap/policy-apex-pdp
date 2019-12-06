@@ -131,8 +131,8 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
     @Override
     public final void executePost(final boolean returnValue) throws StateMachineException {
         if (!returnValue) {
-            String errorMessage =
-                    "execute-post: task selection logic failed on state \"" + axState.getKey().getId() + "\"";
+            String errorMessage = "execute-post: task selection logic failed on state \"" + axState.getKey().getId()
+                    + "\"";
             if (executionContext.getMessage() != null) {
                 errorMessage += ", user message: " + executionContext.getMessage();
             }
@@ -232,5 +232,7 @@ public abstract class TaskSelectExecutor implements Executor<EnEvent, AxArtifact
      * {@inheritDoc}.
      */
     @Override
-    public void setParameters(final ExecutorParameters parameters) {}
+    public void setParameters(final ExecutorParameters parameters) {
+        // Not used
+    }
 }

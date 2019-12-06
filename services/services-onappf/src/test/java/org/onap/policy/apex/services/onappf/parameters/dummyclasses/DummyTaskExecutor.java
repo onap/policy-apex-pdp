@@ -23,6 +23,7 @@ package org.onap.policy.apex.services.onappf.parameters.dummyclasses;
 
 import java.util.Map;
 import java.util.Properties;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
@@ -34,10 +35,14 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
  * Dummy task executor for testing.
  */
 public class DummyTaskExecutor extends TaskExecutor {
-    public DummyTaskExecutor() {}
+    public DummyTaskExecutor() {
+        // Default constructor
+    }
 
     @Override
-    public void prepare() throws StateMachineException {}
+    public void prepare() throws StateMachineException {
+        // Not used
+    }
 
     @Override
     public Map<String, Object> execute(final long executionId, final Properties executorProperties,
@@ -54,5 +59,7 @@ public class DummyTaskExecutor extends TaskExecutor {
     }
 
     @Override
-    public void cleanUp() throws StateMachineException {}
+    public void cleanUp() throws StateMachineException {
+        // Not used
+    }
 }

@@ -37,7 +37,9 @@ public class TestContextDoubleItem implements Serializable {
     /**
      * The Constructor.
      */
-    public TestContextDoubleItem() {}
+    public TestContextDoubleItem() {
+        // Default constructor
+    }
 
     /**
      * The Constructor.

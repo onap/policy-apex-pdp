@@ -41,7 +41,7 @@ public class SuperDooperEventSubscriber implements ApexEventConsumer {
 
     @Override
     public void init(final String name, final EventHandlerParameters consumerParameters,
-                    final ApexEventReceiver apexEventReceiver) throws ApexEventException {
+            final ApexEventReceiver apexEventReceiver) throws ApexEventException {
         this.name = name;
         LOGGER.info("Initialising Apex Consumer: " + this.getClass().getName() + ":" + this.name);
     }
@@ -68,12 +68,13 @@ public class SuperDooperEventSubscriber implements ApexEventConsumer {
 
     @Override
     public void start() {
-        // TODO Auto-generated method stub
+        // Not used
 
     }
 
     @Override
     public void stop() {
+        // Not used
     }
 
 }
