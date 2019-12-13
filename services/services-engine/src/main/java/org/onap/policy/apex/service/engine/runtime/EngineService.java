@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,9 +21,10 @@
 package org.onap.policy.apex.service.engine.runtime;
 
 import java.util.Collection;
-
+import java.util.List;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
@@ -154,7 +155,7 @@ public interface EngineService {
 
     /**
      * This method checks if all Apex engines in the engine service are started.
-     * 
+     *
      * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
@@ -164,7 +165,7 @@ public interface EngineService {
 
     /**
      * This method checks if an Apex engine in the engine service is started.
-     * 
+     *
      * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
@@ -175,7 +176,7 @@ public interface EngineService {
 
     /**
      * This method checks if all Apex engines in the engine service are stopped.
-     * 
+     *
      * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
@@ -185,7 +186,7 @@ public interface EngineService {
 
     /**
      * This method checks if an Apex engine in the engine service is stopped.
-     * 
+     *
      * <p>Note: an engine can be both not stopped and not started, for example, when it is starting or
      * stopping
      *
@@ -217,6 +218,13 @@ public interface EngineService {
      * @throws ApexException on status read errors
      */
     String getStatus(AxArtifactKey engineKey) throws ApexException;
+
+    /**
+     * Get the engine status information.
+     *
+     * @return the Apex status information
+     */
+    List<AxEngineModel> getEngineStats();
 
     /**
      * This method gets the runtime information of all Apex engines in the engine service.
