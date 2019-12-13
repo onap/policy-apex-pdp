@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ package org.onap.policy.apex.service.engine.main;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
@@ -31,6 +32,7 @@ import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelMerger;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
@@ -263,6 +265,17 @@ public class ApexActivator {
             LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
             throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
         }
+    }
+
+    /**
+     * Get the Apex engine worker stats.
+     */
+    public List<AxEngineModel> getEngineStats() {
+        List<AxEngineModel> engineStats = null;
+        if (apexEngineService != null) {
+            engineStats = apexEngineService.getEngineStats();
+        }
+        return engineStats;
     }
 
     /**
