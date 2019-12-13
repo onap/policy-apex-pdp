@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca2138bd_caa5a0f3",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-12-13T13:26:51Z",
+      "side": 1,
+      "message": "getEngineStats() would be a better name for this method because it returns a model containing just stats.",
+      "range": {
+        "startLine": 276,
+        "startChar": 31,
+        "endLine": 276,
+        "endChar": 45
+      },
+      "revId": "b7123c8d6dffebb3777d2fd90355d30336cf74e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c6ee0b6_194c15d5",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-12-13T13:26:51Z",
+      "side": 1,
+      "message": "All of this is already implemented, please call:\n        apexEngineService.getStatus(engineKey);\n\nThat returns all the statistics to you as a JSON string.",
+      "range": {
+        "startLine": 276,
+        "startChar": 49,
+        "endLine": 291,
+        "endChar": 27
+      },
+      "revId": "b7123c8d6dffebb3777d2fd90355d30336cf74e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66c6f487_f1a85b0e",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-12-13T13:26:51Z",
+      "side": 1,
+      "message": "getEngineStats() would be a better name for this method because it returns a model containing just stats.",
+      "range": {
+        "startLine": 265,
+        "startChar": 31,
+        "endLine": 265,
+        "endChar": 45
+      },
+      "revId": "b7123c8d6dffebb3777d2fd90355d30336cf74e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
