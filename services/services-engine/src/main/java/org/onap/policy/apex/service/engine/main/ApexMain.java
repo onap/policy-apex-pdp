@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modification Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ package org.onap.policy.apex.service.engine.main;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -34,6 +36,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
@@ -258,8 +261,19 @@ public class ApexMain {
     }
 
     /**
-     * The Class ApexMainShutdownHookClass terminates the Apex engine for the Apex service when its run method is
-     * called.
+     * Get the Engine Stats.
+     */
+    public List<AxEngineModel> getEngineStats() {
+        List<AxEngineModel> engineStats = null;
+        if (activator != null) {
+            engineStats = activator.getEngineStats();
+        }
+        return engineStats;
+    }
+
+    /**
+     * The Class ApexMainShutdownHookClass terminates the Apex engine for the Apex service when its run
+     * method is called.
      */
     private class ApexMainShutdownHookClass extends Thread {
         /**

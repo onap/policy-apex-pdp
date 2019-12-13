@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.services.onappf.handler;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
@@ -160,6 +162,7 @@ public class PdpUpdateMessageHandler {
     private PdpResponseDetails startApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
         final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
+
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                 apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPolicies());
@@ -191,6 +194,12 @@ public class PdpUpdateMessageHandler {
             LOGGER.error("Apex engine service running failed. ", e);
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
+        }
+        final ApexPolicyStatisticsManager apexPolicyStatisticsManager =
+                ApexPolicyStatisticsManager.getInstanceFromRegistry();
+        if (apexPolicyStatisticsManager != null) {
+            apexPolicyStatisticsManager
+                    .updatePolicyDeployCounter(pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
         }
         return pdpResponseDetails;
     }

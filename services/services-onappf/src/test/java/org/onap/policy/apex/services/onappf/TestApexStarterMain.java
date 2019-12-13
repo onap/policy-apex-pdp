@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.CommonTestData;
 import org.onap.policy.common.utils.services.Registry;
@@ -71,7 +73,8 @@ public class TestApexStarterMain {
 
         // ensure items were added to the registry
         assertNotNull(Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class));
-
+        assertNotNull(Registry.get(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER,
+                ApexPolicyStatisticsManager.class));
         apexStarter.shutdown();
     }
 
