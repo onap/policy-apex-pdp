@@ -54,6 +54,7 @@ import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.impl.enevent.ApexEvent2EnEventConverter;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
@@ -594,19 +595,23 @@ final class EngineWorker implements EngineService {
                     LOGGER.debug("Engine {} processing interrupted ", engineWorkerKey);
                     break;
                 }
-
+                boolean executedResult = false;
                 try {
                     if (event != null) {
                         debugEventIfDebugEnabled(event);
 
                         final EnEvent enevent = apexEnEventConverter.fromApexEvent(event);
-                        engine.handleEvent(enevent);
+                        executedResult = engine.handleEvent(enevent);
                     }
                 } catch (final ApexException e) {
                     LOGGER.warn("Engine {} failed to process event {}", engineWorkerKey, event.toString(), e);
                 } catch (final Exception e) {
                     LOGGER.warn("Engine {} terminated processing event {}", engineWorkerKey, event.toString(), e);
                     stopFlag = true;
+                }
+                ApexPolicyStatisticsManager apexPolicyCounter = ApexPolicyStatisticsManager.getInstanceFromRegistry();
+                if (!stopFlag && apexPolicyCounter != null) {
+                    apexPolicyCounter.updatePolicyExecutedCounter(executedResult);
                 }
             }
             LOGGER.debug("Engine {} completed processing", engineWorkerKey);

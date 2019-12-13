@@ -23,6 +23,7 @@
 package org.onap.policy.apex.services.onappf;
 
 import java.util.Arrays;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
@@ -79,6 +80,7 @@ public class ApexStarterMain {
         // create the activator
         activator = new ApexStarterActivator(parameterGroup);
         Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
+        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, new ApexPolicyStatisticsManager());
         // Start the activator
         try {
             activator.initialize();
@@ -117,6 +119,8 @@ public class ApexStarterMain {
         if (activator != null && activator.isAlive()) {
             activator.terminate();
         }
+
+        Registry.unregister(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER);
     }
 
     /**

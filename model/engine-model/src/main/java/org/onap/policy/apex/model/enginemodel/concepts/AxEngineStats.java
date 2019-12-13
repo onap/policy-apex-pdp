@@ -188,6 +188,15 @@ public class AxEngineStats extends AxConcept {
     }
 
     /**
+     * Gets the lastEnterTime.
+     *
+     * @return the lastEnterTime
+     */
+    public long getLastEnterTime() {
+        return lastEnterTime;
+    }
+
+    /**
      * Gets the time stamp at which the statistics were recorded as a string.
      *
      * @return the time stamp at which the statistics were recorded as a string
@@ -294,7 +303,7 @@ public class AxEngineStats extends AxConcept {
      *
      * @return the time at which the policy engine was last started
      */
-    private long getLastStart() {
+    public long getLastStart() {
         return lastStart;
     }
 

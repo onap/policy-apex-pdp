@@ -21,8 +21,11 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
@@ -30,7 +33,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelMerger;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
@@ -263,6 +268,27 @@ public class ApexActivator {
             LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
             throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
         }
+    }
+
+    /**
+     * Get the Apex engine worker stats.
+     */
+    public List<AxEngineModel> getEngineModel() {
+        List<AxEngineModel> engineStats = new ArrayList<>();
+        if (apexEngineService != null) {
+            apexEngineService.getEngineKeys().forEach(key -> {
+                try {
+                    final String model = apexEngineService.getStatus(key);
+                    final ByteArrayInputStream baInputStream = new ByteArrayInputStream(model.getBytes());
+                    final ApexModelReader<AxEngineModel> modelReader = new ApexModelReader<>(AxEngineModel.class);
+                    modelReader.setValidateFlag(false);
+                    engineStats.add(modelReader.read(baInputStream));
+                } catch (ApexException e) {
+                    LOGGER.warn("Engine with key " + key.getId() + " not found in the service");
+                }
+            });
+        }
+        return engineStats;
     }
 
     /**
