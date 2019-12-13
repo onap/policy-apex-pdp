@@ -1,8 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
-
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +22,7 @@
 package org.onap.policy.apex.services.onappf.comm;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -35,6 +35,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
@@ -94,6 +95,7 @@ public class TestPdpStateChangeListener {
 
         activator = new ApexStarterActivator(parameterGroup);
         Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
+        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, new ApexPolicyStatisticsManager());
         activator.initialize();
     }
 
@@ -161,6 +163,16 @@ public class TestPdpStateChangeListener {
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
         assertTrue(outContent.toString().contains("Apex engine started and policies are running."));
         assertEquals(PdpState.ACTIVE, pdpStatus.getState());
+
+        final ApexPolicyStatisticsManager policyCounterManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
+        assertNotNull(policyCounterManager);
+        assertEquals(policyCounterManager.getPolicyDeployCount(),
+                policyCounterManager.getPolicyDeploySuccessCount() + policyCounterManager.getPolicyDeployFailCount());
+
+        apexEngineHandler =
+                Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
+        assertNotNull(apexEngineHandler);
+        assertTrue(apexEngineHandler.getEngineStats().size() > 0);
     }
 
     @Test

@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -55,7 +56,9 @@ import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.services.Registry;
 
 /**
  * Test the engine worker class.
@@ -69,7 +72,7 @@ public class EngineWorkerTest {
 
     /**
      * Read the models into strings.
-     * 
+     *
      * @throws IOException on model reading errors
      * @throws ApexModelException on model reading exceptions
      */
@@ -129,6 +132,7 @@ public class EngineWorkerTest {
                         "org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
         ParameterService.register(engineParameters);
+
     }
 
     /**
@@ -151,6 +155,7 @@ public class EngineWorkerTest {
 
     @Test
     public void testEngineWorker() {
+
         BlockingQueue<ApexEvent> eventQueue = new LinkedBlockingQueue<>();
 
         EngineWorker worker = new EngineWorker(new AxArtifactKey("Worker", "0.0.1"), eventQueue, atFactory);
@@ -330,6 +335,8 @@ public class EngineWorkerTest {
 
     @Test
     public void testApexImplModelWIthModel() throws ApexException {
+        Registry.newRegistry();
+        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, new ApexPolicyStatisticsManager());
         BlockingQueue<ApexEvent> eventQueue = new LinkedBlockingQueue<>();
 
         EngineWorker worker = new EngineWorker(new AxArtifactKey("Worker", "0.0.1"), eventQueue, atFactory);
@@ -444,5 +451,18 @@ public class EngineWorkerTest {
         }
 
         assertNotNull(worker.getApexModelKey());
+
+        final ApexPolicyStatisticsManager policyCounter = ApexPolicyStatisticsManager.getInstanceFromRegistry();
+        assertNotNull(policyCounter);
+        assertEquals(policyCounter.getPolicyExecutedCount(),
+                policyCounter.getPolicyExecutedFailCount() + policyCounter.getPolicyExecutedSuccessCount());
+        policyCounter.resetAllStatistics();
+        assertEquals(0, policyCounter.getPolicyExecutedCount());
+        assertEquals(0, policyCounter.getPolicyExecutedFailCount());
+        assertEquals(0, policyCounter.getPolicyExecutedSuccessCount());
+        assertEquals(0, policyCounter.getPolicyDeployCount());
+        assertEquals(0, policyCounter.getPolicyDeployFailCount());
+        assertEquals(0, policyCounter.getPolicyDeploySuccessCount());
+
     }
 }

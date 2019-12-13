@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
+import lombok.Getter;
 
 /**
  * This class is a java bean that is used to record statistics on Apex engines as they execute.
@@ -87,6 +88,7 @@ public class AxEngineStats extends AxConcept {
     private long upTime;
 
     @Transient
+    @Getter
     private transient long lastEnterTime;
 
     @Column
@@ -294,7 +296,7 @@ public class AxEngineStats extends AxConcept {
      *
      * @return the time at which the policy engine was last started
      */
-    private long getLastStart() {
+    public long getLastStart() {
         return lastStart;
     }
 
