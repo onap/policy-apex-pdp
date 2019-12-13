@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.CommonTestData;
 import org.onap.policy.common.utils.services.Registry;
@@ -71,7 +72,8 @@ public class TestApexStarterMain {
 
         // ensure items were added to the registry
         assertNotNull(Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class));
-
+        assertNotNull(Registry.get(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER,
+                ApexPolicyStatisticsManager.class));
         apexStarter.shutdown();
     }
 

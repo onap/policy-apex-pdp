@@ -22,9 +22,11 @@
 package org.onap.policy.apex.service.engine.runtime.impl;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
@@ -37,6 +39,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
@@ -704,9 +707,21 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             LOGGER.warn(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
             throw new ApexException(ENGINE_KEY_PREAMBLE + engineKey.getId() + NOT_FOUND_SUFFIX);
         }
-
         // Return the information for this worker
         return engineWorkerMap.get(engineKey).getStatus(engineKey);
+    }
+
+    /**
+     * {@inheritDoc}.
+     *
+     */
+    @Override
+    public List<AxEngineModel> getEngineStats() {
+        List<AxEngineModel> engineStats = new ArrayList<>();
+        for (final EngineService engine : engineWorkerMap.values()) {
+            engineStats.addAll(engine.getEngineStats());
+        }
+        return engineStats;
     }
 
     /**

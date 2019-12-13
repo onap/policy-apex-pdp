@@ -27,8 +27,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
@@ -54,6 +56,7 @@ import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.impl.enevent.ApexEvent2EnEventConverter;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
@@ -465,6 +468,16 @@ final class EngineWorker implements EngineService {
      * {@inheritDoc}.
      */
     @Override
+    public List<AxEngineModel> getEngineStats() {
+        List<AxEngineModel> engineStats = new ArrayList<>();
+        engineStats.add(engine.getEngineStatus());
+        return engineStats;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
     public String getRuntimeInfo(final AxArtifactKey engineKey) {
         // We'll build up the JSON string for runtime information bit by bit
         final StringBuilder runtimeJsonStringBuilder = new StringBuilder();
@@ -594,19 +607,23 @@ final class EngineWorker implements EngineService {
                     LOGGER.debug("Engine {} processing interrupted ", engineWorkerKey);
                     break;
                 }
-
+                boolean executedResult = false;
                 try {
                     if (event != null) {
                         debugEventIfDebugEnabled(event);
 
                         final EnEvent enevent = apexEnEventConverter.fromApexEvent(event);
-                        engine.handleEvent(enevent);
+                        executedResult = engine.handleEvent(enevent);
                     }
                 } catch (final ApexException e) {
                     LOGGER.warn("Engine {} failed to process event {}", engineWorkerKey, event.toString(), e);
                 } catch (final Exception e) {
                     LOGGER.warn("Engine {} terminated processing event {}", engineWorkerKey, event.toString(), e);
                     stopFlag = true;
+                }
+                ApexPolicyStatisticsManager apexPolicyCounter = ApexPolicyStatisticsManager.getInstanceFromRegistry();
+                if (!stopFlag && apexPolicyCounter != null) {
+                    apexPolicyCounter.updatePolicyExecutedCounter(executedResult);
                 }
             }
             LOGGER.debug("Engine {} completed processing", engineWorkerKey);

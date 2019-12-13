@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.common.utils.coder.CoderException;
@@ -127,6 +128,17 @@ public class ApexEngineHandler {
             LOGGER.error(errorMessage, e);
             throw new ApexStarterException(errorMessage, e);
         }
+    }
+
+    /**
+     * Method to get the APEX engine statistics.
+     */
+    public List<AxEngineModel> getEngineStats() {
+        List<AxEngineModel> engineStats = null;
+        if (null != apexMain && apexMain.isAlive()) {
+            engineStats = apexMain.getEngineStats();
+        }
+        return engineStats;
     }
 
     /**
