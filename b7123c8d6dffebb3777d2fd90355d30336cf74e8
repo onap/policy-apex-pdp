@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3d6ff89f_d92626e6",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5257
+      },
+      "writtenOn": "2019-12-16T08:08:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca2138bd_caa5a0f3",
+      "range": {
+        "startLine": 276,
+        "startChar": 31,
+        "endLine": 276,
+        "endChar": 45
+      },
+      "revId": "b7123c8d6dffebb3777d2fd90355d30336cf74e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c6ee0b6_194c15d5",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ce924961_db6c323b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5257
+      },
+      "writtenOn": "2019-12-16T08:08:26Z",
+      "side": 1,
+      "message": "I updated the implemention to avoid the JSON string to/from AxEngineModel convert repeatedly.",
+      "parentUuid": "5c6ee0b6_194c15d5",
+      "range": {
+        "startLine": 276,
+        "startChar": 49,
+        "endLine": 291,
+        "endChar": 27
+      },
+      "revId": "b7123c8d6dffebb3777d2fd90355d30336cf74e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66c6f487_f1a85b0e",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-12-13T13:26:51Z",
       "side": 1,
       "message": "getEngineStats() would be a better name for this method because it returns a model containing just stats.",
+      "range": {
+        "startLine": 265,
+        "startChar": 31,
+        "endLine": 265,
+        "endChar": 45
+      },
+      "revId": "b7123c8d6dffebb3777d2fd90355d30336cf74e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ae64aac_a62263f6",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5257
+      },
+      "writtenOn": "2019-12-16T08:08:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66c6f487_f1a85b0e",
       "range": {
         "startLine": 265,
         "startChar": 31,
