@@ -1,0 +1,128 @@
+{
+    "type": "record",
+    "name": "VCPEClosedLoopStatus",
+    "fields": [
+        {
+            "name": "AAI",
+            "type": {
+                "type": "record",
+                "name": "VCPE_AAI_Type",
+                "namespace": "org.onap.policy.apex.onap.vcpe",
+                "fields": [
+                    {
+                        "name": "genericVnfResourceVersion",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfVnfName",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfProvStatus",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfIsClosedLoopDisabled",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfOrchestrationStatus",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfVnfType",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfInMaint",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfServiceId",
+                        "type": "string"
+                    },
+                    {
+                        "name": "genericVnfVnfId",
+                        "type": "string"
+                    },
+                    {
+                        "name": "vserverIsClosedLoopDisabled",
+                        "type": "string"
+                    },
+                    {
+                        "name": "vserverName",
+                        "type": "string"
+                    },
+                    {
+                        "name": "vserverProvStatus",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "closedLoopAlarmStart",
+            "type": "long"
+        },
+        {
+            "name": "closedLoopAlarmEnd",
+            "type": "long"
+        },
+        {
+            "name": "closedLoopControlName",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "name": "requestID",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopEventClient",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopEventStatus",
+            "type": "string"
+        },
+        {
+            "name": "target_type",
+            "type": "string"
+        },
+        {
+            "name": "target",
+            "type": "string"
+        },
+        {
+            "name": "from",
+            "type": "string"
+        },
+        {
+            "name": "policyScope",
+            "type": "string"
+        },
+        {
+            "name": "policyName",
+            "type": "string"
+        },
+        {
+            "name": "policyVersion",
+            "type": "string"
+        },
+        {
+            "name": "notification",
+            "type": "string"
+        },
+        {
+            "name": "notificationTime",
+            "type": "long"
+        },
+        {
+            "name": "message",
+            "type": "string"
+        }
+    ]
+}

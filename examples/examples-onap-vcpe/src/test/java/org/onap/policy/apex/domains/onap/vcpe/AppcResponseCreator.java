@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +48,8 @@ public class AppcResponseCreator {
     // The timer task for response generation
     private final Timer appcTimer;
 
-    private static final Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).create();
+    private static final Gson gson =
+            new GsonBuilder().registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).create();
 
     /**
      * Respond to the given APPC request after the given amount of milliseconds.
@@ -58,7 +59,7 @@ public class AppcResponseCreator {
      * @param milliSecondsToWait the number of milliseconds to wait
      */
     public AppcResponseCreator(BlockingQueue<String> appcResponseQueue, String jsonRequestString,
-                    long milliSecondsToWait) {
+            long milliSecondsToWait) {
         this.jsonRequestString = jsonRequestString;
         this.appcResponseQueue = appcResponseQueue;
 
@@ -81,6 +82,7 @@ public class AppcResponseCreator {
             AppcLcmOutput response = new AppcLcmOutput(request);
             response.getStatus().setCode(400);
             response.getStatus().setMessage("Restart Successful");
+            response.setPayload("");
 
             AppcLcmDmaapWrapper responseWrapper = new AppcLcmDmaapWrapper();
             responseWrapper.setBody(new AppcLcmBody());

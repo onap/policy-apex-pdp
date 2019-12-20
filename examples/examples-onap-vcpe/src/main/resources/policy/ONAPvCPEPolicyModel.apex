@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2019-2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,11 +33,11 @@ schema create name=APPCLCMRequestType flavour=Java schema=org.onap.policy.appclc
 schema create name=APPCLCMResponseType flavour=Java schema=org.onap.policy.appclcm.AppcLcmDmaapWrapper
 
 schema create name=GuardDecisionAttributesType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/GuardDecisionAttributesType.avsc"
+#MACROFILE:"src/main/resources/schemas/definitive/GuardDecisionAttributesType.avsc"
 LE
 
 schema create name=VCPEClosedLoopStatusType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/VCPEClosedLoopStatusType.avsc"
+#MACROFILE:"src/main/resources/schemas/definitive/VCPEClosedLoopStatusType.avsc"
 LE
 
 album create name=VCPEClosedLoopStatusAlbum scope=policy writable=true schemaName=VCPEClosedLoopStatusType
@@ -84,7 +85,7 @@ task contextref create name=GetVCPEStateTask albumName=VCPEClosedLoopStatusAlbum
 task contextref create name=GetVCPEStateTask albumName=RequestIDVNFIDAlbum
 
 task logic create name=GetVCPEStateTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/GetVCPEStateTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/GetVCPEStateTask.js"
 LE
 
 task create name=AbatedTask
@@ -100,7 +101,7 @@ task outputfield create name=AbatedTask fieldName=vnfName   schemaName=SimpleStr
 task contextref create name=AbatedTask albumName=VCPEClosedLoopStatusAlbum
 
 task logic create name=AbatedTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/AbatedTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/AbatedTask.js"
 LE
 
 task create name=GuardRequestTask
@@ -115,7 +116,7 @@ task contextref create name=GuardRequestTask albumName=VCPEClosedLoopStatusAlbum
 task contextref create name=GuardRequestTask albumName=ControlLoopExecutionIDAlbum
 
 task logic create name=GuardRequestTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/GuardRequestTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/GuardRequestTask.js"
 LE
 
 task create name=GuardResponseTask
@@ -130,7 +131,7 @@ task contextref create name=GuardResponseTask albumName=VCPEClosedLoopStatusAlbu
 task contextref create name=GuardResponseTask albumName=ControlLoopExecutionIDAlbum
 
 task logic create name=GuardResponseTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/GuardResponseTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/GuardResponseTask.js"
 LE
 
 task create name=DeniedTask
@@ -144,7 +145,7 @@ task outputfield create name=DeniedTask fieldName=vnfID     schemaName=UUIDType
 task contextref create name=DeniedTask albumName=VCPEClosedLoopStatusAlbum
 
 task logic create name=DeniedTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/DeniedTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/DeniedTask.js"
 LE
 
 task create name=APPCRestartVNFRequestTask
@@ -158,7 +159,7 @@ task contextref create name=APPCRestartVNFRequestTask albumName=VCPEClosedLoopSt
 task contextref create name=APPCRestartVNFRequestTask albumName=RequestIDVNFIDAlbum
 
 task logic create name=APPCRestartVNFRequestTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/APPCRestartVNFRequestTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/APPCRestartVNFRequestTask.js"
 LE
 
 task create name=APPCRestartVNFResponseTask
@@ -172,7 +173,7 @@ task contextref create name=APPCRestartVNFResponseTask albumName=VCPEClosedLoopS
 task contextref create name=APPCRestartVNFResponseTask albumName=RequestIDVNFIDAlbum
 
 task logic create name=APPCRestartVNFResponseTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/APPCRestartVNFResponseTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/APPCRestartVNFResponseTask.js"
 LE
 
 task create name=ControlLoopLogTask
@@ -185,7 +186,7 @@ task outputfield create name=ControlLoopLogTask fieldName=VirtualControlLoopNoti
 task contextref create name=ControlLoopLogTask albumName=VCPEClosedLoopStatusAlbum
 
 task logic create name=ControlLoopLogTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/ControlLoopLogTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/ControlLoopLogTask.js"
 LE
 
 task create name=AAILookupTask
@@ -199,7 +200,7 @@ task outputfield create name=AAILookupTask fieldName=vnfID     schemaName=UUIDTy
 task contextref create name=AAILookupTask albumName=VCPEClosedLoopStatusAlbum
 
 task logic create name=AAILookupTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/AAILookupTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/AAILookupTask.js"
 LE
 
 task create name=NoAAILookupTask
@@ -211,7 +212,7 @@ task outputfield create name=NoAAILookupTask fieldName=requestID schemaName=UUID
 task outputfield create name=NoAAILookupTask fieldName=vnfID     schemaName=UUIDType
 
 task logic create name=NoAAILookupTask logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/NoAAILookupTask.js"
+#MACROFILE:"src/main/resources/logic/definitive/NoAAILookupTask.js"
 LE
 
 #
@@ -232,7 +233,7 @@ policy state taskref create name=ReceiveEventPolicy stateName=OnsetOrAbatedState
 policy state contextref create name=ReceiveEventPolicy stateName=OnsetOrAbatedState albumName=VCPEClosedLoopStatusAlbum
 
 policy state selecttasklogic create name=ReceiveEventPolicy stateName=OnsetOrAbatedState logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/OnsetOrAbatedStateTSL.js"
+#MACROFILE:"src/main/resources/logic/definitive/OnsetOrAbatedStateTSL.js"
 LE
 
 policy state create name=ReceiveEventPolicy stateName=RequestAAIState triggerName=VCPEStateUpdatedEvent defaultTaskName=AAILookupTask
@@ -267,7 +268,7 @@ policy state taskref create name=RestartAPPCRequestPolicy stateName=PolicyGuardR
 policy state contextref create name=RestartAPPCRequestPolicy stateName=PermitOrDenyState albumName=VCPEClosedLoopStatusAlbum
 
 policy state selecttasklogic create name=RestartAPPCRequestPolicy stateName=PermitOrDenyState logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/logic/RestartAPPCRequestPolicyPermitOrDenyTSL.js"
+#MACROFILE:"src/main/resources/logic/definitive/RestartAPPCRequestPolicyPermitOrDenyTSL.js"
 LE
 
 #

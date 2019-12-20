@@ -1,0 +1,90 @@
+{
+    "type": "record",
+    "name": "VCPEClosedLoopStatus",
+    "fields": [
+        {
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "name": "rpc_DasH_name",
+            "type": "string"
+        },
+        {
+            "name": "correlation_DasH_id",
+            "type": "string"
+        },
+        {
+            "name": "type",
+            "type": "string"
+        },
+        {
+            "name": "body",
+            "type": {
+                "type": "record",
+                "name": "Controller_Body_Type",
+                "namespace": "org.onap.policy.apex.onap.vcpe",
+                "fields": [
+                    {
+                        "name": "input",
+                        "type": {
+                            "type": "record",
+                            "name": "Controller_Body_Type_Input",
+                            "namespace": "org.onap.policy.apex.onap.vcpe",
+                            "fields": [
+                                {
+                                    "name": "action",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "action_DasH_identifiers",
+                                    "type": {
+                                        "type": "map",
+                                        "values": "string"
+                                    }
+                                },
+                                {
+                                    "name": "common_DasH_header",
+                                    "type": {
+                                        "type": "record",
+                                        "name": "Controller_Body_Type_Common_Header",
+                                        "namespace": "org.onap.policy.apex.onap.vcpe",
+                                        "fields": [
+                                            {
+                                                "name": "timestamp",
+                                                "type": "long"
+                                            },
+                                            {
+                                                "name": "api_DasH_ver",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "name": "originator_DasH_id",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "name": "request_DasH_id",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "name": "sub_DasH_request_DasH_id",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "name": "flags",
+                                                "type": {
+                                                    "type": "map",
+                                                    "values": "string"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

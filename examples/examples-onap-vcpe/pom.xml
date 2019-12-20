@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Copyright (C) 2019 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -34,6 +34,8 @@
     <properties>
         <policymodel.name>ONAPvCPEPolicyModel</policymodel.name>
         <toscapolicy.name>ONAPvCPEToscaPolicy</toscapolicy.name>
+        <policymodelstandalone.name>ONAPvCPEPolicyModelStandalone</policymodelstandalone.name>
+        <toscapolicystandalone.name>ONAPvCPEToscaPolicyStandalone</toscapolicystandalone.name>
         <apex-domains-onap-vcpe-dir>${project.basedir}/src</apex-domains-onap-vcpe-dir>
     </properties>
 
@@ -130,6 +132,43 @@
                                 <argument>--output-tosca-file=${project.build.directory}/classes/${toscapolicy.name}.json</argument>
                                 <argument>--log-file=${project.build.directory}/${policymodel.name}_policygeneration.log</argument>
                                 <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/ONAPvCPE/ApexConfig.json</argument>
+                                <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!-- Generate the Standalone APEX Policy JSON from the APEX CLI command -->
+                    <execution>
+                        <id>generate-standalone-policy</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
+                            <arguments>
+                                <argument>--command-file=${project.basedir}/src/main/resources/policy/${policymodelstandalone.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/${policymodelstandalone.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodelstandalone.name}_policygeneration.log</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!-- Generate the standalone APEX ToscaPolicy JSON file-->
+                    <execution>
+                        <id>generate-standalone-tosca-policy</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
+                            <arguments>
+                                <argument>--command-file=${project.basedir}/src/main/resources/policy/${policymodelstandalone.name}.apex</argument>
+                                <argument>--output-tosca-file=${project.build.directory}/classes/${toscapolicystandalone.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodelstandalone.name}_policygeneration.log</argument>
+                                <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/ONAPvCPEStandalone/ApexConfig.json</argument>
                                 <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json</argument>
                             </arguments>
                         </configuration>

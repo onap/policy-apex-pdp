@@ -1,0 +1,48 @@
+{
+  "nameSpace": "org.onap.policy.apex.onap.vcpe",
+  "name": "ConfigureBlackWhiteListEvent",
+  "version": "0.0.1",
+  "targetType": "VNF",
+  "target": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1",
+  "black": false
+}
+{
+  "nameSpace": "org.onap.policy.apex.onap.vcpe",
+  "name": "ConfigureBlackWhiteListEvent",
+  "version": "0.0.1",
+  "targetType": "VNF",
+  "target": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e2",
+  "black": true
+}
+{
+  "nameSpace": "org.onap.policy.apex.onap.vcpe",
+  "name": "ConfigureBlackWhiteListEvent",
+  "version": "0.0.1",
+  "targetType": "Service",
+  "target": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e3",
+  "black": false
+}
+{
+  "nameSpace": "org.onap.policy.apex.onap.vcpe",
+  "name": "ConfigureBlackWhiteListEvent",
+  "version": "0.0.1",
+  "targetType": "Service",
+  "target": "5585fd2c-ad0d-4050-b0cf-dfe4a03bd01f",
+  "black": true
+}
+{
+  "nameSpace": "org.onap.policy.apex.onap.vcpe",
+  "name": "ConfigureBlackWhiteListEvent",
+  "version": "0.0.1",
+  "targetType": "VServer",
+  "target": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e5",
+  "black": false
+}
+{
+  "nameSpace": "org.onap.policy.apex.onap.vcpe",
+  "name": "ConfigureBlackWhiteListEvent",
+  "version": "0.0.1",
+  "targetType": "VServer",
+  "target": "vserverName",
+  "black": true
+}
