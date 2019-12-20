@@ -1,19 +1,20 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -40,7 +41,7 @@ clNotification.setClosedLoopEventClient(vcpeClosedLoopStatus.get("closedLoopEven
 clNotification.setVersion(vcpeClosedLoopStatus.get("version"));
 clNotification.setRequestId(java.util.UUID.fromString(vcpeClosedLoopStatus.get("requestID")));
 clNotification.setTargetType(vcpeClosedLoopStatus.get("target_type"));
-clNotification.setTarget(org.onap.policy.controlloop.ControlLoopEventStatus.toStatus(vcpeClosedLoopStatus.get("target")));
+clNotification.setTarget(vcpeClosedLoopStatus.get("target"));
 clNotification.setFrom(vcpeClosedLoopStatus.get("from"));
 clNotification.setPolicyScope(vcpeClosedLoopStatus.get("policyScope"));
 clNotification.setPolicyName(vcpeClosedLoopStatus.get("policyName"));
@@ -54,16 +55,16 @@ clNotification.setNotificationTime(notificationTime);
 
 var aaiInfo = vcpeClosedLoopStatus.get("AAI");
 
-clNotification.getAai().put("generic-vnf.resource-version",        aaiInfo.get("genericVnfResourceVersion"));      
-clNotification.getAai().put("generic-vnf.vnf-name",                aaiInfo.get("genericVnfVnfName"));              
-clNotification.getAai().put("generic-vnf.prov-status",             aaiInfo.get("genericVnfProvStatus"));           
-clNotification.getAai().put("generic-vnf.is-closed-loop-disabled", aaiInfo.get("genericVnfIsClosedLoopDisabled")); 
-clNotification.getAai().put("generic-vnf.orchestration-status",    aaiInfo.get("genericVnfOrchestrationStatus"));  
-clNotification.getAai().put("generic-vnf.vnf-type",                aaiInfo.get("genericVnfVnfType"));              
-clNotification.getAai().put("generic-vnf.in-maint",                aaiInfo.get("genericVnfInMaint"));              
-clNotification.getAai().put("generic-vnf.service-id",              aaiInfo.get("genericVnfServiceId"));            
+clNotification.getAai().put("generic-vnf.resource-version",        aaiInfo.get("genericVnfResourceVersion"));
+clNotification.getAai().put("generic-vnf.vnf-name",                aaiInfo.get("genericVnfVnfName"));
+clNotification.getAai().put("generic-vnf.prov-status",             aaiInfo.get("genericVnfProvStatus"));
+clNotification.getAai().put("generic-vnf.is-closed-loop-disabled", aaiInfo.get("genericVnfIsClosedLoopDisabled"));
+clNotification.getAai().put("generic-vnf.orchestration-status",    aaiInfo.get("genericVnfOrchestrationStatus"));
+clNotification.getAai().put("generic-vnf.vnf-type",                aaiInfo.get("genericVnfVnfType"));
+clNotification.getAai().put("generic-vnf.in-maint",                aaiInfo.get("genericVnfInMaint"));
+clNotification.getAai().put("generic-vnf.service-id",              aaiInfo.get("genericVnfServiceId"));
 if(vnfID != null) {
-   clNotification.getAai().put("generic-vnf.vnf-id",                  aaiInfo.get("genericVnfVnfId"));                
+   clNotification.getAai().put("generic-vnf.vnf-id",                  aaiInfo.get("genericVnfVnfId"));
 }
 executor.outFields.put("VirtualControlLoopNotification", clNotification);
 
