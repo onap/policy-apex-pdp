@@ -1,0 +1,22 @@
+{
+    "rpc-name": "restart",
+    "version": "2.0",
+    "correlation-id": "4a68f8a5-0db9-4070-a132-adede51e3d5c",
+    "type": "request",
+    "body": {
+        "input": {
+            "common-header": {
+                "timestamp": "2018-02-26T10:23:41.97Z",
+                "api-ver": "2.15",
+                "originator-id": "4a68f8a5-0db9-4070-a132-adede51e3d5c",
+                "request-id": "4a68f8a5-0db9-4070-a132-adede51e3d5c",
+                "sub-request-id": "1",
+                "flags": {}
+            },
+            "action": "Restart",
+            "action-identifiers": {
+                "vnf-id": "b4fe00ac-1da6-4b00-ac0d-8e8300db39e1"
+            }
+        }
+    }
+}

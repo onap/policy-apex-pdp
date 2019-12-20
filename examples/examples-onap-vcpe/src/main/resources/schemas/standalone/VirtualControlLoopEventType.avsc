@@ -1,0 +1,76 @@
+{
+    "type": "record",
+    "name": "VirtualControlLoopEvent",
+    "fields": [
+        {
+            "name": "requestID",
+            "type": "string"
+        },
+        {
+            "name": "target_type",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopControlName",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopEventClient",
+            "type": "string"
+        },
+        {
+            "name": "target",
+            "type": "string"
+        },
+        {
+            "name": "from",
+            "type": "string"
+        },
+        {
+            "name": "policyScope",
+            "type": "string"
+        },
+        {
+            "name": "policyName",
+            "type": "string"
+        },
+        {
+            "name": "policyVersion",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopEventStatus",
+            "type": "string"
+        },
+        {
+            "name": "additionalEventParams",
+            "type": {
+                "type": "map",
+                "values": "string"
+            }
+        },
+        {
+            "name": "AAI",
+            "type": {
+                "type": "map",
+                "values": "string"
+            }
+        },
+        {
+            "name": "payload",
+            "type": "string"
+        },
+        {
+            "name": "closedLoopAlarmStart",
+            "type": "long"
+        },
+        {
+            "name": "closedLoopAlarmEnd",
+            "type": "long"
+        }
+    ]
+}
