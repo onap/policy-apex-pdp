@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0c51e0e_ef82b1c8",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexPolicyStatisticsManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-01-02T12:34:58Z",
+      "side": 1,
+      "message": "There could be some sonar here regarding the position of the constructor.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 5
+      },
+      "revId": "1596e81b7594640b52dc989520aa14b164562655",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
