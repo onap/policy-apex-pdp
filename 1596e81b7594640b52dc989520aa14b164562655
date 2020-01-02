@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8c5cd06f_08d775c0",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexPolicyStatisticsManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-01-02T15:46:19Z",
+      "side": 1,
+      "message": "spelling?",
+      "range": {
+        "startLine": 30,
+        "startChar": 73,
+        "endLine": 30,
+        "endChar": 82
+      },
+      "revId": "1596e81b7594640b52dc989520aa14b164562655",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0c51e0e_ef82b1c8",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexPolicyStatisticsManager.java",
         "patchSetId": 3
