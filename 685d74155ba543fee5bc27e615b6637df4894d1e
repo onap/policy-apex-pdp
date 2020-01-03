@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6f649fb_3200feb2",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-01-03T10:06:31Z",
+      "side": 1,
+      "message": "Combining them together will be better I think.\n\"Modifications Copyright (C) 2019-2020 Nordix Foundation.\"",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "685d74155ba543fee5bc27e615b6637df4894d1e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
