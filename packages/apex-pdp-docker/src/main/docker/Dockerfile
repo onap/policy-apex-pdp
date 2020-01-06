@@ -37,6 +37,8 @@ RUN find /opt/app -type d -perm 755 \
 RUN cp -pr $POLICY_HOME/examples /home/apexuser \
     && chown -R apexuser:apexuser /home/apexuser/*
 
+RUN chown -R apexuser:apexuser $POLICY_HOME/etc/* && chmod 755 $POLICY_HOME/etc/*
+
 USER apexuser
 ENV PATH $POLICY_HOME/bin:$PATH
 WORKDIR /home/apexuser
