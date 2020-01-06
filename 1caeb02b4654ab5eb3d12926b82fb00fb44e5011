@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6ed1387_6e84d958",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-01-06T17:20:32Z",
+      "side": 1,
+      "message": "At least in the past the recommendation was to compact the RUN lines to minimize the # of layers such as:\n\nRUN cp -pr $POLICY_HOME/examples /home/apexuser \\\n    \u0026\u0026 chown -R apexuser:apexuser /home/apexuser/* $POLICY_HOME/etc/* \\\n    \u0026\u0026 chmod 755 $POLICY_HOME/etc/*\n\nNote also, that may be it would be OK to do :\n\nchown -R apexuser:apexuser $POLICY_HOME\n\nProbably that\u0027s preferable, if I recall correctly, the image shows apex-pdp files under $POLICY_HOME shows to be owned for an uid that doesn\u0027t have an account, so they cannot be modified.",
+      "revId": "1caeb02b4654ab5eb3d12926b82fb00fb44e5011",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
