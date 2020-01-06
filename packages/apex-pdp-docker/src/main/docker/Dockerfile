@@ -35,7 +35,8 @@ RUN find /opt/app -type d -perm 755 \
 
 # Copy examples to Apex user area
 RUN cp -pr $POLICY_HOME/examples /home/apexuser \
-    && chown -R apexuser:apexuser /home/apexuser/*
+    && chown -R apexuser:apexuser /home/apexuser/* $POLICY_HOME \
+    && chmod 755 $POLICY_HOME/etc/*
 
 USER apexuser
 ENV PATH $POLICY_HOME/bin:$PATH
