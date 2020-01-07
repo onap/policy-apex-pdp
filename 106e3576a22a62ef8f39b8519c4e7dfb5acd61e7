@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c592bc45_48974111",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/examples/config/ONAPvCPEStandalone/ApexConfig.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "localhost? (same question below)",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9931e9b9_13ef3322",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/CheckVServerIdTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "sure feels like there\u0027s opportunity for extracting a common method for these js files to use, but since this is an example, maybe not",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99022ce7_4c9723aa",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/ControllerResponseTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "don\u0027t need to set returnValue here?\n\nsame question below",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b4c5eed_036303e3",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/GetEntityStateTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "missing \"var\"?",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a328e9c_3484f960",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/ReceiveEventPolicyExecuteOrLogStateTSL.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "this line is a dup of 37",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ceb3093_96061892",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/AppcResponseCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "not sure of the value of synchronizing on nextResponseCode",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b2b65e1_a30d8dc4",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "note sure of the value of synchronizing on nextControlLoopMessageIsOnset",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15232213_82e92c9d",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:06:05Z",
+      "side": 1,
+      "message": "do this once and save in a static",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
