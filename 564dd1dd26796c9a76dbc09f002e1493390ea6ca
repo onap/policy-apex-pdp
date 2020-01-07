@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f64c7d1_8d642d00",
+        "filename": "model/engine-model/src/main/java/org/onap/policy/apex/model/enginemodel/concepts/AxEngineStats.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:33:07Z",
+      "side": 1,
+      "message": "use lombok?",
+      "revId": "564dd1dd26796c9a76dbc09f002e1493390ea6ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "417643bf_994530a4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexPolicyStatisticsManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:33:07Z",
+      "side": 1,
+      "message": "\"registry\" \u003d\u003e \"registered\"",
+      "revId": "564dd1dd26796c9a76dbc09f002e1493390ea6ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e0baf00_e685a242",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/runtime/impl/EngineWorkerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:33:07Z",
+      "side": 1,
+      "message": "use assertEquals instead of assertTrue\n\nsame comment below",
+      "revId": "564dd1dd26796c9a76dbc09f002e1493390ea6ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88cedbb5_dbd2ec3f",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestPdpStateChangeListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-07T15:33:07Z",
+      "side": 1,
+      "message": "use assertEquals",
+      "revId": "564dd1dd26796c9a76dbc09f002e1493390ea6ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
