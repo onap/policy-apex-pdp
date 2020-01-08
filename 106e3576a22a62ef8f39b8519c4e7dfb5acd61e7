@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "75333edc_449e11d3",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/examples/config/ONAPvCPEStandalone/ApexConfig.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "This file is an example configuration for the apex-pdp running in the real ONAP environment so \"localhost\" would not be correct here. The correct value is the IP address or host name for DMaaP.\n\nThe user must change this file to suit their own installation and then this configuration is packaged into the TOSCA policy. Once the apex-pdp unpacks the TOSCA, it loads the policy and connects to whatever host name is in the configuration file.",
+      "parentUuid": "c592bc45_48974111",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9931e9b9_13ef3322",
         "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/CheckVServerIdTask.js",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2020-01-07T15:06:05Z",
       "side": 1,
       "message": "sure feels like there\u0027s opportunity for extracting a common method for these js files to use, but since this is an example, maybe not",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5d75fb_b6b547e9",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/CheckVServerIdTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "In this example, I want to show chaining of states. OK, the example is a bit lame but it\u0027s hopefully easy to understand.\n\nThe first state checks the service ID blacklist, the next state checks the VServer ID blacklist and the final one checks the VNF ID blacklist. The policy then consists of a directed graph of three checking states and then a fourth state that decides what to do.",
+      "parentUuid": "9931e9b9_13ef3322",
       "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c31c0466_c16f3b71",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/ControllerResponseTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "It\u0027s set at line 38.\n\nThe return value should be true except for cases where there is a real incompatibility type error in the policy. The case at line 85-86 where the VNF ID is not found should not happen (We should never get to here if the VNF ID is not in the context map), so that\u0027s an error in policy execution.",
+      "parentUuid": "99022ce7_4c9723aa",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b4c5eed_036303e3",
         "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/GetEntityStateTask.js",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2020-01-07T15:06:05Z",
       "side": 1,
       "message": "missing \"var\"?",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996ebb30_555265c1",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/GetEntityStateTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b4c5eed_036303e3",
       "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "335c6dea_91407b52",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/ReceiveEventPolicyExecuteOrLogStateTSL.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a328e9c_3484f960",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ceb3093_96061892",
         "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/AppcResponseCreator.java",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2020-01-07T15:06:05Z",
       "side": 1,
       "message": "not sure of the value of synchronizing on nextResponseCode",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53675216_fff3b3e9",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/AppcResponseCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "The policy is multi threaded so there can be multiple onset events being handled at the same time. However thinking about it, synchronizing on responseCode is not required here.",
+      "parentUuid": "9ceb3093_96061892",
       "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "28913c65_7e52cc9a",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b2b65e1_a30d8dc4",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15232213_82e92c9d",
         "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
         "patchSetId": 4
@@ -132,6 +258,24 @@
       "writtenOn": "2020-01-07T15:06:05Z",
       "side": 1,
       "message": "do this once and save in a static",
+      "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f86079b0_f583fadc",
+        "filename": "examples/examples-onap-vcpe/src/test/java/org/onap/policy/apex/domains/onap/vcpe/OnapVCpeSimEndpoint.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-08T10:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15232213_82e92c9d",
       "revId": "106e3576a22a62ef8f39b8519c4e7dfb5acd61e7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
