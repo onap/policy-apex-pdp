@@ -22,6 +22,30 @@
       "revId": "b2bb847016d780377ea4ff26b389885e9295e7ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af2972f0_c4a61158",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexPolicyStatisticsManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5257
+      },
+      "writtenOn": "2020-01-09T01:27:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "606dc895_59b6206a",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 24
+      },
+      "revId": "b2bb847016d780377ea4ff26b389885e9295e7ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
