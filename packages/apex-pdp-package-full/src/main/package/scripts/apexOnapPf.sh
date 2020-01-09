@@ -1,7 +1,7 @@
 #!/bin/bash -x
 #
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2019 Nordix Foundation.
+#  Copyright (C) 2019-2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -67,6 +67,11 @@ fi
 if [[ -f "${HOME}"/config/policy-keystore ]]; then
     echo "overriding policy-keystore"
     cp -f "${HOME}"/config/policy-keystore "${APEX_HOME}"/etc/ssl/
+fi
+
+if [[ -f "${HOME}"/config/logback.xml ]]; then
+    echo "overriding logback.xml"
+    cp -f "${HOME}"/config/logback.xml "${APEX_HOME}"/etc/
 fi
 
 if [ $(whoami) == "$APEX_USER" ]
