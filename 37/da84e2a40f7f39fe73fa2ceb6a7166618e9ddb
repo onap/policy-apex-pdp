@@ -1,0 +1,9 @@
+Code-Review+2: Pamela Dragosh <pdragosh@research.att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Jim Hahn <jrh3@att.com>
+Code-Review+2: Jorge Hernandez <jorge.hernandez-herrero@att.com>
+Submitted-by: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-at: Mon, 20 Jan 2020 15:26:02 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/100478
+Project: policy/apex-pdp
+Branch: refs/heads/master
