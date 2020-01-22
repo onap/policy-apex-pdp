@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "afa7cb75_0f3c8e18",
+        "filename": "model/basic-model/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-01-22T13:04:45Z",
+      "side": 1,
+      "message": "I\u0027ve seen Ali add these in his reviews, eventually we should just have them in policy/parent for all the repos. We\u0027ll clean that up later.",
+      "parentUuid": "df3d55cd_ed8c0dd6",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3484ccc4_903fcd19",
         "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/typeutils/ClassBuilder.java",
         "patchSetId": 1
@@ -113,6 +131,29 @@
       "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6819304e_ce2acdc7",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-01-22T13:04:45Z",
+      "side": 1,
+      "message": "You should change these to the SNAPSHOTS that are supporting JDK11",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 60
+      },
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     },
     {
       "key": {
