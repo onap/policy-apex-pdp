@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -62,14 +63,13 @@ public class SchemaUtilsTest {
 
     /**
      * Read the models into strings.
-     * 
+     *
      * @throws IOException on model reading errors
      * @throws ApexModelException on model reading exceptions
      */
     @BeforeClass
     public static void readSimpleModel() throws IOException, ApexModelException {
-        String avroModelString = TextFileUtils
-                        .getTextFileAsString("target/examples/models/pcvs/vpnsla/PCVS-VpnSla.json");
+        String avroModelString = TextFileUtils.getTextFileAsString("target/examples/models/pcvs/vpnsla/vpnsla.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         avroModel = modelReader.read(new ByteArrayInputStream(avroModelString.getBytes()));
@@ -86,7 +86,7 @@ public class SchemaUtilsTest {
             fail("test should throw an exception");
         } catch (Exception apEx) {
             assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
-                            + " not found in model service", apEx.getMessage());
+                    + " not found in model service", apEx.getMessage());
         }
 
         try {
@@ -95,7 +95,7 @@ public class SchemaUtilsTest {
             fail("test should throw an exception");
         } catch (Exception apEx) {
             assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
-                            + " not found in model service", apEx.getMessage());
+                    + " not found in model service", apEx.getMessage());
         }
 
         List<Field> skeletonFields = SchemaUtils.getSkeletonEventSchemaFields();
@@ -103,14 +103,14 @@ public class SchemaUtilsTest {
 
         try {
             AvroSchemaHelper schemaHelper = (AvroSchemaHelper) new SchemaHelperFactory()
-                            .createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
+                    .createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
 
             Map<String, Schema> schemaMap = new LinkedHashMap<>();
             SchemaUtils.processSubSchemas(schemaHelper.getAvroSchema(), schemaMap);
             fail("test should throw an exception");
         } catch (Exception apEx) {
             assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
-                            + " not found in model service", apEx.getMessage());
+                    + " not found in model service", apEx.getMessage());
         }
     }
 
@@ -130,11 +130,11 @@ public class SchemaUtilsTest {
 
         Schema eventSchema = SchemaUtils.getEventSchema(event);
         assertEquals("{\"type\":\"record\",\"name\":\"CustomerContextEventIn\"",
-                        eventSchema.toString().substring(0, 48));
+                eventSchema.toString().substring(0, 48));
 
         Map<String, Schema> preexistingParamSchemas = new LinkedHashMap<>();
-        Schema epSchema = SchemaUtils.getEventParameterSchema(event.getParameterMap().get("links"),
-                        preexistingParamSchemas);
+        Schema epSchema =
+                SchemaUtils.getEventParameterSchema(event.getParameterMap().get("links"), preexistingParamSchemas);
         assertEquals("\"string\"", epSchema.toString());
 
         List<Field> skeletonFields = SchemaUtils.getSkeletonEventSchemaFields();
@@ -142,7 +142,7 @@ public class SchemaUtilsTest {
 
         try {
             AvroSchemaHelper schemaHelper = (AvroSchemaHelper) new SchemaHelperFactory()
-                            .createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
+                    .createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
 
             Map<String, Schema> schemaMap = new LinkedHashMap<>();
             SchemaUtils.processSubSchemas(schemaHelper.getAvroSchema(), schemaMap);
@@ -153,8 +153,8 @@ public class SchemaUtilsTest {
 
         schemaParameters.getSchemaHelperParameterMap().put("Avro", new AvroSchemaHelperParameters());
 
-        AvroSchemaHelper schemaHelper = (AvroSchemaHelper) new SchemaHelperFactory().createSchemaHelper(topoNodesKey,
-                        avroCtxtSchema.getKey());
+        AvroSchemaHelper schemaHelper =
+                (AvroSchemaHelper) new SchemaHelperFactory().createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
 
         Map<String, Schema> schemaMap = new LinkedHashMap<>();
         try {
@@ -165,13 +165,13 @@ public class SchemaUtilsTest {
 
         eventSchema = SchemaUtils.getEventSchema(event);
         assertEquals("{\"type\":\"record\",\"name\":\"CustomerContextEventIn\"",
-                        eventSchema.toString().substring(0, 48));
+                eventSchema.toString().substring(0, 48));
 
         epSchema = SchemaUtils.getEventParameterSchema(event.getParameterMap().get("links"), preexistingParamSchemas);
         assertEquals("\"string\"", epSchema.toString());
 
-        AxInputField inField = new AxInputField(new AxReferenceKey("FieldParent", "0.0.1", "Field"),
-                        avroCtxtSchema.getKey(), false);
+        AxInputField inField =
+                new AxInputField(new AxReferenceKey("FieldParent", "0.0.1", "Field"), avroCtxtSchema.getKey(), false);
 
         Schema ep2Schema = SchemaUtils.getEventParameterSchema(inField, preexistingParamSchemas);
         assertEquals("{\"type\":\"record\",\"name\":\"TopologyNodes\"", ep2Schema.toString().substring(0, 39));

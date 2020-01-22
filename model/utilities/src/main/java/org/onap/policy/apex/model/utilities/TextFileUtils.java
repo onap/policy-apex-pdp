@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +62,10 @@ public abstract class TextFileUtils {
      */
     public static void putStringAsTextFile(final String outString, final String textFilePath) throws IOException {
         final File textFile = new File(textFilePath);
+        if (!textFile.getParentFile().exists()) {
+            textFile.getParentFile().mkdirs();
+        }
+
         putStringAsFile(outString, textFile);
     }
 

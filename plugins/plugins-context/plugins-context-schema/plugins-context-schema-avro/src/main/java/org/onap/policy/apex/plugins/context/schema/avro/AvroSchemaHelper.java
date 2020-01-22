@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             avroSchema = new Schema.Parser().parse(schema.getSchema());
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": avro context schema \"" + schema.getId()
-                            + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
+                    + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
             LOGGER.warn(resultSting, e);
             throw new ContextRuntimeException(resultSting);
         }
@@ -128,8 +128,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
             return createNewInstance(elementJsonString);
         } else {
-            final String returnString = getUserKey().getId() + ": the object \"" + incomingObject
-                            + "\" is not an instance of JsonObject";
+            final String returnString =
+                    getUserKey().getId() + ": the object \"" + incomingObject + "\" is not an instance of JsonObject";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -145,7 +145,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             return subInstance;
         } else {
             final String returnString = getUserKey().getId() + ": the schema \"" + avroSchema.getName()
-                            + "\" does not have a subtype of type \"" + subInstanceType + "\"";
+                    + "\" does not have a subtype of type \"" + subInstanceType + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -196,7 +196,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
      * @return an instance of the type or null if it is the incorrect type
      */
     private Object instantiateSubInstance(final String subInstanceType, final Schema subSchema,
-                    final Set<String> foundTypes) {
+            final Set<String> foundTypes) {
         if (subSchema == null) {
             return null;
         }
@@ -211,7 +211,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
 
         if (subSchema.getName().equals(subInstanceType)) {
             return new AvroObjectMapperFactory().get(AxArtifactKey.getNullKey(), subSchema)
-                            .createNewInstance(subSchema);
+                    .createNewInstance(subSchema);
         }
         return createNewSubInstance(subSchema, subInstanceType, foundTypes);
     }
@@ -235,7 +235,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             decodedObject = new GenericDatumReader<GenericRecord>(avroSchema).read(null, jsonDecoder);
         } catch (final Exception e) {
             final String returnString = getUserKey().getId() + OBJECT_TAG + objectString
-                            + "\" Avro unmarshalling failed: " + e.getMessage();
+                    + "\" Avro unmarshalling failed: " + e.getMessage();
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -259,9 +259,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             }
         } catch (final ClassCastException e) {
             final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
-                            + (object != null ? object.getClass().getName() : "null") + "\" must be assignable to \""
-                            + getSchemaClass().getName()
-                            + "\" or be a Json string representation of it for Avro unmarshalling";
+                    + (object != null ? object.getClass().getName() : "null") + "\" must be assignable to \""
+                    + getSchemaClass().getName() + "\" or be a Json string representation of it for Avro unmarshalling";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
@@ -314,8 +313,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             jsonEncoder.flush();
             return new String(output.toByteArray());
         } catch (final Exception e) {
-            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed: "
-                            + e.getMessage();
+            final String returnString =
+                    getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed: " + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
         }
