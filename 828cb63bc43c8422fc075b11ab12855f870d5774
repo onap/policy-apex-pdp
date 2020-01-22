@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "a4ee29a8_0aeb1e0e",
+        "filename": "model/basic-model/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T17:37:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "afa7cb75_0f3c8e18",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3484ccc4_903fcd19",
         "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/typeutils/ClassBuilder.java",
         "patchSetId": 1
@@ -128,6 +146,24 @@
     },
     {
       "key": {
+        "uuid": "1a1effc6_e4ec1173",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T17:37:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ac96a2_fdb443fa",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bca384a_6466ffe6",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelperMarshalTest.java",
         "patchSetId": 1
@@ -171,6 +207,30 @@
       "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29fa7525_cf833828",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T17:37:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6819304e_ce2acdc7",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 60
+      },
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
