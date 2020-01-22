@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import org.onap.policy.common.parameters.ParameterException;
  */
 public class ProducerConsumerTests {
     @Test
-    public void goodParametersTest() {
+    public void testGoodParametersTest() {
         final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -73,7 +73,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void noCarrierTechnology() {
+    public void testNoCarrierTechnology() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsNoCT.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -94,7 +94,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void noEventProcol() {
+    public void testNoEventProcol() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsNoEP.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -124,7 +124,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void noCarrierTechnologyParClass() {
+    public void testNoCarrierTechnologyParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsNoCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -139,7 +139,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void mismatchCarrierTechnologyParClass() {
+    public void testMismatchCarrierTechnologyParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsMismatchCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -158,7 +158,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void wrongTypeCarrierTechnologyParClass() {
+    public void testWrongTypeCarrierTechnologyParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -166,19 +166,20 @@ public class ProducerConsumerTests {
             new ApexParameterHandler().getParameters(arguments);
             fail("This test should throw an exception");
         } catch (final ParameterException e) {
-            assertEquals(
-                    "error reading parameters from "
-                            + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
-                            + "(ParameterRuntimeException):could not create default parameters for carrier technology "
-                            + "\"SUPER_DOOPER\"\n" + "org.onap.policy.apex.service.engine.parameters.dummyclasses."
-                            + "SuperTokenDelimitedEventProtocolParameters cannot be cast to "
-                            + "org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters",
-                    e.getMessage());
+            assertEquals("error reading parameters from "
+                    + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
+                    + "(ParameterRuntimeException):could not create default parameters for carrier technology "
+                    + "\"SUPER_DOOPER\"\n" + "class org.onap.policy.apex.service.engine.parameters.dummyclasses."
+                    + "SuperTokenDelimitedEventProtocolParameters cannot be cast to class "
+                    + "org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters (org.onap."
+                    + "policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters "
+                    + "and org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters are in"
+                    + " unnamed module of loader 'app')", e.getMessage());
         }
     }
 
     @Test
-    public void okFileNameCarrierTechnology() {
+    public void testOkFileNameCarrierTechnology() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsOKFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -196,7 +197,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void badFileNameCarrierTechnology() {
+    public void testBadFileNameCarrierTechnology() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsBadFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -222,7 +223,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void badEventProtocolParClass() {
+    public void testBadEventProtocolParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsBadEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -241,7 +242,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void noEventProtocolParClass() {
+    public void testNoEventProtocolParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsNoEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -256,7 +257,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void mismatchEventProtocolParClass() {
+    public void testMismatchEventProtocolParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsMismatchEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -277,7 +278,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void wrongTypeEventProtocolParClass() {
+    public void testWrongTypeEventProtocolParClass() {
         final String[] args = {"-c", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -288,10 +289,12 @@ public class ProducerConsumerTests {
             assertEquals("error reading parameters from "
                     + "\"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n"
                     + "(ParameterRuntimeException):could not create default parameters for event protocol "
-                    + "\"SUPER_TOK_DEL\"\n" + "org.onap.policy.apex.service.engine."
+                    + "\"SUPER_TOK_DEL\"\n" + "class org.onap.policy.apex.service.engine."
                     + "parameters.dummyclasses.SuperDooperCarrierTechnologyParameters "
-                    + "cannot be cast to org.onap.policy.apex.service."
-                    + "parameters.eventprotocol.EventProtocolParameters", e.getMessage());
+                    + "cannot be cast to class org.onap.policy.apex.service."
+                    + "parameters.eventprotocol.EventProtocolParameters (org.onap.policy.apex.service.engine.parameters"
+                    + ".dummyclasses.SuperDooperCarrierTechnologyParameters and org.onap.policy.apex.service.parameters"
+                    + ".eventprotocol.EventProtocolParameters are in unnamed module of loader 'app')", e.getMessage());
         }
     }
 }
