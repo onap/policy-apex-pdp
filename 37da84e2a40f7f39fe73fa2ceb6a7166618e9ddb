@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43f02221_fb452ebb",
+        "filename": "examples/examples-pcvs/src/main/java/org/onap/policy/apex/examples/pcvs/model/PcvsDomainModelFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 0,
+      "message": "Ditto",
+      "revId": "37da84e2a40f7f39fe73fa2ceb6a7166618e9ddb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6bbf405_b4596615",
+        "filename": "examples/examples-pcvs/src/main/java/org/onap/policy/apex/examples/pcvs/model/PcvsDomainModelSaver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 0,
+      "message": "Ditto.",
+      "revId": "37da84e2a40f7f39fe73fa2ceb6a7166618e9ddb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}

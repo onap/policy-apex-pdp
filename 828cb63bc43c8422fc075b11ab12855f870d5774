@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0ccdec1_e3f7f8f2",
+        "filename": "examples/examples-myfirstpolicy/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "There were come classes in this package that were called in the Maven build, which are generating example policies. The build was failing in Eclipse. However, there is no need for these classes to be called as the model build can be called directly from Maven.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df3d55cd_ed8c0dd6",
+        "filename": "model/basic-model/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "JAXB is an external dependency now.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3484ccc4_903fcd19",
+        "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/typeutils/ClassBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "The class ParameterizedTypeImpl is not accessible in Java 11, we were using it to create instances of parametereized classes programatically. In fact, we don\u0027t use this in any of our policies so we have either to re-implement this in a java 11 way or just support generic classes in scripts.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45136159_bbcf1ba8",
+        "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/typeutils/ClassBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "This is where the fix will be needed in a future review.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 5
+      },
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ee3cc2_717baba3",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "Thanks @Jim Hahn for this :-)",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bca384a_6466ffe6",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelperMarshalTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "Error message is different in Java 11.",
+      "range": {
+        "startLine": 118,
+        "startChar": 23,
+        "endLine": 118,
+        "endChar": 28
+      },
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7e8bd77_3d470622",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/ContextParameterTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "Java 11 error message changes.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67132127_95497ef2",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/ProducerConsumerTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f7aa902_15978ecf",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/context/EventAlbumContextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "These tests are testing schemas and types, will fix them in a future review.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "263ddd31_23f88596",
+        "filename": "tools/model-generator/src/test/java/org/onap/policy/apex/tools/model/generator/SchemaUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb560b12_85c8fb6f",
+        "filename": "tools/model-generator/src/test/java/org/onap/policy/apex/tools/model/generator/model2cli/Model2CliTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-22T12:56:05Z",
+      "side": 1,
+      "message": "Knock on from moving the model generation into the POM, the file name for the pcvs model changed.",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
