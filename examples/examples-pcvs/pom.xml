@@ -17,7 +17,10 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -30,11 +33,11 @@
     <description>Example for Policy-controlled Video Streaming</description>
 
     <properties>
-        <apex-domains-pcvs-dir>${project.basedir}/src</apex-domains-pcvs-dir>
+        <policymodel.name>vpnsla</policymodel.name>
     </properties>
 
     <dependencies>
-         <dependency>
+        <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>utils</artifactId>
         </dependency>
@@ -76,23 +79,43 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>createModelDirectory</id>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <delete dir="${project.build.directory}/classes/examples/models/pcvs/vpnsla"/>
+                                <mkdir dir="${project.build.directory}/classes/examples/models/pcvs/vpnsla"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
+                    <!-- Generate the APEX Policy JSON from the APEX CLI command -->
                     <execution>
-                        <id>generate-models</id>
-                        <phase>process-classes</phase>
+                        <id>generate-policy</id>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>java</goal>
                         </goals>
                         <configuration>
-                            <executable>java</executable>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
                             <arguments>
-                                <argument>-classpath</argument>
-                                <classpath />
-                                <argument>org.onap.policy.apex.examples.pcvs.model.PcvsDomainModelSaver</argument>
-                                <argument>${project.basedir}</argument>
-                                <argument>${project.build.directory}/classes/examples/models/pcvs/</argument>
+                                <argument>--command-file=${project.basedir}/src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/${policymodel.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/examples/models/pcvs/vpnsla/${policymodel.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodel.name}_policygeneration.log</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>

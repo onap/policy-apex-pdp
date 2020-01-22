@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -26,10 +26,6 @@ import java.util.List;
 
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-
-//CHECKSTYLE:OFF: checkstyle:IllegalImport
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
-//CHECKSTYLE:ON: checkstyle:IllegalImport
 
 /**
  * This class is a utility class that builds a class with a set of user defined fields. It is used to get the Type of
@@ -70,9 +66,8 @@ public class ClassBuilder {
                 return new ClassBuilder(Class.forName("java.lang." + className));
             } catch (Exception classFindException) {
                 LOGGER.warn("class not found", classFindException);
-                throw new IllegalArgumentException(
-                    "Class '" + className + "' not found. Also looked for a class called 'java.lang." + className + "'",
-                    e);
+                throw new IllegalArgumentException("Class '" + className
+                        + "' not found. Also looked for a class called 'java.lang." + className + "'", e);
             }
         }
     }
@@ -101,6 +96,8 @@ public class ClassBuilder {
         for (ClassBuilder classBuilder : parameters) {
             paramTypes[paramTypeIndex++] = classBuilder.build();
         }
-        return ParameterizedTypeImpl.make(clazz, paramTypes, null);
+        // TODO: Fix this for parameterized types if needed or adapt to work with generic types only
+        // return ParameterizedTypeImpl.make(clazz, paramTypes, null);
+        return null;
     }
 }
