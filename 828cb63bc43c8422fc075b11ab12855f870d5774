@@ -111,6 +111,23 @@
     },
     {
       "key": {
+        "uuid": "49ac96a2_fdb443fa",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-22T13:36:49Z",
+      "side": 1,
+      "message": "license dates :-)\n\npossibly elsewhere, too",
+      "revId": "828cb63bc43c8422fc075b11ab12855f870d5774",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bca384a_6466ffe6",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelperMarshalTest.java",
         "patchSetId": 1
