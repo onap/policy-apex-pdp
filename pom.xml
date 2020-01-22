@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Copyright (C) 2019 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020 Nordix Foundation.
    Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1-SNAPSHOT</version>
         <relativePath />
     </parent>
 
@@ -44,8 +44,8 @@
         <version.commons-cli>1.4</version.commons-cli>
         <version.kafka>2.3.0</version.kafka>
         <version.hibernate>5.3.7.Final</version.hibernate>
-        <version.policy.common>1.6.1</version.policy.common>
-        <version.policy.models>2.2.0</version.policy.models>
+        <version.policy.common>1.6.2-SNAPSHOT</version.policy.common>
+        <version.policy.models>2.2.1-SNAPSHOT</version.policy.models>
         <version.jackson>2.10.0.pr3</version.jackson>
         <version.jgroups>4.1.5.Final</version.jgroups>
         <version.commons-codec>20041127.091804</version.commons-codec>

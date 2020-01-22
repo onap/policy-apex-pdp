@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.onap.policy.apex.auth.clieditor.utils.CliUtils;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
@@ -173,7 +175,11 @@ public class CommandLineParameters {
         if (logFileName == null) {
             return System.out;
         } else {
-            return new FileOutputStream(new File(logFileName), true);
+            File logFile = new File(logFileName);
+            if (!logFile.getParentFile().exists()) {
+                logFile.getParentFile().mkdirs();
+            }
+            return new FileOutputStream(logFile, true);
         }
     }
 
@@ -187,11 +193,9 @@ public class CommandLineParameters {
     }
 
     /**
-     * Check if the file name of the file containing properties that are used for command default
-     * values is set.
+     * Check if the file name of the file containing properties that are used for command default values is set.
      *
-     * @return true, if the file name of the file containing properties that are used for command
-     *         default values is set
+     * @return true, if the file name of the file containing properties that are used for command default values is set
      */
     public boolean checkSetApexPropertiesFileName() {
         return apexPropertiesFileName != null && apexPropertiesFileName.length() > 0;
@@ -200,41 +204,36 @@ public class CommandLineParameters {
     /**
      * Check if the name of the file containing commands to be streamed into the CLI editor is set.
      *
-     * @return true, if the name of the file containing commands to be streamed into the CLI editor
-     *         is set
+     * @return true, if the name of the file containing commands to be streamed into the CLI editor is set
      */
     public boolean checkSetCommandFileName() {
         return commandFileName != null && commandFileName.length() > 0;
     }
 
     /**
-     * Check if the name of the file containing the Apex model that will be used to initialize the
-     * Apex model in the CLI editor is set.
+     * Check if the name of the file containing the Apex model that will be used to initialize the Apex model in the CLI
+     * editor is set.
      *
-     * @return true, if the name of the file containing the Apex model that will be used to
-     *         initialize the Apex model in the CLI editor is set
+     * @return true, if the name of the file containing the Apex model that will be used to initialize the Apex model in
+     *         the CLI editor is set
      */
     public boolean checkSetInputModelFileName() {
         return inputModelFileName != null && inputModelFileName.length() > 0;
     }
 
     /**
-     * Check if the name of the file that the Apex CLI editor will save the Apex model to when it
-     * exits is set.
+     * Check if the name of the file that the Apex CLI editor will save the Apex model to when it exits is set.
      *
-     * @return true, if the name of the file that the Apex CLI editor will save the Apex model to
-     *         when it exits is set
+     * @return true, if the name of the file that the Apex CLI editor will save the Apex model to when it exits is set
      */
     public boolean checkSetOutputModelFileName() {
         return outputModelFileName != null && outputModelFileName.length() > 0;
     }
 
     /**
-     * Check if the name of the file to which the Apex CLI editor will log commands and responses is
-     * set.
+     * Check if the name of the file to which the Apex CLI editor will log commands and responses is set.
      *
-     * @return true, if the name of the file to which the Apex CLI editor will log commands and
-     *         responses is set
+     * @return true, if the name of the file to which the Apex CLI editor will log commands and responses is set
      */
     public boolean checkSetLogFileName() {
         return logFileName != null;

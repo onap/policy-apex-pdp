@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -37,8 +38,7 @@ public class Model2CliTest {
     @Test
     public void testModel2Cli() {
         try {
-            final String[] cliArgs =
-                { "-h" };
+            final String[] cliArgs = {"-h"};
 
             Model2CliMain.main(cliArgs);
         } catch (Exception exc) {
@@ -48,19 +48,16 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliNoOptions() {
-        final String[] cliArgs = new String[]
-            {};
+        final String[] cliArgs = new String[] {};
 
         final String outputString = runModel2Cli(cliArgs);
 
-        assertTrue(outputString
-                        .contains("gen-model2cli: no '-m' model file given, cannot proceed (try -h for help)"));
+        assertTrue(outputString.contains("gen-model2cli: no '-m' model file given, cannot proceed (try -h for help)"));
     }
 
     @Test
     public void testModel2CliBadOptions() {
-        final String[] cliArgs =
-            { "-zabbu" };
+        final String[] cliArgs = {"-zabbu"};
 
         final String outputString = runModel2Cli(cliArgs);
 
@@ -69,8 +66,7 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliHelp() {
-        final String[] cliArgs =
-            { "-h" };
+        final String[] cliArgs = {"-h"};
 
         final String outputString = runModel2Cli(cliArgs);
 
@@ -79,8 +75,7 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliVersion() {
-        final String[] cliArgs =
-            { "-v" };
+        final String[] cliArgs = {"-v"};
 
         final String outputString = runModel2Cli(cliArgs);
 
@@ -92,8 +87,7 @@ public class Model2CliTest {
         File tempFile = File.createTempFile("AvroModel", ".apex");
         tempFile.deleteOnExit();
 
-        final String[] cliArgs =
-            { "-m", "src/test/resources/models/AvroModel.json", "-o", tempFile.getCanonicalPath() };
+        final String[] cliArgs = {"-m", "src/test/resources/models/AvroModel.json", "-o", tempFile.getCanonicalPath()};
 
         final String outputString = runModel2Cli(cliArgs);
 
@@ -102,7 +96,7 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliAvro() throws IOException {
-        testModel2CliModel("target/examples/models/pcvs/vpnsla", "PCVS-VpnSla");
+        testModel2CliModel("target/examples/models/pcvs/vpnsla", "vpnsla");
     }
 
     @Test
@@ -137,7 +131,7 @@ public class Model2CliTest {
 
     /**
      * Run the application.
-     * 
+     *
      * @param cliArgs the command arguments
      * @return a string containing the command output
      */
@@ -155,7 +149,7 @@ public class Model2CliTest {
 
     /**
      * Test CLI generation.
-     * 
+     *
      * @param modelName the name of the model file
      */
     private void testModel2CliModel(final String modelPath, final String modelName) {
@@ -164,7 +158,7 @@ public class Model2CliTest {
             tempFile.deleteOnExit();
 
             final String[] cliArgs =
-                { "-m", modelPath + "/" + modelName + ".json", "-o", tempFile.getCanonicalPath(), "-ow" };
+                    {"-m", modelPath + "/" + modelName + ".json", "-o", tempFile.getCanonicalPath(), "-ow"};
             runModel2Cli(cliArgs);
 
             assertTrue(tempFile.isFile());
