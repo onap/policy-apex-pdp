@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2020 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,7 +18,10 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -30,7 +34,8 @@
     <description>Specific code for the Apex MyFirstPolicy Example</description>
 
     <properties>
-        <apex-domains-myfirstpolicy-dir>${project.basedir}/src</apex-domains-myfirstpolicy-dir>
+        <policymodel1.name>MyFirstPolicyModel_0.0.1</policymodel1.name>
+        <policymodel2.name>MyFirstPolicyModel_0.0.1</policymodel2.name>
     </properties>
 
     <dependencies>
@@ -55,7 +60,6 @@
             <groupId>org.onap.policy.apex-pdp.auth</groupId>
             <artifactId>cli-editor</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
@@ -79,19 +83,56 @@
                 <executions>
                     <execution>
                         <id>generate-models</id>
-                        <phase>process-classes</phase>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>java</goal>
                         </goals>
                         <configuration>
-                            <executable>java</executable>
+                            <mainClass>org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelSaver</mainClass>
+                            <classpathScope>compile</classpathScope>
                             <arguments>
-                                <argument>-classpath</argument>
-                                <!-- automatically creates the classpath using all project dependencies, 
-                                    also adding the project build directory -->
-                                <classpath />
-                                <argument>org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelSaver</argument>
                                 <argument>${project.build.directory}/classes/examples/models/MyFirstPolicy</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <!-- Generate the APEX Policy JSON files from the APEX CLI command -->
+                    <execution>
+                        <id>generate-policy1</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
+                            <arguments>
+                                <argument>--command-file=${project.basedir}/src/main/resources/examples/models/MyFirstPolicy/1/${policymodel1.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/examples/models/MyFirstPolicy/1/${policymodel1.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodel1.name}_policygeneration.log</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-policy2</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
+                            <arguments>
+                                <argument>--command-file=${project.basedir}/src/main/resources/examples/models/MyFirstPolicy/2/${policymodel2.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/examples/models/MyFirstPolicy/2/${policymodel2.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodel2.name}_policygeneration.log</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>
