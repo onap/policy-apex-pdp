@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9510f859_01fdf4cd",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/engine/ApexServiceModelUpdateTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-23T11:49:27Z",
+      "side": 1,
+      "message": "update license",
+      "revId": "830030df2373b6553bfa76f0c67092d3185cfef2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
