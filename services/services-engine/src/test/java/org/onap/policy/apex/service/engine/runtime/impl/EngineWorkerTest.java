@@ -54,10 +54,10 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.common.utils.services.Registry;
 
 /**
@@ -80,8 +80,8 @@ public class EngineWorkerTest {
     public static void readSimpleModel() throws IOException, ApexModelException {
         simpleModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
-        differentModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
+        differentModelString =
+                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         simpleModel = modelReader.read(new ByteArrayInputStream(simpleModelString.getBytes()));
@@ -117,19 +117,19 @@ public class EngineWorkerTest {
         engineParameters.setName(EngineParameterConstants.MAIN_GROUP_NAME);
         ExecutorParameters jsExecutorParameters = new ExecutorParameters();
         jsExecutorParameters.setName("JAVASCRIPT");
-        jsExecutorParameters.setTaskSelectionExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+        jsExecutorParameters
+                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         jsExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        jsExecutorParameters.setStateFinalizerExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        jsExecutorParameters
+                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", jsExecutorParameters);
         ExecutorParameters mvvelExecutorParameters = new ExecutorParameters();
         mvvelExecutorParameters.setName("MVEL");
-        mvvelExecutorParameters.setTaskSelectionExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+        mvvelExecutorParameters
+                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         mvvelExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        mvvelExecutorParameters.setStateFinalizerExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        mvvelExecutorParameters
+                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
         ParameterService.register(engineParameters);
 
@@ -192,7 +192,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (Exception apEx) {
             assertEquals("getEngineServiceEventInterface() call is not allowed on an Apex Engine Worker",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -235,7 +235,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -243,7 +243,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("start()<-Worker:0.0.1,STOPPED,  cannot start engine, engine has not been initialized, "
-                            + "its model is not loaded", apEx.getMessage());
+                    + "its model is not loaded", apEx.getMessage());
         }
 
         try {
@@ -251,7 +251,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("start()<-Worker:0.0.1,STOPPED,  cannot start engine, "
-                            + "engine has not been initialized, its model is not loaded", apEx.getMessage());
+                    + "engine has not been initialized, its model is not loaded", apEx.getMessage());
         }
 
         try {
@@ -259,7 +259,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -279,7 +279,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -313,7 +313,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -321,7 +321,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -329,7 +329,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
     }
 
@@ -355,8 +355,8 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("apex model update failed, supplied model with key \"SmallModelDifferent:0.0.1\" is not a "
-                            + "compatible model update "
-                            + "from the existing engine model with key \"SmallModel:0.0.1\"", apEx.getMessage());
+                    + "compatible model update " + "from the existing engine model with key \"SmallModel:0.0.1\"",
+                    apEx.getMessage());
         }
 
         try {
@@ -392,7 +392,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("apex engine for engine key Worker:0.0.1 is already running with state READY",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -400,7 +400,7 @@ public class EngineWorkerTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("apex engine for engine key Worker:0.0.1 is already running with state READY",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {

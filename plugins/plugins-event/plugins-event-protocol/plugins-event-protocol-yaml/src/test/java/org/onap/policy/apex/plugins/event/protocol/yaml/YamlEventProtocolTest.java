@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,12 +43,12 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.HeaderDelimitedTextBlockReader;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlock;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestYamlEventProtocol.
@@ -67,24 +68,24 @@ public class YamlEventProtocolTest {
 
         AxContextSchemas schemas = new AxContextSchemas();
 
-        AxContextSchema simpleIntSchema = new AxContextSchema(new AxArtifactKey("SimpleIntSchema", "0.0.1"), "JAVA",
-                        "java.lang.Integer");
+        AxContextSchema simpleIntSchema =
+                new AxContextSchema(new AxArtifactKey("SimpleIntSchema", "0.0.1"), "JAVA", "java.lang.Integer");
         schemas.getSchemasMap().put(simpleIntSchema.getKey(), simpleIntSchema);
 
-        AxContextSchema simpleDoubleSchema = new AxContextSchema(new AxArtifactKey("SimpleDoubleSchema", "0.0.1"),
-                        "JAVA", "java.lang.Double");
+        AxContextSchema simpleDoubleSchema =
+                new AxContextSchema(new AxArtifactKey("SimpleDoubleSchema", "0.0.1"), "JAVA", "java.lang.Double");
         schemas.getSchemasMap().put(simpleDoubleSchema.getKey(), simpleDoubleSchema);
 
-        AxContextSchema simpleStringSchema = new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"),
-                        "JAVA", "java.lang.String");
+        AxContextSchema simpleStringSchema =
+                new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"), "JAVA", "java.lang.String");
         schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
 
-        AxContextSchema arrayListSchema = new AxContextSchema(new AxArtifactKey("ArrayListSchema", "0.0.1"), "JAVA",
-                        "java.util.ArrayList");
+        AxContextSchema arrayListSchema =
+                new AxContextSchema(new AxArtifactKey("ArrayListSchema", "0.0.1"), "JAVA", "java.util.ArrayList");
         schemas.getSchemasMap().put(arrayListSchema.getKey(), arrayListSchema);
 
         AxContextSchema linkedHashMapSchema = new AxContextSchema(new AxArtifactKey("LinkedHashMapSchema", "0.0.1"),
-                        "JAVA", "java.util.LinkedHashMap");
+                "JAVA", "java.util.LinkedHashMap");
         schemas.getSchemasMap().put(linkedHashMapSchema.getKey(), linkedHashMapSchema);
 
         ModelService.registerModel(AxContextSchemas.class, schemas);
@@ -97,8 +98,8 @@ public class YamlEventProtocolTest {
 
         AxEvent testEvent1 = new AxEvent(new AxArtifactKey("TestEvent1", "0.0.1"));
         testEvent1.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
-        AxField te1Field0 = new AxField(new AxReferenceKey(testEvent1.getKey(), "yaml_field"),
-                        arrayListSchema.getKey());
+        AxField te1Field0 =
+                new AxField(new AxReferenceKey(testEvent1.getKey(), "yaml_field"), arrayListSchema.getKey());
         testEvent1.getParameterMap().put("yaml_field", te1Field0);
         events.getEventMap().put(testEvent1.getKey(), testEvent1);
 
@@ -122,25 +123,25 @@ public class YamlEventProtocolTest {
 
         AxEvent testEvent4 = new AxEvent(new AxArtifactKey("TestEvent4", "0.0.1"));
         testEvent4.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
-        AxField te4Field0 = new AxField(new AxReferenceKey(testEvent4.getKey(), "yaml_field"),
-                        arrayListSchema.getKey());
+        AxField te4Field0 =
+                new AxField(new AxReferenceKey(testEvent4.getKey(), "yaml_field"), arrayListSchema.getKey());
         testEvent4.getParameterMap().put("yaml_field", te4Field0);
         events.getEventMap().put(testEvent4.getKey(), testEvent4);
 
         AxEvent testEvent5 = new AxEvent(new AxArtifactKey("TestEvent5", "0.0.1"));
         testEvent5.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
-        AxField te5Field0 = new AxField(new AxReferenceKey(testEvent5.getKey(), "yaml_field"),
-                        arrayListSchema.getKey());
+        AxField te5Field0 =
+                new AxField(new AxReferenceKey(testEvent5.getKey(), "yaml_field"), arrayListSchema.getKey());
         testEvent5.getParameterMap().put("yaml_field", te5Field0);
         events.getEventMap().put(testEvent5.getKey(), testEvent5);
 
         AxEvent testEvent6 = new AxEvent(new AxArtifactKey("TestEvent6", "0.0.1"));
         testEvent6.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
-        AxField te6Field0 = new AxField(new AxReferenceKey(testEvent6.getKey(), "MarkMcGwire"),
-                        linkedHashMapSchema.getKey());
+        AxField te6Field0 =
+                new AxField(new AxReferenceKey(testEvent6.getKey(), "MarkMcGwire"), linkedHashMapSchema.getKey());
         testEvent6.getParameterMap().put("Mark McGwire", te6Field0);
-        AxField te6Field1 = new AxField(new AxReferenceKey(testEvent6.getKey(), "SammySosa"),
-                        linkedHashMapSchema.getKey());
+        AxField te6Field1 =
+                new AxField(new AxReferenceKey(testEvent6.getKey(), "SammySosa"), linkedHashMapSchema.getKey());
         testEvent6.getParameterMap().put("Sammy Sosa", te6Field1);
         events.getEventMap().put(testEvent6.getKey(), testEvent6);
 
@@ -164,34 +165,34 @@ public class YamlEventProtocolTest {
 
         AxEvent testEvent9 = new AxEvent(new AxArtifactKey("TestEvent9", "0.0.1"));
         testEvent9.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
-        AxField te9Field0 = new AxField(new AxReferenceKey(testEvent9.getKey(), "ChicagoCubs"),
-                        arrayListSchema.getKey());
+        AxField te9Field0 =
+                new AxField(new AxReferenceKey(testEvent9.getKey(), "ChicagoCubs"), arrayListSchema.getKey());
         testEvent9.getParameterMap().put("ChicagoCubs", te9Field0);
-        AxField te9Field1 = new AxField(new AxReferenceKey(testEvent9.getKey(), "AtlantaBraves"),
-                        arrayListSchema.getKey());
+        AxField te9Field1 =
+                new AxField(new AxReferenceKey(testEvent9.getKey(), "AtlantaBraves"), arrayListSchema.getKey());
         testEvent9.getParameterMap().put("AtlantaBraves", te9Field1);
         events.getEventMap().put(testEvent9.getKey(), testEvent9);
 
         AxEvent testEvent10 = new AxEvent(new AxArtifactKey("TestEvent10", "0.0.1"));
         testEvent10.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
-        AxField te10Field0 = new AxField(new AxReferenceKey(testEvent10.getKey(), "yaml_field"),
-                        arrayListSchema.getKey());
+        AxField te10Field0 =
+                new AxField(new AxReferenceKey(testEvent10.getKey(), "yaml_field"), arrayListSchema.getKey());
         testEvent10.getParameterMap().put("yaml_field", te10Field0);
         events.getEventMap().put(testEvent10.getKey(), testEvent10);
 
         AxEvent testEvent11 = new AxEvent(new AxArtifactKey("TestEvent11", "0.0.1"));
         testEvent11.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
         AxField te11Field0 = new AxField(new AxReferenceKey(testEvent11.getKey(), "tosca_definitions_version"),
-                        simpleStringSchema.getKey());
+                simpleStringSchema.getKey());
         testEvent11.getParameterMap().put("tosca_definitions_version", te11Field0);
-        AxField te11Field1 = new AxField(new AxReferenceKey(testEvent11.getKey(), "description"),
-                        simpleStringSchema.getKey(), true);
+        AxField te11Field1 =
+                new AxField(new AxReferenceKey(testEvent11.getKey(), "description"), simpleStringSchema.getKey(), true);
         testEvent11.getParameterMap().put("description", te11Field1);
-        AxField te11Field2 = new AxField(new AxReferenceKey(testEvent11.getKey(), "node_types"),
-                        linkedHashMapSchema.getKey(), true);
+        AxField te11Field2 =
+                new AxField(new AxReferenceKey(testEvent11.getKey(), "node_types"), linkedHashMapSchema.getKey(), true);
         testEvent11.getParameterMap().put("node_types", te11Field2);
         AxField te11Field3 = new AxField(new AxReferenceKey(testEvent11.getKey(), "topology_template"),
-                        linkedHashMapSchema.getKey());
+                linkedHashMapSchema.getKey());
         testEvent11.getParameterMap().put("topology_template", te11Field3);
         events.getEventMap().put(testEvent11.getKey(), testEvent11);
 
@@ -249,7 +250,7 @@ public class YamlEventProtocolTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     private void testYamlDecodeEncode(final String eventName, final int eventCount, final int parCount,
-                    final String fileName) throws ApexEventException, IOException {
+            final String fileName) throws ApexEventException, IOException {
         YamlEventProtocolParameters parameters = new YamlEventProtocolParameters();
         parameters.setDelimiterAtStart(false);
 
@@ -280,7 +281,7 @@ public class YamlEventProtocolTest {
 
             String eventYaml = (String) converter.fromApexEvent(eventList.get(eventNo));
             String expectedYaml = TextFileUtils
-                            .getTextFileAsString("src/test/resources/yaml_out/" + fileName + '_' + eventNo + ".yaml");
+                    .getTextFileAsString("src/test/resources/yaml_out/" + fileName + '_' + eventNo + ".yaml");
             assertEquals(expectedYaml.replaceAll("\\s*", ""), eventYaml.replaceAll("\\s*", ""));
         }
     }

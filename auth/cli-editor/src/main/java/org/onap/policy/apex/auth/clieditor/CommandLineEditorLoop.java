@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,12 +39,13 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
+
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.model.utilities.TreeMapUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -83,7 +84,7 @@ public class CommandLineEditorLoop {
      * @param rootKeywordNode The root keyword node tree
      */
     public CommandLineEditorLoop(final Properties properties, final ApexModelHandler modelHandler,
-                    final KeywordNode rootKeywordNode) {
+            final KeywordNode rootKeywordNode) {
         this.modelHandler = modelHandler;
         keywordNodeDeque.push(rootKeywordNode);
 
@@ -102,7 +103,7 @@ public class CommandLineEditorLoop {
      * @throws IOException Thrown on exceptions on IO
      */
     public int runLoop(final InputStream inputStream, final OutputStream outputStream,
-                    final CommandLineParameters parameters) throws IOException {
+            final CommandLineParameters parameters) throws IOException {
         // Readers and writers for input and output
         final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream));
@@ -160,8 +161,7 @@ public class CommandLineEditorLoop {
      * @param executionStatus the status of the logic block read
      */
     private void processIncomingCommands(final CommandLineParameters parameters, final BufferedReader reader,
-                    final PrintWriter writer, final CommandLineParser parser,
-                    MutablePair<Result, Integer> executionStatus) {
+            final PrintWriter writer, final CommandLineParser parser, MutablePair<Result, Integer> executionStatus) {
 
         try {
             // Output prompt and get a line of input
@@ -197,8 +197,8 @@ public class CommandLineEditorLoop {
             final CommandLineCommand command = findCommand(commandWords);
             if (command != null) {
                 // Check the arguments of the command
-                final TreeMap<String, CommandLineArgumentValue> argumentValues = getArgumentValues(command,
-                                commandWords);
+                final TreeMap<String, CommandLineArgumentValue> argumentValues =
+                        getArgumentValues(command, commandWords);
 
                 // Execute the command, a FINISHED result means a command causes the loop to
                 // leave execution
@@ -229,7 +229,7 @@ public class CommandLineEditorLoop {
      * @return the result of the logic block read
      */
     private String readLogicBlock(final CommandLineParameters parameters, final BufferedReader reader,
-                    final PrintWriter writer, MutablePair<Result, Integer> executionStatus) {
+            final PrintWriter writer, MutablePair<Result, Integer> executionStatus) {
         String logicBlock;
         logicBlock = "";
 
@@ -311,15 +311,15 @@ public class CommandLineEditorLoop {
 
             // If the node entries found is not equal to one, then we have either no command or more
             // than one command matching
-            final List<Entry<String, KeywordNode>> foundNodeEntries = findMatchingEntries(
-                            searchKeywordNode.getChildren(), commandWords.get(i));
+            final List<Entry<String, KeywordNode>> foundNodeEntries =
+                    findMatchingEntries(searchKeywordNode.getChildren(), commandWords.get(i));
             if (foundNodeEntries.isEmpty()) {
                 unwindStack(startKeywordNode);
                 throw new CommandLineException("command not found: " + stringAL2String(commandWords));
             } else if (foundNodeEntries.size() > 1) {
                 unwindStack(startKeywordNode);
                 throw new CommandLineException("multiple commands matched: " + stringAL2String(commandWords) + " ["
-                                + nodeAL2String(foundNodeEntries) + ']');
+                        + nodeAL2String(foundNodeEntries) + ']');
             }
 
             // Record the fully expanded command word
@@ -365,7 +365,7 @@ public class CommandLineEditorLoop {
      * @return the argument values
      */
     private TreeMap<String, CommandLineArgumentValue> getArgumentValues(final CommandLineCommand command,
-                    final List<String> commandWords) {
+            final List<String> commandWords) {
         final TreeMap<String, CommandLineArgumentValue> argumentValues = new TreeMap<>();
         for (final CommandLineArgument argument : command.getArgumentList()) {
             if (argument != null) {
@@ -375,14 +375,14 @@ public class CommandLineEditorLoop {
 
         // Set the value of the arguments
         for (final Entry<String, String> argument : getCommandArguments(commandWords)) {
-            final List<Entry<String, CommandLineArgumentValue>> foundArguments = TreeMapUtils
-                            .findMatchingEntries(argumentValues, argument.getKey());
+            final List<Entry<String, CommandLineArgumentValue>> foundArguments =
+                    TreeMapUtils.findMatchingEntries(argumentValues, argument.getKey());
             if (foundArguments.isEmpty()) {
                 throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument \""
-                                + argument.getKey() + "\" not allowed on command");
+                        + argument.getKey() + "\" not allowed on command");
             } else if (foundArguments.size() > 1) {
                 throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument " + argument
-                                + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
+                        + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
             }
 
             // Set the value of the argument, stripping off any quotes
@@ -396,7 +396,7 @@ public class CommandLineEditorLoop {
             // mandatory
             if (!argumentValue.isSpecified() && !argumentValue.getCliArgument().isNullable()) {
                 throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " mandatory argument \""
-                                + argumentValue.getCliArgument().getArgumentName() + "\" not specified");
+                        + argumentValue.getCliArgument().getArgumentName() + "\" not specified");
             }
         }
 
@@ -417,8 +417,8 @@ public class CommandLineEditorLoop {
         for (final String word : commandWords) {
             final int equalsPos = word.indexOf('=');
             if (equalsPos > 0) {
-                arguments.add(new SimpleEntry<>(word.substring(0, equalsPos),
-                                word.substring(equalsPos + 1, word.length())));
+                arguments.add(
+                        new SimpleEntry<>(word.substring(0, equalsPos), word.substring(equalsPos + 1, word.length())));
             }
         }
 
@@ -434,7 +434,7 @@ public class CommandLineEditorLoop {
      * @return the result of execution of the command
      */
     private Result executeCommand(final CommandLineCommand command,
-                    final TreeMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
+            final TreeMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
         if (command.isSystemCommand()) {
             return exceuteSystemCommand(command, writer);
         } else {
@@ -575,8 +575,8 @@ public class CommandLineEditorLoop {
         if (macroFileName.length() > 2 && macroFileName.startsWith("\"") && macroFileName.endsWith("\"")) {
             macroFileName = macroFileName.substring(1, macroFileName.length() - 1);
         } else {
-            throw new CommandLineException("macro file name \"" + macroFileName
-                            + "\" must exist and be quoted with double quotes \"\"");
+            throw new CommandLineException(
+                    "macro file name \"" + macroFileName + "\" must exist and be quoted with double quotes \"\"");
         }
 
         // Append the working directory to the macro file name

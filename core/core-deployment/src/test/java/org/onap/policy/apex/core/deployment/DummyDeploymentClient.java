@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import org.onap.policy.apex.core.protocols.engdep.messages.StopEngine;
 import org.onap.policy.apex.core.protocols.engdep.messages.StopPeriodicEvents;
 import org.onap.policy.apex.core.protocols.engdep.messages.UpdateModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Dummy deployment client.
@@ -95,6 +95,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
      *
      * @param message the message to send to the Apex server
      */
+    @Override
     public void sendMessage(final Message message) {
         if (message instanceof GetEngineServiceInfo) {
             handleEngineServiceInfo(message);
@@ -117,7 +118,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
 
     /**
      * Handle the EngineServiceInfo message.
-     * 
+     *
      * @param message the EngineServiceInfo message
      */
     private void handleEngineServiceInfo(final Message message) {
@@ -153,17 +154,16 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
         }
 
         if ("ReturnBadResponse".equals(message.getTarget().getName())) {
-            Response badResponse = new Response(ENGINE_KEY, successFlag,new StartEngine(message.getTarget()));
+            Response badResponse = new Response(ENGINE_KEY, successFlag, new StartEngine(message.getTarget()));
             receiveQueue.add(badResponse);
             return !successFlag;
         }
-        
+
         Response response = new Response(ENGINE_KEY, successFlag, message);
 
         if (successFlag) {
             try {
-                response.setMessageData(TextFileUtils
-                                .getTextFileAsString("src/test/resources/models/SmallModel.json"));
+                response.setMessageData(TextFileUtils.getTextFileAsString("src/test/resources/models/SmallModel.json"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -177,7 +177,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
 
     /**
      * Handle and return a message.
-     * 
+     *
      * @param message the message
      */
     private boolean handleAndReturnMessage(final Message message, final boolean successFlag) {
@@ -196,6 +196,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
     /**
      * Stop the deployment client.
      */
+    @Override
     public void stopClient() {
         if (thisThread != null) {
             thisThread.interrupt();
@@ -208,6 +209,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
      *
      * @return true, if the client thread is started
      */
+    @Override
     public boolean isStarted() {
         return started;
     }
@@ -217,6 +219,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
      *
      * @return the receive queue
      */
+    @Override
     public BlockingQueue<Message> getReceiveQueue() {
         return receiveQueue;
     }

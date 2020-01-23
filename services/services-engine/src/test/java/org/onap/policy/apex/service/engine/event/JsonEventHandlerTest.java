@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -44,16 +45,16 @@ import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
  * Test JSON Event Handler.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JsonEventHandlerTest {
@@ -67,8 +68,8 @@ public class JsonEventHandlerTest {
      */
     @BeforeClass
     public static void setupEventModel() throws IOException, ApexModelException {
-        final String policyModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
+        final String policyModelString =
+                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<AxPolicyModel>(AxPolicyModel.class);
         final AxPolicyModel apexPolicyModel = modelReader.read(new ByteArrayInputStream(policyModelString.getBytes()));
 
@@ -154,7 +155,7 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: event received without mandatory parameter \"name\" ",
-                                e.getMessage().substring(0, 82));
+                        e.getMessage().substring(0, 82));
             }
 
             try {
@@ -163,7 +164,7 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: field \"name\" with value \"%%%%\" is invalid",
-                                e.getMessage().substring(0, 73));
+                        e.getMessage().substring(0, 73));
             }
 
             try {
@@ -172,7 +173,7 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: an event definition for an event named \"I_DONT_EXI",
-                                e.getMessage().substring(0, 82));
+                        e.getMessage().substring(0, 82));
             }
 
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoVersion();
@@ -185,7 +186,7 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: field \"version\" with value \"#####\" is invalid",
-                                e.getMessage().substring(0, 77));
+                        e.getMessage().substring(0, 77));
             }
 
             try {
@@ -193,9 +194,10 @@ public class JsonEventHandlerTest {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertEquals("Failed to unmarshal JSON event: an event definition for an event named "
+                assertEquals(
+                        "Failed to unmarshal JSON event: an event definition for an event named "
                                 + "\"BasicEvent\" with version \"1.2.3\" not found in Apex model",
-                                e.getMessage().substring(0, 128));
+                        e.getMessage().substring(0, 128));
             }
 
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoNamespace();
@@ -207,9 +209,9 @@ public class JsonEventHandlerTest {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertEquals("Failed to unmarshal JSON event: "
-                                + "field \"nameSpace\" with value \"hello.&&&&\" is invalid",
-                                e.getMessage().substring(0, 84));
+                assertEquals(
+                        "Failed to unmarshal JSON event: " + "field \"nameSpace\" with value \"hello.&&&&\" is invalid",
+                        e.getMessage().substring(0, 84));
             }
 
             try {
@@ -218,9 +220,8 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: namespace \"pie.in.the.sky\" "
-                                + "on event \"BasicEvent\" does not"
-                                + " match namespace \"org.onap.policy.apex.events\" "
-                                + "for that event in the Apex model", e.getMessage().substring(0, 168));
+                        + "on event \"BasicEvent\" does not" + " match namespace \"org.onap.policy.apex.events\" "
+                        + "for that event in the Apex model", e.getMessage().substring(0, 168));
             }
 
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoSource();
@@ -233,7 +234,7 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: field \"source\" with value \"%!@**@!\" is invalid",
-                                e.getMessage().substring(0, 78));
+                        e.getMessage().substring(0, 78));
             }
 
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoTarget();
@@ -246,7 +247,7 @@ public class JsonEventHandlerTest {
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
                 assertEquals("Failed to unmarshal JSON event: field \"target\" with value \"KNIO(*S)A(S)D\" is invalid",
-                                e.getMessage().substring(0, 84));
+                        e.getMessage().substring(0, 84));
             }
 
             try {
@@ -254,9 +255,10 @@ public class JsonEventHandlerTest {
                 jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
                 fail("Test should throw an exception here");
             } catch (final ApexEventException e) {
-                assertEquals("Failed to unmarshal JSON event: error parsing BasicEvent:0.0.1 "
+                assertEquals(
+                        "Failed to unmarshal JSON event: error parsing BasicEvent:0.0.1 "
                                 + "event from Json. Field \"intPar\" is missing, but is mandatory.",
-                                e.getMessage().substring(0, 124));
+                        e.getMessage().substring(0, 124));
             }
 
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNullFields();
@@ -293,8 +295,8 @@ public class JsonEventHandlerTest {
             final Map<String, Object> basicEventMap = new HashMap<String, Object>();
             basicEventMap.put("intPar", 12345);
 
-            final ApexEvent basicEvent = new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test",
-                            "apex");
+            final ApexEvent basicEvent =
+                    new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test", "apex");
             basicEvent.putAll(basicEventMap);
 
             final String apexEvent0000JsonString = (String) jsonEventConverter.fromApexEvent(basicEvent);

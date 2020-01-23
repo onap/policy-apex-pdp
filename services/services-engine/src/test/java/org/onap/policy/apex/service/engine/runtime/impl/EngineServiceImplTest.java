@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -48,10 +49,10 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test the engine service implementation.
@@ -64,17 +65,16 @@ public class EngineServiceImplTest {
 
     /**
      * Read the models into strings.
-     * 
+     *
      * @throws IOException on model reading errors
      * @throws ApexModelException on model reading exceptions
      */
     @BeforeClass
     public static void readSimpleModel() throws IOException, ApexModelException {
-        simpleModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
+        simpleModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
-        differentModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
+        differentModelString =
+                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         simpleModel = modelReader.read(new ByteArrayInputStream(simpleModelString.getBytes()));
@@ -110,19 +110,19 @@ public class EngineServiceImplTest {
         engineParameters.setName(EngineParameterConstants.MAIN_GROUP_NAME);
         ExecutorParameters jsExecutorParameters = new ExecutorParameters();
         jsExecutorParameters.setName("JAVASCRIPT");
-        jsExecutorParameters.setTaskSelectionExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+        jsExecutorParameters
+                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         jsExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        jsExecutorParameters.setStateFinalizerExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        jsExecutorParameters
+                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", jsExecutorParameters);
         ExecutorParameters mvvelExecutorParameters = new ExecutorParameters();
         mvvelExecutorParameters.setName("MVEL");
-        mvvelExecutorParameters.setTaskSelectionExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+        mvvelExecutorParameters
+                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         mvvelExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        mvvelExecutorParameters.setStateFinalizerExecutorPluginClass(
-                        "org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        mvvelExecutorParameters
+                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
         ParameterService.register(engineParameters);
     }
@@ -250,7 +250,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
-                            + "engine has not been initialized, its model is not loaded", apEx.getMessage());
+                    + "engine has not been initialized, its model is not loaded", apEx.getMessage());
         }
 
         try {
@@ -258,7 +258,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
-                            + "engine has not been initialized, its model is not loaded", apEx.getMessage());
+                    + "engine has not been initialized, its model is not loaded", apEx.getMessage());
         }
 
         try {
@@ -306,7 +306,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("Peiodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
-                            + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
+                    + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
         }
 
         esImpl.stopPeriodicEvents();
@@ -376,7 +376,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine service key DummyKey:0.0.1 does not match the keyEngine:0.0.1 of this engine service",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -405,7 +405,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("engine service key DummyKey:0.0.1 does not match the keyEngine:0.0.1 of this engine service",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
     }
 
@@ -430,9 +430,8 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("apex model update failed, supplied model with key \"SmallModelDifferent:0.0.1\" is not a "
-                            + "compatible model update "
-                            + "from the existing engine model with key \"SmallModel:0.0.1\"",
-                            apEx.getMessage());
+                    + "compatible model update " + "from the existing engine model with key \"SmallModel:0.0.1\"",
+                    apEx.getMessage());
         }
 
         try {
@@ -464,7 +463,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("apex engine for engine key Engine-0:0.0.1 is already running with state READY",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -472,7 +471,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("apex engine for engine key Engine-0:0.0.1 is already running with state READY",
-                            apEx.getMessage());
+                    apEx.getMessage());
         }
 
         try {
@@ -516,7 +515,7 @@ public class EngineServiceImplTest {
             fail("test should throw an exception");
         } catch (ApexException apEx) {
             assertEquals("Peiodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
-                            + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
+                    + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
         }
 
         esImpl.stopPeriodicEvents();

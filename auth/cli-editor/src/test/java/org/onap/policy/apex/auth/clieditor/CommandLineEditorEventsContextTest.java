@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -31,7 +32,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestCLIEditorEventsContext.
@@ -69,9 +70,8 @@ public class CommandLineEditorEventsContextTest {
         final File tempLogFile = temporaryFolder.newFile(LOG_FILE);
         final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
 
-        final String[] cliArgs = new String[]
-            { "-c", APEX_JAVA_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
-                            tempModelFile.getAbsolutePath() };
+        final String[] cliArgs = new String[] {"-c", APEX_JAVA_POLICY_FILE.toString(), "-l",
+            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(0, cliEditor.getErrorCount());
@@ -100,9 +100,8 @@ public class CommandLineEditorEventsContextTest {
         final File tempLogFile = temporaryFolder.newFile(LOG_FILE);
         final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
 
-        final String[] cliArgs = new String[]
-            { "-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
-                            tempModelFile.getAbsolutePath() };
+        final String[] cliArgs = new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l",
+            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(0, cliEditor.getErrorCount());
@@ -127,12 +126,12 @@ public class CommandLineEditorEventsContextTest {
         final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
 
         final String modelFile = SRC_TEST_FOLDER.resolve("model").resolve("empty_commands.json").toString();
-        final String apexPropertiesLocation = SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json")
-                        .toString();
+        final String apexPropertiesLocation =
+                SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json").toString();
 
-        final String[] cliArgs = new String[]
-            { "-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
-                            tempModelFile.getAbsolutePath(), "-m", modelFile, "-a", apexPropertiesLocation };
+        final String[] cliArgs =
+                new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
+                    tempModelFile.getAbsolutePath(), "-m", modelFile, "-a", apexPropertiesLocation};
 
         final ApexCommandLineEditorMain objUnderTest = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(1, objUnderTest.getErrorCount());
@@ -147,21 +146,12 @@ public class CommandLineEditorEventsContextTest {
 
         final File modelFile = temporaryFolder.newFile("empty_commands.json");
 
-        final String apexPropertiesLocation = SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json")
-                        .toString();
+        final String apexPropertiesLocation =
+                SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json").toString();
 
-        final String[] cliArgs = new String[] {
-            "-c",
-            APEX_AVRO_POLICY_FILE.toString(),
-            "-l",
-            tempLogFile.getAbsolutePath(),
-            "-o",
-            tempModelFile.getAbsolutePath(),
-            "-m",
-            modelFile.getAbsolutePath(),
-            "-a",
-            apexPropertiesLocation
-        };
+        final String[] cliArgs =
+                new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
+                    tempModelFile.getAbsolutePath(), "-m", modelFile.getAbsolutePath(), "-a", apexPropertiesLocation};
 
         final ApexCommandLineEditorMain objUnderTest = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(1, objUnderTest.getErrorCount());

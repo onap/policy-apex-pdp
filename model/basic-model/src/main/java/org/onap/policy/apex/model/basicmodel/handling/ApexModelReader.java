@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,8 @@ import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.oxm.MediaType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.utils.resources.ResourceUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -92,8 +92,7 @@ public class ApexModelReader<C extends AxConcept> {
             // Set up the unmarshaller to carry out validation
             unmarshaller = jaxbContext.createUnmarshaller();
             unmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
-        }
-        catch (final JAXBException e) {
+        } catch (final JAXBException e) {
             LOGGER.error("Unable to set JAXB context", e);
             throw new ApexModelException("Unable to set JAXB context", e);
         }
@@ -123,16 +122,14 @@ public class ApexModelReader<C extends AxConcept> {
             try {
                 // Set the concept schema
                 final URL schemaUrl = ResourceUtils.getUrlResource(schemaFileName);
-                final Schema apexConceptSchema = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-                                .newSchema(schemaUrl);
+                final Schema apexConceptSchema =
+                        SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaUrl);
                 unmarshaller.setSchema(apexConceptSchema);
-            }
-            catch (final Exception e) {
+            } catch (final Exception e) {
                 LOGGER.error("Unable to load schema ", e);
                 throw new ApexModelException("Unable to load schema", e);
             }
-        }
-        else {
+        } else {
             // Clear the schema
             unmarshaller.setSchema(null);
         }
@@ -167,8 +164,7 @@ public class ApexModelReader<C extends AxConcept> {
         String apexConceptString = null;
         try {
             apexConceptString = TextFileUtils.getReaderAsString(apexConceptReader).trim();
-        }
-        catch (final IOException e) {
+        } catch (final IOException e) {
             throw new ApexModelException("Unable to read Apex concept ", e);
         }
 
@@ -201,8 +197,7 @@ public class ApexModelReader<C extends AxConcept> {
             final StreamSource source = new StreamSource(new StringReader(apexString));
             final JAXBElement<C> rootElement = unmarshaller.unmarshal(source, rootConceptClass);
             apexConcept = rootElement.getValue();
-        }
-        catch (final JAXBException e) {
+        } catch (final JAXBException e) {
             throw new ApexModelException("Unable to unmarshal Apex concept ", e);
         }
 
@@ -214,14 +209,12 @@ public class ApexModelReader<C extends AxConcept> {
             final AxValidationResult validationResult = apexConcept.validate(new AxValidationResult());
             if (validationResult.isValid()) {
                 return apexConcept;
-            }
-            else {
+            } else {
                 String message = "Apex concept validation failed" + validationResult.toString();
                 LOGGER.error(message);
                 throw new ApexModelException(message);
             }
-        }
-        else {
+        } else {
             // No validation check
             return apexConcept;
         }
@@ -254,27 +247,23 @@ public class ApexModelReader<C extends AxConcept> {
     private void setInputType(final String apexConceptString) throws ApexModelException {
         // Check the input type
         if (Pattern.compile(JSON_INPUT_TYPE_REGEXP).matcher(apexConceptString).find()) {
-            //is json
+            // is json
             try {
                 unmarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
                 unmarshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-            }
-            catch (final Exception e) {
+            } catch (final Exception e) {
                 LOGGER.warn("JAXB error setting marshaller for JSON Input", e);
                 throw new ApexModelException("JAXB error setting unmarshaller for JSON input", e);
             }
-        }
-        else if (Pattern.compile(XML_INPUT_TYPE_REGEXP).matcher(apexConceptString).find()) {
-            //is xml
+        } else if (Pattern.compile(XML_INPUT_TYPE_REGEXP).matcher(apexConceptString).find()) {
+            // is xml
             try {
                 unmarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_XML);
-            }
-            catch (final Exception e) {
+            } catch (final Exception e) {
                 LOGGER.warn("JAXB error setting marshaller for XML Input", e);
                 throw new ApexModelException("JAXB error setting unmarshaller for XML input", e);
             }
-        }
-        else {
+        } else {
             LOGGER.warn("format of input for Apex concept is neither JSON nor XML");
             throw new ApexModelException("format of input for Apex concept is neither JSON nor XML");
         }

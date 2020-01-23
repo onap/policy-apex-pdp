@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,10 +38,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test the apex model API.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexModelApiTest {

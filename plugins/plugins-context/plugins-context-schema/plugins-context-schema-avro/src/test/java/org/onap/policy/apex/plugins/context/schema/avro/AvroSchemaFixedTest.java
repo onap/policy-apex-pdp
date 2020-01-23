@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +40,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestAvroSchemaFixed.
@@ -93,8 +93,8 @@ public class AvroSchemaFixedTest {
      */
     @Test
     public void testFixedInit() throws IOException {
-        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO",
-                        fixedSchema);
+        final AxContextSchema avroSchema =
+                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", fixedSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -104,8 +104,8 @@ public class AvroSchemaFixedTest {
             fail("Test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: could not create an instance "
-                            + "of class \"org.apache.avro.generic.GenericData$Fixed\" "
-                            + "using the default constructor \"Fixed()\"", e.getMessage());
+                    + "of class \"org.apache.avro.generic.GenericData$Fixed\" "
+                    + "using the default constructor \"Fixed()\"", e.getMessage());
         }
 
         final String inString = TextFileUtils.getTextFileAsString("src/test/resources/data/FixedExampleGood.json");
@@ -121,8 +121,8 @@ public class AvroSchemaFixedTest {
      */
     @Test
     public void testFixedUnmarshalMarshal() throws IOException {
-        final AxContextSchema avroSchema = new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO",
-                        fixedSchema);
+        final AxContextSchema avroSchema =
+                new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", fixedSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -134,29 +134,29 @@ public class AvroSchemaFixedTest {
             fail("This test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                            e.getMessage());
+                    e.getMessage());
         }
         try {
             testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json");
             fail("This test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                            e.getMessage());
+                    e.getMessage());
         }
         try {
             testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad0.json");
             fail("This test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: object \"\"BADBAD\"\" "
-                            + "Avro unmarshalling failed: Expected fixed length 64, but got6", e.getMessage());
+                    + "Avro unmarshalling failed: Expected fixed length 64, but got6", e.getMessage());
         }
         try {
             testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad1.json");
             fail("This test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("AvroTest:0.0.1: object "
-                            + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
-                            + "Avro unmarshalling failed: Expected fixed length 64, but got65", e.getMessage());
+                    + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
+                    + "Avro unmarshalling failed: Expected fixed length 64, but got65", e.getMessage());
         }
     }
 

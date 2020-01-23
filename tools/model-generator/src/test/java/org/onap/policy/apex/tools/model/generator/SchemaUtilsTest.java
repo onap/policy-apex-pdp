@@ -49,11 +49,11 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelper;
 import org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test the Key Info Getter.

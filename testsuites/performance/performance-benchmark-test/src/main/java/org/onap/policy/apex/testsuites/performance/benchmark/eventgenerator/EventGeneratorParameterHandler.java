@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +34,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -64,32 +65,32 @@ public class EventGeneratorParameterHandler {
     public EventGeneratorParameterHandler() {
         options = new Options();
         options.addOption(Option.builder("h").longOpt(HELP).desc("outputs the usage of this command").required(false)
-                        .type(Boolean.class).build());
+                .type(Boolean.class).build());
         options.addOption(Option.builder("H").longOpt(HOST)
-                        .desc("the host name on which to start the event generation server, defaults to \"localhost\"")
-                        .hasArg().argName(HOST).required(false).type(String.class).build());
+                .desc("the host name on which to start the event generation server, defaults to \"localhost\"").hasArg()
+                .argName(HOST).required(false).type(String.class).build());
         options.addOption(Option.builder("p").longOpt(PORT)
-                        .desc("the port on which to start the event generation server, defaults to 42339").hasArg()
-                        .argName(PORT).required(false).type(Number.class).build());
+                .desc("the port on which to start the event generation server, defaults to 42339").hasArg()
+                .argName(PORT).required(false).type(Number.class).build());
         options.addOption(Option.builder("c").longOpt(CONFIGURATION_FILE)
-                        .desc("name of a file containing the parameters for the event generations server, "
-                                        + "this option must appear on its own")
-                        .hasArg().argName(CONFIGURATION_FILE).required(false).type(String.class).build());
+                .desc("name of a file containing the parameters for the event generations server, "
+                        + "this option must appear on its own")
+                .hasArg().argName(CONFIGURATION_FILE).required(false).type(String.class).build());
         options.addOption(Option.builder("o").longOpt(OUTPUT_FILE)
-                        .desc("path and name of a file to which output will be written,"
-                                        + " if not specified no output is written")
-                        .hasArg().argName(OUTPUT_FILE).required(false).type(String.class).build());
+                .desc("path and name of a file to which output will be written,"
+                        + " if not specified no output is written")
+                .hasArg().argName(OUTPUT_FILE).required(false).type(String.class).build());
         options.addOption(Option.builder("bc").longOpt(BATCH_COUNT)
-                        .desc("the number of batches of events to send, must be 0 or more, "
-                                        + "0 means send event batches forever, defaults to 1")
-                        .hasArg().argName(BATCH_COUNT).required(false).type(Number.class).build());
+                .desc("the number of batches of events to send, must be 0 or more, "
+                        + "0 means send event batches forever, defaults to 1")
+                .hasArg().argName(BATCH_COUNT).required(false).type(Number.class).build());
         options.addOption(Option.builder("bs").longOpt(BATCH_SIZE)
-                        .desc("the number of events to send in an event batch, must be 1 or more, defaults to 1")
-                        .hasArg().argName(BATCH_SIZE).required(false).type(Number.class).build());
+                .desc("the number of events to send in an event batch, must be 1 or more, defaults to 1").hasArg()
+                .argName(BATCH_SIZE).required(false).type(Number.class).build());
         options.addOption(Option.builder("bd").longOpt(BATCH_DELAY)
-                        .desc("the delay in milliseconds between event batches, must be zero or more, "
-                                        + "defaults to 10,000 (10 seconds)")
-                        .hasArg().argName(BATCH_DELAY).required(false).type(Number.class).build());
+                .desc("the delay in milliseconds between event batches, must be zero or more, "
+                        + "defaults to 10,000 (10 seconds)")
+                .hasArg().argName(BATCH_DELAY).required(false).type(Number.class).build());
     }
 
     /**
@@ -173,7 +174,7 @@ public class EventGeneratorParameterHandler {
             parameterJsonString = TextFileUtils.getTextFileAsString(configurationFile);
         } catch (IOException ioe) {
             String errorMessage = "Could not read parameters from configuration file \"" + configurationFile + "\": "
-                            + ioe.getMessage();
+                    + ioe.getMessage();
             LOGGER.warn(errorMessage, ioe);
             throw new ParseException(errorMessage);
         }
@@ -188,7 +189,7 @@ public class EventGeneratorParameterHandler {
             return new Gson().fromJson(parameterJsonString, EventGeneratorParameters.class);
         } catch (Exception ge) {
             String errorMessage = "Error parsing JSON parameters from configuration file \"" + configurationFile
-                            + "\": " + ge.getMessage();
+                    + "\": " + ge.getMessage();
             LOGGER.warn(errorMessage, ge);
             throw new ParseException(errorMessage);
         }
@@ -206,7 +207,7 @@ public class EventGeneratorParameterHandler {
 
         final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.printHelp(stringPrintWriter, MAX_HELP_LINE_LENGTH, mainClassName + " [options...] ", "", options,
-                        0, 0, "");
+                0, 0, "");
 
         return stringWriter.toString();
     }

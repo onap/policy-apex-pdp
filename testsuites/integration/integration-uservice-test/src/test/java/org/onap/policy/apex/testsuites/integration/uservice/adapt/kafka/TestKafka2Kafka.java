@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -34,8 +35,8 @@ import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestKafka2Kafka tests Kafka event sending and reception.
@@ -56,10 +57,10 @@ public class TestKafka2Kafka {
 
     @ClassRule
     public static final SharedKafkaTestResource sharedKafkaTestResource = new SharedKafkaTestResource()
-                    // Start a cluster with 1 brokers.
-                    .withBrokers(1)
-                    // Disable topic auto-creation.
-                    .withBrokerProperty("auto.create.topics.enable", "false");
+            // Start a cluster with 1 brokers.
+            .withBrokers(1)
+            // Disable topic auto-creation.
+            .withBrokerProperty("auto.create.topics.enable", "false");
 
     /**
      * Test json kafka events.
@@ -70,9 +71,8 @@ public class TestKafka2Kafka {
     @Test
     public void testJsonKafkaEvents() throws MessagingException, ApexException {
         final String conditionedConfigFile = getConditionedConfigFile(
-                        "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
-        final String[] args =
-            { "-rfr", "target", "-c", conditionedConfigFile };
+                "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
+        final String[] args = {"-rfr", "target", "-c", conditionedConfigFile};
         testKafkaEvents(args, false, "json");
     }
 
@@ -85,9 +85,8 @@ public class TestKafka2Kafka {
     @Test
     public void testXmlKafkaEvents() throws MessagingException, ApexException {
         final String conditionedConfigFile = getConditionedConfigFile(
-                        "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
-        final String[] args =
-            { "-rfr", "target", "-c", conditionedConfigFile };
+                "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
+        final String[] args = {"-rfr", "target", "-c", conditionedConfigFile};
 
         testKafkaEvents(args, true, "xml");
     }
@@ -102,19 +101,19 @@ public class TestKafka2Kafka {
      * @throws ApexException the apex exception
      */
     private void testKafkaEvents(String[] args, final Boolean xmlEvents, final String topicSuffix)
-                    throws MessagingException, ApexException {
+            throws MessagingException, ApexException {
 
         sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-out-" + topicSuffix, 1, (short) 1);
         sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-in-" + topicSuffix, 1, (short) 1);
 
-        final KafkaEventSubscriber subscriber = new KafkaEventSubscriber("apex-out-" + topicSuffix,
-                        sharedKafkaTestResource);
+        final KafkaEventSubscriber subscriber =
+                new KafkaEventSubscriber("apex-out-" + topicSuffix, sharedKafkaTestResource);
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(3000);
 
         final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + topicSuffix, sharedKafkaTestResource,
-                        EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
+                EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
 
         producer.sendEvents();
 
@@ -122,12 +121,12 @@ public class TestKafka2Kafka {
 
         // Wait for the producer to send all tis events
         while (System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH
-                        && producer.getEventsSentCount() < EVENT_COUNT) {
+                && producer.getEventsSentCount() < EVENT_COUNT) {
             ThreadUtilities.sleep(EVENT_INTERVAL);
         }
 
         while (System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH
-                        && subscriber.getEventsReceivedCount() < EVENT_COUNT) {
+                && subscriber.getEventsReceivedCount() < EVENT_COUNT) {
             ThreadUtilities.sleep(EVENT_INTERVAL);
         }
 
@@ -145,7 +144,7 @@ public class TestKafka2Kafka {
             File tempConfigFile = File.createTempFile("Kafka_", ".json");
             tempConfigFile.deleteOnExit();
             String configAsString = TextFileUtils.getTextFileAsString(configurationFileName)
-                            .replaceAll("localhost:39902", sharedKafkaTestResource.getKafkaConnectString());
+                    .replaceAll("localhost:39902", sharedKafkaTestResource.getKafkaConnectString());
             TextFileUtils.putStringAsFile(configAsString, tempConfigFile.getCanonicalFile());
 
             return tempConfigFile.getCanonicalPath();

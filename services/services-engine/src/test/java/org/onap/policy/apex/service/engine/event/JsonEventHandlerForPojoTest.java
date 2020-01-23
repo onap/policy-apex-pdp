@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -38,18 +39,18 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.apex.service.engine.event.testpojos.DummyPojo;
 import org.onap.policy.apex.service.engine.event.testpojos.DummyPojoList;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
  * Test JSON Event Handler.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JsonEventHandlerForPojoTest {
@@ -63,8 +64,8 @@ public class JsonEventHandlerForPojoTest {
      */
     @BeforeClass
     public static void setupEventModel() throws IOException, ApexModelException {
-        final String policyModelString = TextFileUtils
-                        .getTextFileAsString("src/test/resources/policymodels/PojoEventModel.json");
+        final String policyModelString =
+                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/PojoEventModel.json");
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<AxPolicyModel>(AxPolicyModel.class);
         modelReader.setValidateFlag(false);
         final AxPolicyModel apexPolicyModel = modelReader.read(new ByteArrayInputStream(policyModelString.getBytes()));
@@ -108,8 +109,8 @@ public class JsonEventHandlerForPojoTest {
         pars.setPojoField("POJO_PAR");
         jsonEventConverter.init(pars);
 
-        final String apexEventJsonStringIn = TextFileUtils
-                        .getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
+        final String apexEventJsonStringIn =
+                TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 
@@ -159,8 +160,8 @@ public class JsonEventHandlerForPojoTest {
         pars.setPojoField("POJO_LIST_PAR");
         jsonEventConverter.init(pars);
 
-        final String apexEventJsonStringIn = TextFileUtils
-                        .getTextFileAsString("src/test/resources/events/TestPojoListEvent.json");
+        final String apexEventJsonStringIn =
+                TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoListEvent.json");
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 
@@ -211,8 +212,8 @@ public class JsonEventHandlerForPojoTest {
         pars.setPojoField("BAD_POJO_PAR");
         jsonEventConverter.init(pars);
 
-        final String apexEventJsonStringIn = TextFileUtils
-                        .getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
+        final String apexEventJsonStringIn =
+                TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 
@@ -220,9 +221,10 @@ public class JsonEventHandlerForPojoTest {
             jsonEventConverter.toApexEvent("PojoEvent", apexEventJsonStringIn);
             fail("test should throw an exception");
         } catch (Exception tae) {
-            assertEquals("Failed to unmarshal JSON event: error parsing PojoEvent:0.0.1 event from Json. "
+            assertEquals(
+                    "Failed to unmarshal JSON event: error parsing PojoEvent:0.0.1 event from Json. "
                             + "Field BAD_POJO_PAR not found on POJO event definition.",
-                            tae.getMessage().substring(0, 133));
+                    tae.getMessage().substring(0, 133));
         }
 
         pars.setPojoField("POJO_PAR");
@@ -230,18 +232,20 @@ public class JsonEventHandlerForPojoTest {
             jsonEventConverter.toApexEvent("PojoNoFieldEvent", apexEventJsonStringIn);
             fail("test should throw an exception");
         } catch (Exception tae) {
-            assertEquals("Failed to unmarshal JSON event: error parsing PojoNoFieldEvent:0.0.1 event from Json, "
+            assertEquals(
+                    "Failed to unmarshal JSON event: error parsing PojoNoFieldEvent:0.0.1 event from Json, "
                             + "Field POJO_PAR not found, no fields defined on event.",
-                            tae.getMessage().substring(0, 139));
+                    tae.getMessage().substring(0, 139));
         }
 
         try {
             jsonEventConverter.toApexEvent("PojoTooManyFieldsEvent", apexEventJsonStringIn);
             fail("test should throw an exception");
         } catch (Exception tae) {
-            assertEquals("Failed to unmarshal JSON event: error parsing PojoTooManyFieldsEvent:0.0.1 event from Json, "
+            assertEquals(
+                    "Failed to unmarshal JSON event: error parsing PojoTooManyFieldsEvent:0.0.1 event from Json, "
                             + "Field POJO_PAR, one and only one field may be defined on a POJO event definition.",
-                            tae.getMessage().substring(0, 173));
+                    tae.getMessage().substring(0, 173));
         }
     }
 }

@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -30,8 +31,8 @@ import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 public class TestFile2FileFiltered {
     /**
@@ -44,6 +45,7 @@ public class TestFile2FileFiltered {
 
     @Test
     public void testJsonFilteredFileInOutEvents() throws MessagingException, ApexException, IOException {
+        // @formatter:off
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredInOutJsonEvent.json" };
 
@@ -55,10 +57,12 @@ public class TestFile2FileFiltered {
             { 22366, 19834 };
 
         testFilteredFileEvents(args, outFilePaths, expectedFileSizes);
+        // @formatter:on
     }
 
     @Test
     public void testJsonFilteredFileOutEvents() throws MessagingException, ApexException, IOException {
+        // @formatter:off
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredOutJsonEvent.json" };
 
@@ -70,10 +74,12 @@ public class TestFile2FileFiltered {
             { 22366, 19834 };
 
         testFilteredFileEvents(args, outFilePaths, expectedFileSizes);
+        // @formatter:on
     }
 
     @Test
     public void testJsonFilteredFileInEvents() throws MessagingException, ApexException, IOException {
+        // @formatter:off
         final String[] args =
             { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredInJsonEvent.json" };
 
@@ -84,10 +90,11 @@ public class TestFile2FileFiltered {
             { 22366 };
 
         testFilteredFileEvents(args, outFilePaths, expectedFileSizes);
+        // @formatter:on
     }
 
     private void testFilteredFileEvents(final String[] args, final String[] outFilePaths,
-                    final long[] expectedFileSizes) throws MessagingException, ApexException, IOException {
+            final long[] expectedFileSizes) throws MessagingException, ApexException, IOException {
         final ApexMain apexMain = new ApexMain(args);
 
         final File outFile0 = new File(outFilePaths[0]);
@@ -125,16 +132,13 @@ public class TestFile2FileFiltered {
 
     /**
      * Strip variable length text from file string.
-     * 
+     *
      * @param textFileAsString the file to read and strip
      * @return the stripped string
      * @throws IOException on out file read exceptions
      */
     private String stripVariableLengthText(final String outFile) throws IOException {
-        return TextFileUtils.getTextFileAsString(outFile)
-                        .replaceAll("\\s+", "")
-                        .replaceAll(":\\d*\\.?\\d*,", ":0,")
-                        .replaceAll(":\\d*}", ":0}")
-                        .replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
+        return TextFileUtils.getTextFileAsString(outFile).replaceAll("\\s+", "").replaceAll(":\\d*\\.?\\d*,", ":0,")
+                .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
     }
 }

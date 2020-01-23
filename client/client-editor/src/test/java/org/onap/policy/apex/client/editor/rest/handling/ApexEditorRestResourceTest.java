@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,10 +35,11 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test Apex Editor Rest Resource.
+ * 
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEditorRestResourceTest extends JerseyTest {
@@ -840,8 +842,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
 
         entityString = "{" + "\"name\"             : \"GoodDay4\"," + "\"version\"          : \"0.0.2\","
                 + "\"parameters\"       : {\"Par0\" : {\"parameterName\" : \"NotPar0\", \"defaultValue\" : "
-                + "\"Parameter Defaultvalue\"}},"
-                + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
+                + "\"Parameter Defaultvalue\"}}," + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
                 + "\"description\"      : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
         result = target("editor/" + sessionId + "/Task/Create").request().post(entity, ApexApiResult.class);
@@ -1306,8 +1307,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 + "  \"trigger\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "  \"defaultTask\"        : {\"name\" : \"task\", \"version\" : \"0.0.1\"},"
                 + "  \"taskSelectionLogic\" : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
-                + "lots of lime\"},"
-                + "  \"contexts\"           : [null]," + "  \"stateOutputs\"       : {" + "   \"so0\"               : {"
+                + "lots of lime\"}," + "  \"contexts\"           : [null]," + "  \"stateOutputs\"       : {"
+                + "   \"so0\"               : {"
                 + "    \"event\"            : {\"name\" : \"inEvent\", \"version\" : \"0.0.1\"},"
                 + "    \"nextState\"        : null" + "   }" + "  }," + "  \"tasks\"              : {"
                 + "   \"tr0\"               : {"
@@ -1336,8 +1337,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 + "    \"outputType\"       : \"DIRECT\"," + "    \"outputName\"       : \"so0\"" + "   }" + "  },"
                 + "  \"finalizers\"         : {"
                 + "   \"sf0\"               : {\"logicFlavour\" : \"LemonAndLime\", \"logic\" : \"lots of lemons, "
-                + "lots of lime\"}"
-                + "  }" + " }" + "}," + "\"uuid\"                 : \"1fa2e430-f2b2-11e6-bc64-92361f002671\","
+                + "lots of lime\"}" + "  }" + " }" + "},"
+                + "\"uuid\"                 : \"1fa2e430-f2b2-11e6-bc64-92361f002671\","
                 + "\"description\"          : \"A description of hello\"" + "}";
         entity = Entity.entity(entityString, MediaType.APPLICATION_JSON);
         result = target("editor/" + sessionId + "/Policy/Create").request().post(entity, ApexApiResult.class);

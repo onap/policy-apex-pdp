@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestCLIEditorOptions.
@@ -53,7 +54,7 @@ public class CommandLineEditorOptionsTest {
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
         final String[] cliArgs = new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex", "-l",
-                tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
+            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(0, cliEditor.getErrorCount());
@@ -85,7 +86,7 @@ public class CommandLineEditorOptionsTest {
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
         final String[] cliArgs = new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex", "-l",
-                tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath(), "-nl", "-nm"};
+            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath(), "-nl", "-nm"};
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(0, cliEditor.getErrorCount());
@@ -117,7 +118,7 @@ public class CommandLineEditorOptionsTest {
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
         final String[] cliArgs = new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex", "-l",
-                tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath(), "-nm"};
+            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath(), "-nm"};
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(0, cliEditor.getErrorCount());
@@ -150,7 +151,7 @@ public class CommandLineEditorOptionsTest {
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
         final String[] cliArgs = new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex", "-l",
-                tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath(), "-nl"};
+            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath(), "-nl"};
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(0, cliEditor.getErrorCount());

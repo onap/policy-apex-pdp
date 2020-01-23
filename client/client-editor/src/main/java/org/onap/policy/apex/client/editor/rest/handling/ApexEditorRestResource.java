@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -60,10 +61,8 @@ import org.slf4j.ext.XLoggerFactory;
  *
  */
 @Path("editor/{session}")
-@Produces(
-    { MediaType.APPLICATION_JSON })
-@Consumes(
-    { MediaType.APPLICATION_JSON })
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 
 public class ApexEditorRestResource implements RestCommandHandler {
     // Get a reference to the logger
@@ -200,8 +199,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * Retrieve the model for this session. If successful the model will be available in the first message in the
-     * result. The returned value will be similar to a {@code AxPolicyModel}, with merged {@code AxKeyInfo} for the
-     * root object.
+     * result. The returned value will be similar to a {@code AxPolicyModel}, with merged {@code AxKeyInfo} for the root
+     * object.
      *
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
      *         messages/errors can be retrieved using {@link ApexApiResult#getMessages()}
@@ -252,7 +251,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @GET
     @Path("KeyInformation/Get")
     public ApexApiResult listKeyInformation(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.KEY_INFO, RestCommand.LIST, name, version);
     }
 
@@ -284,8 +283,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List context schemas with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. The returned value(s) will be similar to {@code AxContextSchema}, with merged
-     * {@code AxKeyInfo} for the root object.
+     * result messages. The returned value(s) will be similar to {@code AxContextSchema}, with merged {@code AxKeyInfo}
+     * for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -295,7 +294,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @GET
     @Path("ContextSchema/Get")
     public ApexApiResult listContextSchemas(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.CONTEXT_SCHEMA, RestCommand.LIST, name, version);
     }
 
@@ -310,7 +309,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @DELETE
     @Path("ContextSchema/Delete")
     public ApexApiResult deleteContextSchema(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.CONTEXT_SCHEMA, RestCommand.DELETE, name, version);
     }
 
@@ -326,7 +325,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @GET
     @Path("Validate/ContextSchema")
     public ApexApiResult validateContextSchemas(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.CONTEXT_SCHEMA, RestCommand.VALIDATE, name, version);
     }
 
@@ -358,8 +357,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List context albums with the given key names/versions. If successful the result(s) will be available in the
-     * result messages. The returned value(s) will be similar to {@code AxContextAlbum}, with merged
-     * {@code AxKeyInfo} for the root object.
+     * result messages. The returned value(s) will be similar to {@code AxContextAlbum}, with merged {@code AxKeyInfo}
+     * for the root object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -369,7 +368,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @GET
     @Path("ContextAlbum/Get")
     public ApexApiResult listContextAlbums(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.CONTEXT_ALBUM, RestCommand.LIST, name, version);
     }
 
@@ -384,7 +383,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @DELETE
     @Path("ContextAlbum/Delete")
     public ApexApiResult deleteContextAlbum(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.CONTEXT_ALBUM, RestCommand.DELETE, name, version);
     }
 
@@ -400,7 +399,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @GET
     @Path("Validate/ContextAlbum")
     public ApexApiResult validateContextAlbums(@QueryParam(NAME) final String name,
-                    @QueryParam(VERSION) final String version) {
+            @QueryParam(VERSION) final String version) {
         return processRestCommand(RestCommandType.CONTEXT_ALBUM, RestCommand.VALIDATE, name, version);
     }
 
@@ -432,8 +431,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List events with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@code AxEvent}, with merged {@code AxKeyInfo} for the
-     * root object.
+     * messages. The returned value(s) will be similar to {@code AxEvent}, with merged {@code AxKeyInfo} for the root
+     * object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -502,8 +501,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List tasks with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@code AxTask}, with merged {@code AxKeyInfo} for the
-     * root object.
+     * messages. The returned value(s) will be similar to {@code AxTask}, with merged {@code AxKeyInfo} for the root
+     * object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -569,7 +568,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
     @PUT
     @Path("Policy/Update")
     public ApexApiResult updatePolicy(@QueryParam("firstStatePeriodic") final boolean firstStatePeriodic,
-                    final String jsonString) {
+            final String jsonString) {
 
         ApexApiResult result = processRestCommand(RestCommandType.POLICY, RestCommand.UPDATE, jsonString);
         if (result != null && result.isOk() && firstStatePeriodic) {
@@ -580,8 +579,8 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * List policies with the given key names/versions. If successful the result(s) will be available in the result
-     * messages. The returned value(s) will be similar to {@code AxPolicy}, with merged {@code AxKeyInfo} for the
-     * root object.
+     * messages. The returned value(s) will be similar to {@code AxPolicy}, with merged {@code AxKeyInfo} for the root
+     * object.
      *
      * @param name the name to search for. If null or empty, then all names will be queried
      * @param version the version to search for. If null then all versions will be searched for.
@@ -610,7 +609,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * This method routes REST commands that take no parameters to their caller.
-     * 
+     *
      * @param commandType the type of REST command to process
      * @param command the REST command to process
      * @return the result of the REST command
@@ -635,14 +634,14 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * This method routes REST commands that take a JSON string to their caller.
-     * 
+     *
      * @param commandType the type of REST command to process
      * @param command the REST command to process
      * @param jsonString the JSON string received in the REST request
      * @return the result of the REST command
      */
     private ApexApiResult processRestCommand(final RestCommandType commandType, final RestCommand command,
-                    final String jsonString) {
+            final String jsonString) {
         LOGGER.entry(commandType, jsonString);
         try {
             ApexApiResult result = new ApexApiResult();
@@ -662,7 +661,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * This method routes REST commands that take a name and version to their caller.
-     * 
+     *
      * @param commandType the type of REST command to process
      * @param command the REST command to process
      * @param name the name received in the REST request
@@ -670,7 +669,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
      * @return the result of the REST command
      */
     private ApexApiResult processRestCommand(final RestCommandType commandType, final RestCommand command,
-                    final String name, final String version) {
+            final String name, final String version) {
         LOGGER.entry(commandType, name, version);
         try {
             ApexApiResult result = new ApexApiResult();
@@ -698,7 +697,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
-                    final RestCommand command) {
+            final RestCommand command) {
         switch (commandType) {
             case MODEL:
                 return MODEL_HANDLER.executeRestCommand(session, commandType, command);
@@ -721,7 +720,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * This method invokes callers to run REST commands that take a JSON string.
-     * 
+     *
      * @param session the Apex editor session
      * @param commandType the type of REST command to process
      * @param command the REST command to process
@@ -730,7 +729,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
-                    final RestCommand command, final String jsonString) {
+            final RestCommand command, final String jsonString) {
         switch (commandType) {
             case MODEL:
                 return MODEL_HANDLER.executeRestCommand(session, commandType, command, jsonString);
@@ -753,7 +752,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
 
     /**
      * This method invokes callers to run REST commands that take a name and version.
-     * 
+     *
      * @param session the Apex editor session
      * @param commandType the type of REST command to process
      * @param command the REST command to process
@@ -763,7 +762,7 @@ public class ApexEditorRestResource implements RestCommandHandler {
      */
     @Override
     public ApexApiResult executeRestCommand(final RestSession session, final RestCommandType commandType,
-                    final RestCommand command, final String name, final String version) {
+            final RestCommand command, final String name, final String version) {
         switch (commandType) {
             case MODEL:
                 return MODEL_HANDLER.executeRestCommand(session, commandType, command, name, version);
@@ -793,14 +792,14 @@ public class ApexEditorRestResource implements RestCommandHandler {
             periodicEventJsonString = TextFileUtils.getTextFileAsString(PERIODIC_EVENT_TEMPLATE);
         } catch (IOException ioException) {
             String message = "read of periodic event tempalte from " + PERIODIC_EVENT_TEMPLATE + "failed: "
-                            + ioException.getMessage();
+                    + ioException.getMessage();
             LOGGER.debug(message, ioException);
             return new ApexApiResult(Result.FAILED, message);
         }
 
         return processRestCommand(RestCommandType.EVENT, RestCommand.CREATE, periodicEventJsonString);
     }
-    
+
     /*
      * This method is used only for testing and is used to cause an exception on calls from unit test to test exception
      * handling.

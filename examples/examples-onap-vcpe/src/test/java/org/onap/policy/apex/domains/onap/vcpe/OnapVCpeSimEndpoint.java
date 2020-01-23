@@ -46,7 +46,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.controlloop.util.Serialization;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

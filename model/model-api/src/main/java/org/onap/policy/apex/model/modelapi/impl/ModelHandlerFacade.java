@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -54,8 +55,8 @@ import org.onap.policy.apex.model.policymodel.handling.PolicyAnalysisResult;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelComparer;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelMerger;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelSplitter;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.common.utils.resources.ResourceUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -105,7 +106,7 @@ public class ModelHandlerFacade {
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                            MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         ApexApiResult result = new ApexApiResult();
@@ -126,7 +127,7 @@ public class ModelHandlerFacade {
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                            MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         ApexApiResult result = new ApexApiResult();
@@ -170,13 +171,13 @@ public class ModelHandlerFacade {
      * @return the result of the operation
      */
     public ApexApiResult loadFromDatabase(final String modelName, final String modelVersion,
-                    final DaoParameters daoParameters) {
+            final DaoParameters daoParameters) {
         Assertions.argumentNotNull(modelName, "modelName may not be null");
         Assertions.argumentNotNull(daoParameters, "DaoParameters may not be null");
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                            MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         ApexDao apexDao = null;
@@ -186,8 +187,8 @@ public class ModelHandlerFacade {
 
             // Single specific model requested
             if (modelVersion != null) {
-                AxPolicyModel daoPolicyModel = apexDao.get(AxPolicyModel.class,
-                                new AxArtifactKey(modelName, modelVersion));
+                AxPolicyModel daoPolicyModel =
+                        apexDao.get(AxPolicyModel.class, new AxArtifactKey(modelName, modelVersion));
 
                 if (daoPolicyModel != null) {
                     apexModel.setPolicyModel(daoPolicyModel);
@@ -195,7 +196,7 @@ public class ModelHandlerFacade {
                 } else {
                     apexModel.setPolicyModel(new AxPolicyModel());
                     return new ApexApiResult(ApexApiResult.Result.FAILED, "no policy model with name " + modelName
-                                    + " and version " + modelVersion + FOUND_IN_DATABASE);
+                            + " and version " + modelVersion + FOUND_IN_DATABASE);
                 }
             }
             // Fishing expedition
@@ -229,7 +230,7 @@ public class ModelHandlerFacade {
                     foundPolicyModel = dbPolicyModel;
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.FAILED,
-                                    "more than one policy model with name " + modelName + FOUND_IN_DATABASE);
+                            "more than one policy model with name " + modelName + FOUND_IN_DATABASE);
                 }
             }
         }
@@ -240,7 +241,7 @@ public class ModelHandlerFacade {
         } else {
             apexModel.setPolicyModel(new AxPolicyModel());
             return new ApexApiResult(ApexApiResult.Result.FAILED,
-                            "no policy model with name " + modelName + FOUND_IN_DATABASE);
+                    "no policy model with name " + modelName + FOUND_IN_DATABASE);
         }
     }
 
@@ -279,7 +280,7 @@ public class ModelHandlerFacade {
 
         if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
             return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                            MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
+                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
         }
 
         URL apexModelUrl;
@@ -364,7 +365,7 @@ public class ModelHandlerFacade {
                 result.setResult(ApexApiResult.Result.FAILED);
             }
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                            .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
+                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
             result.addMessage(validationResult.toString());
             return result;
         } catch (Exception e) {
@@ -388,10 +389,10 @@ public class ModelHandlerFacade {
                 return result;
             }
 
-            PolicyModelComparer policyModelComparer = new PolicyModelComparer(apexModel.getPolicyModel(),
-                            otherPolicyModel);
+            PolicyModelComparer policyModelComparer =
+                    new PolicyModelComparer(apexModel.getPolicyModel(), otherPolicyModel);
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                            .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
+                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
             result.addMessage(policyModelComparer.toString());
 
             return result;
@@ -409,7 +410,7 @@ public class ModelHandlerFacade {
      * @return the result of the operation
      */
     public ApexApiResult compareWithString(final String otherModelString, final boolean diffsOnly,
-                    final boolean keysOnly) {
+            final boolean keysOnly) {
         ApexApiResult result = new ApexApiResult();
         try {
             AxPolicyModel otherPolicyModel = loadModelFromString(otherModelString, result);
@@ -417,10 +418,10 @@ public class ModelHandlerFacade {
                 return result;
             }
 
-            PolicyModelComparer policyModelComparer = new PolicyModelComparer(apexModel.getPolicyModel(),
-                            otherPolicyModel);
+            PolicyModelComparer policyModelComparer =
+                    new PolicyModelComparer(apexModel.getPolicyModel(), otherPolicyModel);
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                            .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
+                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
             result.addMessage(policyModelComparer.toString());
 
             return result;
@@ -453,13 +454,13 @@ public class ModelHandlerFacade {
                 requiredPolicySet.add(requiredPolicy.getKey());
             } else {
                 return new ApexApiResult(ApexApiResult.Result.FAILED,
-                                "policy for policy name " + policyName + " not found in model");
+                        "policy for policy name " + policyName + " not found in model");
             }
         }
 
         try {
-            AxPolicyModel splitPolicyModel = PolicyModelSplitter.getSubPolicyModel(apexModel.getPolicyModel(),
-                            requiredPolicySet, false);
+            AxPolicyModel splitPolicyModel =
+                    PolicyModelSplitter.getSubPolicyModel(apexModel.getPolicyModel(), requiredPolicySet, false);
 
             ApexModelFileWriter<AxPolicyModel> apexModelFileWriter = new ApexModelFileWriter<>(false);
             apexModelFileWriter.apexModelWriteJsonFile(splitPolicyModel, AxPolicyModel.class, targetModelName);
@@ -497,7 +498,7 @@ public class ModelHandlerFacade {
             return splitResult;
         } catch (Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED,
-                            "split of policy model " + apexModel.getPolicyModel().getId() + " failed", e);
+                    "split of policy model " + apexModel.getPolicyModel().getId() + " failed", e);
         } finally {
             if (tempSplitPolicyFile != null) {
                 try {
@@ -527,7 +528,7 @@ public class ModelHandlerFacade {
 
         try {
             AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(apexModel.getPolicyModel(),
-                            mergeInPolicyModel, keepOriginal, false, false);
+                    mergeInPolicyModel, keepOriginal, false, false);
             apexModel.setPolicyModel(mergedPolicyModel != null ? mergedPolicyModel : new AxPolicyModel());
             return new ApexApiResult();
         } catch (ApexModelException e) {
@@ -554,7 +555,7 @@ public class ModelHandlerFacade {
 
         try {
             AxPolicyModel mergedPolicyModel = PolicyModelMerger.getMergedPolicyModel(apexModel.getPolicyModel(),
-                            mergeInPolicyModel, keepOriginal, false, false);
+                    mergeInPolicyModel, keepOriginal, false, false);
             apexModel.setPolicyModel(mergedPolicyModel != null ? mergedPolicyModel : new AxPolicyModel());
             return new ApexApiResult();
         } catch (ApexModelException e) {

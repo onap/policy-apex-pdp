@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
 import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
 import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.utils.network.NetworkUtil;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -74,8 +74,8 @@ public class TestRest2File {
      */
     @Before
     public void setUp() throws Exception {
-        server = HttpServletServerFactoryInstance.getServerFactory().build(
-            "TestRest2File", false, null, PORT, "/TestRest2File", false, false);
+        server = HttpServletServerFactoryInstance.getServerFactory().build("TestRest2File", false, null, PORT,
+                "/TestRest2File", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -116,18 +116,18 @@ public class TestRest2File {
      */
     @Test
     public void testRestEventsIn() throws MessagingException, ApexException, IOException {
-        final String[] args = { "-rfr", "target", "-c", "target/examples/config/SampleDomain/REST2FileJsonEvent.json" };
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/REST2FileJsonEvent.json"};
 
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
-        final String outputEventText = TextFileUtils
-            .getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
+        final String outputEventText =
+                TextFileUtils.getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
 
         checkRequiredString(outputEventText,
-            "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"");
+                "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"");
     }
 
     /**
@@ -142,7 +142,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEmptyEvents.json" };
+        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEmptyEvents.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(5000);
@@ -153,8 +153,8 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        checkRequiredString(outString,
-            "received an empty event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"");
+        checkRequiredString(outString, "received an empty event from URL "
+                + "\"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"");
     }
 
     /**
@@ -169,7 +169,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventNoURL.json" };
+        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventNoURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(5000);
@@ -195,7 +195,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadURL.json" };
+        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(5000);
@@ -207,7 +207,7 @@ public class TestRest2File {
         System.setErr(stderr);
 
         checkRequiredString(outString, "reception of event from URL "
-            + "\"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404");
+                + "\"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404");
     }
 
     /**
@@ -222,7 +222,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json" };
+        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(5000);
@@ -234,7 +234,7 @@ public class TestRest2File {
         System.setErr(stderr);
 
         checkRequiredString(outString, "specified HTTP method of \"POST\" is invalid, "
-            + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
+                + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
     }
 
     /**
@@ -249,7 +249,7 @@ public class TestRest2File {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/prodcons/REST2FileJsonEventBadResponse.json" };
+        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadResponse.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(5000);
@@ -261,8 +261,9 @@ public class TestRest2File {
         System.setErr(stderr);
 
         checkRequiredString(outString,
-            "reception of event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" "
-                + "failed with status code 400 and message \"");
+                "reception of event from URL "
+                        + "\"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" "
+                        + "failed with status code 400 and message \"");
     }
 
     /**

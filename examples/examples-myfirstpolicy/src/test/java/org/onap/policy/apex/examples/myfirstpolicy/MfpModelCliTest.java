@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +32,7 @@ import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test MyFirstPolicyModel CLI.
@@ -65,11 +66,11 @@ public class MfpModelCliTest {
         final File tempLogFile2 = File.createTempFile("TestMyFirstPolicy2CLI", ".log");
         final File tempModelFile2 = File.createTempFile("TestMyFirstPolicy2CLI", ".json");
         final String[] testApexModel1CliArgs =
-            { "-c", "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex", "-l",
-                        tempLogFile1.getAbsolutePath(), "-o", tempModelFile1.getAbsolutePath() };
+                {"-c", "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex", "-l",
+                    tempLogFile1.getAbsolutePath(), "-o", tempModelFile1.getAbsolutePath()};
         final String[] testApexModel2CliArgs =
-            { "-c", "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex", "-l",
-                        tempLogFile2.getAbsolutePath(), "-o", tempModelFile2.getAbsolutePath() };
+                {"-c", "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex", "-l",
+                    tempLogFile2.getAbsolutePath(), "-o", tempModelFile2.getAbsolutePath()};
 
         new ApexCommandLineEditorMain(testApexModel1CliArgs);
         new ApexCommandLineEditorMain(testApexModel2CliArgs);

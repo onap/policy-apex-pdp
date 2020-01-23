@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +30,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
-import org.onap.policy.apex.model.utilities.TextFileUtils;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -103,8 +104,7 @@ public class EventGenerator {
         if (parameters.getOutFile() != null) {
             try {
                 TextFileUtils.putStringAsTextFile(getEventGenerationStats(), parameters.getOutFile());
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 LOGGER.warn("could not output statistics to file \"" + parameters.getOutFile() + "\"", ioe);
             }
         }
@@ -150,8 +150,7 @@ public class EventGenerator {
 
         try {
             parameters = parameterHandler.parse(args);
-        }
-        catch (ParseException pe) {
+        } catch (ParseException pe) {
             LOGGER.trace("Event generator start exception", pe);
             LOGGER.info("Start of event generator failed: {}", pe.getMessage());
             return;
@@ -171,7 +170,6 @@ public class EventGenerator {
         while (!eventGenerator.isFinished()) {
             ThreadUtilities.sleep(200);
         }
-
 
         // Shut down the server
         eventGenerator.tearDown();
