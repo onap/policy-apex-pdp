@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "071f87ec_59ef29ce",
+        "filename": "testsuites/integration/pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-23T12:49:55Z",
+      "side": 1,
+      "message": "I had to disable the apex integration tests, they keep failing in Jenkins with Nashorn throwing stack overflow errors. These tests pass locally. I\u0027ll re-enable these tests when we convert apex to use the Graal javascript engine.\n\nIt looks like even though Nashorn is there, it does not play well with Java 11",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 56
+      },
+      "revId": "755eb9df282d80273043a2e902e2a51bf6eaab24",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
