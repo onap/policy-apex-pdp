@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "226e470a_c3bd0e0e",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/handling/ApexEditorRestResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-24T00:03:54Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32d13904_b5575a7f",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ModelHandlerFacadeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-24T00:03:54Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7db1fb78_838ce332",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-24T00:03:54Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
