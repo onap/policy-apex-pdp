@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "32051dae_85547737",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/handling/ApexEditorRestResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-24T09:23:37Z",
+      "side": 1,
+      "message": "Will do in next review.",
+      "parentUuid": "226e470a_c3bd0e0e",
+      "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32d13904_b5575a7f",
         "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ModelHandlerFacadeTest.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "dff034c4_9778fc9b",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ModelHandlerFacadeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-24T09:23:37Z",
+      "side": 1,
+      "message": "Will do in next review.",
+      "parentUuid": "32d13904_b5575a7f",
+      "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7db1fb78_838ce332",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-01-24T00:03:54Z",
       "side": 1,
       "message": "trailing spaces",
+      "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ecc3750_21f6f54a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-01-24T09:23:37Z",
+      "side": 1,
+      "message": "Will do in next review.",
+      "parentUuid": "7db1fb78_838ce332",
       "revId": "f8000a9d35928f136216be504828ef9074dfb42a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
