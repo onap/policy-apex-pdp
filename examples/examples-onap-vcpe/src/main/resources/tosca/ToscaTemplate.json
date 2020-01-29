@@ -9,8 +9,6 @@
           "name": "onap.policies.controlloop.operational.apex.Vcpe",
           "version": "1.0.0",
           "properties": {
-            "content": {
-            }
           }
         }
       }

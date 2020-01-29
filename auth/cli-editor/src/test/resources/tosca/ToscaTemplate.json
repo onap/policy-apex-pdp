@@ -9,8 +9,6 @@
           "name": "onap.policies.controlloop.Operational.apex.sampledomain",
           "version": "1.0.0",
           "properties": {
-            "content": {
-            }
           }
         }
       }
