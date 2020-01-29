@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fef075ac_1e92848a",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-29T21:40:45Z",
+      "side": 1,
+      "message": "typically put the literal on the left of equals()",
+      "revId": "368e6b8b99587375623b5a07b8d4b68c73750823",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3a96c10_d6f042c1",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-29T21:40:45Z",
+      "side": 1,
+      "message": "maybe make this public and use in CliUtil?",
+      "revId": "368e6b8b99587375623b5a07b8d4b68c73750823",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
