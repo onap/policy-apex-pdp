@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -46,6 +47,8 @@ import org.slf4j.LoggerFactory;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class ApexEngineHandler {
+    private static final String POLICY_TYPE_IMPL = "policy_type_impl";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexEngineHandler.class);
 
     private ApexMain apexMain;
@@ -88,17 +91,21 @@ public class ApexEngineHandler {
         throws ApexStarterException {
         Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
         for (ToscaPolicy policy : policies) {
-            Object properties = policy.getProperties().get("content");
             final StandardCoder standardCoder = new StandardCoder();
-            String policyModel;
+            String policyModel = "";
             String apexConfig;
+            JsonObject apexConfigJsonObject = new JsonObject();
             try {
-                JsonObject body = standardCoder.decode(standardCoder.encode(properties), JsonObject.class);
-                final JsonObject engineServiceParameters = body.get("engineServiceParameters").getAsJsonObject();
-                policyModel = standardCoder.encode(engineServiceParameters.get("policy_type_impl"));
-                engineServiceParameters.remove("policy_type_impl");
-                apexConfig = standardCoder.encode(body);
-            } catch (final CoderException e) {
+                for (Entry<String, Object> property : policy.getProperties().entrySet()) {
+                    JsonObject body = standardCoder.decode(standardCoder.encode(property.getValue()), JsonObject.class);
+                    if (property.getKey().equals("engineServiceParameters")) {
+                        policyModel = standardCoder.encode(body.get(POLICY_TYPE_IMPL));
+                        body.remove(POLICY_TYPE_IMPL);
+                    }
+                    apexConfigJsonObject.add(property.getKey(), body);
+                }
+                apexConfig = standardCoder.encode(apexConfigJsonObject);
+            } catch (CoderException e) {
                 throw new ApexStarterException(e);
             }
 

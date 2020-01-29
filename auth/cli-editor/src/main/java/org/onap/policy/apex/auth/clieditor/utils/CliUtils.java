@@ -21,7 +21,6 @@
 package org.onap.policy.apex.auth.clieditor.utils;
 
 import com.google.gson.JsonObject;
-
 import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
-
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.lang3.StringUtils;
@@ -78,14 +76,17 @@ public class CliUtils {
         String toscaTemplate = TextFileUtils.getTextFileAsString(parameters.getInputToscaTemplateFileName());
         JsonObject toscaTemplateJson = standardCoder.decode(toscaTemplate, JsonObject.class);
 
-        JsonObject engineServiceParameters = apexConfigJson.get("engineServiceParameters").getAsJsonObject();
-        engineServiceParameters.add("policy_type_impl", policyModelJson);
         JsonObject toscaPolicyProperties = toscaTemplateJson.get("topology_template").getAsJsonObject();
         JsonObject toscaPolicy = toscaPolicyProperties.get("policies").getAsJsonArray().get(0).getAsJsonObject();
         JsonObject toscaProperties = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString()).getAsJsonObject()
                 .get("properties").getAsJsonObject();
-        toscaProperties.add("content", apexConfigJson);
 
+        apexConfigJson.entrySet().forEach(entry -> {
+            if (entry.getKey().equals("engineServiceParameters")) {
+                entry.getValue().getAsJsonObject().add("policy_type_impl", policyModelJson);
+            }
+            toscaProperties.add(entry.getKey(), entry.getValue());
+        });
         final String toscaPolicyString = standardCoder.encode(toscaTemplateJson);
         final String toscaPolicyFileName = parameters.getOutputToscaPolicyFileName();
         if (StringUtils.isNotBlank(toscaPolicyFileName)) {
