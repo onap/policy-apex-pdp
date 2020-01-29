@@ -71,8 +71,10 @@ public class TestListenerUtils {
         toscaPolicy.setVersion(policyVersion);
         toscaPolicy.setName(policyName);
         final Map<String, Object> propertiesMap = new LinkedHashMap<>();
-        Object properties = new StandardCoder().decode(new File(policyFilePath), JsonObject.class);
-        propertiesMap.put("content", properties);
+        JsonObject properties = new StandardCoder().decode(new File(policyFilePath), JsonObject.class);
+        properties.entrySet().forEach(entry -> {
+            propertiesMap.put(entry.getKey(), entry.getValue());
+        });
         toscaPolicy.setProperties(propertiesMap);
         return toscaPolicy;
     }
