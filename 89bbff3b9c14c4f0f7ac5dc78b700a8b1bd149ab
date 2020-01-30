@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35fb8904_491dad97",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestListenerUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-01-30T11:58:37Z",
+      "side": 1,
+      "message": "Argh - 2020",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "89bbff3b9c14c4f0f7ac5dc78b700a8b1bd149ab",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
