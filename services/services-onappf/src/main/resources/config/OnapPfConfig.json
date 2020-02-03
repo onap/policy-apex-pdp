@@ -18,6 +18,10 @@
                 "version": "1.0.0"
             },
             {
+              "name": "onap.policies.controlloop.operational.common.Apex",
+              "version": "1.0.0"
+            },
+            {
                 "name": "onap.policies.native.Apex",
                 "version": "1.0.0"
             }
