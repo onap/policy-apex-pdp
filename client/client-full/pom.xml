@@ -2,6 +2,7 @@
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications Copyright (C) 2019 Nordix Foundation.
+   Modifications Copyright (C) 2020 Bell Canada.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,41 +24,33 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.client</groupId>
-        <artifactId>client</artifactId>
+        <artifactId>apex-client</artifactId>
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client-full</artifactId>
+    <artifactId>apex-client-full</artifactId>
     <name>${project.artifactId}</name>
     <description>Web clients for managing Apex engines</description>
 
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-editor</artifactId>
+            <artifactId>apex-client-editor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-monitoring</artifactId>
+            <artifactId>apex-client-monitoring</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-deployment</artifactId>
+            <artifactId>apex-client-deployment</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-monitoring</artifactId>
-            <version>${project.version}</version>
-            <classifier>resources</classifier>
-            <type>zip</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-deployment</artifactId>
+            <artifactId>apex-client-monitoring</artifactId>
             <version>${project.version}</version>
             <classifier>resources</classifier>
             <type>zip</type>
@@ -65,7 +58,15 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>client-editor</artifactId>
+            <artifactId>apex-client-deployment</artifactId>
+            <version>${project.version}</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.client</groupId>
+            <artifactId>apex-client-editor</artifactId>
             <version>${project.version}</version>
             <classifier>resources</classifier>
             <type>zip</type>
@@ -108,7 +109,7 @@
                             <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
        <!--use as much as needed to be specific...also scope,type,classifier etc-->
                             <includeGroupIds>org.onap.policy.apex-pdp.client</includeGroupIds>
-                            <includeArtifacIds>client-monitoring, client-deployment, client-editor</includeArtifacIds>
+                            <includeArtifacIds>apex-client-monitoring, apex-client-deployment, apex-client-editor</includeArtifacIds>
                             <excludeTransitive>true</excludeTransitive>
                             <excludeTypes>jar</excludeTypes>
                             <includeTypes>zip</includeTypes>
