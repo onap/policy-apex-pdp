@@ -27,7 +27,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client-deployment</artifactId>
+    <artifactId>apex-client-deployment</artifactId>
     <name>${project.artifactId}</name>
     <description>Web client for deploying models in Apex engine</description>
 

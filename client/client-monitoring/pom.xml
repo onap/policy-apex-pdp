@@ -27,7 +27,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client-monitoring</artifactId>
+    <artifactId>apex-client-monitoring</artifactId>
     <name>${project.artifactId}</name>
     <description>Web client for monitoring Apex engines</description>
 

@@ -28,7 +28,7 @@
     </parent>
 
     <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
-    <artifactId>integration</artifactId>
+    <artifactId>apex-integration</artifactId>
     <packaging>pom</packaging>
 
     <modules>

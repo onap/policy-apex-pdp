@@ -27,7 +27,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client-editor</artifactId>
+    <artifactId>apex-client-editor</artifactId>
     <name>${project.artifactId}</name>
     <description>Web client for editing Apex policies</description>
 

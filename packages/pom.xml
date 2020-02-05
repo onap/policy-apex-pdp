@@ -27,7 +27,7 @@
     </parent>
 
     <groupId>org.onap.policy.apex-pdp.packages</groupId>
-    <artifactId>packages</artifactId>
+    <artifactId>apex-packages</artifactId>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>

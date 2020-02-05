@@ -27,7 +27,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client-full</artifactId>
+    <artifactId>apex-client-full</artifactId>
     <name>${project.artifactId}</name>
     <description>Web clients for managing Apex engines</description>
 

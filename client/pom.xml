@@ -26,7 +26,7 @@
     </parent>
 
     <groupId>org.onap.policy.apex-pdp.client</groupId>
-    <artifactId>client</artifactId>
+    <artifactId>apex-client</artifactId>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
