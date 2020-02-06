@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92ad7f5a_77b10143",
+        "filename": "client/client-common/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-02-06T15:47:54Z",
+      "side": 1,
+      "message": "apex-client",
+      "revId": "5fdb0ccbf6257f9cdbf84fc9fbe10fe25a1bb13a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f60a4e17_1bb6eed6",
+        "filename": "client/client-deployment/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-02-06T15:47:54Z",
+      "side": 1,
+      "message": "apex-client",
+      "revId": "5fdb0ccbf6257f9cdbf84fc9fbe10fe25a1bb13a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f7ad170_7c9bd894",
+        "filename": "client/client-editor/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-02-06T15:47:54Z",
+      "side": 1,
+      "message": "apex-client",
+      "revId": "5fdb0ccbf6257f9cdbf84fc9fbe10fe25a1bb13a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1130ba6_fddd3ef6",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-02-06T15:47:54Z",
+      "side": 1,
+      "message": "apex-client",
+      "revId": "5fdb0ccbf6257f9cdbf84fc9fbe10fe25a1bb13a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f6e8bab_68aa525d",
+        "filename": "testsuites/integration/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-02-06T15:47:54Z",
+      "side": 1,
+      "message": "apex-testsuites",
+      "revId": "5fdb0ccbf6257f9cdbf84fc9fbe10fe25a1bb13a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
