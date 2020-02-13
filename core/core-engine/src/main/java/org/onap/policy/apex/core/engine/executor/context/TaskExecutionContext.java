@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +23,13 @@ package org.onap.policy.apex.core.engine.executor.context;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -38,6 +38,7 @@ import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
+import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -103,6 +104,10 @@ public class TaskExecutionContext {
     @Getter
     private Properties executionProperties;
 
+    // Parameters associated to a task
+    @Getter
+    private Map<String, String> parameters = new HashMap<>();
+
     /**
      * Instantiates a new task execution context.
      *
@@ -119,6 +124,9 @@ public class TaskExecutionContext {
             final Map<String, Object> outFields, final ApexInternalContext internalContext) {
         // The subject is the task definition
         subject = new AxTaskFacade(axTask);
+
+        // Populate parameters to be accessed in the task logic from the task parameters.
+        populateParameters(axTask.getTaskParameters());
 
         // Execution ID is the current policy execution instance
         this.executionId = executionId;
@@ -148,6 +156,16 @@ public class TaskExecutionContext {
         for (final ContextAlbum contextAlbum : context.values()) {
             contextAlbum.setUserArtifactStack(usedArtifactStackArray);
         }
+    }
+
+    /**
+     * Populate parameters to be accessed in the task logic.
+     *
+     * @param taskParameters The task parameters
+     */
+    private void populateParameters(Map<String, AxTaskParameter> taskParameters) {
+        taskParameters.entrySet().forEach(taskParamEntry -> parameters.put(taskParamEntry.getKey(),
+            taskParamEntry.getValue().getTaskParameterValue()));
     }
 
     /**

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +21,15 @@
 
 package org.onap.policy.apex.core.engine.executor.context;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -38,7 +39,9 @@ import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
+import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 
 /**
  * Test Task Execution Context.
@@ -69,6 +72,11 @@ public class TaskExecutionContextTest {
 
         Mockito.doReturn(contextAlbumReferences).when(axTaskMock).getContextAlbumReferences();
 
+        Map<String, AxTaskParameter> taskParameters = new HashMap<>();
+        taskParameters.put("parameterKey1", new AxTaskParameter(new AxReferenceKey(), "parameterValue1"));
+        taskParameters.put("parameterKey2", new AxTaskParameter(new AxReferenceKey(), "parameterValue2"));
+        Mockito.doReturn(taskParameters).when(axTaskMock).getTaskParameters();
+
         Map<AxArtifactKey, ContextAlbum> contextAlbumMap = new LinkedHashMap<>();
         AxArtifactKey album0Key = new AxArtifactKey("AlbumKey0:0.0.1");
         AxArtifactKey album1Key = new AxArtifactKey("AlbumKey1:0.0.1");
@@ -97,12 +105,11 @@ public class TaskExecutionContextTest {
         ContextAlbum contextAlbum = tec.getContextAlbum("AlbumKey0");
         assertEquals("AlbumKey0:0.0.1", contextAlbum.getKey().getId());
 
-        try {
-            tec.getContextAlbum("AlbumKeyNonExistant");
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("cannot find definition of context album \"AlbumKeyNonExistant\" on task \"null\"",
-                            exc.getMessage());
-        }
+        Map<String, String> parameters = tec.getParameters();
+        assertEquals("parameterValue1", parameters.get("parameterKey1"));
+        assertEquals("parameterValue2", parameters.get("parameterKey2"));
+
+        assertThatThrownBy(() -> tec.getContextAlbum("AlbumKeyNonExistant"))
+            .hasMessageContaining("cannot find definition of context album \"AlbumKeyNonExistant\" on task \"null\"");
     }
 }

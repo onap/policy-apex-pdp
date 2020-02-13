@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,10 +28,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
-
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -41,8 +41,11 @@ import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
+import org.onap.policy.apex.core.engine.TaskParameters;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
+import org.onap.policy.common.utils.coder.CoderException;
+import org.onap.policy.common.utils.coder.StandardCoder;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -66,6 +69,8 @@ public class EngineServiceParametersJsonAdapter
     private static final String SCHEMA_PARAMETERS       = "schemaParameters";
     private static final String EXECUTOR_PARAMETERS     = "executorParameters";
     // @formatter:on
+
+    private StandardCoder standardCoder = new StandardCoder();
 
     /**
      * {@inheritDoc}.
@@ -98,7 +103,35 @@ public class EngineServiceParametersJsonAdapter
         // Executor parameter wrangling
         getExecutorParameters(engineParametersJsonObject, engineParameters, context);
 
+        // Task parameter wrangling
+        getTaskParametersList(engineParametersJsonObject, engineParameters);
         return engineParameters;
+    }
+
+    /**
+     * Method to get the task parameters list for Apex.
+     *
+     * @param engineParametersJsonObject The input JSON
+     * @param engineParameters The output parameters
+     */
+    private void getTaskParametersList(JsonObject engineParametersJsonObject, EngineParameters engineParameters) {
+        final JsonElement parametersElement = engineParametersJsonObject.get("taskParameters");
+
+        // configurable parameters are optional so if the element does not exist, just return
+        if (parametersElement == null) {
+            return;
+        }
+        List<TaskParameters> parametersList = new ArrayList<>();
+        parametersElement.getAsJsonArray().forEach(taskParam -> {
+            TaskParameters parameters = null;
+            try {
+                parameters = standardCoder.decode(standardCoder.encode(taskParam), TaskParameters.class);
+            } catch (CoderException e) {
+                throw new ParameterRuntimeException("Error reading taskParameters from the config json provided.");
+            }
+            parametersList.add(parameters);
+        });
+        engineParameters.setTaskParameters(parametersList);
     }
 
     /**

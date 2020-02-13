@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ package org.onap.policy.apex.core.engine.executor.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import org.onap.policy.apex.core.engine.EngineParameterConstants;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
@@ -54,6 +53,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ExecutorFactoryImpl.class);
 
+    private final EngineParameters engineParameters;
     // A map of logic flavours mapped to executor classes for plugins to executors for those logic flavours
     private Map<String, Class<Executor<?, ?, ?, ?>>> taskExecutorPluginClassMap = new TreeMap<>();
     private Map<String, Class<Executor<?, ?, ?, ?>>> taskSelectionExecutorPluginClassMap = new TreeMap<>();
@@ -68,7 +68,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      * @throws StateMachineException on plugin creation errors
      */
     public ExecutorFactoryImpl() throws StateMachineException {
-        final EngineParameters engineParameters = ParameterService.get(EngineParameterConstants.MAIN_GROUP_NAME);
+        engineParameters = ParameterService.get(EngineParameterConstants.MAIN_GROUP_NAME);
 
         Assertions.argumentOfClassNotNull(engineParameters, StateMachineException.class,
                         "Parameter \"engineParameters\" may not be null");
@@ -121,7 +121,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
                         taskExecutorPluginClassMap.get(task.getTaskLogic().getLogicFlavour()), TaskExecutor.class);
         taskExecutor.setParameters(implementationParameterMap.get(task.getTaskLogic().getLogicFlavour()));
         taskExecutor.setContext(parentExecutor, task, context);
-
+        taskExecutor.updateTaskParameters(engineParameters.getTaskParameters());
         return taskExecutor;
     }
 

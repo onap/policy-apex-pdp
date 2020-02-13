@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +21,34 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
+import org.onap.policy.apex.core.engine.TaskParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskLogic;
+import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 
 /**
  * Test task excutor.
@@ -75,6 +83,7 @@ public class TaskExecutorTest {
 
     private LinkedHashMap<String, Object> inFieldMap;
     private LinkedHashMap<String, Object> outFieldMap;
+    private List<TaskParameters> taskParametersFromConfig;
 
     /**
      * Set up mocking.
@@ -111,12 +120,20 @@ public class TaskExecutorTest {
         Mockito.doReturn(taskLogicMock).when(axTaskMock).getTaskLogic();
 
         Mockito.doReturn(new AxArtifactKey("Context:0.0.1")).when(internalContextMock).getKey();
+
+        Map<String, AxTaskParameter> taskParameters = new HashMap<>();
+        taskParameters.put("parameterKey2", new AxTaskParameter(new AxReferenceKey(), "parameterOriginalValue2"));
+        Mockito.doReturn(taskParameters).when(axTaskMock).getTaskParameters();
+
+        taskParametersFromConfig = new ArrayList<>();
+        taskParametersFromConfig.add(new TaskParameters("parameterKey0", "parameterNewValue0", "Task0:0.0.1"));
+        taskParametersFromConfig.add(new TaskParameters("parameterKey1", "parameterNewValue1", "Task1:0.0.1"));
+        taskParametersFromConfig.add(new TaskParameters("parameterKey2", "parameterNewValue2", null));
     }
 
     @Test
-    public void testTaskExecutor() {
-        DummyTaskExecutor executor = new DummyTaskExecutor();
-
+    public void testTaskExecutor() throws StateMachineException, ContextException {
+        final DummyTaskExecutor executor = new DummyTaskExecutor();
         executor.setContext(null, axTaskMock, internalContextMock);
         assertEquals("Task0:0.0.1", executor.getKey().getId());
         assertEquals(null, executor.getExecutionContext());
@@ -133,135 +150,81 @@ public class TaskExecutorTest {
         executor.setNext(null);
         assertEquals(null, executor.getNext());
 
-        try {
-            executor.cleanUp();
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("cleanUp() not implemented on class", ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.cleanUp()).hasMessageContaining("cleanUp() not implemented on class");
 
         Mockito.doReturn(null).when(taskLogicMock).getLogic();
 
-        try {
-            executor.prepare();
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("task logic cannot be null.", ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.prepare()).hasMessageContaining("task logic cannot be null.");
 
         Mockito.doReturn("some task logic").when(taskLogicMock).getLogic();
 
-        try {
-            executor.prepare();
-        } catch (StateMachineException e) {
-            fail("test should not throw an exception");
-        }
+        executor.prepare();
 
         Map<String, Object> incomingFields = new LinkedHashMap<>();
-        try {
-            executor.executePre(0, new Properties(), incomingFields);
-        } catch (Exception ex) {
-            assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
-        }
+
+        assertThatThrownBy(() -> executor.executePre(0, new Properties(), incomingFields))
+            .hasMessageContaining("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"");
 
         incomingFields.put("InField0", "A Value");
-        try {
-            executor.executePre(0, new Properties(), incomingFields);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
 
-        try {
-            executor.execute(0, new Properties(), incomingFields);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute() not implemented on abstract TaskExecutor class, only on its subclasses",
-                    ex.getMessage());
-        }
+        executor.executePre(0, new Properties(), incomingFields);
 
-        try {
-            executor.execute(0, new Properties(), incomingFields);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute() not implemented on abstract TaskExecutor class, only on its subclasses",
-                    ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.execute(0, new Properties(), incomingFields))
+            .hasMessageContaining("execute() not implemented on abstract TaskExecutor class, only on its subclasses");
 
-        try {
-            executor.executePost(false);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute-post: task logic execution failure on task \"Task0\" in model Context:0.0.1",
-                    ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.executePost(false)).hasMessageContaining(
+            "execute-post: task logic execution failure on task \"Task0\" in model Context:0.0.1");
 
         executor.getExecutionContext().setMessage("Execution message");
-        try {
-            executor.executePost(false);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute-post: task logic execution failure on task \"Task0\" in model Context:0.0.1, "
-                    + "user message: Execution message", ex.getMessage());
-        }
 
-        try {
-            executor.executePost(true);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(() -> executor.executePost(false)).hasMessageContaining(
+            "execute-post: task logic execution failure on task \"Task0\" in model Context:0.0.1, "
+                + "user message: Execution message");
+
+        executor.executePost(true);
 
         outFieldMap.put("MissingField", axMissingOutputFieldMock);
-        try {
-            executor.executePost(true);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("task output fields \"[MissingField]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
-        }
+
+        assertThatThrownBy(() -> executor.executePost(true))
+            .hasMessageContaining("task output fields \"[MissingField]\" are missing for task \"Task0:0.0.1\"");
 
         outFieldMap.remove("MissingField");
         executor.getExecutionContext().outFields.put("BadExtraField", "Howdy!");
-        try {
-            executor.executePost(true);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("task output fields \"[BadExtraField]\" are unwanted for task \"Task0:0.0.1\"",
-                    ex.getMessage());
-        }
+
+        assertThatThrownBy(() -> executor.executePost(true))
+            .hasMessageContaining("task output fields \"[BadExtraField]\" are unwanted for task \"Task0:0.0.1\"");
 
         executor.getExecutionContext().outFields.remove("BadExtraField");
         outFieldMap.put("InField1", axMissingOutputFieldMock);
-        try {
-            executor.executePost(true);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.executePost(true);
 
         outFieldMap.put("InField0", axMissingOutputFieldMock);
-        try {
-            executor.executePost(true);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.executePost(true);
 
         executor.getExecutionContext().outFields.put("InField0", "Output Value");
-        try {
-            executor.executePost(true);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.executePost(true);
 
         executor.getExecutionContext().outFields.remove("InField0");
-        try {
-            executor.executePost(true);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.executePost(true);
 
-        try {
-            executor.executePre(0, null, incomingFields);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("executionProperties is marked @NonNull but is null", ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.executePre(0, null, incomingFields))
+            .hasMessageContaining("executionProperties is marked @NonNull but is null");
+    }
+
+    @Test
+    public void testTaskExecutorForTaskParameters() {
+        DummyTaskExecutor executorForParmeterTest = new DummyTaskExecutor(false);
+
+        executorForParmeterTest.setContext(null, axTaskMock, internalContextMock);
+        executorForParmeterTest.updateTaskParameters(taskParametersFromConfig);
+        assertNotNull(executorForParmeterTest.getSubject().getTaskParameters());
+        // taskId matched, parameter value updated with the new value
+        assertEquals("parameterNewValue0",
+            executorForParmeterTest.getSubject().getTaskParameters().get("parameterKey0").getTaskParameterValue());
+        // taskId mismatch, so the parameter is not updated in the task
+        assertNull(executorForParmeterTest.getSubject().getTaskParameters().get("parameterKey1"));
+        // taskId is not available, so parameter is updated in the task
+        assertEquals("parameterNewValue2",
+            executorForParmeterTest.getSubject().getTaskParameters().get("parameterKey2").getTaskParameterValue());
     }
 }
