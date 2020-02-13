@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,24 +23,28 @@ package org.onap.policy.apex.core.engine.executor;
 
 import static org.onap.policy.common.utils.validation.Assertions.argumentOfClassNotNull;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
+import lombok.Getter;
 import lombok.NonNull;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
+import org.onap.policy.apex.core.engine.TaskParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.context.TaskExecutionContext;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
+import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -71,16 +75,8 @@ public abstract class TaskExecutor
     // The task execution context; contains the facades for events and context to be used by tasks
     // executed by this task
     // executor
+    @Getter
     private TaskExecutionContext executionContext = null;
-
-    /**
-     * Gets the execution internalContext.
-     *
-     * @return the execution context
-     */
-    protected TaskExecutionContext getExecutionContext() {
-        return executionContext;
-    }
 
     /**
      * {@inheritDoc}.
@@ -236,6 +232,28 @@ public abstract class TaskExecutor
 
         // We have an input field that matches our output field, copy the value across
         getOutgoing().put(field, getIncoming().get(field));
+    }
+
+    /**
+     * If taskParameters are provided in ApexConfig, then they will be updated in the Tasks.
+     * If taskId is empty, the task parameter is added/updated to all available tasks
+     * Otherwise, the task parameter is added/updated to the corresponding task only.
+     *
+     * @param taskParametersFromConfig the list of task parameters provided in ApexConfig during deployment
+     */
+    public void updateTaskParameters(List<TaskParameters> taskParametersFromConfig) {
+        Map<String, AxTaskParameter> taskParameters = getSubject().getTaskParameters();
+        if (null == taskParameters) {
+            taskParameters = new HashMap<>();
+        }
+        for (TaskParameters taskParameterFromConfig : taskParametersFromConfig) {
+            if (null == taskParameterFromConfig.getTaskId()
+                || getSubject().getId().equals(taskParameterFromConfig.getTaskId())) {
+                taskParameters.put(taskParameterFromConfig.getKey(),
+                    new AxTaskParameter(new AxReferenceKey(), taskParameterFromConfig.getValue()));
+            }
+        }
+        getSubject().setTaskParameters(taskParameters);
     }
 
     /**

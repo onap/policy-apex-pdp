@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +21,17 @@
 
 package org.onap.policy.apex.core.engine;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ValidationResult;
 
 /**
  * This class holds the parameters for a single Apex engine. This parameter class holds parameters for context schemas
@@ -44,6 +49,8 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
 public class EngineParameters implements ParameterGroup {
     private ContextParameters contextParameters = new ContextParameters();
 
@@ -52,6 +59,9 @@ public class EngineParameters implements ParameterGroup {
 
     // A map of parameters for executors of various logic types
     private Map<String, ExecutorParameters> executorParameterMap = new TreeMap<>();
+
+    // A list of parameters to be passed to the task, so that they can be used in the logic
+    private List<TaskParameters> taskParameters = new ArrayList<>();
 
     /**
      * Constructor to create an engine parameters instance and register the instance with the parameter service.
@@ -63,52 +73,6 @@ public class EngineParameters implements ParameterGroup {
         this.name = EngineParameterConstants.MAIN_GROUP_NAME;
     }
 
-    /**
-     * Gets the parameters for context schema and album handling.
-     *
-     * @return the parameters for context schema and album handling
-     */
-    public ContextParameters getContextParameters() {
-        return contextParameters;
-    }
-
-    /**
-     * Sets the parameters for context schema and album handling.
-     *
-     * @param contextParameters the parameters for context schema and album handling
-     */
-    public void setContextParameters(final ContextParameters contextParameters) {
-        this.contextParameters = contextParameters;
-    }
-
-    /**
-     * Gets the executor parameter map of the engine.
-     *
-     * @return the executor parameter map of the engine
-     */
-    public Map<String, ExecutorParameters> getExecutorParameterMap() {
-        return executorParameterMap;
-    }
-
-    /**
-     * Sets the executor parameter map of the engine.
-     *
-     * @param executorParameterMap the executor parameter map of the engine
-     */
-    public void setExecutorParameterMap(final Map<String, ExecutorParameters> executorParameterMap) {
-        this.executorParameterMap = executorParameterMap;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     @Override
     public GroupValidationResult validate() {
         final GroupValidationResult result = new GroupValidationResult(this);
@@ -118,6 +82,13 @@ public class EngineParameters implements ParameterGroup {
         for (Entry<String, ExecutorParameters> executorParEntry : executorParameterMap.entrySet()) {
             result.setResult("executorParameterMap", executorParEntry.getKey(), executorParEntry.getValue().validate());
         }
+        for (TaskParameters taskParam : taskParameters) {
+            ValidationResult taskParamValidationResult = taskParam.validate("taskParameters");
+            result.setResult(taskParamValidationResult.getName(), taskParamValidationResult.getStatus(),
+                taskParamValidationResult.getResult());
+        }
         return result;
     }
+
+
 }
