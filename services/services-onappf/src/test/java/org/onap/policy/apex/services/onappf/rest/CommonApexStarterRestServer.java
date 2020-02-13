@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Function;
 
@@ -161,6 +162,8 @@ public class CommonApexStarterRestServer {
         @SuppressWarnings("unchecked")
         final Map<String, Object> restParams = (Map<String, Object>) config.get("restServerParameters");
         restParams.put("port", port);
+        //restParams.put("userName", Optional.of(System.getenv("OnapPfParameterGroup.userName")).orElse("healthcheck"));
+        //restParams.put("password", Optional.of(System.getenv("OnapPfParameterGroup.password")).orElse("zb!XztG34"));
 
         final File file = new File("src/test/resources/TestConfigParams.json");
         file.deleteOnExit();
