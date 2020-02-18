@@ -162,8 +162,8 @@ public class CommonApexStarterRestServer {
         @SuppressWarnings("unchecked")
         final Map<String, Object> restParams = (Map<String, Object>) config.get("restServerParameters");
         restParams.put("port", port);
-        restParams.put("userName", Optional.of(System.getenv("OnapPfParameterGroup.userName")).orElse("healthcheck"));
-        restParams.put("password", Optional.of(System.getenv("OnapPfParameterGroup.password")).orElse("zb!XztG34"));
+/*      restParams.put("userName", Optional.of(System.getenv("OnapPfParameterGroup.userName")).orElse("healthcheck"));
+        restParams.put("password", Optional.of(System.getenv("OnapPfParameterGroup.password")).orElse("zb!XztG34"));*/
 
         final File file = new File("src/test/resources/TestConfigParams.json");
         file.deleteOnExit();
@@ -186,7 +186,7 @@ public class CommonApexStarterRestServer {
 
         final Properties systemProps = System.getProperties();
         systemProps.put("javax.net.ssl.keyStore", KEYSTORE);
-        systemProps.put("javax.net.ssl.keyStorePassword", "Pol1cy_0nap");
+        systemProps.put("javax.net.ssl.keyStorePassword", Optional.of(System.getenv("javax.net.ssl.keyStorePassword")).orElse("Pol1cy_0nap"));
         System.setProperties(systemProps);
 
         final String[] apexStarterConfigParameters = { "-c", "src/test/resources/TestConfigParams.json" };
@@ -197,6 +197,8 @@ public class CommonApexStarterRestServer {
             throw new IllegalStateException("server is not listening on port " + port);
         }
     }
+
+
 
     /**
      * Stops the "Main".
