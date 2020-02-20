@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "170cd071_7cfb6507",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/engineservice/EngineServiceParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-02-20T13:28:18Z",
+      "side": 1,
+      "message": "Do we need some unit test for this class?",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
