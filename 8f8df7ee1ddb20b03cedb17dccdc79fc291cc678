@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e417d69_c0fe6d49",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/EngineParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T19:24:17Z",
+      "side": 1,
+      "message": "maybe just do: result.add()",
+      "revId": "8f8df7ee1ddb20b03cedb17dccdc79fc291cc678",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
