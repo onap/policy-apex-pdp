@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Properties;
 
 import java.util.regex.Matcher;
@@ -32,15 +30,12 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
-import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
-import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
-import org.onap.policy.apex.service.engine.event.PeeredReference;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventConsumer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
-import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +44,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
+public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestClientConsumer.class);
 
@@ -68,18 +63,8 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
     // The HTTP client that makes a REST call to get an input event for Apex
     private Client client;
 
-    // The name for this consumer
-    private String name = null;
-
-    // The peer references for this event handler
-    private Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap = new EnumMap<>(EventHandlerPeeredMode.class);
-
     // The pattern for filtering status code
     private Pattern httpCodeFilterPattern = null;
-
-    // The consumer thread and stopping flag
-    private Thread consumerThread;
-    private boolean stopOrderedFlag = false;
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
@@ -114,42 +99,6 @@ public class ApexRestClientConsumer implements ApexEventConsumer, Runnable {
 
         // Initialize the HTTP client
         client = ClientBuilder.newClient();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void start() {
-        // Configure and start the event reception thread
-        final String threadName = this.getClass().getName() + ":" + this.name;
-        consumerThread = new ApplicationThreadFactory(threadName).newThread(this);
-        consumerThread.setDaemon(true);
-        consumerThread.start();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
-        return peerReferenceMap.get(peeredMode);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
-        peerReferenceMap.put(peeredMode, peeredReference);
     }
 
     /**
