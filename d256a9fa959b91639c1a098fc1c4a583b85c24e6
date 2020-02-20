@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b463dcbc_5261471a",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/EngineParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9db386a_17cd532a",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79117bfa_849e329c",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2020-02-20T14:19:56Z",
       "side": 1,
       "message": "If I am not wrong we already have a concept called TaskParameter in apex. Is there a difference between this one and the other one?",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0639e578_40f6a0b6",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "This is just a way to configure the existing taskParameters.TaskParameters are overridden(if existing) or added to a task.",
+      "parentUuid": "79117bfa_849e329c",
       "range": {
         "startLine": 35,
         "startChar": 13,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "48365127_851c84b7",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce62af24_0b619d01",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a55223b7_f6c90400",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2020-02-20T14:10:18Z",
       "side": 1,
       "message": "can use BeanValidator - it will validate the fields based on the annotations",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbb27b3d_63c49727",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a55223b7_f6c90400",
       "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "fbfdccd7_f953a20b",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "These two maps store values of different types.",
+      "parentUuid": "29c52ef7_1ef32dd1",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27de0c81_ef2a0838",
         "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/EngineParametersTest.java",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2020-02-20T14:10:18Z",
       "side": 1,
       "message": "this is fine, though could use Map.of()",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fefb185_64d8984e",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/EngineParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27de0c81_ef2a0838",
       "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -144,6 +258,24 @@
     },
     {
       "key": {
+        "uuid": "e586de8f_d6c9040b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/engineservice/EngineServiceParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "Yes,we could. Maybe in a later review?",
+      "parentUuid": "170cd071_7cfb6507",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eddf2163_3eaf2cb8",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/engineservice/EngineServiceParametersJsonAdapter.java",
         "patchSetId": 1
@@ -155,6 +287,24 @@
       "writtenOn": "2020-02-20T14:10:18Z",
       "side": 1,
       "message": "fyi: can make this \"static\"",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa14692c_e19c3b3f",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/engineservice/EngineServiceParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-20T17:31:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eddf2163_3eaf2cb8",
       "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
