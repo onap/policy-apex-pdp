@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "e9db386a_17cd532a",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/EngineParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "should TaskParameters implement validate(), which returns a ValidationResult?",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce62af24_0b619d01",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "probably want to include @NotBlank",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a55223b7_f6c90400",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/TaskParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "can use BeanValidator - it will validate the fields based on the annotations",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29c52ef7_1ef32dd1",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "just use parameters.putAll()",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27de0c81_ef2a0838",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/EngineParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "this is fine, though could use Map.of()",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25769412_bdd892ab",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/DummyTaskExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "oh, good catch!",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "170cd071_7cfb6507",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/engineservice/EngineServiceParametersJsonAdapter.java",
         "patchSetId": 1
@@ -16,6 +118,23 @@
       "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eddf2163_3eaf2cb8",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/engineservice/EngineServiceParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-20T14:10:18Z",
+      "side": 1,
+      "message": "fyi: can make this \"static\"",
+      "revId": "d256a9fa959b91639c1a098fc1c4a583b85c24e6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
