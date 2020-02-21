@@ -16,6 +16,24 @@
       "revId": "8f8df7ee1ddb20b03cedb17dccdc79fc291cc678",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00c4f8d6_4468db73",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/EngineParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-21T09:54:10Z",
+      "side": 1,
+      "message": "add method is not available for result. When we do the setResults, each individual results are added to a validationResultMap in GroupValidationResult.",
+      "parentUuid": "7e417d69_c0fe6d49",
+      "revId": "8f8df7ee1ddb20b03cedb17dccdc79fc291cc678",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
