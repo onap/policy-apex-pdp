@@ -162,7 +162,7 @@ public class RestRequestorCarrierTechnologyParametersTest {
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.DELETE);
         assertEquals(RestRequestorCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
-        assertEquals("RESTRequestorCarrierTechnologyParameters "
+        assertEquals("RESTREQUESTORCarrierTechnologyParameters "
                 + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]],"
                 + " httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
