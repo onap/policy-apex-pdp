@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventConsumer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
@@ -156,7 +157,7 @@ public class ApexRestServerConsumerTest {
         Field field = ApexRestServerConsumer.class.getDeclaredField("eventReceiver");
         field.setAccessible(true);
         field.set(apexRestServerConsumer, apexEventReceiver);
-        field = ApexRestServerConsumer.class.getDeclaredField("name");
+        field = ApexPluginsEventConsumer.class.getDeclaredField("name");
         field.setAccessible(true);
         field.set(apexRestServerConsumer, "TestApexRestServerConsumer");
 
