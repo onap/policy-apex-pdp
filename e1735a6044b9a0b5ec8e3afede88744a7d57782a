@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef4054b7_fa72ac85",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/ApexPluginsEventProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T13:26:55Z",
+      "side": 1,
+      "message": "any need for synchronization?",
+      "revId": "e1735a6044b9a0b5ec8e3afede88744a7d57782a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fda73cbb_05940129",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/ApexPluginsEventProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T13:26:55Z",
+      "side": 1,
+      "message": "use @Getter",
+      "revId": "e1735a6044b9a0b5ec8e3afede88744a7d57782a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
