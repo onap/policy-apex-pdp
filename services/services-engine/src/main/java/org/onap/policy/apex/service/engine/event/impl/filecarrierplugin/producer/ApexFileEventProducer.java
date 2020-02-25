@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import java.util.Properties;
 
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexEventProducer;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
@@ -45,26 +45,19 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexFileEventProducer implements ApexEventProducer {
+public class ApexFileEventProducer extends ApexPluginsEventProducer {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexFileEventProducer.class);
 
-    // The name for this producer
-    private String producerName = null;
-
     // The output stream to write events to
     private PrintStream eventOutputStream;
-
-    // The peer references for this event handler
-    private final Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap =
-            new EnumMap<>(EventHandlerPeeredMode.class);
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void init(final String name, final EventHandlerParameters producerParameters) throws ApexEventException {
-        producerName = name;
+    public void init(final String producerName, final EventHandlerParameters producerParameters) throws ApexEventException {
+        this.name = producerName;
 
         // Get and check the Apex parameters from the parameter service
         if (producerParameters == null) {
@@ -109,38 +102,9 @@ public class ApexFileEventProducer implements ApexEventProducer {
      * {@inheritDoc}.
      */
     @Override
-    public String getName() {
-        return producerName;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
-        return peerReferenceMap.get(peeredMode);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
-        peerReferenceMap.put(peeredMode, peeredReference);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
             final Object event) {
-        // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache =
-                (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
-        if (synchronousEventCache != null) {
-            synchronousEventCache.removeCachedEventToApexIfExists(executionId);
-        }
+        super.sendEvent(executionId, executionProperties, eventName, event);
 
         // Cast the event to a string, if our conversion is correctly configured, this cast should
         // always work
@@ -148,7 +112,7 @@ public class ApexFileEventProducer implements ApexEventProducer {
         try {
             stringEvent = (String) event;
         } catch (final Exception e) {
-            final String errorMessage = "error in ApexFileProducer \"" + producerName + "\" while transferring event \""
+            final String errorMessage = "error in ApexFileProducer \"" + name + "\" while transferring event \""
                     + event + "\" to the output stream";
             LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);

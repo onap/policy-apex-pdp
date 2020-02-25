@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +26,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexEventProducer;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
@@ -39,14 +40,8 @@ import org.slf4j.LoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  *
  */
-public class ApexRestServerProducer implements ApexEventProducer {
+public class ApexRestServerProducer extends ApexPluginsEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestServerProducer.class);
-
-    // The name for this producer
-    private String name = null;
-
-    // The peer references for this event handler
-    private Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap = new EnumMap<>(EventHandlerPeeredMode.class);
 
     /**
      * {@inheritDoc}.
@@ -85,30 +80,6 @@ public class ApexRestServerProducer implements ApexEventProducer {
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
-        return peerReferenceMap.get(peeredMode);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
-        peerReferenceMap.put(peeredMode, peeredReference);
     }
 
     /**
