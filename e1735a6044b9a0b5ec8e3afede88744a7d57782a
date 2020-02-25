@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "86597789_83917343",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-websocket/src/main/java/org/onap/policy/apex/plugins/event/carrier/websocket/ApexWebSocketProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-02-25T13:39:39Z",
+      "side": 1,
+      "message": "if you touch the file again, change 2 spaces to 1 after implements",
+      "revId": "e1735a6044b9a0b5ec8e3afede88744a7d57782a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef4054b7_fa72ac85",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/ApexPluginsEventProducer.java",
         "patchSetId": 2
