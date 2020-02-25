@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexEventProducer;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  * @author Joss Armstrong (joss.armstrong@ericsson.com)
  *
  */
-public class ApexRestClientProducer implements ApexEventProducer {
+public class ApexRestClientProducer extends ApexPluginsEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestClientProducer.class);
 
     // The HTTP client that makes a REST call with an event from Apex
@@ -56,12 +56,6 @@ public class ApexRestClientProducer implements ApexEventProducer {
 
     // The REST carrier properties
     private RestClientCarrierTechnologyParameters restProducerProperties;
-
-    // The name for this producer
-    private String name = null;
-
-    // The peer references for this event handler
-    private Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap = new EnumMap<>(EventHandlerPeeredMode.class);
 
     /**
      * {@inheritDoc}.
@@ -103,39 +97,9 @@ public class ApexRestClientProducer implements ApexEventProducer {
     /**
      * {@inheritDoc}.
      */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public PeeredReference getPeeredReference(final EventHandlerPeeredMode peeredMode) {
-        return peerReferenceMap.get(peeredMode);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void setPeeredReference(final EventHandlerPeeredMode peeredMode, final PeeredReference peeredReference) {
-        peerReferenceMap.put(peeredMode, peeredReference);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
             final Object event) {
-        // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache =
-                (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
-        if (synchronousEventCache != null) {
-            synchronousEventCache.removeCachedEventToApexIfExists(executionId);
-        }
+        super.sendEvent(executionId, executionProperties, eventName, event);
 
         String untaggedUrl = restProducerProperties.getUrl();
         if (executionProperties != null) {
