@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "033f6778_4a689e3a",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/impl/distribution/DistributorFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "sonar: log or re-throw the exception, but don\u0027t do both\n\ncan also change to use \"{}\" place-holders\n\nsame comments in other classes",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbffe654_409236e7",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/impl/distribution/DistributorFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "use \"{}\" place-holders",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3ecad58_dc7378b4",
+        "filename": "model/engine-model/src/test/java/org/onap/policy/apex/model/enginemodel/concepts/EngineStatsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f592ea1_800fd101",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ApexEditorApiPolicyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7da225_1939b146",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/RestClientCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "no longer needed",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72b4ee06_1987b128",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/runtime/impl/EngineWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "use \"{}\" instead of concatenation",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e03cc9e_7a6b1b2c",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/runtime/impl/EngineWorker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-25T18:01:34Z",
+      "side": 1,
+      "message": "cache the string in a variable\n\nsame comment below",
+      "revId": "01bc5eeabfa0dc6521e4acea4d27d36e70ab8dcb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
