@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 
 /**
- * Test engine statistics.
+ * Test the engine statistics.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class EngineStatsTest {
@@ -61,7 +62,7 @@ public class EngineStatsTest {
         assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKeys().get(0).getId());
 
         stats.setAverageExecutionTime(123.45);
-        assertEquals(new Double(123.45), new Double(stats.getAverageExecutionTime()));
+        assertEquals(Double.valueOf(123.45), Double.valueOf(stats.getAverageExecutionTime()));
 
         stats.setEventCount(987);
         assertEquals(987, stats.getEventCount());
@@ -100,7 +101,7 @@ public class EngineStatsTest {
         stats.engineStart();
         stats.setEventCount(4);
         stats.executionEnter(new AxArtifactKey());
-        
+
         synchronized (WAIT_LOCK) {
             try {
                 WAIT_LOCK.wait(10);
@@ -141,7 +142,7 @@ public class EngineStatsTest {
         assertTrue(stats.equals(stats));
         assertTrue(stats.equals(clonedStats));
         assertFalse(stats.equals(null));
-        assertFalse(stats.equals((Object)"Hello"));
+        assertFalse(stats.equals("Hello"));
         assertFalse(stats.equals(new AxEngineStats(new AxReferenceKey())));
 
         assertEquals(0, stats.compareTo(stats));

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +57,7 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
         // Get the class for state finalizer execution
         try {
             // Create the state finalizer logic object from the byte code of the class
-            stateFinalizerLogicObject = Class.forName(getSubject().getLogic()).newInstance();
+            stateFinalizerLogicObject = Class.forName(getSubject().getLogic()).getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
             LOGGER.error("instantiation error on Java class \"" + getSubject().getLogic() + "\"", e);
             throw new StateMachineException("instantiation error on Java class \"" + getSubject().getLogic() + "\"", e);
@@ -87,7 +88,7 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
             // to invoke the
             // task logic in the Java class
             final Method method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput",
-                    new Class[] { StateFinalizerExecutionContext.class });
+                    new Class[] {StateFinalizerExecutionContext.class});
             returnValue = (boolean) method.invoke(stateFinalizerLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \"" + getSubject().getId()

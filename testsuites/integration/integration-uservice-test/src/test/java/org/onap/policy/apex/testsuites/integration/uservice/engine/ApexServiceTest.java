@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -176,14 +177,14 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event =
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
-        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event2 =
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
@@ -236,8 +237,8 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event1 = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event1 =
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event1.putAll(eventDataMap);
         event1.setExecutionId(System.nanoTime());
 
@@ -258,8 +259,8 @@ public class ApexServiceTest {
             ThreadUtilities.sleep(100);
         }
 
-        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event2 =
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
 
@@ -326,14 +327,14 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event =
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
-        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event2 =
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
@@ -386,8 +387,8 @@ public class ApexServiceTest {
         eventDataMap.put("TestTimestamp", testStartTime.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 
-        final ApexEvent event1 = new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event1 =
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event1.putAll(eventDataMap);
 
         final ApexEventListener myEventListener1 = new ApexEventListener() {
@@ -407,8 +408,8 @@ public class ApexServiceTest {
             ThreadUtilities.sleep(100);
         }
 
-        final ApexEvent event2 = new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events",
-                        "test", "apex");
+        final ApexEvent event2 =
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
         event2.putAll(eventDataMap);
 
         final ApexEventListener myEventListener2 = new ApexEventListener() {
@@ -499,16 +500,16 @@ public class ApexServiceTest {
             assertTrue(result.getName().startsWith("Event0004") || result.getName().startsWith("Event0104"));
 
             assertTrue(result.get("TestSlogan").equals("This is a test slogan"));
-            assertTrue(result.get("TestMatchCase").equals(new Byte((byte) 123)));
+            assertTrue(result.get("TestMatchCase").equals((byte) 123));
             assertTrue(result.get("TestTemperature").equals(34.5445667));
             assertTrue(((byte) result.get("TestMatchCaseSelected")) >= 0
-                            && ((byte) result.get("TestMatchCaseSelected") <= 3));
+                    && ((byte) result.get("TestMatchCaseSelected") <= 3));
             assertTrue(((byte) result.get("TestEstablishCaseSelected")) >= 0
-                            && ((byte) result.get("TestEstablishCaseSelected") <= 3));
+                    && ((byte) result.get("TestEstablishCaseSelected") <= 3));
             assertTrue(((byte) result.get("TestDecideCaseSelected")) >= 0
-                            && ((byte) result.get("TestDecideCaseSelected") <= 3));
-            assertTrue(((byte) result.get("TestActCaseSelected")) >= 0
-                            && ((byte) result.get("TestActCaseSelected") <= 3));
+                    && ((byte) result.get("TestDecideCaseSelected") <= 3));
+            assertTrue(
+                    ((byte) result.get("TestActCaseSelected")) >= 0 && ((byte) result.get("TestActCaseSelected") <= 3));
         }
     }
 

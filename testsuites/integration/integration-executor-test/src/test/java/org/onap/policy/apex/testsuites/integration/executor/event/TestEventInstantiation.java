@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -137,13 +137,13 @@ public class TestEventInstantiation {
         assertNotNull(slogan1);
         assertEquals("This is a slogan", slogan1);
 
-        Object mc1 = event.put("TestMatchCase", new Byte("4"));
+        Object mc1 = event.put("TestMatchCase", Byte.valueOf("4"));
         assertNull(mc1);
         mc1 = event.get("TestMatchCase");
         assertNotNull(mc1);
         assertEquals((byte) 4, mc1);
 
-        Object mc2 = event.put("TestMatchCase", new Byte("16"));
+        Object mc2 = event.put("TestMatchCase", Byte.valueOf("16"));
         assertNotNull(mc2);
         assertEquals((byte) 4, mc2);
         mc2 = event.get("TestMatchCase");
@@ -173,17 +173,17 @@ public class TestEventInstantiation {
             event.put("TestMatchCase", "Hello");
         } catch (final Exception e) {
             assertEquals("Event0000:0.0.1:NULL:TestMatchCase: object \"Hello\" of class \"java.lang.String\" "
-                            + "not compatible with class \"java.lang.Byte\"", e.getMessage());
+                    + "not compatible with class \"java.lang.Byte\"", e.getMessage());
         }
 
         try {
             event.put("TestMatchCase", 123.45);
         } catch (final Exception e) {
             assertEquals("Event0000:0.0.1:NULL:TestMatchCase: object \"123.45\" of class \"java.lang.Double\" "
-                            + "not compatible with class \"java.lang.Byte\"", e.getMessage());
+                    + "not compatible with class \"java.lang.Byte\"", e.getMessage());
         }
 
-        event.put("TestMatchCase", new Byte("16"));
+        event.put("TestMatchCase", Byte.valueOf("16"));
 
         final String slogan2 = (String) event.get("TestSlogan");
         assertNotNull(slogan2);
@@ -212,7 +212,7 @@ public class TestEventInstantiation {
         final Date aDate = new Date(1433453067123L);
         final Map<String, Object> eventDataList = new HashMap<String, Object>();
         eventDataList.put("TestSlogan", "This is a test slogan");
-        eventDataList.put("TestMatchCase", new Byte("123"));
+        eventDataList.put("TestMatchCase", Byte.valueOf("123"));
         eventDataList.put("TestTimestamp", aDate.getTime());
         eventDataList.put("TestTemperature", 34.5445667);
 

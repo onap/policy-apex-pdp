@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         } catch (final IllegalArgumentException e) {
 
             String resultSting = userKey.getId() + ": class/type " + schema.getSchema() + " for context schema \""
-                            + schema.getId() + "\" not found.";
+                    + schema.getId() + "\" not found.";
             if (JavaSchemaHelper.BUILT_IN_MAP.get(javatype) != null) {
                 resultSting += " Primitive types are not supported. Use the appropriate Java boxing type instead.";
             } else {
@@ -104,8 +104,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         if (getSchemaClass() == null) {
-            final String returnString = getUserKey().getId()
-                            + ": could not create an instance, schema class for the schema is null";
+            final String returnString =
+                    getUserKey().getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -120,9 +120,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         final String returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
-                        + incomingObject.getClass().getName()
-                        + "\" is not an instance of JsonObject and is not assignable to \"" + getSchemaClass().getName()
-                        + "\"";
+                + incomingObject.getClass().getName()
+                + "\" is not an instance of JsonObject and is not assignable to \"" + getSchemaClass().getName() + "\"";
         LOGGER.warn(returnString);
         throw new ContextRuntimeException(returnString);
     }
@@ -168,8 +167,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return getGson().toJson(schemaObject);
         } else {
             final String returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
-                            + "\" of class \"" + schemaObject.getClass().getName() + "\" not compatible with class \""
-                            + getSchemaClass().getName() + "\"";
+                    + "\" of class \"" + schemaObject.getClass().getName() + "\" not compatible with class \""
+                    + getSchemaClass().getName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -225,8 +224,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
             final String returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
-                            + object.getClass().getName() + "\" not compatible with class \""
-                            + getSchemaClass().getName() + "\"";
+                    + object.getClass().getName() + "\" not compatible with class \"" + getSchemaClass().getName()
+                    + "\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
@@ -243,23 +242,23 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         // Get the Java schema helper parameters from the parameter service
         SchemaParameters schemaParameters = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
-        JavaSchemaHelperParameters javaSchemaHelperParmeters = (JavaSchemaHelperParameters) schemaParameters
-                        .getSchemaHelperParameterMap().get("Java");
+        JavaSchemaHelperParameters javaSchemaHelperParmeters =
+                (JavaSchemaHelperParameters) schemaParameters.getSchemaHelperParameterMap().get("Java");
 
         if (javaSchemaHelperParmeters == null) {
             javaSchemaHelperParmeters = new JavaSchemaHelperParameters();
         }
 
         for (JavaSchemaHelperJsonAdapterParameters jsonAdapterEntry : javaSchemaHelperParmeters.getJsonAdapters()
-                        .values()) {
+                .values()) {
 
             Object adapterObject;
             try {
-                adapterObject = jsonAdapterEntry.getAdaptorClazz().newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+                adapterObject = jsonAdapterEntry.getAdaptorClazz().getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
                 final String returnString = getUserKey().getId() + ": instantiation of adapter class \""
-                                + jsonAdapterEntry.getAdaptorClass() + "\"  to decode and encode class \""
-                                + jsonAdapterEntry.getAdaptedClass() + "\" failed: " + e.getMessage();
+                        + jsonAdapterEntry.getAdaptorClass() + "\"  to decode and encode class \""
+                        + jsonAdapterEntry.getAdaptedClass() + "\" failed: " + e.getMessage();
                 LOGGER.warn(returnString, e);
                 throw new ContextRuntimeException(returnString);
             }

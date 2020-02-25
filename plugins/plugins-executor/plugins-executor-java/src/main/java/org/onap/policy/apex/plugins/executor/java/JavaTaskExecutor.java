@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +57,8 @@ public class JavaTaskExecutor extends TaskExecutor {
         // Get the class for task execution
         try {
             // Create the task logic object from the byte code of the class
-            taskLogicObject = Class.forName(getSubject().getTaskLogic().getLogic()).newInstance();
+            taskLogicObject =
+                    Class.forName(getSubject().getTaskLogic().getLogic()).getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
             LOGGER.error("instantiation error on Java class \"" + getSubject().getTaskLogic().getLogic() + "\"", e);
             throw new StateMachineException(
@@ -86,8 +88,8 @@ public class JavaTaskExecutor extends TaskExecutor {
             // Find and call the method with the signature "public boolean getEvent(final TaskExecutionContext executor)
             // throws ApexException" to invoke the
             // task logic in the Java class
-            final Method method = taskLogicObject.getClass().getDeclaredMethod("getEvent",
-                    new Class[] { TaskExecutionContext.class });
+            final Method method =
+                    taskLogicObject.getClass().getDeclaredMethod("getEvent", new Class[] {TaskExecutionContext.class});
             returnValue = (boolean) method.invoke(taskLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error("execute: task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"");

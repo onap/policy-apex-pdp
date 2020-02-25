@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,25 +21,14 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
+
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.validation.ParameterValidationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // @formatter:off
 /**
@@ -64,10 +53,6 @@ import org.slf4j.LoggerFactory;
 @Getter
 @Setter
 public class RestRequestorCarrierTechnologyParameters extends RestPluginCarrierTechnologyParameters {
-    // Get a reference to the logger
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestRequestorCarrierTechnologyParameters.class);
-
-
 
     /** The default HTTP method for request events. */
     public static final HttpMethod DEFAULT_REQUESTOR_HTTP_METHOD = HttpMethod.GET;
@@ -82,14 +67,10 @@ public class RestRequestorCarrierTechnologyParameters extends RestPluginCarrierT
     public RestRequestorCarrierTechnologyParameters() {
         super();
 
-        // Set the carrier technology properties for the web socket carrier technology
-        CARRIER_TECHNOLOGY_LABEL = "RESTREQUESTOR";
-        EVENT_PRODUCER_PLUGIN_CLASS = ApexRestRequestorProducer.class.getName();
-        EVENT_CONSUMER_PLUGIN_CLASS = ApexRestRequestorConsumer.class.getName();
-        // Set the carrier technology properties for the web socket carrier technology
-        this.setLabel(CARRIER_TECHNOLOGY_LABEL);
-        this.setEventProducerPluginClass(EVENT_PRODUCER_PLUGIN_CLASS);
-        this.setEventConsumerPluginClass(EVENT_CONSUMER_PLUGIN_CLASS);
+        // Set the carrier technology properties for the REST requestor carrier technology
+        this.setLabel("RESTREQUESTOR");
+        this.setEventProducerPluginClass(ApexRestRequestorProducer.class.getName());
+        this.setEventConsumerPluginClass(ApexRestRequestorConsumer.class.getName());
     }
 
     // @formatter:off

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,12 +73,11 @@ public class DefaultApexDao implements ApexDao {
         LOGGER.debug("Creating Apex persistence unit \"" + daoParameters.getPersistenceUnit() + "\" . . .");
         try {
             emf = Persistence.createEntityManagerFactory(daoParameters.getPersistenceUnit(),
-                            daoParameters.getJdbcProperties());
+                    daoParameters.getJdbcProperties());
         } catch (final Exception e) {
             LOGGER.warn("Creation of Apex persistence unit \"" + daoParameters.getPersistenceUnit() + "\" failed", e);
             throw new ApexException(
-                            "Creation of Apex persistence unit \"" + daoParameters.getPersistenceUnit() + "\" failed",
-                            e);
+                    "Creation of Apex persistence unit \"" + daoParameters.getPersistenceUnit() + "\" failed", e);
         }
         LOGGER.debug("Created Apex persistence unit \"" + daoParameters.getPersistenceUnit() + "\"");
     }
@@ -120,8 +119,7 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             mg.merge(obj);
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -139,8 +137,7 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             mg.remove(mg.contains(obj) ? obj : mg.merge(obj));
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -157,10 +154,9 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
-                            + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
+                    + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -177,11 +173,10 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                            + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
-                            + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
+                    + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
+                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -201,8 +196,7 @@ public class DefaultApexDao implements ApexDao {
                 mg.merge(t);
             }
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -222,8 +216,7 @@ public class DefaultApexDao implements ApexDao {
                 mg.remove(mg.contains(t) ? t : mg.merge(t));
             }
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -233,7 +226,7 @@ public class DefaultApexDao implements ApexDao {
      */
     @Override
     public <T extends AxConcept> int deleteByArtifactKey(final Class<T> someClass,
-                    final Collection<AxArtifactKey> keys) {
+            final Collection<AxArtifactKey> keys) {
         if (keys == null || keys.isEmpty()) {
             return 0;
         }
@@ -242,14 +235,11 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             for (final AxArtifactKey key : keys) {
-                deletedCount += mg
-                                .createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME
-                                                + key.getName() + AND_C_KEY_VERSION + key.getVersion() + "'", someClass)
-                                .executeUpdate();
+                deletedCount += mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME
+                        + key.getName() + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
             }
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
         return deletedCount;
@@ -260,7 +250,7 @@ public class DefaultApexDao implements ApexDao {
      */
     @Override
     public <T extends AxConcept> int deleteByReferenceKey(final Class<T> someClass,
-                    final Collection<AxReferenceKey> keys) {
+            final Collection<AxReferenceKey> keys) {
         if (keys == null || keys.isEmpty()) {
             return 0;
         }
@@ -269,13 +259,15 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             for (final AxReferenceKey key : keys) {
-                deletedCount += mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                                + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
-                                + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
+                deletedCount +=
+                        mg.createQuery(
+                                DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
+                                        + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION
+                                        + key.getParentKeyVersion() + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'",
+                                someClass).executeUpdate();
             }
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
         return deletedCount;
@@ -291,8 +283,7 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             mg.createQuery(DELETE_FROM + someClass.getSimpleName() + " c ", someClass).executeUpdate();
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -311,7 +302,7 @@ public class DefaultApexDao implements ApexDao {
             if (t != null) {
                 // This clone is created to force the JPA DAO to recurse down through the object
                 try {
-                    final T clonedT = someClass.newInstance();
+                    final T clonedT = someClass.getDeclaredConstructor().newInstance();
                     t.copyTo(clonedT);
                     return clonedT;
                 } catch (final Exception e) {
@@ -321,8 +312,7 @@ public class DefaultApexDao implements ApexDao {
             } else {
                 return null;
             }
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -340,7 +330,7 @@ public class DefaultApexDao implements ApexDao {
             final T t = mg.find(someClass, key);
             if (t != null) {
                 try {
-                    final T clonedT = someClass.newInstance();
+                    final T clonedT = someClass.getDeclaredConstructor().newInstance();
                     t.copyTo(clonedT);
                     return clonedT;
                 } catch (final Exception e) {
@@ -350,8 +340,7 @@ public class DefaultApexDao implements ApexDao {
             } else {
                 return null;
             }
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -367,8 +356,7 @@ public class DefaultApexDao implements ApexDao {
         final EntityManager mg = getEntityManager();
         try {
             return mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + " c", someClass).getResultList();
-        }
-        finally {
+        } finally {
             mg.close();
         }
     }
@@ -383,11 +371,13 @@ public class DefaultApexDao implements ApexDao {
         }
         final EntityManager mg = getEntityManager();
         try {
-            return mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                            + parentKey.getName() + AND_C_KEY_PARENT_KEY_VERSION + parentKey.getVersion() + "'",
-                            someClass).getResultList();
-        }
-        finally {
+            return mg
+                    .createQuery(
+                            SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
+                                    + parentKey.getName() + AND_C_KEY_PARENT_KEY_VERSION + parentKey.getVersion() + "'",
+                            someClass)
+                    .getResultList();
+        } finally {
             mg.close();
         }
     }
@@ -404,9 +394,8 @@ public class DefaultApexDao implements ApexDao {
         List<T> ret;
         try {
             ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
-                            + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).getResultList();
-        }
-        finally {
+                    + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).getResultList();
+        } finally {
             mg.close();
         }
         if (ret == null || ret.isEmpty()) {
@@ -414,7 +403,7 @@ public class DefaultApexDao implements ApexDao {
         }
         if (ret.size() > 1) {
             throw new IllegalArgumentException("More than one result was returned for search for " + someClass
-                            + " with key " + key.getId() + ": " + ret);
+                    + " with key " + key.getId() + ": " + ret);
         }
         return ret.get(0);
     }
@@ -431,10 +420,9 @@ public class DefaultApexDao implements ApexDao {
         List<T> ret;
         try {
             ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                            + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
-                            + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).getResultList();
-        }
-        finally {
+                    + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
+                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).getResultList();
+        } finally {
             mg.close();
         }
         if (ret == null || ret.isEmpty()) {
@@ -442,7 +430,7 @@ public class DefaultApexDao implements ApexDao {
         }
         if (ret.size() > 1) {
             throw new IllegalArgumentException("More than one result was returned for search for " + someClass
-                            + " with key " + key.getId() + ": " + ret);
+                    + " with key " + key.getId() + ": " + ret);
         }
         return ret.get(0);
     }
@@ -459,8 +447,7 @@ public class DefaultApexDao implements ApexDao {
             ret = mg.merge(obj);
             mg.flush();
             mg.getTransaction().commit();
-        }
-        finally {
+        } finally {
             mg.close();
         }
         return ret;
@@ -478,9 +465,8 @@ public class DefaultApexDao implements ApexDao {
         long size = 0;
         try {
             size = mg.createQuery("SELECT COUNT(c) FROM " + someClass.getSimpleName() + " c", Long.class)
-                            .getSingleResult();
-        }
-        finally {
+                    .getSingleResult();
+        } finally {
             mg.close();
         }
         return size;

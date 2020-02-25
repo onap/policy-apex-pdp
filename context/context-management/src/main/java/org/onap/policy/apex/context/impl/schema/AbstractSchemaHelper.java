@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,9 +67,9 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public void init(final AxKey incomingUserKey, final AxContextSchema incomingSchema) {
         Assertions.argumentOfClassNotNull(incomingUserKey, ContextRuntimeException.class,
-                        "incomingUserKey may not be null");
+                "incomingUserKey may not be null");
         Assertions.argumentOfClassNotNull(incomingSchema, ContextRuntimeException.class,
-                        "incomingSchema may not be null");
+                "incomingSchema may not be null");
 
         this.userKey = incomingUserKey;
         this.schema = incomingSchema;
@@ -113,18 +113,18 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public Object createNewInstance() {
         if (schemaClass == null) {
-            final String returnString = userKey.getId()
-                            + ": could not create an instance, schema class for the schema is null";
+            final String returnString =
+                    userKey.getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         try {
-            return schemaClass.newInstance();
+            return schemaClass.getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
-            final String returnString = userKey.getId() + ": could not create an instance of class \""
-                            + schemaClass.getName() + "\" using the default constructor \""
-                            + schemaClass.getSimpleName() + "()\"";
+            final String returnString =
+                    userKey.getId() + ": could not create an instance of class \"" + schemaClass.getName()
+                            + "\" using the default constructor \"" + schemaClass.getSimpleName() + "()\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -136,8 +136,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public Object createNewInstance(final String stringValue) {
         if (schemaClass == null) {
-            final String returnString = userKey.getId()
-                            + ": could not create an instance, schema class for the schema is null";
+            final String returnString =
+                    userKey.getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -149,9 +149,9 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             // Invoke the constructor
             return stringConstructor.newInstance(stringValue);
         } catch (final Exception e) {
-            final String returnString = userKey.getId() + ": could not create an instance of class \""
-                            + schemaClass.getName() + "\" using the string constructor \""
-                            + schemaClass.getSimpleName() + "(String)\"";
+            final String returnString =
+                    userKey.getId() + ": could not create an instance of class \"" + schemaClass.getName()
+                            + "\" using the string constructor \"" + schemaClass.getSimpleName() + "(String)\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +34,6 @@ import java.time.Instant;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -55,7 +55,7 @@ public class JavaSchemaHelperTest {
         stringAdapterPars.setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportJsonAdapter");
 
         javaSchemaHelperPars.getJsonAdapters().put("String", stringAdapterPars);
-        
+
         SchemaParameters schemaPars = new SchemaParameters();
         schemaPars.getSchemaHelperParameterMap().put("Java", javaSchemaHelperPars);
 
@@ -79,7 +79,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: class/type java.lang.Rubbish for context schema"
-                            + " \"SchemaKey:0.0.1\" not found. Check the class path of the JVM", e.getMessage());
+                    + " \"SchemaKey:0.0.1\" not found. Check the class path of the JVM", e.getMessage());
         }
 
         AxContextSchema builtInJavaTypeSchema = new AxContextSchema(schemaKey, "Java", "short");
@@ -89,8 +89,8 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: class/type short for context schema "
-                            + "\"SchemaKey:0.0.1\" not found. Primitive types are not supported."
-                            + " Use the appropriate Java boxing type instead.", e.getMessage());
+                    + "\"SchemaKey:0.0.1\" not found. Primitive types are not supported."
+                    + " Use the appropriate Java boxing type instead.", e.getMessage());
         }
     }
 
@@ -108,7 +108,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("NULL:0.0.0: could not create an instance, schema class for the schema is null",
-                            e.getMessage());
+                    e.getMessage());
         }
 
         try {
@@ -116,7 +116,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("NULL:0.0.0: could not create an instance, schema class for the schema is null",
-                            e.getMessage());
+                    e.getMessage());
         }
 
         try {
@@ -124,7 +124,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("NULL:0.0.0: could not create an instance, schema class for the schema is null",
-                            e.getMessage());
+                    e.getMessage());
         }
 
         AxArtifactKey schemaKey = new AxArtifactKey("SchemaKey", "0.0.1");
@@ -142,7 +142,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: could not create an instance of class "
-                            + "\"java.lang.Integer\" using the default constructor \"Integer()\"", e.getMessage());
+                    + "\"java.lang.Integer\" using the default constructor \"Integer()\"", e.getMessage());
         }
 
         try {
@@ -150,8 +150,8 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: the object \"1.23\" of type "
-                            + "\"java.lang.Float\" is not an instance of JsonObject and is not "
-                            + "assignable to \"java.lang.Integer\"", e.getMessage());
+                    + "\"java.lang.Float\" is not an instance of JsonObject and is not "
+                    + "assignable to \"java.lang.Integer\"", e.getMessage());
         }
 
         try {
@@ -159,13 +159,13 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: could not create an instance of class \"java.lang.Integer\" "
-                            + "using the string constructor \"Integer(String)\"", e.getMessage());
+                    + "using the string constructor \"Integer(String)\"", e.getMessage());
         }
 
         JsonElement jsonIntElement = null;
         assertEquals(null, intSchemaHelper.createNewInstance(jsonIntElement));
 
-        jsonIntElement = new JsonParser().parse("123");
+        jsonIntElement = JsonParser.parseString("123");
 
         assertEquals(123, intSchemaHelper.createNewInstance(jsonIntElement));
         assertEquals(123, intSchemaHelper.createNewInstance(Integer.parseInt("123")));
@@ -212,40 +212,40 @@ public class JavaSchemaHelperTest {
         stringSchemaHelper.init(userKey, stringSchema);
 
         AxContextSchema myBaseClassSchema = new AxContextSchema(schemaKey, "Java",
-                        "org.onap.policy.apex.context.impl.schema.java.SupportBaseClass");
+                "org.onap.policy.apex.context.impl.schema.java.SupportBaseClass");
         SchemaHelper myBaseClassSchemaHelper = new JavaSchemaHelper();
         myBaseClassSchemaHelper.init(userKey, myBaseClassSchema);
 
         assertEquals(null, byteSchemaHelper.unmarshal(null));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal("123"));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal(Integer.parseInt("123")));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal(Byte.parseByte("123")));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal(Short.parseShort("123")));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal(Long.parseLong("123")));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal(Float.parseFloat("123")));
-        assertEquals(new Byte("123"), byteSchemaHelper.unmarshal(Double.parseDouble("123")));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal("123"));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal(Integer.parseInt("123")));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal(Byte.parseByte("123")));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal(Short.parseShort("123")));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal(Long.parseLong("123")));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal(Float.parseFloat("123")));
+        assertEquals(Byte.valueOf("123"), byteSchemaHelper.unmarshal(Double.parseDouble("123")));
         try {
             byteSchemaHelper.unmarshal("one two three");
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                            + "compatible with class \"java.lang.Byte\"", e.getMessage());
+                    + "compatible with class \"java.lang.Byte\"", e.getMessage());
         }
 
         assertEquals(null, shortSchemaHelper.unmarshal(null));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal("123"));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal(Integer.parseInt("123")));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal(Byte.parseByte("123")));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal(Short.parseShort("123")));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal(Long.parseLong("123")));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal(Float.parseFloat("123")));
-        assertEquals(new Short("123"), shortSchemaHelper.unmarshal(Double.parseDouble("123")));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal("123"));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal(Integer.parseInt("123")));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal(Byte.parseByte("123")));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal(Short.parseShort("123")));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal(Long.parseLong("123")));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal(Float.parseFloat("123")));
+        assertEquals(Short.valueOf("123"), shortSchemaHelper.unmarshal(Double.parseDouble("123")));
         try {
             shortSchemaHelper.unmarshal("one two three");
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                            + "compatible with class \"java.lang.Short\"", e.getMessage());
+                    + "compatible with class \"java.lang.Short\"", e.getMessage());
         }
 
         assertEquals(null, intSchemaHelper.unmarshal(null));
@@ -261,7 +261,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                            + "compatible with class \"java.lang.Integer\"", e.getMessage());
+                    + "compatible with class \"java.lang.Integer\"", e.getMessage());
         }
 
         assertEquals(null, longSchemaHelper.unmarshal(null));
@@ -277,40 +277,40 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                            + "compatible with class \"java.lang.Long\"", e.getMessage());
+                    + "compatible with class \"java.lang.Long\"", e.getMessage());
         }
 
         assertEquals(null, floatSchemaHelper.unmarshal(null));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal("123"));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal(Integer.parseInt("123")));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal(Byte.parseByte("123")));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal(Short.parseShort("123")));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal(Long.parseLong("123")));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal(Float.parseFloat("123")));
-        assertEquals(new Float("123"), floatSchemaHelper.unmarshal(Double.parseDouble("123")));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal("123"));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal(Integer.parseInt("123")));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal(Byte.parseByte("123")));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal(Short.parseShort("123")));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal(Long.parseLong("123")));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal(Float.parseFloat("123")));
+        assertEquals(Float.valueOf("123"), floatSchemaHelper.unmarshal(Double.parseDouble("123")));
         try {
             floatSchemaHelper.unmarshal("one two three");
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                            + "compatible with class \"java.lang.Float\"", e.getMessage());
+                    + "compatible with class \"java.lang.Float\"", e.getMessage());
         }
 
         assertEquals(null, doubleSchemaHelper.unmarshal(null));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal("123"));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(Integer.parseInt("123")));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(Byte.parseByte("123")));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(Short.parseShort("123")));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(Long.parseLong("123")));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(Float.parseFloat("123")));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(Double.parseDouble("123")));
-        assertEquals(new Double("123"), doubleSchemaHelper.unmarshal(BigDecimal.valueOf(123)));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal("123"));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(Integer.parseInt("123")));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(Byte.parseByte("123")));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(Short.parseShort("123")));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(Long.parseLong("123")));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(Float.parseFloat("123")));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(Double.parseDouble("123")));
+        assertEquals(Double.valueOf("123"), doubleSchemaHelper.unmarshal(BigDecimal.valueOf(123)));
         try {
             doubleSchemaHelper.unmarshal("one two three");
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"one two three\" of class \"java.lang.String\" not "
-                            + "compatible with class \"java.lang.Double\"", e.getMessage());
+                    + "compatible with class \"java.lang.Double\"", e.getMessage());
         }
 
         assertEquals("123", stringSchemaHelper.unmarshal(123));
@@ -335,7 +335,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"123.45\" of class \"java.lang.Double\" not "
-                            + "compatible with class \"java.lang.Integer\"", e.getMessage());
+                    + "compatible with class \"java.lang.Integer\"", e.getMessage());
         }
 
         JsonPrimitive intJsonPrimitive = (JsonPrimitive) intSchemaHelper.marshal2Object(123);
@@ -358,7 +358,7 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception here");
         } catch (ContextRuntimeException e) {
             assertEquals("UserKey:0.0.1: object \"1970-01-01T00:00:01Z\" of class \"java.time.Instant\" "
-                            + "not compatible with class \"java.lang.String\"", e.getMessage());
+                    + "not compatible with class \"java.lang.String\"", e.getMessage());
         }
 
         JsonPrimitive stringJsonPrimitive = (JsonPrimitive) stringSchemaHelper.marshal2Object("Another String");
@@ -371,11 +371,11 @@ public class JavaSchemaHelperTest {
         AxArtifactKey userKey = new AxArtifactKey("UserKey", "0.0.1");
 
         SchemaParameters pars = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
-        
-        JavaSchemaHelperParameters javaShPars = (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap()
-                        .get("Java");
+
+        JavaSchemaHelperParameters javaShPars =
+                (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap().get("Java");
         javaShPars.getJsonAdapters().get("String")
-                        .setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportBadJsonAdapter");
+                .setAdaptorClass("org.onap.policy.apex.context.impl.schema.java.SupportBadJsonAdapter");
 
         AxContextSchema stringSchema = new AxContextSchema(schemaKey, "Java", "java.lang.String");
         SchemaHelper stringSchemaHelper = new JavaSchemaHelper();
@@ -386,9 +386,8 @@ public class JavaSchemaHelperTest {
             fail("test should throw an exception");
         } catch (ContextRuntimeException pre) {
             assertEquals("UserKey:0.0.1: instantiation of adapter class "
-                            + "\"org.onap.policy.apex.context.impl.schema.java.SupportBadJsonAdapter\"  "
-                            + "to decode and encode class \"java.lang.String\" failed: Test for Bad Adapter",
-                            pre.getMessage());
+                    + "\"org.onap.policy.apex.context.impl.schema.java.SupportBadJsonAdapter\"  to decode and encode "
+                    + "class \"java.lang.String\" failed: null", pre.getMessage());
         }
     }
 
@@ -396,11 +395,11 @@ public class JavaSchemaHelperTest {
     public void testJavaSchemaHelperDefaultAdapter() {
         SchemaParameters pars = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
-        JavaSchemaHelperParameters javaShPars = (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap()
-                        .get("Java");
-        
+        JavaSchemaHelperParameters javaShPars =
+                (JavaSchemaHelperParameters) pars.getSchemaHelperParameterMap().get("Java");
+
         pars.getSchemaHelperParameterMap().clear();
-        
+
         testJavaSchemaHelperAdapters();
 
         pars.getSchemaHelperParameterMap().put("Java", javaShPars);

@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.Getter;
+
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -43,13 +45,11 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
-import lombok.Getter;
 
 /**
- * This class is a java bean that is used to record statistics on Apex engines as they execute.
- * Statistics on the number of events, the amount of time taken to execute the last policy, the
- * average policy execution time, the up time of the engine, and the time stamp of the last engine
- * start are recorded.
+ * This class is a java bean that is used to record statistics on Apex engines as they execute. Statistics on the number
+ * of events, the amount of time taken to execute the last policy, the average policy execution time, the up time of the
+ * engine, and the time stamp of the last engine start are recorded.
  */
 
 @Entity
@@ -58,7 +58,7 @@ import lombok.Getter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEngineStats", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxEngineStats", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "timeStamp",
-        "eventCount", "lastExecutionTime", "averageExecutionTime", "upTime", "lastStart"})
+    "eventCount", "lastExecutionTime", "averageExecutionTime", "upTime", "lastStart"})
 public class AxEngineStats extends AxConcept {
     private static final long serialVersionUID = -6981129081962785368L;
     private static final int HASH_CODE_PRIME = 32;
@@ -96,8 +96,7 @@ public class AxEngineStats extends AxConcept {
     private long lastStart;
 
     /**
-     * The Default Constructor creates an engine statistics instance with a null key and with all
-     * values cleared.
+     * The Default Constructor creates an engine statistics instance with a null key and with all values cleared.
      */
     public AxEngineStats() {
         this(new AxReferenceKey());
@@ -120,8 +119,7 @@ public class AxEngineStats extends AxConcept {
     }
 
     /**
-     * The Keyed Constructor creates an engine statistics instance with the given key and all values
-     * cleared.
+     * The Keyed Constructor creates an engine statistics instance with the given key and all values cleared.
      *
      * @param key the key
      */
@@ -314,8 +312,7 @@ public class AxEngineStats extends AxConcept {
     }
 
     /**
-     * Updates the statistics when called, used by the Apex engine when it starts executing a
-     * policy.
+     * Updates the statistics when called, used by the Apex engine when it starts executing a policy.
      *
      * @param eventkey the key of the event that is being executed
      */
@@ -330,8 +327,7 @@ public class AxEngineStats extends AxConcept {
     }
 
     /**
-     * Updates the statistics when called, used by the Apex engine when it completes executing a
-     * policy.
+     * Updates the statistics when called, used by the Apex engine when it completes executing a policy.
      */
     public synchronized void executionExit() {
         final long now = System.currentTimeMillis();

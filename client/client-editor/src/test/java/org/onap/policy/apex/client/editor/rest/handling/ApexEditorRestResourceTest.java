@@ -39,7 +39,7 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test Apex Editor Rest Resource.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEditorRestResourceTest extends JerseyTest {
@@ -55,7 +55,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
 
         result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
-        final int sessionId = new Integer(result.getMessages().get(0));
+        final int sessionId = Integer.valueOf(result.getMessages().get(0));
 
         result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
@@ -191,7 +191,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
     public void testContextSchema() throws IOException {
         ApexApiResult result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
-        final int sessionId = new Integer(result.getMessages().get(0));
+        final int sessionId = Integer.valueOf(result.getMessages().get(0));
 
         final int corruptSessionId = ApexEditorRestResource.createCorruptSession();
 
@@ -327,7 +327,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
     public void testContextAlbum() throws IOException {
         ApexApiResult result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
-        final int sessionId = new Integer(result.getMessages().get(0));
+        final int sessionId = Integer.valueOf(result.getMessages().get(0));
         final int corruptSessionId = ApexEditorRestResource.createCorruptSession();
 
         result = target("editor/-12345/Validate/ContextAlbum").request().get(ApexApiResult.class);
@@ -458,7 +458,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
 
         ApexApiResult result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
-        final int sessionId = new Integer(result.getMessages().get(0));
+        final int sessionId = Integer.valueOf(result.getMessages().get(0));
 
         result = target("editor/-12345/Validate/Event").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -653,7 +653,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
 
         ApexApiResult result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
-        final int sessionId = new Integer(result.getMessages().get(0));
+        final int sessionId = Integer.valueOf(result.getMessages().get(0));
 
         result = target("editor/-12345/Validate/Task").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -978,7 +978,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
 
         ApexApiResult result = target("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
-        final int sessionId = new Integer(result.getMessages().get(0));
+        final int sessionId = Integer.valueOf(result.getMessages().get(0));
 
         result = target("editor/-12345/Model/Validate").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
