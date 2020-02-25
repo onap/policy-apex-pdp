@@ -1,0 +1,88 @@
+{
+    "engineServiceParameters": {
+        "name": "MyApexEngine",
+        "version": "0.0.1",
+        "id": 45,
+        "instanceCount": 1,
+        "deploymentPort": 12561,
+        "policyModelFileName": "target/TaskParametersTestPolicyModel.json",
+        "engineParameters": {
+            "executorParameters": {
+                "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                }
+            },
+            "taskParameters": [
+                {
+                    "key": "serviceId",
+                    "value": "serviceId123",
+                    "taskId": "InvalidTaskId:1.0.0"
+                },
+                {
+                    "key": "closedLoopId",
+                    "value": "closedLoopId123",
+                    "taskId": "InvalidTaskIdForCLOutTask"
+                }
+            ]
+        }    },
+    "eventInputParameters": {
+        "GetCodeConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestTaskParametersRest/apex/event/GetEvent",
+                    "httpMethod": "GET"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventName": "CLTriggerEvent"
+        },
+        "FirstConsumer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestTaskParametersRest/apex/service/{tagId}/{value}",
+                    "httpMethod": "POST"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "ServiceInfoEvent",
+            "requestorMode": true,
+            "requestorPeer": "FirstProducer"
+        }
+    },
+    "eventOutputParameters": {
+        "FirstProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTREQUESTOR",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters"
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "ServiceInfoEvent",
+            "requestorMode": true,
+            "requestorPeer": "FirstConsumer"
+        },
+        "SecondProducer": {
+            "carrierTechnologyParameters": {
+                "carrierTechnology": "RESTCLIENT",
+                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+                "parameters": {
+                    "url": "http://localhost:32801/TestTaskParametersRest/apex/action/{tagId}/{value}",
+                    "httpMethod": "POST"
+                }
+            },
+            "eventProtocolParameters": {
+                "eventProtocol": "JSON"
+            },
+            "eventNameFilter": "CLOutputEvent"
+        }
+    }
+}
