@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "174e3da1_c45b2a55",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/ApexPluginsEventProducer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-02-25T16:18:33Z",
+      "side": 1,
+      "message": "No because this is set up once at startup and we check to make sure duplicates are not allowed.",
+      "parentUuid": "ef4054b7_fa72ac85",
+      "revId": "e1735a6044b9a0b5ec8e3afede88744a7d57782a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fda73cbb_05940129",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/ApexPluginsEventProducer.java",
         "patchSetId": 2
