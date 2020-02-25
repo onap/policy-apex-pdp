@@ -24,6 +24,7 @@ package org.onap.policy.apex.core.engine.executor.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+
 import org.onap.policy.apex.core.engine.EngineParameterConstants;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
@@ -71,18 +72,18 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         engineParameters = ParameterService.get(EngineParameterConstants.MAIN_GROUP_NAME);
 
         Assertions.argumentOfClassNotNull(engineParameters, StateMachineException.class,
-                        "Parameter \"engineParameters\" may not be null");
+                "Parameter \"engineParameters\" may not be null");
 
         // Instantiate each executor class map entry
         for (final Entry<String, ExecutorParameters> executorParameterEntry : engineParameters.getExecutorParameterMap()
-                        .entrySet()) {
+                .entrySet()) {
             // Get classes for all types of executors for this logic type
             taskExecutorPluginClassMap.put(executorParameterEntry.getKey(),
-                            getExecutorPluginClass(executorParameterEntry.getValue().getTaskExecutorPluginClass()));
-            taskSelectionExecutorPluginClassMap.put(executorParameterEntry.getKey(), getExecutorPluginClass(
-                            executorParameterEntry.getValue().getTaskSelectionExecutorPluginClass()));
-            stateFinalizerExecutorPluginClassMap.put(executorParameterEntry.getKey(), getExecutorPluginClass(
-                            executorParameterEntry.getValue().getStateFinalizerExecutorPluginClass()));
+                    getExecutorPluginClass(executorParameterEntry.getValue().getTaskExecutorPluginClass()));
+            taskSelectionExecutorPluginClassMap.put(executorParameterEntry.getKey(),
+                    getExecutorPluginClass(executorParameterEntry.getValue().getTaskSelectionExecutorPluginClass()));
+            stateFinalizerExecutorPluginClassMap.put(executorParameterEntry.getKey(),
+                    getExecutorPluginClass(executorParameterEntry.getValue().getStateFinalizerExecutorPluginClass()));
 
             // Save the executor implementation parameters
             implementationParameterMap.put(executorParameterEntry.getKey(), executorParameterEntry.getValue());
@@ -94,14 +95,14 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      */
     @Override
     public TaskSelectExecutor getTaskSelectionExecutor(final Executor<?, ?, ?, ?> parentExecutor, final AxState state,
-                    final ApexInternalContext context) {
+            final ApexInternalContext context) {
         if (!state.checkSetTaskSelectionLogic()) {
             return null;
         }
 
         // Create task selection executor
-        final TaskSelectExecutor tsExecutor = (TaskSelectExecutor) createExecutor(
-                        state.getTaskSelectionLogic().getLogicFlavour(),
+        final TaskSelectExecutor tsExecutor =
+                (TaskSelectExecutor) createExecutor(state.getTaskSelectionLogic().getLogicFlavour(),
                         taskSelectionExecutorPluginClassMap.get(state.getTaskSelectionLogic().getLogicFlavour()),
                         TaskSelectExecutor.class);
         tsExecutor.setParameters(implementationParameterMap.get(state.getTaskSelectionLogic().getLogicFlavour()));
@@ -115,10 +116,10 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      */
     @Override
     public TaskExecutor getTaskExecutor(final Executor<?, ?, ?, ?> parentExecutor, final AxTask task,
-                    final ApexInternalContext context) {
+            final ApexInternalContext context) {
         // Create task executor
         final TaskExecutor taskExecutor = (TaskExecutor) createExecutor(task.getTaskLogic().getLogicFlavour(),
-                        taskExecutorPluginClassMap.get(task.getTaskLogic().getLogicFlavour()), TaskExecutor.class);
+                taskExecutorPluginClassMap.get(task.getTaskLogic().getLogicFlavour()), TaskExecutor.class);
         taskExecutor.setParameters(implementationParameterMap.get(task.getTaskLogic().getLogicFlavour()));
         taskExecutor.setContext(parentExecutor, task, context);
         taskExecutor.updateTaskParameters(engineParameters.getTaskParameters());
@@ -130,11 +131,10 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      */
     @Override
     public StateFinalizerExecutor getStateFinalizerExecutor(final Executor<?, ?, ?, ?> parentExecutor,
-                    final AxStateFinalizerLogic logic, final ApexInternalContext context) {
+            final AxStateFinalizerLogic logic, final ApexInternalContext context) {
         // Create state finalizer executor
         final StateFinalizerExecutor sfExecutor = (StateFinalizerExecutor) createExecutor(logic.getLogicFlavour(),
-                        stateFinalizerExecutorPluginClassMap.get(logic.getLogicFlavour()),
-                        StateFinalizerExecutor.class);
+                stateFinalizerExecutorPluginClassMap.get(logic.getLogicFlavour()), StateFinalizerExecutor.class);
         sfExecutor.setParameters(implementationParameterMap.get(logic.getLogicFlavour()));
         sfExecutor.setContext(parentExecutor, logic, context);
 
@@ -150,7 +150,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      */
     @SuppressWarnings("unchecked")
     private Class<Executor<?, ?, ?, ?>> getExecutorPluginClass(final String executorClassName)
-                    throws StateMachineException {
+            throws StateMachineException {
         // It's OK for an executor class not to be defined as long as it's not called
         if (executorClassName == null) {
             return null;
@@ -163,15 +163,15 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         } catch (final ClassNotFoundException e) {
             LOGGER.error("Apex executor class not found for executor plugin \"" + executorClassName + "\"", e);
             throw new StateMachineException(
-                            "Apex executor class not found for executor plugin \"" + executorClassName + "\"", e);
+                    "Apex executor class not found for executor plugin \"" + executorClassName + "\"", e);
         }
 
         // Check the class is an executor
         if (!Executor.class.isAssignableFrom(executorPluginClass)) {
             LOGGER.error("Specified Apex executor plugin class \"{}\" does not implment the Executor interface",
-                            executorClassName);
+                    executorClassName);
             throw new StateMachineException("Specified Apex executor plugin class \"" + executorClassName
-                            + "\" does not implment the Executor interface");
+                    + "\" does not implment the Executor interface");
         }
 
         return (Class<Executor<?, ?, ?, ?>>) executorPluginClass;
@@ -186,14 +186,14 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      * @return The instantiated class
      */
     private Executor<?, ?, ?, ?> createExecutor(final String logicFlavour,
-                    final Class<Executor<?, ?, ?, ?>> executorClass,
-                    final Class<? extends Executor<?, ?, ?, ?>> executorSuperClass) {
+            final Class<Executor<?, ?, ?, ?>> executorClass,
+            final Class<? extends Executor<?, ?, ?, ?>> executorSuperClass) {
         // It's OK for an executor class not to be defined but it's not all right to try and create
         // a non-defined
         // executor class
         if (executorClass == null) {
             final String errorMessage = "Executor plugin class not defined for \"" + logicFlavour
-                            + "\" executor of type \"" + executorSuperClass.getName() + "\"";
+                    + "\" executor of type \"" + executorSuperClass.getName() + "\"";
             LOGGER.error(errorMessage);
             throw new StateMachineRuntimeException(errorMessage);
         }
@@ -201,10 +201,10 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         // Create an executor for the specified logic flavour
         Object executorObject = null;
         try {
-            executorObject = executorClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            executorObject = executorClass.getDeclaredConstructor().newInstance();
+        } catch (final Exception e) {
             final String errorMessage = "Instantiation error on \"" + logicFlavour + "\" executor of type \""
-                            + executorClass.getName() + "\"";
+                    + executorClass.getName() + "\"";
             LOGGER.error(errorMessage, e);
             throw new StateMachineRuntimeException(errorMessage, e);
         }
@@ -212,7 +212,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         // Check the class is the correct type of executor
         if (!(executorSuperClass.isAssignableFrom(executorObject.getClass()))) {
             final String errorMessage = "Executor on \"" + logicFlavour + "\" of type \"" + executorClass
-                            + "\" is not an instance of \"" + executorSuperClass.getName() + "\"";
+                    + "\" is not an instance of \"" + executorSuperClass.getName() + "\"";
 
             LOGGER.error(errorMessage);
             throw new StateMachineRuntimeException(errorMessage);

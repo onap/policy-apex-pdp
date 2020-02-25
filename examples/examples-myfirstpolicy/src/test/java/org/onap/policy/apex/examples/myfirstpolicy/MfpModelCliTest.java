@@ -65,12 +65,24 @@ public class MfpModelCliTest {
         final File tempModelFile1 = File.createTempFile("TestMyFirstPolicy1CLI", ".json");
         final File tempLogFile2 = File.createTempFile("TestMyFirstPolicy2CLI", ".log");
         final File tempModelFile2 = File.createTempFile("TestMyFirstPolicy2CLI", ".json");
-        final String[] testApexModel1CliArgs =
-                {"-c", "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex", "-l",
-                    tempLogFile1.getAbsolutePath(), "-o", tempModelFile1.getAbsolutePath()};
-        final String[] testApexModel2CliArgs =
-                {"-c", "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex", "-l",
-                    tempLogFile2.getAbsolutePath(), "-o", tempModelFile2.getAbsolutePath()};
+        // @formatter:off
+        final String[] testApexModel1CliArgs = {
+            "-c",
+            "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex",
+            "-l",
+            tempLogFile1.getAbsolutePath(),
+            "-o",
+            tempModelFile1.getAbsolutePath()
+        };
+        final String[] testApexModel2CliArgs = {
+            "-c",
+            "src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.apex",
+            "-l",
+            tempLogFile2.getAbsolutePath(),
+            "-o",
+            tempModelFile2.getAbsolutePath()
+        };
+        // @formatter:on
 
         new ApexCommandLineEditorMain(testApexModel1CliArgs);
         new ApexCommandLineEditorMain(testApexModel2CliArgs);

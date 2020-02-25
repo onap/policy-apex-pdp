@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -80,7 +81,7 @@ public class AvroObjectMapperFactory {
             final Schema nullschema = Schema.create(Schema.Type.NULL);
             if (types.size() != 2 || !types.contains(nullschema)) {
                 final String resultSting = userKey.getId()
-                                + ": Apex currently only supports UNION schemas with 2 options, one must be NULL";
+                        + ": Apex currently only supports UNION schemas with 2 options, one must be NULL";
                 LOGGER.warn(resultSting);
                 throw new ContextRuntimeException(resultSting);
             }
@@ -91,8 +92,8 @@ public class AvroObjectMapperFactory {
                 schema = types.get(1);
             }
             if (Schema.Type.NULL.equals(schema.getType())) {
-                final String resultSting = userKey.getId()
-                                + ": Apex currently only supports UNION schema2 with 2 options, "
+                final String resultSting =
+                        userKey.getId() + ": Apex currently only supports UNION schema2 with 2 options, "
                                 + "only one can be NULL, and the other cannot be another UNION";
                 LOGGER.warn(resultSting);
                 throw new ContextRuntimeException(resultSting);
@@ -103,8 +104,8 @@ public class AvroObjectMapperFactory {
 
         // Check that there is a definition for the mapper for this type
         if (!AVRO_OBJECT_MAPPER_MAP.containsKey(avroType) || AVRO_OBJECT_MAPPER_MAP.get(avroType) == null) {
-            final String resultSting = userKey.getId() + ": no Avro object mapper defined for Avro type \"" + avroType
-                            + "\"";
+            final String resultSting =
+                    userKey.getId() + ": no Avro object mapper defined for Avro type \"" + avroType + "\"";
             LOGGER.warn(resultSting);
             throw new ContextRuntimeException(resultSting);
         }
@@ -112,14 +113,14 @@ public class AvroObjectMapperFactory {
         // Create a mapper
         AvroObjectMapper avroObjectMapper;
         try {
-            avroObjectMapper = AVRO_OBJECT_MAPPER_MAP.get(avroType).newInstance();
+            avroObjectMapper = AVRO_OBJECT_MAPPER_MAP.get(avroType).getDeclaredConstructor().newInstance();
             if (isnullable) {
                 avroObjectMapper = new AvroNullableMapper(avroObjectMapper);
             }
 
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": could not create an Avro object mapper of type \""
-                            + AVRO_OBJECT_MAPPER_MAP.get(avroType) + "\" for Avro type \"" + avroType + "\" : " + e;
+                    + AVRO_OBJECT_MAPPER_MAP.get(avroType) + "\" for Avro type \"" + avroType + "\" : " + e;
             LOGGER.warn(resultSting, e);
             throw new ContextRuntimeException(resultSting, e);
         }

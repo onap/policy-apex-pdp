@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -39,8 +40,7 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class serialises and deserialises various type of event protocol parameters to and from
- * JSON.
+ * This class serialises and deserialises various type of event protocol parameters to and from JSON.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -132,9 +132,8 @@ public class EventProtocolParametersJsonAdapter
         try {
             eventProtocolParameterClass = Class.forName(eventProtocolParameterClassName);
         } catch (final ClassNotFoundException e) {
-            final String errorMessage =
-                    EVENT_PROTOCOL_PREFIX + eventProtocolLabel + "\" parameter \"" + PARAMETER_CLASS_NAME + VALUE_TAG
-                            + eventProtocolParameterClassName + "\", could not find class";
+            final String errorMessage = EVENT_PROTOCOL_PREFIX + eventProtocolLabel + "\" parameter \""
+                    + PARAMETER_CLASS_NAME + VALUE_TAG + eventProtocolParameterClassName + "\", could not find class";
             LOGGER.warn(errorMessage, e);
             throw new ParameterRuntimeException(errorMessage, e);
         }
@@ -146,7 +145,8 @@ public class EventProtocolParametersJsonAdapter
             // OK no parameters for the event protocol have been specified, just instantiate the
             // default parameters
             try {
-                eventProtocolParameters = (EventProtocolParameters) eventProtocolParameterClass.newInstance();
+                eventProtocolParameters =
+                        (EventProtocolParameters) eventProtocolParameterClass.getDeclaredConstructor().newInstance();
             } catch (final Exception e) {
                 final String errorMessage = "could not create default parameters for event protocol \""
                         + eventProtocolLabel + "\"\n" + e.getMessage();

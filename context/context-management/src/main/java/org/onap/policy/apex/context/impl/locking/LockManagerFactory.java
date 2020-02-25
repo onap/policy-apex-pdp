@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,27 +50,29 @@ public class LockManagerFactory {
     public LockManager createLockManager(final AxArtifactKey key) throws ContextException {
         LOGGER.entry("Lock Manager factory, key=" + key);
 
-        final LockManagerParameters lockManagerParameters = ParameterService
-                        .get(ContextParameterConstants.LOCKING_GROUP_NAME);
+        final LockManagerParameters lockManagerParameters =
+                ParameterService.get(ContextParameterConstants.LOCKING_GROUP_NAME);
 
         // Get the class for the lock manager using reflection
         Object lockManagerObject = null;
         final String pluginClass = lockManagerParameters.getPluginClass();
         try {
-            lockManagerObject = Class.forName(pluginClass).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            LOGGER.error("Apex context lock manager class not found for context lock manager plugin \"" + pluginClass
-                            + "\"", e);
-            throw new ContextException("Apex context lock manager class not found for context lock manager plugin \""
-                            + pluginClass + "\"", e);
+            lockManagerObject = Class.forName(pluginClass).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            LOGGER.error(
+                    "Apex context lock manager class not found for context lock manager plugin \"" + pluginClass + "\"",
+                    e);
+            throw new ContextException(
+                    "Apex context lock manager class not found for context lock manager plugin \"" + pluginClass + "\"",
+                    e);
         }
 
         // Check the class is a lock manager
         if (!(lockManagerObject instanceof LockManager)) {
             LOGGER.error("Specified Apex context lock manager plugin class \"{}\" "
-                            + "does not implement the LockManager interface", pluginClass);
+                    + "does not implement the LockManager interface", pluginClass);
             throw new ContextException("Specified Apex context lock manager plugin class \"" + pluginClass
-                            + "\" does not implement the LockManager interface");
+                    + "\" does not implement the LockManager interface");
         }
 
         // The context lock manager to return

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,27 +51,27 @@ public class PersistorFactory {
         LOGGER.entry("persistor factory, key=" + key);
         Assertions.argumentOfClassNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
-        final PersistorParameters persistorParameters = ParameterService
-                        .get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        final PersistorParameters persistorParameters =
+                ParameterService.get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
 
         // Get the class for the persistor using reflection
         Object persistorObject = null;
         final String pluginClass = persistorParameters.getPluginClass();
         try {
-            persistorObject = Class.forName(pluginClass).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            persistorObject = Class.forName(pluginClass).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
             LOGGER.error("Apex context persistor class not found for context persistor plugin \"" + pluginClass + "\"",
-                            e);
-            throw new ContextException("Apex context persistor class not found for context persistor plugin \""
-                            + pluginClass + "\"", e);
+                    e);
+            throw new ContextException(
+                    "Apex context persistor class not found for context persistor plugin \"" + pluginClass + "\"", e);
         }
 
         // Check the class is a persistor
         if (!(persistorObject instanceof Persistor)) {
             LOGGER.error("Specified Apex context persistor plugin class \"{}\" "
-                            + "does not implement the ContextDistributor interface", pluginClass);
+                    + "does not implement the ContextDistributor interface", pluginClass);
             throw new ContextException("Specified Apex context persistor plugin class \"" + pluginClass
-                            + "\" does not implement the ContextDistributor interface");
+                    + "\" does not implement the ContextDistributor interface");
         }
 
         // The persistor to return

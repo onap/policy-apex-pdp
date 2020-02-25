@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,8 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import org.apache.commons.lang3.StringUtils;
-import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
@@ -68,17 +68,11 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
 
     /** The supported HTTP methods. */
     public enum HttpMethod {
-        GET, PUT, POST, DELETE
+        GET,
+        PUT,
+        POST,
+        DELETE
     }
-
-    /** The label of this carrier technology. */
-    protected String CARRIER_TECHNOLOGY_LABEL;
-
-    /** The producer plugin class for the REST carrier technology. */
-    protected String EVENT_PRODUCER_PLUGIN_CLASS;
-
-    /** The consumer plugin class for the REST carrier technology. */
-    protected String EVENT_CONSUMER_PLUGIN_CLASS;
 
     /** The default HTTP code filter, allows 2xx HTTP codes through. */
     public static final String DEFAULT_HTTP_CODE_FILTER = "[2][0-9][0-9]";
@@ -92,7 +86,7 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     protected static final Pattern patternErrorKey =
             Pattern.compile("(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
 
-    //variable
+    // variable
     protected String url = null;
     protected HttpMethod httpMethod = null;
     protected String[][] httpHeaders = null;
@@ -104,14 +98,6 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
      */
     public RestPluginCarrierTechnologyParameters() {
         super();
-
-        // Set the carrier technology properties for the web socket carrier technology
-        CARRIER_TECHNOLOGY_LABEL = "RESTPLUGIN";
-        EVENT_PRODUCER_PLUGIN_CLASS = "PRODUCER";
-        EVENT_CONSUMER_PLUGIN_CLASS = "CONSUMER";
-        this.setLabel(CARRIER_TECHNOLOGY_LABEL);
-        this.setEventProducerPluginClass(EVENT_PRODUCER_PLUGIN_CLASS);
-        this.setEventConsumerPluginClass(EVENT_CONSUMER_PLUGIN_CLASS);
     }
 
     /**
@@ -173,9 +159,8 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     public GroupValidationResult validate() {
         GroupValidationResult result = super.validate();
 
-        result = validateUrl(result);
-
-        result = validateHttpHeaders(result);
+        validateUrl(result);
+        validateHttpHeaders(result);
 
         return validateHttpCodeFilter(result);
     }
@@ -195,16 +180,15 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     // @formatter:on
     public GroupValidationResult validateUrl(final GroupValidationResult result) {
         // Check if the URL has been set for event output
-        String URL_ERROR_MSG = "no URL has been set for event sending on " + CARRIER_TECHNOLOGY_LABEL;
+        String urlErrorMessage = "no URL has been set for event sending on " + getLabel();
         if (getUrl() == null) {
-            result.setResult("url", ValidationStatus.INVALID, URL_ERROR_MSG);
+            result.setResult("url", ValidationStatus.INVALID, urlErrorMessage);
             return result;
         }
 
         Matcher matcher = patternErrorKey.matcher(getUrl());
         if (matcher.find()) {
-            result.setResult("url", ValidationStatus.INVALID,
-                    URL_ERROR_MSG);
+            result.setResult("url", ValidationStatus.INVALID, urlErrorMessage);
         }
 
         return result;
@@ -271,7 +255,7 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
      */
     @Override
     public String toString() {
-        return CARRIER_TECHNOLOGY_LABEL +"CarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
+        return getLabel() + "CarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
                 + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }

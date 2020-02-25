@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -34,7 +35,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
+
 import lombok.Setter;
+
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
@@ -113,7 +116,7 @@ final class EngineWorker implements EngineService {
      * @throws ApexException thrown on errors on worker instantiation
      */
     protected EngineWorker(final AxArtifactKey engineWorkerKey, final BlockingQueue<ApexEvent> queue,
-        final ApplicationThreadFactory threadFactory) {
+            final ApplicationThreadFactory threadFactory) {
         LOGGER.entry(engineWorkerKey);
 
         this.engineWorkerKey = engineWorkerKey;
@@ -153,7 +156,7 @@ final class EngineWorker implements EngineService {
     @Override
     public EngineServiceEventInterface getEngineServiceEventInterface() {
         throw new UnsupportedOperationException(
-            "getEngineServiceEventInterface() call is not allowed on an Apex Engine Worker");
+                "getEngineServiceEventInterface() call is not allowed on an Apex Engine Worker");
     }
 
     /**
@@ -189,7 +192,7 @@ final class EngineWorker implements EngineService {
      */
     @Override
     public void updateModel(final AxArtifactKey engineKey, final String engineModel, final boolean forceFlag)
-        throws ApexException {
+            throws ApexException {
         LOGGER.entry(engineKey);
 
         // Read the Apex model into memory using the Apex Model Reader
@@ -213,13 +216,13 @@ final class EngineWorker implements EngineService {
      */
     @Override
     public void updateModel(final AxArtifactKey engineKey, final AxPolicyModel apexModel, final boolean forceFlag)
-        throws ApexException {
+            throws ApexException {
         LOGGER.entry(engineKey);
 
         // Check if the key on the update request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            String message = ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
-                + ENGINE_SUFFIX;
+            String message =
+                    ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX;
             LOGGER.warn(message);
             throw new ApexException(message);
         }
@@ -231,13 +234,13 @@ final class EngineWorker implements EngineService {
             if (!currentModel.getKey().isCompatible(apexModel.getKey())) {
                 if (forceFlag) {
                     LOGGER.warn("apex model update forced, supplied model with key \"" + apexModel.getKey().getId()
-                        + "\" is not a compatible model update from the existing engine model with key \""
-                        + currentModel.getKey().getId() + "\"");
-                } else {
-                    throw new ContextException(
-                        "apex model update failed, supplied model with key \"" + apexModel.getKey().getId()
                             + "\" is not a compatible model update from the existing engine model with key \""
                             + currentModel.getKey().getId() + "\"");
+                } else {
+                    throw new ContextException(
+                            "apex model update failed, supplied model with key \"" + apexModel.getKey().getId()
+                                    + "\" is not a compatible model update from the existing engine model with key \""
+                                    + currentModel.getKey().getId() + "\"");
                 }
             }
         }
@@ -273,16 +276,16 @@ final class EngineWorker implements EngineService {
 
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn(
-                ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX);
-            throw new ApexException(
-                ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX);
+            LOGGER.warn(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
         }
 
         // Starts the event processing thread that handles incoming events
         if (processorThread != null && processorThread.isAlive()) {
-            String message = ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already running with state "
-                + getState();
+            String message =
+                    ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already running with state " + getState();
             LOGGER.error(message);
             throw new ApexException(message);
         }
@@ -312,18 +315,18 @@ final class EngineWorker implements EngineService {
     public void stop(final AxArtifactKey engineKey) throws ApexException {
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn(
-                ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX);
-            throw new ApexException(
-                ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX);
+            LOGGER.warn(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
         }
 
         // Interrupt the worker to stop its thread
         if (processorThread == null || !processorThread.isAlive()) {
             processorThread = null;
 
-            LOGGER
-                .warn(ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already stopped with state " + getState());
+            LOGGER.warn(
+                    ENGINE_FOR_KEY_PREFIX + engineWorkerKey.getId() + " is already stopped with state " + getState());
             return;
         }
 
@@ -352,10 +355,10 @@ final class EngineWorker implements EngineService {
     public void clear(final AxArtifactKey engineKey) throws ApexException {
         // Check if the key on the start request is correct
         if (!engineWorkerKey.equals(engineKey)) {
-            LOGGER.warn(
-                ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX);
-            throw new ApexException(
-                ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId() + ENGINE_SUFFIX);
+            LOGGER.warn(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
+            throw new ApexException(ENGINE_KEY_PREFIX + engineKey.getId() + BAD_KEY_MATCH_TAG + engineWorkerKey.getId()
+                    + ENGINE_SUFFIX);
         }
 
         // Interrupt the worker to stop its thread
@@ -513,18 +516,18 @@ final class EngineWorker implements EngineService {
             runtimeJsonStringBuilder.append(",\"AlbumContent\":[");
 
             // Get the schema helper to use to marshal context album objects to JSON
-            final AxContextAlbum axContextAlbum = ModelService.getModel(AxContextAlbums.class)
-                .get(contextAlbumEntry.getKey());
+            final AxContextAlbum axContextAlbum =
+                    ModelService.getModel(AxContextAlbums.class).get(contextAlbumEntry.getKey());
             SchemaHelper schemaHelper = null;
 
             try {
                 // Get a schema helper to manage the translations between objects on the album map
                 // for this album
                 schemaHelper = new SchemaHelperFactory().createSchemaHelper(axContextAlbum.getKey(),
-                    axContextAlbum.getItemSchema());
+                        axContextAlbum.getItemSchema());
             } catch (final ContextRuntimeException e) {
-                final String resultString = "could not find schema helper to marshal context album \"" + axContextAlbum
-                    + "\" to JSON";
+                final String resultString =
+                        "could not find schema helper to marshal context album \"" + axContextAlbum + "\" to JSON";
                 LOGGER.warn(resultString, e);
 
                 // End of context album entry
@@ -557,8 +560,7 @@ final class EngineWorker implements EngineService {
         runtimeJsonStringBuilder.append("]}");
 
         // Tidy up the JSON string
-        final JsonParser jsonParser = new JsonParser();
-        final JsonElement jsonElement = jsonParser.parse(runtimeJsonStringBuilder.toString());
+        final JsonElement jsonElement = JsonParser.parseString(runtimeJsonStringBuilder.toString());
         final String tidiedRuntimeString = gson.toJson(jsonElement);
 
         LOGGER.debug("runtime information={}", tidiedRuntimeString);

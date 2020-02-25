@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,8 +70,8 @@ public class SingleClassBuilder {
      */
     public void compile() throws JavaHandlingException {
         // Get the list of compilation units, there is only one here
-        final List<? extends JavaFileObject> compilationUnits = Arrays
-                        .asList(new SingleClassCompilationUnit(className, sourceCode));
+        final List<? extends JavaFileObject> compilationUnits =
+                Arrays.asList(new SingleClassCompilationUnit(className, sourceCode));
 
         // Allows us to get diagnostics from the compilation
         final DiagnosticCollector<JavaFileObject> diagnosticListener = new DiagnosticCollector<>();
@@ -80,11 +81,11 @@ public class SingleClassBuilder {
 
         // Set up the target file manager and call the compiler
         singleFileManager = new SingleFileManager(compiler, new SingleClassByteCodeFileObject(className));
-        final JavaCompiler.CompilationTask task = compiler.getTask(null, singleFileManager, diagnosticListener, null,
-                        null, compilationUnits);
+        final JavaCompiler.CompilationTask task =
+                compiler.getTask(null, singleFileManager, diagnosticListener, null, null, compilationUnits);
 
         // Check if the compilation worked
-        if (!task.call()) {
+        if (Boolean.FALSE.equals(task.call())) {
             final StringBuilder builder = new StringBuilder();
             for (final Diagnostic<? extends JavaFileObject> diagnostic : diagnosticListener.getDiagnostics()) {
                 builder.append("code:");
@@ -114,20 +115,21 @@ public class SingleClassBuilder {
      * Create a new instance of the Java class using its byte code definition.
      *
      * @return A new instance of the object
-     * @throws InstantiationException if an instance of the object cannot be created, for example if the class has no
-     *         default constructor
-     * @throws IllegalAccessException the caller does not have permission to call the class
-     * @throws ClassNotFoundException the byte code for the class is not found in the class loader
-     * @throws JavaHandlingException the java handling exception if the Java class source code is not compiled
+     * @throws JavaHandlingException on errors creating the object
      */
-    public Object createObject() throws InstantiationException, IllegalAccessException, ClassNotFoundException,
-                    JavaHandlingException {
+    public Object createObject()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, JavaHandlingException {
         if (singleFileManager == null) {
             String message = "error instantiating instance for class \"" + className + "\": code may not be compiled";
             LOGGER.warn(message);
             throw new JavaHandlingException(message);
         }
 
-        return singleFileManager.getClassLoader(null).findClass(className).newInstance();
+        try {
+            return singleFileManager.getClassLoader(null).findClass(className).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            return new JavaHandlingException("could not create java class", e);
+        }
+
     }
 }
