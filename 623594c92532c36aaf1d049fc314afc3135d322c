@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94611c95_b01013aa",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/taskparameters/TestTaskParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-26T14:21:02Z",
+      "side": 1,
+      "message": "sonar: avoid sleep in junits",
+      "revId": "623594c92532c36aaf1d049fc314afc3135d322c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f720f7b4_274dd5ae",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/taskparameters/SetControlLoopNameForTest.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-02-26T14:21:02Z",
+      "side": 1,
+      "message": "does the logger support \"{}\" place-holders?  If so, they should be used instead of concatenation.\n\nsame comment below and in the other js files",
+      "revId": "623594c92532c36aaf1d049fc314afc3135d322c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
