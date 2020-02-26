@@ -22,6 +22,30 @@
       "revId": "0840deb18b33df355d843bc23430fef985392976",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a61491c_fe4ba880",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/taskparameters/TestTaskParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-26T13:38:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc47643f_c3988982",
+      "range": {
+        "startLine": 164,
+        "startChar": 51,
+        "endLine": 164,
+        "endChar": 56
+      },
+      "revId": "0840deb18b33df355d843bc23430fef985392976",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
