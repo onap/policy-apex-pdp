@@ -409,8 +409,7 @@ public class OnapVCpeSimEndpoint {
     }
 
     private static final String prettifyJsonString(final String uglyJsonString) {
-        JsonParser jp = new JsonParser();
-        JsonElement je = jp.parse(uglyJsonString);
+        JsonElement je = JsonParser.parseString(uglyJsonString);
         return gson.toJson(je);
     }
 }

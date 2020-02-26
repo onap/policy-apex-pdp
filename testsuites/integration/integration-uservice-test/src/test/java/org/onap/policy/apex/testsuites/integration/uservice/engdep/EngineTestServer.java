@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -200,10 +201,10 @@ public class EngineTestServer implements Runnable, EngineServiceEventInterface {
     }
 
     /**
-     * The listener interface for receiving testApex events. The class that is interested in
-     * processing a testApex event implements this interface, and the object created with that class
-     * is registered with a component using the component's {@code addTestApexListener} method. When
-     * the testApex event occurs, that object's appropriate method is invoked.
+     * The listener interface for receiving testApex events. The class that is interested in processing a testApex event
+     * implements this interface, and the object created with that class is registered with a component using the
+     * component's {@code addTestApexListener} method. When the testApex event occurs, that object's appropriate method
+     * is invoked.
      *
      * <p>This class listens for events from the Apex engine
      *
@@ -245,7 +246,7 @@ public class EngineTestServer implements Runnable, EngineServiceEventInterface {
 
             // CHECKSTYLE:OFF: checkstyle:magicNumber
             assert result.get("TestSlogan").equals("This is a test slogan");
-            assert result.get("TestMatchCase").equals(new Byte((byte) 123));
+            assert result.get("TestMatchCase").equals((byte) 123);
             assert result.get("TestTemperature").equals(34.5445667);
             assert ((byte) result.get("TestMatchCaseSelected") >= 0 && (byte) result.get("TestMatchCaseSelected") <= 3);
             assert ((byte) result.get("TestEstablishCaseSelected") >= 0

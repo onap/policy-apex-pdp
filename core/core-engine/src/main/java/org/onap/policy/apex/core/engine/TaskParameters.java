@@ -22,6 +22,7 @@ package org.onap.policy.apex.core.engine;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.annotations.NotBlank;
@@ -51,6 +52,13 @@ public class TaskParameters {
         this.name = "taskParameters";
     }
 
+    /**
+     * Full constructor.
+     *
+     * @param key the task parameter key
+     * @param value the task parameter value
+     * @param taskId the task ID of this task parameter
+     */
     public TaskParameters(String key, String value, String taskId) {
         this();
         this.key = key;

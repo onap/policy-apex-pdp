@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public class EventProducerFactory {
      * @throws ApexEventException on errors creating the Apex event producer
      */
     public ApexEventProducer createProducer(final String name, final EventHandlerParameters producerParameters)
-                    throws ApexEventException {
+            throws ApexEventException {
         // Get the carrier technology parameters
         final CarrierTechnologyParameters technologyParameters = producerParameters.getCarrierTechnologyParameters();
 
@@ -54,11 +54,11 @@ public class EventProducerFactory {
         final String producerPluginClass = technologyParameters.getEventProducerPluginClass();
         Object producerPluginObject = null;
         try {
-            producerPluginObject = Class.forName(producerPluginClass).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            producerPluginObject = Class.forName(producerPluginClass).getDeclaredConstructor().newInstance();
+        } catch (final Exception e) {
             final String errorMessage = "could not create an Apex event producer for Producer \"" + name
-                            + "\" for the carrier technology \"" + technologyParameters.getLabel()
-                            + "\", specified event producer plugin class \"" + producerPluginClass + "\" not found";
+                    + "\" for the carrier technology \"" + technologyParameters.getLabel()
+                    + "\", specified event producer plugin class \"" + producerPluginClass + "\" not found";
             LOGGER.error(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
@@ -66,9 +66,9 @@ public class EventProducerFactory {
         // Check the class is an event producer
         if (!(producerPluginObject instanceof ApexEventProducer)) {
             final String errorMessage = "could not create an Apex event producer for Producer \"" + name
-                            + "\" for the carrier technology \"" + technologyParameters.getLabel()
-                            + "\", specified event producer plugin class \"" + producerPluginClass
-                            + "\" is not an instance of \"" + ApexEventProducer.class.getName() + "\"";
+                    + "\" for the carrier technology \"" + technologyParameters.getLabel()
+                    + "\", specified event producer plugin class \"" + producerPluginClass
+                    + "\" is not an instance of \"" + ApexEventProducer.class.getName() + "\"";
             LOGGER.error(errorMessage);
             throw new ApexEventException(errorMessage);
         }

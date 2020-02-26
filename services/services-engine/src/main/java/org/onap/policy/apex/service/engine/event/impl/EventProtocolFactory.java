@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,17 +46,17 @@ public class EventProtocolFactory {
      * @return The event converter for converting events to and from Apex format
      */
     public ApexEventProtocolConverter createConverter(final String name,
-                    final EventProtocolParameters eventProtocolParameters) {
+            final EventProtocolParameters eventProtocolParameters) {
         // Get the class for the event protocol plugin using reflection
         final String eventProtocolPluginClass = eventProtocolParameters.getEventProtocolPluginClass();
         Object eventProtocolPluginObject = null;
         try {
-            eventProtocolPluginObject = Class.forName(eventProtocolPluginClass).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            eventProtocolPluginObject = Class.forName(eventProtocolPluginClass).getDeclaredConstructor().newInstance();
+        } catch (final Exception e) {
             final String errorMessage = "could not create an Apex event protocol converter for \"" + name
-                            + "\" for the protocol \"" + eventProtocolParameters.getLabel()
-                            + "\", specified event protocol converter plugin class \"" + eventProtocolPluginClass
-                            + "\" not found";
+                    + "\" for the protocol \"" + eventProtocolParameters.getLabel()
+                    + "\", specified event protocol converter plugin class \"" + eventProtocolPluginClass
+                    + "\" not found";
             LOGGER.error(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
@@ -64,9 +64,9 @@ public class EventProtocolFactory {
         // Check the class is an event consumer
         if (!(eventProtocolPluginObject instanceof ApexEventProtocolConverter)) {
             final String errorMessage = "could not create an Apex event protocol converter for \"" + name
-                            + "\" for the protocol \"" + eventProtocolParameters.getLabel()
-                            + "\", specified event protocol converter plugin class \"" + eventProtocolPluginClass
-                            + "\" is not an instance of \"" + ApexEventProtocolConverter.class.getName() + "\"";
+                    + "\" for the protocol \"" + eventProtocolParameters.getLabel()
+                    + "\", specified event protocol converter plugin class \"" + eventProtocolPluginClass
+                    + "\" is not an instance of \"" + ApexEventProtocolConverter.class.getName() + "\"";
             LOGGER.error(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }

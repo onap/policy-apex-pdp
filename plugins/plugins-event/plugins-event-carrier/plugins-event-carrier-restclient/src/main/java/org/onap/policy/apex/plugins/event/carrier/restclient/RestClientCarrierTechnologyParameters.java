@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,25 +21,10 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
+
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.validation.ParameterValidationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // @formatter:off
 /**
@@ -63,22 +48,16 @@ import org.slf4j.LoggerFactory;
 @Setter
 @Getter
 public class RestClientCarrierTechnologyParameters extends RestPluginCarrierTechnologyParameters {
-    // Get a reference to the logger
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestClientCarrierTechnologyParameters.class);
+
     /**
      * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
      * service.
      */
     public RestClientCarrierTechnologyParameters() {
         super();
-        CARRIER_TECHNOLOGY_LABEL = "RESTCLIENT";
-        EVENT_PRODUCER_PLUGIN_CLASS = ApexRestClientProducer.class.getName();
-        EVENT_CONSUMER_PLUGIN_CLASS = ApexRestClientConsumer.class.getName();
-        // Set the carrier technology properties for the web socket carrier technology
-        this.setLabel(CARRIER_TECHNOLOGY_LABEL);
-        this.setEventProducerPluginClass(EVENT_PRODUCER_PLUGIN_CLASS);
-        this.setEventConsumerPluginClass(EVENT_CONSUMER_PLUGIN_CLASS);
+
+        this.setLabel("RESTCLIENT");
+        this.setEventProducerPluginClass(ApexRestClientProducer.class.getName());
+        this.setEventConsumerPluginClass(ApexRestClientConsumer.class.getName());
     }
-
-
 }

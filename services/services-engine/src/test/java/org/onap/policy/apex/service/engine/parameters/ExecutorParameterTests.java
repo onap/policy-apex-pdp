@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +44,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void noParamsTest() {
+    public void testNoParamsTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorNoParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -57,7 +58,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void badParamsTest() {
+    public void testBadParamsTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -73,7 +74,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void noExecutorParamsTest() {
+    public void testNoExecutorParamsTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorNoExecutorParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -89,7 +90,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void emptyParamsTest() {
+    public void testEmptyParamsTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorEmptyParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -105,7 +106,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void badPluginParamNameTest() {
+    public void testBadPluginParamNameTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginNameParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -121,7 +122,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void badPluginParamObjectTest() {
+    public void testBadPluginParamObjectTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -137,7 +138,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void badPluginParamBlankTest() {
+    public void testBadPluginParamBlankTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -153,7 +154,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void badPluginParamValueTest() {
+    public void testBadPluginParamValueTest() {
         final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -170,7 +171,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void goodParametersTest() {
+    public void testGoodParametersTest() {
         final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -188,7 +189,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void relativeParametersTest() {
+    public void testRelativeParametersTest() {
         // @formatter:off
         final String[] args = {
             "-rfr",

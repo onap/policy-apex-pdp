@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ import org.slf4j.ext.XLoggerFactory;
 // TODO: Auto-generated Javadoc
 /**
  * This class tests AADM use case.
- * 
+ *
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
  *
  */
@@ -133,9 +133,9 @@ public class AadmUseCaseTest {
         // getting number of connections send it to policy, expecting probe action
         logger.info("Sending too many connections trigger ");
         EnEvent event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
+        event.put("IMSI", Long.valueOf(123456));
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", new Long(123));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -170,9 +170,9 @@ public class AadmUseCaseTest {
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
+        event.put("IMSI", Long.valueOf(123456));
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", new Long(123));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("SERVICE_REQUEST_COUNT", 101);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 99.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -208,9 +208,9 @@ public class AadmUseCaseTest {
         // getting number of connections send it to policy, expecting probe action
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
+        event.put("IMSI", Long.valueOf(123456));
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", new Long(123));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -243,9 +243,9 @@ public class AadmUseCaseTest {
         // tcp correlation return positive dos
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
+        event.put("IMSI", Long.valueOf(123456));
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", new Long(123));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("TCP_UE_SIDE_AVG_THROUGHPUT", 101.0);
         event.put("ACTTASK", "");
         event.put("APPLICATION", "");
@@ -279,9 +279,9 @@ public class AadmUseCaseTest {
         // user moving enodeB
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
+        event.put("IMSI", Long.valueOf(123456));
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", new Long(123));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -313,8 +313,8 @@ public class AadmUseCaseTest {
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
-        event.put("ENODEB_ID", new Long(124));
+        event.put("IMSI", Long.valueOf(123456));
+        event.put("ENODEB_ID", Long.valueOf(124));
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -351,9 +351,9 @@ public class AadmUseCaseTest {
         // user becomes non anomalous
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
+        event.put("IMSI", Long.valueOf(123456));
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", new Long(123));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -384,8 +384,8 @@ public class AadmUseCaseTest {
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", new Long(123456));
-        event.put("ENODEB_ID", new Long(123));
+        event.put("IMSI", Long.valueOf(123456));
+        event.put("ENODEB_ID", Long.valueOf(123));
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
         event.put("ACTTASK", "");

@@ -118,8 +118,10 @@ public class ContextParameterTests {
                     + "\"src/test/resources/parameters/serviceContextBadPluginClassParams.json\""
                     + "\n(ClassCastException):class org.onap.policy.apex.service.engine.parameters."
                     + "dummyclasses.SuperDooperExecutorParameters"
-                    + " cannot be cast to class org.onap.policy.apex.context.parameters.ContextParameters (org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters and org.onap.policy.apex.context.parameters.ContextParameters are in unnamed module of loader 'app')",
-                    e.getMessage());
+                    + " cannot be cast to class org.onap.policy.apex.context.parameters.ContextParameters "
+                    + "(org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters and "
+                    + "org.onap.policy.apex.context.parameters.ContextParameters are "
+                    + "in unnamed module of loader 'app')", e.getMessage());
         }
     }
 

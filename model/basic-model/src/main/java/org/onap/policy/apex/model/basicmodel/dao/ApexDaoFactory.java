@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,24 +45,24 @@ public class ApexDaoFactory {
      */
     public ApexDao createApexDao(final DaoParameters daoParameters) throws ApexException {
         Assertions.argumentOfClassNotNull(daoParameters, ApexException.class,
-                        "Parameter \"daoParameters\" may not be null");
+                "Parameter \"daoParameters\" may not be null");
 
         // Get the class for the DAO using reflection
         Object apexDaoObject = null;
         try {
-            apexDaoObject = Class.forName(daoParameters.getPluginClass()).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            apexDaoObject = Class.forName(daoParameters.getPluginClass()).getDeclaredConstructor().newInstance();
+        } catch (final Exception e) {
             LOGGER.error("Apex DAO class not found for DAO plugin \"" + daoParameters.getPluginClass() + "\"", e);
             throw new ApexException(
-                            "Apex DAO class not found for DAO plugin \"" + daoParameters.getPluginClass() + "\"", e);
+                    "Apex DAO class not found for DAO plugin \"" + daoParameters.getPluginClass() + "\"", e);
         }
 
         // Check the class is an Apex DAO
         if (!(apexDaoObject instanceof ApexDao)) {
             LOGGER.error("Specified Apex DAO plugin class \"" + daoParameters.getPluginClass()
-                            + "\" does not implement the ApexDao interface");
+                    + "\" does not implement the ApexDao interface");
             throw new ApexException("Specified Apex DAO plugin class \"" + daoParameters.getPluginClass()
-                            + "\" does not implement the ApexDao interface");
+                    + "\" does not implement the ApexDao interface");
         }
 
         return (ApexDao) apexDaoObject;

@@ -157,8 +157,15 @@ public class Model2CliTest {
             File tempFile = File.createTempFile(modelName, ".apex");
             tempFile.deleteOnExit();
 
-            final String[] cliArgs =
-                    {"-m", modelPath + "/" + modelName + ".json", "-o", tempFile.getCanonicalPath(), "-ow"};
+            // @formatter:off
+            final String[] cliArgs = {
+                "-m",
+                modelPath + "/" + modelName + ".json",
+                "-o",
+                tempFile.getCanonicalPath(),
+                "-ow"
+            };
+            // @formatter:on
             runModel2Cli(cliArgs);
 
             assertTrue(tempFile.isFile());

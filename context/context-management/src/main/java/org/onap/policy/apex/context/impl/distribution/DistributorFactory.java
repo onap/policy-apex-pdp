@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,29 +48,27 @@ public class DistributorFactory {
      * @throws ContextException on context distributor creation errors
      */
     public Distributor getDistributor(final AxArtifactKey key) throws ContextException {
-        LOGGER.entry("Distributor factory, key=" + key);
+        LOGGER.debug("Distributor factory, key={}", key);
 
         Assertions.argumentOfClassNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
         // Get the class for the distributor using reflection
-        final DistributorParameters distributorParameters = ParameterService
-                        .get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        final DistributorParameters distributorParameters =
+                ParameterService.get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         final String pluginClass = distributorParameters.getPluginClass();
         Object contextDistributorObject = null;
         try {
-            contextDistributorObject = Class.forName(pluginClass).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            LOGGER.error("Apex context distributor class not found for context distributor plugin \"" + pluginClass
-                            + "\"", e);
-            throw new ContextException("Apex context distributor class not found for context distributor plugin \""
-                            + pluginClass + "\"", e);
+            contextDistributorObject = Class.forName(pluginClass).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new ContextException(
+                    "Apex context distributor class not found for context distributor plugin \"" + pluginClass + "\"",
+                    e);
         }
 
         // Check the class is a distributor
         if (!(contextDistributorObject instanceof Distributor)) {
             final String returnString = "Specified Apex context distributor plugin class \"" + pluginClass
-                            + "\" does not implement the ContextDistributor interface";
-            LOGGER.error(returnString);
+                    + "\" does not implement the ContextDistributor interface";
             throw new ContextException(returnString);
         }
 
@@ -80,8 +78,8 @@ public class DistributorFactory {
         // Lock and load the context distributor
         contextDistributor.init(key);
 
-        LOGGER.exit("Distributor factory, key=" + key + ", selected distributor of class "
-                        + contextDistributor.getClass());
+        LOGGER.debug("Distributor factory, key={}, selected distributor of class {}", key,
+                contextDistributor.getClass());
         return contextDistributor;
     }
 }

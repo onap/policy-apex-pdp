@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  * Copyright (C) 2016-2018 Ericsson. All rights reserved.
- * Modifications Copyright (C) 2019 Nordix Foundation.
+ * Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ import org.onap.policy.common.parameters.ParameterException;
  */
 public class ParameterTests {
     @Test
-    public void invalidParametersNoFileTest() throws ParameterException {
+    public void testInvalidParametersNoFileTest() throws ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/invalidNoFile.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -62,7 +62,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void invalidParametersEmptyTest() {
+    public void testInvalidParametersEmptyTest() {
         final String[] args = {"-c", "src/test/resources/parameters/empty.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -76,7 +76,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void invalidParametersNoParamsTest() {
+    public void testInvalidParametersNoParamsTest() {
         final String[] args = {"-c", "src/test/resources/parameters/noParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -97,7 +97,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void invalidParametersBlankParamsTest() {
+    public void testInvalidParametersBlankParamsTest() {
         final String[] args = {"-c", "src/test/resources/parameters/blankParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -122,7 +122,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void invalidParametersTest() {
+    public void testInvalidParametersTest() {
         final String[] args = {"-c", "src/test/resources/parameters/badParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -168,7 +168,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void modelNotFileTest() {
+    public void testModelNotFileTest() {
         final String[] args = {"-c", "src/test/resources/parameters/badParamsModelNotFile.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -190,7 +190,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void goodParametersTest() {
+    public void testGoodParametersTest() {
         final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -239,7 +239,7 @@ public class ParameterTests {
     }
 
     @Test
-    public void superDooperParametersTest() {
+    public void testSuperDooperParametersTest() {
         final String[] args = {"-c", "src/test/resources/parameters/superDooperParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 

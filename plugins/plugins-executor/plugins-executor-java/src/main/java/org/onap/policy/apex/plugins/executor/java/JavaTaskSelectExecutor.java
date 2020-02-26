@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +58,8 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
         // Get the class for task selection
         try {
             // Create the task logic object from the byte code of the class
-            taskSelectionLogicObject = Class.forName(getSubject().getTaskSelectionLogic().getLogic()).newInstance();
+            taskSelectionLogicObject = Class.forName(getSubject().getTaskSelectionLogic().getLogic())
+                    .getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
             LOGGER.error(
                     "instantiation error on Java class \"" + getSubject().getTaskSelectionLogic().getLogic() + "\"", e);
@@ -89,7 +91,7 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
             // executor)" to invoke the task selection
             // logic in the Java class
             final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask",
-                    new Class[] { TaskSelectionExecutionContext.class });
+                    new Class[] {TaskSelectionExecutionContext.class});
             returnValue = (boolean) method.invoke(taskSelectionLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error(

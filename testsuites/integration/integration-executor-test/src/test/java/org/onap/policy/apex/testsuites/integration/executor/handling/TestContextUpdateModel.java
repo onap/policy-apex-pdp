@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,11 +184,11 @@ public class TestContextUpdateModel {
      * @throws ContextException the context exception
      */
     private void sendEvent(final ApexEngine apexEngine, final TestApexActionListener listener, final String eventName,
-        final boolean shouldWork) throws ContextException {
+            final boolean shouldWork) throws ContextException {
         final Date aDate = new Date(1433453067123L);
         final Map<String, Object> eventDataMap = new HashMap<String, Object>();
         eventDataMap.put("TestSlogan", "This is a test slogan");
-        eventDataMap.put("TestMatchCase", new Byte((byte) 123));
+        eventDataMap.put("TestMatchCase", (byte) 123);
         eventDataMap.put("TestTimestamp", aDate.getTime());
         eventDataMap.put("TestTemperature", 34.5445667);
 

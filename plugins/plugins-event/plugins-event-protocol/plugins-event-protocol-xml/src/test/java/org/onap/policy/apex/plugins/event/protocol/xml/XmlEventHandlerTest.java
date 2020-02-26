@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,17 +114,17 @@ public class XmlEventHandlerTest {
             final Date event0004StartTime = new Date(1434363272000L);
             final Map<String, Object> event0004DataMap = new HashMap<String, Object>();
             event0004DataMap.put("TestSlogan", "Test slogan for External Event");
-            event0004DataMap.put("TestMatchCase", new Integer(2));
-            event0004DataMap.put("TestTimestamp", new Long(event0004StartTime.getTime()));
-            event0004DataMap.put("TestTemperature", new Double(1064.43));
-            event0004DataMap.put("TestMatchCaseSelected", new Integer(2));
-            event0004DataMap.put("TestMatchStateTime", new Long(1434370506078L));
-            event0004DataMap.put("TestEstablishCaseSelected", new Integer(0));
-            event0004DataMap.put("TestEstablishStateTime", new Long(1434370506085L));
-            event0004DataMap.put("TestDecideCaseSelected", new Integer(3));
-            event0004DataMap.put("TestDecideStateTime", new Long(1434370506092L));
-            event0004DataMap.put("TestActCaseSelected", new Integer(2));
-            event0004DataMap.put("TestActStateTime", new Long(1434370506095L));
+            event0004DataMap.put("TestMatchCase", Integer.valueOf(2));
+            event0004DataMap.put("TestTimestamp", Long.valueOf(event0004StartTime.getTime()));
+            event0004DataMap.put("TestTemperature", Double.valueOf(1064.43));
+            event0004DataMap.put("TestMatchCaseSelected", Integer.valueOf(2));
+            event0004DataMap.put("TestMatchStateTime", Long.valueOf(1434370506078L));
+            event0004DataMap.put("TestEstablishCaseSelected", Integer.valueOf(0));
+            event0004DataMap.put("TestEstablishStateTime", Long.valueOf(1434370506085L));
+            event0004DataMap.put("TestDecideCaseSelected", Integer.valueOf(3));
+            event0004DataMap.put("TestDecideStateTime", Long.valueOf(1434370506092L));
+            event0004DataMap.put("TestActCaseSelected", Integer.valueOf(2));
+            event0004DataMap.put("TestActStateTime", Long.valueOf(1434370506095L));
 
             final ApexEvent apexEvent0004 =
                     new ApexEvent("Event0004", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
