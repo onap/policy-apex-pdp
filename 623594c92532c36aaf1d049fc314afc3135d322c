@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "590c9c63_68246f0b",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/taskparameters/TestTaskParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-27T11:31:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94611c95_b01013aa",
+      "revId": "623594c92532c36aaf1d049fc314afc3135d322c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f720f7b4_274dd5ae",
         "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/taskparameters/SetControlLoopNameForTest.js",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-02-26T14:21:02Z",
       "side": 1,
       "message": "does the logger support \"{}\" place-holders?  If so, they should be used instead of concatenation.\n\nsame comment below and in the other js files",
+      "revId": "623594c92532c36aaf1d049fc314afc3135d322c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea34213a_49462ce8",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/resources/policies/taskparameters/SetControlLoopNameForTest.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-02-27T11:31:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f720f7b4_274dd5ae",
       "revId": "623594c92532c36aaf1d049fc314afc3135d322c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
