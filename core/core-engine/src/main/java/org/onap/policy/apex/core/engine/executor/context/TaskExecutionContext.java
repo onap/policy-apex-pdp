@@ -28,8 +28,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -49,6 +51,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
+@Getter
 public class TaskExecutionContext {
     // Logger for task execution
     private static final XLogger EXECUTION_LOGGER =
@@ -165,7 +168,7 @@ public class TaskExecutionContext {
      */
     private void populateParameters(Map<String, AxTaskParameter> taskParameters) {
         taskParameters.entrySet().forEach(taskParamEntry -> parameters.put(taskParamEntry.getKey(),
-            taskParamEntry.getValue().getTaskParameterValue()));
+                taskParamEntry.getValue().getTaskParameterValue()));
     }
 
     /**

@@ -21,16 +21,13 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
-import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
@@ -125,8 +122,8 @@ public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
 
             // Use the consumer to handle this event
             final ApexRestRequestorConsumer restRequstConsumer = (ApexRestRequestorConsumer) consumer;
-            restRequstConsumer.processRestRequest(new ApexRestRequest(
-                executionId, executionProperties, eventName, event));
+            restRequstConsumer
+                    .processRestRequest(new ApexRestRequest(executionId, executionProperties, eventName, event));
 
             eventsSent++;
         } else {

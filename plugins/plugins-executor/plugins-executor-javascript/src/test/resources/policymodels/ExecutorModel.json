@@ -25,29 +25,55 @@
                }
             }, {
                "key" : {
-                  "name" : "BasicEvent",
+                  "name" : "BasicEventIn0",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "BasicEvent",
+                     "name" : "BasicEventIn0",
                      "version" : "0.0.1"
                   },
-                  "UUID" : "cc8d3c1a-e975-459a-bcd2-69f423eaa1f3",
-                  "description" : "Generated description for a concept called \"BasicEvent\" with version \"0.0.1\" and UUID \"cc8d3c1a-e975-459a-bcd2-69f423eaa1f3\""
+                  "UUID" : "cab51283-6a38-31f6-81e8-33c381fcba77",
+                  "description" : "Generated description for a concept called \"BasicEventIn0\" with version \"0.0.1\" and UUID \"8bfd4010-1b5b-45c0-b237-dc27d553d446\""
                }
             }, {
                "key" : {
-                  "name" : "BasicPolicy",
+                  "name" : "BasicEventIn1",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "BasicPolicy",
+                     "name" : "BasicEventIn1",
                      "version" : "0.0.1"
                   },
-                  "UUID" : "d0c5d8ee-5fe7-4978-89ce-4a3e69cad043",
-                  "description" : "Generated description for a concept called \"BasicPolicy\" with version \"0.0.1\" and UUID \"d0c5d8ee-5fe7-4978-89ce-4a3e69cad043\""
+                  "UUID" : "b51b63bf-29b5-3104-99c7-990e6a7d703d",
+                  "description" : "Generated description for a concept called \"BasicEventIn1\" with version \"0.0.1\" and UUID \"9f3bc09e-1070-437c-8039-bf7bc696e4cc\""
+               }
+            }, {
+               "key" : {
+                  "name" : "BasicEventOut0",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicEventOut0",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "6846fd9b-775d-3df8-afe2-7ea6898de9d6",
+                  "description" : "Generated description for a concept called \"BasicEventOut0\" with version \"0.0.1\" and UUID \"8a22a808-98a9-41ff-93c2-c01ae73b79b2\""
+               }
+            }, {
+               "key" : {
+                  "name" : "BasicEventOut1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicEventOut1",
+                     "version" : "0.0.1"
+                  },
+                  "UUID" : "28c4cf58-cfc4-3c15-bebf-7046df303a31",
+                  "description" : "Generated description for a concept called \"BasicEventOut1\" with version \"0.0.1\" and UUID \"f43989a7-fe36-4359-bb32-3e50799790ae\""
                }
             }, {
                "key" : {
@@ -59,7 +85,7 @@
                      "name" : "BasicTask",
                      "version" : "0.0.1"
                   },
-                  "UUID" : "c5651414-fc1c-493b-878d-75f0ce685c36",
+                  "UUID" : "5757b356-875b-35b1-872c-1bb8cdfe233f",
                   "description" : "Generated description for a concept called \"BasicTask\" with version \"0.0.1\" and UUID \"c5651414-fc1c-493b-878d-75f0ce685c36\""
                }
             }, {
@@ -77,55 +103,29 @@
                }
             }, {
                "key" : {
-                  "name" : "RequestEvent",
+                  "name" : "Policy0",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "RequestEvent",
+                     "name" : "Policy0",
                      "version" : "0.0.1"
                   },
-                  "UUID" : "99875c27-6120-4101-9e73-50ac810e322c",
-                  "description" : "Generated description for a concept called \"RequestEvent\" with version \"0.0.1\" and UUID \"99875c27-6120-4101-9e73-50ac810e322c\""
+                  "UUID" : "d2b04a23-ec6d-4626-a18b-03c36fc2e1ba",
+                  "description" : "Generated description for a concept called \"Policy0\" with version \"0.0.1\" and UUID \"d2b04a23-ec6d-4626-a18b-03c36fc2e1ba\""
                }
             }, {
                "key" : {
-                  "name" : "RequestPolicy",
+                  "name" : "Policy1",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "RequestPolicy",
+                     "name" : "Policy1",
                      "version" : "0.0.1"
                   },
-                  "UUID" : "0667d905-981e-4249-b572-bc22821c7d29",
-                  "description" : "Generated description for a concept called \"RequestPolicy\" with version \"0.0.1\" and UUID \"0667d905-981e-4249-b572-bc22821c7d29\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ResponseEvent",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ResponseEvent",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "a5022000-fdd7-491c-af9f-5a36e87c997c",
-                  "description" : "Generated description for a concept called \"ResponseEvent\" with version \"0.0.1\" and UUID \"a5022000-fdd7-491c-af9f-5a36e87c997c\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ResponsePolicy",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ResponsePolicy",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "e72757c4-d81d-4337-b7ce-5f022f55818d",
-                  "description" : "Generated description for a concept called \"ResponsePolicy\" with version \"0.0.1\" and UUID \"e72757c4-d81d-4337-b7ce-5f022f55818d\""
+                  "UUID" : "00105b10-3f0e-49b1-bfdf-96d27b08fd54",
+                  "description" : "Generated description for a concept called \"Policy1\" with version \"0.0.1\" and UUID \"00105b10-3f0e-49b1-bfdf-96d27b08fd54\""
                }
             }, {
                "key" : {
@@ -229,41 +229,41 @@
          "policyMap" : {
             "entry" : [ {
                "key" : {
-                  "name" : "RequestPolicy",
+                  "name" : "Policy0",
                   "version" : "0.0.1"
                },
                "value" : {
                   "policyKey" : {
-                     "name" : "RequestPolicy",
+                     "name" : "Policy0",
                      "version" : "0.0.1"
                   },
                   "template" : "FREEFORM",
                   "state" : {
                      "entry" : [ {
-                        "key" : "RequestState",
+                        "key" : "State0",
                         "value" : {
                            "stateKey" : {
-                              "parentKeyName" : "RequestPolicy",
+                              "parentKeyName" : "Policy0",
                               "parentKeyVersion" : "0.0.1",
                               "parentLocalName" : "NULL",
-                              "localName" : "RequestState"
+                              "localName" : "State0"
                            },
                            "trigger" : {
-                              "name" : "BasicEvent",
+                              "name" : "BasicEventIn0",
                               "version" : "0.0.1"
                            },
                            "stateOutputs" : {
                               "entry" : [ {
-                                 "key" : "RequestOutput",
+                                 "key" : "State0Output",
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "RequestPolicy",
+                                       "parentKeyName" : "Policy0",
                                        "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "RequestState",
-                                       "localName" : "RequestOutput"
+                                       "parentLocalName" : "State0",
+                                       "localName" : "State0Output"
                                     },
                                     "outgoingEvent" : {
-                                       "name" : "RequestEvent",
+                                       "name" : "BasicEventOut0",
                                        "version" : "0.0.1"
                                     },
                                     "nextState" : {
@@ -296,17 +296,17 @@
                                  },
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "RequestPolicy",
+                                       "parentKeyName" : "Policy0",
                                        "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "RequestState",
-                                       "localName" : "RequestTask"
+                                       "parentLocalName" : "State0",
+                                       "localName" : "BasicTask"
                                     },
                                     "outputType" : "DIRECT",
                                     "output" : {
-                                       "parentKeyName" : "RequestPolicy",
+                                       "parentKeyName" : "Policy0",
                                        "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "RequestState",
-                                       "localName" : "RequestOutput"
+                                       "parentLocalName" : "State0",
+                                       "localName" : "State0Output"
                                     }
                                  }
                               } ]
@@ -314,45 +314,45 @@
                         }
                      } ]
                   },
-                  "firstState" : "RequestState"
+                  "firstState" : "State0"
                }
             }, {
                "key" : {
-                  "name" : "ResponsePolicy",
+                  "name" : "Policy1",
                   "version" : "0.0.1"
                },
                "value" : {
                   "policyKey" : {
-                     "name" : "ResponsePolicy",
+                     "name" : "Policy1",
                      "version" : "0.0.1"
                   },
                   "template" : "FREEFORM",
                   "state" : {
                      "entry" : [ {
-                        "key" : "ResponseState",
+                        "key" : "State1",
                         "value" : {
                            "stateKey" : {
-                              "parentKeyName" : "ResponsePolicy",
+                              "parentKeyName" : "Policy1",
                               "parentKeyVersion" : "0.0.1",
                               "parentLocalName" : "NULL",
-                              "localName" : "ResponseState"
+                              "localName" : "State1"
                            },
                            "trigger" : {
-                              "name" : "ResponseEvent",
+                              "name" : "BasicEventIn1",
                               "version" : "0.0.1"
                            },
                            "stateOutputs" : {
                               "entry" : [ {
-                                 "key" : "ResponseOutput",
+                                 "key" : "State1Output",
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "ResponsePolicy",
+                                       "parentKeyName" : "Policy1",
                                        "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "ResponseState",
-                                       "localName" : "ResponseOutput"
+                                       "parentLocalName" : "State1",
+                                       "localName" : "State1Output"
                                     },
                                     "outgoingEvent" : {
-                                       "name" : "BasicEvent",
+                                       "name" : "BasicEventOut1",
                                        "version" : "0.0.1"
                                     },
                                     "nextState" : {
@@ -385,17 +385,17 @@
                                  },
                                  "value" : {
                                     "key" : {
-                                       "parentKeyName" : "ResponsePolicy",
+                                       "parentKeyName" : "Policy1",
                                        "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "ResponseState",
-                                       "localName" : "ResponseTask"
+                                       "parentLocalName" : "State1",
+                                       "localName" : "Task1"
                                     },
                                     "outputType" : "DIRECT",
                                     "output" : {
-                                       "parentKeyName" : "ResponsePolicy",
+                                       "parentKeyName" : "Policy1",
                                        "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "ResponseState",
-                                       "localName" : "ResponseOutput"
+                                       "parentLocalName" : "State1",
+                                       "localName" : "State1Output"
                                     }
                                  }
                               } ]
@@ -403,7 +403,7 @@
                         }
                      } ]
                   },
-                  "firstState" : "ResponseState"
+                  "firstState" : "State1"
                }
             } ]
          }
@@ -460,7 +460,7 @@
                   "taskLogic" : {
                      "key" : "TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.getId());\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.getName());\nvar returnValue = executor.isTrue;"
+                     "logic" : "executor.logger.debug(executor.subject.getId());\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.getName());\nexecutor.logger.debug(\"incoming value: \" + executor.inFields.get(\"intPar\").toString());\n\nvar intPar = executor.inFields.get(\"intPar\");\n\nexecutor.logger.debug(\"read value: \" + intPar.toString());\n\nvar intParBy2 = intPar * 2;\n\nexecutor.outFields.put(\"intPar\", intParBy2);\n\nexecutor.logger.debug(\"outgoing value: \" + executor.outFields.get(\"intPar\").toString());\n\nvar returnValue = executor.isTrue;"
                   }
                }
             } ]
@@ -474,17 +474,17 @@
          "eventMap" : {
             "entry" : [ {
                "key" : {
-                  "name" : "BasicEvent",
+                  "name" : "BasicEventIn0",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "BasicEvent",
+                     "name" : "BasicEventIn0",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apex.events",
-                  "source" : "source",
-                  "target" : "target",
+                  "source" : "External",
+                  "target" : "Apex",
                   "parameter" : {
                      "entry" : [ {
                         "key" : "intPar",
@@ -501,17 +501,17 @@
                }
             }, {
                "key" : {
-                  "name" : "RequestEvent",
+                  "name" : "BasicEventIn1",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "RequestEvent",
+                     "name" : "BasicEventIn1",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apex.events",
-                  "source" : "apex",
-                  "target" : "server",
+                  "source" : "External",
+                  "target" : "Apex",
                   "parameter" : {
                      "entry" : [ {
                         "key" : "intPar",
@@ -528,17 +528,44 @@
                }
             }, {
                "key" : {
-                  "name" : "ResponseEvent",
+                  "name" : "BasicEventOut0",
                   "version" : "0.0.1"
                },
                "value" : {
                   "key" : {
-                     "name" : "ResponseEvent",
+                     "name" : "BasicEventOut0",
                      "version" : "0.0.1"
                   },
                   "nameSpace" : "org.onap.policy.apex.events",
-                  "source" : "server",
-                  "target" : "apex",
+                  "source" : "Apex",
+                  "target" : "External",
+                  "parameter" : {
+                     "entry" : [ {
+                        "key" : "intPar",
+                        "value" : {
+                           "key" : "intPar",
+                           "fieldSchemaKey" : {
+                              "name" : "IntType",
+                              "version" : "0.0.1"
+                           },
+                           "optional" : false
+                        }
+                     } ]
+                  }
+               }
+            }, {
+               "key" : {
+                  "name" : "BasicEventOut1",
+                  "version" : "0.0.1"
+               },
+               "value" : {
+                  "key" : {
+                     "name" : "BasicEventOut1",
+                     "version" : "0.0.1"
+                  },
+                  "nameSpace" : "org.onap.policy.apex.events",
+                  "source" : "Apex",
+                  "target" : "External",
                   "parameter" : {
                      "entry" : [ {
                         "key" : "intPar",

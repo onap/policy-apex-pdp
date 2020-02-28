@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,6 @@ package org.onap.policy.apex.plugins.executor.javascript;
 
 import java.util.Properties;
 
-import javax.script.Compilable;
-import javax.script.CompiledScript;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.TaskSelectExecutor;
@@ -46,16 +41,10 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavascriptTaskSelectExecutor.class);
 
-    // Recurring string constants
-    private static final String TSL_FAILED_PREFIX =
-            "execute: task selection logic failed to set a return value for state  \"";
-
-    // Javascript engine
-    private ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-    private CompiledScript compiled = null;
+    private JavascriptExecutor javascriptExecutor;
 
     /**
-     * Prepares the task for processing.
+     * Prepares the task selection logic for processing.
      *
      * @throws StateMachineException thrown when a state machine execution error occurs
      */
@@ -63,15 +52,8 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
     public void prepare() throws StateMachineException {
         // Call generic prepare logic
         super.prepare();
-        try {
-            compiled = ((Compilable) engine).compile(getSubject().getTaskSelectionLogic().getLogic());
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: task selection logic failed to compile for state  \"" + getSubject().getKey().getId()
-                    + "\"");
-            throw new StateMachineException(
-                    "task selection logic failed to compile for state  \"" + getSubject().getKey().getId() + "\"", e);
-        }
 
+        javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
     }
 
     /**
@@ -90,31 +72,8 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingEvent);
 
-        // Set up the Javascript engine
-        engine.put("executor", getExecutionContext());
-
-        // Check and execute the Javascript logic
-        try {
-            if (compiled == null) {
-                engine.eval(getSubject().getTaskSelectionLogic().getLogic());
-            } else {
-                compiled.eval(engine.getContext());
-            }
-        } catch (final ScriptException e) {
-            LOGGER.error(
-                    "execute: task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException(
-                    "task selection logic failed to run for state  \"" + getSubject().getKey().getId() + "\"", e);
-        }
-
-        final Object ret = engine.get("returnValue");
-        if (ret == null) {
-            LOGGER.error(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException(TSL_FAILED_PREFIX + getSubject().getKey().getId() + "\"");
-        }
-
-        // Do the execution post work
-        executePost((Boolean) ret);
+        // Execute the Javascript and do post processing
+        executePost(javascriptExecutor.execute(getExecutionContext(), getSubject().getTaskSelectionLogic().getLogic()));
 
         return getOutgoing();
     }
@@ -129,6 +88,7 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
                 + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
                 + getSubject().getTaskSelectionLogic().getLogic());
-        engine = null;
+
+        javascriptExecutor.cleanUp();
     }
 }
