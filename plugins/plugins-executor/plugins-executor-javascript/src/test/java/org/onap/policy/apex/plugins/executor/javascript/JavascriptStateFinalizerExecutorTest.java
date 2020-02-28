@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.plugins.executor.javascript;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -31,7 +32,6 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
@@ -41,7 +41,6 @@ import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.StateExecutor;
-import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.core.engine.executor.impl.ExecutorFactoryImpl;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
@@ -78,30 +77,16 @@ public class JavascriptStateFinalizerExecutorTest {
     }
 
     @Test
-    public void testJavaStateFinalizerExecutor() {
+    public void testJavaStateFinalizerExecutor() throws Exception {
         JavascriptStateFinalizerExecutor jsfe = new JavascriptStateFinalizerExecutor();
         assertNotNull(jsfe);
 
-        try {
+        assertThatThrownBy(() -> {
             jsfe.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
-        }
+        }).isInstanceOf(java.lang.NullPointerException.class);
 
-        ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
-
-        StateExecutor parentStateExcutor = null;
-        try {
-            parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
-        } catch (StateMachineException e) {
-            fail("test should not throw an exception here");
-        }
+        ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
+        StateExecutor parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
 
         AxState state = new AxState();
         parentStateExcutor.setContext(null, state, internalContext);
@@ -109,29 +94,16 @@ public class JavascriptStateFinalizerExecutorTest {
         jsfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
 
         stateFinalizerLogic.setLogic("return false");
-        try {
-            jsfe.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals("state finalizer logic failed to compile for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
-                    jtseException.getMessage());
-        }
+        jsfe.prepare();
 
         Map<String, Object> incomingParameters1 = new HashMap<>();
-        try {
+        assertThatThrownBy(() -> {
             jsfe.execute(-1, new Properties(), incomingParameters1);
             fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("state finalizer logic failed to run for state finalizer  \"NULL:0.0.0:NULL:NULL\"",
-                    jteException.getMessage());
-        }
+        }).hasMessage("execute: state finalizer logic failed to run for state finalizer \"NULL:0.0.0:NULL:NULL\"");
 
         stateFinalizerLogic.setLogic("java.lang.String");
-        try {
-            jsfe.prepare();
-        } catch (Exception jtseException) {
-            fail("test should not throw an exception here");
-        }
+        jsfe.prepare();
 
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
@@ -141,26 +113,19 @@ public class JavascriptStateFinalizerExecutorTest {
                         + "executor.setSelectedStateOutputName(\"SelectedOutputIsMe\");\n"
                         + "var returnValueType = Java.type(\"java.lang.Boolean\");\n" + "\n"
                         + "var returnValue = new returnValueType(true);}");
-        try {
+
+        assertThatThrownBy(() -> {
             jsfe.prepare();
             jsfe.execute(-1, new Properties(), event);
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals(
-                    "execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
-                            + "on finalizer logic NULL:0.0.0:NULL:NULL",
-                    jtseException.getMessage());
-        }
+        }).hasMessage("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
+                + "on finalizer logic NULL:0.0.0:NULL:NULL");
 
         state.getStateOutputs().put("SelectedOutputIsMe", null);
-        try {
-            jsfe.prepare();
-            String stateOutput = jsfe.execute(0, new Properties(), event);
-            assertEquals("SelectedOutputIsMe", stateOutput);
-            jsfe.cleanUp();
-        } catch (Exception jtseException) {
-            jtseException.printStackTrace();
-            fail("test should not throw an exception here");
-        }
+
+        jsfe.prepare();
+        String stateOutput = jsfe.execute(0, new Properties(), event);
+        assertEquals("SelectedOutputIsMe", stateOutput);
+
+        jsfe.cleanUp();
     }
 }

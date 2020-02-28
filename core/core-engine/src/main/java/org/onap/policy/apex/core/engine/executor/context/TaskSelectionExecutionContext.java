@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,12 +43,13 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * Container class for the execution context for Task Selection logic executions in a task being
- * executed in an Apex engine. The task must have easy access to the state definition, the incoming
- * and outgoing event contexts, as well as the policy, global, and external context.
+ * Container class for the execution context for Task Selection logic executions in a task being executed in an Apex
+ * engine. The task must have easy access to the state definition, the incoming and outgoing event contexts, as well as
+ * the policy, global, and external context.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
+@Getter
 public class TaskSelectionExecutionContext {
     // Logger for task execution
     private static final XLogger EXECUTION_LOGGER =
@@ -70,21 +72,19 @@ public class TaskSelectionExecutionContext {
     public final Long executionId;
 
     /**
-     * The incoming fields from the trigger event for the state. The task selection logic can access
-     * these fields to decide what task to select for the state.
+     * The incoming fields from the trigger event for the state. The task selection logic can access these fields to
+     * decide what task to select for the state.
      */
     public final Map<String, Object> inFields;
 
     /**
-     * The task that the task selection logic has selected for a state. The task selection logic
-     * sets this field in its logic prior to executing and the Apex engine executes this task as the
-     * task for this state.
+     * The task that the task selection logic has selected for a state. The task selection logic sets this field in its
+     * logic prior to executing and the Apex engine executes this task as the task for this state.
      */
     public final AxArtifactKey selectedTask;
 
     /**
-     * Logger for task selection execution, task selection logic can use this field to access and
-     * log to Apex logging.
+     * Logger for task selection execution, task selection logic can use this field to access and log to Apex logging.
      */
     public final XLogger logger = EXECUTION_LOGGER;
 
@@ -110,8 +110,7 @@ public class TaskSelectionExecutionContext {
      * @param axState the state definition that is the subject of execution
      * @param incomingEvent the incoming event for the state
      * @param outgoingKey the outgoing key for the task to execute in this state
-     * @param internalContext the execution context of the Apex engine in which the task is being
-     *        executed
+     * @param internalContext the execution context of the Apex engine in which the task is being executed
      */
     public TaskSelectionExecutionContext(final TaskSelectExecutor taskSelectExecutor, final long executionId,
             final AxState axState, final EnEvent incomingEvent, final AxArtifactKey outgoingKey,
@@ -161,8 +160,7 @@ public class TaskSelectionExecutionContext {
      *
      * @param contextAlbumName The context album name
      * @return The context albumxxxxxx
-     * @throws ContextRuntimeException if the context album does not exist on the state for this
-     *         executor
+     * @throws ContextRuntimeException if the context album does not exist on the state for this executor
      */
     public ContextAlbum getContextAlbum(final String contextAlbumName) {
         // Find the context album

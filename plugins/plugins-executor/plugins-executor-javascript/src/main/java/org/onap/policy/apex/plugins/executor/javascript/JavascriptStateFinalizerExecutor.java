@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,9 @@ package org.onap.policy.apex.plugins.executor.javascript;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.script.Compilable;
-import javax.script.CompiledScript;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.HostAccess;
+import org.graalvm.polyglot.Value;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -45,9 +43,8 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavascriptStateFinalizerExecutor.class);
 
-    // Javascript engine
-    private ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-    private CompiledScript compiled = null;
+    // Javascript context
+    private Context jsContext;
 
     /**
      * Prepares the state finalizer for processing.
@@ -58,13 +55,22 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     public void prepare() throws StateMachineException {
         // Call generic prepare logic
         super.prepare();
+
+        // @formatter:off
+        jsContext =
+                Context.newBuilder("js")
+                .allowHostClassLookup(s -> true)
+                .allowHostAccess(HostAccess.ALL)
+                .build();
+        // @formatter:on
+
         try {
-            compiled = ((Compilable) engine).compile(getSubject().getLogic());
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: state finalizer logic failed to compile for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException("state finalizer logic failed to compile for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"", e);
+            jsContext.getBindings("js");
+        } catch (Exception e) {
+            throw new StateMachineException(
+                    "prepare: javascript engine failed to initialize properly for state finalizer \""
+                            + getSubject().getKey().getId() + "\"",
+                    e);
         }
     }
 
@@ -84,25 +90,26 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
-        // Set up the Javascript engine
-        engine.put("executor", getExecutionContext());
-
-        // Check and execute the Javascript logic
         try {
-            if (compiled == null) {
-                engine.eval(getSubject().getLogic());
-            } else {
-                compiled.eval(engine.getContext());
-            }
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException("state finalizer logic failed to run for state finalizer  \""
+            // Set up the Javascript engine context
+            jsContext.getBindings("js").putMember("executor", getExecutionContext());
+            jsContext.eval("js", getSubject().getLogic());
+
+        } catch (final Exception e) {
+            throw new StateMachineException("execute: state finalizer logic failed to run for state finalizer \""
                     + getSubject().getKey().getId() + "\"", e);
         }
 
+        Value returnValue = jsContext.getBindings("js").getMember("returnValue");
+
+        if (returnValue == null || returnValue.isNull()) {
+            throw new StateMachineException(
+                    "execute: state finalizer logic failed to set a return value for state finalizer \""
+                            + getSubject().getKey().getId() + "\"");
+        }
+
         // Do the execution post work
-        executePost((boolean) engine.get("returnValue"));
+        executePost(returnValue.asBoolean());
 
         return getOutgoing();
     }
@@ -116,6 +123,12 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
-        engine = null;
+
+        try {
+            jsContext.close();
+        } catch (final Exception e) {
+            throw new StateMachineException("cleanUp: state finalizer logic failed to close for state finalizer \""
+                    + getSubject().getKey().getId() + "\"", e);
+        }
     }
 }
