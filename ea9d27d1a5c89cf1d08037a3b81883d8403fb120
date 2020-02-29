@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f578bfd8_2d6681e0",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-02-29T22:02:19Z",
+      "side": 1,
+      "message": "We seem to use this a lot - next chance we get let\u0027s put it in policy/parent.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 21
+      },
+      "revId": "ea9d27d1a5c89cf1d08037a3b81883d8403fb120",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72e6abd8_917900cb",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskSelectExecutor.java",
         "patchSetId": 1
