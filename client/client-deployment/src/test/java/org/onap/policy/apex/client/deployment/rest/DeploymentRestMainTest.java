@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,38 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadMonitor;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
 /**
  * Test the periodic event manager utility.
  */
-public class DeploymentRestMainTest {
+public class DeploymentRestMainTest implements ThreadMonitor<ApexDeploymentRestMain> {
     private static InputStream systemInStream = System.in;
+    private long startTime;
+
+    @Before
+    public void initializeTime() {
+        startTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public boolean check(ApexDeploymentRestMain apexDeploymentRestMain) {
+        return apexDeploymentRestMain.getState().equals(ApexDeploymentRestMain.ServicesState.RUNNING);
+    }
+
+    @Override
+    public void waitUntil(long timeOut, ApexDeploymentRestMain apexDeploymentRestMain) {
+        while (!check(apexDeploymentRestMain)) {
+            ThreadUtilities.sleep(1);
+            if (System.currentTimeMillis() > startTime + timeOut) {
+                Assert.fail("Test server failed to start fast enough or service failed to start.");
+            }
+        }
+    }
 
     @Test
     public void testDeploymentClientOk() {
@@ -193,7 +217,7 @@ public class DeploymentRestMainTest {
 
         assertThatCode(() -> {
             monThread.start();
-            ThreadUtilities.sleep(2000);
+            waitUntil(2000, monRestMain);
             monRestMain.shutdown();
         }).doesNotThrowAnyException();
 

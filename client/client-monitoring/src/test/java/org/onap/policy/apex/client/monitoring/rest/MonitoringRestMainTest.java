@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,13 +29,38 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadMonitor;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
 /**
  * Test the periodic event manager utility.
  */
-public class MonitoringRestMainTest {
+public class MonitoringRestMainTest implements ThreadMonitor<ApexMonitoringRestMain> {
+    private long startTime;
+
+    @Override
+    public boolean check(ApexMonitoringRestMain apexMonitoringRestMain) {
+        return apexMonitoringRestMain.getState().equals(ApexMonitoringRestMain.ServicesState.RUNNING);
+    }
+
+    @Override
+    public void waitUntil(long timeOut, ApexMonitoringRestMain apexMonitoringRestMain) {
+        while (!check(apexMonitoringRestMain)) {
+            ThreadUtilities.sleep(1);
+            if (System.currentTimeMillis() > startTime + timeOut) {
+                Assert.fail("Test server failed to start fast enough.");
+            }
+        }
+    }
+
+    @Before
+    public void initializeTime() {
+        startTime = System.currentTimeMillis();
+    }
+
     @Test
     public void testMonitoringClientBad() {
         try {
@@ -231,7 +257,7 @@ public class MonitoringRestMainTest {
 
         try {
             monThread.start();
-            ThreadUtilities.sleep(2000);
+            waitUntil(2000, monRestMain);
             monRestMain.shutdown();
         } catch (Exception ex) {
             fail("test should not throw an exception");

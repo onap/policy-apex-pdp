@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,10 +35,12 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.onap.policy.apex.core.infrastructure.threading.ThreadMonitor;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
@@ -48,8 +50,24 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  * This class tests the ApexRestClientConusmer class.
  *
  */
-public class ApexRestClientConusmerTest {
+public class ApexRestClientConusmerTest implements ThreadMonitor<SupportApexEventReceiver> {
     private final PrintStream stdout = System.out;
+    private long startTime;
+
+    @Override
+    public boolean check(SupportApexEventReceiver supportApexEventReceiver) {
+        return supportApexEventReceiver.getEventCount() == 0;
+    }
+
+    @Override
+    public void waitUntil(long timeOut, SupportApexEventReceiver supportApexEventReceiver) {
+        while (check(supportApexEventReceiver)) {
+            ThreadUtilities.sleep(1);
+            if (System.currentTimeMillis() - startTime > timeOut) {
+                break;
+            }
+        }
+    }
 
     @Mock
     private Client httpClientMock;
@@ -62,6 +80,11 @@ public class ApexRestClientConusmerTest {
 
     @Mock
     private Response responseMock;
+
+    @Before
+    public void initializedTime() {
+        startTime = System.currentTimeMillis();
+    }
 
     @After
     public void after() {
@@ -119,7 +142,7 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        ThreadUtilities.sleep(200);
+        waitUntil(200, incomingEventReceiver);
         arcc.stop();
         assertEquals(0, incomingEventReceiver.getEventCount());
 
@@ -127,7 +150,7 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        ThreadUtilities.sleep(200);
+        waitUntil(200, incomingEventReceiver);
         arcc.stop();
         assertEquals(0, incomingEventReceiver.getEventCount());
     }
@@ -169,7 +192,7 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        ThreadUtilities.sleep(200);
+        waitUntil(200, incomingEventReceiver);
         arcc.stop();
         assertEquals(0, incomingEventReceiver.getEventCount());
     }
@@ -214,7 +237,7 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        ThreadUtilities.sleep(200);
+        waitUntil(200, incomingEventReceiver);
         arcc.stop();
 
         assertEquals(0, incomingEventReceiver.getEventCount());
@@ -261,7 +284,7 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        ThreadUtilities.sleep(200);
+        waitUntil(200, incomingEventReceiver);
         arcc.stop();
 
         assertEquals(0, incomingEventReceiver.getEventCount());
@@ -305,7 +328,7 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        ThreadUtilities.sleep(200);
+        waitUntil(200, incomingEventReceiver);
         arcc.stop();
 
         assertEquals("This is an event", incomingEventReceiver.getLastEvent());
@@ -349,7 +372,7 @@ public class ApexRestClientConusmerTest {
         try {
             // We have not set the URL, this test should not receive any events
             arcc.start();
-            ThreadUtilities.sleep(200);
+            waitUntil(200, incomingEventReceiver);
             arcc.stop();
         } catch (Exception e) {
             // test invalid status code
