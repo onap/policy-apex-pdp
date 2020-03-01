@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "846aa73a_f4aeb530",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskSelectExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-01T15:42:19Z",
+      "side": 1,
+      "message": "I removed the duplication by creating a separate class to encapsulate the Javascript handling.",
+      "parentUuid": "72e6abd8_917900cb",
+      "revId": "ea9d27d1a5c89cf1d08037a3b81883d8403fb120",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7047088_5b6ec401",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorFullApexTest.java",
         "patchSetId": 1
@@ -53,6 +71,24 @@
       "writtenOn": "2020-02-29T20:43:03Z",
       "side": 1,
       "message": "remove lines 56 \u0026 57 and then add this after line 43:\n\n  outFileN.deleteOnExit()",
+      "revId": "ea9d27d1a5c89cf1d08037a3b81883d8403fb120",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51303c76_a6a8fe10",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorFullApexTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-01T15:42:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7047088_5b6ec401",
       "revId": "ea9d27d1a5c89cf1d08037a3b81883d8403fb120",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
