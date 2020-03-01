@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a299060d_216c09a7",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-03-01T15:39:20Z",
+      "side": 1,
+      "message": "Not good to use sleep in tests. Sonar will also complain.\nTry awaitability api",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
