@@ -21,7 +21,7 @@
 #
 # Docker file to build an image that runs APEX on Java 11 or better in alpine
 #
-FROM onap/policy-jre-alpine
+FROM onap/policy-jre-alpine:2.0.1
 
 LABEL maintainer="Policy Team"
 
