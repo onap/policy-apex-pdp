@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,7 +88,6 @@ public class ApexJmsProducer implements ApexEventProducer {
         if (!(producerParameters.getCarrierTechnologyParameters() instanceof JmsCarrierTechnologyParameters)) {
             final String errorMessage = "specified producer properties are not applicable to a JMS producer ("
                             + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
         jmsProducerProperties = (JmsCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
@@ -110,7 +109,6 @@ public class ApexJmsProducer implements ApexEventProducer {
             final String errorMessage = "lookup of JMS connection factory  \""
                             + jmsProducerProperties.getConnectionFactory() + "\" failed for JMS producer properties \""
                             + jmsProducerProperties.getJmsConsumerProperties() + FOR_PRODUCER_TAG + this.name + ")";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -128,7 +126,6 @@ public class ApexJmsProducer implements ApexEventProducer {
             final String errorMessage = "lookup of JMS topic  \"" + jmsProducerProperties.getProducerTopic()
                             + "\" failed for JMS producer properties \""
                             + jmsProducerProperties.getJmsProducerProperties() + FOR_PRODUCER_TAG + this.name + ")";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -140,7 +137,6 @@ public class ApexJmsProducer implements ApexEventProducer {
         } catch (final Exception e) {
             final String errorMessage = "connection to JMS server failed for JMS properties \""
                             + jmsProducerProperties.getJmsConsumerProperties() + FOR_PRODUCER_TAG + this.name + ")";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -150,7 +146,6 @@ public class ApexJmsProducer implements ApexEventProducer {
         } catch (final Exception e) {
             final String errorMessage = "creation of session to JMS server failed for JMS properties \""
                             + jmsProducerProperties.getJmsConsumerProperties() + FOR_PRODUCER_TAG + this.name + ")";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -161,7 +156,6 @@ public class ApexJmsProducer implements ApexEventProducer {
             final String errorMessage = "creation of producer for sending events "
                             + "to JMS server failed for JMS properties \""
                             + jmsProducerProperties.getJmsConsumerProperties() + "\"";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
     }
