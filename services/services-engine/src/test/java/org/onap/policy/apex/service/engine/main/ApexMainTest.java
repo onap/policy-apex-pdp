@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,9 +30,10 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
@@ -57,8 +60,7 @@ public class ApexMainTest {
         System.setOut(new PrintStream(outContent));
 
         ApexMain.main(null);
-        ThreadUtilities.sleep(200);
-
+        await().atMost(200, TimeUnit.MILLISECONDS);
         final String outString = outContent.toString();
 
         assertTrue(outString.contains("Apex configuration file was not specified as an argument"));
@@ -72,7 +74,7 @@ public class ApexMainTest {
         String[] args = { "-whee" };
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -88,7 +90,7 @@ public class ApexMainTest {
         String[] args = { "-h" };
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -104,7 +106,7 @@ public class ApexMainTest {
         String[] args = { "-c", "src/test/resources/parameters/badParams.json" };
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -122,7 +124,7 @@ public class ApexMainTest {
         final ApexMain apexMain = new ApexMain(args);
         assertEquals("MyApexEngine",
             apexMain.getApexParametersMap().values().iterator().next().getEngineServiceParameters().getName());
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -143,10 +145,10 @@ public class ApexMainTest {
 
         assertEquals("trust-store-file", System.getProperty("javax.net.ssl.trustStore"));
         assertEquals("Pol1cy_0nap", System.getProperty("javax.net.ssl.trustStorePassword"));
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
-        ThreadUtilities.sleep(10000);
+        await().atMost(10000, TimeUnit.MILLISECONDS);
         final String outString = outContent.toString();
 
         assertTrue(outString.contains("Added the action listener to the engine"));

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.core.deployment;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -29,6 +31,7 @@ import static org.mockito.Matchers.anyObject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +44,6 @@ import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingServiceFactory;
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.MessageBlock;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus;
 import org.onap.policy.apex.core.protocols.engdep.messages.Response;
@@ -81,7 +83,7 @@ public class DeploymentClientTest {
         Thread clientThread = new Thread(deploymentClient);
         clientThread.start();
 
-        ThreadUtilities.sleep(100);
+        await().atMost(200, TimeUnit.MILLISECONDS).until(() -> deploymentClient.isStarted());
 
         assertTrue(deploymentClient.isStarted());
         assertTrue(clientThread.isAlive());
@@ -90,7 +92,7 @@ public class DeploymentClientTest {
         GetEngineStatus getEngineStatus = new GetEngineStatus(engineKey);
         deploymentClient.sendMessage(new GetEngineStatus(engineKey));
 
-        ThreadUtilities.sleep(20);
+        await().atMost(20, TimeUnit.MILLISECONDS);
         Response response = new Response(engineKey, true, getEngineStatus);
         List<Message> messageList = new ArrayList<>();
         messageList.add(response);
@@ -105,8 +107,7 @@ public class DeploymentClientTest {
             assertEquals("String mesages are not supported on the EngDep protocol", use.getMessage());
         }
 
-        ThreadUtilities.sleep(300);
-        assertEquals(1, deploymentClient.getMessagesSent());
+        await().atMost(300, TimeUnit.MILLISECONDS).until(() -> deploymentClient.getMessagesReceived() == 2);
         assertEquals(2, deploymentClient.getMessagesReceived());
         
         deploymentClient.stopClient();
@@ -128,14 +129,12 @@ public class DeploymentClientTest {
         Thread clientThread = new Thread(deploymentClient);
         clientThread.start();
 
-        ThreadUtilities.sleep(50);
+        await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> !deploymentClient.isStarted());
 
         assertFalse(deploymentClient.isStarted());
         assertFalse(clientThread.isAlive());
         assertEquals(0, deploymentClient.getReceiveQueue().size());
 
-        ThreadUtilities.sleep(100);
-        
         deploymentClient.stopClient();
     }
 }

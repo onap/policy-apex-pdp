@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.client.editor.rest;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -27,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -96,7 +99,7 @@ public class RestInterfaceTest {
             if (System.currentTimeMillis() - startwait > MAX_WAIT) {
                 Assert.fail("Rest endpoint (" + editorMain + ") for test failed to start fast enough");
             }
-            Thread.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
         }
 
         // create the client
@@ -129,7 +132,7 @@ public class RestInterfaceTest {
             if (System.currentTimeMillis() - startwait > MAX_WAIT) {
                 Assert.fail("Rest endpoint (" + editorMain + ") for test failed to shutdown fast enough");
             }
-            Thread.sleep(50);
+            await().atMost(50, TimeUnit.MILLISECONDS);
         }
         System.setIn(SYSIN);
     }

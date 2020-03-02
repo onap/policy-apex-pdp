@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,10 @@ import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
+import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.await;
+
 /**
  * Dummy engine event listener for unit test.
  *
@@ -36,13 +41,8 @@ public class DummySlowEnEventListener implements EnEventListener {
      * {@inheritDoc}.
      */
     @Override
-    public void onEnEvent(EnEvent enEvent) throws ApexException {
-        try {
-            Thread.sleep(waitTime);
-        }
-        catch (InterruptedException ie) {
-            // Do nothing
-        }
+    public void onEnEvent(EnEvent enEvent) {
+        await().atMost(50, TimeUnit.MILLISECONDS);
     }
 
     public long getWaitTime() {

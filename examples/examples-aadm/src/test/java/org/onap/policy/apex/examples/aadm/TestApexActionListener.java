@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +23,11 @@ package org.onap.policy.apex.examples.aadm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import static org.awaitility.Awaitility.await;
 
 /**
  * The listener interface for receiving testApexAction events. The class that is interested in processing a
@@ -55,9 +57,7 @@ public class TestApexActionListener implements EnEventListener {
      * @return the result
      */
     public EnEvent getResult() {
-        while (resultEvents.isEmpty()) {
-            ThreadUtilities.sleep(100);
-        }
+        await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> !resultEvents.isEmpty());
         return resultEvents.remove(0);
     }
 
@@ -66,12 +66,9 @@ public class TestApexActionListener implements EnEventListener {
      */
     @Override
     public void onEnEvent(final EnEvent actionEvent) {
-        ThreadUtilities.sleep(100);
-
-        if (actionEvent != null) {
-            System.out.println("Action event from engine:" + actionEvent.getName());
-            resultEvents.add(actionEvent);
-        }
+        await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> actionEvent != null);
+        System.out.println("Action event from engine:" + actionEvent.getName());
+        resultEvents.add(actionEvent);
     }
 
     /**

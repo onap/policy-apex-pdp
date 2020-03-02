@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.core.protocols.engdep.messages.EngineServiceInfoResponse;
 import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineInfo;
@@ -41,6 +41,8 @@ import org.onap.policy.apex.core.protocols.engdep.messages.StopPeriodicEvents;
 import org.onap.policy.apex.core.protocols.engdep.messages.UpdateModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.common.utils.resources.TextFileUtils;
+
+import static org.awaitility.Awaitility.await;
 
 /**
  * Dummy deployment client.
@@ -82,7 +84,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
 
         // Loop forever, sending messages as they appear on the queue
         while (started && !thisThread.isInterrupted()) {
-            ThreadUtilities.sleep(50);
+            await().atMost(50, TimeUnit.MILLISECONDS);
         }
 
         // Thread has been interrupted

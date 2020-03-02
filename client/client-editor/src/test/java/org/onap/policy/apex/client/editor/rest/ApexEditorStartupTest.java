@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +21,14 @@
 
 package org.onap.policy.apex.client.editor.rest;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.onap.policy.apex.client.editor.rest.ApexEditorMain.EditorState;
@@ -444,11 +447,8 @@ public class ApexEditorStartupTest {
             }
         };
         new Thread(testThread).start();
-        while (editorMain.getState().equals(EditorState.READY)
-                || editorMain.getState().equals(EditorState.INITIALIZING)) {
-            Thread.sleep(100);
-        }
-
+        await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> !(editorMain.getState().equals(EditorState.READY)
+                || editorMain.getState().equals(EditorState.INITIALIZING)));
         editorMain.shutdown();
         final String outString = outBaStream.toString();
         System.out.println(outString);

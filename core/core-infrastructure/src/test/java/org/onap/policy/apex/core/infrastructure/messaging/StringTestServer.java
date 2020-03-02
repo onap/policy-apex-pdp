@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,13 @@
 
 package org.onap.policy.apex.core.infrastructure.messaging;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertNotNull;
 
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Class StringTestServer.
@@ -48,7 +51,7 @@ public class StringTestServer {
         System.out.println("StringTestServer started on port " + port + " for " + timeToLive + " seconds");
 
         for (; timeToLive > 0; timeToLive--) {
-            ThreadUtilities.sleep(1000);
+            await().atMost(1000, TimeUnit.MILLISECONDS);
         }
 
         server.stop();

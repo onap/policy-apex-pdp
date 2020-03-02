@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -38,7 +40,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
@@ -123,7 +124,7 @@ public class RestRequestorTest {
         // Wait for the required amount of events to be received or for 10 seconds
         Double getsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
 
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
@@ -171,7 +172,7 @@ public class RestRequestorTest {
         // Wait for the required amount of events to be received or for 10 seconds
         Double getsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
 
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
@@ -217,7 +218,7 @@ public class RestRequestorTest {
 
         Response response = null;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
 
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
@@ -262,7 +263,7 @@ public class RestRequestorTest {
         // Wait for the required amount of events to be received or for 10 seconds
         Double postsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
 
             final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
@@ -303,7 +304,7 @@ public class RestRequestorTest {
         // Wait for the required amount of events to be received or for 10 seconds
         Double deletesSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
 
             final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
@@ -344,7 +345,7 @@ public class RestRequestorTest {
         // Wait for the required amount of events to be received or for 10 seconds
         Double getsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
+            await().atMost(100, TimeUnit.MILLISECONDS);
 
             final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                             .request("application/json").get();
@@ -365,8 +366,6 @@ public class RestRequestorTest {
         client.close();
 
         assertEquals(Double.valueOf(8.0), getsSoFar);
-
-        ThreadUtilities.sleep(1000);
     }
 
     /**
@@ -385,7 +384,7 @@ public class RestRequestorTest {
             { "src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json" };
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -413,7 +412,7 @@ public class RestRequestorTest {
             { "src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json" };
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
