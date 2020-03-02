@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +49,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
+@Getter
 public class StateFinalizerExecutionContext {
     /**
      * Logger for state finalizer execution, state finalizer logic can use this field to access and log to Apex logging.

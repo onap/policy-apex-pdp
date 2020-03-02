@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,6 @@ package org.onap.policy.apex.plugins.executor.javascript;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.script.Compilable;
-import javax.script.CompiledScript;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -45,9 +40,7 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavascriptStateFinalizerExecutor.class);
 
-    // Javascript engine
-    private ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-    private CompiledScript compiled = null;
+    private JavascriptExecutor javascriptExecutor;
 
     /**
      * Prepares the state finalizer for processing.
@@ -58,14 +51,8 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     public void prepare() throws StateMachineException {
         // Call generic prepare logic
         super.prepare();
-        try {
-            compiled = ((Compilable) engine).compile(getSubject().getLogic());
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: state finalizer logic failed to compile for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException("state finalizer logic failed to compile for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"", e);
-        }
+
+        javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
     }
 
     /**
@@ -84,25 +71,8 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
-        // Set up the Javascript engine
-        engine.put("executor", getExecutionContext());
-
-        // Check and execute the Javascript logic
-        try {
-            if (compiled == null) {
-                engine.eval(getSubject().getLogic());
-            } else {
-                compiled.eval(engine.getContext());
-            }
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException("state finalizer logic failed to run for state finalizer  \""
-                    + getSubject().getKey().getId() + "\"", e);
-        }
-
-        // Do the execution post work
-        executePost((boolean) engine.get("returnValue"));
+        // Execute the Javascript and do post processing
+        executePost(javascriptExecutor.execute(getExecutionContext(), getSubject().getLogic()));
 
         return getOutgoing();
     }
@@ -116,6 +86,7 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
-        engine = null;
+
+        javascriptExecutor.cleanUp();
     }
 }

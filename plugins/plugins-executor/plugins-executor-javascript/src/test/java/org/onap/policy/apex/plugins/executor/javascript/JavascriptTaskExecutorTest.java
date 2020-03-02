@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,26 +20,37 @@
 
 package org.onap.policy.apex.plugins.executor.javascript;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
+import org.onap.policy.apex.context.Distributor;
+import org.onap.policy.apex.context.impl.ContextAlbumImpl;
+import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
+import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
-import org.onap.policy.apex.context.parameters.DistributorParameters;
-import org.onap.policy.apex.context.parameters.LockManagerParameters;
-import org.onap.policy.apex.context.parameters.PersistorParameters;
+import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.basicmodel.service.ModelService;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
+import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test the JavaTaskExecutor class.
@@ -47,106 +58,147 @@ import org.onap.policy.common.parameters.ParameterService;
  */
 public class JavascriptTaskExecutorTest {
     /**
-     * Initiate Parameters.
+     * Set ups everything for the test.
      */
-    @Before
-    public void initiateParameters() {
-        ParameterService.register(new DistributorParameters());
-        ParameterService.register(new LockManagerParameters());
-        ParameterService.register(new PersistorParameters());
+    @BeforeClass
+    public static void prepareForTest() {
+        final ContextParameters contextParameters = new ContextParameters();
+        contextParameters.getLockManagerParameters()
+                .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
+
+        contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
+        contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
+        contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+
+        ParameterService.register(contextParameters);
+        ParameterService.register(contextParameters.getDistributorParameters());
+        ParameterService.register(contextParameters.getLockManagerParameters());
+        ParameterService.register(contextParameters.getPersistorParameters());
+
+        final SchemaParameters schemaParameters = new SchemaParameters();
+        schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
+
+        ParameterService.register(schemaParameters);
     }
 
     /**
-     * Clear Parameters.
+     * Clear down the test data.
      */
-    @After
-    public void clearParameters() {
+    @AfterClass
+    public static void cleanUpAfterTest() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        ParameterService.deregister(ContextParameterConstants.MAIN_GROUP_NAME);
+        ParameterService.clear();
     }
 
     @Test
-    public void testJavascriptTaskExecutor() {
+    public void testJavascriptTaskExecutor() throws Exception {
         JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
         assertNotNull(jte);
 
-        try {
+        assertThatThrownBy(() -> {
             jte.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals(java.lang.NullPointerException.class, jteException.getClass());
-        }
+        }).isInstanceOf(NullPointerException.class);
 
         AxTask task = new AxTask();
-        ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+        final ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
+
         jte.setContext(null, task, internalContext);
 
-        task.getTaskLogic().setLogic("return boolean");
-        try {
-            jte.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("task logic failed to compile for task  \"NULL:0.0.0\"", jteException.getMessage());
-        }
+        task.getTaskLogic().setLogic("return boolean;");
+        jte.prepare();
 
         Map<String, Object> incomingParameters2 = new HashMap<>();
-        try {
+        assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), incomingParameters2);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("task logic failed to run for task  \"NULL:0.0.0\"", jteException.getMessage());
-        }
+        }).hasMessage("execute: logic failed to run for \"NULL:0.0.0\"");
 
-        task.getTaskLogic().setLogic("java.lang.String");
+        task.getTaskLogic().setLogic("var x = 5;");
+        jte.prepare();
 
-        try {
-            jte.prepare();
-        } catch (Exception jteException) {
-            fail("test should not throw an exception here");
-        }
-
-        try {
+        assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), null);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals(java.lang.NullPointerException.class, jteException.getClass());
-        }
+        }).isInstanceOf(NullPointerException.class);
 
         Map<String, Object> incomingParameters = new HashMap<>();
-        try {
+        assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), incomingParameters);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("execute: task logic failed to set a return value for task  \"NULL:0.0.0\"",
-                    jteException.getMessage());
-        }
+        }).hasMessage("execute: logic failed to set a return value for \"NULL:0.0.0\"");
 
-        task.getTaskLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\r\n"
+        task.getTaskLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\n"
                 + "var returnValue = new returnValueType(false); ");
-        try {
+
+        assertThatThrownBy(() -> {
             jte.prepare();
             jte.execute(-1, new Properties(), incomingParameters);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
-                    jteException.getMessage());
-        }
+        }).hasMessage("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0");
 
         task.getTaskLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\r\n"
                 + "var returnValue = new returnValueType(true); ");
-        try {
+
+        jte.prepare();
+        Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
+        assertEquals(0, returnMap.size());
+        jte.cleanUp();
+    }
+
+    @Test
+    public void testJavascriptTaskExecutorLogic() throws Exception {
+        JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
+        assertNotNull(jte);
+
+        assertThatThrownBy(() -> {
             jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
-            assertEquals(0, returnMap.size());
-            jte.cleanUp();
-        } catch (Exception jteException) {
-            fail("test should not throw an exception here");
-        }
+        }).isInstanceOf(NullPointerException.class);
+
+        AxTask task = new AxTask(new AxArtifactKey("TestTask:0.0.1"));
+
+        ContextAlbum contextAlbum = createTestContextAlbum();
+
+        final ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
+        internalContext.getContextAlbums().put(contextAlbum.getKey(), contextAlbum);
+
+        task.getContextAlbumReferences().add(contextAlbum.getKey());
+        task.getOutputFields().put("par0", null);
+        task.getOutputFields().put("par1", null);
+
+        jte.setContext(null, task, internalContext);
+
+        Map<String, Object> incomingParameters = new HashMap<>();
+        incomingParameters.put("par0", "value0");
+
+        task.getTaskLogic().setLogic(TextFileUtils.getTextFileAsString("src/test/resources/javascript/TestLogic00.js"));
+
+        jte.prepare();
+        jte.execute(-1, new Properties(), incomingParameters);
+
+        task.getTaskLogic().setLogic(TextFileUtils.getTextFileAsString("src/test/resources/javascript/TestLogic01.js"));
+        jte.prepare();
+
+        Map<String, Object> outcomingParameters = jte.execute(-1, new Properties(), incomingParameters);
+
+        assertEquals("returnVal0", outcomingParameters.get("par0"));
+        assertEquals("returnVal1", outcomingParameters.get("par1"));
+    }
+
+    private ContextAlbum createTestContextAlbum() throws ContextException {
+        AxContextSchemas schemas = new AxContextSchemas();
+        AxContextSchema simpleStringSchema =
+                new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"), "JAVA", "java.lang.String");
+        schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
+        ModelService.registerModel(AxContextSchemas.class, schemas);
+
+        AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
+                true, AxArtifactKey.getNullKey());
+
+        axContextAlbum.setItemSchema(simpleStringSchema.getKey());
+        Distributor distributor = new JvmLocalDistributor();
+        distributor.init(axContextAlbum.getKey());
+        return new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
     }
 }

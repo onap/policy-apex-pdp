@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,6 @@ package org.onap.policy.apex.plugins.executor.javascript;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.script.Compilable;
-import javax.script.CompiledScript;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -45,9 +40,7 @@ public class JavascriptTaskExecutor extends TaskExecutor {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavascriptTaskExecutor.class);
 
-    // Javascript engine
-    private ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-    private CompiledScript compiled = null;
+    private JavascriptExecutor javascriptExecutor;
 
     /**
      * Prepares the task for processing.
@@ -58,13 +51,8 @@ public class JavascriptTaskExecutor extends TaskExecutor {
     public void prepare() throws StateMachineException {
         // Call generic prepare logic
         super.prepare();
-        try {
-            compiled = ((Compilable) engine).compile(getSubject().getTaskLogic().getLogic());
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: task logic failed to compile for task  \"" + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException(
-                    "task logic failed to compile for task  \"" + getSubject().getKey().getId() + "\"", e);
-        }
+
+        javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
     }
 
     /**
@@ -83,32 +71,8 @@ public class JavascriptTaskExecutor extends TaskExecutor {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
-        // Set up the Javascript engine
-        engine.put("executor", getExecutionContext());
-
-        // Check and execute the Javascript logic
-        try {
-            if (compiled == null) {
-                engine.eval(getSubject().getTaskLogic().getLogic());
-            } else {
-                compiled.eval(engine.getContext());
-            }
-        } catch (final ScriptException e) {
-            LOGGER.error("execute: task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"");
-            throw new StateMachineException(
-                    "task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"", e);
-        }
-
-        final Object ret = engine.get("returnValue");
-        if (ret == null) {
-            LOGGER.error("execute: task logic failed to set a return value for task  \"" + getSubject().getKey().getId()
-                    + "\"");
-            throw new StateMachineException("execute: task logic failed to set a return value for task  \""
-                    + getSubject().getKey().getId() + "\"");
-        }
-
-        // Do the execution post work
-        executePost((Boolean) ret);
+        // Execute the Javascript and do post processing
+        executePost(javascriptExecutor.execute(getExecutionContext(), getSubject().getTaskLogic().getLogic()));
 
         return getOutgoing();
     }
@@ -122,6 +86,7 @@ public class JavascriptTaskExecutor extends TaskExecutor {
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogicFlavour()
                 + "," + getSubject().getTaskLogic().getLogic());
-        engine = null;
+
+        javascriptExecutor.cleanUp();
     }
 }
