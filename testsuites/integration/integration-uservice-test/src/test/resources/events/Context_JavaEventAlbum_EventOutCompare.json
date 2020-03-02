@@ -31,7 +31,7 @@
             "second": 48,
             "milliSecond": 391
         },
-        "timeZoneString": "Greenwich Mean Time",
+        "tzValue": "Greenwich Mean Time",
         "dst": true
     },
     "CustomDate2": {
@@ -45,7 +45,7 @@
             "second": 48,
             "milliSecond": 391
         },
-        "timeZoneString": "Greenwich Mean Time",
+        "tzValue": "Greenwich Mean Time",
         "dst": false,
         "utcOffset": 0,
         "locale": "en"
@@ -60,10 +60,10 @@
         "intValue": -9876542
     },
     "CustomJLong": {
-        "longValue": 9223372036854775807
+        "longValue": -9223372036854775808
     },
     "CustomLong": {
-        "longValue": 9223372036854775807
+        "longValue": -9223372036854775808
     },
     "CustomMap": {
         "mapValue": {

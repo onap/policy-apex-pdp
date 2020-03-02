@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem005.
+ * The Class TestContextDoubleItem.
  */
+@Data
 public class TestContextDoubleItem implements Serializable {
     private static final long serialVersionUID = -2958758261076734821L;
-
-    private static final int HASH_PRIME_1 = 31;
-    private static final int FOUR_BYTES = 32;
 
     private double doubleValue = 0;
 
@@ -50,60 +50,7 @@ public class TestContextDoubleItem implements Serializable {
         this.doubleValue = doubleValue;
     }
 
-    /**
-     * Gets the double value.
-     *
-     * @return the double value
-     */
-    public double getDoubleValue() {
-        return doubleValue;
-    }
-
-    /**
-     * Sets the double value.
-     *
-     * @param doubleValue the double value
-     */
-    public void setDoubleValue(final double doubleValue) {
-        this.doubleValue = doubleValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(doubleValue);
-        result = prime * result + (int) (temp ^ (temp >>> FOUR_BYTES));
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextDoubleItem other = (TestContextDoubleItem) obj;
-        return Double.doubleToLongBits(doubleValue) == Double.doubleToLongBits(other.doubleValue);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem005 [doubleValue=" + doubleValue + "]";
+    public Double getIncrementedDoubleValue() {
+        return doubleValue + 1;
     }
 }

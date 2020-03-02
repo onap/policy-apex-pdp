@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem007.
+ * The Class TestContextLongObjectItem.
  */
+@Data
 public class TestContextLongObjectItem implements Serializable {
     private static final long serialVersionUID = -1029406737866392421L;
-
-    private static final int HASH_PRIME_1 = 31;
 
     private Long longValue = 0L;
 
@@ -49,65 +50,7 @@ public class TestContextLongObjectItem implements Serializable {
         this.longValue = longValue;
     }
 
-    /**
-     * Gets the long value.
-     *
-     * @return the long value
-     */
-    public Long getLongValue() {
-        return longValue;
-    }
-
-    /**
-     * Sets the long value.
-     *
-     * @param longValue the long value
-     */
-    public void setLongValue(final Long longValue) {
-        this.longValue = longValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + ((longValue == null) ? 0 : longValue.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextLongObjectItem other = (TestContextLongObjectItem) obj;
-        if (longValue == null) {
-            if (other.longValue != null) {
-                return false;
-            }
-        } else if (!longValue.equals(other.longValue)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem007 [longValue=" + longValue + "]";
+    public Long getIncrementedLongValue() {
+        return longValue + 1;
     }
 }

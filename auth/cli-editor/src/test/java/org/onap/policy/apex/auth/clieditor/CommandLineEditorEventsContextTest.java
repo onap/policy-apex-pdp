@@ -84,8 +84,8 @@ public class CommandLineEditorEventsContextTest {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(25962, logCharCount);
-        assertEquals(46189, modelCharCount);
+        assertEquals(25943, logCharCount);
+        assertEquals(46162, modelCharCount);
     }
 
     /**
@@ -114,8 +114,8 @@ public class CommandLineEditorEventsContextTest {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(30407, logCharCount);
-        assertEquals(53022, modelCharCount);
+        assertEquals(30162, logCharCount);
+        assertEquals(52757, modelCharCount);
 
     }
 

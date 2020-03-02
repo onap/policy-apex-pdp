@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,7 +53,7 @@ LE
 
 schema create name=AvroFloat_type flavour=Avro schema=LS
 {
-  "type" : "float"
+  "type" : "double"
 }
 LE
 
@@ -423,18 +424,16 @@ task contextref create name=Test_Task albumName=CustomSetAlbum
 task contextref create name=Test_Task albumName=CustomMapAlbum
 
 task logic create name=Test_Task logicFlavour=JAVASCRIPT logic=LS
-executor.logger.debug(executor.subject.id);
+executor.logger.debug(executor.getSubject().getId());
 
-executor.logger.debug(executor.inFields);
-
-executor.getContextAlbum("AvroBooleanAlbum"  ).put("AvroBoolean"  , executor.inFields.get("AvroBoolean"));
-executor.getContextAlbum("AvroByteAlbum"     ).put("AvroByte"     , executor.inFields.get("AvroByte"   ));
-executor.getContextAlbum("AvroShortAlbum"    ).put("AvroShort"    , executor.inFields.get("AvroShort"  ));
-executor.getContextAlbum("AvroIntegerAlbum"  ).put("AvroInteger"  , executor.inFields.get("AvroInteger"));
-executor.getContextAlbum("AvroLongAlbum"     ).put("AvroLong"     , executor.inFields.get("AvroLong"   ));
-executor.getContextAlbum("AvroFloatAlbum"    ).put("AvroFloat"    , executor.inFields.get("AvroFloat"  ));
-executor.getContextAlbum("AvroDoubleAlbum"   ).put("AvroDouble"   , executor.inFields.get("AvroDouble" ));
-executor.getContextAlbum("AvroStringAlbum"   ).put("AvroString"   , executor.inFields.get("AvroString" ));
+executor.getContextAlbum("AvroBooleanAlbum"  ).put("AvroBoolean"  , executor.inFields.get("AvroBoolean"  ));
+executor.getContextAlbum("AvroByteAlbum"     ).put("AvroByte"     , executor.inFields.get("AvroByte"     ));
+executor.getContextAlbum("AvroShortAlbum"    ).put("AvroShort"    , executor.inFields.get("AvroShort"    ));
+executor.getContextAlbum("AvroIntegerAlbum"  ).put("AvroInteger"  , executor.inFields.get("AvroInteger"  ));
+executor.getContextAlbum("AvroLongAlbum"     ).put("AvroLong"     , executor.inFields.get("AvroLong"     ));
+executor.getContextAlbum("AvroFloatAlbum"    ).put("AvroFloat"    , executor.inFields.get("AvroFloat"    ));
+executor.getContextAlbum("AvroDoubleAlbum"   ).put("AvroDouble"   , executor.inFields.get("AvroDouble"   ));
+executor.getContextAlbum("AvroStringAlbum"   ).put("AvroString"   , executor.inFields.get("AvroString"   ));
 executor.getContextAlbum("AvroMapAlbum"      ).put("AvroMap"      , executor.inFields.get("AvroMap"      ));
 executor.getContextAlbum("AvroArrayAlbum"    ).put("AvroArray"    , executor.inFields.get("AvroArray"    ));
 executor.getContextAlbum("CustomBooleanAlbum").put("CustomBoolean", executor.inFields.get("CustomBoolean"));
@@ -488,11 +487,8 @@ avroString     = avroString + " added to end of string";
 customBoolean.put("flag",       !customBoolean.get("flag"));
 customByte   .put("byteValue"  , customByte   .get("byteValue"  ) + 1);
 customInteger.put("intValue"   , customInteger.get("intValue"   ) + 1);
-customLong   .put("longValue"  , new javaLongType (customLong .get("longValue" ) + 1));
-customFloat  .put("floatValue" , new javaFloatType(customFloat.get("floatValue") + 1.0));
 customDouble .put("doubleValue", customDouble .get("doubleValue") + 1.0);
 customString .put("stringValue", customString .get("stringValue") + " added to end of string");
-customALong  .put("longValue"  , new javaLongType (customALong.get("longValue" ) + 1));
 
 customDate0.put("year",  1922);
 customDate0.put("month", 12);
@@ -554,8 +550,6 @@ executor.outFields.put("CustomDate1"  , executor.getContextAlbum("CustomDate1Alb
 executor.outFields.put("CustomDate2"  , executor.getContextAlbum("CustomDate2Album"  ).get("CustomDate2"  ));
 executor.outFields.put("CustomSet"    , executor.getContextAlbum("CustomSetAlbum"    ).get("CustomSet"    ));
 executor.outFields.put("CustomMap"    , executor.getContextAlbum("CustomMapAlbum"    ).get("CustomMap"    ));
-
-executor.logger.debug(executor.outFields);
 
 var returnValueType = Java.type("java.lang.Boolean");
 var returnValue = new returnValueType(true);

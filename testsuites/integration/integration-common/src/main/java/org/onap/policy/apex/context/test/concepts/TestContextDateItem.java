@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem008.
+ * The Class TestContextDateItem.
  */
+@Data
 public class TestContextDateItem implements Serializable {
     private static final long serialVersionUID = -6984963129968805460L;
-
-    private static final int HASH_PRIME_1 = 31;
-    private static final int FOUR_BYTES = 32;
 
     private long time;
 
@@ -60,8 +60,7 @@ public class TestContextDateItem implements Serializable {
     public TestContextDateItem(final Date dateValue) {
         if (dateValue != null) {
             setDateValue(dateValue.getTime());
-        }
-        else {
+        } else {
             new Date(0);
         }
     }
@@ -73,78 +72,6 @@ public class TestContextDateItem implements Serializable {
      */
     public TestContextDateItem(final long time) {
         setDateValue(time);
-    }
-
-    /**
-     * Gets the time.
-     *
-     * @return the time
-     */
-    public long getTime() {
-        return time;
-    }
-
-    /**
-     * Gets the year.
-     *
-     * @return the year
-     */
-    public int getYear() {
-        return year;
-    }
-
-    /**
-     * Gets the month.
-     *
-     * @return the month
-     */
-    public int getMonth() {
-        return month;
-    }
-
-    /**
-     * Gets the day.
-     *
-     * @return the day
-     */
-    public int getDay() {
-        return day;
-    }
-
-    /**
-     * Gets the hour.
-     *
-     * @return the hour
-     */
-    public int getHour() {
-        return hour;
-    }
-
-    /**
-     * Gets the minute.
-     *
-     * @return the minute
-     */
-    public int getMinute() {
-        return minute;
-    }
-
-    /**
-     * Gets the second.
-     *
-     * @return the second
-     */
-    public int getSecond() {
-        return second;
-    }
-
-    /**
-     * Gets the milli second.
-     *
-     * @return the milli second
-     */
-    public int getMilliSecond() {
-        return milliSecond;
     }
 
     /**
@@ -186,51 +113,5 @@ public class TestContextDateItem implements Serializable {
         minute = calendar.get(Calendar.MINUTE);
         second = calendar.get(Calendar.SECOND);
         milliSecond = calendar.get(Calendar.MILLISECOND);
-    }
-
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + day;
-        result = prime * result + hour;
-        result = prime * result + milliSecond;
-        result = prime * result + minute;
-        result = prime * result + month;
-        result = prime * result + second;
-        result = prime * result + (int) (time ^ (time >>> FOUR_BYTES));
-        result = prime * result + year;
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextDateItem other = (TestContextDateItem) obj;
-        return time == other.time;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem008 [time=" + time + ", year=" + year + ", month=" + month + ", day=" + day + ", hour="
-                + hour + ", minute=" + minute + ", second=" + second + ", milliSecond=" + milliSecond + "]";
     }
 }

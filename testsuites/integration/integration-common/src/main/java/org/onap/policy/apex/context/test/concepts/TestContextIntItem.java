@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem002.
+ * The Class TestContextIntItem.
  */
+@Data
 public class TestContextIntItem implements Serializable {
     private static final long serialVersionUID = -8978435658277900984L;
-
-    private static final int HASH_PRIME_1 = 31;
 
     private int intValue = 0;
 
@@ -58,58 +59,7 @@ public class TestContextIntItem implements Serializable {
         this.intValue = original.intValue;
     }
 
-    /**
-     * Gets the int value.
-     *
-     * @return the int value
-     */
-    public int getIntValue() {
-        return intValue;
-    }
-
-    /**
-     * Sets the int value.
-     *
-     * @param intValue the int value
-     */
-    public void setIntValue(final int intValue) {
-        this.intValue = intValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + intValue;
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextIntItem other = (TestContextIntItem) obj;
-        return intValue == other.intValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem002 [intValue=" + intValue + "]";
+    public Integer getIncrementedIntValue() {
+        return intValue + 1;
     }
 }

@@ -21,8 +21,6 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
@@ -33,12 +31,10 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
-import org.onap.policy.apex.service.engine.event.PeeredReference;
-import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
+import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
-import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,14 +73,14 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
 
         // Check if the HTTP method has been set
         if (restProducerProperties.getHttpMethod() == null) {
-            restProducerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
+            restProducerProperties.setHttpMethod(RestPluginCarrierTechnologyParameters.HttpMethod.POST);
         }
 
-        if (!RestClientCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())
-                && !RestClientCarrierTechnologyParameters.HttpMethod.PUT
+        if (!RestPluginCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())
+                && !RestPluginCarrierTechnologyParameters.HttpMethod.PUT
                         .equals(restProducerProperties.getHttpMethod())) {
             final String errorMessage = "specified HTTP method of \"" + restProducerProperties.getHttpMethod()
-                    + "\" is invalid, only HTTP methods \"POST\" and \"PUT\" are supproted "
+                    + "\" is invalid, only HTTP methods \"POST\" and \"PUT\" are supported "
                     + "for event sending on REST client producer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
@@ -97,6 +93,7 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
     /**
      * {@inheritDoc}.
      */
+    @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
             final Object event) {
         super.sendEvent(executionId, executionProperties, eventName, event);
@@ -106,15 +103,17 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
             Set<String> names = restProducerProperties.getKeysFromUrl();
             Set<String> inputProperty = executionProperties.stringPropertyNames();
 
+            // @formatter:off
             names.stream().map(Optional::of).forEach(op ->
                 op.filter(inputProperty::contains)
                     .orElseThrow(() -> new ApexEventRuntimeException(
-                        "key\"" + op.get() + "\"specified on url \"" + restProducerProperties.getUrl()
-                        + "\"not found in execution properties passed by the current policy"))
+                        "key \"" + op.get() + "\" specified on url \"" + restProducerProperties.getUrl()
+                        + "\" not found in execution properties passed by the current policy"))
             );
 
             untaggedUrl = names.stream().reduce(untaggedUrl,
                 (acc, str) -> acc.replace("{" + str + "}", (String) executionProperties.get(str)));
+            // @formatter:on
         }
 
         // Send the event as a REST request
@@ -131,7 +130,7 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
 
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("event sent from engine using {} to URL {} with HTTP {} : {} and response {} ", this.name,
-                untaggedUrl, restProducerProperties.getHttpMethod(), event, response);
+                    untaggedUrl, restProducerProperties.getHttpMethod(), event, response);
         }
     }
 
@@ -152,7 +151,7 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
      */
     private Response sendEventAsRestRequest(final String untaggedUrl, final String event) {
         // We have already checked that it is a PUT or POST request
-        if (RestClientCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())) {
+        if (RestPluginCarrierTechnologyParameters.HttpMethod.POST.equals(restProducerProperties.getHttpMethod())) {
             return client.target(untaggedUrl).request("application/json")
                     .headers(restProducerProperties.getHttpHeadersAsMultivaluedMap()).post(Entity.json(event));
         } else {

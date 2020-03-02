@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2019 Nordix Foundation.
+#  Copyright (C) 2019-2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,7 +47,6 @@ task logic create name=TaskTagUrl logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/TaskTagUrl.js"
 LE
 
-
 policy create name=Policy2 template=freestyle firstState=Junit
 
 policy state create name=Policy2 stateName=Decide triggerName=Event0201 defaultTaskName=TaskTagUrl
@@ -58,7 +57,4 @@ policy state create name=Policy2 stateName=Junit triggerName=Event0200 defaultTa
 policy state output create name=Policy2 stateName=Junit  outputName=HttpCodeOut eventName=Event0201 nextState=Decide
 policy state taskref create name=Policy2 stateName=Junit taskLocalName=check taskName=TaskFetchHttpCode outputType=DIRECT outputName=HttpCodeOut
 
-
-
 validate
-
