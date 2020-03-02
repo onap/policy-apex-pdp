@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,16 @@ package org.onap.policy.apex.client.deployment.rest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.awaitility.Awaitility.await;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
 /**
  * Test the periodic event manager utility.
@@ -193,10 +195,10 @@ public class DeploymentRestMainTest {
 
         assertThatCode(() -> {
             monThread.start();
-            ThreadUtilities.sleep(2000);
+            await().atMost(2, TimeUnit.SECONDS).until(
+                    () -> monRestMain.getState().equals(ApexDeploymentRestMain.ServicesState.INITIALIZING));
             monRestMain.shutdown();
         }).doesNotThrowAnyException();
-
     }
 
     @After

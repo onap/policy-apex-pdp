@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.client.monitoring.rest;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -27,9 +29,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 
 /**
  * Test the periodic event manager utility.
@@ -231,7 +233,8 @@ public class MonitoringRestMainTest {
 
         try {
             monThread.start();
-            ThreadUtilities.sleep(2000);
+            await().atMost(6, TimeUnit.SECONDS).until(
+                    () -> monRestMain.getState().equals(ApexMonitoringRestMain.ServicesState.RUNNING));
             monRestMain.shutdown();
         } catch (Exception ex) {
             fail("test should not throw an exception");
