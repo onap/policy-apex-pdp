@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import ch.qos.logback.classic.Level;
-
 import java.util.Properties;
 
 import javax.ws.rs.client.Client;
@@ -46,6 +44,8 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParamete
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Level;
 
 /**
  * Test the ApexRestClientProducer class.
@@ -77,8 +77,8 @@ public class ApexRestClientProducerTest {
             fail("test should throw an exception here");
         } catch (ApexEventException e) {
             assertEquals(
-                "specified producer properties are not applicable to REST client producer (RestClientProducer)",
-                e.getMessage());
+                    "specified producer properties are not applicable to REST client producer (RestClientProducer)",
+                    e.getMessage());
         }
 
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
@@ -89,8 +89,10 @@ public class ApexRestClientProducerTest {
             assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
             fail("test should throw an exception here");
         } catch (ApexEventException e) {
-            assertEquals("specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
-                + "are supproted for event sending on REST client producer (RestClientConsumer)", e.getMessage());
+            assertEquals(
+                    "specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
+                            + "are supported for event sending on REST client producer (RestClientConsumer)",
+                    e.getMessage());
         }
 
         rcctp.setHttpMethod(null);
@@ -108,7 +110,6 @@ public class ApexRestClientProducerTest {
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
         assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         arcp.stop();
-
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
         arcp.init("RestClientConsumer", producerParameters);
@@ -171,7 +172,7 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
-        //test property not found
+        // test property not found
         rcctp.setUrl("http://some.place2.that.{key}.not/{tag}and.again.{tag}");
         Properties properties = new Properties();
         properties.put("tag", "exist");
@@ -180,11 +181,9 @@ public class ApexRestClientProducerTest {
             arcp.stop();
             fail("test should throw an exception");
         } catch (Exception e) {
-            assertEquals(
-                    "key\"key\"specified on url "
-                            + "\"http://some.place2.that.{key}.not/{tag}and.again.{tag}\"not found "
-                            + "in execution properties passed by the current policy",
-                    e.getMessage());
+            assertEquals("key \"key\" specified on url "
+                    + "\"http://some.place2.that.{key}.not/{tag}and.again.{tag}\" not found "
+                    + "in execution properties passed by the current policy", e.getMessage());
         }
     }
 
@@ -234,8 +233,8 @@ public class ApexRestClientProducerTest {
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
 
         ApexEventConsumer consumer = new ApexFileEventConsumer();
-        SynchronousEventCache cache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, arcp,
-            1000);
+        SynchronousEventCache cache =
+                new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, arcp, 1000);
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
         assertEquals(cache, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         arcp.init("RestClientConsumer", producerParameters);
@@ -271,8 +270,8 @@ public class ApexRestClientProducerTest {
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
 
         ApexEventConsumer consumer = new ApexFileEventConsumer();
-        SynchronousEventCache cache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, arcp,
-            1000);
+        SynchronousEventCache cache =
+                new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, arcp, 1000);
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
         assertEquals(cache, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         arcp.init("RestClientConsumer", producerParameters);
@@ -320,9 +319,9 @@ public class ApexRestClientProducerTest {
             fail("test should throw an exception here");
         } catch (Exception e) {
             assertEquals(
-                "send of event to URL \"http://some.place.that.does.not/exist\" using HTTP \"POST\" "
-                    + "failed with status code 400 and message \"null\", event:\n" + "This is an Event",
-                e.getMessage());
+                    "send of event to URL \"http://some.place.that.does.not/exist\" using HTTP \"POST\" "
+                            + "failed with status code 400 and message \"null\", event:\n" + "This is an Event",
+                    e.getMessage());
         }
     }
 }

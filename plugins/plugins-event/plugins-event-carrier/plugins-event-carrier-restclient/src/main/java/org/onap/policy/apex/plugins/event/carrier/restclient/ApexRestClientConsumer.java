@@ -22,9 +22,9 @@
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import java.util.Properties;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -35,6 +35,7 @@ import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventConsumer;
+import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,10 +87,10 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
 
         // Check if the HTTP method has been set
         if (restConsumerProperties.getHttpMethod() == null) {
-            restConsumerProperties.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.GET);
+            restConsumerProperties.setHttpMethod(RestPluginCarrierTechnologyParameters.HttpMethod.GET);
         }
 
-        if (!RestClientCarrierTechnologyParameters.HttpMethod.GET.equals(restConsumerProperties.getHttpMethod())) {
+        if (!RestPluginCarrierTechnologyParameters.HttpMethod.GET.equals(restConsumerProperties.getHttpMethod())) {
             final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
                     + "\" is invalid, only HTTP method \"GET\" "
                     + "is supported for event reception on REST client consumer (" + this.name + ")";

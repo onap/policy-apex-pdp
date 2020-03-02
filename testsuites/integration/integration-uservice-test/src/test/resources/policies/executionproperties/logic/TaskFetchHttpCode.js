@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,15 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.subject.id);
-executor.logger.info(executor.inFields);
+executor.logger.info(executor.getSubject().getId());
 
-executor.logger.info(executor.outFields);
+executor.logger.info("executionProperties: " + executor.getExecutionProperties());
 
-executor.logger.info("executionProperties:" + executor.getExecutionProperties());
-
-if (executor.getExecutionProperties() == "{HTTP_CODE_STATUS=500}" )
+if (executor.getExecutionProperties().get("HTTP_CODE_STATUS") == "500")
     executor.outFields.put("testToRun", "CodeFilterSet");
 else
     executor.outFields.put("testToRun", "CodeFilterDefault");
+
+executor.logger.info("testToRun: " + executor.outFields.get("testToRun"));
 
 var returnValue = executor.isTrue;

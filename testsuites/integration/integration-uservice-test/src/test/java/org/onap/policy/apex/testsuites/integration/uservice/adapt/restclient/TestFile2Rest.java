@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -71,8 +72,8 @@ public class TestFile2Rest {
      */
     @BeforeClass
     public static void setUp() throws Exception {
-        server = HttpServletServerFactoryInstance.getServerFactory().build(
-            "TestFile2Rest", false, null, PORT, "/TestFile2Rest", false, false);
+        server = HttpServletServerFactoryInstance.getServerFactory().build("TestFile2Rest", false, null, PORT,
+                "/TestFile2Rest", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -115,8 +116,14 @@ public class TestFile2Rest {
     public void testFileEventsPost() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPost.json" };
+        // @formatter:off
+        final String[] args = {
+            "-rfr",
+            "target",
+            "-c",
+            "target/examples/config/SampleDomain/File2RESTJsonEventPost.json"
+        };
+        // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
 
         Response response = null;
@@ -125,7 +132,7 @@ public class TestFile2Rest {
         for (int i = 0; i < 100; i++) {
             ThreadUtilities.sleep(100);
             response = client.target("http://localhost:32801/TestFile2Rest/apex/event/Stats")
-                            .request("application/json").get();
+                    .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -154,8 +161,14 @@ public class TestFile2Rest {
      */
     @Test
     public void testFileEventsPut() throws MessagingException, ApexException, IOException {
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2RESTJsonEventPut.json" };
+        // @formatter:off
+        final String[] args = {
+            "-rfr",
+            "target",
+            "-c",
+            "target/examples/config/SampleDomain/File2RESTJsonEventPut.json"
+        };
+        // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
@@ -166,7 +179,7 @@ public class TestFile2Rest {
         for (int i = 0; i < 20; i++) {
             ThreadUtilities.sleep(300);
             response = client.target("http://localhost:32801/TestFile2Rest/apex/event/Stats")
-                            .request("application/json").get();
+                    .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -198,8 +211,7 @@ public class TestFile2Rest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventNoURL.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventNoURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(200);
@@ -211,7 +223,7 @@ public class TestFile2Rest {
         System.setErr(stderr);
 
         LOGGER.info("NoUrl-OUTSTRING=\n" + outString + "\nEnd-NoUrl");
-        assertTrue(outString.contains(" no URL has been set for event sending on REST client"));
+        assertTrue(outString.contains(" no URL has been set for event sending on RESTCLIENT"));
     }
 
     /**
@@ -226,8 +238,7 @@ public class TestFile2Rest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventBadURL.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(2000);
@@ -240,7 +251,7 @@ public class TestFile2Rest {
 
         LOGGER.info("BadUrl-OUTSTRING=\n" + outString + "\nEnd-BadUrl");
         assertTrue(outString.contains(
-                        "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/Bad\" using HTTP \"POST\" failed with status code 404"));
+                "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/Bad\" using HTTP \"POST\" failed with status code 404"));
     }
 
     /**
@@ -255,8 +266,7 @@ public class TestFile2Rest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventBadHTTPMethod.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadHTTPMethod.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(200);
@@ -268,9 +278,9 @@ public class TestFile2Rest {
         System.setErr(stderr);
 
         LOGGER.info("BadHttpMethod-OUTSTRING=\n" + outString + "\nEnd-BadHttpMethod");
-        assertTrue(outString.contains(
-                        "specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
-                                        + "are supproted for event sending on REST client producer"));
+        assertTrue(outString
+                .contains("specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
+                        + "are supported for event sending on REST client producer"));
     }
 
     /**
@@ -285,8 +295,7 @@ public class TestFile2Rest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTJsonEventPostBadResponse.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventPostBadResponse.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(2000);
@@ -299,7 +308,7 @@ public class TestFile2Rest {
 
         LOGGER.info("BadResponse-OUTSTRING=\n" + outString + "\nEnd-BadResponse");
         assertTrue(outString.contains(
-                        "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\""
-                                        + " using HTTP \"POST\" failed with status code 400"));
+                "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\""
+                        + " using HTTP \"POST\" failed with status code 400"));
     }
 }
