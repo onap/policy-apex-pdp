@@ -46,6 +46,30 @@
       "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e9ce74e_157db1d7",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-02T09:48:19Z",
+      "side": 1,
+      "message": "Yes, please use awaitability.",
+      "parentUuid": "358fcab1_2e586668",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
