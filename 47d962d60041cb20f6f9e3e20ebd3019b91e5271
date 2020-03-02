@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85b254ca_a0f4eaac",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/ApexEditorStartupTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "might be safer to make it a couple of seconds, just in case of glitches in processor scheduling\n\nsame comment in other places",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d34474fe_cf93d5a7",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/RestInterfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "put the \"while\" conditions and body into a single method that \"await()\" can reference to determine when it\u0027s done\n\nsame comment below",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2e6116a_79462103",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DeploymentClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "anything we can wait on here?",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44f30407_caf13163",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "turn this into a waited-condition instead of while/sleep",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a8ff1e7_d0912a88",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/messaging/StringTestServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "probably better to turn this whole for/await into a single sleep.  However, as sonar doesn\u0027t like sleep, use a CountDownLatch, which will not tie up the processor while waiting (whereas \"await\" will, though not much)",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1cb0b90_7b18972c",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "this will result in a tight loop spewing debug messages - still need some sort of \"sleep\" here, though I\u0027m wondering the real value of this loop.  Why not simply create a CountDownLatch and await() forever on it?  When the thread is interrupted, the await() will be interrupted",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0ba3556_7c7d76eb",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AutoLearnTslUseCaseTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "what\u0027s the purpose of this? anything we can wait on?",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef36ec1d_f4edd15c",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestApexActionListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "if this isn\u0027t needed, then remove it\n\nsame comment in other files",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b38d22ad_823735bc",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T14:34:58Z",
+      "side": 1,
+      "message": "is there a condition that can be checked?\n\nsame comment below and in subsequent files",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
