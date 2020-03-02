@@ -158,7 +158,7 @@ public class ContextInstantiation {
 
         assertEquals(LONG_VAL, contextItem.getTestPolicyContextItem001().getLongValue());
         assertDouble(contextItem.getTestPolicyContextItem002().getDoubleValue(), PI_VAL);
-        assertTrue(contextItem.getTestPolicyContextItem003().getFlag());
+        assertTrue(contextItem.getTestPolicyContextItem003().isFlag());
         assertEquals(contextItem.getTestPolicyContextItem004().getLongValue(), testDate.getTime());
         assertEquals(TEST_HASH_MAP, contextItem.getTestPolicyContextItem005().getMapValue());
 
@@ -174,7 +174,7 @@ public class ContextInstantiation {
         final TestGlobalContextItem globalContextItem =
                 (TestGlobalContextItem) globalContextAlbum.get(GLOBAL_CONTEXT_KEY);
 
-        assertFalse(globalContextItem.getTestGlobalContextItem000().getFlag());
+        assertFalse(globalContextItem.getTestGlobalContextItem000().isFlag());
 
         assertEquals(BYTE_VAL, globalContextItem.getTestGlobalContextItem001().getByteValue());
 
@@ -220,7 +220,7 @@ public class ContextInstantiation {
         TestExternalContextItem externalContextItem =
                 (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
 
-        assertFalse(externalContextItem.getTestExternalContextItem000().getFlag());
+        assertFalse(externalContextItem.getTestExternalContextItem000().isFlag());
         assertEquals(BYTE_VAL, externalContextItem.getTestExternalContextItem001().getByteValue());
         assertEquals(INT_VAL, externalContextItem.getTestExternalContextItem002().getIntValue());
 

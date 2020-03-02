@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,18 +25,17 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem00A.
+ * The Class TestContextDateLocaleItem.
  */
+@Data
 public class TestContextDateLocaleItem implements Serializable {
     private static final long serialVersionUID = -6579903685538233754L;
 
-    private static final int HASH_PRIME_1 = 31;
-    private static final int HASH_PRIME_2 = 1231;
-    private static final int HASH_PRIME_3 = 1237;
-
     private TestContextDateItem dateValue = new TestContextDateItem(System.currentTimeMillis());
-    private String timeZoneString = TimeZone.getTimeZone("Europe/Dublin").getDisplayName();
+    private String tzValue = TimeZone.getTimeZone("Europe/Dublin").getDisplayName();
     private boolean dst = false;
     private int utcOffset = 0;
     private Locale locale = Locale.ENGLISH;
@@ -58,9 +57,9 @@ public class TestContextDateLocaleItem implements Serializable {
      * @param country the country
      */
     public TestContextDateLocaleItem(final TestContextDateItem dateValue, final String tzValue, final boolean dst,
-                    final int utcOffset, final String language, final String country) {
+            final int utcOffset, final String language, final String country) {
         this.dateValue = dateValue;
-        this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+        this.tzValue = TimeZone.getTimeZone(tzValue).getDisplayName();
         this.dst = dst;
         this.utcOffset = utcOffset;
 
@@ -74,38 +73,11 @@ public class TestContextDateLocaleItem implements Serializable {
      */
     public TestContextDateLocaleItem(final TestContextDateLocaleItem original) {
         this.dateValue = original.dateValue;
-        this.timeZoneString = TimeZone.getTimeZone(original.timeZoneString).getDisplayName();
+        this.tzValue = TimeZone.getTimeZone(original.tzValue).getDisplayName();
         this.dst = original.dst;
         this.utcOffset = original.utcOffset;
 
         this.locale = new Locale(original.getLocale().getCountry(), original.getLocale().getLanguage());
-    }
-
-    /**
-     * Gets the date value.
-     *
-     * @return the date value
-     */
-    public TestContextDateItem getDateValue() {
-        return dateValue;
-    }
-
-    /**
-     * Sets the date value.
-     *
-     * @param dateValue the date value
-     */
-    public void setDateValue(final TestContextDateItem dateValue) {
-        this.dateValue = dateValue;
-    }
-
-    /**
-     * Gets the TZ value.
-     *
-     * @return the TZ value
-     */
-    public String getTzValue() {
-        return timeZoneString;
     }
 
     /**
@@ -115,134 +87,9 @@ public class TestContextDateLocaleItem implements Serializable {
      */
     public void setTzValue(final String tzValue) {
         if (tzValue != null) {
-            this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+            this.tzValue = TimeZone.getTimeZone(tzValue).getDisplayName();
         } else {
-            this.timeZoneString = null;
+            this.tzValue = null;
         }
-    }
-
-    /**
-     * Gets the DST.
-     *
-     * @return the dst
-     */
-    public boolean getDst() {
-        return dst;
-    }
-
-    /**
-     * Sets the DST.
-     *
-     * @param newDst the dst
-     */
-    public void setDst(final boolean newDst) {
-        this.dst = newDst;
-    }
-
-    /**
-     * Gets the UTC offset.
-     *
-     * @return the UTC offset
-     */
-    public int getUtcOffset() {
-        return utcOffset;
-    }
-
-    /**
-     * Sets the UTC offset.
-     *
-     * @param newUtcOffset the UTC offset
-     */
-    public void setUtcOffset(final int newUtcOffset) {
-        this.utcOffset = newUtcOffset;
-    }
-
-    /**
-     * Gets the locale.
-     *
-     * @return the locale
-     */
-    public Locale getLocale() {
-        return locale;
-    }
-
-    /**
-     * Sets the locale.
-     *
-     * @param locale the locale
-     */
-    public void setLocale(final Locale locale) {
-        if (locale != null) {
-            this.locale = locale;
-        }
-        else {
-            this.locale = null;
-        }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + ((dateValue == null) ? 0 : dateValue.hashCode());
-        result = prime * result + (dst ? HASH_PRIME_2 : HASH_PRIME_3);
-        result = prime * result + ((locale == null) ? 0 : locale.hashCode());
-        result = prime * result + ((timeZoneString == null) ? 0 : timeZoneString.hashCode());
-        result = prime * result + utcOffset;
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextDateLocaleItem other = (TestContextDateLocaleItem) obj;
-        if (dateValue == null) {
-            if (other.dateValue != null) {
-                return false;
-            }
-        } else if (!dateValue.equals(other.dateValue)) {
-            return false;
-        }
-        if (dst != other.dst) {
-            return false;
-        }
-        if (locale == null) {
-            if (other.locale != null) {
-                return false;
-            }
-        } else if (!locale.equals(other.locale)) {
-            return false;
-        }
-        if (timeZoneString == null) {
-            if (other.timeZoneString != null) {
-                return false;
-            }
-        } else if (!timeZoneString.equals(other.timeZoneString)) {
-            return false;
-        }
-        return utcOffset == other.utcOffset;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem00A [dateValue=" + dateValue + ", timeZoneString=" + timeZoneString + ", dst=" + dst
-                        + ", utcOffset=" + utcOffset + ", locale=" + locale + "]";
     }
 }

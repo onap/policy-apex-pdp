@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,17 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem00B.
+ * The Class TestContextTreeSetItem.
  */
+@Data
 public class TestContextTreeSetItem implements Serializable {
     private static final long serialVersionUID = 1254589722957250388L;
-
-    private static final int HASH_PRIME_1 = 31;
 
     private SortedSet<String> setValue = new TreeSet<>();
 
@@ -60,70 +60,5 @@ public class TestContextTreeSetItem implements Serializable {
      */
     public TestContextTreeSetItem(final SortedSet<String> setValue) {
         this.setValue = setValue;
-    }
-
-    /**
-     * Gets the set value.
-     *
-     * @return the sets the value
-     */
-    public Set<String> getSetValue() {
-        if (setValue == null) {
-            setValue = new TreeSet<>();
-        }
-        return setValue;
-    }
-
-    /**
-     * Sets the set value.
-     *
-     * @param setValue the sets the value
-     */
-    public void setSetValue(final SortedSet<String> setValue) {
-        this.setValue = setValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + ((setValue == null) ? 0 : setValue.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextTreeSetItem other = (TestContextTreeSetItem) obj;
-        if (setValue == null) {
-            if (other.setValue != null) {
-                return false;
-            }
-        } else if (!setValue.equals(other.setValue)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem00B [setValue=" + setValue + "]";
     }
 }

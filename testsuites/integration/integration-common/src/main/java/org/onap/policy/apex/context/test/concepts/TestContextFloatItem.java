@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem004.
+ * The Class TestContextFloatItem.
  */
+@Data
 public class TestContextFloatItem implements Serializable {
     private static final long serialVersionUID = -3359180576903272400L;
-
-    private static final int HASH_PRIME_1 = 31;
 
     private float floatValue = 0;
 
@@ -49,58 +50,7 @@ public class TestContextFloatItem implements Serializable {
         this.floatValue = floatValue;
     }
 
-    /**
-     * Gets the float value.
-     *
-     * @return the float value
-     */
-    public float getFloatValue() {
-        return floatValue;
-    }
-
-    /**
-     * Sets the float value.
-     *
-     * @param floatValue the float value
-     */
-    public void setFloatValue(final float floatValue) {
-        this.floatValue = floatValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + Float.floatToIntBits(floatValue);
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextFloatItem other = (TestContextFloatItem) obj;
-        return Float.floatToIntBits(floatValue) == Float.floatToIntBits(other.floatValue);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem004 [floatValue=" + floatValue + "]";
+    public Float getIncrementedFloatValue() {
+        return floatValue + 1;
     }
 }

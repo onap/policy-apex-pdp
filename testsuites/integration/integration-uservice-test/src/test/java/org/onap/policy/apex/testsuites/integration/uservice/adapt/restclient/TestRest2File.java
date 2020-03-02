@@ -180,7 +180,7 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        checkRequiredString(outString, " no URL has been set for event sending on REST client");
+        checkRequiredString(outString, " no URL has been set for event sending on RESTCLIENT");
     }
 
     /**

@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +19,15 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.debug(executor.subject.id);
+executor.logger.debug(executor.subject.getId());
 var gc = executor.getContextAlbum("GlobalContextAlbum");
-executor.logger.debug(gc.name);
-executor.logger.debug(executor.inFields);
+executor.logger.debug(gc.getName());
+executor.logger.debug(executor.inFields.get("TestSlogan"));
 
 var caseSelectedType = Java.type("java.lang.Byte");
 executor.outFields.put("Test<STATE_NAME>CaseSelected", new caseSelectedType(<RANDOM_BYTE_VALUE>));
 
 executor.outFields.put("Test<STATE_NAME>StateTime", java.lang.System.nanoTime());
-executor.logger.debug(executor.eo);
+executor.logger.debug(executor.inFields.get("TestSlogan"));
 
 var returnValue = executor.isTrue;
