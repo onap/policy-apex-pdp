@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "836606aa_66373b2d",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-03-02T15:18:35Z",
+      "side": 1,
+      "message": "Not part of this review, but we should have managed version of awaitability in policy parent now.",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "1b43df37f166ce758ad22cef567fe120ad853705",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
