@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9616d334_b91b6f3d",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/ApexEditorStartupTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "It is a atleast time, if change to couple seconds, it is a waste of time. Glithches happen when it is more than 1 second.",
+      "parentUuid": "85b254ca_a0f4eaac",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d34474fe_cf93d5a7",
         "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/RestInterfaceTest.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-02T14:34:58Z",
       "side": 1,
       "message": "put the \"while\" conditions and body into a single method that \"await()\" can reference to determine when it\u0027s done\n\nsame comment below",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a27733f_71cca54f",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/RestInterfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d34474fe_cf93d5a7",
       "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "019029c1_4dad1cf0",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DeploymentClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "I think it is original thinking about waiting for the MessageSending. Maybe sleep is good here or check if the response is empty?",
+      "parentUuid": "d2e6116a_79462103",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44f30407_caf13163",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2020-03-02T14:34:58Z",
       "side": 1,
       "message": "turn this into a waited-condition instead of while/sleep",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5abf9bfe_d56aa385",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44f30407_caf13163",
       "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "17718dae_e6c31a8b",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/messaging/StringTestServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a8ff1e7_d0912a88",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1cb0b90_7b18972c",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2020-03-02T14:34:58Z",
       "side": 1,
       "message": "this will result in a tight loop spewing debug messages - still need some sort of \"sleep\" here, though I\u0027m wondering the real value of this loop.  Why not simply create a CountDownLatch and await() forever on it?  When the thread is interrupted, the await() will be interrupted",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fb331b6_d2fe5566",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1cb0b90_7b18972c",
       "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "ed8dd0ad_4af5420d",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AutoLearnTslUseCaseTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Waiting for resulr to be cleared and triggerevent to be cleared.",
+      "parentUuid": "c0ba3556_7c7d76eb",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef36ec1d_f4edd15c",
         "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestApexActionListener.java",
         "patchSetId": 5
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "e45341f9_3fb552f6",
+        "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/TestApexActionListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ef36ec1d_f4edd15c",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b38d22ad_823735bc",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
         "patchSetId": 5
@@ -149,6 +293,24 @@
       "writtenOn": "2020-03-02T14:34:58Z",
       "side": 1,
       "message": "is there a condition that can be checked?\n\nsame comment below and in subsequent files",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e8dc96_38fad3b2",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T15:52:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b38d22ad_823735bc",
       "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
