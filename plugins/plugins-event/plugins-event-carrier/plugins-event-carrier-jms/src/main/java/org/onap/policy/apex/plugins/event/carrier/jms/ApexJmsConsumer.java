@@ -74,7 +74,6 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
             final String errorMessage = "specified consumer properties of type \""
                     + consumerParameters.getCarrierTechnologyParameters().getClass().getName()
                     + "\" are not applicable to a JMS consumer";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
         jmsConsumerProperties = (JmsCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
@@ -95,7 +94,6 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
             final String errorMessage = "lookup of JMS connection factory  \""
                     + jmsConsumerProperties.getConnectionFactory() + "\" failed for JMS consumer properties \""
                     + jmsConsumerProperties.getJmsConsumerProperties() + "\"";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -112,7 +110,6 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
             final String errorMessage = "lookup of JMS topic  \"" + jmsConsumerProperties.getConsumerTopic()
                     + "\" failed for JMS consumer properties \"" + jmsConsumerProperties.getJmsConsumerProperties()
                     + "\"";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -124,7 +121,6 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
         } catch (final Exception e) {
             final String errorMessage = "connection to the JMS server failed for JMS properties \""
                     + jmsConsumerProperties.getJmsConsumerProperties() + "\"";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
     }
