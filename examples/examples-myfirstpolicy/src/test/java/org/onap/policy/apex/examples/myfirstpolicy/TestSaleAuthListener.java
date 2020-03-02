@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +23,12 @@ package org.onap.policy.apex.examples.myfirstpolicy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+
+import static org.awaitility.Awaitility.await;
 
 /**
  * The listener interface for receiving SaleAuth events. The class that is interested in processing a SaleAuth event
@@ -57,9 +60,7 @@ public class TestSaleAuthListener implements EnEventListener {
      * @return the result
      */
     public EnEvent getResult() {
-        while (resultEvents.isEmpty()) {
-            ThreadUtilities.sleep(100);
-        }
+        await().atMost(200, TimeUnit.MILLISECONDS).until(() -> !resultEvents.isEmpty());
         return resultEvents.remove(0);
     }
 
@@ -68,8 +69,6 @@ public class TestSaleAuthListener implements EnEventListener {
      */
     @Override
     public void onEnEvent(final EnEvent saleauthEvent) {
-        ThreadUtilities.sleep(100);
-
         if (saleauthEvent != null) {
             System.out.println("SaleAuth event from engine:" + saleauthEvent.getName());
             resultEvents.add(saleauthEvent);

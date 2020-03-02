@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,13 @@
 
 package org.onap.policy.apex.core.infrastructure.threading;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.slf4j.ext.XLogger;
@@ -77,10 +80,11 @@ public class ThreadingTest {
             final Thread thread = threadFactory.newThread(runnable);
             thread.start();
 
-        }
+            if (i == 4) {
+                await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> thread.isAlive());
+            }
 
-        // Threads should need a little more than 300ms to count to 3
-        ThreadUtilities.sleep(380);
+        }
 
         for (int i = 0; i < 5; i++) {
             threadList.get(i).interrupt();

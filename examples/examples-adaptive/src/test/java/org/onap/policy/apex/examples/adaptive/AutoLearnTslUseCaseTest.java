@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,14 @@
 
 package org.onap.policy.apex.examples.adaptive;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,11 +41,11 @@ import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.examples.adaptive.model.AdaptiveDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.java.JavaExecutorParameters;
 import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
@@ -148,7 +150,7 @@ public class AutoLearnTslUseCaseTest {
         assertEquals("ExecutionIDs are different", triggerEvent.getExecutionId(), result.getExecutionId());
         triggerEvent.clear();
         result.clear();
-        ThreadUtilities.sleep(10);
+        await().atLeast(10, TimeUnit.MILLISECONDS).until(() -> triggerEvent.isEmpty() && result.isEmpty());
         apexEngine1.stop();
     }
 
@@ -236,11 +238,11 @@ public class AutoLearnTslUseCaseTest {
             LOGGER.info("Iteration " + iteration + ": \tpreval\t" + prevval + "\tval\t" + val + "\tavval\t" + avval);
 
             result.clear();
-            ThreadUtilities.sleep(10);
+            await().atLeast(10, TimeUnit.MILLISECONDS).until(() -> !result.isEmpty());
         }
 
         apexEngine1.stop();
-        ThreadUtilities.sleep(1000);
+        await().atMost(1000, TimeUnit.MILLISECONDS).until(() -> apexEngine1.getState().equals(AxEngineState.STOPPED));
     }
 
     /**

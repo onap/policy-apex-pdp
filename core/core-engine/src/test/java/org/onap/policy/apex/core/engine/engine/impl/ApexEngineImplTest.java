@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@
 package org.onap.policy.apex.core.engine.engine.impl;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -32,6 +33,8 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -312,8 +315,7 @@ public class ApexEngineImplTest {
                 assertEquals(AxEngineState.STOPPED, engine.getState());
             }
         }).start();
-
-        Thread.sleep(50);
+        await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
 
         assertFalse(engine.handleEvent(event));
@@ -343,7 +345,7 @@ public class ApexEngineImplTest {
             }
         }).start();
 
-        Thread.sleep(50);
+        await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
         try {
             engine.stop();

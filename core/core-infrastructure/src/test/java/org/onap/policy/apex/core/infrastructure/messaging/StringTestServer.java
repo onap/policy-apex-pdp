@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,9 +48,8 @@ public class StringTestServer {
 
         System.out.println("StringTestServer started on port " + port + " for " + timeToLive + " seconds");
 
-        for (; timeToLive > 0; timeToLive--) {
-            ThreadUtilities.sleep(1000);
-        }
+        // convert to milliSeconds
+        ThreadUtilities.sleep(1000 * timeToLive);
 
         server.stop();
         System.out.println("StringTestServer completed");

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.client.editor.rest;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -27,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -87,16 +90,11 @@ public class RestInterfaceTest {
         };
         new Thread(testThread).start();
         // wait until editorMain is in state RUNNING
-        final long startwait = System.currentTimeMillis();
-        while (editorMain.getState().equals(EditorState.STOPPED) || editorMain.getState().equals(EditorState.READY)
-                || editorMain.getState().equals(EditorState.INITIALIZING)) {
-            if (editorMain.getState().equals(EditorState.STOPPED)) {
-                Assert.fail("Rest endpoint (" + editorMain + ") shut down before it could be used");
-            }
-            if (System.currentTimeMillis() - startwait > MAX_WAIT) {
-                Assert.fail("Rest endpoint (" + editorMain + ") for test failed to start fast enough");
-            }
-            Thread.sleep(100);
+        await().atMost(MAX_WAIT, TimeUnit.MILLISECONDS).until(() -> !(editorMain.getState().equals(EditorState.READY)
+                || editorMain.getState().equals(EditorState.INITIALIZING)));
+
+        if (editorMain.getState().equals(EditorState.STOPPED)) {
+            Assert.fail("Rest endpoint (" + editorMain + ") shut down before it could be used");
         }
 
         // create the client
@@ -124,13 +122,7 @@ public class RestInterfaceTest {
     public static void cleanUpStreams() throws IOException, InterruptedException {
         editorMain.shutdown();
         // wait until editorMain is in state STOPPED
-        final long startwait = System.currentTimeMillis();
-        while (!editorMain.getState().equals(EditorState.STOPPED)) {
-            if (System.currentTimeMillis() - startwait > MAX_WAIT) {
-                Assert.fail("Rest endpoint (" + editorMain + ") for test failed to shutdown fast enough");
-            }
-            Thread.sleep(50);
-        }
+        await().atMost(MAX_WAIT, TimeUnit.MILLISECONDS).until(() -> editorMain.getState().equals(EditorState.STOPPED));
         System.setIn(SYSIN);
     }
 
