@@ -22,6 +22,30 @@
       "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "358fcab1_2e586668",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-02T07:37:24Z",
+      "side": 1,
+      "message": "Ok, there is a third party API \n\u003cdependency\u003e\n    \u003cgroupId\u003eorg.awaitility\u003c/groupId\u003e\n    \u003cartifactId\u003eawaitility\u003c/artifactId\u003e\n    \u003cversion\u003e4.0.2\u003c/version\u003e\n    \u003cscope\u003etest\u003c/scope\u003e\n\u003c/dependency\u003e\nexecutes good. Can we apply it.",
+      "parentUuid": "a299060d_216c09a7",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
