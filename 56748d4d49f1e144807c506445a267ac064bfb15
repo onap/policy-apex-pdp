@@ -70,6 +70,47 @@
       "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "047986bb_c6d3767c",
+        "filename": "client/client-deployment/src/test/java/org/onap/policy/apex/client/deployment/rest/DeploymentRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T20:05:05Z",
+      "side": 1,
+      "message": "same comment for other files",
+      "parentUuid": "3e9ce74e_157db1d7",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89f05953_660f0cfb",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/threading/ThreadMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-02T20:05:05Z",
+      "side": 1,
+      "message": "\"statue\" \u003d\u003e \"status\"",
+      "revId": "56748d4d49f1e144807c506445a267ac064bfb15",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
