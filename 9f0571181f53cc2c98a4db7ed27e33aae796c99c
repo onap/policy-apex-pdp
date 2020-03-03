@@ -16,6 +16,24 @@
       "revId": "9f0571181f53cc2c98a4db7ed27e33aae796c99c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87493da9_b46a58ef",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-03T15:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aa60e98_ae152b7c",
+      "revId": "9f0571181f53cc2c98a4db7ed27e33aae796c99c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
