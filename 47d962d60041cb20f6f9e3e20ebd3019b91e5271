@@ -314,6 +314,29 @@
       "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a636c7b2_efc52061",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-03-03T16:46:11Z",
+      "side": 1,
+      "message": "I just added this to policy/parent - so if you get a chance you can remove the \u003cversion\u003e line. Thanks!",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
