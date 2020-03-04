@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "efd51178_b6fffd1d",
+        "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-04T17:27:05Z",
+      "side": 1,
+      "message": "this comment is incorrect",
+      "revId": "e40b0baa925bcb6446b332e13544cc49451ec834",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46b21b36_5a2fb39a",
         "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
         "patchSetId": 1
@@ -13,6 +30,24 @@
       "writtenOn": "2020-03-04T17:03:57Z",
       "side": 1,
       "message": "can do a return here, ie. \"return false\", and delete the if condition in line 59 (will always be !\u003d null in line 58).",
+      "revId": "e40b0baa925bcb6446b332e13544cc49451ec834",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b1d9dff_af99c1b2",
+        "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-04T17:27:05Z",
+      "side": 1,
+      "message": "change \",e\" to \", e\"",
+      "parentUuid": "46b21b36_5a2fb39a",
       "revId": "e40b0baa925bcb6446b332e13544cc49451ec834",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
