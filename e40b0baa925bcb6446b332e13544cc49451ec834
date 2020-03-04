@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a59aba8_36ab97a8",
+        "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-03-04T16:53:12Z",
+      "side": 1,
+      "message": "missing a space between !\u003d and rand - checkstyle should pick that up.\n\nFYI: You could also re-write to make it cleaner:\nif (rand \u003d\u003d null) {\n return true;\n}\n....\n\nNot really an issue here, but reduced the nesting and complexity score for the method. Keeps it readable.",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "e40b0baa925bcb6446b332e13544cc49451ec834",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
