@@ -132,7 +132,6 @@ public class ApexEngineHandler {
             return path.toAbsolutePath().toString();
         } catch (final IOException e) {
             final String errorMessage = "error creating  from the properties received in PdpUpdate.";
-            LOGGER.error(errorMessage, e);
             throw new ApexStarterException(errorMessage, e);
         }
     }
