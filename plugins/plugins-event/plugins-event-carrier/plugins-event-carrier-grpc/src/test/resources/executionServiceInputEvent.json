@@ -1,0 +1,25 @@
+{
+  "actionIdentifiers": {
+    "actionName": "actionName",
+    "blueprintName": "bluePrintName",
+    "blueprintVersion": "1.0.0",
+    "mode": "sync"
+  },
+  "commonHeader": {
+    "originatorId": "sdnc",
+    "requestId": "1234567",
+    "subRequestId": "subReqId"
+  },
+  "payload": {
+    "config-assign-request": {
+      "resolution-key": "RES-KEY",
+      "config-assign-properties": {
+        "service-instance-id": "sid12",
+        "pnf-id": "pnf-id",
+        "pnf-address": "1.2.3.4",
+        "service-uuid": "service-uuid",
+        "customization-uuid": "customization-uuid"
+      }
+    }
+  }
+}
