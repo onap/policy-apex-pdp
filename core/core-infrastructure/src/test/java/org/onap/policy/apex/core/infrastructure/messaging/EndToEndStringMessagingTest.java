@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.core.infrastructure.messaging;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -27,9 +29,10 @@ import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageServer;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Class EndToEndMessagingTest.
@@ -59,9 +62,8 @@ public class EndToEndStringMessagingTest {
 
             client.sendString("Hello, client here");
 
-            while (!finished) {
-                ThreadUtilities.sleep(50);
-            }
+            await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> finished);
+
         } finally {
             if (client != null) {
                 client.stop();

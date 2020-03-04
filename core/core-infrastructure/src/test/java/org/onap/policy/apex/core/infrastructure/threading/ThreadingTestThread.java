@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,8 @@ package org.onap.policy.apex.core.infrastructure.threading;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * The Class ThreadingTestThread.
  *
@@ -39,7 +42,9 @@ public class ThreadingTestThread implements Runnable {
 
     private String threadName;
 
-    /**
+    private CountDownLatch latch = new CountDownLatch(1);
+
+   /**
      * {@inheritDoc}.
      */
     @Override
@@ -54,11 +59,11 @@ public class ThreadingTestThread implements Runnable {
             if (logger.isDebugEnabled()) {
                 logger.debug("in threading test thread \"" + threadName + "\", counter=" + counter + " . . .");
             }
-
-            if (!ThreadUtilities.sleep(50)) {
+            if(!ThreadUtilities.sleep(50)) {
                 interrupted = true;
             }
         }
+
         if (logger.isDebugEnabled()) {
             logger.debug("stopped threading test thread \"" + threadName + "\"");
         }

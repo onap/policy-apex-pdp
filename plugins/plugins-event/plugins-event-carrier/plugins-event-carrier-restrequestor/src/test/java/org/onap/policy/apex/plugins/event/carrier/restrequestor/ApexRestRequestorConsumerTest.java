@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,13 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -126,7 +128,7 @@ public class ApexRestRequestorConsumerTest {
         consumer.start();
         ApexRestRequest request = new ApexRestRequest(123, null, EVENT_NAME, EVENT_BODY);
         consumer.processRestRequest(request);
-        ThreadUtilities.sleep(200);
+        await().atMost(200, TimeUnit.MILLISECONDS).until(() -> consumer.getEventsReceived() == 0);
         consumer.stop();
         assertEquals(0, consumer.getEventsReceived());
     }
@@ -152,7 +154,7 @@ public class ApexRestRequestorConsumerTest {
         consumer.start();
         ApexRestRequest request = new ApexRestRequest(123, properties, EVENT_NAME, EVENT_BODY);
         consumer.processRestRequest(request);
-        ThreadUtilities.sleep(2000);
+        await().atMost(2000, TimeUnit.MILLISECONDS).until(() -> consumer.getEventsReceived() == 0);
         consumer.stop();
         assertEquals(0, consumer.getEventsReceived());
     }
