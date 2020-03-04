@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "00699895_1b7eafc0",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-04T03:59:58Z",
+      "side": 1,
+      "message": "CountDownLatch is good, but need a sleep() to make sure two thread process in order. So I do not use it at all.",
+      "parentUuid": "2fb331b6_d2fe5566",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0ba3556_7c7d76eb",
         "filename": "examples/examples-adaptive/src/test/java/org/onap/policy/apex/examples/adaptive/AutoLearnTslUseCaseTest.java",
         "patchSetId": 5
@@ -311,6 +329,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "b38d22ad_823735bc",
+      "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62e28261_b16c31d1",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-03-04T03:59:58Z",
+      "side": 1,
+      "message": "If it doesnot exit check condition, I will go back to sleep() function.",
+      "parentUuid": "38e8dc96_38fad3b2",
       "revId": "47d962d60041cb20f6f9e3e20ebd3019b91e5271",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
