@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem006.
+ * The Class TestContextStringItem.
  */
+@Data
 public class TestContextStringItem implements Serializable {
     private static final long serialVersionUID = -1074772190611125121L;
-
-    private static final int HASH_PRIME_1 = 31;
 
     private String stringValue = "";
 
@@ -47,67 +48,5 @@ public class TestContextStringItem implements Serializable {
      */
     public TestContextStringItem(final String stringValue) {
         this.stringValue = stringValue;
-    }
-
-    /**
-     * Gets the string value.
-     *
-     * @return the string value
-     */
-    public String getStringValue() {
-        return stringValue;
-    }
-
-    /**
-     * Sets the string value.
-     *
-     * @param stringValue the string value
-     */
-    public void setStringValue(final String stringValue) {
-        this.stringValue = stringValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + ((stringValue == null) ? 0 : stringValue.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextStringItem other = (TestContextStringItem) obj;
-        if (stringValue == null) {
-            if (other.stringValue != null) {
-                return false;
-            }
-        } else if (!stringValue.equals(other.stringValue)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem006 [stringValue=" + stringValue + "]";
     }
 }

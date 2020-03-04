@@ -15,7 +15,7 @@
     "AvroBoolean": true,
     "AvroByte": -127.0,
     "AvroDouble": 1.2345E67,
-    "AvroFloat": 1.9999999999999998E23,
+    "AvroFloat": 1.9999999556392617E23,
     "AvroInteger": 1234568.0,
     "AvroLong": 1.234567890124E12,
     "AvroMap": {
@@ -80,7 +80,7 @@
         "doubleValue": 6.71000001E8
     },
     "CustomFloat": {
-        "floatValue": 3000001.0
+        "floatValue": 3000000.0
     },
     "CustomInteger": {
         "intValue": -9876542.0

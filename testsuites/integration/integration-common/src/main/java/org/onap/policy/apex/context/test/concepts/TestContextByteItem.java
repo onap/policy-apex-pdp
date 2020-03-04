@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem001.
+ * The Class TestContextByteItem.
  */
+@Data
 public class TestContextByteItem implements Serializable {
     private static final long serialVersionUID = 1361938145823720386L;
-
-    private static final int HASH_PRIME_1 = 31;
 
     private byte byteValue = 0;
 
@@ -49,58 +50,7 @@ public class TestContextByteItem implements Serializable {
         this.byteValue = byteValue;
     }
 
-    /**
-     * Gets the byte value.
-     *
-     * @return the byte value
-     */
-    public byte getByteValue() {
-        return byteValue;
-    }
-
-    /**
-     * Sets the byte value.
-     *
-     * @param byteValue the byte value
-     */
-    public void setByteValue(final byte byteValue) {
-        this.byteValue = byteValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + byteValue;
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextByteItem other = (TestContextByteItem) obj;
-        return byteValue == other.byteValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem001 [byteValue=" + byteValue + "]";
+    public Byte getIncrementedByteValue() {
+        return (byte) (byteValue + 1);
     }
 }

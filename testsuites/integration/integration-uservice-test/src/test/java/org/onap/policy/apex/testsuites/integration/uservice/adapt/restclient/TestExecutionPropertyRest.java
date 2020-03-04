@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -87,8 +89,8 @@ public class TestExecutionPropertyRest {
             throw new IllegalStateException("port " + PORT + " is still in use");
         }
 
-        server = HttpServletServerFactoryInstance.getServerFactory().build(
-            "TestExecutionPropertyRest", false, null, PORT, "/TestExecutionRest", false, false);
+        server = HttpServletServerFactoryInstance.getServerFactory().build("TestExecutionPropertyRest", false, null,
+                PORT, "/TestExecutionRest", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -129,7 +131,7 @@ public class TestExecutionPropertyRest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventBadUrl.json" };
+        final String[] args = {"src/test/resources/testdata/executionproperties/RESTEventBadUrl.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(500);
@@ -142,7 +144,7 @@ public class TestExecutionPropertyRest {
         System.setErr(stderr);
 
         LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
-        assertTrue(outString.contains("no proper URL has been set for event sending on REST client"));
+        assertTrue(outString.contains("no URL has been set for event sending on RESTCLIENT"));
     }
 
     /**
@@ -153,7 +155,7 @@ public class TestExecutionPropertyRest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json" };
+        final String[] args = {"src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(2000);
@@ -166,8 +168,8 @@ public class TestExecutionPropertyRest {
         System.setErr(stderr);
 
         LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
-        assertTrue(outString.contains("key\"Number\"specified on url \"http://localhost:32801/TestExecutionRest/apex"
-                + "/event/{tagId}/{Number}\"not found in execution properties passed by the current policy"));
+        assertTrue(outString.contains("key \"Number\" specified on url \"http://localhost:32801/TestExecutionRest/apex"
+                + "/event/{tagId}/{Number}\" not found in execution properties passed by the current policy"));
     }
 
     /**
@@ -178,7 +180,7 @@ public class TestExecutionPropertyRest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventBadHttpCodeFilter.json" };
+        final String[] args = {"src/test/resources/testdata/executionproperties/RESTEventBadHttpCodeFilter.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(500);
@@ -201,8 +203,7 @@ public class TestExecutionPropertyRest {
     public void testReplaceUrlTag() throws Exception {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json" };
+        final String[] args = {"src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json"};
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(1000);
         apexMain.shutdown();
@@ -226,8 +227,11 @@ public class TestExecutionPropertyRest {
     @Test
     public void testReplaceUrlMultiTag() throws Exception {
         final Client client = ClientBuilder.newClient();
-        final String[] args =
-            { "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToMultiTagUrlOK.json" };
+        // @formatter:off
+        final String[] args = {
+            "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToMultiTagUrlOK.json"
+        };
+        // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(1500);
         apexMain.shutdown();

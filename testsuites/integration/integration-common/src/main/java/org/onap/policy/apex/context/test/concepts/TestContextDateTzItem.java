@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,17 @@ package org.onap.policy.apex.context.test.concepts;
 import java.io.Serializable;
 import java.util.TimeZone;
 
+import lombok.Data;
+
 /**
- * The Class TestContextItem009.
+ * The Class TestContextDateTzItem.
  */
+@Data
 public class TestContextDateTzItem implements Serializable {
     private static final long serialVersionUID = 5604426823170331706L;
 
-    private static final int HASH_PRIME_1 = 31;
-    private static final int HASH_PRIME_2 = 1231;
-    private static final int HASH_PRIME_3 = 1237;
-
     private TestContextDateItem dateValue = new TestContextDateItem(System.currentTimeMillis());
-    private String timeZoneString = TimeZone.getTimeZone("Europe/Dublin").getDisplayName();
+    private String tzValue = TimeZone.getTimeZone("Europe/Dublin").getDisplayName();
     private boolean dst = false;
 
     /**
@@ -54,7 +53,7 @@ public class TestContextDateTzItem implements Serializable {
      */
     public TestContextDateTzItem(final TestContextDateItem dateValue, final String tzValue, final boolean dst) {
         this.dateValue = dateValue;
-        this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+        this.tzValue = TimeZone.getTimeZone(tzValue).getDisplayName();
         this.dst = dst;
     }
 
@@ -65,35 +64,8 @@ public class TestContextDateTzItem implements Serializable {
      */
     public TestContextDateTzItem(final TestContextDateTzItem original) {
         this.dateValue = original.dateValue;
-        this.timeZoneString = original.timeZoneString;
+        this.tzValue = original.tzValue;
         this.dst = original.dst;
-    }
-
-    /**
-     * Gets the date value.
-     *
-     * @return the date value
-     */
-    public TestContextDateItem getDateValue() {
-        return dateValue;
-    }
-
-    /**
-     * Sets the date value.
-     *
-     * @param dateValue the date value
-     */
-    public void setDateValue(final TestContextDateItem dateValue) {
-        this.dateValue = dateValue;
-    }
-
-    /**
-     * Gets the TZ value.
-     *
-     * @return the TZ value
-     */
-    public String getTzValue() {
-        return timeZoneString;
     }
 
     /**
@@ -103,85 +75,9 @@ public class TestContextDateTzItem implements Serializable {
      */
     public void setTzValue(final String tzValue) {
         if (tzValue != null) {
-            this.timeZoneString = TimeZone.getTimeZone(tzValue).getDisplayName();
+            this.tzValue = TimeZone.getTimeZone(tzValue).getDisplayName();
+        } else {
+            this.tzValue = null;
         }
-        else {
-            this.timeZoneString = null;
-        }
-    }
-
-    /**
-     * Gets the DST.
-     *
-     * @return the dst
-     */
-    public boolean getDst() {
-        return dst;
-    }
-
-    /**
-     * Sets the DST.
-     *
-     * @param newDst the dst
-     */
-    public void setDst(final boolean newDst) {
-        this.dst = newDst;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + ((dateValue == null) ? 0 : dateValue.hashCode());
-        result = prime * result + (dst ? HASH_PRIME_2 : HASH_PRIME_3);
-        result = prime * result + ((timeZoneString == null) ? 0 : timeZoneString.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestContextDateTzItem other = (TestContextDateTzItem) obj;
-        if (dateValue == null) {
-            if (other.dateValue != null) {
-                return false;
-            }
-        } else if (!dateValue.equals(other.dateValue)) {
-            return false;
-        }
-        if (dst != other.dst) {
-            return false;
-        }
-        if (timeZoneString == null) {
-            if (other.timeZoneString != null) {
-                return false;
-            }
-        }
-        else if (!timeZoneString.equals(other.timeZoneString)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "TestContextItem009 [dateValue=" + dateValue + ", tzValue=" + timeZoneString + ", dst=" + dst + "]";
     }
 }

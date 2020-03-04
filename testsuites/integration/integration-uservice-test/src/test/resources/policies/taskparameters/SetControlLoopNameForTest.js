@@ -18,20 +18,20 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.subject.id);
-executor.logger.info(executor.inFields);
-executor.logger.info(executor.outFields);
-executor.logger.info(executor.parameters);
+executor.logger.info(executor.getSubject().getId());
+executor.logger.info(executor.getInFields().toString());
+executor.logger.info(executor.getOutFields().toString());
+executor.logger.info(executor.getParameters().toString());
 
-executor.logger.info("executionProperties in: {}", executor.getExecutionProperties());
+executor.logger.info("executionProperties in: {}", executor.getExecutionProperties().toString());
 
 executor.getExecutionProperties().setProperty("tagId", "doActionForCL");
-var closedLoopId = executor.parameters.get("closedLoopId")
+var closedLoopId = executor.getParameters().get("closedLoopId")
 if (null == closedLoopId) {
     closedLoopId = "INVALID - closedLoopId not available in TaskParameters"
 }
 executor.getExecutionProperties().setProperty("value", closedLoopId);
 
-executor.logger.info("executionProperties out: {}", executor.getExecutionProperties());
+executor.logger.info("executionProperties out: {}", executor.getExecutionProperties().toString());
 
 var returnValue = executor.isTrue;

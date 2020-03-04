@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -181,9 +182,7 @@ task contextref create name=Test_Task albumName=CustomSetAlbum
 task contextref create name=Test_Task albumName=CustomMapAlbum
 
 task logic create name=Test_Task logicFlavour=JAVASCRIPT logic=LS
-executor.logger.debug(executor.subject.id);
-
-executor.logger.debug(executor.inFields);
+executor.logger.debug(executor.getSubject().getId());
 
 executor.getContextAlbum("JavaBooleanAlbum"  ).put("JavaBoolean"  , executor.inFields.get("JavaBoolean"  ));
 executor.getContextAlbum("JavaByteAlbum"     ).put("JavaByte"     , executor.inFields.get("JavaByte"     ));
@@ -239,13 +238,13 @@ javaFloat     += 0.99;
 javaDouble    += 0.99;
 javaString     = javaString + " added to end of string";
 customBoolean.setFlag(!customBoolean);
-customByte   .setByteValue  (customByte   .getByteValue()   + 1);
-customInteger.setIntValue   (customInteger.getIntValue()    + 1);
-customLong   .setLongValue  (customLong   .getLongValue()   + 1);
-customFloat  .setFloatValue (customFloat  .getFloatValue()  + 1);
-customDouble .setDoubleValue(customDouble .getDoubleValue() + 1);
+customByte   .setByteValue  (customByte   .getIncrementedByteValue());
+customInteger.setIntValue   (customInteger.getIncrementedIntValue());
+customLong   .setLongValue  (customLong   .getIncrementedLongValue());
+customFloat  .setFloatValue (customFloat  .getIncrementedFloatValue());
+customDouble .setDoubleValue(customDouble .getIncrementedDoubleValue());
 customString .setStringValue(customString .getStringValue() + " added to end of string");
-customJLong  .setLongValue  (customJLong  .getLongValue()   + 1);
+customJLong  .setLongValue  (customJLong  .getIncrementedLongValue());
 
 customDate0Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateItem");
 customDate0 = new customDate0Type(1499868391);
@@ -309,8 +308,6 @@ executor.outFields.put("CustomDate1"  , executor.getContextAlbum("CustomDate1Alb
 executor.outFields.put("CustomDate2"  , executor.getContextAlbum("CustomDate2Album"  ).get("CustomDate2"  ));
 executor.outFields.put("CustomSet"    , executor.getContextAlbum("CustomSetAlbum"    ).get("CustomSet"    ));
 executor.outFields.put("CustomMap"    , executor.getContextAlbum("CustomMapAlbum"    ).get("CustomMap"    )); 
-
-executor.logger.debug(executor.outFields);
 
 var returnValueType = Java.type("java.lang.Boolean");
 var returnValue = new returnValueType(true);
