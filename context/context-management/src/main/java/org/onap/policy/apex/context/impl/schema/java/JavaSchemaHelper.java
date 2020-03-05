@@ -35,7 +35,6 @@ import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-import org.onap.policy.apex.model.utilities.typeutils.TypeBuilder;
 import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -79,8 +78,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         // For Java, the schema is the Java class canonical path
 
         try {
-            setSchemaClass(TypeBuilder.getJavaTypeClass(schema.getSchema()));
-        } catch (final IllegalArgumentException e) {
+            setSchemaClass(Class.forName(schema.getSchema()));
+        } catch (final Exception e) {
 
             String resultSting = userKey.getId() + ": class/type " + schema.getSchema() + " for context schema \""
                     + schema.getId() + "\" not found.";

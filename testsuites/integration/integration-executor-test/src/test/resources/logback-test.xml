@@ -2,6 +2,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2016-2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2020 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,10 +21,8 @@
 -->
 
 <configuration>
-
     <contextName>Apex</contextName>
     <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
-    <property name="LOG_DIR" value="${java.io.tmpdir}/apex_logging/" />
 
     <!-- USE FOR STD OUT ONLY -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -32,47 +31,8 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="OFF">
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="org.infinispan" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
-    <logger name="org.apache.zookeeper.ClientCnxn" level="OFF" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_DIR}/apex.log</file>
-        <encoder>
-            <pattern>%d %-5relative [procId=${processId}] [%thread] %-5level
-                %logger{26} - %msg %n %ex{full}</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="CTXT_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_DIR}/apex_ctxt.log</file>
-        <encoder>
-            <pattern>%d %-5relative [procId=${processId}] [%thread] %-5level
-                %logger{26} - %msg %n %ex{full}</pattern>
-        </encoder>
-    </appender>
-
-    <logger name="org.onap.policy.apex.core.context.monitoring" level="INFO" additivity="false">
-        <appender-ref ref="CTXT_FILE" />
-    </logger>
-
-    <logger name="org.onap.policy.apex.core.engine.monitoring" level="INFO" additivity="false">
-        <appender-ref ref="CTXT_FILE" />
-    </logger>
-
-    <logger name="org.onap.policy.apex.executionlogging" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
-    <logger name="org.onap.policy.apex" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
 </configuration>
