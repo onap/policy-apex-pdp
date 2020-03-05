@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,8 @@ public class TestExecutionProperties {
         File compiledPolicyFile = new File("target/ExecutionPropertiesTestPolicyModel.json");
         assertTrue(compiledPolicyFile.exists());
 
-        new File("target/" + testName + "_out.properties").delete();
+        File outFile = new File("target/" + testName + "_out.properties");
+        outFile.deleteOnExit();
 
         // @formatter:off
         final String[] args = {
@@ -122,9 +123,9 @@ public class TestExecutionProperties {
         // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
 
-        // TODO: Set back to 10 seconds
-        await().atMost(10000, TimeUnit.SECONDS)
-                .until(() -> new File("target/" + testName + "_out.properties").exists());
+        await().atMost(1, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(10, TimeUnit.SECONDS).until(() -> outFile.exists());
+        await().atMost(1, TimeUnit.SECONDS).until(() -> outFile.length() > 0);
 
         apexMain.shutdown();
 
@@ -133,7 +134,7 @@ public class TestExecutionProperties {
                 new File("src/test/resources/testdata/executionproperties/" + testName + "_out_expected.properties")));
 
         Properties actualProperties = new Properties();
-        actualProperties.load(new FileInputStream(new File("target/" + testName + "_out.properties")));
+        actualProperties.load(new FileInputStream(outFile));
 
         assertEquals(expectedProperties, actualProperties);
     }

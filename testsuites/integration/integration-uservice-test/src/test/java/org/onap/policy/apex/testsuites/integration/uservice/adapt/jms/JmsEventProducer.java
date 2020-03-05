@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,8 +69,8 @@ public class JmsEventProducer implements Runnable {
      * @throws JMSException the JMS exception
      */
     public JmsEventProducer(final String topic, final ConnectionFactory connectionFactory, final String username,
-                    final String password, final int eventCount, final boolean sendObjects, final long eventInterval)
-                    throws JMSException {
+            final String password, final int eventCount, final boolean sendObjects,
+            final long eventInterval) throws JMSException {
         this.topic = topic;
         this.eventCount = eventCount;
         this.sendObjects = sendObjects;
@@ -89,7 +89,7 @@ public class JmsEventProducer implements Runnable {
     public void run() {
         final Topic jmsTopic = new ActiveMQTopic(topic);
         try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                        final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic)) {
+                final MessageProducer jmsProducer = jmsSession.createProducer(jmsTopic)) {
 
             while (producerThread.isAlive() && !stopFlag) {
                 ThreadUtilities.sleep(50);
@@ -128,7 +128,9 @@ public class JmsEventProducer implements Runnable {
 
             Message jmsMessage = null;
             if (sendObjects) {
-                jmsMessage = jmsSession.createObjectMessage(new PingTestClass());
+                final PingTestClass pingTestClass = new PingTestClass();
+                pingTestClass.setId(i);
+                jmsMessage = jmsSession.createObjectMessage(pingTestClass);
             } else {
                 jmsMessage = jmsSession.createTextMessage(EventGenerator.jsonEvent());
             }

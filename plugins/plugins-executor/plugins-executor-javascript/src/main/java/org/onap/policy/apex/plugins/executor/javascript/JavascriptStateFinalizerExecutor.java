@@ -52,7 +52,12 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
         // Call generic prepare logic
         super.prepare();
 
+        // Create the executor
         javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
+
+        // Initialize and cleanup the executor to check the Javascript code
+        javascriptExecutor.init(getSubject().getLogic());
+        javascriptExecutor.cleanUp();
     }
 
     /**
@@ -71,8 +76,13 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
-        // Execute the Javascript and do post processing
-        executePost(javascriptExecutor.execute(getExecutionContext(), getSubject().getLogic()));
+        // Execute the Javascript executor
+        javascriptExecutor.init(getSubject().getLogic());
+        boolean result = javascriptExecutor.execute(getExecutionContext());
+        javascriptExecutor.cleanUp();
+
+        // Execute the Javascript
+        executePost(result);
 
         return getOutgoing();
     }
@@ -86,7 +96,5 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
                 + getSubject().getLogic());
-
-        javascriptExecutor.cleanUp();
     }
 }

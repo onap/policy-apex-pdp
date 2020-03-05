@@ -19,10 +19,9 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.debug(executor.subject.getId());
+executor.logger.debug(executor.subject.id);
 var gc = executor.getContextAlbum("GlobalContextAlbum");
-executor.logger.debug(gc.getName());
-executor.getSubject().getDefaultTaskKey().copyTo(executor.selectedTask);
+executor.logger.debug(gc.name);
+executor.subject.defaultTaskKey.copyTo(executor.selectedTask)
 
-var returnValue = executor.isTrue;
-
+true;

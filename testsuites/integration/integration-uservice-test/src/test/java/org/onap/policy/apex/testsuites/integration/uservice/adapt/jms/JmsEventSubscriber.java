@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class JmsEventSubscriber implements Runnable {
      * @throws JMSException the JMS exception
      */
     public JmsEventSubscriber(final String topic, final ConnectionFactory connectionFactory, final String username,
-                    final String password) throws JMSException {
+            final String password) throws JMSException {
         this.topic = topic;
         connection = connectionFactory.createConnection(username, password);
         connection.start();
@@ -79,7 +79,7 @@ public class JmsEventSubscriber implements Runnable {
     public void run() {
         final Topic jmsTopic = new ActiveMQTopic(topic);
         try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                        final MessageConsumer jmsConsumer = jmsSession.createConsumer(jmsTopic)) {
+                final MessageConsumer jmsConsumer = jmsSession.createConsumer(jmsTopic)) {
 
             while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
                 try {
@@ -95,11 +95,13 @@ public class JmsEventSubscriber implements Runnable {
                         ((TextMessage) message).getText();
                     } else {
                         throw new ApexEventException("unknowm message \"" + message + "\" of type \""
-                                        + message.getClass().getName() + "\" received");
+                                + message.getClass().getName() + "\" received");
                     }
                     eventsReceivedCount++;
                 } catch (final Exception e) {
-                    break;
+                    if (!(e.getCause() instanceof InterruptedException)) {
+                        throw new ApexEventRuntimeException("JMS message reception failed", e);
+                    }
                 }
             }
 
@@ -107,7 +109,8 @@ public class JmsEventSubscriber implements Runnable {
             throw new ApexEventRuntimeException("JMS event consumption failed", e);
         }
 
-        LOGGER.debug("{} : event reception completed", this.getClass().getName());
+        LOGGER.info("{} : event reception completed, {} events received", this.getClass().getName(),
+                eventsReceivedCount);
     }
 
     /**
@@ -125,6 +128,8 @@ public class JmsEventSubscriber implements Runnable {
      * @throws JMSException the JMS exception
      */
     public void shutdown() throws JMSException {
+        LOGGER.info("{} : stopping...", this.getClass().getName());
+
         subscriberThread.interrupt();
 
         while (subscriberThread.isAlive()) {
@@ -132,7 +137,7 @@ public class JmsEventSubscriber implements Runnable {
         }
 
         connection.close();
-        LOGGER.debug("{} : stopped", this.getClass().getName());
+        LOGGER.info("{} : stopped", this.getClass().getName());
     }
 
 }

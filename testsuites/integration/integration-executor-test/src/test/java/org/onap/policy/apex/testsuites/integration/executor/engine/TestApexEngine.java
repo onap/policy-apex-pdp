@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.engine;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
@@ -36,6 +38,7 @@ import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.testsuites.integration.common.model.SampleDomainModelFactory;
@@ -93,6 +96,8 @@ public class TestApexEngine {
         final Map<AxArtifactKey, Map<String, Object>> apexContext = apexEngine.getEngineContext();
         assertNotNull(apexContext);
         apexEngine.stop();
+
+        await().atMost(3L, TimeUnit.SECONDS).until(() -> AxEngineState.STOPPED.equals(apexEngine.getState()));
     }
 
     /**

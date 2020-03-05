@@ -102,7 +102,7 @@ public class EventAlbumContextTest {
         // The output event will be in this file
         final File outputEventFile = new File(outputFile);
         String receivedApexOutputString = "";
-        for (int tenthsOfSecondsToWait = 100; tenthsOfSecondsToWait > 0; tenthsOfSecondsToWait--) {
+        for (int tenthsOfSecondsToWait = 100000000; tenthsOfSecondsToWait > 0; tenthsOfSecondsToWait--) {
             if (outputEventFile.exists() && outputEventFile.length() > 0) {
                 // The output event is in this file
                 receivedApexOutputString =

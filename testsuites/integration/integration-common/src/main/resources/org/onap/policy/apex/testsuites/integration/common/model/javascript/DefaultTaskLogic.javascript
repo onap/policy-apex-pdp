@@ -19,15 +19,15 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.debug(executor.subject.getId());
+executor.logger.debug(executor.subject.id);
 var gc = executor.getContextAlbum("GlobalContextAlbum");
-executor.logger.debug(gc.getName());
-executor.logger.debug(executor.inFields.get("TestSlogan"));
+executor.logger.debug(gc.name);
+executor.logger.debug(executor.inFields);
 
-var caseSelectedType = Java.type("java.lang.Byte");
+var caseSelectedType = java.lang.Byte;
 executor.outFields.put("Test<STATE_NAME>CaseSelected", new caseSelectedType(<RANDOM_BYTE_VALUE>));
 
 executor.outFields.put("Test<STATE_NAME>StateTime", java.lang.System.nanoTime());
-executor.logger.debug(executor.inFields.get("TestSlogan"));
+executor.logger.debug(executor.eo);
 
-var returnValue = executor.isTrue;
+true;

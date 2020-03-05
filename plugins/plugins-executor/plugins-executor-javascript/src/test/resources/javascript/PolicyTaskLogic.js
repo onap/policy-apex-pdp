@@ -17,19 +17,19 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-executor.logger.info(executor.subject.getId());
-var gc = executor.getContextAlbum("BasicContextAlbum");
-executor.logger.info(gc.getName());
-executor.logger.info("incoming value: " + executor.inFields.get("intPar").toString());
+//executor.logger.info(executor.subject.getId());
+//var gc = executor.getContextAlbum("BasicContextAlbum");
+//executor.logger.info(gc.getName());
+//executor.logger.info("incoming value: " + executor.inFields.get("intPar").toString());
 
-var intPar = executor.inFields.get("intPar");
+//var intPar = executor.inFields.get("intPar");
 
-executor.logger.info("read value: " + intPar.toString());
+//executor.logger.info("read value: " + intPar.toString());
 
-var intParBy2 = intPar * 2;
+//var intParBy2 = intPar * 2;
 
-executor.outFields.put("intPar", intParBy2);
+//executor.outFields.put("intPar", intParBy2);
 
-executor.logger.info("outgoing value: " + executor.outFields.get("intPar").toString());
+//executor.logger.info("outgoing value: " + executor.outFields.get("intPar").toString());
 
-var returnValue = executor.isTrue;
+executor.isTrue;

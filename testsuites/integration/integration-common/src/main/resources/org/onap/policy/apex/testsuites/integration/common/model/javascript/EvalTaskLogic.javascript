@@ -19,10 +19,10 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.debug(executor.subject.getId());
-executor.logger.debug(executor.inFields.get("name"));
+executor.logger.debug(executor.subject.id);
+executor.logger.debug(executor.inFields);
 
 executor.outFields.put("State<STATE_NUMBER>Timestamp",  java.lang.System.nanoTime());
-executor.logger.debug(executor.outFields.get("name"));
+executor.logger.debug(executor.outFields);
 
-var returnValue = executor.isTrue;
+true;

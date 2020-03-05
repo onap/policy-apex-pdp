@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.executor.javascript;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,31 +93,32 @@ public class JavascriptStateFinalizerExecutorTest {
         jsfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
 
         stateFinalizerLogic.setLogic("return false");
-        jsfe.prepare();
+        assertThatThrownBy(() -> {
+            jsfe.prepare();
+        }).hasMessage("logic failed to compile for NULL:0.0.0:NULL:NULL "
+                + "with message: invalid return (NULL:0.0.0:NULL:NULL#1)");
 
         Map<String, Object> incomingParameters1 = new HashMap<>();
         assertThatThrownBy(() -> {
             jsfe.execute(-1, new Properties(), incomingParameters1);
-            fail("test should throw an exception here");
-        }).hasMessage("execute: logic failed to run for \"NULL:0.0.0:NULL:NULL\"");
+        }).hasMessage("logic failed to compile for NULL:0.0.0:NULL:NULL "
+                + "with message: invalid return (NULL:0.0.0:NULL:NULL#1)");
 
         stateFinalizerLogic.setLogic("java.lang.String");
         jsfe.prepare();
 
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
-        stateFinalizerLogic.setLogic(
-                "if(executor.executionId==-1)" + "{\r\n" + "var returnValueType = Java.type(\"java.lang.Boolean\");"
-                        + "var returnValue = new returnValueType(false); }\n" + "else{\n"
-                        + "executor.setSelectedStateOutputName(\"SelectedOutputIsMe\");\n"
-                        + "var returnValueType = Java.type(\"java.lang.Boolean\");\n" + "\n"
-                        + "var returnValue = new returnValueType(true);}");
+        stateFinalizerLogic.setLogic("if(executor.executionId==-1)" + "{\r\n"
+                + "var returnValueType = java.lang.Boolean;" + "var returnValue = new returnValueType(false); }\n"
+                + "else{\n" + "executor.setSelectedStateOutputName(\"SelectedOutputIsMe\");\n"
+                + "var returnValueType = java.lang.Boolean;\n" + "\n"
+                + "var returnValue = new returnValueType(true);} true;");
 
         assertThatThrownBy(() -> {
             jsfe.prepare();
             jsfe.execute(-1, new Properties(), event);
-        }).hasMessage("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
-                + "on finalizer logic NULL:0.0.0:NULL:NULL");
+        }).hasMessage("execute-post: state finalizer logic \"NULL:0.0.0:NULL:NULL\" did not select an output state");
 
         state.getStateOutputs().put("SelectedOutputIsMe", null);
 

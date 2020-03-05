@@ -105,41 +105,38 @@ public class JavascriptTaskExecutorTest {
             jte.prepare();
         }).isInstanceOf(NullPointerException.class);
 
-        AxTask task = new AxTask();
+        AxTask task = new AxTask(new AxArtifactKey("TestTask:0.0.1"));
         final ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
 
         jte.setContext(null, task, internalContext);
 
         task.getTaskLogic().setLogic("return boolean;");
-        jte.prepare();
 
-        Map<String, Object> incomingParameters2 = new HashMap<>();
         assertThatThrownBy(() -> {
-            jte.execute(-1, new Properties(), incomingParameters2);
-        }).hasMessage("execute: logic failed to run for \"NULL:0.0.0\"");
+            jte.prepare();
+            jte.execute(-1, new Properties(), null);
+        }).hasMessage("logic failed to compile for TestTask:0.0.1 with message: invalid return (TestTask:0.0.1#1)");
 
         task.getTaskLogic().setLogic("var x = 5;");
-        jte.prepare();
 
+        jte.prepare();
         assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), null);
         }).isInstanceOf(NullPointerException.class);
+        jte.cleanUp();
+
+        task.getTaskLogic().setLogic("var returnValue = false;\nreturnValue;");
 
         Map<String, Object> incomingParameters = new HashMap<>();
-        assertThatThrownBy(() -> {
-            jte.execute(-1, new Properties(), incomingParameters);
-        }).hasMessage("execute: logic failed to set a return value for \"NULL:0.0.0\"");
-
-        task.getTaskLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\n"
-                + "var returnValue = new returnValueType(false); ");
 
         assertThatThrownBy(() -> {
             jte.prepare();
             jte.execute(-1, new Properties(), incomingParameters);
-        }).hasMessage("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0");
+        }).hasMessage("execute-post: task logic execution failure on task \"TestTask\" in model NULL:0.0.0");
 
-        task.getTaskLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\r\n"
-                + "var returnValue = new returnValueType(true); ");
+        jte.cleanUp();
+
+        task.getTaskLogic().setLogic("var returnValue = true;\nreturnValue;");
 
         jte.prepare();
         Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
@@ -176,11 +173,13 @@ public class JavascriptTaskExecutorTest {
 
         jte.prepare();
         jte.execute(-1, new Properties(), incomingParameters);
+        jte.cleanUp();
 
         task.getTaskLogic().setLogic(TextFileUtils.getTextFileAsString("src/test/resources/javascript/TestLogic01.js"));
         jte.prepare();
 
         Map<String, Object> outcomingParameters = jte.execute(-1, new Properties(), incomingParameters);
+        jte.cleanUp();
 
         assertEquals("returnVal0", outcomingParameters.get("par0"));
         assertEquals("returnVal1", outcomingParameters.get("par1"));

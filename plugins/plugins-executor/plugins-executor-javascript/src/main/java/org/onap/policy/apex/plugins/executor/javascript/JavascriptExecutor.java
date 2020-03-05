@@ -20,9 +20,10 @@
 
 package org.onap.policy.apex.plugins.executor.javascript;
 
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.HostAccess;
-import org.graalvm.polyglot.Value;
+import org.apache.commons.lang3.StringUtils;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Script;
+import org.mozilla.javascript.Scriptable;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 
@@ -32,35 +33,50 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class JavascriptExecutor {
+    public static final int DEFAULT_OPTIMIZATION_LEVEL = 9;
+
+    // Recurring string constants
+    private static final String WITH_MESSAGE = " with message: ";
+
     // The key of the subject that wants to execute Javascript code
     final AxKey subjectKey;
 
-    // The Javascript context
-    private final Context jsContext;
+    private Context javascriptContext;
+    private Script script;
 
     /**
-     * Prepares the executor for processing.
+     * Initializes the Javascripe executor.
      *
      * @param subjectKey the key of the subject that is requesting Javascript execution
+     */
+    public JavascriptExecutor(final AxKey subjectKey) {
+        this.subjectKey = subjectKey;
+    }
+
+    /**
+     * Prepares the executor for processing and compiles the Javascript code.
+     *
+     * @param javascriptCode the Javascript code to execute
      * @throws StateMachineException thrown when instantiation of the executor fails
      */
-    public JavascriptExecutor(final AxKey subjectKey) throws StateMachineException {
-        this.subjectKey = subjectKey;
-
-        // @formatter:off
-        jsContext =
-                Context.newBuilder("js")
-                .allowHostClassLookup(s -> true)
-                .allowHostAccess(HostAccess.ALL)
-                .build();
-        // @formatter:on
+    public void init(final String javascriptCode) throws StateMachineException {
+        if (StringUtils.isEmpty(javascriptCode)) {
+            throw new StateMachineException("no logic specified for " + subjectKey.getId());
+        }
 
         try {
-            jsContext.getBindings("js");
+            // Create a Javascript context for this thread
+            javascriptContext = Context.enter();
+
+            // Set up the default values of the context
+            javascriptContext.setOptimizationLevel(DEFAULT_OPTIMIZATION_LEVEL);
+            javascriptContext.setLanguageVersion(Context.VERSION_1_8);
+
+            script = javascriptContext.compileString(javascriptCode, subjectKey.getId(), 1, null);
         } catch (Exception e) {
-            jsContext.close();
+            Context.exit();
             throw new StateMachineException(
-                    "prepare: javascript engine failed to initialize properly for \"" + subjectKey.getId() + "\"", e);
+                    "logic failed to compile for " + subjectKey.getId() + WITH_MESSAGE + e.getMessage(), e);
         }
     }
 
@@ -68,28 +84,30 @@ public class JavascriptExecutor {
      * Executes the the Javascript code.
      *
      * @param executionContext the execution context of the subject to be passed to the Javascript context
-     * @param javascriptCode the Javascript code to execute
      * @return true if the Javascript executed properly
      * @throws StateMachineException thrown when Javascript execution fails
      */
-    public boolean execute(final Object executionContext, final String javascriptCode) throws StateMachineException {
+    public boolean execute(final Object executionContext) throws StateMachineException {
+        Object returnObject = null;
+
         try {
-            // Set up the Javascript engine context
-            jsContext.getBindings("js").putMember("executor", executionContext);
-            jsContext.eval("js", javascriptCode);
+            // Pass the subject context to the Javascript engine
+            Scriptable javascriptScope = javascriptContext.initStandardObjects();
+            javascriptScope.put("executor", javascriptScope, executionContext);
 
+            // Run the script
+            returnObject = script.exec(javascriptContext, javascriptScope);
         } catch (final Exception e) {
-            throw new StateMachineException("execute: logic failed to run for \"" + subjectKey.getId() + "\"", e);
-        }
-
-        Value returnValue = jsContext.getBindings("js").getMember("returnValue");
-
-        if (returnValue == null || returnValue.isNull()) {
             throw new StateMachineException(
-                    "execute: logic failed to set a return value for \"" + subjectKey.getId() + "\"");
+                    "logic failed to run for " + subjectKey.getId() + WITH_MESSAGE + e.getMessage(), e);
         }
 
-        return returnValue.asBoolean();
+        if (!(returnObject instanceof Boolean)) {
+            throw new StateMachineException(
+                    "execute: logic for " + subjectKey.getId() + " returned a non-boolean value " + returnObject);
+        }
+
+        return (boolean) returnObject;
     }
 
     /**
@@ -99,10 +117,10 @@ public class JavascriptExecutor {
      */
     public void cleanUp() throws StateMachineException {
         try {
-            jsContext.close();
+            Context.exit();
         } catch (final Exception e) {
-            throw new StateMachineException(
-                    "cleanUp: executor cleanup failed to close for \"" + subjectKey.getId() + "\"", e);
+            throw new StateMachineException("cleanUp: executor cleanup failed to close for " + subjectKey.getId()
+                    + WITH_MESSAGE + e.getMessage(), e);
         }
     }
 }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,7 +90,8 @@ public class TestApexEngineMvel {
 
     /**
      * Test apex engine.
-     *
+     *        ThreadUtilities.sleep(5000);
+
      * @throws ApexException the apex exception
      * @throws InterruptedException the interrupted exception
      * @throws IOException Signals that an I/O exception has occurred.
@@ -97,7 +99,6 @@ public class TestApexEngineMvel {
     @Test
     public void testApexEngineMvel() throws ApexException, InterruptedException, IOException {
         new TestApexEngine("MVEL", engineParameters);
-        ThreadUtilities.sleep(5000);
         new TestApexEngine("MVEL", engineParameters);
     }
 }
