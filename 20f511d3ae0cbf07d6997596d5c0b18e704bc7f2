@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c3fe230_9e8a7c05",
+        "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-03-05T13:23:29Z",
+      "side": 1,
+      "message": "This is much cleaner - just need to add a logging statement here for any exception that is thrown else sonar will complain.",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 46
+      },
+      "revId": "20f511d3ae0cbf07d6997596d5c0b18e704bc7f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
