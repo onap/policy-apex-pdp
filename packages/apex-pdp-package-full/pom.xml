@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019 Nordix Foundation
+   Modifications Copyright (C) 2019-2020 Nordix Foundation
    Modifications Copyright (C) 2019-2020 Bell Canada.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -170,7 +170,11 @@
             <artifactId>plugins-event-carrier-restrequestor</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
+            <artifactId>plugins-event-carrier-grpc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- Benchmark test event generator -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.performance</groupId>
