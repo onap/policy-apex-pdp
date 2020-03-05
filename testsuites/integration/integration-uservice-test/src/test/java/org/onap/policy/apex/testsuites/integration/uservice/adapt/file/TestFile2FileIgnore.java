@@ -52,6 +52,8 @@ public class TestFile2FileIgnore {
         final String[] apexArgs = {"-rfr", "target", "-c", "examples/config/SampleDomain/File2FileJsonEvent.json"};
 
         testFileEvents(apexArgs, "src/test/resources/events/EventsOut.json", 48656);
+
+        new File("src/test/resources/events/EventsOut.json").delete();
     }
 
     /**

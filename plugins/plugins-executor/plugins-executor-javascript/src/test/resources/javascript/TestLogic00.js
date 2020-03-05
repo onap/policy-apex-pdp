@@ -19,3 +19,5 @@
  */
 var x = 1;
 var returnValue = true;
+
+returnValue;

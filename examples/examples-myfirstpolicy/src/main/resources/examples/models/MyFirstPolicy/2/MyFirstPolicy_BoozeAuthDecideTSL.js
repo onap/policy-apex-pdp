@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-
-var returnValueType = Java.type("java.lang.Boolean");
-var returnValue = new returnValueType(true);
+var returnValue = true;
 
 executor.logger.info("Task Selection Execution: '"+executor.subject.id+
     "'. Input Event: '"+executor.inFields+"'");
@@ -46,3 +45,5 @@ This task selection logic selects task "MorningBoozeCheck" for branches with
 1000<=branch_ID<2000. Otherwise the default task is selected. 
 In this case the default task is also "MorningBoozeCheck"
 */
+
+returnValue;

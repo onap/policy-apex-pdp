@@ -460,7 +460,7 @@
                   "taskLogic" : {
                      "key" : "TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.getId());\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.getName());\nvar returnValue = executor.isTrue;"
+                     "logic" : "executor.logger.debug(executor.subject.getId());\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.getName());\ntrue;"
                   }
                }
             } ]

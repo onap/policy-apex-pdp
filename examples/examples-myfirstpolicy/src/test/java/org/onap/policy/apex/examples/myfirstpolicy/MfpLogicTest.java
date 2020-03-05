@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +80,6 @@ public class MfpLogicTest {
         }
     }
 
-
     /**
      * Check logic for MyFirstPolicyAlt#1.
      */
@@ -118,8 +118,8 @@ public class MfpLogicTest {
         logics.putAll(getTaskLogics(apexPolicyModel));
 
         for (final Entry<String, String> logicvalue : logics.entrySet()) {
-            final String filename = "examples/models/MyFirstPolicy/2/" + logicvalue.getKey();
             final String logic = logicvalue.getValue();
+            final String filename = "examples/models/MyFirstPolicy/2/" + logicvalue.getKey();
             final String expectedlogic = ResourceUtils.getResourceAsString(filename);
             assertNotNull("File " + filename + " was not found. It should contain logic for PolicyModel "
                     + apexPolicyModel.getKey(), expectedlogic);

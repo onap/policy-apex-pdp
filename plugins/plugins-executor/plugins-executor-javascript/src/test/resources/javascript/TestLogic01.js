@@ -30,4 +30,4 @@ executor.outFields.put("par1", "returnVal1");
 executor.logger.info(executor.outFields.get("par0"));
 executor.logger.info(executor.outFields.get("par1"));
 
-var returnValue = executor.isTrue;
+true;

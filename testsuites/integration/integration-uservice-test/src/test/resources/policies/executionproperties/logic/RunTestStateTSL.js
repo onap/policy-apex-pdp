@@ -18,13 +18,18 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.getSubject().getId());
+executor.logger.debug(executor.getSubject().getId());
+executor.logger.debug(executor.getInFields().toString());
+executor.logger.debug("executionProperties:" + executor.getExecutionProperties());
 
-var returnValue = executor.isTrue;
+executor.logger.debug("testToRun:" +  executor.getInFields().get("testToRun"));
 
-executor.logger.info("executionProperties:" + executor.getExecutionProperties());
+var returnValue = true;
 
-switch (executor.inFields.get("testToRun")) {
+// Convert Java string to a Javascript variable
+var testToRun = String(executor.getInFields().get("testToRun")).valueOf();
+
+switch (testToRun) {
     case "ReadOnly":
         executor.subject.getTaskKey("ReadOnlyTask").copyTo(executor.selectedTask);
         break;
@@ -50,7 +55,11 @@ switch (executor.inFields.get("testToRun")) {
         break;
 
     default:
-        executor.subject.getTaskKey("ReadOnlyTask").copyTo(executor.selectedTask);
+        executor.logger.debug("invalid value for testToRun:" +  executor.getInFields().get("testToRun"));
+        returnValue = false;
 }
 
-executor.logger.info("Selected Task:" + executor.selectedTask);
+executor.logger.debug("Selected Task:" + executor.selectedTask);
+
+returnValue;
+

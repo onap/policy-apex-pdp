@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,8 +66,7 @@ abstract class WebSocketServerImpl extends WebSocketServer {
     @Override
     public void onClose(final WebSocket conn, final int code, final String reason, final boolean remote) {
         LOGGER.entry(conn, code, remote);
-        LOGGER.debug("A client  connection from machine {} closing with code {}.",
-                conn.getRemoteSocketAddress().getAddress().getHostAddress(), code);
+        LOGGER.debug("A client  connection from machine {} closing with code {}.", super.getAddress(), code);
         LOGGER.exit();
     }
 

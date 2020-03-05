@@ -50,6 +50,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
+import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters;
 import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
@@ -89,13 +90,8 @@ public class ApexServiceTest {
 
     private boolean waitFlag = true;
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void beforeSetUp() throws Exception {
         // create engine with 3 threads
         parameters.setInstanceCount(3);
         parameters.setName(engineServiceKey.getName());
@@ -114,6 +110,11 @@ public class ApexServiceTest {
         // create engine
         listener = new TestListener();
         service.registerActionListener("Listener", listener);
+    }
+
+    @AfterClass
+    public static void afterCleardown() throws Exception {
+        ModelService.clear();
     }
 
     /**

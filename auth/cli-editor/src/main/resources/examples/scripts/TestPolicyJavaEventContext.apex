@@ -228,9 +228,9 @@ var customDate2   = executor.getContextAlbum("CustomDate2Album"  ).get("CustomDa
 var customSet     = executor.getContextAlbum("CustomSetAlbum"    ).get("CustomSet"    );
 var customMap     = executor.getContextAlbum("CustomMapAlbum"    ).get("CustomMap"    );
 
-javaBoolean    = !javaBoolean;
+javaBoolean    = javaBoolean == false;
 javaByte      += 1;
-javaShortType  = Java.type("java.lang.Short");
+javaShortType  = java.lang.Short;
 javaShort      = new javaShortType(javaShort + 1);
 javaInteger   += 1;
 javaLong      += 1;
@@ -246,14 +246,14 @@ customDouble .setDoubleValue(customDouble .getIncrementedDoubleValue());
 customString .setStringValue(customString .getStringValue() + " added to end of string");
 customJLong  .setLongValue  (customJLong  .getIncrementedLongValue());
 
-customDate0Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateItem");
+customDate0Type = org.onap.policy.apex.context.test.concepts.TestContextDateItem;
 customDate0 = new customDate0Type(1499868391);
 
-customDate1Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateTzItem");
+customDate1Type = org.onap.policy.apex.context.test.concepts.TestContextDateTzItem;
 customDate1 = new customDate1Type();
 customDate1.setDateValue(customDate0);
 
-customDate2Type = Java.type("org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem");
+customDate2Type = org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem;
 customDate2 = new customDate2Type();
 customDate2.setDateValue(customDate0);
 
@@ -309,9 +309,8 @@ executor.outFields.put("CustomDate2"  , executor.getContextAlbum("CustomDate2Alb
 executor.outFields.put("CustomSet"    , executor.getContextAlbum("CustomSetAlbum"    ).get("CustomSet"    ));
 executor.outFields.put("CustomMap"    , executor.getContextAlbum("CustomMapAlbum"    ).get("CustomMap"    )); 
 
-var returnValueType = Java.type("java.lang.Boolean");
-var returnValue = new returnValueType(true);
-
+var returnValue = true;
+returnValue;
 LE
 
 policy create name=Test_Policy template=FREEFORM firstState=OnlyState

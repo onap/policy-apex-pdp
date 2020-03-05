@@ -80,14 +80,17 @@ public class JavascriptTaskSelectExecutorTest {
         AxState state = new AxState();
         ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
         jtse.setContext(null, state, internalContext);
-        jtse.prepare();
+
+        assertThatThrownBy(() -> {
+            jtse.prepare();
+        }).hasMessage("no logic specified for NULL:0.0.0:NULL:NULL");
 
         AxEvent axEvent1 = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event1 = new EnEvent(axEvent1);
 
         assertThatThrownBy(() -> {
             jtse.execute(-1, new Properties(), event1);
-        }).hasMessage("execute: logic failed to set a return value for \"NULL:0.0.0:NULL:NULL\"");
+        }).hasMessage("no logic specified for NULL:0.0.0:NULL:NULL");
 
         state.getTaskSelectionLogic().setLogic("java.lang.String");
         jtse.prepare();
@@ -101,18 +104,17 @@ public class JavascriptTaskSelectExecutorTest {
 
         assertThatThrownBy(() -> {
             jtse.execute(-1, new Properties(), event);
-        }).hasMessage("execute: logic failed to set a return value for \"NULL:0.0.0:NULL:NULL\"");
+        }).hasMessage(
+                "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
 
-        state.getTaskSelectionLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\r\n"
-                + "var returnValue = new returnValueType(false); ");
+        state.getTaskSelectionLogic().setLogic("var x=1;\n" + "false; ");
 
         assertThatThrownBy(() -> {
             jtse.prepare();
             jtse.execute(-1, new Properties(), event);
         }).hasMessage("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
 
-        state.getTaskSelectionLogic().setLogic("var returnValueType = Java.type(\"java.lang.Boolean\");\r\n"
-                + "var returnValue = new returnValueType(true); ");
+        state.getTaskSelectionLogic().setLogic("var x = 1\n" + "true; ");
 
         jtse.prepare();
         AxArtifactKey taskKey = jtse.execute(0, new Properties(), event);

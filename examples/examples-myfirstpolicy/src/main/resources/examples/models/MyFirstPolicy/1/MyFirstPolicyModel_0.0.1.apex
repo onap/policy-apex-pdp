@@ -1,19 +1,20 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
@@ -41,8 +42,8 @@ schema create name=sale_ID_type version=0.0.1 uuid=cca47d74-7754-4a61-b163-ca31f
 schema create name=timestamp_type version=0.0.1 uuid=fd594e88-411d-4a94-b2be-697b3a0d7adf description="A type for 'time' values" flavour=Java schema=java.lang.Long
 
 task create name=MorningBoozeCheck version=0.0.1 uuid=3351b0f4-cf06-4fa2-8823-edf67bd30223 description=LS
-This task checks if the sales request is for an item that contains alcohol. 
-If the local time is between 00:00:00 and 11:30:00 then the sale is not authorised. Otherwise the sale is authorised. 
+This task checks if the sales request is for an item that contains alcohol.
+If the local time is between 00:00:00 and 11:30:00 then the sale is not authorised. Otherwise the sale is authorised.
 In this implementation we assume that all items with item_ID values between 1000 and 2000 contain alcohol :-)
 LE
 task inputfield create name=MorningBoozeCheck version=0.0.1 fieldName=sale_ID schemaName=sale_ID_type schemaVersion=0.0.1
@@ -67,19 +68,20 @@ task logic create name=MorningBoozeCheck version=0.0.1 logicFlavour=MVEL logic=L
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -140,8 +142,8 @@ else{
 /*
 This task checks if a sale request is for an item that is an alcoholic drink.
 If the local time is between 00:00:00 GMT and 11:30:00 GMT then the sale is not
-authorised. Otherwise the sale is authorised. 
-In this implementation we assume that items with item_ID value between 1000 and 
+authorised. Otherwise the sale is authorised.
+In this implementation we assume that items with item_ID value between 1000 and
 2000 are all alcoholic drinks :-)
 */
 LE

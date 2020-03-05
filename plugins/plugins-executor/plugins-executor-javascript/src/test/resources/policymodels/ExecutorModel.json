@@ -460,7 +460,7 @@
                   "taskLogic" : {
                      "key" : "TaskLogic",
                      "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "executor.logger.debug(executor.subject.getId());\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.getName());\nexecutor.logger.debug(\"incoming value: \" + executor.inFields.get(\"intPar\").toString());\n\nvar intPar = executor.inFields.get(\"intPar\");\n\nexecutor.logger.debug(\"read value: \" + intPar.toString());\n\nvar intParBy2 = intPar * 2;\n\nexecutor.outFields.put(\"intPar\", intParBy2);\n\nexecutor.logger.debug(\"outgoing value: \" + executor.outFields.get(\"intPar\").toString());\n\nvar returnValue = executor.isTrue;"
+                     "logic" : "executor.logger.debug(executor.subject.getId());\nvar gc = executor.getContextAlbum(\"BasicContextAlbum\");\nexecutor.logger.debug(gc.getName());\nexecutor.logger.debug(\"incoming value: \" + executor.inFields.get(\"intPar\").toString());\n\nvar intPar = executor.inFields.get(\"intPar\");\n\nexecutor.logger.debug(\"read value: \" + intPar.toString());\n\nvar intParBy2 = intPar * 2;\n\nexecutor.outFields.put(\"intPar\", intParBy2);\n\nexecutor.logger.debug(\"outgoing value: \" + executor.outFields.get(\"intPar\").toString());\n\ntrue;"
                   }
                }
             } ]

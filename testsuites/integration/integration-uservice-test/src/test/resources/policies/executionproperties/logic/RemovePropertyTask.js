@@ -18,14 +18,14 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.getSubject().getId());
+executor.logger.debug(executor.getSubject().getId());
 
-executor.logger.info("executionProperties in:" + executor.getExecutionProperties());
+executor.logger.debug("executionProperties in:" + executor.getExecutionProperties());
 
 var executionProperties = new java.util.Properties();
 
 executor.getExecutionProperties().remove("hello");
 
-executor.logger.info("executionProperties out:" + executor.getExecutionProperties());
+executor.logger.debug("executionProperties out:" + executor.getExecutionProperties());
 
-var returnValue = executor.isTrue;
+true;
