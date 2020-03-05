@@ -34,4 +34,4 @@ executor.getExecutionProperties().setProperty("value", closedLoopId);
 
 executor.logger.info("executionProperties out: {}", executor.getExecutionProperties().toString());
 
-var returnValue = executor.isTrue;
+true;

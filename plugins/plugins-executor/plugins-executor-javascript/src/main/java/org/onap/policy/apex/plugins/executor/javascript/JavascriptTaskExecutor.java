@@ -52,7 +52,12 @@ public class JavascriptTaskExecutor extends TaskExecutor {
         // Call generic prepare logic
         super.prepare();
 
+        // Create the executor
         javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
+
+        // Initialize and cleanup the executor to check the Javascript code
+        javascriptExecutor.init(getSubject().getTaskLogic().getLogic());
+        javascriptExecutor.cleanUp();
     }
 
     /**
@@ -68,11 +73,17 @@ public class JavascriptTaskExecutor extends TaskExecutor {
     @Override
     public Map<String, Object> execute(final long executionId, final Properties executionProperties,
             final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
+
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
-        // Execute the Javascript and do post processing
-        executePost(javascriptExecutor.execute(getExecutionContext(), getSubject().getTaskLogic().getLogic()));
+        // Execute the Javascript executor
+        javascriptExecutor.init(getSubject().getTaskLogic().getLogic());
+        boolean result = javascriptExecutor.execute(getExecutionContext());
+        javascriptExecutor.cleanUp();
+
+        // Execute the Javascript
+        executePost(result);
 
         return getOutgoing();
     }
@@ -86,7 +97,5 @@ public class JavascriptTaskExecutor extends TaskExecutor {
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskLogic().getLogicFlavour()
                 + "," + getSubject().getTaskLogic().getLogic());
-
-        javascriptExecutor.cleanUp();
     }
 }

@@ -18,8 +18,9 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.getSubject().getId());
+executor.logger.debug(executor.getSubject().getId());
+executor.logger.debug(executor.getInFields().toString());
+executor.logger.debug("executionProperties:" + executor.getExecutionProperties());
+executor.logger.debug(executor.getOutFields().toString());
 
-executor.logger.info("executionProperties:" + executor.getExecutionProperties());
-
-var returnValue = executor.isTrue;
+true;

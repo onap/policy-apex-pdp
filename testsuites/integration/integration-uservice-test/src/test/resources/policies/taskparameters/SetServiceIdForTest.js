@@ -33,4 +33,5 @@ if (null == svcId) {
 executor.getExecutionProperties().setProperty("value", svcId);
 
 executor.logger.info("executionProperties out: {}", executor.getExecutionProperties().toString());
-var returnValue = executor.isTrue;
+
+true;

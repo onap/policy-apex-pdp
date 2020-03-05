@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,8 +49,8 @@ public class SupportRestRequestorEndpoint {
     private static int deleteMessagesReceived = 0;
 
     private static String EVENT_STRING = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.events\",\n"
-                    + "\"name\": \"ResponseEvent\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_"
-                    + getMessagesReceived + "\",\n" + "\"target\": \"apex\",\n" + "\"intPar\": 9080\n" + "}";
+            + "\"name\": \"ResponseEvent\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_"
+            + getMessagesReceived + "\",\n" + "\"target\": \"apex\",\n" + "\"intPar\": 9080\n" + "}";
 
     /**
      * Reset counters.
@@ -74,10 +75,10 @@ public class SupportRestRequestorEndpoint {
             statMessagesReceived++;
         }
         return Response.status(200)
-                        .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived
-                                        + ",\"POST\": " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived
-                                        + ",\"DELETE\": " + deleteMessagesReceived + "}")
-                        .build();
+                .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
+                        + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + ",\"DELETE\": "
+                        + deleteMessagesReceived + "}")
+                .build();
     }
 
     /**
@@ -134,9 +135,9 @@ public class SupportRestRequestorEndpoint {
         final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
-        assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
-        assertEquals("Act", jsonMap.get("source"));
-        assertEquals("Outside", jsonMap.get("target"));
+        assertEquals("org.onap.policy.apex.events", jsonMap.get("nameSpace"));
+        assertEquals("apex", jsonMap.get("source"));
+        assertEquals("server", jsonMap.get("target"));
 
         return Response.status(200).entity(EVENT_STRING).build();
     }
@@ -170,9 +171,9 @@ public class SupportRestRequestorEndpoint {
         final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
-        assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
-        assertEquals("Act", jsonMap.get("source"));
-        assertEquals("Outside", jsonMap.get("target"));
+        assertEquals("org.onap.policy.apex.events", jsonMap.get("nameSpace"));
+        assertEquals("apex", jsonMap.get("source"));
+        assertEquals("server", jsonMap.get("target"));
 
         return Response.status(200).entity(EVENT_STRING).build();
     }

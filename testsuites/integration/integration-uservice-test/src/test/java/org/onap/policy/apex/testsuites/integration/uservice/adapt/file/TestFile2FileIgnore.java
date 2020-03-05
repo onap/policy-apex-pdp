@@ -51,6 +51,8 @@ public class TestFile2FileIgnore {
     public static void main(final String[] args) throws MessagingException, ApexException, IOException {
         final String[] apexArgs = {"-rfr", "target", "-c", "examples/config/SampleDomain/File2FileJsonEvent.json"};
 
+        new File("src/test/resources/events/EventsOut.json").delete();
+
         testFileEvents(apexArgs, "src/test/resources/events/EventsOut.json", 48656);
     }
 

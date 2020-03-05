@@ -94,13 +94,13 @@ public class MfpModelCliTest {
                 + tempModelFile1.getAbsolutePath() + " is not the same as the test Model for "
                 + testApexModel1.getKey(), testApexModel1, generatedmodel);
 
+        tempLogFile1.delete();
+        tempModelFile1.delete();
+
         generatedmodel = reader.read(TextFileUtils.getTextFileAsString(tempModelFile2.getAbsolutePath()));
         assertEquals("Model generated from the CLI (" + testApexModel2CliArgs[1] + ") into file "
                 + tempModelFile2.getAbsolutePath() + " is not the same as the test Model for "
                 + testApexModel2.getKey(), testApexModel2, generatedmodel);
-
-        tempLogFile1.delete();
-        tempModelFile1.delete();
 
         tempLogFile2.delete();
         tempModelFile2.delete();

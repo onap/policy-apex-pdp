@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.jms;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.jms.JMSException;
 
@@ -39,9 +41,7 @@ import org.apache.activemq.security.SimpleAuthenticationPlugin;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.slf4j.ext.XLogger;
@@ -56,7 +56,6 @@ public class TestJms2Jms {
     public static final String JMS_TOPIC_APEX_IN = "jms/topic/apexIn";
     public static final String JMS_TOPIC_APEX_OUT = "jms/topic/apexOut";
 
-    private static final int SLEEP_TIME = 1500;
     private static final String GROUP_ROLE = "guests";
     private static final String PACKAGE_NAME = "org.onap.policy.apex.testsuites.integration.common.testclasses";
     private static final String USERNAME = "guest";
@@ -67,7 +66,6 @@ public class TestJms2Jms {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestJms2Jms.class);
 
-    private static final long MAX_TEST_LENGTH = 10000;
     private static final int EVENT_COUNT = 100;
     private static final int EVENT_INTERVAL = 20;
 
@@ -143,7 +141,6 @@ public class TestJms2Jms {
      * @throws JMSException the JMS exception
      */
     @Test
-    @Ignore
     public void testJmsObjectEvents() throws ApexException, JMSException {
         final String[] args = {"-rfr", "target", "-c", "target/examples/config/JMS/JMS2JMSObjectEvent.json"};
         testJmsEvents(args, true);
@@ -172,38 +169,24 @@ public class TestJms2Jms {
     private void testJmsEvents(final String[] args, final Boolean sendObjects) throws ApexException, JMSException {
         final JmsEventSubscriber subscriber =
                 new JmsEventSubscriber(JMS_TOPIC_APEX_OUT, connectionFactory, USERNAME, PASSWORD);
+
         final JmsEventProducer producer = new JmsEventProducer(JMS_TOPIC_APEX_IN, connectionFactory, USERNAME, PASSWORD,
                 EVENT_COUNT, sendObjects, EVENT_INTERVAL);
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(3000);
+
+        await().atMost(3L, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
         producer.sendEvents();
 
-        final long testStartTime = System.currentTimeMillis();
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> producer.getEventsSentCount() >= EVENT_COUNT - 1);
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> subscriber.getEventsReceivedCount() >= EVENT_COUNT - 1);
 
-        while (isTimedOut(testStartTime) && subscriber.getEventsReceivedCount() < EVENT_COUNT) {
-            ThreadUtilities.sleep(EVENT_INTERVAL);
-        }
-
-        ThreadUtilities.sleep(SLEEP_TIME);
         apexMain.shutdown();
         subscriber.shutdown();
         producer.shutdown();
-        ThreadUtilities.sleep(SLEEP_TIME);
 
         assertEquals(EVENT_COUNT, producer.getEventsSentCount());
         assertEquals(producer.getEventsSentCount(), subscriber.getEventsReceivedCount());
-
-    }
-
-    /**
-     * Checks if is timed out.
-     *
-     * @param testStartTime the test start time
-     * @return true, if is timed out
-     */
-    private boolean isTimedOut(final long testStartTime) {
-        return System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH;
     }
 }

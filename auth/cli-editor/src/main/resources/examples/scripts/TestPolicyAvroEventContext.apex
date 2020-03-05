@@ -6,15 +6,15 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ LE
 
 schema create name=AvroFloat_type flavour=Avro schema=LS
 {
-  "type" : "double"
+  "type" : "float"
 }
 LE
 
@@ -472,11 +472,11 @@ var customDate2   = executor.getContextAlbum("CustomDate2Album"  ).get("CustomDa
 var customSet     = executor.getContextAlbum("CustomSetAlbum"    ).get("CustomSet"    );
 var customMap     = executor.getContextAlbum("CustomMapAlbum"    ).get("CustomMap"    );
 
-javaIntegerType = Java.type("java.lang.Integer");
-javaLongType    = Java.type("java.lang.Long");
-javaFloatType   = Java.type("java.lang.Float");
+javaIntegerType = java.lang.Integer;
+javaLongType    = java.lang.Long;
+javaFloatType   = java.lang.Float;
 
-avroBoolean    = !avroBoolean;
+avroBoolean    = avroBoolean == false;
 avroByte      = new javaIntegerType(avroByte    + 1);
 avroShort     = new javaIntegerType(avroShort   + 1);
 avroInteger   = new javaIntegerType(avroInteger + 1);
@@ -484,7 +484,7 @@ avroLong      = new javaLongType   (avroLong    + 1);
 avroFloat     = new javaFloatType  (avroFloat   + 0.99);
 avroDouble    += 0.99;
 avroString     = avroString + " added to end of string";
-customBoolean.put("flag",       !customBoolean.get("flag"));
+customBoolean.put("flag",       customBoolean.get("flag") == false);
 customByte   .put("byteValue"  , customByte   .get("byteValue"  ) + 1);
 customInteger.put("intValue"   , customInteger.get("intValue"   ) + 1);
 customDouble .put("doubleValue", customDouble .get("doubleValue") + 1.0);
@@ -551,8 +551,8 @@ executor.outFields.put("CustomDate2"  , executor.getContextAlbum("CustomDate2Alb
 executor.outFields.put("CustomSet"    , executor.getContextAlbum("CustomSetAlbum"    ).get("CustomSet"    ));
 executor.outFields.put("CustomMap"    , executor.getContextAlbum("CustomMapAlbum"    ).get("CustomMap"    ));
 
-var returnValueType = Java.type("java.lang.Boolean");
-var returnValue = new returnValueType(true);
+var returnValue = true;
+returnValue;
 
 LE
 

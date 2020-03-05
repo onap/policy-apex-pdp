@@ -18,13 +18,13 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.getSubject().getId());
+executor.logger.debug(executor.getSubject().getId());
 
-executor.logger.info("executionProperties in:" + executor.getExecutionProperties());
+executor.logger.debug("executionProperties in:" + executor.getExecutionProperties());
 
 executor.getExecutionProperties().setProperty("tagId", executor.inFields.get("testToRun"));
 executor.getExecutionProperties().setProperty("value", "3");
 
-executor.logger.info("executionProperties out:" + executor.getExecutionProperties());
+executor.logger.debug("executionProperties out:" + executor.getExecutionProperties());
 
-var returnValue = executor.isTrue;
+true;

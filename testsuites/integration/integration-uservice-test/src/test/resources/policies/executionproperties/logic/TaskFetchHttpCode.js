@@ -18,15 +18,15 @@
  * ============LICENSE_END=========================================================
  */
 
-executor.logger.info(executor.getSubject().getId());
+executor.logger.debug(executor.getSubject().getId());
 
-executor.logger.info("executionProperties: " + executor.getExecutionProperties());
+executor.logger.debug("executionProperties: " + executor.getExecutionProperties());
 
 if (executor.getExecutionProperties().get("HTTP_CODE_STATUS") == "500")
     executor.outFields.put("testToRun", "CodeFilterSet");
 else
     executor.outFields.put("testToRun", "CodeFilterDefault");
 
-executor.logger.info("testToRun: " + executor.outFields.get("testToRun"));
+executor.logger.debug("testToRun: " + executor.outFields.get("testToRun"));
 
-var returnValue = executor.isTrue;
+true;

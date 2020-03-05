@@ -32,4 +32,4 @@ executor.outFields.put("intPar", intParBy2);
 
 executor.logger.info("outgoing value: " + executor.outFields.get("intPar").toString());
 
-var returnValue = executor.isTrue;
+executor.isTrue;
