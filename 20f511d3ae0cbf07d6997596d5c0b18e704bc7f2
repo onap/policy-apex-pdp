@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7f561610_2c881bdc",
+        "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-05T13:43:48Z",
+      "side": 1,
+      "message": "can now combine this line with line 53",
+      "revId": "20f511d3ae0cbf07d6997596d5c0b18e704bc7f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c3fe230_9e8a7c05",
         "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
         "patchSetId": 2
