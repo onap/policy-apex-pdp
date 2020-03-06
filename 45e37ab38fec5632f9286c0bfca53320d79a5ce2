@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0e856ae_fda75e84",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-06T12:11:08Z",
+      "side": 1,
+      "message": "Maybe fix the \"Either log or rethrow exception\" as well. Same comment below.",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 31
+      },
+      "revId": "45e37ab38fec5632f9286c0bfca53320d79a5ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
