@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ public class ApexEngineImpl implements ApexEngine {
 
     // The state of this engine
     private AxEngineState state = AxEngineState.STOPPED;
+    private final Object stateLockObj = new Object();
 
     // call back listeners
     private final Map<String, EnEventListener> eventListeners = new LinkedHashMap<>();
@@ -206,7 +207,7 @@ public class ApexEngineImpl implements ApexEngine {
                         increment > 0; increment -= ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT) {
             ThreadUtilities.sleep(ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT);
 
-            synchronized (state) {
+            synchronized (stateLockObj) {
                 switch (state) {
                     // Engine is OK to stop or has been stopped on return of an event
                     case READY:
@@ -234,7 +235,7 @@ public class ApexEngineImpl implements ApexEngine {
         }
 
         // Force the engine to STOPPED state
-        synchronized (state) {
+        synchronized (stateLockObj) {
             state = AxEngineState.STOPPED;
         }
 
@@ -292,7 +293,7 @@ public class ApexEngineImpl implements ApexEngine {
             return ret;
         }
 
-        synchronized (state) {
+        synchronized (stateLockObj) {
             if (state != AxEngineState.READY) {
                 LOGGER.warn("handleEvent()<-{},{}, cannot run engine, engine not in state READY", key.getId(), state);
                 return ret;
@@ -333,7 +334,7 @@ public class ApexEngineImpl implements ApexEngine {
             LOGGER.warn("handleEvent()<-" + key.getId() + "," + state + ", outgoing event publishing error: ", e);
             ret = false;
         }
-        synchronized (state) {
+        synchronized (stateLockObj) {
             // Only go to READY if we are still in state EXECUTING, we go to state STOPPED if we were STOPPING
             if (state == AxEngineState.EXECUTING) {
                 state = AxEngineState.READY;

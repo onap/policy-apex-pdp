@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +48,7 @@ public class EventGeneratorEndpoint {
 
     // Parameters for event generation
     private static EventGeneratorParameters parameters = new EventGeneratorParameters();
+    private static final Object parameterLockObj = new Object();
 
     // The map of event batches sent in the test
     private static ConcurrentHashMap<Integer, EventBatch> batchMap = new ConcurrentHashMap<>();
@@ -72,7 +74,7 @@ public class EventGeneratorEndpoint {
      * @param incomingParameters the new parameters
      */
     public static void setParameters(EventGeneratorParameters incomingParameters) {
-        synchronized (parameters) {
+        synchronized (parameterLockObj) {
             parameters = incomingParameters;
         }
     }
