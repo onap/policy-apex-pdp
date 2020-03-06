@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42fd892c_257bdab9",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6458
+      },
+      "writtenOn": "2020-03-06T12:21:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a036d0d4_0f9f1856",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "0b58981446351e4f36039280a24f2c7d84d6b241",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31c9b06f_c04695a2",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "0b58981446351e4f36039280a24f2c7d84d6b241",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa28d440_c654ef94",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6458
+      },
+      "writtenOn": "2020-03-06T12:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31c9b06f_c04695a2",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 32
+      },
+      "revId": "0b58981446351e4f36039280a24f2c7d84d6b241",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
