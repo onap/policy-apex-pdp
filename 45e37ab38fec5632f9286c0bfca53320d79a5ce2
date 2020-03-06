@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a6496a4_796643ff",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-06T14:13:40Z",
+      "side": 1,
+      "message": "must synchronize this access to state\n\nsame comment elsewhere in this file",
+      "revId": "45e37ab38fec5632f9286c0bfca53320d79a5ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0e856ae_fda75e84",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 2
@@ -70,6 +87,23 @@
       "revId": "45e37ab38fec5632f9286c0bfca53320d79a5ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c765e654_c13774a0",
+        "filename": "testsuites/performance/performance-benchmark-test/src/main/java/org/onap/policy/apex/testsuites/performance/benchmark/eventgenerator/EventGeneratorEndpoint.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-06T14:13:40Z",
+      "side": 1,
+      "message": "all accesses to \"parameters\" would also have to be synchronized.  Perhaps use an AtomicReference, instead - then there\u0027s no need to synchronize for setting or getting the value.  (I\u0027d say to just use volatile, but sonar always seems to complain about that.)",
+      "revId": "45e37ab38fec5632f9286c0bfca53320d79a5ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
