@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import com.google.gson.Gson;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.ws.rs.GET;
@@ -46,8 +48,8 @@ public class EventGeneratorEndpoint {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(EventGeneratorEndpoint.class);
 
     // Parameters for event generation
-    private static EventGeneratorParameters parameters = new EventGeneratorParameters();
-
+    private static AtomicReference<EventGeneratorParameters> parameters = new AtomicReference<>(new EventGeneratorParameters());
+    
     // The map of event batches sent in the test
     private static ConcurrentHashMap<Integer, EventBatch> batchMap = new ConcurrentHashMap<>();
 
@@ -72,9 +74,7 @@ public class EventGeneratorEndpoint {
      * @param incomingParameters the new parameters
      */
     public static void setParameters(EventGeneratorParameters incomingParameters) {
-        synchronized (parameters) {
-            parameters = incomingParameters;
-        }
+        parameters.set(incomingParameters);
     }
 
     /**
@@ -96,7 +96,7 @@ public class EventGeneratorEndpoint {
     @Path("/GetEvents")
     @GET
     public Response getEvents() {
-        ThreadUtilities.sleep(parameters.getDelayBetweenBatches());
+        ThreadUtilities.sleep(parameters.get().getDelayBetweenBatches());
 
         // Check if event generation is finished
         if (isFinished()) {
@@ -104,12 +104,12 @@ public class EventGeneratorEndpoint {
         }
 
         // A batch count of 0 means to continue to handle events for ever
-        if (parameters.getBatchCount() > 0 && batchMap.size() >= parameters.getBatchCount()) {
+        if (parameters.get().getBatchCount() > 0 && batchMap.size() >= parameters.get().getBatchCount()) {
             setFinished(true);
             return Response.status(204).build();
         }
 
-        EventBatch batch = new EventBatch(parameters.getBatchSize(), getApexClient());
+        EventBatch batch = new EventBatch(parameters.get().getBatchSize(), getApexClient());
         batchMap.put(batch.getBatchNumber(), batch);
 
         return Response.status(200).entity(batch.getBatchAsJsonString()).build();

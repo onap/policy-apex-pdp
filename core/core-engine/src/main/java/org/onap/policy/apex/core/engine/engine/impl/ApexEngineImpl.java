@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ public class ApexEngineImpl implements ApexEngine {
 
     // The state of this engine
     private AxEngineState state = AxEngineState.STOPPED;
+    private final Object stateLockObj = new Object();
 
     // call back listeners
     private final Map<String, EnEventListener> eventListeners = new LinkedHashMap<>();
@@ -89,7 +90,7 @@ public class ApexEngineImpl implements ApexEngine {
     protected ApexEngineImpl(final AxArtifactKey key) {
         argumentNotNull(key, "AxArtifactKey may not be null");
 
-        LOGGER.entry("ApexEngine()->" + key.getId() + "," + state);
+        LOGGER.entry("ApexEngine()->{}, {}", key.getId(), state);
 
         this.key = key;
 
@@ -106,16 +107,17 @@ public class ApexEngineImpl implements ApexEngine {
     @Override
     public void updateModel(final AxPolicyModel apexModel, final boolean isSubsequentInstance) throws ApexException {
         if (apexModel != null) {
-            LOGGER.entry("updateModel()->" + key.getId() + ", apexPolicyModel=" + apexModel.getKey().getId());
+            LOGGER.entry("updateModel()->{}, apexPolicyModel {}", key.getId() , apexModel.getKey().getId());
         } else {
-            LOGGER.warn(UPDATE_MODEL + key.getId() + ", Apex model not set");
             throw new ApexException(UPDATE_MODEL + key.getId() + ", Apex model is not defined, it has a null value");
         }
 
         // The engine must be stopped in order to do a model update
-        if (!state.equals(AxEngineState.STOPPED)) {
-            throw new ApexException(UPDATE_MODEL + key.getId()
-                            + ", cannot update model, engine should be stopped but is in state " + state);
+        synchronized (stateLockObj) {
+            if (!state.equals(AxEngineState.STOPPED)) {
+                throw new ApexException(
+                    UPDATE_MODEL + key.getId() + ", cannot update model, engine should be stopped but is in state " + state);
+            }
         }
 
         // Create new internal context or update the existing one
@@ -128,8 +130,6 @@ public class ApexEngineImpl implements ApexEngine {
                 internalContext.update(apexModel, isSubsequentInstance);
             }
         } catch (final ContextException e) {
-            LOGGER.warn(UPDATE_MODEL + key.getId() + ", error setting the context for engine \"" + key.getId() + "\"",
-                            e);
             throw new ApexException(UPDATE_MODEL + key.getId() + ", error setting the context for engine \""
                             + key.getId() + "\"", e);
         }
@@ -140,8 +140,6 @@ public class ApexEngineImpl implements ApexEngine {
             // always set up as new
             stateMachineHandler = new StateMachineHandler(internalContext);
         } catch (final StateMachineException e) {
-            LOGGER.warn(UPDATE_MODEL + key.getId() + ", error setting up the engine state machines \"" + key.getId()
-                            + "\"", e);
             throw new ApexException(UPDATE_MODEL + key.getId() + ", error setting up the engine state machines \""
                             + key.getId() + "\"", e);
         }
@@ -154,18 +152,15 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public void start() throws ApexException {
-        LOGGER.entry("start()" + key);
-
-        if (state != AxEngineState.STOPPED) {
-            String message = START + key.getId() + "," + state + ", cannot start engine, engine not in state STOPPED";
-            LOGGER.warn(message);
-            throw new ApexException(message);
+        LOGGER.entry("start() {}" , key);
+        synchronized (stateLockObj) {
+            if (state != AxEngineState.STOPPED) {
+                String message = START + key.getId() + "," + state + ", cannot start engine, engine not in state STOPPED";
+                throw new ApexException(message);
+            }
         }
 
         if (stateMachineHandler == null || internalContext == null) {
-            String message = START + key.getId() + "," + state
-                            + ", cannot start engine, engine has not been initialized, its model is not loaded";
-            LOGGER.warn(message);
             throw new ApexException(START + key.getId() + "," + state
                             + ",  cannot start engine, engine has not been initialized, its model is not loaded");
         }
@@ -178,7 +173,6 @@ public class ApexEngineImpl implements ApexEngine {
         } catch (final StateMachineException e) {
             String message = UPDATE_MODEL + key.getId() + ", error starting the engine state machines \"" + key.getId()
                             + "\"";
-            LOGGER.warn(message, e);
             throw new ApexException(message, e);
         }
 
@@ -193,20 +187,20 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public void stop() throws ApexException {
-        LOGGER.entry("stop()->" + key);
+        LOGGER.entry("stop()-> {}" , key);
 
         // Check if the engine is already stopped
-        if (state == AxEngineState.STOPPED) {
-            throw new ApexException(
-                            STOP + key.getId() + "," + state + ", cannot stop engine, engine is already stopped");
+        synchronized (stateLockObj) {
+            if (state == AxEngineState.STOPPED) {
+                throw new ApexException(STOP + key.getId() + "," + state + ", cannot stop engine, engine is already stopped");
+            }
         }
-
         // Stop the engine if it is in state READY, if it is in state EXECUTING, wait for execution to finish
         for (int increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT;
                         increment > 0; increment -= ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT) {
             ThreadUtilities.sleep(ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT);
 
-            synchronized (state) {
+            synchronized (stateLockObj) {
                 switch (state) {
                     // Engine is OK to stop or has been stopped on return of an event
                     case READY:
@@ -234,7 +228,7 @@ public class ApexEngineImpl implements ApexEngine {
         }
 
         // Force the engine to STOPPED state
-        synchronized (state) {
+        synchronized (stateLockObj) {
             state = AxEngineState.STOPPED;
         }
 
@@ -246,10 +240,11 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public void clear() throws ApexException {
-        LOGGER.entry("clear()->" + key);
-        if (state != AxEngineState.STOPPED) {
-            throw new ApexException("clear" + "()<-" + key.getId() + "," + state
-                            + ", cannot clear engine, engine is not stopped");
+        LOGGER.entry("clear()-> {}" , key);
+        synchronized(stateLockObj) {
+            if (state != AxEngineState.STOPPED) {
+                throw new ApexException("clear" + "()<-" + key.getId() + "," + state + ", cannot clear engine, engine is not stopped");
+            }
         }
 
         // Clear everything
@@ -267,16 +262,18 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public EnEvent createEvent(final AxArtifactKey eventKey) {
-        if (state != AxEngineState.READY && state != AxEngineState.EXECUTING) {
-            LOGGER.warn("createEvent()<-{},{}, cannot create event, engine not in state READY", key.getId(), state);
-            return null;
+        synchronized (stateLockObj) {
+            if (state != AxEngineState.READY && state != AxEngineState.EXECUTING) {
+                LOGGER.warn("createEvent()<-{},{}, cannot create event, engine not in state READY", key.getId(), state);
+                return null;
+            }
         }
 
         try {
             // Create an event using the internal context
             return new EnEvent(eventKey);
         } catch (final Exception e) {
-            LOGGER.warn("createEvent()<-" + key.getId() + "," + state + ", error on event creation", e);
+            LOGGER.warn("createEvent()<-{},{}, error on event creation: ", key.getId(), state , e);
             return null;
         }
     }
@@ -292,7 +289,7 @@ public class ApexEngineImpl implements ApexEngine {
             return ret;
         }
 
-        synchronized (state) {
+        synchronized (stateLockObj) {
             if (state != AxEngineState.READY) {
                 LOGGER.warn("handleEvent()<-{},{}, cannot run engine, engine not in state READY", key.getId(), state);
                 return ret;
@@ -330,10 +327,10 @@ public class ApexEngineImpl implements ApexEngine {
                 }
             }
         } catch (final ApexException e) {
-            LOGGER.warn("handleEvent()<-" + key.getId() + "," + state + ", outgoing event publishing error: ", e);
+            LOGGER.warn("handleEvent()<-{},{}, outgoing event publishing error: ", key.getId() , state, e);
             ret = false;
         }
-        synchronized (state) {
+        synchronized (stateLockObj) {
             // Only go to READY if we are still in state EXECUTING, we go to state STOPPED if we were STOPPING
             if (state == AxEngineState.EXECUTING) {
                 state = AxEngineState.READY;
@@ -351,13 +348,11 @@ public class ApexEngineImpl implements ApexEngine {
     public void addEventListener(final String listenerName, final EnEventListener listener) {
         if (listenerName == null) {
             String message = "addEventListener()<-" + key.getId() + "," + state + ", listenerName is null";
-            LOGGER.warn(message);
             throw new ApexRuntimeException(message);
         }
 
         if (listener == null) {
             String message = "addEventListener()<-" + key.getId() + "," + state + ", listener is null";
-            LOGGER.warn(message);
             throw new ApexRuntimeException(message);
         }
 
@@ -371,7 +366,6 @@ public class ApexEngineImpl implements ApexEngine {
     public void removeEventListener(final String listenerName) {
         if (listenerName == null) {
             String message = "removeEventListener()<-" + key.getId() + "," + state + ", listenerName is null";
-            LOGGER.warn(message);
             throw new ApexRuntimeException(message);
         }
 
