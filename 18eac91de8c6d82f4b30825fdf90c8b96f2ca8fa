@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "366f39ce_444081f8",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-09T15:39:50Z",
+      "side": 1,
+      "message": "Line longer than 120 characters.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 6
+      },
+      "revId": "18eac91de8c6d82f4b30825fdf90c8b96f2ca8fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5687a7e_7a9712ae",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-09T15:39:50Z",
+      "side": 1,
+      "message": "Here too",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 9
+      },
+      "revId": "18eac91de8c6d82f4b30825fdf90c8b96f2ca8fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2b71f21_df4ebf74",
+        "filename": "testsuites/performance/performance-benchmark-test/src/main/java/org/onap/policy/apex/testsuites/performance/benchmark/eventgenerator/EventGeneratorEndpoint.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-09T15:39:50Z",
+      "side": 1,
+      "message": "Longer than 120 characters.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 19
+      },
+      "revId": "18eac91de8c6d82f4b30825fdf90c8b96f2ca8fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
