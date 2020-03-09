@@ -31,10 +31,13 @@ import org.onap.ccsdk.cds.controllerblueprints.common.api.Status;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceInput;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceInput.Builder;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceOutput;
+import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
+import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
+import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.onap.policy.cds.api.CdsProcessorListener;
 import org.onap.policy.cds.client.CdsProcessorGrpcClient;
 import org.onap.policy.cds.properties.CdsServerProperties;
@@ -73,7 +76,7 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         }
         GrpcCarrierTechnologyParameters grpcProducerProperties =
             (GrpcCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
-
+        grpcProducerProperties.validateGrpcParameters(true);
         client = makeGrpcClient(grpcProducerProperties);
     }
 
@@ -124,6 +127,31 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
             String errorMessage = "Sending event \"" + eventName + "\" by " + this.name + " to CDS failed, "
                 + "response from CDS:\n" + cdsResponse.get();
             throw new ApexEventRuntimeException(errorMessage);
+        }
+
+        consumeEvent(executionId, cdsResponse.get());
+    }
+
+    private void consumeEvent(long executionId, ExecutionServiceOutput event) {
+        // Find the peered consumer for this producer
+        final PeeredReference peeredRequestorReference = peerReferenceMap.get(EventHandlerPeeredMode.REQUESTOR);
+        if (peeredRequestorReference != null) {
+            // Find the gRPC Response Consumer that will take in the response to APEX Engine
+            final ApexEventConsumer consumer = peeredRequestorReference.getPeeredConsumer();
+            if (!(consumer instanceof ApexGrpcConsumer)) {
+                final String errorMessage = "Recieve of gRPC response by APEX failed,"
+                    + "The consumer is not an instance of ApexGrpcConsumer\n. The received gRPC response:" + event;
+                throw new ApexEventRuntimeException(errorMessage);
+            }
+
+            // Use the consumer to consume this response event in APEX
+            final ApexGrpcConsumer gRPCConsumer = (ApexGrpcConsumer) consumer;
+            try {
+                gRPCConsumer.getEventReceiver().receiveEvent(executionId, new Properties(),
+                    JsonFormat.printer().print(event));
+            } catch (ApexEventException | InvalidProtocolBufferException e) {
+                throw new ApexEventRuntimeException("Consuming gRPC response failed.", e);
+            }
         }
     }
 

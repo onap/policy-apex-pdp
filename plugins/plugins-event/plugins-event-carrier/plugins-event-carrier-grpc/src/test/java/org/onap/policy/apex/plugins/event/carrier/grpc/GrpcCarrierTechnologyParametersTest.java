@@ -20,12 +20,14 @@
 
 package org.onap.policy.apex.plugins.event.carrier.grpc;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.common.parameters.GroupValidationResult;
 
 public class GrpcCarrierTechnologyParametersTest {
@@ -42,19 +44,13 @@ public class GrpcCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testGrpcCarrierTechnologyParameters_invalid() {
+    public void testGrpcCarrierTechnologyParameters_invalid_producer_params() throws ApexEventException {
         GroupValidationResult result = params.validate();
-        assertFalse(result.isValid());
-        assertTrue(result.getResult().contains("field \"timeout\" type \"int\" value \"0\" INVALID, must be >= 1"));
-        assertTrue(result.getResult().contains("field \"port\" type \"int\" value \"0\" INVALID, must be >= 1024"));
-        assertTrue(
-            result.getResult().contains("field \"host\" type \"java.lang.String\" value \"null\" INVALID, is null"));
-        assertTrue(result.getResult()
-            .contains("field \"username\" type \"java.lang.String\" value \"null\" INVALID, is null"));
-        assertTrue(result.getResult()
-            .contains("field \"password\" type \"java.lang.String\" value \"null\" INVALID, is null"));
-        assertTrue(result.getResult().contains(""));
-        assertTrue(result.getResult().contains(""));
+        assertTrue(result.isValid());
+        assertThatThrownBy(() -> params.validateGrpcParameters(true))
+            .hasMessage("timeout should have a positive value.\n" + "port range should be between 1024 and 65535\n"
+                + "host should be specified.\n" + "username should be specified.\n"
+                + "password should be specified.\n");
     }
 
     @Test
@@ -70,6 +66,16 @@ public class GrpcCarrierTechnologyParametersTest {
         params.setUsername(USERNAME);
         GroupValidationResult result = params.validate();
         assertTrue(result.isValid());
+        Assertions.assertThatCode(() -> params.validateGrpcParameters(true)).doesNotThrowAnyException();
+    }
+
+    @Test
+    public void testGrpcCarrierTechnologyParameters_invalid_consumer_params() throws ApexEventException {
+        params.setHost(HOST);
+        GroupValidationResult result = params.validate();
+        assertTrue(result.isValid());
+        assertThatThrownBy(() -> params.validateGrpcParameters(false))
+            .hasMessageContaining("host details may not be specified for gRPC Consumer");
     }
 
     @Test
@@ -81,7 +87,8 @@ public class GrpcCarrierTechnologyParametersTest {
 
         params.setPort(23); // invalid value
         GroupValidationResult result = params.validate();
-        assertFalse(result.isValid());
-        assertTrue(result.getResult().contains("field \"port\" type \"int\" value \"23\" INVALID, must be >= 1024"));
+        assertTrue(result.isValid());
+        assertThatThrownBy(() -> params.validateGrpcParameters(true))
+            .hasMessageContaining("port range should be between 1024 and 65535");
     }
 }

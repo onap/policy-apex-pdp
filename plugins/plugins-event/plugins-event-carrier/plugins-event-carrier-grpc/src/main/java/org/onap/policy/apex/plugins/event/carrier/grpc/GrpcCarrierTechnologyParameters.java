@@ -22,10 +22,9 @@ package org.onap.policy.apex.plugins.event.carrier.grpc;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.annotations.Max;
-import org.onap.policy.common.parameters.annotations.Min;
-import org.onap.policy.common.parameters.annotations.NotNull;
 
 // @formatter:off
 /**
@@ -59,20 +58,10 @@ public class GrpcCarrierTechnologyParameters extends CarrierTechnologyParameters
     /** The consumer plugin class for the gRPC carrier technology. */
     public static final String GRPC_EVENT_CONSUMER_PLUGIN_CLASS = ApexGrpcConsumer.class.getName();
 
-    @Min(value = 1)
     private int timeout;
-
-    @Min(value = MIN_USER_PORT)
-    @Max(value = MAX_USER_PORT)
     private int port;
-
-    @NotNull
     private String host;
-
-    @NotNull
     private String username;
-
-    @NotNull
     private String password;
 
 
@@ -86,5 +75,38 @@ public class GrpcCarrierTechnologyParameters extends CarrierTechnologyParameters
         this.setLabel(GRPC_CARRIER_TECHNOLOGY_LABEL);
         this.setEventProducerPluginClass(GRPC_EVENT_PRODUCER_PLUGIN_CLASS);
         this.setEventConsumerPluginClass(GRPC_EVENT_CONSUMER_PLUGIN_CLASS);
+    }
+
+    /**
+     * The method validates the gRPC parameters. Host details are specified as parameters only for a gRPC producer.
+     *
+     * @param isProducer if the parameters specified are for the gRPC producer or consumer
+     * @throws ApexEventException exception thrown when invalid parameters are provided
+     */
+    public void validateGrpcParameters(boolean isProducer) throws ApexEventException {
+        StringBuilder errorMessage = new StringBuilder();
+        if (isProducer) {
+            if (timeout < 1) {
+                errorMessage.append("timeout should have a positive value.\n");
+            }
+            if (MIN_USER_PORT > port || MAX_USER_PORT < port) {
+                errorMessage.append("port range should be between ").append(MIN_USER_PORT).append(" and ")
+                .append(MAX_USER_PORT).append("\n");
+            }
+            if (StringUtils.isEmpty(host)) {
+                errorMessage.append("host should be specified.\n");
+            }
+            if (StringUtils.isEmpty(username)) {
+                errorMessage.append("username should be specified.\n");
+            }
+            if (StringUtils.isEmpty(password)) {
+                errorMessage.append("password should be specified.\n");
+            }
+        } else if (StringUtils.isNotEmpty(host)) {
+             errorMessage.append("host details may not be specified for gRPC Consumer.\n");
+        }
+        if (errorMessage.length() >0 ) {
+            throw new ApexEventException(errorMessage.toString());
+        }
     }
 }

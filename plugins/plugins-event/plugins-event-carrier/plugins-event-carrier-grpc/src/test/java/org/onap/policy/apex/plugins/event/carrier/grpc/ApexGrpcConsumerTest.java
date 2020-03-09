@@ -22,21 +22,24 @@ package org.onap.policy.apex.plugins.event.carrier.grpc;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
+import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
 public class ApexGrpcConsumerTest {
-    ApexGrpcConsumer grpcConsumer = null;
-    EventHandlerParameters consumerParameters = null;
-    ApexEventReceiver incomingEventReceiver = null;
-
-    private static final String GRPC_CONSUMER_ERROR_MSG =
-        "A gRPC Consumer may not be specified. Only sending events is possible using gRPC";
+    private static final String CONSUMER_NAME = "TestApexGrpcConsumer";
+    private ApexGrpcConsumer grpcConsumer = null;
+    private ApexGrpcProducer grpcProducer = null;
+    private EventHandlerParameters consumerParameters = null;
+    private ApexEventReceiver incomingEventReceiver = null;
 
     /**
      * Set up testing.
@@ -46,22 +49,29 @@ public class ApexGrpcConsumerTest {
     @Before
     public void setUp() throws ApexEventException {
         grpcConsumer = new ApexGrpcConsumer();
-        consumerParameters = new EventHandlerParameters();
-        consumerParameters.setCarrierTechnologyParameters(new GrpcCarrierTechnologyParameters() {});
+        grpcProducer = new ApexGrpcProducer();
     }
 
     @Test
     public void testInit() {
-        assertThatThrownBy(() -> {
-            grpcConsumer.init("TestApexGrpcConsumer", consumerParameters, incomingEventReceiver);
-        }).hasMessage(GRPC_CONSUMER_ERROR_MSG);
+        consumerParameters = populateConsumerParameters(true, true);
+        Assertions.assertThatCode(() -> grpcConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .doesNotThrowAnyException();
     }
 
     @Test
-    public void testStart() {
-        assertThatThrownBy(() -> {
-            grpcConsumer.start();
-        }).hasMessage(GRPC_CONSUMER_ERROR_MSG);
+    public void testInit_invalidConsumerParams() {
+        consumerParameters = populateConsumerParameters(false, true);
+        assertThatThrownBy(() -> grpcConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .hasMessageContaining("host details may not be specified for gRPC Consumer");
+    }
+
+    @Test
+    public void testInit_invalidPeeredMode() {
+        consumerParameters = populateConsumerParameters(true, false);
+        assertThatThrownBy(() -> grpcConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .hasMessageContaining(
+                "gRPC consumer (" + CONSUMER_NAME + ") must run in peered requestor mode with a gRPC producer");
     }
 
     @Test
@@ -70,24 +80,35 @@ public class ApexGrpcConsumerTest {
     }
 
     @Test
-    public void testGetPeeredReference() {
-        assertThatThrownBy(() -> {
-            grpcConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR);
-        }).hasMessage(GRPC_CONSUMER_ERROR_MSG);
+    public void testPeeredReference() throws ApexEventException {
+        consumerParameters = populateConsumerParameters(true, true);
+        grpcConsumer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR,
+            new PeeredReference(EventHandlerPeeredMode.REQUESTOR, grpcConsumer, grpcProducer));
+        grpcConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
+        PeeredReference peeredReference = grpcConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR);
+        assertNotNull(peeredReference);
+        assertTrue(peeredReference.getPeeredConsumer().equals(grpcConsumer));
+        assertTrue(peeredReference.getPeeredProducer().equals(grpcProducer));
     }
 
-    @Test
-    public void testSetPeeredReference() {
-        assertThatThrownBy(() -> {
-            grpcConsumer.setPeeredReference(null, null);
-        }).hasMessage(GRPC_CONSUMER_ERROR_MSG);
+    private EventHandlerParameters populateConsumerParameters(boolean isConsumer, boolean isPeeredMode) {
+        consumerParameters = new EventHandlerParameters();
+        GrpcCarrierTechnologyParameters params = new GrpcCarrierTechnologyParameters();
+        params.setLabel("GRPC");
+        params.setEventProducerPluginClass(ApexGrpcProducer.class.getName());
+        params.setEventConsumerPluginClass(ApexGrpcConsumer.class.getName());
+        if (!isConsumer) {
+            params.setHost("hostname");
+            params.setPort(3214);
+            params.setUsername("dummyUser");
+            params.setPassword("dummyPassword");
+            params.setTimeout(1);
+        }
+        consumerParameters.setCarrierTechnologyParameters(params);
+        if (isPeeredMode) {
+            consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
+            consumerParameters.setPeer(EventHandlerPeeredMode.REQUESTOR, "requestorPeerName");
+        }
+        return consumerParameters;
     }
-
-    @Test()
-    public void testStop() {
-        assertThatThrownBy(() -> {
-            new ApexGrpcConsumer().stop();
-        }).hasMessage(GRPC_CONSUMER_ERROR_MSG);
-    }
-
 }

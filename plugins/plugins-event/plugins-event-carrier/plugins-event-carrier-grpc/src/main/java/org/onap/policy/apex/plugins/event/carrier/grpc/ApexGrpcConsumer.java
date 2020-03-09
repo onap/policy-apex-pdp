@@ -20,53 +20,57 @@
 
 package org.onap.policy.apex.plugins.event.carrier.grpc;
 
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
-import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventConsumer;
-import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
 /**
- * This class implements an Apex gRPC consumer. It is not expected to receive events using gRPC.
- * So, initializing a gRPC consumer will result in error.
+ * This class implements an Apex gRPC consumer. The consumer is used by it's peer gRPC producer to consume response
+ * events.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class ApexGrpcConsumer extends ApexPluginsEventConsumer {
 
-    private static final String GRPC_CONSUMER_ERROR_MSG =
-        "A gRPC Consumer may not be specified. Only sending events is possible using gRPC";
+    // The event receiver that will receive events from this consumer
+    @Getter
+    private ApexEventReceiver eventReceiver;
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
         final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
-        throw new ApexEventException(GRPC_CONSUMER_ERROR_MSG);
-    }
+        this.eventReceiver = incomingEventReceiver;
+        this.name = consumerName;
 
-    @Override
-    public void run() {
-        throw new ApexEventRuntimeException(GRPC_CONSUMER_ERROR_MSG);
-    }
+        // Check and get the gRPC Properties
+        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof GrpcCarrierTechnologyParameters)) {
+            final String errorMessage =
+                "specified consumer properties are not applicable to the gRPC consumer (" + this.name + ")";
+            throw new ApexEventException(errorMessage);
+        }
 
-    @Override
-    public void start() {
-        throw new ApexEventRuntimeException(GRPC_CONSUMER_ERROR_MSG);
+        GrpcCarrierTechnologyParameters grpcConsumerParameters =
+            (GrpcCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+        grpcConsumerParameters.validateGrpcParameters(false);
+        // Check if we are in peered mode
+        if (!consumerParameters.isPeeredMode(EventHandlerPeeredMode.REQUESTOR)) {
+            final String errorMessage =
+                "gRPC consumer (" + this.name + ") must run in peered requestor mode with a gRPC producer";
+            throw new ApexEventException(errorMessage);
+        }
     }
 
     @Override
     public void stop() {
-        throw new ApexEventRuntimeException(GRPC_CONSUMER_ERROR_MSG);
+        // For gRPC requests, all the implementation is in the producer
     }
 
     @Override
-    public PeeredReference getPeeredReference(EventHandlerPeeredMode peeredMode) {
-        throw new ApexEventRuntimeException(GRPC_CONSUMER_ERROR_MSG);
+    public void run() {
+        // For gRPC requests, all the implementation is in the producer
     }
 
-    @Override
-    public void setPeeredReference(EventHandlerPeeredMode peeredMode, PeeredReference peeredReference) {
-        throw new ApexEventRuntimeException(GRPC_CONSUMER_ERROR_MSG);
-    }
 }
