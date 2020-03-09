@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db5ddcad_72f4c3e2",
+        "filename": "auth/cli-editor/src/main/resources/examples/scripts/TestPolicyJavaEventContext.apex",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-09T17:04:59Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "45914d4124feeb0f04af8e1b6a211f38c8579cfc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "930a3d2c_7e6691d8",
+        "filename": "examples/examples-myfirstpolicy/src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicy_BoozeAuthDecideTSL.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-09T17:04:59Z",
+      "side": 1,
+      "message": "trailing spaces\n\nsame comment below",
+      "revId": "45914d4124feeb0f04af8e1b6a211f38c8579cfc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94d4c2fa_ad4474c7",
+        "filename": "testsuites/integration/integration-common/src/main/java/org/onap/policy/apex/testsuites/integration/common/model/java/DefaultTaskLogic.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-09T17:04:59Z",
+      "side": 1,
+      "message": "don\u0027t think \"java.lang.\" prefix is needed",
+      "revId": "45914d4124feeb0f04af8e1b6a211f38c8579cfc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "283fb182_023b41fc",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/file/TestFile2FileIgnore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-09T17:04:59Z",
+      "side": 1,
+      "message": "move to line 53 and use deleteOnExit() ?",
+      "revId": "45914d4124feeb0f04af8e1b6a211f38c8579cfc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
