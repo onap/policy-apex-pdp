@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7020fda_7a0d8c76",
+        "filename": "testsuites/performance/performance-benchmark-test/src/main/java/org/onap/policy/apex/testsuites/performance/benchmark/eventgenerator/EventGeneratorEndpoint.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-09T12:51:12Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "8973123cd122e6852085f0381ed52f6c39f84216",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95792d2c_a18219d1",
+        "filename": "testsuites/performance/performance-benchmark-test/src/main/java/org/onap/policy/apex/testsuites/performance/benchmark/eventgenerator/EventGeneratorEndpoint.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-09T12:51:12Z",
+      "side": 1,
+      "message": "technically, the parameters could be changed between these two condition checks - does it matter?",
+      "revId": "8973123cd122e6852085f0381ed52f6c39f84216",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
