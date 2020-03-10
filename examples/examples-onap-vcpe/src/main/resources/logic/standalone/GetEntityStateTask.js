@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +26,8 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var utf8Type = Java.type("org.apache.avro.util.Utf8");
-var uuidType = Java.type("java.util.UUID");
+var utf8Type = org.apache.avro.util.Utf8;
+var uuidType = java.util.UUID;
 
 var clEvent = executor.inFields.get("VirtualControlLoopEvent");
 
@@ -61,7 +62,7 @@ if (clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")) != 
         vcpeClosedLoopStatus.put("policyName", "ONAPvCPEPolicyModel");
         vcpeClosedLoopStatus.put("policyVersion", "0.0.1");
         vcpeClosedLoopStatus.put("notification", "ACTIVE");
-        vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+        vcpeClosedLoopStatus.put("notificationTime",  new java.lang.Long(Date.now()));
         vcpeClosedLoopStatus.put("message", "");
 
         var aaiInfo = executor.getContextAlbum("ControlLoopStatusAlbum").getSchemaHelper().createNewSubInstance(
@@ -130,7 +131,7 @@ if (clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")) != 
         vcpeClosedLoopStatus.put("policyName", "ONAPvCPEPolicyModel");
         vcpeClosedLoopStatus.put("policyVersion", "0.0.1");
         vcpeClosedLoopStatus.put("notification", "ACTIVE");
-        vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+        vcpeClosedLoopStatus.put("notificationTime",  new java.lang.Long(Date.now()));
         vcpeClosedLoopStatus.put("message", "");
 
         var aaiInfo = executor.getContextAlbum("ControlLoopStatusAlbum").getSchemaHelper().createNewSubInstance(
@@ -155,3 +156,6 @@ if (clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")) != 
 }
 
 var returnValue = executor.isTrue;
+
+returnValue == true;
+

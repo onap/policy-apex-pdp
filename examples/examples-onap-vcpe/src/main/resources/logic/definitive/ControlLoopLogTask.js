@@ -71,3 +71,5 @@ executor.outFields.put("VirtualControlLoopNotification", clNotification);
 executor.logger.info(executor.outFields);
 
 var returnValue = executor.isTrue;
+
+returnValue == true;

@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +33,7 @@ if (executor.inFields.get("vnfID") == null) {
             .get(executor.inFields.get("vnfID").toString());
 }
 
-vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+vcpeClosedLoopStatus.put("notificationTime", new java.lang.Long(Date.now()));
 
 var message = vcpeClosedLoopStatus.get("message");
 if (message == null || message === "") {
@@ -45,3 +46,5 @@ else {
 executor.logger.info(executor.outFields);
 
 var returnValue = executor.isTrue;
+
+returnValue == true;

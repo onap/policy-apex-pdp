@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +27,9 @@ var blackFlag = executor.getContextAlbum("VnfIdWhiteBlackListAlbum").get(vnfId);
 
 executor.logger.info("vnfId=" + vnfId + ", blackFlag=" + blackFlag);
 
-if (blackFlag != null && blackFlag === true) {
+if (blackFlag != null && blackFlag == true) {
     var vcpeClosedLoopStatus = executor.getContextAlbum("ControlLoopStatusAlbum").get(vnfId);
-    vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+    vcpeClosedLoopStatus.put("notificationTime",  new java.lang.Long(Date.now()));
     vcpeClosedLoopStatus.put("notification", "BLACKLIST");
     var message = vcpeClosedLoopStatus.get("message");
 
@@ -43,3 +44,5 @@ if (blackFlag != null && blackFlag === true) {
 executor.logger.info(executor.outFields);
 
 var returnValue = executor.isTrue;
+
+returnValue == true;

@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,15 +32,15 @@ var black = executor.inFields.get("black");
 
 var returnValue = executor.isTrue;
 
-if (targetType === "VNF") {
+if (targetType == "VNF") {
     executor.getContextAlbum("VnfIdWhiteBlackListAlbum").put(target, black);
     executor.logger.info("added VNF ID \"" + target + "\" with black flag \"" + black + "\" to VNF ID list");
 }
-else if (targetType === "Service") {
+else if (targetType == "Service") {
     executor.getContextAlbum("ServiceIdWhiteBlackListAlbum").put(target, black);
     executor.logger.info("added Service ID \"" + target + "\" with black flag \"" + black + "\" to Service ID list");
 }
-else if (targetType === "VServer") {
+else if (targetType == "VServer") {
     executor.getContextAlbum("VServerIdWhiteBlackListAlbum").put(target, black);
     executor.logger.info("added VServer ID \"" + target + "\" with black flag \"" + black + "\" to VServer ID list");
 }
@@ -47,3 +48,6 @@ else {
     executor.logger.warn("unknown target type \"" + targetType + "\" specified");
     returnValue = executor.isFalse;
 }
+
+returnValue == true;
+

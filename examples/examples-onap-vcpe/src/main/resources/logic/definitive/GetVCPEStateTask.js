@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +26,9 @@
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var clEventType = Java.type("org.onap.policy.controlloop.VirtualControlLoopEvent");
-var longType = Java.type("java.lang.Long");
-var uuidType = Java.type("java.util.UUID");
+var clEventType = org.onap.policy.controlloop.VirtualControlLoopEvent;
+var longType = java.lang.Long;
+var uuidType = java.util.UUID;
 
 var clEvent = executor.inFields.get("VirtualControlLoopEvent");
 
@@ -147,3 +148,5 @@ else {
 }
 
 returnValue = executor.isTrue;
+
+returnValue == true;
