@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +45,7 @@ controllerRequestBodyInput.put("action", "Restart");
 controllerRequestBodyInput.put("action_DasH_identifiers", new java.util.HashMap());
 controllerRequestBodyInput.get("action_DasH_identifiers").put("vnf-id", executor.inFields.get("vnfID").toString());
 
-controllerRequestBodyInputCommonHeader.put("timestamp", java.lang.System.currentTimeMillis());
+controllerRequestBodyInputCommonHeader.put("timestamp",  java.lang.Long.valueOf(Date.now()));
 controllerRequestBodyInputCommonHeader.put("api_DasH_ver", "2.00");
 controllerRequestBodyInputCommonHeader.put("originator_DasH_id", executor.inFields.get("requestID").toString());
 controllerRequestBodyInputCommonHeader.put("request_DasH_id", executor.inFields.get("requestID").toString());
@@ -62,10 +63,11 @@ executor.getContextAlbum("RequestIDVNFIDAlbum").put(executor.inFields.get("reque
         executor.inFields.get("vnfID"));
 
 vcpeClosedLoopStatus.put("notification", "OPERATION");
-vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+vcpeClosedLoopStatus.put("notificationTime",  java.lang.Long.valueOf(Date.now()));
 
 executor.outFields.put("ControllerRequest", controllerRequest);
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.isTrue;
+true;
+
