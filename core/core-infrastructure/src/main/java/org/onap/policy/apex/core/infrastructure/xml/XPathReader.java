@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.core.infrastructure.xml;
 
 import java.io.InputStream;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -39,6 +41,7 @@ import org.w3c.dom.Document;
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
 public class XPathReader {
+
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(XPathReader.class);
 
@@ -73,18 +76,17 @@ public class XPathReader {
     private void init() {
         try {
             LOGGER.info("Initializing XPath reader");
+            DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+            df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
             // Check if this is operating on a file
             if (xmlFileName != null) {
-                xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFileName);
-            }
-            // Check if this is operating on a stream
-            else if (xmlStream != null) {
-                xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlStream);
-
-            }
-            // We have an error
-            else {
+                xmlDocument = df.newDocumentBuilder().parse(xmlFileName);
+            } else if (xmlStream != null) {
+                // Check if this is operating on a stream
+                xmlDocument = df.newDocumentBuilder().parse(xmlStream);
+            } else {
+                // We have an error
                 LOGGER.error("XPath reader not initialized with either a file or a stream");
                 return;
             }
