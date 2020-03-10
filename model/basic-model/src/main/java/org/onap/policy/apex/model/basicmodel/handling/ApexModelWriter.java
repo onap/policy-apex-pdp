@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,13 +53,18 @@ import org.w3c.dom.Document;
 /**
  * This class writes an Apex concept to an XML file or JSON file from a Java Apex Concept.
  *
- * @author John Keeney (john.keeney@ericsson.com)
  * @param <C> the type of Apex concept to write, must be a sub class of {@link AxConcept}
+ * @author John Keeney (john.keeney@ericsson.com)
  */
 public class ApexModelWriter<C extends AxConcept> {
+
     private static final String CONCEPT_MAY_NOT_BE_NULL = "concept may not be null";
     private static final String CONCEPT_WRITER_MAY_NOT_BE_NULL = "concept writer may not be null";
     private static final String CONCEPT_STREAM_MAY_NOT_BE_NULL = "concept stream may not be null";
+
+    //Features to prevent XXE injection
+    private static final String XML_DISALLOW_DOCTYPE_FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String XML_EXTERNAL_ENTIRY_FEATURE = "http://xml.org/sax/features/external-general-entities";
 
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelWriter.class);
@@ -87,8 +92,7 @@ public class ApexModelWriter<C extends AxConcept> {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
 
         try {
-            final JAXBContext jaxbContext = JAXBContextFactory.createContext(new Class[]
-                { rootConceptClass }, null);
+            final JAXBContext jaxbContext = JAXBContextFactory.createContext(new Class[]{rootConceptClass}, null);
 
             // Set up the unmarshaller to carry out validation
             marshaller = jaxbContext.createMarshaller();
@@ -149,7 +153,7 @@ public class ApexModelWriter<C extends AxConcept> {
     /**
      * This method validates the Apex concept then writes it into a stream.
      *
-     * @param concept the concept to write
+     * @param concept           the concept to write
      * @param apexConceptStream the stream to write to
      * @throws ApexModelException on validation or writing exceptions
      */
@@ -163,7 +167,7 @@ public class ApexModelWriter<C extends AxConcept> {
     /**
      * This method validates the Apex concept then writes it into a writer.
      *
-     * @param concept the concept to write
+     * @param concept           the concept to write
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
@@ -176,8 +180,9 @@ public class ApexModelWriter<C extends AxConcept> {
             // Validate the concept first
             final AxValidationResult validationResult = concept.validate(new AxValidationResult());
             if (!validationResult.isValid()) {
-                String message = "Apex concept xml (" + concept.getKey().getId() + ") validation failed: "
-                                + validationResult.toString();
+                String message =
+                    "Apex concept xml (" + concept.getKey().getId() + ") validation failed: " + validationResult
+                        .toString();
                 LOGGER.warn(message);
                 throw new ApexModelException(message);
             }
@@ -193,7 +198,7 @@ public class ApexModelWriter<C extends AxConcept> {
     /**
      * This method writes the Apex concept into a writer in XML format.
      *
-     * @param concept the concept to write
+     * @param concept           the concept to write
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
@@ -206,6 +211,8 @@ public class ApexModelWriter<C extends AxConcept> {
             // Write the concept into a DOM document, then transform to add CDATA fields and pretty
             // print, then write out the result
             final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            docBuilderFactory.setFeature(XML_DISALLOW_DOCTYPE_FEATURE, true);
+            docBuilderFactory.setFeature(XML_EXTERNAL_ENTIRY_FEATURE, false);
             final Document document = docBuilderFactory.newDocumentBuilder().newDocument();
 
             // Marshal the concept into the empty document.
@@ -215,7 +222,7 @@ public class ApexModelWriter<C extends AxConcept> {
 
             // Convert the cDataFieldSet into a space delimited string
             domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS,
-                            cdataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
+                cdataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
             domTransformer.transform(new DOMSource(document), new StreamResult(apexConceptWriter));
         } catch (JAXBException | TransformerException | ParserConfigurationException e) {
             LOGGER.warn("Unable to marshal Apex concept to XML", e);
@@ -243,7 +250,7 @@ public class ApexModelWriter<C extends AxConcept> {
     /**
      * This method writes the Apex concept into a writer in JSON format.
      *
-     * @param concept the concept to write
+     * @param concept           the concept to write
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
