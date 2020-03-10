@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52152f8d_a816dee0",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-10T14:42:36Z",
+      "side": 1,
+      "message": "sonar: either log or rethrow.\nSame below.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 66
+      },
+      "revId": "671af5ddd0f0cc068c05e43ebca8cd36a9f11616",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
