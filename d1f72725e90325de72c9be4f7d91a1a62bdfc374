@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0777a78a_303c5681",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/xml/XPathReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-10T17:38:32Z",
+      "side": 1,
+      "message": "\"ENTIRY\" \u003d\u003e \"ENTITY\"\n\nsame comment for all files",
+      "revId": "d1f72725e90325de72c9be4f7d91a1a62bdfc374",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfd004e0_0fb48ccf",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/xml/XPathReader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-10T17:38:32Z",
+      "side": 1,
+      "message": "surprised that checkstyle doesn\u0027t require lines 89 \u0026 91 to be joined",
+      "revId": "d1f72725e90325de72c9be4f7d91a1a62bdfc374",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25b1af6c_72966f20",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-10T17:38:32Z",
+      "side": 1,
+      "message": "remove trailing space after the final \"{}",
+      "revId": "d1f72725e90325de72c9be4f7d91a1a62bdfc374",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56dbbe24_a78aa92b",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-10T17:38:32Z",
+      "side": 1,
+      "message": "remove trailing space inside quotes",
+      "revId": "d1f72725e90325de72c9be4f7d91a1a62bdfc374",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb6f3419_d594e727",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-10T17:38:32Z",
+      "side": 1,
+      "message": "change \u0027 \" + ce\u0027 to \u0027\", ce\u0027",
+      "revId": "d1f72725e90325de72c9be4f7d91a1a62bdfc374",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
