@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,13 +36,13 @@ executor.logger.info("requestIDString =\"" + requestIDString + "\"");
 var vnfID = executor.getContextAlbum("RequestIDVNFIDAlbum").get(requestIDString);
 executor.logger.info("vnfID = " + vnfID);
 
-var returnValue = executor.isTrue;
+var returnValue = true
 
 if (vnfID != null) {
     var vcpeClosedLoopStatus = executor.getContextAlbum("ControlLoopStatusAlbum").get(vnfID.toString());
     var requestId = java.util.UUID.fromString(vcpeClosedLoopStatus.get("requestID"));
 
-    vcpeClosedLoopStatus.put("notificationTime", java.lang.System.currentTimeMillis());
+    vcpeClosedLoopStatus.put("notificationTime",  java.lang.Long.valueOf(Date.now()));
 
     var returnedCode = controllerResponse.get("body").get("output").get("status").get("code");
     var responseStatus = null;
@@ -66,11 +67,11 @@ if (vnfID != null) {
 
     executor.logger.info("Got from APPC code: " + responseStatus);
 
-    if (responseStatus === "SUCCESS") {
+    if (responseStatus == "SUCCESS") {
         vcpeClosedLoopStatus.put("notification", "OPERATION_SUCCESS");
         vcpeClosedLoopStatus.put("message", "vCPE restarted");
         executor.getContextAlbum("RequestIDVNFIDAlbum").remove(requestIDString);
-    } else if (responseStatus === "ACCEPTED" || responseStatus === "REJECT") {
+    } else if (responseStatus == "ACCEPTED" || responseStatus == "REJECT") {
         executor.logger.info("Got ACCEPTED 100 or REJECT 312, keep the context, wait for next response. Code is: "
                 + responseStatus);
     } else {
@@ -84,7 +85,9 @@ if (vnfID != null) {
     executor.outFields.put("vnfID", vnfID);
 } else {
     executor.message = "VNF ID not found in context album for request ID " + requestIDString;
-    returnValue = executor.isFalse;
+    returnValue = false;
 }
 
 executor.logger.info(executor.outFields);
+
+returnValue;

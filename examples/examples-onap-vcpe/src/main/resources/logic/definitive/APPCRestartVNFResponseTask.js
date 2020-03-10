@@ -1,26 +1,27 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * APPC LCM Response code: 100 ACCEPTED
  *                         200 ERROR UNEXPECTED ERROR means failure
  *                         312 REJECTED DUPLICATE REQUEST
- *                         400 SUCCESS 
+ *                         400 SUCCESS
  *
  * Note: Sometimes the corelationId has a -1 at the tail, need to get rid of it when present.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -38,7 +39,7 @@ executor.logger.info("Size of RequestIDVNFIDAlbum = "
         + executor.getContextAlbum("RequestIDVNFIDAlbum").size());
 executor.logger.info("vnfID = " + vnfID);
 
-var returnValue = executor.isTrue;
+var returnValue = true;
 
 if (vnfID != null) {
     var vcpeClosedLoopStatus = executor.getContextAlbum(
@@ -82,7 +83,9 @@ if (vnfID != null) {
 } else {
     executor.message = "VNF ID not found in context album for request ID "
             + requestIDString;
-    returnValue = executor.isFalse;
+    returnValue = false
 }
 
 executor.logger.info(executor.outFields);
+
+returnValue;

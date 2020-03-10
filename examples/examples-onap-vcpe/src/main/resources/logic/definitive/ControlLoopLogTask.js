@@ -63,6 +63,7 @@ clNotification.getAai().put("generic-vnf.orchestration-status",    aaiInfo.get("
 clNotification.getAai().put("generic-vnf.vnf-type",                aaiInfo.get("genericVnfVnfType"));
 clNotification.getAai().put("generic-vnf.in-maint",                aaiInfo.get("genericVnfInMaint"));
 clNotification.getAai().put("generic-vnf.service-id",              aaiInfo.get("genericVnfServiceId"));
+
 if(vnfID != null) {
    clNotification.getAai().put("generic-vnf.vnf-id",                  aaiInfo.get("genericVnfVnfId"));
 }
@@ -70,4 +71,4 @@ executor.outFields.put("VirtualControlLoopNotification", clNotification);
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.isTrue;
+true;

@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,7 @@ var vcpeClosedLoopStatus = executor.getContextAlbum("ControlLoopStatusAlbum").ge
 
 var eventList = executor.subject.getOutFieldSchemaHelper("ActionEventList").createNewInstance();
 
-var eventType = Java.type("org.onap.policy.apex.service.engine.event.ApexEvent");
+var eventType = org.onap.policy.apex.service.engine.event.ApexEvent;
 
 var controllerRequestActionEvent = new eventType("ActionEvent", "0.0.1", "org.onap.policy.apex.onap.vcpe", "APEX",
         "APEX");
@@ -51,4 +52,5 @@ executor.outFields.put("ActionEventList", eventList);
 
 executor.logger.info(executor.outFields);
 
-var returnValue = executor.isTrue;
+true;
+

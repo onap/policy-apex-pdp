@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,17 +29,18 @@ executor.logger.info("Executing A&AI Lookup");
 executor.logger.info(vcpeClosedLoopStatus);
 
 var aaiInfo = vcpeClosedLoopStatus.get("AAI");
+var returnValue = true;
 
 if (aaiInfo.get("vserverName") == null) {
     executor.message = "the field vserver.vserver-name must exist in the onset control loop event";
     executor.logger.warn(executor.message);
-    var returnValue = executor.isFalse;
+    returnValue = false;
 }
 else if (aaiInfo.get("genericVnfVnfId") == null && aaiInfo.get("genericVnfVnfName") == null) {
     executor.message = "either the field generic-vnf.vnf-id or generic-vnf.vnf-name must exist"
         + " in the onset control loop event";
     executor.logger.warn(executor.message);
-    var returnValue = executor.isFalse;
+    returnValue = false;
 }
 else {
     var restManager = new org.onap.policy.rest.RestManager;
@@ -46,7 +48,7 @@ else {
 
     // We need to instantiate the type in order to trigger the static JAXB handling
     // in the AaiCqResponse class
-    var aaiCqResponseType = Java.type("org.onap.policy.aai.AaiCqResponse");
+    var aaiCqResponseType = org.onap.policy.aai.AaiCqResponse;
 
     var aaiResponse = aaiManager.getCustomQueryResponse(
             "http://localhost:54321/OnapVCpeSim/sim",
@@ -80,6 +82,6 @@ else {
     executor.outFields.put("vnfID", executor.inFields.get("vnfID"));
 
     executor.logger.info(executor.outFields);
-
-    var returnValue = executor.isTrue;
 }
+
+returnValue;
