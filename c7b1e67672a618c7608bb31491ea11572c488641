@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45969291_c12fea22",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/CheckVServerIdTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T13:14:29Z",
+      "side": 1,
+      "message": "use System.currentTimeMillis(), or Date.now() - those should both return a \"long\" which will be autoboxed to Long.\n\nIf autoboxing doesn\u0027t work, then use Long.valueOf(...)\n\nsame comment in other files",
+      "revId": "c7b1e67672a618c7608bb31491ea11572c488641",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a49f7bf_5ee73dce",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/ControlLoopLogTask.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T13:14:29Z",
+      "side": 1,
+      "message": "seems like could have just used \"true\" here, instead of executor.isTrue and then avoided line 78",
+      "revId": "c7b1e67672a618c7608bb31491ea11572c488641",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
