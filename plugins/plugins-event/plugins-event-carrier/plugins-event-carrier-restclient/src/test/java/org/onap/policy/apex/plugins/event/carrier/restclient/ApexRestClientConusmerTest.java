@@ -216,7 +216,7 @@ public class ApexRestClientConusmerTest {
         // We have not set the URL, this test should not receive any events
         arcc.start();
         await().atMost(400, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                        .contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
+            .contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
         arcc.stop();
         assertEquals(0, incomingEventReceiver.getEventCount());
     }
@@ -259,7 +259,7 @@ public class ApexRestClientConusmerTest {
         // We have not set the URL, this test should not receive any events
         arcc.start();
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                        .contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
+            .contains("received an empty event from URL \"http://some.place.that.does.not/exist\""));
         arcc.stop();
 
         assertEquals(0, incomingEventReceiver.getEventCount());
@@ -303,8 +303,8 @@ public class ApexRestClientConusmerTest {
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
-        await().atMost(400, TimeUnit.MILLISECONDS).until(
-                () -> incomingEventReceiver.getLastEvent().equals("This is an event"));
+        await().atMost(400, TimeUnit.MILLISECONDS)
+            .until(() -> incomingEventReceiver.getLastEvent().equals("This is an event"));
         arcc.stop();
     }
 

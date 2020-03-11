@@ -42,18 +42,12 @@ import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import ch.qos.logback.classic.Level;
 
 /**
  * Test the ApexRestClientProducer class.
  *
  */
 public class ApexRestClientProducerTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestClientProducer.class);
-
     @Mock
     private Client httpClientMock;
 
@@ -256,9 +250,6 @@ public class ApexRestClientProducerTest {
     @Test
     public void testApexRestClientProducerPostEventCacheTrace() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
-
-        ch.qos.logback.classic.Logger classicLogger = (ch.qos.logback.classic.Logger) LOGGER;
-        classicLogger.setLevel(Level.TRACE);
 
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);

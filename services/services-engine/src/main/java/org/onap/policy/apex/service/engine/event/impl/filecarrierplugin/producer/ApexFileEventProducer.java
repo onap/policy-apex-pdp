@@ -24,19 +24,14 @@ package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.produce
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
-import org.onap.policy.apex.service.engine.event.PeeredReference;
-import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
+import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
-import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +51,8 @@ public class ApexFileEventProducer extends ApexPluginsEventProducer {
      * {@inheritDoc}.
      */
     @Override
-    public void init(final String producerName, final EventHandlerParameters producerParameters) throws ApexEventException {
+    public void init(final String producerName, final EventHandlerParameters producerParameters)
+            throws ApexEventException {
         this.name = producerName;
 
         // Get and check the Apex parameters from the parameter service
@@ -89,7 +85,6 @@ public class ApexFileEventProducer extends ApexPluginsEventProducer {
         } catch (final IOException e) {
             final String errorMessage = "ApexFileProducer \"" + producerName + "\" failed to open file for writing: \""
                     + fileCarrierTechnologyParameters.getFileName() + "\"";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -112,9 +107,8 @@ public class ApexFileEventProducer extends ApexPluginsEventProducer {
         try {
             stringEvent = (String) event;
         } catch (final Exception e) {
-            final String errorMessage = "error in ApexFileProducer \"" + name + "\" while transferring event \""
-                    + event + "\" to the output stream";
-            LOGGER.debug(errorMessage, e);
+            final String errorMessage = "error in ApexFileProducer \"" + name + "\" while transferring event \"" + event
+                    + "\" to the output stream";
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 

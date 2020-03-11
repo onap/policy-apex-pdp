@@ -20,18 +20,18 @@
 
 package org.onap.policy.apex.service.engine.event;
 
-import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
-import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+
+import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
 public abstract class ApexPluginsEventProducer implements ApexEventProducer {
     // The name for this producer
     protected String name = null;
     // The peer references for this event handler
-    protected Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap = new EnumMap<>(EventHandlerPeeredMode.class);
+    protected Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap =
+            new EnumMap<>(EventHandlerPeeredMode.class);
 
     /**
      * {@inheritDoc}.
@@ -62,7 +62,7 @@ public abstract class ApexPluginsEventProducer implements ApexEventProducer {
      */
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
-                          final Object event) {
+            final Object event) {
         // Check if this is a synchronized event, if so we have received a reply
         final SynchronousEventCache synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);

@@ -48,86 +48,78 @@ public class DeploymentRestMainTest {
 
     @Test
     public void testDeploymentClientNoOptions() {
-        final String[] eventArgs = new String[]
-            {};
+        final String[] eventArgs = new String[] {};
         assertThat(testApexDeploymentRestMainConstructor(eventArgs)).isEqualTo("*** StdOut ***\n\n*** StdErr ***\n");
     }
 
     @Test
     public void testDeploymentClientBadOptions() {
-        final String[] eventArgs =
-            { "-zabbu" };
+        final String[] eventArgs = {"-zabbu"};
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
-        assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, invalid command line arguments specified "
-                        + ": Unrecognized option: -zabbu");
+        assertThat(thrown).isInstanceOf(Exception.class)
+            .hasMessageContaining("Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, invalid command line arguments specified " + ": Unrecognized option: -zabbu");
     }
 
     @Test
     public void testDeploymentClientHelp() {
-        final String[] eventArgs =
-            { "-h" };
+        final String[] eventArgs = {"-h"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "usage: org.onap.policy.apex.client.deployment.rest.ApexDeploymentRestMain [options...]");
+            "usage: org.onap.policy.apex.client.deployment.rest.ApexDeploymentRestMain [options...]");
 
     }
 
     @Test
     public void testDeploymentClientPortBad() {
-        final String[] eventArgs =
-            { "-p", "hello" };
+        final String[] eventArgs = {"-p", "hello"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
-        assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, error parsing argument \"port\" :For input string: \"hello\"");
+        assertThat(thrown).isInstanceOf(Exception.class)
+            .hasMessageContaining("Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, error parsing argument \"port\" :For input string: \"hello\"");
 
     }
 
     @Test
     public void testDeploymentClientPortNegative() {
-        final String[] eventArgs =
-            { "-p", "-1" };
+        final String[] eventArgs = {"-p", "-1"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: "
-                        + "URI=http://localhost:-1/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
-                        + "port must be greater than 1023 and less than 65536");
+            "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: "
+                + "URI=http://localhost:-1/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
+                + "port must be greater than 1023 and less than 65536");
 
     }
 
     @Test
     public void testDeploymentClientTtlTooSmall() {
-        final String[] eventArgs =
-            { "-t", "-2" };
+        final String[] eventArgs = {"-t", "-2"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: "
-                        + "URI=http://localhost:18989/apexservices/, TTL=-2sec], State=STOPPED) parameters invalid, "
-                        + "time to live must be greater than -1 (set to -1 to wait forever)");
+            "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: "
+                + "URI=http://localhost:18989/apexservices/, TTL=-2sec], State=STOPPED) parameters invalid, "
+                + "time to live must be greater than -1 (set to -1 to wait forever)");
 
     }
 
     @Test
     public void testDeploymentClientTooManyPars() {
-        final String[] eventArgs =
-            { "-t", "10", "-p", "12344", "aaa", "bbb" };
+        final String[] eventArgs = {"-t", "10", "-p", "12344", "aaa", "bbb"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
-        assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, too many command line arguments specified : [aaa, bbb]");
+        assertThat(thrown).isInstanceOf(Exception.class)
+            .hasMessageContaining("Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, too many command line arguments specified : [aaa, bbb]");
     }
 
     @Test
@@ -141,35 +133,31 @@ public class DeploymentRestMainTest {
 
     @Test
     public void testDeploymentClientTtlNotNumber() {
-        final String[] eventArgs =
-            { "-t", "timetolive" };
+        final String[] eventArgs = {"-t", "timetolive"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
-        assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, error parsing argument \"time-to-live\" :"
-                        + "For input string: \"timetolive\"");
+        assertThat(thrown).isInstanceOf(Exception.class)
+            .hasMessageContaining("Apex Services REST endpoint (ApexDeploymentRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, error parsing argument \"time-to-live\" :" + "For input string: \"timetolive\"");
 
     }
 
     @Test
     public void testDeploymentClientPortTooBig() {
-        final String[] eventArgs =
-            { "-p", "65536" };
+        final String[] eventArgs = {"-p", "65536"};
 
         Throwable thrown = catchThrowable(() -> new ApexDeploymentRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: "
-                        + "URI=http://localhost:65536/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
-                        + "port must be greater than 1023 and less than 65536");
+            "Apex Services REST endpoint (ApexDeploymentRestMain: Config=[ApexDeploymentRestParameters: "
+                + "URI=http://localhost:65536/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
+                + "port must be greater than 1023 and less than 65536");
     }
 
     @Test
     public void testDeploymentOneSecStart() {
-        final String[] eventArgs =
-            { "-t", "1" };
+        final String[] eventArgs = {"-t", "1"};
 
         assertThatCode(() -> {
             ApexDeploymentRestMain monRestMain = new ApexDeploymentRestMain(eventArgs, System.out);
@@ -181,8 +169,7 @@ public class DeploymentRestMainTest {
 
     @Test
     public void testDeploymentForeverStart() {
-        final String[] eventArgs =
-            { "-t", "-1" };
+        final String[] eventArgs = {"-t", "-1"};
 
         ApexDeploymentRestMain monRestMain = new ApexDeploymentRestMain(eventArgs, System.out);
 
@@ -195,8 +182,8 @@ public class DeploymentRestMainTest {
 
         assertThatCode(() -> {
             monThread.start();
-            await().atMost(2, TimeUnit.SECONDS).until(
-                    () -> monRestMain.getState().equals(ApexDeploymentRestMain.ServicesState.RUNNING));
+            await().atMost(2, TimeUnit.SECONDS)
+                .until(() -> monRestMain.getState().equals(ApexDeploymentRestMain.ServicesState.RUNNING));
             monRestMain.shutdown();
         }).doesNotThrowAnyException();
     }

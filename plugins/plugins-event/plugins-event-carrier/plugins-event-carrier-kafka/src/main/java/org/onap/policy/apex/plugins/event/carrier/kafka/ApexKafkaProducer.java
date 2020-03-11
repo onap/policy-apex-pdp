@@ -21,8 +21,6 @@
 
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -30,10 +28,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
-import org.onap.policy.apex.service.engine.event.PeeredReference;
-import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
-import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,8 +76,8 @@ public class ApexKafkaProducer extends ApexPluginsEventProducer {
             // Kick off the Kafka producer
             kafkaProducer = new KafkaProducer<>(kafkaProducerProperties.getKafkaProducerProperties());
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("event producer " + this.name + " is ready to send to topics: "
-                        + kafkaProducerProperties.getProducerTopic());
+                LOGGER.debug("event producer {} is ready to send to topics: {}", this.name,
+                        kafkaProducerProperties.getProducerTopic());
             }
         }
 

@@ -21,8 +21,6 @@
 
 package org.onap.policy.apex.plugins.event.carrier.websocket;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Properties;
 
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
@@ -32,10 +30,7 @@ import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStri
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessager;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
-import org.onap.policy.apex.service.engine.event.PeeredReference;
-import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
-import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +39,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexWebSocketProducer extends ApexPluginsEventProducer implements  WsStringMessageListener {
+public class ApexWebSocketProducer extends ApexPluginsEventProducer implements WsStringMessageListener {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexWebSocketProducer.class);
 
@@ -91,7 +86,7 @@ public class ApexWebSocketProducer extends ApexPluginsEventProducer implements  
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
             final Object event) {
-        super.sendEvent(executionId, executionProperties, eventName, event );
+        super.sendEvent(executionId, executionProperties, eventName, event);
 
         wsStringMessager.sendString((String) event);
     }

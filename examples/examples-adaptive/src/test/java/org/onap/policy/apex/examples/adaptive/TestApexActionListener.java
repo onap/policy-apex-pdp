@@ -21,14 +21,14 @@
 
 package org.onap.policy.apex.examples.adaptive;
 
+import static org.awaitility.Awaitility.await;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-
-import static org.awaitility.Awaitility.await;
 
 /**
  * The listener interface for receiving testApexAction events. The class that is interested in processing a

@@ -48,98 +48,86 @@ public class ServicesRestMainTest {
 
     @Test
     public void testServicesClientNoOptions() {
-        final String[] eventArgs = new String[]
-            {};
+        final String[] eventArgs = new String[] {};
 
         assertThat(testApexServicesRestMainConstructor(eventArgs)).isEqualTo("*** StdOut ***\n\n*** StdErr ***\n");
-
 
     }
 
     @Test
     public void testServicesClientBadOptions() {
-        final String[] eventArgs =
-            { "-zabbu" };
+        final String[] eventArgs = {"-zabbu"};
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
-        assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, invalid command line arguments specified "
-                        + ": Unrecognized option: -zabbu");
+        assertThat(thrown).isInstanceOf(Exception.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, invalid command line arguments specified " + ": Unrecognized option: -zabbu");
     }
 
     @Test
     public void testServicesClientHelp() {
-        final String[] eventArgs =
-            { "-h" };
+        final String[] eventArgs = {"-h"};
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class)
-                .hasMessageContaining("usage: org.onap.policy.apex.client.full.rest.ApexServicesRestMain [options...]");
+            .hasMessageContaining("usage: org.onap.policy.apex.client.full.rest.ApexServicesRestMain [options...]");
     }
 
     @Test
     public void testServicesClientPortBad() {
-        final String[] eventArgs =
-            { "-p", "hello" };
+        final String[] eventArgs = {"-p", "hello"};
 
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class)
-                .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, error parsing argument \"port\" :For input string: \"hello\"");
+            .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, error parsing argument \"port\" :For input string: \"hello\"");
 
     }
 
     @Test
     public void testServicesClientPortNegative() {
-        final String[] eventArgs =
-            { "-p", "-1" };
+        final String[] eventArgs = {"-p", "-1"};
 
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Editor REST endpoint (ApexServicesRestMain: Config=[ApexServicesRestParameters: "
-                        + "URI=http://localhost:-1/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
-                        + "port must be greater than 1023 and less than 65536");
+            "Apex Editor REST endpoint (ApexServicesRestMain: Config=[ApexServicesRestParameters: "
+                + "URI=http://localhost:-1/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
+                + "port must be greater than 1023 and less than 65536");
 
     }
 
     @Test
     public void testServicesClientTtlTooSmall() {
-        final String[] eventArgs =
-            { "-t", "-2" };
+        final String[] eventArgs = {"-t", "-2"};
 
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Editor REST endpoint (ApexServicesRestMain: Config=[ApexServicesRestParameters: "
-                        + "URI=http://localhost:18989/apexservices/, TTL=-2sec], State=STOPPED) parameters invalid, "
-                        + "time to live must be greater than -1 (set to -1 to wait forever)");
+            "Apex Editor REST endpoint (ApexServicesRestMain: Config=[ApexServicesRestParameters: "
+                + "URI=http://localhost:18989/apexservices/, TTL=-2sec], State=STOPPED) parameters invalid, "
+                + "time to live must be greater than -1 (set to -1 to wait forever)");
     }
 
     @Test
     public void testServicesClientTooManyPars() {
-        final String[] eventArgs =
-            { "-t", "10", "-p", "12344", "aaa", "bbb" };
+        final String[] eventArgs = {"-t", "10", "-p", "12344", "aaa", "bbb"};
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class)
-                .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, too many command line arguments specified : [aaa, bbb]");
+            .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, too many command line arguments specified : [aaa, bbb]");
     }
-
 
     @Test
     public void testServicesClientTtlNotNumber() {
-        final String[] eventArgs =
-            { "-t", "timetolive" };
+        final String[] eventArgs = {"-t", "timetolive"};
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class)
-                .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
-                        + "parameter error, error parsing argument \"time-to-live\" :"
-                        + "For input string: \"timetolive\"");
+            .hasMessageContaining("Apex Editor REST endpoint (ApexServicesRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, error parsing argument \"time-to-live\" :" + "For input string: \"timetolive\"");
     }
 
     @Test
@@ -155,14 +143,13 @@ public class ServicesRestMainTest {
 
     @Test
     public void testServicesClientPortTooBig() {
-        final String[] eventArgs =
-            { "-p", "65536" };
+        final String[] eventArgs = {"-p", "65536"};
         Throwable thrown = catchThrowable(() -> new ApexServicesRestMain(eventArgs, System.out));
 
         assertThat(thrown).isInstanceOf(Exception.class).hasMessageContaining(
-                "Apex Editor REST endpoint (ApexServicesRestMain: Config=[ApexServicesRestParameters: "
-                        + "URI=http://localhost:65536/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
-                        + "port must be greater than 1023 and less than 65536");
+            "Apex Editor REST endpoint (ApexServicesRestMain: Config=[ApexServicesRestParameters: "
+                + "URI=http://localhost:65536/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
+                + "port must be greater than 1023 and less than 65536");
     }
 
     @Test
@@ -191,8 +178,8 @@ public class ServicesRestMainTest {
 
         assertThatCode(() -> {
             monThread.start();
-            await().atMost(6, TimeUnit.SECONDS).until(
-                    () -> monRestMain.getState().equals(ApexServicesRestMain.EditorState.RUNNING));
+            await().atMost(6, TimeUnit.SECONDS)
+                .until(() -> monRestMain.getState().equals(ApexServicesRestMain.EditorState.RUNNING));
             monRestMain.shutdown();
         }).doesNotThrowAnyException();
     }

@@ -142,7 +142,9 @@ public class EngineStatsTest {
         assertTrue(stats.equals(stats));
         assertTrue(stats.equals(clonedStats));
         assertFalse(stats.equals(null));
-        assertFalse(stats.equals("Hello"));
+
+        Object helloObject = "Hello";
+        assertFalse(stats.equals(helloObject));
         assertFalse(stats.equals(new AxEngineStats(new AxReferenceKey())));
 
         assertEquals(0, stats.compareTo(stats));

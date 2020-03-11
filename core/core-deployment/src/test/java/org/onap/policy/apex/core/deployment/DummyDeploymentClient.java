@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.core.deployment;
 
+import static org.awaitility.Awaitility.await;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +43,6 @@ import org.onap.policy.apex.core.protocols.engdep.messages.StopPeriodicEvents;
 import org.onap.policy.apex.core.protocols.engdep.messages.UpdateModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.common.utils.resources.TextFileUtils;
-
-import static org.awaitility.Awaitility.await;
 
 /**
  * Dummy deployment client.

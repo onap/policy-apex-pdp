@@ -24,8 +24,6 @@ package org.onap.policy.apex.core.infrastructure.threading;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-import java.util.concurrent.CountDownLatch;
-
 /**
  * The Class ThreadingTestThread.
  *
@@ -42,9 +40,7 @@ public class ThreadingTestThread implements Runnable {
 
     private String threadName;
 
-    private CountDownLatch latch = new CountDownLatch(1);
-
-   /**
+    /**
      * {@inheritDoc}.
      */
     @Override
@@ -59,7 +55,7 @@ public class ThreadingTestThread implements Runnable {
             if (logger.isDebugEnabled()) {
                 logger.debug("in threading test thread \"" + threadName + "\", counter=" + counter + " . . .");
             }
-            if(!ThreadUtilities.sleep(50)) {
+            if (!ThreadUtilities.sleep(50)) {
                 interrupted = true;
             }
         }
