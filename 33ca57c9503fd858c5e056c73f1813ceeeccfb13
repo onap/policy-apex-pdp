@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7320c9c_fe42d347",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-03-11T12:41:58Z",
+      "side": 1,
+      "message": "Interesting that you defined these, I fixed the same type of security issue in the XACML github dependency. But the squid told me that I could use XmlConstants for these definitions. This is what I needed to do:\n\t        documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);\n\t\t\tdocumentBuilderFactory.setNamespaceAware(true);\n\nI dunno if that helps you get away with you defining the constants yourself. Anyway an FYI.",
+      "range": {
+        "startLine": 146,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "33ca57c9503fd858c5e056c73f1813ceeeccfb13",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
