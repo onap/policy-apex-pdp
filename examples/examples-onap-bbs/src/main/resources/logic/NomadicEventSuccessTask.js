@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +18,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-load("nashorn:mozilla_compat.js");
-importClass(org.apache.avro.Schema);
 
 executor.logger.info("Begin Execution NomadicEventSuccess.js");
 executor.logger.info(executor.subject.id);
@@ -32,16 +31,17 @@ executor.logger.info(executor.outFields);
 executor.logger.info(executor.inFields);
 
 result = NomadicONTContext.get("result");
+var returnValue = true;
 
-if (result === "SUCCESS") {
-    returnValue = executor.isTrue;
+if (result == "SUCCESS") {
     executor.outFields.put("result", "SUCCCESS");
     executor.logger.info("BBS policy Execution Done");
 } else {
     executor.logger.info("BBS policy Execution Failed");
     executor.outFields.put("result", "FAILURE");
-    returnValue = executor.isFalse;
+    returnValue = false;
 }
 
-var returnValue = executor.isTrue;
 executor.logger.info("End Execution NomadicEventSuccess.js");
+
+returnValue;

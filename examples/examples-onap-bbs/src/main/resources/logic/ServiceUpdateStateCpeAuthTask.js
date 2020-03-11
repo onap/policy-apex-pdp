@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,12 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-load("nashorn:mozilla_compat.js");
-importClass(java.io.BufferedReader);
-importClass(java.io.IOException);
-importClass(java.nio.file.Files);
-importClass(java.nio.file.Paths);
 
 executor.logger.info("Begin Execution ServiceUpdateStateCpeAuthTask.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var clEventType = Java.type("org.onap.policy.controlloop.VirtualControlLoopEvent");
+var clEventType = org.onap.policy.controlloop.VirtualControlLoopEvent;
 var clEvent = executor.inFields.get("VirtualControlLoopEvent");
 
 var serviceInstanceId = clEvent.getAai().get("service-information.hsia-cfs-service-instance-id");
@@ -36,7 +31,7 @@ var requestID = clEvent.getRequestId();
 
 var jsonObj;
 var aaiUpdateResult = true;
-var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var wbClient = org.onap.policy.apex.examples.bbs.WebClient;
 var client = new wbClient();
 var oldState = clEvent.getAai().get("cpe.old-authentication-state");
 var newState = clEvent.getAai().get("cpe.new-authentication-state");
@@ -132,5 +127,6 @@ if (aaiUpdateResult == true) {
 }
 
 executor.logger.info(executor.outFields);
-var returnValue = executor.isTrue;
 executor.logger.info("End Execution ServiceUpdateStateCpeAuthTask.js");
+
+true;

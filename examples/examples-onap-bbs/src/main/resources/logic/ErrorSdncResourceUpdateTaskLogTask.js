@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,5 +22,6 @@ executor.logger.info("Begin Execution ErrorResourceUpdateLogTask.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var returnValue = executor.isTrue;
 executor.logger.info("End Execution ErrorResourceUpdateLogTask.js");
+
+true;

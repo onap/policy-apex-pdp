@@ -121,7 +121,7 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliMfp() {
-        testModel2CliModel("target/examples/models/MyFirstPolicy/2", "MyFirstPolicyModel");
+        testModel2CliModel("target/examples/models/MyFirstPolicy/2", "MyFirstPolicyModel_0.0.1");
     }
 
     @Test

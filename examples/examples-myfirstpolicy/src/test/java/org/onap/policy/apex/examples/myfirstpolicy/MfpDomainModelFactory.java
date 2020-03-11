@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.examples.myfirstpolicy.model;
+package org.onap.policy.apex.examples.myfirstpolicy;
 
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
@@ -32,9 +33,12 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  */
 public class MfpDomainModelFactory {
 
-    private static final String MFP1PATH = "examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.json";
-    private static final String MFP1_ALT_PATH = "examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.alt.json";
-    private static final String MFP2PATH = "examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.json";
+    private static final String MFP1PATH =
+            "target/classes/examples/models/MyFirstPolicy/1/MyFirstPolicyModelMvel_0.0.1.json";
+    private static final String MFP1_ALT_PATH =
+            "target/classes/examples/models/MyFirstPolicy/1/MyFirstPolicyModelJavascript_0.0.1.json";
+    private static final String MFP2PATH =
+            "target/classes/examples/models/MyFirstPolicy/2/MyFirstPolicyModel_0.0.1.json";
 
     /**
      * Gets the MyFirstPolicy#1 policy model.

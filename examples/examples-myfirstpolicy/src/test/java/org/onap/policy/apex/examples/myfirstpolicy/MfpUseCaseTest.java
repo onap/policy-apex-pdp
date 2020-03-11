@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,6 @@ import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineImpl;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-import org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
@@ -163,6 +162,60 @@ public class MfpUseCaseTest {
         resultout = listener.getResult();
         resulexpected =
                 fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
+        assertEquals(resulexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+
+        apexEngine.stop();
+    }
+
+    /**
+     * Test MyFirstPolicy#1 use case.
+     *
+     * @throws ApexException if there is an Apex error
+     * @throws InterruptedException if there is an Interruption.
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testMfp1AltCase() throws ApexException, InterruptedException, IOException {
+        final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1AltPolicyModel();
+        assertNotNull(apexPolicyModel);
+
+        final TestSaleAuthListener listener = new TestSaleAuthListener("Test");
+        apexEngine.addEventListener("listener", listener);
+        apexEngine.updateModel(apexPolicyModel, false);
+        apexEngine.start();
+
+        final AxEvent axEventin = apexPolicyModel.getEvents().get(new AxArtifactKey("SALE_INPUT:0.0.1"));
+        assertNotNull(axEventin);
+        final AxEvent axEventout = apexPolicyModel.getEvents().get(new AxArtifactKey("SALE_AUTH:0.0.1"));
+        assertNotNull(axEventout);
+
+        EnEvent event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_BoozeItem_084106GMT.json");
+        apexEngine.handleEvent(event);
+        EnEvent resultout = listener.getResult();
+        EnEvent resulexpected =
+                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
+        resultout.put("message", "");
+        resulexpected.put("message", "");
+        assertEquals(resulexpected, resultout);
+
+        event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_BoozeItem_201713GMT.json");
+        apexEngine.handleEvent(event);
+        resultout = listener.getResult();
+        resulexpected =
+                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
+        resultout.put("message", "");
+        resulexpected.put("message", "");
+        assertEquals(resulexpected, resultout);
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+
+        event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json");
+        apexEngine.handleEvent(event);
+        resultout = listener.getResult();
+        resulexpected =
+                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
+        resultout.put("message", "");
+        resulexpected.put("message", "");
         assertEquals(resulexpected, resultout);
         assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
 
