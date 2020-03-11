@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f73dc44a_ddf92cdc",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/definitive/AAILookupTask.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T15:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86af17d2_d35d6895",
+      "revId": "ccffa7471bc5ccb75fb2298d6f0b133922185361",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac88c63f_bcdd12e0",
         "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/CheckServiceIdTask.js",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-11T14:42:33Z",
       "side": 1,
       "message": "is \"java.lang.\" necessary?",
+      "revId": "ccffa7471bc5ccb75fb2298d6f0b133922185361",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a21c41d4_5d826cfb",
+        "filename": "examples/examples-onap-vcpe/src/main/resources/logic/standalone/CheckServiceIdTask.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T15:44:39Z",
+      "side": 1,
+      "message": "Yes, without it an exception is thrown as follows:\n ReferenceError: \"Long\" is not defined",
+      "parentUuid": "ac88c63f_bcdd12e0",
       "revId": "ccffa7471bc5ccb75fb2298d6f0b133922185361",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
