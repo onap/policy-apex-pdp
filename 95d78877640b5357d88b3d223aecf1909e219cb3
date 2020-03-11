@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38fd1972_7c1b6dda",
+        "filename": "examples/examples-pcvs/src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/task-decide-priority.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T18:17:46Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "revId": "95d78877640b5357d88b3d223aecf1909e219cb3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
