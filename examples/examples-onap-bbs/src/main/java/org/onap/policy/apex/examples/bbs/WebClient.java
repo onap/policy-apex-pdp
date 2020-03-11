@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -56,6 +58,7 @@ import org.xml.sax.InputSource;
  * The Class WebClient act as rest client for BBS usecase.
  */
 public class WebClient {
+
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(WebClient.class);
 
     // Duplicated string constants
@@ -64,20 +67,20 @@ public class WebClient {
     /**
      * Send simple https rest request.
      *
-     * @param requestUrl url
+     * @param requestUrl    url
      * @param requestMethod method eg POST/GET/PUT
-     * @param outputStr Data
-     * @param username Simple Username
-     * @param pass Simple password
-     * @param contentType http content type
+     * @param outputStr     Data
+     * @param username      Simple Username
+     * @param pass          Simple password
+     * @param contentType   http content type
      * @return String response message
      */
     public String httpRequest(String requestUrl, String requestMethod, String outputStr, String username, String pass,
-            String contentType) {
+        String contentType) {
         String result = "";
         StringBuilder builder = new StringBuilder();
         try {
-            LOGGER.info("httpsRequest starts " + requestUrl + " method " + requestMethod);
+            LOGGER.info("httpsRequest starts {} method {}", requestUrl, requestMethod);
             disableCertificateValidation();
 
             URL url = new URL(requestUrl);
@@ -109,8 +112,8 @@ public class WebClient {
                 outputStream.close();
             }
 
-            try (BufferedReader bufferedReader =
-                    new BufferedReader(new InputStreamReader(httpUrlConn.getInputStream(), StandardCharsets.UTF_8))) {
+            try (BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(httpUrlConn.getInputStream(), StandardCharsets.UTF_8))) {
                 String str;
                 while ((str = bufferedReader.readLine()) != null) {
                     builder.append(str);
@@ -118,9 +121,9 @@ public class WebClient {
                 httpUrlConn.disconnect();
                 result = builder.toString();
             }
-            LOGGER.info("httpsRequest success ");
+            LOGGER.info("httpsRequest success");
         } catch (Exception ce) {
-            LOGGER.error("httpsRequest Exception " + ce);
+            LOGGER.error("httpsRequest Exception", ce);
         }
         return result;
     }
@@ -128,20 +131,22 @@ public class WebClient {
     /**
      * Pretty print xml string.
      *
-     * @param xml Input string
+     * @param xml    Input string
      * @param indent Indent number
      * @return Indented xml string
      */
     public String toPrettyString(String xml, int indent) {
         try {
             try (ByteArrayInputStream br = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))) {
-                Document document =
-                        DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(br));
+
+                DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+                df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                Document document = df.newDocumentBuilder().parse(new InputSource(br));
 
                 document.normalize();
                 XPath path = XPathFactory.newInstance().newXPath();
-                NodeList nodeList =
-                        (NodeList) path.evaluate("//text()[normalize-space()='']", document, XPathConstants.NODESET);
+                NodeList nodeList = (NodeList) path
+                    .evaluate("//text()[normalize-space()='']", document, XPathConstants.NODESET);
 
                 for (int i = 0; i < nodeList.getLength(); ++i) {
                     Node node = nodeList.item(i);
@@ -160,7 +165,7 @@ public class WebClient {
                 return stringWriter.toString();
             }
         } catch (Exception e) {
-            throw new ApexRuntimeException("pretiffication failed", e);
+            throw new ApexRuntimeException("Convert to Pretty string failed", e);
         }
     }
 
@@ -171,14 +176,19 @@ public class WebClient {
         try {
             TrustManager[] trustAllCerts = NetworkUtil.getAlwaysTrustingManager();
 
-            SSLContext sc = SSLContext.getInstance("SSL");
+            SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
-
+            HttpsURLConnection.setDefaultHostnameVerifier((String hostname, SSLSession session) -> {
+                if (!hostname.equalsIgnoreCase(session.getPeerHost())) {
+                    LOGGER.warn("Warning: URL host \"{}\" is different to SSLSession host \"{}\".", hostname,
+                        session.getPeerHost());
+                    return false;
+                }
+                return true;
+            });
         } catch (Exception e) {
-            LOGGER.error("certificate validation Exception " + e);
+            LOGGER.error("certificate validation Exception", e);
         }
     }
 
