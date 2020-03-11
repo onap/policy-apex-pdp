@@ -22,6 +22,30 @@
       "revId": "33ca57c9503fd858c5e056c73f1813ceeeccfb13",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e7e30a_2917a06c",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6458
+      },
+      "writtenOn": "2020-03-11T13:26:40Z",
+      "side": 1,
+      "message": "yaa , the SONAR suggested for documentBuilderFactory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);\nbut this did not resolve the issue.\nAs per your suggestion I now tried with :\ndocumentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);\nand this solves the issue. Hence modified the same occurences in all the 3 files.",
+      "parentUuid": "a7320c9c_fe42d347",
+      "range": {
+        "startLine": 146,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "33ca57c9503fd858c5e056c73f1813ceeeccfb13",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
