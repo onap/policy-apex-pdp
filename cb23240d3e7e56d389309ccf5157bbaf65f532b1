@@ -22,6 +22,30 @@
       "revId": "cb23240d3e7e56d389309ccf5157bbaf65f532b1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1be58af3_8b10af75",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/GrpcCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-11T12:08:44Z",
+      "side": 1,
+      "message": "Ideally yes, no parameters has to be specified. Just wanted to give the user feedback(in case if the parameters are specified at consumer side that it is not needed for consumer). and host felt like the obvious one. So just mentioned that.\nBut yeah, I will remove the check for host as well. Anyway if the user is not specifying the parameters at producer side, error message will be generated. It doesn\u0027t matter if parameters are specified at consumer side or not.",
+      "parentUuid": "33596c0a_c0b52f16",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 3
+      },
+      "revId": "cb23240d3e7e56d389309ccf5157bbaf65f532b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
