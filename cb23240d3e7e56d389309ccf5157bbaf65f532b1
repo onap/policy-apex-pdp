@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d7b3ece_a129d9e5",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T13:07:17Z",
+      "side": 1,
+      "message": "could change to:\n\n  if(... \u003d\u003d null) {\n    return;\n  }",
+      "revId": "cb23240d3e7e56d389309ccf5157bbaf65f532b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98e34909_68635bd4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T13:07:17Z",
+      "side": 1,
+      "message": "checkstyle: \"gRPCConsumer\" variable name should be camel case",
+      "revId": "cb23240d3e7e56d389309ccf5157bbaf65f532b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51d998d7_52288f2d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/GrpcCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T13:07:17Z",
+      "side": 1,
+      "message": "may be able to use annotations and a BeanValidator to do these checks.  Obviously, the bean validator would only be invoked in this branch, not in the consumer branch",
+      "revId": "cb23240d3e7e56d389309ccf5157bbaf65f532b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33596c0a_c0b52f16",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/GrpcCarrierTechnologyParameters.java",
         "patchSetId": 1
