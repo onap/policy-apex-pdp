@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33596c0a_c0b52f16",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/GrpcCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T11:10:36Z",
+      "side": 1,
+      "message": "I guess it doesn\u0027t matter if the parameters are specified or not. Why do we care if host is specified? Should we not make sure all the other parameters are not there as well, or else not check the host?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 3
+      },
+      "revId": "cb23240d3e7e56d389309ccf5157bbaf65f532b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
