@@ -16,6 +16,24 @@
       "revId": "95d78877640b5357d88b3d223aecf1909e219cb3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e3c6907_a9840be0",
+        "filename": "examples/examples-pcvs/src/main/resources/org/onap/policy/apex/examples/pcvs/vpnsla/logic/task-decide-priority.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T18:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38fd1972_7c1b6dda",
+      "revId": "95d78877640b5357d88b3d223aecf1909e219cb3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
