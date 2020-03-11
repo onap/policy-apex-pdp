@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b21b3ebe_22b5336b",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/xml/XPathReader.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T10:38:35Z",
+      "side": 1,
+      "message": "Change to\n} else if (xmlStream !\u003d null) {\n    // Check if this is operating on a file",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 41
+      },
+      "revId": "82e6a8501072526ce51283e8ad140d97c63c8701",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c4ff55e_2f13e935",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T10:38:35Z",
+      "side": 1,
+      "message": "I think you could also remove this space",
+      "range": {
+        "startLine": 129,
+        "startChar": 48,
+        "endLine": 129,
+        "endChar": 49
+      },
+      "revId": "82e6a8501072526ce51283e8ad140d97c63c8701",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "437c919d_3f242779",
+        "filename": "examples/examples-onap-bbs/src/main/java/org/onap/policy/apex/examples/bbs/WebClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-11T10:38:35Z",
+      "side": 1,
+      "message": "I think you could also remove this space",
+      "range": {
+        "startLine": 195,
+        "startChar": 58,
+        "endLine": 195,
+        "endChar": 59
+      },
+      "revId": "82e6a8501072526ce51283e8ad140d97c63c8701",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
