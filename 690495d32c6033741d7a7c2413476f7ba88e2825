@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cce99dab_5621c055",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-11T22:02:45Z",
+      "side": 1,
+      "message": "this should be modified to use awaitility (later)",
+      "revId": "690495d32c6033741d7a7c2413476f7ba88e2825",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
