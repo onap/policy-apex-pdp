@@ -34,7 +34,8 @@
     <description>Specific code for the Apex MyFirstPolicy Example</description>
 
     <properties>
-        <policymodel1.name>MyFirstPolicyModel_0.0.1</policymodel1.name>
+        <policymodel1m.name>MyFirstPolicyModelMvel_0.0.1</policymodel1m.name>
+        <policymodel1j.name>MyFirstPolicyModelJavascript_0.0.1</policymodel1j.name>
         <policymodel2.name>MyFirstPolicyModel_0.0.1</policymodel2.name>
     </properties>
 
@@ -81,29 +82,9 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <id>generate-models</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelSaver</mainClass>
-                            <classpathScope>compile</classpathScope>
-                            <arguments>
-                                <argument>${project.build.directory}/classes/examples/models/MyFirstPolicy</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
                     <!-- Generate the APEX Policy JSON files from the APEX CLI command -->
                     <execution>
-                        <id>generate-policy1</id>
+                        <id>generate-policy1m</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>java</goal>
@@ -112,8 +93,25 @@
                             <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
                             <classpathScope>compile</classpathScope>
                             <arguments>
-                                <argument>--command-file=${project.basedir}/src/main/resources/examples/models/MyFirstPolicy/1/${policymodel1.name}.apex</argument>
-                                <argument>--output-model-file=${project.build.directory}/classes/examples/models/MyFirstPolicy/1/${policymodel1.name}.json</argument>
+                                <argument>--command-file=${project.basedir}/src/main/resources/examples/models/MyFirstPolicy/1/${policymodel1m.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/examples/models/MyFirstPolicy/1/${policymodel1m.name}.json</argument>
+                                <argument>--log-file=${project.build.directory}/${policymodel1.name}_policygeneration.log</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-policy1j</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+                            <classpathScope>compile</classpathScope>
+                            <arguments>
+                                <argument>--command-file=${project.basedir}/src/main/resources/examples/models/MyFirstPolicy/1/${policymodel1j.name}.apex</argument>
+                                <argument>--output-model-file=${project.build.directory}/classes/examples/models/MyFirstPolicy/1/${policymodel1j.name}.json</argument>
                                 <argument>--log-file=${project.build.directory}/${policymodel1.name}_policygeneration.log</argument>
                                 <argument>--working-dir=${project.basedir}</argument>
                             </arguments>

@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +18,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-load("nashorn:mozilla_compat.js");
 
 executor.logger.info("Begin Execution GetBBSCloseLoopEventTask.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
-var returnValue = executor.isTrue;
+var returnValue = true;
 
-var clEventType = Java.type(
-    "org.onap.policy.controlloop.VirtualControlLoopEvent");
+var clEventType = org.onap.policy.controlloop.VirtualControlLoopEvent;
 var clEvent = executor.inFields.get("VirtualControlLoopEvent");
 executor.logger.info(clEvent.toString());
 executor.logger.info(clEvent.getClosedLoopControlName());
@@ -107,6 +106,8 @@ if (clEvent.getAai().get("attachmentPoint") != null) {
 else
 {
     executor.message = "Received NULL attachment-point";
-    returnValue = executor.isFalse;
+    returnValue = false;
 }
+
+returnValue;
 

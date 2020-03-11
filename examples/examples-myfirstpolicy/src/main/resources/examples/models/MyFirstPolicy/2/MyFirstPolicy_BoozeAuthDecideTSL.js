@@ -19,8 +19,6 @@
  * ============LICENSE_END=========================================================
  */
 
-var returnValue = true;
-
 executor.logger.info("Task Selection Execution: '"+executor.subject.id+
     "'. Input Event: '"+executor.inFields+"'");
 
@@ -46,4 +44,4 @@ This task selection logic selects task "MorningBoozeCheck" for branches with
 In this case the default task is also "MorningBoozeCheck"
 */
 
-returnValue;
+true;

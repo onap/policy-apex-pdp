@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-load("nashorn:mozilla_compat.js");
-importClass(org.apache.avro.Schema);
-importClass(java.io.BufferedReader);
-importClass(java.io.IOException);
-importClass(java.nio.file.Files);
-importClass(java.nio.file.Paths);
 
 executor.logger.info("Begin Execution AAIServiceCreateTask.js");
 executor.logger.info(executor.subject.id);
@@ -43,7 +37,7 @@ var BBS_CFS_SERVICE_TYPE = "BBS-CFS-Access_Test";
 var SERVICE_INSTANCE_ID = serviceInstanceId;
 var AAI_VERSION = "v14";
 var HTTP_PROTOCOL = "https://";
-var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var wbClient = org.onap.policy.apex.examples.bbs.WebClient;
 var client = new wbClient();
 var AAI_USERNAME = null;
 var AAI_PASSWORD = null;
@@ -122,7 +116,7 @@ try {
     aaiUpdateResult = false;
 }
 /* If Success then Fill output schema */
-if (aaiUpdateResult === true) {
+if (aaiUpdateResult == true) {
     NomadicONTContext.put("result", "SUCCESS");
 } else {
     NomadicONTContext.put("result", "FAILURE");
@@ -133,6 +127,8 @@ executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
 executor.outFields.put("serviceInstanceId", executor.inFields.get("serviceInstanceId"));
 
-var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);
 executor.logger.info("End Execution AAIServiceCreateTask.js");
+
+true;
+

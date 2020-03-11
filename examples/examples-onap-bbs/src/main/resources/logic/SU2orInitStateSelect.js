@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@ executor.logger.info("Begin Execution SU2orInitStateSelect.js");
 executor.logger.info(executor.subject.id);
 executor.logger.info(executor.inFields);
 
-var returnValue = executor.isTrue;
 var result = null;
 
 var attachmentPoint = executor.inFields.get("attachmentPoint");
@@ -32,7 +32,7 @@ executor.logger.info(executor.inFields);
 
 result = NomadicONTContext.get("result");
 
-if (result === "SUCCESS") {
+if (result == "SUCCESS") {
     executor.subject.getTaskKey("AAIServiceCreateTask").copyTo(executor.selectedTask);
 } else {
     executor.subject.getTaskKey("SdncResourceUpdateErrorLogOutput").copyTo(
@@ -42,3 +42,5 @@ if (result === "SUCCESS") {
 
 executor.logger.info("State Selected Task:" + executor.selectedTask);
 executor.logger.info("End Execution SU2orInitStateSelect.js");
+
+true;

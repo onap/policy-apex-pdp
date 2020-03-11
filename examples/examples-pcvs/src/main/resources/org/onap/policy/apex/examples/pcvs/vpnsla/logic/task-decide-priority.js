@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,6 @@
  * ============LICENSE_END=========================================================
  */
 
-load("nashorn:mozilla_compat.js");
 importClass(org.slf4j.LoggerFactory);
 
 importClass(java.util.ArrayList);
@@ -46,7 +46,7 @@ decision.put("problemID", ifSituation.get("problemID"));
 decision.put("customers", new ArrayList());
 
 var problem = albumProblemMap.get(ifSituation.get("problemID"));
-var returnValueType = Java.type("java.lang.Boolean");
+var returnValue = true;
 if (problem != null && ifSituation.get("violatedSLAs").size() > 0) {
     logger.trace("-- impede by priority");
     for (var i = 0; i < problem.get("edgeUsedBy").size(); i++) {
@@ -55,12 +55,11 @@ if (problem != null && ifSituation.get("violatedSLAs").size() > 0) {
             decision.get("customers").add(customerCtxt.get("customerName"));
         }
     }
-    var returnValue = new returnValueType(true);
 } else {
     logger.trace("-- wrong problemID <" + ifSituation.get("problemID") + "> for PRIORITY task, we should not be here");
     rootLogger.error(executor.subject.id + " " + "-- wrong problemID <" + ifSituation.get("problemID")
             + "> for PRIORITY task, we should not be here");
-    var returnValue = new returnValueType(false);
+    returnValue = false;
 }
 
 // set impededLast to decision[customers]
@@ -74,3 +73,5 @@ logger.info("vpnsla: priority, impeding customers " + decision.get("customers"))
 
 logger.trace("finished: " + executor.subject.id);
 logger.debug(".d-pri");
+
+returnValue;

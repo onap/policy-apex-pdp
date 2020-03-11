@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +18,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-load("nashorn:mozilla_compat.js");
-importClass(org.apache.avro.Schema);
-importClass(java.io.BufferedReader);
-importClass(java.io.IOException);
-importClass(java.nio.file.Files);
-importClass(java.nio.file.Paths);
-
-importPackage(org.json.XML);
 
 executor.logger.info("Begin Execution SdncResourceUpdateTask.js");
 executor.logger.info(executor.subject.id);
@@ -33,9 +26,9 @@ executor.logger.info(executor.inFields);
 var attachmentPoint = executor.inFields.get("attachmentPoint");
 var requestID = executor.inFields.get("requestID");
 var serviceInstanceId = executor.inFields.get("serviceInstanceId");
-var uuidType = Java.type("java.util.UUID");
+var uuidType = java.util.UUID;
 
-var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var wbClient = org.onap.policy.apex.examples.bbs.WebClient;
 var client = new wbClient();
 
 var NomadicONTContext = executor.getContextAlbum("NomadicONTContextAlbum").get(attachmentPoint);
@@ -276,7 +269,7 @@ try {
 
 /* If Success then Fill output schema */
 
-if (sdncUpdateResult === true) {
+if (sdncUpdateResult == true) {
     NomadicONTContext.put("result", "SUCCESS");
     executor.outFields.put("result", "SUCCESS");
 } else {
@@ -288,9 +281,10 @@ executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
 executor.outFields.put("serviceInstanceId", executor.inFields.get("serviceInstanceId"));
 
-var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);
 executor.logger.info("End Execution SdncResourceUpdateTask.js");
+
+true;
 
 function getMetaValue(metaJson, metaname) {
     for (var i = 0; i < metaJson.length; i++) {

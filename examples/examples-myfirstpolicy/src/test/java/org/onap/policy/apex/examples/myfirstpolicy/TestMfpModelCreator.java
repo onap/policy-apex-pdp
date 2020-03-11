@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,6 @@
 
 package org.onap.policy.apex.examples.myfirstpolicy;
 
-import org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModelCreator;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 

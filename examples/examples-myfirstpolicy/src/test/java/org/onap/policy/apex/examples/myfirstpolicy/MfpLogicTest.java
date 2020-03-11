@@ -31,7 +31,6 @@ import java.util.Map.Entry;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.examples.myfirstpolicy.model.MfpDomainModelFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
