@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
-load("nashorn:mozilla_compat.js");
-importClass(org.apache.avro.Schema);
-importClass(java.io.BufferedReader);
-importClass(java.io.IOException);
-importClass(java.nio.file.Files);
-importClass(java.nio.file.Paths);
 
 executor.logger.info("Begin Execution AAIServiceAssignedTask.js");
 executor.logger.info(executor.subject.id);
@@ -39,7 +33,7 @@ executor.logger.info(NomadicONTContext);
 var jsonObj;
 var aaiUpdateResult = true;
 
-var wbClient = Java.type("org.onap.policy.apex.examples.bbs.WebClient");
+var wbClient = org.onap.policy.apex.examples.bbs.WebClient;
 var client = new wbClient();
 
 /* Get AAI URL from Configuration file. */
@@ -234,7 +228,7 @@ try {
 }
 
 /* If Success then Fill output schema */
-if (aaiUpdateResult === true) {
+if (aaiUpdateResult == true) {
     executor.outFields.put("result", "SUCCESS");
     NomadicONTContext.put("result", "SUCCESS");
     NomadicONTContext.put("aai_message", JSON.stringify(service_instance));
@@ -248,9 +242,10 @@ executor.outFields.put("requestID", requestID);
 executor.outFields.put("attachmentPoint", attachmentPoint);
 executor.outFields.put("serviceInstanceId", executor.inFields.get("serviceInstanceId"));
 
-var returnValue = executor.isTrue;
 executor.logger.info(executor.outFields);
 executor.logger.info("End Execution AAIServiceAssignedTask.js");
+
+true;
 
 /* Utility functions Begin */
 function IsValidJSONString(str) {

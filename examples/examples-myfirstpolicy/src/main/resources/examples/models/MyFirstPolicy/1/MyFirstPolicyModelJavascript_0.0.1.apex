@@ -64,36 +64,9 @@ task outputfield create name=MorningBoozeCheck version=0.0.1 fieldName=item_ID s
 task outputfield create name=MorningBoozeCheck version=0.0.1 fieldName=authorised schemaName=authorised_type schemaVersion=0.0.1
 task outputfield create name=MorningBoozeCheck version=0.0.1 fieldName=time schemaName=timestamp_type schemaVersion=0.0.1
 task outputfield create name=MorningBoozeCheck version=0.0.1 fieldName=message schemaName=message_type schemaVersion=0.0.1 optional=true
-task logic create name=MorningBoozeCheck version=0.0.1 logicFlavour=MVEL logic=LS
-#MACROFILE:"src/main/resources/examples/models/MyFirstPolicy/2/MorningBoozeCheck.mvel"
-LE
 
-task create name=MorningBoozeCheckAlt1 version=0.0.1 uuid=bc6d90c9-c902-4686-afd3-925b30e39990 description=LS
-This task checks if a sale request is for an item that is an alcoholic drink.
-If the local time is between 00:00:00 CET and 13:00:00 CET then the sale is not authorised.
-Also alcohol sales are not allowed on Sundays. Otherwise the sale is authorised.
-In this implementation we assume that items with item_ID between 1000 and 2000 are all alcoholic drinks
-LE
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=sale_ID schemaName=sale_ID_type schemaVersion=0.0.1
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=amount schemaName=price_type schemaVersion=0.0.1
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=assistant_ID schemaName=assistant_ID_type schemaVersion=0.0.1
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=notes schemaName=notes_type schemaVersion=0.0.1 optional=true
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=quantity schemaName=quantity_type schemaVersion=0.0.1
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=branch_ID schemaName=branch_ID_type schemaVersion=0.0.1
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=item_ID schemaName=item_ID_type schemaVersion=0.0.1
-task inputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=time schemaName=timestamp_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=sale_ID schemaName=sale_ID_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=amount schemaName=price_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=assistant_ID schemaName=assistant_ID_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=notes schemaName=notes_type schemaVersion=0.0.1 optional=true
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=quantity schemaName=quantity_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=branch_ID schemaName=branch_ID_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=item_ID schemaName=item_ID_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=authorised schemaName=authorised_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=time schemaName=timestamp_type schemaVersion=0.0.1
-task outputfield create name=MorningBoozeCheckAlt1 version=0.0.1 fieldName=message schemaName=message_type schemaVersion=0.0.1 optional=true
-task logic create name=MorningBoozeCheckAlt1 version=0.0.1 logicFlavour=MVEL logic=LS
-#MACROFILE:"src/main/resources/examples/models/MyFirstPolicy/2/MorningBoozeCheckAlt1.mvel"
+task logic create name=MorningBoozeCheck version=0.0.1 logicFlavour=JAVASCRIPT logic=LS
+#MACROFILE:"src/main/resources/examples/models/MyFirstPolicy/1/MorningBoozeCheck.js"
 LE
 
 event create name=SALE_AUTH version=0.0.1 uuid=c4500941-3f98-4080-a9cc-5b9753ed050b description="An event emitted by the Policy to indicate whether the sale of an item has been authorised" nameSpace=com.hyperm source="APEX" target="POS"
@@ -121,8 +94,4 @@ event parameter create name=SALE_INPUT version=0.0.1 parName=time schemaName=tim
 policy create name=MyFirstPolicy version=0.0.1 uuid=6c5e410f-489a-46ff-964e-982ce6e8b6d0 description="This is my first Apex policy. It checks if a sale should be authorised or not." template=FREEFORM firstState=BoozeAuthDecide
 policy state create name=MyFirstPolicy version=0.0.1 stateName=BoozeAuthDecide triggerName=SALE_INPUT triggerVersion=0.0.1 defaultTaskName=MorningBoozeCheck defaultTaskVersion=0.0.1
 policy state output create name=MyFirstPolicy version=0.0.1 stateName=BoozeAuthDecide outputName=MorningBoozeCheck_Output_Direct eventName=SALE_AUTH eventVersion=0.0.1 nextState=NULL
-policy state taskref create name=MyFirstPolicy version=0.0.1 stateName=BoozeAuthDecide taskLocalName=MorningBoozeCheckAlt1 taskName=MorningBoozeCheckAlt1 taskVersion=0.0.1 outputType=DIRECT outputName=MorningBoozeCheck_Output_Direct
 policy state taskref create name=MyFirstPolicy version=0.0.1 stateName=BoozeAuthDecide taskLocalName=MorningBoozeCheck taskName=MorningBoozeCheck taskVersion=0.0.1 outputType=DIRECT outputName=MorningBoozeCheck_Output_Direct
-policy state selecttasklogic create name=MyFirstPolicy version=0.0.1 stateName=BoozeAuthDecide logicFlavour=JAVASCRIPT logic=LS
-#MACROFILE:"src/main/resources/examples/models/MyFirstPolicy/2/MyFirstPolicy_BoozeAuthDecideTSL.js"
-LE

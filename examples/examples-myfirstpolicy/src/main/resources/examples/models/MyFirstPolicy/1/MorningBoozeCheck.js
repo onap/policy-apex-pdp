@@ -19,14 +19,6 @@
  * ============LICENSE_END=========================================================
  */
 
-var returnValueType = Java.type("java.lang.Boolean");
-var returnValue = new returnValueType(true);
-
-// Load compatibility script for imports etc
-load("nashorn:mozilla_compat.js");
-importPackage(java.text);
-importClass(java.text.SimpleDateFormat);
-
 executor.logger.info("Task Execution: '"+executor.subject.id+"'. Input Fields: '"+executor.inFields+"'");
 
 executor.outFields.put("amount"      , executor.inFields.get("amount"));
@@ -78,3 +70,5 @@ authorised. Otherwise the sale is authorised.
 In this implementation we assume that items with item_ID value between 1000 and
 2000 are all alcoholic drinks :-)
 */
+
+true;

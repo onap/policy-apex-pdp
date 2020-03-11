@@ -68,7 +68,7 @@ public class MfpModelCliTest {
         // @formatter:off
         final String[] testApexModel1CliArgs = {
             "-c",
-            "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.apex",
+            "src/main/resources/examples/models/MyFirstPolicy/1/MyFirstPolicyModelMvel_0.0.1.apex",
             "-l",
             tempLogFile1.getAbsolutePath(),
             "-o",
