@@ -16,6 +16,24 @@
       "revId": "2bda7f00f3a197c19080190b41524855c1d02bc9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95040589_d226f366",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-19T19:58:18Z",
+      "side": 1,
+      "message": "actually, could delete this line, as lines 45 \u0026 46 do what\u0027s needed.  Might also be safer to move 45-47 to the end of this list so it applies to anything that happens to be copied into /opt/app by some prior step",
+      "parentUuid": "cef9f735_100ac673",
+      "revId": "2bda7f00f3a197c19080190b41524855c1d02bc9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
