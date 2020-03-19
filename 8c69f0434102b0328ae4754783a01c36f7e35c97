@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "130cfa22_086d3259",
+        "filename": "examples/examples-myfirstpolicy/src/site-docs/adoc/fragments/032-s1-new-events.adoc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-19T12:47:17Z",
+      "side": 1,
+      "message": "\"harded-coded\" \u003d\u003e \"hard-code\"",
+      "revId": "8c69f0434102b0328ae4754783a01c36f7e35c97",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
