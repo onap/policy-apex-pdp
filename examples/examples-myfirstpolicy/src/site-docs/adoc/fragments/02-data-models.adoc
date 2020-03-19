@@ -1,10 +1,11 @@
 //
 // ============LICENSE_START=======================================================
 //  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+//  Modifications Copyright (C) 2020 Nordix Foundation.
 // ================================================================================
 // This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
 // Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
-// 
+//
 // SPDX-License-Identifier: CC-BY-4.0
 // ============LICENSE_END=========================================================
 //
@@ -14,7 +15,7 @@
 == Data Models
 
 === Sales Input Event
-Each time a PoS system processes a sales item an event with the following format is emitted:
+Each time a PoS system processes a sales item an event with the following format is triggered:
 
 .Sale Input Event
 [width="100%",options="header"]
@@ -34,14 +35,14 @@ The `notes` field contains arbitrary notes about the sale.
 
 
 === Sales Decision Event
-After a `SALE_INPUT` event is emitted by the PoS system _HyperM_'s policy-based controlled sales checking system emits a Sale Authorization Event indicating whether the sale is authorized or denied.
+After a `SALE_INPUT` event is triggered by the PoS system _HyperM_'s policy-based controlled sales checking system triggers a Sale Authorization Event indicating whether the sale is authorized or denied.
 The PoS system can then listen for this event before continuing with the sale.
 
 .Sale Authorisation Event
 [width="100%",options="header"]
 |====================
 |Event| Fields | Description
-| SALE_AUTH | sale_ID, time, authorized, amount, item_ID, quantity, assistant_ID, branch_ID, notes, message... |  Event indicating a sale of an item is authorized or denied
+| SALE_AUTH | sale_ID, time, authorized, amount, item_ID, quantity, assistant_ID, branch_ID, notes, message... |  Event indicating if the sale of an item is authorized or denied
 |====================
 
 In each `SALE_AUTH` event the `sale_ID` field is copied from the `SALE_INPUT` event that trigger the decision request.

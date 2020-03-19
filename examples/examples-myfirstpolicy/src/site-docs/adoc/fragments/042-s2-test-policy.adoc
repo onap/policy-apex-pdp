@@ -1,10 +1,11 @@
 //
 // ============LICENSE_START=======================================================
 //  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+//  Modifications Copyright (C) 2020 Nordix Foundation.
 // ================================================================================
 // This file is licensed under the CREATIVE COMMONS ATTRIBUTION 4.0 INTERNATIONAL LICENSE
 // Full license text at https://creativecommons.org/licenses/by/4.0/legalcode
-// 
+//
 // SPDX-License-Identifier: CC-BY-4.0
 // ============LICENSE_END=========================================================
 //
@@ -20,7 +21,7 @@ Note, this has changed from the configuration file in Step 1 to enable the `JAVA
 .JSON to load and execute _My First Policy_, read input JSON events from `stdin`, and emit output events to `stdout`
 [source,json,options="nowrap"]
 ----
-include::{adsite-examples-myfirstpolicy-dir}/main/resources/org/onap/policy/apex/examples/myfirstpolicy/2/config/MyFirstPolicyConfigStdin2StdoutJsonEvent.json[configuration file]
+include::{adsite-examples-myfirstpolicy-dir}/main/resources/examples/config/myfirstpolicy/2/MyFirstPolicyConfigStdin2StdoutJsonEvent.json[configuration file]
 ----
 
 To test the policy try paste the following events into the console as the APEX engine executes. Note, all tests from Step 1 will still work perfectly since none of those events originate from a branch with `branch_ID` between `1000` and `2000`. The 'Task Selection Logic' will therefore pick the `MorningBoozeCheck` task as expected, and will therefore give the same results.
