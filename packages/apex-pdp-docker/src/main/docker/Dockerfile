@@ -47,7 +47,7 @@ RUN tar xvfz /packages/apex-pdp-package-full.tar.gz --directory $POLICY_HOME \
     && chmod 755 $POLICY_HOME/bin/* \
     && cp -pr $POLICY_HOME/examples /home/apexuser \
     && chown -R apexuser:apexuser /home/apexuser/* $POLICY_HOME \
-    && chmod 755 $POLICY_HOME/etc/*
+    && chmod 644 $POLICY_HOME/etc/*
 
 USER apexuser
 ENV PATH $POLICY_HOME/bin:$PATH
