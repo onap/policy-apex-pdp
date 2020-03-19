@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cef9f735_100ac673",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-03-19T17:44:47Z",
+      "side": 1,
+      "message": "In theory, you\u0027ll need the +x for other users other than apexuser to be able to do, \"cd $POLICY_HOME/etc/ssl\".   You may be OK provided that apexuser would own this directory, not sure, probably should test it out.   Traditionally the +x is needed to go into directories, etc .. (case ../etc/ssl), for regular files 644 is OK the change you made.",
+      "revId": "2bda7f00f3a197c19080190b41524855c1d02bc9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
