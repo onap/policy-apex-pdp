@@ -34,6 +34,24 @@
       "revId": "2bda7f00f3a197c19080190b41524855c1d02bc9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "231dee3b_2a8daeac",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-20T10:47:03Z",
+      "side": 1,
+      "message": "Yes, apexuser owns this directory, so there shouldn\u0027t be any problem.\nJim I think you are right. But not sure whether we should make these changes at this point. I would like to test these changes, because earlier also 45-47 lines were there. But still had to add 49-50 to resolve some issues that came up during testing. The main change was making apexuser the owner of the directory and that should be enough(probably 45-46 have to be moved down as you said). Still I think it is better to spent some time to test these changes.",
+      "parentUuid": "95040589_d226f366",
+      "revId": "2bda7f00f3a197c19080190b41524855c1d02bc9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
