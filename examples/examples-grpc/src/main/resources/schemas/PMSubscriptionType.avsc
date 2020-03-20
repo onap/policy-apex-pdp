@@ -1,0 +1,101 @@
+{
+  "name": "PMSubscription",
+  "type": "record",
+  "namespace": "org.onap.policy.apex.onap.pmcontrol",
+  "fields": [
+    {
+      "name": "nfName",
+      "type": "string"
+    },
+    {
+      "name": "changeType",
+      "type": "string"
+    },
+    {
+      "name": "closedLoopControlName",
+      "type": "string"
+    },
+    {
+      "name": "policyName",
+      "type": "string"
+    },
+    {
+      "name": "subscription",
+      "type": {
+        "name": "subscription",
+        "type": "record",
+        "fields": [
+          {
+            "name": "subscriptionName",
+            "type": "string"
+          },
+          {
+            "name": "administrativeState",
+            "type": "string"
+          },
+          {
+            "name": "fileBasedGP",
+            "type": "int"
+          },
+          {
+            "name": "fileLocation",
+            "type": "string"
+          },
+          {
+            "name": "measurementGroups",
+            "type": {
+              "type": "array",
+              "items": {
+                "name": "Measurement_Groups_Type",
+                "type": "record",
+                "fields": [
+                  {
+                    "name": "measurementGroup",
+                    "type": {
+                      "name": "Measurement_Group_Type",
+                      "type": "record",
+                      "fields": [
+                        {
+                          "name": "measurementTypes",
+                          "type": {
+                            "type": "array",
+                            "items": {
+                              "name": "Measurement_Types_Type",
+                              "type": "record",
+                              "fields": [
+                                {
+                                  "name": "measurementType",
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "name": "managedObjectDNsBasic",
+                          "type": {
+                            "type": "array",
+                            "items": {
+                              "name": "Managed_Object_Dns_Basic_Type",
+                              "type": "record",
+                              "fields": [
+                                {
+                                  "name": "DN",
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

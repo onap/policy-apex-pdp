@@ -1,0 +1,54 @@
+{
+  "changeType": "CREATE",
+  "closedLoopControlName": "test",
+  "policyName": "test",
+  "nfName": "pnf300",
+  "subscription": {
+    "subscriptionName": "testPolicyB",
+    "administrativeState": "UNLOCKED",
+    "fileBasedGP": 15,
+    "fileLocation": "/pm/pm.xml",
+    "measurementGroups": [
+      {
+        "measurementGroup": {
+          "measurementTypes": [
+            {
+              "measurementType": "countera"
+            },
+            {
+              "measurementType": "counterb"
+            }
+          ],
+          "managedObjectDNsBasic": [
+            {
+              "DN": "dna"
+            },
+            {
+              "DN": "dnb"
+            }
+          ]
+        }
+      },
+      {
+        "measurementGroup": {
+          "measurementTypes": [
+            {
+              "measurementType": "counterc"
+            },
+            {
+              "measurementType": "counterd"
+            }
+          ],
+          "managedObjectDNsBasic": [
+            {
+              "DN": "dnc"
+            },
+            {
+              "DN": "dnd"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -267,6 +267,11 @@
             <artifactId>examples-onap-bbs</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.examples</groupId>
+            <artifactId>examples-grpc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -445,6 +450,24 @@
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${project.build.directory}/etc</outputDirectory>
                                     <includes>/app-version.txt</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>examples-grpc</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <includes>etc/**/*,examples/**/*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
+                                    <artifactId>examples-grpc</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/examples/models/APEXgRPC</outputDirectory>
+                                    <includes>APEXgRPCPolicy.json</includes>
                                 </artifactItem>
                             </artifactItems>
                             <overWriteReleases>true</overWriteReleases>
