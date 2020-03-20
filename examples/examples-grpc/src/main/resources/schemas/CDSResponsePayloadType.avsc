@@ -1,0 +1,29 @@
+{
+  "name": "CDSResponsePayloadEntry",
+  "type": "record",
+  "namespace": "com.acme.avro",
+  "fields": [
+    {
+      "name": "create_DasH_subscription_DasH_response",
+      "type": {
+        "name": "create_DasH_subscription_DasH_response",
+        "type": "record",
+        "fields": [
+          {
+            "name": "odl_DasH_response",
+            "type": {
+              "name": "odl_DasH_response",
+              "type": "record",
+              "fields": [
+                  {
+                    "name": "status",
+                    "type": "string"
+                  }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
