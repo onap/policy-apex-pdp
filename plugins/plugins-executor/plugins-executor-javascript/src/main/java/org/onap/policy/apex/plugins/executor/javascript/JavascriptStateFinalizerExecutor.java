@@ -53,11 +53,12 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
         super.prepare();
 
         // Create the executor
-        javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
+        if (javascriptExecutor == null) {
+            javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
+        }
 
         // Initialize and cleanup the executor to check the Javascript code
         javascriptExecutor.init(getSubject().getLogic());
-        javascriptExecutor.cleanUp();
     }
 
     /**
@@ -72,14 +73,12 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public String execute(final long executionId, final Properties executionProperties,
-            final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
+        final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);
 
         // Execute the Javascript executor
-        javascriptExecutor.init(getSubject().getLogic());
         boolean result = javascriptExecutor.execute(getExecutionContext());
-        javascriptExecutor.cleanUp();
 
         // Execute the Javascript
         executePost(result);
@@ -95,6 +94,8 @@ public class JavascriptStateFinalizerExecutor extends StateFinalizerExecutor {
     @Override
     public void cleanUp() throws StateMachineException {
         LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getLogicFlavour() + ","
-                + getSubject().getLogic());
+            + getSubject().getLogic());
+
+        javascriptExecutor.cleanUp();
     }
 }
