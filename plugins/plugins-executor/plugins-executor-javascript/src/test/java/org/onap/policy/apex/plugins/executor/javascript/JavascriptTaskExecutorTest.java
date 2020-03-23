@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.plugins.executor.javascript;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -64,7 +65,7 @@ public class JavascriptTaskExecutorTest {
     public static void prepareForTest() {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters()
-                .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
+            .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
         contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
@@ -98,32 +99,47 @@ public class JavascriptTaskExecutorTest {
 
     @Test
     public void testJavascriptTaskExecutor() throws Exception {
-        JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
-        assertNotNull(jte);
-
         assertThatThrownBy(() -> {
-            jte.prepare();
+            JavascriptTaskExecutor jteBadPrep = new JavascriptTaskExecutor();
+            jteBadPrep.prepare();
         }).isInstanceOf(NullPointerException.class);
 
         AxTask task = new AxTask(new AxArtifactKey("TestTask:0.0.1"));
         final ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
 
-        jte.setContext(null, task, internalContext);
+        JavascriptTaskExecutor jteBadLogic = new JavascriptTaskExecutor();
+        assertNotNull(jteBadLogic);
+
+        jteBadLogic.setContext(null, task, internalContext);
 
         task.getTaskLogic().setLogic("return boolean;");
 
         assertThatThrownBy(() -> {
-            jte.prepare();
-            jte.execute(-1, new Properties(), null);
+            jteBadLogic.prepare();
         }).hasMessage("logic failed to compile for TestTask:0.0.1 with message: invalid return (TestTask:0.0.1#1)");
 
         task.getTaskLogic().setLogic("var x = 5;");
 
+        JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
+        jte.setContext(null, task, internalContext);
+
         jte.prepare();
+
+        assertThatThrownBy(() -> {
+            jte.prepare();
+        }).hasMessage("initiation failed, executor TestTask:0.0.1 is already running");
+
         assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), null);
         }).isInstanceOf(NullPointerException.class);
-        jte.cleanUp();
+
+        assertThatThrownBy(() -> {
+            jte.execute(-1, new Properties(), null);
+        }).isInstanceOf(NullPointerException.class);
+
+        assertThatCode(() -> {
+            jte.cleanUp();
+        }).doesNotThrowAnyException();
 
         task.getTaskLogic().setLogic("var returnValue = false;\nreturnValue;");
 
@@ -142,6 +158,10 @@ public class JavascriptTaskExecutorTest {
         Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
         assertEquals(0, returnMap.size());
         jte.cleanUp();
+
+        assertThatCode(() -> {
+            jte.cleanUp();
+        }).doesNotThrowAnyException();
     }
 
     @Test
@@ -188,12 +208,12 @@ public class JavascriptTaskExecutorTest {
     private ContextAlbum createTestContextAlbum() throws ContextException {
         AxContextSchemas schemas = new AxContextSchemas();
         AxContextSchema simpleStringSchema =
-                new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"), "JAVA", "java.lang.String");
+            new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"), "JAVA", "java.lang.String");
         schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
         ModelService.registerModel(AxContextSchemas.class, schemas);
 
         AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                true, AxArtifactKey.getNullKey());
+            true, AxArtifactKey.getNullKey());
 
         axContextAlbum.setItemSchema(simpleStringSchema.getKey());
         Distributor distributor = new JvmLocalDistributor();
