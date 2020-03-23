@@ -113,18 +113,18 @@ task logic create name=DitheringAnswerTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/DitheringAnswerTask.js"
 LE
 
-#task create name=RoundRobinAnswerTask
-#
-#task inputfield create name=RoundRobinAnswerTask fieldName=mode schemaName=SimpleStringType
-#
-#task outputfield create name=RoundRobinAnswerTask fieldName=decision schemaName=SimpleStringType
-#
-#task contextref create name=RoundRobinAnswerTask albumName=AnswerAlbum
-#task contextref create name=RoundRobinAnswerTask albumName=LastAnswerAlbum
-#
-#task logic create name=RoundRobinAnswerTask logicFlavour=JAVASCRIPT logic=LS
-##MACROFILE:"src/main/resources/logic/RoundRobinAnswerTask.js"
-#LE
+task create name=RoundRobinAnswerTask
+
+task inputfield create name=RoundRobinAnswerTask fieldName=mode schemaName=SimpleStringType
+
+task outputfield create name=RoundRobinAnswerTask fieldName=decision schemaName=SimpleStringType
+
+task contextref create name=RoundRobinAnswerTask albumName=AnswerAlbum
+task contextref create name=RoundRobinAnswerTask albumName=LastAnswerAlbum
+
+task logic create name=RoundRobinAnswerTask logicFlavour=JAVASCRIPT logic=LS
+#MACROFILE:"src/main/resources/logic/RoundRobinAnswerTask.js"
+LE
 
 policy create name=AnswerInitPolicy template=freestyle firstState=AnswerInitState
 
@@ -140,7 +140,7 @@ policy state taskref create name=DecisionMakerPolicy stateName=MakeDecisionState
 policy state taskref create name=DecisionMakerPolicy stateName=MakeDecisionState taskName=PessimisticAnswerTask outputType=DIRECT outputName=DecisionFinalOutput
 policy state taskref create name=DecisionMakerPolicy stateName=MakeDecisionState taskName=OptimisticAnswerTask outputType=DIRECT outputName=DecisionFinalOutput
 policy state taskref create name=DecisionMakerPolicy stateName=MakeDecisionState taskName=DitheringAnswerTask outputType=DIRECT outputName=DecisionFinalOutput
-#policy state taskref create name=DecisionMakerPolicy stateName=MakeDecisionState taskName=RoundRobinAnswerTask outputType=DIRECT outputName=DecisionFinalOutput
+policy state taskref create name=DecisionMakerPolicy stateName=MakeDecisionState taskName=RoundRobinAnswerTask outputType=DIRECT outputName=DecisionFinalOutput
 
 policy state selecttasklogic create name=DecisionMakerPolicy stateName=MakeDecisionState logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/MakeDecisionStateTSL.js"

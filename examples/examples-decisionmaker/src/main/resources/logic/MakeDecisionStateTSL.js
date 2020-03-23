@@ -34,9 +34,9 @@ else if (executor.inFields.get("mode").equals("optimistic")) {
 else if (executor.inFields.get("mode").equals("dithering")) {
     executor.subject.getTaskKey("DitheringAnswerTask").copyTo(executor.selectedTask);
 }
-//else if (executor.inFields.get("mode").equals("roundrobin")) {
-//    executor.subject.getTaskKey("RoundRobinAnswerTask").copyTo(executor.selectedTask);
-//}
+else if (executor.inFields.get("mode").equals("roundrobin")) {
+    executor.subject.getTaskKey("RoundRobinAnswerTask").copyTo(executor.selectedTask);
+}
 
 executor.logger.info("Answer Selected Task:" + executor.selectedTask);
 
