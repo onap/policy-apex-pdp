@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "24f80ef9_328e636e",
+        "filename": "examples/examples-grpc/src/main/resources/examples/config/APEXgRPC/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-23T17:37:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "292126f3_5771b576",
+      "revId": "408d3215fa474959489022a37fbcb1b785ed14ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89610ad3_c561b2bb",
         "filename": "examples/examples-grpc/src/main/resources/logic/CreateOrDeleteStateTSL.js",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-23T16:28:22Z",
       "side": 1,
       "message": "should probably reverse these checks\n\nsame comment below (and potentially in other files)",
+      "revId": "408d3215fa474959489022a37fbcb1b785ed14ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdbac0a9_21b45b9d",
+        "filename": "examples/examples-grpc/src/main/resources/logic/CreateOrDeleteStateTSL.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-23T17:37:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89610ad3_c561b2bb",
       "revId": "408d3215fa474959489022a37fbcb1b785ed14ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
