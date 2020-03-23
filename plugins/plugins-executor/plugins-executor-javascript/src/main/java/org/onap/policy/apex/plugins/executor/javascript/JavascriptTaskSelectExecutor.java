@@ -54,7 +54,9 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
         super.prepare();
 
         // Create the executor
-        javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
+        if (javascriptExecutor == null) {
+            javascriptExecutor = new JavascriptExecutor(getSubject().getKey());
+        }
 
         // Initialize and cleanup the executor to check the Javascript code
         javascriptExecutor.init(getSubject().getTaskSelectionLogic().getLogic());
@@ -72,14 +74,12 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public AxArtifactKey execute(final long executionId, final Properties executionProperties,
-            final EnEvent incomingEvent) throws StateMachineException, ContextException {
+        final EnEvent incomingEvent) throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingEvent);
 
         // Execute the Javascript executor
-        javascriptExecutor.init(getSubject().getTaskSelectionLogic().getLogic());
         boolean result = javascriptExecutor.execute(getExecutionContext());
-        javascriptExecutor.cleanUp();
 
         // Execute the Javascript
         executePost(result);
@@ -94,8 +94,10 @@ public class JavascriptTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public void cleanUp() throws StateMachineException {
-        LOGGER.debug("cleanUp:" + getSubject().getKey().getId() + ","
-                + getSubject().getTaskSelectionLogic().getLogicFlavour() + ","
-                + getSubject().getTaskSelectionLogic().getLogic());
+        LOGGER.debug(
+            "cleanUp:" + getSubject().getKey().getId() + "," + getSubject().getTaskSelectionLogic().getLogicFlavour()
+                + "," + getSubject().getTaskSelectionLogic().getLogic());
+
+        javascriptExecutor.cleanUp();
     }
 }
