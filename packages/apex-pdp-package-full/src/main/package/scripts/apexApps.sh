@@ -3,20 +3,20 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
-#  Modifications Copyright (C) 2019 Nordix Foundation.
+#  Modifications Copyright (C) 2019-2020 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
@@ -93,13 +93,10 @@ APEX_APP_MAP["ws-console"]="java -jar $APEX_HOME/lib/applications/simple-wsclien
 APEX_APP_MAP["ws-echo"]="java -jar $APEX_HOME/lib/applications/simple-wsclient-$_version-jar-with-dependencies.jar"
 APEX_APP_MAP["tpl-event-json"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.tools.model.generator.model2event.Model2EventMain"
 APEX_APP_MAP["model-2-cli"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.tools.model.generator.model2cli.Model2ClMain"
-APEX_APP_MAP["rest-editor"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-editor-$_version-editor.jar"
 APEX_APP_MAP["cli-editor"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain"
 APEX_APP_MAP["cli-tosca-editor"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain"
 APEX_APP_MAP["engine"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.service.engine.main.ApexMain"
-APEX_APP_MAP["eng-deployment"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-deployment-$_version-deployment.jar"
-APEX_APP_MAP["eng-monitoring"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-monitoring-$_version-monitoring.jar"
-APEX_APP_MAP["full-client"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/client-full-$_version-full.jar"
+APEX_APP_MAP["full-client"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -jar $APEX_HOME/lib/applications/apex-client-full-$_version-full.jar"
 APEX_APP_MAP["event-gen"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator"
 APEX_APP_MAP["onappf"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config org.onap.policy.apex.services.onappf.ApexStarterMain"
 APEX_APP_MAP["jmx-test"]="java -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -cp ${CLASSPATH} $_config $_jmxconfig org.onap.policy.apex.service.engine.main.ApexMain"
@@ -110,12 +107,9 @@ APEX_APP_DESCR_MAP["ws-console"]="a simple console sending events to APEX, conne
 APEX_APP_DESCR_MAP["ws-echo"]="a simple echo client printing events received from APEX, connect to APEX producer port"
 APEX_APP_DESCR_MAP["tpl-event-json"]="provides JSON templates for events generated from a policy model"
 APEX_APP_DESCR_MAP["model-2-cli"]="generates CLI Editor Commands from a policy model"
-APEX_APP_DESCR_MAP["rest-editor"]="starts the APEX REST Editor inside a simple webserver"
 APEX_APP_DESCR_MAP["cli-editor"]="runs the APEX CLI Editor"
 APEX_APP_DESCR_MAP["cli-tosca-editor"]="runs the APEX CLI Tosca Editor"
 APEX_APP_DESCR_MAP["engine"]="starts the APEX engine"
-APEX_APP_DESCR_MAP["eng-deployment"]="starts the APEX deployment client in a simple webserver"
-APEX_APP_DESCR_MAP["eng-monitoring"]="starts the APEX engine monitoring client in a simple webserver"
 APEX_APP_DESCR_MAP["full-client"]="starts the full APEX client (rest editor, deployment, monitoring) in a simple webserver"
 APEX_APP_DESCR_MAP["event-generator"]="starts the event generator in a simple webserver for performance testing"
 APEX_APP_DESCR_MAP["onappf"]="starts the ApexStarter which handles the Apex Engine based on instructions from PAP"

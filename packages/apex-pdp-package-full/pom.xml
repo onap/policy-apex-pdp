@@ -47,32 +47,7 @@
             <artifactId>services-onappf</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Client Servlet applications -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>apex-client-full</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>apex-client-editor</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>apex-client-deployment</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>apex-client-monitoring</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-        </dependency>
-        
+
         <!-- Plugins for Context Distribution -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
@@ -200,7 +175,7 @@
             <artifactId>cli-editor</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <!-- Tools -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.tools</groupId>
@@ -212,14 +187,14 @@
             <artifactId>model-generator</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <!-- Test Data used by examples -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
             <artifactId>integration-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <!-- Sample Examples -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.examples</groupId>
@@ -254,12 +229,6 @@
         <dependency>
             <groupId>org.onap.policy.apex-pdp.examples</groupId>
             <artifactId>examples-onap-vcpe</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.examples</groupId>
-            <artifactId>examples-servlet</artifactId>
-            <type>war</type>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -434,15 +403,6 @@
                                     <includes>NomadicONTPolicyModel.json</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
-                                    <artifactId>examples-servlet</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>war</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/examples/servlet</outputDirectory>
-                                    <includes>readme_examples-servlet.txt</includes>
-                                </artifactItem>
-                                <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.tools</groupId>
                                     <artifactId>tools-common</artifactId>
                                     <version>${project.version}</version>
@@ -492,27 +452,6 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>apex-client-monitoring</artifactId>
-                                    <version>${project.version}</version>
-                                    <classifier>monitoring</classifier>
-                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>apex-client-editor</artifactId>
-                                    <version>${project.version}</version>
-                                    <classifier>editor</classifier>
-                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
-                                    <artifactId>apex-client-deployment</artifactId>
-                                    <version>${project.version}</version>
-                                    <classifier>deployment</classifier>
-                                    <outputDirectory>${project.build.directory}/lib/applications</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.client</groupId>
                                     <artifactId>apex-client-full</artifactId>
                                     <version>${project.version}</version>
                                     <classifier>full</classifier>
@@ -526,7 +465,7 @@
 
                 </executions>
             </plugin>
- 
+
             <!-- Build the tar ball -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -620,15 +559,6 @@
                                     <mapper>
                                         <type>perm</type>
                                         <prefix>/opt/app/policy/${project.artifactId}-${project.version}/etc</prefix>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${project.build.directory}/install_hierarchy/war</src>
-                                    <type>directory</type>
-                                    <dst>etc</dst>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/opt/app/policy/${install.package.name}-${project.version}/war</prefix>
                                     </mapper>
                                 </data>
                                 <data>

@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020 Nordix Foundation.
    Modifications Copyright (C) 2020 Bell Canada.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,20 @@
          <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>policy-endpoints</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.onap.aaf.authz</groupId>
+                    <artifactId>aaf-cadi-aaf</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.att.nsa</groupId>
+                    <artifactId>cambriaClient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.onap.dmaap.messagerouter.dmaapclient</groupId>
+                    <artifactId>dmaapClient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
@@ -66,149 +80,6 @@
         </dependency>
 
     </dependencies>
-
-    <build>
-        <defaultGoal>install</defaultGoal>
-        <outputDirectory>${project.build.directory}/classes</outputDirectory>
-        <plugins>
-
-<!-- https://blog.sonatype.com/2008/04/how-to-share-resources-across-projects-in-maven/ -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-shared-resources</id>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
-       <!--use as much as needed to be specific...also scope,type,classifier etc-->
-                            <includeArtifacIds>apex-client-common</includeArtifacIds>
-                            <includeGroupIds>org.onap.policy.apex-pdp.client</includeGroupIds>
-                            <excludeTransitive>true</excludeTransitive>
-                            <excludeTypes>jar</excludeTypes>
-                            <includeTypes>zip</includeTypes>
-                            <excludeTransitive>true</excludeTransitive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make shared resources</id>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/resources.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <finalName>${project.artifactId}-uber-${project.version}</finalName>
-                    <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>monitoring</shadedClassifierName>
-                    <artifactSet>
-                        <includes>
-                            <include>*:*</include>
-                        </includes>
-                    </artifactSet>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/*.SF</exclude>
-                                <exclude>META-INF/*.DSA</exclude>
-                                <exclude>META-INF/*.RSA</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                    <transformers>
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                            <resource>reference.conf</resource>
-                        </transformer>
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
-                            <resource>log4j.properties</resource>
-                        </transformer>
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>org.onap.policy.apex.client.monitoring.rest.ApexMonitoringRestMain</mainClass>
-                        </transformer>
-                    </transformers>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <classifier>ui</classifier>
-                    <warSourceDirectory>src/main/resources/webapp</warSourceDirectory>
-                    <webXml>src/main/resources/webapp/WEB-INF/web.xml</webXml>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-artifacts</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attach-artifact</goal>
-                        </goals>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.artifactId}-${project.version}-ui.war</file>
-                                    <type>war</type>
-                                </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.artifactId}-uber-${project.version}.jar</file>
-                                    <type>uber.jar</type>
-                                </artifact>
-                            </artifacts>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
     <profiles>
         <profile>
