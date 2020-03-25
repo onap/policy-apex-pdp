@@ -16,6 +16,24 @@
       "revId": "dae7922d1ce3a2fcc1e2bef1783effa10a3d192a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9342d1e5_e7c1079d",
+        "filename": "client/client-editor/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-25T13:41:05Z",
+      "side": 1,
+      "message": "It\u0027s actually correct:\n\u003c!-- https://mvnrepository.com/artifact/com.worldturner.medeia/medeia-validator-gson --\u003e\n\u003cdependency\u003e\n    \u003cgroupId\u003ecom.worldturner.medeia\u003c/groupId\u003e\n    \u003cartifactId\u003emedeia-validator-gson\u003c/artifactId\u003e\n    \u003cversion\u003e1.1.1\u003c/version\u003e\n\u003c/dependency\u003e",
+      "parentUuid": "e05c2315_e9026e23",
+      "revId": "dae7922d1ce3a2fcc1e2bef1783effa10a3d192a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
