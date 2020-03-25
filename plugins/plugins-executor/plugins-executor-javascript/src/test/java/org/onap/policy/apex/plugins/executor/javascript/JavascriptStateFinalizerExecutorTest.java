@@ -31,6 +31,7 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -76,6 +77,7 @@ public class JavascriptStateFinalizerExecutorTest {
         ParameterService.deregister(EngineParameterConstants.MAIN_GROUP_NAME);
     }
 
+    @Ignore
     @Test
     public void testJavaStateFinalizerExecutor() throws Exception {
         JavascriptStateFinalizerExecutor jsfe = new JavascriptStateFinalizerExecutor();

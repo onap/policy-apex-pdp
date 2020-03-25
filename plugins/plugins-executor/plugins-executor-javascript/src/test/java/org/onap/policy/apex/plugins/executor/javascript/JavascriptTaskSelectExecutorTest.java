@@ -30,6 +30,7 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -68,6 +69,7 @@ public class JavascriptTaskSelectExecutorTest {
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
     }
 
+    @Ignore
     @Test
     public void testJavascriptTaskSelectExecutor() throws Exception {
         JavascriptTaskSelectExecutor jtse = new JavascriptTaskSelectExecutor();
