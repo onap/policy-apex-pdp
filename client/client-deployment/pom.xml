@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020 Nordix Foundation.
    Modifications Copyright (C) 2020 Bell Canada.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,20 @@
         <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>policy-endpoints</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.onap.aaf.authz</groupId>
+                    <artifactId>aaf-cadi-aaf</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.att.nsa</groupId>
+                    <artifactId>cambriaClient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.onap.dmaap.messagerouter.dmaapclient</groupId>
+                    <artifactId>dmaapClient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
@@ -115,99 +129,6 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/resources.xml</descriptor>
                             </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <finalName>${project.artifactId}-uber-${project.version}</finalName>
-                    <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>deployment</shadedClassifierName>
-                    <artifactSet>
-                        <includes>
-                            <include>*:*</include>
-                        </includes>
-                    </artifactSet>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/*.SF</exclude>
-                                <exclude>META-INF/*.DSA</exclude>
-                                <exclude>META-INF/*.RSA</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                    <transformers>
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                            <resource>reference.conf</resource>
-                        </transformer>
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
-                            <resource>log4j.properties</resource>
-                        </transformer>
-                        <transformer
-                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>org.onap.policy.apex.client.deployment.rest.ApexDeploymentRestMain</mainClass>
-                        </transformer>
-                    </transformers>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <classifier>ui</classifier>
-                    <warSourceDirectory>src/main/resources/webapp</warSourceDirectory>
-                    <webXml>src/main/resources/webapp/WEB-INF/web.xml</webXml>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-artifacts</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attach-artifact</goal>
-                        </goals>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.artifactId}-${project.version}-ui.war</file>
-                                    <type>war</type>
-                                </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.artifactId}-uber-${project.version}.jar</file>
-                                    <type>uber.jar</type>
-                                </artifact>
-                            </artifacts>
                         </configuration>
                     </execution>
                 </executions>
