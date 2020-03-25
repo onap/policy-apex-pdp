@@ -23,6 +23,7 @@ package org.onap.policy.apex.plugins.executor.javascript;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang3.StringUtils;
@@ -102,7 +103,9 @@ public class JavascriptExecutor implements Runnable {
         }
 
         try {
-            intializationLatch.await();
+            if (!intializationLatch.await(60, TimeUnit.SECONDS)) {
+                LOGGER.warn("JavascriptExecutor {}, initiation timed out", subjectKey.getId());
+            }
         } catch (InterruptedException e) {
             LOGGER.debug("JavascriptExecutor {} interrupted on execution thread startup", subjectKey.getId(), e);
             Thread.currentThread().interrupt();
@@ -158,7 +161,9 @@ public class JavascriptExecutor implements Runnable {
         executorThread.interrupt();
 
         try {
-            shutdownLatch.await();
+            if (!shutdownLatch.await(60, TimeUnit.SECONDS)) {
+                LOGGER.warn("JavascriptExecutor {}, shutdown timed out", subjectKey.getId());
+            }
         } catch (InterruptedException e) {
             LOGGER.debug("JavascriptExecutor {} interrupted on execution clkeanup wait", subjectKey.getId(), e);
             Thread.currentThread().interrupt();
