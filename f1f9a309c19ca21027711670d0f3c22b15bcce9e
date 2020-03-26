@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f34a9637_0a9d1325",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-03-26T00:29:35Z",
+      "side": 1,
+      "message": "change to 2.2.2 for models",
+      "revId": "f1f9a309c19ca21027711670d0f3c22b15bcce9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
