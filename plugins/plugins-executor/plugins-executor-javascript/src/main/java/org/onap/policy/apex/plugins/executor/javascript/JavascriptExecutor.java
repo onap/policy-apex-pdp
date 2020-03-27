@@ -58,9 +58,9 @@ public class JavascriptExecutor implements Runnable {
     private final BlockingQueue<Object> executionQueue = new LinkedBlockingQueue<>();
     private final BlockingQueue<Boolean> resultQueue = new LinkedBlockingQueue<>();
 
-    private final Thread executorThread;
-    private CountDownLatch intializationLatch = new CountDownLatch(1);
-    private CountDownLatch shutdownLatch = new CountDownLatch(1);
+    private Thread executorThread;
+    private CountDownLatch intializationLatch;
+    private CountDownLatch shutdownLatch;
     private AtomicReference<StateMachineException> executorException = new AtomicReference<>(null);
 
     /**
@@ -70,9 +70,6 @@ public class JavascriptExecutor implements Runnable {
      */
     public JavascriptExecutor(final AxKey subjectKey) {
         this.subjectKey = subjectKey;
-
-        executorThread = new Thread(this);
-        executorThread.setName(this.getClass().getSimpleName() + ":" + subjectKey.getId());
     }
 
     /**
@@ -84,10 +81,14 @@ public class JavascriptExecutor implements Runnable {
     public void init(final String javascriptCode) throws StateMachineException {
         LOGGER.debug("JavascriptExecutor {} starting ... ", subjectKey.getId());
 
-        if (executorThread.isAlive()) {
-            throw new StateMachineException(
-                "initiation failed, executor " + subjectKey.getId() + " is already running");
+        if (executorThread != null) {
+            throw new StateMachineException("initiation failed, executor " + subjectKey.getId()
+                + " already initialized, run cleanUp to clear executor");
         }
+
+        executorThread = new Thread(this);
+        executorThread.setName(this.getClass().getSimpleName() + ":" + subjectKey.getId());
+        intializationLatch = new CountDownLatch(1);
 
         if (StringUtils.isEmpty(javascriptCode)) {
             throw new StateMachineException("no logic specified for " + subjectKey.getId());
@@ -126,8 +127,13 @@ public class JavascriptExecutor implements Runnable {
      * @throws StateMachineException on execution errors
      */
     public boolean execute(final Object executionContext) throws StateMachineException {
+        if (executorThread == null) {
+            throw new StateMachineException("execution failed, executor " + subjectKey.getId() + " is not initialized");
+        }
+
         if (!executorThread.isAlive()) {
-            throw new StateMachineException("execution failed, executor " + subjectKey.getId() + " is not running");
+            throw new StateMachineException("execution failed, executor " + subjectKey.getId()
+                + " is not running, run cleanUp to clear executor and init to restart executor");
         }
 
         executionQueue.add(executionContext);
@@ -154,20 +160,28 @@ public class JavascriptExecutor implements Runnable {
      * @throws StateMachineException thrown when cleanup of the executor fails
      */
     public void cleanUp() throws StateMachineException {
-        if (!executorThread.isAlive()) {
-            throw new StateMachineException("cleanup failed, executor " + subjectKey.getId() + " is not running");
+        if (executorThread == null) {
+            throw new StateMachineException("cleanup failed, executor " + subjectKey.getId() + " is not initialized");
         }
 
+        if (!executorThread.isAlive()) {
+            executorThread = null;
+            return;
+        }
+
+        shutdownLatch = new CountDownLatch(1);
         executorThread.interrupt();
 
         try {
-            if (!shutdownLatch.await(60, TimeUnit.SECONDS)) {
+            if (!shutdownLatch.await(5, TimeUnit.SECONDS)) {
                 LOGGER.warn("JavascriptExecutor {}, shutdown timed out", subjectKey.getId());
             }
         } catch (InterruptedException e) {
             LOGGER.debug("JavascriptExecutor {} interrupted on execution clkeanup wait", subjectKey.getId(), e);
             Thread.currentThread().interrupt();
         }
+
+        executorThread = null;
 
         if (executorException.get() != null) {
             clearAndThrowExecutorException();

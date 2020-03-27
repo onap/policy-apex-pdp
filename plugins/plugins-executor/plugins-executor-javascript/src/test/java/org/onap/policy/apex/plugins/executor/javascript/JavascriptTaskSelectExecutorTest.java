@@ -30,7 +30,6 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -69,7 +68,6 @@ public class JavascriptTaskSelectExecutorTest {
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
     }
 
-    @Ignore
     @Test
     public void testJavascriptTaskSelectExecutor() throws Exception {
         JavascriptTaskSelectExecutor jtse = new JavascriptTaskSelectExecutor();
@@ -93,7 +91,12 @@ public class JavascriptTaskSelectExecutorTest {
 
         assertThatThrownBy(() -> {
             jtse.execute(-1, new Properties(), event1);
-        }).hasMessage("execution failed, executor NULL:0.0.0:NULL:NULL is not running");
+        }).hasMessage("execution failed, executor NULL:0.0.0:NULL:NULL is not running, "
+            + "run cleanUp to clear executor and init to restart executor");
+
+        assertThatCode(() -> {
+            jtse.cleanUp();
+        }).doesNotThrowAnyException();
 
         state.getTaskSelectionLogic().setLogic("java.lang.String");
         jtse.prepare();
@@ -119,7 +122,8 @@ public class JavascriptTaskSelectExecutorTest {
 
         assertThatThrownBy(() -> {
             jtse.prepare();
-        }).hasMessage("initiation failed, executor NULL:0.0.0:NULL:NULL is already running");
+        }).hasMessage(
+            "initiation failed, executor NULL:0.0.0:NULL:NULL already initialized, run cleanUp to clear executor");
 
         assertThatCode(() -> {
             jtse.cleanUp();

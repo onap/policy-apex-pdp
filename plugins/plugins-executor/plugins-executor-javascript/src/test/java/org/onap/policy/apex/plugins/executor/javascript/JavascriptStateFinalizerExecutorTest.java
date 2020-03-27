@@ -31,7 +31,6 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -77,7 +76,6 @@ public class JavascriptStateFinalizerExecutorTest {
         ParameterService.deregister(EngineParameterConstants.MAIN_GROUP_NAME);
     }
 
-    @Ignore
     @Test
     public void testJavaStateFinalizerExecutor() throws Exception {
         JavascriptStateFinalizerExecutor jsfe = new JavascriptStateFinalizerExecutor();
@@ -104,15 +102,17 @@ public class JavascriptStateFinalizerExecutorTest {
         Map<String, Object> incomingParameters1 = new HashMap<>();
         assertThatThrownBy(() -> {
             jsfe.execute(-1, new Properties(), incomingParameters1);
-        }).hasMessage("execution failed, executor NULL:0.0.0:NULL:NULL is not running");
+        }).hasMessage("execution failed, executor NULL:0.0.0:NULL:NULL is not running, "
+            + "run cleanUp to clear executor and init to restart executor");
 
         assertThatThrownBy(() -> {
             jsfe.prepare();
-        }).hasMessage("initiation failed, executor NULL:0.0.0:NULL:NULL failed to start");
+        }).hasMessage(
+            "initiation failed, executor NULL:0.0.0:NULL:NULL already initialized, run cleanUp to clear executor");
 
-        assertThatThrownBy(() -> {
+        assertThatCode(() -> {
             jsfe.cleanUp();
-        }).hasMessage("cleanup failed, executor NULL:0.0.0:NULL:NULL is not running");
+        }).doesNotThrowAnyException();
 
         JavascriptStateFinalizerExecutor jsfe1 = new JavascriptStateFinalizerExecutor();
         stateFinalizerLogic.setLogic("java.lang.String");
