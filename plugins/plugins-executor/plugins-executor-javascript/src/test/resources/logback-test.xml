@@ -35,7 +35,7 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="org.onap.policy.apex.plugins.executor.javascript" level="INFO" additivity="false">
+    <logger name="org.onap.policy.apex.plugins.executor.javascript" level="TRACE" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>
