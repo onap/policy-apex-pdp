@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -36,7 +35,6 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 
 public class JavascriptExecutorFullApexTest {
 
-    @Ignore
     @Test
     public void testFullApexPolicy() throws ApexException {
         final String[] args = {"src/test/resources/prodcons/File2File.json"};

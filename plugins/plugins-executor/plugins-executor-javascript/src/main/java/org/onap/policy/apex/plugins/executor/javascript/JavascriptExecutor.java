@@ -26,6 +26,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import lombok.NonNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
@@ -48,6 +50,10 @@ public class JavascriptExecutor implements Runnable {
     // Recurring string constants
     private static final String WITH_MESSAGE = " with message: ";
 
+    private static TimeUnit timeunit4Latches = TimeUnit.SECONDS;
+    private static int intializationLatchTimeout = 60;
+    private static int cleanupLatchTimeout = 60;
+
     // The key of the subject that wants to execute Javascript code
     final AxKey subjectKey;
 
@@ -58,9 +64,9 @@ public class JavascriptExecutor implements Runnable {
     private final BlockingQueue<Object> executionQueue = new LinkedBlockingQueue<>();
     private final BlockingQueue<Boolean> resultQueue = new LinkedBlockingQueue<>();
 
-    private final Thread executorThread;
-    private CountDownLatch intializationLatch = new CountDownLatch(1);
-    private CountDownLatch shutdownLatch = new CountDownLatch(1);
+    private Thread executorThread;
+    private CountDownLatch intializationLatch;
+    private CountDownLatch cleanupLatch;
     private AtomicReference<StateMachineException> executorException = new AtomicReference<>(null);
 
     /**
@@ -70,9 +76,6 @@ public class JavascriptExecutor implements Runnable {
      */
     public JavascriptExecutor(final AxKey subjectKey) {
         this.subjectKey = subjectKey;
-
-        executorThread = new Thread(this);
-        executorThread.setName(this.getClass().getSimpleName() + ":" + subjectKey.getId());
     }
 
     /**
@@ -81,39 +84,44 @@ public class JavascriptExecutor implements Runnable {
      * @param javascriptCode the Javascript code to execute
      * @throws StateMachineException thrown when instantiation of the executor fails
      */
-    public void init(final String javascriptCode) throws StateMachineException {
+    public void init(@NonNull final String javascriptCode) throws StateMachineException {
         LOGGER.debug("JavascriptExecutor {} starting ... ", subjectKey.getId());
 
-        if (executorThread.isAlive()) {
-            throw new StateMachineException(
-                "initiation failed, executor " + subjectKey.getId() + " is already running");
+        if (executorThread != null) {
+            throw new StateMachineException("initiation failed, executor " + subjectKey.getId()
+                + " already initialized, run cleanUp to clear executor");
         }
 
-        if (StringUtils.isEmpty(javascriptCode)) {
-            throw new StateMachineException("no logic specified for " + subjectKey.getId());
+        if (StringUtils.isBlank(javascriptCode)) {
+            throw new StateMachineException("initiation failed, no logic specified for executor " + subjectKey.getId());
         }
 
         this.javascriptCode = javascriptCode;
 
+        executorThread = new Thread(this);
+        executorThread.setName(this.getClass().getSimpleName() + ":" + subjectKey.getId());
+        intializationLatch = new CountDownLatch(1);
+        cleanupLatch = new CountDownLatch(1);
+
         try {
             executorThread.start();
-        } catch (Exception e) {
+        } catch (IllegalThreadStateException e) {
             throw new StateMachineException("initiation failed, executor " + subjectKey.getId() + " failed to start",
                 e);
         }
 
         try {
-            if (!intializationLatch.await(60, TimeUnit.SECONDS)) {
-                LOGGER.warn("JavascriptExecutor {}, initiation timed out", subjectKey.getId());
+            if (!intializationLatch.await(intializationLatchTimeout, timeunit4Latches)) {
+                executorThread.interrupt();
+                throw new StateMachineException("JavascriptExecutor " + subjectKey.getId()
+                    + " initiation timed out after " + intializationLatchTimeout + " " + timeunit4Latches);
             }
         } catch (InterruptedException e) {
             LOGGER.debug("JavascriptExecutor {} interrupted on execution thread startup", subjectKey.getId(), e);
             Thread.currentThread().interrupt();
         }
 
-        if (executorException.get() != null) {
-            clearAndThrowExecutorException();
-        }
+        checkAndThrowExecutorException();
 
         LOGGER.debug("JavascriptExecutor {} started ... ", subjectKey.getId());
     }
@@ -126,8 +134,13 @@ public class JavascriptExecutor implements Runnable {
      * @throws StateMachineException on execution errors
      */
     public boolean execute(final Object executionContext) throws StateMachineException {
+        if (executorThread == null) {
+            throw new StateMachineException("execution failed, executor " + subjectKey.getId() + " is not initialized");
+        }
+
         if (!executorThread.isAlive()) {
-            throw new StateMachineException("execution failed, executor " + subjectKey.getId() + " is not running");
+            throw new StateMachineException("execution failed, executor " + subjectKey.getId()
+                + " is not running, run cleanUp to clear executor and init to restart executor");
         }
 
         executionQueue.add(executionContext);
@@ -137,13 +150,13 @@ public class JavascriptExecutor implements Runnable {
         try {
             result = resultQueue.take();
         } catch (final InterruptedException e) {
-            LOGGER.debug("JavascriptExecutor {} interrupted on execution result wait", subjectKey.getId(), e);
+            executorThread.interrupt();
             Thread.currentThread().interrupt();
+            throw new StateMachineException(
+                "JavascriptExecutor " + subjectKey.getId() + "interrupted on execution result wait", e);
         }
 
-        if (executorException.get() != null) {
-            clearAndThrowExecutorException();
-        }
+        checkAndThrowExecutorException();
 
         return result;
     }
@@ -154,24 +167,29 @@ public class JavascriptExecutor implements Runnable {
      * @throws StateMachineException thrown when cleanup of the executor fails
      */
     public void cleanUp() throws StateMachineException {
-        if (!executorThread.isAlive()) {
-            throw new StateMachineException("cleanup failed, executor " + subjectKey.getId() + " is not running");
+        if (executorThread == null) {
+            throw new StateMachineException("cleanup failed, executor " + subjectKey.getId() + " is not initialized");
         }
 
-        executorThread.interrupt();
+        if (executorThread.isAlive()) {
+            executorThread.interrupt();
 
-        try {
-            if (!shutdownLatch.await(60, TimeUnit.SECONDS)) {
-                LOGGER.warn("JavascriptExecutor {}, shutdown timed out", subjectKey.getId());
+            try {
+                if (!cleanupLatch.await(cleanupLatchTimeout, timeunit4Latches)) {
+                    executorException.set(new StateMachineException("JavascriptExecutor " + subjectKey.getId()
+                        + " cleanup timed out after " + cleanupLatchTimeout + " " + timeunit4Latches));
+                }
+            } catch (InterruptedException e) {
+                LOGGER.debug("JavascriptExecutor {} interrupted on execution cleanup wait", subjectKey.getId(), e);
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            LOGGER.debug("JavascriptExecutor {} interrupted on execution clkeanup wait", subjectKey.getId(), e);
-            Thread.currentThread().interrupt();
         }
 
-        if (executorException.get() != null) {
-            clearAndThrowExecutorException();
-        }
+        executorThread = null;
+        executionQueue.clear();
+        resultQueue.clear();
+
+        checkAndThrowExecutorException();
     }
 
     @Override
@@ -181,9 +199,10 @@ public class JavascriptExecutor implements Runnable {
         try {
             initExecutor();
         } catch (StateMachineException sme) {
-            LOGGER.warn("JavascriptExecutor {} initialization failed", sme);
+            LOGGER.warn("JavascriptExecutor {} initialization failed", subjectKey.getId(), sme);
             executorException.set(sme);
             intializationLatch.countDown();
+            cleanupLatch.countDown();
             return;
         }
 
@@ -192,14 +211,12 @@ public class JavascriptExecutor implements Runnable {
         LOGGER.debug("JavascriptExecutor {} executing ... ", subjectKey.getId());
 
         // Take jobs from the execution queue of the worker and execute them
-        while (!executorThread.isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Object contextObject = executionQueue.take();
-                if (contextObject == null) {
-                    break;
-                }
 
-                resultQueue.add(executeScript(contextObject));
+                boolean result = executeScript(contextObject);
+                resultQueue.add(result);
             } catch (final InterruptedException e) {
                 LOGGER.debug("execution was interruped for " + subjectKey.getId() + WITH_MESSAGE + e.getMessage(), e);
                 resultQueue.add(false);
@@ -217,7 +234,7 @@ public class JavascriptExecutor implements Runnable {
                 "executor close failed to close for " + subjectKey.getId() + WITH_MESSAGE + e.getMessage(), e));
         }
 
-        shutdownLatch.countDown();
+        cleanupLatch.countDown();
 
         LOGGER.debug("JavascriptExecutor {} completed processing", subjectKey.getId());
     }
@@ -262,14 +279,46 @@ public class JavascriptExecutor implements Runnable {
         return (boolean) returnObject;
     }
 
-    private void clearAndThrowExecutorException() throws StateMachineException {
+    private void checkAndThrowExecutorException() throws StateMachineException {
         StateMachineException exceptionToThrow = executorException.getAndSet(null);
         if (exceptionToThrow != null) {
             throw exceptionToThrow;
         }
     }
 
+    /**
+     * Used for unit test to get a handle on the thread and interrupt it.
+     *
+     * @return the execution thread
+     */
     protected Thread getExecutorThread() {
         return executorThread;
+    }
+
+    /**
+     * Used in unit test to set the time unit for latches.
+     *
+     * @param timeunit4Latches the time unit for latches
+     */
+    protected static void setTimeunit4Latches(final TimeUnit timeunit4Latches) {
+        JavascriptExecutor.timeunit4Latches = timeunit4Latches;
+    }
+
+    /**
+     * Used in unit test to set the timeout for initiations.
+     *
+     * @param intializationLatchTimeout the initialization timeout value
+     */
+    protected static void setIntializationLatchTimeout(final int intializationLatchTimeout) {
+        JavascriptExecutor.intializationLatchTimeout = intializationLatchTimeout;
+    }
+
+    /**
+     * Used in unit test to set the timeout for cleanups.
+     *
+     * @param cleanupLatchTimeout the cleanup timeout value
+     */
+    protected static void setCleanupLatchTimeout(final int cleanupLatchTimeout) {
+        JavascriptExecutor.cleanupLatchTimeout = cleanupLatchTimeout;
     }
 }
