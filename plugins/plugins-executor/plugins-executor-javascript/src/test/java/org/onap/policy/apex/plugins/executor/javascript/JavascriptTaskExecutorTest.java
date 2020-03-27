@@ -32,7 +32,6 @@ import java.util.Properties;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
@@ -98,7 +97,6 @@ public class JavascriptTaskExecutorTest {
         ParameterService.clear();
     }
 
-    @Ignore
     @Test
     public void testJavascriptTaskExecutor() throws Exception {
         assertThatThrownBy(() -> {
@@ -129,7 +127,7 @@ public class JavascriptTaskExecutorTest {
 
         assertThatThrownBy(() -> {
             jte.prepare();
-        }).hasMessage("initiation failed, executor TestTask:0.0.1 is already running");
+        }).hasMessage("initiation failed, executor TestTask:0.0.1 already initialized, run cleanUp to clear executor");
 
         assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), null);
@@ -166,7 +164,6 @@ public class JavascriptTaskExecutorTest {
         }).doesNotThrowAnyException();
     }
 
-    @Ignore
     @Test
     public void testJavascriptTaskExecutorLogic() throws Exception {
         JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
