@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.examples.grpc;
 
 import static org.awaitility.Awaitility.await;
@@ -25,18 +26,20 @@ import static org.junit.Assert.assertEquals;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+
 import org.junit.Test;
 import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
 /**
- * Test class to run an example policy for APEX-CDS interaction over gRPC.
- * Event received on unauthenticated.DCAE_CL_OUTPUT DMaaP topic (dummy REST Endpoint here) triggers the policy
- * Based on the event, a create/delete subscription gRPC request is triggered to the CDS (a dummy gRPC server here).
- * Response received from CDS is used to send a final output Log event on POLICY_CL_MGT topic.
+ * Test class to run an example policy for APEX-CDS interaction over gRPC. Event received on
+ * unauthenticated.DCAE_CL_OUTPUT DMaaP topic (dummy REST Endpoint here) triggers the policy Based on the event, a
+ * create/delete subscription gRPC request is triggered to the CDS (a dummy gRPC server here). Response received from
+ * CDS is used to send a final output Log event on POLICY_CL_MGT topic.
  */
 public class TestApexGrpcExample {
     @Test
@@ -65,21 +68,25 @@ public class TestApexGrpcExample {
         };
         // @formatter:on
 
-        GrpcTestServerSim sim = new GrpcTestServerSim();
+        final GrpcTestServerSim sim = new GrpcTestServerSim();
+
         final Client client = ClientBuilder.newClient();
-        String expectedLoggedOutputEvent = Files
-            .readString(Paths.get("src/main/resources/examples/events/APEXgRPC/LogEvent.json")).replaceAll("\r", "");
         final ApexMain apexMain = new ApexMain(apexArgs);
+
+        await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> apexMain.isAlive());
 
         String getLoggedEventUrl = "http://localhost:54321/GrpcTestRestSim/sim/event/getLoggedEvent";
         // wait for success response code to be received, until a timeout
-        await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> {
+        await().atMost(20000, TimeUnit.MILLISECONDS).until(() -> {
             return 200 == client.target(getLoggedEventUrl).request("application/json").get().getStatus();
         });
         apexMain.shutdown();
         Response response = client.target(getLoggedEventUrl).request("application/json").get();
         sim.tearDown();
         String responseEntity = response.readEntity(String.class);
+
+        String expectedLoggedOutputEvent = Files
+            .readString(Paths.get("src/main/resources/examples/events/APEXgRPC/LogEvent.json")).replaceAll("\r", "");
         assertEquals(expectedLoggedOutputEvent, responseEntity);
     }
 }

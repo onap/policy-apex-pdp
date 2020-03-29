@@ -17,17 +17,21 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.examples.grpc;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
+
 import io.grpc.Server;
 import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.BluePrintProcessingServiceGrpc.BluePrintProcessingServiceImplBase;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceInput;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceOutput;
@@ -40,12 +44,18 @@ import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 public class GrpcTestDummyGrpcServer {
     private Server server;
 
+    /**
+     * Dummy server for gRPC.
+     *
+     * @param host hostname of the server
+     * @param port port of the server
+     */
     public GrpcTestDummyGrpcServer(String host, int port) {
         // Implement the dummy gRPC server
         BluePrintProcessingServiceImplBase testCdsBlueprintServerImpl = new BluePrintProcessingServiceImplBase() {
             @Override
-            public StreamObserver<ExecutionServiceInput> process(
-                final StreamObserver<ExecutionServiceOutput> responseObserver) {
+            public StreamObserver<ExecutionServiceInput>
+                process(final StreamObserver<ExecutionServiceOutput> responseObserver) {
                 return new StreamObserver<ExecutionServiceInput>() {
                     @Override
                     public void onNext(final ExecutionServiceInput executionServiceInput) {

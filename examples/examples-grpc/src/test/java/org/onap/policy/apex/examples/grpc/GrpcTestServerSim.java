@@ -47,14 +47,14 @@ public class GrpcTestServerSim {
         restServer.addServletClass(null, GrpcTestRestSimEndpoint.class.getName());
         restServer.setSerializationProvider(GsonMessageBodyHandler.class.getName());
         restServer.start();
-        if (!NetworkUtil.isTcpPortOpen(HOST, restServerPort, 2000, 1L)) {
+        if (!NetworkUtil.isTcpPortOpen(HOST, restServerPort, 50, 200L)) {
             throw new IllegalStateException("port " + restServerPort + " is still not in use");
         }
 
         int grpcServerPort = 54322;
         grpcServer = new GrpcTestDummyGrpcServer(HOST, grpcServerPort);
         grpcServer.start();
-        if (!NetworkUtil.isTcpPortOpen(HOST, grpcServerPort, 2000, 1L)) {
+        if (!NetworkUtil.isTcpPortOpen(HOST, grpcServerPort, 50, 200L)) {
             throw new IllegalStateException("port " + grpcServerPort + " is still not in use");
         }
     }
