@@ -22,6 +22,30 @@
       "revId": "14c344d0e826d2f42e34f61b114fb54c45e05dcd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029b2f42_56c97055",
+        "filename": "examples/examples-grpc/src/test/java/org/onap/policy/apex/examples/grpc/TestApexGrpcExample.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-30T09:40:47Z",
+      "side": 1,
+      "message": "Yes, the listener and plugin threads should not return from their init() methods until everything is up.",
+      "parentUuid": "efb56d9d_e91edbf8",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 84
+      },
+      "revId": "14c344d0e826d2f42e34f61b114fb54c45e05dcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
