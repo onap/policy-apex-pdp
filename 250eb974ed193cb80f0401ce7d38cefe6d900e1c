@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ae4b357_d6215faa",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T15:26:17Z",
+      "side": 1,
+      "message": "note: the methods below are not synchronized, thus they are not thread safe",
+      "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b9dd23e_63c3ddef",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T15:26:17Z",
+      "side": 1,
+      "message": "really want to do this?",
+      "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb5bf76_7becad8d",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T15:26:17Z",
+      "side": 1,
+      "message": "need to set executorException like on line 232?",
+      "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
