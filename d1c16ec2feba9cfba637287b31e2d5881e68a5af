@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11cab73c_b3aae1cf",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T17:40:57Z",
+      "side": 1,
+      "message": "probably don\u0027t want to synchronize while this is waiting or everything will effectively become single-threaded",
+      "revId": "d1c16ec2feba9cfba637287b31e2d5881e68a5af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
