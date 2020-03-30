@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efb56d9d_e91edbf8",
+        "filename": "examples/examples-grpc/src/test/java/org/onap/policy/apex/examples/grpc/TestApexGrpcExample.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-03-30T09:20:40Z",
+      "side": 1,
+      "message": "This line will finish executing as soon as other threads like listener threads are initiated,even before the listener threads are completely ready. Still, it makes sense to have this here.",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 84
+      },
+      "revId": "14c344d0e826d2f42e34f61b114fb54c45e05dcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
