@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fe3777a9_ae5b5285",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-30T16:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ae4b357_d6215faa",
+      "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b9dd23e_63c3ddef",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-30T15:26:17Z",
       "side": 1,
       "message": "really want to do this?",
+      "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2670fbc2_1b88151e",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-30T16:15:39Z",
+      "side": 1,
+      "message": "We need to interrupt the executor thread because when the parent thread is interrupted, the result queue is also interrupted but the executor thread is not. We need to interrupt the child  thread to stop it running, otherwise it hangs.",
+      "parentUuid": "9b9dd23e_63c3ddef",
       "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
