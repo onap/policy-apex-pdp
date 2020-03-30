@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "44daf144_6108a5d5",
+        "filename": "examples/examples-grpc/src/test/java/org/onap/policy/apex/examples/grpc/GrpcTestDummyGrpcServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T15:18:45Z",
+      "side": 1,
+      "message": "FYI: I\u0027ve added a comment to POLICY-2407 to move this to models/simulators for Guilin.",
+      "revId": "14c344d0e826d2f42e34f61b114fb54c45e05dcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cfe9e06_bda8ac07",
+        "filename": "examples/examples-grpc/src/test/java/org/onap/policy/apex/examples/grpc/GrpcTestServerSim.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T15:18:45Z",
+      "side": 1,
+      "message": "this will check once every millisecond, which is probably a bit too often.  Maybe change these to 50 \u0026 200, respectively.\n\nsame comment below",
+      "revId": "14c344d0e826d2f42e34f61b114fb54c45e05dcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efb56d9d_e91edbf8",
         "filename": "examples/examples-grpc/src/test/java/org/onap/policy/apex/examples/grpc/TestApexGrpcExample.java",
         "patchSetId": 1
