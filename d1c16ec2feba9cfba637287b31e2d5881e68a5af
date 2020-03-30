@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aad29db_1b6afa59",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-30T17:44:15Z",
+      "side": 1,
+      "message": "next release, might want to consider using an ExecutorService instead.  The code would still have to start/stop it, but the service would manage some of the thread stuff (e.g., \"alive\" checks, interrupts, etc.).",
+      "revId": "d1c16ec2feba9cfba637287b31e2d5881e68a5af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11cab73c_b3aae1cf",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
         "patchSetId": 12
