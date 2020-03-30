@@ -50,6 +50,24 @@
       "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e8e1203_d6e416bb",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-30T15:53:53Z",
+      "side": 1,
+      "message": "Not here because this is a normal case for shutdown. When the executor thread is interrupted, the interruption interrupts the take() on line 223, so we just log, set a return value of false and re-interrupt.",
+      "parentUuid": "0eb5bf76_7becad8d",
+      "revId": "250eb974ed193cb80f0401ce7d38cefe6d900e1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
