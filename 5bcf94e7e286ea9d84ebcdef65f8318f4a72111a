@@ -16,6 +16,24 @@
       "revId": "5bcf94e7e286ea9d84ebcdef65f8318f4a72111a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f780607_276f7daf",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/StateMachineExecutorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-03-31T13:46:44Z",
+      "side": 1,
+      "message": "I agree but there are many assertions to fix in this file and I don\u0027t have time to do them all at the moment.\n\nI created a JIRA POLICY-2451 on this for Guilin.",
+      "parentUuid": "10e14ca7_0c49b63c",
+      "revId": "5bcf94e7e286ea9d84ebcdef65f8318f4a72111a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
