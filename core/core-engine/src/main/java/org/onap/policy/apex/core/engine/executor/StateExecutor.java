@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,7 +97,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      */
     @Override
     public void setContext(final Executor<?, ?, ?, ?> incomingParent, final AxState incomingAxState,
-            final ApexInternalContext incomingContext) {
+        final ApexInternalContext incomingContext) {
         // Save the state and context definition
         this.parent = incomingParent;
         this.axState = incomingAxState;
@@ -108,7 +108,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
 
         // Set a task executor for each task
         for (final Entry<AxArtifactKey, AxStateTaskReference> stateTaskReferenceEntry : axState.getTaskReferences()
-                .entrySet()) {
+            .entrySet()) {
             final AxArtifactKey taskKey = stateTaskReferenceEntry.getKey();
             final AxStateTaskReference taskReference = stateTaskReferenceEntry.getValue();
 
@@ -125,20 +125,20 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             } else if (taskReference.getStateTaskOutputType().equals(AxStateTaskOutputType.LOGIC)) {
                 // Get the state finalizer logic for this task
                 final AxStateFinalizerLogic finalizerLogic =
-                        axState.getStateFinalizerLogicMap().get(taskReference.getOutput().getLocalName());
+                    axState.getStateFinalizerLogicMap().get(taskReference.getOutput().getLocalName());
                 if (finalizerLogic == null) {
                     // Finalizer logic for the task does not exist
                     throw new StateMachineRuntimeException("state finalizer logic on task reference \"" + taskReference
-                            + "\" on state \"" + axState.getId() + "\" does not exist");
+                        + "\" on state \"" + axState.getId() + "\" does not exist");
                 }
 
                 // Create a state finalizer executor for the task
                 task2StateFinalizerMap.put(taskKey,
-                        executorFactory.getStateFinalizerExecutor(this, finalizerLogic, context));
+                    executorFactory.getStateFinalizerExecutor(this, finalizerLogic, context));
             } else {
                 // This should never happen but.....
                 throw new StateMachineRuntimeException("invalid state output type on task reference \"" + taskReference
-                        + "\" on state \"" + axState.getId() + "\"");
+                    + "\" on state \"" + axState.getId() + "\"");
             }
         }
     }
@@ -158,6 +158,10 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
         for (final TaskExecutor taskExecutor : taskExecutorMap.values()) {
             taskExecutor.prepare();
         }
+
+        for (final StateFinalizerExecutor stateFinalizer : task2StateFinalizerMap.values()) {
+            stateFinalizer.prepare();
+        }
     }
 
     /**
@@ -165,13 +169,13 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      */
     @Override
     public StateOutput execute(final long executionId, final Properties executionProperties,
-            final EnEvent incomingEvent) throws StateMachineException, ContextException {
+        final EnEvent incomingEvent) throws StateMachineException, ContextException {
         this.lastIncomingEvent = incomingEvent;
 
         // Check that the incoming event matches the trigger for this state
         if (!incomingEvent.getAxEvent().getKey().equals(axState.getTrigger())) {
             throw new StateMachineException("incoming event \"" + incomingEvent.getId() + "\" does not match trigger \""
-                    + axState.getTrigger().getId() + "\" of state \"" + axState.getId() + "\"");
+                + axState.getTrigger().getId() + "\" of state \"" + axState.getId() + "\"");
         }
 
         // The key of the task to execute
@@ -194,7 +198,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             final TreeMap<String, Object> incomingValues = new TreeMap<>();
             incomingValues.putAll(incomingEvent);
             final Map<String, Object> taskExecutionResultMap =
-                    taskExecutorMap.get(taskKey).execute(executionId, executionProperties, incomingValues);
+                taskExecutorMap.get(taskKey).execute(executionId, executionProperties, incomingValues);
             final AxTask task = taskExecutorMap.get(taskKey).getSubject();
 
             // Check if this task has direct output
@@ -207,20 +211,20 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
                 final StateFinalizerExecutor finalizerLogicExecutor = task2StateFinalizerMap.get(taskKey);
                 if (finalizerLogicExecutor == null) {
                     throw new StateMachineException("state finalizer logic for task \"" + taskKey.getId()
-                            + "\" not found for state \"" + axState.getId() + "\"");
+                        + "\" not found for state \"" + axState.getId() + "\"");
                 }
 
                 // Execute the state finalizer logic to select a state output and to adjust the
                 // taskExecutionResultMap
                 stateOutputName =
-                        finalizerLogicExecutor.execute(executionId, executionProperties, taskExecutionResultMap);
+                    finalizerLogicExecutor.execute(executionId, executionProperties, taskExecutionResultMap);
             }
 
             // Now look up the the actual state output
             final AxStateOutput stateOutputDefinition = axState.getStateOutputs().get(stateOutputName);
             if (stateOutputDefinition == null) {
                 throw new StateMachineException("state output definition for state output \"" + stateOutputName
-                        + "\" not found for state \"" + axState.getId() + "\"");
+                    + "\" not found for state \"" + axState.getId() + "\"");
             }
 
             // Create the state output and transfer all the fields across to its event
@@ -242,7 +246,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             return stateOutput;
         } catch (final Exception e) {
             final String errorMessage = "State execution of state \"" + axState.getId() + "\" on task \""
-                    + (taskKey != null ? taskKey.getId() : "null") + "\" failed: " + e.getMessage();
+                + (taskKey != null ? taskKey.getId() : "null") + "\" failed: " + e.getMessage();
 
             LOGGER.warn(errorMessage);
             throw new StateMachineException(errorMessage, e);
@@ -254,7 +258,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
      */
     @Override
     public final void executePre(final long executionId, final Properties executionProperties,
-            final EnEvent incomingEntity) throws StateMachineException {
+        final EnEvent incomingEntity) throws StateMachineException {
         throw new StateMachineException("execution pre work not implemented on class");
     }
 
@@ -276,6 +280,10 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
         if (taskSelectExecutor != null) {
             // Clean the task selector
             taskSelectExecutor.cleanUp();
+        }
+
+        for (final StateFinalizerExecutor stateFinalizer : task2StateFinalizerMap.values()) {
+            stateFinalizer.cleanUp();
         }
     }
 
