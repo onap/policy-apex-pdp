@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,16 +37,14 @@ function editContextSchemaForm_deleteContextSchema(parent, name, version) {
 
 function editContextSchemaForm_viewContextSchema(parent, name, version) {
     var requestURL = restRootURL + "/ContextSchema/Get?name=" + name + "&version=" + version;
-    ajax_get(requestURL, function(data) {
-        var contextSchema = JSON.parse(data.messages.message[0]).apexContextSchema;
+    ajax_getWithKeyInfo(requestURL, "apexContextSchema", function(contextSchema) {
         editContextSchemaForm_activate(parent, "VIEW", contextSchema);
     });
 }
 
 function editContextSchemaForm_editContextSchema(formParent, name, version) {
     var requestURL = restRootURL + "/ContextSchema/Get?name=" + name + "&version=" + version;
-    ajax_get(requestURL, function(data) {
-        var contextSchema = JSON.parse(data.messages.message[0]).apexContextSchema;
+    ajax_getWithKeyInfo(requestURL, "apexContextSchema", function(contextSchema) {
         editContextSchemaForm_activate(formParent, "EDIT", contextSchema);
     });
 }

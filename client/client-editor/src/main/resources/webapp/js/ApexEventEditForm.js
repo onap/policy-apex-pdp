@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,8 +60,7 @@ function editEventForm_createEvent(formParent) {
 
 function editEventForm_editEvent_inner(formParent, name, version, viewOrEdit) {
     var requestURL = restRootURL + "/Event/Get?name=" + name + "&version=" + version;
-    ajax_get(requestURL, function(data) {
-        var event = JSON.parse(data.messages.message[0]).apexEvent;
+    ajax_getWithKeyInfo(requestURL, "apexEvent", function(event) {
         // Get all contextSchemas too for event params
         var requestURL = restRootURL + "/ContextSchema/Get?name=&version=";
         var contextSchemas = new Array();

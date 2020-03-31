@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +51,7 @@ function editContextAlbumForm_deleteContextAlbum(parent, name, version) {
 
 function editContextAlbumForm_viewContextAlbum(parent, name, version) {
     var requestURL = restRootURL + "/ContextAlbum/Get?name=" + name + "&version=" + version;
-    ajax_get(requestURL, function(data) {
-        var contextAlbum = JSON.parse(data.messages.message[0]).apexContextAlbum;
+    ajax_getWithKeyInfo(requestURL, "apexContextAlbum", function(contextAlbum) {
         // Get all contextSchemas too for album item schema
         var requestURL = restRootURL + "/ContextSchema/Get?name=&version=";
         var contextSchemas = new Array();
@@ -72,8 +72,7 @@ function editContextAlbumForm_viewContextAlbum(parent, name, version) {
 
 function editContextAlbumForm_editContextAlbum(formParent, name, version) {
     var requestURL = restRootURL + "/ContextAlbum/Get?name=" + name + "&version=" + version;
-    ajax_get(requestURL, function(data) {
-        var contextAlbum = JSON.parse(data.messages.message[0]).apexContextAlbum;
+    ajax_getWithKeyInfo(requestURL, "apexContextAlbum", function(contextAlbum) {
         // Get all contextSchemas too for album item schema
         var requestURL = restRootURL + "/ContextSchema/Get?name=&version=";
         var contextSchemas = new Array();

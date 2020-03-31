@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,7 +119,9 @@ function main_getRestRootURL() {
                 var modelKey = JSON.parse(data.messages.message[0]).apexArtifactKey;
                 pageControl_modelMode(modelKey.name, modelKey.version, modelFileName);
                 if (localStorage.getItem("apex_tab_index")) {
-                    $('#mainTabs a[href="' + localStorage.getItem("apex_tab_index") + '"]').trigger('click');
+                    $("#mainTabs").tabs({
+                      active: localStorage.getItem("apex_tab_index")
+                    });
                 }
             }
         });
