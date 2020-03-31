@@ -34,6 +34,24 @@
       "revId": "5bcf94e7e286ea9d84ebcdef65f8318f4a72111a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2606cc8f_4e6b5e95",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/StateMachineExecutorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-31T13:58:13Z",
+      "side": 1,
+      "message": "That works.  Don\u0027t actually need to change them all, I was just suggesting that we use assertj any time we update one.",
+      "parentUuid": "5f780607_276f7daf",
+      "revId": "5bcf94e7e286ea9d84ebcdef65f8318f4a72111a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
