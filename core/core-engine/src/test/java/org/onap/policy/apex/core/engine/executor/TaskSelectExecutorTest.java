@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -151,7 +153,7 @@ public class TaskSelectExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\"",
-                    ex.getMessage());
+                ex.getMessage());
         }
 
         executor.getExecutionContext().setMessage("Execution message");
@@ -160,7 +162,7 @@ public class TaskSelectExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\", "
-                    + "user message: Execution message", ex.getMessage());
+                + "user message: Execution message", ex.getMessage());
         }
 
         try {
@@ -188,7 +190,7 @@ public class TaskSelectExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("task \"IDontExist:0.0.0\" returned by task selection logic not defined "
-                    + "on state \"State0Parent:0.0.1:Parent:State0\"", ex.getMessage());
+                + "on state \"State0Parent:0.0.1:Parent:State0\"", ex.getMessage());
         }
 
         try {
@@ -206,11 +208,7 @@ public class TaskSelectExecutorTest {
             fail("test should not throw an exception");
         }
 
-        try {
-            executor.executePre(0, null, incomingEvent);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("executionProperties is marked @NonNull but is null", ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.executePre(0, null, incomingEvent))
+            .hasMessageMatching("^executionProperties is marked .*on.*ull but is null$");
     }
 }
