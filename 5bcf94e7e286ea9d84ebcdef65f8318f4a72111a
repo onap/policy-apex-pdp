@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10e14ca7_0c49b63c",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/StateMachineExecutorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-31T12:57:02Z",
+      "side": 1,
+      "message": "prefer to use assertj\n\nsame comment below",
+      "revId": "5bcf94e7e286ea9d84ebcdef65f8318f4a72111a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
