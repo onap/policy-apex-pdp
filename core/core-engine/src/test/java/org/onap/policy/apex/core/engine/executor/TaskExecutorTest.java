@@ -32,6 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -208,7 +209,7 @@ public class TaskExecutorTest {
         executor.executePost(true);
 
         assertThatThrownBy(() -> executor.executePre(0, null, incomingFields))
-            .hasMessageContaining("executionProperties is marked @NonNull but is null");
+            .hasMessageMatching("^executionProperties is marked .*on.*ull but is null$");
     }
 
     @Test
