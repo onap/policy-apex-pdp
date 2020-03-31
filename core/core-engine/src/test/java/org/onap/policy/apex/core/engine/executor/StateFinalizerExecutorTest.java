@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -123,11 +124,8 @@ public class StateFinalizerExecutorTest {
             assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
         }
 
-        try {
-            executor.executePre(0, null, incomingEvent);
-        } catch (Exception ex) {
-            assertEquals("executionProperties is marked @NonNull but is null", ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.executePre(0, null, incomingEvent))
+            .hasMessageMatching("^executionProperties is marked .*on.*ull but is null$");
 
         try {
             executor.executePre(0, new Properties(), incomingEvent);
@@ -140,7 +138,7 @@ public class StateFinalizerExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute() not implemented on abstract StateFinalizerExecutionContext class, "
-                            + "only on its subclasses", ex.getMessage());
+                + "only on its subclasses", ex.getMessage());
         }
 
         try {
@@ -148,7 +146,7 @@ public class StateFinalizerExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
-                            + "on finalizer logic null", ex.getMessage());
+                + "on finalizer logic null", ex.getMessage());
         }
 
         executor.getExecutionContext().setMessage("Execution message");
@@ -157,7 +155,7 @@ public class StateFinalizerExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
-                            + "on finalizer logic null, user message: Execution message", ex.getMessage());
+                + "on finalizer logic null, user message: Execution message", ex.getMessage());
         }
 
         try {
@@ -171,7 +169,7 @@ public class StateFinalizerExecutorTest {
             fail("test should throw an exception");
         } catch (Exception ex) {
             assertEquals("execute-post: state finalizer logic \"null\" did not select an output state",
-                            ex.getMessage());
+                ex.getMessage());
         }
 
         try {
@@ -185,9 +183,10 @@ public class StateFinalizerExecutorTest {
             executor.executePost(true);
             fail("test should throw an exception");
         } catch (Exception ex) {
-            assertEquals("execute-post: state finalizer logic \"null\" selected output state "
-                            + "\"ThisOutputDoesNotExist\" that does not exsist on state \"NULL:0.0.0:NULL:NULL\"",
-                            ex.getMessage());
+            assertEquals(
+                "execute-post: state finalizer logic \"null\" selected output state "
+                    + "\"ThisOutputDoesNotExist\" that does not exsist on state \"NULL:0.0.0:NULL:NULL\"",
+                ex.getMessage());
         }
 
         try {
