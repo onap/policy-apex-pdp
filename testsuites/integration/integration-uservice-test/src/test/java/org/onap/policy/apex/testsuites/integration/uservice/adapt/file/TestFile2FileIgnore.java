@@ -51,9 +51,7 @@ public class TestFile2FileIgnore {
     public static void main(final String[] args) throws MessagingException, ApexException, IOException {
         final String[] apexArgs = {"-rfr", "target", "-c", "examples/config/SampleDomain/File2FileJsonEvent.json"};
 
-        new File("src/test/resources/events/EventsOut.json").delete();
-
-        testFileEvents(apexArgs, "src/test/resources/events/EventsOut.json", 48656);
+        testFileEvents(apexArgs, "target/EventsOut.json", 48656);
     }
 
     /**
@@ -67,7 +65,7 @@ public class TestFile2FileIgnore {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     private static void testFileEvents(final String[] args, final String outFilePath, final long expectedFileSize)
-            throws MessagingException, ApexException, IOException {
+        throws MessagingException, ApexException, IOException {
         final ApexMain apexMain = new ApexMain(args);
 
         final File outFile = new File(outFilePath);
@@ -104,6 +102,6 @@ public class TestFile2FileIgnore {
      */
     private static String stripVariableLengthText(final String outFile) throws IOException {
         return TextFileUtils.getTextFileAsString(outFile).replaceAll("\\s+", "").replaceAll(":\\d*\\.?\\d*,", ":0,")
-                .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
+            .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
     }
 }

@@ -267,7 +267,7 @@ public class JavascriptExecutorTest {
         }).doesNotThrowAnyException();
 
         assertThatCode(() -> {
-            executor.init("while (true) { x = 1; }; true;");
+            executor.init("var x = 0; while (x < 100) { x++; }; true;");
         }).doesNotThrowAnyException();
 
         concurrentResult.set(true);
@@ -276,12 +276,17 @@ public class JavascriptExecutorTest {
         (new Thread() {
             public void run() {
                 try {
-                    concurrentResult.set(executor.execute("hello"));
+                    while (executor.execute("hello")) {
+                        // Loop until interrupted
+                    }
+                    concurrentResult.set(false);
                 } catch (StateMachineException e) {
-                    e.printStackTrace();
+                    // Do nothing
                 }
             }
         }).start();
+
+        await().atMost(1000, TimeUnit.MILLISECONDS).until(() -> executor.getExecutorThread().isAlive());
 
         executor.getExecutorThread().interrupt();
 

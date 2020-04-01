@@ -25,14 +25,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -66,8 +68,8 @@ public class RestRequestorTest {
      */
     @BeforeClass
     public static void setUp() throws Exception {
-        server = HttpServletServerFactoryInstance.getServerFactory().build(
-            null, false, null, PORT, "/TestRESTRequestor", false, false);
+        server = HttpServletServerFactoryInstance.getServerFactory().build(null, false, null, PORT,
+            "/TestRESTRequestor", false, false);
 
         server.addServletClass(null, SupportRestRequestorEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -89,10 +91,6 @@ public class RestRequestorTest {
         if (server != null) {
             server.stop();
         }
-
-        new File("src/test/resources/events/EventsOut.json").delete();
-        new File("src/test/resources/events/EventsOutMulti0.json").delete();
-        new File("src/test/resources/events/EventsOutMulti1.json").delete();
     }
 
     /**
@@ -114,8 +112,7 @@ public class RestRequestorTest {
     public void testRestRequestorGet() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FileGet.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGet.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         Response response = null;
@@ -126,7 +123,7 @@ public class RestRequestorTest {
             ThreadUtilities.sleep(100);
 
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                            .request("application/json").get();
+                .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -162,8 +159,7 @@ public class RestRequestorTest {
     public void testRestRequestorGetEmpty() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FileGetEmpty.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetEmpty.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         Response response = null;
@@ -174,7 +170,7 @@ public class RestRequestorTest {
             ThreadUtilities.sleep(100);
 
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                            .request("application/json").get();
+                .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -208,8 +204,7 @@ public class RestRequestorTest {
     public void testRestRequestorPut() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FilePut.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePut.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -220,7 +215,7 @@ public class RestRequestorTest {
             ThreadUtilities.sleep(100);
 
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                            .request("application/json").get();
+                .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -255,8 +250,7 @@ public class RestRequestorTest {
     public void testRestRequestorPost() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FilePost.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePost.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -265,7 +259,7 @@ public class RestRequestorTest {
             ThreadUtilities.sleep(100);
 
             final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                            .request("application/json").get();
+                .request("application/json").get();
 
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             final String responseString = response.readEntity(String.class);
@@ -296,8 +290,7 @@ public class RestRequestorTest {
     public void testRestRequestorDelete() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FileDelete.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileDelete.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -306,7 +299,7 @@ public class RestRequestorTest {
             ThreadUtilities.sleep(100);
 
             final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                            .request("application/json").get();
+                .request("application/json").get();
 
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             final String responseString = response.readEntity(String.class);
@@ -337,8 +330,7 @@ public class RestRequestorTest {
     public void testRestRequestorMultiInputs() throws MessagingException, ApexException, IOException {
         final Client client = ClientBuilder.newClient();
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FileGetMulti.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetMulti.json"};
         final ApexMain apexMain = new ApexMain(args);
 
         // Wait for the required amount of events to be received or for 10 seconds
@@ -347,7 +339,7 @@ public class RestRequestorTest {
             ThreadUtilities.sleep(100);
 
             final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                            .request("application/json").get();
+                .request("application/json").get();
 
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             final String responseString = response.readEntity(String.class);
@@ -379,8 +371,7 @@ public class RestRequestorTest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
@@ -392,7 +383,7 @@ public class RestRequestorTest {
         System.setErr(stderr);
 
         assertTrue(outString.contains("REST Requestor producer (RestRequestorProducer) "
-                        + "must run in peered requestor mode with a REST Requestor consumer"));
+            + "must run in peered requestor mode with a REST Requestor consumer"));
     }
 
     /**
@@ -407,8 +398,7 @@ public class RestRequestorTest {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json" };
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
@@ -420,6 +410,6 @@ public class RestRequestorTest {
         System.setErr(stderr);
 
         assertTrue(outString.contains("peer \"RestRequestorProducer for peered mode REQUESTOR "
-                        + "does not exist or is not defined with the same peered mode"));
+            + "does not exist or is not defined with the same peered mode"));
     }
 }

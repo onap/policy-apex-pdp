@@ -24,12 +24,10 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
@@ -75,7 +73,7 @@ public class TestRest2File {
     @Before
     public void setUp() throws Exception {
         server = HttpServletServerFactoryInstance.getServerFactory().build("TestRest2File", false, null, PORT,
-                "/TestRest2File", false, false);
+            "/TestRest2File", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -100,14 +98,6 @@ public class TestRest2File {
     }
 
     /**
-     * Delete temp files.
-     */
-    @AfterClass
-    public static void deleteTempFiles() {
-        new File("src/test/resources/events/EventsOut.json").delete();
-    }
-
-    /**
      * Test rest events in.
      *
      * @throws MessagingException the messaging exception
@@ -124,10 +114,10 @@ public class TestRest2File {
         apexMain.shutdown();
 
         final String outputEventText =
-                TextFileUtils.getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
+            TextFileUtils.getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json");
 
         checkRequiredString(outputEventText,
-                "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"");
+            "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\"");
     }
 
     /**
@@ -153,8 +143,8 @@ public class TestRest2File {
         System.setOut(stdout);
         System.setErr(stderr);
 
-        checkRequiredString(outString, "received an empty event from URL "
-                + "\"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"");
+        checkRequiredString(outString,
+            "received an empty event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEmptyEvent\"");
     }
 
     /**
@@ -207,7 +197,7 @@ public class TestRest2File {
         System.setErr(stderr);
 
         checkRequiredString(outString, "reception of event from URL "
-                + "\"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404");
+            + "\"http://localhost:32801/TestRest2File/apex/event/Bad\" failed with status code 404");
     }
 
     /**
@@ -234,7 +224,7 @@ public class TestRest2File {
         System.setErr(stderr);
 
         checkRequiredString(outString, "specified HTTP method of \"POST\" is invalid, "
-                + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
+            + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
     }
 
     /**
@@ -261,9 +251,8 @@ public class TestRest2File {
         System.setErr(stderr);
 
         checkRequiredString(outString,
-                "reception of event from URL "
-                        + "\"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" "
-                        + "failed with status code 400 and message \"");
+            "reception of event from URL " + "\"http://localhost:32801/TestRest2File/apex/event/GetEventBadResponse\" "
+                + "failed with status code 400 and message \"");
     }
 
     /**

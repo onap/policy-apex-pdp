@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,24 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restserver;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
@@ -79,8 +84,7 @@ public class TestRestServer {
     public void testRestServerPut() throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerPut start");
 
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -92,7 +96,7 @@ public class TestRestServer {
 
         for (int i = 0; i < 20; i++) {
             response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
-                            .put(Entity.json(getEvent()));
+                .put(Entity.json(getEvent()));
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -104,6 +108,8 @@ public class TestRestServer {
         }
 
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
@@ -123,8 +129,7 @@ public class TestRestServer {
     @Test
     public void testRestServerPost() throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerPost start");
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -136,7 +141,7 @@ public class TestRestServer {
 
         for (int i = 0; i < 20; i++) {
             response = client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
-                            .post(Entity.json(getEvent()));
+                .post(Entity.json(getEvent()));
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -148,6 +153,8 @@ public class TestRestServer {
         }
 
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
@@ -166,8 +173,7 @@ public class TestRestServer {
     @Test
     public void testRestServerGetStatus() throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerGetStatus start");
-        final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json" };
+        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -180,24 +186,26 @@ public class TestRestServer {
         // trigger 10 POST & PUT events
         for (int i = 0; i < 10; i++) {
             postResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").post(Entity.json(getEvent()));
+                .request("application/json").post(Entity.json(getEvent()));
             if (Response.Status.OK.getStatusCode() != postResponse.getStatus()) {
                 break;
             }
             putResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn").request("application/json")
-                            .put(Entity.json(getEvent()));
+                .put(Entity.json(getEvent()));
 
             if (Response.Status.OK.getStatusCode() != putResponse.getStatus()) {
                 break;
             }
         }
 
-        final Response statResponse = client.target("http://localhost:23324/apex/FirstConsumer/Status")
-                        .request("application/json").get();
+        final Response statResponse =
+            client.target("http://localhost:23324/apex/FirstConsumer/Status").request("application/json").get();
 
         final String responseString = statResponse.readEntity(String.class);
 
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         assertEquals(Response.Status.OK.getStatusCode(), postResponse.getStatus());
         assertEquals(Response.Status.OK.getStatusCode(), putResponse.getStatus());
@@ -226,7 +234,7 @@ public class TestRestServer {
         throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerMultiInputs start");
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json" };
+            {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -241,7 +249,7 @@ public class TestRestServer {
 
         for (int i = 0; i < 20; i++) {
             firstResponse = client.target("http://localhost:23324/apex/FirstConsumer/EventIn")
-                            .request("application/json").post(Entity.json(getEvent()));
+                .request("application/json").post(Entity.json(getEvent()));
 
             if (Response.Status.OK.getStatusCode() != firstResponse.getStatus()) {
                 break;
@@ -252,7 +260,7 @@ public class TestRestServer {
             firstJsonMap = new Gson().fromJson(firstResponseString, Map.class);
 
             secondResponse = client.target("http://localhost:23325/apex/SecondConsumer/EventIn")
-                            .request("application/json").post(Entity.json(getEvent()));
+                .request("application/json").post(Entity.json(getEvent()));
 
             if (Response.Status.OK.getStatusCode() != secondResponse.getStatus()) {
                 break;
@@ -264,6 +272,8 @@ public class TestRestServer {
         }
 
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         assertEquals(Response.Status.OK.getStatusCode(), firstResponse.getStatus());
         assertEquals("org.onap.policy.apex.sample.events", firstJsonMap.get("nameSpace"));
@@ -290,20 +300,21 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventProducerStandalone.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerStandalone.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains(
-                        "the parameters \"host\", \"port\", and \"standalone\" are illegal on REST Server producer"));
+        assertTrue(outString
+            .contains("the parameters \"host\", \"port\", and \"standalone\" are illegal on REST Server producer"));
         LOGGER.debug("testRestServerProducerStandalone end");
     }
 
@@ -322,12 +333,13 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventProducerHost.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerHost.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
@@ -353,12 +365,13 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventProducerPort.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerPort.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
@@ -382,12 +395,13 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoHost.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoHost.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
@@ -395,7 +409,7 @@ public class TestRestServer {
         System.setErr(stderr);
 
         assertTrue(outString.contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-                        + "(FirstConsumer) in standalone mode"));
+            + "(FirstConsumer) in standalone mode"));
         LOGGER.debug("testRestServerConsumerStandaloneNoHost end");
     }
 
@@ -412,12 +426,13 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoPort.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoPort.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
@@ -425,7 +440,7 @@ public class TestRestServer {
         System.setErr(stderr);
 
         assertTrue(outString.contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-                        + "(FirstConsumer) in standalone mode"));
+            + "(FirstConsumer) in standalone mode"));
         LOGGER.debug("testRestServerConsumerStandaloneNoPort end");
     }
 
@@ -442,20 +457,21 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventProducerNotSync.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerNotSync.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString.contains("REST Server producer (FirstProducer) must run in synchronous mode "
-                        + "with a REST Server consumer"));
+        assertTrue(outString.contains(
+            "REST Server producer (FirstProducer) must run in synchronous mode " + "with a REST Server consumer"));
         LOGGER.debug("testRestServerProducerNotSync end");
     }
 
@@ -472,21 +488,22 @@ public class TestRestServer {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args =
-            { "src/test/resources/prodcons/RESTServerJsonEventConsumerNotSync.json" };
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerNotSync.json"};
 
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(200);
         apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
         System.setOut(stdout);
         System.setErr(stderr);
 
-        assertTrue(outString
-                        .contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
-                                        + "with the same peered mode"));
+        assertTrue(
+            outString.contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
+                + "with the same peered mode"));
         LOGGER.debug("testRestServerConsumerNotSync end");
     }
 
@@ -501,10 +518,10 @@ public class TestRestServer {
         final String nextEventName = "Event0" + rand.nextInt(2) + "00";
 
         final String eventString = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.sample.events\",\n" + "\"name\": \""
-                        + nextEventName + "\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_" + eventsSent++
-                        + "\",\n" + "\"target\": \"apex\",\n" + "\"TestSlogan\": \"Test slogan for External Event0\",\n"
-                        + "\"TestMatchCase\": " + nextMatchCase + ",\n" + "\"TestTimestamp\": "
-                        + System.currentTimeMillis() + ",\n" + "\"TestTemperature\": 9080.866\n" + "}";
+            + nextEventName + "\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_" + eventsSent++ + "\",\n"
+            + "\"target\": \"apex\",\n" + "\"TestSlogan\": \"Test slogan for External Event0\",\n"
+            + "\"TestMatchCase\": " + nextMatchCase + ",\n" + "\"TestTimestamp\": " + System.currentTimeMillis() + ",\n"
+            + "\"TestTemperature\": 9080.866\n" + "}";
 
         return eventString;
     }
