@@ -1,0 +1,17 @@
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_AUTH",
+  "version": "0.0.1",
+  "source": "",
+  "target": "",
+  "amount": 1249,
+  "assistant_ID": 12,
+  "authorised": false,
+  "branch_ID": 2,
+  "item_ID": 1012,
+  "message": "Sale not authorised by policy task MorningBoozeCheck for time 08:41:06 GMT. Alcohol can not be sold between 00:00:00 GMT and 11:30:00 GMT",
+  "notes": null,
+  "quantity": 1,
+  "sale_ID": 99999992,
+  "time": 1483346466000
+}

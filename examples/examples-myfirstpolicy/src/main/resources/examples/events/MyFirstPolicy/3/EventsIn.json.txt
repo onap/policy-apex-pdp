@@ -1,0 +1,37 @@
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1483346466000,
+  "sale_ID": 99999992,
+  "amount": 1249,
+  "item_ID": 1012,
+  "quantity": 1,
+  "assistant_ID": 12,
+  "branch_ID": 2
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1482265033000,
+  "sale_ID": 99999993,
+  "amount": 4799,
+  "item_ID": 1943,
+  "quantity": 2,
+  "assistant_ID": 9,
+  "branch_ID": 3
+}
+{
+  "nameSpace": "com.hyperm",
+  "name": "SALE_INPUT",
+  "version": "0.0.1",
+  "time": 1483351989000,
+  "sale_ID": 99999991,
+  "amount": 299,
+  "item_ID": 5123,
+  "quantity": 1,
+  "assistant_ID": 23,
+  "branch_ID": 1,
+  "notes": "Special Offer!!"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "SALE_AUTH",
+  "version": "0.0.1",
+  "nameSpace": "com.hyperm",
+  "source": "",
+  "target": "",
+  "amount": 4799,
+  "assistant_ID": 9,
+  "authorised": true,
+  "branch_ID": 3,
+  "item_ID": 1943,
+  "message": "Sale authorised by policy task MorningBoozeCheck for time 20:17:13 GMT",
+  "notes": null,
+  "quantity": 2,
+  "sale_ID": 99999993,
+  "time": 1482265033000
+}
