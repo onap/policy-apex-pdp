@@ -35,4 +35,18 @@
         <appender-ref ref="STDOUT" />
     </root>
 
+
+    <logger name="org.onap.policy.apex" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.onap.policy.apex.core" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.onap.policy.apex.plugins.executor" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+
 </configuration>
