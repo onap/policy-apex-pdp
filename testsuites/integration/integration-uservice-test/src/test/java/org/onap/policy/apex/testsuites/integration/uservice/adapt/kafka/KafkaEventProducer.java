@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class KafkaEventProducer implements Runnable {
      * @param eventInterval the event interval
      */
     public KafkaEventProducer(final String topic, final SharedKafkaTestResource sharedKafkaTestResource,
-                    final int eventCount, final boolean xmlEvents, final long eventInterval) {
+        final int eventCount, final boolean xmlEvents, final long eventInterval) {
         this.topic = topic;
         this.sharedKafkaTestResource = sharedKafkaTestResource;
         this.eventCount = eventCount;
@@ -80,7 +80,7 @@ public class KafkaEventProducer implements Runnable {
     @Override
     public void run() {
         final Producer<String, String> producer = sharedKafkaTestResource.getKafkaTestUtils()
-                        .getKafkaProducer(StringSerializer.class, StringSerializer.class);
+            .getKafkaProducer(StringSerializer.class, StringSerializer.class);
 
         while (producerThread.isAlive() && !stopFlag) {
             ThreadUtilities.sleep(50);
@@ -108,11 +108,11 @@ public class KafkaEventProducer implements Runnable {
      */
     private void sendEventsToTopic(final Producer<String, String> producer) {
         LOGGER.debug("{} : sending events to Kafka server, event count {}, xmlEvents {}",
-                        KafkaEventProducer.class.getName(), eventCount, xmlEvents);
+            KafkaEventProducer.class.getName(), eventCount, xmlEvents);
 
         for (int i = 0; i < eventCount; i++) {
             LOGGER.debug("{} : waiting {} milliseconds before sending next event", KafkaEventProducer.class.getName(),
-                            eventInterval);
+                eventInterval);
             ThreadUtilities.sleep(eventInterval);
 
             String eventString = null;
@@ -124,7 +124,7 @@ public class KafkaEventProducer implements Runnable {
             producer.send(new ProducerRecord<String, String>(topic, "Event" + i + "Of" + eventCount, eventString));
             producer.flush();
             eventsSentCount++;
-            LOGGER.debug("****** Sent event No. {} ******", eventsSentCount);
+            LOGGER.debug("****** Sent event No. {} ******\n{}", eventsSentCount, eventString);
         }
         LOGGER.debug("{}: completed", KafkaEventProducer.class.getName());
     }
@@ -151,5 +151,9 @@ public class KafkaEventProducer implements Runnable {
         }
 
         LOGGER.debug("{} : stopped", KafkaEventProducer.class.getName());
+    }
+
+    public boolean isAlive() {
+        return producerThread.isAlive();
     }
 }

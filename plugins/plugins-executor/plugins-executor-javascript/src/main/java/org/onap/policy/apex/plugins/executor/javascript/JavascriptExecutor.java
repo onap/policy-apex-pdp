@@ -56,6 +56,7 @@ public class JavascriptExecutor implements Runnable {
     // Recurring string constants
     private static final String WITH_MESSAGE = " with message: ";
     private static final String JAVASCRIPT_EXECUTOR = "JavascriptExecutor ";
+    private static final String EXECUTION_FAILED_EXECUTOR = "execution failed, executor ";
 
     @Setter(AccessLevel.PROTECTED)
     private static TimeUnit timeunit4Latches = TimeUnit.SECONDS;
@@ -132,6 +133,11 @@ public class JavascriptExecutor implements Runnable {
             Thread.currentThread().interrupt();
         }
 
+        if (executorException.get() != null) {
+            executorThread.interrupt();
+            checkAndThrowExecutorException();
+        }
+
         checkAndThrowExecutorException();
 
         LOGGER.debug("JavascriptExecutor {} started ... ", subjectKey.getId());
@@ -146,11 +152,11 @@ public class JavascriptExecutor implements Runnable {
      */
     public synchronized boolean execute(final Object executionContext) throws StateMachineException {
         if (executorThread == null) {
-            throw new StateMachineException("execution failed, executor " + subjectKey.getId() + " is not initialized");
+            throw new StateMachineException(EXECUTION_FAILED_EXECUTOR + subjectKey.getId() + " is not initialized");
         }
 
-        if (!executorThread.isAlive()) {
-            throw new StateMachineException("execution failed, executor " + subjectKey.getId()
+        if (!executorThread.isAlive() || executorThread.isInterrupted()) {
+            throw new StateMachineException(EXECUTION_FAILED_EXECUTOR + subjectKey.getId()
                 + " is not running, run cleanUp to clear executor and init to restart executor");
         }
 
@@ -297,6 +303,7 @@ public class JavascriptExecutor implements Runnable {
     private void checkAndThrowExecutorException() throws StateMachineException {
         StateMachineException exceptionToThrow = executorException.getAndSet(null);
         if (exceptionToThrow != null) {
+            LOGGER.debug("JavascriptExecutor {} throwing exception ", exceptionToThrow);
             throw exceptionToThrow;
         }
     }

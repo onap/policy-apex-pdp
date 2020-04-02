@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -28,13 +29,11 @@ import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
@@ -57,21 +56,20 @@ public class TestKafka2Kafka {
 
     @ClassRule
     public static final SharedKafkaTestResource sharedKafkaTestResource = new SharedKafkaTestResource()
-            // Start a cluster with 1 brokers.
-            .withBrokers(1)
-            // Disable topic auto-creation.
-            .withBrokerProperty("auto.create.topics.enable", "false");
+        // Start a cluster with 1 brokers.
+        .withBrokers(1)
+        // Disable topic auto-creation.
+        .withBrokerProperty("auto.create.topics.enable", "false");
 
     /**
      * Test json kafka events.
      *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
+     * @throws Exception the apex exception
      */
     @Test
-    public void testJsonKafkaEvents() throws MessagingException, ApexException {
+    public void testJsonKafkaEvents() throws Exception {
         final String conditionedConfigFile = getConditionedConfigFile(
-                "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
+            "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
         final String[] args = {"-rfr", "target", "-c", conditionedConfigFile};
         testKafkaEvents(args, false, "json");
     }
@@ -79,13 +77,12 @@ public class TestKafka2Kafka {
     /**
      * Test XML kafka events.
      *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
+     * @throws Exception the apex exception
      */
     @Test
-    public void testXmlKafkaEvents() throws MessagingException, ApexException {
+    public void testXmlKafkaEvents() throws Exception {
         final String conditionedConfigFile = getConditionedConfigFile(
-                "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
+            "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
         final String[] args = {"-rfr", "target", "-c", conditionedConfigFile};
 
         testKafkaEvents(args, true, "xml");
@@ -97,44 +94,47 @@ public class TestKafka2Kafka {
      * @param args the args
      * @param xmlEvents the xml events
      * @param topicSuffix the topic suffix
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
+     * @throws Exception on errors
      */
-    private void testKafkaEvents(String[] args, final Boolean xmlEvents, final String topicSuffix)
-            throws MessagingException, ApexException {
+    private void testKafkaEvents(String[] args, final Boolean xmlEvents, final String topicSuffix) throws Exception {
 
         sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-out-" + topicSuffix, 1, (short) 1);
         sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-in-" + topicSuffix, 1, (short) 1);
 
         final KafkaEventSubscriber subscriber =
-                new KafkaEventSubscriber("apex-out-" + topicSuffix, sharedKafkaTestResource);
+            new KafkaEventSubscriber("apex-out-" + topicSuffix, sharedKafkaTestResource);
+
+        await().atMost(30, TimeUnit.SECONDS).until(() -> subscriber.isAlive());
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(3000);
+        await().atMost(10, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+
+        long initWaitEndTIme = System.currentTimeMillis() + 10000;
+
+        await().atMost(12, TimeUnit.SECONDS).until(() -> initWaitEndTIme < System.currentTimeMillis());
 
         final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + topicSuffix, sharedKafkaTestResource,
-                EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
+            EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
+
+        await().atMost(30, TimeUnit.SECONDS).until(() -> producer.isAlive());
 
         producer.sendEvents();
 
-        final long testStartTime = System.currentTimeMillis();
+        // Wait for the producer to send all its events
+        await().atMost(MAX_TEST_LENGTH, TimeUnit.MILLISECONDS)
+            .until(() -> producer.getEventsSentCount() >= EVENT_COUNT);
 
-        // Wait for the producer to send all tis events
-        while (System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH
-                && producer.getEventsSentCount() < EVENT_COUNT) {
-            ThreadUtilities.sleep(EVENT_INTERVAL);
-        }
-
-        while (System.currentTimeMillis() < testStartTime + MAX_TEST_LENGTH
-                && subscriber.getEventsReceivedCount() < EVENT_COUNT) {
-            ThreadUtilities.sleep(EVENT_INTERVAL);
-        }
-
-        ThreadUtilities.sleep(3000);
+        await().atMost(MAX_TEST_LENGTH, TimeUnit.MILLISECONDS)
+            .until(() -> subscriber.getEventsReceivedCount() >= EVENT_COUNT);
 
         apexMain.shutdown();
+        await().atMost(30, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
         subscriber.shutdown();
+        await().atMost(30, TimeUnit.SECONDS).until(() -> !subscriber.isAlive());
+
         producer.shutdown();
+        await().atMost(30, TimeUnit.SECONDS).until(() -> !producer.isAlive());
 
         assertEquals(producer.getEventsSentCount(), subscriber.getEventsReceivedCount());
     }
@@ -144,7 +144,7 @@ public class TestKafka2Kafka {
             File tempConfigFile = File.createTempFile("Kafka_", ".json");
             tempConfigFile.deleteOnExit();
             String configAsString = TextFileUtils.getTextFileAsString(configurationFileName)
-                    .replaceAll("localhost:39902", sharedKafkaTestResource.getKafkaConnectString());
+                .replaceAll("localhost:39902", sharedKafkaTestResource.getKafkaConnectString());
             TextFileUtils.putStringAsFile(configAsString, tempConfigFile.getCanonicalFile());
 
             return tempConfigFile.getCanonicalPath();
