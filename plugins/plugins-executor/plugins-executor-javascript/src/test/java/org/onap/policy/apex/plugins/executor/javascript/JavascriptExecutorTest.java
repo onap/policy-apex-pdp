@@ -34,8 +34,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 public class JavascriptExecutorTest {
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavascriptExecutorTest.class);
+
     private AtomicBoolean concurrentResult = new AtomicBoolean();
 
     @Before
@@ -277,12 +281,14 @@ public class JavascriptExecutorTest {
             public void run() {
                 try {
                     while (executor.execute("hello")) {
+                        LOGGER.debug("test thread running . . .");
                         // Loop until interrupted
                     }
-                    concurrentResult.set(false);
                 } catch (StateMachineException e) {
-                    // Do nothing
+                    LOGGER.debug("test thread caught exception", e);
                 }
+                concurrentResult.set(false);
+                LOGGER.debug("test thread exited");
             }
         }).start();
 

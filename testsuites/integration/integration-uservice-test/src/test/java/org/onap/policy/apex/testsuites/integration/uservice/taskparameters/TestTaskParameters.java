@@ -24,9 +24,11 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -42,10 +44,9 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class runs integration tests for taskParameters.
- * Task parameters are read from the ApexConfig, and they can be accessed in task logic.
- * In this case, the taskParameters are used to set values in executionProperties.
- * URL dynamically populated using executionProperties is hit and values get updated in
+ * This class runs integration tests for taskParameters. Task parameters are read from the ApexConfig, and they can be
+ * accessed in task logic. In this case, the taskParameters are used to set values in executionProperties. URL
+ * dynamically populated using executionProperties is hit and values get updated in
  * {@link RestClientEndpointForTaskParameters} which acts as a temporary server for requests.
  */
 public class TestTaskParameters {
@@ -121,8 +122,8 @@ public class TestTaskParameters {
     }
 
     /**
-     * Test taskParameters with no taskIds.
-     * When taskIds are not provided, all taskParameters provided in config will be updated to all tasks.
+     * Test taskParameters with no taskIds. When taskIds are not provided, all taskParameters provided in config will be
+     * updated to all tasks.
      */
     @Test
     public void testTaskParameters_with_noTaskIds() throws Exception {
@@ -132,8 +133,8 @@ public class TestTaskParameters {
     }
 
     /**
-     * Test taskParameters with valid taskIds.
-     * When valid taskIds are provided, the the taskParameter will be updated in that particular task alone.
+     * Test taskParameters with valid taskIds. When valid taskIds are provided, the the taskParameter will be updated in
+     * that particular task alone.
      */
     @Test
     public void testTaskParameters_with_validTaskIds() throws Exception {
@@ -143,9 +144,9 @@ public class TestTaskParameters {
     }
 
     /**
-     * Test taskParameters with invalid taskIds.
-     * When invalid taskIds are provided, or when a taskParameter assigned to a particular taskId is tried to be
-     * accessed in a taskLogic of a different task, such taskParameters won't be accessible in the task
+     * Test taskParameters with invalid taskIds. When invalid taskIds are provided, or when a taskParameter assigned to
+     * a particular taskId is tried to be accessed in a taskLogic of a different task, such taskParameters won't be
+     * accessible in the task
      */
     @Test
     public void testTaskParameters_with_invalidTaskIds() throws Exception {
@@ -165,7 +166,7 @@ public class TestTaskParameters {
 
         String getDetailsUrl = "http://" + HOST + ":" + PORT + "/TestTaskParametersRest/apex/event/getDetails";
         // wait for success response code to be received, until a timeout
-        await().atMost(2000, TimeUnit.MILLISECONDS)
+        await().atMost(5, TimeUnit.SECONDS)
             .until(() -> 200 == client.target(getDetailsUrl).request("application/json").get().getStatus());
         apexMain.shutdown();
         Response response = client.target(getDetailsUrl).request("application/json").get();
