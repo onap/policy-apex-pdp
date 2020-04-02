@@ -50,8 +50,12 @@ public class JavascriptExecutor implements Runnable {
 
     public static final int DEFAULT_OPTIMIZATION_LEVEL = 9;
 
+    // Token passed to executor thread to stop execution
+    private static final Object STOP_EXECUTION_TOKEN = "*** STOP EXECUTION ***";
+
     // Recurring string constants
     private static final String WITH_MESSAGE = " with message: ";
+    private static final String JAVASCRIPT_EXECUTOR = "JavascriptExecutor ";
 
     @Setter(AccessLevel.PROTECTED)
     private static TimeUnit timeunit4Latches = TimeUnit.SECONDS;
@@ -120,7 +124,7 @@ public class JavascriptExecutor implements Runnable {
         try {
             if (!intializationLatch.await(intializationLatchTimeout, timeunit4Latches)) {
                 executorThread.interrupt();
-                throw new StateMachineException("JavascriptExecutor " + subjectKey.getId()
+                throw new StateMachineException(JAVASCRIPT_EXECUTOR + subjectKey.getId()
                     + " initiation timed out after " + intializationLatchTimeout + " " + timeunit4Latches);
             }
         } catch (InterruptedException e) {
@@ -160,7 +164,7 @@ public class JavascriptExecutor implements Runnable {
             executorThread.interrupt();
             Thread.currentThread().interrupt();
             throw new StateMachineException(
-                "JavascriptExecutor " + subjectKey.getId() + "interrupted on execution result wait", e);
+                JAVASCRIPT_EXECUTOR + subjectKey.getId() + "interrupted on execution result wait", e);
         }
 
         checkAndThrowExecutorException();
@@ -179,11 +183,11 @@ public class JavascriptExecutor implements Runnable {
         }
 
         if (executorThread.isAlive()) {
-            executorThread.interrupt();
+            executionQueue.add(STOP_EXECUTION_TOKEN);
 
             try {
                 if (!cleanupLatch.await(cleanupLatchTimeout, timeunit4Latches)) {
-                    executorException.set(new StateMachineException("JavascriptExecutor " + subjectKey.getId()
+                    executorException.set(new StateMachineException(JAVASCRIPT_EXECUTOR + subjectKey.getId()
                         + " cleanup timed out after " + cleanupLatchTimeout + " " + timeunit4Latches));
                 }
             } catch (InterruptedException e) {
@@ -221,18 +225,22 @@ public class JavascriptExecutor implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Object contextObject = executionQueue.take();
-
-                boolean result = executeScript(contextObject);
-                resultQueue.add(result);
+                if (STOP_EXECUTION_TOKEN.equals(contextObject)) {
+                    LOGGER.debug("execution close was ordered for  " + subjectKey.getId());
+                    break;
+                }
+                resultQueue.add(executeScript(contextObject));
             } catch (final InterruptedException e) {
                 LOGGER.debug("execution was interruped for " + subjectKey.getId() + WITH_MESSAGE + e.getMessage(), e);
-                resultQueue.add(false);
+                executionQueue.add(STOP_EXECUTION_TOKEN);
                 Thread.currentThread().interrupt();
             } catch (StateMachineException sme) {
                 executorException.set(sme);
                 resultQueue.add(false);
             }
         }
+
+        resultQueue.add(false);
 
         try {
             Context.exit();

@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.engine;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 import java.io.IOException;
 
 import org.junit.After;
@@ -96,7 +98,8 @@ public class TestApexEngineJRuby {
      */
     @Test
     public void testApexEngineJRuby() throws ApexException, InterruptedException, IOException {
-        new TestApexEngine("JRUBY", engineParameters);
-        new TestApexEngine("JRUBY", engineParameters);
+        assertThatCode(() -> {
+            new TestApexEngine("JRUBY", engineParameters);
+        }).doesNotThrowAnyException();
     }
 }

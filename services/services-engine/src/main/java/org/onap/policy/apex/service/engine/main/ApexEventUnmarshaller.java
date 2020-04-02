@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      * @param consumerParameters the consumer parameters for this specific unmarshaler
      */
     public ApexEventUnmarshaller(final String name, final EngineServiceParameters engineServiceParameters,
-            final EventHandlerParameters consumerParameters) {
+        final EventHandlerParameters consumerParameters) {
         this.name = name;
         this.engineServiceParameters = engineServiceParameters;
         this.consumerParameters = consumerParameters;
@@ -123,7 +123,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
         // Configure and start the event reception thread
         final String threadName =
-                engineServiceParameters.getEngineKey().getName() + ":" + this.getClass().getName() + ":" + name;
+            engineServiceParameters.getEngineKey().getName() + ":" + this.getClass().getName() + ":" + name;
         unmarshallerThread = new ApplicationThreadFactory(threadName).newThread(this);
         unmarshallerThread.setDaemon(true);
         unmarshallerThread.start();
@@ -168,7 +168,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 // To connect a synchronous unmarshaler and marshaler, we create a synchronous event
                 // cache on the consumer/producer pair
                 new SynchronousEventCache(peeredMode, consumer, peeredMarshaller.getProducer(),
-                        consumerParameters.getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
+                    consumerParameters.getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
                 return;
 
             case REQUESTOR:
@@ -185,7 +185,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      */
     @Override
     public void receiveEvent(@NonNull final Properties executionProperties, final Object event)
-            throws ApexEventException {
+        throws ApexEventException {
         receiveEvent(0, executionProperties, event, true);
     }
 
@@ -194,7 +194,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      */
     @Override
     public void receiveEvent(final long executionId, @NonNull final Properties executionProperties, final Object event)
-            throws ApexEventException {
+        throws ApexEventException {
         receiveEvent(executionId, executionProperties, event, false);
     }
 
@@ -208,7 +208,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      * @throws ApexEventException on unmarshaling errors on events
      */
     private void receiveEvent(final long executionId, final Properties executionProperties, final Object event,
-            final boolean generateExecutionId) throws ApexEventException {
+        final boolean generateExecutionId) throws ApexEventException {
         // Push the event onto the queue
         if (LOGGER.isTraceEnabled()) {
             String eventString = "onMessage(): event received: " + event.toString();
@@ -234,19 +234,19 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
                 apexEvent.setExecutionProperties(executionProperties);
 
-                // Enqueue the event
-                queue.add(apexEvent);
-
                 // Cache synchronized events that are sent
                 if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
                     final SynchronousEventCache synchronousEventCache =
-                            (SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
+                        (SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
                     synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
                 }
+
+                // Enqueue the event
+                queue.add(apexEvent);
             }
         } catch (final ApexException e) {
             final String errorMessage = "Error while converting event into an ApexEvent for " + name + ": "
-                    + e.getMessage() + ", Event=" + event;
+                + e.getMessage() + ", Event=" + event;
             LOGGER.warn(errorMessage, e);
             throw new ApexEventException(errorMessage, e);
         }
@@ -261,11 +261,11 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         // Check if we are filtering events on this unmarshaler, if so check the event name
         // against the filter
         if (consumerParameters.isSetEventNameFilter()
-                && !apexEvent.getName().matches(consumerParameters.getEventNameFilter())) {
+            && !apexEvent.getName().matches(consumerParameters.getEventNameFilter())) {
 
             if (LOGGER.isTraceEnabled()) {
                 LOGGER.trace("onMessage(): event {} not processed, filtered  out by filter", apexEvent,
-                        consumerParameters.getEventNameFilter());
+                    consumerParameters.getEventNameFilter());
             }
 
             return true;
@@ -330,7 +330,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
         // Order a stop on the synchronous cache if one exists
         if (consumerParameters != null && consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)
-                && consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
+            && consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
             ((SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS)).stop();
         }
 

@@ -90,7 +90,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "src/test/resources/events/EventsOutMulti0.json"
+                    "fileName": "target/EventsOutMulti0.json"
                 }
             },
             "eventProtocolParameters": {
@@ -115,7 +115,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "src/test/resources/events/EventsOutMulti1.json"
+                    "fileName": "target/EventsOutMulti1.json"
                 }
             },
             "eventProtocolParameters": {
