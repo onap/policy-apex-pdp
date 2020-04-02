@@ -290,7 +290,7 @@ public class JavascriptExecutorTest {
 
         executor.getExecutorThread().interrupt();
 
-        await().atMost(1000, TimeUnit.MILLISECONDS).until(() -> !concurrentResult.get());
+        await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> !concurrentResult.get());
 
         assertThatCode(() -> {
             executor.cleanUp();
