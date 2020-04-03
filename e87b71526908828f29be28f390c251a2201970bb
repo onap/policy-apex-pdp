@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "7d15932b_46789a13",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/kafka/KafkaEventProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-04-03T18:04:18Z",
+      "side": 1,
+      "message": "stopFlag should be marked as volatile (I see that is not defined as such).   sendEventsFlag may be too, not sure how it\u0027s used.   This issue may also be in ApexKafkaConsumer (didn\u0027t see definition there, so it must be in parent class).",
+      "revId": "e87b71526908828f29be28f390c251a2201970bb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "143cf962_053868a7",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/taskparameters/TestTaskParameters.java",
         "patchSetId": 3
