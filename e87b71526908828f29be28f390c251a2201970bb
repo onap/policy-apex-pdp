@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4d6266f9_dbde24d4",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-04-03T18:45:58Z",
+      "side": 1,
+      "message": "can keep the logging statement, and maybe e.getMessage() - would that be sufficient?\n\ndoesn\u0027t the invoker (or its ancestor) log the exception?",
+      "parentUuid": "5035b2e6_ce00b60c",
+      "revId": "e87b71526908828f29be28f390c251a2201970bb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d15932b_46789a13",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/kafka/KafkaEventProducer.java",
         "patchSetId": 3
