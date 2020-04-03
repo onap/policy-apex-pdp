@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6e9dbab7_4333dff4",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-04-03T19:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d6266f9_dbde24d4",
+      "revId": "e87b71526908828f29be28f390c251a2201970bb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d15932b_46789a13",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/kafka/KafkaEventProducer.java",
         "patchSetId": 3
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "9b17d6ea_ba74103b",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/kafka/KafkaEventProducer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-04-03T19:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d15932b_46789a13",
+      "revId": "e87b71526908828f29be28f390c251a2201970bb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "143cf962_053868a7",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/taskparameters/TestTaskParameters.java",
         "patchSetId": 3
@@ -86,6 +122,24 @@
       "revId": "e87b71526908828f29be28f390c251a2201970bb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9245fc5_5fd0fcb8",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/taskparameters/TestTaskParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-04-03T19:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "143cf962_053868a7",
+      "revId": "e87b71526908828f29be28f390c251a2201970bb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
