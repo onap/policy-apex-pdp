@@ -30,8 +30,6 @@ import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Concrete implementation of an Apex event requestor that manages the producer side of a REST request.
@@ -40,11 +38,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestRequestorProducer.class);
-
-    // The REST carrier properties
-    private RestRequestorCarrierTechnologyParameters restProducerProperties;
-
     // The number of events sent
     private int eventsSent = 0;
 
@@ -53,40 +46,36 @@ public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
      */
     @Override
     public void init(final String producerName, final EventHandlerParameters producerParameters)
-            throws ApexEventException {
+        throws ApexEventException {
         this.name = producerName;
 
         // Check and get the REST Properties
         if (!(producerParameters
-                .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
+            .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
             final String errorMessage =
-                    "specified producer properties are not applicable to REST requestor producer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
+                "specified producer properties are not applicable to REST requestor producer (" + this.name + ")";
             throw new ApexEventException(errorMessage);
         }
-        restProducerProperties =
-                (RestRequestorCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+        RestRequestorCarrierTechnologyParameters restProducerProperties =
+            (RestRequestorCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
         // Check if we are in peered mode
         if (!producerParameters.isPeeredMode(EventHandlerPeeredMode.REQUESTOR)) {
             final String errorMessage = "REST Requestor producer (" + this.name
-                    + ") must run in peered requestor mode with a REST Requestor consumer";
-            LOGGER.warn(errorMessage);
+                + ") must run in peered requestor mode with a REST Requestor consumer";
             throw new ApexEventException(errorMessage);
         }
 
         // Check if the HTTP URL has been set
         if (restProducerProperties.getUrl() != null) {
             final String errorMessage = "URL may not be specified on REST Requestor producer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
         // Check if the HTTP method has been set
         if (restProducerProperties.getHttpMethod() != null) {
             final String errorMessage =
-                    "HTTP method may not be specified on REST Requestor producer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
+                "HTTP method may not be specified on REST Requestor producer (" + this.name + ")";
             throw new ApexEventException(errorMessage);
         }
     }
@@ -105,7 +94,7 @@ public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
      */
     @Override
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
-            final Object event) {
+        final Object event) {
         super.sendEvent(executionId, executionProperties, eventName, event);
 
         // Find the peered consumer for this producer
@@ -114,23 +103,20 @@ public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
             // Find the REST Response Consumer that will handle this request
             final ApexEventConsumer consumer = peeredRequestorReference.getPeeredConsumer();
             if (!(consumer instanceof ApexRestRequestorConsumer)) {
-                final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" failed,"
-                        + " REST response consumer is not an instance of ApexRestRequestorConsumer\n" + event;
-                LOGGER.warn(errorMessage);
+                final String errorMessage = "send of event failed,"
+                    + " REST response consumer is not an instance of ApexRestRequestorConsumer\n" + event;
                 throw new ApexEventRuntimeException(errorMessage);
             }
 
             // Use the consumer to handle this event
             final ApexRestRequestorConsumer restRequstConsumer = (ApexRestRequestorConsumer) consumer;
             restRequstConsumer
-                    .processRestRequest(new ApexRestRequest(executionId, executionProperties, eventName, event));
+                .processRestRequest(new ApexRestRequest(executionId, executionProperties, eventName, event));
 
             eventsSent++;
         } else {
             // No peered consumer defined
-            final String errorMessage = "send of event to URL \"" + restProducerProperties.getUrl() + "\" failed,"
-                    + " REST response consumer is not defined\n" + event;
-            LOGGER.warn(errorMessage);
+            final String errorMessage = "send of event failed," + " REST response consumer is not defined\n" + event;
             throw new ApexEventRuntimeException(errorMessage);
         }
     }

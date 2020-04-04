@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -30,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -40,7 +42,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
@@ -105,47 +106,23 @@ public class RestRequestorTest {
      * Test rest requestor get.
      *
      * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws Exception an exception
      */
     @Test
-    public void testRestRequestorGet() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorGet() throws Exception {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGet.json"};
         final ApexMain apexMain = new ApexMain(args);
+        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
-        Response response = null;
-
-        // Wait for the required amount of events to be received or for 10 seconds
-        Double getsSoFar = 0.0;
-        for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
-
-            response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                .request("application/json").get();
-
-            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
-                break;
-            }
-
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            getsSoFar = Double.valueOf(jsonMap.get("GET").toString());
-
-            if (getsSoFar >= 50.0) {
-                break;
-            }
-        }
+        await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
+            .until(() -> getStatsFromServer(client, "GET") >= 50.0);
 
         apexMain.shutdown();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
         client.close();
-
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-
-        assertEquals(Double.valueOf(50.0), getsSoFar);
     }
 
     /**
@@ -161,14 +138,13 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetEmpty.json"};
         final ApexMain apexMain = new ApexMain(args);
+        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
         Response response = null;
 
         // Wait for the required amount of events to be received or for 10 seconds
         Double getsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
-
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                 .request("application/json").get();
 
@@ -188,6 +164,8 @@ public class RestRequestorTest {
         }
 
         apexMain.shutdown();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
         client.close();
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -206,37 +184,15 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePut.json"};
         final ApexMain apexMain = new ApexMain(args);
+        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
-        // Wait for the required amount of events to be received or for 10 seconds
-        Double putsSoFar = 0.0;
-
-        Response response = null;
-        for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
-
-            response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                .request("application/json").get();
-
-            if (Response.Status.OK.getStatusCode() != response.getStatus()) {
-                break;
-            }
-
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            putsSoFar = Double.valueOf(jsonMap.get("PUT").toString());
-
-            if (putsSoFar >= 50.0) {
-                break;
-            }
-        }
+        await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
+            .until(() -> getStatsFromServer(client, "PUT") >= 50.0);
 
         apexMain.shutdown();
-        client.close();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(Double.valueOf(50.0), putsSoFar);
+        client.close();
     }
 
     /**
@@ -252,31 +208,15 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePost.json"};
         final ApexMain apexMain = new ApexMain(args);
+        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
-        // Wait for the required amount of events to be received or for 10 seconds
-        Double postsSoFar = 0.0;
-        for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
-
-            final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                .request("application/json").get();
-
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            postsSoFar = Double.valueOf(jsonMap.get("POST").toString());
-
-            if (postsSoFar >= 50.0) {
-                break;
-            }
-        }
+        await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
+            .until(() -> getStatsFromServer(client, "POST") >= 50.0);
 
         apexMain.shutdown();
-        client.close();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
-        assertEquals(Double.valueOf(50.0), postsSoFar);
+        client.close();
     }
 
     /**
@@ -292,31 +232,16 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileDelete.json"};
         final ApexMain apexMain = new ApexMain(args);
+        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
-        // Wait for the required amount of events to be received or for 10 seconds
-        Double deletesSoFar = 0.0;
-        for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
-
-            final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                .request("application/json").get();
-
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            deletesSoFar = Double.valueOf(jsonMap.get("DELETE").toString());
-
-            if (deletesSoFar >= 50.0) {
-                break;
-            }
-        }
+        // Wait for the required amount of events to be received
+        await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
+            .until(() -> getStatsFromServer(client, "DELETE") >= 50.0);
 
         apexMain.shutdown();
-        client.close();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
-        assertEquals(Double.valueOf(50.0), deletesSoFar);
+        client.close();
     }
 
     /**
@@ -332,31 +257,15 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetMulti.json"};
         final ApexMain apexMain = new ApexMain(args);
+        await().atMost(10, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
 
-        // Wait for the required amount of events to be received or for 10 seconds
-        Double getsSoFar = 0.0;
-        for (int i = 0; i < 40; i++) {
-            ThreadUtilities.sleep(100);
-
-            final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
-                .request("application/json").get();
-
-            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-            final String responseString = response.readEntity(String.class);
-
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            getsSoFar = Double.valueOf(jsonMap.get("GET").toString());
-
-            if (getsSoFar >= 8.0) {
-                break;
-            }
-        }
+        await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
+            .until(() -> getStatsFromServer(client, "GET") >= 8.0);
 
         apexMain.shutdown();
-        client.close();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
-        assertEquals(Double.valueOf(8.0), getsSoFar);
+        client.close();
     }
 
     /**
@@ -373,8 +282,7 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json"};
 
-        final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        ApexMain apexMain = new ApexMain(args);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -400,8 +308,7 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json"};
 
-        final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        ApexMain apexMain = new ApexMain(args);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -411,5 +318,17 @@ public class RestRequestorTest {
 
         assertTrue(outString.contains("peer \"RestRequestorProducer for peered mode REQUESTOR "
             + "does not exist or is not defined with the same peered mode"));
+    }
+
+    private Double getStatsFromServer(final Client client, final String statToGet) {
+        final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
+            .request("application/json").get();
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        final String responseString = response.readEntity(String.class);
+
+        @SuppressWarnings("unchecked")
+        final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+        return Double.valueOf(jsonMap.get(statToGet).toString());
     }
 }

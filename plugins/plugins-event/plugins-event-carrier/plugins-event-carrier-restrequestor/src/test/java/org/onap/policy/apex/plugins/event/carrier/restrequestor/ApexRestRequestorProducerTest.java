@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -47,41 +49,30 @@ public class ApexRestRequestorProducerTest {
 
         EventHandlerParameters producerParameters = new EventHandlerParameters();
 
-        try {
+        assertThatThrownBy(() -> {
             producer.init(PRODUCER_NAME, producerParameters);
-        } catch (ApexEventException aee) {
-            assertEquals("specified producer properties are not applicable to REST requestor producer (ProducerName)",
-                            aee.getMessage());
-        }
+        }).hasMessage("specified producer properties are not applicable to REST requestor producer (ProducerName)");
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(rrctp);
-        try {
+        assertThatThrownBy(() -> {
             producer.init(PRODUCER_NAME, producerParameters);
-            fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("REST Requestor producer (ProducerName) must run in peered requestor mode "
-                            + "with a REST Requestor consumer", aee.getMessage());
-        }
+        }).hasMessage("REST Requestor producer (ProducerName) must run in peered requestor mode "
+            + "with a REST Requestor consumer");
 
         producerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setUrl("ZZZZ");
-        try {
+        assertThatThrownBy(() -> {
             producer.init(PRODUCER_NAME, producerParameters);
-            fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("URL may not be specified on REST Requestor producer (ProducerName)", aee.getMessage());
-        }
+        }).hasMessage("URL may not be specified on REST Requestor producer (ProducerName)");
 
         rrctp.setUrl(null);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
-        try {
+
+        assertThatThrownBy(() -> {
             producer.init(PRODUCER_NAME, producerParameters);
             fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("HTTP method may not be specified on REST Requestor producer (ProducerName)",
-                            aee.getMessage());
-        }
+        }).hasMessage("HTTP method may not be specified on REST Requestor producer (ProducerName)");
 
         rrctp.setHttpMethod(null);
         producer.init(PRODUCER_NAME, producerParameters);
@@ -109,28 +100,20 @@ public class ApexRestRequestorProducerTest {
         String eventName = "EventName";
         String event = "This is the event";
 
-        try {
+        assertThatThrownBy(() -> {
             producer.sendEvent(12345, null, eventName, event);
-            fail("test should throw an exception here");
-        } catch (Exception aee) {
-            assertEquals("send of event to URL \"null\" failed, REST response consumer is not defined\n"
-                            + "This is the event", aee.getMessage());
-        }
+        }).hasMessage("send of event failed, REST response consumer is not defined\n" + "This is the event");
 
         ApexEventConsumer consumer = new ApexFileEventConsumer();
-        SynchronousEventCache eventCache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer,
-                        producer, 1000);
+        SynchronousEventCache eventCache =
+            new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, 1000);
         producer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, eventCache);
 
         PeeredReference peeredReference = new PeeredReference(EventHandlerPeeredMode.REQUESTOR, consumer, producer);
         producer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR, peeredReference);
-        try {
+        assertThatThrownBy(() -> {
             producer.sendEvent(12345, null, eventName, event);
-            fail("test should throw an exception here");
-        } catch (Exception aee) {
-            assertEquals("send of event to URL \"null\" failed, REST response consumer "
-                            + "is not an instance of ApexRestRequestorConsumer\n" + "This is the event",
-                            aee.getMessage());
-        }
+        }).hasMessage("send of event failed, REST response consumer "
+            + "is not an instance of ApexRestRequestorConsumer\n" + "This is the event");
     }
 }

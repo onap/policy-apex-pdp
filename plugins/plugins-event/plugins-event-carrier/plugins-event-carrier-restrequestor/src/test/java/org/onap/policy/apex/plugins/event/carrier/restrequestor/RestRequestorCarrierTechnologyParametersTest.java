@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Set;
 
@@ -45,13 +45,9 @@ public class RestRequestorCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderBadList.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
+        assertThatThrownBy(() -> {
             new ApexParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage().contains("HTTP header array entry is null\n    parameter"));
-            assertTrue(pe.getMessage().trim().endsWith("HTTP header array entry is null"));
-        }
+        }).hasMessageContaining("HTTP header array entry is null\n    parameter");
     }
 
     @Test
@@ -60,15 +56,9 @@ public class RestRequestorCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNotKvPairs.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
+        assertThatThrownBy(() -> {
             new ApexParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage()
-                    .contains("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]"));
-            assertTrue(pe.getMessage().trim()
-                    .endsWith("HTTP header array entries must have one key and one value: [aaa]"));
-        }
+        }).hasMessageContaining("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]");
     }
 
     @Test
@@ -77,13 +67,9 @@ public class RestRequestorCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNulls.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
+        assertThatThrownBy(() -> {
             new ApexParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage().contains("HTTP header key is null or blank: [null, bbb]"));
-            assertTrue(pe.getMessage().trim().endsWith("HTTP header value is null or blank: [ccc, null]"));
-        }
+        }).hasMessageContaining("HTTP header key is null or blank: [null, bbb]");
     }
 
     @Test
@@ -95,11 +81,11 @@ public class RestRequestorCarrierTechnologyParametersTest {
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
 
         RestRequestorCarrierTechnologyParameters rrctp0 = (RestRequestorCarrierTechnologyParameters) parameters
-                .getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
+            .getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
         assertEquals(0, rrctp0.getHttpHeaders().length);
 
         RestRequestorCarrierTechnologyParameters rrctp1 = (RestRequestorCarrierTechnologyParameters) parameters
-                .getEventInputParameters().get("RestRequestorConsumer1").getCarrierTechnologyParameters();
+            .getEventInputParameters().get("RestRequestorConsumer1").getCarrierTechnologyParameters();
         assertEquals(3, rrctp1.getHttpHeaders().length);
         assertEquals("bbb", rrctp1.getHttpHeadersAsMultivaluedMap().get("aaa").get(0));
         assertEquals("ddd", rrctp1.getHttpHeadersAsMultivaluedMap().get("ccc").get(0));
@@ -112,16 +98,13 @@ public class RestRequestorCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
+        assertThatThrownBy(() -> {
             new ApexParameterHandler().getParameters(arguments);
             ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
 
             parameters.getEventInputParameters().get("RestRequestorConsumer0").getCarrierTechnologyParameters();
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage().contains(
-                    "Invalid HTTP code filter, the filter must be specified as a three digit regular expression: "));
-        }
+        }).hasMessageContaining(
+            "Invalid HTTP code filter, the filter must be specified as a three digit regular expression: ");
     }
 
     @Test
@@ -163,8 +146,8 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals(RestRequestorCarrierTechnologyParameters.HttpMethod.DELETE, rrctp.getHttpMethod());
 
         assertEquals("RESTREQUESTORCarrierTechnologyParameters "
-                + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]],"
-                + " httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
+            + "[url=http://some.where, httpMethod=DELETE, httpHeaders=[[aaa, bbb], [ccc, ddd]],"
+            + " httpCodeFilter=[1-5][0][0-5]]", rrctp.toString());
     }
 
     @Test

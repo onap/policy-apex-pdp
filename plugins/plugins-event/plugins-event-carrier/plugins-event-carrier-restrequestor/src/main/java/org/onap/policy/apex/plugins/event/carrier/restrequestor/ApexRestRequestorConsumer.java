@@ -34,9 +34,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -103,39 +103,36 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-            final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+        final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
 
         // Check and get the REST Properties
         if (!(consumerParameters
-                .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
+            .getCarrierTechnologyParameters() instanceof RestRequestorCarrierTechnologyParameters)) {
             final String errorMessage =
-                    "specified consumer properties are not applicable to REST Requestor consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
+                "specified consumer properties are not applicable to REST Requestor consumer (" + this.name + ")";
             throw new ApexEventException(errorMessage);
         }
         restConsumerProperties =
-                (RestRequestorCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
+            (RestRequestorCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Check if we are in peered mode
         if (!consumerParameters.isPeeredMode(EventHandlerPeeredMode.REQUESTOR)) {
             final String errorMessage = "REST Requestor consumer (" + this.name
-                    + ") must run in peered requestor mode with a REST Requestor producer";
-            LOGGER.warn(errorMessage);
+                + ") must run in peered requestor mode with a REST Requestor producer";
             throw new ApexEventException(errorMessage);
         }
 
         // Check if the HTTP method has been set
         if (restConsumerProperties.getHttpMethod() == null) {
             restConsumerProperties
-                    .setHttpMethod(RestRequestorCarrierTechnologyParameters.DEFAULT_REQUESTOR_HTTP_METHOD);
+                .setHttpMethod(RestRequestorCarrierTechnologyParameters.DEFAULT_REQUESTOR_HTTP_METHOD);
         }
 
         // Check if the HTTP URL has been set
         if (restConsumerProperties.getUrl() == null) {
             final String errorMessage = "no URL has been specified on REST Requestor consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -144,7 +141,6 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
             new URL(restConsumerProperties.getUrl());
         } catch (final Exception e) {
             final String errorMessage = "invalid URL has been specified on REST Requestor consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage, e);
         }
 
@@ -157,8 +153,8 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
 
         // Check if HTTP headers has been set
         if (restConsumerProperties.checkHttpHeadersSet()) {
-            LOGGER.debug("REST Requestor consumer has http headers ({}): {}", this.name,
-                    Arrays.deepToString(restConsumerProperties.getHttpHeaders()));
+            final String httpHeaderString = Arrays.deepToString(restConsumerProperties.getHttpHeaders());
+            LOGGER.debug("REST Requestor consumer has http headers ({}): {}", this.name, httpHeaderString);
         }
 
         // Initialize the HTTP client
@@ -177,8 +173,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
             incomingRestRequestQueue.add(restRequest);
         } catch (final Exception requestException) {
             final String errorMessage =
-                    "could not queue request \"" + restRequest + "\" on REST Requestor consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage, requestException);
+                "could not queue request \"" + restRequest + "\" on REST Requestor consumer (" + this.name + ")";
             throw new ApexEventRuntimeException(errorMessage);
         }
     }
@@ -202,7 +197,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
             try {
                 // Take the next event from the queue
                 final ApexRestRequest restRequest =
-                        incomingRestRequestQueue.poll(REST_REQUESTOR_WAIT_SLEEP_TIME, TimeUnit.MILLISECONDS);
+                    incomingRestRequestQueue.poll(REST_REQUESTOR_WAIT_SLEEP_TIME, TimeUnit.MILLISECONDS);
                 if (restRequest == null) {
                     // Poll timed out, check for request timeouts
                     timeoutExpiredRequests();
@@ -215,11 +210,11 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                     Set<String> names = restConsumerProperties.getKeysFromUrl();
                     Set<String> inputProperty = inputExecutionProperties.stringPropertyNames();
 
-                    names.stream().map(Optional::of).forEach(op ->
-                        op.filter(inputProperty::contains)
-                                .orElseThrow(() -> new ApexEventRuntimeException(
-                                        "key\"" + op.get() + "\"specified on url \"" + restConsumerProperties.getUrl()
-                                                + "\"not found in execution properties passed by the current policy")));
+                    names.stream().map(Optional::of)
+                        .forEach(op -> op.filter(inputProperty::contains)
+                            .orElseThrow(() -> new ApexEventRuntimeException(
+                                "key\"" + op.get() + "\"specified on url \"" + restConsumerProperties.getUrl()
+                                    + "\"not found in execution properties passed by the current policy")));
 
                     untaggedUrl = names.stream().reduce(untaggedUrl,
                         (acc, str) -> acc.replace("{" + str + "}", (String) inputExecutionProperties.get(str)));
@@ -264,7 +259,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
         // Interrupt timed out requests and remove them from the ongoing map
         for (final ApexRestRequest timedoutRequest : timedoutRequestList) {
             final String errorMessage =
-                    "REST Requestor consumer (" + this.name + "), REST request timed out: " + timedoutRequest;
+                "REST Requestor consumer (" + this.name + "), REST request timed out: " + timedoutRequest;
             LOGGER.warn(errorMessage);
 
             ongoingRestRequestMap.remove(timedoutRequest);
@@ -324,8 +319,8 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                 // Check that the request worked
                 if (!isPass.matches()) {
                     final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
-                            + "\" failed with status code " + response.getStatus() + " and message \""
-                            + response.readEntity(String.class) + "\"";
+                        + "\" failed with status code " + response.getStatus() + " and message \""
+                        + response.readEntity(String.class) + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -335,7 +330,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                 // Check there is content
                 if (StringUtils.isBlank(eventJsonString)) {
                     final String errorMessage =
-                            "received an empty response to \"" + request + "\" from URL \"" + untaggedUrl + "\"";
+                        "received an empty response to \"" + request + "\" from URL \"" + untaggedUrl + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -372,7 +367,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
          */
         public Response sendEventAsRestRequest(String untaggedUrl) {
             Builder headers = client.target(untaggedUrl).request(APPLICATION_JSON)
-                    .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap());
+                .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap());
             switch (restConsumerProperties.getHttpMethod()) {
                 case GET:
                     return headers.get();

@@ -21,10 +21,10 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -54,41 +54,29 @@ public class ApexRestRequestorConsumerTest {
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
         ApexEventReceiver incomingEventReceiver = null;
 
-        try {
+        assertThatThrownBy(() -> {
             consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-            fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("specified consumer properties are not applicable to REST Requestor consumer (ConsumerName)",
-                    aee.getMessage());
-        }
+        }).hasMessage("specified consumer properties are not applicable to REST Requestor consumer (ConsumerName)");
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rrctp);
-        try {
+        assertThatThrownBy(() -> {
             consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-            fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("REST Requestor consumer (ConsumerName) must run in peered requestor mode "
-                    + "with a REST Requestor producer", aee.getMessage());
-        }
+        }).hasMessage("REST Requestor consumer (ConsumerName) must run in peered requestor mode "
+            + "with a REST Requestor producer");
 
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(null);
-        try {
+
+        assertThatThrownBy(() -> {
             consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-            fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("no URL has been specified on REST Requestor consumer (ConsumerName)", aee.getMessage());
-        }
+        }).hasMessage("no URL has been specified on REST Requestor consumer (ConsumerName)");
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("ZZZZ");
-        try {
+        assertThatThrownBy(() -> {
             consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-            fail("test should throw an exception here");
-        } catch (ApexEventException aee) {
-            assertEquals("invalid URL has been specified on REST Requestor consumer (ConsumerName)", aee.getMessage());
-        }
+        }).hasMessage("invalid URL has been specified on REST Requestor consumer (ConsumerName)");
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
@@ -97,12 +85,9 @@ public class ApexRestRequestorConsumerTest {
 
         consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
 
-        try {
+        assertThatThrownBy(() -> {
             consumer.processRestRequest(null);
-            fail("test should throw an exception here");
-        } catch (Exception ex) {
-            assertEquals("could not queue request \"null\" on REST Requestor consumer (ConsumerName)", ex.getMessage());
-        }
+        }).hasMessage("could not queue request \"null\" on REST Requestor consumer (ConsumerName)");
 
         assertEquals(CONSUMER_NAME, consumer.getName());
         assertEquals(0, consumer.getEventsReceived());
