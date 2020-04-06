@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.server;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.java_websocket.WebSocket;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
@@ -47,7 +49,7 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
     private final String connectionUri;
 
     // Indicates if the web socket server is started or not
-    private boolean isStarted = false;
+    private AtomicBoolean isStarted = new AtomicBoolean(false);
 
     /**
      * Instantiates a new web socket messaging server for Apex.
@@ -73,7 +75,6 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
     public void startConnection() {
         // Start reception of connections on the web socket
         start();
-        isStarted = true;
     }
 
     /**
@@ -98,7 +99,7 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
             Thread.currentThread().interrupt();
             // This can happen in normal operation so ignore
         }
-        isStarted = false;
+        isStarted.set(false);
     }
 
     /**
@@ -141,11 +142,12 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
      */
     @Override
     public boolean isStarted() {
-        return isStarted;
+        return isStarted.get();
     }
 
     @Override
     public void onStart() {
+        isStarted.set(true);
         LOGGER.debug("started deployment server on URI: {}", connectionUri);
     }
 }
