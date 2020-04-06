@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64d0b582_aec201d7",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/messaging/impl/ws/server/MessageServerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-04-06T15:49:03Z",
+      "side": 1,
+      "message": "note: \"isStarted\" is not thread-safe; might consider using an AtomicBoolean (since sonar doesn\u0027t like volatile)",
+      "revId": "4476725ce984fe1d1cf48ae7ce8d93803b667da9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
