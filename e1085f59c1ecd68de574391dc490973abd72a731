@@ -16,6 +16,24 @@
       "revId": "e1085f59c1ecd68de574391dc490973abd72a731",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7782aeb0_5e9411c7",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-04-06T14:27:12Z",
+      "side": 1,
+      "message": "I\u0027ll take this comment in the next review if that\u0027s OK.",
+      "parentUuid": "936af72b_ea680191",
+      "revId": "e1085f59c1ecd68de574391dc490973abd72a731",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
