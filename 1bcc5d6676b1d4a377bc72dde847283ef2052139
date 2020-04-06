@@ -16,6 +16,24 @@
       "revId": "1bcc5d6676b1d4a377bc72dde847283ef2052139",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b636f7_fc93aa78",
+        "filename": "core/core-infrastructure/src/main/java/org/onap/policy/apex/core/infrastructure/messaging/impl/ws/server/MessageServerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-04-06T17:04:33Z",
+      "side": 1,
+      "message": "yes should be made final",
+      "parentUuid": "f14993ed_3bc4395c",
+      "revId": "1bcc5d6676b1d4a377bc72dde847283ef2052139",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
