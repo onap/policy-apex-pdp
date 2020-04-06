@@ -143,7 +143,7 @@ public class RestRequestorTest {
         Response response = null;
 
         // Wait for the required amount of events to be received or for 10 seconds
-        Double getsSoFar = 0.0;
+        double getsSoFar = 0.0;
         for (int i = 0; i < 40; i++) {
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                 .request("application/json").get();
@@ -156,7 +156,7 @@ public class RestRequestorTest {
 
             @SuppressWarnings("unchecked")
             final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-            getsSoFar = Double.valueOf(jsonMap.get("GET").toString());
+            getsSoFar = Double.parseDouble(jsonMap.get("GET").toString());
 
             if (getsSoFar >= 50.0) {
                 break;
@@ -320,7 +320,7 @@ public class RestRequestorTest {
             + "does not exist or is not defined with the same peered mode"));
     }
 
-    private Double getStatsFromServer(final Client client, final String statToGet) {
+    private double getStatsFromServer(final Client client, final String statToGet) {
         final Response response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
             .request("application/json").get();
 
@@ -329,6 +329,6 @@ public class RestRequestorTest {
 
         @SuppressWarnings("unchecked")
         final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
-        return Double.valueOf(jsonMap.get(statToGet).toString());
+        return Double.parseDouble(jsonMap.get(statToGet).toString());
     }
 }

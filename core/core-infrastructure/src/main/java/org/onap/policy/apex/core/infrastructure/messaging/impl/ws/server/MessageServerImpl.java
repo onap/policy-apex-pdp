@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +74,6 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
     public void startConnection() {
         // Start reception of connections on the web socket
         start();
-        isStarted = true;
     }
 
     /**
@@ -146,6 +146,7 @@ public class MessageServerImpl<M> extends InternalMessageBusServer<M> {
 
     @Override
     public void onStart() {
+        isStarted = true;
         LOGGER.debug("started deployment server on URI: {}", connectionUri);
     }
 }
