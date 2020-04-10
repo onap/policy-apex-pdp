@@ -30,6 +30,7 @@ import org.onap.policy.apex.core.engine.executor.context.TaskExecutionContext;
  */
 public class DefaultTaskLogic {
     private static final int BOUND_FOR_RANDOM_INT = 4;
+    private static final Random rand = new Random();
 
     /**
      * Gets the event.
@@ -46,7 +47,6 @@ public class DefaultTaskLogic {
 
         String inFieldsString = executor.inFields.toString();
         executor.logger.debug(inFieldsString);
-        final Random rand = new Random();
         if (executor.inFields.containsKey("TestDecideCaseSelected")) {
             executor.outFields.put("TestActCaseSelected", (byte) rand.nextInt(BOUND_FOR_RANDOM_INT));
             executor.outFields.put("TestActStateTime", System.nanoTime());

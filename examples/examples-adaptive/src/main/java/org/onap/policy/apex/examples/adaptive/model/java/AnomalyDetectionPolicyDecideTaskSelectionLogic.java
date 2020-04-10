@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +38,6 @@ import org.slf4j.Logger;
  * The Class AnomalyDetectionPolicyDecideTaskSelectionLogic.
  */
 public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
-    private Logger logger;
 
     // Recurring string constants
     private static final String ANOMALY_DETECTION_ALBUM = "AnomalyDetectionAlbum";
@@ -71,8 +71,6 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
     }
     // CHECKSTYLE:ON: checkstyle:magicNumber
 
-    private volatile TaskSelectionExecutionContext executionContext;
-
     /**
      * Gets the task.
      *
@@ -80,8 +78,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
      * @return the task
      */
     public boolean getTask(final TaskSelectionExecutionContext executor) {
-        executionContext = executor;
-        logger = executionContext.logger;
+        Logger logger = executor.logger;
         String id = executor.subject.getId();
         logger.debug(id);
         String inFields = executor.inFields.toString();
@@ -89,7 +86,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         final double now = (Double) (executor.inFields.get("MonitoredValue"));
         final Integer iteration = (Integer) (executor.inFields.get("Iteration"));
         // get the double[forecastedValue, AnomalyScore, AnomalyProbability]
-        final double[] vals = this.forecastingAndAnomaly(now);
+        final double[] vals = forecastingAndAnomaly(executor, now);
         final double anomalyness = vals[2];
         String task = null;
         for (final Map.Entry<double[], String> i : TASK_INTERVALS.entrySet()) {
@@ -99,16 +96,16 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
             }
         }
         if (task == null) {
-            executionContext.subject.getDefaultTaskKey().copyTo(executionContext.selectedTask);
+            executor.subject.getDefaultTaskKey().copyTo(executor.selectedTask);
         } else {
-            executionContext.subject.getTaskKey(task).copyTo(executionContext.selectedTask);
+            executor.subject.getTaskKey(task).copyTo(executor.selectedTask);
         }
         if (logger.isDebugEnabled()) {
             logger.debug(
                     "TestAnomalyDetectionTSLPolicy0000DecideStateTaskSelectionLogic.getTask():\t************\t\t\t\t"
                             + "Iteration:\t" + iteration + "\tValue:\t" + now + "\tForecast:\t" + vals[0]
                             + "\tAnomalyScore:\t" + vals[1] + "\tAnomalyProbability:\t" + vals[2] + "\tInvoking Task:\t"
-                            + executionContext.selectedTask);
+                            + executor.selectedTask);
         }
         return true;
     }
@@ -120,20 +117,20 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
      * @return Null if the function can not be executed correctly, otherwise double[forecastedValue,
      *         AnomalyScore, AnomalyProbability]
      */
-    public double[] forecastingAndAnomaly(final double value) {
+    private double[] forecastingAndAnomaly(final TaskSelectionExecutionContext executor, final double value) {
         try {
-            executionContext.getContextAlbum(ANOMALY_DETECTION_ALBUM).lockForWriting(ANOMALY_DETECTION);
+            executor.getContextAlbum(ANOMALY_DETECTION_ALBUM).lockForWriting(ANOMALY_DETECTION);
         } catch (final ApexException e) {
-            logger.error("Failed to acquire write lock on \"AnomalyDetection\" context", e);
+            executor.logger.error("Failed to acquire write lock on \"AnomalyDetection\" context", e);
             return new double[0];
         }
 
         // Get the context object
         AnomalyDetection anomalyDetection =
-                (AnomalyDetection) executionContext.getContextAlbum(ANOMALY_DETECTION_ALBUM).get(ANOMALY_DETECTION);
+                (AnomalyDetection) executor.getContextAlbum(ANOMALY_DETECTION_ALBUM).get(ANOMALY_DETECTION);
         if (anomalyDetection == null) {
             anomalyDetection = new AnomalyDetection();
-            executionContext.getContextAlbum(ANOMALY_DETECTION_ALBUM).put(ANOMALY_DETECTION, anomalyDetection);
+            executor.getContextAlbum(ANOMALY_DETECTION_ALBUM).put(ANOMALY_DETECTION, anomalyDetection);
         }
 
         // Check the lists are initialized
@@ -186,9 +183,9 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         // CHECKSTYLE:ON: checkstyle:magicNumber
 
         try {
-            executionContext.getContextAlbum(ANOMALY_DETECTION_ALBUM).unlockForWriting(ANOMALY_DETECTION);
+            executor.getContextAlbum(ANOMALY_DETECTION_ALBUM).unlockForWriting(ANOMALY_DETECTION);
         } catch (final ApexException e) {
-            logger.error("Failed to release write lock on \"AnomalyDetection\" context", e);
+            executor.logger.error("Failed to release write lock on \"AnomalyDetection\" context", e);
             return new double[0];
         }
 
