@@ -64,6 +64,8 @@ public class AxKeyInfo extends AxConcept {
     private static final int MAX_DESCRIPTION_LENGTH_8192 = 8192;
     private static final int UUID_BYTE_LENGTH_16 = 16;
 
+    private static final Random sharedRandom = new Random();
+
     @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
@@ -331,11 +333,9 @@ public class AxKeyInfo extends AxConcept {
      * @return the uuid
      */
     public static UUID generateReproducibleUuid(final String seed) {
-        final Random random;
+        Random random = sharedRandom;
         if (seed != null && seed.length() > 0) {
             random = new Random(seed.hashCode());
-        } else {
-            random = new Random();
         }
         final byte[] array = new byte[UUID_BYTE_LENGTH_16];
         random.nextBytes(array);
