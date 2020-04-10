@@ -176,6 +176,6 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         cdsResponse.set(ExecutionServiceOutput.newBuilder()
             .setStatus(Status.newBuilder().setErrorMessage(errorMsg).setEventType(EventType.EVENT_COMPONENT_FAILURE))
             .build());
-        LOGGER.error("Failed processing blueprint {} {}", errorMsg, throwable);
+        LOGGER.error("Failed processing blueprint {}", errorMsg, throwable);
     }
 }

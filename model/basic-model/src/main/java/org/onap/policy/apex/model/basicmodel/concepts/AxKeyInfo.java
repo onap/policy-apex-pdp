@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String;
@@ -63,6 +64,8 @@ public class AxKeyInfo extends AxConcept {
 
     private static final int MAX_DESCRIPTION_LENGTH_8192 = 8192;
     private static final int UUID_BYTE_LENGTH_16 = 16;
+
+    private static final Random sharedRandom = new Random();
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
@@ -331,11 +334,9 @@ public class AxKeyInfo extends AxConcept {
      * @return the uuid
      */
     public static UUID generateReproducibleUuid(final String seed) {
-        final Random random;
-        if (seed != null && seed.length() > 0) {
+        Random random = sharedRandom;
+        if (!StringUtils.isEmpty(seed)) {
             random = new Random(seed.hashCode());
-        } else {
-            random = new Random();
         }
         final byte[] array = new byte[UUID_BYTE_LENGTH_16];
         random.nextBytes(array);
