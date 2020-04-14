@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "bc3087a3_944c02d7",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/java/AnomalyDetectionPolicyDecideTaskSelectionLogic.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-04-14T12:31:09Z",
+      "side": 1,
+      "message": "Does this work? I have not seen this syntax before.",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b00a5e09_360719c7",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
         "patchSetId": 2
