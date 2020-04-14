@@ -49,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * Concrete implementation of an Apex gRPC plugin that manages to send a GRPC request.
  *
  * @author Ajith Sreekumar(ajith.sreekumar@est.tech)
- *
  */
 public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsProcessorListener {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexGrpcProducer.class);
 
     private CdsServerProperties props;
@@ -74,8 +74,8 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
                 "Specified producer properties are not applicable to gRPC producer (" + this.name + ")";
             throw new ApexEventException(errorMessage);
         }
-        GrpcCarrierTechnologyParameters grpcProducerProperties =
-            (GrpcCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
+        GrpcCarrierTechnologyParameters grpcProducerProperties = (GrpcCarrierTechnologyParameters) producerParameters
+            .getCarrierTechnologyParameters();
         grpcProducerProperties.validateGrpcParameters(true);
         client = makeGrpcClient(grpcProducerProperties);
     }
@@ -110,22 +110,23 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         try {
             CountDownLatch countDownLatch = client.sendRequest(executionServiceInput);
             if (!countDownLatch.await(props.getTimeout(), TimeUnit.SECONDS)) {
-                cdsResponse.set(ExecutionServiceOutput.newBuilder().setStatus(Status.newBuilder()
-                    .setErrorMessage(CdsActorConstants.TIMED_OUT).setEventType(EventType.EVENT_COMPONENT_FAILURE))
-                    .build());
+                cdsResponse.set(ExecutionServiceOutput.newBuilder().setStatus(
+                    Status.newBuilder().setErrorMessage(CdsActorConstants.TIMED_OUT)
+                        .setEventType(EventType.EVENT_COMPONENT_FAILURE)).build());
                 LOGGER.error("gRPC Request timed out.");
             }
         } catch (InterruptedException e) {
             LOGGER.error("gRPC request failed. {}", e.getMessage());
-            cdsResponse.set(ExecutionServiceOutput.newBuilder().setStatus(Status.newBuilder()
-                .setErrorMessage(CdsActorConstants.INTERRUPTED).setEventType(EventType.EVENT_COMPONENT_FAILURE))
-                .build());
+            cdsResponse.set(ExecutionServiceOutput.newBuilder().setStatus(
+                Status.newBuilder().setErrorMessage(CdsActorConstants.INTERRUPTED)
+                    .setEventType(EventType.EVENT_COMPONENT_FAILURE)).build());
             Thread.currentThread().interrupt();
         }
 
         if (!EventType.EVENT_COMPONENT_EXECUTED.equals(cdsResponse.get().getStatus().getEventType())) {
-            String errorMessage = "Sending event \"" + eventName + "\" by " + this.name + " to CDS failed, "
-                + "response from CDS:\n" + cdsResponse.get();
+            String errorMessage =
+                "Sending event \"" + eventName + "\" by " + this.name + " to CDS failed, " + "response from CDS:\n"
+                    + cdsResponse.get();
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -149,8 +150,8 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         // Use the consumer to consume this response event in APEX
         final ApexGrpcConsumer grpcConsumer = (ApexGrpcConsumer) consumer;
         try {
-            grpcConsumer.getEventReceiver().receiveEvent(executionId, new Properties(),
-                JsonFormat.printer().print(event));
+            grpcConsumer.getEventReceiver()
+                .receiveEvent(executionId, new Properties(), JsonFormat.printer().print(event));
         } catch (ApexEventException | InvalidProtocolBufferException e) {
             throw new ApexEventRuntimeException("Consuming gRPC response failed.", e);
         }
@@ -176,6 +177,6 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         cdsResponse.set(ExecutionServiceOutput.newBuilder()
             .setStatus(Status.newBuilder().setErrorMessage(errorMsg).setEventType(EventType.EVENT_COMPONENT_FAILURE))
             .build());
-        LOGGER.error("Failed processing blueprint {} {}", errorMsg, throwable);
+        LOGGER.error("Failed processing blueprint {} ", errorMsg, throwable);
     }
 }

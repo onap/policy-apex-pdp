@@ -34,7 +34,6 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -63,6 +62,12 @@ public class WebClient {
 
     // Duplicated string constants
     private static final String BBS_POLICY = "BBS Policy";
+
+    //Features to prevent XXE injection
+    private static final String XML_DISALLOW_DOCTYPE_FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+
+    private static final String XML_EXTERNAL_ENTITY_FEATURE = "http://xml.org/sax/features/external-general-entities";
+
 
     /**
      * Send simple https rest request.
@@ -140,9 +145,9 @@ public class WebClient {
             try (ByteArrayInputStream br = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))) {
 
                 DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
-                df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                df.setFeature(XML_DISALLOW_DOCTYPE_FEATURE, true);
+                df.setFeature(XML_EXTERNAL_ENTITY_FEATURE, false);
                 Document document = df.newDocumentBuilder().parse(new InputSource(br));
-
                 document.normalize();
                 XPath path = XPathFactory.newInstance().newXPath();
                 NodeList nodeList = (NodeList) path
