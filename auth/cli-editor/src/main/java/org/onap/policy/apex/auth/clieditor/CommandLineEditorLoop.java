@@ -56,6 +56,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class CommandLineEditorLoop {
+
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(CommandLineEditorLoop.class);
 
@@ -79,12 +80,12 @@ public class CommandLineEditorLoop {
     /**
      * Initiate the loop with the keyword node tree.
      *
-     * @param properties The CLI editor properties defined for execution
-     * @param modelHandler the model handler that will handle commands
+     * @param properties      The CLI editor properties defined for execution
+     * @param modelHandler    the model handler that will handle commands
      * @param rootKeywordNode The root keyword node tree
      */
     public CommandLineEditorLoop(final Properties properties, final ApexModelHandler modelHandler,
-            final KeywordNode rootKeywordNode) {
+        final KeywordNode rootKeywordNode) {
         this.modelHandler = modelHandler;
         keywordNodeDeque.push(rootKeywordNode);
 
@@ -96,14 +97,14 @@ public class CommandLineEditorLoop {
     /**
      * Run a command loop.
      *
-     * @param inputStream The stream to read commands from
+     * @param inputStream  The stream to read commands from
      * @param outputStream The stream to write command output and messages to
-     * @param parameters The parameters for the CLI editor
+     * @param parameters   The parameters for the CLI editor
      * @return the exit code from command processing
      * @throws IOException Thrown on exceptions on IO
      */
     public int runLoop(final InputStream inputStream, final OutputStream outputStream,
-            final CommandLineParameters parameters) throws IOException {
+        final CommandLineParameters parameters) throws IOException {
         // Readers and writers for input and output
         final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         final PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream));
@@ -141,7 +142,7 @@ public class CommandLineEditorLoop {
      * Check if the command processing loop has come to an end.
      *
      * @param executionStatus a pair containing the result of the last command and the accumulated error count
-     * @param parameters the input parameters for command execution
+     * @param parameters      the input parameters for command execution
      * @return true if the command processing loop should exit
      */
     private boolean endOfCommandExecution(Pair<Result, Integer> executionStatus, CommandLineParameters parameters) {
@@ -155,13 +156,13 @@ public class CommandLineEditorLoop {
     /**
      * Process the incoming commands one by one.
      *
-     * @param parameters the parameters to the CLI editor
-     * @param reader the reader to read the logic block from
-     * @param writer the writer to write results and error messages on
+     * @param parameters      the parameters to the CLI editor
+     * @param reader          the reader to read the logic block from
+     * @param writer          the writer to write results and error messages on
      * @param executionStatus the status of the logic block read
      */
     private void processIncomingCommands(final CommandLineParameters parameters, final BufferedReader reader,
-            final PrintWriter writer, final CommandLineParser parser, MutablePair<Result, Integer> executionStatus) {
+        final PrintWriter writer, final CommandLineParser parser, MutablePair<Result, Integer> executionStatus) {
 
         try {
             // Output prompt and get a line of input
@@ -197,8 +198,8 @@ public class CommandLineEditorLoop {
             final CommandLineCommand command = findCommand(commandWords);
             if (command != null) {
                 // Check the arguments of the command
-                final TreeMap<String, CommandLineArgumentValue> argumentValues =
-                        getArgumentValues(command, commandWords);
+                final TreeMap<String, CommandLineArgumentValue> argumentValues = getArgumentValues(command,
+                    commandWords);
 
                 // Execute the command, a FINISHED result means a command causes the loop to
                 // leave execution
@@ -222,16 +223,15 @@ public class CommandLineEditorLoop {
     /**
      * Read a logic block, a block of program logic for a policy.
      *
-     * @param parameters the parameters to the CLI editor
-     * @param reader the reader to read the logic block from
-     * @param writer the writer to write results and error messages on
+     * @param parameters      the parameters to the CLI editor
+     * @param reader          the reader to read the logic block from
+     * @param writer          the writer to write results and error messages on
      * @param executionStatus the status of the logic block read
      * @return the result of the logic block read
      */
     private String readLogicBlock(final CommandLineParameters parameters, final BufferedReader reader,
-            final PrintWriter writer, MutablePair<Result, Integer> executionStatus) {
-        String logicBlock;
-        logicBlock = "";
+        final PrintWriter writer, MutablePair<Result, Integer> executionStatus) {
+        StringBuilder logicBlock = new StringBuilder();
 
         while (true) {
             try {
@@ -249,10 +249,10 @@ public class CommandLineEditorLoop {
                 }
 
                 if (logicLine.trim().endsWith(logicBlockEndTag)) {
-                    logicBlock += logicLine.replace(logicBlockEndTag, "").trim() + "\n";
-                    return logicBlock;
+                    logicBlock.append(logicLine.replace(logicBlockEndTag, "").trim() + "\n");
+                    return logicBlock.toString();
                 } else {
-                    logicBlock += logicLine + "\n";
+                    logicBlock.append(logicLine + "\n");
                 }
             }
             // Print any error messages from command parsing and finding
@@ -311,15 +311,16 @@ public class CommandLineEditorLoop {
 
             // If the node entries found is not equal to one, then we have either no command or more
             // than one command matching
-            final List<Entry<String, KeywordNode>> foundNodeEntries =
-                    findMatchingEntries(searchKeywordNode.getChildren(), commandWords.get(i));
+            final List<Entry<String, KeywordNode>> foundNodeEntries = findMatchingEntries(
+                searchKeywordNode.getChildren(), commandWords.get(i));
             if (foundNodeEntries.isEmpty()) {
                 unwindStack(startKeywordNode);
                 throw new CommandLineException("command not found: " + stringAL2String(commandWords));
             } else if (foundNodeEntries.size() > 1) {
                 unwindStack(startKeywordNode);
-                throw new CommandLineException("multiple commands matched: " + stringAL2String(commandWords) + " ["
-                        + nodeAL2String(foundNodeEntries) + ']');
+                throw new CommandLineException(
+                    "multiple commands matched: " + stringAL2String(commandWords) + " [" + nodeAL2String(
+                        foundNodeEntries) + ']');
             }
 
             // Record the fully expanded command word
@@ -360,12 +361,12 @@ public class CommandLineEditorLoop {
     /**
      * Check the arguments of the command.
      *
-     * @param command The command to check
+     * @param command      The command to check
      * @param commandWords The command words entered
      * @return the argument values
      */
     private TreeMap<String, CommandLineArgumentValue> getArgumentValues(final CommandLineCommand command,
-            final List<String> commandWords) {
+        final List<String> commandWords) {
         final TreeMap<String, CommandLineArgumentValue> argumentValues = new TreeMap<>();
         for (final CommandLineArgument argument : command.getArgumentList()) {
             if (argument != null) {
@@ -375,14 +376,15 @@ public class CommandLineEditorLoop {
 
         // Set the value of the arguments
         for (final Entry<String, String> argument : getCommandArguments(commandWords)) {
-            final List<Entry<String, CommandLineArgumentValue>> foundArguments =
-                    TreeMapUtils.findMatchingEntries(argumentValues, argument.getKey());
+            final List<Entry<String, CommandLineArgumentValue>> foundArguments = TreeMapUtils
+                .findMatchingEntries(argumentValues, argument.getKey());
             if (foundArguments.isEmpty()) {
-                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument \""
-                        + argument.getKey() + "\" not allowed on command");
+                throw new CommandLineException(
+                    COMMAND + stringAL2String(commandWords) + ": " + " argument \"" + argument.getKey()
+                        + "\" not allowed on command");
             } else if (foundArguments.size() > 1) {
                 throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " argument " + argument
-                        + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
+                    + " matches multiple arguments [" + argumentAL2String(foundArguments) + ']');
             }
 
             // Set the value of the argument, stripping off any quotes
@@ -395,8 +397,9 @@ public class CommandLineEditorLoop {
             // Argument values are null by default so if this argument is not nullable it is
             // mandatory
             if (!argumentValue.isSpecified() && !argumentValue.getCliArgument().isNullable()) {
-                throw new CommandLineException(COMMAND + stringAL2String(commandWords) + ": " + " mandatory argument \""
-                        + argumentValue.getCliArgument().getArgumentName() + "\" not specified");
+                throw new CommandLineException(
+                    COMMAND + stringAL2String(commandWords) + ": " + " mandatory argument \"" + argumentValue
+                        .getCliArgument().getArgumentName() + "\" not specified");
             }
         }
 
@@ -417,8 +420,8 @@ public class CommandLineEditorLoop {
         for (final String word : commandWords) {
             final int equalsPos = word.indexOf('=');
             if (equalsPos > 0) {
-                arguments.add(
-                        new SimpleEntry<>(word.substring(0, equalsPos), word.substring(equalsPos + 1, word.length())));
+                arguments
+                    .add(new SimpleEntry<>(word.substring(0, equalsPos), word.substring(equalsPos + 1, word.length())));
             }
         }
 
@@ -428,13 +431,13 @@ public class CommandLineEditorLoop {
     /**
      * Execute system and editor commands.
      *
-     * @param command The command to execute
+     * @param command        The command to execute
      * @param argumentValues The arguments input on the command line to invoke the command
-     * @param writer The writer to use for any output from the command
+     * @param writer         The writer to use for any output from the command
      * @return the result of execution of the command
      */
     private Result executeCommand(final CommandLineCommand command,
-            final TreeMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
+        final TreeMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
         if (command.isSystemCommand()) {
             return exceuteSystemCommand(command, writer);
         } else {
@@ -446,7 +449,7 @@ public class CommandLineEditorLoop {
      * Execute system commands.
      *
      * @param command The command to execute
-     * @param writer The writer to use for any output from the command
+     * @param writer  The writer to use for any output from the command
      * @return the result of execution of the command
      */
     private Result exceuteSystemCommand(final CommandLineCommand command, final PrintWriter writer) {
@@ -551,7 +554,7 @@ public class CommandLineEditorLoop {
      * line with the file contents.
      *
      * @param parameters The parameters for the CLI editor
-     * @param line The line with the macro keyword in it
+     * @param line       The line with the macro keyword in it
      * @return the expanded line
      */
     private String expandMacroFile(final CommandLineParameters parameters, final String line) {
@@ -576,7 +579,7 @@ public class CommandLineEditorLoop {
             macroFileName = macroFileName.substring(1, macroFileName.length() - 1);
         } else {
             throw new CommandLineException(
-                    "macro file name \"" + macroFileName + "\" must exist and be quoted with double quotes \"\"");
+                "macro file name \"" + macroFileName + "\" must exist and be quoted with double quotes \"\"");
         }
 
         // Append the working directory to the macro file name
