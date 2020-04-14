@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b00a5e09_360719c7",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-04-14T10:17:33Z",
+      "side": 1,
+      "message": "Do you need this variable? Can you use sharedRandom below?",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 336,
+        "endChar": 21
+      },
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
