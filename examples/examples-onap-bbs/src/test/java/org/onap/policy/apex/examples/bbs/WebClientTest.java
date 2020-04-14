@@ -36,6 +36,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class WebClientTest {
+
     HttpsURLConnection mockedHttpsUrlConnection;
     String sampleString = "Response Code :200";
 
@@ -55,24 +56,24 @@ public class WebClientTest {
     @Test
     public void testHttpsRequest() {
         WebClient cl = new WebClient();
-        String result =
-                cl.httpRequest("https://some.random.url/data", "POST", null, "admin", "admin", "application/json");
+        String result = cl
+            .httpRequest("https://some.random.url/data", "POST", null, "admin", "admin", "application/json");
         assertNotNull(result);
     }
 
     @Test
     public void testHttpRequest() {
         WebClient cl = new WebClient();
-        String result =
-                cl.httpRequest("http://some.random.url/data", "GET", null, "admin", "admin", "application/json");
+        String result = cl
+            .httpRequest("http://some.random.url/data", "GET", null, "admin", "admin", "application/json");
         assertNotNull(result);
     }
 
     @Test
     public void testToPrettyString() {
         String xmlSample = "<input xmlns=\"org:onap:sdnc:northbound:generic-resource\">"
-                + "<sdnc-request-header> <svc-action>update</svc-action> </sdnc-request-header></input>";
+            + "<sdnc-request-header> <svc-action>update</svc-action> </sdnc-request-header></input>";
         WebClient cl = new WebClient();
-        cl.toPrettyString(xmlSample, 4);
+        assertNotNull(cl.toPrettyString(xmlSample, 4));
     }
 }
