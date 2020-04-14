@@ -45,6 +45,47 @@
       "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56e5c92f_3d7df148",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-04-14T12:43:11Z",
+      "side": 1,
+      "message": "I think the intent is to use sharedRandom, in general, but to use a particular Random whenever a seed is provided (i.e., during junit tests).",
+      "parentUuid": "b00a5e09_360719c7",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 336,
+        "endChar": 21
+      },
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdf4be9_451cd276",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-04-14T12:43:11Z",
+      "side": 1,
+      "message": "could use StringUtils.isBlank()",
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
