@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fd2b22af_8c449601",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/java/AnomalyDetectionPolicyDecideTaskSelectionLogic.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-04-14T03:29:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "73317e3a_b2720ae5",
+      "revId": "23e752181b6610b457ee10c3e76830657f38b927",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a89d6a2_2594c154",
         "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/java/AnomalyDetectionPolicyDecideTaskSelectionLogic.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "eea8cc96_0bf99b3e",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/java/AnomalyDetectionPolicyDecideTaskSelectionLogic.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-04-14T03:29:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a89d6a2_2594c154",
+      "revId": "23e752181b6610b457ee10c3e76830657f38b927",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdf82ed5_8640fd49",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-04-10T13:04:15Z",
       "side": 1,
       "message": "not sure, but sonar may question if \"Random\" provides random enough data",
+      "revId": "23e752181b6610b457ee10c3e76830657f38b927",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed041460_597b8449",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-04-14T03:29:19Z",
+      "side": 1,
+      "message": "Are you suggesting to use SecureRandom or other things? In one project I worked, we must use SecureRandom, Random was not allowed.\n\nI changed the above logic a bit, because it is not thread-safe and also changes the behavior for the case with empty seed.",
+      "parentUuid": "fdf82ed5_8640fd49",
       "revId": "23e752181b6610b457ee10c3e76830657f38b927",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
