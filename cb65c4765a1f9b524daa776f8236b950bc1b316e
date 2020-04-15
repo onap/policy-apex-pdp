@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7d241d62_951578ab",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/java/AnomalyDetectionPolicyDecideTaskSelectionLogic.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-04-15T02:41:40Z",
+      "side": 1,
+      "message": "I\u0027m not sure. Suppose it works or worked, many this kind of comments in apex code.",
+      "parentUuid": "bc3087a3_944c02d7",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b00a5e09_360719c7",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "277ba6f9_dd67b4c0",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-04-15T02:41:40Z",
+      "side": 1,
+      "message": "We can use sharedRandom, and call setSeed. But then this method becomes not thread-safe. setSeed() and nextBytes() must be in a critical section. We can make it synchronized. But another problem is the behavior for empty seed will change. Consider we first call it with proper seed, and then call it with no seed.",
+      "parentUuid": "56e5c92f_3d7df148",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 336,
+        "endChar": 21
+      },
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbdf4be9_451cd276",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
         "patchSetId": 2
@@ -86,6 +134,24 @@
       "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "744c42d8_eb1916eb",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-04-15T02:41:40Z",
+      "side": 1,
+      "message": "I\u0027m not sure if isBlank is okay, but isEmpty should be fine.",
+      "parentUuid": "dbdf4be9_451cd276",
+      "revId": "cb65c4765a1f9b524daa776f8236b950bc1b316e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
