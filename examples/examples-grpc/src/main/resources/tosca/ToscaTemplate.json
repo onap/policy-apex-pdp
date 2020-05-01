@@ -3,9 +3,10 @@
   "topology_template": {
     "policies": [
       {
-        "operational.gRPC": {
-          "type": "onap.policies.controlloop.operational.Apex",
-          "typeVersion": "1.0.0",
+        "onap.policies.native.apex.Grpc": {
+          "type": "onap.policies.native.Apex",
+          "type_version": "1.0.0",
+          "name": "onap.policies.native.apex.Grpc",
           "version": "1.0.0",
           "properties": {
           }
