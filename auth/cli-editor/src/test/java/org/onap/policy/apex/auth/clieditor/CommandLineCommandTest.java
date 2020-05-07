@@ -1,0 +1,135 @@
+/*-
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2020 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+package org.onap.policy.apex.auth.clieditor;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class CommandLineCommandTest {
+
+    CommandLineCommand commandLineCommand = null;
+    
+    @Before
+    public void initializeCommandLineCommand() {
+        commandLineCommand = new CommandLineCommand();
+    }
+    
+    @Test
+    public void testCommandLine() {
+        commandLineCommand.setName("TestName");
+        commandLineCommand.setDescription("testDescription");
+        commandLineCommand.setSystemCommand(true);
+        assertTrue(commandLineCommand.isSystemCommand());
+        assertEquals("testDescription", commandLineCommand.getDescription());
+        assertEquals("TestName", commandLineCommand.getName());
+        assertEquals("CLICommand [name=TestName,keywordlist=[], argumentList=[], apiMethod=, systemCommand=true, description=testDescription]",commandLineCommand.toString());
+    }
+    
+    @Test(expected = CommandLineException.class)
+    public void testInvalidApiClassName() {
+        commandLineCommand.getApiClassName();
+    }
+    
+    @Test
+    public void testGetValidApiClassName() {
+        commandLineCommand.setApiMethod("Java.Get");
+        assertEquals("Java", commandLineCommand.getApiClassName());
+    }
+    
+    @Test(expected = CommandLineException.class)
+    public void testInvalidApiMethodName() {
+        commandLineCommand.getApiMethodName();
+    }
+    
+    @Test(expected = CommandLineException.class)
+    public void testInvalidApiMethod() {
+        commandLineCommand.setApiMethod("fail.");
+        assertEquals("fail.", commandLineCommand.getApiMethod());
+        commandLineCommand.getApiMethodName();
+    }
+    
+    @Test
+    public void testValidApiMethodName() {
+        commandLineCommand.setApiMethod("Java.Get");
+        assertEquals("Get",commandLineCommand.getApiMethodName());
+    }
+    
+    @Test
+    public void testGetHelp() {
+        List<String> keywordList = commandLineCommand.getKeywordlist();
+        List<CommandLineArgument> argumentList = commandLineCommand.getArgumentList();
+        assertEquals("{}: ",commandLineCommand.getHelp());
+        keywordList.add("TestKeyword");
+        argumentList.add(new CommandLineArgument("TestArgument"));
+        argumentList.add(null);
+        assertEquals("TestKeyword {}: \n" + 
+                "	TestArgument: (M) ",commandLineCommand.getHelp());
+    }
+    
+    @Test
+    public void testCompareTo() {
+        assertEquals(0,commandLineCommand.compareTo(commandLineCommand));
+        CommandLineCommand otherCommand = new CommandLineCommand();
+        otherCommand.setSystemCommand(true);
+        assertEquals(6,commandLineCommand.compareTo(otherCommand));
+        otherCommand.getArgumentList().add(new CommandLineArgument("testArgument"));
+        assertEquals(-609496833, commandLineCommand.compareTo(otherCommand));
+    }
+    
+    @Test
+    public void testCompareKeywordList() {
+        CommandLineCommand otherCommand = new CommandLineCommand();
+        otherCommand.getKeywordlist().add("test");
+        assertEquals(-1, commandLineCommand.compareTo(otherCommand));
+        commandLineCommand.getKeywordlist().add("test");
+        assertEquals(0, commandLineCommand.compareTo(otherCommand));
+        commandLineCommand.getKeywordlist().add("test2");
+        assertEquals(1, commandLineCommand.compareTo(otherCommand));
+        otherCommand.getKeywordlist().add("test3");
+        assertEquals(-1, commandLineCommand.compareTo(otherCommand));	
+    }
+    
+    @Test
+    public void testHashCode() {
+        CommandLineCommand otherCommand = new CommandLineCommand();
+        assertEquals(commandLineCommand.hashCode(), otherCommand.hashCode());
+        commandLineCommand.getKeywordlist().add("Test");
+        otherCommand.setDescription(null);
+        otherCommand.setApiMethod(null);
+        otherCommand.setName(null);
+        assertNotEquals(commandLineCommand.hashCode(), otherCommand.hashCode());
+    }
+    
+    @Test
+    public void testEquals() {
+        CommandLineCommand otherCommand = new CommandLineCommand();
+        assertFalse(commandLineCommand.equals(new Object()));
+        assertTrue(commandLineCommand.equals(commandLineCommand));
+        assertFalse(commandLineCommand.equals(null));
+        assertTrue(commandLineCommand.equals(otherCommand));
+        otherCommand.getKeywordlist().add("TestKeyword");
+        assertFalse(commandLineCommand.equals(otherCommand));
+    }
+}

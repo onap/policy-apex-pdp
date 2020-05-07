@@ -34,6 +34,13 @@
     <artifactId>basic-model</artifactId>
     <name>${project.artifactId}</name>
     <description>Basic Models used and model handling in Apex</description>
+    <properties>
+        <sonar.exclusions>
+            **/package-info.java,
+            **/TestApexModel.java,
+            **/TestApexModelCreator.java
+        </sonar.exclusions>
+    </properties>
 
     <dependencies>
         <dependency>
