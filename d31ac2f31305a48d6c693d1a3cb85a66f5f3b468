@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19ed83eb_87043e4e",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/messaging/MessagingUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-05-07T14:42:22Z",
+      "side": 1,
+      "message": "Nordix??",
+      "range": {
+        "startLine": 3,
+        "startChar": 23,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "d31ac2f31305a48d6c693d1a3cb85a66f5f3b468",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "324df6f0_9b11708c",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/messaging/MessagingUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-05-07T14:42:22Z",
+      "side": 1,
+      "message": "extra whitespace in all the new files",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 4
+      },
+      "revId": "d31ac2f31305a48d6c693d1a3cb85a66f5f3b468",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
