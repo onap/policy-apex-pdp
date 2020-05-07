@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (c) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,10 +117,6 @@ public class OutputFile {
      * @return null on success, an error message on error
      */
     public String validate() {
-        if (StringUtils.isBlank(fileName)) {
-            return "file name was blank";
-        }
-
         final File file = toFile();
         if (file.exists()) {
             if (!overwrite) {

@@ -1,7 +1,6 @@
 <!--
   ============LICENSE_START=======================================================
-   Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2020 Nordix Foundation.
+   Copyright (c) 2020 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -34,6 +33,13 @@
     <artifactId>basic-model</artifactId>
     <name>${project.artifactId}</name>
     <description>Basic Models used and model handling in Apex</description>
+    <properties>
+        <sonar.exclusions>
+            **/package-info.java,
+            **/TestApexModel.java,
+            **/TestApexModelCreator.java
+        </sonar.exclusions>
+    </properties>
 
     <dependencies>
         <dependency>
