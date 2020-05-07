@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36655fe4_d44c4142",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-07T14:58:46Z",
+      "side": 0,
+      "message": "sure we want to remove this?",
+      "revId": "5b0b7fac53c587307832119657a31b64926797a3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
