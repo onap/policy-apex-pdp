@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6dfc60cb_a7b8eb59",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-08T14:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c309daaa_fff8386e",
+      "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6d0fdc6_1e5e5f80",
         "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "66ec9164_99bef611",
+      "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7e0ac38_3592891d",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-08T14:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b7f336_bfc25d10",
       "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
