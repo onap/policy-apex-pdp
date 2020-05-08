@@ -33,6 +33,24 @@
       "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ec9164_99bef611",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-08T13:29:58Z",
+      "side": 1,
+      "message": "I removed it as its not possible to create an OutputFile with a blank fileName as the constructor prevents this on line 69, If this is incorrect I can add it back in",
+      "parentUuid": "d6d0fdc6_1e5e5f80",
+      "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
