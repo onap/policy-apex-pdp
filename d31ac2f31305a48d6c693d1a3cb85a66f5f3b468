@@ -349,6 +349,24 @@
     },
     {
       "key": {
+        "uuid": "9259e995_2a47f2b5",
+        "filename": "model/basic-model/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-08T13:22:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6cb050f9_48b0d184",
+      "revId": "d31ac2f31305a48d6c693d1a3cb85a66f5f3b468",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9538af0b_a9b432a8",
         "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
         "patchSetId": 1

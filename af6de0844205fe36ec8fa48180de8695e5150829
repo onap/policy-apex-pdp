@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c309daaa_fff8386e",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-08T13:22:43Z",
+      "side": 1,
+      "message": "Since this was a pre-existing file, shouldn\u0027t remove the old license; should add the new license as a separate line:\n\nCopyright (C) 2016-2018 Ericsson. All rights reserved.\nModifications Copyright (c) 2020 Nordix Foundation.",
+      "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6d0fdc6_1e5e5f80",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/OutputFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-08T13:22:43Z",
+      "side": 1,
+      "message": "why was isBlank() test removed?",
+      "revId": "af6de0844205fe36ec8fa48180de8695e5150829",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
