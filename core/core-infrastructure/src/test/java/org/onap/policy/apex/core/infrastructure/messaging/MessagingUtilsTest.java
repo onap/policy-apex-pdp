@@ -19,7 +19,9 @@
  */
 package org.onap.policy.apex.core.infrastructure.messaging;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -32,30 +34,31 @@ public class MessagingUtilsTest {
 
     @Test
     public void testCheckPort() throws UnknownHostException, IOException {
-        assertEquals(1,MessagingUtils.checkPort(1));
-        assertEquals(1,MessagingUtils.findPort(1));
+        assertEquals(1, MessagingUtils.checkPort(1));
+        assertEquals(1, MessagingUtils.findPort(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalArgumentException() {
-        assertEquals(1,MessagingUtils.findPort(65536));
+        assertEquals(1, MessagingUtils.findPort(65536));
     }
 
     @Test
     public void testGetHost() throws UnknownHostException {
         InetAddress host = InetAddress.getLocalHost();
-        assertEquals(host,MessagingUtils.getHost());
+        assertEquals(host, MessagingUtils.getHost());
     }
 
     @Test
     public void testValidAllocateAddress() throws UnknownHostException {
         assertNotNull(MessagingUtils.getLocalHostLanAddress());
-        assertEquals(3306,MessagingUtils.allocateAddress(3306));
+        int allocatedPort = MessagingUtils.allocateAddress(3306);
+        assertTrue(allocatedPort >= 3306 && allocatedPort < 65536);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidAllocateAddress() {
-        assertEquals(1,MessagingUtils.allocateAddress(1));
+        assertEquals(1, MessagingUtils.allocateAddress(1));
     }
 
     @Test
