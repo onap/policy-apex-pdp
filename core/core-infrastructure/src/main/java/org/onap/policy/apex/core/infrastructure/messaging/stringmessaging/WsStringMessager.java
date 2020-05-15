@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,4 +49,9 @@ public interface WsStringMessager {
      * @param stringMessage the string message to send
      */
     void sendString(String stringMessage);
+
+    /**
+     * Check if the string messager is started.
+     */
+    boolean isStarted();
 }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,5 +135,13 @@ public class WsStringMessageClient implements WsStringMessager {
         public void onMessage(final String messageString) {
             wsStringMessageListener.receiveString(messageString);
         }
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public boolean isStarted() {
+        return service.isStarted();
     }
 }

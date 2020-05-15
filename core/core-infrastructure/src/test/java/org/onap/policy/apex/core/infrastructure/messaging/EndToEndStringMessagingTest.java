@@ -55,6 +55,8 @@ public class EndToEndStringMessagingTest {
         assertNotNull(server);
         server.start(new WsStringServerMessageListener());
 
+        await().atMost(2, TimeUnit.SECONDS).until(() -> server.isStarted());
+
         try {
             client = new WsStringMessageClient("localhost", 44441);
             assertNotNull(client);
