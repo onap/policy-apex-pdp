@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d126b04_c69bd77d",
+        "filename": "releases/2.3.2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-20T12:21:50Z",
+      "side": 1,
+      "message": "maybe add a newline to the end of the file?",
+      "revId": "8826593dfcf31d4bf486de605e89a88824923a7c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
