@@ -1,0 +1,10 @@
+Code-Review+2: Pamela Dragosh <pdragosh@research.att.com>
+Code-Review+1: Ajith Sreekumar <ajith.sreekumar@bell.ca>
+Code-Review+1: Liam Fallon <liam.fallon@est.tech>
+Code-Review+1: Jim Hahn <jrh3@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Jim Hahn <jrh3@att.com>
+Submitted-at: Thu, 21 May 2020 16:17:40 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/108064
+Project: policy/apex-pdp
+Branch: refs/heads/frankfurt
