@@ -1,0 +1,9 @@
+distribution_type: 'container'
+container_release_tag: '2.2.3'
+project: 'policy-apex-pdp'
+log_dir: 'policy-apex-pdp-maven-docker-stage-elalto/9/'
+ref: 49317117b148b1da58e5f1d23985153be4a5a71f
+containers:
+    - name: 'policy-apex-pdp'
+      version: '2.2.3-20200528T1757'
+
