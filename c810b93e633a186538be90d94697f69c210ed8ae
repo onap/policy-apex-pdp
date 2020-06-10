@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "61508e23_6720462b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-06-10T15:27:02Z",
+      "side": 1,
+      "message": "This ticket being a user story should probably be converted to a task and placed under the Guilin Technical Debt Epic",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "041c8738_3cfc3817",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
         "patchSetId": 1
@@ -19,6 +36,58 @@
     },
     {
       "key": {
+        "uuid": "ebd89b90_4a24e4b4",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-06-10T15:27:02Z",
+      "side": 1,
+      "message": "I agree, the previous code was more suitable, you could just increase the 200ms. wait period in the await, and it would be perfectly find to remove the \"i\u003d\u003d4\" and do it for every thread, that would be better, as you have no absolute certainty when the threads will be scheduled to run.",
+      "parentUuid": "041c8738_3cfc3817",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4472d00f_0e7db59c",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-06-10T15:27:02Z",
+      "side": 1,
+      "message": "can do a thread.join on each to ensure all of them terminate.",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9df41539_dbbb44a1",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-06-10T15:27:02Z",
+      "side": 1,
+      "message": "Should be using  Thread.isInterrupted() instead",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f839038_17402021",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
         "patchSetId": 1
@@ -30,6 +99,40 @@
       "writtenOn": "2020-06-10T12:42:59Z",
       "side": 1,
       "message": "this is not thread safe.  If more than one thread may invoke this run() method, then an AtomicInteger should be used instead",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "440ac238_c0c240c9",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-06-10T15:27:02Z",
+      "side": 1,
+      "message": "no need for isDebugEnabled in general, better to use parameterized logging, ie: \"blah {} blah {}\"",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e296ea_b0914d7a",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-06-10T15:27:02Z",
+      "side": 1,
+      "message": "This seems a hack to force it to terminate.",
       "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
