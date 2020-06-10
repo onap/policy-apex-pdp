@@ -34,9 +34,9 @@ public class ThreadingTestThread implements Runnable {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(ThreadingTestThread.class);
 
-    private boolean interrupted = false;
+    private volatile boolean interrupted = false;
 
-    private long counter = -1;
+    private volatile long counter = -1;
 
     private String threadName;
 
@@ -46,23 +46,16 @@ public class ThreadingTestThread implements Runnable {
     @Override
     public void run() {
         this.threadName = Thread.currentThread().getName();
-        if (logger.isDebugEnabled()) {
-            logger.debug("starting threading test thread \"" + threadName + "\" . . .");
-        }
+        logger.debug("starting threading test thread \"{}\" . . .", threadName);
 
         while (!interrupted) {
             counter++;
-            if (logger.isDebugEnabled()) {
-                logger.debug("in threading test thread \"" + threadName + "\", counter=" + counter + " . . .");
-            }
+            logger.debug("in threading test thread \"{}\", counter={} . . .", threadName, counter);
             if (!ThreadUtilities.sleep(50)) {
                 interrupted = true;
             }
         }
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("stopped threading test thread \"" + threadName + "\"");
-        }
+        logger.debug("stopped threading test thread \"{}\"", threadName);
     }
 
     /**

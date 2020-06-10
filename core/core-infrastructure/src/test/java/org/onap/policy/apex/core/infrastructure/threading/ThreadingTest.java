@@ -79,12 +79,10 @@ public class ThreadingTest {
 
             final Thread thread = threadFactory.newThread(runnable);
             thread.start();
-
-            if (i == 4) {
-                await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> thread.isAlive());
-            }
-
         }
+
+        // Make sure the counts are increased at least by two before stopping the threads.
+        ThreadUtilities.sleep(200);
 
         for (int i = 0; i < 5; i++) {
             threadList.get(i).interrupt();

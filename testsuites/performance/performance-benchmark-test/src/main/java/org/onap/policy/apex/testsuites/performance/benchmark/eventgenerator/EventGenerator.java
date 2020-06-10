@@ -23,6 +23,7 @@ package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.InvalidPathException;
 import java.util.Arrays;
 
 import org.apache.commons.cli.ParseException;
@@ -104,7 +105,7 @@ public class EventGenerator {
         if (parameters.getOutFile() != null) {
             try {
                 TextFileUtils.putStringAsTextFile(getEventGenerationStats(), parameters.getOutFile());
-            } catch (IOException ioe) {
+            } catch (IOException | InvalidPathException ioe) {
                 LOGGER.warn("could not output statistics to file \"" + parameters.getOutFile() + "\"", ioe);
             }
         }
