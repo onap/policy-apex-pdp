@@ -21,12 +21,8 @@
 
 package org.onap.policy.apex.examples.aadm;
 
-import static org.awaitility.Awaitility.await;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 
@@ -58,7 +54,6 @@ public class TestApexActionListener implements EnEventListener {
      * @return the result
      */
     public EnEvent getResult() {
-        await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> !resultEvents.isEmpty());
         return resultEvents.remove(0);
     }
 
@@ -67,8 +62,6 @@ public class TestApexActionListener implements EnEventListener {
      */
     @Override
     public void onEnEvent(final EnEvent actionEvent) {
-        await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> actionEvent != null);
-        System.out.println("Action event from engine:" + actionEvent.getName());
         resultEvents.add(actionEvent);
     }
 

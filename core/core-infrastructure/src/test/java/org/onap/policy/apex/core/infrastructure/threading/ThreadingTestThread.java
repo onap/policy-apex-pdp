@@ -34,9 +34,9 @@ public class ThreadingTestThread implements Runnable {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(ThreadingTestThread.class);
 
-    private boolean interrupted = false;
+    private volatile boolean interrupted = false;
 
-    private long counter = -1;
+    private volatile long counter = -1;
 
     private String threadName;
 
