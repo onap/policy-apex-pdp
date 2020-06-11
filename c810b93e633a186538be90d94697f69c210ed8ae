@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "42f7a442_140b2745",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T02:07:11Z",
+      "side": 1,
+      "message": "This is for assertTrue in line 95:\nassertTrue(\"Thread (\" + i + \") count should be greater than 0 \", thread.getCounter() \u003e 0\n\n\"await().atLeast(100, TimeUnit.MILLISECONDS).until(() -\u003e thread.isAlive());\"\nThe previous code is \"atLeast\", not \"atMost. So this is really just a sleep. And sometime it failed because isAlive to be true less than 100 milliseconds. That\u0027s why I make this change.",
+      "parentUuid": "ebd89b90_4a24e4b4",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4472d00f_0e7db59c",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2020-06-10T15:27:02Z",
       "side": 1,
       "message": "can do a thread.join on each to ensure all of them terminate.",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a57967_8cec41e9",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T02:07:11Z",
+      "side": 1,
+      "message": "The interrupt() is not the one defined by Thread. Check the code in ThreadingTestThread.",
+      "parentUuid": "4472d00f_0e7db59c",
       "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "8bf0a621_2ec652a7",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T02:07:11Z",
+      "side": 1,
+      "message": "This \"interrupted\" is more like \"stop\" flag.",
+      "parentUuid": "9df41539_dbbb44a1",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f839038_17402021",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
         "patchSetId": 1
@@ -99,6 +153,24 @@
       "writtenOn": "2020-06-10T12:42:59Z",
       "side": 1,
       "message": "this is not thread safe.  If more than one thread may invoke this run() method, then an AtomicInteger should be used instead",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf5556b_1e686ae8",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T02:07:11Z",
+      "side": 1,
+      "message": "You mean some threads call run() directly instead of taking it as the main entry of a thread?\n\nIf yes, your are right. It does not happen in our code, so it maybe not an issue.",
+      "parentUuid": "8f839038_17402021",
       "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -122,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "5d4cac4c_eefb8d65",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T02:07:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "440ac238_c0c240c9",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55e296ea_b0914d7a",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
         "patchSetId": 1
@@ -133,6 +223,24 @@
       "writtenOn": "2020-06-10T15:27:02Z",
       "side": 1,
       "message": "This seems a hack to force it to terminate.",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7081730c_f4217cc0",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T02:07:11Z",
+      "side": 1,
+      "message": "The \"interrupted\" variable will not be set, because ThreadUtilities.sleep will not return false The sleep will not be interrupted by this line \"threadList.get(i).interrupt();\" \nThe above interrupt() is here:\n    public void interrupt() {\n        interrupted \u003d true;\n    }",
+      "parentUuid": "55e296ea_b0914d7a",
       "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
