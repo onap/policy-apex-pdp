@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "2482614d_4db2827d",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-11T16:42:36Z",
+      "side": 1,
+      "message": "I\u0027d prefer we switch back to await().  Can change \"atLeast\" to \"atMost\" and can change the time to \"2, SECONDS\" to give it plenty of time to get the thread running.  And of course, wait for all of the threads to start.\n\nA better approach, though, might be to modify ThreadingTestThread to take a CountDownLatch that\u0027s initialized to the number of threads and decremented by each thread at the appropriate point within its \"run\" method.  Then all we need on line 85 is to:\n\n  assertTrue(latch.await(2, SECONDS))",
+      "parentUuid": "42f7a442_140b2745",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4472d00f_0e7db59c",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
         "patchSetId": 1
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "The interrupt() is not the one defined by Thread. Check the code in ThreadingTestThread.",
       "parentUuid": "4472d00f_0e7db59c",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d97b86_6f473d35",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-11T16:42:36Z",
+      "side": 1,
+      "message": "seems kind of tricky.  Why not use the standard interrupt() method?",
+      "parentUuid": "c5a57967_8cec41e9",
       "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -192,6 +228,24 @@
       "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0205be48_230c8e6c",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTestThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-11T16:42:36Z",
+      "side": 1,
+      "message": "never mind - I was thinking of this as a static field",
+      "parentUuid": "daf5556b_1e686ae8",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
