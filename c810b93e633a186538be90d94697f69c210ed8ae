@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "61d28e77_969a2bef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-11T03:23:18Z",
+      "side": 1,
+      "message": "Yes, it is on POLICY-2630 which is sub task of POLICY-2353 (technical debt)",
+      "parentUuid": "61508e23_6720462b",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "041c8738_3cfc3817",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
         "patchSetId": 1
