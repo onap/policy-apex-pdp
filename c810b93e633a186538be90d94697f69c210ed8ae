@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "36806fc5_81a64403",
+        "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-12T03:04:36Z",
+      "side": 1,
+      "message": "Changing to atMost will not work. It takes AT MOST 2 seconds for waiting, but in most cases, it just finish the waiting in less than 100 milliseconds (the real waiting time is also related to the internal polling timer of awaitility). So if the waiting time were less than 50 milliseconds, the assert in line 95 would be failed.  \n\nI agree with your proposal that we have to coordinate the threads using latch or something like it.",
+      "parentUuid": "2482614d_4db2827d",
+      "revId": "c810b93e633a186538be90d94697f69c210ed8ae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4472d00f_0e7db59c",
         "filename": "core/core-infrastructure/src/test/java/org/onap/policy/apex/core/infrastructure/threading/ThreadingTest.java",
         "patchSetId": 1
