@@ -71,30 +71,19 @@ public class ThreadingTest {
      * @param threadFactory the thread factory
      */
     private void testThreadFactory(final ApplicationThreadFactory threadFactory) {
-        final List<ThreadingTestThread> threadList = new ArrayList<>();
+        final List<Thread> threadList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            final ThreadingTestThread runnable = new ThreadingTestThread();
-            threadList.add(runnable);
-
-            final Thread thread = threadFactory.newThread(runnable);
+            final Thread thread = threadFactory.newThread(() -> {
+            });
+            threadList.add(thread);
             thread.start();
-
-            if (i == 4) {
-                await().atLeast(100, TimeUnit.MILLISECONDS).until(() -> thread.isAlive());
-            }
-
         }
 
         for (int i = 0; i < 5; i++) {
-            threadList.get(i).interrupt();
-        }
-
-        for (int i = 0; i < 5; i++) {
-            ThreadingTestThread thread = threadList.get(i);
+            Thread thread = threadList.get(i);
             assertTrue(thread.getName().startsWith("Apex-" + LOCAL_NAME));
             assertTrue(thread.getName().contains(":" + i));
-            assertTrue("Thread (" + i + ") count should be greater than 0 ", thread.getCounter() > 0);
         }
     }
 }

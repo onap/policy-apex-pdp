@@ -140,7 +140,7 @@ public class EventGeneratorTest {
     @Test
     public void testEventGeneratorOutfileBad() {
         EventGeneratorParameters pars = new EventGeneratorParameters();
-        pars.setOutFile("/I/Dont/Exist");
+        pars.setOutFile("/I/Dont/Exist*");
 
         EventGenerator generator = new EventGenerator(pars);
         assertNotNull(generator);
@@ -151,7 +151,6 @@ public class EventGeneratorTest {
 
         final String outString = outContent.toString();
         System.setOut(stdout);
-
-        assertTrue(outString.contains("could not output statistics to file \"/I/Dont/Exist\""));
+        assertTrue(outString.contains("could not output statistics to file \"/I/Dont/Exist*\""));
     }
 }

@@ -77,7 +77,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
 
     // The message listener thread and stopping flag
     private Thread messageListenerThread;
-    private boolean stopOrderedFlag = false;
+    private volatile boolean stopOrderedFlag = false;
 
     // The message queue is used to hold messages prior to forwarding to Apex
     private final BlockingQueue<MessageBlock<Message>> messageQueue = new LinkedBlockingDeque<>();
@@ -149,7 +149,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     @Override
     public void run() {
         // Take messages off the queue and forward them to the Apex engine
-        while (messageListenerThread.isAlive() && !stopOrderedFlag) {
+        while (!stopOrderedFlag) {
             pollAndHandleMessage();
         }
     }
