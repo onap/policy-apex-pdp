@@ -56,9 +56,9 @@ public class JavascriptExecutorFullApexTest {
     }
 
     private boolean fileHasOccurencesOf(final File file, final String token, final int occurenceCount)
-        throws IOException {
+            throws IOException {
 
         return occurenceCount == StringUtils.countMatches(TextFileUtils.getTextFileAsString(file.getAbsolutePath()),
-            token);
+                token);
     }
 }
