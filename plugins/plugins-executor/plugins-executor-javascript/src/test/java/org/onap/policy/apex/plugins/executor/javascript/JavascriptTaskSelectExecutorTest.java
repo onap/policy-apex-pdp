@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.plugins.executor.javascript;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -84,18 +83,10 @@ public class JavascriptTaskSelectExecutorTest {
 
         assertThatThrownBy(() -> {
             jtse.prepare();
-        }).hasMessage("initiation failed, no logic specified for executor NULL:0.0.0:NULL:NULL");
+        }).hasMessage("no logic specified for NULL:0.0.0:NULL:NULL");
 
         AxEvent axEvent1 = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event1 = new EnEvent(axEvent1);
-
-        assertThatThrownBy(() -> {
-            jtse.execute(-1, new Properties(), event1);
-        }).hasMessage("execution failed, executor NULL:0.0.0:NULL:NULL is not initialized");
-
-        assertThatThrownBy(() -> {
-            jtse.cleanUp();
-        }).hasMessage("cleanup failed, executor NULL:0.0.0:NULL:NULL is not initialized");
 
         state.getTaskSelectionLogic().setLogic("java.lang.String");
         jtse.prepare();
@@ -110,33 +101,20 @@ public class JavascriptTaskSelectExecutorTest {
         assertThatThrownBy(() -> {
             jtse.execute(-1, new Properties(), event);
         }).hasMessage(
-            "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
+                "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
 
-        state.getTaskSelectionLogic().setLogic("var x=1;\n" + "false;");
-
-        assertThatThrownBy(() -> {
-            jtse.execute(-1, new Properties(), event);
-        }).hasMessage(
-            "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
+        state.getTaskSelectionLogic().setLogic("var x=1;\n" + "false; ");
 
         assertThatThrownBy(() -> {
             jtse.prepare();
-        }).hasMessage(
-            "initiation failed, executor NULL:0.0.0:NULL:NULL already initialized, run cleanUp to clear executor");
+            jtse.execute(-1, new Properties(), event);
+        }).hasMessage("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
 
-        assertThatCode(() -> {
-            jtse.cleanUp();
-        }).doesNotThrowAnyException();
+        state.getTaskSelectionLogic().setLogic("var x = 1\n" + "true; ");
 
-        JavascriptTaskSelectExecutor jtse1 = new JavascriptTaskSelectExecutor();
-        jtse1.setContext(null, state, internalContext);
-        state.getTaskSelectionLogic().setLogic("var x = 1\n" + "true;");
-
-        assertThatCode(() -> {
-            jtse1.prepare();
-            AxArtifactKey taskKey = jtse1.execute(0, new Properties(), event);
-            assertEquals("NULL:0.0.0", taskKey.getId());
-            jtse1.cleanUp();
-        }).doesNotThrowAnyException();
+        jtse.prepare();
+        AxArtifactKey taskKey = jtse.execute(0, new Properties(), event);
+        assertEquals("NULL:0.0.0", taskKey.getId());
+        jtse.cleanUp();
     }
 }
