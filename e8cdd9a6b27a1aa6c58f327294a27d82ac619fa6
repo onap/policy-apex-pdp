@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c825541_e9c323f8",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-18T02:36:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3a076e02_ea6dede5",
+      "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1518fc37_807f5f56",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b1002a_5f3cd8b6",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-18T02:36:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1518fc37_807f5f56",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "2aecda51_8b477d03",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-18T02:36:21Z",
+      "side": 1,
+      "message": "I have tested that the enter/exit did not impact performance. And it\u0027d better to follow the convention to make enter/exit in pair. It is also easier to understand and use the class.\n\nContext.enter creates a instance of Context and saves it to thread local.",
+      "parentUuid": "71ecf3df_ea047ec3",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a377d6f4_4a690feb",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptStateFinalizerExecutor.java",
         "patchSetId": 1
@@ -100,6 +166,30 @@
       "writtenOn": "2020-06-17T08:00:54Z",
       "side": 1,
       "message": "I wonder should we initiate this every time or hold it as a class field.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbc1383_21cf5f7d",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptStateFinalizerExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-18T02:36:21Z",
+      "side": 1,
+      "message": "The main data stored in JavascriptExecutor is the compiled script. The script will be changed when calling prepare() again. Since the main information is changed, to create a new one is reasonable. JavascriptExecutor is an immutable class which is easier to use.",
+      "parentUuid": "a377d6f4_4a690feb",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -175,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "c3f6a244_632c3f5a",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-18T02:36:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "54e80914_0a2812e1",
+      "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19d27ee1_d91e8b2e",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskExecutorTest.java",
         "patchSetId": 1
@@ -189,6 +297,24 @@
       "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90afee07_cab036cd",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-18T02:36:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "19d27ee1_d91e8b2e",
+      "revId": "e8cdd9a6b27a1aa6c58f327294a27d82ac619fa6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
