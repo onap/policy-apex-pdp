@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c44d395a_4013c3e6",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-18T14:14:20Z",
+      "side": 1,
+      "message": "would be better to choose a non-beta version, provided it doesn\u0027t break anything",
+      "parentUuid": "a4f41dd9_4d9581be",
+      "range": {
+        "startLine": 77,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "dbb44e3a1e019f832fd5d4a37dbe639fde726e6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a50e71f_79eabd5f",
         "filename": "tools/tools-common/pom.xml",
         "patchSetId": 1
