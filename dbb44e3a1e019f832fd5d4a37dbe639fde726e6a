@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1810cb92_9e4ad278",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-18T12:54:51Z",
+      "side": 1,
+      "message": "I had the same question",
+      "parentUuid": "688c14f6_812098ca",
+      "range": {
+        "startLine": 77,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "dbb44e3a1e019f832fd5d4a37dbe639fde726e6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a50e71f_79eabd5f",
         "filename": "tools/tools-common/pom.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-18T12:52:00Z",
       "side": 1,
       "message": "This is probably a candidate for policy/parent - as I believe multiple repos use this dependency.",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "dbb44e3a1e019f832fd5d4a37dbe639fde726e6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3104ac83_84131d55",
+        "filename": "tools/tools-common/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-18T12:54:51Z",
+      "side": 1,
+      "message": "agreed",
+      "parentUuid": "1a50e71f_79eabd5f",
       "range": {
         "startLine": 37,
         "startChar": 8,
