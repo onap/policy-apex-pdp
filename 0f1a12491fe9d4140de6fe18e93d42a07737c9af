@@ -91,6 +91,30 @@
       "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eee9473_4963b8ce",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-19T12:40:07Z",
+      "side": 1,
+      "message": "may just assertThatCode() DOESN\u0027T throw an exception",
+      "parentUuid": "ba9ce438_70ef4e79",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
